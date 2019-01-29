@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Cosmostaion</string>
+    <string name="db_password">wannabit</string>
+
+
+
+    <string name="key_mnemonic">MNEMONIC_KEY</string>
+</resources>
