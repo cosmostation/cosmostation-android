@@ -1,0 +1,75 @@
+<resources>
+    <string name="app_name">Cosmostaion</string>
+    <string name="db_password">wannabit</string>
+
+
+
+    <string name="key_mnemonic">MNEMONIC_KEY</string>
+    <string name="key_password">PASSWORD_KEY</string>
+
+
+
+
+    <string name="str_ok">OK</string>
+    <string name="str_no">No</string>
+    <string name="str_yes">Yes</string>
+
+
+    <string name="str_password">Password</string>
+    <string name="str_set_password">Set Password</string>
+    <string name="str_init_password">Please insert your password.</string>
+    <string name="str_init_again">Please insert again for confirm.</string>
+    <string name="str_using_fingerprint">Using Fingerprint</string>
+    <string name="str_ask_using_fingerprint">Do you want to enable fingerprint authentication?</string>
+
+
+
+    <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
+
+
+
+
+
+
+    <string-array name="password_number">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+    <string-array name="password_alphabet">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>N</item>
+        <item>O</item>
+        <item>P</item>
+        <item>Q</item>
+        <item>R</item>
+        <item>S</item>
+        <item>T</item>
+        <item>U</item>
+        <item>V</item>
+        <item>W</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Z</item>
+    </string-array>
+</resources>

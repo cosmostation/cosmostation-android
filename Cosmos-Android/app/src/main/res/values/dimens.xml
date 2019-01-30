@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="space_1">1dp</dimen>
+    <dimen name="space_4">4dp</dimen>
+    <dimen name="space_6">6dp</dimen>
+    <dimen name="space_8">8dp</dimen>
+    <dimen name="space_12">12dp</dimen>
+    <dimen name="space_14">14dp</dimen>
+    <dimen name="space_16">16dp</dimen>
+    <dimen name="space_18">18dp</dimen>
+    <dimen name="space_20">20dp</dimen>
+    <dimen name="space_24">24dp</dimen>
+    <dimen name="space_28">28dp</dimen>
+    <dimen name="space_30">30dp</dimen>
+    <dimen name="space_32">32dp</dimen>
+    <dimen name="space_36">36dp</dimen>
+    <dimen name="space_40">40dp</dimen>
+    <dimen name="space_50">50dp</dimen>
+    <dimen name="space_54">54dp</dimen>
+    <dimen name="space_60">60dp</dimen>
+    <dimen name="space_72">72dp</dimen>
+    <dimen name="space_80">80dp</dimen>
+    <dimen name="space_100">100dp</dimen>
+    <dimen name="space_120">120dp</dimen>
+    <dimen name="space_180">180dp</dimen>
+    <dimen name="space_240">240dp</dimen>
+
+    <dimen name="text_size_micro">9sp</dimen>
+    <dimen name="text_size_tiny">11sp</dimen>
+    <dimen name="text_size_small">13sp</dimen>
+    <dimen name="text_size_medium">15sp</dimen>
+    <dimen name="text_size_normal">17sp</dimen>
+    <dimen name="text_size_large">19sp</dimen>
+    <dimen name="text_size_xlarge">21sp</dimen>
+    <dimen name="text_size_keyboard">33sp</dimen>
+</resources>

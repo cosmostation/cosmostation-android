@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/space_4"
+    android:layout_marginBottom="@dimen/space_36">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/space_24"
+        android:layout_marginRight="@dimen/space_24"
+        android:gravity="center">
+        <Button
+            android:id="@+id/password_char0"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char1"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char2"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char3"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char4"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char5"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char6"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/space_24"
+        android:layout_marginRight="@dimen/space_24"
+        android:gravity="center">
+        <Button
+            android:id="@+id/password_char7"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char8"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char9"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char10"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char11"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char12"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char13"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/space_24"
+        android:layout_marginRight="@dimen/space_24"
+        android:gravity="center">
+        <Button
+            android:id="@+id/password_char14"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char15"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char16"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char17"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char18"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char19"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char20"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/space_40"
+        android:layout_marginRight="@dimen/space_40">
+        <Button
+            android:id="@+id/password_char21"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char22"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char23"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char24"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <Button
+            android:id="@+id/password_char25"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/font_ssm_keyboard_white"
+            android:text="A" />
+        <ImageButton
+            android:id="@+id/password_back"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:layout_marginLeft="@dimen/space_8"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_launcher_background"/>
+    </LinearLayout>
+
+</LinearLayout>
