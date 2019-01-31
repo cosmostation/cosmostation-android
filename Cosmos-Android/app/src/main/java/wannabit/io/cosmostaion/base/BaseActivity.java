@@ -1,9 +1,11 @@
 package wannabit.io.cosmostaion.base;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 
 public class BaseActivity extends AppCompatActivity {
@@ -25,17 +27,23 @@ public class BaseActivity extends AppCompatActivity {
         return mData;
     }
 
-    protected void onShowWaitDialog() {
+    public void onShowWaitDialog() {
         mDialogWait = new Dialog_Wait();
         mDialogWait.setCancelable(false);
         getSupportFragmentManager().beginTransaction().add(mDialogWait, "wait").commitNowAllowingStateLoss();
     }
 
-    protected void onHideWaitDialog() {
+    public void onHideWaitDialog() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("wait");
         if (prev != null) {
             ft.remove(prev).commitNowAllowingStateLoss();
         }
+    }
+
+    public void onStartMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

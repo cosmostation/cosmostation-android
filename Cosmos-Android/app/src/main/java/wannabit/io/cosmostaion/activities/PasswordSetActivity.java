@@ -198,7 +198,7 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
     }
 
     public void onNextPage() {
-        //TODO go Main
+        onStartMainActivity();
     }
 
 

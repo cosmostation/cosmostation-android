@@ -12,11 +12,13 @@ public class Account {
     public boolean  isFavo;
     public String   address;
     public String   baseChain;
+
     public boolean  hasPrivateKey;
     public String   resource;
     public String   spec;
     public boolean  fromMnemonic;
     public String   path;
+
     public boolean  isValidator;
     public int      sequenceNumber;
     public int      accountNumber;

@@ -6,6 +6,7 @@ import android.util.Base64;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicHierarchy;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -55,12 +56,72 @@ public class TestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        TestGenMultiTransfer1();
+        Testpubtoaddress();
+
+//        TestGenMultiTransfer1();
 //        TestGenWithdrawValidatorReward();
 //        TestGenWithdrawDelegationReward();
 //        TestGenUnbond();
 //        TestGenSingleDelegate();
 //        TestGenSingleTransfer();
+    }
+
+    private void Testpubtoaddress() {
+
+
+//        ECKey key = ECKey.fromPublicOnly(publicData.data);
+//        WLog.w("key " + key.getPublicKeyAsHex());
+//
+        WLog.w("ori1 " + getTestKey().getPublicKeyAsHex());
+        WLog.w("ori2 " + getTestKey().getPubKey());
+        WLog.w("ori3 " + WUtil.ByteArrayToHexString(getTestKey().getPubKey()));
+        WLog.w("ori4 " + WUtil.BytearryToDecimalString(getTestKey().getPubKey()));
+
+        String PRE_PUB_KEY = "eb5ae98721";
+
+        String sumHex = PRE_PUB_KEY + getTestKey().getPublicKeyAsHex();
+        WLog.w("sumhex : " + sumHex);
+        byte[] sumHexByte = WUtil.HexStringToByteArray(sumHex);
+        WLog.w("sumhex : " + WUtil.BytearryToDecimalString(sumHexByte));
+
+        try {
+            byte[] converted = WKey.convertBits(sumHexByte, 8,5,true);
+//            WLog.w("converted : " + converted);
+            String dpAddress = WKey.bech32Encode("cosmospub".getBytes(), converted);
+            WLog.w("dpPubkey : " + dpAddress);
+        } catch (Exception e) {
+            WLog.w("Exception : " + e);
+        }
+
+
+        String pubKeyS = "cosmospub1addwnpepqgnetjjne3ng86udcacc7k0dtgdhtnq7e9l8m8jn2ffje0ra3tp6vz9vt4m";
+        WKey.HrpAndData publicData = WKey.bech32Decode(pubKeyS);
+        WLog.w("publicData1 " + publicData.toString());
+        WLog.w("publicData2 " + WUtil.ByteArrayToHexString(publicData.getData()));
+        WLog.w("publicData3 " + WUtil.BytearryToDecimalString(publicData.getData()));
+
+        try {
+            byte[] converted = WKey.convertBits(publicData.data, 5, 8, false);
+            WLog.w("converted " + WUtil.ByteArrayToHexString(converted));
+            WLog.w("converted " + WUtil.BytearryToDecimalString(converted));
+
+            String what = WUtil.ByteArrayToHexString(converted);
+            WLog.w("what : " + what);
+
+            String a = what.replace(PRE_PUB_KEY, "");
+            WLog.w("a : " + a);
+            WLog.w("a : " + a.length());
+
+            WLog.w("result00 : " + WKey.getCosmosUserDpAddress(a));
+//            WLog.w("result : " + WKey.getCosmosUserDpAddress(a.substring(0, 66)));
+//            WLog.w("result2 : " + WKey.getCosmosUserDpAddress("022795ca53cc6683eb8dc7718f59ed5a1b75cc1ec97e7d9e5352532cbc7d8ac3a6"));
+//            WLog.w("result3 : " + WKey.getCosmosUserDpAddress(getTestKey().getPublicKeyAsHex()));
+//            WLog.w("result4 : " + WKey.getCosmosUserDpAddress(getPubKeyValue()));
+
+        } catch (Exception e) {
+
+        }
+
     }
 
 

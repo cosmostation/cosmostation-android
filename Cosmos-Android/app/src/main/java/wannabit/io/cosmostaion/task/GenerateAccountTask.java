@@ -8,16 +8,18 @@ import java.math.BigInteger;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Mnemonic;
 import wannabit.io.cosmostaion.utils.WKey;
 
-public class GenerateAccountTask extends CommonTask{
+public class GenerateAccountTask extends CommonTask {
 
     public GenerateAccountTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
+        this.mResult.taskType = BaseConstant.TASK_INIT_ACCOUNT;
     }
 
 
@@ -34,7 +36,6 @@ public class GenerateAccountTask extends CommonTask{
         try {
             Mnemonic mnemonic  = mApp.getBaseDao().onSelectMnemonic(strings[2]);
             String seed        = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic)+ mnemonic.uuid, mnemonic.resource, mnemonic.spec);
-
             if(mApp.getBaseDao().onInsertAccount(onGenAccount(seed, strings[1], strings[0])) > 0) {
                 mResult.isSuccess = true;
             } else {
@@ -45,13 +46,9 @@ public class GenerateAccountTask extends CommonTask{
         } catch (Exception e){
 
         }
-        return null;
+        return mResult;
     }
 
-    @Override
-    protected void onPostExecute(TaskResult taskResult) {
-        super.onPostExecute(taskResult);
-    }
 
 
     private Account onGenAccount(String seed, String path, String chainType) {
@@ -59,7 +56,7 @@ public class GenerateAccountTask extends CommonTask{
         DeterministicKey    dKey        = WKey.getKeyWithPath(seed, Integer.parseInt(path));
         EncResult encR                  = CryptoHelper.doEncryptData(newAccount.uuid, new String(dKey.getPrivKey().toByteArray()), false);
 
-        newAccount.address          = WKey.getCosmosUserDpAddress(dKey.getPrivateKeyAsHex());
+        newAccount.address          = WKey.getCosmosUserDpAddress(dKey.getPublicKeyAsHex());
         newAccount.baseChain        = chainType;
         newAccount.hasPrivateKey    = true;
         newAccount.resource         = encR.getEncDataString();

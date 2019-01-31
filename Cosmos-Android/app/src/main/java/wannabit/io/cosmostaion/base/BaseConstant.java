@@ -16,11 +16,13 @@ public class BaseConstant {
     public final static String					SET_USE_FINGERPRINT			            = "SET_USE_FINGERPRINT";
 
     public final static int					    TASK_INIT_PW		                    = 2000;
-    public final static int					    TASK_INIT_MN		                    = 2001;
-    public final static int					    TASK_INIT_WALLET		                = 2002;
-    public final static int					    TASK_INSERT_RAW_KEY		                = 2003;
-    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2004;
-    public final static int					    TASK_UNLOCK		                        = 2005;
+    public final static int					    TASK_ADD_MN		                        = 2001;
+    public final static int					    TASK_INIT_ACCOUNT		                = 2002;
+    public final static int					    TASK_INIT_EMPTY_ACCOUNT		            = 2003;
+
+    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
+    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;
+    public final static int					    TASK_UNLOCK		                        = 2006;
 
 
     public final static String                  COSMOS_MSG_TYPE_TRANSFER                = "cosmos-sdk/Send";

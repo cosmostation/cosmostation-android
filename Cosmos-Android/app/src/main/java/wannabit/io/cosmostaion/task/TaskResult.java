@@ -7,6 +7,8 @@ public class TaskResult {
     public int          errorCode;
     public String       errorMsg;
 
+    public Object       resultData;
+
     public TaskResult() {
         this.isSuccess = false;
     }

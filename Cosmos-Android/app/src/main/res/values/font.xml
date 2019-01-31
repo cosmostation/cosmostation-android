@@ -3,6 +3,14 @@
 
 
 
+    <style name="font_ss_small_white" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+
+
 
 
     <style name="font_ss_medium_white" parent="@android:style/TextAppearance">

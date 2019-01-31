@@ -35,6 +35,33 @@
             android:windowSoftInputMode="stateHidden"
             android:launchMode="singleInstance">
         </activity>
+
+        <activity
+            android:name=".activities.CreateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:launchMode="singleTask">
+        </activity>
+
+
+
+
+        <activity
+            android:name=".test.TestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:launchMode="singleTask">
+        </activity>
     </application>
 
 </manifest>

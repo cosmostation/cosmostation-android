@@ -2,6 +2,10 @@
     <string name="app_name">Cosmostaion</string>
     <string name="db_password">wannabit</string>
 
+    <string name="url_lcd_wannabit">https://52.231.71.66:1317/</string>
+    <string name="url_lcd_gaia">cosmos lcd testnet</string>
+    <string name="url_lcd_gos">cosmos lcd gos</string>
+
 
 
     <string name="key_mnemonic">MNEMONIC_KEY</string>
@@ -13,6 +17,8 @@
     <string name="str_ok">OK</string>
     <string name="str_no">No</string>
     <string name="str_yes">Yes</string>
+    <string name="str_next">Next</string>
+    <string name="str_refresh">Refresh</string>
 
 
     <string name="str_password">Password</string>
@@ -21,10 +27,16 @@
     <string name="str_init_again">Please insert again for confirm.</string>
     <string name="str_using_fingerprint">Using Fingerprint</string>
     <string name="str_ask_using_fingerprint">Do you want to enable fingerprint authentication?</string>
+    <string name="str_mnemonic_copied">Mnemonic copied to clipboard.</string>
+    <string name="str_enter_mnemonics">Enter Mnemonics</string>
+    <string name="str_enter_address">Enter Address or Public-Key</string>
 
 
 
+    <string name="error_invalid_mnemonic_count">Invalid mnemonics, please insert correct 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
+    <string name="error_invalid_address_pubkey">Invalid Address or PubKey, please check again.</string>
+    <string name="error_already_exist_account">Already existed account.</string>
 
 
 
