@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.base;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -13,8 +14,10 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Mnemonic;
 import wannabit.io.cosmostaion.dao.Password;
+import wannabit.io.cosmostaion.dao.UnBondingState;
 
 public class BaseData {
 
@@ -123,6 +126,7 @@ public class BaseData {
                     cursor.getString(3),
                     cursor.getString(4));
         }
+        cursor.close();
         return result;
     }
 
@@ -244,12 +248,22 @@ public class BaseData {
     }
 
     public long onUpdateAccount(Account account) {
-        ContentValues values = new ContentValues();
-        values.put("nickName",          account.nickName);
-        values.put("isFavo",            account.isFavo);
-        values.put("sequenceNumber",    account.sequenceNumber);
-        values.put("fetchTime",         account.fetchTime);
-        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
+        if(isDupleAccount(account.address)) {
+            ContentValues values = new ContentValues();
+            if(!TextUtils.isEmpty(account.nickName))
+                values.put("nickName",          account.nickName);
+            if(account.isFavo != null)
+                values.put("isFavo",            account.isFavo);
+            if(account.sequenceNumber != null)
+                values.put("sequenceNumber",    account.sequenceNumber);
+            if(account.accountNumber != null)
+                values.put("accountNumber",    account.accountNumber);
+            if(account.fetchTime != null)
+                values.put("fetchTime",         account.fetchTime);
+            return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
+        } else {
+            return onInsertAccount(account);
+        }
     }
 
     public boolean isDupleAccount(String address) {
@@ -283,12 +297,13 @@ public class BaseData {
                 result.add(balance);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         return result;
     }
 
     public long onInsertBalance(Balance balance) {
         if(onHasBalance(balance)) {
-            return onUpdateBalace(balance);
+            return onUpdateBalance(balance);
         } else {
             ContentValues values = new ContentValues();
             values.put("accountId",         balance.accountId);
@@ -299,16 +314,26 @@ public class BaseData {
         }
     }
 
-    public long onUpdateBalace(Balance balance) {
-        ContentValues values = new ContentValues();
-        values.put("balance",           balance.balance.toPlainString());
-        values.put("fetchTime",         balance.fetchTime);
-        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "accountId == ? && symbol == ? ", new String[]{""+balance.accountId, balance.symbol} );
+    public long onUpdateBalance(Balance balance) {
+        if(onHasBalance(balance)) {
+            ContentValues values = new ContentValues();
+            values.put("balance",           balance.balance.toPlainString());
+            values.put("fetchTime",         balance.fetchTime);
+            return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "accountId == ? && symbol == ? ", new String[]{""+balance.accountId, balance.symbol} );
+        } else {
+            return onInsertBalance(balance);
+        }
+    }
+
+    public void onUpdateBalances(ArrayList<Balance> balances) {
+        for(Balance balance : balances) {
+            onUpdateBalance(balance);
+        }
     }
 
     public boolean onHasBalance(Balance balance) {
         boolean existed = false;
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BALANCE, new String[]{"accountId", "symbol", "balance", "fetchTime"}, "accountId == ? && symbol == ? ", new String[]{""+balance.accountId, balance.symbol}, null, null, null);
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BALANCE, new String[]{"accountId", "symbol", "balance", "fetchTime"}, "accountId == ? & symbol == ? ", new String[]{""+balance.accountId, balance.symbol}, null, null, null);
         if(cursor != null && cursor.getCount() > 0) {
             existed = true;
         }
@@ -319,4 +344,95 @@ public class BaseData {
     public boolean onDeleteBalance(String accountId) {
         return getBaseDB().delete(BaseConstant.DB_TABLE_BALANCE, "accountId = ?", new String[]{accountId}) > 0;
     }
+
+
+
+    public ArrayList<BondingState> onSelectBondingStates(String accountId) {
+        ArrayList<BondingState> result = new ArrayList<>();
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ?", new String[]{accountId}, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            do {
+                BondingState delegate = new BondingState(
+                        cursor.getLong(0),
+                        cursor.getString(1),
+                        new BigDecimal(cursor.getString(2)),
+                        cursor.getLong(3));
+                result.add(delegate);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return result;
+    }
+
+    public long onInsertBondingStates(BondingState bonding) {
+        ContentValues values = new ContentValues();
+        values.put("accountId",         bonding.accountId);
+        values.put("validatorAddress",  bonding.validatorAddress);
+        values.put("shares",            bonding.shares.toPlainString());
+        values.put("fetchTime",         bonding.fetchTime);
+        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_BONDING, null, values);
+    }
+
+    public boolean onDeleteBondingStates(long accountId) {
+        return getBaseDB().delete(BaseConstant.DB_TABLE_BONDING, "accountId = ?", new String[]{""+accountId}) > 0;
+    }
+
+    public boolean onUpdateBondingState(long accountId, ArrayList<BondingState> bondings) {
+        if(onDeleteBondingStates(accountId)) {
+            for(BondingState bond: bondings) {
+                onInsertBondingStates(bond);
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public ArrayList<UnBondingState> onSelectUnbondingStates(String accountId) {
+        ArrayList<UnBondingState> result = new ArrayList<>();
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ?", new String[]{accountId}, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            do {
+                UnBondingState temp = new UnBondingState(
+                        cursor.getLong(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getLong(3),
+                        new BigDecimal(cursor.getString(4)),
+                        new BigDecimal(cursor.getString(5)),
+                        cursor.getLong(6));
+                result.add(temp);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return result;
+    }
+
+    public long onInsertUnbondingStates(UnBondingState unbonding) {
+        ContentValues values = new ContentValues();
+        values.put("accountId",         unbonding.accountId);
+        values.put("validatorAddress",  unbonding.validatorAddress);
+        values.put("creationHeight",    unbonding.creationHeight);
+        values.put("completionTime",    unbonding.completionTime);
+        values.put("initialBalance",    unbonding.initialBalance.toPlainString());
+        values.put("balance",           unbonding.balance.toPlainString());
+        values.put("fetchTime",         unbonding.fetchTime);
+        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_UNBONDING, null, values);
+    }
+
+    public boolean onDeleteUnbondingStates(long accountId) {
+        return getBaseDB().delete(BaseConstant.DB_TABLE_UNBONDING, "accountId = ?", new String[]{""+accountId}) > 0;
+    }
+
+    public boolean onUpdateUnbondingStates(long accountId, ArrayList<UnBondingState> unbondings) {
+        if(onDeleteBondingStates(accountId)) {
+            for(UnBondingState unbond: unbondings) {
+                onInsertUnbondingStates(unbond);
+            }
+            return true;
+        }
+        return false;
+    }
+
 }

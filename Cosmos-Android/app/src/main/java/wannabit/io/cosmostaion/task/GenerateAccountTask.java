@@ -1,10 +1,14 @@
 package wannabit.io.cosmostaion.task;
 
 import org.bitcoinj.core.ECKey;
+import org.bitcoinj.crypto.ChildNumber;
+import org.bitcoinj.crypto.DeterministicHierarchy;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.crypto.HDKeyDerivation;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -14,6 +18,7 @@ import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Mnemonic;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class GenerateAccountTask extends CommonTask {
 
@@ -36,6 +41,7 @@ public class GenerateAccountTask extends CommonTask {
         try {
             Mnemonic mnemonic  = mApp.getBaseDao().onSelectMnemonic(strings[2]);
             String seed        = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic)+ mnemonic.uuid, mnemonic.resource, mnemonic.spec);
+
             if(mApp.getBaseDao().onInsertAccount(onGenAccount(seed, strings[1], strings[0])) > 0) {
                 mResult.isSuccess = true;
             } else {
@@ -71,4 +77,5 @@ public class GenerateAccountTask extends CommonTask {
 //        key.getp
 
     }
+
 }

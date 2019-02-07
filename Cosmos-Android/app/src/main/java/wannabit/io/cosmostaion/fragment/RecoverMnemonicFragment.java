@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.task.InsertMnemonicTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RecoverMnemonicFragment extends BaseFragment implements View.OnClickListener, TaskListener {
@@ -73,9 +74,8 @@ public class RecoverMnemonicFragment extends BaseFragment implements View.OnClic
                 Toast.makeText(getBaseActivity(), R.string.error_invalid_mnemonic_count, Toast.LENGTH_SHORT).show();
                 return;
             }
-
             getBaseActivity().onShowWaitDialog();
-            new InsertMnemonicTask(getBaseApplication(), this).execute(WKey.getSeedfromWords(mWords));
+            new InsertMnemonicTask(getBaseApplication(), this).execute(WKey.getStringHdSeedFromWords(mWords));
         }
 
     }

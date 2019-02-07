@@ -37,6 +37,13 @@ public class BaseDB extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_BALANCE +
                 "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [accountId] INTEGER, [symbol] TEXT, [balance] TEXT, [fetchTime] INTEGER)");
+
+        sqLiteDatabase.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_BONDING +
+                "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [accountId] INTEGER, [validatorAddress] TEXT, [shares] TEXT, [fetchTime] INTEGER)");
+
+        sqLiteDatabase.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_UNBONDING +
+                "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [accountId] INTEGER, [validatorAddress] TEXT, [creationHeight] TEXT, [completionTime] INTEGER, " +
+                "[initialBalance] TEXT, [balance] TEXT, [fetchTime] INTEGER)");
     }
 
     @Override

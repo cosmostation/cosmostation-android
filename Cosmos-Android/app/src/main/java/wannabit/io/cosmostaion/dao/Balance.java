@@ -8,6 +8,9 @@ public class Balance {
     public BigDecimal   balance;
     public Long         fetchTime;
 
+    public Balance() {
+    }
+
     public Balance(Long accountId, String symbol, BigDecimal balance, Long fetchTime) {
         this.accountId = accountId;
         this.symbol = symbol;

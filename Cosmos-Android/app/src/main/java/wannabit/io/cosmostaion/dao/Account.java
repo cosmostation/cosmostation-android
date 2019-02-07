@@ -9,19 +9,19 @@ public class Account {
     public Long     id;
     public String   uuid;
     public String   nickName;
-    public boolean  isFavo;
+    public Boolean  isFavo;
     public String   address;
     public String   baseChain;
 
-    public boolean  hasPrivateKey;
+    public Boolean  hasPrivateKey;
     public String   resource;
     public String   spec;
-    public boolean  fromMnemonic;
+    public Boolean  fromMnemonic;
     public String   path;
 
-    public boolean  isValidator;
-    public int      sequenceNumber;
-    public int      accountNumber;
+    public Boolean  isValidator;
+    public Integer  sequenceNumber;
+    public Integer  accountNumber;
     public Long     fetchTime;
 
     public ArrayList<Balance>   balances;

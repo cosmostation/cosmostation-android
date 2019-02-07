@@ -25,9 +25,9 @@ public class IntroActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        startActivity(new Intent(IntroActivity.this, TestActivity.class));
-
-        startActivity(new Intent(IntroActivity.this, CreateActivity.class));
+//        startActivity(new Intent(IntroActivity.this, TestActivity.class));
+//
+//        startActivity(new Intent(IntroActivity.this, CreateActivity.class));
 
 //        startActivity(new Intent(IntroActivity.this, PasswordSetActivity.class));
 //        startActivity(new Intent(IntroActivity.this, MainActivity.class));
@@ -50,6 +50,12 @@ public class IntroActivity extends BaseActivity {
 //                WLog.w("2222 " + t.getMessage());
 //            }
 //        });
+
+        if(getBaseDao().onSelectAccounts().size() > 0) {
+            startActivity(new Intent(IntroActivity.this, MainActivity.class));
+        } else {
+            startActivity(new Intent(IntroActivity.this, CreateActivity.class));
+        }
     }
 }
 

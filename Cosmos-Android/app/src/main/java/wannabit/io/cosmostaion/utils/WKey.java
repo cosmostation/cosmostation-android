@@ -42,16 +42,7 @@ public class WKey {
         return result;
     }
 
-    public static String getSeedfromWords(ArrayList<String> words) {
-        try {
-            return WUtil.ByteArrayToHexString(toEntropy(words));
-
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static byte[] toEntropy(ArrayList<String> words) {
+    private static byte[] toEntropy(ArrayList<String> words) {
         try {
             return new MnemonicCode().toEntropy(words);
         }catch (Exception e) {
@@ -60,7 +51,7 @@ public class WKey {
     }
 
 
-    public static byte[] getHDSeed(byte[] entropy) {
+    private static byte[] getHDSeed(byte[] entropy) {
         try {
             return MnemonicCode.toSeed(MnemonicCode.INSTANCE.toMnemonic(entropy), "");
         } catch (Exception e) {
@@ -69,13 +60,21 @@ public class WKey {
 
     }
 
-    public static byte[] getHDSeed(String seed) {
-        try {
-            byte[] entropy     = WUtil.HexStringToByteArray(seed);
-            return MnemonicCode.toSeed(MnemonicCode.INSTANCE.toMnemonic(entropy), "");
-        } catch (Exception e) {
-            return null;
-        }
+//    public static byte[] getHDSeed(String seed) {
+//        try {
+//            byte[] entropy     = WUtil.HexStringToByteArray(seed);
+//            return MnemonicCode.toSeed(MnemonicCode.INSTANCE.toMnemonic(entropy), "");
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
+
+    public static byte[] getByteHdSeedFromWords(ArrayList<String> words) {
+        return getHDSeed(toEntropy(words));
+    }
+
+    public static String getStringHdSeedFromWords(ArrayList<String> words) {
+        return WUtil.ByteArrayToHexString(getByteHdSeedFromWords(words));
     }
 
 

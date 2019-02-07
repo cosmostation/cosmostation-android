@@ -24,6 +24,7 @@ public class CommonTask extends AsyncTask<String, Void, TaskResult> {
     @Override
     protected void onPostExecute(TaskResult taskResult) {
         super.onPostExecute(taskResult);
-        mListener.onTaskResponse(taskResult);
+        if(mListener != null)
+            mListener.onTaskResponse(taskResult);
     }
 }

@@ -410,8 +410,7 @@ public class TestActivity extends BaseActivity {
     private DeterministicKey getTestKey() {
         String              mnemonic    = "iron breeze tongue voice stomach nut manage advance rather mad hurry neutral identify armed unusual crunch hammer scan riot mom surface horn stamp thank";
         ArrayList<String>   words       = new ArrayList<>(Arrays.asList(mnemonic.split("\\s+")));
-        byte[]              entropy     = WKey.toEntropy(words);
-        byte[]              seedHD      = WKey.getHDSeed(entropy);
+        byte[]              seedHD      = WKey.getByteHdSeedFromWords(words);
         DeterministicKey masterKey      = HDKeyDerivation.createMasterPrivateKey(seedHD);
         return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(), true, true,  new ChildNumber(0));
     }
@@ -456,8 +455,7 @@ public class TestActivity extends BaseActivity {
     private DeterministicKey getTestKey3() {
         String              mnemonic    = "kid order want shell various frog caution approve federal practice fruit firm shove scrap uniform acoustic upgrade auto elbow escape lake town bone scissors";
         ArrayList<String>   words       = new ArrayList<>(Arrays.asList(mnemonic.split("\\s+")));
-        byte[]              entropy     = WKey.toEntropy(words);
-        byte[]              seedHD      = WKey.getHDSeed(entropy);
+        byte[]              seedHD      = WKey.getByteHdSeedFromWords(words);
         DeterministicKey masterKey      = HDKeyDerivation.createMasterPrivateKey(seedHD);
         return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(), true, true,  new ChildNumber(0));
     }

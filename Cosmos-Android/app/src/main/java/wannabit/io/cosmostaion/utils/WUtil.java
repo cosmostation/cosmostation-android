@@ -1,9 +1,15 @@
 package wannabit.io.cosmostaion.utils;
 
+import android.content.Context;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.cert.CertificateException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,8 +21,69 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
+import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 
 public class WUtil {
+
+    public static Account getAccountFromLcd(ResLcdAccountInfo lcd) {
+        Account result = new Account();
+        result.address = lcd.value.address;
+        result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
+        result.accountNumber = Integer.parseInt(lcd.value.account_number);
+        return result;
+    }
+
+    public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
+        long time = System.currentTimeMillis();
+        ArrayList<Balance> result = new ArrayList<>();
+        for(Coin coin : lcd.value.coins) {
+            Balance temp = new Balance();
+            temp.accountId = accountId;
+            temp.symbol = coin.denom;
+            temp.balance = new BigDecimal(coin.amount);
+            temp.fetchTime = time;
+            result.add(temp);
+        }
+        return result;
+    }
+
+    public static ArrayList<BondingState> getBondingFromLcd(long accountId, ArrayList<ResLcdBondings> list) {
+        long time = System.currentTimeMillis();
+        ArrayList<BondingState> result = new ArrayList<>();
+        for(ResLcdBondings val : list) {
+            BondingState temp = new BondingState(accountId, val.validator_addr, new BigDecimal(val.shares), time);
+            result.add(temp);
+        }
+        return result;
+    }
+
+    public static ArrayList<UnBondingState> getUnbondingFromLcd(Context c, long accountId, ArrayList<ResLcdUnBondings> list) {
+        long time = System.currentTimeMillis();
+        ArrayList<UnBondingState> result = new ArrayList<>();
+        for(ResLcdUnBondings val : list) {
+            for(ResLcdUnBondings.Entry entry:val.entries) {
+                UnBondingState temp = new UnBondingState(
+                        accountId,
+                        val.validator_addr,
+                        entry.creation_height,
+                        WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
+                        new BigDecimal(entry.initial_balance.amount),
+                        new BigDecimal(entry.balance.amount),
+                        time
+                );
+                result.add(temp);
+            }
+        }
+        return result;
+    }
 
 
 
@@ -43,7 +110,16 @@ public class WUtil {
     }
 
 
+    public static long cosmosTimetoLocalLong(Context c, String rawValue) {
+        try {
+            SimpleDateFormat cosmosFormat = new SimpleDateFormat(c.getString(R.string.str_cosmos_time_format));
+            cosmosFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            return cosmosFormat.parse(rawValue).getTime();
+        } catch (Exception e) {
 
+        }
+        return 0;
+    }
 
 
 
