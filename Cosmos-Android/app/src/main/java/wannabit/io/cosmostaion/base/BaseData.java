@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Mnemonic;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class BaseData {
 
@@ -55,6 +56,22 @@ public class BaseData {
         return getSharedPreferences().getBoolean(BaseConstant.SET_USE_FINGERPRINT, false);
     }
 
+
+    public void setLastUser(long user) {
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_USER_ID, user).commit();
+    }
+
+    public String getLastUser() {
+        long result = -1;
+        if(getSharedPreferences().getLong(BaseConstant.PRE_USER_ID, -1) != result) {
+            result = getSharedPreferences().getLong(BaseConstant.PRE_USER_ID, -1);
+        } else {
+            if (onSelectAccounts().size() > 0) {
+                result =  onSelectAccounts().get(0).accountNumber;
+            }
+        }
+        return ""+result;
+    }
 
 
 
@@ -191,7 +208,7 @@ public class BaseData {
                         cursor.getInt(13),
                         cursor.getLong(14)
                 );
-                account.setBalances(onSelectBalance(""+account.id));
+                account.setBalances(onSelectBalance(account.id));
                 result.add(account);
             } while (cursor.moveToNext());
         }
@@ -204,24 +221,26 @@ public class BaseData {
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
                 "isValidator", "sequenceNumber", "accountNumber", "fetchTime"}, "id == ?", new String[]{id}, null, null, null);
-        result = new Account(
-                cursor.getLong(0),
-                cursor.getString(1),
-                cursor.getString(2),
-                cursor.getInt(3) > 0,
-                cursor.getString(4),
-                cursor.getString(5),
-                cursor.getInt(6) > 0,
-                cursor.getString(7),
-                cursor.getString(8),
-                cursor.getInt(9) > 0,
-                cursor.getString(10),
-                cursor.getInt(11) > 0,
-                cursor.getInt(12),
-                cursor.getInt(13),
-                cursor.getLong(14)
-        );
-        result.setBalances(onSelectBalance(id));
+        if(cursor != null && cursor.moveToFirst()) {
+            result = new Account(
+                    cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getInt(3) > 0,
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getInt(6) > 0,
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getInt(9) > 0,
+                    cursor.getString(10),
+                    cursor.getInt(11) > 0,
+                    cursor.getInt(12),
+                    cursor.getInt(13),
+                    cursor.getLong(14)
+            );
+            result.setBalances(onSelectBalance(result.id));
+        }
         cursor.close();
         return result;
     }
@@ -284,9 +303,9 @@ public class BaseData {
 
 
 
-    public ArrayList<Balance> onSelectBalance(String accountId) {
+    public ArrayList<Balance> onSelectBalance(long accountId) {
         ArrayList<Balance> result = new ArrayList<>();
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BALANCE, new String[]{"accountId", "symbol", "balance", "fetchTime"}, "accountId == ?", new String[]{accountId}, null, null, null);
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BALANCE, new String[]{"accountId", "symbol", "balance", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 Balance balance = new Balance(
@@ -319,7 +338,7 @@ public class BaseData {
             ContentValues values = new ContentValues();
             values.put("balance",           balance.balance.toPlainString());
             values.put("fetchTime",         balance.fetchTime);
-            return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "accountId == ? && symbol == ? ", new String[]{""+balance.accountId, balance.symbol} );
+            return getBaseDB().update(BaseConstant.DB_TABLE_BALANCE, values, "accountId == ? AND symbol == ? ", new String[]{""+balance.accountId, balance.symbol} );
         } else {
             return onInsertBalance(balance);
         }
@@ -333,7 +352,7 @@ public class BaseData {
 
     public boolean onHasBalance(Balance balance) {
         boolean existed = false;
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BALANCE, new String[]{"accountId", "symbol", "balance", "fetchTime"}, "accountId == ? & symbol == ? ", new String[]{""+balance.accountId, balance.symbol}, null, null, null);
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BALANCE, new String[]{"accountId", "symbol", "balance", "fetchTime"}, "accountId == ? AND symbol == ? ", new String[]{""+balance.accountId, balance.symbol}, null, null, null);
         if(cursor != null && cursor.getCount() > 0) {
             existed = true;
         }
@@ -347,9 +366,9 @@ public class BaseData {
 
 
 
-    public ArrayList<BondingState> onSelectBondingStates(String accountId) {
+    public ArrayList<BondingState> onSelectBondingStates(long accountId) {
         ArrayList<BondingState> result = new ArrayList<>();
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ?", new String[]{accountId}, null, null, null);
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 BondingState delegate = new BondingState(
@@ -389,9 +408,9 @@ public class BaseData {
 
 
 
-    public ArrayList<UnBondingState> onSelectUnbondingStates(String accountId) {
+    public ArrayList<UnBondingState> onSelectUnbondingStates(long accountId) {
         ArrayList<UnBondingState> result = new ArrayList<>();
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ?", new String[]{accountId}, null, null, null);
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 UnBondingState temp = new UnBondingState(

@@ -42,8 +42,11 @@ public class GenerateAccountTask extends CommonTask {
             Mnemonic mnemonic  = mApp.getBaseDao().onSelectMnemonic(strings[2]);
             String seed        = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic)+ mnemonic.uuid, mnemonic.resource, mnemonic.spec);
 
-            if(mApp.getBaseDao().onInsertAccount(onGenAccount(seed, strings[1], strings[0])) > 0) {
+
+            Account tempAccount = onGenAccount(seed, strings[1], strings[0]);
+            if(mApp.getBaseDao().onInsertAccount(tempAccount) > 0) {
                 mResult.isSuccess = true;
+                mApp.getBaseDao().setLastUser(tempAccount.id);
             } else {
                 mResult.errorMsg = "Already existed account";
                 mResult.errorCode = 7001;
@@ -63,6 +66,7 @@ public class GenerateAccountTask extends CommonTask {
         EncResult encR                  = CryptoHelper.doEncryptData(newAccount.uuid, new String(dKey.getPrivKey().toByteArray()), false);
 
         newAccount.address          = WKey.getCosmosUserDpAddress(dKey.getPublicKeyAsHex());
+        WLog.w("newAccount.address : " + newAccount.address);
         newAccount.baseChain        = chainType;
         newAccount.hasPrivateKey    = true;
         newAccount.resource         = encR.getEncDataString();

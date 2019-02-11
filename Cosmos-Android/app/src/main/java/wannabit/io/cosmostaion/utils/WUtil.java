@@ -22,6 +22,7 @@ import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
@@ -35,24 +36,45 @@ public class WUtil {
 
     public static Account getAccountFromLcd(ResLcdAccountInfo lcd) {
         Account result = new Account();
-        result.address = lcd.value.address;
-        result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
-        result.accountNumber = Integer.parseInt(lcd.value.account_number);
-        return result;
+        if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
+            result.address = lcd.value.address;
+            result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
+            result.accountNumber = Integer.parseInt(lcd.value.account_number);
+            return result;
+        } else {
+            result.address = lcd.value.BaseVestingAccount.BaseAccount.address;
+            result.sequenceNumber = Integer.parseInt(lcd.value.BaseVestingAccount.BaseAccount.sequence);
+            result.accountNumber = Integer.parseInt(lcd.value.BaseVestingAccount.BaseAccount.account_number);
+            return result;
+        }
+
     }
 
     public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
-        for(Coin coin : lcd.value.coins) {
-            Balance temp = new Balance();
-            temp.accountId = accountId;
-            temp.symbol = coin.denom;
-            temp.balance = new BigDecimal(coin.amount);
-            temp.fetchTime = time;
-            result.add(temp);
+        if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
+            for(Coin coin : lcd.value.coins) {
+                Balance temp = new Balance();
+                temp.accountId = accountId;
+                temp.symbol = coin.denom;
+                temp.balance = new BigDecimal(coin.amount);
+                temp.fetchTime = time;
+                result.add(temp);
+            }
+            return result;
+        } else {
+            for(Coin coin : lcd.value.BaseVestingAccount.BaseAccount.coins) {
+                Balance temp = new Balance();
+                temp.accountId = accountId;
+                temp.symbol = coin.denom;
+                temp.balance = new BigDecimal(coin.amount);
+                temp.fetchTime = time;
+                result.add(temp);
+            }
+            return result;
         }
-        return result;
+
     }
 
     public static ArrayList<BondingState> getBondingFromLcd(long accountId, ArrayList<ResLcdBondings> list) {

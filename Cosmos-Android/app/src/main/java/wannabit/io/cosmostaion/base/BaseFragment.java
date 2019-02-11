@@ -32,4 +32,7 @@ public class BaseFragment extends Fragment {
     protected FragmentTransaction getTransaction() {
         return getFragmentManager().beginTransaction();
     }
+
+    public void onRefreshTab() { }
+
 }

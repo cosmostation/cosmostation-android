@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
@@ -31,5 +32,12 @@ public interface WannabitChain {
 
     @GET("/staking/delegators/{address}/unbonding_delegations")
     Call<ArrayList<ResLcdUnBondings>> getUnBondingList(@Path("address") String address);
+
+    @GET("/distribution/delegators/{address}/rewards")
+    Call<ArrayList<Coin>> getTotalRewards(@Path("address") String address);
+
+    @GET("/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
+    Call<ArrayList<Coin>> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
+
 
 }

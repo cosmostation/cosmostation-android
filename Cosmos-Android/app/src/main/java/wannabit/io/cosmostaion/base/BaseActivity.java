@@ -13,6 +13,8 @@ public class BaseActivity extends AppCompatActivity {
     protected BaseApplication               mApplication;
     protected BaseData                      mData;
     protected Dialog_Wait                   mDialogWait;
+    public    boolean                       mBusy;
+    public    int                           mBusyCnt;
 
 
     public BaseApplication getBaseApplication() {
