@@ -15,30 +15,34 @@ import wannabit.io.cosmostaion.utils.WLog;
 public class RewardFromValidatorTask extends CommonTask {
 
     private Account     mAccount;
-    private Validator   mValidator;
+    private String      mValidatorAddr;
 
 
-    public RewardFromValidatorTask(BaseApplication app, TaskListener listener, Account account, Validator validator) {
+    public RewardFromValidatorTask(BaseApplication app, TaskListener listener, Account account, String validatorAddr) {
         super(app, listener);
         this.mResult.taskType   = BaseConstant.TASK_FETCH_REWARDS_VALIDATOR;
         this.mAccount = account;
-        this.mValidator = validator;
+        this.mValidatorAddr = validatorAddr;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp).getRewardFromValidator(mAccount.address, mValidator.operator_address).execute();
-            if(response.isSuccessful() && response.body() != null && response.body().size() > 0) {
-                ArrayList<Coin> mValidators = response.body();
-                WLog.w("RewardFromValidatorTask Coin : " + mValidators.size());
+            Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
+            if(!response.isSuccessful()) {
+                mResult.isSuccess = false;
+                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                return mResult;
             }
-            mResult.isSuccess = true;
 
-//            Reward temp = new Reward();
-//            temp.accountId = mAccount.id;
-//            temp.validatorAddress = mValidator.operator_address;
-//            temp.shares
+            if(response.body() != null && response.body().size() > 0) {
+                ArrayList<Coin> amounts = response.body();
+                long time = System.currentTimeMillis();
+//                WLog.w("RewardFromValidatorTask Coin : " + amounts.size());
+                Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
+                mResult.resultData = temp;
+                mResult.isSuccess = true;
+            }
 
         } catch (Exception e) {
             WLog.w("RewardFromValidatorTask Error " + e.getMessage());

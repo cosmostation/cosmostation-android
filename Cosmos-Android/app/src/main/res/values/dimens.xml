@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="main_appbar_height">260dp</dimen>
+    <dimen name="main_appbar_contents_height">204dp</dimen>
+    <dimen name="toolbar_bar_height">56dp</dimen>
+
     <dimen name="space_1">1dp</dimen>
     <dimen name="space_4">4dp</dimen>
     <dimen name="space_6">6dp</dimen>
@@ -26,12 +30,21 @@
     <dimen name="space_180">180dp</dimen>
     <dimen name="space_240">240dp</dimen>
 
-    <dimen name="text_size_micro">9sp</dimen>
-    <dimen name="text_size_tiny">11sp</dimen>
-    <dimen name="text_size_small">13sp</dimen>
-    <dimen name="text_size_medium">15sp</dimen>
-    <dimen name="text_size_normal">17sp</dimen>
-    <dimen name="text_size_large">19sp</dimen>
-    <dimen name="text_size_xlarge">21sp</dimen>
-    <dimen name="text_size_keyboard">33sp</dimen>
+    <!--<dimen name="text_size_micro">9sp</dimen>-->
+    <!--<dimen name="text_size_tiny">11sp</dimen>-->
+    <!--<dimen name="text_size_small">14sp</dimen>-->
+    <!--<dimen name="text_size_medium">15sp</dimen>-->
+    <!--<dimen name="text_size_normal">17sp</dimen>-->
+    <!--<dimen name="text_size_large">19sp</dimen>-->
+    <!--<dimen name="text_size_xlarge">21sp</dimen>-->
+    <!--<dimen name="text_size_keyboard">33sp</dimen>-->
+
+    <dimen name="text_size_9">9sp</dimen>
+    <dimen name="text_size_11">11sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_17">17sp</dimen>
+    <dimen name="text_size_19">19sp</dimen>
+    <dimen name="text_size_21">21sp</dimen>
+    <dimen name="text_size_33">33sp</dimen>
 </resources>

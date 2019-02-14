@@ -17,7 +17,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/font_ss_small_white"
+                style="@style/font_ss_14_white"
                 android:layout_marginLeft="@dimen/space_4"
                 android:text="You can create new wallet with menmonic."/>
             <Button
@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/font_ss_small_white"
+                style="@style/font_ss_14_white"
                 android:layout_marginLeft="@dimen/space_4"
                 android:text="You can recover your wallet, with mnemonic you already have."/>
             <Button
@@ -56,7 +56,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/font_ss_small_white"
+                style="@style/font_ss_14_white"
                 android:layout_marginLeft="@dimen/space_4"
                 android:text="Add address or public key. you can observe your account state.\n(Can not generate transaction, of course. but can add private key if you want later.)"/>
             <Button

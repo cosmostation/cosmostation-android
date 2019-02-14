@@ -24,11 +24,18 @@ public class TotalRewardTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp).getTotalRewards(mAccount.address).execute();
-            if(response.isSuccessful() && response.body() != null && response.body().size() > 0) {
-                ArrayList<Coin> mValidators = response.body();
-                WLog.w("TotalRewardTask Coin : " + mValidators.size());
+            if(!response.isSuccessful()) {
+                mResult.isSuccess = false;
+                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                return mResult;
             }
-            mResult.isSuccess = true;
+
+            if(response.body() != null && response.body().size() > 0) {
+                ArrayList<Coin> rewards = response.body();
+//                WLog.w("TotalRewardTask Coin : " + rewards.size());
+                mResult.resultData = response.body();
+                mResult.isSuccess = true;
+            }
 
         } catch (Exception e) {
             WLog.w("TotalRewardTask Error " + e.getMessage());

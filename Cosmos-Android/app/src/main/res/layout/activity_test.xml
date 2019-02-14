@@ -8,6 +8,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Hello World"
-        style="@style/font_ssm_normal_black"/>
+        style="@style/font_ssm_17_black"/>
 
 </RelativeLayout>

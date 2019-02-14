@@ -390,20 +390,28 @@ public class BaseData {
         values.put("shares",            bonding.shares.toPlainString());
         values.put("fetchTime",         bonding.fetchTime);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_BONDING, null, values);
+
+    }
+
+    public void onUpdateBondingState(long accountId, ArrayList<BondingState> bondings) {
+        onDeleteBondingStates(accountId);
+        for(BondingState bonding: bondings) {
+            onInsertBondingStates(bonding);
+        }
+    }
+
+    public boolean onHasBondingStates(BondingState bondingState) {
+        boolean existed = false;
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ? AND validatorAddress == ?", new String[]{""+bondingState.accountId, bondingState.validatorAddress}, null, null, null);
+        if(cursor != null && cursor.getCount() > 0) {
+            existed = true;
+        }
+        cursor.close();
+        return existed;
     }
 
     public boolean onDeleteBondingStates(long accountId) {
         return getBaseDB().delete(BaseConstant.DB_TABLE_BONDING, "accountId = ?", new String[]{""+accountId}) > 0;
-    }
-
-    public boolean onUpdateBondingState(long accountId, ArrayList<BondingState> bondings) {
-        if(onDeleteBondingStates(accountId)) {
-            for(BondingState bond: bondings) {
-                onInsertBondingStates(bond);
-            }
-            return true;
-        }
-        return false;
     }
 
 
@@ -444,14 +452,12 @@ public class BaseData {
         return getBaseDB().delete(BaseConstant.DB_TABLE_UNBONDING, "accountId = ?", new String[]{""+accountId}) > 0;
     }
 
-    public boolean onUpdateUnbondingStates(long accountId, ArrayList<UnBondingState> unbondings) {
-        if(onDeleteBondingStates(accountId)) {
-            for(UnBondingState unbond: unbondings) {
-                onInsertUnbondingStates(unbond);
-            }
-            return true;
+    public void onUpdateUnbondingStates(long accountId, ArrayList<UnBondingState> unbondings) {
+        onDeleteUnbondingStates(accountId);
+        for(UnBondingState unbond: unbondings) {
+            onInsertUnbondingStates(unbond);
         }
-        return false;
     }
+
 
 }

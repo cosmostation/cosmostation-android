@@ -49,4 +49,11 @@ public class BaseConstant {
     public final static String                  COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
 
     public final static String                  COSMOS_KEY_TYPE_PUBLIC                  = "tendermint/PubKeySecp256k1";
+
+
+
+
+
+    public final static int					    ERROR_CODE_UNKNOWN		                = 8000;
+    public final static int					    ERROR_CODE_NETWORK		                = 8001;
 }

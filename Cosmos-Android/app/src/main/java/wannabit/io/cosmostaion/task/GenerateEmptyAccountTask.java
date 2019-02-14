@@ -25,10 +25,10 @@ public class GenerateEmptyAccountTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
 
-        Account tempAccount = onGenEmptyAccount(strings[0], strings[1]);
-        if(mApp.getBaseDao().onInsertAccount(tempAccount) > 0) {
+        long id = mApp.getBaseDao().onInsertAccount(onGenEmptyAccount(strings[0], strings[1]));
+        if(id > 0) {
             mResult.isSuccess = true;
-            mApp.getBaseDao().setLastUser(tempAccount.id);
+            mApp.getBaseDao().setLastUser(id);
         } else {
             mResult.errorMsg = "Already existed account";
             mResult.errorCode = 7001;

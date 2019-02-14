@@ -20,7 +20,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_1"
                 android:layout_width="0dp"
@@ -28,7 +28,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_2"
                 android:layout_width="0dp"
@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_3"
                 android:layout_width="0dp"
@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +58,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_5"
                 android:layout_width="0dp"
@@ -66,7 +66,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_6"
                 android:layout_width="0dp"
@@ -74,7 +74,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_7"
                 android:layout_width="0dp"
@@ -82,7 +82,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -96,7 +96,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_9"
                 android:layout_width="0dp"
@@ -104,7 +104,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_10"
                 android:layout_width="0dp"
@@ -112,7 +112,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_11"
                 android:layout_width="0dp"
@@ -120,7 +120,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -134,7 +134,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_13"
                 android:layout_width="0dp"
@@ -142,7 +142,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_14"
                 android:layout_width="0dp"
@@ -150,7 +150,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_15"
                 android:layout_width="0dp"
@@ -158,7 +158,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -172,7 +172,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_17"
                 android:layout_width="0dp"
@@ -180,7 +180,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_18"
                 android:layout_width="0dp"
@@ -188,7 +188,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_19"
                 android:layout_width="0dp"
@@ -196,7 +196,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -210,7 +210,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_21"
                 android:layout_width="0dp"
@@ -218,7 +218,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_22"
                 android:layout_width="0dp"
@@ -226,7 +226,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
             <TextView
                 android:id="@+id/tv_mnemonic_23"
                 android:layout_width="0dp"
@@ -234,7 +234,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLines="1"
-                style="@style/font_ss_small_white"/>
+                style="@style/font_ss_14_white"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -9,8 +9,18 @@
     <!--<color name="colorAccent">#dcb86b</color>-->
 
     <color name="colorTrans">#00000000</color>
+    <color name="colorTransBg">#662E2E2E</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
+    <color name="colorGray1">#7A7f88</color>
+    <color name="colorGray2">#1D1F21</color>
+    <color name="colorGray3">#47494d</color>
+    <color name="colorGray4">#4B4F54</color>
     <color name="colorGray9">#88EDEDED</color>
+
+
+    <color name="colorAtom">#9C6CFF</color>
+    <color name="colorPhoton">#05D2DD</color>
+
 </resources>

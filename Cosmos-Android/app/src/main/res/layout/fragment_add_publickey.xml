@@ -15,7 +15,7 @@
         android:textColorHint="@color/colorWhite"
         android:inputType="textMultiLine"
         android:gravity="top|left"
-        style="@style/font_ss_small_white"/>
+        style="@style/font_ss_14_white"/>
 
     <Button
         android:id="@+id/btn_next"
