@@ -6,9 +6,11 @@
     <dimen name="toolbar_bar_height">56dp</dimen>
 
     <dimen name="space_1">1dp</dimen>
+    <dimen name="space_2">2dp</dimen>
     <dimen name="space_4">4dp</dimen>
     <dimen name="space_6">6dp</dimen>
     <dimen name="space_8">8dp</dimen>
+    <dimen name="space_10">10dp</dimen>
     <dimen name="space_12">12dp</dimen>
     <dimen name="space_14">14dp</dimen>
     <dimen name="space_16">16dp</dimen>
@@ -20,10 +22,12 @@
     <dimen name="space_32">32dp</dimen>
     <dimen name="space_36">36dp</dimen>
     <dimen name="space_40">40dp</dimen>
+    <dimen name="space_44">44dp</dimen>
     <dimen name="space_50">50dp</dimen>
     <dimen name="space_54">54dp</dimen>
     <dimen name="space_60">60dp</dimen>
-    <dimen name="space_72">72dp</dimen>
+    <dimen name="space_68">68dp</dimen>
+    <dimen name="space_74">74dp</dimen>
     <dimen name="space_80">80dp</dimen>
     <dimen name="space_100">100dp</dimen>
     <dimen name="space_120">120dp</dimen>
@@ -41,6 +45,7 @@
 
     <dimen name="text_size_9">9sp</dimen>
     <dimen name="text_size_11">11sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_14">14sp</dimen>
     <dimen name="text_size_15">15sp</dimen>
     <dimen name="text_size_17">17sp</dimen>

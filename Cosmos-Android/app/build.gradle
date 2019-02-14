@@ -46,9 +46,11 @@ dependencies {
     //sqliteChiper
     implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
 
-
-
-
+    //avatar
+    implementation 'agency.tango.android:avatar-view:0.0.2'
+    implementation 'agency.tango.android:avatar-view-bindings:0.0.2'
+    implementation 'agency.tango.android:avatar-view-picasso:0.0.2'
+    implementation 'agency.tango.android:avatar-view-glide:0.0.2'
 
 
 

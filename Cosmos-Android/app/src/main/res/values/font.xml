@@ -2,15 +2,30 @@
 <resources>
 
 
-    <style name="font_ss_11_gray1" parent="@android:style/TextAppearance">
+    <style name="font_ss_9_white" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_9</item>
+    </style>
+
+    <style name="font_ss_9_gray1" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray1</item>
-        <item name="android:textSize">@dimen/text_size_11</item>
+        <item name="android:textSize">@dimen/text_size_9</item>
     </style>
+
+
+
 
     <style name="font_ss_11_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+    </style>
+
+    <style name="font_ss_11_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
@@ -20,6 +35,18 @@
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
+    <style name="font_ss_11_atom" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorAtom</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+    </style>
+
+
+    <style name="font_ss_12_photon" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorPhoton</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
 
 
 

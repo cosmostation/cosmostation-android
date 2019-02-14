@@ -29,8 +29,6 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.fragment.DashBoardAtomFragment;
 import wannabit.io.cosmostaion.fragment.DashBoardPhotonFragment;
-import wannabit.io.cosmostaion.fragment.DashBoardTest0Fragment;
-import wannabit.io.cosmostaion.fragment.DashBoardTest1Fragment;
 import wannabit.io.cosmostaion.fragment.DashBoardTest2Fragment;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainRewardFragment;
@@ -57,13 +55,13 @@ public class MainActivity extends BaseActivity implements TaskListener {
 //    private ArrayList<Account>          accouts = new ArrayList<>();
 
 
-    private Account                     mAccount;
-    private ArrayList<Validator>        mAllValidators = new ArrayList<>();
-    private ArrayList<Balance>          mBalances = new ArrayList<>();
-    private ArrayList<BondingState>     mBondings = new ArrayList<>();
-    private ArrayList<UnBondingState>   mUnbondings = new ArrayList<>();
-    private ArrayList<Reward>           mRewards = new ArrayList<>();
-    private ArrayList<Coin>             mTotalRewards = new ArrayList<>();
+    public Account                     mAccount;
+    public ArrayList<Validator>        mAllValidators = new ArrayList<>();
+    public ArrayList<Balance>          mBalances = new ArrayList<>();
+    public ArrayList<BondingState>     mBondings = new ArrayList<>();
+    public ArrayList<UnBondingState>   mUnbondings = new ArrayList<>();
+    public ArrayList<Reward>           mRewards = new ArrayList<>();
+    public ArrayList<Coin>             mTotalRewards = new ArrayList<>();
 
     private AppBarLayout                mAppbar;
     private CollapsingToolbarLayout     mCollapsingToolbarLayout;

@@ -21,7 +21,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestItemHolder
     @Override
     public TestItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        View v = inflater.inflate(R.layout.item_test, viewGroup, false);
+        View v = inflater.inflate(R.layout.item_reward_promotion, viewGroup, false);
         return new TestItemHolder(v);
     }
 
