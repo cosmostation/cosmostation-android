@@ -26,7 +26,13 @@
                 android:id="@+id/dashboard_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/toolbar_bar_height"/>
+                android:layout_marginTop="@dimen/toolbar_bar_height"
+                android:layout_marginBottom="@dimen/space_4"/>
+            <wannabit.io.cosmostaion.widget.ScrollingPagerIndicator
+                android:id="@+id/dashboard_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"/>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/tool_bar"
                 android:layout_width="match_parent"

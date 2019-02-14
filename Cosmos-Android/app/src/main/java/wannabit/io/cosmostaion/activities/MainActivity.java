@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.task.TotalRewardTask;
 import wannabit.io.cosmostaion.task.UnBondingStateTask;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
+import wannabit.io.cosmostaion.widget.ScrollingPagerIndicator;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
@@ -68,6 +69,9 @@ public class MainActivity extends BaseActivity implements TaskListener {
     private CollapsingToolbarLayout     mCollapsingToolbarLayout;
     private ViewPager                   mDashBoardPager;
     private Toolbar                     mToolbar;
+    private TextView                    mToolbarNickName;
+    private TextView                    mToolbarAddress;
+    private ScrollingPagerIndicator     mIndicator;
 
     private StopViewPager               mContentsPager;
     private TabLayout                   mTabLayer;
@@ -85,6 +89,9 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mCollapsingToolbarLayout    = findViewById(R.id.collapse_layer);
         mDashBoardPager             = findViewById(R.id.dashboard_pager);
         mToolbar                    = findViewById(R.id.tool_bar);
+        mToolbarNickName            = findViewById(R.id.toolbar_nickName);
+        mToolbarAddress             = findViewById(R.id.toolbar_Address);
+        mIndicator                  = findViewById(R.id.dashboard_indicator);
 
         mContentsPager              = findViewById(R.id.view_pager);
         mTabLayer                   = findViewById(R.id.bottom_tab);
@@ -132,22 +139,12 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mDashPageAdapter = new DashBoardPageAdapter(getSupportFragmentManager());
         mDashBoardPager.setOffscreenPageLimit(3);
         mDashBoardPager.setAdapter(mDashPageAdapter);
+        mIndicator.attachToPager(mDashBoardPager);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        getBaseDao().setLastUser(1);
-//        WLog.w("getLastUser " + getBaseDao().getLastUser());
-//
-//        if(mAccount == null) {
-//            WLog.w("mAccount null");
-//        }
-////        WLog.w("mAccount : " + mAccount.address + " " + mAccount.getBalances().get(0).balance);
-//
-//        WLog.w("size : " + getBaseDao().onSelectAccounts().size());
-//        WLog.w("size : " + getBaseDao().onSelectAccounts().get(0).id);
-
         if(getBaseDao().onSelectAccounts().size() > 0) {
             WLog.w("first : " + getBaseDao().onSelectAccounts().get(0).id);
         }
@@ -159,6 +156,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
             WLog.w("mAccount null");
             return;
         }
+//        mToolbarNickName.setText(mAccount.nickName);
+        mToolbarAddress.setText(mAccount.address);
+
+
 
         onInitFetchAccount();
         mBalances = getBaseDao().onSelectBalance(mAccount.id);
