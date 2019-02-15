@@ -233,6 +233,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
             WLog.w("mBondings : " + mBondings.size());
             mTaskCount = mTaskCount + mBondings.size();
+            mRewards.clear();
             for(BondingState bonding:mBondings) {
                 new RewardFromValidatorTask(getBaseApplication(), this, mAccount, bonding.validatorAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }

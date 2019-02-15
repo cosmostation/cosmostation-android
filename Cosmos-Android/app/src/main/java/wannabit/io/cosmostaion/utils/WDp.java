@@ -140,6 +140,17 @@ public class WDp {
         return getDpAmount(c, sum, 6);
     }
 
+    public static SpannableString getDpPhotonRewardAmount(Context c, ArrayList<Reward> rewards, String valOpAddr) {
+        SpannableString result = new SpannableString("0");
+        for(Reward reward : rewards) {
+            if(reward.validatorAddress.equals(valOpAddr)) {
+                result =  getDpAmount(c, reward.getPhotonAmount(), 6);
+                break;
+            }
+        }
+        return result;
+    }
+
 
 
 

@@ -21,23 +21,40 @@
         app:cardUseCompatPadding="true" >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_68">
-            <agency.tango.android.avatarview.views.AvatarView
-                android:id="@+id/avatar_validator"
-                android:layout_width="@dimen/space_44"
-                android:layout_height="@dimen/space_44"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/space_12"
-                app:av_border_color="@color/colorGray3"
-                app:av_border_width="1dp"
-                app:av_text_size_percentage="40" />
+            android:layout_height="@dimen/space_78">
+            <LinearLayout
+                android:id="@+id/views_validator"
+                android:layout_width="@dimen/space_78"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_2"
+                android:orientation="vertical"
+                android:gravity="center">
+                <agency.tango.android.avatarview.views.AvatarView
+                    android:id="@+id/avatar_validator"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="@dimen/space_40"
+                    app:av_border_color="@color/colorGray3"
+                    app:av_border_width="1dp"
+                    app:av_text_size_percentage="40"/>
+                <TextView
+                    android:id="@+id/moniker_validator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_2"
+                    android:layout_marginRight="@dimen/space_2"
+                    android:layout_marginTop="@dimen/space_1"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:ellipsize="end"
+                    style="@style/font_ss_9_white"
+                    android:text="moniker"/>
+            </LinearLayout>
             <View
                 android:id="@+id/line_validator"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/avatar_validator"
+                android:layout_toRightOf="@+id/views_validator"
                 android:background="@color/colorGray3"
-                android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_10"
                 android:layout_marginBottom="@dimen/space_10"/>
 
@@ -55,19 +72,18 @@
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/line_validator"
                 android:layout_toLeftOf="@+id/arrow_validator"
-                android:layout_marginLeft="@dimen/space_8"
-                android:layout_marginRight="@dimen/space_8"
+                android:layout_marginLeft="@dimen/space_12"
+                android:layout_marginRight="@dimen/space_6"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/moniker_validator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/font_ss_11_white"
-                        android:text="Cosmostation"/>
+                        android:text="Delegated"/>
                     <TextView
                         android:id="@+id/delegate_amount_validator"
                         android:layout_width="wrap_content"
@@ -80,15 +96,34 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4">
+                    android:layout_marginTop="@dimen/space_2">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:layout_alignBaseline="@+id/reward_atom_validator"
                         style="@style/font_ss_9_gray1"
-                        android:text="Rewards"/>
+                        android:text="Atom Rewards"/>
                     <TextView
-                        android:id="@+id/reward_amount_validator"
+                        android:id="@+id/reward_atom_validator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        style="@style/font_ss_11_gray1"
+                        android:text="23.349000"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-2dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/reward_photon_validator"
+                        style="@style/font_ss_9_gray1"
+                        android:text="Photon Rewards"/>
+                    <TextView
+                        android:id="@+id/reward_photon_validator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

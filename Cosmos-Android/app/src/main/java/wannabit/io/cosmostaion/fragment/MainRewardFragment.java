@@ -188,7 +188,8 @@ public class MainRewardFragment extends BaseFragment {
                 final Validator validator = mMyValidators.get(position - 2);
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemTvDelegateAmount.setText(WDp.getDpDelegatedAmount(getContext(), mBondings, validator.operator_address));
-                holder.itemTvRewardAmount.setText(WDp.getDpAtomRewardAmount(getContext(), mRewards, validator.operator_address));
+                holder.itemTvRewardAtom.setText(WDp.getDpAtomRewardAmount(getContext(), mRewards, validator.operator_address));
+                holder.itemTvRewardPhoton.setText(WDp.getDpPhotonRewardAmount(getContext(), mRewards, validator.operator_address));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -336,7 +337,8 @@ public class MainRewardFragment extends BaseFragment {
             AvatarView  itemAvatar;
             TextView    itemTvMoniker;
             TextView    itemTvDelegateAmount;
-            TextView    itemTvRewardAmount;
+            TextView    itemTvRewardAtom;
+            TextView    itemTvRewardPhoton;
 
             public RewardMyValidatorHolder(@NonNull View itemView) {
                 super(itemView);
@@ -344,7 +346,8 @@ public class MainRewardFragment extends BaseFragment {
                 itemAvatar          = itemView.findViewById(R.id.avatar_validator);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
                 itemTvDelegateAmount = itemView.findViewById(R.id.delegate_amount_validator);
-                itemTvRewardAmount  = itemView.findViewById(R.id.reward_amount_validator);
+                itemTvRewardAtom    = itemView.findViewById(R.id.reward_atom_validator);
+                itemTvRewardPhoton  = itemView.findViewById(R.id.reward_photon_validator);
             }
         }
     }
