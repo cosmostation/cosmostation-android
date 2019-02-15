@@ -153,7 +153,10 @@ public class WalletListActivity extends BaseActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_STATE) {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_TOTAL_REWARDS) {
-            mTotalRewards = (HashMap<Long, TotalReward>)result.resultData;
+            HashMap<Long, TotalReward> temp = (HashMap<Long, TotalReward>)result.resultData;;
+            if(temp != null)
+                mTotalRewards = temp;
+
         }
         if(mTaskCount == 0) {
             onFetchDB();
@@ -191,7 +194,6 @@ public class WalletListActivity extends BaseActivity implements TaskListener {
                 final ArrayList<BondingState> bondings      = mTotalBondings.get(account.id);
                 final ArrayList<UnBondingState> unbondings  = mTotalUnbondings.get(account.id);
                 final TotalReward totalReward               = mTotalRewards.get(account.id);
-
 
                 if(TextUtils.isEmpty(account.nickName)) {
                     holder.itemTvNickname.setText("Wallet " + account.id);

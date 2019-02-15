@@ -33,7 +33,7 @@
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
-        app:cardBackgroundColor="@color/colorTransBg"
+        app:cardBackgroundColor="@color/colorTrans"
         app:cardUseCompatPadding="true" >
         <LinearLayout
             android:id="@+id/item_coin_root"

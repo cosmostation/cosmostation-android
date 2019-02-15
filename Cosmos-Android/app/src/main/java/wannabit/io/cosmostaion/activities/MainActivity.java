@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -158,14 +159,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
     @Override
     protected void onResume() {
         super.onResume();
-//        if(getBaseDao().onSelectAccounts().size() > 0) {
-//            WLog.w("first : " + getBaseDao().onSelectAccounts().get(0).id);
-//        }
-//
-//        WLog.w("getLastUser : " + getBaseDao().getLastUser());
         mAccounts = getBaseDao().onSelectAccounts();
         if(mAccounts.size() > 1) {
-            WLog.w("BIGBIG");
             Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(0,0,0,0);
             mLinearLayout.setLayoutParams(layoutParams);
@@ -177,7 +172,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
             WLog.w("mAccount null");
             return;
         }
-//        mToolbarNickName.setText(mAccount.nickName);
+        if(TextUtils.isEmpty(mAccount.nickName)) {
+            mToolbarNickName.setText("Wallet " + mAccount.id);
+        } else {
+            mToolbarNickName.setText(mAccount.nickName);
+        }
         mToolbarAddress.setText(mAccount.address);
 
 

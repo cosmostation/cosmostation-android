@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class DashBoardAtomFragment extends BaseFragment {
     private TextView            mTvAtomValue, mTvAtomTotal, mTvAtomUndelegated,

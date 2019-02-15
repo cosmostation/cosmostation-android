@@ -3,8 +3,12 @@ package wannabit.io.cosmostaion.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import java.math.BigDecimal;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class IntroActivity extends BaseActivity {
     @Override
@@ -39,9 +43,9 @@ public class IntroActivity extends BaseActivity {
 //        });
 
         if(getBaseDao().onSelectAccounts().size() > 1) {
-            startActivity(new Intent(IntroActivity.this, WalletListActivity.class));
+            onStartListActivity();
         } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-            startActivity(new Intent(IntroActivity.this, MainActivity.class));
+            onStartMainActivity();
         } else {
             startActivity(new Intent(IntroActivity.this, CreateActivity.class));
         }

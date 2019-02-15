@@ -26,6 +26,9 @@ public class AccountInfoTask extends CommonTask {
         try {
             for(Account account : mAccounts) {
                 Response<ResLcdAccountInfo> response = ApiClient.getWannabitChain(mApp).getAccountInfo(account.address).execute();
+                if(response == null) {
+                    WLog.w("AccountInfoTask null " + account.address);
+                }
                 if(response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(response.body()));
                     mApp.getBaseDao().onUpdateBalances(WUtil.getBalancesFromLcd(account.id, response.body()));
