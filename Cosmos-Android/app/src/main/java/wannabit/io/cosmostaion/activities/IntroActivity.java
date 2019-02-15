@@ -38,7 +38,9 @@ public class IntroActivity extends BaseActivity {
 //            }
 //        });
 
-        if(getBaseDao().onSelectAccounts().size() > 0) {
+        if(getBaseDao().onSelectAccounts().size() > 1) {
+            startActivity(new Intent(IntroActivity.this, WalletListActivity.class));
+        } else if(getBaseDao().onSelectAccounts().size() == 1)  {
             startActivity(new Intent(IntroActivity.this, MainActivity.class));
         } else {
             startActivity(new Intent(IntroActivity.this, CreateActivity.class));

@@ -43,7 +43,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/dash_photon_icon"
-                        android:layout_marginLeft="@dimen/space_4"
+                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_centerVertical="true"
                         android:text="PHOTON"
                         style="@style/font_ss_14_photon"/>

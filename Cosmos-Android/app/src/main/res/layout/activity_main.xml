@@ -45,6 +45,7 @@
                 app:contentInsetEnd="0dp"
                 app:contentInsetStartWithNavigation="0dp">
                 <LinearLayout
+                    android:id="@+id/toolbar_contents"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -53,6 +54,7 @@
                         android:id="@+id/toolbar_nickName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
                         style="@style/font_ss_14_white"
                         android:text="My Hd Wallet"/>
                     <TextView
@@ -60,6 +62,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/font_ss_11_gray1"
+                        android:ellipsize="middle"
+                        android:maxWidth="@dimen/space_240"
+                        android:singleLine="true"
                         android:text="cosmos1gfzexy3z0qfc97mjudjy5zeg2fje6k442phy6r"/>
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>

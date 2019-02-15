@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.WalletListActivity;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 
 public class BaseActivity extends AppCompatActivity {
@@ -45,6 +46,12 @@ public class BaseActivity extends AppCompatActivity {
 
     public void onStartMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void onStartListActivity() {
+        Intent intent = new Intent(this, WalletListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

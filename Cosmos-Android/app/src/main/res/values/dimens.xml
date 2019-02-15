@@ -34,6 +34,7 @@
     <dimen name="space_120">120dp</dimen>
     <dimen name="space_180">180dp</dimen>
     <dimen name="space_240">240dp</dimen>
+    <dimen name="space_300">300dp</dimen>
 
     <!--<dimen name="text_size_micro">9sp</dimen>-->
     <!--<dimen name="text_size_tiny">11sp</dimen>-->

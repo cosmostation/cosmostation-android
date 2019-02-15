@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,7 +36,6 @@ import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainRewardFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainVoteFragment;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.AccountInfoTask;
 import wannabit.io.cosmostaion.task.AllValidatorInfoTask;
@@ -42,7 +43,6 @@ import wannabit.io.cosmostaion.task.BondingStateTask;
 import wannabit.io.cosmostaion.task.RewardFromValidatorTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.TotalRewardTask;
 import wannabit.io.cosmostaion.task.UnBondingStateTask;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
@@ -52,10 +52,8 @@ import wannabit.io.cosmostaion.widget.TintableImageView;
 
 public class MainActivity extends BaseActivity implements TaskListener {
 
-//    private ArrayList<Account>          accouts = new ArrayList<>();
-
-
     public Account                     mAccount;
+    private ArrayList<Account>         mAccounts = new ArrayList<>();
     public ArrayList<Validator>        mAllValidators = new ArrayList<>();
     public ArrayList<Validator>        mMyValidators = new ArrayList<>();
     public ArrayList<Validator>        mElseValidators = new ArrayList<>();
@@ -63,12 +61,12 @@ public class MainActivity extends BaseActivity implements TaskListener {
     public ArrayList<BondingState>     mBondings = new ArrayList<>();
     public ArrayList<UnBondingState>   mUnbondings = new ArrayList<>();
     public ArrayList<Reward>           mRewards = new ArrayList<>();
-    public ArrayList<Coin>             mTotalRewards = new ArrayList<>();
 
     private AppBarLayout                mAppbar;
     private CollapsingToolbarLayout     mCollapsingToolbarLayout;
     private ViewPager                   mDashBoardPager;
     private Toolbar                     mToolbar;
+    private LinearLayout                mLinearLayout;
     private TextView                    mToolbarNickName;
     private TextView                    mToolbarAddress;
     private ScrollingPagerIndicator     mIndicator;
@@ -90,6 +88,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mCollapsingToolbarLayout    = findViewById(R.id.collapse_layer);
         mDashBoardPager             = findViewById(R.id.dashboard_pager);
         mToolbar                    = findViewById(R.id.tool_bar);
+        mLinearLayout               = findViewById(R.id.toolbar_contents);
         mToolbarNickName            = findViewById(R.id.toolbar_nickName);
         mToolbarAddress             = findViewById(R.id.toolbar_Address);
         mIndicator                  = findViewById(R.id.dashboard_indicator);
@@ -164,6 +163,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
 //        }
 //
 //        WLog.w("getLastUser : " + getBaseDao().getLastUser());
+        mAccounts = getBaseDao().onSelectAccounts();
+        if(mAccounts.size() > 1) {
+            WLog.w("BIGBIG");
+            Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0,0,0,0);
+            mLinearLayout.setLayoutParams(layoutParams);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         if(mAccount == null) {
             //Show error dialog!
@@ -183,6 +190,16 @@ public class MainActivity extends BaseActivity implements TaskListener {
     }
 
     @Override
+    public void onBackPressed() {
+        WLog.w("onBackPressed");
+        if(mAccounts.size() > 1) {
+            onStartListActivity();
+        } else {
+            moveTaskToBack(true);
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
@@ -192,8 +209,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_qr:
+                WLog.w("menu_qr");
+                startActivity(new Intent(MainActivity.this, CreateActivity.class));
                 return true;
             case R.id.menu_setting:
+                WLog.w("menu_setting");
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -223,6 +246,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mTaskCount--;
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+            mBalances = getBaseDao().onSelectBalance(mAccount.id);
             WLog.w("mAccount : " + mAccount.address);
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_ALL_VALIDATOR) {
@@ -241,10 +265,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_STATE) {
             mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
             WLog.w("mUnbondings : " + mUnbondings.size());
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_TOTAL_REWARDS) {
-            mTotalRewards = (ArrayList<Coin>)result.resultData;
-            WLog.w("mTotalRewards : " + mTotalRewards.size());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_REWARDS_VALIDATOR) {
             Reward reward = (Reward)result.resultData;
@@ -361,14 +381,13 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     private void onInitFetchAccount() {
         if(mTaskCount > 0) return;
-        mTaskCount = 5;
+        mTaskCount = 4;
         ArrayList<Account> accounts = new ArrayList<Account>();
         accounts.add(mAccount);
         new AllValidatorInfoTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new AccountInfoTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new BondingStateTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new UnBondingStateTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new TotalRewardTask(getBaseApplication(), this, accounts.get(0)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
 

@@ -235,15 +235,6 @@ public class MainRewardFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-//            if (mMyValidators.size() > 0 && mElseValidators.size() > 0) {
-//                return mMyValidators.size() + mElseValidators.size() + 3;
-//
-//            } else if (mMyValidators.size() == 0) {
-//                return mElseValidators.size() + 2;
-//
-//            } else if (mElseValidators.size() == 0) {
-//                return mMyValidators.size() + 2;
-//            }
             if (mMyValidators.size() > 0 && mElseValidators.size() > 0) {
                 return mMyValidators.size() + mElseValidators.size() + 3;
 
@@ -352,25 +343,3 @@ public class MainRewardFragment extends BaseFragment {
         }
     }
 }
-
-/*
-public class MainRewardFragment extends BaseFragment {
-
-    public static MainRewardFragment newInstance(Bundle bundle) {
-        MainRewardFragment fragment = new MainRewardFragment();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main_reward, container, false);
-        return rootView;
-    }
-}
-*/

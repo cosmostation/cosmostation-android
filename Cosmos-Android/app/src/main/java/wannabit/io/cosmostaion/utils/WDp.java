@@ -7,14 +7,16 @@ import android.text.style.RelativeSizeSpan;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
+import wannabit.io.cosmostaion.dao.TotalReward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.model.type.Coin;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 
@@ -104,6 +106,36 @@ public class WDp {
         return getDpAmount(c, sum, 6);
     }
 
+    public static SpannableString getDpAllAtom2(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, TotalReward totalReward) {
+        BigDecimal sum = BigDecimal.ZERO;
+        if(balances != null) {
+            for(Balance balance : balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+                    sum = sum.add(balance.balance);
+                }
+            }
+        }
+        if(bondings != null) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.shares);
+            }
+        }
+        if(unbondings != null) {
+            for(UnBondingState unbonding : unbondings) {
+                sum = sum.add(unbonding.balance);
+            }
+        }
+        if(totalReward != null && totalReward.coins != null) {
+            for(Coin coin : totalReward.coins) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                    sum = sum.add(new BigDecimal(coin.amount));
+                    break;
+                }
+            }
+        }
+        return getDpAmount(c, sum, 6);
+    }
+
 
 
 
@@ -127,6 +159,17 @@ public class WDp {
         return getDpAmount(c, sum, 6);
     }
 
+    public static SpannableString getDpPhotonRewardAmount(Context c, ArrayList<Reward> rewards, String valOpAddr) {
+        SpannableString result = new SpannableString("0");
+        for(Reward reward : rewards) {
+            if(reward.validatorAddress.equals(valOpAddr)) {
+                result =  getDpAmount(c, reward.getPhotonAmount(), 6);
+                break;
+            }
+        }
+        return result;
+    }
+
     public static SpannableString getDpAllPhoton(Context c, ArrayList<Balance> balances, ArrayList<Reward> rewards) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
@@ -140,15 +183,24 @@ public class WDp {
         return getDpAmount(c, sum, 6);
     }
 
-    public static SpannableString getDpPhotonRewardAmount(Context c, ArrayList<Reward> rewards, String valOpAddr) {
-        SpannableString result = new SpannableString("0");
-        for(Reward reward : rewards) {
-            if(reward.validatorAddress.equals(valOpAddr)) {
-                result =  getDpAmount(c, reward.getPhotonAmount(), 6);
-                break;
+    public static SpannableString getDpAllPhoton2(Context c, ArrayList<Balance> balances, TotalReward totalReward) {
+        BigDecimal sum = BigDecimal.ZERO;
+        if(balances != null) {
+            for(Balance balance : balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)) {
+                    sum = sum.add(balance.balance);
+                }
             }
         }
-        return result;
+        if(totalReward != null && totalReward.coins != null) {
+            for(Coin coin : totalReward.coins) {
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+                    sum = sum.add(new BigDecimal(coin.amount));
+                    break;
+                }
+            }
+        }
+        return getDpAmount(c, sum, 6);
     }
 
 
@@ -156,7 +208,61 @@ public class WDp {
 
 
 
+    public static SpannableString getDpTotalAtomAmount(Context c, HashMap<Long, ArrayList<Balance>> balanceHashMap,
+                                                       HashMap<Long, ArrayList<BondingState>> bondingHashMap,
+                                                       HashMap<Long, ArrayList<UnBondingState>> unbondingHashMap,
+                                                       HashMap<Long, TotalReward> rewardHashMap) {
 
+        BigDecimal sum = BigDecimal.ZERO;
+        for (long key : balanceHashMap.keySet() ) {
+            for(Balance balance : balanceHashMap.get(key)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+                    sum = sum.add(balance.balance);
+                }
+            }
+        }
+
+        for (long key : balanceHashMap.keySet() ) {
+            for(BondingState bonding : bondingHashMap.get(key)) {
+                sum = sum.add(bonding.shares);
+            }
+        }
+
+        for (long key : unbondingHashMap.keySet() ) {
+            for(UnBondingState unbonding : unbondingHashMap.get(key)) {
+                sum = sum.add(unbonding.balance);
+            }
+        }
+
+        for (long key : rewardHashMap.keySet() ) {
+            for(Coin coin : rewardHashMap.get(key).coins) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                    sum = sum.add(new BigDecimal(coin.amount));
+                }
+            }
+        }
+        return getDpAmount(c, sum, 6);
+    }
+
+    public static SpannableString getDpTotalPhotonAmount(Context c, HashMap<Long, ArrayList<Balance>> balanceHashMap,
+                                                       HashMap<Long, TotalReward> rewardHashMap) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (long key : balanceHashMap.keySet() ) {
+            for(Balance balance : balanceHashMap.get(key)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)) {
+                    sum = sum.add(balance.balance);
+                }
+            }
+        }
+        for (long key : rewardHashMap.keySet() ) {
+            for(Coin coin : rewardHashMap.get(key).coins) {
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+                    sum = sum.add(new BigDecimal(coin.amount));
+                }
+            }
+        }
+        return getDpAmount(c, sum, 6);
+    }
 
 
 
