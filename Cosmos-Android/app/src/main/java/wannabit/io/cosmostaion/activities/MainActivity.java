@@ -141,6 +141,19 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mDashBoardPager.setOffscreenPageLimit(3);
         mDashBoardPager.setAdapter(mDashPageAdapter);
         mIndicator.attachToPager(mDashBoardPager);
+
+        mDashBoardPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) { }
+
+            @Override
+            public void onPageSelected(int i) {
+                mDashPageAdapter.mCurrentFragment.onRefreshTab();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) { }
+        });
     }
 
     @Override
@@ -194,8 +207,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
 //    }
 
     private void onFetchCurrentPage() {
-        if(!isFinishing())
+        if(!isFinishing()) {
             mPageAdapter.mCurrentFragment.onRefreshTab();
+            mDashPageAdapter.mCurrentFragment.onRefreshTab();
+        }
+
     }
 
 

@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.dao;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Coin;
 
 public class Reward {
@@ -24,7 +25,7 @@ public class Reward {
     public BigDecimal getAtomAmount() {
         BigDecimal result = BigDecimal.ZERO;
         for(Coin coin:amount) {
-            if(coin.denom.equals("atom")) {
+            if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                 result = new BigDecimal(coin.amount);
                 break;
             }
@@ -35,7 +36,7 @@ public class Reward {
     public BigDecimal getPhotonAmount() {
         BigDecimal result = BigDecimal.ZERO;
         for(Coin coin:amount) {
-            if(coin.denom.equals("photino")) {
+            if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
                 result = new BigDecimal(coin.amount);
                 break;
             }

@@ -10,8 +10,11 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
+import wannabit.io.cosmostaion.dao.UnBondingState;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 
@@ -36,7 +39,7 @@ public class WDp {
         return result;
     }
 
-    public static SpannableString getAtomRewardAmount(Context c, ArrayList<Reward> rewards, String valOpAddr) {
+    public static SpannableString getDpAtomRewardAmount(Context c, ArrayList<Reward> rewards, String valOpAddr) {
         SpannableString result = new SpannableString("0");
         for(Reward reward : rewards) {
             if(reward.validatorAddress.equals(valOpAddr)) {
@@ -47,7 +50,7 @@ public class WDp {
         return result;
     }
 
-    public static SpannableString getAllAtomRewardAmount(Context c, ArrayList<Reward> rewards) {
+    public static SpannableString getDpAllAtomRewardAmount(Context c, ArrayList<Reward> rewards) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Reward reward : rewards) {
             sum = sum.add(reward.getAtomAmount());
@@ -56,7 +59,86 @@ public class WDp {
     }
 
 
+    public static SpannableString getDpAtomBalance(Context c, ArrayList<Balance> balances) {
+        SpannableString result = new SpannableString("0");
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+                result = getDpAmount(c, balance.balance, 6);
+            }
+        }
+        return result;
+    }
 
+    public static SpannableString getDpAllDelegatedAmount(Context c, ArrayList<BondingState> bondings) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(BondingState bonding : bondings) {
+            sum = sum.add(bonding.shares);
+        }
+        return getDpAmount(c, sum, 6);
+    }
+
+    public static SpannableString getDpAllUnbondingAmount(Context c, ArrayList<UnBondingState> unbondings) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(UnBondingState unbonding : unbondings) {
+            sum = sum.add(unbonding.balance);
+        }
+        return getDpAmount(c, sum, 6);
+    }
+
+    public static SpannableString getDpAllAtom(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+                sum = sum.add(balance.balance);
+            }
+        }
+        for(BondingState bonding : bondings) {
+            sum = sum.add(bonding.shares);
+        }
+        for(UnBondingState unbonding : unbondings) {
+            sum = sum.add(unbonding.balance);
+        }
+        for(Reward reward : rewards) {
+            sum = sum.add(reward.getAtomAmount());
+        }
+        return getDpAmount(c, sum, 6);
+    }
+
+
+
+
+
+
+    public static SpannableString getDpPhotonBalance(Context c, ArrayList<Balance> balances) {
+        SpannableString result = new SpannableString("0");
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)) {
+                result = getDpAmount(c, balance.balance, 6);
+            }
+        }
+        return result;
+    }
+
+    public static SpannableString getDpAllPhotonRewardAmount(Context c, ArrayList<Reward> rewards) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Reward reward : rewards) {
+            sum = sum.add(reward.getPhotonAmount());
+        }
+        return getDpAmount(c, sum, 6);
+    }
+
+    public static SpannableString getDpAllPhoton(Context c, ArrayList<Balance> balances, ArrayList<Reward> rewards) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)) {
+                sum = sum.add(balance.balance);
+            }
+        }
+        for(Reward reward : rewards) {
+            sum = sum.add(reward.getPhotonAmount());
+        }
+        return getDpAmount(c, sum, 6);
+    }
 
 
 

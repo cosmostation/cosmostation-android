@@ -5,11 +5,15 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.utils.WDp;
 
 public class DashBoardPhotonFragment extends BaseFragment {
+    private TextView        mTvPhotonValue, mTvPhotonTotal, mTvPhotonBalance, mTvPhotonRewards;
 
     public static DashBoardPhotonFragment newInstance(Bundle bundle) {
         DashBoardPhotonFragment fragment = new DashBoardPhotonFragment();
@@ -25,6 +29,32 @@ public class DashBoardPhotonFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_dash_photon, container, false);
+        mTvPhotonValue          = rootView.findViewById(R.id.dash_photon_value);
+        mTvPhotonTotal          = rootView.findViewById(R.id.dash_photon_amount);
+        mTvPhotonBalance        = rootView.findViewById(R.id.dash_photon_balance);
+        mTvPhotonRewards        = rootView.findViewById(R.id.dash_photon_reward);
+
+        onUpdateView();
         return rootView;
+    }
+
+    @Override
+    public void onRefreshTab() {
+        if(!isAdded()) return;
+        onUpdateView();
+    }
+
+    private void onUpdateView() {
+        mTvPhotonValue.setText("N/A");
+        mTvPhotonTotal.setText(WDp.getDpAllPhoton(getContext(), getMainActivity().mBalances, getMainActivity().mRewards));
+        mTvPhotonBalance.setText(WDp.getDpPhotonBalance(getContext(), getMainActivity().mBalances));
+        mTvPhotonRewards.setText(WDp.getDpAllPhotonRewardAmount(getContext(), getMainActivity().mRewards));
+    }
+
+
+
+
+    public MainActivity getMainActivity() {
+        return (MainActivity)getBaseActivity();
     }
 }

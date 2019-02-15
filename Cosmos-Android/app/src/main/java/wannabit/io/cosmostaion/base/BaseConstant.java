@@ -56,4 +56,8 @@ public class BaseConstant {
 
     public final static int					    ERROR_CODE_UNKNOWN		                = 8000;
     public final static int					    ERROR_CODE_NETWORK		                = 8001;
+
+
+    public final static String                  COSMOS_ATOM                             = "atom";
+    public final static String                  COSMOS_PHOTON                           = "photino";
 }

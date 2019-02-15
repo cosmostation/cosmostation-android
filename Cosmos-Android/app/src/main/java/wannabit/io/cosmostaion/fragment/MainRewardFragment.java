@@ -45,7 +45,6 @@ public class MainRewardFragment extends BaseFragment {
     private LinearLayoutManager         mLinearLayoutManager;
 
     private RewardAdapter                mRewardAdapter;
-//    private TestAdapter                 mTestAdapter;
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Validator>        mElseValidators = new ArrayList<>();
@@ -164,7 +163,7 @@ public class MainRewardFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            WLog.w(" "+ position + " " + getItemViewType(position));
+//            WLog.w(" "+ position + " " + getItemViewType(position));
             if (getItemViewType(position) == TYPE_PROMOTION) {
                 final RewardPromotionHolder holder = (RewardPromotionHolder)viewHolder;
                 holder.itemBtnDelegateStart.setOnClickListener(new View.OnClickListener() {
@@ -176,7 +175,7 @@ public class MainRewardFragment extends BaseFragment {
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
                 final RewardWithdrawHolder holder = (RewardWithdrawHolder)viewHolder;
-                holder.itemTvAllRewards.setText(WDp.getAllAtomRewardAmount(getContext(), mRewards));
+                holder.itemTvAllRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), mRewards));
                 holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -189,7 +188,7 @@ public class MainRewardFragment extends BaseFragment {
                 final Validator validator = mMyValidators.get(position - 2);
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemTvDelegateAmount.setText(WDp.getDpDelegatedAmount(getContext(), mBondings, validator.operator_address));
-                holder.itemTvRewardAmount.setText(WDp.getAtomRewardAmount(getContext(), mRewards, validator.operator_address));
+                holder.itemTvRewardAmount.setText(WDp.getDpAtomRewardAmount(getContext(), mRewards, validator.operator_address));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
