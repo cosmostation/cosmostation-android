@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/space_4">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,6 +26,7 @@
             android:text="Withdraw All"/>
     </LinearLayout>
     <Button
+        android:id="@+id/btn_withdraw_all"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_50"
         android:minHeight="@dimen/space_50"

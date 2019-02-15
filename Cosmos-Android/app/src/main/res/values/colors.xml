@@ -24,6 +24,6 @@
 
     <color name="colorAtom">#9C6CFF</color>
     <color name="colorPhoton">#05D2DD</color>
-    <color name="colorRipple1">#33000000</color>
+    <color name="colorRipple1">#AAFFFFFF</color>
 
 </resources>

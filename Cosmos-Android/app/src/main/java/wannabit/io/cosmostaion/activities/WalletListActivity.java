@@ -5,11 +5,11 @@ import android.os.Bundle;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 
-public class DashBoardActivity extends BaseActivity {
+public class WalletListActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_wallet_list);
     }
 }

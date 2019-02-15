@@ -50,15 +50,13 @@
                 android:background="@color/colorGray3"/>
 
             <Button
+                android:id="@+id/btn_start_delegate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/space_44"
                 android:background="?android:attr/selectableItemBackground"
                 style="@style/font_ss_14_photon"
                 android:text="이자 받기"/>
-
-
-
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

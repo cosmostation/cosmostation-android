@@ -34,6 +34,7 @@ public class UnBondingStateTask extends CommonTask{
                     }
                 }
             }
+            mResult.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("UnBondingStateTask Error " + e.getMessage());

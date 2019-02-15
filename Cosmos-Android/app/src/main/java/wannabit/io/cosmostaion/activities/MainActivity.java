@@ -57,6 +57,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     public Account                     mAccount;
     public ArrayList<Validator>        mAllValidators = new ArrayList<>();
+    public ArrayList<Validator>        mMyValidators = new ArrayList<>();
+    public ArrayList<Validator>        mElseValidators = new ArrayList<>();
     public ArrayList<Balance>          mBalances = new ArrayList<>();
     public ArrayList<BondingState>     mBondings = new ArrayList<>();
     public ArrayList<UnBondingState>   mUnbondings = new ArrayList<>();
@@ -74,8 +76,9 @@ public class MainActivity extends BaseActivity implements TaskListener {
     private StopViewPager               mContentsPager;
     private TabLayout                   mTabLayer;
     private MainViewPageAdapter         mPageAdapter;
-
     private DashBoardPageAdapter        mDashPageAdapter;
+
+    private int                         mTaskCount;
 
 
     @Override
@@ -132,7 +135,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         tabItemText3.setText(R.string.str_main_vote);
         mTabLayer.getTabAt(3).setCustomView(tab3);
 
-        mContentsPager.setCurrentItem(0, false);
+        mContentsPager.setCurrentItem(1, false);
 
         mDashPageAdapter = new DashBoardPageAdapter(getSupportFragmentManager());
         mDashBoardPager.setOffscreenPageLimit(3);
@@ -143,11 +146,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if(getBaseDao().onSelectAccounts().size() > 0) {
-            WLog.w("first : " + getBaseDao().onSelectAccounts().get(0).id);
-        }
-
-        WLog.w("getLastUser : " + getBaseDao().getLastUser());
+//        if(getBaseDao().onSelectAccounts().size() > 0) {
+//            WLog.w("first : " + getBaseDao().onSelectAccounts().get(0).id);
+//        }
+//
+//        WLog.w("getLastUser : " + getBaseDao().getLastUser());
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         if(mAccount == null) {
             //Show error dialog!
@@ -184,10 +187,15 @@ public class MainActivity extends BaseActivity implements TaskListener {
         }
     }
 
-    private void onFetchCurrentPage(int page) {
-        if(!isFinishing() && mContentsPager.getCurrentItem() == page) {
+//    private void onFetchCurrentPage(int page) {
+//        if(!isFinishing() && mContentsPager.getCurrentItem() == page) {
+//            mPageAdapter.mCurrentFragment.onRefreshTab();
+//        }
+//    }
+
+    private void onFetchCurrentPage() {
+        if(!isFinishing())
             mPageAdapter.mCurrentFragment.onRefreshTab();
-        }
     }
 
 
@@ -196,6 +204,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
     @Override
     public void onTaskResponse(TaskResult result) {
 //        WLog.w("onTaskResponse : " + result.taskType + "  " + result.isSuccess);
+        mTaskCount--;
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             WLog.w("mAccount : " + mAccount.address);
@@ -204,10 +213,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mAllValidators = (ArrayList<Validator>)result.resultData;
             WLog.w("mAllValidators : " + mAllValidators.size());
 
-
         } else if(result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
             WLog.w("mBondings : " + mBondings.size());
+            mTaskCount = mTaskCount + mBondings.size();
             for(BondingState bonding:mBondings) {
                 new RewardFromValidatorTask(getBaseApplication(), this, mAccount, bonding.validatorAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
@@ -224,6 +233,27 @@ public class MainActivity extends BaseActivity implements TaskListener {
             Reward reward = (Reward)result.resultData;
             onUpdateReward(reward);
 //            WLog.w("mRewards : " + mRewards.size());
+        }
+//        WLog.w("mTaskCount : " + mTaskCount);
+        if(mTaskCount == 0) {
+            WLog.w("mTaskFinished");
+            mMyValidators.clear();
+            mElseValidators.clear();
+            for(Validator all:mAllValidators) {
+                boolean already = false;
+                for(BondingState bond:mBondings) {
+                    if(bond.validatorAddress.equals(all.operator_address)) {
+                        already = true;
+                        break;
+                    }
+                }
+                if(already)
+                    mMyValidators.add(all);
+                else  mElseValidators.add(all);
+            }
+            WLog.w("mMyValidators : " + mMyValidators.size());
+            WLog.w("mElseValidators : " + mElseValidators.size());
+            onFetchCurrentPage();
         }
     }
 
@@ -313,6 +343,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
 
     private void onInitFetchAccount() {
+        if(mTaskCount > 0) return;
+        mTaskCount = 5;
         ArrayList<Account> accounts = new ArrayList<Account>();
         accounts.add(mAccount);
         new AllValidatorInfoTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

@@ -23,4 +23,20 @@ public class ApiClient {
         }
         return service_wannabit_chain;
     }
+
+
+    private static KeyBaseService service_keybase = null;
+    public static KeyBaseService getKeybaseService(Context c) {
+        if (service_keybase == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_keybase))
+                        .client(WUtil.getUnsafeOkHttpClient().build())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_keybase = retrofit.create(KeyBaseService.class);
+            }
+        }
+        return service_keybase;
+    }
 }

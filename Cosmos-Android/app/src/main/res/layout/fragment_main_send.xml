@@ -13,6 +13,7 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="@dimen/space_4"
             android:clipToPadding="false"
             android:overScrollMode="never" />
     </android.support.v4.widget.SwipeRefreshLayout>

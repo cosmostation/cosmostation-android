@@ -5,6 +5,7 @@
     <string name="url_lcd_wannabit">https://52.231.71.66:1317/</string>
     <string name="url_lcd_gaia">cosmos lcd testnet</string>
     <string name="url_lcd_gos">cosmos lcd gos</string>
+    <string name="url_keybase">https://keybase.io/</string>
 
 
 
@@ -47,6 +48,26 @@
 
 
     <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
+
+    <string name="str_decimal_pattern_0">###,###,###,###,###,###,###,##0</string>
+    <string name="str_decimal_pattern_1">###,###,###,###,###,###,###,##0.0</string>
+    <string name="str_decimal_pattern_2">###,###,###,###,###,###,###,##0.00</string>
+    <string name="str_decimal_pattern_3">###,###,###,###,###,###,###,##0.000</string>
+    <string name="str_decimal_pattern_4">###,###,###,###,###,###,###,##0.0000</string>
+    <string name="str_decimal_pattern_5">###,###,###,###,###,###,###,##0.00000</string>
+    <string name="str_decimal_pattern_6">###,###,###,###,###,###,###,##0.000000</string>
+    <string name="str_decimal_pattern_7">###,###,###,###,###,###,###,##0.0000000</string>
+    <string name="str_decimal_pattern_8">###,###,###,###,###,###,###,##0.00000000</string>
+    <string name="str_decimal_pattern_9">###,###,###,###,###,###,###,##0.000000000</string>
+    <string name="str_decimal_pattern_10">###,###,###,###,###,###,###,##0.0000000000</string>
+    <string name="str_decimal_pattern_11">###,###,###,###,###,###,###,##0.00000000000</string>
+    <string name="str_decimal_pattern_12">###,###,###,###,###,###,###,##0.000000000000</string>
+    <string name="str_decimal_pattern_13">###,###,###,###,###,###,###,##0.0000000000000</string>
+    <string name="str_decimal_pattern_14">###,###,###,###,###,###,###,##0.00000000000000</string>
+    <string name="str_decimal_pattern_15">###,###,###,###,###,###,###,##0.000000000000000</string>
+    <string name="str_decimal_pattern_16">###,###,###,###,###,###,###,##0.0000000000000000</string>
+    <string name="str_decimal_pattern_17">###,###,###,###,###,###,###,##0.00000000000000000</string>
+    <string name="str_decimal_pattern_18">###,###,###,###,###,###,###,##0.000000000000000000</string>
 
     <string-array name="password_number">
         <item>0</item>
