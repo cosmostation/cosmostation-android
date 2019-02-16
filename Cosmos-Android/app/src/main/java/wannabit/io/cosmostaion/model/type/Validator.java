@@ -46,7 +46,7 @@ public class Validator {
         public String identity;
 
         @SerializedName("website")
-        public Boolean website;
+        public String website;
 
         @SerializedName("details")
         public String details;

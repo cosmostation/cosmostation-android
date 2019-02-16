@@ -26,6 +26,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
@@ -41,7 +42,7 @@ public class MainRewardFragment extends BaseFragment {
     private RecyclerView                mRecyclerView;
     private LinearLayoutManager         mLinearLayoutManager;
 
-    private RewardAdapter                mRewardAdapter;
+    private RewardAdapter               mRewardAdapter;
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Validator>        mElseValidators = new ArrayList<>();
@@ -137,7 +138,7 @@ public class MainRewardFragment extends BaseFragment {
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if(viewType == TYPE_HEADER_MY_VALIDATOR) {
                 View v = getLayoutInflater().inflate(R.layout.item_reward_my_validator_header, viewGroup, false);
-                return  new RewardHeaderHolder(v);
+                return new RewardHeaderHolder(v);
 
             } else if(viewType == TYPE_MY_VALIDATOR) {
                 View v = getLayoutInflater().inflate(R.layout.item_reward_my_validator, viewGroup, false);
@@ -188,7 +189,8 @@ public class MainRewardFragment extends BaseFragment {
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder = (RewardMyValidatorHolder)viewHolder;
                 final Validator validator = mMyValidators.get(position - 2);
-                holder.itemTvMoniker.setText(validator.description.moniker);
+//                holder.itemTvMoniker.setText(validator.description.moniker);
+                holder.itemTvMoniker.setText("\uD83D\uDC20 joy and suffering,".replaceAll(BaseConstant.characterFilter, ""));
                 holder.itemTvDelegateAmount.setText(WDp.getDpDelegatedAmount(getContext(), mBondings, validator.operator_address));
                 holder.itemTvRewardAtom.setText(WDp.getDpAtomRewardAmount(getContext(), mRewards, validator.operator_address));
                 holder.itemTvRewardPhoton.setText(WDp.getDpPhotonRewardAmount(getContext(), mRewards, validator.operator_address));
@@ -200,7 +202,8 @@ public class MainRewardFragment extends BaseFragment {
                         onStartValidatorDetail(validator);
                     }
                 });
-                mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker);
+//                mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker);
+                mImageLoader.loadImage(holder.itemAvatar, "error", "\uD83D\uDC20 joy and suffering,".replaceAll(BaseConstant.characterFilter, "").trim());
                 if(!TextUtils.isEmpty(validator.description.identity)) {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override

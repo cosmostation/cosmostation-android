@@ -38,8 +38,8 @@
                     android:id="@+id/validator_hide_show"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/space_8"
                     android:src="@drawable/arrow_down_gr"
-                    android:layout_marginRight="@dimen/space_8"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"/>
                 <LinearLayout
@@ -48,7 +48,6 @@
                     android:layout_toRightOf="@id/validator_avatar"
                     android:layout_toLeftOf="@+id/validator_hide_show"
                     android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_6"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
@@ -79,6 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="2"
+                        android:minLines="2"
                         style="@style/font_ss_9_gray1"
                         android:text="kfjhsdjkfnldsfsdkmf;lsdkmnflsdknfldsnfldsnkflsdknfksdjghkfdjgnkagjnlsakngjlsdkjgflsdkjfgldskfjldskfjsd/lkfjdsfkjdsfjs/"/>
                 </LinearLayout>
@@ -88,8 +88,7 @@
                 android:id="@+id/my_validator_hide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -125,7 +124,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Bonded"
+                            android:text="Self Bonded Rate"
                             style="@style/font_ss_11_gray1"/>
                         <TextView
                             android:id="@+id/validator_self_bond_rate"
@@ -146,7 +145,7 @@
                             android:text="Commision"
                             style="@style/font_ss_11_gray1"/>
                         <TextView
-                            android:id="@+id/validator_commition"
+                            android:id="@+id/validator_commission"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
