@@ -153,7 +153,7 @@ public class WalletListActivity extends BaseActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_STATE) {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_TOTAL_REWARDS) {
-            HashMap<Long, TotalReward> temp = (HashMap<Long, TotalReward>)result.resultData;;
+            HashMap<Long, TotalReward> temp = (HashMap<Long, TotalReward>)result.resultData;
             if(temp != null)
                 mTotalRewards = temp;
 

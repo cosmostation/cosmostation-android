@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/wallet_atom_amount"
                     android:text="ATOM"
-                    style="@style/font_ss_11_atom"/>
+                    style="@style/font_ss_10_atom"/>
                 <TextView
                     android:id="@+id/wallet_atom_amount"
                     android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/wallet_photon_amount"
                     android:text="PHOTON"
-                    style="@style/font_ss_11_photon"/>
+                    style="@style/font_ss_10_photon"/>
                 <TextView
                     android:id="@+id/wallet_photon_amount"
                     android:layout_width="wrap_content"

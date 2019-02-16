@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -29,6 +30,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
+import wannabit.io.cosmostaion.dao.TotalReward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.fragment.DashBoardAtomFragment;
 import wannabit.io.cosmostaion.fragment.DashBoardPhotonFragment;
@@ -249,8 +251,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
             WLog.w("mAccount : " + mAccount.address);
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_ALL_VALIDATOR) {
-            mAllValidators = (ArrayList<Validator>)result.resultData;
-            WLog.w("mAllValidators : " + mAllValidators.size());
+//            mAllValidators = (ArrayList<Validator>)result.resultData;
+//            WLog.w("mAllValidators : " + mAllValidators.size());
+            ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
+            if(temp != null) {
+                mAllValidators = temp;
+            } else {
+                WLog.w("Show network error!!!");
+            }
 
         } else if(result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);

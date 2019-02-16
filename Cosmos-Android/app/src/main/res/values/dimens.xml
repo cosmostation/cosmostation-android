@@ -46,6 +46,7 @@
     <!--<dimen name="text_size_keyboard">33sp</dimen>-->
 
     <dimen name="text_size_9">9sp</dimen>
+    <dimen name="text_size_10">10sp</dimen>
     <dimen name="text_size_11">11sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_14">14sp</dimen>
