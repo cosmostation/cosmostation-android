@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,11 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
-
 import java.util.ArrayList;
 
-import agency.tango.android.avatarview.AvatarPlaceholder;
 import agency.tango.android.avatarview.IImageLoader;
 import agency.tango.android.avatarview.loader.PicassoLoader;
 import agency.tango.android.avatarview.views.AvatarView;
@@ -28,13 +25,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.ValidatorActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
-import wannabit.io.cosmostaion.test.TestAdapter;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -107,6 +104,11 @@ public class MainRewardFragment extends BaseFragment {
     }
 
 
+    public void onStartValidatorDetail(Validator validator) {
+        Intent intent = new Intent(getMainActivity(), ValidatorActivity.class);
+        intent.putExtra("valAddr", validator.operator_address);
+        startActivity(intent);
+    }
 
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();
@@ -194,6 +196,8 @@ public class MainRewardFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         WLog.w("SHOW Detail");
+                        getBaseDao().setValidator(validator);
+                        onStartValidatorDetail(validator);
                     }
                 });
                 mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker);
@@ -218,6 +222,14 @@ public class MainRewardFragment extends BaseFragment {
                 }
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemTvDescription.setText(validator.description.details);
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        WLog.w("SHOW Detail");
+                        getBaseDao().setValidator(validator);
+                        onStartValidatorDetail(validator);
+                    }
+                });
                 mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker);
                 if(!TextUtils.isEmpty(validator.description.identity)) {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {

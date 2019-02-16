@@ -27,7 +27,7 @@ public class AllValidatorInfoTask extends CommonTask {
             }
 
             if(response.body() != null && response.body().size() > 0) {
-                ArrayList<Validator> mValidators = response.body();
+//                ArrayList<Validator> mValidators = response.body();
 //                WLog.w("mValidators : " + mValidators.size());
                 mResult.resultData = response.body();
                 mResult.isSuccess = true;

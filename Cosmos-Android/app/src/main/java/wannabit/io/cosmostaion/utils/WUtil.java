@@ -77,7 +77,7 @@ public class WUtil {
 
     }
 
-    public static ArrayList<BondingState> getBondingFromLcd(long accountId, ArrayList<ResLcdBondings> list) {
+    public static ArrayList<BondingState> getBondingFromLcds(long accountId, ArrayList<ResLcdBondings> list) {
         long time = System.currentTimeMillis();
         ArrayList<BondingState> result = new ArrayList<>();
         for(ResLcdBondings val : list) {
@@ -87,7 +87,11 @@ public class WUtil {
         return result;
     }
 
-    public static ArrayList<UnBondingState> getUnbondingFromLcd(Context c, long accountId, ArrayList<ResLcdUnBondings> list) {
+    public static BondingState getBondingFromLcd(long accountId, ResLcdBondings lcd) {
+        return new BondingState(accountId, lcd.validator_addr, new BigDecimal(lcd.shares), System.currentTimeMillis());
+    }
+
+    public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, long accountId, ArrayList<ResLcdUnBondings> list) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
         for(ResLcdUnBondings val : list) {
@@ -105,6 +109,19 @@ public class WUtil {
             }
         }
         return result;
+    }
+
+    //TODO check multi unbonding with one validator
+    public static UnBondingState getUnbondingFromLcd(Context c, long accountId, ResLcdUnBondings lcd) {
+        return new UnBondingState(
+                accountId,
+                lcd.validator_addr,
+                lcd.entries.get(0).creation_height,
+                WUtil.cosmosTimetoLocalLong(c, lcd.entries.get(0).completion_time),
+                new BigDecimal(lcd.entries.get(0).initial_balance.amount),
+                new BigDecimal(lcd.entries.get(0).balance.amount),
+                System.currentTimeMillis()
+        );
     }
 
 

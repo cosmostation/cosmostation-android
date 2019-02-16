@@ -30,7 +30,7 @@ public class BondingStateTask extends CommonTask {
                 if(response.isSuccessful()) {
 //                    WLog.w("BondingStateTask : " + response.body().size());
                     if (response.body() != null && response.body().size() > 0) {
-                        mApp.getBaseDao().onUpdateBondingState(account.id, WUtil.getBondingFromLcd(account.id, response.body()));
+                        mApp.getBaseDao().onUpdateBondingStates(account.id, WUtil.getBondingFromLcds(account.id, response.body()));
                     } else {
                         mApp.getBaseDao().onDeleteBondingStates(account.id);
                     }

@@ -18,13 +18,14 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Mnemonic;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
-import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.model.type.Validator;
 
 public class BaseData {
 
     private BaseApplication     mApp;
     private SharedPreferences   mSharedPreferences;
     private SQLiteDatabase      mSQLiteDatabase;
+    private Validator           mValidator;
 
 
     public BaseData(BaseApplication apps) {
@@ -73,7 +74,13 @@ public class BaseData {
         return ""+result;
     }
 
+    public Validator getValidator() {
+        return mValidator;
+    }
 
+    public void setValidator(Validator validator) {
+        this.mValidator = validator;
+    }
 
 
 
@@ -383,6 +390,21 @@ public class BaseData {
         return result;
     }
 
+    public BondingState onSelectBondingState(long accountId, String vAddr) {
+        BondingState result = null;
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            result = new BondingState(
+                    cursor.getLong(0),
+                    cursor.getString(1),
+                    new BigDecimal(cursor.getString(2)),
+                    cursor.getLong(3));
+        }
+        cursor.close();
+        return result;
+    }
+
+
     public long onInsertBondingStates(BondingState bonding) {
         ContentValues values = new ContentValues();
         values.put("accountId",         bonding.accountId);
@@ -393,11 +415,16 @@ public class BaseData {
 
     }
 
-    public void onUpdateBondingState(long accountId, ArrayList<BondingState> bondings) {
+    public void onUpdateBondingStates(long accountId, ArrayList<BondingState> bondings) {
         onDeleteBondingStates(accountId);
         for(BondingState bonding: bondings) {
             onInsertBondingStates(bonding);
         }
+    }
+
+    public void onUpdateBondingState(long accountId, BondingState bonding) {
+        onDeleteBondingState(accountId, bonding.validatorAddress);
+        onInsertBondingStates(bonding);
     }
 
     public boolean onHasBondingStates(BondingState bondingState) {
@@ -412,6 +439,10 @@ public class BaseData {
 
     public boolean onDeleteBondingStates(long accountId) {
         return getBaseDB().delete(BaseConstant.DB_TABLE_BONDING, "accountId = ?", new String[]{""+accountId}) > 0;
+    }
+
+    public boolean onDeleteBondingState(long accountId, String vAddr) {
+        return getBaseDB().delete(BaseConstant.DB_TABLE_BONDING, "accountId = ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}) > 0;
     }
 
 
@@ -436,6 +467,23 @@ public class BaseData {
         return result;
     }
 
+    public UnBondingState onSelectUnbondingState(long accountId, String vAddr) {
+        UnBondingState result = null;
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            result = new UnBondingState(
+                    cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getLong(3),
+                    new BigDecimal(cursor.getString(4)),
+                    new BigDecimal(cursor.getString(5)),
+                    cursor.getLong(6));
+        }
+        cursor.close();
+        return result;
+    }
+
     public long onInsertUnbondingStates(UnBondingState unbonding) {
         ContentValues values = new ContentValues();
         values.put("accountId",         unbonding.accountId);
@@ -452,6 +500,10 @@ public class BaseData {
         return getBaseDB().delete(BaseConstant.DB_TABLE_UNBONDING, "accountId = ?", new String[]{""+accountId}) > 0;
     }
 
+    public boolean onDeleteUnbondingState(long accountId, String vAddr) {
+        return getBaseDB().delete(BaseConstant.DB_TABLE_UNBONDING, "accountId = ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}) > 0;
+    }
+
     public void onUpdateUnbondingStates(long accountId, ArrayList<UnBondingState> unbondings) {
         onDeleteUnbondingStates(accountId);
         for(UnBondingState unbond: unbondings) {
@@ -459,5 +511,9 @@ public class BaseData {
         }
     }
 
+    public void onUpdateUnbondingState(long accountId, UnBondingState unbonding) {
+        onDeleteUnbondingState(accountId, unbonding.validatorAddress);
+        onInsertUnbondingStates(unbonding);
+    }
 
 }

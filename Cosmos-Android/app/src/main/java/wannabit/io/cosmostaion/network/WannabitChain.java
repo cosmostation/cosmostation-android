@@ -40,4 +40,16 @@ public interface WannabitChain {
     Call<ArrayList<Coin>> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
 
 
+
+    //Validator details
+    @GET("/staking/validators/{validatorAddr}")
+    Call<Validator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
+
+    @GET("/staking/delegators/{address}/delegations/{validatorAddr}")
+    Call<ResLcdBondings> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+    @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
+    Call<ResLcdUnBondings> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+
 }

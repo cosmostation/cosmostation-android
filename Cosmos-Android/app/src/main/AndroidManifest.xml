@@ -62,6 +62,13 @@
             android:launchMode="singleTask">
         </activity>
 
+        <activity
+            android:name=".activities.ValidatorActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
 
 
 

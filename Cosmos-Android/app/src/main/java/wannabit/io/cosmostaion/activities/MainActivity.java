@@ -43,7 +43,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.AccountInfoTask;
 import wannabit.io.cosmostaion.task.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.BondingStateTask;
-import wannabit.io.cosmostaion.task.RewardFromValidatorTask;
+import wannabit.io.cosmostaion.task.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UnBondingStateTask;
@@ -54,16 +54,6 @@ import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
 public class MainActivity extends BaseActivity implements TaskListener {
-
-    public Account                     mAccount;
-    private ArrayList<Account>         mAccounts = new ArrayList<>();
-    public ArrayList<Validator>        mAllValidators = new ArrayList<>();
-    public ArrayList<Validator>        mMyValidators = new ArrayList<>();
-    public ArrayList<Validator>        mElseValidators = new ArrayList<>();
-    public ArrayList<Balance>          mBalances = new ArrayList<>();
-    public ArrayList<BondingState>     mBondings = new ArrayList<>();
-    public ArrayList<UnBondingState>   mUnbondings = new ArrayList<>();
-    public ArrayList<Reward>           mRewards = new ArrayList<>();
 
     private AppBarLayout                mAppbar;
     private CollapsingToolbarLayout     mCollapsingToolbarLayout;
@@ -78,6 +68,17 @@ public class MainActivity extends BaseActivity implements TaskListener {
     private TabLayout                   mTabLayer;
     private MainViewPageAdapter         mPageAdapter;
     private DashBoardPageAdapter        mDashPageAdapter;
+
+
+    public Account                     mAccount;
+    private ArrayList<Account>         mAccounts = new ArrayList<>();
+    public ArrayList<Validator>        mAllValidators = new ArrayList<>();
+    public ArrayList<Validator>        mMyValidators = new ArrayList<>();
+    public ArrayList<Validator>        mElseValidators = new ArrayList<>();
+    public ArrayList<Balance>          mBalances = new ArrayList<>();
+    public ArrayList<BondingState>     mBondings = new ArrayList<>();
+    public ArrayList<UnBondingState>   mUnbondings = new ArrayList<>();
+    public ArrayList<Reward>           mRewards = new ArrayList<>();
 
     private int                         mTaskCount;
 
@@ -266,14 +267,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mTaskCount = mTaskCount + mBondings.size();
             mRewards.clear();
             for(BondingState bonding:mBondings) {
-                new RewardFromValidatorTask(getBaseApplication(), this, mAccount, bonding.validatorAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new SingleRewardTask(getBaseApplication(), this, mAccount, bonding.validatorAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_STATE) {
             mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
             WLog.w("mUnbondings : " + mUnbondings.size());
 
-        } else if (result.taskType == BaseConstant.TASK_FETCH_REWARDS_VALIDATOR) {
+        } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             Reward reward = (Reward)result.resultData;
             onUpdateReward(reward);
 //            WLog.w("mRewards : " + mRewards.size());
