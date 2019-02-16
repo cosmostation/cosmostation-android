@@ -26,8 +26,8 @@
     <style name="ScrollingPagerIndicator">
         <item name="spi_dotColor">@color/colorGray1</item>
         <item name="spi_dotSelectedColor">@color/colorWhite</item>
-        <item name="spi_dotSize">6dp</item>
-        <item name="spi_dotSelectedSize">6dp</item>
+        <item name="spi_dotSize">4dp</item>
+        <item name="spi_dotSelectedSize">4dp</item>
         <item name="spi_dotSpacing">4dp</item>
         <item name="spi_visibleDotCount">5</item>
         <item name="spi_visibleDotThreshold">2</item>

@@ -260,9 +260,9 @@ public class MainRewardFragment extends BaseFragment {
 
             } else if (mMyValidators.size() == 0) {
                 if(position == 0) {
-                    return TYPE_HEADER_VALIDATOR;
+                    return TYPE_PROMOTION ;
                 } else if (position == 1) {
-                    return TYPE_PROMOTION;
+                    return TYPE_HEADER_VALIDATOR;
                 } else  {
                     return TYPE_VALIDATOR;
                 }
