@@ -7,7 +7,9 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.test.TestActivity;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class IntroActivity extends BaseActivity {
@@ -42,13 +44,16 @@ public class IntroActivity extends BaseActivity {
 //            }
 //        });
 
-        if(getBaseDao().onSelectAccounts().size() > 1) {
-            onStartListActivity();
-        } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-            onStartMainActivity();
-        } else {
-            startActivity(new Intent(IntroActivity.this, CreateActivity.class));
-        }
+//        WLog.w("" + WKey.convertDpAddressToDpOpAddress("cosmos1gfzexy3z0qfc97mjudjy5zeg2fje6k442phy6r"));
+//        WLog.w("" + WKey.convertDpOpAddressToDpAddress("cosmosvaloper1gfzexy3z0qfc97mjudjy5zeg2fje6k4404r3ks"));
+
+//        if(getBaseDao().onSelectAccounts().size() > 1) {
+//            onStartListActivity();
+//        } else if(getBaseDao().onSelectAccounts().size() == 1)  {
+//            onStartMainActivity();
+//        } else {
+//            startActivity(new Intent(IntroActivity.this, CreateActivity.class));
+//        }
     }
 }
 

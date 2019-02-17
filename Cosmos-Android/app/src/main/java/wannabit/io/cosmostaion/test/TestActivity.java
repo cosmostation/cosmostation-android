@@ -11,7 +11,9 @@ import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicHierarchy;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.crypto.HDKeyDerivation;
+import org.spongycastle.crypto.digests.RIPEMD160Digest;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,6 +22,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
+import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdSignMsgWithType;
 import wannabit.io.cosmostaion.model.StdTx;
@@ -56,7 +59,8 @@ public class TestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        Testpubtoaddress();
+        TestAddresstoOpAddress();
+//        Testpubtoaddress();
 
 //        TestGenMultiTransfer1();
 //        TestGenWithdrawValidatorReward();
@@ -64,6 +68,85 @@ public class TestActivity extends BaseActivity {
 //        TestGenUnbond();
 //        TestGenSingleDelegate();
 //        TestGenSingleTransfer();
+    }
+
+    private void TestAddresstoOpAddress() {
+
+//        String dpaddress       = null;
+//        String dpOPaddress       = null;
+//        MessageDigest digest = Sha256.getSha256Digest();
+//        byte[] hash = digest.digest(WUtil.HexStringToByteArray(getTestKey().getPublicKeyAsHex()));
+//
+//        RIPEMD160Digest digest2 = new RIPEMD160Digest();
+//        digest2.update(hash, 0, hash.length);
+//
+//        byte[] hash3 = new byte[digest2.getDigestSize()];
+//        digest2.doFinal(hash3, 0);
+//
+//        try {
+//            byte[] converted = WKey.convertBits(hash3, 8,5,true);
+//            dpaddress = WKey.bech32Encode("cosmos".getBytes(), converted);
+//        } catch (Exception e) {
+//            WLog.w("getCosmosUserDpAddress Error");
+//        }
+//        WLog.w("ADDRESS : " + dpaddress);
+//
+//        try {
+//            byte[] converted = WKey.convertBits(hash3, 8,5,true);
+//            dpOPaddress = WKey.bech32Encode("cosmosvaloper".getBytes(), converted);
+//        } catch (Exception e) {
+//            WLog.w("getCosmosUserDpAddress Error");
+//        }
+//        WLog.w("OPADDRESS : " + dpOPaddress);
+
+
+        WLog.w("ori1 " + getTestKey().getPublicKeyAsHex());
+        WLog.w("ori2 " + getTestKey().getPubKey());
+        WLog.w("ori3 " + WUtil.ByteArrayToHexString(getTestKey().getPubKey()));
+        WLog.w("ori4 " + WUtil.BytearryToDecimalString(getTestKey().getPubKey()));
+
+
+        //test swipe test
+        String OriDpAddress = "cosmos1gfzexy3z0qfc97mjudjy5zeg2fje6k442phy6r";
+        String OriDpOpAddress = "cosmosvaloper1gfzexy3z0qfc97mjudjy5zeg2fje6k4404r3ks";
+
+        WKey.HrpAndData DpAddressData = WKey.bech32Decode(OriDpAddress);
+        WLog.w("DpAddressData1 " + DpAddressData.toString());
+        WLog.w("DpAddressData2 " + WUtil.ByteArrayToHexString(DpAddressData.data));
+        WLog.w("DpAddressData3 " + WUtil.BytearryToDecimalString(DpAddressData.data));
+
+        try {
+            byte[] converted = WKey.convertBits(DpAddressData.data, 5, 8, false);
+            WLog.w("convertedAD " + WUtil.ByteArrayToHexString(converted));
+            WLog.w("convertedAD " + WUtil.BytearryToDecimalString(converted));
+//            String what = WUtil.ByteArrayToHexString(converted);
+//            WLog.w("what : " + what);
+            String changedToOp = WKey.bech32Encode("cosmosvaloper".getBytes(), DpAddressData.data);
+            WLog.w("changedToOp : " + changedToOp);
+
+        } catch (Exception e) {
+            WLog.w("EE : " + e.getMessage());
+        }
+
+        WKey.HrpAndData DpOpAddressData = WKey.bech32Decode(OriDpOpAddress);
+        WLog.w("DpOpAddressData1 " + DpOpAddressData.toString());
+        WLog.w("DpOpAddressData2 " + WUtil.ByteArrayToHexString(DpOpAddressData.data));
+        WLog.w("DpOpAddressData3 " + WUtil.BytearryToDecimalString(DpOpAddressData.data));
+
+        try {
+            byte[] converted = WKey.convertBits(DpOpAddressData.data, 5, 8, false);
+            WLog.w("convertedOP " + WUtil.ByteArrayToHexString(converted));
+            WLog.w("convertedOP " + WUtil.BytearryToDecimalString(converted));
+//            String what = WUtil.ByteArrayToHexString(converted);
+//            WLog.w("what : " + what);
+            String changedToAdd = WKey.bech32Encode("cosmos".getBytes(), DpOpAddressData.data);
+            WLog.w("changedToAdd : " + changedToAdd);
+
+        } catch (Exception e) {
+            WLog.w("EE : " + e.getMessage());
+        }
+
+
     }
 
     private void Testpubtoaddress() {

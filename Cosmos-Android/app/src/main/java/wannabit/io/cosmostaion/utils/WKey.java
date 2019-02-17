@@ -172,6 +172,14 @@ public class WKey {
         return result;
     }
 
+    public static String convertDpAddressToDpOpAddress(String dpAddress) {
+        return bech32Encode("cosmosvaloper".getBytes(), bech32Decode(dpAddress).data);
+    }
+
+    public static String convertDpOpAddressToDpAddress(String dpOpAddress) {
+        return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
+    }
+
 
 
 
