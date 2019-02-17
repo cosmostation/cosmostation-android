@@ -5,6 +5,7 @@ import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -281,7 +282,15 @@ public class WDp {
 
 
 
+    public static String getSelfBondRate(String total, String self) {
+        BigDecimal result = new BigDecimal(self).multiply(new BigDecimal("100")).divide(new BigDecimal(total), 2, RoundingMode.DOWN);
+        return  result.toPlainString()+"%";
+    }
 
+    public static String getCommissionRate(String rate) {
+        BigDecimal result = new BigDecimal(rate).multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN);
+        return  result.toPlainString()+"%";
+    }
 
 
 

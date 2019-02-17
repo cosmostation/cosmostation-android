@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,12 +9,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import agency.tango.android.avatarview.IImageLoader;
@@ -32,12 +35,16 @@ import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
+import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.task.SingleBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleRewardTask;
+import wannabit.io.cosmostaion.task.SingleSelfBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleUnBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleValidatorInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
@@ -60,6 +67,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private ArrayList<String>           mTx = new ArrayList<>();
 
     private String                      mValidatorPicture;
+    private String                      mSelfBondingRate;
+
     private int                         mTaskCount;
     private boolean                     mExpended = true;
 
@@ -131,6 +140,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         onInitFetch();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void onUpdateView() {
 
     }
@@ -139,9 +159,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onInitFetch() {
         if(mTaskCount > 0) return;
-        mTaskCount = 3;
+        mTaskCount = 4;
         new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address), mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         if(mBondingState != null) {
             mTaskCount = mTaskCount + 1;
@@ -151,7 +172,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        WLog.w("TaskResult : " + result.taskType);
+//        WLog.w("TaskResult : " + result.taskType);
         mTaskCount--;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_VALIDATOR) {
             mValidator = (Validator)result.resultData;
@@ -168,6 +189,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_UNBONDING) {
             mUnBondingState = getBaseDao().onSelectUnbondingState(mAccount.id, mValidator.operator_address);
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_SELF_BONDING) {
+            ResLcdBondings temp = (ResLcdBondings)result.resultData;
+            if(temp != null)
+                mSelfBondingRate = WDp.getSelfBondRate(mValidator.tokens, temp.shares);
+
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             mReward         = (Reward)result.resultData;
@@ -235,6 +262,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     });
                 }
 
+                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6));
+                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
+                if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("");
+
+
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final MyValidatorHolder holder = (MyValidatorHolder)viewHolder;
@@ -264,8 +296,46 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     }
                 });
 
+                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6));
+                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
+                if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("");
+
             } else if (getItemViewType(position) == TYPE_ACTION) {
                 final MyActionHolder holder = (MyActionHolder)viewHolder;
+                holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.shares, 6));
+                if(mUnBondingState != null && mUnBondingState.balance != null) {
+                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), mUnBondingState.balance, 6));
+                } else {
+                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
+                    holder.itemTvUnbondingTime.setVisibility(View.INVISIBLE);
+                }
+                if(mReward != null) {
+                    holder.itemTvAtomReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getAtomAmount(), 6));
+                    holder.itemTvPhotonReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getPhotonAmount(), 6));
+                } else {
+                    holder.itemTvAtomReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
+                    holder.itemTvPhotonReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
+                }
+                holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        WLog.w("Start Delegate");
+                    }
+                });
+                holder.itemBtnUndelegate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        WLog.w("Start Undelegate");
+
+                    }
+                });
+                holder.itemBtnReward.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        WLog.w("Start Reward");
+
+                    }
+                });
 
             } else if (getItemViewType(position) == TYPE_HISTORY_HEADER) {
                 final HistoryHeaderHolder holder = (HistoryHeaderHolder)viewHolder;

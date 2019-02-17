@@ -47,13 +47,13 @@ public class IntroActivity extends BaseActivity {
 //        WLog.w("" + WKey.convertDpAddressToDpOpAddress("cosmos1gfzexy3z0qfc97mjudjy5zeg2fje6k442phy6r"));
 //        WLog.w("" + WKey.convertDpOpAddressToDpAddress("cosmosvaloper1gfzexy3z0qfc97mjudjy5zeg2fje6k4404r3ks"));
 
-//        if(getBaseDao().onSelectAccounts().size() > 1) {
-//            onStartListActivity();
-//        } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-//            onStartMainActivity();
-//        } else {
-//            startActivity(new Intent(IntroActivity.this, CreateActivity.class));
-//        }
+        if(getBaseDao().onSelectAccounts().size() > 1) {
+            onStartListActivity();
+        } else if(getBaseDao().onSelectAccounts().size() == 1)  {
+            onStartMainActivity();
+        } else {
+            startActivity(new Intent(IntroActivity.this, CreateActivity.class));
+        }
     }
 }
 
