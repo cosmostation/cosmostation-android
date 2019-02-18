@@ -276,7 +276,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             Reward reward = (Reward)result.resultData;
-            onUpdateReward(reward);
+            if(reward != null)
+                onUpdateReward(reward);
 //            WLog.w("mRewards : " + mRewards.size());
         }
 //        WLog.w("mTaskCount : " + mTaskCount);

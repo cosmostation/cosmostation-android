@@ -189,8 +189,8 @@ public class MainRewardFragment extends BaseFragment {
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder = (RewardMyValidatorHolder)viewHolder;
                 final Validator validator = mMyValidators.get(position - 2);
-//                holder.itemTvMoniker.setText(validator.description.moniker);
-                holder.itemTvMoniker.setText("\uD83D\uDC20 joy and suffering,".replaceAll(BaseConstant.characterFilter, ""));
+                holder.itemTvMoniker.setText(validator.description.moniker);
+//                holder.itemTvMoniker.setText("\uD83D\uDC20 joy and suffering,".replaceAll(BaseConstant.characterFilter, ""));
                 holder.itemTvDelegateAmount.setText(WDp.getDpDelegatedAmount(getContext(), mBondings, validator.operator_address));
                 holder.itemTvRewardAtom.setText(WDp.getDpAtomRewardAmount(getContext(), mRewards, validator.operator_address));
                 holder.itemTvRewardPhoton.setText(WDp.getDpPhotonRewardAmount(getContext(), mRewards, validator.operator_address));
@@ -202,13 +202,14 @@ public class MainRewardFragment extends BaseFragment {
                         onStartValidatorDetail(validator);
                     }
                 });
-//                mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker);
-                mImageLoader.loadImage(holder.itemAvatar, "error", "\uD83D\uDC20 joy and suffering,".replaceAll(BaseConstant.characterFilter, "").trim());
+                mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
                 if(!TextUtils.isEmpty(validator.description.identity)) {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
-                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker);
+                            WLog.w("getUrl : " + response.body().getUrl());
+//                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker);
+                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
                         }
                         @Override
                         public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
@@ -233,12 +234,12 @@ public class MainRewardFragment extends BaseFragment {
                         onStartValidatorDetail(validator);
                     }
                 });
-                mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker);
+                mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
                 if(!TextUtils.isEmpty(validator.description.identity)) {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
-                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker);
+                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
                         }
                         @Override
                         public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }

@@ -20,6 +20,21 @@ public class CreateActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+}
+/*
+public class CreateActivity extends BaseActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create);
+
         onInitContainer();
     }
 
@@ -35,3 +50,4 @@ public class CreateActivity extends BaseActivity {
         super.onBackPressed();
     }
 }
+*/

@@ -52,7 +52,8 @@ dependencies {
     implementation 'agency.tango.android:avatar-view-picasso:0.0.2'
     implementation 'agency.tango.android:avatar-view-glide:0.0.2'
 
-
+    //shimmer
+    implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

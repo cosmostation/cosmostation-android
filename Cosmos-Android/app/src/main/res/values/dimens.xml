@@ -23,6 +23,7 @@
     <dimen name="space_36">36dp</dimen>
     <dimen name="space_40">40dp</dimen>
     <dimen name="space_44">44dp</dimen>
+    <dimen name="space_45">45dp</dimen>
     <dimen name="space_50">50dp</dimen>
     <dimen name="space_54">54dp</dimen>
     <dimen name="space_60">60dp</dimen>
