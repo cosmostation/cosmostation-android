@@ -20,12 +20,17 @@
     <color name="colorGray4">#4B4F54</color>
     <color name="colorGray5">#9ca2ac</color>
     <color name="colorGray6">#bfc6d2</color>
-    <color name="colorGray7">#313539</color>
+    <color name="colorGray7">#66313539</color>
+    <color name="colorGray8">#161819</color>
     <color name="colorGray9">#88EDEDED</color>
+    <color name="colorGray10">#ebecee</color>
 
 
     <color name="colorAtom">#9C6CFF</color>
+    <color name="colorAtom2">#372758</color>
+
     <color name="colorPhoton">#05D2DD</color>
+    <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>
 
 </resources>

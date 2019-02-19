@@ -122,6 +122,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_launcher_background"/>
+            android:src="@drawable/password_delete"/>
     </LinearLayout>
 </LinearLayout>

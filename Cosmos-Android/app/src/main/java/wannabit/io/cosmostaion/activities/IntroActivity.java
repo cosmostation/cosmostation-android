@@ -20,6 +20,7 @@ import java.util.Random;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.test.TestActivity;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -96,6 +97,15 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onResume() {
         super.onResume();
+
+//        startActivity(new Intent(IntroActivity.this, CreateActivity.class));
+//        startActivity(new Intent(IntroActivity.this, PasswordSetActivity.class));
+
+//        Intent intent = new Intent(IntroActivity.this, PasswordCheckActivity.class);
+//        startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+//        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -138,6 +148,11 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        if (v.equals(mImport)) {
+
+        } else if (v.equals(mCreate)) {
+            startActivity(new Intent(IntroActivity.this, CreateActivity.class));
+        }
 
     }
 

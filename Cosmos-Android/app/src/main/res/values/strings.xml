@@ -24,6 +24,12 @@
     <string name="str_qr">QrCode</string>
     <string name="str_import">IMPORT</string>
     <string name="str_create">CREATE</string>
+    <string name="str_check">Check</string>
+    <string name="str_confirm">Confirm</string>
+    <string name="str_warning">Warning</string>
+    <string name="str_show_mnemonic">Show Mnemonic</string>
+    <string name="str_create_wallet">Create Wallet</string>
+    <string name="str_start_wallet">Start Wallet</string>
 
     <string name="str_main_send">SEND</string>
     <string name="str_main_reward">REWARD</string>
@@ -39,13 +45,16 @@
     <string name="str_enter_mnemonics">Enter Mnemonics</string>
     <string name="str_enter_address">Enter Address or Public-Key</string>
     <string name="str_copy_right">COSMOS Wallet by Cosmostation</string>
-
+    <string name="str_password_init">Init your password.</string>
+    <string name="str_password_msg1">Insert again for confirm.</string>
+    <string name="str_password_msg2">No way to recover this. please remember!</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please insert correct 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
     <string name="error_invalid_address_pubkey">Invalid Address or PubKey, please check again.</string>
     <string name="error_already_exist_account">Already existed account.</string>
+    <string name="error_invalid_password">Invalid Password</string>
 
 
 

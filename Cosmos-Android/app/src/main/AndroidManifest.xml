@@ -39,6 +39,14 @@
         </activity>
 
         <activity
+            android:name=".activities.PasswordCheckActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:launchMode="singleInstance">
+        </activity>
+
+        <activity
             android:name=".activities.CreateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

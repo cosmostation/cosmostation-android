@@ -32,6 +32,7 @@ public class BaseConstant {
     public final static int					    TASK_FETCH_SINGLE_UNBONDING			    = 2011;
     public final static int					    TASK_FETCH_SINGLE_REWARD		        = 2012;
     public final static int					    TASK_FETCH_SINGLE_SELF_BONDING		    = 2013;
+    public final static int					    TASK_PASSWORD_CHECK		                = 2015;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;
@@ -55,11 +56,19 @@ public class BaseConstant {
     public final static String                  COSMOS_KEY_TYPE_PUBLIC                  = "tendermint/PubKeySecp256k1";
 
 
+    public final static String					CONST_PW_PURPOSE		                = "CONST_PW_PURPOSE";
+    public final static int					    CONST_PW_INIT		                    = 5000;
+    public final static int					    CONST_PW_UNLOUCK		                = 5001;
+    public final static int					    CONST_PW_SIMPLE_CHECK		            = 5002;
 
+//    public final static int					    CONST_PW_SEND		                    = 5002;
+//    public final static int					    CONST_PW_CHECK_MNEMONIC		            = 5003;
+//    public final static int					    CONST_PW_CHECK_KEY		                = 5004;
 
 
     public final static int					    ERROR_CODE_UNKNOWN		                = 8000;
     public final static int					    ERROR_CODE_NETWORK		                = 8001;
+    public final static int					    ERROR_CODE_INVALID_PASSWORD		        = 8002;
 
 
     public final static String                  COSMOS_ATOM                             = "atom";

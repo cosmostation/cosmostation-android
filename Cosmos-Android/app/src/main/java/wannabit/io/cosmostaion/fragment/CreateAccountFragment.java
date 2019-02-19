@@ -43,27 +43,27 @@ public class CreateAccountFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnCreateMnemonic)) {
-            FragmentTransaction transaction = getTransaction();
-            transaction.setCustomAnimations(R.animator.fragment_slide_left_enter, R.animator.fragment_slide_left_exit, R.animator.fragment_slide_right_enter, R.animator.fragment_slide_right_exit);
-            transaction.replace(R.id.main_container, GenerateMnemonicFragment.newInstance(null));
-            transaction.addToBackStack("type");
-            transaction.commit();
-
-        } else if (v.equals(mBtnRecoverMnemonic)) {
-            FragmentTransaction transaction = getTransaction();
-            transaction.setCustomAnimations(R.animator.fragment_slide_left_enter, R.animator.fragment_slide_left_exit, R.animator.fragment_slide_right_enter, R.animator.fragment_slide_right_exit);
-            transaction.replace(R.id.main_container, RecoverMnemonicFragment.newInstance(null));
-            transaction.addToBackStack("type");
-            transaction.commit();
-
-        } else if (v.equals(mBtnAddAddress)) {
-            FragmentTransaction transaction = getTransaction();
-            transaction.setCustomAnimations(R.animator.fragment_slide_left_enter, R.animator.fragment_slide_left_exit, R.animator.fragment_slide_right_enter, R.animator.fragment_slide_right_exit);
-            transaction.replace(R.id.main_container, PublicKeyAddFragment.newInstance(null));
-            transaction.addToBackStack("type");
-            transaction.commit();
-        }
+//        if (v.equals(mBtnCreateMnemonic)) {
+//            FragmentTransaction transaction = getTransaction();
+//            transaction.setCustomAnimations(R.animator.fragment_slide_left_enter, R.animator.fragment_slide_left_exit, R.animator.fragment_slide_right_enter, R.animator.fragment_slide_right_exit);
+//            transaction.replace(R.id.main_container, GenerateMnemonicFragment.newInstance(null));
+//            transaction.addToBackStack("type");
+//            transaction.commit();
+//
+//        } else if (v.equals(mBtnRecoverMnemonic)) {
+//            FragmentTransaction transaction = getTransaction();
+//            transaction.setCustomAnimations(R.animator.fragment_slide_left_enter, R.animator.fragment_slide_left_exit, R.animator.fragment_slide_right_enter, R.animator.fragment_slide_right_exit);
+//            transaction.replace(R.id.main_container, RecoverMnemonicFragment.newInstance(null));
+//            transaction.addToBackStack("type");
+//            transaction.commit();
+//
+//        } else if (v.equals(mBtnAddAddress)) {
+//            FragmentTransaction transaction = getTransaction();
+//            transaction.setCustomAnimations(R.animator.fragment_slide_left_enter, R.animator.fragment_slide_left_exit, R.animator.fragment_slide_right_enter, R.animator.fragment_slide_right_exit);
+//            transaction.replace(R.id.main_container, PublicKeyAddFragment.newInstance(null));
+//            transaction.addToBackStack("type");
+//            transaction.commit();
+//        }
 
     }
 }
