@@ -16,12 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_50"
             android:hint="@string/str_recipient_address"
-            android:maxLength="12"
+            android:textCursorDrawable="@drawable/white_cursor"
+            android:maxLength="46"
             android:textColorHint="@color/colorGray4"
             android:background="@drawable/edittext_box"
             android:paddingEnd="@dimen/space_60"
             style="@style/font_ss_12_white"
-            android:imeOptions="actionNext"/>
+            android:imeOptions="actionNext"
+            android:text="cosmos1"/>
         <ImageView
             android:id="@+id/receiver_camera"
             android:layout_width="wrap_content"

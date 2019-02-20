@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep3Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class SendActivity extends BaseActivity {
 
@@ -48,8 +49,9 @@ public class SendActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int i) {
+                WLog.w(" i " + i);
                 if(i == 0) {
-                    mIvStep.setBackground(getDrawable(R.drawable.step_1_img));
+                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_1_img));
                     mTvStep.setText(getString(R.string.str_send_step_0));
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_2_img));
@@ -71,7 +73,15 @@ public class SendActivity extends BaseActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if(mViewPager.getCurrentItem() > 0) {
+            onHideKeyboard();
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     public void onNextStep() {
 //        WLog.w("onNextStep : " + mViewPager.getCurrentItem());
