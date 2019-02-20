@@ -35,6 +35,9 @@
     <string name="str_watch">Watch</string>
     <string name="str_address">Address</string>
     <string name="str_paste">Paste</string>
+    <string name="str_send">SEDN</string>
+    <string name="str_before">Before</string>
+    <string name="str_recipient_address">Recipient Address</string>
 
     <string name="str_main_send">SEND</string>
     <string name="str_main_reward">REWARD</string>
@@ -53,6 +56,11 @@
     <string name="str_password_init">Init your password.</string>
     <string name="str_password_msg1">Insert again for confirm.</string>
     <string name="str_password_msg2">No way to recover this. please remember!</string>
+    <string name="str_send_step_0">Insert recipient address.</string>
+    <string name="str_send_step_1">Insert to send amount and type.</string>
+    <string name="str_send_step_2">Insert memo to involve.(Optional)</string>
+    <string name="str_send_step_3">Select transaction fees.</string>
+    <string name="str_send_step_4">Check your information to send.</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>

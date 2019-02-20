@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
 
     <dimen name="main_appbar_height">260dp</dimen>
     <dimen name="main_appbar_contents_height">204dp</dimen>
@@ -28,6 +29,7 @@
     <dimen name="space_54">54dp</dimen>
     <dimen name="space_60">60dp</dimen>
     <dimen name="space_68">68dp</dimen>
+    <dimen name="space_72">72dp</dimen>
     <dimen name="space_74">74dp</dimen>
     <dimen name="space_78">78dp</dimen>
     <dimen name="space_80">80dp</dimen>
@@ -56,4 +58,6 @@
     <dimen name="text_size_19">19sp</dimen>
     <dimen name="text_size_21">21sp</dimen>
     <dimen name="text_size_33">33sp</dimen>
+
+    <!--<dimen name="design_fab_image_size" tools:override="true">56dp</dimen>-->
 </resources>

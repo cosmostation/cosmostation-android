@@ -1,9 +1,12 @@
 package wannabit.io.cosmostaion.base;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.WalletListActivity;
@@ -42,6 +45,15 @@ public class BaseActivity extends AppCompatActivity {
         if (prev != null) {
             ft.remove(prev).commitNowAllowingStateLoss();
         }
+    }
+
+    public void onHideKeyboard() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View v = getCurrentFocus();
+        if (v == null) {
+            v = new View(getBaseContext());
+        }
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
     public void onStartMainActivity() {

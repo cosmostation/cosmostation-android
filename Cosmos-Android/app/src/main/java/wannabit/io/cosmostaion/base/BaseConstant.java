@@ -71,7 +71,7 @@ public class BaseConstant {
     public final static int					    ERROR_CODE_INVALID_PASSWORD		        = 8002;
 
 
-    public final static String                  COSMOS_ATOM                             = "atom";
+    public final static String                  COSMOS_ATOM                             = "muon";
     public final static String                  COSMOS_PHOTON                           = "photino";
 
     public final static String                  characterFilter                         = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";

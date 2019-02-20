@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -69,6 +70,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
     private MainViewPageAdapter         mPageAdapter;
     private DashBoardPageAdapter        mDashPageAdapter;
 
+    private FloatingActionButton        mFloatBtn;
+
 
     public Account                     mAccount;
     private ArrayList<Account>         mAccounts = new ArrayList<>();
@@ -99,6 +102,15 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         mContentsPager              = findViewById(R.id.view_pager);
         mTabLayer                   = findViewById(R.id.bottom_tab);
+
+        mFloatBtn                   = findViewById(R.id.btn_floating);
+        mFloatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WLog.w("Float");
+                startActivity(new Intent(MainActivity.this, SendActivity.class));
+            }
+        });
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -250,6 +262,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
             WLog.w("mAccount : " + mAccount.address);
+            WLog.w("mBalances : " + mBalances.size());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_ALL_VALIDATOR) {
 //            mAllValidators = (ArrayList<Validator>)result.resultData;

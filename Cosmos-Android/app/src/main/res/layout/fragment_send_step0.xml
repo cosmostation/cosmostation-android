@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16">
+        <EditText
+            android:id="@+id/receiver_account"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_50"
+            android:hint="@string/str_recipient_address"
+            android:maxLength="12"
+            android:textColorHint="@color/colorGray4"
+            android:background="@drawable/edittext_box"
+            android:paddingEnd="@dimen/space_60"
+            style="@style/font_ss_12_white"
+            android:imeOptions="actionNext"/>
+        <ImageView
+            android:id="@+id/receiver_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/space_8"
+            android:padding="@dimen/space_18"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:background="@drawable/qrcode_ic"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_45"
+        android:minHeight="@dimen/space_45"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24"
+        android:background="@drawable/btn_trans_with_border"
+        style="@style/font_ss_14_photon"
+        android:textAllCaps="false"
+        android:text="@string/str_next"/>
+</RelativeLayout>
