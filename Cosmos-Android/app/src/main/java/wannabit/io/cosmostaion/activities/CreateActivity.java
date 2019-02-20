@@ -12,11 +12,17 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.task.GenerateAccountTask;
+import wannabit.io.cosmostaion.task.InsertMnemonicTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
-public class CreateActivity extends BaseActivity implements View.OnClickListener {
+public class CreateActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private TextView            mAddress;
     private TextView[]          mTvWords = new TextView[24];
@@ -25,7 +31,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     private Button              mBtnNext;
 
     private ArrayList<String>   mWords = new ArrayList<>();
-    private byte[]              mSeed;
+    private byte[]              mEntropy;
     private boolean             mCheckPassword;
 
     @Override
@@ -59,10 +65,9 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void onGenWords() {
-        mSeed   = WKey.getEntropy();
-        mWords  = new ArrayList<String>(WKey.getRandomMnemonic(mSeed));
-//        mAddress = WKey.getKeyWithPath()
-        //TODO genAddress from seed!!
+        mEntropy   = WKey.getEntropy();
+        mWords  = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
+        mAddress.setText(WKey.getDpAddressFromEntropy(mEntropy));
     }
 
     private void onUpdateView() {
@@ -99,12 +104,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
             } else {
-//                if(getBaseDao().onSelectAccounts().size() > 1) {
-//                    onStartListActivity();
-//                } else {
-//                    onStartMainActivity();
-//                }
-                //TODO create wallet~~.
+                onShowWaitDialog();
+                new InsertMnemonicTask(getBaseApplication(), this).execute(WUtil.ByteArrayToHexString(mEntropy), "24");
             }
         }
 
@@ -120,6 +121,28 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             mCheckPassword = true;
         }
         onUpdateView();
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if(isFinishing()) return;
+        if (result.taskType == BaseConstant.TASK_ADD_MN) {
+            if(result.isSuccess)
+                new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", result.resultData.toString());
+            else {
+                WLog.w("Init Mnemonic ERROR : " + result.errorCode);
+            }
+        } else if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
+            if(result.isSuccess) {
+                if(getBaseDao().onSelectAccounts().size() > 1) {
+                    onStartListActivity();
+                } else {
+                    onStartMainActivity();
+                }
+            } else {
+                WLog.w("CREATE ACCOUNT with new mnemonic error : " + result.errorCode);
+            }
+        }
     }
 }
 /*

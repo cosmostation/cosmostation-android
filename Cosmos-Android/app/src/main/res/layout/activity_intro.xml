@@ -76,16 +76,93 @@
         android:layout_marginBottom="@dimen/space_36"
         android:gravity="center_horizontal"
         android:visibility="gone">
-        <Button
-            android:id="@+id/btn_import"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_45"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
-            android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_white"
-            android:text="@string/str_import"/>
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_import"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_45"
+                android:minHeight="@dimen/space_45"
+                android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginRight="@dimen/space_16"
+                android:background="@drawable/btn_trans_with_border"
+                style="@style/font_ss_14_white"
+                android:text="@string/str_import"/>
+
+            <LinearLayout
+                android:id="@+id/import_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginRight="@dimen/space_16"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <LinearLayout
+                    android:id="@+id/btn_import_mnemonic"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_45"
+                    android:layout_marginRight="@dimen/space_4"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:background="@drawable/btn_trans_with_border">
+                    <LinearLayout
+                        android:id="@+id/import_mnemonic_layer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-3dp"
+                            style="@style/font_ss_9_gray1"
+                            android:text="@string/str_import2"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-3dp"
+                            style="@style/font_ss_14_white"
+                            android:text="@string/str_mnemonic"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_watch_address"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_45"
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:background="@drawable/btn_trans_with_border">
+                    <LinearLayout
+                        android:id="@+id/import_watch_layer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-3dp"
+                            style="@style/font_ss_9_gray1"
+                            android:text="@string/str_watch"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-3dp"
+                            style="@style/font_ss_14_white"
+                            android:text="@string/str_address"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
         <Button
             android:id="@+id/btn_create"
             android:layout_width="match_parent"

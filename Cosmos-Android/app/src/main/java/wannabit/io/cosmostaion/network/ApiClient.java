@@ -14,7 +14,7 @@ public class ApiClient {
         if (service_wannabit_chain == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_wannabit))
+                        .baseUrl(c.getString(R.string.url_lcd_gaia))
                         .client(WUtil.getUnsafeOkHttpClient().build())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();

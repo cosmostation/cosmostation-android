@@ -25,7 +25,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class RecoverMnemonicFragment extends BaseFragment implements View.OnClickListener, TaskListener {
+public class RecoverMnemonicFragment extends BaseFragment implements View.OnClickListener, TaskListener{
 
     private EditText            mEtUserMnemonic;
     private Button              mBtnNext;

@@ -21,6 +21,7 @@ public class InsertMnemonicTask extends CommonTask {
      *
      * @param strings
      *  strings[0] : seed
+     *  strings[1] : size
      */
     @Override
     protected TaskResult doInBackground(String... strings) {
@@ -29,6 +30,7 @@ public class InsertMnemonicTask extends CommonTask {
         newMn.resource      = encR.getEncDataString();
         newMn.spec          = encR.getIvDataString();
         newMn.dpMasterKey   = HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(strings[0])).getPublicKeyAsHex();
+        newMn.typeSize      = Integer.parseInt(strings[1]);
 
         long result = mApp.getBaseDao().onInsertMnemonic(newMn);
 

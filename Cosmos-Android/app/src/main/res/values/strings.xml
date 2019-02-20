@@ -3,7 +3,7 @@
     <string name="db_password">wannabit</string>
 
     <string name="url_lcd_wannabit">https://52.231.71.66:1317/</string>
-    <string name="url_lcd_gaia">cosmos lcd testnet</string>
+    <string name="url_lcd_gaia">https://lcd-dev.cosmostation.io</string>
     <string name="url_lcd_gos">cosmos lcd gos</string>
     <string name="url_keybase">https://keybase.io/</string>
 
@@ -30,6 +30,11 @@
     <string name="str_show_mnemonic">Show Mnemonic</string>
     <string name="str_create_wallet">Create Wallet</string>
     <string name="str_start_wallet">Start Wallet</string>
+    <string name="str_import2">Import</string>
+    <string name="str_mnemonic">Mnemonic</string>
+    <string name="str_watch">Watch</string>
+    <string name="str_address">Address</string>
+    <string name="str_paste">Paste</string>
 
     <string name="str_main_send">SEND</string>
     <string name="str_main_reward">REWARD</string>
@@ -50,13 +55,12 @@
     <string name="str_password_msg2">No way to recover this. please remember!</string>
 
 
-    <string name="error_invalid_mnemonic_count">Invalid mnemonics, please insert correct 24 words</string>
+    <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
     <string name="error_invalid_address_pubkey">Invalid Address or PubKey, please check again.</string>
     <string name="error_already_exist_account">Already existed account.</string>
     <string name="error_invalid_password">Invalid Password</string>
-
-
+    <string name="error_clipboard_no_data">No text from clipboard.</string>
 
 
     <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>

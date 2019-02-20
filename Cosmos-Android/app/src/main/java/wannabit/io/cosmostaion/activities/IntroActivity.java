@@ -77,26 +77,38 @@ public class IntroActivity extends BaseActivity {
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
     private ShimmerTextView logoTitle;
-    private LinearLayout    bottomLayer1, bottomLayer2;
+    private LinearLayout    bottomLayer1, bottomLayer2, bottomDetail, btnImportMnemonic, btnWatchAddress;
     private Button          mCreate, mImport;
+    private LinearLayout    mNmemonicLayer, mWatchLayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        logoTitle       = findViewById(R.id.logo_title);
-        bottomLayer1    = findViewById(R.id.bottom_layer1);
-        bottomLayer2    = findViewById(R.id.bottom_layer2);
-        mImport         = findViewById(R.id.btn_import);
-        mCreate         = findViewById(R.id.btn_create);
+        logoTitle           = findViewById(R.id.logo_title);
+        bottomLayer1        = findViewById(R.id.bottom_layer1);
+        bottomLayer2        = findViewById(R.id.bottom_layer2);
+        bottomDetail        = findViewById(R.id.import_detail);
+        btnImportMnemonic   = findViewById(R.id.btn_import_mnemonic);
+        btnWatchAddress     = findViewById(R.id.btn_watch_address);
+        mImport             = findViewById(R.id.btn_import);
+        mCreate             = findViewById(R.id.btn_create);
+
+        mNmemonicLayer = findViewById(R.id.import_mnemonic_layer);
+        mWatchLayer = findViewById(R.id.import_watch_layer);
+
+
         mImport.setOnClickListener(this);
         mCreate.setOnClickListener(this);
-
+        btnImportMnemonic.setOnClickListener(this);
+        btnWatchAddress.setOnClickListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+//        startActivity(new Intent(IntroActivity.this, RestoreActivity.class));
 
 //        startActivity(new Intent(IntroActivity.this, CreateActivity.class));
 //        startActivity(new Intent(IntroActivity.this, PasswordSetActivity.class));
@@ -149,17 +161,48 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v.equals(mImport)) {
+            mImport.setVisibility(View.GONE);
+            bottomDetail.setVisibility(View.VISIBLE);
+
+//            final Animation fadein = AnimationUtils.loadAnimation(this, R.anim.fade_in4);
+//            Animation fadeout = AnimationUtils.loadAnimation(this, R.anim.fade_out4);
+//            fadeout.setAnimationListener(new Animation.AnimationListener() {
+//                @Override
+//                public void onAnimationStart(Animation animation) { }
+//                @Override
+//                public void onAnimationRepeat(Animation animation) { }
+//
+//                @Override
+//                public void onAnimationEnd(Animation animation) {
+//                    mImport.setVisibility(View.GONE);
+//                    mImport.setClickable(false);
+//                    bottomDetail.setVisibility(View.VISIBLE);
+//                    bottomDetail.startAnimation(fadein);
+//                }
+//            });
+//            mImport.startAnimation(fadeout);
+
+            Animation fadein = AnimationUtils.loadAnimation(this, R.anim.fade_in4);
+            mNmemonicLayer.startAnimation(fadein);
+            mWatchLayer.startAnimation(fadein);
+
 
         } else if (v.equals(mCreate)) {
             startActivity(new Intent(IntroActivity.this, CreateActivity.class));
+
+        } else if (v.equals(btnImportMnemonic)) {
+            startActivity(new Intent(IntroActivity.this, RestoreActivity.class));
+
+        } else if (v.equals(btnWatchAddress)) {
+
         }
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        finish();
+//    }
 }
 

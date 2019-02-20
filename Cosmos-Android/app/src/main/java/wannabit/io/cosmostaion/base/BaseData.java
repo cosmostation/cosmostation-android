@@ -123,7 +123,7 @@ public class BaseData {
 
     public ArrayList<Mnemonic> onSelectMnemonics() {
         ArrayList<Mnemonic> result = new ArrayList<>();
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey"}, null, null, null, null, null);
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey", "typeSize"}, null, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 Mnemonic mnemonic = new Mnemonic(
@@ -131,7 +131,8 @@ public class BaseData {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
-                        cursor.getString(4));
+                        cursor.getString(4),
+                        cursor.getInt(5));
                 result.add(mnemonic);
             } while (cursor.moveToNext());
         }
@@ -141,14 +142,15 @@ public class BaseData {
 
     public Mnemonic onSelectMnemonic(String id) {
         Mnemonic result = null;
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey"}, "id == ?", new String[]{id}, null, null, null);
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey", "typeSize"}, "id == ?", new String[]{id}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Mnemonic(
                     cursor.getLong(0),
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4));
+                    cursor.getString(4),
+                    cursor.getInt(5));
         }
         cursor.close();
         return result;
@@ -162,6 +164,7 @@ public class BaseData {
         values.put("resource",      mnemonic.resource);
         values.put("spec",          mnemonic.spec);
         values.put("dpMasterKey",   mnemonic.dpMasterKey);
+        values.put("typeSize",      mnemonic.typeSize);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_MNEMONIC, null, values);
     }
 

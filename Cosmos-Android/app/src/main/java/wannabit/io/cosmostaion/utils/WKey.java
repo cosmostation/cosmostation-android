@@ -29,10 +29,10 @@ public class WKey {
         return seed;
     }
 
-    public static List<String> getRandomMnemonic(byte[] seed) {
+    public static List<String> getRandomMnemonic(byte[] entropy) {
         List<String> result = new ArrayList<>();
         try {
-            result = MnemonicCode.INSTANCE.toMnemonic(seed);
+            result = MnemonicCode.INSTANCE.toMnemonic(entropy);
 
         } catch (MnemonicException.MnemonicLengthException e) {
             if(BaseConstant.IS_SHOWLOG)
@@ -178,6 +178,13 @@ public class WKey {
 
     public static String convertDpOpAddressToDpAddress(String dpOpAddress) {
         return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
+    }
+
+    public static String getDpAddressFromEntropy(byte[] entropy){
+        byte[] HDseed               = getHDSeed(entropy);
+        DeterministicKey masterKey  = HDKeyDerivation.createMasterPrivateKey(HDseed);
+        DeterministicKey childKey   = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(), true, true,  new ChildNumber(0));
+        return getCosmosUserDpAddress(childKey.getPublicKeyAsHex());
     }
 
 
