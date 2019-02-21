@@ -39,8 +39,10 @@
     <string name="str_watch">Watch</string>
     <string name="str_address">Address</string>
     <string name="str_paste">Paste</string>
-    <string name="str_send">SEND</string>
+    <string name="str_send_c">SEND</string>
+    <string name="str_delegate_c">DELEGATE</string>
     <string name="str_before">Before</string>
+    <string name="str_cancel">Cancel</string>
     <string name="str_recipient_address">Recipient Address</string>
     <string name="str_memo">memo</string>
     <string name="str_fees">fees</string>
@@ -50,7 +52,10 @@
     <string name="str_to_c">TO</string>
     <string name="str_memo_c">MEMO</string>
     <string name="str_remind_balance">Remind Balance</string>
+    <string name="str_to_delegate_amount">To Delegate Amount</string>
+    <string name="str_to_delegate_validator">To Delegate Validator</string>
 
+    <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
     <string name="str_main_reward">REWARD</string>
     <string name="str_main_history">HISTORY</string>
@@ -73,6 +78,10 @@
     <string name="str_send_step_2">Insert memo to involve.(Optional)</string>
     <string name="str_send_step_3">Select transaction fees.</string>
     <string name="str_send_step_4">Check your information to send.</string>
+    <string name="str_delegate_step_1">Insert amount to delegate.</string>
+    <string name="str_delegate_step_2">Insert memo to involve.(Optional)</string>
+    <string name="str_delegate_step_3">Select transaction fees.</string>
+    <string name="str_delegate_step_4">Check your information to delegate.</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>

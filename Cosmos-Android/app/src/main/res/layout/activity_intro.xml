@@ -39,8 +39,7 @@
             android:layout_marginRight="@dimen/space_60"
             android:layout_marginTop="@dimen/space_16"
             style="@style/font_ss_12_gray1"
-            android:gravity="center"
-            android:text="Cosmostation Wallet is a cryptocurrency \nWallet used for show your Atom on the \nCosmos Hub Blockchain."/>
+            android:gravity="center"/>
     </LinearLayout>
 
 

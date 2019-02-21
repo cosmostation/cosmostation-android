@@ -15,29 +15,25 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.fragment.SendStep0Fragment;
-import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
-import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
-import wannabit.io.cosmostaion.fragment.SendStep3Fragment;
-import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
+import wannabit.io.cosmostaion.fragment.DelegateStep0Fragment;
+import wannabit.io.cosmostaion.fragment.DelegateStep1Fragment;
+import wannabit.io.cosmostaion.fragment.DelegateStep2Fragment;
+import wannabit.io.cosmostaion.fragment.DelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WLog;
 
-public class SendActivity extends BaseActivity {
+public class DelegateActivity extends BaseActivity {
 
-    private Toolbar                 mToolbar;
-    private TextView                mTitle;
-    private ImageView               mIvStep;
-    private TextView                mTvStep;
-    private ViewPager               mViewPager;
-    private SendPageAdapter         mPageAdapter;
+    private Toolbar                     mToolbar;
+    private TextView                    mTitle;
+    private ImageView                   mIvStep;
+    private TextView                    mTvStep;
+    private ViewPager                   mViewPager;
+    private DelegatePageAdapter         mPageAdapter;
 
-    public Account                  mAccount;
-    public String                   mTagetAddress;
-    public ArrayList<Coin>          mTargetCoins;
-    public String                   mTargetMemo;
-    public Coin                     mTargetFee;
-
+    public Account  mAccount;
+    public String   mToDelegateAmount;
+    public String   mToDelegateMemo;
+    public Coin     mToDelegateFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +44,12 @@ public class SendActivity extends BaseActivity {
         mIvStep             = findViewById(R.id.send_step);
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_send_c));
+        mTitle.setText(getString(R.string.str_delegate_c));
+        mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
 
-        mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
+        mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
@@ -63,22 +60,18 @@ public class SendActivity extends BaseActivity {
             @Override
             public void onPageSelected(int i) {
                 if(i == 0) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_1_img));
-                    mTvStep.setText(getString(R.string.str_send_step_0));
+                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+                    mTvStep.setText(getString(R.string.str_delegate_step_1));
                 } else if (i == 1 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_2_img));
-                    mTvStep.setText(getString(R.string.str_send_step_1));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
+                    mTvStep.setText(getString(R.string.str_delegate_step_2));
+//                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 2 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_3_img));
-                    mTvStep.setText(getString(R.string.str_send_step_2));
+                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
+                    mTvStep.setText(getString(R.string.str_delegate_step_3));
                 } else if (i == 3 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img));
-                    mTvStep.setText(getString(R.string.str_send_step_3));
-                } else if (i == 4 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_5_img));
-                    mTvStep.setText(getString(R.string.str_send_step_4));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
+                    mTvStep.setText(getString(R.string.str_delegate_step_4));
                 }
             }
 
@@ -86,7 +79,13 @@ public class SendActivity extends BaseActivity {
             public void onPageScrollStateChanged(int i) { }
         });
         mViewPager.setCurrentItem(0);
+
     }
+
+
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -99,42 +98,33 @@ public class SendActivity extends BaseActivity {
     }
 
     public void onNextStep() {
-//        WLog.w("onNextStep : " + mViewPager.getCurrentItem());
         if(mViewPager.getCurrentItem() < 4) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
-
     }
 
     public void onBeforeStep() {
-//        WLog.w("onBeforeStep : " + mViewPager.getCurrentItem());
         if(mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         }
-
-
     }
 
 
 
-
-
-
-    private class SendPageAdapter extends FragmentPagerAdapter {
+    private class DelegatePageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public SendPageAdapter(FragmentManager fm) {
+        public DelegatePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(SendStep0Fragment.newInstance(null));
-            mFragments.add(SendStep1Fragment.newInstance(null));
-            mFragments.add(SendStep2Fragment.newInstance(null));
-            mFragments.add(SendStep3Fragment.newInstance(null));
-            mFragments.add(SendStep4Fragment.newInstance(null));
+            mFragments.add(DelegateStep0Fragment.newInstance(null));
+            mFragments.add(DelegateStep1Fragment.newInstance(null));
+            mFragments.add(DelegateStep2Fragment.newInstance(null));
+            mFragments.add(DelegateStep3Fragment.newInstance(null));
         }
 
         @Override
@@ -162,5 +152,6 @@ public class SendActivity extends BaseActivity {
         public ArrayList<BaseFragment> getFragments() {
             return mFragments;
         }
+
     }
 }

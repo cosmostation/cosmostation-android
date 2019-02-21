@@ -126,7 +126,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         TintableImageView tabItemIcon0  = tab0.findViewById(R.id.tabItemIcon);
         TextView tabItemText0  = tab0.findViewById(R.id.tabItemText);
         tabItemIcon0.setImageResource(R.drawable.send_ic);
-        tabItemText0.setText(R.string.str_main_send);
+        tabItemText0.setText(R.string.str_main_wallet);
         mTabLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
@@ -136,19 +136,19 @@ public class MainActivity extends BaseActivity implements TaskListener {
         tabItemText1.setText(R.string.str_main_reward);
         mTabLayer.getTabAt(1).setCustomView(tab1);
 
-        View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView   tabItemIcon2  = tab2.findViewById(R.id.tabItemIcon);
-        TextView            tabItemText2  = tab2.findViewById(R.id.tabItemText);
-        tabItemIcon2.setImageResource(R.drawable.ts_ic);
-        tabItemText2.setText(R.string.str_main_history);
-        mTabLayer.getTabAt(2).setCustomView(tab2);
+//        View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
+//        TintableImageView   tabItemIcon2  = tab2.findViewById(R.id.tabItemIcon);
+//        TextView            tabItemText2  = tab2.findViewById(R.id.tabItemText);
+//        tabItemIcon2.setImageResource(R.drawable.ts_ic);
+//        tabItemText2.setText(R.string.str_main_history);
+//        mTabLayer.getTabAt(2).setCustomView(tab2);
 
         View tab3 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
         TintableImageView   tabItemIcon3  = tab3.findViewById(R.id.tabItemIcon);
         TextView            tabItemText3  = tab3.findViewById(R.id.tabItemText);
         tabItemIcon3.setImageResource(R.drawable.vote_ic);
         tabItemText3.setText(R.string.str_main_vote);
-        mTabLayer.getTabAt(3).setCustomView(tab3);
+        mTabLayer.getTabAt(2).setCustomView(tab3);
 
         mContentsPager.setCurrentItem(1, false);
 
@@ -224,7 +224,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         switch (item.getItemId()) {
             case R.id.menu_qr:
                 WLog.w("menu_qr");
-                startActivity(new Intent(MainActivity.this, CreateActivity.class));
+                startActivity(new Intent(MainActivity.this, RestoreActivity.class));
                 return true;
             case R.id.menu_setting:
                 WLog.w("menu_setting");
@@ -327,7 +327,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mFragments.clear();
             mFragments.add(MainSendFragment.newInstance(null));
             mFragments.add(MainRewardFragment.newInstance(null));
-            mFragments.add(MainHistoryFragment.newInstance(null));
+//            mFragments.add(MainHistoryFragment.newInstance(null));
             mFragments.add(MainVoteFragment.newInstance(null));
         }
 

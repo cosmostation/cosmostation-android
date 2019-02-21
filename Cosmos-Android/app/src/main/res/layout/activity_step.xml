@@ -16,8 +16,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
-            android:text="@string/str_send"/>
+            style="@style/font_ssm_17_white"/>
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout

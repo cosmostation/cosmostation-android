@@ -320,6 +320,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         WLog.w("Start Delegate");
+                        Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
+                        startActivity(toDelegate);
                     }
                 });
                 holder.itemBtnUndelegate.setOnClickListener(new View.OnClickListener() {
