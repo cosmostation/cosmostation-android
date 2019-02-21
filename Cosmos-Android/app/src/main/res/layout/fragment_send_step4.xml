@@ -28,7 +28,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="To Send Amount"
+                    android:text="@string/str_to_send_amount"
                     style="@style/font_ss_12_gray1"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -36,13 +36,15 @@
                     android:orientation="vertical"
                     android:layout_marginTop="@dimen/space_10">
                     <RelativeLayout
+                        android:id="@+id/send_atom_layer"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="ATOM"
+                            android:text="@string/str_atom_c"
                             style="@style/font_ss_10_atom"/>
                         <TextView
                             android:id="@+id/send_atom"
@@ -54,14 +56,16 @@
                             style="@style/font_ssl_10_white"/>
                     </RelativeLayout>
                     <RelativeLayout
+                        android:id="@+id/send_photon_layer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8">
+                        android:layout_marginTop="@dimen/space_8"
+                        android:visibility="gone">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="PHOTON"
+                            android:text="@string/str_photon_c"
                             style="@style/font_ss_10_photon"/>
                         <TextView
                             android:id="@+id/send_photon"
@@ -80,7 +84,7 @@
                             android:id="@+id/send_fees_header"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_fees"
+                            android:text="@string/str_fees_c"
                             android:textAllCaps="true"
                             style="@style/font_ss_10_gray1"/>
 
@@ -99,7 +103,7 @@
                             android:layout_toRightOf="@+id/send_fees_header"
                             android:layout_alignBaseline="@+id/send_fees_header"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:text="(PHOTON)"
+                            android:text="@string/str_photon_c"
                             style="@style/font_ss_7_photon"/>
 
                     </RelativeLayout>
@@ -131,7 +135,7 @@
                             android:id="@+id/from_header"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="From"
+                            android:text="@string/str_from_c"
                             style="@style/font_ss_12_gray1"/>
                         <TextView
                             android:id="@+id/from_nickname"
@@ -159,7 +163,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TO"
+                        android:text="@string/str_to_c"
                         style="@style/font_ss_12_gray1"/>
                     <TextView
                         android:id="@+id/to_address"
@@ -179,7 +183,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MEMO"
+                        android:text="@string/str_memo_c"
                         style="@style/font_ss_12_gray1"/>
                     <TextView
                         android:id="@+id/memo"
@@ -208,7 +212,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Remind Balance"
+                    android:text="@string/str_remind_balance"
                     style="@style/font_ss_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -218,7 +222,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="ATOM"
+                        android:text="@string/str_atom_c"
                         style="@style/font_ss_10_atom"/>
                     <TextView
                         android:id="@+id/remind_atom"
@@ -237,7 +241,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="PHOTON"
+                        android:text="@string/str_photon_c"
                         style="@style/font_ss_10_photon"/>
                     <TextView
                         android:id="@+id/remind_photon"

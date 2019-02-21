@@ -32,7 +32,6 @@ public class SendActivity extends BaseActivity {
     private SendPageAdapter         mPageAdapter;
 
     public Account                  mAccount;
-
     public String                   mTagetAddress;
     public ArrayList<Coin>          mTargetCoins;
     public String                   mTargetMemo;
@@ -77,6 +76,7 @@ public class SendActivity extends BaseActivity {
                 } else if (i == 4 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_send_step_4));
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
 

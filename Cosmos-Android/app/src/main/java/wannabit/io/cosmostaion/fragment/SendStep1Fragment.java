@@ -70,7 +70,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onRefreshTab() {
-        super.onRefreshTab();
         if(mToSendCoins == null || mToSendCoins.size() == 0) {
             onShowSendTypeDialog();
         }

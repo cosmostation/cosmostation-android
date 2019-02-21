@@ -13,6 +13,10 @@
     <string name="key_password">PASSWORD_KEY</string>
 
 
+    <!--<string name="str_atom_c">ATOM</string>-->
+    <!--<string name="str_photon_c">PHOTON</string>-->
+    <string name="str_atom_c">MUON</string>
+    <string name="str_photon_c">PHOTINO</string>
 
 
     <string name="str_ok">OK</string>
@@ -40,6 +44,12 @@
     <string name="str_recipient_address">Recipient Address</string>
     <string name="str_memo">memo</string>
     <string name="str_fees">fees</string>
+    <string name="str_fees_c">FEES</string>
+    <string name="str_to_send_amount">To Send Amount</string>
+    <string name="str_from_c">FROM</string>
+    <string name="str_to_c">TO</string>
+    <string name="str_memo_c">MEMO</string>
+    <string name="str_remind_balance">Remind Balance</string>
 
     <string name="str_main_send">SEND</string>
     <string name="str_main_reward">REWARD</string>
