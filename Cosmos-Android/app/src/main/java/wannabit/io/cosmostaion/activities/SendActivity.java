@@ -14,11 +14,13 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.SendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep3Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class SendActivity extends BaseActivity {
@@ -29,6 +31,13 @@ public class SendActivity extends BaseActivity {
     private ViewPager               mViewPager;
     private SendPageAdapter         mPageAdapter;
 
+    public Account                  mAccount;
+
+    public String                   mTagetAddress;
+    public ArrayList<Coin>          mTargetCoins;
+    public String                   mTargetMemo;
+    public Coin                     mTargetFee;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +47,8 @@ public class SendActivity extends BaseActivity {
         mIvStep             = findViewById(R.id.send_step);
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
+
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -56,6 +67,7 @@ public class SendActivity extends BaseActivity {
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_2_img));
                     mTvStep.setText(getString(R.string.str_send_step_1));
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_send_step_2));

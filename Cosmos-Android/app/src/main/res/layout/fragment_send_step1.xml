@@ -4,7 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_control"
+        android:layout_marginTop="@dimen/space_4"
+        android:layout_marginBottom="@dimen/space_16"
+        android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/space_4"
+            android:clipToPadding="false"
+            android:overScrollMode="never" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

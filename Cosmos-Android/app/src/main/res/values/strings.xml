@@ -35,9 +35,11 @@
     <string name="str_watch">Watch</string>
     <string name="str_address">Address</string>
     <string name="str_paste">Paste</string>
-    <string name="str_send">SEDN</string>
+    <string name="str_send">SEND</string>
     <string name="str_before">Before</string>
     <string name="str_recipient_address">Recipient Address</string>
+    <string name="str_memo">memo</string>
+    <string name="str_fees">fees</string>
 
     <string name="str_main_send">SEND</string>
     <string name="str_main_reward">REWARD</string>
@@ -69,7 +71,10 @@
     <string name="error_already_exist_account">Already existed account.</string>
     <string name="error_invalid_password">Invalid Password</string>
     <string name="error_clipboard_no_data">No text from clipboard.</string>
-
+    <string name="error_invalid_address">Invalid Address.</string>
+    <string name="error_self_sending">Self sending is not support.</string>
+    <string name="error_invalid_amount">Invalid amount, please insert correct amount to send.</string>
+    <string name="error_invalid_memo">Invalid memo, please type under 256 char.</string>
 
     <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
 
@@ -134,4 +139,25 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
+
+
+    <string-array name="atom_fee">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </string-array>
+    <string name="atom_fee_l">1</string>
+    <string name="atom_fee_m">2</string>
+    <string name="atom_fee_h">4</string>
+
+
+    <string-array name="photon_fee">
+        <item>60</item>
+        <item>120</item>
+        <item>240</item>
+    </string-array>
+    <string name="photon_fee_l">60</string>
+    <string name="photon_fee_m">120</string>
+    <string name="photon_fee_h">240</string>
+
 </resources>

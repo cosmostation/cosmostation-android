@@ -22,8 +22,7 @@
             android:background="@drawable/edittext_box"
             android:paddingEnd="@dimen/space_60"
             style="@style/font_ss_12_white"
-            android:imeOptions="actionNext"
-            android:text="cosmos1"/>
+            android:imeOptions="actionNext"/>
         <ImageView
             android:id="@+id/receiver_camera"
             android:layout_width="wrap_content"

@@ -2,8 +2,11 @@ package wannabit.io.cosmostaion.dao;
 
 import org.bitcoinj.crypto.DeterministicKey;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class Account {
     public Long     id;
@@ -61,6 +64,35 @@ public class Account {
 
     public void setBalances(ArrayList<Balance> balances) {
         this.balances = balances;
+    }
+
+
+    public BigDecimal getAtomBalance() {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+                result = balance.balance;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal getPhotonBalance() {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0) {
+            return  result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)) {
+                result = balance.balance;
+                break;
+            }
+        }
+        return result;
     }
 
 //    public DeterministicKey getDeterministicKey() {
