@@ -13,19 +13,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.DelegateActivity;
+import wannabit.io.cosmostaion.activities.UndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
-public class DelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class UndelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mCancel, mNextBtn;
     private EditText mAmountInput;
     private TextView mAvailableAmount;
 
-    public static DelegateStep0Fragment newInstance(Bundle bundle) {
-        DelegateStep0Fragment fragment = new DelegateStep0Fragment();
+    public static UndelegateStep0Fragment newInstance(Bundle bundle) {
+        UndelegateStep0Fragment fragment = new UndelegateStep0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -37,14 +36,13 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_delegate_step0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_undelegate_step0, container, false);
         mCancel = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
-
 
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -64,11 +62,10 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onInitView() {
-        mAvailableAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getAtomBalance(), 6));
+        if(getSActivity().mBondingState != null)
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6));
 
     }
-
-
 
     @Override
     public void onClick(View v) {
@@ -77,12 +74,11 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mNextBtn)) {
             if(isValidateDelegateAmount()) {
-                getSActivity().mToDelegateAmount = mAmountInput.getText().toString().trim();
+                getSActivity().mUnDelegateAmount = mAmountInput.getText().toString().trim();
                 getSActivity().onNextStep();
             }
 
         }
-
     }
 
     //TODO check add validatae logic
@@ -94,8 +90,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         return true;
     }
 
-
-    private DelegateActivity getSActivity() {
-        return (DelegateActivity)getBaseActivity();
+    private UndelegateActivity getSActivity() {
+        return (UndelegateActivity)getBaseActivity();
     }
 }

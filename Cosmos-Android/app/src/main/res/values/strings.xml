@@ -41,6 +41,7 @@
     <string name="str_paste">Paste</string>
     <string name="str_send_c">SEND</string>
     <string name="str_delegate_c">DELEGATE</string>
+    <string name="str_undelegate_c">UNDELEGATE</string>
     <string name="str_before">Before</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_recipient_address">Recipient Address</string>
@@ -54,6 +55,10 @@
     <string name="str_remind_balance">Remind Balance</string>
     <string name="str_to_delegate_amount">To Delegate Amount</string>
     <string name="str_to_delegate_validator">To Delegate Validator</string>
+    <string name="str_undelegate_amount">To Undelegate Amount</string>
+    <string name="str_from_undelegate_validator">Undelegate From</string>
+    <string name="str_undelegate_complete_time">Expected Delivery</string>
+    <string name="str_remind_delegate">Remind Delegate</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -82,6 +87,11 @@
     <string name="str_delegate_step_2">Insert memo to involve.(Optional)</string>
     <string name="str_delegate_step_3">Select transaction fees.</string>
     <string name="str_delegate_step_4">Check your information to delegate.</string>
+    <string name="str_undelegate_step_1">Insert amount to undelegate.</string>
+    <string name="str_undelegate_step_2">Insert memo to involve.(Optional)</string>
+    <string name="str_undelegate_step_3">Select transaction fees.</string>
+    <string name="str_undelegate_step_4">Check your information to undelegate.</string>
+    <string name="str_unbonding_days_after"><![CDATA[(3 days after)]]></string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
@@ -96,6 +106,8 @@
     <string name="error_invalid_memo">Invalid memo, please type under 256 char.</string>
 
     <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
+    <string name="str_dp_time_format1">yy/MM/dd HH:mm:ss</string>
+    <string name="str_dp_time_format2">yy/MM/dd HH:mm</string>
 
     <string name="str_decimal_pattern_0">###,###,###,###,###,###,###,##0</string>
     <string name="str_decimal_pattern_1">###,###,###,###,###,###,###,##0.0</string>

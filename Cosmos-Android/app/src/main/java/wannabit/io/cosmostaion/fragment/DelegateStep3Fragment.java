@@ -19,7 +19,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mDelegateAtomAmount;
+    private TextView        mDelegateAmount;
     private TextView        mFeeAmount, mFeeType;
     private TextView        mValidatorName, mMemo;
     private TextView        mRemindAtom, mRemindPhoton;
@@ -40,7 +40,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_delegate_step3, container, false);
-        mDelegateAtomAmount     = rootView.findViewById(R.id.delegate_atom);
+        mDelegateAmount         = rootView.findViewById(R.id.delegate_atom);
         mFeeAmount              = rootView.findViewById(R.id.delegate_fees);
         mFeeType                = rootView.findViewById(R.id.delegate_fees_type);
         mValidatorName          = rootView.findViewById(R.id.to_delegate_moniker);
@@ -56,9 +56,11 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toSendAtom = new BigDecimal(getSActivity().mToDelegateAmount);
-        BigDecimal remindAtom = getSActivity().mAccount.getAtomBalance().subtract(toSendAtom);
+        BigDecimal toDeleagteAtom = new BigDecimal(getSActivity().mToDelegateAmount);
+        BigDecimal remindAtom = getSActivity().mAccount.getAtomBalance().subtract(toDeleagteAtom);
         BigDecimal remindPhoton = BigDecimal.ZERO;
+
+        mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAtom, 6));
 
         if(getSActivity().mToDelegateFee.denom.equals(BaseConstant.COSMOS_ATOM)) {
             mFeeType.setText(BaseConstant.COSMOS_ATOM);

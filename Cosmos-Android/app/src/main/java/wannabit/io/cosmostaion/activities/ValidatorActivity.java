@@ -337,6 +337,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         WLog.w("Start Undelegate");
+                        getBaseDao().setValidator(mValidator);
+                        Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
+                        startActivity(unDelegate);
 
                     }
                 });

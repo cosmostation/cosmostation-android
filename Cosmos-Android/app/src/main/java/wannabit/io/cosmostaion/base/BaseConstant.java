@@ -73,6 +73,10 @@ public class BaseConstant {
 
     public final static String                  COSMOS_ATOM                             = "muon";
     public final static String                  COSMOS_PHOTON                           = "photino";
+    //TODO HardCoding!!
+    public final static long                    COSMOS_UNBONDING_TIME                   = 259200000000000l;
+    public final static long                    COSMOS_UNBONDING_DAY                    = 3;
+
 
     public final static String                  characterFilter                         = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 }

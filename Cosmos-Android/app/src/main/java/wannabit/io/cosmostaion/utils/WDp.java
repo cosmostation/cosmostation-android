@@ -7,8 +7,12 @@ import android.text.style.RelativeSizeSpan;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -368,5 +372,18 @@ public class WDp {
                 break;
         }
         return decimalformat;
+    }
+
+
+    public static String getUnbondTime(Context c) {
+        String result = "??";
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, 3);
+            SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
+            result = unbondFormat.format(calendar.getTimeInMillis());
+        } catch (Exception e) {};
+
+        return result + "   " +c.getString(R.string.str_unbonding_days_after);
     }
 }

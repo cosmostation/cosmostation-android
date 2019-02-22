@@ -15,27 +15,29 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.fragment.DelegateStep0Fragment;
-import wannabit.io.cosmostaion.fragment.DelegateStep1Fragment;
-import wannabit.io.cosmostaion.fragment.DelegateStep2Fragment;
-import wannabit.io.cosmostaion.fragment.DelegateStep3Fragment;
+import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.fragment.UndelegateStep0Fragment;
+import wannabit.io.cosmostaion.fragment.UndelegateStep1Fragment;
+import wannabit.io.cosmostaion.fragment.UndelegateStep2Fragment;
+import wannabit.io.cosmostaion.fragment.UndelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 
-public class DelegateActivity extends BaseActivity {
+public class UndelegateActivity extends BaseActivity {
 
     private Toolbar                     mToolbar;
     private TextView                    mTitle;
     private ImageView                   mIvStep;
     private TextView                    mTvStep;
     private ViewPager                   mViewPager;
-    private DelegatePageAdapter         mPageAdapter;
+    private UndelegatePageAdapter       mPageAdapter;
 
-    public Account      mAccount;
-    public Validator    mValidator;
-    public String       mToDelegateAmount;
-    public String       mToDelegateMemo;
-    public Coin         mToDelegateFee;
+    public Account                      mAccount;
+    public Validator                    mValidator;
+    public BondingState                 mBondingState;
+    public String                       mUnDelegateAmount;
+    public String                       mUnDelegateMemo;
+    public Coin                         mUnDelegateFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +48,14 @@ public class DelegateActivity extends BaseActivity {
         mIvStep             = findViewById(R.id.send_step);
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_delegate_c));
+        mTitle.setText(getString(R.string.str_undelegate_c));
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mValidator = getBaseDao().getValidator();
+        mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mValidator      = getBaseDao().getValidator();
+        mBondingState   = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
 
-        mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager());
+        mPageAdapter = new UndelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
@@ -64,17 +67,18 @@ public class DelegateActivity extends BaseActivity {
             public void onPageSelected(int i) {
                 if(i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_delegate_step_1));
+                    mTvStep.setText(getString(R.string.str_undelegate_step_1));
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_delegate_step_2));
-//                    mPageAdapter.mCurrentFragment.onRefreshTab();
+
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_delegate_step_3));
+                    mTvStep.setText(getString(R.string.str_undelegate_step_3));
+
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_delegate_step_4));
+                    mTvStep.setText(getString(R.string.str_undelegate_step_4));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
@@ -83,11 +87,7 @@ public class DelegateActivity extends BaseActivity {
             public void onPageScrollStateChanged(int i) { }
         });
         mViewPager.setCurrentItem(0);
-
     }
-
-
-
 
 
 
@@ -119,18 +119,19 @@ public class DelegateActivity extends BaseActivity {
 
 
 
-    private class DelegatePageAdapter extends FragmentPagerAdapter {
+
+    private class UndelegatePageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public DelegatePageAdapter(FragmentManager fm) {
+        public UndelegatePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(DelegateStep0Fragment.newInstance(null));
-            mFragments.add(DelegateStep1Fragment.newInstance(null));
-            mFragments.add(DelegateStep2Fragment.newInstance(null));
-            mFragments.add(DelegateStep3Fragment.newInstance(null));
+            mFragments.add(UndelegateStep0Fragment.newInstance(null));
+            mFragments.add(UndelegateStep1Fragment.newInstance(null));
+            mFragments.add(UndelegateStep2Fragment.newInstance(null));
+            mFragments.add(UndelegateStep3Fragment.newInstance(null));
         }
 
         @Override
