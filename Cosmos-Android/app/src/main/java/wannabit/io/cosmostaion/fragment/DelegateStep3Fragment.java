@@ -8,9 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -50,7 +55,38 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     @Override
+    public void onRefreshTab() {
+        BigDecimal toSendAtom = new BigDecimal(getSActivity().mToDelegateAmount);
+        BigDecimal remindAtom = getSActivity().mAccount.getAtomBalance().subtract(toSendAtom);
+        BigDecimal remindPhoton = BigDecimal.ZERO;
+
+        if(getSActivity().mToDelegateFee.denom.equals(BaseConstant.COSMOS_ATOM)) {
+            mFeeType.setText(BaseConstant.COSMOS_ATOM);
+            mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
+            remindAtom.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount));
+        } else {
+            mFeeType.setText(BaseConstant.COSMOS_PHOTON);
+            mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
+            remindPhoton.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount));
+        }
+
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mToDelegateFee.amount), 6));
+        mValidatorName.setText(getSActivity().mValidator.description.moniker);
+        mMemo.setText(getSActivity().mToDelegateMemo);
+
+        mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6));
+        mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6));
+    }
+
+    @Override
     public void onClick(View v) {
+        if(v.equals(mBeforeBtn)) {
+            getSActivity().onBeforeStep();
+
+        } else if (v.equals(mConfirmBtn)) {
+            WLog.w("mConfirmBtn");
+
+        }
 
     }
 

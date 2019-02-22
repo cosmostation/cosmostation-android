@@ -265,7 +265,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6));
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("");
-
+                holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        WLog.w("Start Delegate");
+                        getBaseDao().setValidator(mValidator);
+                        Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
+                        startActivity(toDelegate);
+                    }
+                });
 
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
@@ -320,6 +328,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         WLog.w("Start Delegate");
+                        getBaseDao().setValidator(mValidator);
                         Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
                         startActivity(toDelegate);
                     }
@@ -405,6 +414,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             TextView    itemTvTotalBondAmount;
             TextView    itemTvSelfBondRate;
             TextView    itemTvCommissionRate;
+            Button      itemBtnDelegate;
 
             public ValidatorHolder(View v) {
                 super(v);
@@ -416,6 +426,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemTvTotalBondAmount   = itemView.findViewById(R.id.validator_total_bonded);
                 itemTvSelfBondRate      = itemView.findViewById(R.id.validator_self_bond_rate);
                 itemTvCommissionRate    = itemView.findViewById(R.id.validator_commission);
+                itemBtnDelegate         = itemView.findViewById(R.id.validator_btn_delegate);
             }
         }
 

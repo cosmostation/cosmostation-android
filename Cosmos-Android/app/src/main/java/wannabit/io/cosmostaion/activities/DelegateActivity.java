@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.fragment.DelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Validator;
 
 public class DelegateActivity extends BaseActivity {
 
@@ -30,10 +31,11 @@ public class DelegateActivity extends BaseActivity {
     private ViewPager                   mViewPager;
     private DelegatePageAdapter         mPageAdapter;
 
-    public Account  mAccount;
-    public String   mToDelegateAmount;
-    public String   mToDelegateMemo;
-    public Coin     mToDelegateFee;
+    public Account      mAccount;
+    public Validator    mValidator;
+    public String       mToDelegateAmount;
+    public String       mToDelegateMemo;
+    public Coin         mToDelegateFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class DelegateActivity extends BaseActivity {
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mValidator = getBaseDao().getValidator();
 
         mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -72,6 +75,7 @@ public class DelegateActivity extends BaseActivity {
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_delegate_step_4));
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
 
@@ -108,6 +112,8 @@ public class DelegateActivity extends BaseActivity {
         if(mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+        } else {
+            onBackPressed();
         }
     }
 

@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class DelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -45,8 +46,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
-
-        mNextBtn.setOnClickListener(this);
+        mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
 
@@ -77,8 +77,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.equals(mCancel)) {
-            //TODO add ask dialog
-            getSActivity().finish();
+            getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
             if(isValidateDelegateAmount()) {
