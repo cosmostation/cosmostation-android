@@ -9,6 +9,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ApiClient {
 
+    //TODO delete ssh guard
     private static WannabitChain service_wannabit_chain = null;
     public static WannabitChain getWannabitChain(Context c) {
         if (service_wannabit_chain == null) {
@@ -38,5 +39,21 @@ public class ApiClient {
             }
         }
         return service_keybase;
+    }
+
+
+    private static EsService service_es = null;
+    public static EsService getEsService(Context c) {
+        if (service_es == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_esearch))
+                        .client(WUtil.getUnsafeOkHttpClient().build())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_es = retrofit.create(EsService.class);
+            }
+        }
+        return service_es;
     }
 }

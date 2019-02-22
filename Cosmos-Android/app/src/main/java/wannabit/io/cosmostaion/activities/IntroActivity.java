@@ -10,17 +10,26 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.req.ReqTx;
+import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.test.TestActivity;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -107,6 +116,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onResume() {
         super.onResume();
+//        logoTitle.setVisibility(View.INVISIBLE);
+
 
 //        startActivity(new Intent(IntroActivity.this, RestoreActivity.class));
 
@@ -130,7 +141,61 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }, 1500);
-//        onInitView();
+//        if(bottomLayer2.getVisibility() != View.VISIBLE)
+//            onInitView();
+//
+//        onTest();
+    }
+
+
+    private void onTest() {
+        WLog.w("onTest : " + getString(R.string.url_esearch));
+        ReqTx reqTx = new ReqTx();
+        ReqTx.HeightKeyword heightKeyword = new ReqTx.HeightKeyword();
+        heightKeyword.order = "desc";
+        ReqTx.Sort sort = new ReqTx.Sort();
+        sort.heightkeyword = heightKeyword;
+        ArrayList<ReqTx.Sort> sorts = new ArrayList<>();
+        sorts.add(sort);
+
+        ReqTx.MultiMatch multiMatch = new ReqTx.MultiMatch();
+        multiMatch.query = "cosmos1hjct6q7npsspsg3dgvzk3sdf89spmlpfg8wwf7";
+        ArrayList<String> fields = new ArrayList<>();
+        fields.add("tx.value.msg.value.delegator_addr");
+        fields.add("tx.value.msg.value.from_address");
+        fields.add("tx.value.msg.value.to_address");
+        fields.add("tx.value.msg.value.voter");
+        fields.add("tx.value.msg.value.input.address");
+        fields.add("tx.value.msg.value.output.address");
+        multiMatch.fields = fields;
+
+        ReqTx.Query query = new ReqTx.Query();
+        query.multi_match = multiMatch;
+
+
+        reqTx.from = 0;
+        reqTx.size = 100;
+        reqTx.query = query;
+        reqTx.sort = sorts;
+
+
+//        String jsonText = new Gson().toJson(reqTx);
+//        WLog.w("jsonText : " + jsonText);
+
+        ApiClient.getEsService(getBaseContext()).getTx(reqTx).enqueue(new Callback<ResHistory>() {
+            @Override
+            public void onResponse(Call<ResHistory> call, Response<ResHistory> response) {
+                WLog.w("onResponse : " + response.body().hits.hits.size());
+            }
+
+            @Override
+            public void onFailure(Call<ResHistory> call, Throwable t) {
+                WLog.w("onFailure : " +t.getLocalizedMessage());
+                WLog.w("onFailure : " +call.request().url());
+                t.printStackTrace();
+            }
+        });
+
     }
 
     private void onInitView(){
