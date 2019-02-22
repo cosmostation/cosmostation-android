@@ -59,6 +59,12 @@
     <string name="str_from_undelegate_validator">Undelegate From</string>
     <string name="str_undelegate_complete_time">Expected Delivery</string>
     <string name="str_remind_delegate">Remind Delegate</string>
+    <string name="str_reward_c">CLAIM REWARD</string>
+    <string name="str_reward_all_c">CLAIM ALL REWARD</string>
+    <string name="str_reward_amount">Reward Amount</string>
+    <string name="str_reward_from">Reward From</string>
+    <string name="str_reward_to">Reward Receive Address</string>
+    <string name="str_expected_balance">Expected Balance</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -92,6 +98,11 @@
     <string name="str_undelegate_step_3">Select transaction fees.</string>
     <string name="str_undelegate_step_4">Check your information to undelegate.</string>
     <string name="str_unbonding_days_after"><![CDATA[(3 days after)]]></string>
+    <string name="str_reward_step_1">Check your reward amount.</string>
+    <string name="str_reward_step_2">Insert memo to involve.(Optional)</string>
+    <string name="str_reward_step_3">Select transaction fees.</string>
+    <string name="str_reward_step_4">Check your information to claim rewards</string>
+
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>

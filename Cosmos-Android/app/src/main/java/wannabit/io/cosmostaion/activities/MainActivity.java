@@ -258,6 +258,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
     public void onTaskResponse(TaskResult result) {
 //        WLog.w("onTaskResponse : " + result.taskType + "  " + result.isSuccess);
         mTaskCount--;
+        if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             mBalances = getBaseDao().onSelectBalance(mAccount.id);

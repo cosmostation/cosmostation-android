@@ -18,7 +18,7 @@
             android:minHeight="@dimen/space_80"
             android:hint="@string/str_memo"
             android:textCursorDrawable="@drawable/white_cursor"
-            android:maxLength="46"
+            android:maxLength="256"
             android:textColorHint="@color/colorGray4"
             android:background="@drawable/edittext_box"
             android:paddingEnd="@dimen/space_12"

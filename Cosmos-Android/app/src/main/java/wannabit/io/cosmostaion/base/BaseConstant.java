@@ -33,6 +33,7 @@ public class BaseConstant {
     public final static int					    TASK_FETCH_SINGLE_REWARD		        = 2012;
     public final static int					    TASK_FETCH_SINGLE_SELF_BONDING		    = 2013;
     public final static int					    TASK_PASSWORD_CHECK		                = 2015;
+    public final static int					    TASK_FETCH_WITHDRAW_ADDRESS		        = 2016;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;

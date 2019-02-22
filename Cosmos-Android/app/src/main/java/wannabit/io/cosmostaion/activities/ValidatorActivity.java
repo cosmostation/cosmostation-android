@@ -347,6 +347,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         WLog.w("Start Reward");
+                        getBaseDao().setValidator(mValidator);
+                        Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
+                        claimReward.putExtra("isAll", false);
+                        startActivity(claimReward);
 
                     }
                 });

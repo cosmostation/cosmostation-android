@@ -39,7 +39,8 @@ public interface WannabitChain {
     @GET("/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
     Call<ArrayList<Coin>> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
 
-
+    @GET("/distribution/delegators/{address}/withdraw_address")
+    Call<String> getWithdrawAddress(@Path("address") String address);
 
     //Validator details
     @GET("/staking/validators/{validatorAddr}")

@@ -24,6 +24,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
+import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -183,6 +185,9 @@ public class MainRewardFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         WLog.w("WITHDRAW ALL");
+                        Intent claimReward = new Intent(getMainActivity(), ClaimRewardActivity.class);
+                        claimReward.putExtra("isAll", true);
+                        startActivity(claimReward);
                     }
                 });
 

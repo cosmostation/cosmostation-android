@@ -103,7 +103,6 @@
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="@string/str_photon_c"
                             style="@style/font_ss_7_photon"/>
-
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
