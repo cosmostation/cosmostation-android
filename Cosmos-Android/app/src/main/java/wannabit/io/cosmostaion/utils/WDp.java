@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.TimeZone;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
@@ -436,6 +437,20 @@ public class WDp {
             result = myFormat.format(blockDateFormat.parse(rawValue));
         } catch (Exception e) {};
 
+        return result;
+    }
+
+    public static String DpAtom(Context c, String chain) {
+        String result = c.getString(R.string.s_atom);
+        if(chain.equals(BaseChain.GAIA_12K))
+            result = c.getString(R.string.s_muon);
+        return result;
+    }
+
+    public static String DpPoton(Context c, String chain) {
+        String result = c.getString(R.string.s_photon);
+        if(chain.equals(BaseChain.GAIA_12K))
+            result = c.getString(R.string.s_photino);
         return result;
     }
 }

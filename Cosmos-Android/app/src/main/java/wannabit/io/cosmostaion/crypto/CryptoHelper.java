@@ -15,6 +15,8 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 
+import wannabit.io.cosmostaion.utils.WLog;
+
 public class CryptoHelper {
 
     private static final String KEYSTORE        = "AndroidKeyStore";
@@ -33,7 +35,9 @@ public class CryptoHelper {
             return keyStore;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            WLog.w("loadKeyStore Error");
+//            WLog.w("haha : " + e.getMessage());
+//            e.printStackTrace();
             throw e;
         }
     }
@@ -109,6 +113,7 @@ public class CryptoHelper {
             e.printStackTrace();
             return result;
         }
+        WLog.w("signData : " + result);
         return result;
     }
 
@@ -133,8 +138,9 @@ public class CryptoHelper {
             result = s.verify(signature);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return result;
+//            e.printStackTrace();
+//            return result;
+            WLog.w("verifyData Error");
 
         }
         return result;

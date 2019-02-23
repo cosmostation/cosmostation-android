@@ -256,6 +256,36 @@ public class BaseData {
         return result;
     }
 
+    public Account onSelectExistAccount(String address, String chain) {
+        Account result = null;
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
+                "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize"}, "address == ? AND baseChain == ?", new String[]{address, chain}, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            result = new Account(
+                    cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getInt(3) > 0,
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getInt(6) > 0,
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getInt(9) > 0,
+                    cursor.getString(10),
+                    cursor.getInt(11) > 0,
+                    cursor.getInt(12),
+                    cursor.getInt(13),
+                    cursor.getLong(14),
+                    cursor.getInt(15)
+            );
+            result.setBalances(onSelectBalance(result.id));
+        }
+        cursor.close();
+        return result;
+    }
+
     public long onInsertAccount(Account account) {
         long result = -1;
         if(isDupleAccount(account.address)) return result;
@@ -296,6 +326,18 @@ public class BaseData {
             return onInsertAccount(account);
         }
     }
+
+    public long onOverrideAccount(Account account) {
+        ContentValues values = new ContentValues();
+        values.put("hasPrivateKey",     account.hasPrivateKey);
+        values.put("resource",          account.resource);
+        values.put("spec",              account.spec);
+        values.put("fromMnemonic",      account.fromMnemonic);
+        values.put("path",              account.path);
+        values.put("msize",             account.msize);
+        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
+    }
+
 
     public boolean isDupleAccount(String address) {
         boolean existed = false;

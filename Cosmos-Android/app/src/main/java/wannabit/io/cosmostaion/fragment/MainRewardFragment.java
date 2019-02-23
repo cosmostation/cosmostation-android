@@ -43,7 +43,6 @@ public class MainRewardFragment extends BaseFragment {
 
     private SwipeRefreshLayout          mSwipeRefreshLayout;
     private RecyclerView                mRecyclerView;
-    private LinearLayoutManager         mLinearLayoutManager;
 
     private RewardAdapter               mRewardAdapter;
 
@@ -81,8 +80,7 @@ public class MainRewardFragment extends BaseFragment {
             }
         });
 
-        mLinearLayoutManager = new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRewardAdapter = new RewardAdapter(mImageLoader);
         mRecyclerView.setAdapter(mRewardAdapter);

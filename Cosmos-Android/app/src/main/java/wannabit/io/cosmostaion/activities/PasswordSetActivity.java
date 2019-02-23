@@ -23,7 +23,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_UsingBio;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
-import wannabit.io.cosmostaion.task.InitPasswordTask;
+import wannabit.io.cosmostaion.task.UserTask.InitPasswordTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.KeyboardListener;

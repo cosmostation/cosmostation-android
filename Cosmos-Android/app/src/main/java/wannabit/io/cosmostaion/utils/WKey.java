@@ -204,6 +204,11 @@ public class WKey {
     }
 
 
+    //TODO check with "getKeyWithPath"
+    public static String getDpAddressWithPath(DeterministicKey masterKey , int path){
+        DeterministicKey childKey   = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(), true, true,  new ChildNumber(path));
+        return getCosmosUserDpAddress(childKey.getPublicKeyAsHex());
+    }
 
 
     private static final String CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l";

@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.task;
+package wannabit.io.cosmostaion.task.UserTask;
 
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -8,6 +8,9 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.task.CommonTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class GenerateAccountTask extends CommonTask {
@@ -24,7 +27,7 @@ public class GenerateAccountTask extends CommonTask {
      *  strings[0] : chainType
      *  strings[1] : path
      *  strings[2] : mnemonic seed
-     *  strings[2] : mnemonic size
+     *  strings[3] : mnemonic size
      *
      * @return
      */
@@ -52,7 +55,7 @@ public class GenerateAccountTask extends CommonTask {
 
 
 
-    private Account onGenAccount(String seed, String path, String chainType, String mszie) {
+    private Account onGenAccount(String seed, String path, String chainType, String msize) {
         Account             newAccount  = Account.getNewInstance();
         DeterministicKey    dKey        = WKey.getKeyWithPath(seed, Integer.parseInt(path));
 //        EncResult encR                  = CryptoHelper.doEncryptData(newAccount.uuid, new String(dKey.getPrivKey().toByteArray()), false);
@@ -64,7 +67,7 @@ public class GenerateAccountTask extends CommonTask {
         newAccount.spec             = encR.getIvDataString();
         newAccount.fromMnemonic     = true;
         newAccount.path             = path;
-        newAccount.msize            = Integer.parseInt(mszie);
+        newAccount.msize            = Integer.parseInt(msize);
 
         return newAccount;
 

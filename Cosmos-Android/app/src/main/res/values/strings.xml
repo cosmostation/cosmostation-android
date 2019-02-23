@@ -18,6 +18,8 @@
     <!--<string name="str_photon_c">PHOTON</string>-->
     <string name="str_atom_c">MUON</string>
     <string name="str_photon_c">PHOTINO</string>
+    <string name="str_cosmos_main_net">COSMOS MAIN NET</string>
+    <string name="str_cosmos_test_net">COSMOS TEST NET(GAIA 12K) </string>
 
 
     <string name="str_ok">OK</string>
@@ -69,6 +71,8 @@
     <string name="str_expected_balance">Expected Balance</string>
     <string name="str_success">success</string>
     <string name="str_failed">failed</string>
+    <string name="str_preparing">Preparing...</string>
+    <string name="str_select_wallet_path_c">SELECT WALLET TO RESTORE</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -106,6 +110,7 @@
     <string name="str_reward_step_2">Insert memo to involve.(Optional)</string>
     <string name="str_reward_step_3">Select transaction fees.</string>
     <string name="str_reward_step_4">Check your information to claim rewards</string>
+    <string name="str_already_imported_key">Already imported key.</string>
 
 
 
@@ -206,5 +211,12 @@
     <string name="photon_fee_l">60</string>
     <string name="photon_fee_m">120</string>
     <string name="photon_fee_h">240</string>
+
+
+
+    <string name="s_atom">ATOM</string>
+    <string name="s_photon">PHOTON</string>
+    <string name="s_muon">MUON</string>
+    <string name="s_photino">PHOTINO</string>
 
 </resources>

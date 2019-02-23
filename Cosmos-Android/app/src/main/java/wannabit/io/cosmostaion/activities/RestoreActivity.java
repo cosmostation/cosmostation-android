@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
@@ -17,7 +19,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.task.GenerateAccountTask;
+import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -29,6 +31,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     private TextView[]          mTvWords = new TextView[24];
     private Button              mBtnPaste, mBtnConfirm;
     private ArrayList<String>   mWords = new ArrayList<>();
+    private boolean             mCheckPassword;
 
 
     @Override
@@ -45,6 +48,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
         mBtnPaste.setOnClickListener(this);
         mBtnConfirm.setOnClickListener(this);
+        mCheckPassword = false;
     }
 
 
@@ -55,6 +59,8 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void onUpdateDpWord() {
+        if(mWords == null || mWords.size() > 24) return;
+
         for (int i = 0; i < mWords.size(); i++) {
             mTvWords[i].setText(mWords.get(i));
         }
@@ -110,28 +116,51 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                 Toast.makeText(this, R.string.error_invalid_mnemonic_count, Toast.LENGTH_SHORT).show();
 
             } else if (mBtnConfirm.getCurrentTextColor() == getResources().getColor(R.color.colorPhoton)) {
-                //TODO choose address 장면 나와야함.
-
-                onShowWaitDialog();
-//                new InsertMnemonicTask(getBaseApplication(), this).execute(WKey.getStringHdSeedFromWords(mWords), "24");
-                new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", WKey.getStringHdSeedFromWords(mWords), "24");
-
+                if(!getBaseDao().onHasPassword()) {
+                    Intent intent = new Intent(RestoreActivity.this, PasswordSetActivity.class);
+                    startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                } else {
+                    Intent intent = new Intent(RestoreActivity.this, PasswordCheckActivity.class);
+                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                    startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                }
             }
         }
 
     }
 
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == BaseConstant.CONST_PW_INIT && resultCode == Activity.RESULT_OK) {
+            WLog.w("onActivityResult REQ_INIT_PASSWORD RESULT_OK");
+            mCheckPassword = true;
+        } else if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
+            WLog.w("onActivityResult CONST_PW_SIMPLE_CHECK RESULT_OK");
+            mCheckPassword = true;
+        }
+        Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+    }
+
+
+    @Override
+    public void onChoiceNet(BaseChain chain) {
+        super.onChoiceNet(chain);
+        Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
+        intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));
+        intent.putExtra("size", mWords.size());
+        intent.putExtra("chain", chain.getChain());
+        startActivity(intent);
+    }
+
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-//        if (result.taskType == BaseConstant.TASK_ADD_MN) {
-//            WLog.w("TASK_ADD_MN");
-//            if(result.isSuccess)
-//                new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", result.resultData.toString());
-//            else {
-//                WLog.w("Init Mnemonic ERROR : " + result.errorCode);
-//            }
-//        } else
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             WLog.w("TASK_INIT_ACCOUNT");
             if(result.isSuccess) {

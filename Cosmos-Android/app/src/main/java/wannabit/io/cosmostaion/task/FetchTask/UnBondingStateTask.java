@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.task;
+package wannabit.io.cosmostaion.task.FetchTask;
 
 import java.util.ArrayList;
 
@@ -7,39 +7,40 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
+import wannabit.io.cosmostaion.task.CommonTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class BondingStateTask extends CommonTask {
+public class UnBondingStateTask extends CommonTask {
 
     private ArrayList<Account> mAccounts;
 
-    public BondingStateTask(BaseApplication app, TaskListener listener, ArrayList<Account> accounts) {
+    public UnBondingStateTask(BaseApplication app, TaskListener listener, ArrayList<Account> accounts) {
         super(app, listener);
         this.mAccounts          = accounts;
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_BONDING_STATE;
+        this.mResult.taskType   = BaseConstant.TASK_FETCH_UNBONDING_STATE;
     }
-
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             for(Account account : mAccounts) {
-                Response<ArrayList<ResLcdBondings>> response = ApiClient.getWannabitChain(mApp).getBondingList(account.address).execute();
+                Response<ArrayList<ResLcdUnBondings>> response = ApiClient.getWannabitChain(mApp).getUnBondingList(account.address).execute();
                 if(response.isSuccessful()) {
-//                    WLog.w("BondingStateTask : " + response.body().size());
                     if (response.body() != null && response.body().size() > 0) {
-                        mApp.getBaseDao().onUpdateBondingStates(account.id, WUtil.getBondingFromLcds(account.id, response.body()));
+                        mApp.getBaseDao().onUpdateUnbondingStates(account.id, WUtil.getUnbondingFromLcds(mApp, account.id, response.body()));
                     } else {
-                        mApp.getBaseDao().onDeleteBondingStates(account.id);
+                        mApp.getBaseDao().onDeleteUnbondingStates(account.id);
                     }
                 }
             }
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.w("BondingStateTask Error " + e.getMessage());
+            WLog.w("UnBondingStateTask Error " + e.getMessage());
         }
         return mResult;
     }

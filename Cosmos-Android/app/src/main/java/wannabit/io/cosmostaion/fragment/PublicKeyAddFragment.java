@@ -13,12 +13,10 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.task.GenerateAccountTask;
-import wannabit.io.cosmostaion.task.GenerateEmptyAccountTask;
+import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class PublicKeyAddFragment extends BaseFragment implements View.OnClickListener, TaskListener {
 

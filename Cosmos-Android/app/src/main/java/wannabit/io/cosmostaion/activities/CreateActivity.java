@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.task.GenerateAccountTask;
+import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -104,7 +104,6 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 }
             } else {
                 onShowWaitDialog();
-//                new InsertMnemonicTask(getBaseApplication(), this).execute(WUtil.ByteArrayToHexString(mEntropy), "24");
                 new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", WUtil.ByteArrayToHexString(mEntropy), "24");
             }
         }
@@ -126,14 +125,6 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-//        if (result.taskType == BaseConstant.TASK_ADD_MN) {
-//            if(result.isSuccess)
-//                new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", result.resultData.toString());
-//            else {
-//                WLog.w("Init Mnemonic ERROR : " + result.errorCode);
-//            }
-//        } else
-
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if(result.isSuccess) {
                 if(getBaseDao().onSelectAccounts().size() > 1) {
@@ -147,27 +138,3 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         }
     }
 }
-/*
-public class CreateActivity extends BaseActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create);
-
-        onInitContainer();
-    }
-
-    public void onInitContainer() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_container, CreateAccountFragment.newInstance(null));
-        fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-}
-*/

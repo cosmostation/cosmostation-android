@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,26 +17,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Reward;
-import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.network.res.ResHistory;
-import wannabit.io.cosmostaion.task.HistoryTask;
-import wannabit.io.cosmostaion.task.SingleRewardTask;
+import wannabit.io.cosmostaion.task.FetchTask.HistoryTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.test.TestAdapter;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -111,6 +104,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         switch (item.getItemId()) {
             case R.id.menu_sorting:
                 WLog.w("menu_sorting");
+                startActivity(new Intent(getMainActivity(), RestoreActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

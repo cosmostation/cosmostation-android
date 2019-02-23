@@ -28,11 +28,11 @@ import wannabit.io.cosmostaion.fragment.RewardStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.task.CheckWithdrawAddressTask;
-import wannabit.io.cosmostaion.task.SingleRewardTask;
+import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
+import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.TotalRewardTask;
+import wannabit.io.cosmostaion.task.FetchTask.TotalRewardTask;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ClaimRewardActivity extends BaseActivity implements TaskListener {

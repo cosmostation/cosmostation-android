@@ -22,11 +22,10 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
-import wannabit.io.cosmostaion.task.CheckPasswordTask;
+import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
@@ -78,6 +77,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private void onInitView() {
         mPassowrdTitle.setText(getString(R.string.str_init_password));
         mPassowrdMsg1.setText(getString(R.string.str_init_password));
+        mUserInput = "";
 
         for(int i = 0; i < mIvCircle.length; i++) {
             mIvCircle[i].setBackground(getDrawable(R.drawable.ic_pass_gr));
@@ -167,7 +167,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         onHideWaitDialog();
-        if (result.taskType == BaseConstant.TASK_INIT_PW) {
+        if (result.taskType == BaseConstant.TASK_PASSWORD_CHECK) {
             if(result.isSuccess) {
                 setResult(Activity.RESULT_OK, new Intent());
                 finish();

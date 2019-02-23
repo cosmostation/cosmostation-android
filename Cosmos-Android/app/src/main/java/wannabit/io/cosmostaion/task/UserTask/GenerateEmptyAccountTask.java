@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.task;
+package wannabit.io.cosmostaion.task.UserTask;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -6,6 +6,9 @@ import org.bitcoinj.crypto.DeterministicKey;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.task.CommonTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class GenerateEmptyAccountTask extends CommonTask {

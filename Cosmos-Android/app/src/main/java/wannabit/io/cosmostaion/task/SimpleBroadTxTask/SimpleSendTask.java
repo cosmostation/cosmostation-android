@@ -1,9 +1,6 @@
-package wannabit.io.cosmostaion.task.SimpleTask;
+package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
 import android.text.TextUtils;
-import android.widget.TextView;
-
-import com.google.gson.JsonObject;
 
 import org.bitcoinj.crypto.DeterministicKey;
 

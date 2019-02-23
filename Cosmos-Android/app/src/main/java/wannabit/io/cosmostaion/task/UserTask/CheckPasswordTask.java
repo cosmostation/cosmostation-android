@@ -1,10 +1,14 @@
-package wannabit.io.cosmostaion.task;
+package wannabit.io.cosmostaion.task.UserTask;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Password;
+import wannabit.io.cosmostaion.task.CommonTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class CheckPasswordTask extends CommonTask {
 
@@ -30,6 +34,7 @@ public class CheckPasswordTask extends CommonTask {
         } else {
             mResult.isSuccess = true;
         }
+//        WLog.w("CheckPasswordTask : " + mResult.isSuccess);
         return mResult;
     }
 }

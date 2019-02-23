@@ -44,6 +44,7 @@ public class BaseConstant {
     public final static int					    TASK_FETCH_WITHDRAW_ADDRESS		        = 2016;
     public final static int					    TASK_FETCH_HISTORY	                    = 2017;
     public final static int					    TASK_GEN_TX_SIMPLE_SEND	                = 2018;
+    public final static int					    TASK_OVERRIDE_ACCOUNT                    = 2019;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;
@@ -82,6 +83,8 @@ public class BaseConstant {
     public final static int					    ERROR_CODE_INVALID_PASSWORD		        = 8002;
 
 
+    public final static String                  COSMOS_MAINNET                          = "COSMOS_MAINNET";
+    public final static String                  COSMOS_GAIA12K                          = "COSMOS_GAIA12K";
     public final static String                  COSMOS_ATOM                             = "muon";
     public final static String                  COSMOS_PHOTON                           = "photino";
     //TODO HardCoding!!
@@ -89,5 +92,6 @@ public class BaseConstant {
     public final static long                    COSMOS_UNBONDING_DAY                    = 3;
 
 
+    public final static String					KEY_PATH		                        = "44'/118'/0'/0/";
     public final static String                  characterFilter                         = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 }

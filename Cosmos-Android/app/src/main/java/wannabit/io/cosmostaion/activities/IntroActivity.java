@@ -27,9 +27,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.network.res.ResHistory;
+import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.test.TestActivity;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -111,6 +113,9 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         mCreate.setOnClickListener(this);
         btnImportMnemonic.setOnClickListener(this);
         btnWatchAddress.setOnClickListener(this);
+
+//        Account account = getBaseDao().onSelectAccounts().get(0);
+//        WLog.w("account : " + account.address + "  " + account.baseChain);
     }
 
     @Override

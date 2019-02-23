@@ -67,4 +67,7 @@ public class BaseActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+    public void onChoiceNet(BaseChain chain) {
+    }
 }
