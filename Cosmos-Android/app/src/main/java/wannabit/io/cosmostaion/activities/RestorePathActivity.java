@@ -149,7 +149,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.new_state.setTextColor(getResources().getColor(R.color.colorGray1));
                     holder.card_new_wallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 } else {
-                    holder.new_state.setText("overide");
+                    holder.new_state.setText("override");
                     holder.new_state.setTextColor(getResources().getColor(R.color.colorWhite));
                     holder.card_new_wallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                 }

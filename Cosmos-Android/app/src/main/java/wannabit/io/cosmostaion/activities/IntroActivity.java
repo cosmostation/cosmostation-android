@@ -265,7 +265,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             startActivity(new Intent(IntroActivity.this, RestoreActivity.class));
 
         } else if (v.equals(btnWatchAddress)) {
-
+            startActivity(new Intent(IntroActivity.this, WatchingAccountAddActivity.class));
         }
 
     }

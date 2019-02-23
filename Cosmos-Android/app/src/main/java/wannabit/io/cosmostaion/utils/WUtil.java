@@ -50,7 +50,6 @@ public class WUtil {
             result.accountNumber = Integer.parseInt(lcd.value.BaseVestingAccount.BaseAccount.account_number);
             return result;
         }
-
     }
 
     public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {

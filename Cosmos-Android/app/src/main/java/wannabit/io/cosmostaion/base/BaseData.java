@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class BaseData {
 
@@ -288,7 +289,7 @@ public class BaseData {
 
     public long onInsertAccount(Account account) {
         long result = -1;
-        if(isDupleAccount(account.address)) return result;
+        if(isDupleAccount(account.address, account.baseChain)) return result;
         ContentValues values = new ContentValues();
         values.put("uuid",              account.uuid);
         values.put("nickName",          account.nickName);
@@ -309,22 +310,18 @@ public class BaseData {
     }
 
     public long onUpdateAccount(Account account) {
-        if(isDupleAccount(account.address)) {
-            ContentValues values = new ContentValues();
-            if(!TextUtils.isEmpty(account.nickName))
-                values.put("nickName",          account.nickName);
-            if(account.isFavo != null)
-                values.put("isFavo",            account.isFavo);
-            if(account.sequenceNumber != null)
-                values.put("sequenceNumber",    account.sequenceNumber);
-            if(account.accountNumber != null)
-                values.put("accountNumber",    account.accountNumber);
-            if(account.fetchTime != null)
-                values.put("fetchTime",         account.fetchTime);
-            return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
-        } else {
-            return onInsertAccount(account);
-        }
+        ContentValues values = new ContentValues();
+        if(!TextUtils.isEmpty(account.nickName))
+            values.put("nickName",          account.nickName);
+        if(account.isFavo != null)
+            values.put("isFavo",            account.isFavo);
+        if(account.sequenceNumber != null)
+            values.put("sequenceNumber",    account.sequenceNumber);
+        if(account.accountNumber != null)
+            values.put("accountNumber",    account.accountNumber);
+        if(account.fetchTime != null)
+            values.put("fetchTime",         account.fetchTime);
+        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
     public long onOverrideAccount(Account account) {
@@ -339,13 +336,15 @@ public class BaseData {
     }
 
 
-    public boolean isDupleAccount(String address) {
+    public boolean isDupleAccount(String address, String chain) {
         boolean existed = false;
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id"}, "address == ?", new String[]{address}, null, null, null);
+        WLog.w("isDupleAccount1");
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id"}, "address == ? AND baseChain == ?", new String[]{address, chain}, null, null, null);
         if(cursor != null && cursor.getCount() > 0) {
             existed = true;
         }
         cursor.close();
+        WLog.w("isDupleAccount2 " + existed);
         return existed;
     }
 
