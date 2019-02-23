@@ -15,5 +15,5 @@
         android:layout_marginLeft="@dimen/space_4"
         android:layout_centerVertical="true"
         style="@style/font_ss_11_gray1"
-        android:text="Validator"/>
+        android:text="Validators"/>
 </RelativeLayout>

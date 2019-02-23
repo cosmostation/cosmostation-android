@@ -36,8 +36,6 @@ public class Validator {
     public Commission commission;
 
 
-
-
     public class Description {
         @SerializedName("moniker")
         public String moniker;

@@ -32,12 +32,24 @@ public class Msg {
         public String validator_addr;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("from_address")
+        public String from_address;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("to_address")
+        public String to_address;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("delegation")
         public Delegation delegation;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("shares_amount")
         public String shares_amount;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("amount")
+        public ArrayList<Coin> amount;
 
     }
 

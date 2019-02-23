@@ -10,6 +10,7 @@
     android:layout_marginTop="@dimen/space_6"
     android:layout_marginBottom="@dimen/space_4">
     <TextView
+        android:id="@+id/myval_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_4"

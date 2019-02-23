@@ -179,8 +179,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         reqTx.sort = sorts;
 
 
-//        String jsonText = new Gson().toJson(reqTx);
-//        WLog.w("jsonText : " + jsonText);
+        String jsonText = new Gson().toJson(reqTx);
+        WLog.w("jsonText : " + jsonText);
 
         ApiClient.getEsService(getBaseContext()).getTx(reqTx).enqueue(new Callback<ResHistory>() {
             @Override

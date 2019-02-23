@@ -1,14 +1,22 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -16,18 +24,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqTx;
+import wannabit.io.cosmostaion.network.res.ResHistory;
+import wannabit.io.cosmostaion.task.HistoryTask;
+import wannabit.io.cosmostaion.task.SingleRewardTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.test.TestAdapter;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 
-public class MainHistoryFragment extends BaseFragment {
+public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
-    private HistoryAdapter mHistoryAdapter;
+    private SwipeRefreshLayout              mSwipeRefreshLayout;
+    private RecyclerView                    mRecyclerView;
+    private TextView                        mEmptyHistory;
+    private HistoryAdapter                  mHistoryAdapter;
+
+    private ArrayList<ResHistory.InnerHits> mHistory = new ArrayList<>();
 
     public static MainHistoryFragment newInstance(Bundle bundle) {
         MainHistoryFragment fragment = new MainHistoryFragment();
@@ -38,6 +58,7 @@ public class MainHistoryFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -45,6 +66,7 @@ public class MainHistoryFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_main_history, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mEmptyHistory           = rootView.findViewById(R.id.empty_history);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -58,12 +80,69 @@ public class MainHistoryFragment extends BaseFragment {
         mRecyclerView.setHasFixedSize(true);
         mHistoryAdapter = new HistoryAdapter();
         mRecyclerView.setAdapter(mHistoryAdapter);
-
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy >0) {
+                    if (getMainActivity().mFloatBtn.isShown()) {
+                        getMainActivity().mFloatBtn.hide();
+                    }
+                }
+                else if (dy <0) {
+                    if (!getMainActivity().mFloatBtn.isShown()) {
+                        getMainActivity().mFloatBtn.show();
+                    }
+                }
+            }
+        });
+        onFetchHistory();
         return rootView;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.history_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_sorting:
+                WLog.w("menu_sorting");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
+    private void onFetchHistory() {
+//        WLog.w("onFetchHistory");
+        ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address);
+//        String jsonText = new Gson().toJson(req);
+//        WLog.w("jsonText : " + jsonText);
+        new HistoryTask(getBaseApplication(), this, req).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if(!isAdded()) return;
+        if (result.taskType == BaseConstant.TASK_FETCH_HISTORY) {
+            ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
+            if(hits != null && hits.size() > 0) {
+                WLog.w("hit size " + hits.size());
+                mHistory = hits;
+                mHistoryAdapter.notifyDataSetChanged();
+                mEmptyHistory.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+            } else {
+                WLog.w("hit null");
+                mEmptyHistory.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+            }
+        }
+    }
 
 
     private class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryHolder> {
@@ -76,21 +155,52 @@ public class MainHistoryFragment extends BaseFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int i) {
+        public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
+            final ResHistory.Source source = mHistory.get(position)._source;
+            viewHolder.historyType.setText(WDp.getHistoryDpType(source.tx.value.msg, getMainActivity().mAccount.address));
+            if(!source.result.isSuccess()) {
+                viewHolder.historySuccess.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.historySuccess.setVisibility(View.GONE);
+            }
+
+            viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.time));
+            viewHolder.history_block.setText(source.height + " block");
+            viewHolder.history_hash.setText(source.hash);
+            viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    WLog.w("GO detail!!");
+                }
+            });
 
         }
 
         @Override
         public int getItemCount() {
-            return 12;
+            return mHistory.size();
         }
 
         public class HistoryHolder extends RecyclerView.ViewHolder {
+            private CardView historyRoot;
+            private TextView historyType, historySuccess, history_time, history_block, history_hash;
+
             public HistoryHolder(View v) {
                 super(v);
+                historyRoot         = itemView.findViewById(R.id.card_history);
+                historyType         = itemView.findViewById(R.id.history_type);
+                historySuccess      = itemView.findViewById(R.id.history_success);
+                history_time        = itemView.findViewById(R.id.history_time);
+                history_block       = itemView.findViewById(R.id.history_block_height);
+                history_hash        = itemView.findViewById(R.id.history_hash);
             }
         }
 
+    }
+
+
+    public MainActivity getMainActivity() {
+        return (MainActivity)getBaseActivity();
     }
 }
 

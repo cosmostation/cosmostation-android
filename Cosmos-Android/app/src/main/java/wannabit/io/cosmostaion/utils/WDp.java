@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.TotalReward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Msg;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 
@@ -301,6 +302,45 @@ public class WDp {
 
 
 
+    public static String getHistoryDpType(ArrayList<Msg> msgs, String address) {
+        String result = "";
+        if(msgs == null || msgs.size() <= 0)
+            return result;
+
+        Msg msg = msgs.get(0);
+        if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER)) {
+            if (msg.value.from_address != null && msg.value.from_address.equals(address)) {
+                result = "Send";
+            } else if (msg.value.to_address != null && msg.value.to_address.equals(address)) {
+                result = "Received";
+            } else {
+                result = "Transfer";
+            }
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE)) {
+            result = "Delegate";
+
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE)) {
+            result = "Undelegate";
+
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE)) {
+            result = "Redelegate";
+
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL)) {
+            result = "Get Reward";
+
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
+            result = "Get Commission";
+
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY)) {
+            result = "Change Withdraw Address";
+
+        }
+
+        if(msgs.size() > 2) {
+            result = result + " + " + (msgs.size() - 1);
+        }
+        return result;
+    }
 
 
 
@@ -385,5 +425,17 @@ public class WDp {
         } catch (Exception e) {};
 
         return result + "   " +c.getString(R.string.str_unbonding_days_after);
+    }
+
+    public static String getTimeformat(Context c, String rawValue) {
+        String result = "??";
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            result = myFormat.format(blockDateFormat.parse(rawValue));
+        } catch (Exception e) {};
+
+        return result;
     }
 }

@@ -21,33 +21,21 @@
         app:cardUseCompatPadding="true" >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_68">
+            android:layout_height="@dimen/space_72">
             <LinearLayout
                 android:id="@+id/views_validator"
-                android:layout_width="@dimen/space_78"
+                android:layout_width="@dimen/space_72"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/space_2"
                 android:orientation="vertical"
                 android:gravity="center">
                 <agency.tango.android.avatarview.views.AvatarView
                     android:id="@+id/avatar_validator"
-                    android:layout_width="@dimen/space_40"
-                    android:layout_height="@dimen/space_40"
+                    android:layout_width="@dimen/space_50"
+                    android:layout_height="@dimen/space_50"
                     app:av_border_color="@color/colorGray3"
                     app:av_border_width="1dp"
                     app:av_text_size_percentage="40"/>
-                <TextView
-                    android:id="@+id/moniker_validator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_2"
-                    android:layout_marginRight="@dimen/space_2"
-                    android:layout_marginTop="@dimen/space_1"
-                    android:singleLine="true"
-                    android:gravity="center"
-                    android:ellipsize="end"
-                    style="@style/font_ss_9_white"
-                    android:text="moniker"/>
             </LinearLayout>
             <View
                 android:id="@+id/line_validator"
@@ -69,20 +57,37 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/line_validator"
                 android:layout_toLeftOf="@+id/arrow_validator"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_6"
                 android:orientation="vertical"
-                android:layout_centerVertical="true">
+                android:gravity="center_vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/moniker_validator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        style="@style/font_ss_12_white"
+                        android:text="moniker"/>
+                </RelativeLayout>
+
                 <TextView
                     android:id="@+id/description_validator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
                     android:maxLines="2"
-                    style="@style/font_ss_9_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:text="Cosmostation"/>
+
             </LinearLayout>
 
         </RelativeLayout>

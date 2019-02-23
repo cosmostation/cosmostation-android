@@ -26,6 +26,7 @@
     <string name="str_next">Next</string>
     <string name="str_refresh">Refresh</string>
     <string name="str_settings">Settings</string>
+    <string name="str_sorting">Sorting</string>
     <string name="str_qr">QrCode</string>
     <string name="str_import">IMPORT</string>
     <string name="str_create">CREATE</string>
@@ -66,6 +67,8 @@
     <string name="str_reward_from">Reward From</string>
     <string name="str_reward_to">Reward Receive Address</string>
     <string name="str_expected_balance">Expected Balance</string>
+    <string name="str_success">success</string>
+    <string name="str_failed">failed</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -118,6 +121,7 @@
     <string name="error_invalid_memo">Invalid memo, please type under 256 char.</string>
 
     <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
+    <string name="str_block_time_format"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
     <string name="str_dp_time_format1">yy/MM/dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yy/MM/dd HH:mm</string>
 

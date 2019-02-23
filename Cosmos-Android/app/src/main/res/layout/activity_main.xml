@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,73 +7,24 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_02">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/main_appbar_height"
-        android:background="@color/colorTrans"
-        android:theme="@style/AppTheme.AppBarOverlay">
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapse_layer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="@color/colorTrans"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:collapsedTitleGravity="center"
-            app:expandedTitleGravity="bottom|center_horizontal"
-            app:titleEnabled="false">
-            <android.support.v4.view.ViewPager
-                android:id="@+id/dashboard_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/toolbar_bar_height"
-                android:layout_marginBottom="@dimen/space_4"/>
-            <wannabit.io.cosmostaion.widget.ScrollingPagerIndicator
-                android:id="@+id/dashboard_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"/>
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/tool_bar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_bar_height"
-                android:background="@color/colorBlack"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:contentInsetLeft="0dp"
-                app:contentInsetStart="0dp"
-                app:contentInsetEnd="0dp"
-                app:contentInsetStartWithNavigation="0dp">
-                <LinearLayout
-                    android:id="@+id/toolbar_contents"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="@dimen/space_16">
-                    <TextView
-                        android:id="@+id/toolbar_nickName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        style="@style/font_ss_14_white"
-                        android:text="My Hd Wallet"/>
-                    <TextView
-                        android:id="@+id/toolbar_Address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/font_ss_11_gray1"
-                        android:ellipsize="middle"
-                        android:maxWidth="@dimen/space_240"
-                        android:singleLine="true"
-                        android:text="cosmos1gfzexy3z0qfc97mjudjy5zeg2fje6k442phy6r"/>
-                </LinearLayout>
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+        android:layout_height="@dimen/toolbar_bar_height"
+        android:background="@color/colorBlack"
+        android:paddingRight="@dimen/space_18"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_ssm_17_white"/>
+    </android.support.v7.widget.Toolbar>
 
     <wannabit.io.cosmostaion.widget.StopViewPager
         android:id="@+id/view_pager"
+        android:layout_below="@+id/tool_bar"
+        android:layout_above="@+id/bottom_tab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
@@ -82,7 +33,8 @@
         android:id="@+id/btn_floating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_72"
         app:backgroundTint="#9C6CFF"
@@ -92,7 +44,7 @@
         android:id="@+id/bottom_tab"
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
         android:background="@color/colorGray2"
         app:tabMode="fixed"
         app:tabGravity="fill"
@@ -100,4 +52,110 @@
         app:tabIconTint="@color/colorGray9"
         android:elevation="4dp"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
+
+
+
+<!--<android.support.design.widget.CoordinatorLayout-->
+<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:background="@drawable/bg_02">-->
+
+<!--<android.support.design.widget.AppBarLayout-->
+    <!--android:id="@+id/app_bar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/main_appbar_height"-->
+    <!--android:background="@color/colorTrans"-->
+    <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+    <!--<android.support.design.widget.CollapsingToolbarLayout-->
+        <!--android:id="@+id/collapse_layer"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:contentScrim="@color/colorTrans"-->
+        <!--app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
+        <!--app:collapsedTitleGravity="center"-->
+        <!--app:expandedTitleGravity="bottom|center_horizontal"-->
+        <!--app:titleEnabled="false">-->
+        <!--<android.support.v4.view.ViewPager-->
+            <!--android:id="@+id/dashboard_pager"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginTop="@dimen/toolbar_bar_height"-->
+            <!--android:layout_marginBottom="@dimen/space_4"/>-->
+        <!--<wannabit.io.cosmostaion.widget.ScrollingPagerIndicator-->
+            <!--android:id="@+id/dashboard_indicator"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal|bottom"/>-->
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/tool_bar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/toolbar_bar_height"-->
+            <!--android:background="@color/colorBlack"-->
+            <!--app:layout_collapseMode="pin"-->
+            <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
+            <!--app:contentInsetLeft="0dp"-->
+            <!--app:contentInsetStart="0dp"-->
+            <!--app:contentInsetEnd="0dp"-->
+            <!--app:contentInsetStartWithNavigation="0dp">-->
+            <!--<LinearLayout-->
+                <!--android:id="@+id/toolbar_contents"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_marginLeft="@dimen/space_16">-->
+                <!--<TextView-->
+                    <!--android:id="@+id/toolbar_nickName"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:singleLine="true"-->
+                    <!--style="@style/font_ss_14_white"-->
+                    <!--android:text="My Hd Wallet"/>-->
+                <!--<TextView-->
+                    <!--android:id="@+id/toolbar_Address"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--style="@style/font_ss_11_gray1"-->
+                    <!--android:ellipsize="middle"-->
+                    <!--android:maxWidth="@dimen/space_240"-->
+                    <!--android:singleLine="true"-->
+                    <!--android:text="cosmos1gfzexy3z0qfc97mjudjy5zeg2fje6k442phy6r"/>-->
+            <!--</LinearLayout>-->
+        <!--</android.support.v7.widget.Toolbar>-->
+
+    <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+<!--</android.support.design.widget.AppBarLayout>-->
+
+<!--<wannabit.io.cosmostaion.widget.StopViewPager-->
+    <!--android:id="@+id/view_pager"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
+
+<!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/btn_floating"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|right"-->
+    <!--android:layout_marginRight="@dimen/space_16"-->
+    <!--android:layout_marginBottom="@dimen/space_72"-->
+    <!--app:backgroundTint="#9C6CFF"-->
+    <!--app:srcCompat="@drawable/ic_send_btn_ic"/>-->
+
+<!--<android.support.design.widget.TabLayout-->
+    <!--android:id="@+id/bottom_tab"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="54dp"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:background="@color/colorGray2"-->
+    <!--app:tabMode="fixed"-->
+    <!--app:tabGravity="fill"-->
+    <!--app:tabIndicatorHeight="0dp"-->
+    <!--app:tabIconTint="@color/colorGray9"-->
+    <!--android:elevation="4dp"/>-->
+
+<!--</android.support.design.widget.CoordinatorLayout>-->
+

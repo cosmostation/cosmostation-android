@@ -17,6 +17,14 @@ public class BaseConstant {
     public final static String					PRE_USER_ID			                    = "PRE_USER_ID";
 
     public final static String					SET_USE_FINGERPRINT			            = "SET_USE_FINGERPRINT";
+    public final static String					SET_HISTORY_QUERY			            = "SET_HISTORY_QUERY";
+    public final static String					SET_HISTORY_ORDER			            = "SET_HISTORY_ORDER";
+    public final static int                     SET_HISTORY_QUERY_ALL                   = 0;
+    public final static int                     SET_HISTORY_QUERY_TRANSFER              = 1;
+    public final static int                     SET_HISTORY_QUERY_STAKING               = 2;
+    public final static int                     SET_HISTORY_QUERY_VOTE                  = 3;
+    public final static int					    SET_HISTORY_DEC			                = 0;
+    public final static int					    SET_HISTORY_ASC			                = 1;
 
     public final static int					    TASK_INIT_PW		                    = 2000;
     public final static int					    TASK_ADD_MN		                        = 2001;
@@ -34,6 +42,7 @@ public class BaseConstant {
     public final static int					    TASK_FETCH_SINGLE_SELF_BONDING		    = 2013;
     public final static int					    TASK_PASSWORD_CHECK		                = 2015;
     public final static int					    TASK_FETCH_WITHDRAW_ADDRESS		        = 2016;
+    public final static int					    TASK_FETCH_HISTORY	                    = 2017;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;
