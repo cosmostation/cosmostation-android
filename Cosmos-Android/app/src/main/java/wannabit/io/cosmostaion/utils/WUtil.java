@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.utils;
 import android.content.Context;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -34,8 +36,9 @@ import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 
 public class WUtil {
 
-    public static Account getAccountFromLcd(ResLcdAccountInfo lcd) {
+    public static Account getAccountFromLcd(long id, ResLcdAccountInfo lcd) {
         Account result = new Account();
+        result.id = id;
         if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
             result.address = lcd.value.address;
             result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
@@ -161,8 +164,9 @@ public class WUtil {
     }
 
 
-
-
+    public static Gson getPresentor(){
+        return new GsonBuilder().disableHtmlEscaping().create();
+    }
 
 
 

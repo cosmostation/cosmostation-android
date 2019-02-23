@@ -18,12 +18,10 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.task.GenerateAccountTask;
-import wannabit.io.cosmostaion.task.InsertMnemonicTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RestoreActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -115,7 +113,9 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                 //TODO choose address 장면 나와야함.
 
                 onShowWaitDialog();
-                new InsertMnemonicTask(getBaseApplication(), this).execute(WKey.getStringHdSeedFromWords(mWords), "24");
+//                new InsertMnemonicTask(getBaseApplication(), this).execute(WKey.getStringHdSeedFromWords(mWords), "24");
+                new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", WKey.getStringHdSeedFromWords(mWords), "24");
+
             }
         }
 
@@ -124,14 +124,15 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_ADD_MN) {
-            WLog.w("TASK_ADD_MN");
-            if(result.isSuccess)
-                new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", result.resultData.toString());
-            else {
-                WLog.w("Init Mnemonic ERROR : " + result.errorCode);
-            }
-        } else if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
+//        if (result.taskType == BaseConstant.TASK_ADD_MN) {
+//            WLog.w("TASK_ADD_MN");
+//            if(result.isSuccess)
+//                new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", result.resultData.toString());
+//            else {
+//                WLog.w("Init Mnemonic ERROR : " + result.errorCode);
+//            }
+//        } else
+        if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             WLog.w("TASK_INIT_ACCOUNT");
             if(result.isSuccess) {
                 if(getBaseDao().onSelectAccounts().size() > 1) {

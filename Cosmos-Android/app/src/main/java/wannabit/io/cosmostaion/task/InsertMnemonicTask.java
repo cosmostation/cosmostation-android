@@ -1,15 +1,6 @@
 package wannabit.io.cosmostaion.task;
 
-import org.bitcoinj.crypto.HDKeyDerivation;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseApplication;
-import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.crypto.EncResult;
-import wannabit.io.cosmostaion.dao.Mnemonic;
-import wannabit.io.cosmostaion.utils.WUtil;
-
+/*
 public class InsertMnemonicTask extends CommonTask {
 
     public InsertMnemonicTask(BaseApplication app, TaskListener listener) {
@@ -17,12 +8,12 @@ public class InsertMnemonicTask extends CommonTask {
         this.mResult.taskType = BaseConstant.TASK_ADD_MN;
     }
 
-    /**
+    **
      *
      * @param strings
      *  strings[0] : seed
      *  strings[1] : size
-     */
+     *
     @Override
     protected TaskResult doInBackground(String... strings) {
         Mnemonic newMn      = Mnemonic.getNewInstance();
@@ -44,3 +35,4 @@ public class InsertMnemonicTask extends CommonTask {
         return mResult;
     }
 }
+*/

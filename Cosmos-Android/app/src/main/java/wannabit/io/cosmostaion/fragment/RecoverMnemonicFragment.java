@@ -14,16 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.task.GenerateAccountTask;
-import wannabit.io.cosmostaion.task.InsertMnemonicTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RecoverMnemonicFragment extends BaseFragment implements View.OnClickListener, TaskListener{
 
@@ -75,7 +69,7 @@ public class RecoverMnemonicFragment extends BaseFragment implements View.OnClic
                 return;
             }
             getBaseActivity().onShowWaitDialog();
-            new InsertMnemonicTask(getBaseApplication(), this).execute(WKey.getStringHdSeedFromWords(mWords));
+//            new InsertMnemonicTask(getBaseApplication(), this).execute(WKey.getStringHdSeedFromWords(mWords));
         }
 
     }
@@ -84,11 +78,11 @@ public class RecoverMnemonicFragment extends BaseFragment implements View.OnClic
     public void onTaskResponse(TaskResult result) {
         if(getActivity().isFinishing() && !isAdded()) return;
         getBaseActivity().onHideWaitDialog();
-        if (result.taskType == BaseConstant.TASK_ADD_MN && result.isSuccess) {
-            getBaseActivity().onShowWaitDialog();
-            new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.WANNABIT_NET.getChain(), "0", result.resultData.toString());
-        } else if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT && result.isSuccess) {
-            getBaseActivity().onStartMainActivity();
-        }
+//        if (result.taskType == BaseConstant.TASK_ADD_MN && result.isSuccess) {
+//            getBaseActivity().onShowWaitDialog();
+//            new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.WANNABIT_NET.getChain(), "0", result.resultData.toString());
+//        } else if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT && result.isSuccess) {
+//            getBaseActivity().onStartMainActivity();
+//        }
     }
 }

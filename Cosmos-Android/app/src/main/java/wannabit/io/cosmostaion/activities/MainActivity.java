@@ -40,10 +40,13 @@ import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainRewardFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainVoteFragment;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.AccountInfoTask;
 import wannabit.io.cosmostaion.task.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.BondingStateTask;
+import wannabit.io.cosmostaion.task.SimpleTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -169,6 +172,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        WLog.w("onResume : " + mAccount.address + " " + mAccount.sequenceNumber + " " + mAccount.accountNumber + "  " + mAccount.id);
         if(mAccount == null) {
             //Show error dialog!
             WLog.w("mAccount null");
@@ -224,6 +228,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         switch (item.getItemId()) {
             case R.id.menu_setting:
                 WLog.w("menu_setting");
+                Test();
                 return true;
             case android.R.id.home:
                 onBackPressed();
@@ -237,6 +242,32 @@ public class MainActivity extends BaseActivity implements TaskListener {
         if(!isFinishing()) {
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
+
+    }
+
+    private void Test() {
+        WLog.w("TEST");
+        ArrayList<Coin> tosend = new ArrayList<>();
+        Coin testCoin = new Coin("photino", "1000");
+        tosend.add(testCoin);
+
+        Fee result = new Fee();
+        ArrayList<Coin> amount = new ArrayList<>();
+        Coin testfeecoin = new Coin("photino", "6000");
+        amount.add(testfeecoin);
+        result.amount = amount;
+        result.gas = "200000";
+
+
+
+        new SimpleSendTask(getBaseApplication(),
+                this,
+                mAccount,
+                "cosmos17j405ekvw5cmfvc0g4e7urfutg08fu7jsy6gj4",
+                tosend,
+                "",
+                result)
+                .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "1742A");
 
     }
 

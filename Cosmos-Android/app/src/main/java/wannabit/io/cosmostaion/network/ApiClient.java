@@ -56,4 +56,19 @@ public class ApiClient {
         }
         return service_es;
     }
+
+    private static Cosmostation cosmostation = null;
+    public static Cosmostation getCSService(Context c) {
+        if (cosmostation == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_cosmostation))
+                        .client(WUtil.getUnsafeOkHttpClient().build())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                cosmostation = retrofit.create(Cosmostation.class);
+            }
+        }
+        return cosmostation;
+    }
 }

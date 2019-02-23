@@ -2,13 +2,14 @@ package wannabit.io.cosmostaion.dao;
 
 import java.util.UUID;
 
+/*
 public class Mnemonic {
     public Long id;
     public String uuid;
     public String resource;
     public String spec;
     public String dpMasterKey;
-    public int      typeSize;
+    public int    typeSize;
 
     public static Mnemonic getNewInstance() {
         Mnemonic result = new Mnemonic();
@@ -28,3 +29,4 @@ public class Mnemonic {
         this.typeSize = typesize;
     }
 }
+*/

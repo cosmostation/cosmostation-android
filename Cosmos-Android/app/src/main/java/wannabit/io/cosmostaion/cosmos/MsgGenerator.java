@@ -36,18 +36,23 @@ public class MsgGenerator {
     public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
+        value.from_address = fromAddr;
+        value.to_address = toAddr;
+        value.amount = coins;
 
-        ArrayList<Input> inputs = new ArrayList<>();
-        ArrayList<Output> outputs = new ArrayList<>();
+//        ArrayList<Input> inputs = new ArrayList<>();
+//        ArrayList<Output> outputs = new ArrayList<>();
+//
+//        Input input = new Input(fromAddr, coins);
+//        Output output = new Output(toAddr, coins);
+//
+//        inputs.add(input);
+//        outputs.add(output);
+//
+//        value.inputs = inputs;
+//        value.outputs = outputs;
 
-        Input input = new Input(fromAddr, coins);
-        Output output = new Output(toAddr, coins);
 
-        inputs.add(input);
-        outputs.add(output);
-
-        value.inputs = inputs;
-        value.outputs = outputs;
 
         result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER;
         result.value = value;
@@ -137,9 +142,19 @@ public class MsgGenerator {
         result.msgs = msgs;
         result.fee = fee;
         result.memo = memo;
-
         return result;
     }
+
+//    public static StdSignMsgWithType genToSignMsg(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
+//        StdSignMsgWithType result = new StdSignMsgWithType();
+//        result.chain_id = chainId;
+//        result.account_number = accountNumber;
+//        result.sequence = SequenceNumber;
+//        result.msgs = msgs;
+//        result.fee = fee;
+//        result.memo = memo;
+//        return result;
+//    }
 
     public static StdSignMsgWithType genToSignMsgWithType(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
         StdSignMsgWithType result = new StdSignMsgWithType();
@@ -160,6 +175,7 @@ public class MsgGenerator {
         WLog.w("toSignHash : " + BytearryToDecimalString(toSignHash));
 
         ECKey.ECDSASignature Signature = key.sign(new Sha256Hash(toSignHash));
+        WLog.w("Signature " + Signature.toString());
 
         byte[] sigData = new byte[64];
         System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);

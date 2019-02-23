@@ -1,7 +1,10 @@
 package wannabit.io.cosmostaion.utils;
 
+import android.util.Base64;
+
 import com.google.common.collect.ImmutableList;
 
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicHierarchy;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -13,7 +16,6 @@ import org.spongycastle.crypto.digests.RIPEMD160Digest;
 import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
-import java.security.interfaces.ECKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -114,6 +116,20 @@ public class WKey {
             bech32Decode(address);
             result = true;
         } catch (Exception e) { }
+        return result;
+    }
+
+
+    public static String getPubKeyValue(ECKey key) {
+        String result = "";
+        try {
+            byte[] data = key.getPubKey();
+            result = Base64.encodeToString(data, Base64.DEFAULT).replace("\n", "");
+            WLog.w("base64 : " +  result);
+
+        } catch (Exception e) {
+            WLog.w("Exception");
+        }
         return result;
     }
 

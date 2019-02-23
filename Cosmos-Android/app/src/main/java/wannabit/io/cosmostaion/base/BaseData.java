@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
-import wannabit.io.cosmostaion.dao.Mnemonic;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -121,76 +120,76 @@ public class BaseData {
 
 
 
-    public ArrayList<Mnemonic> onSelectMnemonics() {
-        ArrayList<Mnemonic> result = new ArrayList<>();
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey", "typeSize"}, null, null, null, null, null);
-        if(cursor != null && cursor.moveToFirst()) {
-            do {
-                Mnemonic mnemonic = new Mnemonic(
-                        cursor.getLong(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getInt(5));
-                result.add(mnemonic);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return result;
-    }
-
-    public Mnemonic onSelectMnemonic(String id) {
-        Mnemonic result = null;
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey", "typeSize"}, "id == ?", new String[]{id}, null, null, null);
-        if(cursor != null && cursor.moveToFirst()) {
-            result = new Mnemonic(
-                    cursor.getLong(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getInt(5));
-        }
-        cursor.close();
-        return result;
-    }
-
-    public long onInsertMnemonic(Mnemonic mnemonic) {
-        long result = -1;
-        if(isDupleMnemonic(mnemonic.dpMasterKey)) return result;
-        ContentValues values = new ContentValues();
-        values.put("uuid",          mnemonic.uuid);
-        values.put("resource",      mnemonic.resource);
-        values.put("spec",          mnemonic.spec);
-        values.put("dpMasterKey",   mnemonic.dpMasterKey);
-        values.put("typeSize",      mnemonic.typeSize);
-        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_MNEMONIC, null, values);
-    }
-
-    public boolean onHasMnemonic() {
-        boolean existed = false;
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id"}, null, null, null, null, null);
-        if(cursor != null && cursor.getCount() > 0) {
-            existed = true;
-        }
-        cursor.close();
-        return existed;
-    }
-
-    public boolean isDupleMnemonic(String dpMasterKey) {
-        boolean existed = false;
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id"}, "dpMasterKey == ?", new String[]{dpMasterKey}, null, null, null);
-        if(cursor != null && cursor.getCount() > 0) {
-            existed = true;
-        }
-        cursor.close();
-        return existed;
-    }
-
-    public boolean onDeleteMnemonic(String id) {
-        return getBaseDB().delete(BaseConstant.DB_TABLE_MNEMONIC, "id = ?", new String[]{id}) > 0;
-    }
+//    public ArrayList<Mnemonic> onSelectMnemonics() {
+//        ArrayList<Mnemonic> result = new ArrayList<>();
+//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey", "typeSize"}, null, null, null, null, null);
+//        if(cursor != null && cursor.moveToFirst()) {
+//            do {
+//                Mnemonic mnemonic = new Mnemonic(
+//                        cursor.getLong(0),
+//                        cursor.getString(1),
+//                        cursor.getString(2),
+//                        cursor.getString(3),
+//                        cursor.getString(4),
+//                        cursor.getInt(5));
+//                result.add(mnemonic);
+//            } while (cursor.moveToNext());
+//        }
+//        cursor.close();
+//        return result;
+//    }
+//
+//    public Mnemonic onSelectMnemonic(String id) {
+//        Mnemonic result = null;
+//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey", "typeSize"}, "id == ?", new String[]{id}, null, null, null);
+//        if(cursor != null && cursor.moveToFirst()) {
+//            result = new Mnemonic(
+//                    cursor.getLong(0),
+//                    cursor.getString(1),
+//                    cursor.getString(2),
+//                    cursor.getString(3),
+//                    cursor.getString(4),
+//                    cursor.getInt(5));
+//        }
+//        cursor.close();
+//        return result;
+//    }
+//
+//    public long onInsertMnemonic(Mnemonic mnemonic) {
+//        long result = -1;
+//        if(isDupleMnemonic(mnemonic.dpMasterKey)) return result;
+//        ContentValues values = new ContentValues();
+//        values.put("uuid",          mnemonic.uuid);
+//        values.put("resource",      mnemonic.resource);
+//        values.put("spec",          mnemonic.spec);
+//        values.put("dpMasterKey",   mnemonic.dpMasterKey);
+//        values.put("typeSize",      mnemonic.typeSize);
+//        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_MNEMONIC, null, values);
+//    }
+//
+//    public boolean onHasMnemonic() {
+//        boolean existed = false;
+//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id"}, null, null, null, null, null);
+//        if(cursor != null && cursor.getCount() > 0) {
+//            existed = true;
+//        }
+//        cursor.close();
+//        return existed;
+//    }
+//
+//    public boolean isDupleMnemonic(String dpMasterKey) {
+//        boolean existed = false;
+//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id"}, "dpMasterKey == ?", new String[]{dpMasterKey}, null, null, null);
+//        if(cursor != null && cursor.getCount() > 0) {
+//            existed = true;
+//        }
+//        cursor.close();
+//        return existed;
+//    }
+//
+//    public boolean onDeleteMnemonic(String id) {
+//        return getBaseDB().delete(BaseConstant.DB_TABLE_MNEMONIC, "id = ?", new String[]{id}) > 0;
+//    }
 
 
 
@@ -198,7 +197,7 @@ public class BaseData {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime"}, null, null, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize"}, null, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 Account account = new Account(
@@ -216,7 +215,8 @@ public class BaseData {
                         cursor.getInt(11) > 0,
                         cursor.getInt(12),
                         cursor.getInt(13),
-                        cursor.getLong(14)
+                        cursor.getLong(14),
+                        cursor.getInt(15)
                 );
                 account.setBalances(onSelectBalance(account.id));
                 result.add(account);
@@ -230,7 +230,7 @@ public class BaseData {
         Account result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime"}, "id == ?", new String[]{id}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize"}, "id == ?", new String[]{id}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -247,7 +247,8 @@ public class BaseData {
                     cursor.getInt(11) > 0,
                     cursor.getInt(12),
                     cursor.getInt(13),
-                    cursor.getLong(14)
+                    cursor.getLong(14),
+                    cursor.getInt(15)
             );
             result.setBalances(onSelectBalance(result.id));
         }
@@ -273,6 +274,7 @@ public class BaseData {
         values.put("sequenceNumber",    account.sequenceNumber);
         values.put("accountNumber",     account.accountNumber);
         values.put("fetchTime",         account.fetchTime);
+        values.put("msize",             account.msize);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_ACCOUNT, null, values);
     }
 

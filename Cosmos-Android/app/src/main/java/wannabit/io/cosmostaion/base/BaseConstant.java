@@ -7,7 +7,7 @@ public class BaseConstant {
     public final static String					DB_NAME			                        = "WannaBit";
     public final static int					    DB_VERSION			                    = 1;
     public final static String					DB_TABLE_PASSWORD			            = "paswd";
-    public final static String					DB_TABLE_MNEMONIC			            = "mnemc";
+//    public final static String					DB_TABLE_MNEMONIC			            = "mnemc";
     public final static String					DB_TABLE_ACCOUNT			            = "accnt";
     public final static String					DB_TABLE_BALANCE			            = "balan";
     public final static String					DB_TABLE_BONDING			            = "bondi";
@@ -27,7 +27,7 @@ public class BaseConstant {
     public final static int					    SET_HISTORY_ASC			                = 1;
 
     public final static int					    TASK_INIT_PW		                    = 2000;
-    public final static int					    TASK_ADD_MN		                        = 2001;
+//    public final static int					    TASK_ADD_MN		                        = 2001;
     public final static int					    TASK_INIT_ACCOUNT		                = 2002;
     public final static int					    TASK_INIT_EMPTY_ACCOUNT		            = 2003;
     public final static int					    TASK_FETCH_ACCOUNT		                = 2004;
@@ -43,6 +43,7 @@ public class BaseConstant {
     public final static int					    TASK_PASSWORD_CHECK		                = 2015;
     public final static int					    TASK_FETCH_WITHDRAW_ADDRESS		        = 2016;
     public final static int					    TASK_FETCH_HISTORY	                    = 2017;
+    public final static int					    TASK_GEN_TX_SIMPLE_SEND	                = 2018;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;

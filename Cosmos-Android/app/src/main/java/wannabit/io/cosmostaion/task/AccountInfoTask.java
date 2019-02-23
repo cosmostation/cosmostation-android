@@ -19,7 +19,7 @@ public class AccountInfoTask extends CommonTask {
         super(app, listener);
         this.mAccounts          = accounts;
         this.mResult.taskType   = BaseConstant.TASK_FETCH_ACCOUNT;
-    }
+}
 
     @Override
     protected TaskResult doInBackground(String... strings) {
@@ -30,7 +30,7 @@ public class AccountInfoTask extends CommonTask {
                     WLog.w("AccountInfoTask null " + account.address);
                 }
                 if(response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(response.body()));
+                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(account.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(WUtil.getBalancesFromLcd(account.id, response.body()));
                 }
             }

@@ -11,16 +11,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.task.GenerateAccountTask;
-import wannabit.io.cosmostaion.task.InsertMnemonicTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class GenerateMnemonicFragment extends BaseFragment implements View.OnClickListener, TaskListener{
 
@@ -79,8 +74,8 @@ public class GenerateMnemonicFragment extends BaseFragment implements View.OnCli
 //            ClipData clip = ClipData.newPlainText("mnemonic", getClipboard());
 //            clipboard.setPrimaryClip(clip);
 //            Toast.makeText(getBaseActivity(), R.string.str_mnemonic_copied, Toast.LENGTH_SHORT).show();
-            getBaseActivity().onShowWaitDialog();
-            new InsertMnemonicTask(getBaseApplication(), this).execute(WUtil.ByteArrayToHexString(mSeed));
+//            getBaseActivity().onShowWaitDialog();
+//            new InsertMnemonicTask(getBaseApplication(), this).execute(WUtil.ByteArrayToHexString(mSeed));
 
         }
     }
@@ -99,11 +94,11 @@ public class GenerateMnemonicFragment extends BaseFragment implements View.OnCli
     public void onTaskResponse(TaskResult result) {
         if(getActivity().isFinishing() && !isAdded()) return;
         getBaseActivity().onHideWaitDialog();
-        if (result.taskType == BaseConstant.TASK_ADD_MN && result.isSuccess) {
-            getBaseActivity().onShowWaitDialog();
-            new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.WANNABIT_NET.getChain(), "0", result.resultData.toString());
-        } else if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT && result.isSuccess) {
-            getBaseActivity().onStartMainActivity();
-        }
+//        if (result.taskType == BaseConstant.TASK_ADD_MN && result.isSuccess) {
+//            getBaseActivity().onShowWaitDialog();
+//            new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.WANNABIT_NET.getChain(), "0", result.resultData.toString());
+//        } else if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT && result.isSuccess) {
+//            getBaseActivity().onStartMainActivity();
+//        }
     }
 }
