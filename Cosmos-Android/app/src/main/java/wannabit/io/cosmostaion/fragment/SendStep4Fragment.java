@@ -92,16 +92,16 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         remindAtom   = getSActivity().mAccount.getAtomBalance().subtract(toSendAtom);
         remindPhoton = getSActivity().mAccount.getPhotonBalance().subtract(toSendPhoton);
 
-        if(getSActivity().mTargetFee.denom.equals(BaseConstant.COSMOS_ATOM)) {
+        if(getSActivity().mTargetFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
             mFeeType.setText(BaseConstant.COSMOS_ATOM);
             mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-            remindAtom.subtract(new BigDecimal(getSActivity().mTargetFee.amount));
+            remindAtom.subtract(new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount));
         } else {
             mFeeType.setText(BaseConstant.COSMOS_PHOTON);
             mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
-            remindPhoton.subtract(new BigDecimal(getSActivity().mTargetFee.amount));
+            remindPhoton.subtract(new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount));
         }
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mTargetFee.amount), 6));
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount), 6));
 
         if(TextUtils.isEmpty(getSActivity().mAccount.nickName)) {
             mFromNickName.setText("Wallet " + getSActivity().mAccount.id);

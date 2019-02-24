@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.SendStep0Fragment;
@@ -21,6 +23,7 @@ import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep3Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class SendActivity extends BaseActivity {
@@ -36,7 +39,7 @@ public class SendActivity extends BaseActivity {
     public String                   mTagetAddress;
     public ArrayList<Coin>          mTargetCoins;
     public String                   mTargetMemo;
-    public Coin                     mTargetFee;
+    public Fee                      mTargetFee;
 
 
     @Override
@@ -118,6 +121,13 @@ public class SendActivity extends BaseActivity {
     }
 
 
+    public void onStartSend(){
+        Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_SEND);
+        intent.putExtra("toAddress", mTagetAddress);
+        intent.putExtra("amount", mTargetCoins);
+        intent.putExtra("memo", mTargetMemo);
+    }
 
 
 

@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_GasType;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -100,7 +101,15 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            getSActivity().mTargetFee = mGas;
+//            getSActivity().mTargetFee = mGas;
+            //TODO check gas amount
+            Fee fee = new Fee();
+            ArrayList<Coin> amount = new ArrayList<>();
+            amount.add(mGas);
+            fee.amount = amount;
+            fee.gas = "200000";
+            getSActivity().mTargetFee = fee;
+
             getSActivity().onNextStep();
 
         } else if (v.equals(mBtnGasType)) {
