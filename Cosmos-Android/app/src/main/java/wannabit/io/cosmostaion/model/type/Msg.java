@@ -39,9 +39,10 @@ public class Msg {
         @SerializedName("to_address")
         public String to_address;
 
+        //TODO changed
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("delegation")
-        public Delegation delegation;
+        @SerializedName("value")
+        public Coin value;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("shares_amount")

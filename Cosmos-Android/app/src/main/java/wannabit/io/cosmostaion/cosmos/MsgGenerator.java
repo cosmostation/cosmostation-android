@@ -60,13 +60,27 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Delegation delegation) {
+//    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Delegation delegation) {
+//        Msg result  = new Msg();
+//        Msg.Value value = new Msg.Value();
+//
+//        value.delegator_addr = fromAddr;
+//        value.validator_addr = toValAddr;
+//        value.delegation = delegation;
+//
+//        result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
+//        result.value = value;
+//
+//        return result;
+//    }
+
+    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
 
         value.delegator_addr = fromAddr;
         value.validator_addr = toValAddr;
-        value.delegation = delegation;
+        value.value = toDeleagteAmout;
 
         result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
         result.value = value;

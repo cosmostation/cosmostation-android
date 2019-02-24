@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.StdSignMsgWithType;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -62,14 +63,14 @@ public class SimpleSendTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             WLog.w("SimpleSendTask 00");
-//            Password checkPw = mApp.getBaseDao().onSelectPassword();
-//            if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-//                mResult.isSuccess = false;
-//                mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-//                WLog.w("SimpleSendTask 99");
-//                return mResult;
-//            }
-//            WLog.w("SimpleSendTask 11");
+            Password checkPw = mApp.getBaseDao().onSelectPassword();
+            if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+                mResult.isSuccess = false;
+                mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+                WLog.w("SimpleSendTask 99");
+                return mResult;
+            }
+            WLog.w("SimpleSendTask 11");
 
 
             String seed = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -118,9 +119,9 @@ public class SimpleSendTask extends CommonTask {
             Response<ResBroadTx> response = ApiClient.getCSService(mApp).broadcastTx(gentx).execute();
             if(response.isSuccessful() && response.body() != null) {
                 ResBroadTx result = response.body();
-                WLog.w("result errorMsg : " + result.errorMsg);
-                WLog.w("result errorCode : " + result.errorCode);
-                WLog.w("result hash : " + result.hash);
+                WLog.w("SimpleSendTask result errorMsg : " + result.errorMsg);
+                WLog.w("SimpleSendTask result errorCode : " + result.errorCode);
+                WLog.w("SimpleSendTask result hash : " + result.hash);
                 if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
                     mResult.resultData = result.hash;
                     mResult.isSuccess = true;

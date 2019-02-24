@@ -363,7 +363,8 @@ public class TestActivity extends BaseActivity {
     private void TestGenSingleDelegate() {
         WLog.w("TestGenSingleTransfer");
 
-        Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(yongAddr, valyongjoo, getTestDelegateAmount());
+//        Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(yongAddr, valyongjoo, getTestDelegateAmount());
+        Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(yongAddr, valyongjoo, getTestAmountCoin().get(0));
 
         ArrayList<Msg> msgs= new ArrayList<>();
         msgs.add(singleDelegateMsg);

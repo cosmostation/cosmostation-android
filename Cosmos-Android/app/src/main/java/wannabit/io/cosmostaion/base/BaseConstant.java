@@ -44,7 +44,9 @@ public class BaseConstant {
     public final static int					    TASK_FETCH_WITHDRAW_ADDRESS		        = 2016;
     public final static int					    TASK_FETCH_HISTORY	                    = 2017;
     public final static int					    TASK_GEN_TX_SIMPLE_SEND	                = 2018;
-    public final static int					    TASK_OVERRIDE_ACCOUNT                    = 2019;
+    public final static int					    TASK_OVERRIDE_ACCOUNT                   = 2019;
+    public final static int					    TASK_GEN_TX_SIMPLE_DELEGATE	            = 2020;
+    public final static int					    TASK_GEN_TX_SIMPLE_REWARD	            = 2021;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;
