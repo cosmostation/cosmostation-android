@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.test.TestAdapter;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -31,6 +33,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mTvAtomTotal, mTvAtomUndelegated,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
     private TextView            mTvPhotonTotal, mTvPhotonBalance, mTvPhotonRewards;
+
+    private ImageView           mTestnet;
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -58,6 +62,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvPhotonTotal          = rootView.findViewById(R.id.dash_photon_amount);
         mTvPhotonBalance        = rootView.findViewById(R.id.dash_photon_balance);
         mTvPhotonRewards        = rootView.findViewById(R.id.dash_photon_reward);
+        mTestnet                = rootView.findViewById(R.id.layer_test);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -98,6 +103,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void onUpdateView() {
+        if(getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()))
+            mTestnet.setVisibility(View.VISIBLE);
+
         mAddress.setText(getMainActivity().mAccount.address);
 
         mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards));

@@ -116,6 +116,19 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
 //        Account account = getBaseDao().onSelectAccounts().get(0);
 //        WLog.w("account : " + account.address + "  " + account.baseChain);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(getBaseDao().onSelectAccounts().size() == 0) {
+                    onInitView();
+                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
+                    onStartMainActivity();
+                } else {
+                    onStartListActivity();
+                }
+            }
+        }, 1500);
     }
 
     @Override
@@ -134,73 +147,11 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 //        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(getBaseDao().onSelectAccounts().size() == 0) {
-                    onInitView();
-                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-                    onStartMainActivity();
-                } else {
-                    onStartListActivity();
-                }
-            }
-        }, 1500);
+
 //        if(bottomLayer2.getVisibility() != View.VISIBLE)
 //            onInitView();
 //
 //        onTest();
-    }
-
-
-    private void onTest() {
-        WLog.w("onTest : " + getString(R.string.url_esearch));
-        ReqTx reqTx = new ReqTx();
-        ReqTx.HeightKeyword heightKeyword = new ReqTx.HeightKeyword();
-        heightKeyword.order = "desc";
-        ReqTx.Sort sort = new ReqTx.Sort();
-        sort.heightkeyword = heightKeyword;
-        ArrayList<ReqTx.Sort> sorts = new ArrayList<>();
-        sorts.add(sort);
-
-        ReqTx.MultiMatch multiMatch = new ReqTx.MultiMatch();
-        multiMatch.query = "cosmos1hjct6q7npsspsg3dgvzk3sdf89spmlpfg8wwf7";
-        ArrayList<String> fields = new ArrayList<>();
-        fields.add("tx.value.msg.value.delegator_addr");
-        fields.add("tx.value.msg.value.from_address");
-        fields.add("tx.value.msg.value.to_address");
-        fields.add("tx.value.msg.value.voter");
-        fields.add("tx.value.msg.value.input.address");
-        fields.add("tx.value.msg.value.output.address");
-        multiMatch.fields = fields;
-
-        ReqTx.Query query = new ReqTx.Query();
-        query.multi_match = multiMatch;
-
-
-        reqTx.from = 0;
-        reqTx.size = 100;
-        reqTx.query = query;
-        reqTx.sort = sorts;
-
-
-        String jsonText = new Gson().toJson(reqTx);
-        WLog.w("jsonText : " + jsonText);
-
-        ApiClient.getEsService(getBaseContext()).getTx(reqTx).enqueue(new Callback<ResHistory>() {
-            @Override
-            public void onResponse(Call<ResHistory> call, Response<ResHistory> response) {
-                WLog.w("onResponse : " + response.body().hits.hits.size());
-            }
-
-            @Override
-            public void onFailure(Call<ResHistory> call, Throwable t) {
-                WLog.w("onFailure : " +t.getLocalizedMessage());
-                WLog.w("onFailure : " +call.request().url());
-                t.printStackTrace();
-            }
-        });
-
     }
 
     private void onInitView(){

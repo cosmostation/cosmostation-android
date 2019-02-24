@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
+import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.req.ReqTx;
@@ -165,6 +166,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 @Override
                 public void onClick(View v) {
                     WLog.w("GO detail!!");
+                    Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                    webintent.putExtra("txid", source.hash);
+                    startActivity(webintent);
                 }
             });
 
