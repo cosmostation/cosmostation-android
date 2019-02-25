@@ -15,6 +15,7 @@ public class Fee implements Parcelable {
     @SerializedName("amount")
     public ArrayList<Coin> amount;
 
+
     public Fee() {
     }
 
@@ -29,8 +30,10 @@ public class Fee implements Parcelable {
 
     public void readFromParcel(Parcel in) {
         gas = in.readString();
-        amount = (ArrayList<Coin>) in.readSerializable();
+//        amount = (ArrayList<Coin>) in.readSerializable();
 //        in.readTypedList(amount, Coin.CREATOR);
+        amount = new ArrayList<>();
+        in.readTypedList(amount, Coin.CREATOR);
     }
 
     @Override
@@ -41,8 +44,9 @@ public class Fee implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(gas);
-        dest.writeSerializable(amount);
+//        dest.writeSerializable(amount);
 //        dest.writeTypedList(amount);
+        dest.writeTypedList(amount);
     }
 
     public static final Creator<Fee> CREATOR = new Creator<Fee>() {

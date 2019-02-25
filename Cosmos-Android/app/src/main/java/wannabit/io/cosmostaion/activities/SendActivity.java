@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,6 +54,10 @@ public class SendActivity extends BaseActivity {
         mViewPager          = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_send_c));
 
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
@@ -92,6 +97,17 @@ public class SendActivity extends BaseActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if(mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
@@ -115,18 +131,23 @@ public class SendActivity extends BaseActivity {
         if(mViewPager.getCurrentItem() > 0) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+        } else {
+            onBackPressed();
         }
 
 
     }
 
 
-    public void onStartSend(){
+    public void onStartSend() {
         Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_SEND);
         intent.putExtra("toAddress", mTagetAddress);
-        intent.putExtra("amount", mTargetCoins);
+        intent.putParcelableArrayListExtra("amount", mTargetCoins);
         intent.putExtra("memo", mTargetMemo);
+        intent.putExtra("fee", mTargetFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
 

@@ -66,7 +66,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mSwipeRefreshLayout.setRefreshing(false);
+//                mSwipeRefreshLayout.setRefreshing(false);
+                onFetchHistory();
             }
         });
 
@@ -92,6 +93,12 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         });
         onFetchHistory();
         return rootView;
+    }
+
+    @Override
+    public void onRefreshTab() {
+        if(!isAdded()) return;
+        onFetchHistory();
     }
 
     @Override
@@ -136,6 +143,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 mEmptyHistory.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
             }
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 

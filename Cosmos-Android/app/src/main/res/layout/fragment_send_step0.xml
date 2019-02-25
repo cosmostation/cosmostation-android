@@ -5,47 +5,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_16">
-        <EditText
-            android:id="@+id/receiver_account"
+        android:layout_marginTop="@dimen/space_16"
+        android:orientation="vertical">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_50"
-            android:hint="@string/str_recipient_address"
-            android:textCursorDrawable="@drawable/white_cursor"
-            android:maxLength="46"
-            android:textColorHint="@color/colorGray4"
-            android:background="@drawable/edittext_box"
-            android:paddingEnd="@dimen/space_60"
-            style="@style/font_ss_12_white"
-            android:imeOptions="actionNext"/>
-        <ImageView
-            android:id="@+id/receiver_camera"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/receiver_account"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:hint="@string/str_recipient_address"
+                android:textCursorDrawable="@drawable/white_cursor"
+                android:maxLength="46"
+                android:textColorHint="@color/colorGray4"
+                android:background="@drawable/edittext_box"
+                android:paddingEnd="@dimen/space_60"
+                style="@style/font_ss_12_white"
+                android:imeOptions="actionNext"/>
+            <ImageView
+                android:id="@+id/receiver_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/space_8"
+                android:padding="@dimen/space_18"
+                android:layout_centerVertical="true"
+                android:scaleType="center"
+                android:background="@drawable/qrcode_ic"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/space_8"
-            android:padding="@dimen/space_18"
-            android:layout_centerVertical="true"
-            android:scaleType="center"
-            android:background="@drawable/qrcode_ic"/>
-    </RelativeLayout>
+            android:layout_gravity="center"
+            android:background="@color/colorRed"
+            android:layout_marginTop="@dimen/space_4"
+            android:text="TO TEST ADDRESS"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_next"
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_45"
-        android:minHeight="@dimen/space_45"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_24"
-        android:background="@drawable/btn_trans_with_border"
-        style="@style/font_ss_14_photon"
-        android:textAllCaps="false"
-        android:text="@string/str_next"/>
+        android:layout_marginBottom="@dimen/space_24">
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_white"
+            android:textAllCaps="false"
+            android:text="@string/str_cancel"/>
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_photon"
+            android:textColor="@color/color_btn_photon"
+            android:textAllCaps="false"
+            android:text="@string/str_next"/>
+    </LinearLayout>
 </RelativeLayout>

@@ -2,22 +2,26 @@ package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private EditText    mAddressInput;
     private ImageView   mQrBtn;
-    private Button      mNextBtn;
+    private Button      mCancel, mNextBtn;
+    private Button      mTest;
 
     public static SendStep0Fragment newInstance(Bundle bundle) {
         SendStep0Fragment fragment = new SendStep0Fragment();
@@ -36,31 +40,39 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mAddressInput = rootView.findViewById(R.id.receiver_account);
         mQrBtn = rootView.findViewById(R.id.receiver_camera);
         mNextBtn = rootView.findViewById(R.id.btn_next);
+        mCancel = rootView.findViewById(R.id.btn_cancel);
+        mTest = rootView.findViewById(R.id.btn_test);
         mQrBtn.setOnClickListener(this);
+        mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
+        mTest.setOnClickListener(this);
         return rootView;
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(mNextBtn)) {
-//            String targetAddress = mAddressInput.getText().toString();
-//            if(!TextUtils.isEmpty(targetAddress) && WKey.isValidBech32(targetAddress)) {
-//                getSActivity().mTagetAddress = targetAddress;
-//                getSActivity().onNextStep();
-//
-//            } else if(getSActivity().mAccount.address.equals(targetAddress)) {
-//                Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(getContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-//            }
+            String targetAddress = mAddressInput.getText().toString();
+            if(!TextUtils.isEmpty(targetAddress) && WKey.isValidBech32(targetAddress)) {
+                getSActivity().mTagetAddress = targetAddress;
+                getSActivity().onNextStep();
 
-            //TODO TEST
-            getSActivity().mTagetAddress = "cosmos17j405ekvw5cmfvc0g4e7urfutg08fu7jsy6gj4";
-            getSActivity().onNextStep();
+            } else if(getSActivity().mAccount.address.equals(targetAddress)) {
+                Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+            }
 
         } else if (v.equals(mQrBtn)) {
 
+        } else if (v.equals(mTest)) {
+            if(!getSActivity().mAccount.address.equals("cosmos1pzllggpn22094j3mwq79u4ql63cwac6enqkjck"))
+                mAddressInput.setText("cosmos1pzllggpn22094j3mwq79u4ql63cwac6enqkjck");
+            else
+                mAddressInput.setText("cosmos12tzwn2ej48g9rvmhm3t6ryfjgrkf0a0hlday2z");
+
+        } else if (v.equals(mCancel)) {
+            getSActivity().onBeforeStep();
         }
     }
 

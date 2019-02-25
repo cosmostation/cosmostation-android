@@ -138,6 +138,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mConfirmBtn)) {
             WLog.w("mConfirmBtn");
+            getSActivity().onStartSend();
 
         }
 

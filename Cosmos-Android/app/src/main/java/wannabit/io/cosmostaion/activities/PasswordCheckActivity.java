@@ -2,10 +2,12 @@ package wannabit.io.cosmostaion.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,13 +21,20 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_Tx_Result;
+import wannabit.io.cosmostaion.dialog.Dialog_UsingBio;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
@@ -41,6 +50,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mUserInput = "";
     private int                         mPurpose;
 
+
+    private Account                  mAccount;
+    private String                   mTagetAddress;
+    private ArrayList<Coin>          mTargetCoins;
+    private String                   mTargetMemo;
+    private Fee                      mTargetFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +77,17 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mViewPager.setAdapter(mAdapter);
 
         mPurpose = getIntent().getIntExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mTagetAddress = getIntent().getStringExtra("toAddress");
+        mTargetCoins = getIntent().getParcelableArrayListExtra("amount");
+        mTargetMemo = getIntent().getStringExtra("memo");
+        mTargetFee = getIntent().getParcelableExtra("fee");
+
+
+//        WLog.w("amlout " + mTargetCoins.get(0).denom + "  " + mTargetCoins.get(0).amount);
+//        WLog.w("fee " + mTargetFee.gas + " " + mTargetFee.amount.get(0).denom + " " +  mTargetFee.amount.get(0).amount);
+
         onInitView();
     }
 
@@ -124,9 +150,19 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private void onFinishInput() {
         //TODO Start Task
-        if(mPurpose == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+        if (mPurpose == BaseConstant.CONST_PW_SIMPLE_CHECK) {
             onShowWaitDialog();
             new CheckPasswordTask(getBaseApplication(), this).execute(mUserInput);
+
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_SEND) {
+            onShowWaitDialog();
+            new SimpleSendTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mTagetAddress,
+                    mTargetCoins,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
     }
 
@@ -176,6 +212,23 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 onShakeView();
                 onInitView();
                 Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
+            }
+
+        } else if(result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_SEND) {
+
+            if(result.isSuccess) {
+                String hash = String.valueOf(result.resultData);
+                if(!TextUtils.isEmpty(hash)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("hash", hash);
+                    Dialog_Tx_Result  dialog = Dialog_Tx_Result.newInstance(bundle);
+                    dialog.setCancelable(false);
+                    dialog.show(getSupportFragmentManager(), "dialog");
+                } else {
+                    onStartMainActivity();
+                }
+            } else {
+                onStartMainActivity();
             }
         }
     }
