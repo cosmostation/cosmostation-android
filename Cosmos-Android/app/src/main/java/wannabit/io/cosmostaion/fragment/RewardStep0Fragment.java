@@ -19,6 +19,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 
     private CardView    mCardReward;
     private TextView    mTvAtomReward, mTvPhotonReward;
+    private TextView    mTvAtomTitle, mTvPhotonTitle;
     private TextView    mTvFromValidators;
     private TextView    mTvGoalAddress, mTvSelf;
     private ProgressBar mProgressBar;
@@ -48,6 +49,11 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
         mProgressBar            = rootView.findViewById(R.id.reward_progress);
         mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                = rootView.findViewById(R.id.btn_next);
+        mTvAtomTitle            = rootView.findViewById(R.id.reward_atom_title);
+        mTvPhotonTitle          = rootView.findViewById(R.id.reward_photon_title);
+        mTvAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        mTvPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
+
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         mNextBtn.setClickable(false);
@@ -59,14 +65,14 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if(getSActivity().isAll) {
             // get all reward
-            mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getAtomAmount(), 0));
-            mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getPhotonAmount(), 0));
+            mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getAtomAmount(), 6));
+            mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getPhotonAmount(), 6));
             mTvFromValidators.setText("from " + getSActivity().mBondings.size() + "Validators");
 
         } else {
             // get single reward
-            mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getAtomAmount(), 0));
-            mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getPhotonAmount(), 0));
+            mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getAtomAmount(), 6));
+            mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getPhotonAmount(), 6));
             mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
         }
 

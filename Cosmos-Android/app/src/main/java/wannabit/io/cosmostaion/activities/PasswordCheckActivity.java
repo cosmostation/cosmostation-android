@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleUndelegateTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
@@ -199,6 +200,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mUAmount,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_REWARD) {
+            new SimpleRewardTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mTargetAddress,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
     }
 
@@ -252,7 +261,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_SEND ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD) {
             if(result.isSuccess) {
                 String hash = String.valueOf(result.resultData);
                 if(!TextUtils.isEmpty(hash)) {

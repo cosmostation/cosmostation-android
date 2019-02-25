@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +29,7 @@ import wannabit.io.cosmostaion.fragment.RewardStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
@@ -45,11 +47,11 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     private ViewPager                   mViewPager;
     private RewardPageAdapter           mPageAdapter;
 
-    public boolean isAll = false;
-    public Account mAccount;
-    public Validator mValidator;
-    public String mRewardMemo;
-    public Coin mRewardFee;
+    public boolean                       isAll = false;
+    public Account                      mAccount;
+    public Validator                    mValidator;
+    public String                       mRewardMemo;
+    public Fee                          mRewardFee;
 
     public ArrayList<BondingState>      mBondings = new ArrayList<>();
     public ArrayList<Balance>           mBalances = new ArrayList<>();
@@ -176,6 +178,16 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+    }
+
+    public void onStartReward() {
+        Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_REWARD);
+        intent.putExtra("toAddress", mValidator.operator_address);
+        intent.putExtra("memo", mRewardMemo);
+        intent.putExtra("fee", mRewardFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
 

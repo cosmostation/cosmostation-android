@@ -25,6 +25,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     private TextView        mTvGoalAddress, mTvSelf, mMemo;
     private TextView        mRemindAtom, mRemindPhoton;
     private Button          mBeforeBtn, mConfirmBtn;
+    private TextView        mRewardAtomTitle, mRewardPhotonTitle, mRemindAtomTitle, mRemindPhotonTitle;
 
     public static RewardStep3Fragment newInstance(Bundle bundle) {
         RewardStep3Fragment fragment = new RewardStep3Fragment();
@@ -50,8 +51,14 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         mMemo               = rootView.findViewById(R.id.memo);
         mRemindAtom         = rootView.findViewById(R.id.remind_atom);
         mRemindPhoton       = rootView.findViewById(R.id.remind_photon);
-        mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mBeforeBtn          = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
+        mRewardAtomTitle    = rootView.findViewById(R.id.reward_atom_title);
+        mRewardPhotonTitle  = rootView.findViewById(R.id.reward_photon_title);
+        mRemindAtomTitle    = rootView.findViewById(R.id.remind_atom_title);
+        mRemindPhotonTitle  = rootView.findViewById(R.id.remind_photon_title);
+
+
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -75,25 +82,31 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             rewardPhoton = getSActivity().mRewards.getPhotonAmount();
             mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
         }
-        mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardAtom, 0));
-        mTvPhotonReward.setText(WDp.getDpAmount(getContext(), rewardPhoton, 0));
+        mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardAtom, 6));
+        mTvPhotonReward.setText(WDp.getDpAmount(getContext(), rewardPhoton, 6));
 
         remindAtom  =remindAtom.add(rewardAtom);
         remindPhoton = remindPhoton.add(rewardPhoton);
 
-        if(getSActivity().mRewardFee.denom.equals(BaseConstant.COSMOS_ATOM)) {
+        if(getSActivity().mRewardFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
             mFeeType.setText(BaseConstant.COSMOS_ATOM);
             mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-            remindAtom.subtract(new BigDecimal(getSActivity().mRewardFee.amount));
+            remindAtom.subtract(new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount));
         } else {
             mFeeType.setText(BaseConstant.COSMOS_PHOTON);
             mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
-            remindPhoton.subtract(new BigDecimal(getSActivity().mRewardFee.amount));
+            remindPhoton.subtract(new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount));
         }
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mRewardFee.amount), 6));
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount), 6));
         mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
         if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) mTvSelf.setVisibility(View.VISIBLE);
         mMemo.setText(getSActivity().mRewardMemo);
+
+
+        mRewardAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        mRewardPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
+        mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        mRemindPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
 
         mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6));
         mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6));
@@ -107,6 +120,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mConfirmBtn)) {
             WLog.w("mConfirmBtn");
+            getSActivity().onStartReward();
 
         }
 

@@ -67,11 +67,11 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         mTotalDeleagteAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6));
 
         if(getSActivity().mUnDelegateFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
-            mFeeType.setText(BaseConstant.COSMOS_ATOM);
+            mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
             mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
             remindAtom.subtract(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount));
         } else {
-            mFeeType.setText(BaseConstant.COSMOS_PHOTON);
+            mFeeType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
             mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
             remindPhoton.subtract(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount));
         }

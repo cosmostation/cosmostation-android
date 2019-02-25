@@ -62,7 +62,6 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
         mTvGasType      = rootView.findViewById(R.id.gas_type);
         mTvGasAmount    = rootView.findViewById(R.id.fee_amount);
         mSeekBarGas     = rootView.findViewById(R.id.gas_price_seekbar);
-
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mBtnGasType.setOnClickListener(this);
@@ -81,7 +80,6 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
                     }
                     onUpdateGasAmountDp();
                 }
-
             }
 
             @Override
