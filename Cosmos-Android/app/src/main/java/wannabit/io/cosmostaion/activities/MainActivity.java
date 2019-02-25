@@ -209,26 +209,26 @@ public class MainActivity extends BaseActivity implements TaskListener {
 //        }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_setting:
-                WLog.w("menu_setting");
-                Test();
-                return true;
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menu_setting:
+//                WLog.w("menu_setting");
+//                Test();
+//                return true;
+//            case android.R.id.home:
+//                onBackPressed();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     private void onFetchCurrentPage() {
         if(!isFinishing()) {
@@ -236,35 +236,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         }
 
     }
-
-    private void Test() {
-        WLog.w("TEST");
-        ArrayList<Coin> tosend = new ArrayList<>();
-        Coin testCoin = new Coin("photino", "1000");
-        tosend.add(testCoin);
-
-        Fee result = new Fee();
-        ArrayList<Coin> amount = new ArrayList<>();
-        Coin testfeecoin = new Coin("photino", "6000");
-        amount.add(testfeecoin);
-        result.amount = amount;
-        result.gas = "200000";
-
-
-
-        new SimpleSendTask(getBaseApplication(),
-                this,
-                mAccount,
-                "cosmos17j405ekvw5cmfvc0g4e7urfutg08fu7jsy6gj4",
-                tosend,
-                "",
-                result)
-                .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "1742A");
-
-    }
-
-
-
 
     @Override
     public void onTaskResponse(TaskResult result) {

@@ -98,13 +98,22 @@ public class WUtil {
         ArrayList<UnBondingState> result = new ArrayList<>();
         for(ResLcdUnBondings val : list) {
             for(ResLcdUnBondings.Entry entry:val.entries) {
+//                UnBondingState temp = new UnBondingState(
+//                        accountId,
+//                        val.validator_addr,
+//                        entry.creation_height,
+//                        WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
+//                        new BigDecimal(entry.initial_balance.amount),
+//                        new BigDecimal(entry.balance.amount),
+//                        time
+//                );
                 UnBondingState temp = new UnBondingState(
                         accountId,
                         val.validator_addr,
                         entry.creation_height,
                         WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
-                        new BigDecimal(entry.initial_balance.amount),
-                        new BigDecimal(entry.balance.amount),
+                        new BigDecimal(entry.getinitial_balance()),
+                        new BigDecimal(entry.getbalance()),
                         time
                 );
                 result.add(temp);
@@ -115,13 +124,22 @@ public class WUtil {
 
     //TODO check multi unbonding with one validator
     public static UnBondingState getUnbondingFromLcd(Context c, long accountId, ResLcdUnBondings lcd) {
+//        return new UnBondingState(
+//                accountId,
+//                lcd.validator_addr,
+//                lcd.entries.get(0).creation_height,
+//                WUtil.cosmosTimetoLocalLong(c, lcd.entries.get(0).completion_time),
+//                new BigDecimal(lcd.entries.get(0).initial_balance.amount),
+//                new BigDecimal(lcd.entries.get(0).balance.amount),
+//                System.currentTimeMillis()
+//        );
         return new UnBondingState(
                 accountId,
                 lcd.validator_addr,
                 lcd.entries.get(0).creation_height,
                 WUtil.cosmosTimetoLocalLong(c, lcd.entries.get(0).completion_time),
-                new BigDecimal(lcd.entries.get(0).initial_balance.amount),
-                new BigDecimal(lcd.entries.get(0).balance.amount),
+                new BigDecimal(lcd.entries.get(0).getinitial_balance()),
+                new BigDecimal(lcd.entries.get(0).getbalance()),
                 System.currentTimeMillis()
         );
     }

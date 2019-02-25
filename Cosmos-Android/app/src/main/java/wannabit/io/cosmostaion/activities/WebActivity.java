@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -11,7 +12,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 public class WebActivity extends BaseActivity {
 
     private WebView     mWebview;
-    private String      mTxid;
+    private String      mTxid, mVoteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,6 @@ public class WebActivity extends BaseActivity {
         setContentView(R.layout.activity_web);
 
         mWebview = findViewById(R.id.webView);
-
         mWebview.getSettings().setJavaScriptEnabled(true);
         mWebview.getSettings().setDomStorageEnabled(true);
 
@@ -32,6 +32,13 @@ public class WebActivity extends BaseActivity {
         });
 
         mTxid  = getIntent().getStringExtra("txid");
-        mWebview.loadUrl("https://www.mintscan.io/txs/"+mTxid);
+        mVoteId = getIntent().getStringExtra("voteId");
+
+        if (!TextUtils.isEmpty(mTxid))
+            mWebview.loadUrl("https://www.mintscan.io/txs/"+mTxid);
+        else if (!TextUtils.isEmpty(mVoteId))
+            mWebview.loadUrl("https://www.mintscan.io/proposals/"+mVoteId);
+        else
+            mWebview.loadUrl("https://www.mintscan.io");
     }
 }

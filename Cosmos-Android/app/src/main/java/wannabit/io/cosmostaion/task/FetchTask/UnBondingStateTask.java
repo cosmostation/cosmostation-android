@@ -31,8 +31,10 @@ public class UnBondingStateTask extends CommonTask {
                 Response<ArrayList<ResLcdUnBondings>> response = ApiClient.getWannabitChain(mApp).getUnBondingList(account.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().size() > 0) {
+                        WLog.w("UnBondingStateTask : " + response.body().size());
                         mApp.getBaseDao().onUpdateUnbondingStates(account.id, WUtil.getUnbondingFromLcds(mApp, account.id, response.body()));
                     } else {
+                        WLog.w("UnBondingStateTask : null");
                         mApp.getBaseDao().onDeleteUnbondingStates(account.id);
                     }
                 }

@@ -76,6 +76,12 @@
     <string name="str_watch_address_path_c">WATCH ADDRESS</string>
     <string name="str_address_pubkey">Insert address or public key.</string>
     <string name="str_watch_msg">With watch mode, you can check the status of your account. \nTo make transaction can add private information with later.</string>
+    <string name="str_submit_time">Submit Time</string>
+    <string name="str_voting_start_time">Voting Start Time</string>
+    <string name="str_voting_end_time">Voting End Time</string>
+    <string name="str_no_history">No History</string>
+    <string name="str_no_proposal">Voting End Time</string>
+
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
