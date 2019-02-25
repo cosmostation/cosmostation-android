@@ -81,6 +81,9 @@
     <string name="str_voting_end_time">Voting End Time</string>
     <string name="str_no_history">No History</string>
     <string name="str_no_proposal">Voting End Time</string>
+    <string name="str_accounts">accounts</string>
+    <string name="str_manage">Manage</string>
+    <string name="str_detail">Detail</string>
 
 
     <string name="str_main_wallet">WALLET</string>
@@ -88,6 +91,7 @@
     <string name="str_main_reward">REWARD</string>
     <string name="str_main_history">HISTORY</string>
     <string name="str_main_vote">VOTE</string>
+    <string name="str_main_set">SETTING</string>
     <string name="str_password">Password</string>
     <string name="str_set_password">Set Password</string>
     <string name="str_init_password">Please insert your password.</string>

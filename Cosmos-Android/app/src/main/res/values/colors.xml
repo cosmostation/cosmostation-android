@@ -11,6 +11,7 @@
     <color name="colorTrans">#00000000</color>
     <color name="colorTransBg">#662E2E2E</color>
     <color name="colorTransBg2">#249c6cff</color>
+    <color name="colorTransBg3">#CC000000</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>

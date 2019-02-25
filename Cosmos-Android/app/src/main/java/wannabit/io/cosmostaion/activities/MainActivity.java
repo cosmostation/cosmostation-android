@@ -3,18 +3,25 @@ package wannabit.io.cosmostaion.activities;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,9 +36,12 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
+import wannabit.io.cosmostaion.dialog.TopSheetDialog;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainRewardFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
+import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainVoteFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -53,17 +63,16 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     private Toolbar                     mToolbar;
     private TextView                    mToolbarTitle;
-    private LinearLayout                mLinearLayout;
 
     private StopViewPager               mContentsPager;
     private TabLayout                   mTabLayer;
     private MainViewPageAdapter         mPageAdapter;
-
+    private FrameLayout                 mDimLayer;
     public FloatingActionButton         mFloatBtn;
 
 
     public Account                     mAccount;
-//    private ArrayList<Account>         mAccounts = new ArrayList<>();
+    private ArrayList<Account>         mAccounts = new ArrayList<>();
     public ArrayList<Validator>        mAllValidators = new ArrayList<>();
     public ArrayList<Validator>        mMyValidators = new ArrayList<>();
     public ArrayList<Validator>        mElseValidators = new ArrayList<>();
@@ -73,6 +82,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
     public ArrayList<Reward>           mRewards = new ArrayList<>();
 
     private int                         mTaskCount;
+    private TopSheetBehavior            mTopSheetBehavior;
+
+
+    private RecyclerView                mRecyclerView;
+    private AccountAdapter              mAccountAdapter;
 
 
     @Override
@@ -81,9 +95,24 @@ public class MainActivity extends BaseActivity implements TaskListener {
         setContentView(R.layout.activity_main);
         mToolbar                    = findViewById(R.id.tool_bar);
         mToolbarTitle               = findViewById(R.id.toolbar_title);
-        mLinearLayout               = findViewById(R.id.toolbar_contents);
         mContentsPager              = findViewById(R.id.view_pager);
         mTabLayer                   = findViewById(R.id.bottom_tab);
+        mDimLayer                   = findViewById(R.id.dim_layer);
+
+        mRecyclerView               = findViewById(R.id.account_recycler);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
+        mAccountAdapter = new AccountAdapter();
+        mRecyclerView.setAdapter(mAccountAdapter);
+
+        mDimLayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED)
+                    mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
+                mDimLayer.setVisibility(View.GONE);
+            }
+        });
 
         mFloatBtn                   = findViewById(R.id.btn_floating);
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +161,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
         tabItemText3.setText(R.string.str_main_vote);
         mTabLayer.getTabAt(3).setCustomView(tab3);
 
+        View tab4 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
+        TintableImageView   tabItemIcon4  = tab4.findViewById(R.id.tabItemIcon);
+        TextView            tabItemText4  = tab4.findViewById(R.id.tabItemText);
+        //TODO
+        tabItemIcon4.setImageResource(R.drawable.vote_ic);
+        tabItemText4.setText(R.string.str_main_set);
+        mTabLayer.getTabAt(4).setCustomView(tab4);
+
         mContentsPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) { }
@@ -145,18 +182,33 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 if (!mFloatBtn.isShown()) {
                     mFloatBtn.show();
                 }
-                onUpdateTitle();
+//                onUpdateTitle();
             }
         });
 
         mContentsPager.setCurrentItem(0, false);
+
+        View sheet = findViewById(R.id.top_sheet);
+        mTopSheetBehavior = TopSheetBehavior.from(sheet);
+        mTopSheetBehavior.setState(TopSheetBehavior.STATE_HIDDEN);
+        mTopSheetBehavior.setTopSheetCallback(new TopSheetBehavior.TopSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if(newState == TopSheetBehavior.STATE_COLLAPSED) {
+                    mDimLayer.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
+        });
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        mAccounts = getBaseDao().onSelectAccounts();
+        mAccounts = getBaseDao().onSelectAccounts();
 //        if(mAccounts.size() > 1) {
 //            Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 //            layoutParams.setMargins(0,0,0,0);
@@ -182,20 +234,22 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
 
     private void onUpdateTitle() {
-        if(mContentsPager.getCurrentItem() == 0) {
-            if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText("Wallet " + mAccount.id);
-            else mToolbarTitle.setText(mAccount.nickName);
-
-        } else if (mContentsPager.getCurrentItem() == 1) {
-            mToolbarTitle.setText("Reward & Validator");
-
-        } else if (mContentsPager.getCurrentItem() == 2) {
-            mToolbarTitle.setText("Transaction History");
-
-        } else if (mContentsPager.getCurrentItem() == 3) {
-            mToolbarTitle.setText("Vote");
-
-        }
+//        if(mContentsPager.getCurrentItem() == 0) {
+//            if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText("Wallet " + mAccount.id);
+//            else mToolbarTitle.setText(mAccount.nickName);
+//
+//        } else if (mContentsPager.getCurrentItem() == 1) {
+//            mToolbarTitle.setText("Reward & Validator");
+//
+//        } else if (mContentsPager.getCurrentItem() == 2) {
+//            mToolbarTitle.setText("Transaction History");
+//
+//        } else if (mContentsPager.getCurrentItem() == 3) {
+//            mToolbarTitle.setText("Vote");
+//
+//        }
+        if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText("Wallet " + mAccount.id);
+        else mToolbarTitle.setText(mAccount.nickName);
     }
 
 
@@ -209,32 +263,40 @@ public class MainActivity extends BaseActivity implements TaskListener {
 //        }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu_setting:
-//                WLog.w("menu_setting");
-//                Test();
-//                return true;
-//            case android.R.id.home:
-//                onBackPressed();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_accounts:
+                WLog.w("menu_accounts");
+                onShowTopAccountsView();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void onFetchCurrentPage() {
         if(!isFinishing()) {
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
 
+    }
+
+    private void onShowTopAccountsView() {
+        mDimLayer.setVisibility(View.VISIBLE);
+        mTopSheetBehavior.setState(TopSheetBehavior.STATE_EXPANDED);
+    }
+
+    private void onHideTopAccountsView() {
+        if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED)
+            mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
+        mDimLayer.setVisibility(View.GONE);
     }
 
     @Override
@@ -321,6 +383,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mFragments.add(MainRewardFragment.newInstance(null));
             mFragments.add(MainHistoryFragment.newInstance(null));
             mFragments.add(MainVoteFragment.newInstance(null));
+            mFragments.add(MainSettingFragment.newInstance(null));
         }
 
         @Override
@@ -347,6 +410,122 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         public ArrayList<BaseFragment> getFragments() {
             return mFragments;
+        }
+    }
+
+
+    private class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        private static final int TYPE_ACCOUNT       = 0;
+        private static final int TYPE_ADD           = 1;
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            if(viewType == TYPE_ACCOUNT) {
+                return  new AccountHolder(getLayoutInflater().inflate(R.layout.item_account, viewGroup, false));
+            } else if (viewType == TYPE_ADD) {
+                return  new AccountAddHolder(getLayoutInflater().inflate(R.layout.item_account_add, viewGroup, false));
+            } else {
+                return null;
+            }
+
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+            if (getItemViewType(position) == TYPE_ACCOUNT) {
+                final AccountHolder holder = (AccountHolder)viewHolder;
+                final Account account = mAccounts.get(position);
+                if(account.id == mAccount.id) {
+                    holder.card_account.setBackground(getResources().getDrawable(R.drawable.box_accout_selected));
+
+                } else {
+                    holder.card_account.setBackground(getResources().getDrawable(R.drawable.box_accout_unselected));
+                }
+
+                if (account.hasPrivateKey) holder.img_account.setImageDrawable(getResources().getDrawable(R.drawable.key_on));
+                else holder.img_account.setImageDrawable(getResources().getDrawable(R.drawable.key_off));
+
+                if(TextUtils.isEmpty(account.nickName)) holder.img_name.setText("Wallet " + account.id);
+                else holder.img_name.setText(account.nickName);
+
+                holder.img_address.setText(account.address);
+                holder.card_account.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(account.id == mAccount.id) {
+                            onHideTopAccountsView();
+                            return;
+                        } else {
+                            onHideTopAccountsView();
+                            WLog.w("START SWITCH ACCOUNT");
+                        }
+                    }
+                });
+                holder.btn_account_detail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onHideTopAccountsView();
+                        WLog.w("START ACCOUNT DETAIL");
+                    }
+                });
+
+
+            } else if (getItemViewType(position) == TYPE_ADD) {
+                final AccountAddHolder holder = (AccountAddHolder)viewHolder;
+                holder.btn_account_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onHideTopAccountsView();
+                        WLog.w("ADD Account");
+                    }
+                });
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            if(mAccounts.size() >= 5) {
+                return 5;
+            } else {
+                return mAccounts.size() + 1;
+            }
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if(mAccounts.size() >= 5) {
+                return TYPE_ACCOUNT;
+            } else {
+                if (position < mAccounts.size()) {
+                    return TYPE_ACCOUNT;
+                } else {
+                    return TYPE_ADD;
+                }
+            }
+        }
+
+        public class AccountHolder extends RecyclerView.ViewHolder {
+            FrameLayout card_account;
+            Button btn_account_detail;
+            ImageView img_account;
+            TextView img_name, img_address;
+            public AccountHolder(View v) {
+                super(v);
+                card_account        = itemView.findViewById(R.id.card_account);
+                btn_account_detail  = itemView.findViewById(R.id.btn_account_detail);
+                img_account         = itemView.findViewById(R.id.img_account);
+                img_name            = itemView.findViewById(R.id.img_name);
+                img_address         = itemView.findViewById(R.id.img_address);
+            }
+        }
+
+        public class AccountAddHolder extends RecyclerView.ViewHolder {
+            Button btn_account_add;
+            public AccountAddHolder(@NonNull View itemView) {
+                super(itemView);
+                btn_account_add    = itemView.findViewById(R.id.btn_account_add);
+            }
         }
     }
 

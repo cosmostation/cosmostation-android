@@ -6,9 +6,14 @@
         <!--android:icon="@drawable/qrcode_ic"-->
         <!--app:showAsAction="always"-->
         <!--android:title="@string/str_qr" />-->
+    <!--<item-->
+        <!--android:id="@+id/menu_setting"-->
+        <!--android:icon="@drawable/setting_ic"-->
+        <!--app:showAsAction="always"-->
+        <!--android:title="@string/str_settings" />-->
     <item
-        android:id="@+id/menu_setting"
-        android:icon="@drawable/setting_ic"
+        android:id="@+id/menu_accounts"
+        android:icon="@drawable/accout_ic"
         app:showAsAction="always"
-        android:title="@string/str_settings" />
+        android:title="@string/str_accounts" />
 </menu>
