@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
 
     public Account                     mAccount;
-    private ArrayList<Account>         mAccounts = new ArrayList<>();
+//    private ArrayList<Account>         mAccounts = new ArrayList<>();
     public ArrayList<Validator>        mAllValidators = new ArrayList<>();
     public ArrayList<Validator>        mMyValidators = new ArrayList<>();
     public ArrayList<Validator>        mElseValidators = new ArrayList<>();
@@ -156,13 +156,13 @@ public class MainActivity extends BaseActivity implements TaskListener {
     @Override
     protected void onResume() {
         super.onResume();
-        mAccounts = getBaseDao().onSelectAccounts();
-        if(mAccounts.size() > 1) {
+//        mAccounts = getBaseDao().onSelectAccounts();
+//        if(mAccounts.size() > 1) {
 //            Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 //            layoutParams.setMargins(0,0,0,0);
 //            mLinearLayout.setLayoutParams(layoutParams);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         WLog.w("onResume : " + mAccount.address + " " + mAccount.sequenceNumber + " " + mAccount.accountNumber + "  " + mAccount.id);
         if(mAccount == null) {
@@ -202,11 +202,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
     @Override
     public void onBackPressed() {
         WLog.w("onBackPressed");
-        if(mAccounts.size() > 1) {
-            onStartListActivity();
-        } else {
+//        if(mAccounts.size() > 1) {
+//            onStartListActivity();
+//        } else {
             moveTaskToBack(true);
-        }
+//        }
     }
 
     @Override

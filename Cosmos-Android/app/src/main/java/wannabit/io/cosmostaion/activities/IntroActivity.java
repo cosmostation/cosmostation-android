@@ -120,12 +120,17 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+//                if(getBaseDao().onSelectAccounts().size() == 0) {
+//                    onInitView();
+//                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
+//                    onStartMainActivity();
+//                } else {
+//                    onStartListActivity();
+//                }
                 if(getBaseDao().onSelectAccounts().size() == 0) {
                     onInitView();
-                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-                    onStartMainActivity();
                 } else {
-                    onStartListActivity();
+                    onStartMainActivity();
                 }
             }
         }, 1500);

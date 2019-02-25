@@ -62,11 +62,11 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onStartListActivity() {
-        Intent intent = new Intent(this, WalletListActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
+//    public void onStartListActivity() {
+//        Intent intent = new Intent(this, WalletListActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(intent);
+//    }
 
     public void onChoiceNet(BaseChain chain) {
     }

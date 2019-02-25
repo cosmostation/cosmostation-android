@@ -127,11 +127,11 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if(result.isSuccess) {
-                if(getBaseDao().onSelectAccounts().size() > 1) {
-                    onStartListActivity();
-                } else {
+//                if(getBaseDao().onSelectAccounts().size() > 1) {
+//                    onStartListActivity();
+//                } else {
                     onStartMainActivity();
-                }
+//                }
             } else {
                 WLog.w("CREATE ACCOUNT with new mnemonic error : " + result.errorCode);
             }

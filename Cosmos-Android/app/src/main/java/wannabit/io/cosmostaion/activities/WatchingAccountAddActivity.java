@@ -122,11 +122,11 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
             if(result.isSuccess) {
-                if(getBaseDao().onSelectAccounts().size() > 1) {
-                    onStartListActivity();
-                } else {
+//                if(getBaseDao().onSelectAccounts().size() > 1) {
+//                    onStartListActivity();
+//                } else {
                     onStartMainActivity();
-                }
+//                }
             } else {
                 WLog.w("CREATE EMPTY ACCOUNT error : " + result.errorCode);
             }
