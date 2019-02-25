@@ -87,8 +87,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mTargetFee = getIntent().getParcelableExtra("fee");
         mDAmount = getIntent().getParcelableExtra("dAmount");
 
-        WLog.w("mDAmount " + mDAmount.denom + "  " + mDAmount.amount);
-
+//        WLog.w("mDAmount " + mDAmount.denom + "  " + mDAmount.amount);
 //        WLog.w("amlout " + mTargetCoins.get(0).denom + "  " + mTargetCoins.get(0).amount);
 //        WLog.w("fee " + mTargetFee.gas + " " + mTargetFee.amount.get(0).denom + " " +  mTargetFee.amount.get(0).amount);
 
@@ -262,6 +261,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
 
     public class KeyboardPagerAdapter extends FragmentPagerAdapter {
 
