@@ -38,8 +38,10 @@
                         android:id="@+id/send_atom_layer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8">
+                        android:layout_marginTop="@dimen/space_8"
+                        android:visibility="gone">
                         <TextView
+                            android:id="@+id/send_atom_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -58,8 +60,10 @@
                         android:id="@+id/send_photon_layer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8">
+                        android:layout_marginTop="@dimen/space_8"
+                        android:visibility="gone">
                         <TextView
+                            android:id="@+id/send_photon_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -216,6 +220,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8">
                     <TextView
+                        android:id="@+id/remind_atom_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -235,10 +240,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8">
                     <TextView
+                        android:id="@+id/remind_photon_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@string/str_photon_c"
+                        android:text="A"
                         style="@style/font_ss_11_photon"/>
                     <TextView
                         android:id="@+id/remind_photon"

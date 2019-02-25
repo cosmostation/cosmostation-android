@@ -310,6 +310,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             } else if (getItemViewType(position) == TYPE_ACTION) {
                 final MyActionHolder holder = (MyActionHolder)viewHolder;
+                holder.itemAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+                holder.itemPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
                 holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.shares, 6));
                 if(mUnBondingState != null && mUnBondingState.balance != null) {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), mUnBondingState.balance, 6));
@@ -465,6 +467,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         public class MyActionHolder extends RecyclerView.ViewHolder {
             TextView    itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvUnbondingTime, itemTvAtomReward, itemTvPhotonReward;
             Button      itemBtnDelegate, itemBtnUndelegate, itemBtnReward;
+            TextView    itemAtomTitle, itemPhotonTitle;
 
             public MyActionHolder(View v) {
                 super(v);
@@ -476,6 +479,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemBtnDelegate         = itemView.findViewById(R.id.validator_btn_delegate);
                 itemBtnUndelegate       = itemView.findViewById(R.id.validator_btn_undelegate);
                 itemBtnReward           = itemView.findViewById(R.id.validator_btn_claim_reward);
+                itemAtomTitle           = itemView.findViewById(R.id.action_atom_title);
+                itemPhotonTitle         = itemView.findViewById(R.id.action_photon_title);
             }
         }
 

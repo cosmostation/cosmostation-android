@@ -102,6 +102,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         }
         if (!alreadyAtom) bundle.putBoolean(BaseConstant.COSMOS_ATOM, true);
         if (!alreadyPhoton) bundle.putBoolean(BaseConstant.COSMOS_PHOTON, true);
+        bundle.putString("chain", getSActivity().mAccount.baseChain);
         Dialog_SendType dialog = Dialog_SendType.newInstance(bundle);
         dialog.setCancelable(false);
         dialog.setTargetFragment(this, SELECT_COIN_DIALOG);
@@ -185,12 +186,12 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                     }
                 });
                 if (coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                    holder.tvSymbolCoin.setText("ATOM");
+                    holder.tvSymbolCoin.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
                     holder.tvSymbolCoin.setTextColor(getResources().getColor(R.color.colorAtom));
                     holder.tvMaxCoin.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getAtomBalance(), 6));
 
                 } else if (coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
-                    holder.tvSymbolCoin.setText("PHOTON");
+                    holder.tvSymbolCoin.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
                     holder.tvSymbolCoin.setTextColor(getResources().getColor(R.color.colorPhoton));
                     holder.tvMaxCoin.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getPhotonBalance(), 6));
                 }

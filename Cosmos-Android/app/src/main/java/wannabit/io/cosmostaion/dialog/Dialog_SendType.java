@@ -11,15 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class Dialog_SendType extends DialogFragment {
 
     private LinearLayout mAtom, mPhoton;
     private View mLine;
+    private TextView mTypeAtom, mTypePhoton;
+
 
     public static Dialog_SendType newInstance(Bundle bundle) {
         Dialog_SendType frag = new Dialog_SendType();
@@ -40,7 +45,13 @@ public class Dialog_SendType extends DialogFragment {
         mAtom = view.findViewById(R.id.send_atom);
         mPhoton = view.findViewById(R.id.send_photon);
         mLine = view.findViewById(R.id.send_line);
+        mTypeAtom = view.findViewById(R.id.send_atom_type);
+        mTypePhoton = view.findViewById(R.id.send_photon_type);
 
+
+        WLog.w("chain : " + getArguments().getString("chain"));
+        mTypeAtom.setText(WDp.DpAtom(getContext(), getArguments().getString("chain")));
+        mTypePhoton.setText(WDp.DpPoton(getContext(), getArguments().getString("chain")));
 
         if(getArguments().getBoolean(BaseConstant.COSMOS_ATOM)) {
             WLog.w("Atom ok");

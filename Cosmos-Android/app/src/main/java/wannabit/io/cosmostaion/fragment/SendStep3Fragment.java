@@ -113,7 +113,9 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onNextStep();
 
         } else if (v.equals(mBtnGasType)) {
-            Dialog_GasType dialog = Dialog_GasType.newInstance(null);
+            Bundle bundle = new Bundle();
+            bundle.putString("chain", getSActivity().mAccount.baseChain);
+            Dialog_GasType dialog = Dialog_GasType.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_GAS_DIALOG);
             dialog.show(getFragmentManager().beginTransaction(), "dialog");
@@ -128,16 +130,14 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
             mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
             mSeekBarGas.getProgressDrawable().setBounds(bounds);
-//            mTvGasType.setText(BaseConstant.COSMOS_ATOM);
-            mTvGasType.setText("ATOM");
+            mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
             mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
         } else if (type.equals(BaseConstant.COSMOS_PHOTON)) {
             mGas.amount = mPhotonFees.get(mSeekBarGas.getProgress());
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
             mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_photon_seekbar_style));
             mSeekBarGas.getProgressDrawable().setBounds(bounds);
-//            mTvGasType.setText(BaseConstant.COSMOS_PHOTON);
-            mTvGasType.setText("PHOTON");
+            mTvGasType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
             mTvGasType.setTextColor(getResources().getColor(R.color.colorPhoton));
         }
         onUpdateGasAmountDp();

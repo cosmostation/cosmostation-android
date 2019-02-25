@@ -11,13 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.utils.WDp;
 
 public class Dialog_GasType extends DialogFragment {
 
     private LinearLayout mAtom, mPhoton;
+    private TextView mTypeAtom, mTypePhoton;
 
     public static Dialog_GasType newInstance(Bundle bundle) {
         Dialog_GasType frag = new Dialog_GasType();
@@ -37,6 +40,10 @@ public class Dialog_GasType extends DialogFragment {
 
         mAtom = view.findViewById(R.id.send_atom);
         mPhoton = view.findViewById(R.id.send_photon);
+        mTypeAtom = view.findViewById(R.id.send_atom_type);
+        mTypePhoton = view.findViewById(R.id.send_photon_type);
+        mTypeAtom.setText(WDp.DpAtom(getContext(), getArguments().getString("chain")));
+        mTypePhoton.setText(WDp.DpPoton(getContext(), getArguments().getString("chain")));
 
         mAtom.setOnClickListener(new View.OnClickListener() {
             @Override

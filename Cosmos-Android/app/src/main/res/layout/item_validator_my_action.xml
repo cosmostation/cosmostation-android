@@ -116,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6">
                 <TextView
+                    android:id="@+id/action_atom_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/validator_atom_reward"
@@ -136,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4">
                 <TextView
+                    android:id="@+id/action_photon_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/validator_photon_reward"

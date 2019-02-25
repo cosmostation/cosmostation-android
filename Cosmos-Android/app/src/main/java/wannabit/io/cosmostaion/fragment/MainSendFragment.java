@@ -33,6 +33,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mTvAtomTotal, mTvAtomUndelegated,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
     private TextView            mTvPhotonTotal, mTvPhotonBalance, mTvPhotonRewards;
+    private TextView            mTvAtomTitle, mTvPhotonTitle;
 
     private ImageView           mTestnet;
 
@@ -63,6 +64,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvPhotonBalance        = rootView.findViewById(R.id.dash_photon_balance);
         mTvPhotonRewards        = rootView.findViewById(R.id.dash_photon_reward);
         mTestnet                = rootView.findViewById(R.id.layer_test);
+
+        mTvAtomTitle            = rootView.findViewById(R.id.dash_atom_title);
+        mTvPhotonTitle          = rootView.findViewById(R.id.dash_photon_title);
+
+
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -105,6 +111,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private void onUpdateView() {
         if(getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()))
             mTestnet.setVisibility(View.VISIBLE);
+
+        mTvAtomTitle.setText(WDp.DpAtom(getContext(), getMainActivity().mAccount.baseChain));
+        mTvPhotonTitle.setText(WDp.DpPoton(getContext(), getMainActivity().mAccount.baseChain));
 
         mAddress.setText(getMainActivity().mAccount.address);
 

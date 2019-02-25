@@ -103,7 +103,9 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onNextStep();
 
         } else if (v.equals(mBtnGasType)) {
-            Dialog_GasType dialog = Dialog_GasType.newInstance(null);
+            Bundle bundle = new Bundle();
+            bundle.putString("chain", getSActivity().mAccount.baseChain);
+            Dialog_GasType dialog = Dialog_GasType.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_GAS_DIALOG);
             dialog.show(getFragmentManager().beginTransaction(), "dialog");

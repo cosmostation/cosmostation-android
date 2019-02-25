@@ -31,6 +31,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
     private TextView        mFromNickName, mFromAddress, mToAddress, mMemo;
     private TextView        mRemindAtom, mRemindPhoton;
+    private TextView        mSendAtomTitle, mSendPhotonTitle, mRemindAtomTitle, mRemindPhotonTitle;
 
     private Button          mBeforeBtn, mConfirmBtn;
 //    private BigDecimal      mToSendAtom, mToSendPhoton;
@@ -61,6 +62,12 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         mMemo               = rootView.findViewById(R.id.memo);
         mRemindAtom         = rootView.findViewById(R.id.remind_atom);
         mRemindPhoton       = rootView.findViewById(R.id.remind_photon);
+        mSendAtomTitle      = rootView.findViewById(R.id.send_atom_title);
+        mSendPhotonTitle    = rootView.findViewById(R.id.send_photon_title);
+        mRemindAtomTitle    = rootView.findViewById(R.id.remind_atom_title);
+        mRemindPhotonTitle  = rootView.findViewById(R.id.remind_photon_title);
+
+
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
         mBeforeBtn.setOnClickListener(this);
@@ -93,11 +100,11 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         remindPhoton = getSActivity().mAccount.getPhotonBalance().subtract(toSendPhoton);
 
         if(getSActivity().mTargetFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
-            mFeeType.setText(BaseConstant.COSMOS_ATOM);
+            mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
             mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
             remindAtom.subtract(new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount));
         } else {
-            mFeeType.setText(BaseConstant.COSMOS_PHOTON);
+            mFeeType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
             mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
             remindPhoton.subtract(new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount));
         }
@@ -113,6 +120,11 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         mToAddress.setText(getSActivity().mTagetAddress);
         mMemo.setText(getSActivity().mTargetMemo);
 
+
+        mSendAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        mSendPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
+        mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        mRemindPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
 
         mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6));
         mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6));

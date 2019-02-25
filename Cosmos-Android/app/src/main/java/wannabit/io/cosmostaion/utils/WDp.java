@@ -442,14 +442,14 @@ public class WDp {
 
     public static String DpAtom(Context c, String chain) {
         String result = c.getString(R.string.s_atom);
-        if(chain.equals(BaseChain.GAIA_12K))
+        if(chain.equals(BaseChain.GAIA_12K.getChain()))
             result = c.getString(R.string.s_muon);
         return result;
     }
 
     public static String DpPoton(Context c, String chain) {
         String result = c.getString(R.string.s_photon);
-        if(chain.equals(BaseChain.GAIA_12K))
+        if(chain.equals(BaseChain.GAIA_12K.getChain()))
             result = c.getString(R.string.s_photino);
         return result;
     }
