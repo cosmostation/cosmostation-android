@@ -303,40 +303,44 @@ public class WDp {
 
 
 
-    public static String getHistoryDpType(ArrayList<Msg> msgs, String address) {
-        String result = "";
+    public static int getHistoryDpType(ArrayList<Msg> msgs, String address) {
+        int result = BaseConstant.TX_TYPE_UNKNOWN;
         if(msgs == null || msgs.size() <= 0)
             return result;
 
         Msg msg = msgs.get(0);
         if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER)) {
             if (msg.value.from_address != null && msg.value.from_address.equals(address)) {
-                result = "Send";
+                result = BaseConstant.TX_TYPE_SEND;
             } else if (msg.value.to_address != null && msg.value.to_address.equals(address)) {
-                result = "Received";
+                result = BaseConstant.TX_TYPE_RECEIVE;
             } else {
-                result = "Transfer";
+                result = BaseConstant.TX_TYPE_TRANSFER;
             }
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE)) {
-            result = "Delegate";
+            result = BaseConstant.TX_TYPE_DELEGATE;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE)) {
-            result = "Undelegate";
+            result = BaseConstant.TX_TYPE_UNDELEGATE;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE)) {
-            result = "Redelegate";
+            result = BaseConstant.TX_TYPE_REDELEGATE;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL)) {
-            result = "Get Reward";
+            result = BaseConstant.TX_TYPE_GET_REWARD;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
-            result = "Get Commission";
+            result = BaseConstant.TX_TYPE_GET_CPMMISSION;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY)) {
-            result = "Change Withdraw Address";
+            result = BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS;
 
         }
+        return result;
+    }
 
+    public static String getHistoryDpCnt(ArrayList<Msg> msgs) {
+        String result = "";
         if(msgs.size() > 2) {
             result = result + " + " + (msgs.size() - 1);
         }

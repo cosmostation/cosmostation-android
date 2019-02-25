@@ -85,6 +85,17 @@ public class BaseConstant {
 //    public final static int					    CONST_PW_CHECK_KEY		                = 5004;
 
 
+    public final static int					    TX_TYPE_UNKNOWN		                    = 3000;
+    public final static int					    TX_TYPE_SEND		                    = 3001;
+    public final static int					    TX_TYPE_RECEIVE		                    = 3002;
+    public final static int					    TX_TYPE_DELEGATE		                = 3003;
+    public final static int					    TX_TYPE_UNDELEGATE		                = 3004;
+    public final static int					    TX_TYPE_REDELEGATE		                = 3005;
+    public final static int					    TX_TYPE_GET_REWARD		                = 3006;
+    public final static int					    TX_TYPE_GET_CPMMISSION		            = 3007;
+    public final static int					    TX_TYPE_CHAGE_REWARD_ADDRESS		    = 3008;
+    public final static int					    TX_TYPE_TRANSFER		                = 3009;
+
     public final static int					    ERROR_CODE_UNKNOWN		                = 8000;
     public final static int					    ERROR_CODE_NETWORK		                = 8001;
     public final static int					    ERROR_CODE_INVALID_PASSWORD		        = 8002;

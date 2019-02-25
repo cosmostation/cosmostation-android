@@ -160,7 +160,60 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
             final ResHistory.Source source = mHistory.get(position)._source;
-            viewHolder.historyType.setText(WDp.getHistoryDpType(source.tx.value.msg, getMainActivity().mAccount.address));
+            int dpType = WDp.getHistoryDpType(source.tx.value.msg, getMainActivity().mAccount.address);
+            switch (dpType) {
+                case BaseConstant.TX_TYPE_SEND:
+                    viewHolder.historyType.setText(getString(R.string.tx_send));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorPhoton));
+                    break;
+
+                case BaseConstant.TX_TYPE_RECEIVE:
+                    viewHolder.historyType.setText(getString(R.string.tx_receive));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorAtom));
+                    break;
+
+                case BaseConstant.TX_TYPE_TRANSFER:
+                    viewHolder.historyType.setText(getString(R.string.tx_transfer));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_DELEGATE:
+                    viewHolder.historyType.setText(getString(R.string.tx_delegate));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_UNDELEGATE:
+                    viewHolder.historyType.setText(getString(R.string.tx_undelegate));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_REDELEGATE:
+                    viewHolder.historyType.setText(getString(R.string.tx_redelegate));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_GET_REWARD:
+                    viewHolder.historyType.setText(getString(R.string.tx_get_reward));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_GET_CPMMISSION:
+                    viewHolder.historyType.setText(getString(R.string.tx_get_commission));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS:
+                    viewHolder.historyType.setText(getString(R.string.tx_change_reward_address));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_UNKNOWN:
+                    viewHolder.historyType.setText(getString(R.string.tx_known));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+            }
+
             if(!source.result.isSuccess()) {
                 viewHolder.historySuccess.setVisibility(View.VISIBLE);
             } else {

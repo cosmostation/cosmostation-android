@@ -224,4 +224,15 @@
     <string name="s_muon">MUON</string>
     <string name="s_photino">PHOTINO</string>
 
+    <string name="tx_send">Send</string>
+    <string name="tx_receive">Received</string>
+    <string name="tx_transfer">Transfer</string>
+    <string name="tx_delegate">Delegate</string>
+    <string name="tx_undelegate">Undelegate</string>
+    <string name="tx_redelegate">Redelegate</string>
+    <string name="tx_get_reward">Get Reward</string>
+    <string name="tx_get_commission">Get Commission</string>
+    <string name="tx_change_reward_address">Change Reward Address</string>
+    <string name="tx_known">Known</string>
+
 </resources>
