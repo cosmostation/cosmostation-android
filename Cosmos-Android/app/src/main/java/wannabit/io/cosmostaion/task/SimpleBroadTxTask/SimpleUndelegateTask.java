@@ -47,7 +47,7 @@ public class SimpleUndelegateTask extends CommonTask {
         this.mUndelegateAmount = undelegateAmount;
         this.mUnDelegateMemo = unDelegateMemo;
         this.mUnFees = unFees;
-        this.mResult.taskType   = BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE;
+        this.mResult.taskType   = BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE;
     }
 
 

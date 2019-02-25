@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -15,14 +16,16 @@ import android.widget.TextView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class DelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button mCancel, mNextBtn;
-    private EditText mAmountInput;
-    private TextView mAvailableAmount;
+    private Button      mCancel, mNextBtn;
+    private EditText    mAmountInput;
+    private TextView    mAvailableAmount;
+    private TextView    mAtomTitle;
 
     public static DelegateStep0Fragment newInstance(Bundle bundle) {
         DelegateStep0Fragment fragment = new DelegateStep0Fragment();
@@ -42,6 +45,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
+        mAtomTitle = rootView.findViewById(R.id.tv_symbol_coin);
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
@@ -64,6 +68,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onInitView() {
+        mAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
         mAvailableAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getAtomBalance(), 6));
 
     }
@@ -77,7 +82,12 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mNextBtn)) {
             if(isValidateDelegateAmount()) {
-                getSActivity().mToDelegateAmount = mAmountInput.getText().toString().trim();
+
+                Coin coin = new Coin();
+                coin.denom = WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain).toLowerCase();
+                coin.amount =  mAmountInput.getText().toString().trim();
+                getSActivity().mToDelegateAmount = coin;
+//                getSActivity().mToDelegateAmount = mAmountInput.getText().toString().trim();
                 getSActivity().onNextStep();
             }
 

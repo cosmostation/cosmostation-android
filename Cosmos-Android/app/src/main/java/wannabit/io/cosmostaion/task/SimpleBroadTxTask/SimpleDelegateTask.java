@@ -50,7 +50,7 @@ public class SimpleDelegateTask extends CommonTask {
         this.mToDelegateAmount = toDelegateAmount;
         this.mToDelegateMemo = toDelegateMemo;
         this.mToFees = toFees;
-        this.mResult.taskType   = BaseConstant.TASK_GEN_TX_SIMPLE_SEND;
+        this.mResult.taskType   = BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE;
     }
 
 

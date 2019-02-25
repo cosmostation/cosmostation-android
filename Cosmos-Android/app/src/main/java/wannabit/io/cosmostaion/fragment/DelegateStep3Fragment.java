@@ -24,6 +24,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView        mValidatorName, mMemo;
     private TextView        mRemindAtom, mRemindPhoton;
     private Button          mBeforeBtn, mConfirmBtn;
+    private TextView        mDelegateAtomTitle, mRemindAtomTitle, mRemindPhotonTitle;
 
 
     public static DelegateStep3Fragment newInstance(Bundle bundle) {
@@ -49,6 +50,9 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         mRemindPhoton           = rootView.findViewById(R.id.remind_photon);
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mDelegateAtomTitle      = rootView.findViewById(R.id.delegate_atom_title);
+        mRemindAtomTitle        = rootView.findViewById(R.id.remind_atom_title);
+        mRemindPhotonTitle      = rootView.findViewById(R.id.remind_photon_title);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -56,25 +60,29 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toDeleagteAtom = new BigDecimal(getSActivity().mToDelegateAmount);
+        BigDecimal toDeleagteAtom = new BigDecimal(getSActivity().mToDelegateAmount.amount);
         BigDecimal remindAtom = getSActivity().mAccount.getAtomBalance().subtract(toDeleagteAtom);
         BigDecimal remindPhoton = BigDecimal.ZERO;
 
         mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAtom, 6));
 
-        if(getSActivity().mToDelegateFee.denom.equals(BaseConstant.COSMOS_ATOM)) {
+        if(getSActivity().mToDelegateFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
             mFeeType.setText(BaseConstant.COSMOS_ATOM);
             mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-            remindAtom.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount));
+            remindAtom.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
         } else {
             mFeeType.setText(BaseConstant.COSMOS_PHOTON);
             mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
-            remindPhoton.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount));
+            remindPhoton.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
         }
 
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mToDelegateFee.amount), 6));
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount), 6));
         mValidatorName.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mToDelegateMemo);
+
+        mDelegateAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        mRemindPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
 
         mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6));
         mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6));
@@ -87,6 +95,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mConfirmBtn)) {
             WLog.w("mConfirmBtn");
+            getSActivity().onStartDelegate();
 
         }
 

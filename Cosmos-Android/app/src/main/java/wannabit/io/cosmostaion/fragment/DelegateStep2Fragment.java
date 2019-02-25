@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_GasType;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -99,7 +100,12 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            getSActivity().mToDelegateFee = mGas;
+            Fee fee = new Fee();
+            ArrayList<Coin> amount = new ArrayList<>();
+            amount.add(mGas);
+            fee.amount = amount;
+            fee.gas = "200000";
+            getSActivity().mToDelegateFee = fee;
             getSActivity().onNextStep();
 
         } else if (v.equals(mBtnGasType)) {
@@ -120,16 +126,14 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
             mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
             mSeekBarGas.getProgressDrawable().setBounds(bounds);
-//            mTvGasType.setText(BaseConstant.COSMOS_ATOM);
-            mTvGasType.setText("ATOM");
+            mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
             mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
         } else if (type.equals(BaseConstant.COSMOS_PHOTON)) {
             mGas.amount = mPhotonFees.get(mSeekBarGas.getProgress());
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
             mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_photon_seekbar_style));
             mSeekBarGas.getProgressDrawable().setBounds(bounds);
-//            mTvGasType.setText(BaseConstant.COSMOS_PHOTON);
-            mTvGasType.setText("PHOTON");
+            mTvGasType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
             mTvGasType.setTextColor(getResources().getColor(R.color.colorPhoton));
         }
         onUpdateGasAmountDp();

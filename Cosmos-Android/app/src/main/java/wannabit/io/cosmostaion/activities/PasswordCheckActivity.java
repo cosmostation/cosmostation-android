@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -52,10 +53,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
 
     private Account                  mAccount;
-    private String                   mTagetAddress;
+    private String                   mTargetAddress;
     private ArrayList<Coin>          mTargetCoins;
     private String                   mTargetMemo;
     private Fee                      mTargetFee;
+    private Coin                     mDAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +81,13 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mPurpose = getIntent().getIntExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mTagetAddress = getIntent().getStringExtra("toAddress");
+        mTargetAddress = getIntent().getStringExtra("toAddress");
         mTargetCoins = getIntent().getParcelableArrayListExtra("amount");
         mTargetMemo = getIntent().getStringExtra("memo");
         mTargetFee = getIntent().getParcelableExtra("fee");
+        mDAmount = getIntent().getParcelableExtra("dAmount");
 
+        WLog.w("mDAmount " + mDAmount.denom + "  " + mDAmount.amount);
 
 //        WLog.w("amlout " + mTargetCoins.get(0).denom + "  " + mTargetCoins.get(0).amount);
 //        WLog.w("fee " + mTargetFee.gas + " " + mTargetFee.amount.get(0).denom + " " +  mTargetFee.amount.get(0).amount);
@@ -159,8 +163,18 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SimpleSendTask(getBaseApplication(),
                     this,
                     mAccount,
-                    mTagetAddress,
+                    mTargetAddress,
                     mTargetCoins,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE) {
+            onShowWaitDialog();
+            new SimpleDelegateTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mTargetAddress,
+                    mDAmount,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
@@ -215,7 +229,22 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
 
         } else if(result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_SEND) {
+            if(result.isSuccess) {
+                String hash = String.valueOf(result.resultData);
+                if(!TextUtils.isEmpty(hash)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("hash", hash);
+                    Dialog_Tx_Result  dialog = Dialog_Tx_Result.newInstance(bundle);
+                    dialog.setCancelable(false);
+                    dialog.show(getSupportFragmentManager(), "dialog");
+                } else {
+                    onStartMainActivity();
+                }
+            } else {
+                onStartMainActivity();
+            }
 
+        } else if(result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE) {
             if(result.isSuccess) {
                 String hash = String.valueOf(result.resultData);
                 if(!TextUtils.isEmpty(hash)) {

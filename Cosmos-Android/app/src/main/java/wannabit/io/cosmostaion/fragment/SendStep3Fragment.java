@@ -109,7 +109,6 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             fee.amount = amount;
             fee.gas = "200000";
             getSActivity().mTargetFee = fee;
-
             getSActivity().onNextStep();
 
         } else if (v.equals(mBtnGasType)) {

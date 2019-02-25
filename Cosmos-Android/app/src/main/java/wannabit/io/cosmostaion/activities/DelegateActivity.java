@@ -1,10 +1,12 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.DelegateStep0Fragment;
@@ -20,6 +23,7 @@ import wannabit.io.cosmostaion.fragment.DelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 
 public class DelegateActivity extends BaseActivity {
@@ -33,9 +37,9 @@ public class DelegateActivity extends BaseActivity {
 
     public Account      mAccount;
     public Validator    mValidator;
-    public String       mToDelegateAmount;
+    public Coin         mToDelegateAmount;
     public String       mToDelegateMemo;
-    public Coin         mToDelegateFee;
+    public Fee          mToDelegateFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,10 @@ public class DelegateActivity extends BaseActivity {
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_delegate_c));
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -87,9 +95,16 @@ public class DelegateActivity extends BaseActivity {
     }
 
 
-
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -117,6 +132,17 @@ public class DelegateActivity extends BaseActivity {
         }
     }
 
+
+    public void onStartDelegate() {
+        Intent intent = new Intent(DelegateActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE);
+        intent.putExtra("toAddress", mValidator.operator_address);
+        intent.putExtra("dAmount", mToDelegateAmount);
+        intent.putExtra("memo", mToDelegateMemo);
+        intent.putExtra("fee", mToDelegateFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+    }
 
 
     private class DelegatePageAdapter extends FragmentPagerAdapter {

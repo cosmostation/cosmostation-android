@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +50,9 @@ public class UndelegateActivity extends BaseActivity {
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_undelegate_c));
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
 
         mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -89,7 +93,16 @@ public class UndelegateActivity extends BaseActivity {
         mViewPager.setCurrentItem(0);
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public void onBackPressed() {

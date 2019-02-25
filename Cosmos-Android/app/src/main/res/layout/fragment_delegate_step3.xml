@@ -35,6 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8">
                     <TextView
+                        android:id="@+id/delegate_atom_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -140,6 +141,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8">
                     <TextView
+                        android:id="@+id/remind_atom_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -159,6 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8">
                     <TextView
+                        android:id="@+id/remind_photon_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
