@@ -113,4 +113,11 @@ public class BaseConstant {
 
     public final static String					KEY_PATH		                        = "44'/118'/0'/0/";
     public final static String                  characterFilter                         = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
+
+
+    public final static long					CONSTANT_S			                    = 1000l;
+    public final static long					CONSTANT_M			                    = CONSTANT_S * 60;
+    public final static long					CONSTANT_H			                    = CONSTANT_M * 60;
+    public final static long					CONSTANT_D			                    = CONSTANT_H * 24;
+
 }

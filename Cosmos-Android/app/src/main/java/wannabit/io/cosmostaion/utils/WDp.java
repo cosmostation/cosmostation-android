@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -430,6 +431,27 @@ public class WDp {
         } catch (Exception e) {};
 
         return result + "   " +c.getString(R.string.str_unbonding_days_after);
+    }
+
+    public static String getUnbondingTimeleft(Context c, long finishTime) {
+        String result = "??";
+        try {
+            long now        = Calendar.getInstance().getTimeInMillis();
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            long left       = finishTime - now;
+
+            if (left >= BaseConstant.CONSTANT_D ) {
+                result = "(D-" + (left / BaseConstant.CONSTANT_D) +")";
+            } else if (left >= BaseConstant.CONSTANT_H ) {
+                result = "(H-" + (left / BaseConstant.CONSTANT_H) +")";
+            } else {
+                return "SOON";
+            }
+
+        } catch (Exception e){}
+
+        return result;
     }
 
     public static String getTimeformat(Context c, String rawValue) {

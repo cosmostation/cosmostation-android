@@ -76,7 +76,9 @@ public class MainRewardFragment extends BaseFragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mSwipeRefreshLayout.setRefreshing(false);
+                if(!getMainActivity().onFetchAccountInfo()) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
             }
         });
 
@@ -110,6 +112,7 @@ public class MainRewardFragment extends BaseFragment {
     public void onRefreshTab() {
 //        WLog.w("MainRewardFragment onRefreshTab");
         if(!isAdded()) return;
+        mSwipeRefreshLayout.setRefreshing(false);
         mMyValidators   = getMainActivity().mMyValidators;
         mElseValidators = getMainActivity().mElseValidators;
         mBondings       = getMainActivity().mBondings;

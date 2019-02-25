@@ -290,10 +290,18 @@ public class MainActivity extends BaseActivity implements TaskListener {
                         break;
                     }
                 }
-                if(already)
-                    mMyValidators.add(all);
+                for(UnBondingState unbond:mUnbondings) {
+                    if(unbond.validatorAddress.equals(all.operator_address) && !already) {
+                        already = true;
+                        break;
+                    }
+                }
+
+                if(already) mMyValidators.add(all);
                 else  mElseValidators.add(all);
             }
+
+
             WLog.w("mMyValidators : " + mMyValidators.size());
             WLog.w("mElseValidators : " + mElseValidators.size());
             onFetchCurrentPage();

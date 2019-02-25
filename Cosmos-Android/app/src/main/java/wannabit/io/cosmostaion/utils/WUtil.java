@@ -98,15 +98,6 @@ public class WUtil {
         ArrayList<UnBondingState> result = new ArrayList<>();
         for(ResLcdUnBondings val : list) {
             for(ResLcdUnBondings.Entry entry:val.entries) {
-//                UnBondingState temp = new UnBondingState(
-//                        accountId,
-//                        val.validator_addr,
-//                        entry.creation_height,
-//                        WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
-//                        new BigDecimal(entry.initial_balance.amount),
-//                        new BigDecimal(entry.balance.amount),
-//                        time
-//                );
                 UnBondingState temp = new UnBondingState(
                         accountId,
                         val.validator_addr,
@@ -124,15 +115,6 @@ public class WUtil {
 
     //TODO check multi unbonding with one validator
     public static UnBondingState getUnbondingFromLcd(Context c, long accountId, ResLcdUnBondings lcd) {
-//        return new UnBondingState(
-//                accountId,
-//                lcd.validator_addr,
-//                lcd.entries.get(0).creation_height,
-//                WUtil.cosmosTimetoLocalLong(c, lcd.entries.get(0).completion_time),
-//                new BigDecimal(lcd.entries.get(0).initial_balance.amount),
-//                new BigDecimal(lcd.entries.get(0).balance.amount),
-//                System.currentTimeMillis()
-//        );
         return new UnBondingState(
                 accountId,
                 lcd.validator_addr,
@@ -171,7 +153,7 @@ public class WUtil {
 
     public static long cosmosTimetoLocalLong(Context c, String rawValue) {
         try {
-            SimpleDateFormat cosmosFormat = new SimpleDateFormat(c.getString(R.string.str_cosmos_time_format));
+            SimpleDateFormat cosmosFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
             cosmosFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             return cosmosFormat.parse(rawValue).getTime();
         } catch (Exception e) {

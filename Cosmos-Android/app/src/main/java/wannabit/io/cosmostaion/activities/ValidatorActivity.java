@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -312,9 +313,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 final MyActionHolder holder = (MyActionHolder)viewHolder;
                 holder.itemAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
                 holder.itemPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
-                holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.shares, 6));
+                if(mBondingState != null && mBondingState.shares != null) {
+                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.shares, 6));
+                } else {
+                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 0));
+                }
+
                 if(mUnBondingState != null && mUnBondingState.balance != null) {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), mUnBondingState.balance, 6));
+                    holder.itemTvUnbondingTime.setText(WDp.getUnbondingTimeleft(getBaseContext(), mUnBondingState.completionTime));
+                    holder.itemTvUnbondingTime.setVisibility(View.VISIBLE);
                 } else {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
                     holder.itemTvUnbondingTime.setVisibility(View.INVISIBLE);
@@ -339,6 +347,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         WLog.w("Start Undelegate");
+                        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+                            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         getBaseDao().setValidator(mValidator);
                         Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
                         startActivity(unDelegate);
@@ -349,6 +361,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         WLog.w("Start Reward");
+                        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+                            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         getBaseDao().setValidator(mValidator);
                         Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
                         claimReward.putExtra("isAll", false);
@@ -371,7 +387,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if(mBondingState == null) {
+            if(mBondingState == null && mUnBondingState == null) {
                 if(position == 0) {
                     return TYPE_VALIDATOR;
                 } else if (position == 1) {
