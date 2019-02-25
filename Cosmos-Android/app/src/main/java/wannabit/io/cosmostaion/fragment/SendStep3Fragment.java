@@ -91,6 +91,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
+        mTvGasType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
         onUpdateGasAmountDp();
         return rootView;
     }

@@ -19,11 +19,12 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class UndelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView mUndelegateAmount, mTotalDeleagteAmount;
+    private TextView        mUndelegateAmount, mTotalDeleagteAmount;
     private TextView        mFeeAmount, mFeeType;
     private TextView        mValidatorName, mMemo, mTime;
     private TextView        mRemindAtom;
-    private Button mBeforeBtn, mConfirmBtn;
+    private Button          mBeforeBtn, mConfirmBtn;
+    private TextView        mUnDelegateAtomTitle, mRemindAtomTitle;
 
     public static UndelegateStep3Fragment newInstance(Bundle bundle) {
         UndelegateStep3Fragment fragment = new UndelegateStep3Fragment();
@@ -49,6 +50,8 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         mRemindAtom             = rootView.findViewById(R.id.remind_atom);
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mUnDelegateAtomTitle    = rootView.findViewById(R.id.undelegate_atom_title);
+        mRemindAtomTitle        = rootView.findViewById(R.id.remind_atom_title);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -63,20 +66,25 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         mUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAtom, 6));
         mTotalDeleagteAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6));
 
-        if(getSActivity().mUnDelegateFee.denom.equals(BaseConstant.COSMOS_ATOM)) {
+        if(getSActivity().mUnDelegateFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
             mFeeType.setText(BaseConstant.COSMOS_ATOM);
             mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-            remindAtom.subtract(new BigDecimal(getSActivity().mUnDelegateFee.amount));
+            remindAtom.subtract(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount));
         } else {
             mFeeType.setText(BaseConstant.COSMOS_PHOTON);
             mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
-            remindPhoton.subtract(new BigDecimal(getSActivity().mUnDelegateFee.amount));
+            remindPhoton.subtract(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount));
         }
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mUnDelegateFee.amount), 6));
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount), 6));
         mValidatorName.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mUnDelegateMemo);
         mTime.setText(WDp.getUnbondTime(getContext()));
         mRemindAtom.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares.subtract(toUnDeleagteAtom), 6));
+
+
+        mUnDelegateAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+
     }
 
     @Override
@@ -86,6 +94,7 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mConfirmBtn)) {
             WLog.w("mConfirmBtn");
+            getSActivity().onStartUndelegate();
 
         }
     }

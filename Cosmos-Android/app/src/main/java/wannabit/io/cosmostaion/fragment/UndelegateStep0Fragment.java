@@ -22,6 +22,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
     private Button mCancel, mNextBtn;
     private EditText mAmountInput;
     private TextView mAvailableAmount;
+    private TextView    mAtomTitle;
 
     public static UndelegateStep0Fragment newInstance(Bundle bundle) {
         UndelegateStep0Fragment fragment = new UndelegateStep0Fragment();
@@ -41,6 +42,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
+        mAtomTitle = rootView.findViewById(R.id.tv_symbol_coin);
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
@@ -62,6 +64,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
     }
 
     private void onInitView() {
+        mAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
         if(getSActivity().mBondingState != null)
             mAvailableAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6));
 

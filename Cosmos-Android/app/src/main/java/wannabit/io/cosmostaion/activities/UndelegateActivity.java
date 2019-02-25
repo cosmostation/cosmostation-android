@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.BondingState;
@@ -22,6 +24,7 @@ import wannabit.io.cosmostaion.fragment.UndelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 
 public class UndelegateActivity extends BaseActivity {
@@ -38,7 +41,7 @@ public class UndelegateActivity extends BaseActivity {
     public BondingState                 mBondingState;
     public String                       mUnDelegateAmount;
     public String                       mUnDelegateMemo;
-    public Coin                         mUnDelegateFee;
+    public Fee                          mUnDelegateFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +131,18 @@ public class UndelegateActivity extends BaseActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    public void onStartUndelegate() {
+        Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE);
+        intent.putExtra("toAddress", mValidator.operator_address);
+        intent.putExtra("uAmount", mUnDelegateAmount);
+        intent.putExtra("memo", mUnDelegateMemo);
+        intent.putExtra("fee", mUnDelegateFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
     }
 
 

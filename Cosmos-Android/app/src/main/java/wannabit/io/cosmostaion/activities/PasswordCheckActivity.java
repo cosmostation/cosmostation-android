@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleUndelegateTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -58,6 +59,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                   mTargetMemo;
     private Fee                      mTargetFee;
     private Coin                     mDAmount;
+    private String                   mUAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +88,22 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mTargetMemo = getIntent().getStringExtra("memo");
         mTargetFee = getIntent().getParcelableExtra("fee");
         mDAmount = getIntent().getParcelableExtra("dAmount");
+        mUAmount = getIntent().getStringExtra("uAmount");
 
-//        WLog.w("mDAmount " + mDAmount.denom + "  " + mDAmount.amount);
-//        WLog.w("amlout " + mTargetCoins.get(0).denom + "  " + mTargetCoins.get(0).amount);
-//        WLog.w("fee " + mTargetFee.gas + " " + mTargetFee.amount.get(0).denom + " " +  mTargetFee.amount.get(0).amount);
+
+        if(mDAmount != null)
+            WLog.w("mDAmount " + mDAmount.denom + "  " + mDAmount.amount);
+
+        if(mUAmount != null)
+            WLog.w("mUAmount " + mUAmount);
+
+        if(mTargetCoins != null)
+            WLog.w("amlout " + mTargetCoins.get(0).denom + "  " + mTargetCoins.get(0).amount);
+
+        if(mTargetFee != null)
+            WLog.w("fee " + mTargetFee.gas + " " + mTargetFee.amount.get(0).denom + " " +  mTargetFee.amount.get(0).amount);
+
+
 
         onInitView();
     }
@@ -176,6 +190,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mDAmount,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE) {
+            new SimpleUndelegateTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mTargetAddress,
+                    mUAmount,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
     }
 
@@ -227,7 +250,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
             }
 
-        } else if(result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_SEND) {
+        } else if (result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_SEND ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE) {
             if(result.isSuccess) {
                 String hash = String.valueOf(result.resultData);
                 if(!TextUtils.isEmpty(hash)) {
@@ -243,21 +268,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 onStartMainActivity();
             }
 
-        } else if(result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE) {
-            if(result.isSuccess) {
-                String hash = String.valueOf(result.resultData);
-                if(!TextUtils.isEmpty(hash)) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("hash", hash);
-                    Dialog_Tx_Result  dialog = Dialog_Tx_Result.newInstance(bundle);
-                    dialog.setCancelable(false);
-                    dialog.show(getSupportFragmentManager(), "dialog");
-                } else {
-                    onStartMainActivity();
-                }
-            } else {
-                onStartMainActivity();
-            }
         }
     }
 

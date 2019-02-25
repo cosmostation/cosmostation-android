@@ -77,6 +77,7 @@ public class BaseConstant {
     public final static int					    CONST_PW_SIMPLE_CHECK		            = 5002;
     public final static int					    CONST_PW_TX_SIMPLE_SEND		            = 5003;
     public final static int					    CONST_PW_TX_SIMPLE_DELEGATE		        = 5004;
+    public final static int					    CONST_PW_TX_SIMPLE_UNDELEGATE		    = 5005;
 
 //    public final static int					    CONST_PW_SEND		                    = 5002;
 //    public final static int					    CONST_PW_CHECK_MNEMONIC		            = 5003;

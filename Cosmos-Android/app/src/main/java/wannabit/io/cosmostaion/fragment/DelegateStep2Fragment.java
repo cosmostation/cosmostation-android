@@ -90,6 +90,7 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
+        mTvGasType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
         onUpdateGasAmountDp();
         return rootView;
     }
