@@ -195,12 +195,13 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         onHideWaitDialog();
-        if (result.taskType == BaseConstant.TASK_INIT_PW && result.isSuccess) {
-            WLog.w("onTaskResponse TASK_INIT_PW");
-            Dialog_UsingBio dialog = Dialog_UsingBio.newInstance();
-            dialog.setCancelable(false);
-            dialog.show(getSupportFragmentManager(), "dialog");
-        }
+//        if (result.taskType == BaseConstant.TASK_INIT_PW && result.isSuccess) {
+//            WLog.w("onTaskResponse TASK_INIT_PW");
+//            Dialog_UsingBio dialog = Dialog_UsingBio.newInstance();
+//            dialog.setCancelable(false);
+//            dialog.show(getSupportFragmentManager(), "dialog");
+//        }
+        onNextPage();
     }
 
     public void onNextPage() {

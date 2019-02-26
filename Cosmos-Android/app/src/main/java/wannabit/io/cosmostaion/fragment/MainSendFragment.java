@@ -6,6 +6,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.test.TestAdapter;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -135,8 +137,13 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if(v.equals(mBtnAddressDetail)) {
-            //TODO
-            WLog.w("copy or show popup qr");
+            Bundle bundle = new Bundle();
+            bundle.putString("address", getMainActivity().mAccount.address);
+            if(TextUtils.isEmpty(getMainActivity().mAccount.nickName)) bundle.putString("title", "Wallet " + getMainActivity().mAccount.id);
+            else bundle.putString("title", getMainActivity().mAccount.nickName);
+            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            show.setCancelable(true);
+            show.show(getFragmentManager().beginTransaction(), "dialog");
         }
     }
 }

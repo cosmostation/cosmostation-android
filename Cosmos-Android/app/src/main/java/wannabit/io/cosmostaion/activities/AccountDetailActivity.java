@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -84,7 +85,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         mBtnCheck.setOnClickListener(this);
         mBtnDelete.setOnClickListener(this);
-        mKeyTypeImg.setOnClickListener(this);
         mNameEditImg.setOnClickListener(this);
         mBtnCopy.setOnClickListener(this);
         mBtnQr.setOnClickListener(this);
@@ -161,7 +161,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         try {
-            final Bitmap mBitmap = toBitmap(qrCodeWriter.encode(mAccount.address, BarcodeFormat.QR_CODE, 480, 480));
+            final Bitmap mBitmap = WUtil.toBitmap(qrCodeWriter.encode(mAccount.address, BarcodeFormat.QR_CODE, 480, 480));
             new TedPermission(this)
                     .setPermissionListener(new PermissionListener() {
                         @Override
@@ -225,8 +225,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             delete.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
 
-        } else if (v.equals(mKeyTypeImg)) {
-
         } else if (v.equals(mNameEditImg)) {
 
         } else if (v.equals(mBtnCopy)) {
@@ -247,15 +245,5 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
     }
 
-    private static Bitmap toBitmap(BitMatrix matrix) {
-        int height = matrix.getHeight();
-        int width = matrix.getWidth();
-        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                bmp.setPixel(x, y, matrix.get(x, y) ? Color.BLACK : Color.WHITE);
-            }
-        }
-        return bmp;
-    }
+
 }

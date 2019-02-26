@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -63,6 +64,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnTerm.setOnClickListener(this);
         mBtnGithub.setOnClickListener(this);
         mBtnVersion.setOnClickListener(this);
+
+        mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
+
+        mBtnGuide.setVisibility(View.GONE);
+        mBtnAlaram.setVisibility(View.GONE);
         return rootView;
     }
 

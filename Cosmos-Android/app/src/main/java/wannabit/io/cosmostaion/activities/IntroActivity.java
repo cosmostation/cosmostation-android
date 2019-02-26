@@ -134,6 +134,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }, 1500);
+
+//        onShowWaitDialog();
     }
 
     @Override

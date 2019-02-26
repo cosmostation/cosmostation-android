@@ -1,10 +1,13 @@
 package wannabit.io.cosmostaion.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.zxing.common.BitMatrix;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -303,5 +306,17 @@ public class WUtil {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Bitmap toBitmap(BitMatrix matrix) {
+        int height = matrix.getHeight();
+        int width = matrix.getWidth();
+        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                bmp.setPixel(x, y, matrix.get(x, y) ? Color.BLACK : Color.WHITE);
+            }
+        }
+        return bmp;
     }
 }
