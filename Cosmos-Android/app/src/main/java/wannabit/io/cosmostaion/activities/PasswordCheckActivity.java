@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleUndelegateTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -61,6 +62,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Fee                      mTargetFee;
     private Coin                     mDAmount;
     private String                   mUAmount;
+
+    private long                     mIdToDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mDAmount = getIntent().getParcelableExtra("dAmount");
         mUAmount = getIntent().getStringExtra("uAmount");
 
+        mIdToDelete = getIntent().getLongExtra("id", -1);
 
         if(mDAmount != null)
             WLog.w("mDAmount " + mDAmount.denom + "  " + mDAmount.amount);
@@ -208,6 +212,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetAddress,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == BaseConstant.CONST_PW_DELETE_ACCOUNT) {
+            onShowWaitDialog();
+            new DeleteUserTask(getBaseApplication(), this).execute(mUserInput);
+
         }
     }
 
@@ -278,6 +287,16 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 onStartMainActivity();
             }
 
+        } else if (result.taskType == BaseConstant.TASK_DELETE_USER) {
+            if(result.isSuccess) {
+                onDeleteAccount(mIdToDelete);
+
+            } else {
+                onShakeView();
+                onInitView();
+                Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
+
+            }
         }
     }
 

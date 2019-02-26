@@ -49,6 +49,7 @@ public class BaseConstant {
     public final static int					    TASK_GEN_TX_SIMPLE_UNDELEGATE	        = 2021;
     public final static int					    TASK_GEN_TX_SIMPLE_REWARD	            = 2022;
     public final static int					    TASK_FETCH_ALL_PROPOSAL		            = 2023;
+    public final static int					    TASK_DELETE_USER		                = 2024;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;

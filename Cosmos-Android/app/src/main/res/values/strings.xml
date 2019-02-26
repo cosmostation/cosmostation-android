@@ -154,7 +154,10 @@
     <string name="str_reward_step_3">Select transaction fees.</string>
     <string name="str_reward_step_4">Check your information to claim rewards</string>
     <string name="str_already_imported_key">Already imported key.</string>
-
+    <string name="str_delete_title">Delete Account</string>
+    <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
+    <string name="str_delete">Delete</string>
+    <string name="str_close">Close</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>

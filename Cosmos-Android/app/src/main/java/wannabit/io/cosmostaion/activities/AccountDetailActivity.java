@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -109,6 +110,14 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         if(mAccount == null)  onBackPressed();
 
         onInitView();
+    }
+
+    public void onStartDeleteUser() {
+        Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_DELETE_ACCOUNT);
+        intent.putExtra("id", mAccount.id);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
 
@@ -200,6 +209,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         if (v.equals(mBtnCheck)) {
 
         } else if (v.equals(mBtnDelete)) {
+            Bundle bundle = new Bundle();
+            bundle.putLong("id", mAccount.id);
+            Dialog_DeleteConfirm delete = Dialog_DeleteConfirm.newInstance(bundle);
+            delete.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mKeyTypeImg)) {
 
