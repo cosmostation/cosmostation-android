@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     style="@style/font_ss_11_gray1"
-                    android:text="거래 내역이 없습니다."/>
+                    android:text="@string/str_no_history_with_this_validator"/>
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>

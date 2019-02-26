@@ -466,6 +466,35 @@ public class WDp {
         return result;
     }
 
+    public static String getUnbondingTimefrom(Context c, String rawStartTime) {
+        String result = "??";
+        try {
+            long now   = Calendar.getInstance().getTimeInMillis();
+
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            long start = blockDateFormat.parse(rawStartTime).getTime();
+            long left  = start + BaseConstant.COSMOS_UNBONDING_TIME - now;
+
+            WLog.w("start : " + start);
+            WLog.w("COSMOS_UNBONDING_TIME : " + BaseConstant.COSMOS_UNBONDING_TIME);
+            WLog.w("now : " + now);
+
+            if (left >= BaseConstant.CONSTANT_D ) {
+                result = "(D-" + (left / BaseConstant.CONSTANT_D) +")";
+            } else if (left >= BaseConstant.CONSTANT_H ) {
+                result = "(H-" + (left / BaseConstant.CONSTANT_H) +")";
+            } else if (left < 0){
+                return "soon";
+            } else {
+                return "completed";
+            }
+
+        } catch (Exception e){}
+
+        return result;
+    }
+
     public static String getTimeformat(Context c, String rawValue) {
         String result = "??";
         try {

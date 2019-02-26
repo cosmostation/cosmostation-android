@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -35,8 +38,13 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.req.ReqTx;
+import wannabit.io.cosmostaion.network.req.ReqTxVal;
+import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.task.FetchTask.HistoryTask;
+import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleSelfBondingStateTask;
@@ -64,8 +72,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private BondingState                mBondingState;
     private ArrayList<UnBondingState>   mUnBondingStates;
     private Reward                      mReward;
-    //TODO this is temp
-    private ArrayList<String>           mTx = new ArrayList<>();
+    private ArrayList<ResHistory.InnerHits> mTx = new ArrayList<>();
 
     private String                      mValidatorPicture;
     private String                      mSelfBondingRate;
@@ -105,6 +112,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         WLog.w("Address : " + getIntent().getStringExtra("valAddr"));
 
+
     }
 
     @Override
@@ -139,6 +147,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mRecyclerView.setAdapter(mValidatorAdapter);
 
         onInitFetch();
+        onFetchValHistory();
     }
 
     @Override
@@ -164,6 +173,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             mTaskCount = mTaskCount + 1;
             new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
+
+    }
+
+    private void onFetchValHistory() {
+        WLog.w("onFetchValHistory");
+        mTaskCount++;
+        ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
+//        String jsonText = new Gson().toJson(req);
+//        WLog.w("jsonText : " + jsonText);
+        new ValHistoryTask(getBaseApplication(), this, req).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -195,7 +214,18 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             mReward         = (Reward)result.resultData;
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_VAL_HISTORY) {
+            ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
+            if(hits != null && hits.size() > 0) {
+                WLog.w("hit size " + hits.size());
+                mTx = hits;
+            } else {
+                WLog.w("hit null");
+            }
         }
+
+
 
         if(mTaskCount == 0) {
             WLog.w("mTaskFinished");
@@ -380,6 +410,90 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             } else if (getItemViewType(position) == TYPE_HISTORY) {
                 final HistoryHolder holder = (HistoryHolder)viewHolder;
+                final ResHistory.Source source;
+                if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
+                    source = mTx.get(position - 2)._source;
+                } else {
+                    source = mTx.get(position - 3)._source;
+                }
+
+                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
+
+                int dpType = WDp.getHistoryDpType(source.tx.value.msg, mAccount.address);
+                switch (dpType) {
+                    case BaseConstant.TX_TYPE_SEND:
+                        holder.historyType.setText(getString(R.string.tx_send));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorPhoton));
+                        break;
+
+                    case BaseConstant.TX_TYPE_RECEIVE:
+                        holder.historyType.setText(getString(R.string.tx_receive));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorAtom));
+                        break;
+
+                    case BaseConstant.TX_TYPE_TRANSFER:
+                        holder.historyType.setText(getString(R.string.tx_transfer));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        break;
+
+                    case BaseConstant.TX_TYPE_DELEGATE:
+                        holder.historyType.setText(getString(R.string.tx_delegate));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        break;
+
+                    case BaseConstant.TX_TYPE_UNDELEGATE:
+                        holder.historyType.setText(getString(R.string.tx_undelegate));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time) + " " +
+                                WDp.getUnbondingTimefrom(getBaseContext(), source.time));
+                        break;
+
+                    case BaseConstant.TX_TYPE_REDELEGATE:
+                        holder.historyType.setText(getString(R.string.tx_redelegate));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        break;
+
+                    case BaseConstant.TX_TYPE_GET_REWARD:
+                        holder.historyType.setText(getString(R.string.tx_get_reward));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        break;
+
+                    case BaseConstant.TX_TYPE_GET_CPMMISSION:
+                        holder.historyType.setText(getString(R.string.tx_get_commission));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        break;
+
+                    case BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS:
+                        holder.historyType.setText(getString(R.string.tx_change_reward_address));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        break;
+
+                    case BaseConstant.TX_TYPE_UNKNOWN:
+                        holder.historyType.setText(getString(R.string.tx_known));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        break;
+
+                }
+
+                if(!source.result.isSuccess()) {
+                    holder.historySuccess.setVisibility(View.VISIBLE);
+                } else {
+                    holder.historySuccess.setVisibility(View.GONE);
+                }
+
+
+                holder.history_block.setText(source.height + " block");
+                holder.history_hash.setText(source.hash);
+                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        WLog.w("GO detail!!");
+                        Intent webintent = new Intent(getBaseContext(), WebActivity.class);
+                        webintent.putExtra("txid", source.hash);
+                        startActivity(webintent);
+                    }
+                });
+
 
             } else if (getItemViewType(position) == TYPE_HISTORY_EMPTY) {
                 final HistoryEmptyHolder holder = (HistoryEmptyHolder)viewHolder;
@@ -389,7 +503,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if(mBondingState == null && (mUnBondingStates == null && mUnBondingStates.size() > 0)) {
+            if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
                 if(position == 0) {
                     return TYPE_VALIDATOR;
                 } else if (position == 1) {
@@ -414,13 +528,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if(mBondingState == null) {
+            if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
                 if(mTx.size() > 0) {
                     return mTx.size() + 2;
                 } else {
                     return 3;
                 }
-
             } else {
                 if(mTx.size() > 0) {
                     return mTx.size() + 3;
@@ -511,9 +624,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
         public class HistoryHolder extends RecyclerView.ViewHolder {
+            private CardView historyRoot;
+            private TextView historyType, historySuccess, history_time, history_block, history_hash;
 
             public HistoryHolder(View v) {
                 super(v);
+                historyRoot         = itemView.findViewById(R.id.card_history);
+                historyType         = itemView.findViewById(R.id.history_type);
+                historySuccess      = itemView.findViewById(R.id.history_success);
+                history_time        = itemView.findViewById(R.id.history_time);
+                history_block       = itemView.findViewById(R.id.history_block_height);
+                history_hash        = itemView.findViewById(R.id.history_hash);
             }
         }
 
