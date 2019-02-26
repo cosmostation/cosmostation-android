@@ -32,6 +32,7 @@
     <string name="str_qr">QrCode</string>
     <string name="str_import">IMPORT</string>
     <string name="str_create">CREATE</string>
+    <string name="str_check_mnemonic_c">CHECK MNEMONICS</string>
     <string name="str_check">Check</string>
     <string name="str_confirm">Confirm</string>
     <string name="str_warning">Warning</string>

@@ -50,6 +50,7 @@ public class BaseConstant {
     public final static int					    TASK_GEN_TX_SIMPLE_REWARD	            = 2022;
     public final static int					    TASK_FETCH_ALL_PROPOSAL		            = 2023;
     public final static int					    TASK_DELETE_USER		                = 2024;
+    public final static int					    TASK_CHECK_MNEMONIC		                = 2025;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;
@@ -82,6 +83,7 @@ public class BaseConstant {
     public final static int					    CONST_PW_TX_SIMPLE_UNDELEGATE		    = 5005;
     public final static int					    CONST_PW_TX_SIMPLE_REWARD		        = 5006;
     public final static int					    CONST_PW_DELETE_ACCOUNT		            = 5007;
+    public final static int					    CONST_PW_CHECK_MNEMONIC	                = 5008;
 
 //    public final static int					    CONST_PW_SEND		                    = 5002;
 //    public final static int					    CONST_PW_CHECK_MNEMONIC		            = 5003;

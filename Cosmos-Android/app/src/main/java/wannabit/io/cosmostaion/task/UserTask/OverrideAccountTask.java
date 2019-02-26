@@ -27,8 +27,8 @@ public class OverrideAccountTask extends CommonTask {
      *
      * @param strings
      *  strings[0] : path
-     *  strings[1] : mnemonic seed
-     *  strings[2] : mnemonic size
+     *  strings[1] : entorpy
+     *  strings[2] : word size
      *
      * @return
      */

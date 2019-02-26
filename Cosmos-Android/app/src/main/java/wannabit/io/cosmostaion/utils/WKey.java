@@ -59,7 +59,6 @@ public class WKey {
         } catch (Exception e) {
             return null;
         }
-
     }
 
 //    public static byte[] getHDSeed(String seed) {

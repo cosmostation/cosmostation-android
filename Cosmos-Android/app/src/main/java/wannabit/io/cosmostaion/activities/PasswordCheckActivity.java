@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleUndelegateTask;
+import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -64,6 +65,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                   mUAmount;
 
     private long                     mIdToDelete;
+    private long                     mIdToCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mUAmount = getIntent().getStringExtra("uAmount");
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
+        mIdToCheck  = getIntent().getLongExtra("checkid", -1);
 
         if(mDAmount != null)
             WLog.w("mDAmount " + mDAmount.denom + "  " + mDAmount.amount);
@@ -217,6 +220,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             onShowWaitDialog();
             new DeleteUserTask(getBaseApplication(), this).execute(mUserInput);
 
+        } else if (mPurpose == BaseConstant.CONST_PW_CHECK_MNEMONIC) {
+            onShowWaitDialog();
+            new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount(""+mIdToCheck)).execute(mUserInput);
+
         }
     }
 
@@ -297,7 +304,22 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
 
             }
+        } else if (result.taskType == BaseConstant.TASK_CHECK_MNEMONIC) {
+            if(result.isSuccess) {
+                Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);
+                checkintent.putExtra("checkid", mIdToCheck);
+                WLog.w("seed : " + String.valueOf(result.resultData));
+                checkintent.putExtra("seed", String.valueOf(result.resultData));
+                startActivity(checkintent);
+
+            } else {
+                onShakeView();
+                onInitView();
+                Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
+
+            }
         }
+
     }
 
     @Override

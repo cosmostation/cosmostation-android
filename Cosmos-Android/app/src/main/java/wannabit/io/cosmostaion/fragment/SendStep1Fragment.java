@@ -182,6 +182,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 holder.btnRemove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        holder.etAmountCoin.setText("");
                         onRemoveCoinType(position);
                     }
                 });

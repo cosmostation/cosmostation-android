@@ -207,6 +207,16 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnCheck)) {
+            if(mAccount.hasPrivateKey) {
+                Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
+                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
+                intent.putExtra("checkid", mAccount.id);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+            } else {
+                startActivity(new Intent(AccountDetailActivity.this, RestoreActivity.class));
+            }
 
         } else if (v.equals(mBtnDelete)) {
             Bundle bundle = new Bundle();

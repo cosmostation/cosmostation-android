@@ -26,8 +26,8 @@ public class GenerateAccountTask extends CommonTask {
      * @param strings
      *  strings[0] : chainType
      *  strings[1] : path
-     *  strings[2] : mnemonic seed
-     *  strings[3] : mnemonic size
+     *  strings[2] : entorpy seed
+     *  strings[3] : word size
      *
      * @return
      */
