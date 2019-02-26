@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class GenerateAccountTask extends CommonTask {
 
@@ -55,11 +56,10 @@ public class GenerateAccountTask extends CommonTask {
 
 
 
-    private Account onGenAccount(String seed, String path, String chainType, String msize) {
+    private Account onGenAccount(String entropy, String path, String chainType, String msize) {
         Account             newAccount  = Account.getNewInstance();
-        DeterministicKey    dKey        = WKey.getKeyWithPath(seed, Integer.parseInt(path));
-//        EncResult encR                  = CryptoHelper.doEncryptData(newAccount.uuid, new String(dKey.getPrivKey().toByteArray()), false);
-        EncResult encR                  = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, seed, false);
+        DeterministicKey    dKey        = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(path));
+        EncResult encR                  = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
         newAccount.address          = WKey.getCosmosUserDpAddress(dKey.getPublicKeyAsHex());
         newAccount.baseChain        = chainType;
         newAccount.hasPrivateKey    = true;

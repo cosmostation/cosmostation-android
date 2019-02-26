@@ -35,8 +35,8 @@ public class CheckMnemonicTask extends CommonTask {
             mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
             return mResult;
         } else {
-            String seed = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            mResult.resultData = seed;
+            String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+            mResult.resultData = entropy;
             mResult.isSuccess = true;
         }
         return mResult;

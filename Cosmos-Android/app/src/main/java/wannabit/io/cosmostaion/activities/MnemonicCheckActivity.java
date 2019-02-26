@@ -1,34 +1,37 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicCheckActivity extends BaseActivity {
 
     private Toolbar             mToolbar;
     private TextView[]          mTvWords = new TextView[24];
+    private Button              mCopy;
 
-    private ArrayList<String>   mWords = new ArrayList<>();
-    private byte[]              mEntropy;
-    private String              mHDSeed;
-    private Account             mAccount;
+    private String              mEntropy;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mnemonic_check);
-        mToolbar  = findViewById(R.id.tool_bar);
+        mToolbar    = findViewById(R.id.tool_bar);
+        mCopy       = findViewById(R.id.btn_copy);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -38,19 +41,33 @@ public class MnemonicCheckActivity extends BaseActivity {
             mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i , "id", this.getPackageName()));
         }
 
-        mHDSeed = getIntent().getStringExtra("seed");
+        mEntropy = getIntent().getStringExtra("entropy");
         long id = getIntent().getLongExtra("checkid", -1);
+        final ArrayList<String> mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
 
-
-
-        WLog.w("HDSeed : "  + mHDSeed);
-        WLog.w("id : "  + id);
-
-        mHDSeed = "7ee3c3adf3d3593f893b7b464d3ac9a6c5ef74e68adbb0b5819a5531a37d663502fcff28a2470d6592525db0bc491e4bf32fe180bdaf95ce52652e31f154d9d6";
-        ArrayList<String> mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mHDSeed)));
-        WLog.w("mWords : " + mWords.size());
-        for(String word : mWords) {
-            WLog.w("word : " + word);
+        for(int i = 0; i < mTvWords.length; i++) {
+            if(i > mWords.size()) mTvWords[i].setVisibility(View.GONE);
+            else mTvWords[i].setVisibility(View.VISIBLE);
         }
+
+        for(int i = 0; i < mWords.size(); i++) {
+            mTvWords[i].setText(mWords.get(i));
+        }
+
+        mCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                StringBuilder builder = new StringBuilder();
+                for(String s : mWords) {
+                    builder.append(" ");
+                    builder.append(s);
+                }
+                String data = builder.toString();
+                ClipData clip = ClipData.newPlainText("my data", data);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getBaseContext(), R.string.str_copied, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

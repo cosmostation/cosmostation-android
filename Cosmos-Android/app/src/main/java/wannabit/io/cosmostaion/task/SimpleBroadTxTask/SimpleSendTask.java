@@ -73,8 +73,8 @@ public class SimpleSendTask extends CommonTask {
             WLog.w("SimpleSendTask 11");
 
 
-            String seed = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            DeterministicKey deterministicKey = WKey.getKeyWithPath(seed, Integer.parseInt(mAccount.path));
+            String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
             Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mToSendAmount);
 //            WLog.w("SimpleSendTask stdTx : " +  WUtil.getPresentor().toJson(singleSendMsg));

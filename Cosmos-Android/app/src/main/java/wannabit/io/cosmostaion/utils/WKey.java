@@ -44,7 +44,7 @@ public class WKey {
         return result;
     }
 
-    private static byte[] toEntropy(ArrayList<String> words) {
+    public static byte[] toEntropy(ArrayList<String> words) {
         try {
             return new MnemonicCode().toEntropy(words);
         }catch (Exception e) {
@@ -53,7 +53,7 @@ public class WKey {
     }
 
 
-    private static byte[] getHDSeed(byte[] entropy) {
+    public static byte[] getHDSeed(byte[] entropy) {
         try {
             return MnemonicCode.toSeed(MnemonicCode.INSTANCE.toMnemonic(entropy), "");
         } catch (Exception e) {
@@ -84,10 +84,9 @@ public class WKey {
     }
 
 
-    public static DeterministicKey getKeyWithPath(String seed, int path) {
-        DeterministicKey masterKey      = HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed));
+    public static DeterministicKey getKeyWithPathfromEntropy(String entropy, int path) {
+        DeterministicKey masterKey      = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
         return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(), true, true,  new ChildNumber(path));
-
     }
 
     public static boolean isMnemonicWord(String word) {

@@ -308,8 +308,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             if(result.isSuccess) {
                 Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);
                 checkintent.putExtra("checkid", mIdToCheck);
-                WLog.w("seed : " + String.valueOf(result.resultData));
-                checkintent.putExtra("seed", String.valueOf(result.resultData));
+                WLog.w("entropy : " + String.valueOf(result.resultData));
+                checkintent.putExtra("entropy", String.valueOf(result.resultData));
                 startActivity(checkintent);
 
             } else {

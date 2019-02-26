@@ -41,6 +41,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
 
     private String              mHdSeed;
+    private String              mEntorpy;
     private int                 mWordSize;
     private String              mChain;
     private DeterministicKey    mMasterKey;
@@ -67,6 +68,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         mRecyclerView.setAdapter(mNewWalletAdapter);
 
         mHdSeed = getIntent().getStringExtra("HDseed");
+        mEntorpy =  getIntent().getStringExtra("entorpy");
         mChain = getIntent().getStringExtra("chain");
         mWordSize = getIntent().getIntExtra("size", 24);
         mMasterKey = HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(mHdSeed));
@@ -88,11 +90,13 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), this).execute(mChain, ""+path, mHdSeed, ""+mWordSize);
+//        new GenerateAccountTask(getBaseApplication(), this).execute(mChain, ""+path, mHdSeed, ""+mWordSize);
+        new GenerateAccountTask(getBaseApplication(), this).execute(mChain, ""+path, mEntorpy, ""+mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
-        new OverrideAccountTask(getBaseApplication(), this, account).execute(""+path, mHdSeed, ""+mWordSize);
+//        new OverrideAccountTask(getBaseApplication(), this, account).execute(""+path, mHdSeed, ""+mWordSize);
+        new OverrideAccountTask(getBaseApplication(), this, account).execute(""+path, mEntorpy, ""+mWordSize);
     }
 
     @Override

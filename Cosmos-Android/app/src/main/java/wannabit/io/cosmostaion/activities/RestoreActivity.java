@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RestoreActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -172,6 +173,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         super.onChoiceNet(chain);
         Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
         intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));
+        intent.putExtra("entorpy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
         intent.putExtra("size", mWords.size());
         intent.putExtra("chain", chain.getChain());
         startActivity(intent);

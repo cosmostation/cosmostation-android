@@ -74,13 +74,13 @@ public class IntroActivity extends BaseActivity {
 //        WLog.w("" + WKey.convertDpAddressToDpOpAddress("cosmos1gfzexy3z0qfc97mjudjy5zeg2fje6k442phy6r"));
 //        WLog.w("" + WKey.convertDpOpAddressToDpAddress("cosmosvaloper1gfzexy3z0qfc97mjudjy5zeg2fje6k4404r3ks"));
 
-        if(getBaseDao().onSelectAccounts().size() > 1) {
-            onStartListActivity();
-        } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-            onStartMainActivity();
-        } else {
-            startActivity(new Intent(IntroActivity.this, CreateActivity.class));
-        }
+//        if(getBaseDao().onSelectAccounts().size() > 1) {
+//            onStartListActivity();
+//        } else if(getBaseDao().onSelectAccounts().size() == 1)  {
+//            onStartMainActivity();
+//        } else {
+//            startActivity(new Intent(IntroActivity.this, CreateActivity.class));
+//        }
     }
 }
 */
@@ -117,30 +117,30 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 //        Account account = getBaseDao().onSelectAccounts().get(0);
 //        WLog.w("account : " + account.address + "  " + account.baseChain);
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-////                if(getBaseDao().onSelectAccounts().size() == 0) {
-////                    onInitView();
-////                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-////                    onStartMainActivity();
-////                } else {
-////                    onStartListActivity();
-////                }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 //                if(getBaseDao().onSelectAccounts().size() == 0) {
 //                    onInitView();
-//                } else {
+//                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
 //                    onStartMainActivity();
+//                } else {
+//                    onStartListActivity();
 //                }
-//            }
-//        }, 1500);
+                if(getBaseDao().onSelectAccounts().size() == 0) {
+                    onInitView();
+                } else {
+                    onStartMainActivity();
+                }
+            }
+        }, 1500);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        startActivity(new Intent(IntroActivity.this, MnemonicCheckActivity.class));
+//        startActivity(new Intent(IntroActivity.this, MnemonicCheckActivity.class));
 
 //        logoTitle.setVisibility(View.INVISIBLE);
 

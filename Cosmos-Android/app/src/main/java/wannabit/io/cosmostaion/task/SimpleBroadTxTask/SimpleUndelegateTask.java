@@ -72,8 +72,8 @@ public class SimpleUndelegateTask extends CommonTask {
             }
             WLog.w("SimpleUndelegateTask 11");
 
-            String seed = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            DeterministicKey deterministicKey = WKey.getKeyWithPath(seed, Integer.parseInt(mAccount.path));
+            String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
             WLog.w("amount : " + new BigDecimal(mUndelegateAmount).setScale(18).toPlainString());
             Msg singleUnbondMsg = MsgGenerator.genUnbondMsg(mAccount.address, mFromValidatorAddress, new BigDecimal(mUndelegateAmount).setScale(18).toPlainString());
