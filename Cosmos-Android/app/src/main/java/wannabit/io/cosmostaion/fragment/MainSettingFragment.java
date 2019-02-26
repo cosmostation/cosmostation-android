@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
@@ -74,6 +75,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnWallet)) {
+            startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
 
         } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
@@ -99,6 +101,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnTerm)) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_en.html"));
+            startActivity(intent);
 
         } else if (v.equals(mBtnGithub)) {
             Toast.makeText(getBaseActivity(), R.string.str_will_support_after_mainnet, Toast.LENGTH_SHORT).show();

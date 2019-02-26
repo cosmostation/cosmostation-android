@@ -27,9 +27,9 @@ public class Account {
     public Integer  accountNumber;
     public Long     fetchTime;
     public int      msize;
+    public Long     importTime;
 
     public ArrayList<Balance>   balances;
-//    public DeterministicKey     deterministicKey;
 
 
     public static Account getNewInstance() {
@@ -41,7 +41,10 @@ public class Account {
     public Account() {
     }
 
-    public Account(Long id, String uuid, String nickName, boolean isFavo, String address, String baseChain, boolean hasPrivateKey, String resource, String spec, boolean fromMnemonic, String path, boolean isValidator, int sequenceNumber, int accountNumber, Long fetchTime, int msize) {
+    public Account(Long id, String uuid, String nickName, boolean isFavo, String address,
+                   String baseChain, boolean hasPrivateKey, String resource, String spec,
+                   boolean fromMnemonic, String path, boolean isValidator, int sequenceNumber,
+                   int accountNumber, Long fetchTime, int msize, long importTime) {
         this.id = id;
         this.uuid = uuid;
         this.nickName = nickName;
@@ -58,6 +61,7 @@ public class Account {
         this.accountNumber = accountNumber;
         this.fetchTime = fetchTime;
         this.msize = msize;
+        this.importTime = importTime;
     }
 
     public ArrayList<Balance> getBalances() {

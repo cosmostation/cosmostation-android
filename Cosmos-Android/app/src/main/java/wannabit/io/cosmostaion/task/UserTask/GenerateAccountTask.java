@@ -68,6 +68,7 @@ public class GenerateAccountTask extends CommonTask {
         newAccount.fromMnemonic     = true;
         newAccount.path             = path;
         newAccount.msize            = Integer.parseInt(msize);
+        newAccount.importTime       = System.currentTimeMillis();
 
         return newAccount;
 

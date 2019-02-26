@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+        android:id="@+id/wallet_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="1.5dp"
+        app:cardBackgroundColor="@color/colorTransBg2"
+        app:cardUseCompatPadding="true" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_68"
+            android:paddingTop="@dimen/space_8"
+            android:paddingBottom="@dimen/space_8"
+            android:paddingLeft="@dimen/space_16"
+            android:paddingRight="@dimen/space_8">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/arrow_account"
+                android:paddingRight="@dimen/space_8"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/wallet_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        style="@style/font_ss_14_white"
+                        android:text="this is wallet"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/wallet_name"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:orientation="horizontal"
+                        android:layout_alignBaseline="@+id/wallet_name"
+                        android:gravity="right">
+                        <TextView
+                            android:id="@+id/wallet_atom_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            style="@style/font_ss_10_gray1"
+                            android:text="234324,234,324.000000"/>
+                        <TextView
+                            android:id="@+id/wallet_atom_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_4"
+                            style="@style/font_ss_10_atom"
+                            android:text="ATOM"/>
+                    </LinearLayout>
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/wallet_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/font_ss_9_gray1"
+                    android:text="cosmosfsdfdsfdsfsdfdsf"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/arrow_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_next_gr"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

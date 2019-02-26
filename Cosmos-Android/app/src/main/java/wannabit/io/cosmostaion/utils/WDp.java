@@ -421,6 +421,18 @@ public class WDp {
     }
 
 
+    public static String getDpTime(Context c, long time) {
+        String result = "??";
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(time);
+            SimpleDateFormat simpleFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
+            result = simpleFormat.format(calendar.getTimeInMillis());
+        } catch (Exception e) {};
+
+        return result;
+    }
+
     public static String getUnbondTime(Context c) {
         String result = "??";
         try {

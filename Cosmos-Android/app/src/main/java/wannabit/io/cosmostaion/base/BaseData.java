@@ -198,7 +198,7 @@ public class BaseData {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize"}, null, null, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime"}, null, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 Account account = new Account(
@@ -217,7 +217,8 @@ public class BaseData {
                         cursor.getInt(12),
                         cursor.getInt(13),
                         cursor.getLong(14),
-                        cursor.getInt(15)
+                        cursor.getInt(15),
+                        cursor.getLong(16)
                 );
                 account.setBalances(onSelectBalance(account.id));
                 result.add(account);
@@ -231,7 +232,7 @@ public class BaseData {
         Account result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize"}, "id == ?", new String[]{id}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime"}, "id == ?", new String[]{id}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -249,7 +250,8 @@ public class BaseData {
                     cursor.getInt(12),
                     cursor.getInt(13),
                     cursor.getLong(14),
-                    cursor.getInt(15)
+                    cursor.getInt(15),
+                    cursor.getLong(16)
             );
             result.setBalances(onSelectBalance(result.id));
         }
@@ -261,7 +263,7 @@ public class BaseData {
         Account result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize"}, "address == ? AND baseChain == ?", new String[]{address, chain}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime"}, "address == ? AND baseChain == ?", new String[]{address, chain}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -279,7 +281,8 @@ public class BaseData {
                     cursor.getInt(12),
                     cursor.getInt(13),
                     cursor.getLong(14),
-                    cursor.getInt(15)
+                    cursor.getInt(15),
+                    cursor.getLong(16)
             );
             result.setBalances(onSelectBalance(result.id));
         }
@@ -306,6 +309,7 @@ public class BaseData {
         values.put("accountNumber",     account.accountNumber);
         values.put("fetchTime",         account.fetchTime);
         values.put("msize",             account.msize);
+        values.put("importTime",        account.importTime);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_ACCOUNT, null, values);
     }
 

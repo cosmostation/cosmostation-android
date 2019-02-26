@@ -101,7 +101,17 @@
     <string name="str_version">Version</string>
     <string name="str_will_support_with_mainnet">Will support with Main Net.</string>
     <string name="str_will_support_after_mainnet">Will support after Main Net.</string>
-
+    <string name="str_with_mnemonic">With Mnemonics</string>
+    <string name="str_only_address">Only Address</string>
+    <string name="str_check_mnemonic">Check Mnemonic</string>
+    <string name="str_delete_wallet">Delete Wallet</string>
+    <string name="str_wallet_address">Wallet address</string>
+    <string name="str_wallet_info">Wallet Information</string>
+    <string name="str_chain_info">Chain Info</string>
+    <string name="str_import_state">Import State</string>
+    <string name="str_import_path">Key Path</string>
+    <string name="str_import_msg">Currently only watch mode. \nAll services are available after mnemonics integration.</string>
+    <string name="str_import_mnemonic">Import Mnemonic</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

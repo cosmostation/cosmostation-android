@@ -46,6 +46,7 @@ public class GenerateEmptyAccountTask extends CommonTask {
         newAccount.baseChain        = chainType;
         newAccount.hasPrivateKey    = false;
         newAccount.fromMnemonic     = false;
+        newAccount.importTime       = System.currentTimeMillis();
 
         return newAccount;
     }

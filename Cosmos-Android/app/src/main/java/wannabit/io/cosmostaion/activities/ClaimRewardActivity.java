@@ -69,7 +69,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         mIvStep             = findViewById(R.id.send_step);
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_undelegate_c));setSupportActionBar(mToolbar);
+        mTitle.setText(getString(R.string.str_undelegate_c));
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
