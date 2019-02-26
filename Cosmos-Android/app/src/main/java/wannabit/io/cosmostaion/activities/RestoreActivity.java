@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class RestoreActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
+    private Toolbar             mToolbar;
     private CardView            mCard;
     private TextView[]          mTvWords = new TextView[24];
     private Button              mBtnPaste, mBtnConfirm;
@@ -38,6 +41,8 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restore);
+
+        mToolbar        = findViewById(R.id.tool_bar);
         mCard = findViewById(R.id.restore_word);
         mBtnPaste = findViewById(R.id.btn_paste);
         mBtnConfirm = findViewById(R.id.btn_confirm);
@@ -49,8 +54,22 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         mBtnPaste.setOnClickListener(this);
         mBtnConfirm.setOnClickListener(this);
         mCheckPassword = false;
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onResume() {

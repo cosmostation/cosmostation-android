@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +25,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class CreateActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
+    private Toolbar             mToolbar;
     private TextView            mAddress;
     private TextView[]          mTvWords = new TextView[24];
     private ImageView           mImgMsg;
@@ -37,12 +40,17 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+        mToolbar        = findViewById(R.id.tool_bar);
         mAddress        = findViewById(R.id.create_address);
         mImgMsg         = findViewById(R.id.create_img);
         mTvMsg1         = findViewById(R.id.create_msg1);
         mTvMsg2         = findViewById(R.id.create_msg2);
         mBtnNext        = findViewById(R.id.btn_next);
         mBtnNext.setOnClickListener(this);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         for(int i = 0; i < mTvWords.length; i++) {
             mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i , "id", this.getPackageName()));
@@ -56,6 +64,17 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     protected void onResume() {
         super.onResume();
         onUpdateView();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

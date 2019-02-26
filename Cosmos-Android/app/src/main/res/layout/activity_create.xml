@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay">
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
