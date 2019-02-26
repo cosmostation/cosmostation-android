@@ -39,7 +39,8 @@
             android:layout_marginRight="@dimen/space_60"
             android:layout_marginTop="@dimen/space_16"
             style="@style/font_ss_12_gray1"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="@string/str_intro"/>
     </LinearLayout>
 
 

@@ -66,7 +66,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                mSwipeRefreshLayout.setRefreshing(false);
                 onFetchHistory();
             }
         });

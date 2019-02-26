@@ -114,16 +114,22 @@ public class WUtil {
     }
 
     //TODO check multi unbonding with one validator
-    public static UnBondingState getUnbondingFromLcd(Context c, long accountId, ResLcdUnBondings lcd) {
-        return new UnBondingState(
-                accountId,
-                lcd.validator_addr,
-                lcd.entries.get(0).creation_height,
-                WUtil.cosmosTimetoLocalLong(c, lcd.entries.get(0).completion_time),
-                new BigDecimal(lcd.entries.get(0).getinitial_balance()),
-                new BigDecimal(lcd.entries.get(0).getbalance()),
-                System.currentTimeMillis()
-        );
+    public static ArrayList<UnBondingState> getUnbondingFromLcd(Context c, long accountId, ResLcdUnBondings lcd) {
+        long time = System.currentTimeMillis();
+        ArrayList<UnBondingState> result = new ArrayList<>();
+        for(ResLcdUnBondings.Entry entry:lcd.entries) {
+            UnBondingState temp = new UnBondingState(
+                    accountId,
+                    lcd.validator_addr,
+                    entry.creation_height,
+                    WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
+                    new BigDecimal(entry.getinitial_balance()),
+                    new BigDecimal(entry.getbalance()),
+                    time
+            );
+            result.add(temp);
+        }
+        return result;
     }
 
 

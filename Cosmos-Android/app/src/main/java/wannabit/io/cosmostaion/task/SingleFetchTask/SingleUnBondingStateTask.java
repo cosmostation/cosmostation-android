@@ -29,7 +29,7 @@ public class SingleUnBondingStateTask extends CommonTask {
         try {
             Response<ResLcdUnBondings> response = ApiClient.getWannabitChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
             if(response.isSuccessful() && response.body() != null) {
-                mApp.getBaseDao().onUpdateUnbondingState(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body()));
+                mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body()));
                 mResult.isSuccess = true;
             }
 

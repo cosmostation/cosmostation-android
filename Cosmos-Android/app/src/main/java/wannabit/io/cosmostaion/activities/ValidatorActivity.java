@@ -62,7 +62,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private Account                     mAccount;
     private Validator                   mValidator;
     private BondingState                mBondingState;
-    private UnBondingState              mUnBondingState;
+    private ArrayList<UnBondingState>   mUnBondingStates;
     private Reward                      mReward;
     //TODO this is temp
     private ArrayList<String>           mTx = new ArrayList<>();
@@ -120,9 +120,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             WLog.w("NO Validator ERROR");
         }
 
-        mValidator      = getBaseDao().getValidator();
-        mBondingState   = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
-        mUnBondingState = getBaseDao().onSelectUnbondingState(mAccount.id, mValidator.operator_address);
+        mValidator          = getBaseDao().getValidator();
+        mBondingState       = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
+        mUnBondingStates    = getBaseDao().onSelectUnbondingStates(mAccount.id, mValidator.operator_address);
 //        mReward         = getBaseDao().getValidatorDetail().mReward;
 
         if(TextUtils.isEmpty(mAccount.nickName)) {
@@ -151,11 +151,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    private void onUpdateView() {
-
-    }
-
 
 
     private void onInitFetch() {
@@ -189,7 +184,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_UNBONDING) {
-            mUnBondingState = getBaseDao().onSelectUnbondingState(mAccount.id, mValidator.operator_address);
+            mUnBondingStates = getBaseDao().onSelectUnbondingStates(mAccount.id, mValidator.operator_address);
+            WLog.w("mUnBondingStates : " + mUnBondingStates.size());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_SELF_BONDING) {
             ResLcdBondings temp = (ResLcdBondings)result.resultData;
@@ -319,10 +315,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 0));
                 }
 
-                if(mUnBondingState != null && mUnBondingState.balance != null) {
-                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), mUnBondingState.balance, 6));
-                    holder.itemTvUnbondingTime.setText(WDp.getUnbondingTimeleft(getBaseContext(), mUnBondingState.completionTime));
-                    holder.itemTvUnbondingTime.setVisibility(View.VISIBLE);
+                if(mUnBondingStates != null && mUnBondingStates.size() > 0 ) {
+                    BigDecimal sum = BigDecimal.ZERO;
+                    for(UnBondingState unbond:mUnBondingStates) {
+                        sum = sum.add(unbond.balance);
+                    }
+                    WLog.w("sum" + sum.toPlainString());
+                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6));
+//                    holder.itemTvUnbondingTime.setText(WDp.getUnbondingTimeleft(getBaseContext(), mUnBondingState.completionTime));
+//                    holder.itemTvUnbondingTime.setVisibility(View.VISIBLE);
+                    holder.itemTvUnbondingTime.setVisibility(View.INVISIBLE);
                 } else {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
                     holder.itemTvUnbondingTime.setVisibility(View.INVISIBLE);
@@ -387,7 +389,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if(mBondingState == null && mUnBondingState == null) {
+            if(mBondingState == null && (mUnBondingStates == null && mUnBondingStates.size() > 0)) {
                 if(position == 0) {
                     return TYPE_VALIDATOR;
                 } else if (position == 1) {

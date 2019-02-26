@@ -534,6 +534,26 @@ public class BaseData {
         return result;
     }
 
+    public ArrayList<UnBondingState> onSelectUnbondingStates(long accountId, String vAddr) {
+        ArrayList<UnBondingState> result = new ArrayList<>();
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            do {
+                UnBondingState temp = new UnBondingState(
+                        cursor.getLong(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getLong(3),
+                        new BigDecimal(cursor.getString(4)),
+                        new BigDecimal(cursor.getString(5)),
+                        cursor.getLong(6));
+                result.add(temp);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return result;
+    }
+
     public long onInsertUnbondingStates(UnBondingState unbonding) {
         ContentValues values = new ContentValues();
         values.put("accountId",         unbonding.accountId);
