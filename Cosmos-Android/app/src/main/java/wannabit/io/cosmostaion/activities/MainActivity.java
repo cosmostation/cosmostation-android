@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.activities;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -36,6 +37,8 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
+import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
 import wannabit.io.cosmostaion.dialog.TopSheetDialog;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
@@ -456,6 +459,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
                         } else {
                             onHideTopAccountsView();
                             WLog.w("START SWITCH ACCOUNT");
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getBaseDao().setLastUser(account.id);
+                                    onResume();
+                                }
+                            },250);
+
                         }
                     }
                 });
@@ -464,6 +475,15 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     public void onClick(View v) {
                         onHideTopAccountsView();
                         WLog.w("START ACCOUNT DETAIL");
+                        new Handler().postDelayed(new Runnable() {
+                              @Override
+                              public void run() {
+                                  Intent intent = new Intent(MainActivity.this, AccountDetailActivity.class);
+                                  intent.putExtra("id", ""+account.id);
+                                  startActivity(intent);
+
+                              }
+                        },250);
                     }
                 });
 
@@ -475,6 +495,15 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     public void onClick(View v) {
                         onHideTopAccountsView();
                         WLog.w("ADD Account");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Dialog_AddAccount add = Dialog_AddAccount.newInstance(null);
+                                add.setCancelable(true);
+                                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+
+                            }
+                        },250);
                     }
                 });
             }
