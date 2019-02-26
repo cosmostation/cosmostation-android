@@ -55,6 +55,14 @@ dependencies {
     //shimmer
     implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
 
+    //for qr code
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+
+    //permission check
+    implementation 'gun0912.ted:tedpermission:1.0.3'
+
+
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

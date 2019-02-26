@@ -1,6 +1,16 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -9,11 +19,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
+import java.io.OutputStream;
+import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -33,7 +55,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
 
     private Account         mAccount;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +145,56 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
     }
 
+
+    @Override
+    public void onShare() {
+        super.onShare();
+
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        try {
+            final Bitmap mBitmap = toBitmap(qrCodeWriter.encode(mAccount.address, BarcodeFormat.QR_CODE, 480, 480));
+            new TedPermission(this)
+                    .setPermissionListener(new PermissionListener() {
+                        @Override
+                        public void onPermissionGranted() {
+                            try {
+                                ContentValues values = new ContentValues();
+                                values.put(MediaStore.Images.Media.TITLE, mAccount.address);
+                                values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                                Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                                OutputStream outstream = getContentResolver().openOutputStream(uri);
+                                mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                                outstream.close();
+
+                                Intent shareIntent = new Intent();
+                                shareIntent.setAction(Intent.ACTION_SEND);
+                                shareIntent.putExtra(Intent.EXTRA_TEXT, mAccount.address);
+                                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                                shareIntent.setType("image/jpeg");
+                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                startActivity(Intent.createChooser(shareIntent, "send"));
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                            Toast.makeText(getBaseContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .setRationaleMessage("need permission for sd card")
+                    .check();
+
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnCheck)) {
@@ -135,10 +206,32 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mNameEditImg)) {
 
         } else if (v.equals(mBtnCopy)) {
+            ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("address", mAccount.address);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(this, R.string.str_copied, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnQr)) {
+            Bundle bundle = new Bundle();
+            bundle.putString("address", mAccount.address);
+            bundle.putString("title", mToolbarTitle.getText().toString());
+            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            show.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
         }
 
+    }
+
+    private static Bitmap toBitmap(BitMatrix matrix) {
+        int height = matrix.getHeight();
+        int width = matrix.getWidth();
+        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                bmp.setPixel(x, y, matrix.get(x, y) ? Color.BLACK : Color.WHITE);
+            }
+        }
+        return bmp;
     }
 }

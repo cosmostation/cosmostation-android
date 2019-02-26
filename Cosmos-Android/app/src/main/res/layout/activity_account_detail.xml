@@ -73,6 +73,7 @@
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginTop="@dimen/space_4"
+        android:layout_marginBottom="@dimen/space_12"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
@@ -83,7 +84,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/space_16"
             android:paddingTop="@dimen/space_16"
-            android:paddingBottom="@dimen/space_8"
+            android:paddingBottom="@dimen/space_16"
             android:paddingRight="@dimen/space_8"
             android:orientation="vertical">
             <RelativeLayout
