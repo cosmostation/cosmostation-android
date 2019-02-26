@@ -16,15 +16,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="@dimen/space_16">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/atom_ic"/>
+            android:padding="@dimen/space_18">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_12"
+                android:layout_marginLeft="@dimen/space_8"
                 android:text="@string/str_cosmos_main_net"
                 style="@style/font_ss_14_gray1"/>
         </LinearLayout>
@@ -39,15 +35,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="@dimen/space_16">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/photon_ic"/>
+            android:padding="@dimen/space_18">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_12"
+                android:layout_marginLeft="@dimen/space_8"
                 android:text="@string/str_cosmos_test_net"
                 style="@style/font_ss_14_gray8"/>
         </LinearLayout>

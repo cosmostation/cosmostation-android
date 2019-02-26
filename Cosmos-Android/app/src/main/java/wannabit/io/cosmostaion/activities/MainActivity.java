@@ -164,8 +164,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         View tab4 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
         TintableImageView   tabItemIcon4  = tab4.findViewById(R.id.tabItemIcon);
         TextView            tabItemText4  = tab4.findViewById(R.id.tabItemText);
-        //TODO
-        tabItemIcon4.setImageResource(R.drawable.vote_ic);
+        tabItemIcon4.setImageResource(R.drawable.setting_ic);
         tabItemText4.setText(R.string.str_main_set);
         mTabLayer.getTabAt(4).setCustomView(tab4);
 
@@ -179,10 +178,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
             @Override
             public void onPageSelected(int position) {
                 mPageAdapter.mCurrentFragment.onRefreshTab();
-                if (!mFloatBtn.isShown()) {
-                    mFloatBtn.show();
-                }
-//                onUpdateTitle();
+                if (!mFloatBtn.isShown() && position != 4) mFloatBtn.show();
+                if(mFloatBtn.isShown() && position == 4) mFloatBtn.hide();
             }
         });
 

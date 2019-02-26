@@ -33,5 +33,6 @@
     <color name="colorPhoton">#05D2DD</color>
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>
+    <color name="colorRipple2">#99FFFFFF</color>
 
 </resources>
