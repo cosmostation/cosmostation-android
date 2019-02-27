@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/space_32">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24"
+            style="@style/font_ss_17_gray8"
+            android:gravity="center"
+            android:text="@string/str_change_nickname"/>
+
+
+        <EditText
+            android:id="@+id/et_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:minHeight="@dimen/space_40"
+            android:hint="@string/str_wallet_nickname"
+            android:textCursorDrawable="@drawable/black_cursor"
+            android:maxLength="15"
+            android:singleLine="true"
+            android:textColorHint="@color/colorGray1"
+            android:background="@drawable/box_et_white"
+            style="@style/font_ss_14_gray8"
+            android:imeOptions="actionDone"
+            android:gravity="center"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/space_32"
+            android:background="@color/colorGray10"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_nega"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_dia_white_left"
+                style="@style/font_ss_14_red"
+                android:text="@string/str_cancel"/>
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/colorGray10"/>
+            <Button
+                android:id="@+id/btn_posi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_dia_white_right"
+                style="@style/font_ss_14_gray8"
+                android:text="@string/str_ok"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

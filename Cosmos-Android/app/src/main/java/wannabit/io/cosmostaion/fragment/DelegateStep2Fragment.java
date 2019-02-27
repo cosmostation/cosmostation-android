@@ -31,11 +31,11 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
 
     public final static int SELECT_GAS_DIALOG = 6001;
 
-    private RelativeLayout mBtnGasType;
-    private TextView mTvGasType;
+    private RelativeLayout  mBtnGasType;
+    private TextView        mTvGasType;
     private TextView        mTvGasAmount;
     private SeekBar         mSeekBarGas;
-    private Button mBeforeBtn, mNextBtn;
+    private Button          mBeforeBtn, mNextBtn;
 
     private Coin                mGas = new Coin();
     private ArrayList<String>   mAtomFees = new ArrayList<>();

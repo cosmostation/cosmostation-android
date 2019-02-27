@@ -159,17 +159,6 @@ public class MsgGenerator {
         return result;
     }
 
-//    public static StdSignMsgWithType genToSignMsg(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
-//        StdSignMsgWithType result = new StdSignMsgWithType();
-//        result.chain_id = chainId;
-//        result.account_number = accountNumber;
-//        result.sequence = SequenceNumber;
-//        result.msgs = msgs;
-//        result.fee = fee;
-//        result.memo = memo;
-//        return result;
-//    }
-
     public static StdSignMsgWithType genToSignMsgWithType(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
         StdSignMsgWithType result = new StdSignMsgWithType();
         result.chain_id = chainId;
@@ -186,19 +175,11 @@ public class MsgGenerator {
     public static String getSignature(DeterministicKey key, byte[] toSignByte) {
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] toSignHash = digest.digest(toSignByte);
-        WLog.w("toSignHash : " + BytearryToDecimalString(toSignHash));
-
         ECKey.ECDSASignature Signature = key.sign(new Sha256Hash(toSignHash));
-        WLog.w("Signature " + Signature.toString());
-
         byte[] sigData = new byte[64];
         System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);
         System.arraycopy(integerToBytes(Signature.s, 32), 0, sigData, 32, 32);
-        WLog.w("Signature : " + BytearryToDecimalString(sigData));
-        WLog.w("Signature : " + ByteArrayToHexString(sigData));
         String base64 = Base64.encodeToString(sigData, Base64.DEFAULT).replace("\n", "");
-        WLog.w("Signature tx : " + base64);
-
         return base64;
     }
 

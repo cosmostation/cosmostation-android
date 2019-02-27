@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -106,8 +107,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
-        mAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("id"));
-        if(mAccount == null)  onBackPressed();
+
 
         onInitView();
     }
@@ -122,6 +122,9 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
 
     private void onInitView() {
+        mAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("id"));
+        if(mAccount == null)  onBackPressed();
+
         if(TextUtils.isEmpty(mAccount.nickName)) {
             mToolbarTitle.setText("Wallet " + mAccount.id);
             mAccountName.setText("Wallet " + mAccount.id);
@@ -204,6 +207,14 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
     }
 
+
+    public void onChangeNickName(String name) {
+        mAccount.nickName = name;
+        if(getBaseDao().onUpdateAccount(mAccount) > 0) {
+            onInitView();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnCheck)) {
@@ -226,6 +237,12 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mNameEditImg)) {
+            Bundle bundle = new Bundle();
+            bundle.putLong("id", mAccount.id);
+            bundle.putString("name", mAccount.nickName);
+            Dialog_ChangeNickName delete = Dialog_ChangeNickName.newInstance(bundle);
+            delete.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnCopy)) {
             ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);

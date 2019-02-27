@@ -163,6 +163,10 @@
     <string name="str_no_history_with_this_validator">No History about this Validator.</string>
     <string name="str_let_start_cosmos"><![CDATA["Let's start Cosmos Hub"]]></string>
     <string name="str_let_start_cosmos2">Delegate your ATOM and get reward with Cosmostation! \n Super fast and esay to using with local signing!</string>
+    <string name="str_change_nickname">Change wallet Name</string>
+    <string name="str_wallet_nickname">Wallet Name</string>
+
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
