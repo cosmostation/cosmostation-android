@@ -174,8 +174,8 @@ public class WKey {
 
     public static String getCosmosDpPubToDpAddress(String dpPubKey) {
         String result = null;
-        HrpAndData hrpAndData = WKey.bech32Decode(dpPubKey);
         try {
+            HrpAndData hrpAndData = WKey.bech32Decode(dpPubKey);
             byte[] converted = WKey.convertBits(hrpAndData.data, 5, 8, false);
             result = getCosmosUserDpAddress(WUtil.ByteArrayToHexString(converted).replace(COSMOS_PRE_PUB_KEY, ""));
 

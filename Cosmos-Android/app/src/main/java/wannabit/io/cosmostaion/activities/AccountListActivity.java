@@ -17,12 +17,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class AccountListActivity extends BaseActivity implements View.OnClickListener {
 
@@ -156,7 +158,10 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 if(TextUtils.isEmpty(account.nickName)) holder.wallet_name.setText("Wallet " + account.id);
                 else holder.wallet_name.setText(account.nickName);
 
-                holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6));
+
+                if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6));
+                else holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
+
                 holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext(), account.baseChain));
 
                 holder.wallet_card.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +188,9 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 if(TextUtils.isEmpty(account.nickName)) holder.wallet_name.setText("Wallet " + account.id);
                 else holder.wallet_name.setText(account.nickName);
 
-                holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6));
+                if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6));
+                else holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
+
                 holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext(), account.baseChain));
 
                 holder.wallet_card.setOnClickListener(new View.OnClickListener() {
@@ -204,9 +211,14 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         public int getItemCount() {
             if(mFullAccounts.size() > 0 && mAddressAccounts.size() > 0) {
                 return mFullAccounts.size() + mAddressAccounts.size() + 2;
-            }  else {
-                return mFullAccounts.size() + mAddressAccounts.size() + 1;
+
+            } else if (mFullAccounts.size() == 0) {
+                return mAddressAccounts.size() + 1;
+
+            } else if (mAddressAccounts.size() == 0) {
+                return mFullAccounts.size() + 1;
             }
+            return 0;
         }
 
         @Override

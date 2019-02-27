@@ -61,7 +61,8 @@ public class MnemonicCheckActivity extends BaseActivity {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 StringBuilder builder = new StringBuilder();
                 for(String s : mWords) {
-                    builder.append(" ");
+                    if(builder.length() != 0)
+                        builder.append(" ");
                     builder.append(s);
                 }
                 String data = builder.toString();

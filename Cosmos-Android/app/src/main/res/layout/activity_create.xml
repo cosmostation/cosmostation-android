@@ -66,46 +66,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/tv_mnemonic_0"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_2"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_3"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
             </LinearLayout>
 
             <LinearLayout
@@ -113,46 +110,43 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="@dimen/space_8"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/tv_mnemonic_4"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_5"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_6"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_7"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
             </LinearLayout>
 
             <LinearLayout
@@ -160,46 +154,43 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="@dimen/space_8"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/tv_mnemonic_8"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_9"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_10"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_11"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
             </LinearLayout>
 
             <LinearLayout
@@ -207,46 +198,43 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="@dimen/space_8"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/tv_mnemonic_12"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_13"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_14"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_15"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
             </LinearLayout>
 
             <LinearLayout
@@ -254,46 +242,43 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="@dimen/space_8"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/tv_mnemonic_16"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_17"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_18"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_19"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
             </LinearLayout>
 
 
@@ -302,46 +287,43 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="@dimen/space_8"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/tv_mnemonic_20"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_21"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_22"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
                 <TextView
                     android:id="@+id/tv_mnemonic_23"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/space_28"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_8"
                     android:gravity="center"
                     android:background="@drawable/box_round_atom"
-                    style="@style/font_ss_9_white"
-                    android:text="bambino"/>
+                    style="@style/font_ss_11_white"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
