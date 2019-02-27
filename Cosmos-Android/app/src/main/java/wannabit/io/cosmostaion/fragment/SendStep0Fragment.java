@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -53,14 +54,17 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         if (v.equals(mNextBtn)) {
             String targetAddress = mAddressInput.getText().toString();
-            if(!TextUtils.isEmpty(targetAddress) && WKey.isValidBech32(targetAddress)) {
+            if(getSActivity().mAccount.address.equals(targetAddress)) {
+                Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
+                return;
+
+            } else if(!TextUtils.isEmpty(targetAddress) && WKey.isValidBech32(targetAddress)) {
                 getSActivity().mTagetAddress = targetAddress;
                 getSActivity().onNextStep();
-
-            } else if(getSActivity().mAccount.address.equals(targetAddress)) {
-                Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
-            } else {
+                return;
+            }else {
                 Toast.makeText(getContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                return;
             }
 
         } else if (v.equals(mQrBtn)) {

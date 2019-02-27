@@ -31,7 +31,7 @@ public class ResHistory {
         public String hash;
 
         @SerializedName("height")
-        public String height;
+        public int height;
 
         @SerializedName("time")
         public String time;

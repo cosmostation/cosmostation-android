@@ -37,8 +37,8 @@ public class ReqTx {
 
 
     public static class Sort {
-        @SerializedName("height.keyword")
-        public HeightKeyword heightkeyword;
+        @SerializedName("height")
+        public HeightKeyword height;
 
     }
 
@@ -65,7 +65,7 @@ public class ReqTx {
         if(isDesc) heightKeyword.order = "desc";
         else heightKeyword.order = "asc";
         Sort sort = new Sort();
-        sort.heightkeyword = heightKeyword;
+        sort.height = heightKeyword;
         ArrayList<Sort> sorts = new ArrayList<>();
         sorts.add(sort);
         this.sort = sorts;
