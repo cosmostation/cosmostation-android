@@ -234,6 +234,12 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
+    <style name="font_ssm_17_photon" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorPhoton</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
     <style name="font_ssl_17_black" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/colorBlack</item>

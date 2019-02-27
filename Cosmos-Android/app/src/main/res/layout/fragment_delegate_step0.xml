@@ -36,6 +36,7 @@
             style="@style/font_ss_14_atom" />
     </RelativeLayout>
     <LinearLayout
+        android:id="@+id/cnt_layer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_14"
@@ -57,6 +58,16 @@
             android:text="current : 12,343,343.000000"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/create_msg2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
+        android:layout_below="@+id/cnt_layer"
+        android:layout_marginTop="@dimen/space_14"
+        style="@style/font_ss_9_red"
+        android:text="@string/str_gaia"/>
 
 
 

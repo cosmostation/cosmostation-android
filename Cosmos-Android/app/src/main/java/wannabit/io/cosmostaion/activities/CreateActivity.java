@@ -101,8 +101,10 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
 
         if(mCheckPassword) {
             mBtnNext.setText(getString(R.string.str_create_wallet));
+            mTvMsg2.setText(getString(R.string.str_create_warn1));
         } else {
             mBtnNext.setText(getString(R.string.str_show_mnemonic));
+            mTvMsg2.setText(getString(R.string.str_create_warn0));
         }
 
     }

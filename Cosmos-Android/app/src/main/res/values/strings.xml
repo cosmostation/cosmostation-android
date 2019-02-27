@@ -159,14 +159,16 @@
     <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
     <string name="str_delete">Delete</string>
     <string name="str_close">Close</string>
-    <string name="str_intro">Cosmostation Wallet is a crypto currency \nWallet used for show your Atom on the \nCosmos Hub Blockchain.</string>
+    <string name="str_intro">Decentralized crypto currency wallet\nFor Tendermint based blockchains.\nSupport Cosmos Hub and Gaia testnet.</string>
     <string name="str_no_history_with_this_validator">No History about this Validator.</string>
     <string name="str_let_start_cosmos"><![CDATA["Let's start Cosmos Hub"]]></string>
     <string name="str_let_start_cosmos2">Delegate your ATOM and get reward with Cosmostation! \n Super fast and esay to using with local signing!</string>
     <string name="str_change_nickname">Change wallet Name</string>
     <string name="str_wallet_nickname">Wallet Name</string>
-
-
+    <string name="str_start_delegate">Can receive a certain amount of interest\naccording to the fee policy set by the validator.</string>
+    <string name="str_create_warn0">Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
+    <string name="str_create_warn1">Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.</string>
+    <string name="str_gaia">Gaia testnet is not fixed coin type, so skip coin amount check logic.\nPlease insert valid amount coin without under point.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
