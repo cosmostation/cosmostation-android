@@ -26,6 +26,8 @@ public class BaseConstant {
     public final static int					    SET_HISTORY_DEC			                = 0;
     public final static int					    SET_HISTORY_ASC			                = 1;
 
+
+
     public final static int					    TASK_INIT_PW		                    = 2000;
 //    public final static int					    TASK_ADD_MN		                        = 2001;
     public final static int					    TASK_INIT_ACCOUNT		                = 2002;

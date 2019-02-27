@@ -136,13 +136,16 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         }, 1500);
 
 //        onShowWaitDialog();
+
+//        WLog.w("INTRO");
+//        startActivity(new Intent(IntroActivity.this, TestActivity.class));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-//        startActivity(new Intent(IntroActivity.this, MnemonicCheckActivity.class));
+//        startActivity(new Intent(IntroActivity.this, TestActivity.class));
 
 //        logoTitle.setVisibility(View.INVISIBLE);
 
