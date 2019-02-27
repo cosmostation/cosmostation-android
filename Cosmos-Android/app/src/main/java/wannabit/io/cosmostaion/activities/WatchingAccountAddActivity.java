@@ -94,7 +94,10 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
     @Override
     public void onChoiceNet(BaseChain chain) {
         super.onChoiceNet(chain);
-        onCheckInNodeAddress(mUserInputAddress, chain);
+//        onCheckInNodeAddress(mUserInputAddress, chain);
+        onShowWaitDialog();
+        new GenerateEmptyAccountTask(getBaseApplication(), WatchingAccountAddActivity.this).execute(chain.getChain(), mUserInputAddress);
+
     }
 
     private void onCheckInNodeAddress(final String address, final BaseChain chain) {
@@ -102,9 +105,11 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         ApiClient.getWannabitChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
             @Override
             public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+
                 if(response.isSuccessful() && response.body() != null) {
                     new GenerateEmptyAccountTask(getBaseApplication(), WatchingAccountAddActivity.this).execute(chain.getChain(), address);
                 } else {
+                    onHideWaitDialog();
                     Toast.makeText(getBaseContext(), getString(R.string.error_address_not_in_node), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -120,6 +125,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
+        onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
             if(result.isSuccess) {
 //                if(getBaseDao().onSelectAccounts().size() > 1) {
@@ -129,6 +135,12 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 //                }
             } else {
                 WLog.w("CREATE EMPTY ACCOUNT error : " + result.errorCode);
+                if(result.errorCode == 7001) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_already_imported_address), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_import_errer), Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
     }

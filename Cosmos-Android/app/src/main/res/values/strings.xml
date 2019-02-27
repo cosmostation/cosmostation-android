@@ -182,6 +182,9 @@
     <string name="error_address_not_in_node">Address or Public key is valid format but no data in block chain.</string>
     <string name="error_no_delegate">Nothing to undelegate</string>
     <string name="error_permission">You rejected permission. please enable for this.</string>
+    <string name="error_already_imported_address">Already Imported Address.</string>
+    <string name="error_import_errer">Can not add this address/public key.</string>
+
 
     <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
