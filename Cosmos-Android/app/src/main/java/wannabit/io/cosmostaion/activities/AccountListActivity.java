@@ -80,7 +80,13 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             if(account.hasPrivateKey) mFullAccounts.add(account);
             else mAddressAccounts.add(account);
         }
+        WLog.w("accounts : " + accounts.size());
+        WLog.w("mFullAccounts : " + mFullAccounts.size());
+        WLog.w("mAddressAccounts : " + mAddressAccounts.size());
+
         mAccountListAdapter.notifyDataSetChanged();
+
+        WLog.w("mAccountListAdapter : " + mAccountListAdapter.getItemCount());
 
         if(accounts.size() > 4) {
             bottomLayer.setVisibility(View.GONE);
@@ -178,10 +184,11 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 final AccountListHolder holder = (AccountListHolder)viewHolder;
                 final Account account;
 
+                WLog.w("position : " + position);
                 if(mFullAccounts.size() == 0) {
                     account = mAddressAccounts.get(position - 1);
                 } else {
-                    account = mAddressAccounts.get(position - 1 - mFullAccounts.size());
+                    account = mAddressAccounts.get(position  - 2 - mFullAccounts.size());
                 }
                 holder.wallet_address.setText(account.address);
 

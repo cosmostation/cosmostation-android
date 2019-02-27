@@ -136,7 +136,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Undelegate"
-                                style="@style/font_ss_11_gray1"/>
+                                style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_atom_undelegate"
                                 android:layout_width="wrap_content"
@@ -144,7 +144,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 android:text="232,743.738291"
-                                style="@style/font_ssl_11_white"/>
+                                style="@style/font_ssl_12_white"/>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -155,7 +155,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Delegate"
-                                style="@style/font_ss_11_gray1"/>
+                                style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_atom_delegate"
                                 android:layout_width="wrap_content"
@@ -163,7 +163,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 android:text="7,542,325,743.000000"
-                                style="@style/font_ssl_11_white"/>
+                                style="@style/font_ssl_12_white"/>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -174,7 +174,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Unbonding"
-                                style="@style/font_ss_11_gray1"/>
+                                style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_atom_unbonding"
                                 android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 android:text="500.000000"
-                                style="@style/font_ssl_11_white"/>
+                                style="@style/font_ssl_12_white"/>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -193,7 +193,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Reward"
-                                style="@style/font_ss_11_gray1"/>
+                                style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_atom_reward"
                                 android:layout_width="wrap_content"
@@ -201,7 +201,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 android:text="0.342123"
-                                style="@style/font_ssl_11_white"/>
+                                style="@style/font_ssl_12_white"/>
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -264,7 +264,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Balance"
-                                style="@style/font_ss_11_gray1"/>
+                                style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_photon_balance"
                                 android:layout_width="wrap_content"
@@ -272,7 +272,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 android:text="232,743.738291"
-                                style="@style/font_ssl_11_white"/>
+                                style="@style/font_ssl_12_white"/>
                         </RelativeLayout>
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -282,7 +282,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Reward"
-                                style="@style/font_ss_11_gray1"/>
+                                style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_photon_reward"
                                 android:layout_width="wrap_content"
@@ -290,7 +290,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 android:text="0.342123"
-                                style="@style/font_ssl_11_white"/>
+                                style="@style/font_ssl_12_white"/>
                         </RelativeLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
