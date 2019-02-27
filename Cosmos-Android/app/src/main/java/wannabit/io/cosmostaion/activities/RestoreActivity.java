@@ -135,6 +135,9 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             if(mBtnConfirm.getCurrentTextColor() == getResources().getColor(R.color.colorWhite)) {
                 Toast.makeText(this, R.string.error_invalid_mnemonic_count, Toast.LENGTH_SHORT).show();
 
+            } else if (WKey.toEntropy(mWords) == null) {
+                Toast.makeText(this, R.string.error_invalid_mnemonic_count, Toast.LENGTH_SHORT).show();
+
             } else if (mBtnConfirm.getCurrentTextColor() == getResources().getColor(R.color.colorPhoton)) {
                 if(!getBaseDao().onHasPassword()) {
                     Intent intent = new Intent(RestoreActivity.this, PasswordSetActivity.class);
