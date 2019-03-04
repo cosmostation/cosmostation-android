@@ -95,7 +95,7 @@
     <string name="str_guide">Guide</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer Mintscan</string>
-    <string name="str_homepage">Cosmostaion</string>
+    <string name="str_homepage">Cosmostation</string>
     <string name="str_app_info">App Info</string>
     <string name="str_term">Terms and Policy</string>
     <string name="str_github">Open Source (GitHub)</string>
@@ -192,6 +192,7 @@
     <string name="error_already_imported_address">Already Imported Address.</string>
     <string name="error_import_errer">Can not add this address/public key.</string>
     <string name="error_not_enough_atom">No enough Balance to Delegate</string>
+    <string name="error_not_enough_budget">No enough budget to Send</string>
 
 
     <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>

@@ -39,6 +39,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -275,6 +276,20 @@ public class MainActivity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
+
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasbalance = false;
+        for (Balance balance:balances) {
+            if(balance.balance.compareTo(BigDecimal.ZERO) > 0) {
+                hasbalance = true;
+            }
+        }
+        if(!hasbalance){
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        startActivity(new Intent(MainActivity.this, SendActivity.class));
     }
 
 
