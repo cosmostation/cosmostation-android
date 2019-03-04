@@ -116,6 +116,7 @@
     <string name="str_share">Share</string>
     <string name="str_copy">Copy</string>
     <string name="str_copied">Copied to clipboard</string>
+    <string name="str_add_mnemonics">Add Mnemonics</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -169,6 +170,10 @@
     <string name="str_create_warn0">Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
     <string name="str_create_warn1">Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.</string>
     <string name="str_gaia">Gaia testnet is not fixed coin type, so skip coin amount check logic.\nPlease insert valid amount coin without under point.</string>
+    <string name="str_only_observe_title">No Private Key.</string>
+    <string name="str_only_observe_msg">This account has only address with watch mode.\nYou need add mnemonics for generate transaction.</string>
+
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>

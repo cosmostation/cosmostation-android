@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.WalletListActivity;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -90,5 +91,9 @@ public class BaseActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
+    }
+
+    public void onAddMnemonicForAccount() {
+        WLog.w("onAddMnemonicForAccount");
     }
 }

@@ -38,7 +38,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"
-            android:launchMode="singleInstance">
+            android:launchMode="singleTask">
         </activity>
 
         <activity
@@ -46,7 +46,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"
-            android:launchMode="singleInstance">
+            android:launchMode="singleTask">
         </activity>
 
         <activity

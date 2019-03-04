@@ -134,8 +134,8 @@ public class SendActivity extends BaseActivity {
 
     public void onBeforeStep() {
 //        WLog.w("onBeforeStep : " + mViewPager.getCurrentItem());
+        onHideKeyboard();
         if(mViewPager.getCurrentItem() > 0) {
-            onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             onBackPressed();
