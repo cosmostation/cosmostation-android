@@ -405,8 +405,9 @@ public class BaseData {
     }
 
     public void onUpdateBalances(ArrayList<Balance> balances) {
+        onDeleteBalance(""+balances.get(0).accountId);
         for(Balance balance : balances) {
-            onUpdateBalance(balance);
+            onInsertBalance(balance);
         }
     }
 

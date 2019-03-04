@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
@@ -189,6 +190,21 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
+
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasAtom = false;
+        for (Balance balance:balances) {
+            if(balance.symbol.equals(WDp.DpAtom(getBaseContext(), mAccount.baseChain)) &&
+                    (balance.balance.compareTo(new BigDecimal("1")) > 0)){
+                hasAtom  = true;
+            }
+        }
+        if(!hasAtom) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         getBaseDao().setValidator(mValidator);
         Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
         startActivity(toDelegate);

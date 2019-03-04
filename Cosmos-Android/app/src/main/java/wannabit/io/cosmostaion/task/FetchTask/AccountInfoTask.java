@@ -35,6 +35,7 @@ public class AccountInfoTask extends CommonTask {
                 if(response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(account.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(WUtil.getBalancesFromLcd(account.id, response.body()));
+                    WLog.w("AccountInfoTask isSuccessful : " + account.address);
                 }
             }
             mResult.isSuccess = true;
