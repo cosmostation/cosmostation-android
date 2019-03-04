@@ -485,9 +485,9 @@ public class WDp {
             } else if (left >= BaseConstant.CONSTANT_H ) {
                 result = "(H-" + (left / BaseConstant.CONSTANT_H) +")";
             } else if (left < 0){
-                return "soon";
-            } else {
                 return "completed";
+            } else {
+                return "in hour";
             }
 
         } catch (Exception e){}
