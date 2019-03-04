@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
+import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -159,52 +160,66 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
 
     @Override
-    public void onShare() {
-        super.onShare();
+    public void onShareType() {
+        super.onShareType();
+        Dialog_ShareType show = Dialog_ShareType.newInstance(null);
+        show.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+    }
 
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        try {
-            final Bitmap mBitmap = WUtil.toBitmap(qrCodeWriter.encode(mAccount.address, BarcodeFormat.QR_CODE, 480, 480));
-            new TedPermission(this)
-                    .setPermissionListener(new PermissionListener() {
-                        @Override
-                        public void onPermissionGranted() {
-                            try {
-                                ContentValues values = new ContentValues();
-                                values.put(MediaStore.Images.Media.TITLE, mAccount.address);
-                                values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                                Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                                OutputStream outstream = getContentResolver().openOutputStream(uri);
-                                mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
-                                outstream.close();
 
-                                Intent shareIntent = new Intent();
-                                shareIntent.setAction(Intent.ACTION_SEND);
-                                shareIntent.putExtra(Intent.EXTRA_TEXT, mAccount.address);
-                                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                                shareIntent.setType("image/jpeg");
-                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                startActivity(Intent.createChooser(shareIntent, "send"));
+    @Override
+    public void onShare(boolean isText) {
+        if(isText) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, mAccount.address);
+            shareIntent.setType("text/plain");
+            startActivity(Intent.createChooser(shareIntent, "send"));
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
+        } else {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            try {
+                final Bitmap mBitmap = WUtil.toBitmap(qrCodeWriter.encode(mAccount.address, BarcodeFormat.QR_CODE, 480, 480));
+                new TedPermission(this)
+                        .setPermissionListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted() {
+                                try {
+                                    ContentValues values = new ContentValues();
+                                    values.put(MediaStore.Images.Media.TITLE, mAccount.address);
+                                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                                    Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                                    OutputStream outstream = getContentResolver().openOutputStream(uri);
+                                    mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                                    outstream.close();
+
+                                    Intent shareIntent = new Intent();
+                                    shareIntent.setAction(Intent.ACTION_SEND);
+                                    shareIntent.putExtra(Intent.EXTRA_TEXT, mAccount.address);
+                                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                                    shareIntent.setType("image/jpeg");
+                                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    startActivity(Intent.createChooser(shareIntent, "send"));
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                            Toast.makeText(getBaseContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .setRationaleMessage("need permission for sd card")
-                    .check();
+                            @Override
+                            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                                Toast.makeText(getBaseContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .setRationaleMessage(getString(R.string.str_permission_qr))
+                        .check();
 
-        } catch (WriterException e) {
-            e.printStackTrace();
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
         }
-
-
     }
 
 

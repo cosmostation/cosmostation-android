@@ -234,7 +234,7 @@ public class MainRewardFragment extends BaseFragment {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
-                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
+                            if(isAdded()) mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
                         }
                         @Override
                         public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
@@ -269,7 +269,7 @@ public class MainRewardFragment extends BaseFragment {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
-                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
+                            if(isAdded()) mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
                         }
                         @Override
                         public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }

@@ -62,7 +62,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         BigDecimal toDeleagteAtom = new BigDecimal(getSActivity().mToDelegateAmount.amount);
         BigDecimal remindAtom = getSActivity().mAccount.getAtomBalance().subtract(toDeleagteAtom);
-        BigDecimal remindPhoton = BigDecimal.ZERO;
+        BigDecimal remindPhoton = getSActivity().mAccount.getPhotonBalance();
 
         mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAtom, 6));
 

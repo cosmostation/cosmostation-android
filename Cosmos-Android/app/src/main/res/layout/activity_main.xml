@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/space_4"
+                android:paddingBottom="@dimen/space_8"
                 android:clipToPadding="false"
                 android:overScrollMode="never"/>
         </LinearLayout>

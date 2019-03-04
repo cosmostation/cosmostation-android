@@ -194,7 +194,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasAtom = false;
         for (Balance balance:balances) {
-            if(balance.symbol.equals(WDp.DpAtom(getBaseContext(), mAccount.baseChain)) &&
+            if(balance.symbol.toLowerCase().equals(WDp.DpAtom(getBaseContext(), mAccount.baseChain).toLowerCase()) &&
                     (balance.balance.compareTo(new BigDecimal("1")) > 0)){
                 hasAtom  = true;
             }

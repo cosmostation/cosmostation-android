@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cosmostaion</string>
+    <string name="app_name">Cosmostation</string>
     <string name="db_password">wannabit</string>
 
     <string name="url_lcd_wannabit">https://52.231.71.66:1317/</string>
@@ -117,6 +117,10 @@
     <string name="str_copy">Copy</string>
     <string name="str_copied">Copied to clipboard</string>
     <string name="str_add_mnemonics">Add Mnemonics</string>
+    <string name="str_back">Back</string>
+    <string name="str_with_qr">Share QR Image</string>
+    <string name="str_with_text">Share Text</string>
+    <string name="str_permission_qr">Need permission for SD Card for save your address QR code Image</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

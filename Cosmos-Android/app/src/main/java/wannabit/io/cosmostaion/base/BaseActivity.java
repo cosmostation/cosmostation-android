@@ -75,7 +75,11 @@ public class BaseActivity extends AppCompatActivity {
     public void onChoiceNet(BaseChain chain) {
     }
 
-    public void onShare() {
+    public void onShare(boolean isText) {
+
+    }
+
+    public void onShareType() {
 
     }
 
