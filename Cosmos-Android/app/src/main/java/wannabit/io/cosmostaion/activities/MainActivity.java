@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
 import wannabit.io.cosmostaion.dialog.TopSheetDialog;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
@@ -135,8 +136,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("Float");
-                startActivity(new Intent(MainActivity.this, SendActivity.class));
+                onStartSendActivity();
             }
         });
 
@@ -265,6 +265,16 @@ public class MainActivity extends BaseActivity implements TaskListener {
 //        }
         if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText("Wallet " + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
+    }
+
+    public void onStartSendActivity() {
+        if(mAccount == null) return;
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
     }
 
 

@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqTx;
@@ -178,6 +179,59 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     }
 
+
+    private void onStartDelegate() {
+        WLog.w("onStartDelegate");
+        if(mAccount == null || mValidator == null) return;
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+        getBaseDao().setValidator(mValidator);
+        Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
+        startActivity(toDelegate);
+    }
+
+    private void onStartUndelegate() {
+        WLog.w("onStartUndelegate");
+        if(mAccount == null || mValidator == null) return;
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        getBaseDao().setValidator(mValidator);
+        Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
+        startActivity(unDelegate);
+
+
+    }
+
+    private void onGetReward() {
+        WLog.w("onGetReward");
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        getBaseDao().setValidator(mValidator);
+        Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
+        claimReward.putExtra("isAll", false);
+        startActivity(claimReward);
+    }
+
     private void onFetchValHistory() {
         WLog.w("onFetchValHistory");
         mTaskCount++;
@@ -298,10 +352,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WLog.w("Start Delegate");
-                        getBaseDao().setValidator(mValidator);
-                        Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
-                        startActivity(toDelegate);
+                        onStartDelegate();
+
                     }
                 });
 
@@ -372,38 +424,22 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WLog.w("Start Delegate");
-                        getBaseDao().setValidator(mValidator);
-                        Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
-                        startActivity(toDelegate);
+                        onStartDelegate();
+
                     }
                 });
                 holder.itemBtnUndelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WLog.w("Start Undelegate");
-                        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-                            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        getBaseDao().setValidator(mValidator);
-                        Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
-                        startActivity(unDelegate);
+                        onStartUndelegate();
 
                     }
                 });
                 holder.itemBtnReward.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WLog.w("Start Reward");
-                        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-                            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        getBaseDao().setValidator(mValidator);
-                        Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
-                        claimReward.putExtra("isAll", false);
-                        startActivity(claimReward);
+                        onGetReward();
+
 
                     }
                 });
