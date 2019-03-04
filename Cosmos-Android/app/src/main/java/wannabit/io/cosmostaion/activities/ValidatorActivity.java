@@ -18,14 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import agency.tango.android.avatarview.IImageLoader;
-import agency.tango.android.avatarview.loader.PicassoLoader;
-import agency.tango.android.avatarview.views.AvatarView;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,12 +38,10 @@ import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.network.req.ReqTxVal;
 import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
-import wannabit.io.cosmostaion.task.FetchTask.HistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
@@ -82,8 +78,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private int                         mTaskCount;
     private boolean                     mExpended = true;
 
-    private IImageLoader                mImageLoader;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +92,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mImageLoader = new PicassoLoader();
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -147,7 +140,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         WLog.w("Validator : " + mValidator.description.moniker);
         WLog.w("Validator : " + mValidator.operator_address);
-        mValidatorAdapter = new ValidatorAdapter(mImageLoader);
+        mValidatorAdapter = new ValidatorAdapter();
         mRecyclerView.setAdapter(mValidatorAdapter);
 
         onInitFetch();
@@ -314,11 +307,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         private static final int TYPE_HISTORY_HEADER        = 3;
         private static final int TYPE_HISTORY               = 4;
         private static final int TYPE_HISTORY_EMPTY         = 5;
-        IImageLoader    mImageLoader;
 
-        public ValidatorAdapter(IImageLoader mImageLoader) {
-            this.mImageLoader = mImageLoader;
-        }
 
         @NonNull
         @Override
@@ -350,15 +339,30 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if(!TextUtils.isEmpty(mValidator.description.details)) holder.itemTvDescription.setText(mValidator.description.details);
                 else holder.itemTvDescription.setVisibility(View.GONE);
 
-                mImageLoader.loadImage(holder.itemAvatar, "error", mValidator.description.moniker);
+//                mImageLoader.loadImage(holder.itemAvatar, "error", mValidator.description.moniker);
+//                if(!TextUtils.isEmpty(mValidator.description.identity)) {
+//                    ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
+//                        @Override
+//                        public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
+//                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), mValidator.description.moniker);
+//                        }
+//                        @Override
+//                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
+//                    });
+//                }
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
-                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), mValidator.description.moniker);
+                            if(!isFinishing()) {
+                                Picasso.with(getBaseContext())
+                                        .load(response.body().getUrl())
+                                        .fit()
+                                        .into(holder.itemAvatar);
+                            }
                         }
                         @Override
-                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
+                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
                     });
                 }
 
@@ -383,15 +387,31 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if(!TextUtils.isEmpty(mValidator.description.details)) holder.itemTvDescription.setText(mValidator.description.details);
                 else holder.itemTvDescription.setVisibility(View.GONE);
 
-                mImageLoader.loadImage(holder.itemAvatar, "error", mValidator.description.moniker);
+//                mImageLoader.loadImage(holder.itemAvatar, "error", mValidator.description.moniker);
+//                if(!TextUtils.isEmpty(mValidator.description.identity)) {
+//                    ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
+//                        @Override
+//                        public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
+//                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), mValidator.description.moniker);
+//                        }
+//                        @Override
+//                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
+//                    });
+//                }
+
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
-                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), mValidator.description.moniker);
+                            if(!isFinishing()) {
+                                Picasso.with(getBaseContext())
+                                        .load(response.body().getUrl())
+                                        .fit()
+                                        .into(holder.itemAvatar);
+                            }
                         }
                         @Override
-                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
+                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
                     });
                 }
 
@@ -601,7 +621,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
         public class ValidatorHolder extends RecyclerView.ViewHolder {
-            AvatarView  itemAvatar;
+            CircleImageView itemAvatar;
             TextView    itemTvMoniker;
             TextView    itemTvAddress;
             TextView    itemTvWebsite;
@@ -626,7 +646,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         public class MyValidatorHolder extends RecyclerView.ViewHolder {
-            AvatarView  itemAvatar;
+            CircleImageView  itemAvatar;
             ImageView   itemHideShow;
             TextView    itemTvMoniker;
             TextView    itemTvAddress;

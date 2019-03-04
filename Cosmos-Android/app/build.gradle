@@ -6,8 +6,8 @@ android {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 5
-        versionName "0.0.5"
+        versionCode 6
+        versionName "0.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -59,8 +59,8 @@ dependencies {
     implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
 
     //avatar
-    implementation 'agency.tango.android:avatar-view:0.0.2'
-    implementation 'agency.tango.android:avatar-view-bindings:0.0.2'
+//    implementation 'agency.tango.android:avatar-view:0.0.2'
+//    implementation 'agency.tango.android:avatar-view-bindings:0.0.2'
     implementation 'agency.tango.android:avatar-view-picasso:0.0.2'
     implementation 'agency.tango.android:avatar-view-glide:0.0.2'
 
@@ -73,7 +73,8 @@ dependencies {
     //permission check
     implementation 'gun0912.ted:tedpermission:1.0.3'
 
-
+    //circle Image
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

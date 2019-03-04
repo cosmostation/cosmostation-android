@@ -117,7 +117,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             }
             ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
             if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getBaseContext()).toString();
+                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getBaseContext()).toString().trim();
                 if(TextUtils.isEmpty(userPaste)) return;
 
                 mWords.clear();

@@ -116,6 +116,12 @@ public class SimpleDelegateTask extends CommonTask {
                 WLog.w("SimpleDelegateTask result errorMsg : " + result.errorMsg);
                 WLog.w("SimpleDelegateTask result errorCode : " + result.errorCode);
                 WLog.w("SimpleDelegateTask result hash : " + result.hash);
+                if(result.log != null) {
+                    WLog.w("SimpleDelegateTask result.log : " + result.log);
+                } else {
+                    WLog.w("SimpleDelegateTask result.log : " + null);
+                }
+
                 if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
                     mResult.resultData = result.hash;
                     mResult.isSuccess = true;

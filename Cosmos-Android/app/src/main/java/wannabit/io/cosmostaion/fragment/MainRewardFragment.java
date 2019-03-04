@@ -15,20 +15,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
-import agency.tango.android.avatarview.IImageLoader;
-import agency.tango.android.avatarview.loader.PicassoLoader;
-import agency.tango.android.avatarview.views.AvatarView;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
-import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
@@ -51,8 +49,6 @@ public class MainRewardFragment extends BaseFragment {
     private ArrayList<BondingState>     mBondings = new ArrayList<>();
     private ArrayList<Reward>           mRewards = new ArrayList<>();
 
-    private IImageLoader                mImageLoader;
-
     public static MainRewardFragment newInstance(Bundle bundle) {
         MainRewardFragment fragment = new MainRewardFragment();
         fragment.setArguments(bundle);
@@ -70,8 +66,6 @@ public class MainRewardFragment extends BaseFragment {
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
 
-        mImageLoader = new PicassoLoader();
-
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -84,7 +78,7 @@ public class MainRewardFragment extends BaseFragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mRewardAdapter = new RewardAdapter(mImageLoader);
+        mRewardAdapter = new RewardAdapter();
         mRecyclerView.setAdapter(mRewardAdapter);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -149,11 +143,7 @@ public class MainRewardFragment extends BaseFragment {
         private static final int TYPE_PROMOTION                 = 4;
         private static final int TYPE_HEADER_WITHDRAW_ALL       = 5;
 
-        IImageLoader    mImageLoader;
 
-        public RewardAdapter(IImageLoader imageloader) {
-            this.mImageLoader = imageloader;
-        }
 
         @NonNull
         @Override
@@ -229,17 +219,23 @@ public class MainRewardFragment extends BaseFragment {
                         onStartValidatorDetail(validator);
                     }
                 });
-                mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
+                holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
                 if(!TextUtils.isEmpty(validator.description.identity)) {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
-                            if(isAdded()) mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
+                            if(isAdded()) {
+                                Picasso.with(getContext())
+                                        .load(response.body().getUrl())
+                                        .fit()
+                                        .into(holder.itemAvatar);
+                            }
                         }
                         @Override
-                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
+                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
                     });
                 }
+
 
             } else if (getItemViewType(position) == TYPE_VALIDATOR) {
                 final RewardValidatorHolder holder = (RewardValidatorHolder)viewHolder;
@@ -264,15 +260,31 @@ public class MainRewardFragment extends BaseFragment {
                         onStartValidatorDetail(validator);
                     }
                 });
-                mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
+//                mImageLoader.loadImage(holder.itemAvatar, "error", validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
+//                if(!TextUtils.isEmpty(validator.description.identity)) {
+//                    ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
+//                        @Override
+//                        public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
+//                            if(isAdded()) mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
+//                        }
+//                        @Override
+//                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
+//                    });
+//                }
+                holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
                 if(!TextUtils.isEmpty(validator.description.identity)) {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
-                            if(isAdded()) mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), validator.description.moniker.replaceAll(BaseConstant.characterFilter, "").trim());
+                            if(isAdded()) {
+                                Picasso.with(getContext())
+                                        .load(response.body().getUrl())
+                                        .fit()
+                                        .into(holder.itemAvatar);
+                            }
                         }
                         @Override
-                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
+                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
                     });
                 }
             }
@@ -351,7 +363,7 @@ public class MainRewardFragment extends BaseFragment {
 
         public class RewardValidatorHolder extends RecyclerView.ViewHolder {
             CardView    itemRoot;
-            AvatarView  itemAvatar;
+            CircleImageView  itemAvatar;
             TextView    itemTvMoniker;
             TextView    itemTvDescription;
 
@@ -366,7 +378,8 @@ public class MainRewardFragment extends BaseFragment {
 
         public class RewardMyValidatorHolder extends RecyclerView.ViewHolder {
             CardView    itemRoot;
-            AvatarView  itemAvatar;
+//            AvatarView  itemAvatar;
+            CircleImageView itemAvatar;
             TextView    itemTvMoniker;
             TextView    itemTvDescription;
 //            TextView    itemTvDelegateAmount;
