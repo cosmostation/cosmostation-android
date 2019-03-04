@@ -29,8 +29,11 @@ public class SingleBondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<ResLcdBondings> response = ApiClient.getWannabitChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-            if(response.isSuccessful() && response.body() != null) {
-                mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body()));
+            if(response.isSuccessful()) {
+                if(response.body() != null)
+                    mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body()));
+                else
+                    mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
             }
             mResult.isSuccess = true;
 

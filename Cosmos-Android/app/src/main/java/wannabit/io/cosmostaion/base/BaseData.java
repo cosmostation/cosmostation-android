@@ -391,14 +391,17 @@ public class BaseData {
     }
 
     public long onUpdateBalance(Balance balance) {
-        if(onHasBalance(balance)) {
-            ContentValues values = new ContentValues();
-            values.put("balance",           balance.balance.toPlainString());
-            values.put("fetchTime",         balance.fetchTime);
-            return getBaseDB().update(BaseConstant.DB_TABLE_BALANCE, values, "accountId == ? AND symbol == ? ", new String[]{""+balance.accountId, balance.symbol} );
-        } else {
-            return onInsertBalance(balance);
-        }
+        onDeleteBalance(""+balance.accountId);
+        return onInsertBalance(balance);
+
+//        if(onHasBalance(balance)) {
+//            ContentValues values = new ContentValues();
+//            values.put("balance",           balance.balance.toPlainString());
+//            values.put("fetchTime",         balance.fetchTime);
+//            return getBaseDB().update(BaseConstant.DB_TABLE_BALANCE, values, "accountId == ? AND symbol == ? ", new String[]{""+balance.accountId, balance.symbol} );
+//        } else {
+//            return onInsertBalance(balance);
+//        }
     }
 
     public void onUpdateBalances(ArrayList<Balance> balances) {
