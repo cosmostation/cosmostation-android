@@ -111,6 +111,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void onUpdateView() {
+        if(getMainActivity() == null) return;
+
         if(getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()))
             mTestnet.setVisibility(View.VISIBLE);
 

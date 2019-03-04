@@ -144,6 +144,7 @@ public class WalletListActivity extends BaseActivity implements TaskListener {
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
+        if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
 
         } else if(result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {

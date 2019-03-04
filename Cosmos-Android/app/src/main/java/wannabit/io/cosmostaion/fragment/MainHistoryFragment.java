@@ -119,6 +119,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 //    }
 
     private void onFetchHistory() {
+        if(getMainActivity() == null) return;
 //        WLog.w("onFetchHistory");
         ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address);
 //        String jsonText = new Gson().toJson(req);

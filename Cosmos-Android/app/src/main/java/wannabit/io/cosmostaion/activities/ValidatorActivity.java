@@ -122,10 +122,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         if(mAccount == null) {
             WLog.w("NO Account ERROR");
+            onBackPressed();
         }
 
         if(getBaseDao().getValidator() == null) {
             WLog.w("NO Validator ERROR");
+            onBackPressed();
         }
 
         mValidator          = getBaseDao().getValidator();
@@ -189,6 +191,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     public void onTaskResponse(TaskResult result) {
 //        WLog.w("TaskResult : " + result.taskType);
         mTaskCount--;
+        if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_VALIDATOR) {
             mValidator = (Validator)result.resultData;
             if(mValidator == null) {
