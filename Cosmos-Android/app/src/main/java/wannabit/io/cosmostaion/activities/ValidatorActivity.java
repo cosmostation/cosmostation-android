@@ -126,6 +126,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         mValidator          = getBaseDao().getValidator();
+        if(mValidator == null) {
+            WLog.w("NO Validator ERROR");
+            onBackPressed();
+        }
         mBondingState       = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
         mUnBondingStates    = getBaseDao().onSelectUnbondingStates(mAccount.id, mValidator.operator_address);
 //        mReward         = getBaseDao().getValidatorDetail().mReward;
