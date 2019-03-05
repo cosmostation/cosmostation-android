@@ -40,7 +40,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RjZ-2N-pV1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2804" y="1513"/>
+            <point key="canvasLocation" x="-2730" y="1513"/>
         </scene>
         <!--Main Tab History View Controller-->
         <scene sceneID="CBM-nz-DKQ">
@@ -147,7 +147,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yaG-sH-K47" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2876" y="681"/>
+            <point key="canvasLocation" x="-2730" y="656"/>
         </scene>
         <!--HISTORY-->
         <scene sceneID="9A2-0D-p3l">

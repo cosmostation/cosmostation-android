@@ -9,5 +9,6 @@ target 'Cosmostation' do
   pod 'Alamofire', '~> 4.7'
   pod 'BitcoinKit'
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'PromiseKit/CorePromise', '~> 6.8'
 
 end
