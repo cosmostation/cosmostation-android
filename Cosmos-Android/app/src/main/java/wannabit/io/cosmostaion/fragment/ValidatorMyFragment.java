@@ -129,7 +129,6 @@ public class ValidatorMyFragment extends BaseFragment {
                 } else {
                     holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 0));
                 }
-
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -154,6 +153,8 @@ public class ValidatorMyFragment extends BaseFragment {
                         public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
                     });
                 }
+                if(validator.jailed) holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                else holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
             }
         }
 

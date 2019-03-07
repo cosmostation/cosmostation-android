@@ -182,6 +182,7 @@
     <string name="str_withdraw_all">Withdraw All Rewards</string>
     <string name="str_delegated">Delegated</string>
     <string name="str_commission">Commission</string>
+    <string name="str_voting_power">Voting Power</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>

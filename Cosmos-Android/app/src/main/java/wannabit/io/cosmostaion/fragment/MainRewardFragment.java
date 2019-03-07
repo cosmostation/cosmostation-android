@@ -60,6 +60,19 @@ public class MainRewardFragment extends BaseFragment {
         mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
         mValidatorPager.setCurrentItem(0, false);
 
+        mValidatorPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) { }
+
+            @Override
+            public void onPageScrollStateChanged(int i) { }
+
+            @Override
+            public void onPageSelected(int i) {
+                mPageAdapter.getCurrentFragment().onRefreshTab();
+            }
+        });
+
         return rootView;
     }
 
