@@ -161,6 +161,12 @@
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
+        <service android:name=".base.BaseFCM">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
 
         <activity
             android:name=".test.TestActivity"

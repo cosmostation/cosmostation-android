@@ -3,13 +3,21 @@ package wannabit.io.cosmostaion.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.romainpiel.shimmer.Shimmer;
@@ -142,6 +150,30 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 //        startActivity(new Intent(IntroActivity.this, TestActivity.class));
 
         WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
+//        WLog.w("FCM token: " + FirebaseInstanceId.getInstance().getInstanceId().toString());
+        FirebaseApp app = FirebaseApp.initializeApp(this);
+        if(app == null) {
+            WLog.w("app null");
+        }
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            WLog.w("getInstanceId failed" + task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        WLog.w("token  " + token);
+
+//                        // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+//                        WLog.w( msg);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
