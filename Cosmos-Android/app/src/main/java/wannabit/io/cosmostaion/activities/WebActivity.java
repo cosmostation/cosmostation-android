@@ -41,4 +41,13 @@ public class WebActivity extends BaseActivity {
         else
             mWebview.loadUrl("https://www.mintscan.io");
     }
+
+    @Override
+    public void onBackPressed() {
+        if(mWebview.canGoBack()) {
+            mWebview.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

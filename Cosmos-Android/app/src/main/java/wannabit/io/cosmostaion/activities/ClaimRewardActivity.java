@@ -69,7 +69,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         mIvStep             = findViewById(R.id.send_step);
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_undelegate_c));
+        mTitle.setText(getString(R.string.str_reward_c));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -198,6 +198,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             mRewards = (Reward)result.resultData;
+            WLog.w("mRewards : " + mRewards.amount.size());
+            WLog.w("mRewards : " + mRewards.validatorAddress);
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_TOTAL_REWARDS) {
             HashMap<Long, TotalReward> temp = (HashMap<Long, TotalReward>)result.resultData;

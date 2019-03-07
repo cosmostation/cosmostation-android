@@ -114,22 +114,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     protected void onResume() {
         super.onResume();
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mValidator      = getBaseDao().getValidator();
         if(mAccount == null) {
             WLog.w("NO Account ERROR");
             onBackPressed();
         }
 
-        if(getBaseDao().getValidator() == null) {
+        if(mValidator == null || TextUtils.isEmpty(mValidator.operator_address)) {
             WLog.w("NO Validator ERROR");
             onBackPressed();
         }
 
-        mValidator          = getBaseDao().getValidator();
-        if(mValidator == null) {
-            WLog.w("NO Validator ERROR");
-            onBackPressed();
-        }
+
         mBondingState       = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
         mUnBondingStates    = getBaseDao().onSelectUnbondingStates(mAccount.id, mValidator.operator_address);
 //        mReward         = getBaseDao().getValidatorDetail().mReward;
@@ -239,6 +236,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if(mReward == null) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         getBaseDao().setValidator(mValidator);
         Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
         claimReward.putExtra("isAll", false);

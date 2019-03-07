@@ -121,6 +121,7 @@
     <string name="str_with_qr">Share QR Image</string>
     <string name="str_with_text">Share Text</string>
     <string name="str_permission_qr">Need permission for SD Card for save your address QR code Image</string>
+    <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -197,6 +198,7 @@
     <string name="error_import_errer">Can not add this address/public key.</string>
     <string name="error_not_enough_atom">No enough Balance to Delegate</string>
     <string name="error_not_enough_budget">No enough budget to Send</string>
+    <string name="error_not_enough_reward">No enough reward to Claim</string>
 
 
     <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>

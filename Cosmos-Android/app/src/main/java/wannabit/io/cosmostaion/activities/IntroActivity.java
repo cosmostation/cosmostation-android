@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.test.TestActivity;
+import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -139,6 +140,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
 //        WLog.w("INTRO");
 //        startActivity(new Intent(IntroActivity.this, TestActivity.class));
+
+        WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
     }
 
     @Override

@@ -71,6 +71,9 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 
         } else {
             // get single reward
+            if(getSActivity().mRewards == null) {
+                getSActivity().onBackPressed();
+            }
             mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getAtomAmount(), 6));
             mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getPhotonAmount(), 6));
             mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
