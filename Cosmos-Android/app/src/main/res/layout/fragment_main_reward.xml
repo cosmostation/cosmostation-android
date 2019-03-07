@@ -4,16 +4,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/layer_refresher"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/validator_tab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="@dimen/space_4"
-            android:clipToPadding="false"
-            android:overScrollMode="never" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="@dimen/space_32"
+        android:background="@android:color/transparent"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="1px"
+        app:tabIndicatorColor="@color/colorGray9"
+        app:tabIconTint="@color/colorGray9"
+        android:elevation="4dp"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/validator_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/validator_tab"/>
 </RelativeLayout>
+<!--<RelativeLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+        <!--android:id="@+id/layer_refresher"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/recycler"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:paddingTop="@dimen/space_4"-->
+            <!--android:clipToPadding="false"-->
+            <!--android:overScrollMode="never" />-->
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+<!--</RelativeLayout>-->

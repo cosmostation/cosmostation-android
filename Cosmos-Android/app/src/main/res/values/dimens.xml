@@ -28,6 +28,7 @@
     <dimen name="space_50">50dp</dimen>
     <dimen name="space_54">54dp</dimen>
     <dimen name="space_60">60dp</dimen>
+    <dimen name="space_64">64dp</dimen>
     <dimen name="space_68">68dp</dimen>
     <dimen name="space_72">72dp</dimen>
     <dimen name="space_74">74dp</dimen>

@@ -7,29 +7,43 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/space_4">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tx_all_rewards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_ssl_11_white"
+                android:text="34,644,764.737900"/>
+            <TextView
+                android:id="@+id/tx_all_atom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_2"
+                style="@style/font_ss_11_atom"
+                android:text="atom"/>
+        </LinearLayout>
         <TextView
-            android:id="@+id/tx_all_rewards"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssl_11_white"
-            android:text="34,644,764.737900"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_2"
+            android:layout_marginTop="@dimen/space_4"
             style="@style/font_ss_12_photon"
-            android:text="Withdraw All"/>
+            android:text="@string/str_withdraw_all"/>
     </LinearLayout>
     <Button
         android:id="@+id/btn_withdraw_all"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_50"
-        android:minHeight="@dimen/space_50"
+        android:layout_height="@dimen/space_64"
+        android:minHeight="@dimen/space_64"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="2dp"

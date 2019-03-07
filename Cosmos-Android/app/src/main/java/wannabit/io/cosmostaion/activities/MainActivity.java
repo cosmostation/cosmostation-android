@@ -197,8 +197,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
             @Override
             public void onPageSelected(int position) {
                 mPageAdapter.mCurrentFragment.onRefreshTab();
-                if (!mFloatBtn.isShown() && position != 4) mFloatBtn.show();
-                if(mFloatBtn.isShown() && position == 4) mFloatBtn.hide();
+                if(position == 1 || position == 4) mFloatBtn.hide();
+                else if (!mFloatBtn.isShown()) mFloatBtn.show();
             }
         });
 
@@ -293,6 +293,12 @@ public class MainActivity extends BaseActivity implements TaskListener {
         startActivity(new Intent(MainActivity.this, SendActivity.class));
     }
 
+
+    public void onStartValidatorDetail(Validator validator) {
+        Intent intent = new Intent(MainActivity.this, ValidatorActivity.class);
+        intent.putExtra("valAddr", validator.operator_address);
+        startActivity(intent);
+    }
 
     @Override
     public void onBackPressed() {

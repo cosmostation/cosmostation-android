@@ -177,7 +177,11 @@
     <string name="str_gaia">Gaia testnet is not fixed coin type, so skip coin amount check logic.\nPlease insert valid amount coin without under point.</string>
     <string name="str_only_observe_title">No Private Key.</string>
     <string name="str_only_observe_msg">This account has only address with watch mode.\nYou need add mnemonics for generate transaction.</string>
-
+    <string name="str_all_validators">All Validators</string>
+    <string name="str_my_validators">My Validators</string>
+    <string name="str_withdraw_all">Withdraw All Rewards</string>
+    <string name="str_delegated">Delegated</string>
+    <string name="str_commission">Commission</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>

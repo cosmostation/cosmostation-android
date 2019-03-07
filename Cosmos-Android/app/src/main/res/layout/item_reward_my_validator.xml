@@ -86,14 +86,51 @@
                         android:text="moniker"/>
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/description_validator"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:maxLines="2"
-                    style="@style/font_ss_11_gray1"
-                    android:text="Cosmostation"/>
+                    android:layout_marginTop="@dimen/space_4">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/delegate_amount_validator"
+                        style="@style/font_ss_11_gray1"
+                        android:text="@string/str_delegated"/>
+                    <TextView
+                        android:id="@+id/delegate_amount_validator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        style="@style/font_ss_11_gray1"
+                        android:text="23.349000"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/delegate_commission_validator"
+                        style="@style/font_ss_11_gray1"
+                        android:text="@string/str_commission"/>
+                    <TextView
+                        android:id="@+id/delegate_commission_validator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        style="@style/font_ss_11_gray1"
+                        android:text="20%"/>
+                </RelativeLayout>
+
+                <!--<TextView-->
+                    <!--android:id="@+id/description_validator"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="@dimen/space_4"-->
+                    <!--android:maxLines="2"-->
+                    <!--style="@style/font_ss_11_gray1"-->
+                    <!--android:text="Cosmostation"/>-->
 
             </LinearLayout>
         </RelativeLayout>

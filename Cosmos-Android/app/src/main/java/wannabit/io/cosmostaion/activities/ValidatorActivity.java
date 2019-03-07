@@ -61,7 +61,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private TextView                    mToolbarAddress;
     private SwipeRefreshLayout          mSwipeRefreshLayout;
     private RecyclerView                mRecyclerView;
-    private LinearLayoutManager         mLinearLayoutManager;
+//    private LinearLayoutManager         mLinearLayoutManager;
 
     private ValidatorAdapter            mValidatorAdapter;
 
@@ -101,8 +101,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-        mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
 
         WLog.w("Address : " + getIntent().getStringExtra("valAddr"));
@@ -346,17 +345,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if(!TextUtils.isEmpty(mValidator.description.details)) holder.itemTvDescription.setText(mValidator.description.details);
                 else holder.itemTvDescription.setVisibility(View.GONE);
 
-//                mImageLoader.loadImage(holder.itemAvatar, "error", mValidator.description.moniker);
-//                if(!TextUtils.isEmpty(mValidator.description.identity)) {
-//                    ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
-//                        @Override
-//                        public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
-//                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), mValidator.description.moniker);
-//                        }
-//                        @Override
-//                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
-//                    });
-//                }
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
@@ -393,18 +381,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 else holder.itemTvWebsite.setVisibility(View.GONE);
                 if(!TextUtils.isEmpty(mValidator.description.details)) holder.itemTvDescription.setText(mValidator.description.details);
                 else holder.itemTvDescription.setVisibility(View.GONE);
-
-//                mImageLoader.loadImage(holder.itemAvatar, "error", mValidator.description.moniker);
-//                if(!TextUtils.isEmpty(mValidator.description.identity)) {
-//                    ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
-//                        @Override
-//                        public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
-//                            mImageLoader.loadImage(holder.itemAvatar, response.body().getUrl(), mValidator.description.moniker);
-//                        }
-//                        @Override
-//                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) { }
-//                    });
-//                }
 
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
@@ -450,8 +426,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     }
                     WLog.w("sum" + sum.toPlainString());
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6));
-//                    holder.itemTvUnbondingTime.setText(WDp.getUnbondingTimeleft(getBaseContext(), mUnBondingState.completionTime));
-//                    holder.itemTvUnbondingTime.setVisibility(View.VISIBLE);
                     holder.itemTvUnbondingTime.setVisibility(View.INVISIBLE);
                 } else {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
