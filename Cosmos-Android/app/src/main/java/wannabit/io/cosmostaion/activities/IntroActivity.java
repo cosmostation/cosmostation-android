@@ -151,10 +151,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
         WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
 //        WLog.w("FCM token: " + FirebaseInstanceId.getInstance().getInstanceId().toString());
-        FirebaseApp app = FirebaseApp.initializeApp(this);
-        if(app == null) {
-            WLog.w("app null");
-        }
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override

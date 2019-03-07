@@ -14,8 +14,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        WLog.w("FirebaseApp initializeApp");
-//        FirebaseApp.initializeApp(this);
+        FirebaseApp.initializeApp(this);
         new DeviceUuidFactory(this);
     }
 
