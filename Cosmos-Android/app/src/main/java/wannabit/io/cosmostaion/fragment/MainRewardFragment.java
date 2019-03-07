@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class MainRewardFragment extends BaseFragment {
 

@@ -84,6 +84,7 @@ public class ValidatorMyFragment extends BaseFragment {
         mMyValidators   = getMainActivity().mMyValidators;
         mRewards        = getMainActivity().mRewards;
         mMyValidatorAdapter.notifyDataSetChanged();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 
