@@ -225,12 +225,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
     protected void onResume() {
         super.onResume();
         mAccounts = getBaseDao().onSelectAccounts();
-//        if(mAccounts.size() > 1) {
-//            Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//            layoutParams.setMargins(0,0,0,0);
-//            mLinearLayout.setLayoutParams(layoutParams);
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        }
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         WLog.w("onResume : " + mAccount.address + " " + mAccount.sequenceNumber + " " + mAccount.accountNumber + "  " + mAccount.id);
         if(mAccount == null) {
@@ -298,6 +292,24 @@ public class MainActivity extends BaseActivity implements TaskListener {
         Intent intent = new Intent(MainActivity.this, ValidatorActivity.class);
         intent.putExtra("valAddr", validator.operator_address);
         startActivity(intent);
+    }
+
+    public void onStartRewardAll() {
+        WLog.w("onStartRewardAll");
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+        if(mRewards == null) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+//        Intent claimReward = new Intent(MainActivity.this, ClaimRewardActivity.class);
+//        claimReward.putExtra("isAll", true);
+//        startActivity(claimReward);
+        Toast.makeText(getBaseContext(), "내일 합시다.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

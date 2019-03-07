@@ -119,6 +119,12 @@ public class ValidatorMyFragment extends BaseFragment {
                 final RewardWithdrawHolder holder = (RewardWithdrawHolder)viewHolder;
                 holder.itemTvAllRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), mRewards));
                 holder.itemTvAtom.setText(WDp.DpAtom(getContext(), getMainActivity().mAccount.baseChain));
+                holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getMainActivity().onStartRewardAll();
+                    }
+                });
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder    = (RewardMyValidatorHolder)viewHolder;
@@ -190,20 +196,14 @@ public class ValidatorMyFragment extends BaseFragment {
             TextView    itemTvMoniker;
             TextView    itemTvDelegateAmount;
             TextView    itemTvCommission;
-//            TextView    itemTvDelegateAmount;
-//            TextView    itemTvRewardAtom;
-//            TextView    itemTvRewardPhoton;
 
             public RewardMyValidatorHolder(@NonNull View itemView) {
                 super(itemView);
                 itemRoot            = itemView.findViewById(R.id.card_validator);
                 itemAvatar          = itemView.findViewById(R.id.avatar_validator);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
-//                itemTvDescription   = itemView.findViewById(R.id.description_validator);
                 itemTvDelegateAmount = itemView.findViewById(R.id.delegate_amount_validator);
                 itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
-//                itemTvRewardAtom    = itemView.findViewById(R.id.reward_atom_validator);
-//                itemTvRewardPhoton  = itemView.findViewById(R.id.reward_photon_validator);
             }
         }
 

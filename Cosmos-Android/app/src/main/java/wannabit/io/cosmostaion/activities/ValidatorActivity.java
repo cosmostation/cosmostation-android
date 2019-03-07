@@ -456,8 +456,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         onGetReward();
-
-
                     }
                 });
 
