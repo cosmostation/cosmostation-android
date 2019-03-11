@@ -101,7 +101,8 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
                     mRecyclerView.setVisibility(View.GONE);
                 }
             } else {
-
+                mEmptyProposal.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
             }
 
         }

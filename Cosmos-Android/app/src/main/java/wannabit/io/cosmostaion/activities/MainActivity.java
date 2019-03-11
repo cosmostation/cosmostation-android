@@ -85,6 +85,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
     private Toolbar                     mToolbar;
     private ImageView                   mToolbarChainImg;
     private TextView                    mToolbarTitle;
+    private TextView                    mToolbarChainName;
 
     private StopViewPager               mContentsPager;
     private TabLayout                   mTabLayer;
@@ -118,6 +119,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mToolbar                    = findViewById(R.id.tool_bar);
         mToolbarTitle               = findViewById(R.id.toolbar_title);
         mToolbarChainImg            = findViewById(R.id.toolbar_net_image);
+        mToolbarChainName           = findViewById(R.id.toolbar_net_name);
         mContentsPager              = findViewById(R.id.view_pager);
         mTabLayer                   = findViewById(R.id.bottom_tab);
         mDimLayer                   = findViewById(R.id.dim_layer);
@@ -236,12 +238,23 @@ public class MainActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) || mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
-            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_testnet));
+        WLog.w("mAccount.baseChain : " + mAccount.baseChain);
+        if (mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+            mToolbarChainName.setText(getString(R.string.str_gaia_12k));
+
+        } else if (mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+            mToolbarChainName.setText(getString(R.string.str_gaia_13k));
+
         } else if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+            mToolbarChainName.setVisibility(View.INVISIBLE);
+
         } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.irisnet));
+            mToolbarChainName.setVisibility(View.INVISIBLE);
+
         }
 
         onFetchAccountInfo();
@@ -607,23 +620,24 @@ public class MainActivity extends BaseActivity implements TaskListener {
                         }
                     }
                 });
-                holder.btn_account_detail.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onHideTopAccountsView();
-                        WLog.w("START ACCOUNT DETAIL");
-                        new Handler().postDelayed(new Runnable() {
-                              @Override
-                              public void run() {
-                                  Intent intent = new Intent(MainActivity.this, AccountDetailActivity.class);
-                                  intent.putExtra("id", ""+account.id);
-                                  startActivity(intent);
 
-                              }
-                        },250);
-                    }
-                });
+                if (account.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+                    holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+                    holder.tv_chain.setText(getString(R.string.str_gaia_12k));
 
+                } else if (account.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
+                    holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+                    holder.tv_chain.setText(getString(R.string.str_gaia_13k));
+
+                } else if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+                    holder.tv_chain.setVisibility(View.INVISIBLE);
+
+                } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.irisnet));
+                    holder.tv_chain.setVisibility(View.INVISIBLE);
+
+                }
 
             } else if (getItemViewType(position) == TYPE_ADD) {
                 final AccountAddHolder holder = (AccountAddHolder)viewHolder;
@@ -670,16 +684,18 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         public class AccountHolder extends RecyclerView.ViewHolder {
             FrameLayout card_account;
-            Button btn_account_detail;
-            ImageView img_account;
-            TextView img_name, img_address;
+//            Button btn_account_detail;
+            ImageView img_account, img_chain;
+            TextView img_name, img_address, tv_chain;
             public AccountHolder(View v) {
                 super(v);
                 card_account        = itemView.findViewById(R.id.card_account);
-                btn_account_detail  = itemView.findViewById(R.id.btn_account_detail);
+                img_chain  = itemView.findViewById(R.id.btn_account_chain_img);
+//                btn_account_detail  = itemView.findViewById(R.id.btn_account_detail);
                 img_account         = itemView.findViewById(R.id.img_account);
                 img_name            = itemView.findViewById(R.id.img_name);
                 img_address         = itemView.findViewById(R.id.img_address);
+                tv_chain            = itemView.findViewById(R.id.tv_chain);
             }
         }
 

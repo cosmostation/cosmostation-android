@@ -57,15 +57,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/cosmos_wh_testnet"/>
-                <TextView
-                    android:id="@+id/toolbar_title"
+                    android:src="@drawable/cosmos_wh_main"/>
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_4"
-                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/toolbar_net_image"
-                    style="@style/font_ssm_17_white"/>
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:layout_centerVertical="true">
+                    <TextView
+                        android:id="@+id/toolbar_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        style="@style/font_ssm_17_white"
+                        android:text="Wannabit"/>
+                    <TextView
+                        android:id="@+id/toolbar_net_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_2"
+                        android:layout_alignBaseline="@+id/toolbar_title"
+                        android:layout_toRightOf="@+id/toolbar_title"
+                        style="@style/font_ss_11_gray1"
+                        android:text="(testnet gaia-12k)"/>
+                </RelativeLayout>
+
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 

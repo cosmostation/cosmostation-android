@@ -130,6 +130,8 @@
     <string name="str_with_text">Share Text</string>
     <string name="str_permission_qr">Need permission for SD Card for save your address QR code Image</string>
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
+    <string name="str_gaia_12k">(testnet gaia - 12k)</string>
+    <string name="str_gaia_13k">(testnet gaia - 13k)</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
