@@ -77,11 +77,13 @@ public class ValidatorAllFragment extends BaseFragment {
 
     @Override
     public void onRefreshTab() {
+        WLog.w("ValidatorAllFragment onRefreshTab");
         if(!isAdded()) return;
         mAllValidators  = getMainActivity().mAllValidators;
         mMyValidators   = getMainActivity().mMyValidators;
         mAllValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
+        WLog.w("ValidatorAllFragment mAllValidators " + mAllValidators.size());
     }
 
     public MainActivity getMainActivity() {

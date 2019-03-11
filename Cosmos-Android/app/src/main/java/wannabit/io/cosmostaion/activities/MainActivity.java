@@ -83,6 +83,7 @@ import wannabit.io.cosmostaion.widget.TintableImageView;
 public class MainActivity extends BaseActivity implements TaskListener {
 
     private Toolbar                     mToolbar;
+    private ImageView                   mToolbarChainImg;
     private TextView                    mToolbarTitle;
 
     private StopViewPager               mContentsPager;
@@ -116,6 +117,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         setContentView(R.layout.activity_main);
         mToolbar                    = findViewById(R.id.tool_bar);
         mToolbarTitle               = findViewById(R.id.toolbar_title);
+        mToolbarChainImg            = findViewById(R.id.toolbar_net_image);
         mContentsPager              = findViewById(R.id.view_pager);
         mTabLayer                   = findViewById(R.id.bottom_tab);
         mDimLayer                   = findViewById(R.id.dim_layer);
@@ -232,6 +234,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
             //Show error dialog!
             WLog.w("mAccount null");
             return;
+        }
+
+        if (mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) || mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_testnet));
+        } else if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.irisnet));
         }
 
         onFetchAccountInfo();
@@ -684,12 +694,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
 
     public boolean onFetchAccountInfo() {
-        WLog.w("onFetchAccountInfo");
-        WLog.w("BaseChain1 :  " + mAccount.baseChain);
-        WLog.w("BaseChain2 :  " + BaseChain.getChain(mAccount.baseChain).getChain());
-//        WLog.w("BaseChain3 :  " + BaseChain.);
-
-
         if(mTaskCount > 0) return false;
         mTaskCount = 4;
         ArrayList<Account> accounts = new ArrayList<Account>();

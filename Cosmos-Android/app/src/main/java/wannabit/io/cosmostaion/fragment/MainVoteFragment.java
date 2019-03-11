@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.task.FetchTask.AllProposalTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class MainVoteFragment extends BaseFragment implements TaskListener {
 
@@ -79,6 +80,8 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
 
     private void onFetchProposals() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
+        WLog.w("onFetchProposals : " + getMainActivity().mAccount.address);
+        WLog.w("onFetchProposals : " + getMainActivity().mAccount.baseChain);
         new AllProposalTask(getBaseApplication(), this, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

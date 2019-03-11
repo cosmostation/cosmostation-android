@@ -140,7 +140,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     public void onChoiceNet(BaseChain chain) {
         super.onChoiceNet(chain);
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", WUtil.ByteArrayToHexString(mEntropy), "24");
+        new GenerateAccountTask(getBaseApplication(), this).execute(chain.getChain(), "0", WUtil.ByteArrayToHexString(mEntropy), "24");
     }
 
 
