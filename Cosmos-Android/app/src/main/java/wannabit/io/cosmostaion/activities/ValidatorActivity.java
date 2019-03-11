@@ -161,11 +161,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
     private void onInitFetch() {
+        WLog.w("onInitFetch : " + mAccount.baseChain);
+        WLog.w("onInitFetch : " + BaseChain.getChain(mAccount.baseChain).getChain());
         if(mTaskCount > 0) return;
         mTaskCount = 4;
-        new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.valueOf(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address), mValidator.operator_address, BaseChain.valueOf(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         if(mBondingState != null) {
             mTaskCount = mTaskCount + 1;
@@ -254,7 +256,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
 //        String jsonText = new Gson().toJson(req);
 //        WLog.w("jsonText : " + jsonText);
-        new ValHistoryTask(getBaseApplication(), this, req, BaseChain.valueOf(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ValHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -373,6 +375,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     }
                 });
 
+                if(mValidator.jailed) {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemImgRevoked.setVisibility(View.VISIBLE);
+                } else {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemImgRevoked.setVisibility(View.GONE);
+                }
+
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final MyValidatorHolder holder = (MyValidatorHolder)viewHolder;
@@ -409,6 +419,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6));
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("");
+
+                if(mValidator.jailed) {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemImgRevoked.setVisibility(View.VISIBLE);
+                } else {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemImgRevoked.setVisibility(View.GONE);
+                }
 
             } else if (getItemViewType(position) == TYPE_ACTION) {
                 final MyActionHolder holder = (MyActionHolder)viewHolder;
@@ -602,6 +620,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         public class ValidatorHolder extends RecyclerView.ViewHolder {
             CircleImageView itemAvatar;
+            ImageView    itemImgRevoked;
             TextView    itemTvMoniker;
             TextView    itemTvAddress;
             TextView    itemTvWebsite;
@@ -614,6 +633,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             public ValidatorHolder(View v) {
                 super(v);
                 itemAvatar              = itemView.findViewById(R.id.validator_avatar);
+                itemImgRevoked          = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemTvMoniker           = itemView.findViewById(R.id.validator_moniker);
                 itemTvAddress           = itemView.findViewById(R.id.validator_address);
                 itemTvWebsite           = itemView.findViewById(R.id.validator_site);
@@ -627,6 +647,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         public class MyValidatorHolder extends RecyclerView.ViewHolder {
             CircleImageView  itemAvatar;
+            ImageView    itemImgRevoked;
             ImageView   itemHideShow;
             TextView    itemTvMoniker;
             TextView    itemTvAddress;
@@ -639,6 +660,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             public MyValidatorHolder(View v) {
                 super(v);
                 itemAvatar              = itemView.findViewById(R.id.validator_avatar);
+                itemImgRevoked          = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemHideShow            = itemView.findViewById(R.id.validator_hide_show);
                 itemTvMoniker           = itemView.findViewById(R.id.validator_moniker);
                 itemTvAddress           = itemView.findViewById(R.id.validator_address);

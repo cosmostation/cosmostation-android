@@ -110,7 +110,7 @@ public class SimpleDelegateTask extends CommonTask {
 
             String gentx = WUtil.str2Hex(WUtil.getPresentor().toJson(signedTx));
             WLog.w("SimpleDelegateTask gentx : " +  gentx);
-            Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.valueOf(mAccount.baseChain)).broadcastTx(gentx).execute();
+            Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
             if(response.isSuccessful() && response.body() != null) {
                 ResBroadTx result = response.body();
                 WLog.w("SimpleDelegateTask result errorMsg : " + result.errorMsg);

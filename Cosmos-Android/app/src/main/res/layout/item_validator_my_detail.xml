@@ -34,13 +34,30 @@
                     <!--app:av_border_color="@color/colorGray3"-->
                     <!--app:av_border_width="1dp"-->
                     <!--app:av_text_size_percentage="40"/>-->
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/validator_avatar"
-                    android:layout_width="@dimen/space_50"
-                    android:layout_height="@dimen/space_50"
-                    android:src="@drawable/validator_none_img"
-                    app:civ_border_width="1dp"
-                    app:civ_border_color="@color/colorGray3"/>
+                <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                    <!--android:id="@+id/validator_avatar"-->
+                    <!--android:layout_width="@dimen/space_50"-->
+                    <!--android:layout_height="@dimen/space_50"-->
+                    <!--android:src="@drawable/validator_none_img"-->
+                    <!--app:civ_border_width="1dp"-->
+                    <!--app:civ_border_color="@color/colorGray3"/>-->
+                <RelativeLayout
+                    android:id="@+id/validator_avatar_layer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/validator_avatar"
+                        android:layout_width="@dimen/space_50"
+                        android:layout_height="@dimen/space_50"
+                        android:src="@drawable/validator_none_img"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/colorGray3"/>
+                    <ImageView
+                        android:id="@+id/avatar_validator_revoke"
+                        android:layout_width="@dimen/space_50"
+                        android:layout_height="@dimen/space_50"
+                        android:src="@drawable/revoked_img"/>
+                </RelativeLayout>
                 <ImageView
                     android:id="@+id/validator_hide_show"
                     android:layout_width="wrap_content"
@@ -53,7 +70,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/validator_avatar"
+                    android:layout_toRightOf="@id/validator_avatar_layer"
                     android:layout_toLeftOf="@+id/validator_hide_show"
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_centerVertical="true"
