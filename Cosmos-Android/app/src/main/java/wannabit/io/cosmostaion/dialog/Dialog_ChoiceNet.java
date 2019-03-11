@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class Dialog_ChoiceNet extends DialogFragment {
 
-    private LinearLayout mMain, mTest;
+    private LinearLayout mMain, mIris, mTest12k, mTest13k;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -39,23 +39,35 @@ public class Dialog_ChoiceNet extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_choice_net, null);
 
         mMain = view.findViewById(R.id.main_net);
-        mTest = view.findViewById(R.id.gaia_12k);
+        mIris = view.findViewById(R.id.iris_net);
+        mTest12k = view.findViewById(R.id.gaia_12k);
+        mTest13k = view.findViewById(R.id.gaia_13k);
 
         mMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("choiceNet", BaseConstant.COSMOS_MAINNET);
-//                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-//                getDialog().dismiss();
                 Toast.makeText(getContext(), getString(R.string.str_preparing), Toast.LENGTH_SHORT).show();
             }
         });
 
-        mTest.setOnClickListener(new View.OnClickListener() {
+        mIris.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.GAIA_12K);
+                Toast.makeText(getContext(), getString(R.string.str_preparing), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mTest12k.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), getString(R.string.str_deprecated), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mTest13k.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.GAIA_13K);
                 getDialog().dismiss();
             }
         });

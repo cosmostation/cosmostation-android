@@ -158,6 +158,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        WLog.w("onActivityResult " + requestCode +  "  "  + resultCode);
         if (requestCode == BaseConstant.CONST_PW_INIT && resultCode == Activity.RESULT_OK) {
             WLog.w("onActivityResult REQ_INIT_PASSWORD RESULT_OK");
             mCheckPassword = true;
@@ -165,9 +166,13 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             WLog.w("onActivityResult CONST_PW_SIMPLE_CHECK RESULT_OK");
             mCheckPassword = true;
         }
-        Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+        if(mCheckPassword) {
+            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
+            dialog.setCancelable(false);
+            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        }
+
     }
 
 

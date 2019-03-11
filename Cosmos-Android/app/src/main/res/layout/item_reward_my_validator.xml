@@ -29,20 +29,22 @@
                 android:layout_marginLeft="@dimen/space_2"
                 android:orientation="vertical"
                 android:gravity="center">
-                <!--<agency.tango.android.avatarview.views.AvatarView-->
-                    <!--android:id="@+id/avatar_validator"-->
-                    <!--android:layout_width="@dimen/space_50"-->
-                    <!--android:layout_height="@dimen/space_50"-->
-                    <!--app:av_border_color="@color/colorGray3"-->
-                    <!--app:av_border_width="1dp"-->
-                    <!--app:av_text_size_percentage="40"/>-->
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/avatar_validator"
-                    android:layout_width="@dimen/space_50"
-                    android:layout_height="@dimen/space_50"
-                    android:src="@drawable/validator_none_img"
-                    app:civ_border_width="1dp"
-                    app:civ_border_color="@color/colorGray3"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avatar_validator"
+                        android:layout_width="@dimen/space_50"
+                        android:layout_height="@dimen/space_50"
+                        android:src="@drawable/validator_none_img"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/colorGray3"/>
+                    <ImageView
+                        android:id="@+id/avatar_validator_revoke"
+                        android:layout_width="@dimen/space_50"
+                        android:layout_height="@dimen/space_50"
+                        android:src="@drawable/revoked_img"/>
+                </RelativeLayout>
             </LinearLayout>
             <View
                 android:id="@+id/line_validator"

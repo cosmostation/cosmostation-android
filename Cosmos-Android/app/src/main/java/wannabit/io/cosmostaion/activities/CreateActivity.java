@@ -16,9 +16,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -124,12 +126,23 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
             } else {
-                onShowWaitDialog();
-                new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", WUtil.ByteArrayToHexString(mEntropy), "24");
+//                onShowWaitDialog();
+//                new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", WUtil.ByteArrayToHexString(mEntropy), "24");
+                Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
+                dialog.setCancelable(false);
+                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
             }
         }
 
     }
+
+    @Override
+    public void onChoiceNet(BaseChain chain) {
+        super.onChoiceNet(chain);
+        onShowWaitDialog();
+        new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", WUtil.ByteArrayToHexString(mEntropy), "24");
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

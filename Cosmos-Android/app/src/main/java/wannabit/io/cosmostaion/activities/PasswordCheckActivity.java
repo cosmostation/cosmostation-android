@@ -121,7 +121,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         if(mUserInput != null && mUserInput.length() > 0) {
             userDeleteKey();
         } else {
-            super.onBackPressed();
+            setResult(Activity.RESULT_CANCELED, getIntent());
+            finish();
+//            super.onBackPressed();
+//            startActivityForResult(getIntent(), Activity.RESULT_CANCELED);
         }
     }
 

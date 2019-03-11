@@ -16,7 +16,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="@dimen/space_18">
+            android:padding="@dimen/space_4">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_8"
+                android:src="@drawable/cosmos_main"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -25,7 +30,29 @@
                 style="@style/font_ss_14_gray1"/>
         </LinearLayout>
         <View
-            android:id="@+id/send_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorGray10"/>
+        <LinearLayout
+            android:id="@+id/iris_net"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/space_4">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_8"
+                android:src="@drawable/irisnet"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_8"
+                android:text="@string/str_iris_main_net"
+                style="@style/font_ss_14_gray1"/>
+        </LinearLayout>
+        <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/colorGray10"/>
@@ -35,12 +62,40 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="@dimen/space_18">
+            android:padding="@dimen/space_4">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_8"
+                android:src="@drawable/cosmos_testnet"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_8"
-                android:text="@string/str_cosmos_test_net"
+                android:text="@string/str_cosmos_test_net_12k"
+                style="@style/font_ss_14_gray1"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorGray10"/>
+        <LinearLayout
+            android:id="@+id/gaia_13k"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/space_4">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_8"
+                android:src="@drawable/cosmos_testnet"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_8"
+                android:text="@string/str_cosmos_test_net_13k"
                 style="@style/font_ss_14_gray8"/>
         </LinearLayout>
     </LinearLayout>

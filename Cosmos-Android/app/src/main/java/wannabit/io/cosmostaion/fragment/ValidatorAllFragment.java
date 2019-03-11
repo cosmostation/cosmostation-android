@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -126,8 +127,13 @@ public class ValidatorAllFragment extends BaseFragment {
                     public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
                 });
             }
-            if(validator.jailed) holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
-            else holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+            if(validator.jailed) {
+                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                holder.itemRevoked.setVisibility(View.VISIBLE);
+            } else {
+                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                holder.itemRevoked.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -138,6 +144,7 @@ public class ValidatorAllFragment extends BaseFragment {
         public class AllValidatorHolder extends RecyclerView.ViewHolder {
             CardView        itemRoot;
             CircleImageView itemAvatar;
+            ImageView       itemRevoked;
             TextView        itemTvMoniker;
             TextView        itemTvVotingPower;
             TextView        itemTvCommission;
@@ -146,6 +153,7 @@ public class ValidatorAllFragment extends BaseFragment {
                 super(itemView);
                 itemRoot            = itemView.findViewById(R.id.card_validator);
                 itemAvatar          = itemView.findViewById(R.id.avatar_validator);
+                itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
                 itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
                 itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
