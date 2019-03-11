@@ -102,7 +102,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
     private void onCheckInNodeAddress(final String address, final BaseChain chain) {
         onShowWaitDialog();
-        ApiClient.getWannabitChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+        ApiClient.getWannabitChain(getBaseContext(), chain).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
             @Override
             public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
 

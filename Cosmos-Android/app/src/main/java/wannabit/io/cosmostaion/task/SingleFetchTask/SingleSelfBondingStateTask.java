@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.SingleFetchTask;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -16,18 +17,20 @@ public class SingleSelfBondingStateTask extends CommonTask {
 
     private String  mDelegateAddr;
     private String  mValidatorAddr;
+    private BaseChain mChain;
 
-    public SingleSelfBondingStateTask(BaseApplication app, TaskListener listener, String delegateAddr, String validatorAddr) {
+    public SingleSelfBondingStateTask(BaseApplication app, TaskListener listener, String delegateAddr, String validatorAddr, BaseChain chain) {
         super(app, listener);
         this.mResult.taskType   = BaseConstant.TASK_FETCH_SINGLE_SELF_BONDING;
         this.mDelegateAddr = delegateAddr;
         this.mValidatorAddr = validatorAddr;
+        this.mChain = chain;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResLcdBondings> response = ApiClient.getWannabitChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
+            Response<ResLcdBondings> response = ApiClient.getWannabitChain(mApp, mChain).getBonding(mDelegateAddr, mValidatorAddr).execute();
             if(response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body();
                 mResult.isSuccess = true;

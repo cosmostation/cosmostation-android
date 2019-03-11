@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -29,7 +30,7 @@ public class BondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             for(Account account : mAccounts) {
-                Response<ArrayList<ResLcdBondings>> response = ApiClient.getWannabitChain(mApp).getBondingList(account.address).execute();
+                Response<ArrayList<ResLcdBondings>> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(account.baseChain)).getBondingList(account.address).execute();
                 if(response.isSuccessful()) {
 //                    WLog.w("BondingStateTask : " + response.body().size());
                     if (response.body() != null && response.body().size() > 0) {

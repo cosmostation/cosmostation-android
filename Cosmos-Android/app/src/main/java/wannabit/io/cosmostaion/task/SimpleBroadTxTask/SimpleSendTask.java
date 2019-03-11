@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -116,7 +117,7 @@ public class SimpleSendTask extends CommonTask {
 
             String gentx = WUtil.str2Hex(WUtil.getPresentor().toJson(signedTx));
             WLog.w("SimpleSendTask gentx : " +  gentx);
-            Response<ResBroadTx> response = ApiClient.getCSService(mApp).broadcastTx(gentx).execute();
+            Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.valueOf(mAccount.baseChain)).broadcastTx(gentx).execute();
             if(response.isSuccessful() && response.body() != null) {
                 ResBroadTx result = response.body();
                 WLog.w("SimpleSendTask result errorMsg : " + result.errorMsg);

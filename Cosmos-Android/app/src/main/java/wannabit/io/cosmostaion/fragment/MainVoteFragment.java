@@ -17,18 +17,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Proposal;
-import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.task.FetchTask.AllProposalTask;
-import wannabit.io.cosmostaion.task.FetchTask.HistoryTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.test.TestAdapter;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class MainVoteFragment extends BaseFragment implements TaskListener {
 
@@ -80,7 +78,8 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
     }
 
     private void onFetchProposals() {
-        new AllProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if(getMainActivity() == null || getMainActivity().mAccount == null) return;
+        new AllProposalTask(getBaseApplication(), this, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -165,6 +164,10 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
 
             }
         }
+    }
+
+    public MainActivity getMainActivity() {
+        return (MainActivity)getBaseActivity();
     }
 }
 

@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqTx;
@@ -17,17 +18,19 @@ import wannabit.io.cosmostaion.utils.WLog;
 public class ValHistoryTask extends CommonTask {
 
     private ReqTxVal mReq;
+    private BaseChain mChain;
 
-    public ValHistoryTask(BaseApplication app, TaskListener listener, ReqTxVal mReq) {
+    public ValHistoryTask(BaseApplication app, TaskListener listener, ReqTxVal mReq, BaseChain chain) {
         super(app, listener);
         this.mResult.taskType   = BaseConstant.TASK_FETCH_VAL_HISTORY;
         this.mReq = mReq;
+        this.mChain = chain;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResHistory> response = ApiClient.getEsService(mApp).getValTx(mReq).execute();
+            Response<ResHistory> response = ApiClient.getEsService(mApp, mChain).getValTx(mReq).execute();
             if(response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body().hits.hits;
                 mResult.isSuccess = true;

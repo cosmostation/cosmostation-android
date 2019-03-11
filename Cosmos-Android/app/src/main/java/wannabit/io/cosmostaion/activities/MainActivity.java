@@ -44,6 +44,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -683,11 +684,18 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
 
     public boolean onFetchAccountInfo() {
+        WLog.w("onFetchAccountInfo");
+        WLog.w("BaseChain1 :  " + mAccount.baseChain);
+        WLog.w("BaseChain2 :  " + BaseChain.getChain(mAccount.baseChain).getChain());
+//        WLog.w("BaseChain3 :  " + BaseChain.);
+
+
         if(mTaskCount > 0) return false;
         mTaskCount = 4;
         ArrayList<Account> accounts = new ArrayList<Account>();
         accounts.add(mAccount);
-        new AllValidatorInfoTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.get(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new AccountInfoTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new BondingStateTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new UnBondingStateTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

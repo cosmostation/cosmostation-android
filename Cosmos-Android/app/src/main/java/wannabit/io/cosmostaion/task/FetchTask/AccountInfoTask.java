@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -28,7 +29,7 @@ public class AccountInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             for(Account account : mAccounts) {
-                Response<ResLcdAccountInfo> response = ApiClient.getWannabitChain(mApp).getAccountInfo(account.address).execute();
+                Response<ResLcdAccountInfo> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(account.baseChain)).getAccountInfo(account.address).execute();
                 if(response == null) {
                     WLog.w("AccountInfoTask null " + account.address);
                 }

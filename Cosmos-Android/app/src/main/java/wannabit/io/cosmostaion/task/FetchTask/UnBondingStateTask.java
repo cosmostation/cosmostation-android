@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -28,7 +29,7 @@ public class UnBondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             for(Account account : mAccounts) {
-                Response<ArrayList<ResLcdUnBondings>> response = ApiClient.getWannabitChain(mApp).getUnBondingList(account.address).execute();
+                Response<ArrayList<ResLcdUnBondings>> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(account.baseChain)).getUnBondingList(account.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().size() > 0) {
                         WLog.w("UnBondingStateTask : " + response.body().size());

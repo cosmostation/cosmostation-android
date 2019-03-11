@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.req.ReqTx;
@@ -124,7 +125,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address);
 //        String jsonText = new Gson().toJson(req);
 //        WLog.w("jsonText : " + jsonText);
-        new HistoryTask(getBaseApplication(), this, req).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

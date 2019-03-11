@@ -29,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -162,9 +163,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onInitFetch() {
         if(mTaskCount > 0) return;
         mTaskCount = 4;
-        new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.valueOf(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address), mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address), mValidator.operator_address, BaseChain.valueOf(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         if(mBondingState != null) {
             mTaskCount = mTaskCount + 1;
@@ -253,7 +254,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
 //        String jsonText = new Gson().toJson(req);
 //        WLog.w("jsonText : " + jsonText);
-        new ValHistoryTask(getBaseApplication(), this, req).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ValHistoryTask(getBaseApplication(), this, req, BaseChain.valueOf(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

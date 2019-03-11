@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.SingleFetchTask;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -28,7 +29,7 @@ public class SingleBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResLcdBondings> response = ApiClient.getWannabitChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
+            Response<ResLcdBondings> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getBonding(mAccount.address, mValidatorAddr).execute();
             if(response.isSuccessful()) {
                 if(response.body() != null)
                     mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body()));

@@ -23,6 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -176,7 +177,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 }
             });
 
-            ApiClient.getWannabitChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+            ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mChain)).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                 @Override
                 public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
                     if(response.isSuccessful() && response.body() != null) {

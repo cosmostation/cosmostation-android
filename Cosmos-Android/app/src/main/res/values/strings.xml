@@ -10,6 +10,11 @@
     <string name="url_cosmostation">https://api-dev.cosmostation.io/</string>
 
 
+    <string name="url_lcd_wannabit_13k">http://54.180.171.141:1317/</string>
+    <string name="url_lcd_gaia_13k">https://lcd-dev-gaia13k.cosmostation.io/</string>
+    <string name="url_esearch_13k">https://search-cosmostation-explorer-dev-2-yvgjzlpmadeaypebfp2a33r3lm.ap-northeast-2.es.amazonaws.com/</string>
+    <string name="url_cosmostation_13k">https://api-dev-gaia13k.cosmostation.io/</string>
+
     <string name="key_mnemonic">MNEMONIC_KEY</string>
     <string name="key_password">PASSWORD_KEY</string>
 
@@ -179,7 +184,7 @@
     <string name="str_only_observe_msg">This account has only address with watch mode.\nYou need add mnemonics for generate transaction.</string>
     <string name="str_all_validators">All Validators</string>
     <string name="str_my_validators">My Validators</string>
-    <string name="str_withdraw_all">Withdraw All Rewards</string>
+    <string name="str_withdraw_all">Claim all Rewards</string>
     <string name="str_delegated">Delegated</string>
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>

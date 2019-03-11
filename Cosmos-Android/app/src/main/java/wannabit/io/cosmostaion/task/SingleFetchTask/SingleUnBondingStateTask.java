@@ -1,7 +1,10 @@
 package wannabit.io.cosmostaion.task.SingleFetchTask;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -27,7 +30,7 @@ public class SingleUnBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResLcdUnBondings> response = ApiClient.getWannabitChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
+            Response<ResLcdUnBondings> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getUnbonding(mAccount.address, mValidatorAddr).execute();
             if(response.isSuccessful() && response.body() != null) {
                 mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body()));
                 mResult.isSuccess = true;

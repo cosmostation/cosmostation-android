@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.TotalReward;
@@ -30,7 +31,7 @@ public class TotalRewardTask extends CommonTask {
         HashMap<Long, TotalReward>       mTotalRewards = new HashMap<>();
         try {
             for(Account account : mAccounts) {
-                Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp).getTotalRewards(account.address).execute();
+                Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(account.baseChain)).getTotalRewards(account.address).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().size() > 0) {
 //                    mTotalRewards.put()
                     TotalReward totalReward = new TotalReward(account.id, response.body());

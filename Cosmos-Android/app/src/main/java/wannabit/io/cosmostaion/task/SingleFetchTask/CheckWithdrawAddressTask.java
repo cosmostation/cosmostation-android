@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.SingleFetchTask;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -23,7 +24,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<String> response = ApiClient.getWannabitChain(mApp).getWithdrawAddress(mAccount.address).execute();
+            Response<String> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getWithdrawAddress(mAccount.address).execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

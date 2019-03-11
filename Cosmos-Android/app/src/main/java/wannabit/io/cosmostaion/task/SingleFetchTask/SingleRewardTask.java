@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Reward;
@@ -29,7 +30,7 @@ public class SingleRewardTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
+            Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

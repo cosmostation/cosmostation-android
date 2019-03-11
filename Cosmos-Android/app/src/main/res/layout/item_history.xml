@@ -22,7 +22,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_74"
-            android:padding="@dimen/space_12">
+            android:paddingTop="@dimen/space_12"
+            android:paddingBottom="@dimen/space_12"
+            android:paddingLeft="@dimen/space_12"
+            android:paddingRight="@dimen/space_8">
 
             <RelativeLayout
                 android:id="@+id/history_header"
