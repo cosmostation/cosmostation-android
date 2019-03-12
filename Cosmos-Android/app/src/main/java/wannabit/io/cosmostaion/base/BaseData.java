@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class BaseData {
@@ -26,6 +27,7 @@ public class BaseData {
     private SharedPreferences   mSharedPreferences;
     private SQLiteDatabase      mSQLiteDatabase;
     private Validator           mValidator;
+    private ResBroadTx          mTxResult;
 
 
     public BaseData(BaseApplication apps) {
@@ -82,12 +84,13 @@ public class BaseData {
         this.mValidator = validator;
     }
 
+    public ResBroadTx getTxResult() {
+        return mTxResult;
+    }
 
-
-
-
-
-
+    public void setTxResult(ResBroadTx txResult) {
+        this.mTxResult = txResult;
+    }
 
     public Password onSelectPassword() {
         Password result = null;

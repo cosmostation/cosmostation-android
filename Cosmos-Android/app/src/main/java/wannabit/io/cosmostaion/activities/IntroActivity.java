@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,13 +20,17 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -38,6 +43,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqTx;
+import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.test.TestActivity;
@@ -126,28 +132,28 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 //        Account account = getBaseDao().onSelectAccounts().get(0);
 //        WLog.w("account : " + account.address + "  " + account.baseChain);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+////                if(getBaseDao().onSelectAccounts().size() == 0) {
+////                    onInitView();
+////                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
+////                    onStartMainActivity();
+////                } else {
+////                    onStartListActivity();
+////                }
 //                if(getBaseDao().onSelectAccounts().size() == 0) {
 //                    onInitView();
-//                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-//                    onStartMainActivity();
 //                } else {
-//                    onStartListActivity();
+//                    onStartMainActivity();
 //                }
-                if(getBaseDao().onSelectAccounts().size() == 0) {
-                    onInitView();
-                } else {
-                    onStartMainActivity();
-                }
-            }
-        }, 1500);
+//            }
+//        }, 1500);
 
 //        onShowWaitDialog();
 
 //        WLog.w("INTRO");
-//        startActivity(new Intent(IntroActivity.this, TestActivity.class));
+        startActivity(new Intent(IntroActivity.this, TxResultActivity.class));
 
         WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
 //        WLog.w("FCM token: " + FirebaseInstanceId.getInstance().getInstanceId().toString());
@@ -170,6 +176,10 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 //                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
+
+
     }
 
     @Override

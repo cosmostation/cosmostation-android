@@ -132,6 +132,14 @@
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
+        <activity
+            android:name=".activities.TxResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:launchMode="singleTask">
+        </activity>
+
 
         <activity
             android:name=".activities.WebActivity"

@@ -77,7 +77,7 @@ public class SimpleSendTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-            Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mToSendAmount);
+            Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mToSendAmount, BaseChain.getChain(mAccount.baseChain));
 //            WLog.w("SimpleSendTask stdTx : " +  WUtil.getPresentor().toJson(singleSendMsg));
 
             ArrayList<Msg> msgs= new ArrayList<>();
@@ -119,14 +119,19 @@ public class SimpleSendTask extends CommonTask {
             WLog.w("SimpleSendTask gentx : " +  gentx);
             Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
             if(response.isSuccessful() && response.body() != null) {
-                ResBroadTx result = response.body();
-                WLog.w("SimpleSendTask result errorMsg : " + result.errorMsg);
-                WLog.w("SimpleSendTask result errorCode : " + result.errorCode);
-                WLog.w("SimpleSendTask result hash : " + result.hash);
-                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
-                    mResult.resultData = result.hash;
-                    mResult.isSuccess = true;
-                }
+                WLog.w("SimpleSendTask result: " + response.body().hash + " " + response.body().isAllSuccess());
+                mResult.resultData = response.body();
+                mResult.isSuccess = true;
+//                ResBroadTx result = response.body();
+////                WLog.w("SimpleSendTask result errorMsg : " + result.errorMsg);
+////                WLog.w("SimpleSendTask result errorCode : " + result.errorCode);
+////                WLog.w("SimpleSendTask result hash : " + result.hash);
+////                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
+////                    mResult.resultData = result.hash;
+////                    mResult.isSuccess = true;
+////                }
+//                WLog.w("SimpleSendTask result hash : " + result.hash);
+//                WLog.w("SimpleSendTask result height : " + result.height);
             }
 
 

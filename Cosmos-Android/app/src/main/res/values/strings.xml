@@ -2,7 +2,7 @@
     <string name="app_name">Cosmostation</string>
     <string name="db_password">wannabit</string>
 
-    <string name="url_lcd_wannabit">https://52.231.71.66:1317/</string>
+    <!--<string name="url_lcd_wannabit">https://52.231.71.66:1317/</string>-->
     <string name="url_lcd_gaia">https://lcd-dev.cosmostation.io</string>
     <string name="url_lcd_gos">cosmos lcd gos</string>
     <string name="url_keybase">https://keybase.io/</string>
@@ -10,7 +10,7 @@
     <string name="url_cosmostation">https://api-dev.cosmostation.io/</string>
 
 
-    <string name="url_lcd_wannabit_13k">http://54.180.171.141:1317/</string>
+    <!--<string name="url_lcd_wannabit_13k">http://54.180.171.141:1317/</string>-->
     <string name="url_lcd_gaia_13k">https://lcd-dev-gaia13k.cosmostation.io/</string>
     <string name="url_esearch_13k">https://search-cosmostation-explorer-dev-2-yvgjzlpmadeaypebfp2a33r3lm.ap-northeast-2.es.amazonaws.com/</string>
     <string name="url_cosmostation_13k">https://api-dev-gaia13k.cosmostation.io/</string>
@@ -132,6 +132,11 @@
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
+    <string name="str_mintscan">Check Explorer</string>
+    <string name="str_tx_success">Transaction Success</string>
+    <string name="str_tx_failed">Transaction Failed</string>
+
+
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
@@ -282,20 +283,24 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD) {
-            if(result.isSuccess) {
-                String hash = String.valueOf(result.resultData);
-                if(!TextUtils.isEmpty(hash)) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("hash", hash);
-                    Dialog_Tx_Result  dialog = Dialog_Tx_Result.newInstance(bundle);
-                    dialog.setCancelable(false);
-                    dialog.show(getSupportFragmentManager(), "dialog");
-                } else {
-                    onStartMainActivity();
-                }
-            } else {
-                onStartMainActivity();
-            }
+//            if(result.isSuccess) {
+//                String hash = String.valueOf(result.resultData);
+//                if(!TextUtils.isEmpty(hash)) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("hash", hash);
+//                    Dialog_Tx_Result  dialog = Dialog_Tx_Result.newInstance(bundle);
+//                    dialog.setCancelable(false);
+//                    dialog.show(getSupportFragmentManager(), "dialog");
+//                } else {
+//                    onStartMainActivity();
+//                }
+//            } else {
+//                onStartMainActivity();
+//            }
+            getBaseDao().setTxResult((ResBroadTx)result.resultData);
+            Intent txIntent = new Intent(PasswordCheckActivity.this, TxResultActivity.class);
+            txIntent.putExtra("txType", result.taskType);
+            startActivity(txIntent);
 
         } else if (result.taskType == BaseConstant.TASK_DELETE_USER) {
             if(result.isSuccess) {

@@ -64,6 +64,7 @@ public class BaseConstant {
     public final static String                  COSMOS_AUTH_TYPE_ACCOUNT                = "auth/Account";
 
     public final static String                  COSMOS_MSG_TYPE_TRANSFER                = "cosmos-sdk/Send";
+    public final static String                  COSMOS_MSG_TYPE_TRANSFER2               = "cosmos-sdk/MsgSend";
     public final static String                  COSMOS_MSG_TYPE_DELEGATE                = "cosmos-sdk/MsgDelegate";
     public final static String                  COSMOS_MSG_TYPE_UNDELEGATE              = "cosmos-sdk/Undelegate";
     public final static String                  COSMOS_MSG_TYPE_REDELEGATE              = "cosmos-sdk/BeginRedelegate";

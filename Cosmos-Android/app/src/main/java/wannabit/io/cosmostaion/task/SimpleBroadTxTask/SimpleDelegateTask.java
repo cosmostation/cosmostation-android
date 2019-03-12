@@ -112,20 +112,25 @@ public class SimpleDelegateTask extends CommonTask {
             WLog.w("SimpleDelegateTask gentx : " +  gentx);
             Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
             if(response.isSuccessful() && response.body() != null) {
-                ResBroadTx result = response.body();
-                WLog.w("SimpleDelegateTask result errorMsg : " + result.errorMsg);
-                WLog.w("SimpleDelegateTask result errorCode : " + result.errorCode);
-                WLog.w("SimpleDelegateTask result hash : " + result.hash);
-                if(result.log != null) {
-                    WLog.w("SimpleDelegateTask result.log : " + result.log);
-                } else {
-                    WLog.w("SimpleDelegateTask result.log : " + null);
-                }
-
-                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
-                    mResult.resultData = result.hash;
-                    mResult.isSuccess = true;
-                }
+                WLog.w("SimpleDelegateTask result: " + response.body().hash + " " + response.body().isAllSuccess());
+                mResult.resultData = response.body();
+                mResult.isSuccess = true;
+//                ResBroadTx result = response.body();
+//                WLog.w("SimpleDelegateTask result errorMsg : " + result.errorMsg);
+//                WLog.w("SimpleDelegateTask result errorCode : " + result.errorCode);
+//                WLog.w("SimpleDelegateTask result hash : " + result.hash);
+//                if(result.log != null) {
+//                    WLog.w("SimpleDelegateTask result.log : " + result.log);
+//                } else {
+//                    WLog.w("SimpleDelegateTask result.log : " + null);
+//                }
+//
+//                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
+//                    mResult.resultData = result.hash;
+//                    mResult.isSuccess = true;
+//                }
+//                WLog.w("SimpleDelegateTask result hash : " + result.hash);
+//                WLog.w("SimpleDelegateTask result height : " + result.height);
             }
 
 

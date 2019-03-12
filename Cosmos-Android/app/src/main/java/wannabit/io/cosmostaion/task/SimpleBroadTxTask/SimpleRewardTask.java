@@ -106,14 +106,19 @@ public class SimpleRewardTask extends CommonTask {
             WLog.w("SimpleRewardTask gentx : " +  gentx);
             Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
             if(response.isSuccessful() && response.body() != null) {
-                ResBroadTx result = response.body();
-                WLog.w("SimpleRewardTask result errorMsg : " + result.errorMsg);
-                WLog.w("SimpleRewardTask result errorCode : " + result.errorCode);
-                WLog.w("SimpleRewardTask result hash : " + result.hash);
-                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
-                    mResult.resultData = result.hash;
-                    mResult.isSuccess = true;
-                }
+                WLog.w("SimpleRewardTask result: " + response.body().hash + " " + response.body().isAllSuccess());
+                mResult.resultData = response.body();
+                mResult.isSuccess = true;
+//                ResBroadTx result = response.body();
+//                WLog.w("SimpleRewardTask result errorMsg : " + result.errorMsg);
+//                WLog.w("SimpleRewardTask result errorCode : " + result.errorCode);
+//                WLog.w("SimpleRewardTask result hash : " + result.hash);
+//                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
+//                    mResult.resultData = result.hash;
+//                    mResult.isSuccess = true;
+//                }
+//                WLog.w("SimpleRewardTask result hash : " + result.hash);
+//                WLog.w("SimpleRewardTask result height : " + result.height);
             }
 
 

@@ -13,6 +13,7 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.model.StdSignMsg;
@@ -33,7 +34,7 @@ import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class MsgGenerator {
 
-    public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins) {
+    public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         value.from_address = fromAddr;
@@ -53,10 +54,12 @@ public class MsgGenerator {
 //        value.outputs = outputs;
 
 
-
-        result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER;
+        if(chain.equals(BaseChain.GAIA_12K)) {
+            result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER;
+        } else {
+            result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
+        }
         result.value = value;
-
         return result;
     }
 

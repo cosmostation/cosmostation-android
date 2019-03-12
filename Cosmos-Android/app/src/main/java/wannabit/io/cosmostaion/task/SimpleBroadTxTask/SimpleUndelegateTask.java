@@ -114,14 +114,18 @@ public class SimpleUndelegateTask extends CommonTask {
             WLog.w("SimpleUndelegateTask gentx : " +  gentx);
             Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
             if(response.isSuccessful() && response.body() != null) {
-                ResBroadTx result = response.body();
-                WLog.w("SimpleUndelegateTask result errorMsg : " + result.errorMsg);
-                WLog.w("SimpleUndelegateTask result errorCode : " + result.errorCode);
-                WLog.w("SimpleUndelegateTask result hash : " + result.hash);
-                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
-                    mResult.resultData = result.hash;
-                    mResult.isSuccess = true;
-                }
+                WLog.w("SimpleUndelegateTask result: " + response.body().hash + " " + response.body().isAllSuccess());
+                mResult.resultData = response.body();
+                mResult.isSuccess = true;
+//                ResBroadTx result = response.body();
+//                WLog.w("SimpleUndelegateTask result errorMsg : " + result.errorMsg);
+//                WLog.w("SimpleUndelegateTask result errorCode : " + result.errorCode);
+//                WLog.w("SimpleUndelegateTask result hash : " + result.hash);
+//                WLog.w("SimpleUndelegateTask result height : " + result.height);
+//                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
+//                    mResult.resultData = result.hash;
+//                    mResult.isSuccess = true;
+//                }
             }
 
         } catch (Exception e) {

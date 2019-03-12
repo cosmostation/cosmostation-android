@@ -10,9 +10,11 @@ import retrofit2.http.Path;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResBlockInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
+import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface WannabitChain {
 
@@ -22,8 +24,11 @@ public interface WannabitChain {
     @GET("/auth/accounts/{address}")
     Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
 
-    @GET("/txs")
-    Call<JsonObject> getSearchTx();
+    @GET("/txs/{hash}")
+    Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
+
+    @GET("/blocks/{height}")
+    Call<ResBlockInfo> getSearchBlock(@Path("height") String height);
 
     @GET("/staking/validators")
     Call<ArrayList<Validator>> getValidatorDetailList();

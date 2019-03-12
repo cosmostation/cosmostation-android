@@ -52,6 +52,16 @@ public class Msg {
         @SerializedName("amount")
         public ArrayList<Coin> amount;
 
+
+        //From 0.33.0 version changed
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("delegator_address")
+        public String delegator_address;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("validator_address")
+        public String validator_address;
+
     }
 
 }

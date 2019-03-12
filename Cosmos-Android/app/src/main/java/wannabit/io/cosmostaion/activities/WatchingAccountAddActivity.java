@@ -105,7 +105,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         ApiClient.getWannabitChain(getBaseContext(), chain).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
             @Override
             public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-
                 if(response.isSuccessful() && response.body() != null) {
                     new GenerateEmptyAccountTask(getBaseApplication(), WatchingAccountAddActivity.this).execute(chain.getChain(), address);
                 } else {
