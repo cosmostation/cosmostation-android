@@ -115,6 +115,7 @@ public class BaseActivity extends AppCompatActivity {
         if(getBaseDao().onUpdateTestChain(account) > 0) {
             getBaseDao().onDeleteBondingStates(id);
             getBaseDao().onDeleteUnbondingStates(id);
+            getBaseDao().onDeleteBalance(""+id);
             onStartMainActivity();
         } else {
             WLog.w("Update error");
