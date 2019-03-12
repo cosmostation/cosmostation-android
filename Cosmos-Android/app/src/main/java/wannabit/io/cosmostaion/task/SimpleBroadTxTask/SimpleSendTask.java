@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
 import android.text.TextUtils;
 
+import com.google.gson.JsonObject;
+
 import org.bitcoinj.crypto.DeterministicKey;
 
 import java.util.ArrayList;
@@ -131,13 +133,20 @@ public class SimpleSendTask extends CommonTask {
 ////                    mResult.isSuccess = true;
 ////                }
 //                WLog.w("SimpleSendTask result hash : " + result.hash);
-//                WLog.w("SimpleSendTask result height : " + result.height);
+//                WLog.w("SimpleSendTask result height : " + response.body());
+//                WLog.w("SimpleSendTask result height : " + response.body().toString());
             }
 
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());
             e.printStackTrace();
+            if(e.getMessage().toLowerCase().contains("time")) {
+                mResult.errorCode = BaseConstant.ERROR_CODE_TIMEOUT;
+            } else {
+                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+            }
+
         }
         return mResult;
     }

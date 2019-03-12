@@ -132,28 +132,28 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 //        Account account = getBaseDao().onSelectAccounts().get(0);
 //        WLog.w("account : " + account.address + "  " + account.baseChain);
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-////                if(getBaseDao().onSelectAccounts().size() == 0) {
-////                    onInitView();
-////                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-////                    onStartMainActivity();
-////                } else {
-////                    onStartListActivity();
-////                }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 //                if(getBaseDao().onSelectAccounts().size() == 0) {
 //                    onInitView();
-//                } else {
+//                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
 //                    onStartMainActivity();
+//                } else {
+//                    onStartListActivity();
 //                }
-//            }
-//        }, 1500);
+                if(getBaseDao().onSelectAccounts().size() == 0) {
+                    onInitView();
+                } else {
+                    onStartMainActivity();
+                }
+            }
+        }, 1500);
 
 //        onShowWaitDialog();
 
 //        WLog.w("INTRO");
-        startActivity(new Intent(IntroActivity.this, TxResultActivity.class));
+//        startActivity(new Intent(IntroActivity.this, TxResultActivity.class));
 
         WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
 //        WLog.w("FCM token: " + FirebaseInstanceId.getInstance().getInstanceId().toString());

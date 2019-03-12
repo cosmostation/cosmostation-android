@@ -108,6 +108,7 @@ public class BaseConstant {
     public final static int					    ERROR_CODE_UNKNOWN		                = 8000;
     public final static int					    ERROR_CODE_NETWORK		                = 8001;
     public final static int					    ERROR_CODE_INVALID_PASSWORD		        = 8002;
+    public final static int					    ERROR_CODE_TIMEOUT	                    = 8003;
 
 
     public final static String                  COSMOS_MAINNET                          = "COSMOS_MAINNET";

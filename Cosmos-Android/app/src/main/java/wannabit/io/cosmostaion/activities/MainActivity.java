@@ -749,15 +749,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
 
 
-
-
-
-
-
-
-
-
-
     private void onTest() {
         WLog.w("onTest");
         ArrayList<Account> accouts = getBaseDao().onSelectAccounts();

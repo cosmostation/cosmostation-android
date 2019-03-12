@@ -1,9 +1,18 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -15,16 +24,19 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBlockInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class TxResultActivity extends BaseActivity {
+public class TxResultActivity extends BaseActivity implements View.OnClickListener {
 
+    private boolean                     mTimeout;
     private ResBroadTx                  mResBroadTx;
     private ResTxInfo                   mResTxInfo;
     private ResBlockInfo                mResBlockInfo;
@@ -32,10 +44,70 @@ public class TxResultActivity extends BaseActivity {
     private Account                     mAccount;
     public ArrayList<Balance>           mBalances = new ArrayList<>();
 
+
+    private CardView                    mRootCard, mTimeoutCard;
+    private TextView                    mToolbarTitle;
+    private ImageView                   mToolbarClose;
+    private Button                      mBtnScan, mBtnShare, mBtnOk;
+    private TextView                    mBlockTime, mTxError;
+
+    private TextView                    mTvtxType, mTxHash, mRemindAtomTitle, mRemindAtom, mRemindPhotonTitle, mRemindPhoton;
+
+    private LinearLayout                mSendLayer;
+    private RelativeLayout              mSendAtomLayer, mSendPhotonLayer, mFeeAtomLayer, mFeePhotonLayer;
+    private TextView                    mTxFrom, mTxTo, mSendAtomTitle, mSendAtom, mSendPhotonTitle, mSendPhoton,
+                                        mFeeAtomTitle, mFeeAtom, mFeePhotonTitle, mFeePhoton;
+
+    private TextView                    mMemo;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tx_result);
+
+        mToolbarTitle           = findViewById(R.id.toolbar_title);
+        mToolbarClose           = findViewById(R.id.toolbar_close);
+        mBtnScan                = findViewById(R.id.btn_scan);
+        mBtnShare               = findViewById(R.id.btn_share);
+        mBtnOk                  = findViewById(R.id.btn_ok);
+        mBlockTime              = findViewById(R.id.tv_block_time);
+        mTxError                = findViewById(R.id.tv_block_error);
+
+        mRootCard               = findViewById(R.id.root_card);
+        mTimeoutCard            = findViewById(R.id.timeout_card);
+
+        mTvtxType               = findViewById(R.id.tx_type);
+        mTxHash                 = findViewById(R.id.tx_hash);
+        mRemindAtomTitle        = findViewById(R.id.remind_atom_title);
+        mRemindAtom             = findViewById(R.id.remind_atom);
+        mRemindPhotonTitle      = findViewById(R.id.remind_photon_title);
+        mRemindPhoton           = findViewById(R.id.remind_photon);
+
+
+        mSendLayer              = findViewById(R.id.send_content_layer);
+        mTxFrom                 = findViewById(R.id.tx_from);
+        mTxTo                   = findViewById(R.id.tx_to);
+        mSendAtomLayer          = findViewById(R.id.send_atom_layer);
+        mSendAtomTitle          = findViewById(R.id.send_atom_title);
+        mSendAtom               = findViewById(R.id.send_atom);
+        mSendPhotonLayer        = findViewById(R.id.send_photon_layer);
+        mSendPhotonTitle        = findViewById(R.id.send_photon_title);
+        mSendPhoton             = findViewById(R.id.send_photon);
+        mFeeAtomLayer           = findViewById(R.id.fee_atom_layer);
+        mFeeAtomTitle           = findViewById(R.id.fee_atom_title);
+        mFeeAtom                = findViewById(R.id.fee_atom);
+        mFeePhotonLayer         = findViewById(R.id.fee_photon_layer);
+        mFeePhotonTitle         = findViewById(R.id.fee_photon_title);
+        mFeePhoton              = findViewById(R.id.fee_photon);
+
+        mMemo                   = findViewById(R.id.tx_memo);
+
+        mToolbarClose.setOnClickListener(this);
+        mBtnScan.setOnClickListener(this);
+        mBtnShare.setOnClickListener(this);
+        mBtnOk.setOnClickListener(this);
+
     }
 
     @Override
@@ -45,26 +117,107 @@ public class TxResultActivity extends BaseActivity {
         mBalances   = getBaseDao().onSelectBalance(mAccount.id);
         mResBroadTx = getBaseDao().getTxResult();
         mTxType     = getIntent().getIntExtra("txType", BaseConstant.TASK_GEN_TX_SIMPLE_SEND);
-//        if(mResBroadTx == null) {
-//            onStartMainActivity();
-//        } else {
-            onFetchTx();
-//        }
+        mTimeout    = getIntent().getBooleanExtra("timeout", false);
+
+        if(mTimeout) {
+            mRootCard.setVisibility(View.GONE);
+            mTimeoutCard.setVisibility(View.INVISIBLE);
+            mBtnScan.setClickable(false);
+            mBtnShare.setClickable(false);
+            return;
+        }
+
+        if(mResBroadTx == null) {
+            WLog.w("mResBroadTx NULL");
+            onStartMainActivity();
+            return;
+        }
+
+        if(mResBroadTx.isAllSuccess()) {
+            mToolbarTitle.setText(getString(R.string.str_tx_success));
+            mTxError.setVisibility(View.GONE);
+        } else {
+            mToolbarTitle.setText(getString(R.string.str_tx_failed));
+            mTxError.setText(getString(R.string.str_tx_block_error) + " : " + mResBroadTx.getErrorReason());
+            mTxError.setVisibility(View.VISIBLE);
+        }
+
+        mSendAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+        mSendPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
+        mRemindAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+        mRemindPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
+        mFeeAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+        mFeePhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
+
+        onFetchTx();
+        onFetchBlock(mResBroadTx.height);
+        onFetchSingleAccount();
+
     }
 
 
-    private void onUpdateViews() {
-        WLog.w("onUpdateViews");
-//        String hash = "5FD8F3AE1DDDFCDE4D45331862341C40A527B3F648AC93E2BF83DDC24F570902";
-    }
+//    private void onUpdateViews() {
+//        WLog.w("onUpdateViews");
+////        String hash = "5FD8F3AE1DDDFCDE4D45331862341C40A527B3F648AC93E2BF83DDC24F570902";
+//    }
 
     private void onUpdateTimes() {
         WLog.w("onUpdateTimes");
+        mBlockTime.setText(getString(R.string.str_tx_block_height) + " : " + mResBlockInfo.block_meta.header.height +
+                "      " + getString(R.string.str_tx_block_time) + " : " + WDp.getTimeformat(getBaseContext(), mResBlockInfo.block_meta.header.time));
+
     }
 
     private void onUpdateBalances() {
         WLog.w("onUpdateBalances");
         mBalances = getBaseDao().onSelectBalance(mAccount.id);
+        mRemindAtom.setText(WDp.getDpAtomBalance(getBaseContext(), mBalances));
+        mRemindPhoton.setText(WDp.getDpPhotonBalance(getBaseContext(), mBalances));
+    }
+
+    private void onUpdateTx() {
+        WLog.w("onUpdateTx : " + mResTxInfo.tx.value.msg.get(0).type);
+        if(mResTxInfo == null) {
+            return;
+        }
+
+        if(mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) ||
+                mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2)) {
+            mTvtxType.setText(R.string.tx_send);
+            mTxHash.setText(mResTxInfo.txhash);
+            mTxFrom.setText(mResTxInfo.tx.value.msg.get(0).value.from_address);
+            mTxTo.setText(mResTxInfo.tx.value.msg.get(0).value.to_address);
+            mMemo.setText(mResTxInfo.tx.value.memo);
+
+            for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.amount) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                    mSendAtomLayer.setVisibility(View.VISIBLE);
+                    mSendAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
+                }
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+                    mSendPhotonLayer.setVisibility(View.VISIBLE);
+                    mSendPhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
+                }
+            }
+
+            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                    mFeeAtomLayer.setVisibility(View.VISIBLE);
+                    mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
+                }
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+                    mFeePhotonLayer.setVisibility(View.VISIBLE);
+                    mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
+                }
+            }
+
+
+
+
+        } else {
+
+        }
+
     }
 
 
@@ -75,7 +228,8 @@ public class TxResultActivity extends BaseActivity {
                 if(response.isSuccessful() && response.body() != null) {
                     WLog.w("getSearchTx : " + response.body().height);
                     mResTxInfo = response.body();
-                    onUpdateViews();
+                    onUpdateTx();
+
 
                 } else {
                     WLog.w("onFetchTx Error!!");
@@ -102,9 +256,7 @@ public class TxResultActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<ResBlockInfo> call, Throwable t) {
-
-            }
+            public void onFailure(Call<ResBlockInfo> call, Throwable t) { }
         });
     }
 
@@ -120,9 +272,33 @@ public class TxResultActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {
-
-            }
+            public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
         });
     }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mToolbarClose) || v.equals(mBtnOk)) {
+            onStartMainActivity();
+
+        } else if (v.equals(mBtnScan)) {
+            Intent webintent = new Intent(this, WebActivity.class);
+            webintent.putExtra("txid", mResTxInfo.txhash);
+            webintent.putExtra("goMain", true);
+            startActivity(webintent);
+
+        } else if (v.equals(mBtnShare)) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
+            shareIntent.setType("text/plain");
+            startActivity(Intent.createChooser(shareIntent, "send"));
+        }
+    }
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//    }
+
 }

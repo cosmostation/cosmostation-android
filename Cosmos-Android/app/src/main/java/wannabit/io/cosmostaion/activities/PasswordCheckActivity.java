@@ -266,6 +266,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     @Override
     public void onTaskResponse(TaskResult result) {
+        WLog.w("onTaskResponse ");
         if(isFinishing()) return;
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_PASSWORD_CHECK) {
@@ -283,6 +284,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD) {
+            WLog.w("onTaskResponse GENTX ");
 //            if(result.isSuccess) {
 //                String hash = String.valueOf(result.resultData);
 //                if(!TextUtils.isEmpty(hash)) {
@@ -297,9 +299,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 //            } else {
 //                onStartMainActivity();
 //            }
+
+
             getBaseDao().setTxResult((ResBroadTx)result.resultData);
             Intent txIntent = new Intent(PasswordCheckActivity.this, TxResultActivity.class);
             txIntent.putExtra("txType", result.taskType);
+            if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_TIMEOUT) {
+                txIntent.putExtra("timeout", true);
+            }
             startActivity(txIntent);
 
         } else if (result.taskType == BaseConstant.TASK_DELETE_USER) {

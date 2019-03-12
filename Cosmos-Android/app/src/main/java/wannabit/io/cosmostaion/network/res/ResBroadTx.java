@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.network.res;
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -25,10 +26,16 @@ public class ResBroadTx {
     @SerializedName("deliver_tx")
     public DeliverTx deliver_tx;
 
+    public boolean timeout;
+
     public boolean isAllSuccess() {
         boolean result = true;
+        if(deliver_tx == null || TextUtils.isEmpty(deliver_tx.log)) {
+            return false;
+        }
+
         ArrayList<ResultLog> logs = new Gson().fromJson(deliver_tx.log, new TypeToken<List<ResultLog>>(){}.getType());
-        WLog.w("logs : " + logs.size());
+//        WLog.w("logs : " + logs.size());
         if(logs == null || logs.size() <= 0 ){
             result  = false;
         }
@@ -42,13 +49,21 @@ public class ResBroadTx {
 
     public String getErrorReason() {
         String result = "";
-        ArrayList<ResultLog> logs = new Gson().fromJson(deliver_tx.log, new TypeToken<List<ResultLog>>(){}.getType());
-        for(ResultLog log : logs) {
-            LogDetail logDetail = new Gson().fromJson(log.log, LogDetail.class);
-            if(logDetail != null && !TextUtils.isEmpty(logDetail.message)) {
-                result = logDetail.message;
+        if(deliver_tx != null && !TextUtils.isEmpty(deliver_tx.log)) {
+            ArrayList<ResultLog> logs = new Gson().fromJson(deliver_tx.log, new TypeToken<List<ResultLog>>(){}.getType());
+            for(ResultLog log : logs) {
+                LogDetail logDetail = new Gson().fromJson(log.log, LogDetail.class);
+                if(logDetail != null && !TextUtils.isEmpty(logDetail.message)) {
+                    result = logDetail.message;
+                }
             }
         }
+        if(TextUtils.isEmpty(result)) {
+            LogDetail log = new Gson().fromJson(check_tx.log, LogDetail.class);
+            if(!TextUtils.isEmpty(log.message))
+                result = log.message;
+        }
+
         return result;
     }
 
@@ -59,6 +74,9 @@ public class ResBroadTx {
 
         @SerializedName("gasUsed")
         public String gasUsed;
+
+        @SerializedName("log")
+        public String log;
     }
 
 

@@ -11,4 +11,7 @@ public interface Cosmostation {
 
     @GET("/tx/broadcast/{gentx}")
     Call<ResBroadTx> broadcastTx(@Path("gentx") String gentx);
+
+    @GET("/tx/broadcast/{gentx}")
+    Call<JsonObject> broadcastTx2(@Path("gentx") String gentx);
 }

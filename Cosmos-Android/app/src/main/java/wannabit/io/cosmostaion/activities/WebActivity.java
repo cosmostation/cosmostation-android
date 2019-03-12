@@ -13,6 +13,7 @@ public class WebActivity extends BaseActivity {
 
     private WebView     mWebview;
     private String      mTxid, mVoteId;
+    private boolean         mGoMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class WebActivity extends BaseActivity {
 
         mTxid  = getIntent().getStringExtra("txid");
         mVoteId = getIntent().getStringExtra("voteId");
+        mGoMain = getIntent().getBooleanExtra("goMain", true);
 
         if (!TextUtils.isEmpty(mTxid))
             mWebview.loadUrl("https://www.mintscan.io/txs/"+mTxid);
@@ -47,7 +49,12 @@ public class WebActivity extends BaseActivity {
         if(mWebview.canGoBack()) {
             mWebview.goBack();
         } else {
-            super.onBackPressed();
+            if(mGoMain) {
+                onStartMainActivity();
+            } else {
+                super.onBackPressed();
+            }
+
         }
     }
 }

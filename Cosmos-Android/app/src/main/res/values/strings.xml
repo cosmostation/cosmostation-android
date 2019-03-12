@@ -135,6 +135,17 @@
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
+    <string name="str_tx_type">Transaction Type</string>
+    <string name="str_tx_hash">Transaction Hash</string>
+    <string name="str_tx_after_balance">Remind Balance</string>
+    <string name="str_tx_from">From</string>
+    <string name="str_tx_to">To</string>
+    <string name="str_tx_send_amount">Sent Amount</string>
+    <string name="str_tx_send_fees">Fees</string>
+    <string name="str_tx_memo">Memo</string>
+    <string name="str_tx_block_height">Block</string>
+    <string name="str_tx_block_time">Time</string>
+    <string name="str_tx_block_error">Error</string>
 
 
 
@@ -219,6 +230,7 @@
     <string name="error_not_enough_atom">No enough Balance to Delegate</string>
     <string name="error_not_enough_budget">No enough budget to Send</string>
     <string name="error_not_enough_reward">No enough reward to Claim</string>
+    <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
 
 
     <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
