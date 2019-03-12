@@ -333,7 +333,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 //        Intent claimReward = new Intent(MainActivity.this, ClaimRewardActivity.class);
 //        claimReward.putExtra("isAll", true);
 //        startActivity(claimReward);
-        Toast.makeText(getBaseContext(), "내일 합시다.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "Preparing...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
