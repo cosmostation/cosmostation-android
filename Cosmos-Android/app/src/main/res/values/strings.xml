@@ -151,6 +151,8 @@
     <string name="str_tx_reward_from">Reward From</string>
     <string name="str_tx_undelegate_from">Undelegate From</string>
     <string name="str_tx_undelegate_amount">Undelegate Amount</string>
+    <string name="str_tx_chain_upgrade_title">Test Net Upgrade</string>
+    <string name="str_tx_chain_upgrade_msg">Gaia 12k is deprecated and Gaia 13K is available\n If you select Yes, your wallet can use in 13k with same address.\n But your test coins are be zero. and delegate information are reset.</string>
 
 
 

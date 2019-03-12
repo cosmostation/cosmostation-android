@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.WalletListActivity;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -102,5 +103,21 @@ public class BaseActivity extends AppCompatActivity {
     public void onAddMnemonicForAccount() {
         WLog.w("onAddMnemonicForAccount");
         startActivity(new Intent(BaseActivity.this, RestoreActivity.class));
+    }
+
+    public void onUpdateTestNet(long id) {
+//        getBaseDao().onSelectBalance(id);
+//        getBaseDao().onDeleteBondingStates(id);
+//        getBaseDao().onDeleteUnbondingStates(id);
+        WLog.w("onUpdateTestNet : " + id);
+        Account account = getBaseDao().onSelectAccount(""+id);
+        account.baseChain = BaseChain.GAIA_13K.getChain();
+        if(getBaseDao().onUpdateTestChain(account) > 0) {
+            getBaseDao().onDeleteBondingStates(id);
+            getBaseDao().onDeleteUnbondingStates(id);
+            onStartMainActivity();
+        } else {
+            WLog.w("Update error");
+        }
     }
 }

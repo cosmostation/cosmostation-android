@@ -53,6 +53,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
+import wannabit.io.cosmostaion.dialog.Dialog_ChainUpgrade;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -305,6 +306,15 @@ public class MainActivity extends BaseActivity implements TaskListener {
         }
         if(!hasbalance){
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+            Bundle bundle = new Bundle();
+            bundle.putLong("id", mAccount.id);
+            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
 

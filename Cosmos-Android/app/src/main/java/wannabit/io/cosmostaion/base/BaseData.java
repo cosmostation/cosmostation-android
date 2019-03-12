@@ -331,6 +331,13 @@ public class BaseData {
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
+    public long onUpdateTestChain(Account account) {
+        WLog.w("onUpdateTestChain : " + account.baseChain);
+        ContentValues values = new ContentValues();
+        values.put("baseChain",            account.baseChain);
+        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
+    }
+
     public long onOverrideAccount(Account account) {
         ContentValues values = new ContentValues();
         values.put("hasPrivateKey",     account.hasPrivateKey);

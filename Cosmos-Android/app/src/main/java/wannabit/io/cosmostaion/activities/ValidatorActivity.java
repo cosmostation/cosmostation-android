@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.dialog.Dialog_ChainUpgrade;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -200,6 +201,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
+        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+            Bundle bundle = new Bundle();
+            bundle.putLong("id", mAccount.id);
+            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
 
         getBaseDao().setValidator(mValidator);
         Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
@@ -219,6 +228,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+            Bundle bundle = new Bundle();
+            bundle.putLong("id", mAccount.id);
+            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
         getBaseDao().setValidator(mValidator);
         Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
         startActivity(unDelegate);
@@ -241,6 +260,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         if(mReward == null) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+            Bundle bundle = new Bundle();
+            bundle.putLong("id", mAccount.id);
+            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
 
