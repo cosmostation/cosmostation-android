@@ -310,7 +310,7 @@ public class WDp {
             return result;
 
         Msg msg = msgs.get(0);
-        if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER)) {
+        if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) || msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2)) {
             if (msg.value.from_address != null && msg.value.from_address.equals(address)) {
                 result = BaseConstant.TX_TYPE_SEND;
             } else if (msg.value.to_address != null && msg.value.to_address.equals(address)) {
@@ -321,10 +321,10 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE)) {
             result = BaseConstant.TX_TYPE_DELEGATE;
 
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE) || msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2)) {
             result = BaseConstant.TX_TYPE_UNDELEGATE;
 
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE) || msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2)) {
             result = BaseConstant.TX_TYPE_REDELEGATE;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL)) {

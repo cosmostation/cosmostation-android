@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import wannabit.io.cosmostaion.base.BaseChain;
+
 public class ReqTx {
 
     @SerializedName("from")
@@ -58,7 +60,7 @@ public class ReqTx {
 //    }
 
 
-    public ReqTx(int from, int searchType, boolean isDesc, String address) {
+    public ReqTx(int from, int searchType, boolean isDesc, String address, BaseChain chain) {
         this.from = from;
 
         HeightKeyword heightKeyword = new HeightKeyword();
@@ -74,13 +76,18 @@ public class ReqTx {
         multiMatch.query = address;
         ArrayList<String> fields = new ArrayList<>();
         if(searchType == 0) {
-            fields.add(delegator_addr);
             fields.add(from_addr);
             fields.add(to_addr);
             fields.add(depositor_addr);
             fields.add(voter_addr);
             fields.add(input_addr);
             fields.add(output_addr);
+            if(chain.equals(BaseChain.GAIA_12K)) {
+                fields.add(delegator_addr);
+            } else {
+
+                fields.add(delegator_address);
+            }
         }
         multiMatch.fields = fields;
         Query query = new Query();
@@ -91,6 +98,7 @@ public class ReqTx {
     }
 
     public static final String delegator_addr = "tx.value.msg.value.delegator_addr";
+    public static final String delegator_address = "tx.value.msg.value.delegator_address";
     public static final String from_addr = "tx.value.msg.value.from_address";
     public static final String to_addr = "tx.value.msg.value.to_address";
     public static final String depositor_addr = "tx.value.msg.value.depositor";
