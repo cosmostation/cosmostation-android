@@ -67,7 +67,9 @@ public class BaseConstant {
     public final static String                  COSMOS_MSG_TYPE_TRANSFER2               = "cosmos-sdk/MsgSend";
     public final static String                  COSMOS_MSG_TYPE_DELEGATE                = "cosmos-sdk/MsgDelegate";
     public final static String                  COSMOS_MSG_TYPE_UNDELEGATE              = "cosmos-sdk/Undelegate";
+    public final static String                  COSMOS_MSG_TYPE_UNDELEGATE2             = "cosmos-sdk/MsgUndelegate";
     public final static String                  COSMOS_MSG_TYPE_REDELEGATE              = "cosmos-sdk/BeginRedelegate";
+    public final static String                  COSMOS_MSG_TYPE_REDELEGATE2             = "cosmos-sdk/MsgBeginRedelegate";
     public final static String                  COSMOS_MSG_TYPE_WITHDRAW_DEL            = "cosmos-sdk/MsgWithdrawDelegationReward";
     public final static String                  COSMOS_MSG_TYPE_WITHDRAW_VAL            = "cosmos-sdk/MsgWithdrawValidatorCommission";
     public final static String                  COSMOS_MSG_TYPE_WITHDRAW_MIDIFY         = "cosmos-sdk/MsgModifyWithdrawAddress";

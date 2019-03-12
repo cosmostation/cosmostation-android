@@ -242,7 +242,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
@@ -334,6 +335,160 @@
                                     android:layout_centerVertical="true"
                                     style="@style/font_ssl_11_white"/>
                             </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/delegate_content_layer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_16"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/delegate_to"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/str_tx_delegate_to"
+                                    style="@style/font_ss_12_gray1"/>
+                                <TextView
+                                    android:id="@+id/tx_delegateTo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_toRightOf="@+id/delegate_to"
+                                    android:layout_marginLeft="@dimen/space_24"
+                                    android:ellipsize="middle"
+                                    android:singleLine="true"
+                                    android:gravity="right"
+                                    style="@style/font_ss_11_white"/>
+                            </RelativeLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_12"
+                                android:text="@string/str_tx_delegate_amount"
+                                style="@style/font_ss_12_gray1"/>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_6">
+                                <TextView
+                                    android:id="@+id/delegate_atom_title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="@dimen/space_24"
+                                    android:text="@string/str_atom_c"
+                                    style="@style/font_ss_11_atom"/>
+                                <TextView
+                                    android:id="@+id/delegate_atom"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    style="@style/font_ssl_11_white"
+                                    android:text="dfsdf"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/reward_content_layer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_16"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/reward_from"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/str_tx_reward_from"
+                                    style="@style/font_ss_12_gray1"/>
+                                <TextView
+                                    android:id="@+id/tx_reward_from"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_toRightOf="@+id/reward_from"
+                                    android:layout_marginLeft="@dimen/space_24"
+                                    android:ellipsize="middle"
+                                    android:singleLine="true"
+                                    android:gravity="right"
+                                    style="@style/font_ss_11_white"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/undelegate_content_layer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_16"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/undelegate_from"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/str_tx_undelegate_from"
+                                    style="@style/font_ss_12_gray1"/>
+                                <TextView
+                                    android:id="@+id/tx_undelegate_from"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_toRightOf="@+id/undelegate_from"
+                                    android:layout_marginLeft="@dimen/space_24"
+                                    android:ellipsize="middle"
+                                    android:singleLine="true"
+                                    android:gravity="right"
+                                    style="@style/font_ss_11_white"/>
+                            </RelativeLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_12"
+                                android:text="@string/str_tx_undelegate_amount"
+                                style="@style/font_ss_12_gray1"/>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_6">
+                                <TextView
+                                    android:id="@+id/undelegate_atom_title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="@dimen/space_24"
+                                    android:text="@string/str_atom_c"
+                                    style="@style/font_ss_11_atom"/>
+                                <TextView
+                                    android:id="@+id/undelegate_atom"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    style="@style/font_ssl_11_white"
+                                    android:text="dfsdf"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

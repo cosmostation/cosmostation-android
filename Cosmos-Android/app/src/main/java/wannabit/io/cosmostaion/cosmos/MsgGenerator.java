@@ -77,12 +77,19 @@ public class MsgGenerator {
 //        return result;
 //    }
 
-    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout) {
+    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
 
-        value.delegator_addr = fromAddr;
-        value.validator_addr = toValAddr;
+        if(chain.equals(BaseChain.GAIA_12K)) {
+            value.delegator_addr = fromAddr;
+            value.validator_addr = toValAddr;
+
+        } else {
+            value.delegator_address = fromAddr;
+            value.validator_address = toValAddr;
+
+        }
         value.value = toDeleagteAmout;
 
         result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
@@ -91,27 +98,40 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genUnbondMsg(String requestAddr, String fromValAddr, String amount) {
+    public static Msg genUnbondMsg(String requestAddr, String fromValAddr, String amount, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
 
-        value.delegator_addr = requestAddr;
-        value.validator_addr = fromValAddr;
+        if(chain.equals(BaseChain.GAIA_12K)) {
+            value.delegator_addr = requestAddr;
+            value.validator_addr = fromValAddr;
+            result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE;
+        } else {
+            value.delegator_address = requestAddr;
+            value.validator_address = fromValAddr;
+            result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
+        }
         value.shares_amount = amount;
 
-        result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE;
+
         result.value = value;
 
         return result;
     }
 
 
-    public static Msg genWithdrawDeleMsg(String requestAddr, String fromValAddr) {
+    public static Msg genWithdrawDeleMsg(String requestAddr, String fromValAddr, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
 
-        value.delegator_addr = requestAddr;
-        value.validator_addr = fromValAddr;
+        if(chain.equals(BaseChain.GAIA_12K)) {
+            value.delegator_addr = requestAddr;
+            value.validator_addr = fromValAddr;
+        } else {
+            value.delegator_address = requestAddr;
+            value.validator_address = fromValAddr;
+        }
+
 
         result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
         result.value = value;

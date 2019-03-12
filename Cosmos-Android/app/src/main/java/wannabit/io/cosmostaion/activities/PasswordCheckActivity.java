@@ -204,6 +204,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE) {
+            onShowWaitDialog();
             new SimpleUndelegateTask(getBaseApplication(),
                     this,
                     mAccount,
@@ -213,6 +214,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_REWARD) {
+            onShowWaitDialog();
             new SimpleRewardTask(getBaseApplication(),
                     this,
                     mAccount,

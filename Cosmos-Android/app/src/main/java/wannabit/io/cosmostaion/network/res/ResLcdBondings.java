@@ -12,4 +12,12 @@ public class ResLcdBondings {
 
     @SerializedName("shares")
     public String shares;
+
+
+    //13k
+    @SerializedName("delegator_address")
+    public String delegator_address;
+
+    @SerializedName("validator_address")
+    public String validator_address;
 }

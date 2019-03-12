@@ -77,7 +77,7 @@ public class SimpleUndelegateTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
             WLog.w("amount : " + new BigDecimal(mUndelegateAmount).setScale(18).toPlainString());
-            Msg singleUnbondMsg = MsgGenerator.genUnbondMsg(mAccount.address, mFromValidatorAddress, new BigDecimal(mUndelegateAmount).setScale(18).toPlainString());
+            Msg singleUnbondMsg = MsgGenerator.genUnbondMsg(mAccount.address, mFromValidatorAddress, new BigDecimal(mUndelegateAmount).setScale(18).toPlainString(), BaseChain.getChain(mAccount.baseChain));
 
 //            ArrayList<Msg.Value> msgs = new ArrayList<>();
             //TODO type change check

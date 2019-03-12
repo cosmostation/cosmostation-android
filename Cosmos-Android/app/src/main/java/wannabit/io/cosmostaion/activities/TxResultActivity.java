@@ -58,6 +58,16 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private TextView                    mTxFrom, mTxTo, mSendAtomTitle, mSendAtom, mSendPhotonTitle, mSendPhoton,
                                         mFeeAtomTitle, mFeeAtom, mFeePhotonTitle, mFeePhoton;
 
+    private LinearLayout                mDelegateLayer;
+    private TextView                    mDelegateTo, mDelegateAtomTitle, mDelegateAtom;
+
+    private LinearLayout                mRewardLayer;
+    private TextView                    mRewardFrom;
+
+    private LinearLayout                mUndelegateLayer;
+    private TextView                    mUndelegateFrom, mUndelegateAtomTitle, mUndelegateAtom;
+
+
     private TextView                    mMemo;
 
 
@@ -100,6 +110,22 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mFeePhotonLayer         = findViewById(R.id.fee_photon_layer);
         mFeePhotonTitle         = findViewById(R.id.fee_photon_title);
         mFeePhoton              = findViewById(R.id.fee_photon);
+
+
+        mDelegateLayer          = findViewById(R.id.delegate_content_layer);
+        mDelegateTo             = findViewById(R.id.tx_delegateTo);
+        mDelegateAtomTitle      = findViewById(R.id.delegate_atom_title);
+        mDelegateAtom           = findViewById(R.id.delegate_atom);
+
+        mRewardLayer            = findViewById(R.id.reward_content_layer);
+        mRewardFrom             = findViewById(R.id.tx_reward_from);
+
+
+        mUndelegateLayer        = findViewById(R.id.undelegate_content_layer);
+        mUndelegateFrom         = findViewById(R.id.tx_undelegate_from);
+        mUndelegateAtomTitle    = findViewById(R.id.undelegate_atom_title);
+        mUndelegateAtom         = findViewById(R.id.undelegate_atom);
+
 
         mMemo                   = findViewById(R.id.tx_memo);
 
@@ -149,6 +175,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mFeeAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
         mFeePhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
 
+        mDelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+        mUndelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+
         onFetchTx();
         onFetchBlock(mResBroadTx.height);
         onFetchSingleAccount();
@@ -180,14 +209,29 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         if(mResTxInfo == null) {
             return;
         }
+        mTxHash.setText(mResTxInfo.txhash);
+        mMemo.setText(mResTxInfo.tx.value.memo);
+
+        for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+            if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                mFeeAtomLayer.setVisibility(View.VISIBLE);
+                mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
+            }
+            if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+                mFeePhotonLayer.setVisibility(View.VISIBLE);
+                mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
+            }
+        }
+
 
         if(mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) ||
                 mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2)) {
+            mSendLayer.setVisibility(View.VISIBLE);
             mTvtxType.setText(R.string.tx_send);
-            mTxHash.setText(mResTxInfo.txhash);
+
             mTxFrom.setText(mResTxInfo.tx.value.msg.get(0).value.from_address);
             mTxTo.setText(mResTxInfo.tx.value.msg.get(0).value.to_address);
-            mMemo.setText(mResTxInfo.tx.value.memo);
+
 
             for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
@@ -200,21 +244,23 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
             }
 
-            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                    mFeeAtomLayer.setVisibility(View.VISIBLE);
-                    mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
-                }
-                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
-                    mFeePhotonLayer.setVisibility(View.VISIBLE);
-                    mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
-                }
-            }
+        } else if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE)){
+            mDelegateLayer.setVisibility(View.VISIBLE);
+            mTvtxType.setText(R.string.tx_delegate);
+            mDelegateTo.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
+            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.value.amount), 6));
 
+        } else if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL)){
+            mRewardLayer.setVisibility(View.VISIBLE);
+            mTvtxType.setText(R.string.tx_get_reward);
+            mRewardFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
 
-
-
-        } else {
+        } else if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE) ||
+                mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2)){
+            mUndelegateLayer.setVisibility(View.VISIBLE);
+            mTvtxType.setText(R.string.tx_undelegate);
+            mUndelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
+            mUndelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.shares_amount), 6));
 
         }
 

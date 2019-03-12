@@ -146,6 +146,11 @@
     <string name="str_tx_block_height">Block</string>
     <string name="str_tx_block_time">Time</string>
     <string name="str_tx_block_error">Error</string>
+    <string name="str_tx_delegate_to">Delegate To</string>
+    <string name="str_tx_delegate_amount">Delegate Amount</string>
+    <string name="str_tx_reward_from">Reward From</string>
+    <string name="str_tx_undelegate_from">Undelegate From</string>
+    <string name="str_tx_undelegate_amount">Undelegate Amount</string>
 
 
 

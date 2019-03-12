@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.text.TextUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -86,24 +87,44 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<BondingState> result = new ArrayList<>();
         for(ResLcdBondings val : list) {
-            BondingState temp = new BondingState(accountId, val.validator_addr, new BigDecimal(val.shares), time);
+            String valAddress = "";
+            if(!TextUtils.isEmpty(val.validator_addr))
+                valAddress = val.validator_addr;
+            if(!TextUtils.isEmpty(val.validator_address))
+                valAddress = val.validator_address;
+
+
+//            BondingState temp = new BondingState(accountId, val.validator_addr, new BigDecimal(val.shares), time);
+            BondingState temp = new BondingState(accountId, valAddress, new BigDecimal(val.shares), time);
             result.add(temp);
         }
         return result;
     }
 
     public static BondingState getBondingFromLcd(long accountId, ResLcdBondings lcd) {
-        return new BondingState(accountId, lcd.validator_addr, new BigDecimal(lcd.shares), System.currentTimeMillis());
+        String valAddress = "";
+        if(!TextUtils.isEmpty(lcd.validator_addr))
+            valAddress = lcd.validator_addr;
+        if(!TextUtils.isEmpty(lcd.validator_address))
+            valAddress = lcd.validator_address;
+//        return new BondingState(accountId, lcd.validator_addr, new BigDecimal(lcd.shares), System.currentTimeMillis());
+        return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
     }
 
     public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, long accountId, ArrayList<ResLcdUnBondings> list) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
         for(ResLcdUnBondings val : list) {
+            String valAddress = "";
+            if(!TextUtils.isEmpty(val.validator_addr))
+                valAddress = val.validator_addr;
+            if(!TextUtils.isEmpty(val.validator_address))
+                valAddress = val.validator_address;
+
             for(ResLcdUnBondings.Entry entry:val.entries) {
                 UnBondingState temp = new UnBondingState(
                         accountId,
-                        val.validator_addr,
+                        valAddress,
                         entry.creation_height,
                         WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
                         new BigDecimal(entry.getinitial_balance()),
@@ -121,9 +142,15 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
         for(ResLcdUnBondings.Entry entry:lcd.entries) {
+            String valAddress = "";
+            if(!TextUtils.isEmpty(lcd.validator_addr))
+                valAddress = lcd.validator_addr;
+            if(!TextUtils.isEmpty(lcd.validator_address))
+                valAddress = lcd.validator_address;
+
             UnBondingState temp = new UnBondingState(
                     accountId,
-                    lcd.validator_addr,
+                    valAddress,
                     entry.creation_height,
                     WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
                     new BigDecimal(entry.getinitial_balance()),

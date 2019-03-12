@@ -77,7 +77,7 @@ public class SimpleDelegateTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-            Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mToValidatorAddress, mToDelegateAmount);
+            Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mToValidatorAddress, mToDelegateAmount, BaseChain.getChain(mAccount.baseChain));
 
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleDelegateMsg);
