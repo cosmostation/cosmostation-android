@@ -64,6 +64,8 @@ public class SendActivity extends BaseActivity {
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
+        mTvStep.setText(getString(R.string.str_send_step_0));
+
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) { }

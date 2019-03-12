@@ -83,19 +83,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_11_gray1"
-                    android:text="Min"/>
+                    android:text="@string/str_high"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     style="@style/font_ss_11_gray1"
-                    android:text="Mid"/>
+                    android:text="@string/str_average"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     style="@style/font_ss_11_gray1"
-                    android:text="High"/>
+                    android:text="@string/str_high"/>
             </RelativeLayout>
         </LinearLayout>
 

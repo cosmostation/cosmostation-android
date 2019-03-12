@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_2"
             style="@style/font_ss_11_gray1"
-            android:text="avabale : "/>
+            android:text="available : "/>
         <TextView
             android:id="@+id/tv_max_coin"
             android:layout_width="wrap_content"

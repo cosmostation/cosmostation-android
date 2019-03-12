@@ -60,13 +60,13 @@
     <string name="str_memo">memo</string>
     <string name="str_fees">fees</string>
     <string name="str_fees_c">FEES</string>
-    <string name="str_to_send_amount">To Send Amount</string>
+    <string name="str_to_send_amount">Amount</string>
     <string name="str_from_c">FROM</string>
     <string name="str_to_c">TO</string>
     <string name="str_memo_c">MEMO</string>
-    <string name="str_remind_balance">Remind Balance</string>
-    <string name="str_to_delegate_amount">To Delegate Amount</string>
-    <string name="str_to_delegate_validator">To Delegate Validator</string>
+    <string name="str_remind_balance">Remaining balance</string>
+    <string name="str_to_delegate_amount">Amount</string>
+    <string name="str_to_delegate_validator">Validator</string>
     <string name="str_undelegate_amount">To Undelegate Amount</string>
     <string name="str_from_undelegate_validator">Undelegate From</string>
     <string name="str_undelegate_complete_time">Expected Delivery</string>
@@ -75,8 +75,8 @@
     <string name="str_reward_all_c">CLAIM ALL REWARD</string>
     <string name="str_reward_amount">Reward Amount</string>
     <string name="str_reward_from">Reward From</string>
-    <string name="str_reward_to">Reward Receive Address</string>
-    <string name="str_expected_balance">Expected Balance</string>
+    <string name="str_reward_to">Recipient address</string>
+    <string name="str_expected_balance">Expected Final Balance</string>
     <string name="str_success">success</string>
     <string name="str_failed">failed</string>
     <string name="str_preparing">Preparing...</string>
@@ -94,7 +94,7 @@
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
-    <string name="str_wallet_manage">My Wallet Manage</string>
+    <string name="str_wallet_manage">Wallet Manage</string>
     <string name="str_general">General</string>
     <string name="str_alarm">Alarm</string>
     <string name="str_currency">Currency</string>
@@ -137,7 +137,7 @@
     <string name="str_tx_failed">Transaction Failed</string>
     <string name="str_tx_type">Transaction Type</string>
     <string name="str_tx_hash">Transaction Hash</string>
-    <string name="str_tx_after_balance">Remind Balance</string>
+    <string name="str_tx_after_balance">Remaining balance</string>
     <string name="str_tx_from">From</string>
     <string name="str_tx_to">To</string>
     <string name="str_tx_send_amount">Sent Amount</string>
@@ -176,18 +176,18 @@
     <string name="str_password_msg1">Insert again for confirm.</string>
     <string name="str_password_msg2">No way to recover this. please remember!</string>
     <string name="str_send_step_0">Insert recipient address.</string>
-    <string name="str_send_step_1">Insert to send amount and type.</string>
-    <string name="str_send_step_2">Insert memo to involve.(Optional)</string>
-    <string name="str_send_step_3">Select transaction fees.</string>
-    <string name="str_send_step_4">Check your information to send.</string>
-    <string name="str_delegate_step_1">Insert amount to delegate.</string>
-    <string name="str_delegate_step_2">Insert memo to involve.(Optional)</string>
-    <string name="str_delegate_step_3">Select transaction fees.</string>
-    <string name="str_delegate_step_4">Check your information to delegate.</string>
-    <string name="str_undelegate_step_1">Insert amount to undelegate.</string>
-    <string name="str_undelegate_step_2">Insert memo to involve.(Optional)</string>
-    <string name="str_undelegate_step_3">Select transaction fees.</string>
-    <string name="str_undelegate_step_4">Check your information to undelegate.</string>
+    <string name="str_send_step_1">Insert send amount and select token type.</string>
+    <string name="str_send_step_2">Insert memo. (optional)</string>
+    <string name="str_send_step_3">Select transaction fee.</string>
+    <string name="str_send_step_4"> Check transaction detail.</string>
+    <string name="str_delegate_step_1">Enter delegation amount.</string>
+    <string name="str_delegate_step_2">Insert memo. (optional)</string>
+    <string name="str_delegate_step_3">Select transaction fee.</string>
+    <string name="str_delegate_step_4">Check delegation detail.</string>
+    <string name="str_undelegate_step_1">Enter undelegation amount.</string>
+    <string name="str_undelegate_step_2">Insert memo. (optional)</string>
+    <string name="str_undelegate_step_3">Select transaction fee.</string>
+    <string name="str_undelegate_step_4">Check undelegation detail.</string>
     <string name="str_unbonding_days_after"><![CDATA[(3 days after)]]></string>
     <string name="str_reward_step_1">Check your reward amount.</string>
     <string name="str_reward_step_2">Insert memo to involve.(Optional)</string>
@@ -199,9 +199,9 @@
     <string name="str_delete">Delete</string>
     <string name="str_close">Close</string>
     <string name="str_intro">Decentralized crypto currency wallet\nFor Tendermint based blockchains.\nSupport Cosmos Hub and Gaia testnet.</string>
-    <string name="str_no_history_with_this_validator">No History about this Validator.</string>
-    <string name="str_let_start_cosmos"><![CDATA["Let's start Cosmos Hub"]]></string>
-    <string name="str_let_start_cosmos2">Delegate your ATOM and get reward with Cosmostation! \n Super fast and esay to using with local signing!</string>
+    <string name="str_no_history_with_this_validator">No history.</string>
+    <string name="str_let_start_cosmos"><![CDATA["Explore the Cosmos Hub"]]></string>
+    <string name="str_let_start_cosmos2"> Delegate your ATOM and claim rewards with Cosmostation.\nFast and easy transactions with local signing!</string>
     <string name="str_change_nickname">Change wallet Name</string>
     <string name="str_wallet_nickname">Wallet Name</string>
     <string name="str_start_delegate">Can receive a certain amount of interest\naccording to the fee policy set by the validator.</string>
@@ -216,6 +216,10 @@
     <string name="str_delegated">Delegated</string>
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>
+    <string name="str_low">Low</string>
+    <string name="str_average">Average</string>
+    <string name="str_high">High</string>
+    <string name="str_available">Available</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
@@ -235,7 +239,7 @@
     <string name="error_already_imported_address">Already Imported Address.</string>
     <string name="error_import_errer">Can not add this address/public key.</string>
     <string name="error_not_enough_atom">No enough Balance to Delegate</string>
-    <string name="error_not_enough_budget">No enough budget to Send</string>
+    <string name="error_not_enough_budget">Insufficient balance</string>
     <string name="error_not_enough_reward">No enough reward to Claim</string>
     <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
 

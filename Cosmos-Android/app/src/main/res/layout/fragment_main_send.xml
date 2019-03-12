@@ -129,7 +129,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Undelegate"
+                                android:text="@string/str_available"
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_atom_undelegate"
@@ -148,7 +148,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Delegate"
+                                android:text="@string/str_delegated"
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_atom_delegate"
@@ -257,7 +257,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Balance"
+                                android:text="@string/str_available"
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_photon_balance"

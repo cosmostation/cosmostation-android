@@ -349,11 +349,13 @@ public class MainActivity extends BaseActivity implements TaskListener {
     @Override
     public void onBackPressed() {
         WLog.w("onBackPressed");
-//        if(mAccounts.size() > 1) {
-//            onStartListActivity();
-//        } else {
+        if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED) {
+            mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
+            return;
+        } else {
             moveTaskToBack(true);
-//        }
+        }
+
     }
 
 

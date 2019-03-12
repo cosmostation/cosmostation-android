@@ -56,6 +56,7 @@ public class DelegateActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+        mTvStep.setText(getString(R.string.str_delegate_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mValidator = getBaseDao().getValidator();
