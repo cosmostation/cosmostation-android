@@ -37,8 +37,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class TxResultActivity extends BaseActivity implements View.OnClickListener {
 
-    public final static int             REQ_SHARE_TX = 9800;
-
     private boolean                     mTimeout;
     private ResBroadTx                  mResBroadTx;
     private ResTxInfo                   mResTxInfo;
@@ -187,8 +185,13 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     }
 
+    @Override
+    public void onBackPressed() {
+        onStartMainActivity();
+    }
 
-//    private void onUpdateViews() {
+
+    //    private void onUpdateViews() {
 //        WLog.w("onUpdateViews");
 ////        String hash = "5FD8F3AE1DDDFCDE4D45331862341C40A527B3F648AC93E2BF83DDC24F570902";
 //    }
@@ -328,7 +331,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v.equals(mToolbarClose) || v.equals(mBtnOk)) {
-            onStartMainActivity();
+            onBackPressed();
 
         } else if (v.equals(mBtnScan)) {
             Intent webintent = new Intent(this, WebActivity.class);
@@ -341,15 +344,16 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
             shareIntent.setType("text/plain");
-            startActivityForResult(Intent.createChooser(shareIntent, "send"), REQ_SHARE_TX);
+            startActivity(Intent.createChooser(shareIntent, "send"));
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQ_SHARE_TX && resultCode == Activity.RESULT_OK) {
-            onStartMainActivity();
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        WLog.w("requestCode : " + requestCode + "   " + resultCode);
+//        if (requestCode == REQ_SHARE_TX && resultCode == Activity.RESULT_OK) {
+//            onStartMainActivity();
+//        }
+//    }
 
 }

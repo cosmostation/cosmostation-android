@@ -301,7 +301,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 //            } else {
 //                onStartMainActivity();
 //            }
-
+            if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
+                onShakeView();
+                return;
+            }
 
             getBaseDao().setTxResult((ResBroadTx)result.resultData);
             Intent txIntent = new Intent(PasswordCheckActivity.this, TxResultActivity.class);
