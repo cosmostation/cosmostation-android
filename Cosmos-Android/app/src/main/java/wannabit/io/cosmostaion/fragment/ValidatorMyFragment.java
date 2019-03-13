@@ -101,6 +101,7 @@ public class ValidatorMyFragment extends BaseFragment {
         private static final int TYPE_PROMOTION                 = 2;
         private static final int TYPE_HEADER_WITHDRAW_ALL       = 3;
 
+
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -151,11 +152,11 @@ public class ValidatorMyFragment extends BaseFragment {
                 if(!TextUtils.isEmpty(validator.description.identity)) {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
-                        public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
+                        public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
                             if(isAdded()) {
-                                Picasso.with(getContext())
+                                Picasso.get()
                                         .load(response.body().getUrl())
-                                        .fit()
+                                        .placeholder(R.drawable.validator_none_img)
                                         .into(holder.itemAvatar);
                             }
                         }

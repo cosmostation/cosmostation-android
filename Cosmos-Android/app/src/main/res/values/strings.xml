@@ -221,6 +221,10 @@
     <string name="str_high">High</string>
     <string name="str_available">Available</string>
     <string name="str_promotion_title">Delegate to earn rewards.</string>
+    <string name="str_sorting_s">Sorting</string>
+    <string name="str_sorting_by_name">By Name</string>
+    <string name="str_sorting_by_power">By Voting Power</string>
+    <string name="str_sorting_by_commission">By Commission</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>

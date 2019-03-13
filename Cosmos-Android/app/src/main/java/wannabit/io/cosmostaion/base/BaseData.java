@@ -59,6 +59,14 @@ public class BaseData {
         return getSharedPreferences().getBoolean(BaseConstant.SET_USE_FINGERPRINT, false);
     }
 
+    public void setValSorting(int sort) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).commit();
+    }
+
+    public int getValSorting() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_VALIDATOR_SORTING, 1);
+    }
+
 
     public void setLastUser(long user) {
         getSharedPreferences().edit().putLong(BaseConstant.PRE_USER_ID, user).commit();

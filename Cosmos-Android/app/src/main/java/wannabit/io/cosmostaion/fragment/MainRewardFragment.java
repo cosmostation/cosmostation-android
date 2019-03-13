@@ -52,12 +52,12 @@ public class MainRewardFragment extends BaseFragment {
 
         View tab0 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0  = tab0.findViewById(R.id.tabItemText);
-        tabItemText0.setText(R.string.str_my_validators);
+        tabItemText0.setText(getString(R.string.str_my_validators) + "(" + getMainActivity().mMyValidators.size() + ")");
         mValidatorTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_validator, null);
         TextView            tabItemText1  = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setText(R.string.str_all_validators);
+        tabItemText1.setText(getString(R.string.str_all_validators)+ "(" + getMainActivity().mAllValidators.size() + ")");
         mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
         mValidatorPager.setCurrentItem(0, false);
 
@@ -83,6 +83,23 @@ public class MainRewardFragment extends BaseFragment {
     public void onRefreshTab() {
         if(!isAdded()) return;
         mPageAdapter.getCurrentFragment().onRefreshTab();
+        onUpdateTab();
+    }
+
+    private void onUpdateTab() {
+        TabLayout.Tab tab0 = mValidatorTapLayer.getTabAt(0);
+        View view0 = tab0.getCustomView();
+        TextView tabItemText0 = view0.findViewById(R.id.tabItemText);
+        tabItemText0.setText(getString(R.string.str_my_validators) + " (" + getMainActivity().mMyValidators.size() + ")");
+
+        TabLayout.Tab tab1 = mValidatorTapLayer.getTabAt(1);
+        View view1 = tab1.getCustomView();
+        TextView tabItemText1 = view1.findViewById(R.id.tabItemText);
+        tabItemText1.setText(getString(R.string.str_all_validators)+ " (" + getMainActivity().mAllValidators.size() + ")");
+    }
+
+    public MainActivity getMainActivity() {
+        return (MainActivity)getBaseActivity();
     }
 
 

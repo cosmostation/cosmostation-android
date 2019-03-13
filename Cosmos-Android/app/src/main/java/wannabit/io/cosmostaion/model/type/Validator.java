@@ -63,4 +63,17 @@ public class Validator {
         @SerializedName("update_time")
         public String update_time;
     }
+
+
+    @Override
+    public boolean equals(Object object)
+    {
+        boolean sameSame = false;
+
+        if (object != null && object instanceof Validator) {
+            sameSame = this.description.moniker.equals(((Validator)object).description.moniker);
+        }
+
+        return sameSame;
+    }
 }

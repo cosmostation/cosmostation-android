@@ -435,7 +435,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_accounts:
-                WLog.w("menu_accounts");
                 onShowTopAccountsView();
                 return true;
             default:

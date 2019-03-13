@@ -15,6 +15,7 @@ public class BaseConstant {
     public final static String					DB_TABLE_PRICE			                = "price";
 
     public final static String					PRE_USER_ID			                    = "PRE_USER_ID";
+    public final static String					PRE_VALIDATOR_SORTING			        = "PRE_VALIDATOR_SORTING";
 
     public final static String					SET_USE_FINGERPRINT			            = "SET_USE_FINGERPRINT";
     public final static String					SET_HISTORY_QUERY			            = "SET_HISTORY_QUERY";

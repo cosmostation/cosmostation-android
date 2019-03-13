@@ -299,6 +299,24 @@ public class WDp {
         return  result.toPlainString()+"%";
     }
 
+    public static int getCommisionColor(String rateS) {
+        int result = R.color.colorCommision1;
+        float rate = Float.parseFloat(rateS);
+        if(rate > 0.1999f) {
+            result = R.color.colorCommision4;
+            return result;
+        }
+        if(rate > 0.15f) {
+            result = R.color.colorCommision3;
+            return result;
+        }
+        if(rate > 0.121f) {
+            result = R.color.colorCommision2;
+            return result;
+        }
+        return result;
+    }
+
 
 
 

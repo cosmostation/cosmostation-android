@@ -380,11 +380,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
-                        public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
+                        public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
                             if(!isFinishing()) {
-                                Picasso.with(getBaseContext())
+                                Picasso.get()
                                         .load(response.body().getUrl())
-                                        .fit()
+                                        .placeholder(R.drawable.validator_none_img)
                                         .into(holder.itemAvatar);
                             }
                         }
@@ -425,11 +425,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
-                        public void onResponse(Call<ResKeyBaseUser> call, Response<ResKeyBaseUser> response) {
+                        public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
                             if(!isFinishing()) {
-                                Picasso.with(getBaseContext())
+                                Picasso.get()
                                         .load(response.body().getUrl())
-                                        .fit()
+                                        .placeholder(R.drawable.validator_none_img)
                                         .into(holder.itemAvatar);
                             }
                         }
