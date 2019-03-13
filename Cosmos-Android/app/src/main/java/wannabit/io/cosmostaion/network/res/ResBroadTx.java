@@ -14,6 +14,16 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResBroadTx {
 
+    @SerializedName("txhash")
+    public String txhash;
+
+
+    @SerializedName("code")
+    public Integer code;
+
+
+    /*
+
     @SerializedName("hash")
     public String hash;
 
@@ -112,7 +122,7 @@ public class ResBroadTx {
         @SerializedName("message")
         public String message;
     }
-
+    */
 
 
 

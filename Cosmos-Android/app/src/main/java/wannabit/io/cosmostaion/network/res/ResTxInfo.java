@@ -14,7 +14,7 @@ public class ResTxInfo {
     public String txhash;
 
     @SerializedName("code")
-    public int code;
+    public Integer code;
 
     @SerializedName("logs")
     public ArrayList<Log> logs;

@@ -112,6 +112,7 @@ public class BaseConstant {
     public final static int					    ERROR_CODE_NETWORK		                = 8001;
     public final static int					    ERROR_CODE_INVALID_PASSWORD		        = 8002;
     public final static int					    ERROR_CODE_TIMEOUT	                    = 8003;
+    public final static int					    ERROR_CODE_BROADCAST	                = 8004;
 
 
     public final static String                  COSMOS_MAINNET                          = "COSMOS_MAINNET";

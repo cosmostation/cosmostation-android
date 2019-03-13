@@ -92,13 +92,13 @@ public class BaseData {
         this.mValidator = validator;
     }
 
-    public ResBroadTx getTxResult() {
-        return mTxResult;
-    }
-
-    public void setTxResult(ResBroadTx txResult) {
-        this.mTxResult = txResult;
-    }
+//    public ResBroadTx getTxResult() {
+//        return mTxResult;
+//    }
+//
+//    public void setTxResult(ResBroadTx txResult) {
+//        this.mTxResult = txResult;
+//    }
 
     public Password onSelectPassword() {
         Password result = null;

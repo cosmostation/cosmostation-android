@@ -306,12 +306,18 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 return;
             }
 
-            getBaseDao().setTxResult((ResBroadTx)result.resultData);
+//            getBaseDao().setTxResult((ResBroadTx)result.resultData);
             Intent txIntent = new Intent(PasswordCheckActivity.this, TxResultActivity.class);
             txIntent.putExtra("txType", result.taskType);
-            if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_TIMEOUT) {
-                txIntent.putExtra("timeout", true);
-            }
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            String hash = String.valueOf(result.resultData);
+            if(!TextUtils.isEmpty(hash))
+                txIntent.putExtra("txHash", hash);
+            txIntent.putExtra("errorCode", result.errorCode);
+
+//            if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_TIMEOUT) {
+//                txIntent.putExtra("timeout", true);
+//            }
             startActivity(txIntent);
 
         } else if (result.taskType == BaseConstant.TASK_DELETE_USER) {

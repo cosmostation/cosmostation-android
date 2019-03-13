@@ -152,7 +152,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     protected void onResume() {
         super.onResume();
 
-//        startActivity(new Intent(IntroActivity.this, TestActivity.class));
+//        startActivity(new Intent(IntroActivity.this, TxResultActivity.class));
 
 //        logoTitle.setVisibility(View.INVISIBLE);
 

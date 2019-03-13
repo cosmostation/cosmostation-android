@@ -5,12 +5,17 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.network.res.ResBlockInfo;
+import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
@@ -58,6 +63,12 @@ public interface WannabitChain {
     @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
     Call<ResLcdUnBondings> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
+
+    @POST("/txs")
+    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
+
+    @POST("/txs")
+    Call<JsonObject> broadTx2(@Body ReqBroadCast data);
 
 
     //Proposals

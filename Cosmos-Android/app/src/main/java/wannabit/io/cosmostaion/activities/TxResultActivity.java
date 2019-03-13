@@ -3,7 +3,10 @@ package wannabit.io.cosmostaion.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,22 +40,30 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class TxResultActivity extends BaseActivity implements View.OnClickListener {
 
-    private boolean                     mTimeout;
-    private ResBroadTx                  mResBroadTx;
+//    private boolean                     mTimeout;
+//    private ResBroadTx                  mResBroadTx;
+//    private ResTxInfo                   mResTxInfo;
+//    private ResBlockInfo                mResBlockInfo;
+    private Account                     mAccount;
+    private int                         mTxType;
+    private boolean                     mIsSuccess;
+    private int                         mErrorCode;
+    private String                      mTxHash;
+
     private ResTxInfo                   mResTxInfo;
     private ResBlockInfo                mResBlockInfo;
-    private int                         mTxType;
-    private Account                     mAccount;
-    public ArrayList<Balance>           mBalances = new ArrayList<>();
+
+//    public ArrayList<Balance>           mBalances = new ArrayList<>();
 
 
-    private CardView                    mRootCard, mTimeoutCard;
+    private CardView                    mRootCard;
+    private NestedScrollView            mScrollLayer;
     private TextView                    mToolbarTitle;
     private ImageView                   mToolbarClose;
     private Button                      mBtnScan, mBtnShare, mBtnOk;
     private TextView                    mBlockTime, mTxError;
 
-    private TextView                    mTvtxType, mTxHash, mRemindAtomTitle, mRemindAtom, mRemindPhotonTitle, mRemindPhoton;
+    private TextView                    mTvtxType, mTvTxHash;
 
     private LinearLayout                mSendLayer;
     private RelativeLayout              mSendAtomLayer, mSendPhotonLayer, mFeeAtomLayer, mFeePhotonLayer;
@@ -71,6 +82,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     private TextView                    mMemo;
 
+    private RelativeLayout              mLoading;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,15 +98,11 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mBlockTime              = findViewById(R.id.tv_block_time);
         mTxError                = findViewById(R.id.tv_block_error);
 
+        mScrollLayer            = findViewById(R.id.scroll_layer);
         mRootCard               = findViewById(R.id.root_card);
-        mTimeoutCard            = findViewById(R.id.timeout_card);
 
         mTvtxType               = findViewById(R.id.tx_type);
-        mTxHash                 = findViewById(R.id.tx_hash);
-        mRemindAtomTitle        = findViewById(R.id.remind_atom_title);
-        mRemindAtom             = findViewById(R.id.remind_atom);
-        mRemindPhotonTitle      = findViewById(R.id.remind_photon_title);
-        mRemindPhoton           = findViewById(R.id.remind_photon);
+        mTvTxHash               = findViewById(R.id.tx_hash);
 
 
         mSendLayer              = findViewById(R.id.send_content_layer);
@@ -130,6 +139,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
         mMemo                   = findViewById(R.id.tx_memo);
 
+        mLoading                = findViewById(R.id.loading_layer);
+
         mToolbarClose.setOnClickListener(this);
         mBtnScan.setOnClickListener(this);
         mBtnShare.setOnClickListener(this);
@@ -141,47 +152,65 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     protected void onResume() {
         super.onResume();
         mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBalances   = getBaseDao().onSelectBalance(mAccount.id);
-        mResBroadTx = getBaseDao().getTxResult();
+
+
         mTxType     = getIntent().getIntExtra("txType", BaseConstant.TASK_GEN_TX_SIMPLE_SEND);
-        mTimeout    = getIntent().getBooleanExtra("timeout", false);
+        mIsSuccess  = getIntent().getBooleanExtra("isSuccess", false);
+        mErrorCode  = getIntent().getIntExtra("errorCode", BaseConstant.ERROR_CODE_UNKNOWN);
+        mTxHash     = getIntent().getStringExtra("txHash");
 
-        if(mTimeout) {
-            mRootCard.setVisibility(View.GONE);
-            mTimeoutCard.setVisibility(View.INVISIBLE);
-            mBtnScan.setClickable(false);
-            mBtnShare.setClickable(false);
-            return;
-        }
+//        mTxHash = "BC3AA65165833693BB6177DFA835260E7B73A6554EFD471C6892CF904A278E12";
 
-        if(mResBroadTx == null) {
-            WLog.w("mResBroadTx NULL");
-            onStartMainActivity();
-            return;
-        }
+        if(!TextUtils.isEmpty(mTxHash)) {
+            WLog.w("mTxHash : " + mTxHash);
+            onFetchTx(mTxHash);
 
-        if(mResBroadTx.isAllSuccess()) {
-            mToolbarTitle.setText(getString(R.string.str_tx_success));
-            mTxError.setVisibility(View.GONE);
         } else {
-            mToolbarTitle.setText(getString(R.string.str_tx_failed));
-            mTxError.setText(getString(R.string.str_tx_block_error) + " : " + mResBroadTx.getErrorReason());
-            mTxError.setVisibility(View.VISIBLE);
+            // TODO no hash
         }
 
-        mSendAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-        mSendPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
-        mRemindAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-        mRemindPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
-        mFeeAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-        mFeePhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
 
-        mDelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-        mUndelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-
-        onFetchTx();
-        onFetchBlock(mResBroadTx.height);
-        onFetchSingleAccount();
+//        mBalances   = getBaseDao().onSelectBalance(mAccount.id);
+//        mResBroadTx = getBaseDao().getTxResult();
+//        mTxType     = getIntent().getIntExtra("txType", BaseConstant.TASK_GEN_TX_SIMPLE_SEND);
+//        mTimeout    = getIntent().getBooleanExtra("timeout", false);
+//
+//        if(mTimeout) {
+//            mRootCard.setVisibility(View.GONE);
+//            mTimeoutCard.setVisibility(View.INVISIBLE);
+//            mBtnScan.setClickable(false);
+//            mBtnShare.setClickable(false);
+//            return;
+//        }
+//
+//        if(mResBroadTx == null) {
+//            WLog.w("mResBroadTx NULL");
+//            onStartMainActivity();
+//            return;
+//        }
+//
+//        if(mResBroadTx.isAllSuccess()) {
+//            mToolbarTitle.setText(getString(R.string.str_tx_success));
+//            mTxError.setVisibility(View.GONE);
+//        } else {
+//            mToolbarTitle.setText(getString(R.string.str_tx_failed));
+//            mTxError.setText(getString(R.string.str_tx_block_error) + " : " + mResBroadTx.getErrorReason());
+//            mTxError.setVisibility(View.VISIBLE);
+//        }
+//
+//        mSendAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+//        mSendPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
+//        mRemindAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+//        mRemindPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
+//        mFeeAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+//        mFeePhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
+//
+//        mDelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+//        mUndelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+//
+//        onFetchTx();
+//        onFetchBlock(mResBroadTx.height);
+//        onFetchSingleAccount();
 
     }
 
@@ -201,21 +230,24 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mBlockTime.setText(getString(R.string.str_tx_block_height) + " : " + mResBlockInfo.block_meta.header.height +
                 "      " + getString(R.string.str_tx_block_time) + " : " + WDp.getTimeformat(getBaseContext(), mResBlockInfo.block_meta.header.time));
 
+        mLoading.setVisibility(View.GONE);
+        mScrollLayer.setVisibility(View.VISIBLE);
+
     }
 
     private void onUpdateBalances() {
         WLog.w("onUpdateBalances");
-        mBalances = getBaseDao().onSelectBalance(mAccount.id);
-        mRemindAtom.setText(WDp.getDpAtomBalance(getBaseContext(), mBalances));
-        mRemindPhoton.setText(WDp.getDpPhotonBalance(getBaseContext(), mBalances));
+//        mBalances = getBaseDao().onSelectBalance(mAccount.id);
+//        mRemindAtom.setText(WDp.getDpAtomBalance(getBaseContext(), mBalances));
+//        mRemindPhoton.setText(WDp.getDpPhotonBalance(getBaseContext(), mBalances));
     }
 
     private void onUpdateTx() {
         WLog.w("onUpdateTx : " + mResTxInfo.tx.value.msg.get(0).type);
-        if(mResTxInfo == null) {
-            return;
-        }
-        mTxHash.setText(mResTxInfo.txhash);
+//        if(mResTxInfo == null) {
+//            return;
+//        }
+        mTvTxHash.setText(mResTxInfo.txhash);
         mMemo.setText(mResTxInfo.tx.value.memo);
 
         for(Coin coin: mResTxInfo.tx.value.fee.amount) {
@@ -273,15 +305,31 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     }
 
 
-    private void onFetchTx() {
-        ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mAccount.baseChain)).getSearchTx(mResBroadTx.hash).enqueue(new Callback<ResTxInfo>() {
+    private int FetchCnt = 0;
+    private void onFetchTx(String hash) {
+        ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mAccount.baseChain)).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
             @Override
             public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                if(response.isSuccessful() && response.body() != null) {
+                if(response.isSuccessful()) {
+                    if(response.body() == null) {
+                        if(mIsSuccess && FetchCnt < 5) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FetchCnt++;
+                                    onFetchTx(mTxHash);
+                                }
+                            }, 2500);
+                        } else {
+                            //TODO finish
+                            WLog.w("Looop");
+                        }
+                        return;
+                    }
                     WLog.w("getSearchTx : " + response.body().height);
                     mResTxInfo = response.body();
+                    onFetchBlock(mResTxInfo.height);
                     onUpdateTx();
-
 
                 } else {
                     WLog.w("onFetchTx Error!!");

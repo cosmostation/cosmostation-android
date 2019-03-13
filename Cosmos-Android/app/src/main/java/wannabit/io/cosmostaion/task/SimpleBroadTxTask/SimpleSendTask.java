@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.google.gson.JsonObject;
 
 import org.bitcoinj.crypto.DeterministicKey;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -113,6 +115,35 @@ public class SimpleSendTask extends CommonTask {
 
             // build complete tx type
             StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mToFees, mToSendMemo, signatures);
+            ReqBroadCast reqBroadCast = new ReqBroadCast();
+            reqBroadCast.returns = "sync";
+//            reqBroadCast.returns = "block";
+            reqBroadCast.tx = signedTx.value;
+
+            Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
+            if(response.isSuccessful() && response.body() != null) {
+                WLog.w("SimpleSendTask success!!");
+                WLog.w("response.body() hash: " + response.body().txhash);
+                if (response.body().txhash != null) {
+                    mResult.resultData = response.body().txhash;
+                }
+
+                if(response.body().code != null) {
+                    WLog.w("response.code() : " + response.body().code);
+                    mResult.errorCode = response.body().code;
+                    return mResult;
+                }
+                mResult.isSuccess = true;
+
+
+
+            } else {
+                WLog.w("SimpleSendTask not success!!");
+                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+            }
+
+
+            /*
             signedTx.value.signatures = signatures;
             WLog.w("SimpleSendTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
 //            WLog.w("SimpleSendTask signed2 : " +  WUtil.prettyPrinter(signedTx));
@@ -136,16 +167,13 @@ public class SimpleSendTask extends CommonTask {
 //                WLog.w("SimpleSendTask result height : " + response.body());
 //                WLog.w("SimpleSendTask result height : " + response.body().toString());
             }
+            */
 
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());
             e.printStackTrace();
-            if(e.getMessage().toLowerCase().contains("time")) {
-                mResult.errorCode = BaseConstant.ERROR_CODE_TIMEOUT;
-            } else {
-                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-            }
+            mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
 
         }
         return mResult;

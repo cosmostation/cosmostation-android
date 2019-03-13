@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 import android.text.TextUtils;
 
 import org.bitcoinj.crypto.DeterministicKey;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -100,26 +102,55 @@ public class SimpleRewardTask extends CommonTask {
 
             StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mRewardFees, mRewardMemo, signatures);
             signedTx.value.signatures = signatures;
-            WLog.w("SimpleRewardTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
 
-            String gentx = WUtil.str2Hex(WUtil.getPresentor().toJson(signedTx));
-            WLog.w("SimpleRewardTask gentx : " +  gentx);
-            Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
+            ReqBroadCast reqBroadCast = new ReqBroadCast();
+            reqBroadCast.returns = "sync";
+//            reqBroadCast.returns = "block";
+            reqBroadCast.tx = signedTx.value;
+
+
+            Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
-                WLog.w("SimpleRewardTask result: " + response.body().hash + " " + response.body().isAllSuccess());
-                mResult.resultData = response.body();
+                WLog.w("SimpleRewardTask success!!");
+                WLog.w("response.body() : " + response.body());
+                if (response.body().txhash != null) {
+                    mResult.resultData = response.body().txhash;
+                }
+
+                if(response.body().code != null) {
+                    WLog.w("response.code() : " + response.body().code);
+                    mResult.errorCode = response.body().code;
+                    return mResult;
+                }
                 mResult.isSuccess = true;
-//                ResBroadTx result = response.body();
-//                WLog.w("SimpleRewardTask result errorMsg : " + result.errorMsg);
-//                WLog.w("SimpleRewardTask result errorCode : " + result.errorCode);
-//                WLog.w("SimpleRewardTask result hash : " + result.hash);
-//                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
-//                    mResult.resultData = result.hash;
-//                    mResult.isSuccess = true;
-//                }
-//                WLog.w("SimpleRewardTask result hash : " + result.hash);
-//                WLog.w("SimpleRewardTask result height : " + result.height);
+
+            } else {
+                WLog.w("SimpleRewardTask not success!!");
+                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
             }
+
+
+
+//            WLog.w("SimpleRewardTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
+//
+//            String gentx = WUtil.str2Hex(WUtil.getPresentor().toJson(signedTx));
+//            WLog.w("SimpleRewardTask gentx : " +  gentx);
+//            Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
+//            if(response.isSuccessful() && response.body() != null) {
+//                WLog.w("SimpleRewardTask result: " + response.body().hash + " " + response.body().isAllSuccess());
+//                mResult.resultData = response.body();
+//                mResult.isSuccess = true;
+////                ResBroadTx result = response.body();
+////                WLog.w("SimpleRewardTask result errorMsg : " + result.errorMsg);
+////                WLog.w("SimpleRewardTask result errorCode : " + result.errorCode);
+////                WLog.w("SimpleRewardTask result hash : " + result.hash);
+////                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
+////                    mResult.resultData = result.hash;
+////                    mResult.isSuccess = true;
+////                }
+////                WLog.w("SimpleRewardTask result hash : " + result.hash);
+////                WLog.w("SimpleRewardTask result height : " + result.height);
+//            }
 
 
         } catch (Exception e) {
