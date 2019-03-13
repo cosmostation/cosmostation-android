@@ -1,7 +1,10 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
+import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -14,6 +17,7 @@ public class WebActivity extends BaseActivity {
     private WebView     mWebview;
     private String      mTxid, mVoteId;
     private boolean         mGoMain;
+    private FloatingActionButton mShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,20 @@ public class WebActivity extends BaseActivity {
             mWebview.loadUrl("https://www.mintscan.io/proposals/"+mVoteId);
         else
             mWebview.loadUrl("https://www.mintscan.io");
+
+
+
+        mShare = findViewById(R.id.btn_floating);
+        mShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, mWebview.getUrl());
+                shareIntent.setType("text/plain");
+                startActivity(Intent.createChooser(shareIntent, "send"));
+            }
+        });
     }
 
     @Override

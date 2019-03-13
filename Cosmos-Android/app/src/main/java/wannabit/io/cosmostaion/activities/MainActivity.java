@@ -203,7 +203,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             @Override
             public void onPageSelected(int position) {
                 mPageAdapter.mCurrentFragment.onRefreshTab();
-                if(position == 1 || position == 4) mFloatBtn.hide();
+                if(position != 0) mFloatBtn.hide();
                 else if (!mFloatBtn.isShown()) mFloatBtn.show();
             }
         });

@@ -71,22 +71,22 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mRecyclerView.setHasFixedSize(true);
         mHistoryAdapter = new HistoryAdapter();
         mRecyclerView.setAdapter(mHistoryAdapter);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy >0) {
-                    if (getMainActivity().mFloatBtn.isShown()) {
-                        getMainActivity().mFloatBtn.hide();
-                    }
-                }
-                else if (dy <0) {
-                    if (!getMainActivity().mFloatBtn.isShown()) {
-                        getMainActivity().mFloatBtn.show();
-                    }
-                }
-            }
-        });
+//        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                if (dy >0) {
+//                    if (getMainActivity().mFloatBtn.isShown()) {
+//                        getMainActivity().mFloatBtn.hide();
+//                    }
+//                }
+//                else if (dy <0) {
+//                    if (!getMainActivity().mFloatBtn.isShown()) {
+//                        getMainActivity().mFloatBtn.show();
+//                    }
+//                }
+//            }
+//        });
         onFetchHistory();
         return rootView;
     }
