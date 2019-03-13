@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -69,7 +70,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
     private void onInitView() {
         mAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-        mAvailableAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getAtomBalance(), 6));
+        mAvailableAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getAtomBalance(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
     }
 

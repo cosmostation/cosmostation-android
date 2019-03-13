@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -87,12 +88,12 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                 mSendAtomLayer.setVisibility(View.VISIBLE);
                 toSendAtom = new BigDecimal(coin.amount);
-                mSendAtomAmount.setText(WDp.getDpAmount(getContext(), toSendAtom, 6));
+                mSendAtomAmount.setText(WDp.getDpAmount(getContext(), toSendAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
             }
             if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
                 mSendPhotonLayer.setVisibility(View.VISIBLE);
                 toSendPhoton = new BigDecimal(coin.amount);
-                mSendPhotonAmount.setText(WDp.getDpAmount(getContext(), toSendPhoton, 6));
+                mSendPhotonAmount.setText(WDp.getDpAmount(getContext(), toSendPhoton, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
             }
         }
 
@@ -108,7 +109,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
             remindPhoton.subtract(new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount));
         }
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount), 6));
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
         if(TextUtils.isEmpty(getSActivity().mAccount.nickName)) {
             mFromNickName.setText("Wallet " + getSActivity().mAccount.id);
@@ -126,8 +127,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
         mRemindPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
 
-        mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6));
-        mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6));
+        mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
     }
 

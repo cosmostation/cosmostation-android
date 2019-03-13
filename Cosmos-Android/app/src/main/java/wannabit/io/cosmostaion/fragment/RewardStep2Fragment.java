@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_GasType;
@@ -143,7 +144,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
 
     private void onUpdateGasAmountDp() {
         WLog.w("onUpdateGasAmountDp : " + mGas.amount + " " + mGas.denom);
-        mTvGasAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(mGas.amount), 6));
+        mTvGasAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(mGas.amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
     }
 
     private ClaimRewardActivity getSActivity() {

@@ -393,7 +393,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     });
                 }
 
-                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6));
+                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("");
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
@@ -445,7 +445,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     }
                 });
 
-                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6));
+                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("");
 
@@ -462,9 +462,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
                 holder.itemPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
                 if(mBondingState != null && mBondingState.shares != null) {
-                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.shares, 6));
+                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.shares, 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
-                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 0));
+                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 0, BaseChain.getChain(mAccount.baseChain)));
                 }
 
                 if(mUnBondingStates != null && mUnBondingStates.size() > 0 ) {
@@ -473,18 +473,18 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         sum = sum.add(unbond.balance);
                     }
                     WLog.w("sum" + sum.toPlainString());
-                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6));
+                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6, BaseChain.getChain(mAccount.baseChain)));
                     holder.itemTvUnbondingTime.setVisibility(View.INVISIBLE);
                 } else {
-                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
+                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                     holder.itemTvUnbondingTime.setVisibility(View.INVISIBLE);
                 }
                 if(mReward != null) {
-                    holder.itemTvAtomReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getAtomAmount(), 6));
-                    holder.itemTvPhotonReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getPhotonAmount(), 6));
+                    holder.itemTvAtomReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getAtomAmount(), 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemTvPhotonReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getPhotonAmount(), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
-                    holder.itemTvAtomReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
-                    holder.itemTvPhotonReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
+                    holder.itemTvAtomReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemTvPhotonReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override

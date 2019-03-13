@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -165,8 +166,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 else holder.wallet_name.setText(account.nickName);
 
 
-                if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6));
-                else holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
+                if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
+                else holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
 
                 holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext(), account.baseChain));
 
@@ -195,8 +196,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 if(TextUtils.isEmpty(account.nickName)) holder.wallet_name.setText("Wallet " + account.id);
                 else holder.wallet_name.setText(account.nickName);
 
-                if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6));
-                else holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6));
+                if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
+                else holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
 
                 holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext(), account.baseChain));
 

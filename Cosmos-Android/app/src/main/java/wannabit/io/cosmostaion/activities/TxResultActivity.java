@@ -253,11 +253,11 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         for(Coin coin: mResTxInfo.tx.value.fee.amount) {
             if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                 mFeeAtomLayer.setVisibility(View.VISIBLE);
-                mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
+                mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
             }
             if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
                 mFeePhotonLayer.setVisibility(View.VISIBLE);
-                mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
+                mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
             }
         }
 
@@ -274,11 +274,11 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mSendAtomLayer.setVisibility(View.VISIBLE);
-                    mSendAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
+                    mSendAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                 }
                 if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
                     mSendPhotonLayer.setVisibility(View.VISIBLE);
-                    mSendPhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6));
+                    mSendPhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                 }
             }
 
@@ -286,7 +286,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mDelegateLayer.setVisibility(View.VISIBLE);
             mTvtxType.setText(R.string.tx_delegate);
             mDelegateTo.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
-            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.value.amount), 6));
+            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.value.amount), 6, BaseChain.getChain(mAccount.baseChain)));
 
         } else if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL)){
             mRewardLayer.setVisibility(View.VISIBLE);
@@ -298,7 +298,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mUndelegateLayer.setVisibility(View.VISIBLE);
             mTvtxType.setText(R.string.tx_undelegate);
             mUndelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
-            mUndelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.shares_amount), 6));
+            mUndelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.shares_amount), 6, BaseChain.getChain(mAccount.baseChain)));
 
         }
 

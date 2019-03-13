@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -123,9 +124,9 @@ public class WalletListActivity extends BaseActivity implements TaskListener {
         }
 
         mTvAtomValue.setText("N/A");
-        mTvAtomTotal.setText(WDp.getDpTotalAtomAmount(getBaseContext(), mTotalBalance, mTotalBondings, mTotalUnbondings, mTotalRewards));
+        mTvAtomTotal.setText(WDp.getDpTotalAtomAmount(getBaseContext(), mTotalBalance, mTotalBondings, mTotalUnbondings, mTotalRewards, BaseChain.COSMOS_MAIN));
         mTvPhotonValue.setText("N/A");
-        mTvPhotonTotal.setText(WDp.getDpTotalPhotonAmount(getBaseContext(), mTotalBalance, mTotalRewards));
+        mTvPhotonTotal.setText(WDp.getDpTotalPhotonAmount(getBaseContext(), mTotalBalance, mTotalRewards, BaseChain.COSMOS_MAIN));
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
@@ -200,8 +201,8 @@ public class WalletListActivity extends BaseActivity implements TaskListener {
                     holder.itemTvNickname.setText(account.nickName);
                 }
                 holder.itemTvAddress.setText(account.address);
-                holder.itemTvAtomAmount.setText(WDp.getDpAllAtom2(getBaseContext(), balances, bondings, unbondings, totalReward));
-                holder.itemTvPhotonAmount.setText(WDp.getDpAllPhoton2(getBaseContext(), balances, totalReward));
+                holder.itemTvAtomAmount.setText(WDp.getDpAllAtom2(getBaseContext(), balances, bondings, unbondings, totalReward, BaseChain.COSMOS_MAIN));
+                holder.itemTvPhotonAmount.setText(WDp.getDpAllPhoton2(getBaseContext(), balances, totalReward, BaseChain.COSMOS_MAIN));
                 holder.itemBtnManage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

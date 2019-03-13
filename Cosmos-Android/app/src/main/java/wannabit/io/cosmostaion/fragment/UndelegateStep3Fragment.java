@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.UndelegateActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -63,8 +64,8 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         BigDecimal remindAtom = getSActivity().mAccount.getAtomBalance().subtract(toUnDeleagteAtom);
         BigDecimal remindPhoton = BigDecimal.ZERO;
 
-        mUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAtom, 6));
-        mTotalDeleagteAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6));
+        mUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        mTotalDeleagteAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
         if(getSActivity().mUnDelegateFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
             mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
@@ -75,11 +76,11 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
             mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
             remindPhoton.subtract(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount));
         }
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount), 6));
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mValidatorName.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mUnDelegateMemo);
         mTime.setText(WDp.getUnbondTime(getContext()));
-        mRemindAtom.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares.subtract(toUnDeleagteAtom), 6));
+        mRemindAtom.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares.subtract(toUnDeleagteAtom), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
 
         mUnDelegateAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));

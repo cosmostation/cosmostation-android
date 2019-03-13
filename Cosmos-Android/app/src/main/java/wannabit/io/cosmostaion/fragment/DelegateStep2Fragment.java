@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_GasType;
@@ -142,7 +143,7 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
 
     private void onUpdateGasAmountDp() {
         WLog.w("onUpdateGasAmountDp : " + mGas.amount + " " + mGas.denom);
-        mTvGasAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(mGas.amount), 6));
+        mTvGasAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(mGas.amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
     }
 
     private DelegateActivity getSActivity() {

@@ -26,6 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
@@ -121,7 +122,7 @@ public class ValidatorMyFragment extends BaseFragment {
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
                 final RewardWithdrawHolder holder = (RewardWithdrawHolder)viewHolder;
-                holder.itemTvAllRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), mRewards));
+                holder.itemTvAllRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvAtom.setText(WDp.DpAtom(getContext(), getMainActivity().mAccount.baseChain));
                 holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -136,9 +137,9 @@ public class ValidatorMyFragment extends BaseFragment {
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 BondingState bonding = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, validator.operator_address);
                 if(bonding != null && bonding.shares != null) {
-                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), bonding.shares, 6));
+                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), bonding.shares, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 } else {
-                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 0));
+                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 0, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 }
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {

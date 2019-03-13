@@ -29,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_ValidatorSorting;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -140,7 +141,7 @@ public class ValidatorAllFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, int position) {
             final Validator validator  = mAllValidators.get(position);
             holder.itemTvMoniker.setText(validator.description.moniker);
-            holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 0));
+            holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
             holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
             holder.itemTvCommission.setTextColor(getResources().getColor(WDp.getCommisionColor(validator.commission.rate)));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {

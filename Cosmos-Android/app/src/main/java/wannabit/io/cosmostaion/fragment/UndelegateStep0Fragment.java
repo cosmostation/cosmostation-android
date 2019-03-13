@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.UndelegateActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -66,7 +67,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
     private void onInitView() {
         mAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
         if(getSActivity().mBondingState != null)
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6));
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
     }
 

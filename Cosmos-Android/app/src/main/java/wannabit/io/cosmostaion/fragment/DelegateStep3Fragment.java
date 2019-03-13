@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -64,7 +65,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         BigDecimal remindAtom = getSActivity().mAccount.getAtomBalance().subtract(toDeleagteAtom);
         BigDecimal remindPhoton = getSActivity().mAccount.getPhotonBalance();
 
-        mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAtom, 6));
+        mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
         if(getSActivity().mToDelegateFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
             mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
@@ -76,7 +77,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             remindPhoton.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
         }
 
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount), 6));
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mValidatorName.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mToDelegateMemo);
 
@@ -84,8 +85,8 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
         mRemindPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
 
-        mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6));
-        mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6));
+        mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
     }
 
     @Override

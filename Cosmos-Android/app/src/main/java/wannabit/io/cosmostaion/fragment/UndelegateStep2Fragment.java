@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.UndelegateActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_GasType;
@@ -141,7 +142,7 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
 
     private void onUpdateGasAmountDp() {
         WLog.w("onUpdateGasAmountDp : " + mGas.amount + " " + mGas.denom);
-        mTvGasAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(mGas.amount), 6));
+        mTvGasAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(mGas.amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
     }
 
     private UndelegateActivity getSActivity() {

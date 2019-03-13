@@ -183,9 +183,9 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     if(response.isSuccessful() && response.body() != null) {
                         ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                         if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                            holder.atom_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6));
+                            holder.atom_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
                         if(balance != null && balance.size() > 1 && balance.get(1) != null)
-                            holder.photon_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(1).balance, 6));
+                            holder.photon_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(1).balance, 6, BaseChain.getChain(mChain)));
                     } else {
                         holder.atom_amount.setText("0");
                         holder.photon_amount.setText("0");

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -37,6 +38,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mTvPhotonTotal, mTvPhotonBalance, mTvPhotonRewards;
     private TextView            mTvAtomTitle, mTvPhotonTitle;
 
+    private CardView            mAtomCard, mPhotonCard;
+
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -68,6 +71,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvAtomTitle            = rootView.findViewById(R.id.dash_atom_title);
         mTvPhotonTitle          = rootView.findViewById(R.id.dash_photon_title);
 
+        mAtomCard               = rootView.findViewById(R.id.card_atom);
+        mPhotonCard             = rootView.findViewById(R.id.card_photon);
 
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -111,6 +116,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private void onUpdateView() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
 
+        if(!getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) &&
+                !getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
+            mPhotonCard.setVisibility(View.GONE);
+        }
+
 //        if(getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()))
 //            mTestnet.setVisibility(View.VISIBLE);
 
@@ -119,15 +129,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         mAddress.setText(getMainActivity().mAccount.address);
 
-        mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards));
-        mTvAtomUndelegated.setText(WDp.getDpAtomBalance(getContext(), getMainActivity().mBalances));
-        mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings));
-        mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings));
-        mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), getMainActivity().mRewards));
+        mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+        mTvAtomUndelegated.setText(WDp.getDpAtomBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+        mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+        mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+        mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
 
-        mTvPhotonTotal.setText(WDp.getDpAllPhoton(getContext(), getMainActivity().mBalances, getMainActivity().mRewards));
-        mTvPhotonBalance.setText(WDp.getDpPhotonBalance(getContext(), getMainActivity().mBalances));
-        mTvPhotonRewards.setText(WDp.getDpAllPhotonRewardAmount(getContext(), getMainActivity().mRewards));
+        mTvPhotonTotal.setText(WDp.getDpAllPhoton(getContext(), getMainActivity().mBalances, getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+        mTvPhotonBalance.setText(WDp.getDpPhotonBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+        mTvPhotonRewards.setText(WDp.getDpAllPhotonRewardAmount(getContext(), getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
     }
 
     public MainActivity getMainActivity() {

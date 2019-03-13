@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_SendType;
@@ -189,12 +190,12 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 if (coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     holder.tvSymbolCoin.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
                     holder.tvSymbolCoin.setTextColor(getResources().getColor(R.color.colorAtom));
-                    holder.tvMaxCoin.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getAtomBalance(), 6));
+                    holder.tvMaxCoin.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getAtomBalance(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
                 } else if (coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
                     holder.tvSymbolCoin.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
                     holder.tvSymbolCoin.setTextColor(getResources().getColor(R.color.colorPhoton));
-                    holder.tvMaxCoin.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getPhotonBalance(), 6));
+                    holder.tvMaxCoin.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getPhotonBalance(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
                 }
 
                 holder.etAmountCoin.addTextChangedListener(new TextWatcher() {

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -65,8 +66,8 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if(getSActivity().isAll) {
             // get all reward
-            mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getAtomAmount(), 6));
-            mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getPhotonAmount(), 6));
+            mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getAtomAmount(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getPhotonAmount(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
             mTvFromValidators.setText("from " + getSActivity().mBondings.size() + "Validators");
 
         } else {
@@ -74,8 +75,8 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
             if(getSActivity().mRewards == null) {
                 getSActivity().onBackPressed();
             }
-            mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getAtomAmount(), 6));
-            mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getPhotonAmount(), 6));
+            mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getAtomAmount(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getPhotonAmount(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
             mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
         }
 

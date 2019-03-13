@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -82,8 +83,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             rewardPhoton = getSActivity().mRewards.getPhotonAmount();
             mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
         }
-        mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardAtom, 6));
-        mTvPhotonReward.setText(WDp.getDpAmount(getContext(), rewardPhoton, 6));
+        mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        mTvPhotonReward.setText(WDp.getDpAmount(getContext(), rewardPhoton, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
         remindAtom  =remindAtom.add(rewardAtom);
         remindPhoton = remindPhoton.add(rewardPhoton);
@@ -97,7 +98,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
             remindPhoton.subtract(new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount));
         }
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount), 6));
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
         if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) mTvSelf.setVisibility(View.VISIBLE);
         mMemo.setText(getSActivity().mRewardMemo);
@@ -108,8 +109,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
         mRemindPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
 
-        mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6));
-        mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6));
+        mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
     }
 
