@@ -34,7 +34,7 @@ public class WebActivity extends BaseActivity {
 
         mTxid  = getIntent().getStringExtra("txid");
         mVoteId = getIntent().getStringExtra("voteId");
-        mGoMain = getIntent().getBooleanExtra("goMain", true);
+        mGoMain = getIntent().getBooleanExtra("goMain", false);
 
         if (!TextUtils.isEmpty(mTxid))
             mWebview.loadUrl("https://www.mintscan.io/txs/"+mTxid);

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -35,6 +36,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class TxResultActivity extends BaseActivity implements View.OnClickListener {
+
+    public final static int             REQ_SHARE_TX = 9800;
 
     private boolean                     mTimeout;
     private ResBroadTx                  mResBroadTx;
@@ -338,13 +341,15 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
             shareIntent.setType("text/plain");
-            startActivity(Intent.createChooser(shareIntent, "send"));
+            startActivityForResult(Intent.createChooser(shareIntent, "send"), REQ_SHARE_TX);
         }
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQ_SHARE_TX && resultCode == Activity.RESULT_OK) {
+            onStartMainActivity();
+        }
+    }
 
 }

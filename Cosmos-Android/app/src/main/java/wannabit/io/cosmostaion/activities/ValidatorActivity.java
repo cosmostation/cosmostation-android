@@ -99,8 +99,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                onFetchAccounts();
-                mSwipeRefreshLayout.setRefreshing(false);
+                onInitFetch();
+
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -333,6 +333,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         if(mTaskCount == 0) {
             WLog.w("mTaskFinished");
             mValidatorAdapter.notifyDataSetChanged();
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 
