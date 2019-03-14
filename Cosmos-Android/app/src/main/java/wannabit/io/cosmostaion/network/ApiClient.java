@@ -8,6 +8,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GAIA_12K;
 import static wannabit.io.cosmostaion.base.BaseChain.GAIA_13K;
 
@@ -16,6 +17,7 @@ public class ApiClient {
     //TODO delete ssh guard
     private static WannabitChain service_wannabit_chain_12k = null;
     private static WannabitChain service_wannabit_chain_13k = null;
+    private static WannabitChain service_wannabit_main = null;
     public static WannabitChain getWannabitChain(Context c, BaseChain chain) {
         String url = "";
         if (chain == GAIA_12K) {
@@ -23,7 +25,6 @@ public class ApiClient {
                 synchronized (ApiClient.class) {
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(c.getString(R.string.url_lcd_gaia))
-                            .client(WUtil.getUnsafeOkHttpClient().build())
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     service_wannabit_chain_12k = retrofit.create(WannabitChain.class);
@@ -36,13 +37,24 @@ public class ApiClient {
                 synchronized (ApiClient.class) {
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(c.getString(R.string.url_lcd_gaia_13k))
-                            .client(WUtil.getUnsafeOkHttpClient().build())
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     service_wannabit_chain_13k = retrofit.create(WannabitChain.class);
                 }
             }
             return service_wannabit_chain_13k;
+
+        } else if (chain == COSMOS_MAIN) {
+            if (service_wannabit_main == null) {
+                synchronized (ApiClient.class) {
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(c.getString(R.string.url_lcd_main))
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    service_wannabit_main = retrofit.create(WannabitChain.class);
+                }
+            }
+            return service_wannabit_main;
         }
         return null;
     }
@@ -66,6 +78,7 @@ public class ApiClient {
 
     private static EsService service_es_12K = null;
     private static EsService service_es_13k = null;
+    private static EsService service_es_main = null;
     public static EsService getEsService(Context c, BaseChain chain) {
         if (chain == GAIA_12K) {
             if (service_es_12K == null) {
@@ -92,6 +105,18 @@ public class ApiClient {
                 }
             }
             return service_es_13k;
+
+        } else if (chain == COSMOS_MAIN) {
+            if (service_es_main == null) {
+                synchronized (ApiClient.class) {
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(c.getString(R.string.url_esearch_main))
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    service_es_main = retrofit.create(EsService.class);
+                }
+            }
+            return service_es_main;
 
         }
         return  null;

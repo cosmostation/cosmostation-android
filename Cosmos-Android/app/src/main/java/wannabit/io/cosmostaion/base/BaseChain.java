@@ -24,6 +24,8 @@ public enum BaseChain {
             return GAIA_12K;
         } else if (chainName.equals(BaseChain.GAIA_13K.chainName)) {
             return GAIA_13K;
+        } else if (chainName.equals(BaseChain.COSMOS_MAIN.chainName)) {
+            return COSMOS_MAIN;
         }
         return GAIA_12K;
     }

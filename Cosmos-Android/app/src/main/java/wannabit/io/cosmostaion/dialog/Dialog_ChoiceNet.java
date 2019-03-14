@@ -46,7 +46,9 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), getString(R.string.str_preparing), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), getString(R.string.str_preparing), Toast.LENGTH_SHORT).show();
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.COSMOS_MAIN);
+                getDialog().dismiss();
             }
         });
 

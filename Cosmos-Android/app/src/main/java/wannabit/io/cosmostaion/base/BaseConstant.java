@@ -117,7 +117,8 @@ public class BaseConstant {
 
     public final static String                  COSMOS_MAINNET                          = "COSMOS_MAINNET";
     public final static String                  COSMOS_GAIA12K                          = "COSMOS_GAIA12K";
-    public final static String                  COSMOS_ATOM                             = "muon";
+    public final static String                  COSMOS_ATOM                             = "uatom";
+    public final static String                  COSMOS_MUON                             = "muon";
     public final static String                  COSMOS_PHOTON                           = "photino";
     //TODO HardCoding!!
     public final static long                    COSMOS_UNBONDING_TIME                   = 259200000;

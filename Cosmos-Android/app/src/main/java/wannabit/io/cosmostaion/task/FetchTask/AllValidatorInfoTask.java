@@ -24,6 +24,7 @@ public class AllValidatorInfoTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
+        WLog.w("AllValidatorInfoTask");
         try {
             Response<ArrayList<Validator>> response = ApiClient.getWannabitChain(mApp, mChain).getValidatorDetailList().execute();
             if(!response.isSuccessful()) {
@@ -33,8 +34,8 @@ public class AllValidatorInfoTask extends CommonTask {
             }
 
             if(response.body() != null && response.body().size() > 0) {
-//                ArrayList<Validator> mValidators = response.body();
-//                WLog.w("mValidators : " + mValidators.size());
+                ArrayList<Validator> mValidators = response.body();
+                WLog.w("mValidators!!! : " + mValidators.size());
                 mResult.resultData = response.body();
                 mResult.isSuccess = true;
             }

@@ -75,7 +75,7 @@ public class WDp {
     public static SpannableString getDpAtomBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
                 sum = balance.balance;
             }
         }
@@ -101,7 +101,7 @@ public class WDp {
     public static SpannableString getDpAllAtom(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
                 sum = sum.add(balance.balance);
             }
         }
@@ -121,7 +121,7 @@ public class WDp {
         BigDecimal sum = BigDecimal.ZERO;
         if(balances != null) {
             for(Balance balance : balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
                     sum = sum.add(balance.balance);
                 }
             }
@@ -138,7 +138,7 @@ public class WDp {
         }
         if(totalReward != null && totalReward.coins != null) {
             for(Coin coin : totalReward.coins) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
                     sum = sum.add(new BigDecimal(coin.amount));
                     break;
                 }

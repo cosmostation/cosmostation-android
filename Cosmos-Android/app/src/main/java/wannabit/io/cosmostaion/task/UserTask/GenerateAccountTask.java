@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class GenerateAccountTask extends CommonTask {
@@ -38,6 +39,7 @@ public class GenerateAccountTask extends CommonTask {
 //            Mnemonic mnemonic  = mApp.getBaseDao().onSelectMnemonic(strings[2]);
 //            String seed        = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic)+ mnemonic.uuid, mnemonic.resource, mnemonic.spec);
 
+            WLog.w("gen chain : " + strings[0]);
             long id = mApp.getBaseDao().onInsertAccount(onGenAccount(strings[2], strings[1], strings[0], strings[3]));
             if(id > 0) {
                 mResult.isSuccess = true;

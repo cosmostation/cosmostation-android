@@ -79,7 +79,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
                 result = balance.balance;
                 break;
             }
