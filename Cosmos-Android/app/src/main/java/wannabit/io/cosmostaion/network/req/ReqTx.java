@@ -85,7 +85,6 @@ public class ReqTx {
             if(chain.equals(BaseChain.GAIA_12K)) {
                 fields.add(delegator_addr);
             } else {
-
                 fields.add(delegator_address);
             }
         }

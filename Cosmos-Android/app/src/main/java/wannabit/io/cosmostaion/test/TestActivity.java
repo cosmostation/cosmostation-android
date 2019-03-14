@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.test;
 
 import android.os.Bundle;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import org.apache.http.client.methods.HttpGet;
@@ -9,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,28 +26,34 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wannabit.io.cosmostaion.AWSV4Auth;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.network.EsService;
+import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class TestActivity extends BaseActivity {
 
     private static String url2 = "https://search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com/";
-    private static String url = "https://search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com/test/_search/";
+    private static String url = "https://search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com/txs/_search";
+//    private static String url = "https://search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com/test/_search";
     private static String host = "search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com";
-    private static String ACCESS_KEY = "AKIAJAEUOYIPPOF4UA6A";
-    private static String SECRET_KEY = "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";
+    private static String ACCESS_KEY = "AKIAJYCEXW3A3FBCO5UA";
+    private static String SECRET_KEY = "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";
     private static String REGION = "ap-northeast-2";
     private static String SERVICE_NAME = "es";
-    private static String  query = "/test/_search";
-    private static String  payload = "/test/_search";
+    private static String  query = "/txs/_search";
+//    private static String  query = "/test/_search";
+    private static String  payload = "/txs/_search";
     private static String  payload2 = "";
 
 
@@ -55,6 +63,11 @@ public class TestActivity extends BaseActivity {
         setContentView(R.layout.activity_intro);
 
 
+//        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+//        ReqTx req = new ReqTx(0, 0, true, "cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q", BaseChain.COSMOS_MAIN);
+//        WLog.w("req : " + new Gson().toJson(req));
+//        RequestBody body = RequestBody.create(JSON, new Gson().toJson(req));
+
 
         TreeMap<String, String> awsHeaders = new TreeMap<String, String>();
         awsHeaders.put("host", host);
@@ -63,12 +76,12 @@ public class TestActivity extends BaseActivity {
         AWSV4Auth aWSV4Auth = new AWSV4Auth.Builder(ACCESS_KEY, SECRET_KEY)
                 .regionName(REGION)
                 .serviceName(SERVICE_NAME) // es - elastic search. use your service name
-                .httpMethodName("GET") //GET, PUT, POST, DELETE, etc...
+                .httpMethodName("POST") //GET, PUT, POST, DELETE, etc...
                 .canonicalURI(query) //end point
                 .queryParametes(null) //query parameters if any
                 .awsHeaders(awsHeaders) //aws header parameters
                 .payload(null) // payload if any
-                .debug() // turn on the debug mode
+//                .debug() // turn on the debug mode
                 .build();
 
         final Map<String, String> header = aWSV4Auth.getHeaders();
@@ -79,90 +92,111 @@ public class TestActivity extends BaseActivity {
         WLog.w("x-amz-date!!!   " + header.get("x-amz-date"));
         WLog.w("Authorization   " + header.get("Authorization") );
 
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        ReqTx req = new ReqTx(0, 0, true, "cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q", BaseChain.COSMOS_MAIN);
+        WLog.w("req : " + new Gson().toJson(req));
+        RequestBody body = RequestBody.create(JSON, new Gson().toJson(req));
 
-//        OkHttpClient client = new OkHttpClient();
-//        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
-//        String requestUrl = urlBuilder.build().toString();
-//        Request request = new Request.Builder()
-//                .url(requestUrl)
-//                .addHeader("Host", host)
-//                .addHeader("X-Amz-Date", header.get("x-amz-date"))
-//                .addHeader("Authorization", header.get("Authorization"))
-//                .build();
+//        StringEntity payload = new StringEntity(jsonDocument);
+
+
+        OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        String requestUrl = urlBuilder.build().toString();
+        Request request = new Request.Builder()
+                .url(requestUrl)
+                .method("POST", body)
+
+//                .post(RequestBody.create(MediaType.parse("application/json"), new Gson().toJson("")))
+//                .post("")
+                .addHeader("Host", host)
+                .addHeader("X-Amz-Date", header.get("x-amz-date"))
+                .addHeader("Authorization", header.get("Authorization"))
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                WLog.w("onFailure");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                WLog.w("onResponse : " + response.toString());
+                WLog.w("onResponse : " + response.body().string());
+            }
+        });
+
+
+
+
+////        long timeNow = Calendar.getInstance().getTimeInMillis();
+////
+////        String amzDate = convertDateTo(ISO8601,timeNow);
+////        WLog.w("amzDate : " + amzDate);
+//        try {
+////            String signature = getSignature(url, timeNow, query);
+////            WLog.w("Signature : " + signature);
+////            String oauth = "AWS4-HMAC-SHA256 Credential="+ ACCESS_KEY+"/"+convertDateTo(SHORT_DATE,timeNow)+"/ap-northeast-2/es/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature="+ signature;
+////            WLog.w("oauth : " + oauth);
 //
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                WLog.w("onFailure");
-//            }
+//            ReqTx req = new ReqTx(0, 0, true, "cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q", BaseChain.COSMOS_MAIN);
 //
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                WLog.w("onResponse : " + response.toString());
-//                WLog.w("onResponse : " + response.body().string());
-//            }
-//        });
-
-
-
-//        long timeNow = Calendar.getInstance().getTimeInMillis();
+//            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+//            httpClient.addInterceptor(new Interceptor() {
+//                  @Override
+//                  public Response intercept(Interceptor.Chain chain) throws IOException {
+//                      Request original = chain.request();
+//                      Request request = original.newBuilder()
+//                              .header("Host", host)
+//                              .header("X-Amz-Date", header.get("x-amz-date"))
+//                              .header("Authorization", header.get("Authorization"))
+////                              .method("POST", original.body())
+//                              .build();
+//                      WLog.w("original.method() : " + original.method());
+//                      return chain.proceed(request);
+//                  }
+//            });
+//            OkHttpClient client = httpClient.build();
 //
-//        String amzDate = convertDateTo(ISO8601,timeNow);
-//        WLog.w("amzDate : " + amzDate);
-        try {
-//            String signature = getSignature(url, timeNow, query);
-//            WLog.w("Signature : " + signature);
-//            String oauth = "AWS4-HMAC-SHA256 Credential="+ ACCESS_KEY+"/"+convertDateTo(SHORT_DATE,timeNow)+"/ap-northeast-2/es/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature="+ signature;
-//            WLog.w("oauth : " + oauth);
-
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            httpClient.addInterceptor(new Interceptor() {
-                  @Override
-                  public Response intercept(Interceptor.Chain chain) throws IOException {
-                      Request original = chain.request();
-                      Request request = original.newBuilder()
-                              .header("Host", host)
-                              .header("X-Amz-Date", header.get("x-amz-date"))
-                              .header("Authorization", header.get("Authorization"))
-                              .method(original.method(), original.body())
-                              .build();
-                      return chain.proceed(request);
-                  }
-            });
-
-            OkHttpClient client = httpClient.build();
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(url2)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(client)
-                    .build();
-            EsService es = retrofit.create(EsService.class);
-            es.getTest().enqueue(new retrofit2.Callback<JsonObject>() {
-                @Override
-                public void onResponse(retrofit2.Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
-                    WLog.w("code : "+response.code());
-
-                    if(response.body() != null) WLog.w("body" + response.body().toString());
-                    else WLog.w("body null");
-
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        WLog.w("jObjError1 : " + jObjError.toString());
-                    } catch (Exception e) {
-                        WLog.w("jObjError3 : " + e.getMessage());
-                    }
-                }
-
-                @Override
-                public void onFailure(retrofit2.Call<JsonObject> call, Throwable t) {
-                    WLog.w("onFailure : " + t.getMessage());
-                }
-            });
-
-        }catch (Exception e) {
-            WLog.w("ERROR : " + e.getMessage());
-        }
+//            Retrofit retrofit = new Retrofit.Builder()
+//                    .baseUrl(url2)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .client(client)
+//                    .build();
+//            EsService es = retrofit.create(EsService.class);
+////            Request.Builder builder =  es.getTx3(req).request().newBuilder().get();
+////            Field field = Request.Builder.class.getField("method");
+////            field.setAccessible(true);
+////            field.set(builder, "GET");
+//
+//
+////            es.getTest(req).enqueue(new retrofit2.Callback<JsonObject>() {
+//            es.getTx3(req).enqueue(new retrofit2.Callback<JsonObject>() {
+//                @Override
+//                public void onResponse(retrofit2.Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+//                    WLog.w("code : "+response.code());
+//
+//                    if(response.body() != null) WLog.w("body" + response.body().toString());
+//                    else WLog.w("body null");
+//
+//                    try {
+//                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+//                        WLog.w("jObjError1 : " + jObjError.toString());
+//                    } catch (Exception e) {
+//                        WLog.w("jObjError3 : " + e.getMessage());
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(retrofit2.Call<JsonObject> call, Throwable t) {
+//                    WLog.w("onFailure : " + t.getMessage());
+//                }
+//            });
+//
+//        }catch (Exception e) {
+//            WLog.w("ERROR : " + e.getMessage());
+//        }
 
 //        RestClient esClient = esClient(serviceName, region);
 

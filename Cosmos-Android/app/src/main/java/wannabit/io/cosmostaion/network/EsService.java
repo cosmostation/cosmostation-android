@@ -4,10 +4,14 @@ import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.network.req.ReqTxVal;
@@ -18,12 +22,24 @@ public interface EsService {
     @POST("/txs/_search")
     Call<ResHistory> getTx(@Body ReqTx data);
 
+    @POST("/txs/_search")
+    Call<JsonObject> getTx2(@Body ReqTx data);
+
 
     @POST("/txs/_search")
     Call<ResHistory> getValTx(@Body ReqTxVal data);
 
-    @GET("/test/_search")
-    Call<JsonObject> getTest();
+//    @GET("/txs/_search")
+    @HTTP(method = "GET", path = "/txs/_search", hasBody = true)
+    Call<JsonObject> getTest(@Body ReqTx data);
+
+//    @GET("/txs/_search/{query}")
+//    Call<JsonObject> getTx3(@Path() ReqTx data);
+//    @GET("/txs/_search/{query}")
+//    @FormUrlEncoded
+//    @HTTP(method = "POST", path = "/txs/_search", hasBody = true)
+    @POST("/txs/_search")
+    Call<JsonObject> getTx3(@Body ReqTx data);
 
 
 //    @Headers({

@@ -2,10 +2,20 @@ package wannabit.io.cosmostaion.network;
 
 import android.content.Context;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.TreeMap;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import wannabit.io.cosmostaion.AWSV4Auth;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
@@ -80,8 +90,8 @@ public class ApiClient {
     private static EsService service_es_13k = null;
     private static EsService service_es_main = null;
     public static EsService getEsService(Context c, BaseChain chain) {
-        if (chain == GAIA_12K) {
-            if (service_es_12K == null) {
+        if (chain == GAIA_12K|| chain == COSMOS_MAIN) {
+            if (service_es_12K == null ) {
                 synchronized (ApiClient.class) {
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(c.getString(R.string.url_esearch))
@@ -106,12 +116,51 @@ public class ApiClient {
             }
             return service_es_13k;
 
-        } else if (chain == COSMOS_MAIN) {
+        }
+        /*
+        else if (chain == COSMOS_MAIN) {
             if (service_es_main == null) {
                 synchronized (ApiClient.class) {
+
+                    TreeMap<String, String> awsHeaders = new TreeMap<String, String>();
+                    awsHeaders.put("host", host);
+
+                    AWSV4Auth aWSV4Auth = new AWSV4Auth.Builder(ACCESS_KEY, SECRET_KEY)
+                            .regionName(REGION)
+                            .serviceName(SERVICE_NAME) // es - elastic search. use your service name
+                            .httpMethodName("GET") //GET, PUT, POST, DELETE, etc...
+                            .canonicalURI(query) //end point
+                            .queryParametes(null) //query parameters if any
+                            .awsHeaders(awsHeaders) //aws header parameters
+                            .payload(null) // payload if any
+                            .debug() // turn on the debug mode
+                            .build();
+
+                    final Map<String, String> header = aWSV4Auth.getHeaders();
+
+                    WLog.w("x-amz-date!!!   " + header.get("x-amz-date"));
+                    WLog.w("Authorization   " + header.get("Authorization") );
+
+                    OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+                    httpClient.addInterceptor(new Interceptor() {
+                        @Override
+                        public Response intercept(Interceptor.Chain chain) throws IOException {
+                            Request original = chain.request();
+                            Request request = original.newBuilder()
+                                    .header("Host", host)
+                                    .header("X-Amz-Date", header.get("x-amz-date"))
+                                    .header("Authorization", header.get("Authorization"))
+                                    .method(original.method(), original.body())
+                                    .build();
+                            return chain.proceed(request);
+                        }
+                    });
+                    OkHttpClient client = httpClient.build();
+
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(c.getString(R.string.url_esearch_main))
                             .addConverterFactory(GsonConverterFactory.create())
+                            .client(client)
                             .build();
                     service_es_main = retrofit.create(EsService.class);
                 }
@@ -119,8 +168,17 @@ public class ApiClient {
             return service_es_main;
 
         }
+        */
         return  null;
     }
+
+
+    private static String host = "search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com";
+    private static String ACCESS_KEY = "AKIAIZ33YYSDAH5ORLVA";
+    private static String SECRET_KEY = "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";
+    private static String REGION = "ap-northeast-2";
+    private static String SERVICE_NAME = "es";
+    private static String query = "/txs/_search";
 
 
 
