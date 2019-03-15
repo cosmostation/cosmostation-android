@@ -109,8 +109,8 @@ public class DelegateActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        onHideKeyboard();
         if(mViewPager.getCurrentItem() > 0) {
-            onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();

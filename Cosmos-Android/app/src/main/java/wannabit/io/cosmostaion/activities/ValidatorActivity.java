@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -181,39 +182,39 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onStartDelegate() {
         WLog.w("onStartDelegate");
         if(mAccount == null || mValidator == null) return;
-        if(!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-
-        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasAtom = false;
-        for (Balance balance:balances) {
-            if(balance.symbol.toLowerCase().equals(WDp.DpAtom(getBaseContext(), mAccount.baseChain).toLowerCase()) &&
-                    (balance.balance.compareTo(new BigDecimal("1")) > 0)){
-                hasAtom  = true;
-            }
-        }
-        if(!hasAtom) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
-            Bundle bundle = new Bundle();
-            bundle.putLong("id", mAccount.id);
-            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
+//        if(!mAccount.hasPrivateKey) {
+//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return;
+//        }
+//
+//        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+//            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+//        boolean hasAtom = false;
+//        for (Balance balance:balances) {
+//            if(balance.symbol.toLowerCase().equals(WDp.DpAtom(getBaseContext(), mAccount.baseChain).toLowerCase()) &&
+//                    (balance.balance.compareTo(new BigDecimal("1")) > 0)){
+//                hasAtom  = true;
+//            }
+//        }
+//        if(!hasAtom) {
+//            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+//            Bundle bundle = new Bundle();
+//            bundle.putLong("id", mAccount.id);
+//            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return;
+//        }
 
         getBaseDao().setValidator(mValidator);
         Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
@@ -223,31 +224,31 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onStartUndelegate() {
         WLog.w("onStartUndelegate");
         if(mAccount == null || mValidator == null) return;
-        if(!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-
-        if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            Toast.makeText(getBaseContext(), R.string.error_vesting_time, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
-            Bundle bundle = new Bundle();
-            bundle.putLong("id", mAccount.id);
-            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
+//        if(!mAccount.hasPrivateKey) {
+//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return;
+//        }
+//
+//        if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+//            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+//            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+//            Bundle bundle = new Bundle();
+//            bundle.putLong("id", mAccount.id);
+//            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return;
+//        }
 
         getBaseDao().setValidator(mValidator);
         Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
@@ -496,6 +497,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                     holder.itemTvUnbondingTime.setVisibility(View.INVISIBLE);
                 }
+                if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) holder.itemPhotonLayer.setVisibility(View.GONE);
                 if(mReward != null) {
                     holder.itemTvAtomReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getAtomAmount(), 6, BaseChain.getChain(mAccount.baseChain)));
                     holder.itemTvPhotonReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getPhotonAmount(), 6, BaseChain.getChain(mAccount.baseChain)));
@@ -722,6 +724,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             TextView    itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvUnbondingTime, itemTvAtomReward, itemTvPhotonReward;
             Button      itemBtnDelegate, itemBtnUndelegate, itemBtnReward;
             TextView    itemAtomTitle, itemPhotonTitle;
+            RelativeLayout itemPhotonLayer;
 
             public MyActionHolder(View v) {
                 super(v);
@@ -735,6 +738,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemBtnReward           = itemView.findViewById(R.id.validator_btn_claim_reward);
                 itemAtomTitle           = itemView.findViewById(R.id.action_atom_title);
                 itemPhotonTitle         = itemView.findViewById(R.id.action_photon_title);
+                itemPhotonLayer         = itemView.findViewById(R.id.validator_photon_reward_layer);
             }
         }
 

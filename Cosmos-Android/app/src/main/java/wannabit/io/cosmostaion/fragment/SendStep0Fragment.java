@@ -81,10 +81,10 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
         } else if (v.equals(mTest)) {
-            if(!getSActivity().mAccount.address.equals("cosmos1pzllggpn22094j3mwq79u4ql63cwac6enqkjck"))
-                mAddressInput.setText("cosmos1pzllggpn22094j3mwq79u4ql63cwac6enqkjck");
-            else
-                mAddressInput.setText("cosmos12tzwn2ej48g9rvmhm3t6ryfjgrkf0a0hlday2z");
+//            if(!getSActivity().mAccount.address.equals("cosmos1pzllggpn22094j3mwq79u4ql63cwac6enqkjck"))
+//                mAddressInput.setText("cosmos1pzllggpn22094j3mwq79u4ql63cwac6enqkjck");
+//            else
+                mAddressInput.setText("cosmos1xjdgwn8gnd5ve9tv87c87f6r79uyl9477nal2g");
 
         } else if (v.equals(mCancel)) {
             getSActivity().onBeforeStep();

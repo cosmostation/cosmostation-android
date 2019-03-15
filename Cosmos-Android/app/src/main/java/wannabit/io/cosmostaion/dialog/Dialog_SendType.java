@@ -49,7 +49,7 @@ public class Dialog_SendType extends DialogFragment {
         mBtnPhotino = view.findViewById(R.id.send_photino);
 
 
-        if(getArguments().getString("chain").equals(BaseChain.COSMOS_MAIN)) {
+        if(getArguments().getString("chain").equals(BaseChain.COSMOS_MAIN.getChain())) {
             mAtom.setVisibility(View.VISIBLE);
             mMuon.setVisibility(View.GONE);
             mPhotino.setVisibility(View.GONE);

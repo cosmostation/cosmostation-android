@@ -39,8 +39,9 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
     private Button mBeforeBtn, mNextBtn;
 
     private Coin mGas = new Coin();
-    private ArrayList<String> mAtomFees = new ArrayList<>();
-    private ArrayList<String>   mPhotonFees = new ArrayList<>();
+    private ArrayList<String>   mAtomFees = new ArrayList<>();
+    private ArrayList<String>   mMuonFees = new ArrayList<>();
+    private ArrayList<String>   mPhotinoFees = new ArrayList<>();
 
     public static UndelegateStep2Fragment newInstance(Bundle bundle) {
         UndelegateStep2Fragment fragment = new UndelegateStep2Fragment();
@@ -52,8 +53,8 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAtomFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.atom_fee)));
-        mPhotonFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.photon_fee)));
-        mGas = new Coin(BaseConstant.COSMOS_PHOTON, mPhotonFees.get(1));
+        mMuonFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.muon_fee)));
+        mPhotinoFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.photino_fee)));
     }
 
     @Override
@@ -69,6 +70,17 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
+        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mGas = new Coin(BaseConstant.COSMOS_ATOM, mAtomFees.get(1));
+            mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+            Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
+            mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
+            mSeekBarGas.getProgressDrawable().setBounds(bounds);
+            mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
+        } else {
+            mGas = new Coin(BaseConstant.COSMOS_PHOTINO, mPhotinoFees.get(1));
+            mTvGasType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
+        }
 
         mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -76,8 +88,10 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
                 if(fromUser) {
                     if (mGas.denom.equals(BaseConstant.COSMOS_ATOM)) {
                         mGas.amount = mAtomFees.get(progress);
+                    } else if (mGas.denom.equals(BaseConstant.COSMOS_MUON)){
+                        mGas.amount = mMuonFees.get(progress);
                     } else {
-                        mGas.amount = mPhotonFees.get(progress);
+                        mGas.amount = mPhotinoFees.get(progress);
                     }
                     onUpdateGasAmountDp();
                 }
@@ -129,8 +143,17 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             mSeekBarGas.getProgressDrawable().setBounds(bounds);
             mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
             mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
-        } else if (type.equals(BaseConstant.COSMOS_PHOTON)) {
-            mGas.amount = mPhotonFees.get(mSeekBarGas.getProgress());
+
+        } else if (type.equals(BaseConstant.COSMOS_MUON)) {
+            mGas.amount = mMuonFees.get(mSeekBarGas.getProgress());
+            Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
+            mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
+            mSeekBarGas.getProgressDrawable().setBounds(bounds);
+            mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+            mTvGasType.setTextColor(getResources().getColor(R.color.colorPhoton));
+
+        } else if (type.equals(BaseConstant.COSMOS_PHOTINO)) {
+            mGas.amount = mPhotinoFees.get(mSeekBarGas.getProgress());
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
             mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_photon_seekbar_style));
             mSeekBarGas.getProgressDrawable().setBounds(bounds);
@@ -142,7 +165,7 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
 
     private void onUpdateGasAmountDp() {
         WLog.w("onUpdateGasAmountDp : " + mGas.amount + " " + mGas.denom);
-        mTvGasAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(mGas.amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        mTvGasAmount.setText(new BigDecimal(mGas.amount).setScale(6).toPlainString());
     }
 
     private UndelegateActivity getSActivity() {

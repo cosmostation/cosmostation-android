@@ -301,10 +301,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-//        if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-//            Toast.makeText(getBaseContext(), R.string.error_vesting_time, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            Toast.makeText(getBaseContext(), R.string.error_vesting_time, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
@@ -313,10 +313,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 hasbalance = true;
             }
         }
-//        if(!hasbalance){
-//            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        if(!hasbalance){
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
             Bundle bundle = new Bundle();
