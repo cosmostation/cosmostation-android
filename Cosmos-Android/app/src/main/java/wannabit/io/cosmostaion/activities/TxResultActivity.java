@@ -251,11 +251,11 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mMemo.setText(mResTxInfo.tx.value.memo);
 
         for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-            if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+            if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
                 mFeeAtomLayer.setVisibility(View.VISIBLE);
                 mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
             }
-            if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+            if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)|| coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
                 mFeePhotonLayer.setVisibility(View.VISIBLE);
                 mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
             }
@@ -272,11 +272,11 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
 
             for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.amount) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
                     mSendAtomLayer.setVisibility(View.VISIBLE);
                     mSendAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                 }
-                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON) || coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
                     mSendPhotonLayer.setVisibility(View.VISIBLE);
                     mSendPhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                 }

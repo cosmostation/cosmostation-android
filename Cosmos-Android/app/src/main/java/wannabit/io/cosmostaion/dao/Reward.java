@@ -25,7 +25,7 @@ public class Reward {
     public BigDecimal getAtomAmount() {
         BigDecimal result = BigDecimal.ZERO;
         for(Coin coin:amount) {
-            if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+            if(coin.denom.equals(BaseConstant.COSMOS_ATOM)|| coin.denom.equals(BaseConstant.COSMOS_MUON)) {
                 result = new BigDecimal(coin.amount);
                 break;
             }
@@ -36,7 +36,7 @@ public class Reward {
     public BigDecimal getPhotonAmount() {
         BigDecimal result = BigDecimal.ZERO;
         for(Coin coin:amount) {
-            if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+            if(coin.denom.equals(BaseConstant.COSMOS_PHOTON) || coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
                 result = new BigDecimal(coin.amount);
                 break;
             }

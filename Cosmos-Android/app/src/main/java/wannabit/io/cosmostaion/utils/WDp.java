@@ -155,7 +155,7 @@ public class WDp {
     public static SpannableString getDpPhotonBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON) || balance.symbol.equals(BaseConstant.COSMOS_PHOTINO)) {
                 sum = balance.balance;
             }
         }
@@ -185,7 +185,7 @@ public class WDp {
     public static SpannableString getDpAllPhoton(Context c, ArrayList<Balance> balances, ArrayList<Reward> rewards, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)|| balance.symbol.equals(BaseConstant.COSMOS_PHOTINO)) {
                 sum = sum.add(balance.balance);
             }
         }
@@ -199,14 +199,14 @@ public class WDp {
         BigDecimal sum = BigDecimal.ZERO;
         if(balances != null) {
             for(Balance balance : balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)|| balance.symbol.equals(BaseConstant.COSMOS_PHOTINO)) {
                     sum = sum.add(balance.balance);
                 }
             }
         }
         if(totalReward != null && totalReward.coins != null) {
             for(Coin coin : totalReward.coins) {
-                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)|| coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
                     sum = sum.add(new BigDecimal(coin.amount));
                     break;
                 }
@@ -229,7 +229,7 @@ public class WDp {
         if(balanceHashMap != null) {
             for (long key : balanceHashMap.keySet() ) {
                 for(Balance balance : balanceHashMap.get(key)) {
-                    if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+                    if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
                         sum = sum.add(balance.balance);
                     }
                 }
@@ -252,7 +252,7 @@ public class WDp {
         if(rewardHashMap != null) {
             for (long key : rewardHashMap.keySet() ) {
                 for(Coin coin : rewardHashMap.get(key).coins) {
-                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
                         sum = sum.add(new BigDecimal(coin.amount));
                     }
                 }
@@ -268,7 +268,7 @@ public class WDp {
         if(balanceHashMap != null) {
             for (long key : balanceHashMap.keySet() ) {
                 for(Balance balance : balanceHashMap.get(key)) {
-                    if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)) {
+                    if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON) || balance.symbol.equals(BaseConstant.COSMOS_PHOTINO)) {
                         sum = sum.add(balance.balance);
                     }
                 }
@@ -277,7 +277,7 @@ public class WDp {
         if(rewardHashMap != null) {
             for (long key : rewardHashMap.keySet() ) {
                 for(Coin coin : rewardHashMap.get(key).coins) {
-                    if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_PHOTON) || coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
                         sum = sum.add(new BigDecimal(coin.amount));
                     }
                 }
@@ -304,7 +304,7 @@ public class WDp {
     }
 
     public static int getCommisionColor(String rateS) {
-        int result = R.color.colorGray1;
+        int result = R.color.colorCommision2;
         float rate = Float.parseFloat(rateS);
         if(rate > 0.1999f) {
             result = R.color.colorCommision4;
@@ -314,10 +314,10 @@ public class WDp {
 //            result = R.color.colorCommision3;
 //            return result;
 //        }
-//        if(rate > 0.121f) {
-//            result = R.color.colorCommision2;
-//            return result;
-//        }
+        if(rate > 0.121f) {
+            result = R.color.colorCommision3;
+            return result;
+        }
         return result;
     }
 

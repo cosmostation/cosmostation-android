@@ -29,7 +29,8 @@
             android:layout_below="@+id/recycler"
             android:layout_marginTop="@dimen/space_14"
             style="@style/font_ss_9_red"
-            android:text="@string/str_gaia"/>
+            android:text="@string/str_gaia"
+            android:visibility="gone"/>
     </LinearLayout>
 
 

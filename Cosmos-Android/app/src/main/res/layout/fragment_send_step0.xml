@@ -24,13 +24,15 @@
                 android:maxLength="46"
                 android:textColorHint="@color/colorGray4"
                 android:background="@drawable/edittext_box"
-                android:paddingEnd="@dimen/space_60"
+                android:paddingLeft="@dimen/space_16"
+                android:paddingRight="@dimen/space_16"
                 style="@style/font_ss_12_white"
                 android:imeOptions="actionNext"/>
             <ImageView
                 android:id="@+id/receiver_camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/space_8"
                 android:padding="@dimen/space_18"
@@ -39,14 +41,83 @@
                 android:background="@drawable/qrcode_ic"/>
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/btn_qr"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_36"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@drawable/btn_trans_with_border">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/qr_ic"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"
+                    style="@style/font_ss_9_white"
+                    android:text="@string/str_qr_code"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btn_history"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_36"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/space_8"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@drawable/btn_trans_with_border">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/list_ic"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"
+                    style="@style/font_ss_9_white"
+                    android:text="@string/str_recent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btn_paste"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_36"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/space_8"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@drawable/btn_trans_with_border">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/copy_ic"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"
+                    style="@style/font_ss_9_white"
+                    android:text="@string/str_paste"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/btn_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/space_4"
-            android:text="TO TEST ADDRESS"
-            android:visibility="gone"/>
+            android:text="TO TEST ADDRESS"/>
     </LinearLayout>
 
 

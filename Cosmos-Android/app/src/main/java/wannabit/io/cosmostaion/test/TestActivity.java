@@ -47,9 +47,9 @@ public class TestActivity extends BaseActivity {
     private static String url = "https://search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com/txs/_search";
 //    private static String url = "https://search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com/test/_search";
     private static String host = "search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com";
-    private static String ACCESS_KEY = "AKIAJYCEXW3A3FBCO5UA";
-    private static String SECRET_KEY = "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";
-    private static String REGION = "ap-northeast-2";
+//    private static String ACCESS_KEY = "AKIAJYCEXW3A3FBCO5UA";
+//    private static String SECRET_KEY = "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";
+//    private static String REGION = "ap-northeast-2";
     private static String SERVICE_NAME = "es";
     private static String  query = "/txs/_search";
 //    private static String  query = "/test/_search";
@@ -69,63 +69,63 @@ public class TestActivity extends BaseActivity {
 //        RequestBody body = RequestBody.create(JSON, new Gson().toJson(req));
 
 
-        TreeMap<String, String> awsHeaders = new TreeMap<String, String>();
-        awsHeaders.put("host", host);
-
-
-        AWSV4Auth aWSV4Auth = new AWSV4Auth.Builder(ACCESS_KEY, SECRET_KEY)
-                .regionName(REGION)
-                .serviceName(SERVICE_NAME) // es - elastic search. use your service name
-                .httpMethodName("POST") //GET, PUT, POST, DELETE, etc...
-                .canonicalURI(query) //end point
-                .queryParametes(null) //query parameters if any
-                .awsHeaders(awsHeaders) //aws header parameters
-                .payload(null) // payload if any
-//                .debug() // turn on the debug mode
-                .build();
-
-        final Map<String, String> header = aWSV4Auth.getHeaders();
-        for (Map.Entry<String, String> entrySet : header.entrySet()) {
-            String key = entrySet.getKey();
-            String value = entrySet.getValue();
-        }
-        WLog.w("x-amz-date!!!   " + header.get("x-amz-date"));
-        WLog.w("Authorization   " + header.get("Authorization") );
-
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        ReqTx req = new ReqTx(0, 0, true, "cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q", BaseChain.COSMOS_MAIN);
-        WLog.w("req : " + new Gson().toJson(req));
-        RequestBody body = RequestBody.create(JSON, new Gson().toJson(req));
-
-//        StringEntity payload = new StringEntity(jsonDocument);
-
-
-        OkHttpClient client = new OkHttpClient();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
-        String requestUrl = urlBuilder.build().toString();
-        Request request = new Request.Builder()
-                .url(requestUrl)
-                .method("POST", body)
-
-//                .post(RequestBody.create(MediaType.parse("application/json"), new Gson().toJson("")))
-//                .post("")
-                .addHeader("Host", host)
-                .addHeader("X-Amz-Date", header.get("x-amz-date"))
-                .addHeader("Authorization", header.get("Authorization"))
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                WLog.w("onFailure");
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                WLog.w("onResponse : " + response.toString());
-                WLog.w("onResponse : " + response.body().string());
-            }
-        });
+//        TreeMap<String, String> awsHeaders = new TreeMap<String, String>();
+//        awsHeaders.put("host", host);
+//
+//
+//        AWSV4Auth aWSV4Auth = new AWSV4Auth.Builder(ACCESS_KEY, SECRET_KEY)
+//                .regionName(REGION)
+//                .serviceName(SERVICE_NAME) // es - elastic search. use your service name
+//                .httpMethodName("POST") //GET, PUT, POST, DELETE, etc...
+//                .canonicalURI(query) //end point
+//                .queryParametes(null) //query parameters if any
+//                .awsHeaders(awsHeaders) //aws header parameters
+//                .payload(null) // payload if any
+////                .debug() // turn on the debug mode
+//                .build();
+//
+//        final Map<String, String> header = aWSV4Auth.getHeaders();
+//        for (Map.Entry<String, String> entrySet : header.entrySet()) {
+//            String key = entrySet.getKey();
+//            String value = entrySet.getValue();
+//        }
+//        WLog.w("x-amz-date!!!   " + header.get("x-amz-date"));
+//        WLog.w("Authorization   " + header.get("Authorization") );
+//
+//        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+//        ReqTx req = new ReqTx(0, 0, true, "cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q", BaseChain.COSMOS_MAIN);
+//        WLog.w("req : " + new Gson().toJson(req));
+//        RequestBody body = RequestBody.create(JSON, new Gson().toJson(req));
+//
+////        StringEntity payload = new StringEntity(jsonDocument);
+//
+//
+//        OkHttpClient client = new OkHttpClient();
+//        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+//        String requestUrl = urlBuilder.build().toString();
+//        Request request = new Request.Builder()
+//                .url(requestUrl)
+//                .method("POST", body)
+//
+////                .post(RequestBody.create(MediaType.parse("application/json"), new Gson().toJson("")))
+////                .post("")
+//                .addHeader("Host", host)
+//                .addHeader("X-Amz-Date", header.get("x-amz-date"))
+//                .addHeader("Authorization", header.get("Authorization"))
+//                .build();
+//
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                WLog.w("onFailure");
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                WLog.w("onResponse : " + response.toString());
+//                WLog.w("onResponse : " + response.body().string());
+//            }
+//        });
 
 
 
@@ -247,29 +247,29 @@ public class TestActivity extends BaseActivity {
     {
         String signature = "";
 
-        String amzDate = convertDateTo(ISO8601_HUMAN_READABLE,date);
-        String amzDateShort = convertDateTo(ISO8601_HUMAN_READABLE,date).replace(":","").replace("-","").split("\\.")[0] + "Z";
-        String dateStamp = convertDateTo(SHORT_DATE,date);
-
-        String separator = File.separator;
-        separator += separator;
-        String host = url.split(separator)[1];
-
-        String canonicalHeaders = "Content-type: application/json\nHost: " + host + "\nX-Amz-Date: " + amzDate + "\n";
-
-        String signedHeaders = "content-type;host;x-amz-date";
-
-        String payLoadHash = SHA256HEX(payLoad);
-
-        String canonicalRequest = "POST\n" + query + "\n\n" + canonicalHeaders +"\n" + signedHeaders + "\n"+ payLoadHash;
-
-        String algorithm = "AWS4-HMAC-SHA256";
-        String credentialScope = dateStamp + "/" + REGION + "/" + SERVICE_NAME + "/aws4_request";
-        String stringToSign = algorithm + "\n" +  amzDateShort + "\n" +  credentialScope + "\n" +  SHA256HEX(canonicalRequest);
-
-        byte[] signingKey = getSignatureKey(SECRET_KEY,dateStamp,REGION,SERVICE_NAME);
-
-        signature = encodeToBase16(HmacSHA256(stringToSign,signingKey)) ;
+//        String amzDate = convertDateTo(ISO8601_HUMAN_READABLE,date);
+//        String amzDateShort = convertDateTo(ISO8601_HUMAN_READABLE,date).replace(":","").replace("-","").split("\\.")[0] + "Z";
+//        String dateStamp = convertDateTo(SHORT_DATE,date);
+//
+//        String separator = File.separator;
+//        separator += separator;
+//        String host = url.split(separator)[1];
+//
+//        String canonicalHeaders = "Content-type: application/json\nHost: " + host + "\nX-Amz-Date: " + amzDate + "\n";
+//
+//        String signedHeaders = "content-type;host;x-amz-date";
+//
+//        String payLoadHash = SHA256HEX(payLoad);
+//
+//        String canonicalRequest = "POST\n" + query + "\n\n" + canonicalHeaders +"\n" + signedHeaders + "\n"+ payLoadHash;
+//
+//        String algorithm = "AWS4-HMAC-SHA256";
+//        String credentialScope = dateStamp + "/" + REGION + "/" + SERVICE_NAME + "/aws4_request";
+//        String stringToSign = algorithm + "\n" +  amzDateShort + "\n" +  credentialScope + "\n" +  SHA256HEX(canonicalRequest);
+//
+//        byte[] signingKey = getSignatureKey(SECRET_KEY,dateStamp,REGION,SERVICE_NAME);
+//
+//        signature = encodeToBase16(HmacSHA256(stringToSign,signingKey)) ;
 
         return signature;
     }

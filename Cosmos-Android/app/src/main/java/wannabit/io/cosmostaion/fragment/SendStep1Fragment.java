@@ -38,9 +38,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     private RecyclerView            mRecyclerView;
     private Button                  mBeforeBtn, mNextBtn;
     private ArrayList<Coin>         mToSendCoins = new ArrayList<>();
-
     private SendCoinAdapter         mSendCoinAdapter;
-
 
     public static SendStep1Fragment newInstance(Bundle bundle) {
         SendStep1Fragment fragment = new SendStep1Fragment();
@@ -59,8 +57,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         mRecyclerView           = rootView.findViewById(R.id.recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mSendCoinAdapter = new SendCoinAdapter();
-        mRecyclerView.setAdapter(mSendCoinAdapter);
+
 
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mNextBtn = rootView.findViewById(R.id.btn_next);
@@ -70,10 +67,26 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) return;
+        mSendCoinAdapter = new SendCoinAdapter(BaseChain.getChain(getSActivity().mAccount.baseChain));
+        mRecyclerView.setAdapter(mSendCoinAdapter);
+    }
+
+    @Override
     public void onRefreshTab() {
-        if(mToSendCoins == null || mToSendCoins.size() == 0) {
-            onShowSendTypeDialog();
+        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            Coin atom = new Coin(BaseConstant.COSMOS_ATOM, "0");
+            mToSendCoins.add(atom);
+            mSendCoinAdapter.notifyDataSetChanged();
+
+        } else  {
+            if(mToSendCoins == null || mToSendCoins.size() == 0) {
+                onShowSendTypeDialog();
+            }
         }
+
     }
 
     @Override
@@ -82,27 +95,33 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(isValidateSendAmount()) {
-                getSActivity().mTargetCoins = mToSendCoins;
-                getSActivity().onNextStep();
-
-            } else {
-                Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
+            for(Coin coin:mToSendCoins) {
+                WLog.w("coin : denom : " + coin.denom + "    amount : " + coin.amount);
             }
+
+
+//            if(isValidateSendAmount()) {
+//                getSActivity().mTargetCoins = mToSendCoins;
+//                getSActivity().onNextStep();
+//
+//            } else {
+//                Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
+//            }
         }
 
     }
 
+    //Only show multicoin
     private void onShowSendTypeDialog() {
         Bundle bundle = new Bundle();
-        boolean alreadyAtom = false;
-        boolean alreadyPhoton = false;
+        boolean alreadyMuon = false;
+        boolean alreadyPhotino = false;
         for (Coin coin:mToSendCoins) {
-            if(coin.denom.contains(BaseConstant.COSMOS_ATOM)) alreadyAtom = true;
-            if(coin.denom.contains(BaseConstant.COSMOS_PHOTON)) alreadyPhoton = true;
+            if(coin.denom.contains(BaseConstant.COSMOS_MUON)) alreadyMuon = true;
+            if(coin.denom.contains(BaseConstant.COSMOS_PHOTINO)) alreadyPhotino = true;
         }
-        if (!alreadyAtom) bundle.putBoolean(BaseConstant.COSMOS_ATOM, true);
-        if (!alreadyPhoton) bundle.putBoolean(BaseConstant.COSMOS_PHOTON, true);
+        if (!alreadyMuon) bundle.putBoolean(BaseConstant.COSMOS_MUON, true);
+        if (!alreadyPhotino) bundle.putBoolean(BaseConstant.COSMOS_PHOTINO, true);
         bundle.putString("chain", getSActivity().mAccount.baseChain);
         Dialog_SendType dialog = Dialog_SendType.newInstance(bundle);
         dialog.setCancelable(false);
@@ -143,8 +162,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if (data.getStringExtra("coin").equals(BaseConstant.COSMOS_ATOM)) {
                 Coin atom = new Coin(BaseConstant.COSMOS_ATOM, "0");
                 mToSendCoins.add(atom);
-            } else if (data.getStringExtra("coin").equals(BaseConstant.COSMOS_PHOTON)) {
-                Coin photon = new Coin(BaseConstant.COSMOS_PHOTON, "0");
+            } else if (data.getStringExtra("coin").equals(BaseConstant.COSMOS_MUON)) {
+                Coin photon = new Coin(BaseConstant.COSMOS_MUON, "0");
+                mToSendCoins.add(photon);
+            } else if (data.getStringExtra("coin").equals(BaseConstant.COSMOS_PHOTINO)) {
+                Coin photon = new Coin(BaseConstant.COSMOS_PHOTINO, "0");
                 mToSendCoins.add(photon);
             }
             mSendCoinAdapter.notifyDataSetChanged();
@@ -154,6 +176,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     private class SendCoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_COIN              = 0;
         private static final int TYPE_ADD               = 1;
+        private BaseChain chainType;
+
+        public SendCoinAdapter(BaseChain chainType) {
+            this.chainType = chainType;
+        }
 
         @NonNull
         @Override
@@ -180,19 +207,32 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             } else {
                 final SendCoinHolder holder = (SendCoinHolder)viewHolder;
                 final Coin coin = mToSendCoins.get(position);
-                holder.btnRemove.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        holder.etAmountCoin.setText("");
-                        onRemoveCoinType(position);
-                    }
-                });
+
+                if(chainType.equals(BaseChain.COSMOS_MAIN)) {
+                    holder.btnRemove.setVisibility(View.GONE);
+                } else {
+                    holder.btnRemove.setVisibility(View.VISIBLE);
+                    holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            holder.etAmountCoin.setText("");
+                            onRemoveCoinType(position);
+                        }
+                    });
+                }
+
                 if (coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                    holder.tvSymbolCoin.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+                    holder.tvSymbolCoin.setTextColor(getResources().getColor(R.color.colorAtom));
+                    WLog.w("ATOM getSActivity().mAccount.getAtomBalance() " + getSActivity().mAccount.getAtomBalance().toPlainString());
+                    holder.tvMaxCoin.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getAtomBalance(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+
+                } else if (coin.denom.equals(BaseConstant.COSMOS_MUON)) {
                     holder.tvSymbolCoin.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
                     holder.tvSymbolCoin.setTextColor(getResources().getColor(R.color.colorAtom));
                     holder.tvMaxCoin.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getAtomBalance(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
-                } else if (coin.denom.equals(BaseConstant.COSMOS_PHOTON)) {
+                } else if (coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
                     holder.tvSymbolCoin.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
                     holder.tvSymbolCoin.setTextColor(getResources().getColor(R.color.colorPhoton));
                     holder.tvMaxCoin.setText(WDp.getDpAmount(getContext(), getSActivity().mAccount.getPhotonBalance(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
@@ -217,6 +257,10 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
         @Override
         public int getItemViewType(int position) {
+            //only atom support mainnet.
+            if(chainType.equals(BaseChain.COSMOS_MAIN))
+                return TYPE_COIN;
+
             if (mToSendCoins.size() == 0) {
                 return TYPE_ADD;
             } else if (mToSendCoins.size() == 1) {
@@ -229,6 +273,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
         @Override
         public int getItemCount() {
+            if(chainType.equals(BaseChain.COSMOS_MAIN))
+                return mToSendCoins.size();
+                        ;
             if(mToSendCoins.size() == 0)
                 return 1;
             else

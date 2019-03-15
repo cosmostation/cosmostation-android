@@ -11,47 +11,89 @@
         android:background="@drawable/dialog_bg"
         android:orientation="vertical">
         <LinearLayout
-            android:id="@+id/send_atom"
+            android:id="@+id/atom_layer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="@dimen/space_16">
-            <ImageView
-                android:layout_width="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/send_atom"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/atom_ic"/>
-            <TextView
-                android:id="@+id/send_atom_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_12"
-                android:text="ATOM"
-                style="@style/font_ss_14_atom"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_16">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/atom_ic"/>
+                <TextView
+                    android:id="@+id/send_atom_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:text="@string/s_atom"
+                    style="@style/font_ss_14_atom"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray10"/>
         </LinearLayout>
-        <View
-            android:id="@+id/send_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorGray10"/>
         <LinearLayout
-            android:id="@+id/send_photon"
+            android:id="@+id/muon_layer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="@dimen/space_16">
-            <ImageView
-                android:layout_width="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/send_muon"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/photon_ic"/>
-            <TextView
-                android:id="@+id/send_photon_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_12"
-                android:text="PHOTON"
-                style="@style/font_ss_14_photon"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_16">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/atom_ic"/>
+                <TextView
+                    android:id="@+id/send_muon_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:text="@string/s_muon"
+                    style="@style/font_ss_14_atom"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray10"/>
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/photino_layer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/send_photino"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_16">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/photon_ic"/>
+                <TextView
+                    android:id="@+id/send_photon_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:text="@string/s_photino"
+                    style="@style/font_ss_14_photon"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
     </LinearLayout>
 </LinearLayout>

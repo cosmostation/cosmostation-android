@@ -446,6 +446,7 @@ public class BaseData {
 
 
     public ArrayList<BondingState> onSelectBondingStates(long accountId) {
+        WLog.w("onSelectBondingStates : " + accountId);
         ArrayList<BondingState> result = new ArrayList<>();
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {

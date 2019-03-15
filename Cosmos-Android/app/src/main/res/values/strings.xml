@@ -136,6 +136,7 @@
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
+    <string name="str_cosmos_hub">(Cosmos Hub)</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -229,6 +230,8 @@
     <string name="str_sorting_by_name">By Name</string>
     <string name="str_sorting_by_power">By Voting Power</string>
     <string name="str_sorting_by_commission">By Commission</string>
+    <string name="str_qr_code">QR code</string>
+    <string name="str_recent">Recent</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
@@ -251,7 +254,9 @@
     <string name="error_not_enough_budget">Insufficient balance</string>
     <string name="error_not_enough_reward">No enough reward to Claim</string>
     <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
-
+    <string name="error_vesting_time">Token transfer is locked for three weeks following mainnet launch.</string>
+    <string name="error_beta_test">Token transfer is locked for three weeks following mainnet launch.</string>
+    <string name="error_real_testing">Open soon after real testing.</string>
 
     <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>

@@ -93,7 +93,7 @@ public class Account {
             return  result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON)) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_PHOTON) || balance.symbol.equals(BaseConstant.COSMOS_PHOTINO)) {
                 result = balance.balance;
                 break;
             }

@@ -188,6 +188,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
+        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasAtom = false;
         for (Balance balance:balances) {
@@ -224,8 +229,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
+
+        if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            Toast.makeText(getBaseContext(), R.string.error_vesting_time, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -253,6 +264,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
+
+        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
             return;
