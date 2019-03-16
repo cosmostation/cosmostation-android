@@ -14,6 +14,7 @@ import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
@@ -37,6 +38,8 @@ import wannabit.io.cosmostaion.AWSV4Auth;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.EsService;
 import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -324,5 +327,15 @@ public class TestActivity extends BaseActivity {
             for (int j = 1; j >= 0; j--)
                 hexBuffer.append(HEX[(byteArray[i] >> (j * 4)) & 0xF]);
         return hexBuffer.toString();
+    }
+
+    private Fee getTestFee() {
+        Fee result = new Fee();
+        ArrayList<Coin> amount = new ArrayList<>();
+        Coin testCoin = new Coin("", "0");
+        amount.add(testCoin);
+        result.amount = amount;
+        result.gas = "200000";
+        return result;
     }
 }

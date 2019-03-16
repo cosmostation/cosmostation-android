@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -140,8 +141,15 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
     @Override
     public void onBackPressed() {
-        if(mViewPager.getCurrentItem() > 0) {
-            onHideKeyboard();
+        onHideKeyboard();
+        if(mViewPager.getCurrentItem() == 3) {
+            if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mViewPager.setCurrentItem(1, true);
+            } else {
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+            }
+
+        } else if(mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -27,6 +28,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     private TextView        mRemindAtom, mRemindPhoton;
     private Button          mBeforeBtn, mConfirmBtn;
     private TextView        mRewardAtomTitle, mRewardPhotonTitle, mRemindAtomTitle, mRemindPhotonTitle;
+    private RelativeLayout  mPhotonRewardLayer;
 
     public static RewardStep3Fragment newInstance(Bundle bundle) {
         RewardStep3Fragment fragment = new RewardStep3Fragment();
@@ -58,6 +60,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         mRewardPhotonTitle  = rootView.findViewById(R.id.reward_photon_title);
         mRemindAtomTitle    = rootView.findViewById(R.id.remind_atom_title);
         mRemindPhotonTitle  = rootView.findViewById(R.id.remind_photon_title);
+        mPhotonRewardLayer  = rootView.findViewById(R.id.reward_photon_layer);
 
 
         mBeforeBtn.setOnClickListener(this);
@@ -73,41 +76,82 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         BigDecimal remindAtom = getSActivity().mAccount.getAtomBalance();
         BigDecimal remindPhoton = getSActivity().mAccount.getPhotonBalance();
 
+
         if(getSActivity().isAll) {
-            rewardAtom = getSActivity().mTotalReward.getAtomAmount();
-            rewardPhoton = getSActivity().mTotalReward.getPhotonAmount();
+
             mTvFromValidators.setText("from " + getSActivity().mBondings.size() + "Validators");
 
         } else {
-            rewardAtom = getSActivity().mRewards.getAtomAmount();
-            rewardPhoton = getSActivity().mRewards.getPhotonAmount();
+            if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                rewardAtom = getSActivity().mRewards.getAtomAmount();
+                mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                mPhotonRewardLayer.setVisibility(View.GONE);
+                if(getSActivity().mRewardFee.amount == null) {
+                    mFeeType.setVisibility(View.GONE);
+                    mFeeAmount.setText("FREE");
+                    mFeeAmount.setTextColor(getResources().getColor(R.color.colorRed));
+                } else {
+                    mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+                    mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
+                    mFeeAmount.setText(new BigDecimal(getSActivity().mRewardFee.amount.get(6).amount).toPlainString());
+                }
+
+            } else {
+                rewardAtom = getSActivity().mRewards.getAtomAmount();
+                rewardPhoton = getSActivity().mRewards.getPhotonAmount();
+                mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardAtom, 0, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                mTvPhotonReward.setText(WDp.getDpAmount(getContext(), rewardPhoton, 0, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                if(getSActivity().mRewardFee.amount.get(0).denom.equals(BaseConstant.COSMOS_MUON)) {
+                    mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+                    mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
+                    remindAtom.subtract(new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount));
+                } else {
+                    mFeeType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
+                    mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
+                    remindPhoton.subtract(new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount));
+                }
+            }
             mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
         }
-        mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        mTvPhotonReward.setText(WDp.getDpAmount(getContext(), rewardPhoton, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-
-        remindAtom  =remindAtom.add(rewardAtom);
-        remindPhoton = remindPhoton.add(rewardPhoton);
-
-        if(getSActivity().mRewardFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
-            mFeeType.setText(BaseConstant.COSMOS_ATOM);
-            mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-            remindAtom.subtract(new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount));
-        } else {
-            mFeeType.setText(BaseConstant.COSMOS_PHOTON);
-            mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
-            remindPhoton.subtract(new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount));
-        }
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
         if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) mTvSelf.setVisibility(View.VISIBLE);
         mMemo.setText(getSActivity().mRewardMemo);
 
-
-        mRewardAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-        mRewardPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
-        mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-        mRemindPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
+//        if(getSActivity().isAll) {
+//            rewardAtom = getSActivity().mTotalReward.getAtomAmount();
+//            rewardPhoton = getSActivity().mTotalReward.getPhotonAmount();
+//            mTvFromValidators.setText("from " + getSActivity().mBondings.size() + "Validators");
+//
+//        } else {
+//            rewardAtom = getSActivity().mRewards.getAtomAmount();
+//            rewardPhoton = getSActivity().mRewards.getPhotonAmount();
+//            mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
+//        }
+//        mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+//        mTvPhotonReward.setText(WDp.getDpAmount(getContext(), rewardPhoton, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+//
+//        remindAtom  =remindAtom.add(rewardAtom);
+//        remindPhoton = remindPhoton.add(rewardPhoton);
+//
+//        if(getSActivity().mRewardFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
+//            mFeeType.setText(BaseConstant.COSMOS_ATOM);
+//            mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
+//            remindAtom.subtract(new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount));
+//        } else {
+//            mFeeType.setText(BaseConstant.COSMOS_PHOTON);
+//            mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
+//            remindPhoton.subtract(new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount));
+//        }
+//        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+//        mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
+//        if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) mTvSelf.setVisibility(View.VISIBLE);
+//        mMemo.setText(getSActivity().mRewardMemo);
+//
+//
+//        mRewardAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+//        mRewardPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
+//        mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+//        mRemindPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
 
         mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));

@@ -76,6 +76,9 @@ public class SimpleDelegateTask extends CommonTask {
             }
             WLog.w("SimpleDelegateTask 11");
 
+
+            //TODO TEST
+//            mAccount = mApp.getBaseDao().onSelectAccount(""+1);
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
@@ -108,6 +111,7 @@ public class SimpleDelegateTask extends CommonTask {
 
             StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mToFees, mToDelegateMemo, signatures);
             signedTx.value.signatures = signatures;
+            WLog.w("SimpleDelegateTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
 
             ReqBroadCast reqBroadCast = new ReqBroadCast();
             reqBroadCast.returns = "sync";

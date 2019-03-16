@@ -40,6 +40,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_24"
                         android:text="@string/str_atom_c"
                         style="@style/font_ss_11_atom"/>
                     <TextView
@@ -52,6 +53,7 @@
                         style="@style/font_ssl_11_white"/>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/reward_photon_layer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8">
@@ -60,6 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_24"
                         android:text="@string/str_photon_c"
                         style="@style/font_ss_11_photon"/>
                     <TextView
@@ -71,18 +74,25 @@
                         android:text="7,342,000,000.000"
                         style="@style/font_ssl_11_white"/>
                 </RelativeLayout>
+                <TextView
+                    android:id="@+id/reward_fees_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_fees_c"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:textAllCaps="true"
+                    style="@style/font_ss_11_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8">
                     <TextView
-                        android:id="@+id/reward_fees_header"
+                        android:id="@+id/reward_fees_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_fees_c"
-                        android:textAllCaps="true"
-                        style="@style/font_ss_11_gray1"/>
-
+                        android:layout_marginLeft="@dimen/space_24"
+                        android:text="@string/str_photon_c"
+                        style="@style/font_ss_11_photon"/>
                     <TextView
                         android:id="@+id/reward_fees"
                         android:layout_width="wrap_content"
@@ -90,16 +100,6 @@
                         android:layout_alignParentRight="true"
                         android:text="6,000.000"
                         style="@style/font_ssl_10_white"/>
-
-                    <TextView
-                        android:id="@+id/reward_fees_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/reward_fees_header"
-                        android:layout_alignBaseline="@+id/reward_fees_header"
-                        android:layout_marginLeft="@dimen/space_2"
-                        android:text="@string/str_photon_c"
-                        style="@style/font_ss_7_photon"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -124,6 +124,7 @@
                     android:id="@+id/reward_moniker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_24"
                     android:layout_marginTop="@dimen/space_8"
                     android:text="Cosmostation"
                     style="@style/font_ss_11_white"/>
@@ -137,6 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/space_24"
                     android:layout_marginTop="@dimen/space_8">
                     <TextView
                         android:id="@+id/reward_receive_address"
@@ -164,6 +166,7 @@
                     android:id="@+id/memo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_24"
                     android:layout_marginTop="@dimen/space_8"
                     android:lines="2"
                     android:text="java.util.concurrent.ExecutionException: com.android.builder.internal.aapt.v2.Aapt2Exception: Android resource compilation failed"
@@ -174,13 +177,15 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGray3"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/space_16"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -200,6 +200,7 @@ public class WUtil {
 
 
     public static Gson getPresentor(){
+//        return new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
         return new GsonBuilder().disableHtmlEscaping().create();
     }
 

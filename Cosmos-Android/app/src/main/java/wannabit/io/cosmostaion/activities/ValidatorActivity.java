@@ -259,36 +259,36 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onGetReward() {
         WLog.w("onGetReward");
-        if(!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-
-        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(mReward == null) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
-            Bundle bundle = new Bundle();
-            bundle.putLong("id", mAccount.id);
-            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
+//        if(!mAccount.hasPrivateKey) {
+//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return;
+//        }
+//
+//        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+//            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+//            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        if(mReward == null) {
+//            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+//            Bundle bundle = new Bundle();
+//            bundle.putLong("id", mAccount.id);
+//            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return;
+//        }
 
         getBaseDao().setValidator(mValidator);
         Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);

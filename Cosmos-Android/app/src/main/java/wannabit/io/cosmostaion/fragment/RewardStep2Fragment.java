@@ -75,10 +75,11 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
         if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             mGas = new Coin(BaseConstant.COSMOS_ATOM, mAtomFees.get(1));
             mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+            WLog.w("dsfdsfs : " + WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+            mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
             mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
             mSeekBarGas.getProgressDrawable().setBounds(bounds);
-            mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
         } else {
             mGas = new Coin(BaseConstant.COSMOS_PHOTINO, mPhotinoFees.get(1));
             mTvGasType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
@@ -106,7 +107,6 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
-        mTvGasType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
         onUpdateGasAmountDp();
         return rootView;
     }

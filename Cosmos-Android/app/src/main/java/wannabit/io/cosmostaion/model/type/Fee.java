@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.model.type;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;

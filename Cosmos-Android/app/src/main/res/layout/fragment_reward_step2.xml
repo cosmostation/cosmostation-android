@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_11_gray1"
-                    android:text="@string/str_high"/>
+                    android:text="@string/str_low"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
