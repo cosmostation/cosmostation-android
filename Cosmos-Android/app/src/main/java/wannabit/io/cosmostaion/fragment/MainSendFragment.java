@@ -119,6 +119,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         if(!getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) &&
                 !getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
             mPhotonCard.setVisibility(View.GONE);
+        } else {
+            mPhotonCard.setVisibility(View.VISIBLE);
         }
 
 //        if(getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()))

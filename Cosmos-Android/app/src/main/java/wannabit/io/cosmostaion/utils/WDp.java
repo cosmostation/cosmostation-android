@@ -33,10 +33,13 @@ public class WDp {
     public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
-        if(chain.equals(BaseChain.COSMOS_MAIN))
+        if(chain.equals(BaseChain.COSMOS_MAIN)) {
             amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
-        result = new SpannableString(getDecimalFormat(c, point).format(amount));
-        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            result = new SpannableString(getDecimalFormat(c, point).format(amount));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        } else {
+            result = new SpannableString(getDecimalFormat(c, 0).format(amount));
+        }
         return result;
     }
 
