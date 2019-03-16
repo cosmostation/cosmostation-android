@@ -400,10 +400,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
                             if(!isFinishing()) {
-                                Picasso.get()
-                                        .load(response.body().getUrl())
-                                        .placeholder(R.drawable.validator_none_img)
-                                        .into(holder.itemAvatar);
+                                try {
+                                    Picasso.get()
+                                            .load(response.body().getUrl())
+                                            .placeholder(R.drawable.validator_none_img)
+                                            .into(holder.itemAvatar);
+                                }catch (Exception e) {}
+
                             }
                         }
                         @Override
@@ -445,10 +448,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
                             if(!isFinishing()) {
-                                Picasso.get()
-                                        .load(response.body().getUrl())
-                                        .placeholder(R.drawable.validator_none_img)
-                                        .into(holder.itemAvatar);
+                                try {
+                                    Picasso.get()
+                                            .load(response.body().getUrl())
+                                            .placeholder(R.drawable.validator_none_img)
+                                            .into(holder.itemAvatar);
+                                }catch (Exception e){}
+
                             }
                         }
                         @Override

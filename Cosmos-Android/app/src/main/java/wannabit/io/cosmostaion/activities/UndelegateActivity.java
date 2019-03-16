@@ -83,6 +83,7 @@ public class UndelegateActivity extends BaseActivity {
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_undelegate_step_3));
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
 
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));

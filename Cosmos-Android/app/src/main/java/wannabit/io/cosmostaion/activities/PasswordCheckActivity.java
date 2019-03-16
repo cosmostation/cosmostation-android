@@ -109,8 +109,16 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         if(mTargetCoins != null)
             WLog.w("amlout " + mTargetCoins.get(0).denom + "  " + mTargetCoins.get(0).amount);
 
-        if(mTargetFee != null)
-            WLog.w("fee " + mTargetFee.gas + " " + mTargetFee.amount.get(0).denom + " " +  mTargetFee.amount.get(0).amount);
+        if(mTargetFee != null) {
+            if(mTargetFee.amount == null) {
+                WLog.w("fee null free");
+            } else {
+                WLog.w("fee " + mTargetFee.gas + " " + mTargetFee.amount.get(0).denom + " " +  mTargetFee.amount.get(0).amount);
+            }
+
+
+        }
+
 
 
 

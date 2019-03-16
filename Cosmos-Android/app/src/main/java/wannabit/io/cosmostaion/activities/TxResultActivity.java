@@ -68,7 +68,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private LinearLayout                mSendLayer;
     private RelativeLayout              mSendAtomLayer, mSendPhotonLayer, mFeeAtomLayer, mFeePhotonLayer;
     private TextView                    mTxFrom, mTxTo, mSendAtomTitle, mSendAtom, mSendPhotonTitle, mSendPhoton,
-                                        mFeeAtomTitle, mFeeAtom, mFeePhotonTitle, mFeePhoton;
+                                        mFeeAtomTitle, mFeeAtom, mFeePhotonTitle, mFeePhoton, mFeeFree;
 
     private LinearLayout                mDelegateLayer;
     private TextView                    mDelegateTo, mDelegateAtomTitle, mDelegateAtom;
@@ -120,6 +120,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mFeePhotonLayer         = findViewById(R.id.fee_photon_layer);
         mFeePhotonTitle         = findViewById(R.id.fee_photon_title);
         mFeePhoton              = findViewById(R.id.fee_photon);
+        mFeeFree                = findViewById(R.id.fee_free);
 
 
         mDelegateLayer          = findViewById(R.id.delegate_content_layer);
@@ -250,16 +251,23 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mTvTxHash.setText(mResTxInfo.txhash);
         mMemo.setText(mResTxInfo.tx.value.memo);
 
-        for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-            if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
-                mFeeAtomLayer.setVisibility(View.VISIBLE);
-                mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
-            }
-            if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)|| coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
-                mFeePhotonLayer.setVisibility(View.VISIBLE);
-                mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+        if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mFeeFree.setVisibility(View.VISIBLE);
+
+        } else {
+            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
+                    mFeeAtomLayer.setVisibility(View.VISIBLE);
+                    mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)|| coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
+                    mFeePhotonLayer.setVisibility(View.VISIBLE);
+                    mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
             }
         }
+
+
 
 
         if(mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) ||

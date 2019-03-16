@@ -15,9 +15,12 @@
     <string name="url_esearch_13k">https://search-cosmostation-explorer-dev-2-yvgjzlpmadeaypebfp2a33r3lm.ap-northeast-2.es.amazonaws.com/</string>
     <string name="url_cosmostation_13k">https://api-dev-gaia13k.cosmostation.io/</string>
 
-    <string name="url_lcd_main">https://lcd.cosmostation.io/</string>
+
+    <!--No Free fee lcd-->
+    <!--<string name="url_lcd_main">https://lcd.cosmostation.io/</string>-->
+    <!--Free fee lcd-->
+    <string name="url_lcd_main">https://lcd-dev.cosmostation.io/</string>
     <string name="url_esearch_main">https://search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com/</string>
-    l
 
     <string name="key_mnemonic">MNEMONIC_KEY</string>
     <string name="key_password">PASSWORD_KEY</string>
@@ -158,7 +161,7 @@
     <string name="str_tx_undelegate_amount">Undelegate Amount</string>
     <string name="str_tx_chain_upgrade_title">Test Net Upgrade</string>
     <string name="str_tx_chain_upgrade_msg">Gaia 12k is deprecated and Gaia 13K is available\n If you select Yes, your wallet can use in 13k with same address.\n But your test coins are be zero. and delegate information are reset.</string>
-
+    <string name="str_notice_c">NOTICE</string>
 
 
     <string name="str_main_wallet">WALLET</string>
@@ -203,7 +206,7 @@
     <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
     <string name="str_delete">Delete</string>
     <string name="str_close">Close</string>
-    <string name="str_intro">Decentralized crypto currency wallet\nFor Tendermint based blockchains.\nSupport Cosmos Hub and Gaia testnet.</string>
+    <string name="str_intro">Decentralized crypto currency wallet\nFor Tendermint based blockchains.\nSupport Cosmos Hub MainNet and Gaia testnet.</string>
     <string name="str_no_history_with_this_validator">No history.</string>
     <string name="str_let_start_cosmos"><![CDATA["Explore the Cosmos Hub"]]></string>
     <string name="str_let_start_cosmos2"> Delegate your ATOM and claim rewards with Cosmostation.\nFast and easy transactions with local signing!</string>
@@ -232,6 +235,10 @@
     <string name="str_sorting_by_commission">By Commission</string>
     <string name="str_qr_code">QR code</string>
     <string name="str_recent">Recent</string>
+    <string name="str_fee_free_title">Fee Free Event</string>
+    <string name="str_fee_free_msg">To commemorate the launch of the main net, \nwe will hold a free 3-week event.</string>
+    <string name="str_delegate_notice">If you delegate to the validator you already delegated, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>
+
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>

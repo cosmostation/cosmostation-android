@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_GasType;
+import wannabit.io.cosmostaion.dialog.Dialog_free_fee;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -31,6 +32,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 public class RewardStep2Fragment extends BaseFragment implements View.OnClickListener {
 
     public final static int SELECT_GAS_DIALOG = 6001;
+    public final static int SELECT_FREE_DIALOG = 6002;
 
     private RelativeLayout  mBtnGasType;
     private TextView        mTvGasType;
@@ -110,6 +112,18 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
     }
 
     @Override
+    public void onRefreshTab() {
+        super.onRefreshTab();
+        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            Dialog_free_fee dialog = Dialog_free_fee.newInstance(null);
+            dialog.setCancelable(false);
+            dialog.setTargetFragment(this, SELECT_FREE_DIALOG);
+            dialog.show(getFragmentManager().beginTransaction(), "dialog");
+        }
+
+    }
+
+    @Override
     public void onClick(View v) {
         if(v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
@@ -121,7 +135,6 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             fee.amount = amount;
             fee.gas = "200000";
             getSActivity().mRewardFee = fee;
-//            getSActivity().mRewardFee = mGas;
             getSActivity().onNextStep();
 
         } else if (v.equals(mBtnGasType)) {
@@ -183,7 +196,17 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
         WLog.w("onActivityResult : " + requestCode + " " + resultCode);
         if(requestCode == SELECT_GAS_DIALOG && resultCode == Activity.RESULT_OK) {
             onUpdateGasType(data.getStringExtra("coin"));
+        } else if(requestCode == SELECT_FREE_DIALOG && resultCode == Activity.RESULT_OK) {
+            Fee fee = new Fee();
+            fee.amount = null;
+            fee.gas = "200000";
+            getSActivity().mRewardFee = fee;
+            getSActivity().onNextStep();
         }
+
+
+
+
     }
 
 }

@@ -81,6 +81,7 @@ public class DelegateActivity extends BaseActivity {
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_delegate_step_3));
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_delegate_step_4));
@@ -131,6 +132,11 @@ public class DelegateActivity extends BaseActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    public void onBeforeStep2() {
+        onHideKeyboard();
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 2, true);
     }
 
 

@@ -111,6 +111,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_reward_step_3));
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
 
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));

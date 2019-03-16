@@ -197,7 +197,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
@@ -443,12 +444,24 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/space_16"
-                                android:text="@string/str_tx_send_fees"
-                                style="@style/font_ss_12_gray1"/>
+                                android:layout_marginTop="@dimen/space_16">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/str_tx_send_fees"
+                                    style="@style/font_ss_12_gray1"/>
+                                <TextView
+                                    android:id="@+id/fee_free"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:text="@string/str_fee_free_title"
+                                    style="@style/font_ss_12_red"
+                                    android:visibility="gone"/>
+                            </RelativeLayout>
                             <RelativeLayout
                                 android:id="@+id/fee_atom_layer"
                                 android:layout_width="match_parent"

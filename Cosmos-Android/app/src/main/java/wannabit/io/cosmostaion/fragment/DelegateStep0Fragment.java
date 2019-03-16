@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -166,6 +167,8 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             if(isValidateDelegateAmount()) {
                 WLog.w("coin : denom : " + getSActivity().mToDelegateAmount.denom + "    amount : " + getSActivity().mToDelegateAmount.amount);
                 getSActivity().onNextStep();
+            } else {
+                Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
             }
 
         }

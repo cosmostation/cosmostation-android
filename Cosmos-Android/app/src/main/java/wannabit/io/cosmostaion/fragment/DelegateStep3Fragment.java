@@ -2,19 +2,28 @@ package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.math.BigDecimal;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -23,6 +32,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView        mDelegateAmount;
     private TextView        mFeeAmount, mFeeType;
     private TextView        mValidatorName, mMemo;
+    private CircleImageView mAvator;
     private TextView        mRemindAtom, mRemindPhoton;
     private Button          mBeforeBtn, mConfirmBtn;
     private TextView        mDelegateAtomTitle, mRemindAtomTitle, mRemindPhotonTitle;
@@ -45,6 +55,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         mDelegateAmount         = rootView.findViewById(R.id.delegate_atom);
         mFeeAmount              = rootView.findViewById(R.id.delegate_fees);
         mFeeType                = rootView.findViewById(R.id.delegate_fees_type);
+        mAvator                 = rootView.findViewById(R.id.to_delegate_avatar);
         mValidatorName          = rootView.findViewById(R.id.to_delegate_moniker);
         mMemo                   = rootView.findViewById(R.id.memo);
         mRemindAtom             = rootView.findViewById(R.id.remind_atom);
@@ -67,17 +78,52 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
         mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
-        if(getSActivity().mToDelegateFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
-            mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-            mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-            remindAtom.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
+        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if(getSActivity().mToDelegateFee.amount == null) {
+                mFeeType.setVisibility(View.GONE);
+                mFeeAmount.setText("FREE");
+                mFeeAmount.setTextColor(getResources().getColor(R.color.colorRed));
+            } else {
+                mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+                mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
+                remindAtom.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
+            }
+            mRemindPhoton.setVisibility(View.GONE);
+
         } else {
-            mFeeType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
-            mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
-            remindPhoton.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
+            if(getSActivity().mToDelegateFee.amount.get(0).denom.equals(BaseConstant.COSMOS_MUON)) {
+                mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+                mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
+                remindAtom.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
+            } else {
+                mFeeType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
+                mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
+                remindPhoton.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
+            }
+//            mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount).toPlainString());
+            mRemindPhoton.setVisibility(View.VISIBLE);
         }
 
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+
+        if(!TextUtils.isEmpty(getSActivity().mValidator.description.identity)) {
+            ApiClient.getKeybaseService(getSActivity()).getUserInfo("pictures", getSActivity().mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
+                @Override
+                public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
+                    if(isAdded()) {
+                        try {
+                            Picasso.get()
+                                    .load(response.body().getUrl())
+                                    .placeholder(R.drawable.validator_none_img)
+                                    .into(mAvator);
+                        }catch (Exception e){}
+
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
+            });
+        }
         mValidatorName.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mToDelegateMemo);
 
@@ -92,7 +138,12 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         if(v.equals(mBeforeBtn)) {
-            getSActivity().onBeforeStep();
+            if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                getSActivity().onBeforeStep2();
+            } else {
+                getSActivity().onBeforeStep();
+            }
+
 
         } else if (v.equals(mConfirmBtn)) {
             WLog.w("mConfirmBtn");

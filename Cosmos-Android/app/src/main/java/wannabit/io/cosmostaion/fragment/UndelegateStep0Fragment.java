@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.UndelegateActivity;
@@ -80,8 +81,9 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             if(isValidateDelegateAmount()) {
                 getSActivity().mUnDelegateAmount = mAmountInput.getText().toString().trim();
                 getSActivity().onNextStep();
+            } else {
+                Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 

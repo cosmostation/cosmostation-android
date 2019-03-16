@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/main_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -39,6 +40,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_24"
                         android:text="@string/str_atom_c"
                         style="@style/font_ss_11_atom"/>
                     <TextView
@@ -50,17 +52,27 @@
                         android:text="1,232,000.000"
                         style="@style/font_ssl_11_white"/>
                 </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/delegate_fees_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_16"
+                    android:text="@string/str_fees_c"
+                    android:textAllCaps="true"
+                    style="@style/font_ss_11_gray1"/>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8">
                     <TextView
-                        android:id="@+id/delegate_fees_header"
+                        android:id="@+id/delegate_fees_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_fees_c"
-                        android:textAllCaps="true"
-                        style="@style/font_ss_11_gray1"/>
+                        android:layout_marginLeft="@dimen/space_24"
+                        android:text="@string/str_photon_c"
+                        style="@style/font_ss_11_photon"/>
                     <TextView
                         android:id="@+id/delegate_fees"
                         android:layout_width="wrap_content"
@@ -68,15 +80,6 @@
                         android:layout_alignParentRight="true"
                         android:text="6,000.000"
                         style="@style/font_ssl_11_white"/>
-                    <TextView
-                        android:id="@+id/delegate_fees_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/delegate_fees_header"
-                        android:layout_alignBaseline="@+id/delegate_fees_header"
-                        android:layout_marginLeft="@dimen/space_2"
-                        android:text="@string/str_photon_c"
-                        style="@style/font_ss_7_photon"/>
                 </RelativeLayout>
             </LinearLayout>
 
@@ -97,13 +100,30 @@
                     android:layout_height="wrap_content"
                     android:text="@string/str_to_delegate_validator"
                     style="@style/font_ss_14_gray1"/>
-                <TextView
-                    android:id="@+id/to_delegate_moniker"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"
-                    android:text="Cosmostation"
-                    style="@style/font_ss_11_white"/>
+                    android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginLeft="@dimen/space_24"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/to_delegate_avatar"
+                        android:layout_width="@dimen/space_32"
+                        android:layout_height="@dimen/space_32"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/validator_none_img"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/colorGray3"/>
+                    <TextView
+                        android:id="@+id/to_delegate_moniker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:text="Cosmostation"
+                        style="@style/font_ss_11_white"/>
+                </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,6 +134,7 @@
                     android:id="@+id/memo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_24"
                     android:layout_marginTop="@dimen/space_8"
                     android:lines="2"
                     android:text="java.util.concurrent.ExecutionException: com.android.builder.internal.aapt.v2.Aapt2Exception: Android resource compilation failed"
@@ -124,13 +145,16 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"/>
+                android:background="@color/colorGray3"
+                android:visibility="gone"/>
 
             <LinearLayout
+                android:id="@+id/remind_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/space_16"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -180,6 +204,30 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_control"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/space_40"
+        android:paddingRight="@dimen/space_40"
+        android:layout_marginBottom="@dimen/space_32"
+        android:gravity="center_horizontal">
+        <ImageView
+            android:id="@+id/create_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/warning_ic"/>
+        <TextView
+            android:id="@+id/create_msg2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_6"
+            android:gravity="center"
+            style="@style/font_ss_12_gray1"
+            android:text="@string/str_delegate_notice"/>
+    </LinearLayout>
 
 
 
