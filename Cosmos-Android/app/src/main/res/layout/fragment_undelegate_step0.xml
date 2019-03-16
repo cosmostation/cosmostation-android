@@ -35,28 +35,42 @@
             android:text="ATOM"
             style="@style/font_ss_14_atom" />
     </RelativeLayout>
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/cnt_layer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_14"
-        android:layout_marginTop="@dimen/space_4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/input_control"
-        android:orientation="horizontal">
-        <TextView
+        android:layout_marginTop="@dimen/space_4">
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_2"
-            style="@style/font_ss_11_gray1"
-            android:text="undelegatable : "/>
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginTop="@dimen/space_4"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_2"
+                style="@style/font_ss_11_gray1"
+                android:text="Available : "/>
+            <TextView
+                android:id="@+id/tv_max_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_2"
+                style="@style/font_ss_11_gray1"
+                android:text="12,343,343.000000"/>
+        </LinearLayout>
         <TextView
-            android:id="@+id/tv_max_coin"
+            android:id="@+id/tv_atom_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_2"
-            style="@style/font_ss_11_gray1"
-            android:text="10,000"/>
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/space_12"
+            style="@style/font_ss_11_red"
+            android:text="@string/error_invalid_amounts"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/create_msg2"
@@ -67,6 +81,7 @@
         android:layout_below="@+id/cnt_layer"
         android:layout_marginTop="@dimen/space_14"
         style="@style/font_ss_9_red"
+        android:visibility="gone"
         android:text="@string/str_gaia"/>
 
 

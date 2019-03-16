@@ -32,9 +32,9 @@ public class WDp {
 
     public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
         SpannableString result;
-        BigDecimal amount = input.setScale(point, BigDecimal.ROUND_CEILING);
+        BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
         if(chain.equals(BaseChain.COSMOS_MAIN))
-            amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_CEILING);
+            amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
         result = new SpannableString(getDecimalFormat(c, point).format(amount));
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
@@ -455,16 +455,27 @@ public class WDp {
         return result;
     }
 
-    public static String getUnbondTime(Context c) {
+    public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DATE, 3);
-            SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
-            result = unbondFormat.format(calendar.getTimeInMillis());
+            if(chain.equals(BaseChain.COSMOS_MAIN)) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DATE, 21);
+                SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
+                result = unbondFormat.format(calendar.getTimeInMillis());
+                return result + "   " +c.getString(R.string.str_unbonding_21days_after);
+
+            } else {
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DATE, 3);
+                SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
+                result = unbondFormat.format(calendar.getTimeInMillis());
+                return result + "   " +c.getString(R.string.str_unbonding_3days_after);
+            }
+
         } catch (Exception e) {};
 
-        return result + "   " +c.getString(R.string.str_unbonding_days_after);
+        return result;
     }
 
     public static String getUnbondingTimeleft(Context c, long finishTime) {

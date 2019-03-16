@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -111,7 +112,14 @@ public class DelegateActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if(mViewPager.getCurrentItem() == 3) {
+            if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mViewPager.setCurrentItem(1, true);
+            } else {
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+            }
+
+        } else if(mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -134,10 +142,10 @@ public class DelegateActivity extends BaseActivity {
         }
     }
 
-    public void onBeforeStep2() {
-        onHideKeyboard();
-        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 2, true);
-    }
+//    public void onBeforeStep2() {
+//        onHideKeyboard();
+//        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 2, true);
+//    }
 
 
     public void onStartDelegate() {

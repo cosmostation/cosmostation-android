@@ -52,7 +52,6 @@
                         android:text="1,232,000.000"
                         style="@style/font_ssl_11_white"/>
                 </RelativeLayout>
-
                 <TextView
                     android:id="@+id/delegate_fees_header"
                     android:layout_width="wrap_content"
@@ -61,7 +60,6 @@
                     android:text="@string/str_fees_c"
                     android:textAllCaps="true"
                     style="@style/font_ss_11_gray1"/>
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

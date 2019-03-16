@@ -86,7 +86,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             } else {
                 mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
                 mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-                remindAtom.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
+                mFeeAmount.setText(new BigDecimal(getSActivity().mToDelegateFee.amount.get(6).amount).toPlainString());
             }
             mRemindPhoton.setVisibility(View.GONE);
 
@@ -138,11 +138,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         if(v.equals(mBeforeBtn)) {
-            if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                getSActivity().onBeforeStep2();
-            } else {
-                getSActivity().onBeforeStep();
-            }
+            getSActivity().onBeforeStep();
 
 
         } else if (v.equals(mConfirmBtn)) {
