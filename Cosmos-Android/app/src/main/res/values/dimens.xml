@@ -18,6 +18,7 @@
     <dimen name="space_18">18dp</dimen>
     <dimen name="space_20">20dp</dimen>
     <dimen name="space_24">24dp</dimen>
+    <dimen name="space_26">26dp</dimen>
     <dimen name="space_28">28dp</dimen>
     <dimen name="space_30">30dp</dimen>
     <dimen name="space_32">32dp</dimen>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/root_mnemonic"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/space_8">
+    <TextView
+        android:id="@+id/tv_mnemonic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/space_12"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/space_8"
+        style="@style/font_ss_14_white"
+        android:gravity="center"
+        android:background="@drawable/box_round_white"/>
+</RelativeLayout>

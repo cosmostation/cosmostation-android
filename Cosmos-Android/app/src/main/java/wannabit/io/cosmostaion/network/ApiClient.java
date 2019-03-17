@@ -35,6 +35,7 @@ public class ApiClient {
                 synchronized (ApiClient.class) {
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(c.getString(R.string.url_lcd_gaia))
+//                            .client(WUtil.getUnsafeOkHttpClient().build())
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     service_wannabit_chain_12k = retrofit.create(WannabitChain.class);
@@ -47,6 +48,7 @@ public class ApiClient {
                 synchronized (ApiClient.class) {
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(c.getString(R.string.url_lcd_gaia_13k))
+//                            .client(WUtil.getUnsafeOkHttpClient().build())
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     service_wannabit_chain_13k = retrofit.create(WannabitChain.class);
@@ -59,6 +61,7 @@ public class ApiClient {
                 synchronized (ApiClient.class) {
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(c.getString(R.string.url_lcd_main))
+//                            .client(WUtil.getUnsafeOkHttpClient().build())
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     service_wannabit_main = retrofit.create(WannabitChain.class);

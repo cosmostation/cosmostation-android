@@ -17,9 +17,9 @@
 
 
     <!--No Free fee lcd-->
-    <!--<string name="url_lcd_main">https://lcd.cosmostation.io/</string>-->
+    <string name="url_lcd_main">https://lcd.cosmostation.io/</string>
     <!--Free fee lcd-->
-    <string name="url_lcd_main">https://lcd-dev.cosmostation.io/</string>
+    <!--<string name="url_lcd_main">https://lcd-dev.cosmostation.io/</string>-->
     <string name="url_esearch_main">https://search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com/</string>
 
     <string name="key_mnemonic">MNEMONIC_KEY</string>
@@ -45,6 +45,7 @@
     <string name="str_sorting">Sorting</string>
     <string name="str_qr">QrCode</string>
     <string name="str_import">IMPORT</string>
+    <string name="str_clear_all">Clear All</string>
     <string name="str_create">CREATE</string>
     <string name="str_check_mnemonic_c">CHECK MNEMONICS</string>
     <string name="str_check">Check</string>
@@ -162,6 +163,9 @@
     <string name="str_tx_chain_upgrade_title">Test Net Upgrade</string>
     <string name="str_tx_chain_upgrade_msg">Gaia 12k is deprecated and Gaia 13K is available\n If you select Yes, your wallet can use in 13k with same address.\n But your test coins are be zero. and delegate information are reset.</string>
     <string name="str_notice_c">NOTICE</string>
+    <string name="str_next_word">Next Word</string>
+    <string name="str_mnemonic_title">Please enter the recovery phrase.</string>
+    <string name="str_mnemonic_msg">(12 / 16 / 24 words)</string>
 
 
     <string name="str_main_wallet">WALLET</string>

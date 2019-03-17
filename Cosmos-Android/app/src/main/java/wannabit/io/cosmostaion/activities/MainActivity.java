@@ -485,6 +485,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 //            WLog.w("mAllValidators : " + mAllValidators.size());
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
             if(temp != null) {
+                WLog.w("mAllValidators : " + mAllValidators.size());
                 mAllValidators = temp;
             } else {
                 WLog.w("Show network error!!!");

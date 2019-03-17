@@ -27,6 +27,7 @@ public class AllValidatorInfoTask extends CommonTask {
         WLog.w("AllValidatorInfoTask");
         try {
             Response<ArrayList<Validator>> response = ApiClient.getWannabitChain(mApp, mChain).getValidatorDetailList().execute();
+//            WLog.w("AllValidatorInfoTask response!! " + response.body());
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

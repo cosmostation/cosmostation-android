@@ -182,39 +182,39 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onStartDelegate() {
         WLog.w("onStartDelegate");
         if(mAccount == null || mValidator == null) return;
-//        if(!mAccount.hasPrivateKey) {
-//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
-//
-//        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-//        boolean hasAtom = false;
-//        for (Balance balance:balances) {
-//            if(balance.symbol.toLowerCase().equals(WDp.DpAtom(getBaseContext(), mAccount.baseChain).toLowerCase()) &&
-//                    (balance.balance.compareTo(new BigDecimal("1")) > 0)){
-//                hasAtom  = true;
-//            }
-//        }
-//        if(!hasAtom) {
-//            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
-//            Bundle bundle = new Bundle();
-//            bundle.putLong("id", mAccount.id);
-//            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasAtom = false;
+        for (Balance balance:balances) {
+            if(balance.symbol.toLowerCase().equals(WDp.DpAtom(getBaseContext(), mAccount.baseChain).toLowerCase()) &&
+                    (balance.balance.compareTo(new BigDecimal("1")) > 0)){
+                hasAtom  = true;
+            }
+        }
+        if(!hasAtom) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+            Bundle bundle = new Bundle();
+            bundle.putLong("id", mAccount.id);
+            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
 
         getBaseDao().setValidator(mValidator);
         Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);

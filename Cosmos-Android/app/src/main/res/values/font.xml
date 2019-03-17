@@ -289,9 +289,15 @@
 
 
     <style name="font_ssm_keyboard_white" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_33</item>
+    </style>
+
+    <style name="font_ssm_17_keyboard" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorGray1</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
 </resources>
