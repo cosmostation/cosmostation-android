@@ -113,7 +113,18 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         mMnemonicAdapter = new MnemonicAdapter();
         mRecyclerView.setAdapter(mMnemonicAdapter);
 
+        onCheckMnemonicCnt();
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void onClearAll() {
@@ -121,14 +132,16 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             mEtMnemonics[i].setText("");
             mEtMnemonics[0].requestFocus();
         }
+        onCheckMnemonicCnt();
     }
 
     private void onBeforeWord() {
-        if(mMnemonicPosition > 1) {
+        if(mMnemonicPosition > 0) {
             mEtMnemonics[mMnemonicPosition - 1].requestFocus();
             mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
         }
         mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+        onCheckMnemonicCnt();
     }
 
     private void onNextWord() {
@@ -137,14 +150,38 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             mEtMnemonics[mMnemonicPosition + 1].requestFocus();
         }
         mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+        onCheckMnemonicCnt();
     }
 
-    private void onCheckMnemonic() {
-        mWordCnt.setText("hello");
+    private void onCheckMnemonicCnt() {
+//        WLog.w("onCheckMnemonicCnt");
+        mWords.clear();
+        for(int i = 0; i < mEtMnemonics.length; i++) {
+            if(!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
+                mWords.add(mEtMnemonics[i].getText().toString().trim());
+            } else {
+                break;
+            }
+        }
+
+        mWordCnt.setText(""+ mWords.size() + " words");
+        if( (mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
+            WKey.isMnemonicWords(mWords)) {
+            mWordCnt.setTextColor(getResources().getColor(R.color.colorAtom));
+        } else {
+            mWordCnt.setTextColor(getResources().getColor(R.color.colorRed));
+        }
+
+
     }
 
     private boolean isValidWords() {
-        return true;
+        if( (mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
+                WKey.isMnemonicWords(mWords) && WKey.isValidStringHdSeedFromWords(mWords)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -178,6 +215,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                 }
                 mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
                 mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+                onCheckMnemonicCnt();
 
             } else {
                 Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
@@ -221,6 +259,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                 mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
             }
             mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+            onCheckMnemonicCnt();
             return;
 
         } else if (v.equals(mBtnSpace)) {
@@ -260,7 +299,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onChoiceNet(BaseChain chain) {
         super.onChoiceNet(chain);
-        WLog.w("onChoiceNet : " + mWords.size());
         Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
         intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));
         intent.putExtra("entorpy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));

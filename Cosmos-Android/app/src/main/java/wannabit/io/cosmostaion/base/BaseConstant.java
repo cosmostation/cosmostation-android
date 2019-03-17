@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
+import java.util.ArrayList;
+
 public class BaseConstant {
     public final static boolean                 IS_SHOWLOG 					            = true;
     public final static String                  LOG_TAG                                 = "Cosmostation";
@@ -16,6 +18,7 @@ public class BaseConstant {
 
     public final static String					PRE_USER_ID			                    = "PRE_USER_ID";
     public final static String					PRE_VALIDATOR_SORTING			        = "PRE_VALIDATOR_SORTING";
+    public final static String					PRE_ATOM_TIC			                = "PRE_ATOM_TIC";
 
     public final static String					SET_USE_FINGERPRINT			            = "SET_USE_FINGERPRINT";
     public final static String					SET_HISTORY_QUERY			            = "SET_HISTORY_QUERY";
@@ -122,7 +125,7 @@ public class BaseConstant {
     public final static String                  COSMOS_PHOTON                           = "photon";
     public final static String                  COSMOS_PHOTINO                          = "photino";
     //TODO HardCoding!!
-    public final static long                    COSMOS_UNBONDING_TIME                   = 259200000;
+    public final static long                    COSMOS_UNBONDING_TIME                   = 1814400000;
     public final static long                    COSMOS_UNBONDING_DAY                    = 3;
 
 

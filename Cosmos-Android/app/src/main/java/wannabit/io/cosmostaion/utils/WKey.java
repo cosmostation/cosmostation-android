@@ -78,6 +78,14 @@ public class WKey {
         return WUtil.ByteArrayToHexString(getByteHdSeedFromWords(words));
     }
 
+    public static boolean isValidStringHdSeedFromWords(ArrayList<String> words) {
+        if(getByteHdSeedFromWords(words) == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     public static List<ChildNumber> getParentPath() {
         return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);

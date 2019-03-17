@@ -95,7 +95,6 @@
                                 android:id="@+id/dash_atom_icon"
                                 android:layout_width="@dimen/space_20"
                                 android:layout_height="@dimen/space_20"
-                                android:layout_centerVertical="true"
                                 android:src="@drawable/atom_ic"/>
                             <TextView
                                 android:id="@+id/dash_atom_title"
@@ -103,18 +102,28 @@
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/dash_atom_icon"
                                 android:layout_marginLeft="@dimen/space_8"
-                                android:layout_centerVertical="true"
                                 android:text="ATOM"
                                 style="@style/font_ss_14_atom"/>
-                            <TextView
-                                android:id="@+id/dash_atom_amount"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:gravity="right"
-                                android:text="2,132,232.232145"
-                                style="@style/font_ssl_14_white"/>
+                                android:orientation="vertical"
+                                android:gravity="right">
+                                <TextView
+                                    android:id="@+id/dash_atom_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right"
+                                    style="@style/font_ssm_17_white"/>
+                                <TextView
+                                    android:id="@+id/dash_atom_amount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right"
+                                    android:text="2,132,232.232145"
+                                    style="@style/font_ssl_14_white"/>
+                            </LinearLayout>
                         </RelativeLayout>
 
                         <View

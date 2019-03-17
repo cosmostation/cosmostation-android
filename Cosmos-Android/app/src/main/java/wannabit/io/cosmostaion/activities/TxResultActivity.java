@@ -160,6 +160,12 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mErrorCode  = getIntent().getIntExtra("errorCode", BaseConstant.ERROR_CODE_UNKNOWN);
         mTxHash     = getIntent().getStringExtra("txHash");
 
+        WLog.w("mTxType : " + mTxType);
+        WLog.w("mIsSuccess : " + mIsSuccess);
+        WLog.w("mErrorCode : " + mErrorCode);
+        if(!TextUtils.isEmpty(mTxHash))
+            WLog.w("mTxHash : " + mTxHash);
+
 //        mTxHash = "BC3AA65165833693BB6177DFA835260E7B73A6554EFD471C6892CF904A278E12";
 
         if(!TextUtils.isEmpty(mTxHash)) {
@@ -168,6 +174,12 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
         } else {
             // TODO no hash
+        }
+
+        if(mIsSuccess) {
+            mToolbarTitle.setText(getString(R.string.str_tx_success));
+        } else {
+            mToolbarTitle.setText(getString(R.string.str_tx_failed));
         }
 
 
@@ -206,8 +218,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 //        mFeeAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
 //        mFeePhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
 //
-//        mDelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-//        mUndelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+        mDelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
+        mUndelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
 //
 //        onFetchTx();
 //        onFetchBlock(mResBroadTx.height);
@@ -233,6 +245,10 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
         mLoading.setVisibility(View.GONE);
         mScrollLayer.setVisibility(View.VISIBLE);
+        mBtnScan.setClickable(true);
+        mBtnShare.setClickable(true);
+        mBtnOk.setClickable(true);
+
 
     }
 
@@ -318,6 +334,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mAccount.baseChain)).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
             @Override
             public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
+                if(isFinishing()) return;
+                WLog.w("onFetchTx " + response.toString());
                 if(response.isSuccessful()) {
                     if(response.body() == null) {
                         if(mIsSuccess && FetchCnt < 5) {
@@ -340,7 +358,26 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                     onUpdateTx();
 
                 } else {
-                    WLog.w("onFetchTx Error!!");
+                    if(mIsSuccess && FetchCnt < 5) {
+                        WLog.w("retry : " + FetchCnt + " " + mIsSuccess);
+                        if(mIsSuccess && FetchCnt < 5) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FetchCnt++;
+                                    onFetchTx(mTxHash);
+                                }
+                            }, 8000);
+                        } else {
+                            //TODO finish
+                            WLog.w("Looop");
+                        }
+                        return;
+                    } else {
+                        WLog.w("retry : " + FetchCnt + " " + mIsSuccess);
+                        onBackPressed();
+                    }
+
                 }
             }
 
@@ -348,6 +385,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             public void onFailure(Call<ResTxInfo> call, Throwable t) {
                 WLog.w("onFailure " + t.getMessage());
                 t.printStackTrace();
+                if(isFinishing()) return;
             }
         });
     }
@@ -356,6 +394,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mAccount.baseChain)).getSearchBlock(height).enqueue(new Callback<ResBlockInfo>() {
             @Override
             public void onResponse(Call<ResBlockInfo> call, Response<ResBlockInfo> response) {
+                if(isFinishing()) return;
                 if (response.isSuccessful() && response.body() != null) {
                     WLog.w("onFetchBlock : " + response.body().block_meta.header.time);
                     mResBlockInfo = response.body();
@@ -364,7 +403,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             }
 
             @Override
-            public void onFailure(Call<ResBlockInfo> call, Throwable t) { }
+            public void onFailure(Call<ResBlockInfo> call, Throwable t) {
+                if(isFinishing()) return;
+            }
         });
     }
 

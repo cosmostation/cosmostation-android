@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.gson.JsonNull;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,7 +77,6 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
         if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             mGas = new Coin(BaseConstant.COSMOS_ATOM, mAtomFees.get(1));
             mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-            WLog.w("dsfdsfs : " + WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
             mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
             mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
@@ -114,7 +115,8 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain()) &&
+            getSActivity().mFreeEvent.contains(getSActivity().mValidator.operator_address)) {
             Dialog_free_fee dialog = Dialog_free_fee.newInstance(null);
             dialog.setCancelable(false);
             dialog.setTargetFragment(this, SELECT_FREE_DIALOG);
@@ -129,13 +131,28 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            Fee fee = new Fee();
-            ArrayList<Coin> amount = new ArrayList<>();
-            amount.add(mGas);
-            fee.amount = amount;
-            fee.gas = "200000";
-            getSActivity().mRewardFee = fee;
-            getSActivity().onNextStep();
+            if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Coin gas = mGas;
+                gas.amount = new BigDecimal(gas.amount).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
+
+                Fee fee = new Fee();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gas);
+                fee.amount = amount;
+                fee.gas = "200000";
+                getSActivity().mRewardFee = fee;
+                getSActivity().onNextStep();
+
+            } else {
+                Fee fee = new Fee();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(mGas);
+                fee.amount = amount;
+                fee.gas = "200000";
+                getSActivity().mRewardFee = fee;
+                getSActivity().onNextStep();
+            }
+
 
         } else if (v.equals(mBtnGasType)) {
             if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
@@ -197,10 +214,14 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
         if(requestCode == SELECT_GAS_DIALOG && resultCode == Activity.RESULT_OK) {
             onUpdateGasType(data.getStringExtra("coin"));
         } else if(requestCode == SELECT_FREE_DIALOG && resultCode == Activity.RESULT_OK) {
-            Fee fee = new Fee();
-            fee.amount = null;
-            fee.gas = "200000";
-            getSActivity().mRewardFee = fee;
+            Fee result = new Fee();
+            ArrayList<Coin> amount = new ArrayList<>();
+            Coin testCoin = new Coin("uatom", "0");
+            amount.add(testCoin);
+            result.amount = amount;
+            result.gas = "200000";
+
+            getSActivity().mRewardFee = result;
             getSActivity().onNextStep();
         }
 

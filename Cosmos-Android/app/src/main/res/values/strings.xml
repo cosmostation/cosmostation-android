@@ -2,6 +2,8 @@
     <string name="app_name">Cosmostation</string>
     <string name="db_password">wannabit</string>
 
+    <string name="coinmarketcap_url">https://api.coinmarketcap.com/</string>
+
     <!--<string name="url_lcd_wannabit">https://52.231.71.66:1317/</string>-->
     <string name="url_lcd_gaia">https://lcd-dev.cosmostation.io</string>
     <string name="url_lcd_gos">cosmos lcd gos</string>
@@ -17,9 +19,9 @@
 
 
     <!--No Free fee lcd-->
-    <string name="url_lcd_main">https://lcd.cosmostation.io/</string>
+    <!--<string name="url_lcd_main">https://lcd.cosmostation.io/</string>-->
     <!--Free fee lcd-->
-    <!--<string name="url_lcd_main">https://lcd-dev.cosmostation.io/</string>-->
+    <string name="url_lcd_main">https://lcd-dev.cosmostation.io/</string>
     <string name="url_esearch_main">https://search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com/</string>
 
     <string name="key_mnemonic">MNEMONIC_KEY</string>
@@ -166,6 +168,7 @@
     <string name="str_next_word">Next Word</string>
     <string name="str_mnemonic_title">Please enter the recovery phrase.</string>
     <string name="str_mnemonic_msg">(12 / 16 / 24 words)</string>
+    <string name="str_test_net_deprecated">Testnet deprecated..</string>
 
 
     <string name="str_main_wallet">WALLET</string>
@@ -385,5 +388,20 @@
     <string name="tx_get_commission">Get Commission</string>
     <string name="tx_change_reward_address">Change Reward Address</string>
     <string name="tx_known">Known</string>
+
+
+
+    <string-array name="free_event">
+        <item>cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn</item>
+        <item>cosmosvaloper1ec3p6a75mqwkv33zt543n6cnxqwun37rr5xlqv</item>
+        <item>cosmosvaloper10e4vsut6suau8tk9m6dnrm0slgd6npe3jx5xpv</item>
+        <item>cosmosvaloper14l0fp639yudfl46zauvv8rkzjgd4u0zk2aseys</item>
+        <item>cosmosvaloper1ssm0d433seakyak8kcf93yefhknjleeds4y3em</item>
+        <item>cosmosvaloper1u6ddcsjueax884l3tfrs66497c7g86skn7pa0u</item>
+        <item>cosmosvaloper1urtpxwfuu8k57aqt0h5zhsvmjt4m2mmdr0juzg</item>
+        <item>cosmosvaloper14kn0kk33szpwus9nh8n87fjel8djx0y070ymmj</item>
+        <item>cosmosvaloper1ey69r37gfxvxg62sh4r0ktpuc46pzjrm873ae8</item>
+        <item>cosmosvaloper1qwl879nx9t6kef4supyazayf7vjhennyh568ys</item>
+    </string-array>
 
 </resources>

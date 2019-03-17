@@ -135,6 +135,17 @@ public class ValidatorMyFragment extends BaseFragment {
                 final RewardMyValidatorHolder holder    = (RewardMyValidatorHolder)viewHolder;
                 final Validator validator               = mMyValidators.get(position);
                 holder.itemTvMoniker.setText(validator.description.moniker);
+
+                if(getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    if(getMainActivity().mFreeEvent.contains(validator.operator_address)) {
+                        holder.itemFree.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.itemFree.setVisibility(View.GONE);
+                    }
+                } else {
+                    holder.itemFree.setVisibility(View.GONE);
+                }
+
                 BondingState bonding = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, validator.operator_address);
                 if(bonding != null && bonding.shares != null) {
                     holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), bonding.shares, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
@@ -205,6 +216,7 @@ public class ValidatorMyFragment extends BaseFragment {
         public class RewardMyValidatorHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;
             CircleImageView itemAvatar;
+            ImageView       itemFree;
             ImageView itemRevoked;
             TextView    itemTvMoniker;
             TextView    itemTvDelegateAmount;
@@ -214,6 +226,7 @@ public class ValidatorMyFragment extends BaseFragment {
                 super(itemView);
                 itemRoot            = itemView.findViewById(R.id.card_validator);
                 itemAvatar          = itemView.findViewById(R.id.avatar_validator);
+                itemFree            = itemView.findViewById(R.id.avatar_validator_free);
                 itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
                 itemTvDelegateAmount = itemView.findViewById(R.id.delegate_amount_validator);

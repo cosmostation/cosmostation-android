@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -81,6 +82,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private int                         mTaskCount;
     private boolean                     mExpended = true;
 
+    public ArrayList<String>            mFreeEvent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +97,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -189,16 +194,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasAtom = false;
         for (Balance balance:balances) {
-            if(balance.symbol.toLowerCase().equals(WDp.DpAtom(getBaseContext(), mAccount.baseChain).toLowerCase()) &&
-                    (balance.balance.compareTo(new BigDecimal("1")) > 0)){
+//            if(balance.symbol.toLowerCase().equals(WDp.DpAtom(getBaseContext(), mAccount.baseChain).toLowerCase()) &&
+//                    (balance.balance.compareTo(new BigDecimal("1")) > 0)){
+//                hasAtom  = true;
+//            }
+
+            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
                 hasAtom  = true;
             }
         }
@@ -207,7 +212,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) ||
+                mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
+            Toast.makeText(getBaseContext(), R.string.str_test_net_deprecated, Toast.LENGTH_SHORT).show();
             Bundle bundle = new Bundle();
             bundle.putLong("id", mAccount.id);
             Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
@@ -224,31 +231,33 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onStartUndelegate() {
         WLog.w("onStartUndelegate");
         if(mAccount == null || mValidator == null) return;
-//        if(!mAccount.hasPrivateKey) {
-//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
-//
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
 //        if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
 //            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
 //            return;
 //        }
-//
-//        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+
+        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) ||
+                mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
+            Toast.makeText(getBaseContext(), R.string.str_test_net_deprecated, Toast.LENGTH_SHORT).show();
 //            Bundle bundle = new Bundle();
 //            bundle.putLong("id", mAccount.id);
 //            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
 //            add.setCancelable(true);
 //            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
+            return;
+        }
 
         getBaseDao().setValidator(mValidator);
         Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
@@ -259,36 +268,34 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onGetReward() {
         WLog.w("onGetReward");
-//        if(!mAccount.hasPrivateKey) {
-//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
-//
-//        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        if(mReward == null) {
-//            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+
+        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(mReward == null) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) ||
+                mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
+            Toast.makeText(getBaseContext(), R.string.str_test_net_deprecated, Toast.LENGTH_SHORT).show();
 //            Bundle bundle = new Bundle();
 //            bundle.putLong("id", mAccount.id);
 //            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
 //            add.setCancelable(true);
 //            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
+            return;
+        }
 
         getBaseDao().setValidator(mValidator);
         Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
@@ -395,6 +402,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if(!TextUtils.isEmpty(mValidator.description.details)) holder.itemTvDescription.setText(mValidator.description.details);
                 else holder.itemTvDescription.setVisibility(View.GONE);
 
+                if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    if(mFreeEvent.contains(mValidator.operator_address)) {
+                        holder.itemImgFree.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.itemImgFree.setVisibility(View.GONE);
+                    }
+                } else {
+                    holder.itemImgFree.setVisibility(View.GONE);
+
+                }
+
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
@@ -442,6 +460,18 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 else holder.itemTvWebsite.setVisibility(View.GONE);
                 if(!TextUtils.isEmpty(mValidator.description.details)) holder.itemTvDescription.setText(mValidator.description.details);
                 else holder.itemTvDescription.setVisibility(View.GONE);
+
+                if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    if(mFreeEvent.contains(mValidator.operator_address)) {
+                        holder.itemImgFree.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.itemImgFree.setVisibility(View.GONE);
+                    }
+                } else {
+                    holder.itemImgFree.setVisibility(View.GONE);
+
+                }
+
 
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
@@ -675,6 +705,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         public class ValidatorHolder extends RecyclerView.ViewHolder {
             CircleImageView itemAvatar;
             ImageView    itemImgRevoked;
+            ImageView    itemImgFree;
             TextView    itemTvMoniker;
             TextView    itemTvAddress;
             TextView    itemTvWebsite;
@@ -688,6 +719,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 super(v);
                 itemAvatar              = itemView.findViewById(R.id.validator_avatar);
                 itemImgRevoked          = itemView.findViewById(R.id.avatar_validator_revoke);
+                itemImgFree             = itemView.findViewById(R.id.avatar_validator_free);
                 itemTvMoniker           = itemView.findViewById(R.id.validator_moniker);
                 itemTvAddress           = itemView.findViewById(R.id.validator_address);
                 itemTvWebsite           = itemView.findViewById(R.id.validator_site);
@@ -702,6 +734,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         public class MyValidatorHolder extends RecyclerView.ViewHolder {
             CircleImageView  itemAvatar;
             ImageView    itemImgRevoked;
+            ImageView    itemImgFree;
             ImageView   itemHideShow;
             TextView    itemTvMoniker;
             TextView    itemTvAddress;
@@ -715,6 +748,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 super(v);
                 itemAvatar              = itemView.findViewById(R.id.validator_avatar);
                 itemImgRevoked          = itemView.findViewById(R.id.avatar_validator_revoke);
+                itemImgFree             = itemView.findViewById(R.id.avatar_validator_free);
                 itemHideShow            = itemView.findViewById(R.id.validator_hide_show);
                 itemTvMoniker           = itemView.findViewById(R.id.validator_moniker);
                 itemTvAddress           = itemView.findViewById(R.id.validator_address);

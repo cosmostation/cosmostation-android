@@ -87,10 +87,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnCurrency)) {
-            Toast.makeText(getBaseActivity(), R.string.str_will_support_with_mainnet, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getBaseActivity(), R.string.str_will_support_with_mainnet, Toast.LENGTH_SHORT).show();
+            return;
 
         } else if (v.equals(mBtnBasePrice)) {
-            Toast.makeText(getBaseActivity(), R.string.str_will_support_with_mainnet, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getBaseActivity(), R.string.str_will_support_with_mainnet, Toast.LENGTH_SHORT).show();
+            return;
 
         } else if (v.equals(mBtnGuide)) {
 

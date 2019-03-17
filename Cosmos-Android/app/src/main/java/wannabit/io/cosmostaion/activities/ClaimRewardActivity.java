@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import wannabit.io.cosmostaion.R;
@@ -61,6 +62,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 
+    public ArrayList<String>            mFreeEvent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+
+        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 
         mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBalances   = getBaseDao().onSelectBalance(mAccount.id);
@@ -143,7 +148,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     public void onBackPressed() {
         onHideKeyboard();
         if(mViewPager.getCurrentItem() == 3) {
-            if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain()) && mFreeEvent.contains(mValidator.operator_address)) {
                 mViewPager.setCurrentItem(1, true);
             } else {
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);

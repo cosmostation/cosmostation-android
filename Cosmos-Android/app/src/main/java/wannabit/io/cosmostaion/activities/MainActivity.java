@@ -32,6 +32,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -41,7 +43,11 @@ import com.gun0912.tedpermission.TedPermission;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -67,6 +73,8 @@ import wannabit.io.cosmostaion.fragment.MainVoteFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResAtomTic;
 import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
@@ -112,6 +120,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
     private RecyclerView                mRecyclerView;
     private AccountAdapter              mAccountAdapter;
 
+    public ArrayList<String>           mFreeEvent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +134,9 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mContentsPager              = findViewById(R.id.view_pager);
         mTabLayer                   = findViewById(R.id.bottom_tab);
         mDimLayer                   = findViewById(R.id.dim_layer);
+
+        //For event
+        mFreeEvent                  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 
         mRecyclerView               = findViewById(R.id.account_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -225,6 +238,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
 
+        onAtomTic();
     }
 
     @Override
@@ -318,12 +332,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
-            Bundle bundle = new Bundle();
-            bundle.putLong("id", mAccount.id);
-            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) ||
+                mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
+            Toast.makeText(getBaseContext(), R.string.str_test_net_deprecated, Toast.LENGTH_SHORT).show();
+//            Bundle bundle = new Bundle();
+//            bundle.putLong("id", mAccount.id);
+//            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
 
@@ -766,6 +782,27 @@ public class MainActivity extends BaseActivity implements TaskListener {
     }
 
 
+    private void onAtomTic() {
+        ApiClient.getCMCClient(getBaseContext()).getAtomTic(3794,"USD").enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(isFinishing()) return;
+                try {
+                    if(response.isSuccessful()) {
+                        ResAtomTic mResAtomTic = new Gson().fromJson(response.body(), ResAtomTic.class);
+                        getBaseDao().setLastAtomTic(mResAtomTic.getData().getQuotesMap().get("USD").getPrice());
+                        onFetchCurrentPage();
+                    }
+                }catch (Exception e) {}
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
+    }
 
 
 

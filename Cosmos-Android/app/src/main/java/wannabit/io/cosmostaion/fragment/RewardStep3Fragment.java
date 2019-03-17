@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
@@ -86,14 +87,14 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 rewardAtom = getSActivity().mRewards.getAtomAmount();
                 mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
                 mPhotonRewardLayer.setVisibility(View.GONE);
-                if(getSActivity().mRewardFee.amount == null) {
+                if(getSActivity().mRewardFee.amount.get(0).amount.equals("0")) {
                     mFeeType.setVisibility(View.GONE);
                     mFeeAmount.setText("FREE");
                     mFeeAmount.setTextColor(getResources().getColor(R.color.colorRed));
                 } else {
                     mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
                     mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-                    mFeeAmount.setText(new BigDecimal(getSActivity().mRewardFee.amount.get(6).amount).toPlainString());
+                    mFeeAmount.setText(new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount).divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
                 }
 
             } else {
@@ -148,11 +149,12 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
 //        mMemo.setText(getSActivity().mRewardMemo);
 //
 //
-//        mRewardAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+
 //        mRewardPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
 //        mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
 //        mRemindPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
-
+        mRewardAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        mRewardPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
         mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 

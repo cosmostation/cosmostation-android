@@ -113,7 +113,8 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain()) &&
+                getSActivity().mFreeEvent.contains(getSActivity().mValidator.operator_address)) {
             Dialog_free_fee dialog = Dialog_free_fee.newInstance(null);
             dialog.setCancelable(false);
             dialog.setTargetFragment(this, SELECT_FREE_DIALOG);
@@ -128,14 +129,34 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            Fee fee = new Fee();
-            ArrayList<Coin> amount = new ArrayList<>();
-            amount.add(mGas);
-            fee.amount = amount;
-            fee.gas = "200000";
-            getSActivity().mUnDelegateFee = fee;
-//            getSActivity().mUnDelegateFee = mGas;
-            getSActivity().onNextStep();
+            if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Coin gas = mGas;
+                gas.amount = new BigDecimal(gas.amount).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
+
+                Fee fee = new Fee();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gas);
+                fee.amount = amount;
+                fee.gas = "200000";
+                getSActivity().mUnDelegateFee = fee;
+                getSActivity().onNextStep();
+
+            } else {
+                Fee fee = new Fee();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(mGas);
+                fee.amount = amount;
+                fee.gas = "200000";
+                getSActivity().mUnDelegateFee = fee;
+                getSActivity().onNextStep();
+            }
+//            Fee fee = new Fee();
+//            ArrayList<Coin> amount = new ArrayList<>();
+//            amount.add(mGas);
+//            fee.amount = amount;
+//            fee.gas = "200000";
+//            getSActivity().mUnDelegateFee = fee;
+//            getSActivity().onNextStep();
 
         } else if (v.equals(mBtnGasType)) {
             Bundle bundle = new Bundle();
@@ -193,10 +214,20 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
         if(requestCode == SELECT_GAS_DIALOG && resultCode == Activity.RESULT_OK) {
             onUpdateGasType(data.getStringExtra("coin"));
         } else if(requestCode == SELECT_FREE_DIALOG && resultCode == Activity.RESULT_OK) {
-            Fee fee = new Fee();
-            fee.amount = null;
-            fee.gas = "200000";
-            getSActivity().mUnDelegateFee = fee;
+//            Fee fee = new Fee();
+//            fee.amount = null;
+//            fee.gas = "200000";
+//            getSActivity().mUnDelegateFee = fee;
+//            getSActivity().onNextStep();
+
+            Fee result = new Fee();
+            ArrayList<Coin> amount = new ArrayList<>();
+            Coin testCoin = new Coin("uatom", "0");
+            amount.add(testCoin);
+            result.amount = amount;
+            result.gas = "200000";
+
+            getSActivity().mUnDelegateFee = result;
             getSActivity().onNextStep();
         }
     }

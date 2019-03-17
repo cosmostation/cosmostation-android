@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -37,6 +40,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
     private TextView            mTvPhotonTotal, mTvPhotonBalance, mTvPhotonRewards;
     private TextView            mTvAtomTitle, mTvPhotonTitle;
+
+    private TextView            mAtomPrice;
 
     private CardView            mAtomCard, mPhotonCard;
 
@@ -73,6 +78,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         mAtomCard               = rootView.findViewById(R.id.card_atom);
         mPhotonCard             = rootView.findViewById(R.id.card_photon);
+
+        mAtomPrice              = rootView.findViewById(R.id.dash_atom_price);
 
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -116,12 +123,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private void onUpdateView() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
 
-        if(!getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) &&
-                !getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
-            mPhotonCard.setVisibility(View.GONE);
-        } else {
-            mPhotonCard.setVisibility(View.VISIBLE);
-        }
+
 
 //        if(getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()))
 //            mTestnet.setVisibility(View.VISIBLE);
@@ -140,6 +142,23 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvPhotonTotal.setText(WDp.getDpAllPhoton(getContext(), getMainActivity().mBalances, getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
         mTvPhotonBalance.setText(WDp.getDpPhotonBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
         mTvPhotonRewards.setText(WDp.getDpAllPhotonRewardAmount(getContext(), getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+
+        if(!getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) &&
+                !getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
+            mPhotonCard.setVisibility(View.GONE);
+            mAtomPrice.setVisibility(View.VISIBLE);
+
+            try {
+                BigDecimal total = new BigDecimal(""+mTvAtomTotal.getText().toString().trim().replace(",","")).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+                mAtomPrice.setText("$ " +  WDp.getDolor(getContext(), total));
+            }catch (Exception e) {
+                mAtomPrice.setText("price not support");
+            }
+
+        } else {
+            mPhotonCard.setVisibility(View.VISIBLE);
+            mAtomPrice.setVisibility(View.GONE);
+        }
     }
 
     public MainActivity getMainActivity() {

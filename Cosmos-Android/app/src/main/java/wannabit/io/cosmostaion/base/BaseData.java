@@ -49,6 +49,18 @@ public class BaseData {
         return mSQLiteDatabase;
     }
 
+    public void setLastAtomTic(Double price) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+price).commit();
+    }
+
+    public double getLastAtomTic() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_ATOM_TIC, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
 
 
     public void setUsingFingerprint(boolean using) {

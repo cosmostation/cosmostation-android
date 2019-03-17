@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.network;
 
 import android.content.Context;
 
+import com.google.gson.JsonObject;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
@@ -10,6 +12,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wannabit.io.cosmostaion.AWSV4Auth;
@@ -215,4 +218,27 @@ public class ApiClient {
         }
         return null;
     }
+
+
+    private static MarketCapService marketCapService = null;
+    public static MarketCapService getCMCClient(Context c) {
+        if (marketCapService == null) {
+            synchronized (ApiClient.class) {
+                if (marketCapService == null)  {
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(c.getString(R.string.coinmarketcap_url))
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    marketCapService = retrofit.create(MarketCapService.class);
+                }
+            }
+        }
+        return marketCapService;
+    }
+
+//    public static Call<JsonObject> getAtomTic(Context c, int id, String currency) {
+//        MarketCapService service = getCMCClient(c).create(MarketCapService.class);
+//        return service.getEosTic(id, currency);
+//    }
+
 }

@@ -51,7 +51,8 @@
             android:background="@drawable/btn_trans_with_border"
             style="@style/font_ss_14_white"
             android:textAllCaps="false"
-            android:text="@string/str_mintscan"/>
+            android:text="@string/str_mintscan"
+            android:clickable="false"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +68,8 @@
                 android:background="@drawable/btn_trans_with_border"
                 style="@style/font_ss_14_white"
                 android:textAllCaps="false"
-                android:text="@string/str_share"/>
+                android:text="@string/str_share"
+                android:clickable="false"/>
             <Button
                 android:id="@+id/btn_ok"
                 android:layout_width="0dp"
@@ -79,7 +81,8 @@
                 style="@style/font_ss_14_photon"
                 android:textColor="@color/color_btn_photon"
                 android:textAllCaps="false"
-                android:text="@string/str_ok"/>
+                android:text="@string/str_ok"
+                android:clickable="false"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -120,7 +123,8 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scroll_layer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -337,7 +341,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
                                     android:layout_marginLeft="@dimen/space_24"
-                                    android:text="@string/str_atom_c"
+                                    android:text="ATOM"
                                     style="@style/font_ss_11_atom"/>
                                 <TextView
                                     android:id="@+id/delegate_atom"
@@ -424,7 +428,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
                                     android:layout_marginLeft="@dimen/space_24"
-                                    android:text="@string/str_atom_c"
+                                    android:text="ATOM"
                                     style="@style/font_ss_11_atom"/>
                                 <TextView
                                     android:id="@+id/undelegate_atom"
@@ -548,8 +552,7 @@
         <RelativeLayout
             android:id="@+id/loading_layer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="match_parent">
             <ProgressBar
                 android:layout_width="@dimen/space_60"
                 android:layout_height="@dimen/space_60"

@@ -116,7 +116,8 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain()) &&
+                getSActivity().mFreeEvent.contains(getSActivity().mValidator.operator_address)) {
             Dialog_free_fee dialog = Dialog_free_fee.newInstance(null);
             dialog.setCancelable(false);
             dialog.setTargetFragment(this, SELECT_FREE_DIALOG);
@@ -131,13 +132,27 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            Fee fee = new Fee();
-            ArrayList<Coin> amount = new ArrayList<>();
-            amount.add(mGas);
-            fee.amount = amount;
-            fee.gas = "200000";
-            getSActivity().mToDelegateFee = fee;
-            getSActivity().onNextStep();
+            if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Coin gas = mGas;
+                gas.amount = new BigDecimal(gas.amount).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
+
+                Fee fee = new Fee();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gas);
+                fee.amount = amount;
+                fee.gas = "200000";
+                getSActivity().mToDelegateFee = fee;
+                getSActivity().onNextStep();
+
+            } else {
+                Fee fee = new Fee();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(mGas);
+                fee.amount = amount;
+                fee.gas = "200000";
+                getSActivity().mToDelegateFee = fee;
+                getSActivity().onNextStep();
+            }
 
         } else if (v.equals(mBtnGasType)) {
             if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
@@ -198,10 +213,14 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
         if(requestCode == SELECT_GAS_DIALOG && resultCode == Activity.RESULT_OK) {
             onUpdateGasType(data.getStringExtra("coin"));
         } else if(requestCode == SELECT_FREE_DIALOG && resultCode == Activity.RESULT_OK) {
-            Fee fee = new Fee();
-            fee.amount = null;
-            fee.gas = "200000";
-            getSActivity().mToDelegateFee = fee;
+            Fee result = new Fee();
+            ArrayList<Coin> amount = new ArrayList<>();
+            Coin testCoin = new Coin("uatom", "0");
+            amount.add(testCoin);
+            result.amount = amount;
+            result.gas = "200000";
+
+            getSActivity().mToDelegateFee = result;
             getSActivity().onNextStep();
         }
     }

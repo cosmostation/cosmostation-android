@@ -291,7 +291,10 @@ public class WDp {
 
 
 
-
+    public static String getDolor(Context c, BigDecimal input) {
+        DecimalFormat df = getDecimalFormat(c, 2);
+        return df.format(input);
+    }
 
 
 

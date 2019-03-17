@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -77,15 +78,25 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             mTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
             mTotalDeleagteAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            if(getSActivity().mUnDelegateFee.amount == null) {
+//            if(getSActivity().mUnDelegateFee.amount == null) {
+//                mFeeType.setVisibility(View.GONE);
+//                mFeeAmount.setText("FREE");
+//                mFeeAmount.setTextColor(getResources().getColor(R.color.colorRed));
+//            } else {
+//                mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+//                mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
+//                mFeeAmount.setText(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(6).amount).toPlainString());
+//            }
+            if(getSActivity().mUnDelegateFee.amount.get(0).amount.equals("0")) {
                 mFeeType.setVisibility(View.GONE);
                 mFeeAmount.setText("FREE");
                 mFeeAmount.setTextColor(getResources().getColor(R.color.colorRed));
             } else {
                 mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
                 mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-                mFeeAmount.setText(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(6).amount).toPlainString());
+                mFeeAmount.setText(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount).divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
             }
+
             mTime.setText(WDp.getUnbondTime(getContext(), BaseChain.COSMOS_MAIN));
 
         } else {

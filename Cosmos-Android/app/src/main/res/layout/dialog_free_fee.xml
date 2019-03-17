@@ -12,10 +12,16 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
+        <ImageView
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:layout_marginTop="@dimen/space_24"
+            android:src="@drawable/freeevent_img"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_24"
+            android:layout_marginTop="@dimen/space_4"
             style="@style/font_ss_17_gray8"
             android:gravity="center"
             android:text="@string/str_fee_free_title"/>
@@ -47,7 +53,7 @@
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white"
-                style="@style/font_ss_14_gray8"
+                style="@style/font_ss_14_red"
                 android:text="@string/str_ok"/>
         </LinearLayout>
     </LinearLayout>
