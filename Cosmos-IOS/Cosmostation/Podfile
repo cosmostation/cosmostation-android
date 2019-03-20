@@ -10,5 +10,8 @@ target 'Cosmostation' do
   pod 'BitcoinKit'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'PromiseKit/CorePromise', '~> 6.8'
+  pod 'SQLite.swift', '~> 0.11.5'
+  pod 'CryptoSwift'
+  pod 'SwiftKeychainWrapper'
 
 end

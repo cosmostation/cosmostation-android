@@ -1,28 +1,42 @@
 PODS:
   - Alamofire (4.7.3)
   - BitcoinKit (1.0.2)
+  - CryptoSwift (0.14.0)
   - PromiseKit/CorePromise (6.8.3)
+  - SQLite.swift (0.11.5):
+    - SQLite.swift/standard (= 0.11.5)
+  - SQLite.swift/standard (0.11.5)
+  - SwiftKeychainWrapper (3.2.0)
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - BitcoinKit
+  - CryptoSwift
   - PromiseKit/CorePromise (~> 6.8)
+  - SQLite.swift (~> 0.11.5)
+  - SwiftKeychainWrapper
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - BitcoinKit
+    - CryptoSwift
     - PromiseKit
+    - SQLite.swift
+    - SwiftKeychainWrapper
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   BitcoinKit: 5502c14d72ab665fbe00dc72abd74439a38ef9bc
+  CryptoSwift: 35a10419f4dbf0619c13f8c1c180037e115323fa
   PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
+  SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
+  SwiftKeychainWrapper: 82c4c02cdc36f9a24f7edfcaab3e336401caa1a1
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 8919a6f577b48e073820ce7d044f3f702c8ec8f1
+PODFILE CHECKSUM: 531c748aa28d36cdfde5ab4c59277b22fb10e48e
 
 COCOAPODS: 1.5.3

@@ -11,7 +11,6 @@
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
 		E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E29222E7C0600A1436F /* ViewController.swift */; };
 		E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E2B222E7C0600A1436F /* Main.storyboard */; };
-		E1945E2F222E7C0800A1436F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1945E2E222E7C0800A1436F /* Assets.xcassets */; };
 		E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E30222E7C0800A1436F /* LaunchScreen.storyboard */; };
 		E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E3C222E7E2900A1436F /* SegwitAddrCoder.swift */; };
 		E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E3D222E7E2900A1436F /* Bech32.swift */; };
@@ -23,6 +22,14 @@
 		E1945E4C222E81C200A1436F /* MainTabVoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E4B222E81C200A1436F /* MainTabVoteViewController.swift */; };
 		E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E4D222E81D000A1436F /* MainTabSettingViewController.swift */; };
 		E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E4F222E842B00A1436F /* BaseViewController.swift */; };
+		E1945E52223124F000A1436F /* BaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E51223124F000A1436F /* BaseData.swift */; };
+		E1945E542231256800A1436F /* BaseConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E532231256800A1436F /* BaseConstant.swift */; };
+		E1A82DD1224220910097CAEE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD0224220910097CAEE /* Account.swift */; };
+		E1A82DD3224222E00097CAEE /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD2224222E00097CAEE /* Password.swift */; };
+		E1A82DD5224223250097CAEE /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD4224223250097CAEE /* Balance.swift */; };
+		E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD6224223EC0097CAEE /* Bonding.swift */; };
+		E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD8224224420097CAEE /* Unbonding.swift */; };
+		E1D41F31224088A20044E18F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1D41F30224088A20044E18F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +40,6 @@
 		E1945E27222E7C0600A1436F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1945E29222E7C0600A1436F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E1945E2C222E7C0600A1436F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E1945E2E222E7C0800A1436F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1945E31222E7C0800A1436F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1945E33222E7C0800A1436F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1945E3C222E7E2900A1436F /* SegwitAddrCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegwitAddrCoder.swift; sourceTree = "<group>"; };
@@ -46,6 +52,14 @@
 		E1945E4B222E81C200A1436F /* MainTabVoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVoteViewController.swift; sourceTree = "<group>"; };
 		E1945E4D222E81D000A1436F /* MainTabSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabSettingViewController.swift; sourceTree = "<group>"; };
 		E1945E4F222E842B00A1436F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		E1945E51223124F000A1436F /* BaseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseData.swift; sourceTree = "<group>"; };
+		E1945E532231256800A1436F /* BaseConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseConstant.swift; sourceTree = "<group>"; };
+		E1A82DD0224220910097CAEE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		E1A82DD2224222E00097CAEE /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
+		E1A82DD4224223250097CAEE /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
+		E1A82DD6224223EC0097CAEE /* Bonding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bonding.swift; sourceTree = "<group>"; };
+		E1A82DD8224224420097CAEE /* Unbonding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unbonding.swift; sourceTree = "<group>"; };
+		E1D41F30224088A20044E18F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,12 +112,14 @@
 		E1945E26222E7C0600A1436F /* Cosmostation */ = {
 			isa = PBXGroup;
 			children = (
+				E1A82DCF224220810097CAEE /* Dao */,
 				E1945E3B222E7DF600A1436F /* Crypto */,
 				E1945E3A222E7DD800A1436F /* Controller */,
 				E1945E39222E7D8E00A1436F /* Base */,
 				E1945E29222E7C0600A1436F /* ViewController.swift */,
 				E1945E33222E7C0800A1436F /* Info.plist */,
 				E1945E2B222E7C0600A1436F /* Main.storyboard */,
+				E1D41F30224088A20044E18F /* Assets.xcassets */,
 				E1945E30222E7C0800A1436F /* LaunchScreen.storyboard */,
 			);
 			path = Cosmostation;
@@ -113,8 +129,9 @@
 			isa = PBXGroup;
 			children = (
 				E1945E27222E7C0600A1436F /* AppDelegate.swift */,
-				E1945E2E222E7C0800A1436F /* Assets.xcassets */,
 				E1945E4F222E842B00A1436F /* BaseViewController.swift */,
+				E1945E51223124F000A1436F /* BaseData.swift */,
+				E1945E532231256800A1436F /* BaseConstant.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -148,6 +165,18 @@
 				E1945E4D222E81D000A1436F /* MainTabSettingViewController.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		E1A82DCF224220810097CAEE /* Dao */ = {
+			isa = PBXGroup;
+			children = (
+				E1A82DD0224220910097CAEE /* Account.swift */,
+				E1A82DD2224222E00097CAEE /* Password.swift */,
+				E1A82DD4224223250097CAEE /* Balance.swift */,
+				E1A82DD6224223EC0097CAEE /* Bonding.swift */,
+				E1A82DD8224224420097CAEE /* Unbonding.swift */,
+			);
+			path = Dao;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,8 +240,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
-				E1945E2F222E7C0800A1436F /* Assets.xcassets in Resources */,
 				E1945E44222E7FF500A1436F /* MainStoryboard.storyboard in Resources */,
+				E1D41F31224088A20044E18F /* Assets.xcassets in Resources */,
 				E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,14 +258,20 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Cosmostation/Pods-Cosmostation-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BitcoinKit/BitcoinKit.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BitcoinKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,8 +306,13 @@
 			files = (
 				E1945E48222E81A300A1436F /* MainTabRewardViewController.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
+				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
+				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
 				E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
+				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
+				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
+				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
 				E1945E46222E819300A1436F /* MainTabSendViewController.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
 				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,
@@ -280,6 +320,8 @@
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1945E4C222E81C200A1436F /* MainTabVoteViewController.swift in Sources */,
+				E1A82DD5224223250097CAEE /* Balance.swift in Sources */,
+				E1A82DD1224220910097CAEE /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,11 +471,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.Cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -445,11 +490,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.Cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

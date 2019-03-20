@@ -15,9 +15,9 @@
             <objects>
                 <viewController id="Qvj-GN-yc9" customClass="MainTabRewardViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ilN-v5-iKh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <viewLayoutGuide key="safeArea" id="qad-RP-sDI"/>
                     </view>
                     <navigationItem key="navigationItem" id="42X-K1-Bet"/>
@@ -31,9 +31,9 @@
             <objects>
                 <viewController id="e4x-hE-Zla" customClass="MainTabSendViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5KG-xW-pwp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <viewLayoutGuide key="safeArea" id="RKe-Xn-as2"/>
                     </view>
                     <navigationItem key="navigationItem" id="l1I-Ac-eWK"/>
@@ -47,9 +47,9 @@
             <objects>
                 <viewController id="t07-dn-E46" customClass="MainTabHistoryViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zcq-nb-U4b">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <viewLayoutGuide key="safeArea" id="cSU-sE-n4m"/>
                     </view>
                     <navigationItem key="navigationItem" id="zKv-T3-ZiW"/>
@@ -63,9 +63,9 @@
             <objects>
                 <viewController id="jY2-JE-lP2" customClass="MainTabVoteViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zCR-E0-N9f">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <viewLayoutGuide key="safeArea" id="Du9-Qj-Mbj"/>
                     </view>
                     <navigationItem key="navigationItem" id="E0Q-yY-xu0"/>
@@ -79,9 +79,9 @@
             <objects>
                 <viewController id="1zF-Vz-4uW" customClass="MainTabSettingViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eZu-D4-qDA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <viewLayoutGuide key="safeArea" id="6xW-gl-kKc"/>
                     </view>
                     <navigationItem key="navigationItem" id="tiQ-UA-kjU"/>
@@ -94,10 +94,18 @@
         <scene sceneID="hEl-hw-B2u">
             <objects>
                 <tabBarController storyboardIdentifier="MainTabViewController" id="Zlf-k8-rdn" customClass="MainTabViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="X2b-ss-L1h">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="X2b-ss-L1h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="deviceRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
+                                <color key="value" red="0.29411764705882354" green="0.30980392156862746" blue="0.32941176470588235" alpha="1" colorSpace="deviceRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="YzK-1l-jEg" kind="relationship" relationship="viewControllers" id="TMA-a8-1fC"/>
@@ -115,7 +123,7 @@
         <scene sceneID="oNf-u6-me0">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="59e-Pc-Dtm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="REWARD" id="10a-ev-i1V"/>
+                    <tabBarItem key="tabBarItem" title="REWARD" image="reward_ic" id="10a-ev-i1V"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mGb-8m-aiv">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -134,7 +142,7 @@
         <scene sceneID="rXu-tB-qbz">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YzK-1l-jEg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="WALLET" id="IIN-KY-Jus"/>
+                    <tabBarItem key="tabBarItem" title="WALLET" image="wallet_ic" id="IIN-KY-Jus"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UaI-4y-7k3">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -153,7 +161,7 @@
         <scene sceneID="9A2-0D-p3l">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6PU-dL-cQj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="HISTORY" id="Pah-Ab-5sf"/>
+                    <tabBarItem key="tabBarItem" title="HISTORY" image="ts_ic" id="Pah-Ab-5sf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="He0-cX-uZk">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -166,13 +174,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BX1-4r-DmX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-486" y="681"/>
+            <point key="canvasLocation" x="-487" y="656"/>
         </scene>
         <!--VOTE-->
         <scene sceneID="HEi-Hm-Bsu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tVU-gy-x65" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="VOTE" id="3qo-be-85R"/>
+                    <tabBarItem key="tabBarItem" title="VOTE" image="vote_ic" id="3qo-be-85R"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6eb-xV-LOr">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -191,7 +199,7 @@
         <scene sceneID="S0Y-sR-QHR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ARn-Yi-ZWd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="SETTING" id="hWX-Vb-kcg"/>
+                    <tabBarItem key="tabBarItem" title="SETTING" image="setting_ic" id="hWX-Vb-kcg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="A24-Xc-evI">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -207,4 +215,11 @@
             <point key="canvasLocation" x="1598" y="681"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="reward_ic" width="24" height="24"/>
+        <image name="setting_ic" width="24" height="24"/>
+        <image name="ts_ic" width="24" height="24"/>
+        <image name="vote_ic" width="24" height="24"/>
+        <image name="wallet_ic" width="24" height="24"/>
+    </resources>
 </document>
