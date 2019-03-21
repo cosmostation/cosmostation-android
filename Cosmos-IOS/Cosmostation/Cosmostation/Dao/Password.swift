@@ -12,4 +12,11 @@ public class Password {
     var password_id: Int64 = -1;
     var password_resource: String = "";
     
+    
+    init(_ id:Int64, _ resource:String) {
+        self.password_id = id;
+        self.password_resource = resource;
+    }
 }
+
+

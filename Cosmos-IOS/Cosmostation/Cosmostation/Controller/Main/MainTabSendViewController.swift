@@ -14,6 +14,9 @@ class MainTabSendViewController: BaseViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+//        print("password ", BaseData.instance.hasPassword())
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

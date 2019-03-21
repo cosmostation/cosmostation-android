@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-
+let SHOW_LOG                        = true;
 
 
 
@@ -20,17 +20,20 @@ let DB_ACCOUNT_UUID                 = Expression<String>("uuid")
 let DB_ACCOUNT_NICKNAME             = Expression<String>("nickName")
 let DB_ACCOUNT_FAVO                 = Expression<Bool>("isFavo")
 let DB_ACCOUNT_ADDRESS              = Expression<String>("address")
+
 let DB_ACCOUNT_BASECHAIN            = Expression<String>("baseChain")
 let DB_ACCOUNT_HAS_PRIVATE          = Expression<Bool>("hasPrivateKey")
 let DB_ACCOUNT_RESOURCE             = Expression<String>("resource")
 //let DB_ACCOUNT_SEPC               = Expression<String>("spec")
 let DB_ACCOUNT_FROM_MNEMONIC        = Expression<Bool>("fromMnemonic")
 let DB_ACCOUNT_PATH                 = Expression<String>("path")
+
 let DB_ACCOUNT_IS_VALIDATOR         = Expression<Bool>("isValidator")
 let DB_ACCOUNT_SEQUENCE_NUMBER      = Expression<Int64>("sequenceNumber")
 let DB_ACCOUNT_ACCOUNT_NUMBER       = Expression<Int64>("accountNumber")
 let DB_ACCOUNT_FETCH_TIME           = Expression<Int64>("fetchTime")
 let DB_ACCOUNT_M_SIZE               = Expression<Int64>("msize")
+
 let DB_ACCOUNT_IMPORT_TIME          = Expression<Int64>("importTime")
 
 
