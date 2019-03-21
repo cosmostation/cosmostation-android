@@ -142,7 +142,7 @@ final class BaseData : NSObject{
     public func isDupleAccount(address: String, chain: String ) -> Bool? {
         do {
             let query = DB_ACCOUNT.filter(DB_ACCOUNT_ADDRESS == address && DB_ACCOUNT_BASECHAIN == chain)
-            if _ let accountBD = try database.pluck(query) {
+            if (try database.pluck(query)) != nil {
                 return true
             } else {
                 return false
