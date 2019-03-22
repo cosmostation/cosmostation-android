@@ -12,6 +12,15 @@ import SQLite
 let SHOW_LOG                        = true;
 
 
+let CSS_LCD_URL                     = "https://lcd-dev.cosmostation.io/";
+
+let CSS_LCD_URL_VALIDATORS          = CSS_LCD_URL + "staking/validators";
+let CSS_LCD_URL_ACCOUNT_INFO        = CSS_LCD_URL + "auth/accounts/";
+let CSS_LCD_URL_BONDING             = CSS_LCD_URL + "staking/delegators/";
+let CSS_LCD_URL_BONDING_TAIL        = "/delegations";
+let CSS_LCD_URL_UNBONDING           = CSS_LCD_URL + "staking/delegators/";
+let CSS_LCD_URL_UNBONDING_TAIL      = "/unbonding_delegations";
+
 
 //DB for Account
 let DB_ACCOUNT = Table("accnt")
@@ -71,3 +80,21 @@ let DB_UNBONDING_COMPLETE_TIME      = Expression<Int64>("completionTime")
 let DB_UNBONDING_INITIAL_BALANCE    = Expression<String>("initialBalance")
 let DB_UNBONDING_BALANCE            = Expression<String>("balance")
 let DB_UNBONDING_FETCH_TIME         = Expression<Int64>("fetchTime")
+
+
+
+
+
+let COSMOS_AUTH_TYPE_DELAYEDACCOUNT         = "auth/DelayedVestingAccount";
+let COSMOS_AUTH_TYPE_ACCOUNT                = "auth/Account";
+
+let COSMOS_MSG_TYPE_TRANSFER                = "cosmos-sdk/Send";
+let COSMOS_MSG_TYPE_TRANSFER2               = "cosmos-sdk/MsgSend";
+let COSMOS_MSG_TYPE_DELEGATE                = "cosmos-sdk/MsgDelegate";
+let COSMOS_MSG_TYPE_UNDELEGATE              = "cosmos-sdk/Undelegate";
+let COSMOS_MSG_TYPE_UNDELEGATE2             = "cosmos-sdk/MsgUndelegate";
+let COSMOS_MSG_TYPE_REDELEGATE              = "cosmos-sdk/BeginRedelegate";
+let COSMOS_MSG_TYPE_REDELEGATE2             = "cosmos-sdk/MsgBeginRedelegate";
+let COSMOS_MSG_TYPE_WITHDRAW_DEL            = "cosmos-sdk/MsgWithdrawDelegationReward";
+let COSMOS_MSG_TYPE_WITHDRAW_VAL            = "cosmos-sdk/MsgWithdrawValidatorCommission";
+let COSMOS_MSG_TYPE_WITHDRAW_MIDIFY         = "cosmos-sdk/MsgModifyWithdrawAddress";

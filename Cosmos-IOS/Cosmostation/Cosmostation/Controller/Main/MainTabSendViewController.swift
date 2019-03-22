@@ -11,6 +11,7 @@ import UIKit
 class MainTabSendViewController: BaseViewController {
     
     
+    @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
     @IBOutlet weak var titleChainName: UILabel!

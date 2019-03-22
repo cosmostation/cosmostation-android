@@ -17,14 +17,115 @@
                     <view key="view" contentMode="scaleToFill" id="ilN-v5-iKh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="OVh-y6-LOK">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2dl-Bs-BTe">
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="ODl-3R-y6u">
+                                        <rect key="frame" x="8" y="4" width="42" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="42" id="J44-vQ-YnW"/>
+                                            <constraint firstAttribute="height" constant="42" id="Lxd-D6-kf4"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpt-XS-dJ0">
+                                        <rect key="frame" x="50" y="14.5" width="78.5" height="21"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Cosmos Hub)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zF8-Xq-vMq">
+                                        <rect key="frame" x="132.5" y="20" width="77.5" height="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAN-OI-ZR7">
+                                        <rect key="frame" x="358" y="9" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="32" id="iWL-Oq-xdk"/>
+                                            <constraint firstAttribute="height" constant="32" id="lMY-0j-JQR"/>
+                                        </constraints>
+                                        <state key="normal" image="accout_btn"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="qpt-XS-dJ0" firstAttribute="leading" secondItem="ODl-3R-y6u" secondAttribute="trailing" id="MAH-9c-u1G"/>
+                                    <constraint firstItem="wAN-OI-ZR7" firstAttribute="centerY" secondItem="2dl-Bs-BTe" secondAttribute="centerY" id="Nsy-7l-VhD"/>
+                                    <constraint firstItem="zF8-Xq-vMq" firstAttribute="firstBaseline" secondItem="qpt-XS-dJ0" secondAttribute="firstBaseline" id="RLn-iy-fG3"/>
+                                    <constraint firstItem="zF8-Xq-vMq" firstAttribute="leading" secondItem="qpt-XS-dJ0" secondAttribute="trailing" constant="4" id="RMN-WH-NP3"/>
+                                    <constraint firstItem="qpt-XS-dJ0" firstAttribute="centerY" secondItem="2dl-Bs-BTe" secondAttribute="centerY" id="YSK-XR-jFa"/>
+                                    <constraint firstItem="ODl-3R-y6u" firstAttribute="centerY" secondItem="2dl-Bs-BTe" secondAttribute="centerY" id="cFw-0v-pUY"/>
+                                    <constraint firstAttribute="height" constant="50" id="cWw-wt-9Hg"/>
+                                    <constraint firstAttribute="trailing" secondItem="wAN-OI-ZR7" secondAttribute="trailing" constant="24" id="kHm-dJ-dmE"/>
+                                    <constraint firstItem="ODl-3R-y6u" firstAttribute="leading" secondItem="2dl-Bs-BTe" secondAttribute="leading" constant="8" id="zlc-kq-bX7"/>
+                                </constraints>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lAa-HU-H1G">
+                                <rect key="frame" x="116.5" y="146" width="181" height="29"/>
+                                <segments>
+                                    <segment title="My Validator"/>
+                                    <segment title="All Validator"/>
+                                </segments>
+                                <color key="tintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <action selector="switchView:" destination="Qvj-GN-yc9" eventType="valueChanged" id="tWc-2a-nTl"/>
+                                </connections>
+                            </segmentedControl>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SA3-XZ-w7Y">
+                                <rect key="frame" x="0.0" y="182" width="414" height="631"/>
+                                <connections>
+                                    <segue destination="ktg-GO-6fF" kind="embed" identifier="myValidator" id="ts2-DG-B7v"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKN-bl-aNw">
+                                <rect key="frame" x="0.0" y="182" width="414" height="631"/>
+                                <connections>
+                                    <segue destination="TPk-7b-ccf" kind="embed" identifier="allValidator" id="3M1-Dc-bvf"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstItem="LKN-bl-aNw" firstAttribute="bottom" secondItem="SA3-XZ-w7Y" secondAttribute="bottom" id="5Ut-0j-iev"/>
+                            <constraint firstItem="OVh-y6-LOK" firstAttribute="bottom" secondItem="qad-RP-sDI" secondAttribute="bottom" id="7SM-Ux-RgJ"/>
+                            <constraint firstItem="lAa-HU-H1G" firstAttribute="centerX" secondItem="qad-RP-sDI" secondAttribute="centerX" id="DAG-vd-q0a"/>
+                            <constraint firstItem="LKN-bl-aNw" firstAttribute="top" secondItem="SA3-XZ-w7Y" secondAttribute="top" id="DRB-h1-TuH"/>
+                            <constraint firstItem="2dl-Bs-BTe" firstAttribute="leading" secondItem="qad-RP-sDI" secondAttribute="leading" id="Ltj-hd-Fog"/>
+                            <constraint firstItem="2dl-Bs-BTe" firstAttribute="top" secondItem="qad-RP-sDI" secondAttribute="top" id="NVC-4m-gFM"/>
+                            <constraint firstItem="LKN-bl-aNw" firstAttribute="trailing" secondItem="SA3-XZ-w7Y" secondAttribute="trailing" id="OGJ-pF-Ned"/>
+                            <constraint firstItem="SA3-XZ-w7Y" firstAttribute="top" secondItem="lAa-HU-H1G" secondAttribute="bottom" constant="8" id="UE1-uN-fVc"/>
+                            <constraint firstItem="SA3-XZ-w7Y" firstAttribute="leading" secondItem="qad-RP-sDI" secondAttribute="leading" id="Z0j-ll-uyc"/>
+                            <constraint firstItem="OVh-y6-LOK" firstAttribute="trailing" secondItem="qad-RP-sDI" secondAttribute="trailing" id="ZL9-HU-xaN"/>
+                            <constraint firstItem="2dl-Bs-BTe" firstAttribute="width" secondItem="ilN-v5-iKh" secondAttribute="width" id="bSG-iJ-8b9"/>
+                            <constraint firstItem="qad-RP-sDI" firstAttribute="bottom" secondItem="SA3-XZ-w7Y" secondAttribute="bottom" id="cw1-ca-PR6"/>
+                            <constraint firstItem="lAa-HU-H1G" firstAttribute="top" secondItem="2dl-Bs-BTe" secondAttribute="bottom" constant="8" id="gVB-uT-6Tp"/>
+                            <constraint firstItem="LKN-bl-aNw" firstAttribute="leading" secondItem="SA3-XZ-w7Y" secondAttribute="leading" id="olP-f2-ep3"/>
+                            <constraint firstItem="OVh-y6-LOK" firstAttribute="leading" secondItem="qad-RP-sDI" secondAttribute="leading" id="rne-5A-uUt"/>
+                            <constraint firstItem="SA3-XZ-w7Y" firstAttribute="width" secondItem="ilN-v5-iKh" secondAttribute="width" id="v1c-mP-B7T"/>
+                            <constraint firstItem="OVh-y6-LOK" firstAttribute="top" secondItem="qad-RP-sDI" secondAttribute="top" id="vMI-fD-uAC"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="qad-RP-sDI"/>
                     </view>
                     <navigationItem key="navigationItem" id="42X-K1-Bet"/>
+                    <connections>
+                        <outlet property="allValidatorView" destination="LKN-bl-aNw" id="hJa-n6-lxj"/>
+                        <outlet property="myValidatorView" destination="SA3-XZ-w7Y" id="tJE-zd-JUV"/>
+                        <outlet property="titleAccountBtn" destination="wAN-OI-ZR7" id="O61-BK-tAO"/>
+                        <outlet property="titleChainImg" destination="ODl-3R-y6u" id="uaE-pN-zgq"/>
+                        <outlet property="titleChainName" destination="zF8-Xq-vMq" id="kUI-2k-UHc"/>
+                        <outlet property="titleView" destination="2dl-Bs-BTe" id="wNL-5C-DuR"/>
+                        <outlet property="titleWalletName" destination="qpt-XS-dJ0" id="pFB-JH-Eta"/>
+                        <outlet property="validatorSegment" destination="lAa-HU-H1G" id="ZOy-1F-eUs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D2n-8S-hMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1530" y="1513"/>
+            <point key="canvasLocation" x="-2639.130434782609" y="1512.7232142857142"/>
         </scene>
         <!--Main Tab Send View Controller-->
         <scene sceneID="mHE-0o-ZDY">
@@ -114,7 +215,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40154109589041098" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="TQi-w4-Lb5" firstAttribute="leading" secondItem="gyy-Eq-HbO" secondAttribute="leading" constant="12" id="Abq-d4-Zxp"/>
                                                     <constraint firstItem="3YD-Ky-lU0" firstAttribute="top" secondItem="gyy-Eq-HbO" secondAttribute="top" constant="14" id="HmN-YD-UDO"/>
@@ -498,12 +599,13 @@ Super fast and esay to using with local signing!</string>
                         <outlet property="titleAccountBtn" destination="N2d-eZ-DDg" id="zLx-yT-avm"/>
                         <outlet property="titleChainImg" destination="ymZ-CI-iAN" id="j86-JO-tge"/>
                         <outlet property="titleChainName" destination="BZu-1u-gLc" id="H5P-va-vmL"/>
+                        <outlet property="titleView" destination="kLI-Xf-j6R" id="M1O-TJ-f4e"/>
                         <outlet property="titleWalletName" destination="c52-Ib-H2q" id="fkp-zu-wWy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RjZ-2N-pV1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2749" y="1515"/>
+            <point key="canvasLocation" x="-3601" y="1513"/>
         </scene>
         <!--Main Tab History View Controller-->
         <scene sceneID="CBM-nz-DKQ">
@@ -599,7 +701,7 @@ Super fast and esay to using with local signing!</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qDf-5Z-DVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1530" y="657"/>
+            <point key="canvasLocation" x="-2461" y="657"/>
         </scene>
         <!--WALLET-->
         <scene sceneID="rXu-tB-qbz">
@@ -618,7 +720,7 @@ Super fast and esay to using with local signing!</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yaG-sH-K47" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2730" y="656"/>
+            <point key="canvasLocation" x="-3601" y="657"/>
         </scene>
         <!--HISTORY-->
         <scene sceneID="9A2-0D-p3l">
@@ -676,6 +778,64 @@ Super fast and esay to using with local signing!</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZu-9k-6ez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1598" y="681"/>
+        </scene>
+        <!--My Validator View Controller-->
+        <scene sceneID="Gw0-TT-sCx">
+            <objects>
+                <viewController id="ktg-GO-6fF" customClass="MyValidatorViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qnt-Rf-GI9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="631"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eJb-4D-GcQ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="631"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eJb-4D-GcQ" firstAttribute="top" secondItem="Qnt-Rf-GI9" secondAttribute="top" id="26c-Rb-vFD"/>
+                            <constraint firstAttribute="bottom" secondItem="eJb-4D-GcQ" secondAttribute="bottom" id="86k-kN-qtJ"/>
+                            <constraint firstItem="eJb-4D-GcQ" firstAttribute="leading" secondItem="Qnt-Rf-GI9" secondAttribute="leading" id="Ry0-8k-cnc"/>
+                            <constraint firstAttribute="trailing" secondItem="eJb-4D-GcQ" secondAttribute="trailing" id="oBi-RR-VcN"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="myValidatorTable" destination="eJb-4D-GcQ" id="J7y-a9-CpE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LnM-g5-zLQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2868.115942028986" y="2158.59375"/>
+        </scene>
+        <!--All Validator View Controller-->
+        <scene sceneID="5Yc-5Z-PPB">
+            <objects>
+                <viewController id="TPk-7b-ccf" customClass="AllValidatorViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JeS-cB-dvk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="631"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yZa-Fs-rmW">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="631"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="yZa-Fs-rmW" secondAttribute="bottom" id="Aaz-HB-oQQ"/>
+                            <constraint firstItem="yZa-Fs-rmW" firstAttribute="leading" secondItem="JeS-cB-dvk" secondAttribute="leading" id="ENO-Xp-xV8"/>
+                            <constraint firstItem="yZa-Fs-rmW" firstAttribute="top" secondItem="JeS-cB-dvk" secondAttribute="top" id="Nu8-8G-IIF"/>
+                            <constraint firstAttribute="trailing" secondItem="yZa-Fs-rmW" secondAttribute="trailing" id="RBi-gc-Fw7"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="allValidatorTableView" destination="yZa-Fs-rmW" id="Q1I-62-Ekr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gie-wG-xSH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1842" y="2159"/>
         </scene>
     </scenes>
     <resources>

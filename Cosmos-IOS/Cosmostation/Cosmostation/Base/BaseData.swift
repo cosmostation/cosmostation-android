@@ -179,7 +179,7 @@ final class BaseData : NSObject{
         }
     }
     
-    public func updateAccount(account: Account) -> Int64 {
+    public func updateAccount(_ account: Account) -> Int64 {
         let target = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account.account_id)
         do {
             return try Int64(database.run(target.update(DB_ACCOUNT_NICKNAME <- account.account_nick_name,
@@ -311,7 +311,7 @@ final class BaseData : NSObject{
         }
     }
     
-    public func updateBalances(newBalances: Array<Balance>) {
+    public func updateBalances(_ newBalances: Array<Balance>) {
         _ = deleteBalanceById(accountId: newBalances[0].balance_account_id)
         for balance in newBalances {
             _ = self.insertBalance(balance: balance)
@@ -385,7 +385,7 @@ final class BaseData : NSObject{
         }
     }
     
-    public func updateBondings(newBondings: Array<Bonding>) {
+    public func updateBondings(_ newBondings: Array<Bonding>) {
         _ = deleteBondingById(accountId: newBondings[0].bonding_account_id)
         for bonding in newBondings {
             _ = self.insertBonding(bonding: bonding)
@@ -464,7 +464,7 @@ final class BaseData : NSObject{
         }
     }
     
-    public func updateUnbondings(newUnbondings: Array<Unbonding>) {
+    public func updateUnbondings(_ newUnbondings: Array<Unbonding>) {
         _ = deleteUnbondingById(accountId: newUnbondings[0].unbonding_account_id)
         for unbonding in newUnbondings {
             _ = self.insertUnbonding(unbonding: unbonding)

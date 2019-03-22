@@ -24,4 +24,11 @@ public class Bonding {
         self.bonding_fetch_time = fetch_time;
     }
     
+    init(_ account_id: Int64, _ val_address:String,
+         _ shares:String, _ fetch_time:Int64) {
+        self.bonding_account_id = account_id;
+        self.bonding_v_address = val_address;
+        self.bonding_shares = shares;
+        self.bonding_fetch_time = fetch_time;
+    }
 }

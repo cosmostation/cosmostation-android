@@ -30,6 +30,18 @@
 		E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD6224223EC0097CAEE /* Bonding.swift */; };
 		E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD8224224420097CAEE /* Unbonding.swift */; };
 		E1A82DDC224378D40097CAEE /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DDB224378D40097CAEE /* CardView.swift */; };
+		E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DDE2244782B0097CAEE /* Validator.swift */; };
+		E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DE02244818C0097CAEE /* AccountInfo.swift */; };
+		E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DE22244821D0097CAEE /* PublicKey.swift */; };
+		E1A82DE5224482800097CAEE /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DE4224482800097CAEE /* Coin.swift */; };
+		E1A82DE822448E940097CAEE /* WUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DE722448E940097CAEE /* WUtils.swift */; };
+		E1A82DEA2244A20B0097CAEE /* BondingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DE92244A20B0097CAEE /* BondingInfo.swift */; };
+		E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DEB2244A87D0097CAEE /* UnbondigInfo.swift */; };
+		E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DED2244DE680097CAEE /* MyValidatorViewController.swift */; };
+		E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DEF2244E0BD0097CAEE /* AllValidatorViewController.swift */; };
+		E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */; };
+		E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */; };
+		E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF62244FA750097CAEE /* UIColor.swift */; };
 		E1D41F31224088A20044E18F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1D41F30224088A20044E18F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +73,18 @@
 		E1A82DD6224223EC0097CAEE /* Bonding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bonding.swift; sourceTree = "<group>"; };
 		E1A82DD8224224420097CAEE /* Unbonding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unbonding.swift; sourceTree = "<group>"; };
 		E1A82DDB224378D40097CAEE /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		E1A82DDE2244782B0097CAEE /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		E1A82DE02244818C0097CAEE /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
+		E1A82DE22244821D0097CAEE /* PublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
+		E1A82DE4224482800097CAEE /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
+		E1A82DE722448E940097CAEE /* WUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WUtils.swift; sourceTree = "<group>"; };
+		E1A82DE92244A20B0097CAEE /* BondingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BondingInfo.swift; sourceTree = "<group>"; };
+		E1A82DEB2244A87D0097CAEE /* UnbondigInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnbondigInfo.swift; sourceTree = "<group>"; };
+		E1A82DED2244DE680097CAEE /* MyValidatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyValidatorViewController.swift; sourceTree = "<group>"; };
+		E1A82DEF2244E0BD0097CAEE /* AllValidatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllValidatorViewController.swift; sourceTree = "<group>"; };
+		E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllValidatorCell.swift; sourceTree = "<group>"; };
+		E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllValidatorCell.xib; sourceTree = "<group>"; };
+		E1A82DF62244FA750097CAEE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E1D41F30224088A20044E18F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +138,9 @@
 		E1945E26222E7C0600A1436F /* Cosmostation */ = {
 			isa = PBXGroup;
 			children = (
+				E1A82DF12244EC1C0097CAEE /* Cell */,
+				E1A82DE622448E800097CAEE /* Utils */,
+				E1A82DDD224478150097CAEE /* Model */,
 				E1A82DDA224378BE0097CAEE /* View */,
 				E1A82DCF224220810097CAEE /* Dao */,
 				E1945E3B222E7DF600A1436F /* Crypto */,
@@ -166,6 +193,8 @@
 				E1945E49222E81B300A1436F /* MainTabHistoryViewController.swift */,
 				E1945E4B222E81C200A1436F /* MainTabVoteViewController.swift */,
 				E1945E4D222E81D000A1436F /* MainTabSettingViewController.swift */,
+				E1A82DED2244DE680097CAEE /* MyValidatorViewController.swift */,
+				E1A82DEF2244E0BD0097CAEE /* AllValidatorViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -188,6 +217,37 @@
 				E1A82DDB224378D40097CAEE /* CardView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E1A82DDD224478150097CAEE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E1A82DDE2244782B0097CAEE /* Validator.swift */,
+				E1A82DE02244818C0097CAEE /* AccountInfo.swift */,
+				E1A82DE22244821D0097CAEE /* PublicKey.swift */,
+				E1A82DE4224482800097CAEE /* Coin.swift */,
+				E1A82DE92244A20B0097CAEE /* BondingInfo.swift */,
+				E1A82DEB2244A87D0097CAEE /* UnbondigInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E1A82DE622448E800097CAEE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E1A82DE722448E940097CAEE /* WUtils.swift */,
+				E1A82DF62244FA750097CAEE /* UIColor.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		E1A82DF12244EC1C0097CAEE /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */,
+				E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
+				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
 				E1945E44222E7FF500A1436F /* MainStoryboard.storyboard in Resources */,
 				E1D41F31224088A20044E18F /* Assets.xcassets in Resources */,
 				E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */,
@@ -315,18 +376,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1A82DEA2244A20B0097CAEE /* BondingInfo.swift in Sources */,
 				E1945E48222E81A300A1436F /* MainTabRewardViewController.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
+				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
+				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
 				E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
+				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
+				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
+				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
 				E1945E46222E819300A1436F /* MainTabSendViewController.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
+				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
+				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
+				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
+				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
 				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
@@ -334,6 +405,7 @@
 				E1945E4C222E81C200A1436F /* MainTabVoteViewController.swift in Sources */,
 				E1A82DD5224223250097CAEE /* Balance.swift in Sources */,
 				E1A82DD1224220910097CAEE /* Account.swift in Sources */,
+				E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
