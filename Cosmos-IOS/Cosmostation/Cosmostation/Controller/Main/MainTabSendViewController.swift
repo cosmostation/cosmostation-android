@@ -9,7 +9,37 @@
 import UIKit
 
 class MainTabSendViewController: BaseViewController {
-
+    
+    
+    @IBOutlet weak var titleChainImg: UIImageView!
+    @IBOutlet weak var titleWalletName: UILabel!
+    @IBOutlet weak var titleChainName: UILabel!
+    @IBOutlet weak var titleAccountBtn: UIButton!
+    
+    
+    @IBOutlet weak var keyCard: CardView!
+    @IBOutlet weak var keyTypeImg: UIImageView!
+    @IBOutlet weak var keyAddressLabel: UILabel!
+    @IBOutlet weak var keyQrcodeBtn: UIButton!
+    
+    @IBOutlet weak var AtomCard: CardView!
+    @IBOutlet weak var atomPriceLabel: UILabel!
+    @IBOutlet weak var atomTotalLabel: UILabel!
+    @IBOutlet weak var atomAvailableAmount: UILabel!
+    @IBOutlet weak var atomDelegatedAmount: UILabel!
+    @IBOutlet weak var atomUnbondingAmount: UILabel!
+    @IBOutlet weak var atomRewardAmount: UILabel!
+    
+    
+    @IBOutlet weak var photonCard: CardView!
+    @IBOutlet weak var photonPriceLabel: UILabel!
+    @IBOutlet weak var photonTotalLabel: UILabel!
+    @IBOutlet weak var photonAvailableAmount: UILabel!
+    @IBOutlet weak var photonRewardAmount: UILabel!
+    
+    @IBOutlet weak var rewardCard: CardView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
