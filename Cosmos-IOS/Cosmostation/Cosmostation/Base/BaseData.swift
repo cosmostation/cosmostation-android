@@ -155,22 +155,21 @@ final class BaseData : NSObject{
     }
     
     public func insertAccount(account: Account) -> Int64 {
-        let insertAccount = DB_ACCOUNT.insert(DB_ACCOUNT_ID <- account.account_id,
-                                         DB_ACCOUNT_UUID <- account.account_uuid,
-                                         DB_ACCOUNT_NICKNAME <- account.account_nick_name,
-                                         DB_ACCOUNT_FAVO <- account.account_favo,
-                                         DB_ACCOUNT_ADDRESS <- account.account_address,
-                                         DB_ACCOUNT_BASECHAIN <- account.account_base_chain,
-                                         DB_ACCOUNT_HAS_PRIVATE <- account.account_has_private,
-                                         DB_ACCOUNT_RESOURCE <- account.account_resource,
-                                         DB_ACCOUNT_FROM_MNEMONIC <- account.account_from_mnemonic,
-                                         DB_ACCOUNT_PATH <- account.account_path,
-                                         DB_ACCOUNT_IS_VALIDATOR <- account.account_is_validator,
-                                         DB_ACCOUNT_SEQUENCE_NUMBER <- account.account_sequence_number,
-                                         DB_ACCOUNT_ACCOUNT_NUMBER <- account.account_account_numner,
-                                         DB_ACCOUNT_FETCH_TIME <- account.account_fetch_time,
-                                         DB_ACCOUNT_M_SIZE <- account.account_m_size,
-                                         DB_ACCOUNT_IMPORT_TIME <- account.account_import_time)
+        let insertAccount = DB_ACCOUNT.insert(DB_ACCOUNT_UUID <- account.account_uuid,
+                                              DB_ACCOUNT_NICKNAME <- account.account_nick_name,
+                                              DB_ACCOUNT_FAVO <- account.account_favo,
+                                              DB_ACCOUNT_ADDRESS <- account.account_address,
+                                              DB_ACCOUNT_BASECHAIN <- account.account_base_chain,
+                                              DB_ACCOUNT_HAS_PRIVATE <- account.account_has_private,
+                                              DB_ACCOUNT_RESOURCE <- account.account_resource,
+                                              DB_ACCOUNT_FROM_MNEMONIC <- account.account_from_mnemonic,
+                                              DB_ACCOUNT_PATH <- account.account_path,
+                                              DB_ACCOUNT_IS_VALIDATOR <- account.account_is_validator,
+                                              DB_ACCOUNT_SEQUENCE_NUMBER <- account.account_sequence_number,
+                                              DB_ACCOUNT_ACCOUNT_NUMBER <- account.account_account_numner,
+                                              DB_ACCOUNT_FETCH_TIME <- account.account_fetch_time,
+                                              DB_ACCOUNT_M_SIZE <- account.account_m_size,
+                                              DB_ACCOUNT_IMPORT_TIME <- account.account_import_time)
         do {
             return try database.run(insertAccount)
         } catch {
@@ -372,11 +371,10 @@ final class BaseData : NSObject{
     }
     
     public func insertBonding(bonding: Bonding) -> Int64 {
-        let insertBonding = DB_BONDING.insert(DB_BONDING_ID <- bonding.bonding_id,
-                                               DB_BONDING_ACCOUNT_ID <- bonding.bonding_account_id,
-                                               DB_BONDING_V_Address <- bonding.bonding_v_address,
-                                               DB_BONDING_SHARES <- bonding.bonding_shares,
-                                               DB_BONDING_FETCH_TIME <- bonding.bonding_fetch_time)
+        let insertBonding = DB_BONDING.insert(DB_BONDING_ACCOUNT_ID <- bonding.bonding_account_id,
+                                              DB_BONDING_V_Address <- bonding.bonding_v_address,
+                                              DB_BONDING_SHARES <- bonding.bonding_shares,
+                                              DB_BONDING_FETCH_TIME <- bonding.bonding_fetch_time)
         do {
             return try database.run(insertBonding)
         } catch {
@@ -448,8 +446,7 @@ final class BaseData : NSObject{
     }
     
     public func insertUnbonding(unbonding: Unbonding) -> Int64 {
-        let insertUnbonding = DB_UNBONDING.insert(DB_UNBONDING_ID <- unbonding.unbonding_id,
-                                                  DB_UNBONDING_ACCOUNT_ID <- unbonding.unbonding_account_id,
+        let insertUnbonding = DB_UNBONDING.insert(DB_UNBONDING_ACCOUNT_ID <- unbonding.unbonding_account_id,
                                                   DB_UNBONDING_V_Address <- unbonding.unbonding_v_address,
                                                   DB_UNBONDING_CREATE_HEIGHT <- unbonding.unbonding_create_height,
                                                   DB_UNBONDING_COMPLETE_TIME <- unbonding.unbonding_complete_time,

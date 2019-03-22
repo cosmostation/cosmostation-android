@@ -799,9 +799,10 @@ Super fast and esay to using with local signing!</string>
                             <constraint firstItem="eJb-4D-GcQ" firstAttribute="leading" secondItem="Qnt-Rf-GI9" secondAttribute="leading" id="Ry0-8k-cnc"/>
                             <constraint firstAttribute="trailing" secondItem="eJb-4D-GcQ" secondAttribute="trailing" id="oBi-RR-VcN"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="gQA-xW-O5u"/>
                     </view>
                     <connections>
-                        <outlet property="myValidatorTable" destination="eJb-4D-GcQ" id="J7y-a9-CpE"/>
+                        <outlet property="myValidatorTableView" destination="eJb-4D-GcQ" id="jPV-Du-xgZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LnM-g5-zLQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -828,6 +829,7 @@ Super fast and esay to using with local signing!</string>
                             <constraint firstItem="yZa-Fs-rmW" firstAttribute="top" secondItem="JeS-cB-dvk" secondAttribute="top" id="Nu8-8G-IIF"/>
                             <constraint firstAttribute="trailing" secondItem="yZa-Fs-rmW" secondAttribute="trailing" id="RBi-gc-Fw7"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="RmB-C1-xPK"/>
                     </view>
                     <connections>
                         <outlet property="allValidatorTableView" destination="yZa-Fs-rmW" id="Q1I-62-Ekr"/>

@@ -42,7 +42,7 @@ class WUtils {
     static func getBondingwithBondingInfo(_ account: Account, _ bondinginfos: Array<BondingInfo>) -> Array<Bonding> {
         var result = Array<Bonding>()
         for bondinginfo in bondinginfos {
-            result.append(Bonding(account.account_id, bondinginfo.validator_addr, bondinginfo.shares, Date().millisecondsSince1970))
+            result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
         }
         return result
     }
@@ -51,7 +51,7 @@ class WUtils {
         var result = Array<Bonding>()
         for raw in rawbondinginfos{
             let bondinginfo = BondingInfo(raw as! [String : Any])
-            result.append(Bonding(account.account_id, bondinginfo.validator_addr, bondinginfo.shares, Date().millisecondsSince1970))
+            result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
         }
         return result
     }

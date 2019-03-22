@@ -23,8 +23,12 @@ class MainTabRewardViewController: BaseViewController {
     
     var mAllValidators = Array<Validator>()
     var mMyValidators = Array<Validator>()
+    var mBondingList = Array<Bonding>()
+    var mUnbondingList = Array<Unbonding>()
     var reqCnt = 0;
     
+    //TODO TEST
+    var account: Account?
     
     @IBAction func switchView(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -42,14 +46,17 @@ class MainTabRewardViewController: BaseViewController {
         myValidatorView.alpha = 1
         allValidatorView.alpha = 0
 
+        
+        self.account = Account.init(isNew: false);
+        self.account?.account_id = 128;
+        self.account?.account_address = "cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q";
+        
         // Do any additional setup after loading the view.
         reqCnt = 4;
         onFetchValidatorsInfo();
-        let account = Account.init(isNew: false);
-        account.account_address = "cosmos1pzllggpn22094j3mwq79u4ql63cwac6enqkjck";
-        onFetchAccountInfo(account)
-        onFetchBondingInfo(account)
-        onFetchUnbondingInfo(account)
+        onFetchAccountInfo(account!)
+        onFetchBondingInfo(account!)
+        onFetchUnbondingInfo(account!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +75,35 @@ class MainTabRewardViewController: BaseViewController {
         self.reqCnt = self.reqCnt - 1
         if(self.reqCnt > 0) { return; }
         print("onUpdateViews")
+        
+        
+        mBondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
+        mUnbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
+        print("mBondingList : ", mBondingList.count)
+        print("mUnbondingList : ", mUnbondingList.count)
+        print("mBondingList : ", mBondingList[0].bonding_account_id)
+        
+        self.mMyValidators.removeAll()
+        for validator in mAllValidators {
+            var mine = false;
+            for bonding in mBondingList {
+//                print("", bonding.bonding_v_address, " AAAA  ", validator.operator_address)
+                if(bonding.bonding_v_address == validator.operator_address) {
+                    mine = true;
+                    break;
+                }
+            }
+            for unbonding in mUnbondingList {
+                if(unbonding.unbonding_v_address == validator.operator_address) {
+                    mine = true;
+                    break;
+                }
+            }
+            if(mine) {
+                self.mMyValidators.append(validator)
+            }
+            
+        }
         
         let myValidatorVC = self.children[0] as! MyValidatorViewController
         myValidatorVC.rewardViewUpdate()
@@ -124,9 +160,9 @@ class MainTabRewardViewController: BaseViewController {
                     return
                 }
                 let accountInfo = AccountInfo.init(info)
-                //TODO eopn after Key
-//                BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-//                BaseData.instance.updateBalances(WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                //TODO open after Key
+                BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                BaseData.instance.updateBalances(WUtils.getBalancesWithAccountInfo(account, accountInfo))
 //                print("accountInfo", accountInfo)
                 
 //                print("account_number : ", accountInfo.value.account_number, "  ", accountInfo.value.coins[0].denom, " " , accountInfo.value.coins[0].amount)
@@ -157,7 +193,7 @@ class MainTabRewardViewController: BaseViewController {
                 }
                 print("bondinginfos", bondinginfos)
                 //TODO open after Key
-//                BaseData.instance.updateBondings(WUtils.getBondingwithBondingInfo(account, bondinginfos))
+                BaseData.instance.updateBondings(WUtils.getBondingwithBondingInfo(account, bondinginfos))
                 
             case .failure(let error):
                 print(error)
@@ -182,7 +218,7 @@ class MainTabRewardViewController: BaseViewController {
                 }
                 print("unbondinginfos ", unbondinginfos)
                 //TODO open after Key
-//                BaseData.instance.updateUnbondings(WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos))
+                BaseData.instance.updateUnbondings(WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos))
                 
             case .failure(let error):
                 print(error)

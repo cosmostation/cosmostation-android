@@ -8,19 +8,20 @@
 
 import UIKit
 
-class MyValidatorViewController: UIViewController {
-    func rewardViewUpdate() {
-        print("MyValidatorViewController rewardViewUpdate")
-    }
+class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-
-    @IBOutlet weak var myValidatorTable: UITableView!
+    
+    @IBOutlet weak var myValidatorTableView: UITableView!
+    
+    var mMyValidators = Array<Validator>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        // Do any additional setup after loading the view.
+        self.myValidatorTableView.delegate = self
+        self.myValidatorTableView.dataSource = self
+        self.myValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.myValidatorTableView.register(UINib(nibName: "MyValidatorCell", bundle: nil), forCellReuseIdentifier: "MyValidatorCell")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -30,4 +31,28 @@ class MyValidatorViewController: UIViewController {
         print("MyValidatorViewController ", rewardTabVC.mAllValidators.count)
         
     }
+    
+    
+    func rewardViewUpdate() {
+        let rewardTabVC = self.parent as! MainTabRewardViewController
+        self.mMyValidators.removeAll()
+        self.mMyValidators = rewardTabVC.mMyValidators
+        print("AllValidatorViewController mMyValidators ", mMyValidators.count)
+        self.myValidatorTableView.reloadData()
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.mMyValidators.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80;
+    }
+    
 }

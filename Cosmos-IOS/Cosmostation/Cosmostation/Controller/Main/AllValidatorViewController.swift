@@ -26,15 +26,15 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     
     func rewardViewUpdate() {
         let rewardTabVC = self.parent as! MainTabRewardViewController
-        mAllValidators.removeAll()
-        mAllValidators = rewardTabVC.mAllValidators
+        self.mAllValidators.removeAll()
+        self.mAllValidators = rewardTabVC.mAllValidators
         print("AllValidatorViewController mAllValidators ", mAllValidators.count)
         self.allValidatorTableView.reloadData()
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mAllValidators.count
+        return self.mAllValidators.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

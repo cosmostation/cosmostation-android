@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2B086C41D1AE96515832211B /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C343D91DD12833CEE33C581 /* Pods_Cosmostation.framework */; };
+		E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */; };
+		E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
 		E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E29222E7C0600A1436F /* ViewController.swift */; };
 		E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E2B222E7C0600A1436F /* Main.storyboard */; };
@@ -49,6 +51,8 @@
 		00BAE96F02E7C0B2F69BAEF0 /* Pods-Cosmostation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cosmostation/Pods-Cosmostation.debug.xcconfig"; sourceTree = "<group>"; };
 		8AF7F57C7285EED5E4415BAE /* Pods-Cosmostation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cosmostation/Pods-Cosmostation.release.xcconfig"; sourceTree = "<group>"; };
 		9C343D91DD12833CEE33C581 /* Pods_Cosmostation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cosmostation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyValidatorCell.swift; sourceTree = "<group>"; };
+		E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyValidatorCell.xib; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1945E27222E7C0600A1436F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1945E29222E7C0600A1436F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -246,6 +250,8 @@
 			children = (
 				E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */,
 				E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */,
+				E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */,
+				E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -314,6 +320,7 @@
 				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
 				E1945E44222E7FF500A1436F /* MainStoryboard.storyboard in Resources */,
 				E1D41F31224088A20044E18F /* Assets.xcassets in Resources */,
+				E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */,
 				E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,6 +399,7 @@
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
+				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
 				E1945E46222E819300A1436F /* MainTabSendViewController.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
