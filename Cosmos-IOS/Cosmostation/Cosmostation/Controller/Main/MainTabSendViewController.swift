@@ -39,6 +39,7 @@ class MainTabSendViewController: BaseViewController {
     @IBOutlet weak var photonRewardAmount: UILabel!
     
     @IBOutlet weak var rewardCard: CardView!
+    @IBOutlet weak var rewardImg: UIImageView!
     
     
     override func viewDidLoad() {
@@ -47,6 +48,9 @@ class MainTabSendViewController: BaseViewController {
         // Do any additional setup after loading the view.
         
 //        print("password ", BaseData.instance.hasPassword())
+        
+        rewardImg.image = rewardImg.image?.withRenderingMode(.alwaysTemplate)
+        rewardImg.tintColor = UIColor.white
         
     }
     

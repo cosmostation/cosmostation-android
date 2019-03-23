@@ -22,6 +22,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         self.myValidatorTableView.dataSource = self
         self.myValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.myValidatorTableView.register(UINib(nibName: "MyValidatorCell", bundle: nil), forCellReuseIdentifier: "MyValidatorCell")
+        self.myValidatorTableView.register(UINib(nibName: "ClaimRewardAllCell", bundle: nil), forCellReuseIdentifier: "ClaimRewardAllCell")
+        self.myValidatorTableView.register(UINib(nibName: "PromotionCell", bundle: nil), forCellReuseIdentifier: "PromotionCell")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,16 +45,41 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.mMyValidators.count
+        if (self.mMyValidators.count < 1) {
+            return 1;
+        } else if (self.mMyValidators.count == 1) {
+            return 1;
+        } else {
+            return self.mMyValidators.count  + 1;
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
-        return cell!
+        if (self.mMyValidators.count < 1) {
+            let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
+            return cell!
+            
+        } else if (self.mMyValidators.count == 1) {
+            let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
+            return cell!
+            
+        } else {
+            if (indexPath.row == self.mMyValidators.count) {
+                let cell:ClaimRewardAllCell? = tableView.dequeueReusableCell(withIdentifier:"ClaimRewardAllCell") as? ClaimRewardAllCell
+                return cell!
+            } else {
+                let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
+                return cell!
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80;
+        if (self.mMyValidators.count < 1) {
+            return 168;
+        } else {
+            return 80;
+        }
     }
     
 }

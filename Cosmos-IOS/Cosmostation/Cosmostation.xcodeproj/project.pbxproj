@@ -10,6 +10,11 @@
 		2B086C41D1AE96515832211B /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C343D91DD12833CEE33C581 /* Pods_Cosmostation.framework */; };
 		E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */; };
 		E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */; };
+		E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */; };
+		E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B631224533DC0026B8C0 /* ClaimRewardAllCell.xib */; };
+		E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B634224533F90026B8C0 /* PromotionCell.swift */; };
+		E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B635224533F90026B8C0 /* PromotionCell.xib */; };
+		E151B639224626990026B8C0 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B638224626990026B8C0 /* BorderButton.swift */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
 		E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E29222E7C0600A1436F /* ViewController.swift */; };
 		E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E2B222E7C0600A1436F /* Main.storyboard */; };
@@ -53,6 +58,11 @@
 		9C343D91DD12833CEE33C581 /* Pods_Cosmostation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cosmostation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyValidatorCell.swift; sourceTree = "<group>"; };
 		E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyValidatorCell.xib; sourceTree = "<group>"; };
+		E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRewardAllCell.swift; sourceTree = "<group>"; };
+		E151B631224533DC0026B8C0 /* ClaimRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClaimRewardAllCell.xib; sourceTree = "<group>"; };
+		E151B634224533F90026B8C0 /* PromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionCell.swift; sourceTree = "<group>"; };
+		E151B635224533F90026B8C0 /* PromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromotionCell.xib; sourceTree = "<group>"; };
+		E151B638224626990026B8C0 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1945E27222E7C0600A1436F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1945E29222E7C0600A1436F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				E1A82DDB224378D40097CAEE /* CardView.swift */,
+				E151B638224626990026B8C0 /* BorderButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -252,6 +263,10 @@
 				E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */,
 				E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */,
 				E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */,
+				E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */,
+				E151B631224533DC0026B8C0 /* ClaimRewardAllCell.xib */,
+				E151B634224533F90026B8C0 /* PromotionCell.swift */,
+				E151B635224533F90026B8C0 /* PromotionCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -317,7 +332,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
+				E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */,
 				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
+				E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */,
 				E1945E44222E7FF500A1436F /* MainStoryboard.storyboard in Resources */,
 				E1D41F31224088A20044E18F /* Assets.xcassets in Resources */,
 				E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */,
@@ -389,12 +406,14 @@
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
+				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
 				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
 				E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
+				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
@@ -406,6 +425,7 @@
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
+				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
 				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,

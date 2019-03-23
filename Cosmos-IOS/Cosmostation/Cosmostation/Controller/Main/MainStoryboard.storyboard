@@ -596,6 +596,7 @@ Super fast and esay to using with local signing!</string>
                         <outlet property="photonRewardAmount" destination="R5d-2d-lvJ" id="ceE-DW-uzP"/>
                         <outlet property="photonTotalLabel" destination="vle-Ox-Lga" id="Q2r-vy-3KZ"/>
                         <outlet property="rewardCard" destination="iEB-3M-FxV" id="40F-cT-97i"/>
+                        <outlet property="rewardImg" destination="0NV-iC-Aok" id="J0L-oI-MUG"/>
                         <outlet property="titleAccountBtn" destination="N2d-eZ-DDg" id="zLx-yT-avm"/>
                         <outlet property="titleChainImg" destination="ymZ-CI-iAN" id="j86-JO-tge"/>
                         <outlet property="titleChainName" destination="BZu-1u-gLc" id="H5P-va-vmL"/>
