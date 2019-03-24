@@ -615,14 +615,76 @@ Super fast and esay to using with local signing!</string>
                     <view key="view" contentMode="scaleToFill" id="zcq-nb-U4b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFY-lo-0IC">
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="MeZ-yr-C1Y">
+                                        <rect key="frame" x="8" y="4" width="42" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="42" id="6Ci-Yl-Idc"/>
+                                            <constraint firstAttribute="height" constant="42" id="ePR-yI-UIy"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4N-0h-U3Y">
+                                        <rect key="frame" x="50" y="14.5" width="78.5" height="21"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Cosmos Hub)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCH-6t-2hM">
+                                        <rect key="frame" x="132.5" y="20" width="77.5" height="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L12-Fw-3v9">
+                                        <rect key="frame" x="358" y="9" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="32" id="O2a-Ee-X89"/>
+                                            <constraint firstAttribute="height" constant="32" id="e4f-gt-Frp"/>
+                                        </constraints>
+                                        <state key="normal" image="accout_btn"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="D4N-0h-U3Y" firstAttribute="leading" secondItem="MeZ-yr-C1Y" secondAttribute="trailing" id="Jpu-Wc-Asq"/>
+                                    <constraint firstItem="MeZ-yr-C1Y" firstAttribute="leading" secondItem="qFY-lo-0IC" secondAttribute="leading" constant="8" id="LsW-Mj-qKc"/>
+                                    <constraint firstItem="MeZ-yr-C1Y" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="aMs-VY-dy8"/>
+                                    <constraint firstItem="NCH-6t-2hM" firstAttribute="firstBaseline" secondItem="D4N-0h-U3Y" secondAttribute="firstBaseline" id="kgu-5H-lIV"/>
+                                    <constraint firstItem="L12-Fw-3v9" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="pU2-rg-1oy"/>
+                                    <constraint firstItem="D4N-0h-U3Y" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="ro8-kP-K0l"/>
+                                    <constraint firstAttribute="trailing" secondItem="L12-Fw-3v9" secondAttribute="trailing" constant="24" id="ut1-Bk-CAA"/>
+                                    <constraint firstItem="NCH-6t-2hM" firstAttribute="leading" secondItem="D4N-0h-U3Y" secondAttribute="trailing" constant="4" id="yXn-Mq-qcf"/>
+                                    <constraint firstAttribute="height" constant="50" id="zuM-6F-LgI"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="clr-UP-CWo">
+                                <rect key="frame" x="0.0" y="138" width="414" height="675"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstItem="clr-UP-CWo" firstAttribute="top" secondItem="qFY-lo-0IC" secondAttribute="bottom" id="Gnp-Hi-O0X"/>
+                            <constraint firstItem="cSU-sE-n4m" firstAttribute="trailing" secondItem="clr-UP-CWo" secondAttribute="trailing" id="Jlp-Do-UEe"/>
+                            <constraint firstItem="cSU-sE-n4m" firstAttribute="trailing" secondItem="qFY-lo-0IC" secondAttribute="trailing" id="b5k-rF-ogu"/>
+                            <constraint firstAttribute="bottom" secondItem="clr-UP-CWo" secondAttribute="bottom" id="dtL-Jv-v9s"/>
+                            <constraint firstItem="clr-UP-CWo" firstAttribute="leading" secondItem="cSU-sE-n4m" secondAttribute="leading" id="jBt-Ut-cT3"/>
+                            <constraint firstItem="cSU-sE-n4m" firstAttribute="leading" secondItem="qFY-lo-0IC" secondAttribute="leading" id="u9T-SZ-dep"/>
+                            <constraint firstItem="qFY-lo-0IC" firstAttribute="top" secondItem="cSU-sE-n4m" secondAttribute="top" id="whw-UP-kc4"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="cSU-sE-n4m"/>
                     </view>
                     <navigationItem key="navigationItem" id="zKv-T3-ZiW"/>
+                    <connections>
+                        <outlet property="historyTableView" destination="clr-UP-CWo" id="pah-B7-2Pd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nTg-5w-Uah" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-487" y="1515"/>
+            <point key="canvasLocation" x="-488.40579710144931" y="1514.7321428571429"/>
         </scene>
         <!--Main Tab Vote View Controller-->
         <scene sceneID="M82-6S-tgX">

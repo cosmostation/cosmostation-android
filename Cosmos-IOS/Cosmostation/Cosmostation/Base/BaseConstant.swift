@@ -22,6 +22,11 @@ let CSS_LCD_URL_UNBONDING           = CSS_LCD_URL + "staking/delegators/";
 let CSS_LCD_URL_UNBONDING_TAIL      = "/unbonding_delegations";
 
 
+
+let CSS_ES_URL                     = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/txs/_search/";
+let CSS_ES_URL2                     = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/";
+
+
 //DB for Account
 let DB_ACCOUNT = Table("accnt")
 let DB_ACCOUNT_ID                   = Expression<Int64>("id")
