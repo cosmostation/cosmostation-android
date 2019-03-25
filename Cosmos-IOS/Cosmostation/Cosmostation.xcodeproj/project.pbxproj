@@ -17,6 +17,19 @@
 		E151B639224626990026B8C0 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B638224626990026B8C0 /* BorderButton.swift */; };
 		E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B63A22467E520026B8C0 /* HistoryCell.swift */; };
 		E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B63B22467E520026B8C0 /* HistoryCell.xib */; };
+		E151B63F22484A710026B8C0 /* InOutPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B63E22484A710026B8C0 /* InOutPut.swift */; };
+		E151B64122484AE60026B8C0 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B64022484AE60026B8C0 /* Signature.swift */; };
+		E151B64322484F490026B8C0 /* Fee.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B64222484F490026B8C0 /* Fee.swift */; };
+		E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B64422484FAE0026B8C0 /* Delegation.swift */; };
+		E151B647224850040026B8C0 /* Msg.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B646224850040026B8C0 /* Msg.swift */; };
+		E151B6492248583F0026B8C0 /* StdTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B6482248583F0026B8C0 /* StdTx.swift */; };
+		E151B64B224859E10026B8C0 /* StdSignedMsg.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B64A224859E10026B8C0 /* StdSignedMsg.swift */; };
+		E151B64D22485AB20026B8C0 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B64C22485AB20026B8C0 /* History.swift */; };
+		E151B64F22485B3B0026B8C0 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B64E22485B3B0026B8C0 /* Result.swift */; };
+		E151B651224867D60026B8C0 /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B650224867D60026B8C0 /* Proposal.swift */; };
+		E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B65222486C300026B8C0 /* ProposalCell.swift */; };
+		E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B65322486C300026B8C0 /* ProposalCell.xib */; };
+		E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B657224873640026B8C0 /* SettingTableViewController.swift */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
 		E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E29222E7C0600A1436F /* ViewController.swift */; };
 		E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E2B222E7C0600A1436F /* Main.storyboard */; };
@@ -67,6 +80,19 @@
 		E151B638224626990026B8C0 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		E151B63A22467E520026B8C0 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		E151B63B22467E520026B8C0 /* HistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
+		E151B63E22484A710026B8C0 /* InOutPut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InOutPut.swift; sourceTree = "<group>"; };
+		E151B64022484AE60026B8C0 /* Signature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
+		E151B64222484F490026B8C0 /* Fee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fee.swift; sourceTree = "<group>"; };
+		E151B64422484FAE0026B8C0 /* Delegation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegation.swift; sourceTree = "<group>"; };
+		E151B646224850040026B8C0 /* Msg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Msg.swift; sourceTree = "<group>"; };
+		E151B6482248583F0026B8C0 /* StdTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StdTx.swift; sourceTree = "<group>"; };
+		E151B64A224859E10026B8C0 /* StdSignedMsg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StdSignedMsg.swift; sourceTree = "<group>"; };
+		E151B64C22485AB20026B8C0 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		E151B64E22485B3B0026B8C0 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		E151B650224867D60026B8C0 /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
+		E151B65222486C300026B8C0 /* ProposalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalCell.swift; sourceTree = "<group>"; };
+		E151B65322486C300026B8C0 /* ProposalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalCell.xib; sourceTree = "<group>"; };
+		E151B657224873640026B8C0 /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1945E27222E7C0600A1436F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1945E29222E7C0600A1436F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +161,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E151B656224873270026B8C0 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E151B657224873640026B8C0 /* SettingTableViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		E1945E1B222E7C0600A1436F = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +221,7 @@
 		E1945E3A222E7DD800A1436F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E151B656224873270026B8C0 /* Setting */,
 				E1945E40222E7FB000A1436F /* Main */,
 			);
 			path = Controller;
@@ -241,12 +276,22 @@
 		E1A82DDD224478150097CAEE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E151B64C22485AB20026B8C0 /* History.swift */,
+				E151B64E22485B3B0026B8C0 /* Result.swift */,
 				E1A82DDE2244782B0097CAEE /* Validator.swift */,
 				E1A82DE02244818C0097CAEE /* AccountInfo.swift */,
 				E1A82DE22244821D0097CAEE /* PublicKey.swift */,
 				E1A82DE4224482800097CAEE /* Coin.swift */,
 				E1A82DE92244A20B0097CAEE /* BondingInfo.swift */,
 				E1A82DEB2244A87D0097CAEE /* UnbondigInfo.swift */,
+				E151B63E22484A710026B8C0 /* InOutPut.swift */,
+				E151B64022484AE60026B8C0 /* Signature.swift */,
+				E151B64222484F490026B8C0 /* Fee.swift */,
+				E151B64422484FAE0026B8C0 /* Delegation.swift */,
+				E151B646224850040026B8C0 /* Msg.swift */,
+				E151B6482248583F0026B8C0 /* StdTx.swift */,
+				E151B64A224859E10026B8C0 /* StdSignedMsg.swift */,
+				E151B650224867D60026B8C0 /* Proposal.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -273,6 +318,8 @@
 				E151B635224533F90026B8C0 /* PromotionCell.xib */,
 				E151B63A22467E520026B8C0 /* HistoryCell.swift */,
 				E151B63B22467E520026B8C0 /* HistoryCell.xib */,
+				E151B65222486C300026B8C0 /* ProposalCell.swift */,
+				E151B65322486C300026B8C0 /* ProposalCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -342,6 +389,7 @@
 				E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */,
 				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
 				E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */,
+				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
 				E1945E44222E7FF500A1436F /* MainStoryboard.storyboard in Resources */,
 				E1D41F31224088A20044E18F /* Assets.xcassets in Resources */,
 				E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */,
@@ -411,34 +459,46 @@
 				E1945E48222E81A300A1436F /* MainTabRewardViewController.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
+				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
 				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
 				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
 				E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */,
+				E151B64F22485B3B0026B8C0 /* Result.swift in Sources */,
+				E151B63F22484A710026B8C0 /* InOutPut.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
+				E151B64B224859E10026B8C0 /* StdSignedMsg.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
+				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
+				E151B647224850040026B8C0 /* Msg.swift in Sources */,
 				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
+				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
 				E1945E46222E819300A1436F /* MainTabSendViewController.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
+				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
+				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,
 				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
+				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
 				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
+				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1945E4C222E81C200A1436F /* MainTabVoteViewController.swift in Sources */,
+				E151B651224867D60026B8C0 /* Proposal.swift in Sources */,
 				E1A82DD5224223250097CAEE /* Balance.swift in Sources */,
 				E1A82DD1224220910097CAEE /* Account.swift in Sources */,
 				E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */,

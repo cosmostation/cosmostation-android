@@ -1,14 +1,14 @@
 //
-//  HistoryCell.swift
+//  ProposalCell.swift
 //  Cosmostation
 //
-//  Created by yongjoo on 23/03/2019.
+//  Created by yongjoo on 25/03/2019.
 //  Copyright © 2019 wannabit. All rights reserved.
 //
 
 import UIKit
 
-class HistoryCell: UITableViewCell {
+class ProposalCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

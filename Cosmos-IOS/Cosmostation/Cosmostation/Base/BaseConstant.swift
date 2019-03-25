@@ -20,6 +20,7 @@ let CSS_LCD_URL_BONDING             = CSS_LCD_URL + "staking/delegators/";
 let CSS_LCD_URL_BONDING_TAIL        = "/delegations";
 let CSS_LCD_URL_UNBONDING           = CSS_LCD_URL + "staking/delegators/";
 let CSS_LCD_URL_UNBONDING_TAIL      = "/unbonding_delegations";
+let CSS_LCD_URL_PROPOSALS           = CSS_LCD_URL + "/gov/proposals";
 
 
 

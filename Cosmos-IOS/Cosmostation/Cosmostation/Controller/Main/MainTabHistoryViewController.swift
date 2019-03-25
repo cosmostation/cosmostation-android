@@ -9,15 +9,20 @@
 import UIKit
 import Alamofire
 
-//class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
-class MainTabHistoryViewController: BaseViewController{
-
-    
+class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var historyTableView: UITableView!
     
+    var mHistories = Array<History.InnerHits>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.historyTableView.delegate = self
+        self.historyTableView.dataSource = self
+        self.historyTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.historyTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
+        
         onFetchHistory("cosmos1hzzkqn4kpqcvzauhdzlnkkkmr4ryaf8rj6rhkj", "0", "100");
     }
     
@@ -27,13 +32,18 @@ class MainTabHistoryViewController: BaseViewController{
         self.navigationController?.navigationBar.topItem?.title = "";
     }
 
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.mHistories.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80;
+    }
     
     
     func onFetchHistory(_ address:String, _ from:String, _ size:String) {
@@ -45,20 +55,34 @@ class MainTabHistoryViewController: BaseViewController{
             request.responseJSON { response in
                 switch response.result {
                 case .success(let res):
-//                    print(res)
                     guard let history = res as? [String : Any] else {
                         print("no history!!")
                         return;
                     }
-//                    print(history)
-                    guard let hits = history["hits"] as? [String : Any], let innerhits = hits["hits"] as? Array<NSDictionary> else {
-                        print("no hits!!")
-                        return;
-                    }
-                    print(innerhits)
+                    let rawHistory = History.init(history)
+                    print("rawHistory " , rawHistory.hits.hits.count)
                     
-//                    let hits = history.index(forKey: "hits")
-//                    print("hits ", hits)
+                    self.mHistories.removeAll()
+                    self.mHistories = rawHistory.hits.hits
+                    self.historyTableView.reloadData()
+                    
+//                    for validator in validators {
+//                    }
+                    
+////                    print(res)
+//                    guard let history = res as? [String : Any] else {
+//                        print("no history!!")
+//                        return;
+//                    }
+////                    print(history)
+//                    guard let hits = history["hits"] as? [String : Any], let innerhits = hits["hits"] as? Array<NSDictionary> else {
+//                        print("no hits!!")
+//                        return;
+//                    }
+//                    print(innerhits)
+//
+////                    let hits = history.index(forKey: "hits")
+////                    print("hits ", hits)
                     
                     
                 case .failure(let error):

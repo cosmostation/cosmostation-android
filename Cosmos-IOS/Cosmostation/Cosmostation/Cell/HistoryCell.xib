@@ -23,7 +23,7 @@
                         <rect key="frame" x="12" y="4" width="296" height="71.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Undelegate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bx3-AE-Buo">
-                                <rect key="frame" x="8" y="10" width="61.5" height="14"/>
+                                <rect key="frame" x="12" y="12" width="61.5" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -43,13 +43,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19/03/21 13:24:54" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2f-be-V7K">
-                                <rect key="frame" x="185" y="12" width="73" height="10.5"/>
+                                <rect key="frame" x="185" y="14.5" width="73" height="10.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="9"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c4s-fh-ziC">
-                                <rect key="frame" x="118.5" y="32.5" width="139.5" height="29"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="c4s-fh-ziC">
+                                <rect key="frame" x="118.5" y="33" width="139.5" height="23"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="234234 Block" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7b-b1-dhx">
                                         <rect key="frame" x="84.5" y="0.0" width="55" height="10.5"/>
@@ -58,7 +58,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fewfwefwefwefefwefewfewfwefwefwefewfewwfwefwe" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHt-n7-nm7">
-                                        <rect key="frame" x="0.0" y="18.5" width="139.5" height="10.5"/>
+                                        <rect key="frame" x="0.0" y="12.5" width="139.5" height="10.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="9"/>
                                         <color key="textColor" red="0.47843137254901957" green="0.49803921568627452" blue="0.53333333333333333" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -69,17 +69,17 @@
                         <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ojg-Ly-3W9" firstAttribute="leading" secondItem="D2f-be-V7K" secondAttribute="trailing" constant="8" id="1EM-Qe-vsv"/>
-                            <constraint firstItem="D2f-be-V7K" firstAttribute="top" secondItem="g9a-pf-IC8" secondAttribute="top" constant="12" id="1ve-mU-dxD"/>
                             <constraint firstItem="c4s-fh-ziC" firstAttribute="leading" secondItem="Ks8-1z-hFR" secondAttribute="trailing" constant="8" id="8uv-9M-eXN"/>
+                            <constraint firstItem="D2f-be-V7K" firstAttribute="firstBaseline" secondItem="Bx3-AE-Buo" secondAttribute="firstBaseline" id="HcD-Dc-aQw"/>
                             <constraint firstItem="Ojg-Ly-3W9" firstAttribute="leading" secondItem="c4s-fh-ziC" secondAttribute="trailing" constant="8" id="KtS-az-CrT"/>
                             <constraint firstAttribute="bottom" secondItem="Ks8-1z-hFR" secondAttribute="bottom" constant="12" id="LNn-O8-BFU"/>
                             <constraint firstItem="Ks8-1z-hFR" firstAttribute="top" secondItem="g9a-pf-IC8" secondAttribute="top" constant="12" id="PCD-1c-sf4"/>
-                            <constraint firstItem="Bx3-AE-Buo" firstAttribute="leading" secondItem="g9a-pf-IC8" secondAttribute="leading" constant="8" id="S1Q-pJ-hp7"/>
+                            <constraint firstItem="Bx3-AE-Buo" firstAttribute="leading" secondItem="g9a-pf-IC8" secondAttribute="leading" constant="12" id="S1Q-pJ-hp7"/>
                             <constraint firstItem="Ks8-1z-hFR" firstAttribute="leading" secondItem="g9a-pf-IC8" secondAttribute="leading" constant="110" id="ajP-WL-lOc"/>
                             <constraint firstItem="Ojg-Ly-3W9" firstAttribute="centerY" secondItem="g9a-pf-IC8" secondAttribute="centerY" id="eFm-GI-LqT"/>
                             <constraint firstAttribute="trailing" secondItem="Ojg-Ly-3W9" secondAttribute="trailing" constant="6" id="fXz-F2-qMW"/>
-                            <constraint firstItem="c4s-fh-ziC" firstAttribute="top" secondItem="D2f-be-V7K" secondAttribute="bottom" constant="10" id="jFe-NG-Rkv"/>
-                            <constraint firstItem="Bx3-AE-Buo" firstAttribute="top" secondItem="g9a-pf-IC8" secondAttribute="top" constant="10" id="ygI-Jm-S3Z"/>
+                            <constraint firstItem="c4s-fh-ziC" firstAttribute="top" secondItem="D2f-be-V7K" secondAttribute="bottom" constant="8" id="jFe-NG-Rkv"/>
+                            <constraint firstItem="Bx3-AE-Buo" firstAttribute="top" secondItem="g9a-pf-IC8" secondAttribute="top" constant="12" id="ygI-Jm-S3Z"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -100,6 +100,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="g9a-pf-IC8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="1S0-TC-nEY"/>
                     <constraint firstAttribute="trailing" secondItem="g9a-pf-IC8" secondAttribute="trailing" constant="12" id="HLV-s8-UsI"/>
@@ -107,6 +108,7 @@
                     <constraint firstItem="g9a-pf-IC8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="wg8-AJ-O3a"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
         </tableViewCell>
     </objects>
