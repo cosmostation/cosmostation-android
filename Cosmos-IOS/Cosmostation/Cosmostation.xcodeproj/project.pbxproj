@@ -30,6 +30,10 @@
 		E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B65222486C300026B8C0 /* ProposalCell.swift */; };
 		E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B65322486C300026B8C0 /* ProposalCell.xib */; };
 		E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B657224873640026B8C0 /* SettingTableViewController.swift */; };
+		E16D9B1322489AE10019B7BB /* Init.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E16D9B1222489AE10019B7BB /* Init.storyboard */; };
+		E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B1422489B030019B7BB /* IntroViewController.swift */; };
+		E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B162248BD990019B7BB /* CreateViewController.swift */; };
+		E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E16D9B182248C4880019B7BB /* Assets.xcassets */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
 		E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E29222E7C0600A1436F /* ViewController.swift */; };
 		E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E2B222E7C0600A1436F /* Main.storyboard */; };
@@ -64,7 +68,6 @@
 		E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */; };
 		E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */; };
 		E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF62244FA750097CAEE /* UIColor.swift */; };
-		E1D41F31224088A20044E18F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1D41F30224088A20044E18F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +96,10 @@
 		E151B65222486C300026B8C0 /* ProposalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalCell.swift; sourceTree = "<group>"; };
 		E151B65322486C300026B8C0 /* ProposalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalCell.xib; sourceTree = "<group>"; };
 		E151B657224873640026B8C0 /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		E16D9B1222489AE10019B7BB /* Init.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Init.storyboard; sourceTree = "<group>"; };
+		E16D9B1422489B030019B7BB /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		E16D9B162248BD990019B7BB /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		E16D9B182248C4880019B7BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1945E27222E7C0600A1436F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1945E29222E7C0600A1436F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -129,7 +136,6 @@
 		E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllValidatorCell.swift; sourceTree = "<group>"; };
 		E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllValidatorCell.xib; sourceTree = "<group>"; };
 		E1A82DF62244FA750097CAEE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
-		E1D41F30224088A20044E18F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +175,16 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		E16D9B1122489AC20019B7BB /* Init */ = {
+			isa = PBXGroup;
+			children = (
+				E16D9B1222489AE10019B7BB /* Init.storyboard */,
+				E16D9B1422489B030019B7BB /* IntroViewController.swift */,
+				E16D9B162248BD990019B7BB /* CreateViewController.swift */,
+			);
+			path = Init;
+			sourceTree = "<group>";
+		};
 		E1945E1B222E7C0600A1436F = {
 			isa = PBXGroup;
 			children = (
@@ -199,9 +215,9 @@
 				E1945E3A222E7DD800A1436F /* Controller */,
 				E1945E39222E7D8E00A1436F /* Base */,
 				E1945E29222E7C0600A1436F /* ViewController.swift */,
+				E16D9B182248C4880019B7BB /* Assets.xcassets */,
 				E1945E33222E7C0800A1436F /* Info.plist */,
 				E1945E2B222E7C0600A1436F /* Main.storyboard */,
-				E1D41F30224088A20044E18F /* Assets.xcassets */,
 				E1945E30222E7C0800A1436F /* LaunchScreen.storyboard */,
 			);
 			path = Cosmostation;
@@ -221,6 +237,7 @@
 		E1945E3A222E7DD800A1436F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E16D9B1122489AC20019B7BB /* Init */,
 				E151B656224873270026B8C0 /* Setting */,
 				E1945E40222E7FB000A1436F /* Main */,
 			);
@@ -239,8 +256,8 @@
 		E1945E40222E7FB000A1436F /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				E1945E41222E7FC800A1436F /* MainTabViewController.swift */,
 				E1945E43222E7FF500A1436F /* MainStoryboard.storyboard */,
+				E1945E41222E7FC800A1436F /* MainTabViewController.swift */,
 				E1945E45222E819300A1436F /* MainTabSendViewController.swift */,
 				E1945E47222E81A300A1436F /* MainTabRewardViewController.swift */,
 				E1945E49222E81B300A1436F /* MainTabHistoryViewController.swift */,
@@ -386,12 +403,13 @@
 			files = (
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
+				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */,
 				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
 				E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
 				E1945E44222E7FF500A1436F /* MainStoryboard.storyboard in Resources */,
-				E1D41F31224088A20044E18F /* Assets.xcassets in Resources */,
+				E16D9B1322489AE10019B7BB /* Init.storyboard in Resources */,
 				E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */,
 				E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */,
 			);
@@ -470,6 +488,7 @@
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
+				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
 				E151B64B224859E10026B8C0 /* StdSignedMsg.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
@@ -491,6 +510,7 @@
 				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
+				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
 				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
