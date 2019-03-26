@@ -181,7 +181,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mAccount.getAtomBalance().movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin atom = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).toPlainString());
+                Coin atom = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
                 getSActivity().mToDelegateAmount = atom;
                 return true;
             } catch (Exception e) {
