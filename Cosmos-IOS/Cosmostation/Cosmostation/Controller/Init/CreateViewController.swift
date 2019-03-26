@@ -7,13 +7,67 @@
 //
 
 import UIKit
+import BitcoinKit
 
 class CreateViewController: BaseViewController {
 
+    @IBOutlet weak var nextBtn: UIButton!
+    @IBOutlet weak var warningMsgLabel: UILabel!
+    
+    @IBOutlet weak var addressLabel: UILabel!
+    
+    @IBOutlet weak var mnemonicView: CardView!
+    
+    @IBOutlet weak var mnemonic0: UILabel!
+    @IBOutlet weak var mnemonic1: UILabel!
+    @IBOutlet weak var mnemonic2: UILabel!
+    @IBOutlet weak var mnemonic3: UILabel!
+    @IBOutlet weak var mnemonic4: UILabel!
+    @IBOutlet weak var mnemonic5: UILabel!
+    @IBOutlet weak var mnemonic6: UILabel!
+    @IBOutlet weak var mnemonic7: UILabel!
+    @IBOutlet weak var mnemonic8: UILabel!
+    @IBOutlet weak var mnemonic9: UILabel!
+    
+    @IBOutlet weak var mnemonic10: UILabel!
+    @IBOutlet weak var mnemonic11: UILabel!
+    @IBOutlet weak var mnemonic12: UILabel!
+    @IBOutlet weak var mnemonic13: UILabel!
+    @IBOutlet weak var mnemonic14: UILabel!
+    @IBOutlet weak var mnemonic15: UILabel!
+    @IBOutlet weak var mnemonic16: UILabel!
+    @IBOutlet weak var mnemonic17: UILabel!
+    @IBOutlet weak var mnemonic18: UILabel!
+    @IBOutlet weak var mnemonic19: UILabel!
+    
+    @IBOutlet weak var mnemonic20: UILabel!
+    @IBOutlet weak var mnemonic21: UILabel!
+    @IBOutlet weak var mnemonic22: UILabel!
+    @IBOutlet weak var mnemonic23: UILabel!
+    
+    var mMnemonicLabels: [UILabel] = [UILabel]()
+    var mMnemonicWords: [String]?
+    var createdKey: HDPrivateKey?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+//        let blurEffect = UIBlurEffect(style: .dark)
+//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurEffectView.alpha = 0.8
+//        blurEffectView.frame = self.mnemonicView.bounds
+//        self.mnemonicView.addSubview(blurEffectView)
+        
+        print("viewDidLoad hasPassword : ", BaseData.instance.hasPassword())
+        
+        self.mMnemonicLabels = [self.mnemonic0, self.mnemonic1, self.mnemonic2, self.mnemonic3,
+                          self.mnemonic4, self.mnemonic5, self.mnemonic6, self.mnemonic7,
+                          self.mnemonic8, self.mnemonic9, self.mnemonic10, self.mnemonic11,
+                          self.mnemonic12, self.mnemonic13, self.mnemonic14, self.mnemonic15,
+                          self.mnemonic16, self.mnemonic17, self.mnemonic18, self.mnemonic19,
+                          self.mnemonic20, self.mnemonic21, self.mnemonic22, self.mnemonic23]
+    
+        self.onGenNewKey()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -24,15 +78,22 @@ class CreateViewController: BaseViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func onGenNewKey() {
+        guard let words = try? Mnemonic.generate(strength: .veryHigh, language: .english) else {
+            return
+        }
+        mMnemonicWords = words
+        createdKey = WKey.getCosmosKeyFromWords(mnemonic: mMnemonicWords!, path: 0)
+        onUpdateView()
     }
-    */
+    
+    func onUpdateView() {
+        print("onUpdateView ", mMnemonicWords)
+        self.addressLabel.text = WKey.getCosmosDpAddress(key: createdKey!)
+        for i in 0 ... mMnemonicWords!.count - 1{
+            self.mMnemonicLabels[i].text = mMnemonicWords?[i]
+        }
+    }
 
 }

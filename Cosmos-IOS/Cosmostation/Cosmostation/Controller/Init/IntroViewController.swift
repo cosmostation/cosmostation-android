@@ -65,13 +65,13 @@ class IntroViewController: BaseViewController {
     
     @IBAction func onClickImport(_ sender: Any) {
         print("onClickImport");
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
             self.importBtn.alpha = 0.0
         }, completion: { (finished) -> Void in
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .transitionCurlUp, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .transitionCurlUp, animations: {
                 self.importView.alpha = 1.0
             }, completion: nil)
-            UIView.animate(withDuration: 0.2, delay: 0.1, options: .transitionCurlUp, animations: {
+            UIView.animate(withDuration: 0.1, delay: 0.1, options: .transitionCurlUp, animations: {
                 self.importMnemonicMsg.transform = CGAffineTransform(translationX: 0, y: -9.6)
                 self.importAddressMsg.transform = CGAffineTransform(translationX: 0, y: -9.6)
             }, completion: nil)

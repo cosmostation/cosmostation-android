@@ -34,6 +34,8 @@
 		E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B1422489B030019B7BB /* IntroViewController.swift */; };
 		E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B162248BD990019B7BB /* CreateViewController.swift */; };
 		E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E16D9B182248C4880019B7BB /* Assets.xcassets */; };
+		E16D9B1B2248D1370019B7BB /* BoarderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B1A2248D1370019B7BB /* BoarderLabel.swift */; };
+		E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B1C2248E6A60019B7BB /* WKey.swift */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
 		E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E29222E7C0600A1436F /* ViewController.swift */; };
 		E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E2B222E7C0600A1436F /* Main.storyboard */; };
@@ -100,6 +102,8 @@
 		E16D9B1422489B030019B7BB /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E16D9B162248BD990019B7BB /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		E16D9B182248C4880019B7BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E16D9B1A2248D1370019B7BB /* BoarderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoarderLabel.swift; sourceTree = "<group>"; };
+		E16D9B1C2248E6A60019B7BB /* WKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKey.swift; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1945E27222E7C0600A1436F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1945E29222E7C0600A1436F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 			children = (
 				E1A82DDB224378D40097CAEE /* CardView.swift */,
 				E151B638224626990026B8C0 /* BorderButton.swift */,
+				E16D9B1A2248D1370019B7BB /* BoarderLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -318,6 +323,7 @@
 			children = (
 				E1A82DE722448E940097CAEE /* WUtils.swift */,
 				E1A82DF62244FA750097CAEE /* UIColor.swift */,
+				E16D9B1C2248E6A60019B7BB /* WKey.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -483,6 +489,7 @@
 				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
 				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
 				E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */,
+				E16D9B1B2248D1370019B7BB /* BoarderLabel.swift in Sources */,
 				E151B64F22485B3B0026B8C0 /* Result.swift in Sources */,
 				E151B63F22484A710026B8C0 /* InOutPut.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
@@ -512,6 +519,7 @@
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
 				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
 				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,
+				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
