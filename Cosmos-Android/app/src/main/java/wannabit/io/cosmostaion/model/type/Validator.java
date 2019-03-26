@@ -58,7 +58,7 @@ public class Validator {
         public String max_rate;
 
         @SerializedName("max_change_rate")
-        public Boolean max_change_rate;
+        public String max_change_rate;
 
         @SerializedName("update_time")
         public String update_time;

@@ -119,6 +119,7 @@ public class SimpleSendTask extends CommonTask {
             reqBroadCast.returns = "sync";
 //            reqBroadCast.returns = "block";
             reqBroadCast.tx = signedTx.value;
+            WLog.w("SimpleSendTask signed1 : " +  WUtil.getPresentor().toJson(reqBroadCast));
 
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {

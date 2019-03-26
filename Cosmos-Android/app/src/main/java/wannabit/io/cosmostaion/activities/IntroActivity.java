@@ -119,10 +119,9 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             }
         }, 1500);
 
-//        onShowWaitDialog();
+        onShowWaitDialog();
 
-//        WLog.w("INTRO");
-//        startActivity(new Intent(IntroActivity.this, RestoreActivity.class));
+
 
         WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
 //        WLog.w("FCM token: " + FirebaseInstanceId.getInstance().getInstanceId().toString());
@@ -151,6 +150,9 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onResume() {
         super.onResume();
+
+//        WLog.w("INTRO");
+//        startActivity(new Intent(IntroActivity.this, TestActivity.class));
 
 //        startActivity(new Intent(IntroActivity.this, TestActivity.class));
 

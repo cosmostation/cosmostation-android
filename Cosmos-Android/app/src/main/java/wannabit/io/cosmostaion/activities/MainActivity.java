@@ -215,9 +215,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
             @Override
             public void onPageSelected(int position) {
-                mPageAdapter.mCurrentFragment.onRefreshTab();
-                if(position != 0) mFloatBtn.hide();
-                else if (!mFloatBtn.isShown()) mFloatBtn.show();
+                if(mPageAdapter != null && mPageAdapter.mCurrentFragment != null) {
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    if(position != 0) mFloatBtn.hide();
+                    else if (!mFloatBtn.isShown()) mFloatBtn.show();
+                }
             }
         });
 
