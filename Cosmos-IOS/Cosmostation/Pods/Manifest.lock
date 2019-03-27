@@ -8,6 +8,7 @@ PODS:
   - SQLite.swift/standard (0.11.5)
   - SwiftKeychainWrapper (3.2.0)
   - SwiftyJSON (4.2.0)
+  - Toast-Swift (4.0.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - SQLite.swift (~> 0.11.5)
   - SwiftKeychainWrapper
   - SwiftyJSON (~> 4.0)
+  - Toast-Swift (~> 4.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -27,6 +29,7 @@ SPEC REPOS:
     - SQLite.swift
     - SwiftKeychainWrapper
     - SwiftyJSON
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
@@ -36,7 +39,8 @@ SPEC CHECKSUMS:
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
   SwiftKeychainWrapper: 82c4c02cdc36f9a24f7edfcaab3e336401caa1a1
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+  Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
 
-PODFILE CHECKSUM: 531c748aa28d36cdfde5ab4c59277b22fb10e48e
+PODFILE CHECKSUM: 81445484abdbe906bbea39b2d9810b546554cfb6
 
 COCOAPODS: 1.5.3

@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  Cosmostation
+
+  Created by yongjoo on 27/03/2019.
+  Copyright © 2019 wannabit. All rights reserved.
+*/
+"password_init1" = "Please insert your password.";
+"password_init2" = "Please insert again for confirm.";
+"password_init_warnning" = "No way to recover this.\nPlease remember!";
+
+
+
+
+
+"error_password_fail" = "Password is not same. Please init password again!";

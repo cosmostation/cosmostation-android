@@ -24,34 +24,34 @@ class IntroViewController: BaseViewController {
         super.viewDidLoad()
         print("IntroViewController viewDidLoad")
         
-//        let accouts = BaseData.instance.selectAllAccounts()
-//        if(accouts.count <= 0) {
-//            print("No accounts");
-//            UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseOut, animations: {
-//                self.bottomLogoView.alpha = 0.0
-//            }, completion: { (finished) -> Void in
-//                UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
-//                    self.bottomControlView.alpha = 1.0
-//                }, completion: nil)
-//
-//            })
-//
-//        } else {
-//            print("accounts size : ", accouts.count);
-//
-//        }
-//
-//        importMnemonicBtn.addTarget(self, action: #selector(startHighlight), for: .touchDown)
-//        importMnemonicBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpInside)
-//        importMnemonicBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpOutside)
-//
-//        importAddressBtn.addTarget(self, action: #selector(startHighlight), for: .touchDown)
-//        importAddressBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpInside)
-//        importAddressBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpOutside)
+        let accouts = BaseData.instance.selectAllAccounts()
+        if(accouts.count <= 0) {
+            print("No accounts");
+            UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseOut, animations: {
+                self.bottomLogoView.alpha = 0.0
+            }, completion: { (finished) -> Void in
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
+                    self.bottomControlView.alpha = 1.0
+                }, completion: nil)
+
+            })
+
+        } else {
+            print("accounts size : ", accouts.count);
+
+        }
+
+        importMnemonicBtn.addTarget(self, action: #selector(startHighlight), for: .touchDown)
+        importMnemonicBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpInside)
+        importMnemonicBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpOutside)
+
+        importAddressBtn.addTarget(self, action: #selector(startHighlight), for: .touchDown)
+        importAddressBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpInside)
+        importAddressBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpOutside)
         
-        let createVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(createVC, animated: true)
+//        let createVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(createVC, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {

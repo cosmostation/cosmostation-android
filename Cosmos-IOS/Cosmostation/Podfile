@@ -13,5 +13,7 @@ target 'Cosmostation' do
   pod 'SQLite.swift', '~> 0.11.5'
   pod 'CryptoSwift'
   pod 'SwiftKeychainWrapper'
+  pod 'Toast-Swift', '~> 4.0.0'
+#  pod 'Toaster', '~> 2.1.1'
 
 end

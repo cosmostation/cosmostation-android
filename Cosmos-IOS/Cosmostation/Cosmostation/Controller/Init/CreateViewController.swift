@@ -95,5 +95,22 @@ class CreateViewController: BaseViewController {
             self.mMnemonicLabels[i].text = mMnemonicWords?[i]
         }
     }
-
+    
+    @IBAction func onClickNext(_ sender: Any) {
+        if(!BaseData.instance.hasPassword()) {
+            let transition:CATransition = CATransition()
+            transition.duration = 0.3
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            transition.type = CATransitionType.moveIn
+            transition.subtype = CATransitionSubtype.fromTop
+            
+            let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+            self.navigationItem.title = ""
+            self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+            self.navigationController?.pushViewController(passwordVC, animated: false)
+        } else  {
+            
+        }
+    }
+    
 }

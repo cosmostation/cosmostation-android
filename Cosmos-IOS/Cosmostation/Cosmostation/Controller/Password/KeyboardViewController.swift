@@ -8,13 +8,16 @@
 
 import UIKit
 
-class KeyboardViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+class KeyboardViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIScrollViewDelegate{
 
     lazy var orderedViewControllers: [UIViewController] = {
         return [self.newVc(viewController: "DecimalKeyboard"),
                 self.newVc(viewController: "AlpahabetKeyboard")]
     }()
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,12 @@ class KeyboardViewController: UIPageViewController, UIPageViewControllerDelegate
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
+        
+//        for view in self.view.subviews {
+//            if let scrollView = view as? UIScrollView {
+//                scrollView.delegate = self
+//            }
+//        }
     }
 
     
@@ -38,6 +47,15 @@ class KeyboardViewController: UIPageViewController, UIPageViewControllerDelegate
                                                object: nil)
         
     }
+    
+//    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+//        print("pageViewController  finish")
+//    }
+//
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print("scrollViewDidScroll")
+//    }
+    
     
     @objc func setViewControllerForce(_ notification: NSNotification) {
         if let page = notification.userInfo?["Page"] as? Int {
