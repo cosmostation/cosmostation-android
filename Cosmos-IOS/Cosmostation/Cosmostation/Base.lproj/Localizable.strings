@@ -11,6 +11,8 @@
 "password_init_warnning" = "No way to recover this.\nPlease remember!";
 "password_msg1" = "Losing your mnemonics could lead to loss of your asset.\nWe highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.";
 "password_msg2" = "Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.";
+"add_address_msg" = "With watch mode, you can check the status of your account. \nTo make transaction can add private information with later.";
+"add_address_hint" = "Insert address or public key.";
 
 "create_wallet" = "Create Wallet";
 "show_mnemonics" = "Show Mnemonics";

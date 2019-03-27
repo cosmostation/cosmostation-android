@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2B086C41D1AE96515832211B /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C343D91DD12833CEE33C581 /* Pods_Cosmostation.framework */; };
 		E1271B04224B17230083AF17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1271B02224B17230083AF17 /* Localizable.strings */; };
+		E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B05224B874A0083AF17 /* AddAddressViewController.swift */; };
+		E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B07224B90230083AF17 /* AddressInputTextField.swift */; };
 		E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */; };
 		E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */; };
 		E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */; };
@@ -85,6 +87,8 @@
 		E1271B00224B16E20083AF17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E1271B01224B16E20083AF17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E1271B03224B17230083AF17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E1271B05224B874A0083AF17 /* AddAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressViewController.swift; sourceTree = "<group>"; };
+		E1271B07224B90230083AF17 /* AddressInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInputTextField.swift; sourceTree = "<group>"; };
 		E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyValidatorCell.swift; sourceTree = "<group>"; };
 		E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyValidatorCell.xib; sourceTree = "<group>"; };
 		E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRewardAllCell.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 				E16D9B1222489AE10019B7BB /* Init.storyboard */,
 				E16D9B1422489B030019B7BB /* IntroViewController.swift */,
 				E16D9B162248BD990019B7BB /* CreateViewController.swift */,
+				E1271B05224B874A0083AF17 /* AddAddressViewController.swift */,
 			);
 			path = Init;
 			sourceTree = "<group>";
@@ -319,6 +324,7 @@
 				E1A82DDB224378D40097CAEE /* CardView.swift */,
 				E151B638224626990026B8C0 /* BorderButton.swift */,
 				E16D9B1A2248D1370019B7BB /* BoarderLabel.swift */,
+				E1271B07224B90230083AF17 /* AddressInputTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -550,6 +556,7 @@
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,
+				E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */,
 				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
@@ -567,6 +574,7 @@
 				E1A82DD5224223250097CAEE /* Balance.swift in Sources */,
 				E1A82DD1224220910097CAEE /* Account.swift in Sources */,
 				E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */,
+				E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,7 +736,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.Cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -744,7 +755,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.Cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

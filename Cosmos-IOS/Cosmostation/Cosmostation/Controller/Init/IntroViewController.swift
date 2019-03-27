@@ -90,6 +90,9 @@ class IntroViewController: BaseViewController {
     
     @IBAction func onClickImportAddress(_ sender: Any) {
         print("onClickImportAddress");
+        let addAddressVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(addAddressVC, animated: true)
     }
     
     @objc func startHighlight(sender: UIButton) {

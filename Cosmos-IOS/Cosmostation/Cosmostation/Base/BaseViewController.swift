@@ -17,19 +17,22 @@ class BaseViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.startAvoidingKeyboard()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.stopAvoidingKeyboard()
+    }
+    
+
     
     public func showWaittingAlert() {
         let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -52,5 +55,47 @@ class BaseViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = mainTabVC
         self.present(mainTabVC, animated: true, completion: nil)
+    }
+}
+extension BaseViewController {
+    
+    func startAvoidingKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIWindow.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIWindow.keyboardWillHideNotification, object: nil)
+    }
+    
+    func stopAvoidingKeyboard() {
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
+        
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        self._onKeyboardFrameWillChangeNotificationReceived(notification as Notification)
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification){
+        self._onKeyboardFrameWillChangeNotificationReceived(notification as Notification)
+    }
+    
+    @objc private func _onKeyboardFrameWillChangeNotificationReceived(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+        }
+
+        let keyboardFrameInView = view.convert(keyboardFrame, from: nil)
+        let safeAreaFrame = view.safeAreaLayoutGuide.layoutFrame.insetBy(dx: 0, dy: -additionalSafeAreaInsets.bottom)
+        let intersection = safeAreaFrame.intersection(keyboardFrameInView)
+
+        let animationDuration: TimeInterval = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+        let animationCurveRawNSN = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber
+        let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
+        let animationCurve = UIView.AnimationOptions(rawValue: animationCurveRaw)
+
+        UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurve, animations: {
+            self.additionalSafeAreaInsets.bottom = intersection.height
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
 }

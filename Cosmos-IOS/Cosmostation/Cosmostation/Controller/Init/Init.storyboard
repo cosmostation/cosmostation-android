@@ -1002,6 +1002,117 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
             </objects>
             <point key="canvasLocation" x="2222" y="131"/>
         </scene>
+        <!--Add Address View Controller-->
+        <scene sceneID="B9N-Vl-RLL">
+            <objects>
+                <viewController storyboardIdentifier="AddAddressViewController" id="aKk-rD-wQP" customClass="AddAddressViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wmm-FO-ZWf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="T58-EU-w1Y">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nmm-Yx-iF1">
+                                <rect key="frame" x="18" y="60.000000000000007" width="378" height="25.333333333333336"/>
+                                <string key="text">With watch mode, you can check the status of your account. 
+To make transaction can add private information with later.</string>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Insert address or public key." adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WW3-aL-nwf" customClass="AddressInputTextField" customModule="Cosmostation" customModuleProvider="target">
+                                <rect key="frame" x="16" y="97.333333333333329" width="382" height="49.999999999999986"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="aAe-MK-IiE"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="done" smartInsertDeleteType="no"/>
+                            </textField>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5iO-aj-ihM">
+                                <rect key="frame" x="16" y="796" width="382" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0MK-Uk-7ku">
+                                        <rect key="frame" x="0.0" y="0.0" width="186" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="g3E-cE-5Gc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickCancel:" destination="aKk-rD-wQP" eventType="touchUpInside" id="cZx-z5-bUQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gL-tk-0g2">
+                                        <rect key="frame" x="196" y="0.0" width="186" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="6GG-kG-krG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                        <state key="normal" title="Next">
+                                            <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickNext:" destination="aKk-rD-wQP" eventType="touchUpInside" id="zKb-ZF-VFG"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Nmm-Yx-iF1" firstAttribute="top" secondItem="MM3-VO-KQW" secondAttribute="top" constant="16" id="0ED-zV-JA7"/>
+                            <constraint firstItem="Nmm-Yx-iF1" firstAttribute="leading" secondItem="MM3-VO-KQW" secondAttribute="leading" constant="18" id="1TN-uK-q1H"/>
+                            <constraint firstItem="MM3-VO-KQW" firstAttribute="trailing" secondItem="Nmm-Yx-iF1" secondAttribute="trailing" constant="18" id="1zO-QG-r5a"/>
+                            <constraint firstItem="WW3-aL-nwf" firstAttribute="top" secondItem="Nmm-Yx-iF1" secondAttribute="bottom" constant="12" id="EEK-ao-GI8"/>
+                            <constraint firstItem="T58-EU-w1Y" firstAttribute="top" secondItem="wmm-FO-ZWf" secondAttribute="top" id="QTE-tg-D3y"/>
+                            <constraint firstItem="MM3-VO-KQW" firstAttribute="trailing" secondItem="WW3-aL-nwf" secondAttribute="trailing" constant="16" id="Vcv-aZ-qSs"/>
+                            <constraint firstItem="5iO-aj-ihM" firstAttribute="leading" secondItem="MM3-VO-KQW" secondAttribute="leading" constant="16" id="Y4R-2l-LgL"/>
+                            <constraint firstItem="MM3-VO-KQW" firstAttribute="bottom" secondItem="5iO-aj-ihM" secondAttribute="bottom" constant="16" id="iMk-WP-XgR"/>
+                            <constraint firstItem="MM3-VO-KQW" firstAttribute="trailing" secondItem="5iO-aj-ihM" secondAttribute="trailing" constant="16" id="n0K-dz-OtT"/>
+                            <constraint firstItem="WW3-aL-nwf" firstAttribute="leading" secondItem="MM3-VO-KQW" secondAttribute="leading" constant="16" id="oB1-az-uGf"/>
+                            <constraint firstItem="T58-EU-w1Y" firstAttribute="width" secondItem="wmm-FO-ZWf" secondAttribute="width" id="rMj-iQ-13c"/>
+                            <constraint firstItem="T58-EU-w1Y" firstAttribute="leading" secondItem="wmm-FO-ZWf" secondAttribute="leading" id="yzY-Ca-4XV"/>
+                            <constraint firstItem="T58-EU-w1Y" firstAttribute="height" secondItem="wmm-FO-ZWf" secondAttribute="height" id="zJd-2c-d7v"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MM3-VO-KQW"/>
+                    </view>
+                    <connections>
+                        <outlet property="addAddressInputText" destination="WW3-aL-nwf" id="WMx-vs-74G"/>
+                        <outlet property="addAddressMsgLabel" destination="Nmm-Yx-iF1" id="y1c-Vg-IyT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eye-XK-hDh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2222" y="1447"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="qOt-XG-MuT">
             <objects>
