@@ -13,6 +13,8 @@ import SwiftKeychainWrapper
 import Toast_Swift
 
 class PasswordViewController: BaseViewController {
+    
+    var resultDelegate: PasswordViewDelegate?
 
     @IBOutlet weak var passwordTitleLable: UILabel!
     @IBOutlet weak var passwordMsgLabel: UILabel!
@@ -37,9 +39,6 @@ class PasswordViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pinImgs = [self.pin0Img, self.pin1Img, self.pin2Img, self.pin3Img, self.pin4Img]
-        
-        //TEST
-        mTarget = PASSWORD_ACTION_INIT
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -57,13 +56,15 @@ class PasswordViewController: BaseViewController {
     
     func initView() {
         passwordMsgLabel.text = NSLocalizedString("password_init_warnning", comment: "")
+        passwordMsgLabel.isHidden = true
         if (mTarget == PASSWORD_ACTION_INIT) {
             passwordMsgLabel.isHidden = false
             passwordTitleLable.text = NSLocalizedString("password_init1", comment: "")
             
             
-        } else {
-            passwordMsgLabel.isHidden = true
+        } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK) {
+            passwordTitleLable.text = NSLocalizedString("password_check", comment: "")
+            
         }
         passwordTitleLable.adjustsFontSizeToFitWidth = true
         
@@ -107,14 +108,7 @@ class PasswordViewController: BaseViewController {
                     
                 } else {
                     print("back to stack")
-                    let transition:CATransition = CATransition()
-                    transition.duration = 0.3
-                    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-                    transition.type = CATransitionType.reveal
-                    transition.subtype = CATransitionSubtype.fromBottom
-                    self.navigationController!.view.layer.add(transition, forKey: kCATransition)
-                    self.navigationController?.popViewController(animated: false)
-                    
+                    self.sendResultAndPop(PASSWORD_RESUKT_CANCEL)
                 }
                 
             } else {
@@ -131,6 +125,18 @@ class PasswordViewController: BaseViewController {
         }
     }
     
+    func sendResultAndPop(_ data: Int) {
+        let transition:CATransition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        self.resultDelegate?.passwordResponse(result: data)
+        self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+        self.navigationController?.popViewController(animated: false)
+    }
+    
+    
     func onUpdatePinImage(count:Int) {
         for i in 0 ..< 5 {
             if(i < count) {
@@ -145,7 +151,8 @@ class PasswordViewController: BaseViewController {
         if (mTarget == PASSWORD_ACTION_INIT) {
             if(mIsConfirmSequence == true) {
                 if(mUserConfirm == mUserInsert) {
-//                    self.onStartInsertUser()
+                    self.onStartInitPassword(mUserInsert)
+//                    self.onStartCheckPassword(mUserInsert)
                     
                 } else {
                     var style = ToastStyle()
@@ -159,6 +166,58 @@ class PasswordViewController: BaseViewController {
                 self.initConfirmView()
             }
             
+        } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK) {
+            self.onStartCheckPassword(mUserInsert)
         }
     }
+    
+    
+    func onStartInitPassword(_ initInput: String) {
+        self.showWaittingAlert()
+        let queue = DispatchQueue.global()
+        queue.async {
+            var result = false
+            if(KeychainWrapper.standard.string(forKey: "password") == nil) {
+                result = KeychainWrapper.standard.set(initInput, forKey: "password")
+            }
+            DispatchQueue.main.async(execute: {
+                self.hideWaittingAlert()
+                if(result) {
+                    self.sendResultAndPop(PASSWORD_RESUKT_OK)
+                } else {
+                    self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
+                }
+            });
+        }
+        
+    }
+    
+    func onStartCheckPassword(_ input: String) {
+        let queue = DispatchQueue.global()
+        queue.async {
+            var result = false
+            if(KeychainWrapper.standard.string(forKey: "password") != nil) {
+                if(KeychainWrapper.standard.string(forKey: "password") == input) {
+                    result = true
+                } else {
+                    result = false
+                }
+            }
+            DispatchQueue.main.async(execute: {
+                self.hideWaittingAlert()
+                if(result) {
+                    self.sendResultAndPop(PASSWORD_RESUKT_OK)
+                } else {
+                    self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
+                }
+            });
+            
+//            let retrievedString: String? = KeychainWrapper.standard.string(forKey: "password")
+//            print("retrievedString : ", retrievedString)
+        }
+    }
+}
+
+protocol PasswordViewDelegate{
+    func passwordResponse(result:Int)
 }

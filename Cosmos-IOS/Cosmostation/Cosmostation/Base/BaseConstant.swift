@@ -52,10 +52,10 @@ let DB_ACCOUNT_M_SIZE               = Expression<Int64>("msize")
 let DB_ACCOUNT_IMPORT_TIME          = Expression<Int64>("importTime")
 
 
-//DB for Password
-let DB_PASSWORD = Table("passwd")
-let DB_PASSWORD_ID                  = Expression<Int64>("id")
-let DB_PASSWORD_RESOURCE            = Expression<String>("resource")
+////DB for Password
+//let DB_PASSWORD = Table("passwd")
+//let DB_PASSWORD_ID                  = Expression<Int64>("id")
+//let DB_PASSWORD_RESOURCE            = Expression<String>("resource")
 
 
 //DB for Balance(Available)
@@ -112,3 +112,9 @@ let COSMOS_MSG_TYPE_WITHDRAW_MIDIFY         = "cosmos-sdk/MsgModifyWithdrawAddre
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
+
+
+
+let PASSWORD_RESUKT_OK                      = 0
+let PASSWORD_RESUKT_CANCEL                  = 1
+let PASSWORD_RESUKT_FAIL                    = 2

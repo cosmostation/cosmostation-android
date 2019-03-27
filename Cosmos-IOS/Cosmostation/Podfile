@@ -14,6 +14,7 @@ target 'Cosmostation' do
   pod 'CryptoSwift'
   pod 'SwiftKeychainWrapper'
   pod 'Toast-Swift', '~> 4.0.0'
+  pod 'MBProgressHUD', '~> 1.1.0'
 #  pod 'Toaster', '~> 2.1.1'
 
 end

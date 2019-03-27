@@ -8,6 +8,7 @@
 
 import Foundation
 import SQLite
+import SwiftKeychainWrapper
 
 
 final class BaseData : NSObject{
@@ -50,10 +51,10 @@ final class BaseData : NSObject{
                 table.column(DB_ACCOUNT_IMPORT_TIME)
             }
             
-            let createPasswordTable = DB_PASSWORD.create { (table) in
-                table.column(DB_PASSWORD_ID, primaryKey: true)
-                table.column(DB_PASSWORD_RESOURCE)
-            }
+//            let createPasswordTable = DB_PASSWORD.create { (table) in
+//                table.column(DB_PASSWORD_ID, primaryKey: true)
+//                table.column(DB_PASSWORD_RESOURCE)
+//            }
             
             let createBalanceTable = DB_BALANCE.create { (table) in
                 table.column(DB_BALANCE_ID, primaryKey: true)
@@ -84,7 +85,7 @@ final class BaseData : NSObject{
             
             do {
                 try self.database.run(createAccountTable)
-                try self.database.run(createPasswordTable)
+//                try self.database.run(createPasswordTable)
                 try self.database.run(createBalanceTable)
                 try self.database.run(createBondingTable)
                 try self.database.run(createUnBondingTable)
@@ -206,6 +207,16 @@ final class BaseData : NSObject{
     
     
     
+    
+    public func hasPassword() -> Bool{
+        if(KeychainWrapper.standard.string(forKey: "password") == nil) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    /*
     public func selectPassword() -> Password? {
         do {
             for passwordBD in try database.prepare(DB_PASSWORD) {
@@ -241,6 +252,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
+    */
     
     
     

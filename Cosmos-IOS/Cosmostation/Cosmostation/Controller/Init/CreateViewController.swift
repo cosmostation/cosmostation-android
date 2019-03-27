@@ -9,8 +9,8 @@
 import UIKit
 import BitcoinKit
 
-class CreateViewController: BaseViewController {
-
+class CreateViewController: BaseViewController, PasswordViewDelegate{
+    
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var warningMsgLabel: UILabel!
     
@@ -45,9 +45,10 @@ class CreateViewController: BaseViewController {
     @IBOutlet weak var mnemonic22: UILabel!
     @IBOutlet weak var mnemonic23: UILabel!
     
-    var mMnemonicLabels: [UILabel] = [UILabel]()
-    var mMnemonicWords: [String]?
+    var mnemonicLabels: [UILabel] = [UILabel]()
+    var mnemonicWords: [String]?
     var createdKey: HDPrivateKey?
+    var checkedPassword: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +59,9 @@ class CreateViewController: BaseViewController {
 //        blurEffectView.frame = self.mnemonicView.bounds
 //        self.mnemonicView.addSubview(blurEffectView)
         
-        print("viewDidLoad hasPassword : ", BaseData.instance.hasPassword())
+//        print("viewDidLoad hasPassword : ", BaseData.instance.hasPassword())
         
-        self.mMnemonicLabels = [self.mnemonic0, self.mnemonic1, self.mnemonic2, self.mnemonic3,
+        self.mnemonicLabels = [self.mnemonic0, self.mnemonic1, self.mnemonic2, self.mnemonic3,
                           self.mnemonic4, self.mnemonic5, self.mnemonic6, self.mnemonic7,
                           self.mnemonic8, self.mnemonic9, self.mnemonic10, self.mnemonic11,
                           self.mnemonic12, self.mnemonic13, self.mnemonic14, self.mnemonic15,
@@ -83,34 +84,116 @@ class CreateViewController: BaseViewController {
         guard let words = try? Mnemonic.generate(strength: .veryHigh, language: .english) else {
             return
         }
-        mMnemonicWords = words
-        createdKey = WKey.getCosmosKeyFromWords(mnemonic: mMnemonicWords!, path: 0)
+        mnemonicWords = words
+        createdKey = WKey.getCosmosKeyFromWords(mnemonic: mnemonicWords!, path: 0)
         onUpdateView()
     }
     
     func onUpdateView() {
-        print("onUpdateView ", mMnemonicWords)
+        print("onUpdateView ", mnemonicWords)
         self.addressLabel.text = WKey.getCosmosDpAddress(key: createdKey!)
-        for i in 0 ... mMnemonicWords!.count - 1{
-            self.mMnemonicLabels[i].text = mMnemonicWords?[i]
+        for i in 0 ... mnemonicWords!.count - 1{
+            if(checkedPassword) {
+                self.mnemonicLabels[i].text = mnemonicWords?[i]
+            } else {
+                self.mnemonicLabels[i].text = mnemonicWords?[i].replacingOccurrences(of: "\\S", with: "?", options: .regularExpression)
+            }
         }
+        if(checkedPassword) {
+            self.warningMsgLabel.text = NSLocalizedString("password_msg2", comment: "")
+            self.nextBtn.setTitle(NSLocalizedString("create_wallet", comment: ""), for: .normal)
+        } else {
+            self.warningMsgLabel.text = NSLocalizedString("password_msg1", comment: "")
+            self.nextBtn.setTitle(NSLocalizedString("show_mnemonics", comment: ""), for: .normal)
+        }
+        
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-        if(!BaseData.instance.hasPassword()) {
-            let transition:CATransition = CATransition()
-            transition.duration = 0.3
-            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-            transition.type = CATransitionType.moveIn
-            transition.subtype = CATransitionSubtype.fromTop
+        if(checkedPassword) {
+            //TODO check wallet address list
             
-            let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-            self.navigationItem.title = ""
-            self.navigationController!.view.layer.add(transition, forKey: kCATransition)
-            self.navigationController?.pushViewController(passwordVC, animated: false)
-        } else  {
+        } else {
+            if(!BaseData.instance.hasPassword()) {
+                let transition:CATransition = CATransition()
+                transition.duration = 0.3
+                transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                transition.type = CATransitionType.moveIn
+                transition.subtype = CATransitionSubtype.fromTop
+                
+                let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+                self.navigationItem.title = ""
+                self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+                passwordVC.mTarget = PASSWORD_ACTION_INIT
+                passwordVC.resultDelegate = self
+                self.navigationController?.pushViewController(passwordVC, animated: false)
+            } else  {
+                let transition:CATransition = CATransition()
+                transition.duration = 0.3
+                transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                transition.type = CATransitionType.moveIn
+                transition.subtype = CATransitionSubtype.fromTop
+                
+                let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+                self.navigationItem.title = ""
+                self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+                passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
+                passwordVC.resultDelegate = self
+                self.navigationController?.pushViewController(passwordVC, animated: false)
+            }
+        }
+        
+    }
+    
+    func passwordResponse(result: Int) {
+        if (result == PASSWORD_RESUKT_OK) {
+            print("PASSWORD_RESUKT_OK")
+            checkedPassword = true
+            onUpdateView()
+            
+        } else if (result == PASSWORD_RESUKT_CANCEL) {
+            print("PASSWORD_RESUKT_CANCEL")
+            
+        } else if (result == PASSWORD_RESUKT_FAIL) {
+            print("PASSWORD_RESUKT_FAIL")
             
         }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    func test() {
+        let showAlert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
+        showAlert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.gray
+        let imageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 80, height: 80))
+        imageView.image = UIImage(named: "loading_3")
+        imageView.backgroundColor = UIColor.clear
+        showAlert.view.addSubview(imageView)
+        let height = NSLayoutConstraint(item: showAlert.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
+        let width = NSLayoutConstraint(item: showAlert.view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
+        showAlert.view.addConstraint(height)
+        showAlert.view.addConstraint(width)
+        
+//        let myimgArr = ["loading_1","loading_2","loading_3","loading_4","loading_5","loading_6","loading_22"]
+//        let animation = UIImage.an   .animatedImage(with: myimgArr, duration: 1)
+//        var images = [UIImage]()
+//        for i in 0..<myimgArr.count
+//        {
+//            images.append(UIImage(named: myimgArr[i])!)
+//        }
+//        imageView.animationImages = images
+//        imageView.animationDuration = 0.1
+//        imageView.animationRepeatCount = 100
+//        imageView.startAnimating()
+        
+        self.present(showAlert, animated: true, completion: nil)
     }
     
 }

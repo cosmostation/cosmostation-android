@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class BaseViewController: UIViewController {
 
@@ -28,5 +29,19 @@ class BaseViewController: UIViewController {
     */
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    public func showWaittingAlert() {
+        let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
+        loadingNotification.bezelView.color = UIColor(hexString: "#6D6D6D")
+        loadingNotification.bezelView.style = .blur
+        loadingNotification.contentColor = UIColor(hexString: "#2359B8")
+        loadingNotification.mode = MBProgressHUDMode.indeterminate
+        loadingNotification.label.text = "Loading"
+        
+    }
+    
+    public func hideWaittingAlert() {
+        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
     }
 }
