@@ -48,6 +48,8 @@ class MainTabSendViewController: BaseViewController {
         // Do any additional setup after loading the view.
         
 //        print("password ", BaseData.instance.hasPassword())
+        print("password ", BaseData.instance.hasPassword())
+        print("password ", BaseData.instance.getRecentAccountId())
         
         rewardImg.image = rewardImg.image?.withRenderingMode(.alwaysTemplate)
         rewardImg.tintColor = UIColor.white

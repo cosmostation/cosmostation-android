@@ -177,7 +177,7 @@ class PasswordViewController: BaseViewController {
         let queue = DispatchQueue.global()
         queue.async {
             var result = false
-            if(KeychainWrapper.standard.string(forKey: "password") == nil) {
+            if(!KeychainWrapper.standard.hasValue(forKey: "password")) {
                 result = KeychainWrapper.standard.set(initInput, forKey: "password")
             }
             DispatchQueue.main.async(execute: {
@@ -196,11 +196,9 @@ class PasswordViewController: BaseViewController {
         let queue = DispatchQueue.global()
         queue.async {
             var result = false
-            if(KeychainWrapper.standard.string(forKey: "password") != nil) {
+            if(KeychainWrapper.standard.hasValue(forKey: "password")) {
                 if(KeychainWrapper.standard.string(forKey: "password") == input) {
                     result = true
-                } else {
-                    result = false
                 }
             }
             DispatchQueue.main.async(execute: {

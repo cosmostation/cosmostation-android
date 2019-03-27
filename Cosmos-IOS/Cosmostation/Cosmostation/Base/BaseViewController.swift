@@ -44,4 +44,13 @@ class BaseViewController: UIViewController {
     public func hideWaittingAlert() {
         MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
     }
+    
+    
+    func onStartMainTab() {
+        print("onStartMainTab")
+        let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = mainTabVC
+        self.present(mainTabVC, animated: true, completion: nil)
+    }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if UserDefaults.standard.object(forKey: "FirstInstall") == nil {
+            KeychainWrapper.standard.removeAllKeys()
+            UserDefaults.standard.set(false, forKey: "FirstInstall")
+            UserDefaults.standard.synchronize()
+        } else {
+            print("22222")
+        }
+        
         return true
     }
 

@@ -24,6 +24,20 @@ final class BaseData : NSObject{
         }
     }
     
+    func setRecentAccountId(_ id : Int64) {
+        UserDefaults.standard.set(id, forKey: KEY_RECENT_ACCOUNT)
+    }
+    
+    func getRecentAccountId() -> Int64 {
+        return Int64(UserDefaults.standard.integer(forKey: KEY_RECENT_ACCOUNT))
+    }
+    
+    
+    
+    
+    
+    
+    
     
     func initdb() {
         do {
@@ -155,7 +169,7 @@ final class BaseData : NSObject{
         return true;
     }
     
-    public func insertAccount(account: Account) -> Int64 {
+    public func insertAccount(_ account: Account) -> Int64 {
         let insertAccount = DB_ACCOUNT.insert(DB_ACCOUNT_UUID <- account.account_uuid,
                                               DB_ACCOUNT_NICKNAME <- account.account_nick_name,
                                               DB_ACCOUNT_FAVO <- account.account_favo,
@@ -209,10 +223,10 @@ final class BaseData : NSObject{
     
     
     public func hasPassword() -> Bool{
-        if(KeychainWrapper.standard.string(forKey: "password") == nil) {
-            return false;
-        } else {
+        if(KeychainWrapper.standard.hasValue(forKey: "password")) {
             return true;
+        } else {
+            return false;
         }
     }
     

@@ -10,6 +10,7 @@ import Foundation
 import SQLite
 
 let SHOW_LOG                        = true;
+let KEY_RECENT_ACCOUNT              = "KEY_RECENT_ACCOUNT"
 
 
 let CSS_LCD_URL                     = "https://lcd-dev.cosmostation.io/";
@@ -118,3 +119,9 @@ let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
 let PASSWORD_RESUKT_OK                      = 0
 let PASSWORD_RESUKT_CANCEL                  = 1
 let PASSWORD_RESUKT_FAIL                    = 2
+
+
+
+
+let SUPPORT_CHAIN_COSMOS_MAIN               = "cosmoshub-1"
+let SUPPORT_CHAIN_IRSI_MAIN                 = "irishub"

@@ -23,6 +23,7 @@ class IntroViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("IntroViewController viewDidLoad")
+        print("password ", BaseData.instance.hasPassword())
         
         let accouts = BaseData.instance.selectAllAccounts()
         if(accouts.count <= 0) {
