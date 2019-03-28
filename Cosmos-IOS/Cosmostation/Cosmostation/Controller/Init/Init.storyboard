@@ -1002,6 +1002,300 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
             </objects>
             <point key="canvasLocation" x="2222" y="131"/>
         </scene>
+        <!--Restore View Controller-->
+        <scene sceneID="lhZ-XU-A69">
+            <objects>
+                <viewController storyboardIdentifier="RestoreViewController" id="HQd-ha-cei" customClass="RestoreViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OnB-D3-tqL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="OwJ-ae-TE1">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="1bj-e8-1ms">
+                                <rect key="frame" x="0.0" y="566.66666666666663" width="414" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ms6-S6-Zz4">
+                                        <rect key="frame" x="0.0" y="0.0" width="206" height="45"/>
+                                        <color key="backgroundColor" red="0.086274509799999996" green="0.094117647060000004" blue="0.098039215690000001" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                        <state key="normal" title="Paste">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHd-GC-jER">
+                                        <rect key="frame" x="208" y="0.0" width="206" height="45"/>
+                                        <color key="backgroundColor" red="0.086274509803921567" green="0.094117647058823528" blue="0.098039215686274508" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                        <state key="normal" title="Confirm">
+                                            <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="5PZ-Th-xcb"/>
+                                </constraints>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbg-8J-Tmb">
+                                <rect key="frame" x="0.0" y="613.66666666666663" width="414" height="248.33333333333337"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="YcB-VH-Rv6">
+                                        <rect key="frame" x="2" y="6" width="410" height="47"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E5f-B8-LVU">
+                                                <rect key="frame" x="0.0" y="0.0" width="41" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="q">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9F-lq-R3b">
+                                                <rect key="frame" x="41" y="0.0" width="41" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="w">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e61-sR-5dr">
+                                                <rect key="frame" x="82" y="0.0" width="41" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="e">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksd-SJ-b5s">
+                                                <rect key="frame" x="123" y="0.0" width="41" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="r">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9C-RR-L3h">
+                                                <rect key="frame" x="164" y="0.0" width="41" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="t">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgk-aL-rIK">
+                                                <rect key="frame" x="205" y="0.0" width="41" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="y">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mr7-3h-LHz">
+                                                <rect key="frame" x="246" y="0.0" width="41" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="u">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHl-rB-L40">
+                                                <rect key="frame" x="287" y="0.0" width="41" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="i">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxq-xs-k3v">
+                                                <rect key="frame" x="328" y="0.0" width="41" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="o">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dn9-4M-7Yi">
+                                                <rect key="frame" x="369" y="0.0" width="41" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="p">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="d2w-45-0Oe">
+                                        <rect key="frame" x="24" y="62" width="366" height="47"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYT-7K-ski">
+                                                <rect key="frame" x="0.0" y="0.0" width="40.666666666666664" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="a">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypi-Su-lsf">
+                                                <rect key="frame" x="40.666666666666671" y="0.0" width="40.666666666666671" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="s">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYQ-wD-QSr">
+                                                <rect key="frame" x="81.333333333333329" y="0.0" width="40.666666666666671" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="d">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GL3-3C-viB">
+                                                <rect key="frame" x="122.00000000000001" y="0.0" width="40.666666666666671" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="f">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3z-Ss-9zg">
+                                                <rect key="frame" x="162.66666666666666" y="0.0" width="40.666666666666657" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="g">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Srl-JZ-Osv">
+                                                <rect key="frame" x="203.33333333333334" y="0.0" width="40.666666666666657" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="h">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyx-9x-t0m">
+                                                <rect key="frame" x="243.99999999999997" y="0.0" width="40.666666666666657" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="j">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PVl-kT-fc2">
+                                                <rect key="frame" x="284.66666666666669" y="0.0" width="40.666666666666686" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="k">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0z0-Ba-2wt">
+                                                <rect key="frame" x="325.33333333333331" y="0.0" width="40.666666666666686" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="l">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="7UI-Lc-dCx">
+                                        <rect key="frame" x="32" y="118" width="302" height="47"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nP4-5b-eLI">
+                                                <rect key="frame" x="0.0" y="0.0" width="43" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="z">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fl-qQ-lyt">
+                                                <rect key="frame" x="43" y="0.0" width="43.333333333333343" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="x">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZL-B9-PL4">
+                                                <rect key="frame" x="86.333333333333329" y="0.0" width="42.999999999999986" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="c">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP0-RI-i0X">
+                                                <rect key="frame" x="129.33333333333334" y="0.0" width="43.333333333333343" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="v">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wut-Aj-61s">
+                                                <rect key="frame" x="172.66666666666666" y="0.0" width="43" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="b">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDW-0A-2w2">
+                                                <rect key="frame" x="215.66666666666666" y="0.0" width="43.333333333333343" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="n">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYc-4P-U9y">
+                                                <rect key="frame" x="259" y="0.0" width="43" height="47"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
+                                                <state key="normal" title="m">
+                                                    <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uox-br-9wb">
+                                        <rect key="frame" x="342" y="118" width="64" height="47"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="64" id="Lfv-Dj-SYl"/>
+                                        </constraints>
+                                        <state key="normal" image="passwordDelete">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7t-S6-L4S">
+                                        <rect key="frame" x="16" y="174" width="382" height="40"/>
+                                        <color key="backgroundColor" red="0.14117647058823529" green="0.14901960784313725" blue="0.15294117647058825" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="L29-C2-oLC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                        <state key="normal" title="Next Word">
+                                            <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.086274509803921567" green="0.094117647058823528" blue="0.098039215686274508" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstItem="7UI-Lc-dCx" firstAttribute="leading" secondItem="bbg-8J-Tmb" secondAttribute="leading" constant="32" id="5vl-zK-jMj"/>
+                                    <constraint firstAttribute="trailing" secondItem="uox-br-9wb" secondAttribute="trailing" constant="8" id="BF5-Nr-i9X"/>
+                                    <constraint firstItem="uox-br-9wb" firstAttribute="height" secondItem="7UI-Lc-dCx" secondAttribute="height" id="EFg-Jc-KzK"/>
+                                    <constraint firstItem="d2w-45-0Oe" firstAttribute="leading" secondItem="bbg-8J-Tmb" secondAttribute="leading" constant="24" id="Ekd-P0-XyT"/>
+                                    <constraint firstItem="YcB-VH-Rv6" firstAttribute="leading" secondItem="bbg-8J-Tmb" secondAttribute="leading" constant="2" id="FUS-hV-56k"/>
+                                    <constraint firstItem="S7t-S6-L4S" firstAttribute="leading" secondItem="bbg-8J-Tmb" secondAttribute="leading" constant="16" id="N8e-4K-95r"/>
+                                    <constraint firstAttribute="trailing" secondItem="YcB-VH-Rv6" secondAttribute="trailing" constant="2" id="c1V-YO-U6L"/>
+                                    <constraint firstAttribute="trailing" secondItem="S7t-S6-L4S" secondAttribute="trailing" constant="16" id="caX-yt-KV2"/>
+                                    <constraint firstItem="uox-br-9wb" firstAttribute="leading" secondItem="7UI-Lc-dCx" secondAttribute="trailing" constant="8" id="dVe-7X-IWV"/>
+                                    <constraint firstItem="uox-br-9wb" firstAttribute="centerY" secondItem="7UI-Lc-dCx" secondAttribute="centerY" id="fQQ-Ea-jjo"/>
+                                    <constraint firstItem="YcB-VH-Rv6" firstAttribute="top" secondItem="bbg-8J-Tmb" secondAttribute="top" constant="6" id="o4u-qp-GH4"/>
+                                    <constraint firstAttribute="trailing" secondItem="d2w-45-0Oe" secondAttribute="trailing" constant="24" id="s3w-Ro-IRZ"/>
+                                    <constraint firstItem="7UI-Lc-dCx" firstAttribute="top" secondItem="d2w-45-0Oe" secondAttribute="bottom" constant="9" id="uwK-xp-03o"/>
+                                    <constraint firstItem="d2w-45-0Oe" firstAttribute="top" secondItem="YcB-VH-Rv6" secondAttribute="bottom" constant="9" id="vgK-1f-187"/>
+                                    <constraint firstItem="S7t-S6-L4S" firstAttribute="top" secondItem="7UI-Lc-dCx" secondAttribute="bottom" constant="9" id="ysi-ct-cYa"/>
+                                    <constraint firstAttribute="width" secondItem="bbg-8J-Tmb" secondAttribute="height" multiplier="10:6" id="zrd-TD-zT0"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bbg-8J-Tmb" firstAttribute="width" secondItem="OnB-D3-tqL" secondAttribute="width" id="DhR-0Z-gB8"/>
+                            <constraint firstItem="bbg-8J-Tmb" firstAttribute="top" secondItem="1bj-e8-1ms" secondAttribute="bottom" constant="2" id="I3i-bE-Sia"/>
+                            <constraint firstItem="1bj-e8-1ms" firstAttribute="leading" secondItem="3nd-GL-pS6" secondAttribute="leading" id="NxP-ub-qSc"/>
+                            <constraint firstItem="3nd-GL-pS6" firstAttribute="trailing" secondItem="1bj-e8-1ms" secondAttribute="trailing" id="PVv-bB-UvV"/>
+                            <constraint firstItem="3nd-GL-pS6" firstAttribute="bottom" secondItem="bbg-8J-Tmb" secondAttribute="bottom" id="bW9-zv-VOg"/>
+                            <constraint firstItem="bbg-8J-Tmb" firstAttribute="leading" secondItem="3nd-GL-pS6" secondAttribute="leading" id="c2X-aJ-uig"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3nd-GL-pS6"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bhF-WU-tRW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2222" y="886"/>
+        </scene>
         <!--Add Address View Controller-->
         <scene sceneID="B9N-Vl-RLL">
             <objects>
@@ -1032,6 +1326,29 @@ To make transaction can add private information with later.</string>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="done" smartInsertDeleteType="no"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3wZ-2n-AYU">
+                                <rect key="frame" x="333" y="159.33333333333334" width="65" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7ha-RZ-O3g"/>
+                                    <constraint firstAttribute="width" constant="65" id="SId-Pm-h4b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <state key="normal" title="Paste" image="copyIc"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.80000000000000004"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onClickPaste:" destination="aKk-rD-wQP" eventType="touchUpInside" id="zBo-MJ-NwG"/>
+                                </connections>
+                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5iO-aj-ihM">
                                 <rect key="frame" x="16" y="796" width="382" height="50"/>
                                 <subviews>
@@ -1091,6 +1408,7 @@ To make transaction can add private information with later.</string>
                             <constraint firstItem="Nmm-Yx-iF1" firstAttribute="top" secondItem="MM3-VO-KQW" secondAttribute="top" constant="16" id="0ED-zV-JA7"/>
                             <constraint firstItem="Nmm-Yx-iF1" firstAttribute="leading" secondItem="MM3-VO-KQW" secondAttribute="leading" constant="18" id="1TN-uK-q1H"/>
                             <constraint firstItem="MM3-VO-KQW" firstAttribute="trailing" secondItem="Nmm-Yx-iF1" secondAttribute="trailing" constant="18" id="1zO-QG-r5a"/>
+                            <constraint firstItem="3wZ-2n-AYU" firstAttribute="top" secondItem="WW3-aL-nwf" secondAttribute="bottom" constant="12" id="4yj-PY-pwI"/>
                             <constraint firstItem="WW3-aL-nwf" firstAttribute="top" secondItem="Nmm-Yx-iF1" secondAttribute="bottom" constant="12" id="EEK-ao-GI8"/>
                             <constraint firstItem="T58-EU-w1Y" firstAttribute="top" secondItem="wmm-FO-ZWf" secondAttribute="top" id="QTE-tg-D3y"/>
                             <constraint firstItem="MM3-VO-KQW" firstAttribute="trailing" secondItem="WW3-aL-nwf" secondAttribute="trailing" constant="16" id="Vcv-aZ-qSs"/>
@@ -1098,6 +1416,7 @@ To make transaction can add private information with later.</string>
                             <constraint firstItem="MM3-VO-KQW" firstAttribute="bottom" secondItem="5iO-aj-ihM" secondAttribute="bottom" constant="16" id="iMk-WP-XgR"/>
                             <constraint firstItem="MM3-VO-KQW" firstAttribute="trailing" secondItem="5iO-aj-ihM" secondAttribute="trailing" constant="16" id="n0K-dz-OtT"/>
                             <constraint firstItem="WW3-aL-nwf" firstAttribute="leading" secondItem="MM3-VO-KQW" secondAttribute="leading" constant="16" id="oB1-az-uGf"/>
+                            <constraint firstItem="MM3-VO-KQW" firstAttribute="trailing" secondItem="3wZ-2n-AYU" secondAttribute="trailing" constant="16" id="qCt-pa-bsE"/>
                             <constraint firstItem="T58-EU-w1Y" firstAttribute="width" secondItem="wmm-FO-ZWf" secondAttribute="width" id="rMj-iQ-13c"/>
                             <constraint firstItem="T58-EU-w1Y" firstAttribute="leading" secondItem="wmm-FO-ZWf" secondAttribute="leading" id="yzY-Ca-4XV"/>
                             <constraint firstItem="T58-EU-w1Y" firstAttribute="height" secondItem="wmm-FO-ZWf" secondAttribute="height" id="zJd-2c-d7v"/>
@@ -1111,7 +1430,7 @@ To make transaction can add private information with later.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eye-XK-hDh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2222" y="1447"/>
+            <point key="canvasLocation" x="2222" y="1670"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qOt-XG-MuT">
@@ -1145,8 +1464,10 @@ To make transaction can add private information with later.</string>
     <resources>
         <image name="bg_01" width="807" height="1500"/>
         <image name="bg_02" width="360" height="740"/>
+        <image name="copyIc" width="18" height="18"/>
         <image name="cosmosLogo" width="144" height="149.66667175292969"/>
         <image name="cosmostationLogo" width="129" height="56"/>
+        <image name="passwordDelete" width="33" height="23"/>
         <image name="warning_ic" width="38" height="38"/>
     </resources>
 </document>

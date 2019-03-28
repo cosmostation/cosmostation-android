@@ -153,10 +153,6 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         print("onGenAccount")
         self.showWaittingAlert()
         DispatchQueue.global().async {
-//            var result = false
-//            if(KeychainWrapper.standard.string(forKey: "password") == nil) {
-//                result = KeychainWrapper.standard.set(initInput, forKey: "password")
-//            }
             var resource: String = ""
             for word in self.mnemonicWords! {
                 resource = resource + " " + word
@@ -195,6 +191,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                     self.onStartMainTab()
                 } else {
                     print("NONONO")
+                    //TODO Error control
 //                    self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
                 }
             });
