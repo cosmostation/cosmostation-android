@@ -23,3 +23,4 @@
 "error_password_fail" = "Password is not same. Please init password again!";
 "error_no_clipboard" = "No text from clipboard.";
 "error_invalid_address_or_pubkey" = "Invalid Address or PubKey, please check again.";
+"error_recover_mnemonic" = "Please insert validate mnemonics";

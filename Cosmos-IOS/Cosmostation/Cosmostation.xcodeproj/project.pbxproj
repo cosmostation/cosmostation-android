@@ -12,6 +12,8 @@
 		E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B05224B874A0083AF17 /* AddAddressViewController.swift */; };
 		E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B07224B90230083AF17 /* AddressInputTextField.swift */; };
 		E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B09224C943C0083AF17 /* RestoreViewController.swift */; };
+		E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */; };
+		E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */; };
 		E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */; };
 		E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */; };
 		E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */; };
@@ -79,6 +81,7 @@
 		E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */; };
 		E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */; };
 		E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF62244FA750097CAEE /* UIColor.swift */; };
+		E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +94,8 @@
 		E1271B05224B874A0083AF17 /* AddAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressViewController.swift; sourceTree = "<group>"; };
 		E1271B07224B90230083AF17 /* AddressInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressInputTextField.swift; sourceTree = "<group>"; };
 		E1271B09224C943C0083AF17 /* RestoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreViewController.swift; sourceTree = "<group>"; };
+		E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicCell.swift; sourceTree = "<group>"; };
+		E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MnemonicCell.xib; sourceTree = "<group>"; };
 		E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyValidatorCell.swift; sourceTree = "<group>"; };
 		E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyValidatorCell.xib; sourceTree = "<group>"; };
 		E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRewardAllCell.swift; sourceTree = "<group>"; };
@@ -160,6 +165,7 @@
 		E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllValidatorCell.swift; sourceTree = "<group>"; };
 		E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllValidatorCell.xib; sourceTree = "<group>"; };
 		E1A82DF62244FA750097CAEE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,6 +334,7 @@
 				E151B638224626990026B8C0 /* BorderButton.swift */,
 				E16D9B1A2248D1370019B7BB /* BoarderLabel.swift */,
 				E1271B07224B90230083AF17 /* AddressInputTextField.swift */,
+				E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -380,6 +387,8 @@
 				E151B63B22467E520026B8C0 /* HistoryCell.xib */,
 				E151B65222486C300026B8C0 /* ProposalCell.swift */,
 				E151B65322486C300026B8C0 /* ProposalCell.xib */,
+				E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */,
+				E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -450,6 +459,7 @@
 				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */,
+				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
 				E1945E44222E7FF500A1436F /* MainStoryboard.storyboard in Resources */,
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
@@ -564,7 +574,9 @@
 				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
+				E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */,
 				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
+				E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */,
 				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,

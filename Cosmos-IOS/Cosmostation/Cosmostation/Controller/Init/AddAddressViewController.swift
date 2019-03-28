@@ -32,12 +32,6 @@ class AddAddressViewController: BaseViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    func onCheckValidateInput() -> Bool {
-        var result = false
-        
-        return result
-    }
-    
     
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)

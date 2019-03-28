@@ -1014,6 +1014,393 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YjX-hz-Soc">
+                                <rect key="frame" x="0.0" y="44" width="414" height="40"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mnemonicsIc" translatesAutoresizingMaskIntoConstraints="NO" id="8VE-pp-zSq">
+                                        <rect key="frame" x="16" y="7.6666666666666643" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="O1l-7O-K1l"/>
+                                            <constraint firstAttribute="height" constant="25" id="auf-VV-na5"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="oeh-wY-sG1">
+                                        <rect key="frame" x="56.999999999999986" y="7.6666666666666661" width="183.66666666666663" height="24.666666666666671"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter the recovery phrase. " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8nI-jb-YLg">
+                                                <rect key="frame" x="0.0" y="0.0" width="183.66666666666666" height="14"/>
+                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(12 / 16 / 24 words)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7f-fK-doe">
+                                                <rect key="frame" x="0.0" y="14.000000000000007" width="77.666666666666671" height="10.666666666666664"/>
+                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="9"/>
+                                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 wrods" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssN-7c-XaK">
+                                        <rect key="frame" x="355.66666666666669" y="12.333333333333336" width="42.333333333333314" height="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <color key="textColor" red="0.95294117649999999" green="0.098039215690000001" blue="0.38823529410000002" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="ssN-7c-XaK" secondAttribute="trailing" constant="16" id="6IP-Ju-Qgm"/>
+                                    <constraint firstAttribute="height" constant="40" id="70Z-LP-9io"/>
+                                    <constraint firstItem="8VE-pp-zSq" firstAttribute="centerY" secondItem="YjX-hz-Soc" secondAttribute="centerY" id="Gpr-mZ-HUr"/>
+                                    <constraint firstItem="8VE-pp-zSq" firstAttribute="leading" secondItem="YjX-hz-Soc" secondAttribute="leading" constant="16" id="SVX-so-4MS"/>
+                                    <constraint firstItem="8VE-pp-zSq" firstAttribute="bottom" secondItem="ssN-7c-XaK" secondAttribute="baseline" constant="9.3333333333333339" symbolType="layoutAnchor" id="jeF-NP-KIZ"/>
+                                    <constraint firstItem="oeh-wY-sG1" firstAttribute="leading" secondItem="8VE-pp-zSq" secondAttribute="trailing" constant="16" id="lzo-01-tSc"/>
+                                    <constraint firstItem="oeh-wY-sG1" firstAttribute="centerY" secondItem="YjX-hz-Soc" secondAttribute="centerY" id="qi0-UA-1la"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="adB-Me-7vQ" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                                <rect key="frame" x="16" y="86" width="382" height="172"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="z9A-D3-4Qx">
+                                        <rect key="frame" x="4" y="4" width="374" height="164"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="1mZ-xt-xRn">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6UE-Oe-Apv" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90.666666666666671" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="3hC-2Z-jDT"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bwD-pu-K2r" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="94.666666666666686" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="FGt-1g-Te8"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YV2-Ee-81H" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="189" y="0.0" width="90.666666666666686" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="HA2-Zh-gYm"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ySY-uv-IuQ" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="283.66666666666669" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="P8O-pC-H1J"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="nQP-nP-EHi">
+                                                <rect key="frame" x="0.0" y="28" width="374" height="24"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zW0-55-b9q" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90.666666666666671" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="Bt3-de-mfQ"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SwN-QT-fZ1" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="94.666666666666686" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="bEY-dK-V0L"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7pB-WZ-iMV" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="189" y="0.0" width="90.666666666666686" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="rXA-do-uAf"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fy0-22-69q" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="283.66666666666669" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="ABX-LI-NTQ"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="6iI-8i-b0I">
+                                                <rect key="frame" x="0.0" y="56" width="374" height="24"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oLi-EP-hXg" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90.666666666666671" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="bEF-oF-Yf9"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KWJ-Nv-bzd" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="94.666666666666686" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="EHm-fx-cFf"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PAf-WE-6BE" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="189" y="0.0" width="90.666666666666686" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="GX0-7J-W8X"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mVO-TO-HJR" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="283.66666666666669" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="zlD-dX-c4d"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="A7w-Rs-Dl7">
+                                                <rect key="frame" x="0.0" y="84" width="374" height="24"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dPl-Sd-k6a" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90.666666666666671" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="jMl-vb-lfu"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xQ4-68-t2X" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="94.666666666666686" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="PdD-gC-s6H"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DHP-Gv-Xyq" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="189" y="0.0" width="90.666666666666686" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="Op9-JJ-SQA"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4PE-cP-IIh" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="283.66666666666669" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="JPV-tS-jcp"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="n8H-b6-pN1">
+                                                <rect key="frame" x="0.0" y="112" width="374" height="24"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cU5-V1-yFI" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90.666666666666671" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="Zgt-f7-yHB"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ish-z8-r3d" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="94.666666666666686" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="TtW-56-eoa"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GGy-Is-jfM" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="189" y="0.0" width="90.666666666666686" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="vlw-Fm-eCo"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mZ1-hW-qIx" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="283.66666666666669" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="cMO-eK-Daw"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="AuT-U5-BAV">
+                                                <rect key="frame" x="0.0" y="140" width="374" height="24"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YQw-sx-DXl" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90.666666666666671" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="WkZ-bB-VgV"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0BT-eY-2gy" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="94.666666666666686" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="tkL-R0-VOp"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vjh-tZ-X97" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="189" y="0.0" width="90.666666666666686" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="9m0-qw-j5X"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R9x-Qh-HRN" customClass="BottomLineTextField" customModule="Cosmostation" customModuleProvider="target">
+                                                        <rect key="frame" x="283.66666666666669" y="0.0" width="90.333333333333314" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="wM7-mI-4mY"/>
+                                                        </constraints>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="z9A-D3-4Qx" firstAttribute="top" secondItem="adB-Me-7vQ" secondAttribute="top" constant="4" id="Fxf-ae-84G"/>
+                                    <constraint firstAttribute="trailing" secondItem="z9A-D3-4Qx" secondAttribute="trailing" constant="4" id="RpR-j8-1mA"/>
+                                    <constraint firstAttribute="height" constant="172" id="WTt-dh-0s1"/>
+                                    <constraint firstItem="z9A-D3-4Qx" firstAttribute="leading" secondItem="adB-Me-7vQ" secondAttribute="leading" constant="4" id="jWy-gF-PhP"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NpT-4d-5xt">
+                                <rect key="frame" x="16" y="266" width="382" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ALm-Jl-2J8"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="layoutMargins" id="KIA-ED-fJk">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="1bj-e8-1ms">
                                 <rect key="frame" x="0.0" y="566.66666666666663" width="414" height="45"/>
                                 <subviews>
@@ -1024,6 +1411,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                         <state key="normal" title="Paste">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onPasteClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="8Nz-76-sE1"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHd-GC-jER">
                                         <rect key="frame" x="208" y="0.0" width="206" height="45"/>
@@ -1032,6 +1422,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                         <state key="normal" title="Confirm">
                                             <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onConfirmClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="vyZ-Ab-IS0"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -1050,6 +1443,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="q">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="s5h-ZP-WdE"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9F-lq-R3b">
                                                 <rect key="frame" x="41" y="0.0" width="41" height="47"/>
@@ -1057,6 +1453,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="w">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="t8Q-Gb-2pL"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e61-sR-5dr">
                                                 <rect key="frame" x="82" y="0.0" width="41" height="47"/>
@@ -1064,6 +1463,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="e">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="h2h-Lk-5vB"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksd-SJ-b5s">
                                                 <rect key="frame" x="123" y="0.0" width="41" height="47"/>
@@ -1071,6 +1473,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="r">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="3QZ-ys-u7w"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9C-RR-L3h">
                                                 <rect key="frame" x="164" y="0.0" width="41" height="47"/>
@@ -1078,6 +1483,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="t">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="bB5-PF-Y7G"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgk-aL-rIK">
                                                 <rect key="frame" x="205" y="0.0" width="41" height="47"/>
@@ -1085,6 +1493,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="y">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="AZN-XO-ZMw"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mr7-3h-LHz">
                                                 <rect key="frame" x="246" y="0.0" width="41" height="47"/>
@@ -1092,6 +1503,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="u">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="rop-9Q-YKK"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHl-rB-L40">
                                                 <rect key="frame" x="287" y="0.0" width="41" height="47"/>
@@ -1099,6 +1513,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="i">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="QoS-TU-ULM"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxq-xs-k3v">
                                                 <rect key="frame" x="328" y="0.0" width="41" height="47"/>
@@ -1106,6 +1523,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="o">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="VsD-9S-Q0G"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dn9-4M-7Yi">
                                                 <rect key="frame" x="369" y="0.0" width="41" height="47"/>
@@ -1113,6 +1533,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="p">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="ncr-ua-6mA"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1125,6 +1548,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="a">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="QT5-VM-4AK"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypi-Su-lsf">
                                                 <rect key="frame" x="40.666666666666671" y="0.0" width="40.666666666666671" height="47"/>
@@ -1132,6 +1558,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="s">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="XUe-3G-fuM"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYQ-wD-QSr">
                                                 <rect key="frame" x="81.333333333333329" y="0.0" width="40.666666666666671" height="47"/>
@@ -1139,6 +1568,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="d">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="Z0L-hT-W9v"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GL3-3C-viB">
                                                 <rect key="frame" x="122.00000000000001" y="0.0" width="40.666666666666671" height="47"/>
@@ -1146,6 +1578,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="f">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="4fH-xD-Jpu"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3z-Ss-9zg">
                                                 <rect key="frame" x="162.66666666666666" y="0.0" width="40.666666666666657" height="47"/>
@@ -1153,6 +1588,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="g">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="kqQ-RW-ceV"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Srl-JZ-Osv">
                                                 <rect key="frame" x="203.33333333333334" y="0.0" width="40.666666666666657" height="47"/>
@@ -1160,6 +1598,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="h">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="97N-L7-l5u"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyx-9x-t0m">
                                                 <rect key="frame" x="243.99999999999997" y="0.0" width="40.666666666666657" height="47"/>
@@ -1167,6 +1608,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="j">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="7L8-n1-ZaJ"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PVl-kT-fc2">
                                                 <rect key="frame" x="284.66666666666669" y="0.0" width="40.666666666666686" height="47"/>
@@ -1174,6 +1618,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="k">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="7hD-b2-dWF"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0z0-Ba-2wt">
                                                 <rect key="frame" x="325.33333333333331" y="0.0" width="40.666666666666686" height="47"/>
@@ -1181,6 +1628,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="l">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="Zr8-km-u4c"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1193,6 +1643,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="z">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="g2d-pu-Dxr"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fl-qQ-lyt">
                                                 <rect key="frame" x="43" y="0.0" width="43.333333333333343" height="47"/>
@@ -1200,6 +1653,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="x">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="RIy-6i-hJY"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZL-B9-PL4">
                                                 <rect key="frame" x="86.333333333333329" y="0.0" width="42.999999999999986" height="47"/>
@@ -1207,6 +1663,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="c">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="MJ7-7I-Ld0"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP0-RI-i0X">
                                                 <rect key="frame" x="129.33333333333334" y="0.0" width="43.333333333333343" height="47"/>
@@ -1214,6 +1673,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="v">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="hVt-6s-k1b"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wut-Aj-61s">
                                                 <rect key="frame" x="172.66666666666666" y="0.0" width="43" height="47"/>
@@ -1221,6 +1683,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="b">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="e3t-kp-Dal"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDW-0A-2w2">
                                                 <rect key="frame" x="215.66666666666666" y="0.0" width="43.333333333333343" height="47"/>
@@ -1228,6 +1693,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="n">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="6kV-5S-Bcf"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYc-4P-U9y">
                                                 <rect key="frame" x="259" y="0.0" width="43" height="47"/>
@@ -1235,6 +1703,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                                 <state key="normal" title="m">
                                                     <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="WjG-qQ-Nx9"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1246,6 +1717,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                         <state key="normal" image="passwordDelete">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onDeleteClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="8Ti-uj-52s"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7t-S6-L4S">
                                         <rect key="frame" x="16" y="174" width="382" height="40"/>
@@ -1257,6 +1731,9 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                         <state key="normal" title="Next Word">
                                             <color key="titleColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onSpaceClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="mIE-wp-2XO"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.086274509803921567" green="0.094117647058823528" blue="0.098039215686274508" alpha="1" colorSpace="deviceRGB"/>
@@ -1278,23 +1755,71 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                                     <constraint firstItem="S7t-S6-L4S" firstAttribute="top" secondItem="7UI-Lc-dCx" secondAttribute="bottom" constant="9" id="ysi-ct-cYa"/>
                                     <constraint firstAttribute="width" secondItem="bbg-8J-Tmb" secondAttribute="height" multiplier="10:6" id="zrd-TD-zT0"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="boarderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="boarderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="conerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="3nd-GL-pS6" firstAttribute="top" secondItem="YjX-hz-Soc" secondAttribute="top" id="5io-Zs-YDE"/>
                             <constraint firstItem="bbg-8J-Tmb" firstAttribute="width" secondItem="OnB-D3-tqL" secondAttribute="width" id="DhR-0Z-gB8"/>
+                            <constraint firstItem="adB-Me-7vQ" firstAttribute="top" secondItem="YjX-hz-Soc" secondAttribute="bottom" constant="2" id="EsH-WS-8aE"/>
+                            <constraint firstItem="NpT-4d-5xt" firstAttribute="leading" secondItem="3nd-GL-pS6" secondAttribute="leading" constant="16" id="H8p-S5-RXl"/>
                             <constraint firstItem="bbg-8J-Tmb" firstAttribute="top" secondItem="1bj-e8-1ms" secondAttribute="bottom" constant="2" id="I3i-bE-Sia"/>
                             <constraint firstItem="1bj-e8-1ms" firstAttribute="leading" secondItem="3nd-GL-pS6" secondAttribute="leading" id="NxP-ub-qSc"/>
                             <constraint firstItem="3nd-GL-pS6" firstAttribute="trailing" secondItem="1bj-e8-1ms" secondAttribute="trailing" id="PVv-bB-UvV"/>
+                            <constraint firstItem="3nd-GL-pS6" firstAttribute="trailing" secondItem="adB-Me-7vQ" secondAttribute="trailing" constant="16" id="Pzp-Kg-B7H"/>
+                            <constraint firstItem="YjX-hz-Soc" firstAttribute="leading" secondItem="3nd-GL-pS6" secondAttribute="leading" id="atz-bL-ADT"/>
                             <constraint firstItem="3nd-GL-pS6" firstAttribute="bottom" secondItem="bbg-8J-Tmb" secondAttribute="bottom" id="bW9-zv-VOg"/>
                             <constraint firstItem="bbg-8J-Tmb" firstAttribute="leading" secondItem="3nd-GL-pS6" secondAttribute="leading" id="c2X-aJ-uig"/>
+                            <constraint firstItem="YjX-hz-Soc" firstAttribute="width" secondItem="OnB-D3-tqL" secondAttribute="width" id="eX6-Wn-n6X"/>
+                            <constraint firstItem="3nd-GL-pS6" firstAttribute="trailing" secondItem="NpT-4d-5xt" secondAttribute="trailing" constant="16" id="lqR-Na-daU"/>
+                            <constraint firstItem="adB-Me-7vQ" firstAttribute="leading" secondItem="3nd-GL-pS6" secondAttribute="leading" constant="16" id="qN0-ol-BdY"/>
+                            <constraint firstItem="NpT-4d-5xt" firstAttribute="top" secondItem="adB-Me-7vQ" secondAttribute="bottom" constant="8" id="vLD-GS-GHA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3nd-GL-pS6"/>
                     </view>
+                    <connections>
+                        <outlet property="mNemonicInput0" destination="6UE-Oe-Apv" id="Mq5-sz-Obv"/>
+                        <outlet property="mNemonicInput1" destination="bwD-pu-K2r" id="hds-Ay-vzy"/>
+                        <outlet property="mNemonicInput10" destination="PAf-WE-6BE" id="cVR-yI-dqP"/>
+                        <outlet property="mNemonicInput11" destination="mVO-TO-HJR" id="v4l-Ks-TDg"/>
+                        <outlet property="mNemonicInput12" destination="dPl-Sd-k6a" id="kx9-Xt-u4H"/>
+                        <outlet property="mNemonicInput13" destination="xQ4-68-t2X" id="ir7-IC-2fX"/>
+                        <outlet property="mNemonicInput14" destination="DHP-Gv-Xyq" id="01M-z1-fuw"/>
+                        <outlet property="mNemonicInput15" destination="4PE-cP-IIh" id="83d-UH-LA7"/>
+                        <outlet property="mNemonicInput16" destination="cU5-V1-yFI" id="rOz-Bg-X9t"/>
+                        <outlet property="mNemonicInput17" destination="Ish-z8-r3d" id="mIV-2k-76n"/>
+                        <outlet property="mNemonicInput18" destination="GGy-Is-jfM" id="c7s-e3-ljl"/>
+                        <outlet property="mNemonicInput19" destination="mZ1-hW-qIx" id="r8y-Hg-Jjt"/>
+                        <outlet property="mNemonicInput2" destination="YV2-Ee-81H" id="4cw-Gc-pKt"/>
+                        <outlet property="mNemonicInput20" destination="YQw-sx-DXl" id="7Sa-8e-nQl"/>
+                        <outlet property="mNemonicInput21" destination="0BT-eY-2gy" id="6X4-H1-kM0"/>
+                        <outlet property="mNemonicInput22" destination="vjh-tZ-X97" id="cY9-UD-NRk"/>
+                        <outlet property="mNemonicInput23" destination="R9x-Qh-HRN" id="MXE-9R-AvF"/>
+                        <outlet property="mNemonicInput3" destination="ySY-uv-IuQ" id="wvF-26-bTh"/>
+                        <outlet property="mNemonicInput4" destination="zW0-55-b9q" id="b3C-GD-TD3"/>
+                        <outlet property="mNemonicInput5" destination="SwN-QT-fZ1" id="Gef-bw-1TV"/>
+                        <outlet property="mNemonicInput6" destination="7pB-WZ-iMV" id="4rm-50-Ms4"/>
+                        <outlet property="mNemonicInput7" destination="fy0-22-69q" id="EUb-62-vQR"/>
+                        <outlet property="mNemonicInput8" destination="oLi-EP-hXg" id="M2l-lY-3bS"/>
+                        <outlet property="mNemonicInput9" destination="KWJ-Nv-bzd" id="DlR-EL-TMA"/>
+                        <outlet property="suggestCollectionView" destination="NpT-4d-5xt" id="iq4-Rh-fhE"/>
+                        <outlet property="wordCntLabel" destination="ssN-7c-XaK" id="laa-bB-Ygx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhF-WU-tRW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2222" y="886"/>
+            <point key="canvasLocation" x="2221.739130434783" y="885.9375"/>
         </scene>
         <!--Add Address View Controller-->
         <scene sceneID="B9N-Vl-RLL">
@@ -1467,6 +1992,7 @@ To make transaction can add private information with later.</string>
         <image name="copyIc" width="18" height="18"/>
         <image name="cosmosLogo" width="144" height="149.66667175292969"/>
         <image name="cosmostationLogo" width="129" height="56"/>
+        <image name="mnemonicsIc" width="25" height="25"/>
         <image name="passwordDelete" width="33" height="23"/>
         <image name="warning_ic" width="38" height="38"/>
     </resources>
