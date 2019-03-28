@@ -10,7 +10,9 @@ import UIKit
 import BitcoinKit
 import Toast_Swift
 
-class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PasswordViewDelegate{
+    
+    
     
     @IBOutlet weak var mNemonicInput0: BottomLineTextField!
     @IBOutlet weak var mNemonicInput1: BottomLineTextField!
@@ -45,6 +47,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     var filteredMnemonicWords = [String]()
     var userInputWords = [String]()
     var mCurrentPosition = 0;
+    var checkedPassword: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,17 +127,14 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         self.wordCntLabel.text = String(checkWords.count) + " words"
         if(!(checkWords.count == 12 || checkWords.count == 16 || checkWords.count == 24)) {
             self.wordCntLabel.textColor = UIColor.init(hexString: "f31963")
-            print("updateWordCnt 1")
             return
         }
         for input in checkWords {
             if(!allMnemonicWords.contains(input)) {
                 self.wordCntLabel.textColor = UIColor.init(hexString: "f31963")
-                print("updateWordCnt 2")
                 return
             }
         }
-        print("updateWordCnt 3")
         self.wordCntLabel.textColor = UIColor.init(hexString: "9C6CFF")
         
     }
@@ -228,9 +228,74 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             style.backgroundColor = UIColor.gray
             self.view.makeToast(NSLocalizedString("error_recover_mnemonic", comment: ""), duration: 2.0, position: .bottom, style: style)
         } else {
-            
+            if(checkedPassword) {
+                onShowChainType()
+                
+            } else {
+                if(!BaseData.instance.hasPassword()) {
+                    let transition:CATransition = CATransition()
+                    transition.duration = 0.3
+                    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                    transition.type = CATransitionType.moveIn
+                    transition.subtype = CATransitionSubtype.fromTop
+                    
+                    let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+                    self.navigationItem.title = ""
+                    self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+                    passwordVC.mTarget = PASSWORD_ACTION_INIT
+                    passwordVC.resultDelegate = self
+                    self.navigationController?.pushViewController(passwordVC, animated: false)
+                } else  {
+                    let transition:CATransition = CATransition()
+                    transition.duration = 0.3
+                    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                    transition.type = CATransitionType.moveIn
+                    transition.subtype = CATransitionSubtype.fromTop
+                    
+                    let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+                    self.navigationItem.title = ""
+                    self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+                    passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
+                    passwordVC.resultDelegate = self
+                    self.navigationController?.pushViewController(passwordVC, animated: false)
+                }
+            }
         }
     }
+    
+    
+    func onShowChainType() {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        
+        let cosmosAction = UIAlertAction(title: NSLocalizedString("COSMOS", comment: ""), style: .default, handler: { _ in
+            let restorePathVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestorePathViewController") as! RestorePathViewController
+            self.navigationItem.title = ""
+            restorePathVC.userInputWords = self.userInputWords
+            self.navigationController?.pushViewController(restorePathVC, animated: true)
+            
+        })
+        cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
+        cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        let irisAction = UIAlertAction(title: NSLocalizedString("IRIS", comment: ""), style: .default)
+        irisAction.setValue(UIColor.gray, forKey: "titleTextColor")
+        irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        showAlert.addAction(cosmosAction)
+        showAlert.addAction(irisAction)
+        showAlert.actions[1].isEnabled = false
+        self.present(showAlert, animated: true, completion: nil)
+    }
+    
+    func passwordResponse(result: Int) {
+        if (result == PASSWORD_RESUKT_OK) {
+            checkedPassword = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(310), execute: {
+                self.onShowChainType()
+            })
+        }
+    }
+    
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

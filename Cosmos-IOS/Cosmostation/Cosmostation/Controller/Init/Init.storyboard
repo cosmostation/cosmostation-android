@@ -1821,6 +1821,32 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
             </objects>
             <point key="canvasLocation" x="2221.739130434783" y="885.9375"/>
         </scene>
+        <!--Restore Path View Controller-->
+        <scene sceneID="sig-mv-63U">
+            <objects>
+                <viewController storyboardIdentifier="RestorePathViewController" id="9Y8-qg-iBc" customClass="RestorePathViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lBr-Zg-7Ur">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="8TU-P7-grf">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8TU-P7-grf" firstAttribute="height" secondItem="lBr-Zg-7Ur" secondAttribute="height" id="IXz-5L-DZL"/>
+                            <constraint firstItem="8TU-P7-grf" firstAttribute="width" secondItem="lBr-Zg-7Ur" secondAttribute="width" id="LGi-6f-PQ6"/>
+                            <constraint firstItem="8TU-P7-grf" firstAttribute="leading" secondItem="YYV-ug-g8P" secondAttribute="leading" id="kVV-Ip-PNn"/>
+                            <constraint firstAttribute="top" secondItem="8TU-P7-grf" secondAttribute="top" id="rRz-r0-qAZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YYV-ug-g8P"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U9C-eM-Vof" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3208" y="887"/>
+        </scene>
         <!--Add Address View Controller-->
         <scene sceneID="B9N-Vl-RLL">
             <objects>

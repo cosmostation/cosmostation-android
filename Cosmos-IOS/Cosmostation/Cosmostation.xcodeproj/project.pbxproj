@@ -14,6 +14,7 @@
 		E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B09224C943C0083AF17 /* RestoreViewController.swift */; };
 		E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */; };
 		E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */; };
+		E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */; };
 		E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */; };
 		E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */; };
 		E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */; };
@@ -96,6 +97,7 @@
 		E1271B09224C943C0083AF17 /* RestoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreViewController.swift; sourceTree = "<group>"; };
 		E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicCell.swift; sourceTree = "<group>"; };
 		E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MnemonicCell.xib; sourceTree = "<group>"; };
+		E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathViewController.swift; sourceTree = "<group>"; };
 		E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyValidatorCell.swift; sourceTree = "<group>"; };
 		E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyValidatorCell.xib; sourceTree = "<group>"; };
 		E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRewardAllCell.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				E16D9B162248BD990019B7BB /* CreateViewController.swift */,
 				E1271B05224B874A0083AF17 /* AddAddressViewController.swift */,
 				E1271B09224C943C0083AF17 /* RestoreViewController.swift */,
+				E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */,
 			);
 			path = Init;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 				E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */,
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
+				E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */,
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,

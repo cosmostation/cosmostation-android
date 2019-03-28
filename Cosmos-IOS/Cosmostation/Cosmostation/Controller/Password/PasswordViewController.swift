@@ -206,7 +206,8 @@ class PasswordViewController: BaseViewController {
                 if(result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK)
                 } else {
-                    self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
+//                    self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
+                    //TODO no match check
                 }
             });
             
