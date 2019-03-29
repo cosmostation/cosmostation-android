@@ -208,6 +208,19 @@ final class BaseData : NSObject{
         }
     }
     
+    public func overrideAccount(_ account: Account) -> Int64 {
+        let target = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account.account_id)
+        do {
+            return try Int64(database.run(target.update(DB_ACCOUNT_HAS_PRIVATE <- account.account_has_private,
+                                                        DB_ACCOUNT_FROM_MNEMONIC <- account.account_from_mnemonic,
+                                                        DB_ACCOUNT_PATH <- account.account_path,
+                                                        DB_ACCOUNT_M_SIZE <- account.account_m_size)))
+        } catch {
+            if(SHOW_LOG) { print(error) }
+            return -1
+        }
+    }
+    
     public func deleteAccount(account: Account) -> Int {
         //TODO delete Balance, Bonding, unBonding
         let query = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account.account_id)

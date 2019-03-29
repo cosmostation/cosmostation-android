@@ -28,6 +28,19 @@ class WKey {
         return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
     }
     
+    static func getCosmosDpAddressWithPath(_ masterKey:HDPrivateKey, _ path:Int) -> String {
+        do {
+            let childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+            let sha256 = Crypto.sha256(childKey.privateKey().publicKey().raw)
+            let ripemd160 = Crypto.ripemd160(sha256)
+            return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
+            
+        } catch {
+            return ""
+        }
+    }
+    
+    
     static func isValidateAddressOrPubKey(_ address:String) -> Bool {
         let bech32 = Bech32()
         guard let _ = try? bech32.decode(address) else {

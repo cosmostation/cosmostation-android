@@ -1832,16 +1832,27 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="8TU-P7-grf">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BCw-72-J7S">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8TU-P7-grf" firstAttribute="height" secondItem="lBr-Zg-7Ur" secondAttribute="height" id="IXz-5L-DZL"/>
                             <constraint firstItem="8TU-P7-grf" firstAttribute="width" secondItem="lBr-Zg-7Ur" secondAttribute="width" id="LGi-6f-PQ6"/>
+                            <constraint firstItem="YYV-ug-g8P" firstAttribute="bottom" secondItem="BCw-72-J7S" secondAttribute="bottom" id="OA0-br-Xnr"/>
+                            <constraint firstItem="BCw-72-J7S" firstAttribute="leading" secondItem="YYV-ug-g8P" secondAttribute="leading" id="QBu-iJ-cFs"/>
+                            <constraint firstItem="YYV-ug-g8P" firstAttribute="trailing" secondItem="BCw-72-J7S" secondAttribute="trailing" id="b60-2L-Xer"/>
                             <constraint firstItem="8TU-P7-grf" firstAttribute="leading" secondItem="YYV-ug-g8P" secondAttribute="leading" id="kVV-Ip-PNn"/>
                             <constraint firstAttribute="top" secondItem="8TU-P7-grf" secondAttribute="top" id="rRz-r0-qAZ"/>
+                            <constraint firstItem="BCw-72-J7S" firstAttribute="top" secondItem="YYV-ug-g8P" secondAttribute="top" id="vmX-aB-oKd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YYV-ug-g8P"/>
                     </view>
+                    <connections>
+                        <outlet property="restoreTableView" destination="BCw-72-J7S" id="GM1-5S-Ko4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U9C-eM-Vof" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

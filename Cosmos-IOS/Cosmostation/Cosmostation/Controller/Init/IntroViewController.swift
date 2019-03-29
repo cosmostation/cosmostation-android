@@ -28,7 +28,7 @@ class IntroViewController: BaseViewController {
         
         //TEST
 //        testFunc()
-        
+                
         let accouts = BaseData.instance.selectAllAccounts()
         if(accouts.count <= 0) {
             print("No accounts");
@@ -139,6 +139,9 @@ class IntroViewController: BaseViewController {
             
             
             let seed = Mnemonic.seed(mnemonic: ["iron", "breeze", "tongue", "voice", "stomach", "nut", "manage", "advance", "rather", "mad", "hurry", "neutral", "identify", "armed", "unusual", "crunch", "hammer", "scan", "riot", "mom", "surface", "horn", "stamp", "thank"])
+            
+//            let seed = Mnemonic.seed(mnemonic: ["slice", "fever", "fluid", "nose", "spread", "engine", "review", "subway", "vote", "say", "wide", "away", "hamster", "jazz", "biology", "position", "upgrade", "pyramid", "practice", "aim", "assist", "roof", "harbor", "keep"])
+            
             print("seedHD", seed.hexEncodedString())
             
             let masterKey = HDPrivateKey(seed: seed, network: .testnet)
@@ -213,7 +216,6 @@ class IntroViewController: BaseViewController {
             
             
             //            3045022100b5e690db1762e3c7ab7e808e3be437066a23168395007113deba74519968dff2022003479823c9b72e3193607efd9776a982eb25962252c1bc347face1eb26aea4fc
-            
             
             
         } catch {

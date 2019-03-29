@@ -48,6 +48,8 @@
 		E16D9B24224A083E0019B7BB /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B23224A083E0019B7BB /* KeyboardViewController.swift */; };
 		E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B25224A08510019B7BB /* DecimalViewController.swift */; };
 		E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B27224A08660019B7BB /* AlphabetViewController.swift */; };
+		E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1861D2D224DB1570027DED1 /* RestorePathCell.swift */; };
+		E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1861D2E224DB1570027DED1 /* RestorePathCell.xib */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
 		E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E29222E7C0600A1436F /* ViewController.swift */; };
 		E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E2B222E7C0600A1436F /* Main.storyboard */; };
@@ -131,6 +133,8 @@
 		E16D9B23224A083E0019B7BB /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		E16D9B25224A08510019B7BB /* DecimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalViewController.swift; sourceTree = "<group>"; };
 		E16D9B27224A08660019B7BB /* AlphabetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetViewController.swift; sourceTree = "<group>"; };
+		E1861D2D224DB1570027DED1 /* RestorePathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathCell.swift; sourceTree = "<group>"; };
+		E1861D2E224DB1570027DED1 /* RestorePathCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestorePathCell.xib; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1945E27222E7C0600A1436F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1945E29222E7C0600A1436F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -392,6 +396,8 @@
 				E151B65322486C300026B8C0 /* ProposalCell.xib */,
 				E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */,
 				E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */,
+				E1861D2D224DB1570027DED1 /* RestorePathCell.swift */,
+				E1861D2E224DB1570027DED1 /* RestorePathCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -407,7 +413,7 @@
 				E1945E20222E7C0600A1436F /* Sources */,
 				E1945E21222E7C0600A1436F /* Frameworks */,
 				E1945E22222E7C0600A1436F /* Resources */,
-				5821F649395C4E6D6CB62036 /* [CP] Embed Pods Frameworks */,
+				A5C100F78B440E83C7328324 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -457,6 +463,7 @@
 			files = (
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
+				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */,
 				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
@@ -475,7 +482,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5821F649395C4E6D6CB62036 /* [CP] Embed Pods Frameworks */ = {
+		60AD2F87E83109E8CF8CB239 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Cosmostation-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5C100F78B440E83C7328324 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -509,24 +534,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Cosmostation/Pods-Cosmostation-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		60AD2F87E83109E8CF8CB239 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Cosmostation-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -539,6 +546,7 @@
 				E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
+				E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */,
 				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
@@ -756,10 +764,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.Cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -775,10 +780,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.Cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

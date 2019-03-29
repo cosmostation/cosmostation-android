@@ -123,5 +123,9 @@ let PASSWORD_RESUKT_FAIL                    = 2
 
 
 
-let SUPPORT_CHAIN_COSMOS_MAIN               = "cosmoshub-1"
+let SUPPORT_CHAIN_COSMOS_MAIN               = "cosmoshub"
 let SUPPORT_CHAIN_IRSI_MAIN                 = "irishub"
+
+
+
+let BASE_PATH                               = "44'/118'/0'/0/"

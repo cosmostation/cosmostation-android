@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="110" id="KGk-i7-Jjw" customClass="RestorePathCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SDf-Hp-sU4" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                        <rect key="frame" x="12" y="4" width="296" height="91.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="44'/118'0'/0'/0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Hf-Kd-HBW">
+                                <rect key="frame" x="8" y="8" width="84" height="16.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQy-H8-2BA">
+                                <rect key="frame" x="259" y="12" width="29" height="11.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cosmos1pzllggpn22094j3mwq79u4ql63cwac6enqkjck" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sw9-BT-TWK">
+                                <rect key="frame" x="8" y="30.5" width="280" height="11.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="tLo-Ss-DDr">
+                                <rect key="frame" x="8" y="52" width="280" height="13"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="L6V-F1-j67">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="13"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snk-Qg-Wcj">
+                                                <rect key="frame" x="0.0" y="0.0" width="66" height="13"/>
+                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
+                                                <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12,1232,232.000000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iY1-aS-urc">
+                                                <rect key="frame" x="66" y="0.0" width="214" height="13"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="11"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="UD7-fA-QTM">
+                                        <rect key="frame" x="0.0" y="13" width="280" height="0.0"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHOTON" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkX-Wy-fLm">
+                                                <rect key="frame" x="0.0" y="0.0" width="89" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
+                                                <color key="textColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12,1232,232.000000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEd-X7-7Wt">
+                                                <rect key="frame" x="89" y="0.0" width="191" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="11"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="0.14806292800000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="sw9-BT-TWK" secondAttribute="trailing" constant="8" id="863-82-sbE"/>
+                            <constraint firstItem="sw9-BT-TWK" firstAttribute="leading" secondItem="SDf-Hp-sU4" secondAttribute="leading" constant="8" id="RnQ-gr-xv4"/>
+                            <constraint firstAttribute="trailing" secondItem="DQy-H8-2BA" secondAttribute="trailing" constant="8" id="TKm-uv-o7P"/>
+                            <constraint firstItem="5Hf-Kd-HBW" firstAttribute="top" secondItem="SDf-Hp-sU4" secondAttribute="top" constant="8" id="ZEG-ca-bB4"/>
+                            <constraint firstItem="tLo-Ss-DDr" firstAttribute="top" secondItem="sw9-BT-TWK" secondAttribute="bottom" constant="10" id="brL-kU-YYf"/>
+                            <constraint firstItem="5Hf-Kd-HBW" firstAttribute="leading" secondItem="SDf-Hp-sU4" secondAttribute="leading" constant="8" id="cQB-CZ-TQ1"/>
+                            <constraint firstItem="tLo-Ss-DDr" firstAttribute="leading" secondItem="SDf-Hp-sU4" secondAttribute="leading" constant="8" id="ftB-ee-Iz7"/>
+                            <constraint firstItem="sw9-BT-TWK" firstAttribute="top" secondItem="5Hf-Kd-HBW" secondAttribute="bottom" constant="6" id="hPP-cl-cXv"/>
+                            <constraint firstAttribute="trailing" secondItem="tLo-Ss-DDr" secondAttribute="trailing" constant="8" id="pHR-TL-bUq"/>
+                            <constraint firstItem="DQy-H8-2BA" firstAttribute="firstBaseline" secondItem="5Hf-Kd-HBW" secondAttribute="firstBaseline" id="pVu-Hh-Ckw"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.29999999999999999"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="SDf-Hp-sU4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="0ST-g5-tFk"/>
+                    <constraint firstAttribute="bottom" secondItem="SDf-Hp-sU4" secondAttribute="bottom" constant="4" id="BbT-0n-0B1"/>
+                    <constraint firstAttribute="trailing" secondItem="SDf-Hp-sU4" secondAttribute="trailing" constant="12" id="NuJ-z2-M8P"/>
+                    <constraint firstItem="SDf-Hp-sU4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="wGQ-Lb-xMb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addressLabel" destination="sw9-BT-TWK" id="bSb-8W-4Gf"/>
+                <outlet property="atomAmount" destination="iY1-aS-urc" id="PLA-sN-fFn"/>
+                <outlet property="atomLayer" destination="L6V-F1-j67" id="RLS-7L-8AX"/>
+                <outlet property="atomTitle" destination="snk-Qg-Wcj" id="zyU-SE-uFP"/>
+                <outlet property="pathLabel" destination="5Hf-Kd-HBW" id="7YU-Ny-MVY"/>
+                <outlet property="photonAmount" destination="yEd-X7-7Wt" id="9l2-xE-HU7"/>
+                <outlet property="photonLayer" destination="UD7-fA-QTM" id="72L-Pn-cpw"/>
+                <outlet property="photonTitle" destination="GkX-Wy-fLm" id="B6o-sT-dGQ"/>
+                <outlet property="rootCardView" destination="SDf-Hp-sU4" id="0FL-Ml-5i3"/>
+                <outlet property="stateLabel" destination="DQy-H8-2BA" id="ghy-lO-2E6"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

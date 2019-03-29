@@ -178,10 +178,14 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         } else {
             if(mCurrentPosition > 0) {
                 mCurrentPosition = mCurrentPosition - 1
+            } else {
+                self.navigationController?.popViewController(animated: true)
+                return
             }
             updateFocus()
         }
         updateWordCnt()
+        
     }
     
     @IBAction func onSpaceClick(_ sender: Any) {
@@ -199,7 +203,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
                 self.mNemonicInputs[i].text = ""
             }
             
-            let userPaste : [String] = myString.components(separatedBy: " ")
+            let userPaste : [String] = myString.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
             for i in 0 ..< self.mNemonicInputs.count {
                 if(userPaste.count > i) {
                     self.mNemonicInputs[i].text = userPaste[i].replacingOccurrences(of: ",", with: "")
@@ -271,6 +275,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             let restorePathVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestorePathViewController") as! RestorePathViewController
             self.navigationItem.title = ""
             restorePathVC.userInputWords = self.userInputWords
+            restorePathVC.userChain = SUPPORT_CHAIN_COSMOS_MAIN
             self.navigationController?.pushViewController(restorePathVC, animated: true)
             
         })

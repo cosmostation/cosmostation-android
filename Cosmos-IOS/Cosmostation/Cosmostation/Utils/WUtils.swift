@@ -7,8 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 class WUtils {
+    
+    static let handler6 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 6, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
         let result = account
         if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT) {
@@ -84,6 +88,51 @@ class WUtils {
         nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
         nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         return nodeFormatter.date(from: input) ?? Date.init()
+    }
+    
+    
+    static func checkNAN(_ check: NSDecimalNumber) -> NSDecimalNumber{
+        if(check.isEqual(to: NSDecimalNumber.notANumber)) {
+            return NSDecimalNumber.zero
+        }
+        return check
+    }
+    
+    static func stringToDecimal(_ input: String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        do{
+            result = NSDecimalNumber(string: input)
+        } catch { }
+        return result
+    }
+    
+    static func displayAmout(_ amount: String, font:UIFont) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = 6
+        nf.maximumFractionDigits = 6
+        nf.numberStyle = .decimal
+        
+        let amount = stringToDecimal(amount)
+        var formatted: String?
+        if(amount == NSDecimalNumber.zero) {
+            formatted = nf.string(from: NSDecimalNumber.zero)
+        } else {
+            formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler6))
+        }
+        let added       = formatted
+        let endIndex    = added!.index(added!.endIndex, offsetBy: -6)
+        
+        let preString   = added![..<endIndex]
+        let postString  = added![endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
     }
     
 }
