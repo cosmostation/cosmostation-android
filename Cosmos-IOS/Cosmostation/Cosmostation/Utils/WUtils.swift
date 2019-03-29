@@ -13,6 +13,8 @@ class WUtils {
     
     static let handler6 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 6, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
+    static let handler2 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
         let result = account
         if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT) {
@@ -106,10 +108,10 @@ class WUtils {
         return result
     }
     
-    static func displayAmout(_ amount: String, font:UIFont) -> NSMutableAttributedString {
+    static func displayAmout(_ amount: String, _ font:UIFont, _ deciaml:Int) -> NSMutableAttributedString {
         let nf = NumberFormatter()
-        nf.minimumFractionDigits = 6
-        nf.maximumFractionDigits = 6
+        nf.minimumFractionDigits = deciaml
+        nf.maximumFractionDigits = deciaml
         nf.numberStyle = .decimal
         
         let amount = stringToDecimal(amount)
@@ -120,10 +122,32 @@ class WUtils {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler6))
         }
         let added       = formatted
-        let endIndex    = added!.index(added!.endIndex, offsetBy: -6)
+        let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
         
         let preString   = added![..<endIndex]
         let postString  = added![endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
+    static func displayUSD(_ usd: NSDecimalNumber, font:UIFont) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = 2
+        nf.maximumFractionDigits = 2
+        nf.numberStyle = .decimal
+        
+        let formatted = "$ " + nf.string(from: usd)!
+        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -2)
+        
+        let preString   = formatted[..<endIndex]
+        let postString  = formatted[endIndex...]
         
         let preAttrs = [NSAttributedString.Key.font : font]
         let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]

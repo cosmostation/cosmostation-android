@@ -83,14 +83,14 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 case .success(let res):
                 print(res)
                 guard let info = res as? [String : Any] else {
-                    cell?.atomAmount.attributedText = WUtils.displayAmout("0", font: cell!.atomAmount.font!)
+                    cell?.atomAmount.attributedText = WUtils.displayAmout("0", cell!.atomAmount.font!, 6)
                     return
                 }
                 let accountInfo = AccountInfo.init(info)
                 if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                    cell?.atomAmount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, font: cell!.atomAmount.font!)
+                    cell?.atomAmount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, cell!.atomAmount.font!, 6)
                 } else {
-                    cell?.atomAmount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, font: cell!.atomAmount.font!)
+                    cell?.atomAmount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.atomAmount.font!, 6)
                 }
                 
                 case .failure(let error):

@@ -14,6 +14,7 @@ let KEY_RECENT_ACCOUNT              = "KEY_RECENT_ACCOUNT"
 
 
 let CSS_LCD_URL                     = "https://lcd-dev.cosmostation.io/";
+let CMC_URL                         = "https://api.coinmarketcap.com/";
 
 let CSS_LCD_URL_VALIDATORS          = CSS_LCD_URL + "staking/validators";
 let CSS_LCD_URL_ACCOUNT_INFO        = CSS_LCD_URL + "auth/accounts/";
@@ -21,8 +22,14 @@ let CSS_LCD_URL_BONDING             = CSS_LCD_URL + "staking/delegators/";
 let CSS_LCD_URL_BONDING_TAIL        = "/delegations";
 let CSS_LCD_URL_UNBONDING           = CSS_LCD_URL + "staking/delegators/";
 let CSS_LCD_URL_UNBONDING_TAIL      = "/unbonding_delegations";
+let CSS_LCD_URL_REWARD_ALL          = CSS_LCD_URL + "distribution/delegators/";
+let CSS_LCD_URL_REWARD_ALL_TAIL     = "/rewards";
+
+
+
 let CSS_LCD_URL_PROPOSALS           = CSS_LCD_URL + "/gov/proposals";
 
+let CMC_PRICE_TIC                   = CMC_URL + "v2/ticker/";
 
 
 let CSS_ES_URL                     = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/txs/_search/";
