@@ -7,6 +7,7 @@ target 'Cosmostation' do
 
   # Pods for Cosmostation
   pod 'Alamofire', '~> 4.7'
+  pod 'AlamofireImage', '~> 3.3'
   pod 'BitcoinKit'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'PromiseKit/CorePromise', '~> 6.8'

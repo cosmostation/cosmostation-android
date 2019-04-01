@@ -85,6 +85,7 @@
 		E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */; };
 		E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF62244FA750097CAEE /* UIColor.swift */; };
 		E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */; };
+		E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED75AA2251B37C002CFE85 /* Reward.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -172,6 +173,7 @@
 		E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllValidatorCell.xib; sourceTree = "<group>"; };
 		E1A82DF62244FA750097CAEE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineTextField.swift; sourceTree = "<group>"; };
+		E1ED75AA2251B37C002CFE85 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +332,7 @@
 				E1A82DD4224223250097CAEE /* Balance.swift */,
 				E1A82DD6224223EC0097CAEE /* Bonding.swift */,
 				E1A82DD8224224420097CAEE /* Unbonding.swift */,
+				E1ED75AA2251B37C002CFE85 /* Reward.swift */,
 			);
 			path = Dao;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Cosmostation/Pods-Cosmostation-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/BitcoinKit/BitcoinKit.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
@@ -520,6 +524,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BitcoinKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
@@ -587,6 +592,7 @@
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
 				E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */,
+				E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */,
 				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
 				E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */,
 				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,

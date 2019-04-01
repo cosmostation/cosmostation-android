@@ -12,7 +12,15 @@ class MyValidatorCell: UITableViewCell {
     
     @IBOutlet weak var cardView: CardView!
     @IBOutlet weak var validatorImg: UIImageView!
-
+    @IBOutlet weak var freeEventImg: UIImageView!
+    @IBOutlet weak var revokedImg: UIImageView!
+    @IBOutlet weak var monikerLabel: UILabel!
+    @IBOutlet weak var myDelegatedAmoutLabel: UILabel!
+    @IBOutlet weak var commissionLabel: UILabel!
+    
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         validatorImg.layer.borderWidth = 1
@@ -26,8 +34,6 @@ class MyValidatorCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

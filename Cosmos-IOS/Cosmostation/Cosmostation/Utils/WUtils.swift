@@ -159,6 +159,29 @@ class WUtils {
         return attributedString1
     }
     
+    
+    static func displayCommission(_ rate:String, font:UIFont ) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = 2
+        nf.maximumFractionDigits = 2
+        nf.numberStyle = .decimal
+        
+        let formatted   = nf.string(from: stringToDecimal(rate).multiplying(by: 100))! + "%"
+        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
+        
+        let preString   = formatted[..<endIndex]
+        let postString  = formatted[endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
 }
 
 extension Date {

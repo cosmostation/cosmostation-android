@@ -9,31 +9,40 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                        = true;
-let KEY_RECENT_ACCOUNT              = "KEY_RECENT_ACCOUNT"
+let SHOW_LOG                            = true;
+let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
 
 
-let CSS_LCD_URL                     = "https://lcd-dev.cosmostation.io/";
-let CMC_URL                         = "https://api.coinmarketcap.com/";
+let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";
+let CMC_URL                             = "https://api.coinmarketcap.com/";
+let KEY_BASE_URL                        = "https://keybase.io/";
 
-let CSS_LCD_URL_VALIDATORS          = CSS_LCD_URL + "staking/validators";
-let CSS_LCD_URL_ACCOUNT_INFO        = CSS_LCD_URL + "auth/accounts/";
-let CSS_LCD_URL_BONDING             = CSS_LCD_URL + "staking/delegators/";
-let CSS_LCD_URL_BONDING_TAIL        = "/delegations";
-let CSS_LCD_URL_UNBONDING           = CSS_LCD_URL + "staking/delegators/";
-let CSS_LCD_URL_UNBONDING_TAIL      = "/unbonding_delegations";
-let CSS_LCD_URL_REWARD_ALL          = CSS_LCD_URL + "distribution/delegators/";
-let CSS_LCD_URL_REWARD_ALL_TAIL     = "/rewards";
-
-
-
-let CSS_LCD_URL_PROPOSALS           = CSS_LCD_URL + "/gov/proposals";
-
-let CMC_PRICE_TIC                   = CMC_URL + "v2/ticker/";
+let CSS_LCD_URL_VALIDATORS              = CSS_LCD_URL + "staking/validators";
+let CSS_LCD_URL_ACCOUNT_INFO            = CSS_LCD_URL + "auth/accounts/";
+let CSS_LCD_URL_BONDING                 = CSS_LCD_URL + "staking/delegators/";
+let CSS_LCD_URL_BONDING_TAIL            = "/delegations";
+let CSS_LCD_URL_UNBONDING               = CSS_LCD_URL + "staking/delegators/";
+let CSS_LCD_URL_UNBONDING_TAIL          = "/unbonding_delegations";
+let CSS_LCD_URL_REWARD_ALL              = CSS_LCD_URL + "distribution/delegators/";
+let CSS_LCD_URL_REWARD_ALL_TAIL         = "/rewards";
+let CSS_LCD_URL_REWARD_FROM_VAL         = CSS_LCD_URL + "distribution/delegators/";
+let CSS_LCD_URL_REWARD_FROM_VAL_TAIL    = "/rewards/";
 
 
-let CSS_ES_URL                     = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/txs/_search/";
-let CSS_ES_URL2                     = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/";
+let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
+
+
+
+
+let CSS_ES_URL                          = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/txs/_search/";
+let CSS_ES_URL2                         = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/";
+
+
+let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
+
+
+let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.json";
+
 
 
 //DB for Account

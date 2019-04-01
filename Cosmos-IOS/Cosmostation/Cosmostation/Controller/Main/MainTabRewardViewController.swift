@@ -25,10 +25,10 @@ class MainTabRewardViewController: BaseViewController {
     var mMyValidators = Array<Validator>()
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
+    var mRewardList = Array<Reward>()
     var reqCnt = 0;
     
-    //TODO TEST
-    var account: Account?
+    var mainTabVC: MainTabViewController!
     
     @IBAction func switchView(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -45,18 +45,15 @@ class MainTabRewardViewController: BaseViewController {
         super.viewDidLoad()
         myValidatorView.alpha = 1
         allValidatorView.alpha = 0
-
         
-        self.account = Account.init(isNew: false);
-        self.account?.account_id = 128;
-        self.account?.account_address = "cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q";
+        mainTabVC = (self.parent)?.parent as? MainTabViewController
         
         // Do any additional setup after loading the view.
         reqCnt = 4;
         onFetchValidatorsInfo();
-        onFetchAccountInfo(account!)
-        onFetchBondingInfo(account!)
-        onFetchUnbondingInfo(account!)
+        onFetchAccountInfo(mainTabVC.mAccount!)
+        onFetchBondingInfo(mainTabVC.mAccount!)
+        onFetchUnbondingInfo(mainTabVC.mAccount!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,12 +74,13 @@ class MainTabRewardViewController: BaseViewController {
         print("onUpdateViews")
         
         
-        mBondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
-        mUnbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
+        mBondingList = BaseData.instance.selectBondingById(accountId: mainTabVC.mAccount!.account_id)
+        mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mainTabVC.mAccount!.account_id)
         print("mBondingList : ", mBondingList.count)
         print("mUnbondingList : ", mUnbondingList.count)
         print("mBondingList : ", mBondingList[0].bonding_account_id)
         
+        mRewardList.removeAll()
         self.mMyValidators.removeAll()
         for validator in mAllValidators {
             var mine = false;
@@ -110,12 +108,6 @@ class MainTabRewardViewController: BaseViewController {
         
         let allValidatorVC = self.children[1] as! AllValidatorViewController
         allValidatorVC.rewardViewUpdate()
-        
-//        if(validatorSegment.selectedSegmentIndex == 0) {
-//
-//        } else {
-//
-//        }
     }
     
     
@@ -227,8 +219,35 @@ class MainTabRewardViewController: BaseViewController {
         }
     }
     
-//    func onFetchRewardInfo() {
-//
-//    }
+    func onFetchEachReward(_ account: Account, _ validator:Validator) {
+        let url = CSS_LCD_URL_REWARD_FROM_VAL + account.account_address + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validator.operator_address
+        let request = Alamofire.request(url,
+                                        method: .get,
+                                        parameters: [:],
+                                        encoding: URLEncoding.default,
+                                        headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let rawRewards = res as? Array<NSDictionary> else {
+                    return;
+                }
+                let reward = Reward.init()
+                reward.reward_v_address = validator.operator_address
+                for rawReward in rawRewards {
+                    reward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                }
+                self.mRewardList.append(reward)
+                
+            case .failure(let error):
+                print("onFetchEachReward error")
+            }
+            
+//            self.mRewardFetchCnt = self.mRewardFetchCnt - 1
+//            if(self.mRewardFetchCnt <= 0) {
+//                print("OnFetch each reward Fin")
+//            }
+        }
+    }
 
 }

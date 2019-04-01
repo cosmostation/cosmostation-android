@@ -389,6 +389,20 @@ final class BaseData : NSObject{
         return result
     }
     
+    public func selectBondingWithValAdd(_ accountId: Int64, _ valAddr: String) -> Bonding? {
+        do {
+            for bondingBD in try database.prepare(DB_BONDING.filter(DB_BONDING_ACCOUNT_ID == accountId && DB_BONDING_V_Address == valAddr)) {
+                let bonding = Bonding(bondingBD[DB_BONDING_ID], bondingBD[DB_BONDING_ACCOUNT_ID],
+                                      bondingBD[DB_BONDING_V_Address], bondingBD[DB_BONDING_SHARES],
+                                      bondingBD[DB_BONDING_FETCH_TIME])
+                return bonding
+            }
+        } catch {
+            return nil
+        }
+        return nil
+    }
+    
     public func deleteBonding(account: Account) -> Int {
         let query = DB_BONDING.filter(DB_BONDING_ACCOUNT_ID == account.account_id)
         do {

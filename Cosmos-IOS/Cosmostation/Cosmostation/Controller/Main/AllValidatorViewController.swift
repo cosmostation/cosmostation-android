@@ -11,6 +11,7 @@ import UIKit
 class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var allValidatorTableView: UITableView!
+    var refresher: UIRefreshControl!
     
     var mAllValidators = Array<Validator>()
     
@@ -22,6 +23,16 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         self.allValidatorTableView.dataSource = self
         self.allValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.allValidatorTableView.register(UINib(nibName: "AllValidatorCell", bundle: nil), forCellReuseIdentifier: "AllValidatorCell")
+    
+        refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        refresher.tintColor = UIColor.white
+        self.allValidatorTableView.addSubview(refresher)
+    }
+    
+    
+    @objc func handleRefresh() {
+        print("handleRefresh")
     }
     
     func rewardViewUpdate() {
