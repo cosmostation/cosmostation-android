@@ -28,6 +28,12 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="failed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt3-f7-mI1">
+                                <rect key="frame" x="12" y="30" width="22" height="10.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="9"/>
+                                <color key="textColor" red="0.95294117649999999" green="0.098039215690000001" blue="0.38823529410000002" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ks8-1z-hFR">
                                 <rect key="frame" x="110" y="12" width="0.5" height="47.5"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
@@ -76,9 +82,11 @@
                             <constraint firstItem="Ks8-1z-hFR" firstAttribute="top" secondItem="g9a-pf-IC8" secondAttribute="top" constant="12" id="PCD-1c-sf4"/>
                             <constraint firstItem="Bx3-AE-Buo" firstAttribute="leading" secondItem="g9a-pf-IC8" secondAttribute="leading" constant="12" id="S1Q-pJ-hp7"/>
                             <constraint firstItem="Ks8-1z-hFR" firstAttribute="leading" secondItem="g9a-pf-IC8" secondAttribute="leading" constant="110" id="ajP-WL-lOc"/>
+                            <constraint firstItem="vt3-f7-mI1" firstAttribute="leading" secondItem="Bx3-AE-Buo" secondAttribute="leading" id="b4I-ha-W0A"/>
                             <constraint firstItem="Ojg-Ly-3W9" firstAttribute="centerY" secondItem="g9a-pf-IC8" secondAttribute="centerY" id="eFm-GI-LqT"/>
                             <constraint firstAttribute="trailing" secondItem="Ojg-Ly-3W9" secondAttribute="trailing" constant="6" id="fXz-F2-qMW"/>
                             <constraint firstItem="c4s-fh-ziC" firstAttribute="top" secondItem="D2f-be-V7K" secondAttribute="bottom" constant="8" id="jFe-NG-Rkv"/>
+                            <constraint firstItem="vt3-f7-mI1" firstAttribute="top" secondItem="Bx3-AE-Buo" secondAttribute="bottom" constant="4" id="sOA-Je-Tqt"/>
                             <constraint firstItem="Bx3-AE-Buo" firstAttribute="top" secondItem="g9a-pf-IC8" secondAttribute="top" constant="12" id="ygI-Jm-S3Z"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -110,6 +118,13 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="txBlockLabel" destination="B7b-b1-dhx" id="BtV-kB-Sfp"/>
+                <outlet property="txHashLabel" destination="iHt-n7-nm7" id="JBv-Ik-scq"/>
+                <outlet property="txResultLabel" destination="vt3-f7-mI1" id="9yH-Ke-VSe"/>
+                <outlet property="txTimeLabel" destination="D2f-be-V7K" id="j2a-ZK-ztj"/>
+                <outlet property="txTypeLabel" destination="Bx3-AE-Buo" id="E5P-ks-XPS"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

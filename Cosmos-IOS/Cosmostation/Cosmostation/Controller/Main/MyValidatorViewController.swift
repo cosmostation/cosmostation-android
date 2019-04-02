@@ -39,7 +39,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("MyValidatorViewController viewDidAppear")
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
     }
     
@@ -49,13 +48,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        print("MyValidatorViewController onFetchDone")
         self.myValidatorTableView.reloadData()
         self.refresher.endRefreshing()
     }
     
     @objc func onRequestFetch() {
-        print("MyValidatorViewController onRequestFetch")
         if(!mainTabVC.onFetchAccountData()) {
             self.refresher.endRefreshing()
         }
@@ -153,13 +150,10 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {
-        print("onSetClaimAllItem", self.mainTabVC.mAllRewards[0].amount)
         if let allReward = self.mainTabVC.mAllRewards[0].amount as? String {
             cell.totalRewardLabel.attributedText = WUtils.displayAmout(allReward, cell.totalRewardLabel.font, 6)
         } else {
             cell.totalRewardLabel.attributedText = WUtils.displayAmout("0", cell.totalRewardLabel.font, 6)
         }
-        
-        
     }
 }

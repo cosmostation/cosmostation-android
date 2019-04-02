@@ -682,6 +682,12 @@ Super fast and esay to using with local signing!</string>
                                     <constraint firstAttribute="height" constant="50" id="zuM-6F-LgI"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLK-Ns-Awb">
+                                <rect key="frame" x="147.66666666666666" y="398.66666666666669" width="79.666666666666657" height="19.666666666666686"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="clr-UP-CWo">
                                 <rect key="frame" x="0.0" y="138" width="375" height="591"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -694,13 +700,16 @@ Super fast and esay to using with local signing!</string>
                             <constraint firstItem="cSU-sE-n4m" firstAttribute="trailing" secondItem="qFY-lo-0IC" secondAttribute="trailing" id="b5k-rF-ogu"/>
                             <constraint firstAttribute="bottom" secondItem="clr-UP-CWo" secondAttribute="bottom" id="dtL-Jv-v9s"/>
                             <constraint firstItem="clr-UP-CWo" firstAttribute="leading" secondItem="cSU-sE-n4m" secondAttribute="leading" id="jBt-Ut-cT3"/>
+                            <constraint firstItem="TLK-Ns-Awb" firstAttribute="centerY" secondItem="cSU-sE-n4m" secondAttribute="centerY" id="kDu-EU-31S"/>
                             <constraint firstItem="cSU-sE-n4m" firstAttribute="leading" secondItem="qFY-lo-0IC" secondAttribute="leading" id="u9T-SZ-dep"/>
                             <constraint firstItem="qFY-lo-0IC" firstAttribute="top" secondItem="cSU-sE-n4m" secondAttribute="top" id="whw-UP-kc4"/>
+                            <constraint firstItem="TLK-Ns-Awb" firstAttribute="centerX" secondItem="cSU-sE-n4m" secondAttribute="centerX" id="yXk-OV-43V"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cSU-sE-n4m"/>
                     </view>
                     <navigationItem key="navigationItem" id="zKv-T3-ZiW"/>
                     <connections>
+                        <outlet property="emptyLabel" destination="TLK-Ns-Awb" id="WEt-to-cJP"/>
                         <outlet property="historyTableView" destination="clr-UP-CWo" id="pah-B7-2Pd"/>
                     </connections>
                 </viewController>

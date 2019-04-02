@@ -92,6 +92,53 @@ class WUtils {
         return nodeFormatter.date(from: input) ?? Date.init()
     }
     
+    static func nodeTimetoString(input: String) -> String {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = "yy-MM-dd HH:mm:ss"
+        
+        let fullDate = nodeFormatter.date(from: input)
+        return localFormatter.string(from: fullDate!)
+    }
+    
+    static func historyTitle(_ msgs:Array<Msg>) -> String {
+        var resultMsg = "UnKnown"
+        
+        if(msgs == nil || msgs.count <= 0) {
+            return resultMsg
+        }
+        
+        if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2) {
+            resultMsg = "Transfer"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_DELEGATE) {
+            resultMsg = "Delegate"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_UNDELEGATE || msgs[0].type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+            resultMsg = "Undelegate"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_REDELEGATE || msgs[0].type == COSMOS_MSG_TYPE_REDELEGATE2) {
+            resultMsg = "Redelegate"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+            resultMsg = "Get Reward"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_VAL) {
+            resultMsg = "Get Commission"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+            resultMsg = "Change Reward Address"
+            
+        }
+        if(msgs.count > 2) {
+            resultMsg = resultMsg +  " + " + String(msgs.count)
+        }
+        return resultMsg
+    }
+    
     
     static func checkNAN(_ check: NSDecimalNumber) -> NSDecimalNumber{
         if(check.isEqual(to: NSDecimalNumber.notANumber)) {

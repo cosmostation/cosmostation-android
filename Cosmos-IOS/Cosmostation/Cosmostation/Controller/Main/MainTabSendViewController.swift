@@ -48,8 +48,6 @@ class MainTabSendViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("password ",          BaseData.instance.hasPassword())
-        print("RecentAccountId ",   BaseData.instance.getRecentAccountId())
         
         rewardImg.image = rewardImg.image?.withRenderingMode(.alwaysTemplate)
         rewardImg.tintColor = UIColor.white

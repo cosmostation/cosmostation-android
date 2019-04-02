@@ -18,9 +18,14 @@ public class Fee {
         self.gas = dictionary["gas"] as? String ?? ""
         
         self.amount.removeAll()
-        let rawAmounts = dictionary["amount"] as! Array<NSDictionary>
-        for amount in rawAmounts {
-            self.amount.append(Coin(amount as! [String : Any]))
+//        let rawAmounts = dictionary["amount"] as! Array<NSDictionary>
+//        for amount in rawAmounts {
+//            self.amount.append(Coin(amount as! [String : Any]))
+//        }
+        if let rawAmounts = dictionary["amount"] as? Array<NSDictionary>  {
+            for amount in rawAmounts {
+                self.amount.append(Coin(amount as! [String : Any]))
+            }
         }
     }
 }

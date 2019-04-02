@@ -12,18 +12,22 @@ import Alamofire
 class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var historyTableView: UITableView!
+    @IBOutlet weak var emptyLabel: UILabel!
     
+    var mainTabVC: MainTabViewController!
     var mHistories = Array<History.InnerHits>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mainTabVC = (self.parent)?.parent as? MainTabViewController
         
         self.historyTableView.delegate = self
         self.historyTableView.dataSource = self
         self.historyTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.historyTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
-        onFetchHistory("cosmos1hzzkqn4kpqcvzauhdzlnkkkmr4ryaf8rj6rhkj", "0", "100");
+        onFetchHistory(mainTabVC.mAccount.account_address, "0", "100");
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +42,17 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        let history = mHistories[indexPath.row]
+        
+        cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.time)
+        cell?.txBlockLabel.text = String(history._source.height) + " block"
+        cell?.txHashLabel.text = history._source.hash
+        cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg)
+        if(history._source.result.success) {
+            cell?.txResultLabel.isHidden = true
+        } else {
+            cell?.txResultLabel.isHidden = false
+        }
         return cell!
     }
     
@@ -55,8 +70,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { response in
                 switch response.result {
                 case .success(let res):
+//                    print("res " , res)
                     guard let history = res as? [String : Any] else {
                         print("no history!!")
+                        self.emptyLabel.isHidden = false
                         return;
                     }
                     let rawHistory = History.init(history)
@@ -64,26 +81,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                     
                     self.mHistories.removeAll()
                     self.mHistories = rawHistory.hits.hits
+                    self.emptyLabel.isHidden = true
                     self.historyTableView.reloadData()
-                    
-//                    for validator in validators {
-//                    }
-                    
-////                    print(res)
-//                    guard let history = res as? [String : Any] else {
-//                        print("no history!!")
-//                        return;
-//                    }
-////                    print(history)
-//                    guard let hits = history["hits"] as? [String : Any], let innerhits = hits["hits"] as? Array<NSDictionary> else {
-//                        print("no hits!!")
-//                        return;
-//                    }
-//                    print(innerhits)
-//
-////                    let hits = history.index(forKey: "hits")
-////                    print("hits ", hits)
-                    
                     
                 case .failure(let error):
                     print("error ", error)

@@ -10,6 +10,12 @@ import UIKit
 
 class HistoryCell: UITableViewCell {
 
+    @IBOutlet weak var txTypeLabel: UILabel!
+    @IBOutlet weak var txResultLabel: UILabel!
+    @IBOutlet weak var txTimeLabel: UILabel!
+    @IBOutlet weak var txBlockLabel: UILabel!
+    @IBOutlet weak var txHashLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -17,8 +23,6 @@ class HistoryCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

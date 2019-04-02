@@ -17,8 +17,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
-//    var filterdValidators = Array<Validator>()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.allValidatorTableView.delegate = self
@@ -51,7 +49,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        print("onFetchDone")
         self.onSorting()
         self.refresher.endRefreshing()
     }
@@ -68,7 +65,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onRequestFetch() {
-        print("MyValidatorViewController onRequestFetch")
         if(!mainTabVC.onFetchAccountData()) {
             self.refresher.endRefreshing()
         }
@@ -91,11 +87,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        var selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
-//        selectedCell.contentView.backgroundColor = UIColor.clear
-//    }
     
     func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator) {
         cell.monikerLabel.text = validator.description.moniker
