@@ -16,17 +16,18 @@ class MainTabRewardViewController: BaseViewController {
     @IBOutlet weak var titleWalletName: UILabel!
     @IBOutlet weak var titleChainName: UILabel!
     @IBOutlet weak var titleAccountBtn: UIButton!
+    @IBOutlet weak var titleSortBtn: UIButton!
     @IBOutlet weak var validatorSegment: UISegmentedControl!
     @IBOutlet weak var myValidatorView: UIView!
     @IBOutlet weak var allValidatorView: UIView!
     
     
-    var mAllValidators = Array<Validator>()
-    var mMyValidators = Array<Validator>()
-    var mBondingList = Array<Bonding>()
-    var mUnbondingList = Array<Unbonding>()
-    var mRewardList = Array<Reward>()
-    var reqCnt = 0;
+//    var mAllValidators = Array<Validator>()
+//    var mMyValidators = Array<Validator>()
+//    var mBondingList = Array<Bonding>()
+//    var mUnbondingList = Array<Unbonding>()
+//    var mRewardList = Array<Reward>()
+//    var reqCnt = 0;
     
     var mainTabVC: MainTabViewController!
     
@@ -48,12 +49,12 @@ class MainTabRewardViewController: BaseViewController {
         
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         
-        // Do any additional setup after loading the view.
-        reqCnt = 4;
-        onFetchValidatorsInfo();
-        onFetchAccountInfo(mainTabVC.mAccount!)
-        onFetchBondingInfo(mainTabVC.mAccount!)
-        onFetchUnbondingInfo(mainTabVC.mAccount!)
+//        // Do any additional setup after loading the view.
+//        reqCnt = 4;
+//        onFetchValidatorsInfo();
+//        onFetchAccountInfo(mainTabVC.mAccount!)
+//        onFetchBondingInfo(mainTabVC.mAccount!)
+//        onFetchUnbondingInfo(mainTabVC.mAccount!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,12 +63,37 @@ class MainTabRewardViewController: BaseViewController {
         self.navigationController?.navigationBar.topItem?.title = "";
     }
     
+    @IBAction func onSortClick(_ sender: Any) {
+        if (myValidatorView.alpha == 1) {
+            print("my val sort show")
+        } else {
+            print("all val sort show")
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "By Name", style: UIAlertAction.Style.default, handler: { (action) in
+                BaseData.instance.setAllValidatorSort(1)
+                NotificationCenter.default.post(name: Notification.Name("onSorting"), object: nil, userInfo: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "By Voting Power", style: UIAlertAction.Style.default, handler: { (action) in
+                BaseData.instance.setAllValidatorSort(0)
+                NotificationCenter.default.post(name: Notification.Name("onSorting"), object: nil, userInfo: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "By Commission", style: UIAlertAction.Style.default, handler: { (action) in
+                BaseData.instance.setAllValidatorSort(2)
+                NotificationCenter.default.post(name: Notification.Name("onSorting"), object: nil, userInfo: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if(segue.identifier == "allValidator"){
 //            print("allValidator")
 //        }
 //    }
     
+    
+    /*
     func onUpdateViews() {
         self.reqCnt = self.reqCnt - 1
         if(self.reqCnt > 0) { return; }
@@ -249,5 +275,6 @@ class MainTabRewardViewController: BaseViewController {
 //            }
         }
     }
+ */
 
 }

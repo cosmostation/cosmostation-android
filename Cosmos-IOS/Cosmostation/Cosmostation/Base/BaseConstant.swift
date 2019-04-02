@@ -11,6 +11,8 @@ import SQLite
 
 let SHOW_LOG                            = true;
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
+let KEY_ALL_VAL_SORT                    = "KEY_ALL_VAL_SORT"
+let KEY_MY_VAL_SORT                     = "KEY_MY_VAL_SORT"
 
 
 let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";

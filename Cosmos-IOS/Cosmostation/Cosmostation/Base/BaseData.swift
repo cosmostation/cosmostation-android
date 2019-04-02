@@ -32,7 +32,13 @@ final class BaseData : NSObject{
         return Int64(UserDefaults.standard.integer(forKey: KEY_RECENT_ACCOUNT))
     }
     
+    func setAllValidatorSort(_ sort : Int64) {
+        UserDefaults.standard.set(sort, forKey: KEY_ALL_VAL_SORT)
+    }
     
+    func getAllValidatorSort() -> Int64 {
+        return Int64(UserDefaults.standard.integer(forKey: KEY_ALL_VAL_SORT))
+    }
     
     
     

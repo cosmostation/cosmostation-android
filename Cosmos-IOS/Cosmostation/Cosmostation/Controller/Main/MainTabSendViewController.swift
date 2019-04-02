@@ -46,12 +46,6 @@ class MainTabSendViewController: BaseViewController {
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
-//    var mBalances = Array<Balance>()
-//    var mBondings = Array<Bonding>()
-//    var mUnbondings = Array<Unbonding>()
-//    var mRewards = Array<Coin>()
-//    var mAtomTic: NSDictionary!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("password ",          BaseData.instance.hasPassword())
@@ -100,7 +94,7 @@ class MainTabSendViewController: BaseViewController {
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        print("onFetchDone")
+        print("MainTabSendViewController onFetchDone")
         if(mainTabVC.mBalances.count > 0) {
             atomAvailableAmount.attributedText = WUtils.displayAmout(mainTabVC.mBalances[0].balance_amount, atomDelegatedAmount.font, 6)
         } else {

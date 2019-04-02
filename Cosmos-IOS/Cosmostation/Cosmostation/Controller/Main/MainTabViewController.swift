@@ -28,7 +28,7 @@ class MainTabViewController: UITabBarController {
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
         }
-        onFetchAccountData()
+        self.onFetchAccountData()
     }
     
     
@@ -55,6 +55,12 @@ class MainTabViewController: UITabBarController {
         if(mFetchCnt <= 0) {
             //update Validators
             print("onFetchFinished")
+            
+            mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
+            mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
+            mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
+            
             for validator in mAllValidators {
                 var mine = false;
                 for bonding in mBondingList {
@@ -73,12 +79,6 @@ class MainTabViewController: UITabBarController {
                     self.mMyValidators.append(validator)
                 }
             }
-            
-            mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
-            mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-            mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
-            mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
-            
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
         }
     }

@@ -29,6 +29,20 @@
                                     <constraint firstAttribute="width" constant="44" id="XvN-7c-Btk"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="freeIc" translatesAutoresizingMaskIntoConstraints="NO" id="L7e-dz-DE7">
+                                <rect key="frame" x="44" y="10" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="P9t-oU-Xib"/>
+                                    <constraint firstAttribute="width" constant="20" id="vcE-Xn-LQZ"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="revokedImg" translatesAutoresizingMaskIntoConstraints="NO" id="hmo-hQ-aHU">
+                                <rect key="frame" x="12" y="14" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="5wf-NQ-RM9"/>
+                                    <constraint firstAttribute="height" constant="44" id="9MW-kI-tTm"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Er-7z-ec7">
                                 <rect key="frame" x="68" y="12" width="0.5" height="47.5"/>
                                 <color key="backgroundColor" red="0.29411764705882354" green="0.30980392156862746" blue="0.32941176470588235" alpha="1" colorSpace="deviceRGB"/>
@@ -83,16 +97,20 @@
                             <constraint firstItem="O5H-eg-GqK" firstAttribute="centerY" secondItem="uAB-cB-2gH" secondAttribute="centerY" id="MaY-Fo-541"/>
                             <constraint firstItem="O5H-eg-GqK" firstAttribute="leading" secondItem="JMl-wn-8tR" secondAttribute="trailing" constant="8" id="Op8-pY-efb"/>
                             <constraint firstItem="tjm-OC-kdP" firstAttribute="top" secondItem="uAB-cB-2gH" secondAttribute="top" constant="10" id="PCE-hf-qvh"/>
+                            <constraint firstItem="hmo-hQ-aHU" firstAttribute="leading" secondItem="3kV-jR-rnU" secondAttribute="leading" id="WKn-P3-Afo"/>
                             <constraint firstItem="tjm-OC-kdP" firstAttribute="leading" secondItem="1Er-7z-ec7" secondAttribute="leading" constant="12" id="dcy-GC-jVI"/>
+                            <constraint firstItem="L7e-dz-DE7" firstAttribute="top" secondItem="3kV-jR-rnU" secondAttribute="top" constant="-4" id="fSt-WS-feK"/>
                             <constraint firstItem="3kV-jR-rnU" firstAttribute="leading" secondItem="uAB-cB-2gH" secondAttribute="leading" constant="12" id="hVz-7z-leo"/>
                             <constraint firstItem="1Er-7z-ec7" firstAttribute="top" secondItem="uAB-cB-2gH" secondAttribute="top" constant="12" id="iDn-fl-G0p"/>
                             <constraint firstItem="1Er-7z-ec7" firstAttribute="leading" secondItem="3kV-jR-rnU" secondAttribute="trailing" constant="12" id="iwT-do-Tye"/>
                             <constraint firstItem="qu3-wc-OAX" firstAttribute="top" secondItem="NCK-fO-o03" secondAttribute="bottom" constant="2" id="jkP-x8-xli"/>
+                            <constraint firstItem="L7e-dz-DE7" firstAttribute="trailing" secondItem="3kV-jR-rnU" secondAttribute="trailing" constant="8" id="oF6-pc-A2H"/>
                             <constraint firstItem="JMl-wn-8tR" firstAttribute="centerY" secondItem="qu3-wc-OAX" secondAttribute="centerY" id="oqc-wQ-zqk"/>
                             <constraint firstItem="3kV-jR-rnU" firstAttribute="centerY" secondItem="uAB-cB-2gH" secondAttribute="centerY" id="sdy-5w-woz"/>
                             <constraint firstItem="O5H-eg-GqK" firstAttribute="leading" secondItem="D7D-lq-a7d" secondAttribute="trailing" constant="8" id="wCo-H2-WRs"/>
                             <constraint firstItem="D7D-lq-a7d" firstAttribute="centerY" secondItem="NCK-fO-o03" secondAttribute="centerY" id="xLu-69-1B3"/>
                             <constraint firstAttribute="bottom" secondItem="1Er-7z-ec7" secondAttribute="bottom" constant="12" id="yAc-5T-bH9"/>
+                            <constraint firstItem="hmo-hQ-aHU" firstAttribute="top" secondItem="3kV-jR-rnU" secondAttribute="top" id="znz-mL-CKr"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -125,12 +143,19 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="cardView" destination="uAB-cB-2gH" id="kYF-VI-mlI"/>
+                <outlet property="commissionLabel" destination="JMl-wn-8tR" id="KaI-Jm-1ra"/>
+                <outlet property="freeEventImg" destination="L7e-dz-DE7" id="oqg-Rz-NZY"/>
+                <outlet property="monikerLabel" destination="tjm-OC-kdP" id="3yw-nF-Hnr"/>
+                <outlet property="powerLabel" destination="D7D-lq-a7d" id="vWz-eq-GQJ"/>
+                <outlet property="revokedImg" destination="hmo-hQ-aHU" id="5BX-zo-5jj"/>
                 <outlet property="validatorImg" destination="3kV-jR-rnU" id="s4b-II-YBL"/>
             </connections>
         </tableViewCell>
     </objects>
     <resources>
         <image name="arrowNextGr" width="24" height="24"/>
+        <image name="freeIc" width="20" height="20"/>
+        <image name="revokedImg" width="44" height="44"/>
         <image name="validatorNoneImg" width="44" height="44"/>
     </resources>
 </document>
