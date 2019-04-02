@@ -8,8 +8,9 @@
 
 import UIKit
 import Alamofire
+import Floaty
 
-class MainTabSendViewController: BaseViewController {
+class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var titleView: UIView!
@@ -75,6 +76,16 @@ class MainTabSendViewController: BaseViewController {
         refresher.tintColor = UIColor.white
         mainScrollView.addSubview(refresher)
         
+        let floaty = Floaty()
+        floaty.buttonColor = UIColor.init(hexString: "9C6CFF")
+        floaty.buttonImage = UIImage.init(named: "send_btn")
+        floaty.fabDelegate = self
+        self.view.addSubview(floaty)
+        
+    }
+    
+    func emptyFloatySelected(_ floaty: Floaty) {
+        print("emptyFloatySelected")
     }
     
     override func viewWillAppear(_ animated: Bool) {
