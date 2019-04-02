@@ -8,7 +8,6 @@
 
 import UIKit
 import BitcoinKit
-import Toast_Swift
 import SwiftKeychainWrapper
 
 class CreateViewController: BaseViewController, PasswordViewDelegate{

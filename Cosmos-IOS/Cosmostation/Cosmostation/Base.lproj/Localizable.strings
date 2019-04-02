@@ -18,6 +18,8 @@
 "show_mnemonics" = "Show Mnemonics";
 "prepare" = "Preparing...";
 
+"only_USD" = "now only support USD";
+"only_cmc" = "now only support coinmarket cap";
 
 
 "error_password_fail" = "Password is not same. Please init password again!";

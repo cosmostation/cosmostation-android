@@ -10,7 +10,6 @@ import UIKit
 import Alamofire
 import CryptoSwift
 import SwiftKeychainWrapper
-import Toast_Swift
 
 class PasswordViewController: BaseViewController {
     
@@ -155,9 +154,7 @@ class PasswordViewController: BaseViewController {
 //                    self.onStartCheckPassword(mUserInsert)
                     
                 } else {
-                    var style = ToastStyle()
-                    style.backgroundColor = UIColor.gray
-                    self.view.makeToast(NSLocalizedString("error_password_fail", comment: ""), duration: 2.0, position: .bottom, style: style)
+                    self.onShowToast(NSLocalizedString("error_password_fail", comment: ""))
                     NotificationCenter.default.post(name: Notification.Name("KeyboardShuffle"), object: nil, userInfo: nil)
                     self.initView()
                 }

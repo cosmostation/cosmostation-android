@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Toast_Swift
 
 class AddAddressViewController: BaseViewController {
 
@@ -41,9 +40,7 @@ class AddAddressViewController: BaseViewController {
         if let myString = UIPasteboard.general.string {
             self.addAddressInputText.text = myString
         } else {
-            var style = ToastStyle()
-            style.backgroundColor = UIColor.gray
-            self.view.makeToast(NSLocalizedString("error_no_clipboard", comment: ""), duration: 2.0, position: .bottom, style: style)
+            self.onShowToast(NSLocalizedString("error_no_clipboard", comment: ""))
         }
     }
     
@@ -62,9 +59,7 @@ class AddAddressViewController: BaseViewController {
             self.onGenWatchAccount(SUPPORT_CHAIN_COSMOS_MAIN, address)
             
         } else {
-            var style = ToastStyle()
-            style.backgroundColor = UIColor.gray
-            self.view.makeToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""), duration: 2.0, position: .bottom, style: style)
+            self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
             self.addAddressInputText.text = ""
         }
         

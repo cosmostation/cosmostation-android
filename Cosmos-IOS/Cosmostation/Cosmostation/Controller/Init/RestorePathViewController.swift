@@ -10,7 +10,6 @@ import UIKit
 import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
-import Toast_Swift
 
 class RestorePathViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 

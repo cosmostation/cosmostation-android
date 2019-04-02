@@ -8,7 +8,6 @@
 
 import UIKit
 import BitcoinKit
-import Toast_Swift
 
 class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PasswordViewDelegate{
     
@@ -218,9 +217,8 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             updateFocus()
             
         } else {
-            var style = ToastStyle()
-            style.backgroundColor = UIColor.gray
-            self.view.makeToast(NSLocalizedString("error_no_clipboard", comment: ""), duration: 2.0, position: .bottom, style: style)
+            self.onShowToast(NSLocalizedString("error_no_clipboard", comment: ""))
+            
         }
         updateWordCnt()
     }
@@ -228,9 +226,8 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     @IBAction func onConfirmClick(_ sender: Any) {
         print("onConfirmClick ")
         if(!onValidateUserinput()) {
-            var style = ToastStyle()
-            style.backgroundColor = UIColor.gray
-            self.view.makeToast(NSLocalizedString("error_recover_mnemonic", comment: ""), duration: 2.0, position: .bottom, style: style)
+            self.onShowToast(NSLocalizedString("error_recover_mnemonic", comment: ""))
+            
         } else {
             if(checkedPassword) {
                 onShowChainType()

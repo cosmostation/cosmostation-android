@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import Toast_Swift
 
 class BaseViewController: UIViewController {
 
@@ -55,6 +56,12 @@ class BaseViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = mainTabVC
         self.present(mainTabVC, animated: true, completion: nil)
+    }
+    
+    func onShowToast(_ text:String) {
+        var style = ToastStyle()
+        style.backgroundColor = UIColor.gray
+        self.view.makeToast(text, duration: 2.0, position: .bottom, style: style)
     }
 }
 extension BaseViewController {
