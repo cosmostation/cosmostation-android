@@ -8,12 +8,12 @@
 
 import UIKit
 import Alamofire
+import SafariServices
 
 class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
-
     @IBOutlet weak var voteTableView: UITableView!
+    @IBOutlet weak var emptyLabel: UILabel!
     
     var mProposals = Array<Proposal>()
     
@@ -34,7 +34,13 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onUpdateViews() {
-        self.voteTableView.reloadData()
+        if(mProposals.count > 0) {
+            self.emptyLabel.isHidden = true
+            self.voteTableView.reloadData()
+        } else {
+            self.emptyLabel.isHidden = false
+        }
+        
     }
     
     
@@ -44,11 +50,35 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
+        let proposal = mProposals[indexPath.row]
+        cell?.proposalIdLabel.text = proposal.value.proposal_id
+        cell?.proposalTitleLabel.text = proposal.value.title
+        cell?.proposalMsgLabel.text = proposal.value.description
+        cell?.proposalStateLabel.text = proposal.value.proposal_status
+        cell?.proposalSubmitTime.text = WUtils.nodeTimetoString(input: proposal.value.submit_time)
+        if(proposal.value.voting_start_time.starts(with: "0")) {
+            cell?.proposalStartTime.text = "n/a"
+        } else {
+            cell?.proposalStartTime.text = WUtils.nodeTimetoString(input: proposal.value.voting_start_time)
+        }
+        
+        if(proposal.value.voting_end_time.starts(with: "0")) {
+            cell?.proposalEndTime.text = "n/a"
+        } else {
+            cell?.proposalEndTime.text = WUtils.nodeTimetoString(input: proposal.value.voting_end_time)
+        }
         return cell!
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 130;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let proposal = mProposals[indexPath.row]
+        guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.value.proposal_id) else { return }
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true, completion: nil)
     }
     
     func onFetchProposals() {

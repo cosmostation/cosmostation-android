@@ -773,6 +773,12 @@ Super fast and esay to using with local signing!</string>
                                     <constraint firstItem="vEs-a2-fLM" firstAttribute="centerY" secondItem="8U6-mJ-rme" secondAttribute="centerY" id="zGZ-PT-MZT"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Proposal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3x-sr-rPq">
+                                <rect key="frame" x="140.66666666666666" y="398.66666666666669" width="93.666666666666657" height="19.666666666666686"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cgw-Hd-L7W">
                                 <rect key="frame" x="0.0" y="138" width="375" height="591"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -784,14 +790,17 @@ Super fast and esay to using with local signing!</string>
                             <constraint firstItem="8U6-mJ-rme" firstAttribute="leading" secondItem="Du9-Qj-Mbj" secondAttribute="leading" id="GAf-Vr-RGR"/>
                             <constraint firstItem="cgw-Hd-L7W" firstAttribute="top" secondItem="8U6-mJ-rme" secondAttribute="bottom" id="JMJ-b1-YSl"/>
                             <constraint firstItem="cgw-Hd-L7W" firstAttribute="leading" secondItem="Du9-Qj-Mbj" secondAttribute="leading" id="SBi-Gg-Mf4"/>
+                            <constraint firstItem="a3x-sr-rPq" firstAttribute="centerX" secondItem="Du9-Qj-Mbj" secondAttribute="centerX" id="Y5M-PS-BS7"/>
                             <constraint firstItem="Du9-Qj-Mbj" firstAttribute="bottom" secondItem="cgw-Hd-L7W" secondAttribute="bottom" id="d1n-r5-m3x"/>
                             <constraint firstItem="Du9-Qj-Mbj" firstAttribute="trailing" secondItem="cgw-Hd-L7W" secondAttribute="trailing" id="iYo-gg-eGH"/>
+                            <constraint firstItem="a3x-sr-rPq" firstAttribute="centerY" secondItem="Du9-Qj-Mbj" secondAttribute="centerY" id="mp8-yA-K2Z"/>
                             <constraint firstItem="8U6-mJ-rme" firstAttribute="top" secondItem="Du9-Qj-Mbj" secondAttribute="top" id="oKP-uB-J8g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Du9-Qj-Mbj"/>
                     </view>
                     <navigationItem key="navigationItem" id="E0Q-yY-xu0"/>
                     <connections>
+                        <outlet property="emptyLabel" destination="a3x-sr-rPq" id="mph-OM-gFY"/>
                         <outlet property="voteTableView" destination="cgw-Hd-L7W" id="pSt-0J-Ci3"/>
                     </connections>
                 </viewController>

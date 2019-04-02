@@ -140,6 +140,16 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="proposalEndTime" destination="mNG-dY-WwO" id="Db2-jn-agp"/>
+                <outlet property="proposalIdLabel" destination="0kt-qI-sVC" id="qKl-3R-6ej"/>
+                <outlet property="proposalMsgLabel" destination="VrG-TZ-DNt" id="O2X-GH-uH1"/>
+                <outlet property="proposalStartTime" destination="dj3-GE-z1T" id="iKM-gr-s05"/>
+                <outlet property="proposalStateLabel" destination="w9Q-7S-RAn" id="HUq-On-7Yu"/>
+                <outlet property="proposalSubmitTime" destination="d1d-3Y-dh7" id="vO4-Jo-ilM"/>
+                <outlet property="proposalTitleLabel" destination="dqw-95-MhH" id="d6d-cD-E3o"/>
+                <outlet property="rootCard" destination="v4y-Kz-5ot" id="snP-SR-7E0"/>
+            </connections>
             <point key="canvasLocation" x="169.59999999999999" y="48.575712143928037"/>
         </tableViewCell>
     </objects>

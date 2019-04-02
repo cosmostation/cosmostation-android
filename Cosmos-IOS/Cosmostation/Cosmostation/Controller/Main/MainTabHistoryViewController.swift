@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SafariServices
 
 class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -58,6 +59,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let history = mHistories[indexPath.row]
+        guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true, completion: nil)
     }
     
     

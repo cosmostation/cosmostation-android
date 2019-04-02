@@ -10,6 +10,15 @@ import UIKit
 
 class ProposalCell: UITableViewCell {
 
+    @IBOutlet weak var rootCard: CardView!
+    @IBOutlet weak var proposalIdLabel: UILabel!
+    @IBOutlet weak var proposalTitleLabel: UILabel!
+    @IBOutlet weak var proposalStateLabel: UILabel!
+    @IBOutlet weak var proposalMsgLabel: UILabel!
+    @IBOutlet weak var proposalSubmitTime: UILabel!
+    @IBOutlet weak var proposalStartTime: UILabel!
+    @IBOutlet weak var proposalEndTime: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
