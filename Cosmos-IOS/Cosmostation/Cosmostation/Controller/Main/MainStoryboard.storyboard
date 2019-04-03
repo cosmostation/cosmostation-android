@@ -15,14 +15,14 @@
             <objects>
                 <viewController id="Qvj-GN-yc9" customClass="MainTabRewardViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ilN-v5-iKh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="OVh-y6-LOK">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2dl-Bs-BTe">
-                                <rect key="frame" x="0.0" y="88" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="ODl-3R-y6u">
                                         <rect key="frame" x="8" y="4" width="42" height="42"/>
@@ -79,7 +79,7 @@
                                 </constraints>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lAa-HU-H1G">
-                                <rect key="frame" x="97" y="146" width="181" height="29"/>
+                                <rect key="frame" x="97" y="58" width="181" height="29"/>
                                 <segments>
                                     <segment title="My Validator"/>
                                     <segment title="All Validator"/>
@@ -90,13 +90,13 @@
                                 </connections>
                             </segmentedControl>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SA3-XZ-w7Y">
-                                <rect key="frame" x="0.0" y="182" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="547"/>
                                 <connections>
                                     <segue destination="ktg-GO-6fF" kind="embed" identifier="myValidator" id="ts2-DG-B7v"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKN-bl-aNw">
-                                <rect key="frame" x="0.0" y="182" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="547"/>
                                 <connections>
                                     <segue destination="TPk-7b-ccf" kind="embed" identifier="allValidator" id="3M1-Dc-bvf"/>
                                 </connections>
@@ -146,14 +146,14 @@
             <objects>
                 <viewController id="e4x-hE-Zla" customClass="MainTabSendViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5KG-xW-pwp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="Lgj-up-xSa">
-                                <rect key="frame" x="0.0" y="88" width="375" height="729"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLI-Xf-j6R">
-                                <rect key="frame" x="0.0" y="88" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="ymZ-CI-iAN">
                                         <rect key="frame" x="8" y="4" width="42" height="42"/>
@@ -200,10 +200,10 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p34-7z-HgK">
-                                <rect key="frame" x="0.0" y="138" width="375" height="591"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="591"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RmO-Xk-P6u">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gyy-Eq-HbO" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="16" width="343" height="70"/>
@@ -634,7 +634,7 @@ Super fast and esay to using with local signing!</string>
             <objects>
                 <viewController id="t07-dn-E46" customClass="MainTabHistoryViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zcq-nb-U4b">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="lR6-M3-g2M">
@@ -642,7 +642,7 @@ Super fast and esay to using with local signing!</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFY-lo-0IC">
-                                <rect key="frame" x="0.0" y="88" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="MeZ-yr-C1Y">
                                         <rect key="frame" x="8" y="4" width="42" height="42"/>
@@ -686,13 +686,13 @@ Super fast and esay to using with local signing!</string>
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLK-Ns-Awb">
-                                <rect key="frame" x="147.66666666666666" y="398.66666666666669" width="79.666666666666657" height="19.666666666666686"/>
+                                <rect key="frame" x="147.66666666666666" y="310.66666666666669" width="79.666666666666657" height="19.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="clr-UP-CWo">
-                                <rect key="frame" x="0.0" y="138" width="375" height="591"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="591"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -725,7 +725,7 @@ Super fast and esay to using with local signing!</string>
             <objects>
                 <viewController id="jY2-JE-lP2" customClass="MainTabVoteViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zCR-E0-N9f">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="PEW-5B-acc">
@@ -733,7 +733,7 @@ Super fast and esay to using with local signing!</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8U6-mJ-rme">
-                                <rect key="frame" x="0.0" y="88" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="xPv-Dk-Md5">
                                         <rect key="frame" x="8" y="4" width="42" height="42"/>
@@ -777,13 +777,13 @@ Super fast and esay to using with local signing!</string>
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Proposal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3x-sr-rPq">
-                                <rect key="frame" x="140.66666666666666" y="398.66666666666669" width="93.666666666666657" height="19.666666666666686"/>
+                                <rect key="frame" x="140.66666666666666" y="310.66666666666669" width="93.666666666666657" height="19.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cgw-Hd-L7W">
-                                <rect key="frame" x="0.0" y="138" width="375" height="591"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="591"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -816,7 +816,7 @@ Super fast and esay to using with local signing!</string>
             <objects>
                 <viewController id="1zF-Vz-4uW" customClass="MainTabSettingViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eZu-D4-qDA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="4Ql-ge-Go2">
@@ -824,7 +824,7 @@ Super fast and esay to using with local signing!</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bms-CG-fww">
-                                <rect key="frame" x="0.0" y="88" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="rUb-xK-flr">
                                         <rect key="frame" x="8" y="4" width="42" height="42"/>
@@ -868,7 +868,7 @@ Super fast and esay to using with local signing!</string>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qd6-af-F3f">
-                                <rect key="frame" x="0.0" y="138" width="375" height="591"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="591"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="k2t-NI-3vK" kind="embed" id="5yS-kA-skj"/>
@@ -928,9 +928,19 @@ Super fast and esay to using with local signing!</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="59e-Pc-Dtm" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="REWARD" image="reward_ic" id="10a-ev-i1V"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mGb-8m-aiv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="mGb-8m-aiv">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="1000" vertical="0.0"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -947,9 +957,19 @@ Super fast and esay to using with local signing!</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YzK-1l-jEg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="WALLET" image="wallet_ic" id="IIN-KY-Jus"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UaI-4y-7k3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="UaI-4y-7k3">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="1000" vertical="0.0"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -966,9 +986,19 @@ Super fast and esay to using with local signing!</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6PU-dL-cQj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="HISTORY" image="ts_ic" id="Pah-Ab-5sf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="He0-cX-uZk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="He0-cX-uZk">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="1000" vertical="0.0"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -985,9 +1015,19 @@ Super fast and esay to using with local signing!</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tVU-gy-x65" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="VOTE" image="vote_ic" id="3qo-be-85R"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6eb-xV-LOr">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="6eb-xV-LOr">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="1000" vertical="0.0"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1004,9 +1044,19 @@ Super fast and esay to using with local signing!</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ARn-Yi-ZWd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="SETTING" image="setting_ic" id="hWX-Vb-kcg"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="A24-Xc-evI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="A24-Xc-evI">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="1000" vertical="0.0"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
