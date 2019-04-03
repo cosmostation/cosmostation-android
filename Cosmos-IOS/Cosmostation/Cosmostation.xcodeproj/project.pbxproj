@@ -66,6 +66,7 @@
 		E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E4F222E842B00A1436F /* BaseViewController.swift */; };
 		E1945E52223124F000A1436F /* BaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E51223124F000A1436F /* BaseData.swift */; };
 		E1945E542231256800A1436F /* BaseConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E532231256800A1436F /* BaseConstant.swift */; };
+		E19A321922544EB500A05E41 /* DashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A321822544EB500A05E41 /* DashedView.swift */; };
 		E1A82DD1224220910097CAEE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD0224220910097CAEE /* Account.swift */; };
 		E1A82DD3224222E00097CAEE /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD2224222E00097CAEE /* Password.swift */; };
 		E1A82DD5224223250097CAEE /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD4224223250097CAEE /* Balance.swift */; };
@@ -84,6 +85,9 @@
 		E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */; };
 		E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */; };
 		E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF62244FA750097CAEE /* UIColor.swift */; };
+		E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */; };
+		E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */; };
+		E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E15FC12253748B00A10C7B /* DashedButton.swift */; };
 		E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */; };
 		E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED75AA2251B37C002CFE85 /* Reward.swift */; };
 /* End PBXBuildFile section */
@@ -154,6 +158,7 @@
 		E1945E4F222E842B00A1436F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		E1945E51223124F000A1436F /* BaseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseData.swift; sourceTree = "<group>"; };
 		E1945E532231256800A1436F /* BaseConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseConstant.swift; sourceTree = "<group>"; };
+		E19A321822544EB500A05E41 /* DashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedView.swift; sourceTree = "<group>"; };
 		E1A82DD0224220910097CAEE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		E1A82DD2224222E00097CAEE /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		E1A82DD4224223250097CAEE /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
@@ -172,6 +177,9 @@
 		E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllValidatorCell.swift; sourceTree = "<group>"; };
 		E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllValidatorCell.xib; sourceTree = "<group>"; };
 		E1A82DF62244FA750097CAEE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPopupCell.swift; sourceTree = "<group>"; };
+		E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountPopupCell.xib; sourceTree = "<group>"; };
+		E1E15FC12253748B00A10C7B /* DashedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedButton.swift; sourceTree = "<group>"; };
 		E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineTextField.swift; sourceTree = "<group>"; };
 		E1ED75AA2251B37C002CFE85 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -345,6 +353,8 @@
 				E16D9B1A2248D1370019B7BB /* BoarderLabel.swift */,
 				E1271B07224B90230083AF17 /* AddressInputTextField.swift */,
 				E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */,
+				E1E15FC12253748B00A10C7B /* DashedButton.swift */,
+				E19A321822544EB500A05E41 /* DashedView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -401,6 +411,8 @@
 				E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */,
 				E1861D2D224DB1570027DED1 /* RestorePathCell.swift */,
 				E1861D2E224DB1570027DED1 /* RestorePathCell.xib */,
+				E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */,
+				E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -470,6 +482,7 @@
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */,
 				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
+				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
@@ -514,6 +527,7 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/BitcoinKit/BitcoinKit.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
@@ -528,6 +542,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BitcoinKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
@@ -566,6 +581,7 @@
 				E16D9B24224A083E0019B7BB /* KeyboardViewController.swift in Sources */,
 				E151B63F22484A710026B8C0 /* InOutPut.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
+				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
@@ -574,6 +590,7 @@
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
+				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
@@ -590,6 +607,7 @@
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,
 				E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */,
+				E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */,
 				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
@@ -772,7 +790,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.Cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -788,7 +809,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.Cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

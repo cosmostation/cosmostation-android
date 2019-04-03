@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Floaty
+import DropDown
 
 class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
@@ -47,6 +48,12 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
+    
+    var dimView: UIView?
+    let window = UIApplication.shared.keyWindow!
+    let dropDown = DropDown()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,6 +89,10 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
         
+        dimView = UIView(frame: window.bounds)
+        dimView!.backgroundColor = UIColor.black
+        dimView!.alpha  = 0.85
+        
     }
     
     func emptyFloatySelected(_ floaty: Floaty) {
@@ -94,6 +105,8 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         self.navigationController?.navigationBar.topItem?.title = "";
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
+        
+        onUpdateUserInfos()
     }
     
 
@@ -101,6 +114,90 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         super.viewWillAppear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
     }
+    
+    
+    func onUpdateUserInfos() {
+        var dropmenu = [String]()
+        dropmenu.append("top")
+        for account in mainTabVC.mAccounts {
+            dropmenu.append(String(account.account_id))
+        }
+        if(dropmenu.count < 6) {
+            dropmenu.append("bottom")
+        }
+        
+        dropDown.anchorView = self.titleView
+        dropDown.backgroundColor = UIColor.black
+        dropDown.dismissMode = .onTap
+        
+        dropDown.dataSource = dropmenu
+        dropDown.downScaleTransform = CGAffineTransform(translationX: 0, y: -500)
+        dropDown.animationEntranceOptions = [.allowUserInteraction, .curveEaseInOut]
+        dropDown.animationExitOptions = [.allowUserInteraction, .curveEaseInOut]
+        
+        dropDown.animationduration = 0.3
+        dropDown.cellNib = UINib(nibName: "AccountPopupCell", bundle: nil)
+        dropDown.cellHeight = 58
+        dropDown.separatorColor = UIColor.clear
+        
+        dropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
+            guard let cell = cell as? AccountPopupCell else { return }
+            if(index == 0) {
+                cell.topPadding.isHidden = false
+                cell.accountView.isHidden = true
+                cell.newAccount.isHidden = true
+                
+            } else if (self.dropDown.dataSource.count <= 5 && index == self.dropDown.dataSource.count - 1) {
+                cell.topPadding.isHidden = true
+                cell.accountView.isHidden = true
+                cell.newAccount.isHidden = false
+                
+            } else {
+                cell.topPadding.isHidden = true
+                cell.accountView.isHidden = false
+                cell.newAccount.isHidden = true
+                let tempAccount = self.mainTabVC.mAccounts[index - 1]
+                
+                cell.address.text = tempAccount.account_address
+                
+                if (tempAccount.account_id == BaseData.instance.getRecentAccountId()) {
+                    cell.cardview.borderColor = UIColor.init(hexString: "#9ca2ac")
+                } else {
+                    cell.cardview.borderColor = UIColor.init(hexString: "#222426")
+                }
+                
+                if (tempAccount.account_nick_name == "") { cell.name.text = "Wallet" + String(tempAccount.account_id)
+                } else { cell.name.text = tempAccount.account_nick_name }
+                
+                if(tempAccount.account_has_private) { cell.keystate.image = UIImage(named: "key_on")
+                } else { cell.keystate.image = UIImage(named: "key_off") }
+                
+            }
+        }
+        
+        dropDown.willShowAction = { [unowned self] in
+            self.window.addSubview(self.dimView!);
+        }
+        
+        dropDown.cancelAction = { [unowned self] in
+            self.dimView?.removeFromSuperview()
+        }
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.dimView?.removeFromSuperview()
+            print("selectionAction ", item)
+            if(item == "top") {
+                
+            } else if (item == "bottom") {
+                print("bottom ")
+                
+            } else {
+                let id = Int64(item)
+                print("new id ", id)
+            }
+        }
+    }
+    
     
     @objc func onFetchDone(_ notification: NSNotification) {
         print("MainTabSendViewController onFetchDone")
@@ -161,4 +258,10 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             self.refresher.endRefreshing()
         }
     }
+    
+    @IBAction func onClickSwitchAccount(_ sender: Any) {
+        print("onClickSwitchAccount")
+        self.dropDown.show()
+    }
+    
 }

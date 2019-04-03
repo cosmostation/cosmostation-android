@@ -17,6 +17,7 @@ target 'Cosmostation' do
   pod 'Toast-Swift', '~> 4.0.0'
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Floaty', '~> 4.1.0'
+  pod 'DropDown'
 #  pod 'Toaster', '~> 2.1.1'
 
 end

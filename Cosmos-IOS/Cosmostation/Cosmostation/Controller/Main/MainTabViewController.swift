@@ -12,6 +12,7 @@ import Alamofire
 class MainTabViewController: UITabBarController {
     
     var mAccount:Account!
+    var mAccounts = Array<Account>()
     var mBalances = Array<Balance>()
     var mAllValidators = Array<Validator>()
     var mMyValidators = Array<Validator>()
@@ -25,6 +26,7 @@ class MainTabViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        mAccounts = BaseData.instance.selectAllAccounts()
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
         }

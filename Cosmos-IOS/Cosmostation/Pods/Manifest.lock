@@ -4,6 +4,7 @@ PODS:
     - Alamofire (~> 4.8)
   - BitcoinKit (1.0.2)
   - CryptoSwift (0.14.0)
+  - DropDown (2.3.12)
   - Floaty (4.1.0)
   - MBProgressHUD (1.1.0)
   - PromiseKit/CorePromise (6.8.3)
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - AlamofireImage (~> 3.3)
   - BitcoinKit
   - CryptoSwift
+  - DropDown
   - Floaty (~> 4.1.0)
   - MBProgressHUD (~> 1.1.0)
   - PromiseKit/CorePromise (~> 6.8)
@@ -33,6 +35,7 @@ SPEC REPOS:
     - AlamofireImage
     - BitcoinKit
     - CryptoSwift
+    - DropDown
     - Floaty
     - MBProgressHUD
     - PromiseKit
@@ -46,6 +49,7 @@ SPEC CHECKSUMS:
   AlamofireImage: 1aea346f4dda2f6c67622fa5a89fcbb80d79cc16
   BitcoinKit: 5502c14d72ab665fbe00dc72abd74439a38ef9bc
   CryptoSwift: 35a10419f4dbf0619c13f8c1c180037e115323fa
+  DropDown: 0bcc278799ec11a3d34ce1aac9367fbbaf5423d9
   Floaty: 1a4e213f3512cf3045ef9cb0c1ff456226d1f66a
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
@@ -54,6 +58,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
 
-PODFILE CHECKSUM: d0f5aee4e5d8739f57424d9ede7ec940a679681a
+PODFILE CHECKSUM: af5e29be7003be14a9d1e4d93bc8e2cd8d22e5df
 
 COCOAPODS: 1.5.3
