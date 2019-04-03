@@ -67,6 +67,8 @@
 		E1945E52223124F000A1436F /* BaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E51223124F000A1436F /* BaseData.swift */; };
 		E1945E542231256800A1436F /* BaseConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E532231256800A1436F /* BaseConstant.swift */; };
 		E19A321922544EB500A05E41 /* DashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A321822544EB500A05E41 /* DashedView.swift */; };
+		E19A321E22547DF400A05E41 /* SBCardPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A321D22547DF400A05E41 /* SBCardPopupViewController.swift */; };
+		E19A322022547EA100A05E41 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A321F22547EA100A05E41 /* AddViewController.swift */; };
 		E1A82DD1224220910097CAEE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD0224220910097CAEE /* Account.swift */; };
 		E1A82DD3224222E00097CAEE /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD2224222E00097CAEE /* Password.swift */; };
 		E1A82DD5224223250097CAEE /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD4224223250097CAEE /* Balance.swift */; };
@@ -159,6 +161,8 @@
 		E1945E51223124F000A1436F /* BaseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseData.swift; sourceTree = "<group>"; };
 		E1945E532231256800A1436F /* BaseConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseConstant.swift; sourceTree = "<group>"; };
 		E19A321822544EB500A05E41 /* DashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedView.swift; sourceTree = "<group>"; };
+		E19A321D22547DF400A05E41 /* SBCardPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBCardPopupViewController.swift; sourceTree = "<group>"; };
+		E19A321F22547EA100A05E41 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		E1A82DD0224220910097CAEE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		E1A82DD2224222E00097CAEE /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		E1A82DD4224223250097CAEE /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
@@ -328,6 +332,7 @@
 				E1945E4D222E81D000A1436F /* MainTabSettingViewController.swift */,
 				E1A82DED2244DE680097CAEE /* MyValidatorViewController.swift */,
 				E1A82DEF2244E0BD0097CAEE /* AllValidatorViewController.swift */,
+				E19A321F22547EA100A05E41 /* AddViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 		E1A82DDA224378BE0097CAEE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E19A321D22547DF400A05E41 /* SBCardPopupViewController.swift */,
 				E1A82DDB224378D40097CAEE /* CardView.swift */,
 				E151B638224626990026B8C0 /* BorderButton.swift */,
 				E16D9B1A2248D1370019B7BB /* BoarderLabel.swift */,
@@ -564,6 +570,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1A82DEA2244A20B0097CAEE /* BondingInfo.swift in Sources */,
+				E19A321E22547DF400A05E41 /* SBCardPopupViewController.swift in Sources */,
 				E1945E48222E81A300A1436F /* MainTabRewardViewController.swift in Sources */,
 				E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
@@ -620,6 +627,7 @@
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
+				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,

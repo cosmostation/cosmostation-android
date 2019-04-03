@@ -71,9 +71,8 @@ class IntroViewController: BaseViewController {
     
     @IBAction func onClickCreate(_ sender: Any) {
         print("onClickCreate");
-        let createVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as! CreateViewController
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(createVC, animated: true)
+        self.onStartCreate()
+        
     }
     
     @IBAction func onClickImport(_ sender: Any) {
@@ -94,16 +93,13 @@ class IntroViewController: BaseViewController {
     
     @IBAction func onClickImportMnemonic(_ sender: Any) {
         print("onClickImportMnemonic");
-        let restoreVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestoreViewController") as! RestoreViewController
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(restoreVC, animated: true)
+        self.onStartImportMnemonic()
     }
     
     @IBAction func onClickImportAddress(_ sender: Any) {
         print("onClickImportAddress");
-        let addAddressVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(addAddressVC, animated: true)
+        self.onStartImportAddress()
+        
     }
     
     @objc func startHighlight(sender: UIButton) {

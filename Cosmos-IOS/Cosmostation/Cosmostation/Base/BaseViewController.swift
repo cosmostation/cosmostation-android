@@ -24,13 +24,20 @@ class BaseViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        print("BaseViewController viewWillAppear")
         self.startAvoidingKeyboard()
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(self.onStartImport(_:)),
+//                                               name: Notification.Name("startImport"),
+//                                               object: nil)
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+//        print("BaseViewController viewWillDisappear")
         self.stopAvoidingKeyboard()
+//        NotificationCenter.default.removeObserver(self, name: Notification.Name("startImport"), object: nil)
     }
     
 
@@ -50,12 +57,58 @@ class BaseViewController: UIViewController {
     }
     
     
+//    @objc func onStartImport(_ notification: NSNotification) {
+//        if let string = notification.userInfo?["import"] as? String {
+//            if (string == "create") {
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
+//                    self.onStartCreate()
+//                })
+//
+//            } else if (string == "importAddress") {
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
+//                    self.onStartImportAddress()
+//                })
+//
+//            } else if (string == "importMnemonic") {
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
+//                    self.onStartImportMnemonic()
+//                })
+//
+//            }
+//        }
+//    }
+    
     func onStartMainTab() {
         print("onStartMainTab")
         let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = mainTabVC
         self.present(mainTabVC, animated: true, completion: nil)
+    }
+    
+    
+    func onStartImportMnemonic() {
+        print("onStartImportMnemonic")
+        let restoreVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestoreViewController") as! RestoreViewController
+        restoreVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(restoreVC, animated: true)
+    }
+    
+    func onStartImportAddress() {
+        print("onStartImportAddress")
+        let addAddressVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
+        addAddressVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(addAddressVC, animated: true)
+    }
+    
+    func onStartCreate() {
+        print("onStartCreate")
+        let createVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as! CreateViewController
+        createVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(createVC, animated: true)
     }
     
     func onShowToast(_ text:String) {

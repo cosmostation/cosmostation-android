@@ -11,7 +11,9 @@ import Alamofire
 import Floaty
 import DropDown
 
-class MainTabSendViewController: BaseViewController , FloatyDelegate{
+class MainTabSendViewController: BaseViewController , FloatyDelegate, SBCardPopupDelegate{
+    
+    
     
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var titleView: UIView!
@@ -53,6 +55,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     let window = UIApplication.shared.keyWindow!
     let dropDown = DropDown()
     
+    @IBOutlet weak var addPopupView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -190,6 +193,10 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
                 
             } else if (item == "bottom") {
                 print("bottom ")
+                let popupContent = AddViewController.create()
+                let cardPopup = SBCardPopupViewController(contentViewController: popupContent)
+                cardPopup.resultDelegate = self
+                cardPopup.show(onViewController: self.mainTabVC)
                 
             } else {
                 let id = Int64(item)
@@ -264,4 +271,16 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         self.dropDown.show()
     }
     
+    func SBCardPopupResponse(result: Int) {
+        print("SBCardPopupResponse ", result)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
+            if(result == 1) {
+                self.onStartCreate()
+            } else if(result == 2) {
+                self.onStartImportMnemonic()
+            } else if(result == 3) {
+                self.onStartImportAddress()
+            }
+        })
+    }
 }
