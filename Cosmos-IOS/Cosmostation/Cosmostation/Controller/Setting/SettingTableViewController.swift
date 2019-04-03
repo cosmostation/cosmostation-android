@@ -26,6 +26,10 @@ class SettingTableViewController: UITableViewController {
         if (indexPath.section == 0) {
             if(indexPath.row == 0) {
                 print("1-1")
+                let accoutManageVC = WalletManageViewController(nibName: "WalletManageViewController", bundle: nil)
+                accoutManageVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(accoutManageVC, animated: true)
             }
             
         } else if (indexPath.section == 1) {

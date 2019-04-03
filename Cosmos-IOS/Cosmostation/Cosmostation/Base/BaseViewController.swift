@@ -24,20 +24,13 @@ class BaseViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        print("BaseViewController viewWillAppear")
         self.startAvoidingKeyboard()
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(self.onStartImport(_:)),
-//                                               name: Notification.Name("startImport"),
-//                                               object: nil)
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        print("BaseViewController viewWillDisappear")
         self.stopAvoidingKeyboard()
-//        NotificationCenter.default.removeObserver(self, name: Notification.Name("startImport"), object: nil)
     }
     
 
@@ -56,27 +49,6 @@ class BaseViewController: UIViewController {
         MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
     }
     
-    
-//    @objc func onStartImport(_ notification: NSNotification) {
-//        if let string = notification.userInfo?["import"] as? String {
-//            if (string == "create") {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
-//                    self.onStartCreate()
-//                })
-//
-//            } else if (string == "importAddress") {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
-//                    self.onStartImportAddress()
-//                })
-//
-//            } else if (string == "importMnemonic") {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
-//                    self.onStartImportMnemonic()
-//                })
-//
-//            }
-//        }
-//    }
     
     func onStartMainTab() {
         print("onStartMainTab")

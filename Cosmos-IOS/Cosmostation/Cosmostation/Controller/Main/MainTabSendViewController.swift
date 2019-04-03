@@ -60,8 +60,8 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate, SBCardPopu
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        rewardImg.image = rewardImg.image?.withRenderingMode(.alwaysTemplate)
-        rewardImg.tintColor = UIColor.white
+//        rewardImg.image = rewardImg.image?.withRenderingMode(.alwaysTemplate)
+//        rewardImg.tintColor = UIColor.white
         
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         keyAddressLabel.text = mainTabVC.mAccount.account_address

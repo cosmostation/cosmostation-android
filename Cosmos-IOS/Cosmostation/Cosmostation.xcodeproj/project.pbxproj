@@ -69,6 +69,12 @@
 		E19A321922544EB500A05E41 /* DashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A321822544EB500A05E41 /* DashedView.swift */; };
 		E19A321E22547DF400A05E41 /* SBCardPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A321D22547DF400A05E41 /* SBCardPopupViewController.swift */; };
 		E19A322022547EA100A05E41 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A321F22547EA100A05E41 /* AddViewController.swift */; };
+		E19A32232254A61E00A05E41 /* WalletManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A32212254A61E00A05E41 /* WalletManageViewController.swift */; };
+		E19A32242254A61E00A05E41 /* WalletManageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E19A32222254A61E00A05E41 /* WalletManageViewController.xib */; };
+		E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A32252254AE7A00A05E41 /* ManageHeader.swift */; };
+		E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E19A32272254AE8500A05E41 /* ManageHeader.xib */; };
+		E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A32292254AFE100A05E41 /* ManageAccountCell.swift */; };
+		E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */; };
 		E1A82DD1224220910097CAEE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD0224220910097CAEE /* Account.swift */; };
 		E1A82DD3224222E00097CAEE /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD2224222E00097CAEE /* Password.swift */; };
 		E1A82DD5224223250097CAEE /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD4224223250097CAEE /* Balance.swift */; };
@@ -163,6 +169,12 @@
 		E19A321822544EB500A05E41 /* DashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedView.swift; sourceTree = "<group>"; };
 		E19A321D22547DF400A05E41 /* SBCardPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBCardPopupViewController.swift; sourceTree = "<group>"; };
 		E19A321F22547EA100A05E41 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		E19A32212254A61E00A05E41 /* WalletManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManageViewController.swift; sourceTree = "<group>"; };
+		E19A32222254A61E00A05E41 /* WalletManageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletManageViewController.xib; sourceTree = "<group>"; };
+		E19A32252254AE7A00A05E41 /* ManageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageHeader.swift; sourceTree = "<group>"; };
+		E19A32272254AE8500A05E41 /* ManageHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageHeader.xib; sourceTree = "<group>"; };
+		E19A32292254AFE100A05E41 /* ManageAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAccountCell.swift; sourceTree = "<group>"; };
+		E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageAccountCell.xib; sourceTree = "<group>"; };
 		E1A82DD0224220910097CAEE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		E1A82DD2224222E00097CAEE /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		E1A82DD4224223250097CAEE /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
@@ -221,6 +233,8 @@
 			isa = PBXGroup;
 			children = (
 				E151B657224873640026B8C0 /* SettingTableViewController.swift */,
+				E19A32212254A61E00A05E41 /* WalletManageViewController.swift */,
+				E19A32222254A61E00A05E41 /* WalletManageViewController.xib */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -419,6 +433,10 @@
 				E1861D2E224DB1570027DED1 /* RestorePathCell.xib */,
 				E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */,
 				E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */,
+				E19A32252254AE7A00A05E41 /* ManageHeader.swift */,
+				E19A32272254AE8500A05E41 /* ManageHeader.xib */,
+				E19A32292254AFE100A05E41 /* ManageAccountCell.swift */,
+				E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -483,11 +501,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
+				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */,
+				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
 				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
+				E19A32242254A61E00A05E41 /* WalletManageViewController.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */,
@@ -594,11 +615,13 @@
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
 				E151B64B224859E10026B8C0 /* StdSignedMsg.swift in Sources */,
+				E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
 				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
+				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
 				E151B647224850040026B8C0 /* Msg.swift in Sources */,
@@ -624,6 +647,7 @@
 				E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */,
 				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
+				E19A32232254A61E00A05E41 /* WalletManageViewController.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
