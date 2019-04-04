@@ -12,7 +12,6 @@ import SafariServices
 
 class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
     @IBOutlet weak var titleChainName: UILabel!
@@ -21,6 +20,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     @IBOutlet weak var emptyLabel: UILabel!
     
     var mainTabVC: MainTabViewController!
+    var refresher: UIRefreshControl!
     var mHistories = Array<History.InnerHits>()
     
     override func viewDidLoad() {
@@ -33,6 +33,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.historyTableView.dataSource = self
         self.historyTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.historyTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
+        
+        self.refresher = UIRefreshControl()
+        self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
+        self.refresher.tintColor = UIColor.white
+        self.historyTableView.addSubview(refresher)
         
         onFetchHistory(mainTabVC.mAccount.account_address, "0", "100");
     }
@@ -52,6 +57,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else {
             titleChainName.text = ""
         }
+    }
+    
+    @objc func onRequestFetch() {
+        onFetchHistory(mainTabVC.mAccount.account_address, "0", "100");
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -106,8 +115,15 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                     
                     self.mHistories.removeAll()
                     self.mHistories = rawHistory.hits.hits
-                    self.emptyLabel.isHidden = true
-                    self.historyTableView.reloadData()
+                    
+                    if(self.mHistories.count > 0) {
+                        self.historyTableView.reloadData()
+                        self.emptyLabel.isHidden = true
+                    } else {
+                        self.emptyLabel.isHidden = false
+                    }
+                    
+                    
                     
                 case .failure(let error):
                     print("error ", error)
@@ -117,6 +133,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } catch {
             print(error)
         }
+        self.refresher.endRefreshing()
     }
     
     

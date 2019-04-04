@@ -22,6 +22,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     
     var mProposals = Array<Proposal>()
     var mainTabVC: MainTabViewController!
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,12 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         self.voteTableView.dataSource = self
         self.voteTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.voteTableView.register(UINib(nibName: "ProposalCell", bundle: nil), forCellReuseIdentifier: "ProposalCell")
+        
+        
+        self.refresher = UIRefreshControl()
+        self.refresher.addTarget(self, action: #selector(onFetchProposals), for: .valueChanged)
+        self.refresher.tintColor = UIColor.white
+        self.voteTableView.addSubview(refresher)
         
         self.onFetchProposals()
     }
@@ -61,7 +68,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         } else {
             self.emptyLabel.isHidden = false
         }
-        
+        self.refresher.endRefreshing()
     }
     
     
@@ -102,7 +109,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         present(safariViewController, animated: true, completion: nil)
     }
     
-    func onFetchProposals() {
+    @objc func onFetchProposals() {
         print("onFetchProposals")
         let request = Alamofire.request(CSS_LCD_URL_PROPOSALS, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in

@@ -59,8 +59,6 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         self.updateTitle()
         
-        keyAddressLabel.text = mainTabVC.mAccount.account_address
-        
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         refresher.tintColor = UIColor.white
@@ -72,10 +70,10 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
         
+        self.updateView()
     }
     
     func updateTitle() {
-        
         if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = "Wallet " + String(mainTabVC.mAccount.account_id)
         } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
         
@@ -92,28 +90,10 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         }
     }
     
-    func emptyFloatySelected(_ floaty: Floaty) {
-        print("emptyFloatySelected")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        self.navigationController?.navigationBar.topItem?.title = "";
+    func updateView() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
+        keyAddressLabel.text = mainTabVC.mAccount.account_address
         
-    }
-    
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
-    }
-    
-    
-    @objc func onFetchDone(_ notification: NSNotification) {
-        print("MainTabSendViewController onFetchDone")
         if(mainTabVC.mBalances.count > 0) {
             atomAvailableAmount.attributedText = WUtils.displayAmout(mainTabVC.mBalances[0].balance_amount, atomDelegatedAmount.font, 6)
         } else {
@@ -154,15 +134,39 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         atomTotalLabel.attributedText = WUtils.displayAmout(totalSum.stringValue, atomTotalLabel.font, 6)
         
         var priceValue = NSDecimalNumber.zero
-        if let price = mainTabVC.mAtomTic.value(forKeyPath: "data.quotes.USD.price") {
-            priceValue = NSDecimalNumber(string: String(describing: price))
+        guard let price = mainTabVC.mAtomTic?.value(forKeyPath: "data.quotes.USD.price") else {
+            return
         }
-        
+        priceValue = NSDecimalNumber(string: String(describing: price))
         let dpPrice = priceValue.multiplying(by: WUtils.stringToDecimal(atomTotalLabel.text!.replacingOccurrences(of: ",", with: "")), withBehavior: WUtils.handler2)
         atomPriceLabel.attributedText = WUtils.displayUSD(dpPrice, font: atomPriceLabel.font)
         
         self.refresher.endRefreshing()
+    }
+    
+    func emptyFloatySelected(_ floaty: Floaty) {
+        print("emptyFloatySelected")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.navigationBar.topItem?.title = "";
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
+        
+    }
+    
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
+    }
+    
+    
+    @objc func onFetchDone(_ notification: NSNotification) {
+        print("MainTabSendViewController onFetchDone")
+        updateView();
     }
     
     @objc func onRequestFetch() {

@@ -209,7 +209,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gyy-Eq-HbO" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="16" width="343" height="70"/>
+                                                <rect key="frame" x="16" y="12" width="343" height="70"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fim-i8-hc1">
                                                         <rect key="frame" x="309" y="23" width="24" height="24"/>
@@ -267,7 +267,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AwB-tc-gYY" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="102" width="343" height="190"/>
+                                                <rect key="frame" x="16" y="92" width="343" height="190"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="atom_ic" translatesAutoresizingMaskIntoConstraints="NO" id="Pad-xR-vQa">
                                                         <rect key="frame" x="12" y="16" width="20" height="20"/>
@@ -283,7 +283,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flY-eb-6Ss">
-                                                        <rect key="frame" x="319.66666666666669" y="16.333333333333314" width="11.333333333333314" height="19.666666666666671"/>
+                                                        <rect key="frame" x="319.66666666666669" y="16.333333333333343" width="11.333333333333314" height="19.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -400,7 +400,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbb-rd-MvK" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="308" width="343" height="138"/>
+                                                <rect key="frame" x="16" y="292" width="343" height="138"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photon_ic" translatesAutoresizingMaskIntoConstraints="NO" id="jKK-b6-M6g">
                                                         <rect key="frame" x="12" y="16" width="20" height="20"/>
@@ -435,7 +435,7 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vv9-ry-62s">
-                                                        <rect key="frame" x="11.999999999999996" y="81.666666666666629" width="48.666666666666657" height="14"/>
+                                                        <rect key="frame" x="11.999999999999996" y="81.666666666666686" width="48.666666666666657" height="14"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -501,7 +501,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEB-3M-FxV" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="462" width="343" height="160"/>
+                                                <rect key="frame" x="16" y="440" width="343" height="160"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reward_img" translatesAutoresizingMaskIntoConstraints="NO" id="0NV-iC-Aok">
                                                         <rect key="frame" x="129.66666666666666" y="16" width="84" height="63"/>
@@ -560,14 +560,14 @@ Super fast and esay to using with local signing!</string>
                                             <constraint firstItem="gbb-rd-MvK" firstAttribute="leading" secondItem="AwB-tc-gYY" secondAttribute="leading" id="5sA-mF-29s"/>
                                             <constraint firstItem="iEB-3M-FxV" firstAttribute="leading" secondItem="gyy-Eq-HbO" secondAttribute="leading" id="EAx-wH-1fp"/>
                                             <constraint firstAttribute="trailing" secondItem="gyy-Eq-HbO" secondAttribute="trailing" constant="16" id="FzH-KD-LMP"/>
-                                            <constraint firstItem="iEB-3M-FxV" firstAttribute="top" secondItem="gbb-rd-MvK" secondAttribute="bottom" constant="16" id="HRB-07-ChA"/>
+                                            <constraint firstItem="iEB-3M-FxV" firstAttribute="top" secondItem="gbb-rd-MvK" secondAttribute="bottom" constant="10" id="HRB-07-ChA"/>
                                             <constraint firstItem="gyy-Eq-HbO" firstAttribute="leading" secondItem="RmO-Xk-P6u" secondAttribute="leading" constant="16" id="d11-pR-RN6"/>
-                                            <constraint firstItem="gbb-rd-MvK" firstAttribute="top" secondItem="AwB-tc-gYY" secondAttribute="bottom" constant="16" id="dAj-QT-LtN"/>
+                                            <constraint firstItem="gbb-rd-MvK" firstAttribute="top" secondItem="AwB-tc-gYY" secondAttribute="bottom" constant="10" id="dAj-QT-LtN"/>
                                             <constraint firstItem="gbb-rd-MvK" firstAttribute="trailing" secondItem="AwB-tc-gYY" secondAttribute="trailing" id="f8Z-1x-gzk"/>
                                             <constraint firstItem="iEB-3M-FxV" firstAttribute="trailing" secondItem="gyy-Eq-HbO" secondAttribute="trailing" id="h8p-Lk-5ER"/>
-                                            <constraint firstItem="AwB-tc-gYY" firstAttribute="top" secondItem="gyy-Eq-HbO" secondAttribute="bottom" constant="16" id="hf1-Hq-TFc"/>
-                                            <constraint firstItem="iEB-3M-FxV" firstAttribute="top" secondItem="AwB-tc-gYY" secondAttribute="bottom" priority="500" constant="16" id="i3K-XY-UsP"/>
-                                            <constraint firstItem="gyy-Eq-HbO" firstAttribute="top" secondItem="RmO-Xk-P6u" secondAttribute="top" constant="16" id="iUR-0N-14O"/>
+                                            <constraint firstItem="AwB-tc-gYY" firstAttribute="top" secondItem="gyy-Eq-HbO" secondAttribute="bottom" constant="10" id="hf1-Hq-TFc"/>
+                                            <constraint firstItem="iEB-3M-FxV" firstAttribute="top" secondItem="AwB-tc-gYY" secondAttribute="bottom" priority="500" constant="10" id="i3K-XY-UsP"/>
+                                            <constraint firstItem="gyy-Eq-HbO" firstAttribute="top" secondItem="RmO-Xk-P6u" secondAttribute="top" constant="12" id="iUR-0N-14O"/>
                                             <constraint firstAttribute="trailing" secondItem="AwB-tc-gYY" secondAttribute="trailing" constant="16" id="smA-ns-gCX"/>
                                         </constraints>
                                     </view>

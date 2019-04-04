@@ -21,7 +21,7 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate {
     var mUnbondingList = Array<Unbonding>()
     var mRewardList = Array<Reward>()
     var mAllRewards = Array<Coin>()
-    var mAtomTic: NSDictionary!
+    var mAtomTic: NSDictionary?
     var mFetchCnt = 0
     
     var dimView: UIView?
