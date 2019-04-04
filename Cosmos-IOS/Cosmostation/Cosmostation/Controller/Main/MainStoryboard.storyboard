@@ -50,6 +50,9 @@
                                             <constraint firstAttribute="height" constant="32" id="lMY-0j-JQR"/>
                                         </constraints>
                                         <state key="normal" image="accout_btn"/>
+                                        <connections>
+                                            <action selector="onClickSwitchAccount:" destination="Qvj-GN-yc9" eventType="touchUpInside" id="YpQ-WQ-MJZ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xce-Qd-7vB">
                                         <rect key="frame" x="283" y="9" width="32" height="32"/>
@@ -670,6 +673,9 @@ Super fast and esay to using with local signing!</string>
                                             <constraint firstAttribute="height" constant="32" id="e4f-gt-Frp"/>
                                         </constraints>
                                         <state key="normal" image="accout_btn"/>
+                                        <connections>
+                                            <action selector="onClickSwitchAccount:" destination="t07-dn-E46" eventType="touchUpInside" id="99d-Kg-Qh6"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -714,6 +720,9 @@ Super fast and esay to using with local signing!</string>
                     <connections>
                         <outlet property="emptyLabel" destination="TLK-Ns-Awb" id="WEt-to-cJP"/>
                         <outlet property="historyTableView" destination="clr-UP-CWo" id="pah-B7-2Pd"/>
+                        <outlet property="titleChainImg" destination="MeZ-yr-C1Y" id="0AT-rU-YD7"/>
+                        <outlet property="titleChainName" destination="NCH-6t-2hM" id="nKX-0Y-AMx"/>
+                        <outlet property="titleWalletName" destination="D4N-0h-U3Y" id="UT2-NV-Dbf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nTg-5w-Uah" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -761,6 +770,9 @@ Super fast and esay to using with local signing!</string>
                                             <constraint firstAttribute="height" constant="32" id="eCA-cs-Weo"/>
                                         </constraints>
                                         <state key="normal" image="accout_btn"/>
+                                        <connections>
+                                            <action selector="onClickSwitchAccount:" destination="jY2-JE-lP2" eventType="touchUpInside" id="HAE-Ao-7cj"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -804,6 +816,9 @@ Super fast and esay to using with local signing!</string>
                     <navigationItem key="navigationItem" id="E0Q-yY-xu0"/>
                     <connections>
                         <outlet property="emptyLabel" destination="a3x-sr-rPq" id="mph-OM-gFY"/>
+                        <outlet property="titleChainImg" destination="xPv-Dk-Md5" id="mZS-TU-XWa"/>
+                        <outlet property="titleChainName" destination="Fbt-1W-jma" id="LWk-jE-H4s"/>
+                        <outlet property="titleWalletName" destination="vEs-a2-fLM" id="Rht-l0-T8U"/>
                         <outlet property="voteTableView" destination="cgw-Hd-L7W" id="pSt-0J-Ci3"/>
                     </connections>
                 </viewController>
@@ -852,6 +867,9 @@ Super fast and esay to using with local signing!</string>
                                             <constraint firstAttribute="height" constant="32" id="oL2-dT-kJr"/>
                                         </constraints>
                                         <state key="normal" image="accout_btn"/>
+                                        <connections>
+                                            <action selector="onClickSwitchAccount:" destination="1zF-Vz-4uW" eventType="touchUpInside" id="Ud8-2u-LU4"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -888,6 +906,11 @@ Super fast and esay to using with local signing!</string>
                         <viewLayoutGuide key="safeArea" id="6xW-gl-kKc"/>
                     </view>
                     <navigationItem key="navigationItem" id="tiQ-UA-kjU"/>
+                    <connections>
+                        <outlet property="titleChainImg" destination="rUb-xK-flr" id="0Hr-IV-GLO"/>
+                        <outlet property="titleChainName" destination="TB1-BC-2Oc" id="j2D-ey-0QK"/>
+                        <outlet property="titleWalletName" destination="imU-di-2sz" id="blD-aa-sI3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Br-GE-e2e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

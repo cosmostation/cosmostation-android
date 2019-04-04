@@ -11,6 +11,11 @@ import Alamofire
 import SafariServices
 
 class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    @IBOutlet weak var titleChainImg: UIImageView!
+    @IBOutlet weak var titleWalletName: UILabel!
+    @IBOutlet weak var titleChainName: UILabel!
 
     @IBOutlet weak var historyTableView: UITableView!
     @IBOutlet weak var emptyLabel: UILabel!
@@ -22,6 +27,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         super.viewDidLoad()
         
         mainTabVC = (self.parent)?.parent as? MainTabViewController
+        self.updateTitle()
         
         self.historyTableView.delegate = self
         self.historyTableView.dataSource = self
@@ -35,6 +41,17 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
+    }
+    
+    func updateTitle() {
+        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = "Wallet " + String(mainTabVC.mAccount.account_id)
+        } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
+        
+        if(mainTabVC.mAccount.account_base_chain == SUPPORT_CHAIN_COSMOS_MAIN) {
+            titleChainName.text = "(Cosmos Hub)"
+        } else {
+            titleChainName.text = ""
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -100,5 +117,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } catch {
             print(error)
         }
+    }
+    
+    
+    @IBAction func onClickSwitchAccount(_ sender: Any) {
+        self.mainTabVC.dropDown.show()
     }
 }

@@ -8,8 +8,9 @@
 
 import UIKit
 import Alamofire
+import DropDown
 
-class MainTabViewController: UITabBarController {
+class MainTabViewController: UITabBarController, SBCardPopupDelegate {
     
     var mAccount:Account!
     var mAccounts = Array<Account>()
@@ -23,6 +24,10 @@ class MainTabViewController: UITabBarController {
     var mAtomTic: NSDictionary!
     var mFetchCnt = 0
     
+    var dimView: UIView?
+    let window = UIApplication.shared.keyWindow!
+    let dropDown = DropDown()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
@@ -30,8 +35,134 @@ class MainTabViewController: UITabBarController {
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
         }
+        
         self.onFetchAccountData()
+        
+        dimView = UIView(frame: window.bounds)
+        dimView!.backgroundColor = UIColor.black
+        dimView!.alpha  = 0.85
+        onUpdateDropDownView()
+        
+        self.selectedIndex = BaseData.instance.getLastTab()
     }
+    
+    
+    
+    func onUpdateDropDownView() {
+        var dropmenu = [String]()
+        dropmenu.append("top")
+        for account in mAccounts {
+            dropmenu.append(String(account.account_id))
+        }
+        if(dropmenu.count < 6) {
+            dropmenu.append("bottom")
+        }
+        
+        dropDown.anchorView = self.view
+        dropDown.backgroundColor = UIColor.black
+        dropDown.dismissMode = .onTap
+        
+        dropDown.dataSource = dropmenu
+        dropDown.downScaleTransform = CGAffineTransform(translationX: 0, y: -500)
+        dropDown.animationEntranceOptions = [.allowUserInteraction, .curveEaseInOut]
+        dropDown.animationExitOptions = [.allowUserInteraction, .curveEaseInOut]
+        
+        dropDown.animationduration = 0.3
+        dropDown.cellNib = UINib(nibName: "AccountPopupCell", bundle: nil)
+        dropDown.cellHeight = 58
+        dropDown.separatorColor = UIColor.clear
+        
+        dropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
+            guard let cell = cell as? AccountPopupCell else { return }
+            if(index == 0) {
+                cell.topPadding.isHidden = false
+                cell.accountView.isHidden = true
+                cell.newAccount.isHidden = true
+                
+            } else if (self.dropDown.dataSource.count <= 5 && index == self.dropDown.dataSource.count - 1) {
+                cell.topPadding.isHidden = true
+                cell.accountView.isHidden = true
+                cell.newAccount.isHidden = false
+                
+            } else {
+                cell.topPadding.isHidden = true
+                cell.accountView.isHidden = false
+                cell.newAccount.isHidden = true
+                let tempAccount = self.mAccounts[index - 1]
+                
+                cell.address.text = tempAccount.account_address
+                
+                if (tempAccount.account_id == BaseData.instance.getRecentAccountId()) {
+                    cell.cardview.borderColor = UIColor.init(hexString: "#9ca2ac")
+                } else {
+                    cell.cardview.borderColor = UIColor.init(hexString: "#222426")
+                }
+                
+                if (tempAccount.account_nick_name == "") { cell.name.text = "Wallet " + String(tempAccount.account_id)
+                } else { cell.name.text = tempAccount.account_nick_name }
+                
+                if(tempAccount.account_has_private) { cell.keystate.image = UIImage(named: "key_on")
+                } else { cell.keystate.image = UIImage(named: "key_off") }
+                
+            }
+        }
+        
+        dropDown.willShowAction = { [unowned self] in
+            self.window.addSubview(self.dimView!);
+        }
+        
+        dropDown.cancelAction = { [unowned self] in
+            self.dimView?.removeFromSuperview()
+        }
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.dimView?.removeFromSuperview()
+//            print("selectionAction ", item)
+            if(item == "top") {
+                
+            } else if (item == "bottom") {
+                let popupContent = AddViewController.create()
+                let cardPopup = SBCardPopupViewController(contentViewController: popupContent)
+                cardPopup.resultDelegate = self
+                cardPopup.show(onViewController: self)
+                
+            } else {
+                let id = Int64(item)
+                BaseData.instance.setRecentAccountId(id!)
+                BaseData.instance.setLastTab(self.selectedIndex)
+                
+                let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.window?.rootViewController = mainTabVC
+                self.present(mainTabVC, animated: true, completion: nil)
+            }
+        }
+        
+    }
+    
+    
+    func SBCardPopupResponse(result: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
+            let naviVC = self.selectedViewController as? UINavigationController
+            var tagetVC:BaseViewController?
+            if(result == 1) {
+                tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as! CreateViewController
+                
+            } else if(result == 2) {
+                tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestoreViewController") as! RestoreViewController
+                
+            } else if(result == 3) {
+                tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
+                
+            }
+            if(tagetVC != nil) {
+                tagetVC?.hidesBottomBarWhenPushed = true
+                naviVC?.navigationItem.title = ""
+                naviVC?.pushViewController(tagetVC!, animated: true)
+            }
+        })
+    }
+    
     
     
     func onFetchAccountData() -> Bool {

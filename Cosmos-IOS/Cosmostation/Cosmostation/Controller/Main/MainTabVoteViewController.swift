@@ -12,13 +12,23 @@ import SafariServices
 
 class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
+    
+    @IBOutlet weak var titleChainImg: UIImageView!
+    @IBOutlet weak var titleWalletName: UILabel!
+    @IBOutlet weak var titleChainName: UILabel!
+    
     @IBOutlet weak var voteTableView: UITableView!
     @IBOutlet weak var emptyLabel: UILabel!
     
     var mProposals = Array<Proposal>()
+    var mainTabVC: MainTabViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mainTabVC = (self.parent)?.parent as? MainTabViewController
+        self.updateTitle()
+        
         self.voteTableView.delegate = self
         self.voteTableView.dataSource = self
         self.voteTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -31,6 +41,17 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
+    }
+    
+    func updateTitle() {
+        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = "Wallet " + String(mainTabVC.mAccount.account_id)
+        } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
+        
+        if(mainTabVC.mAccount.account_base_chain == SUPPORT_CHAIN_COSMOS_MAIN) {
+            titleChainName.text = "(Cosmos Hub)"
+        } else {
+            titleChainName.text = ""
+        }
     }
     
     func onUpdateViews() {
@@ -102,6 +123,10 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             self.onUpdateViews()
         }
+    }
+    
+    @IBAction func onClickSwitchAccount(_ sender: Any) {
+        self.mainTabVC.dropDown.show()
     }
 
 }

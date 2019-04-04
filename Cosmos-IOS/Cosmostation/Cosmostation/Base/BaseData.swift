@@ -40,7 +40,13 @@ final class BaseData : NSObject{
         return Int64(UserDefaults.standard.integer(forKey: KEY_ALL_VAL_SORT))
     }
     
+    func setLastTab(_ index : Int) {
+        UserDefaults.standard.set(index, forKey: KEY_LAST_TAB)
+    }
     
+    func getLastTab() -> Int {
+        return UserDefaults.standard.integer(forKey: KEY_LAST_TAB)
+    }
     
     
     
