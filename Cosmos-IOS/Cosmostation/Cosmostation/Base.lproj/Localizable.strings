@@ -19,6 +19,7 @@
 "show_mnemonics" = "Show Mnemonics";
 "prepare" = "Preparing...";
 "address_copied" = "Address copied";
+"mnemonic_copied" = "Mnemonic copied\nClear your clipboard after paste it!";
 "wallet_delete_complete" = "Delete Completed!";
 
 "only_USD" = "now only support USD";

@@ -149,12 +149,11 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             account = mWatchAccounts[indexPath.row]
         }
-        //TODO
         print("didSelectRowAt ", account?.account_id)
         let walletDetailVC = WalletDetailViewController(nibName: "WalletDetailViewController", bundle: nil)
         walletDetailVC.hidesBottomBarWhenPushed = true
         walletDetailVC.accountId = account?.account_id
-//        self.navigationItem.title = ""
+        self.navigationItem.title = ""
         self.navigationController?.pushViewController(walletDetailVC, animated: true)
     }
     

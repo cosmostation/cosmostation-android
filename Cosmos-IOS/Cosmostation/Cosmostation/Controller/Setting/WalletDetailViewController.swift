@@ -76,6 +76,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "Wallet Detail";
+        self.navigationItem.title = "Wallet Detail";
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
@@ -124,7 +125,18 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     @IBAction func onClickActionBtn(_ sender: Any) {
         if(self.mAccount.account_has_private) {
-            //TODO goto check
+            let transition:CATransition = CATransition()
+            transition.duration = 0.3
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            transition.type = CATransitionType.moveIn
+            transition.subtype = CATransitionSubtype.fromTop
+            
+            let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+            self.navigationItem.title = ""
+            self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+            passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
+            passwordVC.resultDelegate = self
+            self.navigationController?.pushViewController(passwordVC, animated: false)
             
         } else {
             self.onStartImportMnemonic()
@@ -167,8 +179,18 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(310), execute: {
+                let walletCheckVC = WalletCheckViewController(nibName: "WalletCheckViewController", bundle: nil)
+                walletCheckVC.hidesBottomBarWhenPushed = true
+                walletCheckVC.accountId = self.accountId
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(walletCheckVC, animated: true)
+            })
+            
+        } else if (result == PASSWORD_RESUKT_OK_FOR_DELETE) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(310), execute: {
                 self.onDeleteWallet(self.mAccount)
             })
+            
         }
     }
 }

@@ -50,6 +50,8 @@
 		E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B27224A08660019B7BB /* AlphabetViewController.swift */; };
 		E1827E112254C92900BC0350 /* WalletDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E0F2254C92900BC0350 /* WalletDetailViewController.swift */; };
 		E1827E122254C92900BC0350 /* WalletDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1827E102254C92900BC0350 /* WalletDetailViewController.xib */; };
+		E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */; };
+		E1827E162255E6AE00BC0350 /* WalletCheckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1827E142255E6AE00BC0350 /* WalletCheckViewController.xib */; };
 		E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1861D2D224DB1570027DED1 /* RestorePathCell.swift */; };
 		E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1861D2E224DB1570027DED1 /* RestorePathCell.xib */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
@@ -150,6 +152,8 @@
 		E16D9B27224A08660019B7BB /* AlphabetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetViewController.swift; sourceTree = "<group>"; };
 		E1827E0F2254C92900BC0350 /* WalletDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewController.swift; sourceTree = "<group>"; };
 		E1827E102254C92900BC0350 /* WalletDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletDetailViewController.xib; sourceTree = "<group>"; };
+		E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCheckViewController.swift; sourceTree = "<group>"; };
+		E1827E142255E6AE00BC0350 /* WalletCheckViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletCheckViewController.xib; sourceTree = "<group>"; };
 		E1861D2D224DB1570027DED1 /* RestorePathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathCell.swift; sourceTree = "<group>"; };
 		E1861D2E224DB1570027DED1 /* RestorePathCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestorePathCell.xib; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +245,8 @@
 				E19A32222254A61E00A05E41 /* WalletManageViewController.xib */,
 				E1827E0F2254C92900BC0350 /* WalletDetailViewController.swift */,
 				E1827E102254C92900BC0350 /* WalletDetailViewController.xib */,
+				E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */,
+				E1827E142255E6AE00BC0350 /* WalletCheckViewController.xib */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -522,6 +528,7 @@
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
 				E1945E44222E7FF500A1436F /* MainStoryboard.storyboard in Resources */,
+				E1827E162255E6AE00BC0350 /* WalletCheckViewController.xib in Resources */,
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
 				E16D9B1322489AE10019B7BB /* Init.storyboard in Resources */,
 				E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */,
@@ -658,6 +665,7 @@
 				E19A32232254A61E00A05E41 /* WalletManageViewController.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
+				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
 				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,

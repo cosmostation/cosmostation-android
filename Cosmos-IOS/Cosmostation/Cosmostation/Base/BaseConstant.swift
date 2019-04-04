@@ -138,6 +138,7 @@ let PASSWORD_ACTION_DELETE_ACCOUNT          = "ACTION_DELETE_ACCOUNT"
 let PASSWORD_RESUKT_OK                      = 0
 let PASSWORD_RESUKT_CANCEL                  = 1
 let PASSWORD_RESUKT_FAIL                    = 2
+let PASSWORD_RESUKT_OK_FOR_DELETE           = 3
 
 
 

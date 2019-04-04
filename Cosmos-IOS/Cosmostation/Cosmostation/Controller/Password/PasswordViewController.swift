@@ -166,9 +166,13 @@ class PasswordViewController: BaseViewController {
                 self.initConfirmView()
             }
             
-        } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK || mTarget == PASSWORD_ACTION_DELETE_ACCOUNT) {
+        } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK) {
             self.onStartCheckPassword(mUserInsert)
+            
+        } else if (mTarget == PASSWORD_ACTION_DELETE_ACCOUNT) {
+            self.onStartCheckPasswordForDelete(mUserInsert)
         }
+        
     }
     
     
@@ -213,6 +217,27 @@ class PasswordViewController: BaseViewController {
 //            print("retrievedString : ", retrievedString)
         }
     }
+    
+    func onStartCheckPasswordForDelete(_ input: String) {
+        DispatchQueue.global().async {
+            var result = false
+            if(KeychainWrapper.standard.hasValue(forKey: "password")) {
+                if(KeychainWrapper.standard.string(forKey: "password") == input) {
+                    result = true
+                }
+            }
+            DispatchQueue.main.async(execute: {
+                self.hideWaittingAlert()
+                if(result) {
+                    self.sendResultAndPop(PASSWORD_RESUKT_OK_FOR_DELETE)
+                } else {
+//                    self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
+//                    TODO no match check
+                }
+            });
+        }
+    }
+    
 }
 
 protocol PasswordViewDelegate{
