@@ -59,6 +59,7 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate {
         }
         
         dropDown.anchorView = self.view
+        dropDown.bottomOffset = CGPoint(x: 0, y:UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0)
         dropDown.backgroundColor = UIColor.black
         dropDown.dismissMode = .onTap
         
