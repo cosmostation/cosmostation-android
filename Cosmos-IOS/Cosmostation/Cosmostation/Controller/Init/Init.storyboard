@@ -13,7 +13,7 @@
         <!--Intro View Controller-->
         <scene sceneID="tZD-Nf-yTD">
             <objects>
-                <viewController id="Iiy-m2-uEE" customClass="IntroViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IntroViewController" id="Iiy-m2-uEE" customClass="IntroViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dIt-LH-x5i">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1997,7 +1997,7 @@ To make transaction can add private information with later.</string>
         <!--Navigation Controller-->
         <scene sceneID="qOt-XG-MuT">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="T4X-xR-oqI" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="StartNavigation" automaticallyAdjustsScrollViewInsets="NO" id="T4X-xR-oqI" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="l7m-v0-lsb">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

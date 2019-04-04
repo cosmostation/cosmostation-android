@@ -66,7 +66,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate, SBCardPopu
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         keyAddressLabel.text = mainTabVC.mAccount.account_address
         
-        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = "Wallet" + String(mainTabVC.mAccount.account_id)
+        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = "Wallet " + String(mainTabVC.mAccount.account_id)
         } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
         
         if(mainTabVC.mAccount.account_has_private) { keyTypeImg.image = UIImage(named: "key_on")
@@ -169,7 +169,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate, SBCardPopu
                     cell.cardview.borderColor = UIColor.init(hexString: "#222426")
                 }
                 
-                if (tempAccount.account_nick_name == "") { cell.name.text = "Wallet" + String(tempAccount.account_id)
+                if (tempAccount.account_nick_name == "") { cell.name.text = "Wallet " + String(tempAccount.account_id)
                 } else { cell.name.text = tempAccount.account_nick_name }
                 
                 if(tempAccount.account_has_private) { cell.keystate.image = UIImage(named: "key_on")

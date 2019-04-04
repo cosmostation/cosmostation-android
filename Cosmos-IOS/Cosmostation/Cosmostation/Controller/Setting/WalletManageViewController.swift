@@ -11,8 +11,6 @@ import Alamofire
 
 class WalletManageViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
-    
     @IBOutlet weak var accountTableView: UITableView!
     
     @IBOutlet weak var controlLayer: UIView!
@@ -23,7 +21,6 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     @IBOutlet weak var importAddressMsg: UIStackView!
     @IBOutlet weak var importAddressBtn: UIButton!
     
-//    var mAccounts = Array<Account>()
     var mFullAccounts = Array<Account>()
     var mWatchAccounts = Array<Account>()
 
@@ -53,8 +50,11 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "Wallet Manage";
+        self.navigationItem.title = "Wallet Manage";
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+//        print("WalletManageViewController viewWillAppear1 ", self.navigationController?.navigationBar.topItem?.title)
+//        print("WalletManageViewController viewWillAppear2 ", self.navigationItem.title)
     }
 
     
@@ -68,37 +68,25 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (mFullAccounts.count > 0) {
-            if(section == 0) {
-                return mFullAccounts.count
-            } else {
-                return mWatchAccounts.count
-            }
+        if (mFullAccounts.count > 0 && section == 0) {
+            return mFullAccounts.count
         } else {
             return mWatchAccounts.count
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if (mFullAccounts.count > 0) {
-            if(section == 0) {
-                let view = ManageHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-                view.headerLabel.text = "With Mnemonics"
-                view.keyImg.image = UIImage.init(named: "key_on")
-                return view
-            } else {
-                let view = ManageHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-                view.headerLabel.text = "Only Address"
-                view.keyImg.image = UIImage.init(named: "key_off")
-                return view
-            }
+        if (mFullAccounts.count > 0 && section == 0) {
+            let view = ManageHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+            view.headerLabel.text = "With Mnemonics"
+            view.keyImg.image = UIImage.init(named: "key_on")
+            return view
         } else {
             let view = ManageHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
             view.headerLabel.text = "Only Address"
             view.keyImg.image = UIImage.init(named: "key_off")
             return view
         }
-
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,6 +100,10 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
             account = mWatchAccounts[indexPath.row]
             cell?.address.text = account?.account_address
         }
+        cell?.address.adjustsFontSizeToFitWidth = true
+        
+        if (account!.account_nick_name == "") { cell?.nameLabel.text = "Wallet " + String(account!.account_id)
+        } else { cell?.nameLabel.text = account!.account_nick_name }
         
         let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account!.account_address,
                                         method: .get,
@@ -121,7 +113,6 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print(res)
                 guard let info = res as? [String : Any] else {
                     cell?.amount.attributedText = WUtils.displayAmout("0", cell!.amount.font!, 6)
                     return
@@ -149,6 +140,22 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var account: Account?
+        if (mFullAccounts.count > 0 && indexPath.section == 0) {
+            account = mFullAccounts[indexPath.row]
+        } else {
+            account = mWatchAccounts[indexPath.row]
+        }
+        //TODO
+        print("didSelectRowAt ", account?.account_id)
+        let walletDetailVC = WalletDetailViewController(nibName: "WalletDetailViewController", bundle: nil)
+        walletDetailVC.hidesBottomBarWhenPushed = true
+        walletDetailVC.accountId = account?.account_id
+//        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(walletDetailVC, animated: true)
     }
     
     

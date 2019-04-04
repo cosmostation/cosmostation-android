@@ -64,6 +64,9 @@ class PasswordViewController: BaseViewController {
         } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK) {
             passwordTitleLable.text = NSLocalizedString("password_check", comment: "")
             
+        } else if (mTarget == PASSWORD_ACTION_DELETE_ACCOUNT) {
+            passwordTitleLable.text = NSLocalizedString("password_delete", comment: "")
+            
         }
         passwordTitleLable.adjustsFontSizeToFitWidth = true
         
@@ -163,7 +166,7 @@ class PasswordViewController: BaseViewController {
                 self.initConfirmView()
             }
             
-        } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK) {
+        } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK || mTarget == PASSWORD_ACTION_DELETE_ACCOUNT) {
             self.onStartCheckPassword(mUserInsert)
         }
     }
@@ -171,8 +174,7 @@ class PasswordViewController: BaseViewController {
     
     func onStartInitPassword(_ initInput: String) {
         self.showWaittingAlert()
-        let queue = DispatchQueue.global()
-        queue.async {
+        DispatchQueue.global().async {
             var result = false
             if(!KeychainWrapper.standard.hasValue(forKey: "password")) {
                 result = KeychainWrapper.standard.set(initInput, forKey: "password")
@@ -190,8 +192,7 @@ class PasswordViewController: BaseViewController {
     }
     
     func onStartCheckPassword(_ input: String) {
-        let queue = DispatchQueue.global()
-        queue.async {
+        DispatchQueue.global().async {
             var result = false
             if(KeychainWrapper.standard.hasValue(forKey: "password")) {
                 if(KeychainWrapper.standard.string(forKey: "password") == input) {

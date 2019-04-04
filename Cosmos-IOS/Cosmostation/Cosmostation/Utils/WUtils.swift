@@ -104,6 +104,16 @@ class WUtils {
         return localFormatter.string(from: fullDate!)
     }
     
+    static func longTimetoString(input: Int64) -> String {
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = "yy-MM-dd HH:mm:ss"
+        
+        let fullDate = Date.init(milliseconds: Int(input))
+        return localFormatter.string(from: fullDate)
+    }
+    
+    
+    
     static func historyTitle(_ msgs:Array<Msg>) -> String {
         var resultMsg = "UnKnown"
         

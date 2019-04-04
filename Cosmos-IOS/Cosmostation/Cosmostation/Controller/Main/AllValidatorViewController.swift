@@ -43,7 +43,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onSorting"), object: nil)
     }

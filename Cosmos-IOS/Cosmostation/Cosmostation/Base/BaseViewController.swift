@@ -83,6 +83,31 @@ class BaseViewController: UIViewController {
         self.navigationController?.pushViewController(createVC, animated: true)
     }
     
+    func onDeleteWallet(_ account:Account) {
+        self.showWaittingAlert()
+        DispatchQueue.global().async {
+            BaseData.instance.deleteAccount(account: account)
+            BaseData.instance.deleteBalance(account: account)
+            BaseData.instance.deleteBonding(account: account)
+            BaseData.instance.deleteUnbonding(account: account)
+            
+            if (BaseData.instance.selectAllAccounts().count <= 0) {
+                //TODO delete password
+            } else {
+                BaseData.instance.setRecentAccountId(BaseData.instance.selectAllAccounts()[0].account_id)
+            }
+            DispatchQueue.main.async(execute: {
+                self.hideWaittingAlert()
+                self.onShowToast(NSLocalizedString("wallet_delete_complete", comment: ""))
+                
+                let introVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "StartNavigation")
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.window?.rootViewController = introVC
+                self.present(introVC, animated: true, completion: nil)
+            });
+        }
+    }
+    
     func onShowToast(_ text:String) {
         var style = ToastStyle()
         style.backgroundColor = UIColor.gray

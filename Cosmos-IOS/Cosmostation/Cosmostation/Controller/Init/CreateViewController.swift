@@ -143,6 +143,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             
         } else if (result == PASSWORD_RESUKT_CANCEL) {
             print("PASSWORD_RESUKT_CANCEL")
+            
         } else if (result == PASSWORD_RESUKT_FAIL) {
             print("PASSWORD_RESUKT_FAIL")
         }
