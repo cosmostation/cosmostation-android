@@ -97,7 +97,25 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         if (mainTabVC.mMyValidators.count < 1) {
             return 168;
         } else {
-            return 80;
+            if (indexPath.row == mainTabVC.mMyValidators.count) {
+                return 70;
+            } else {
+                return 80;
+            }
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (mainTabVC.mMyValidators.count > 1 && indexPath.row != mainTabVC.mMyValidators.count) {
+            if let validator = self.mainTabVC.mAllValidators[indexPath.row] as? Validator {
+//                print("seelct ", validator.description.moniker)
+                let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaidatorDetailViewController") as! VaidatorDetailViewController
+                validatorDetailVC.mValidator = validator
+                validatorDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(validatorDetailVC, animated: true)
+            }
         }
     }
     

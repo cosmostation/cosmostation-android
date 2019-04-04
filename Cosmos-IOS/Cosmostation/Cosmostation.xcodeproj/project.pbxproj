@@ -52,6 +52,7 @@
 		E1827E122254C92900BC0350 /* WalletDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1827E102254C92900BC0350 /* WalletDetailViewController.xib */; };
 		E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */; };
 		E1827E162255E6AE00BC0350 /* WalletCheckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1827E142255E6AE00BC0350 /* WalletCheckViewController.xib */; };
+		E1827E18225620D000BC0350 /* VaidatorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */; };
 		E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1861D2D224DB1570027DED1 /* RestorePathCell.swift */; };
 		E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1861D2E224DB1570027DED1 /* RestorePathCell.xib */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
@@ -154,6 +155,7 @@
 		E1827E102254C92900BC0350 /* WalletDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletDetailViewController.xib; sourceTree = "<group>"; };
 		E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCheckViewController.swift; sourceTree = "<group>"; };
 		E1827E142255E6AE00BC0350 /* WalletCheckViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletCheckViewController.xib; sourceTree = "<group>"; };
+		E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaidatorDetailViewController.swift; sourceTree = "<group>"; };
 		E1861D2D224DB1570027DED1 /* RestorePathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathCell.swift; sourceTree = "<group>"; };
 		E1861D2E224DB1570027DED1 /* RestorePathCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestorePathCell.xib; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -359,6 +361,7 @@
 				E1A82DED2244DE680097CAEE /* MyValidatorViewController.swift */,
 				E1A82DEF2244E0BD0097CAEE /* AllValidatorViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
+				E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -649,6 +652,7 @@
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
 				E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */,
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
+				E1827E18225620D000BC0350 /* VaidatorDetailViewController.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,
 				E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */,

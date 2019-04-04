@@ -142,7 +142,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D2n-8S-hMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2639.130434782609" y="1512.7232142857142"/>
+            <point key="canvasLocation" x="-2868" y="1514"/>
         </scene>
         <!--Main Tab Send View Controller-->
         <scene sceneID="mHE-0o-ZDY">
@@ -630,7 +630,7 @@ Super fast and esay to using with local signing!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RjZ-2N-pV1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3601" y="1513"/>
+            <point key="canvasLocation" x="-4129" y="1513"/>
         </scene>
         <!--Main Tab History View Controller-->
         <scene sceneID="CBM-nz-DKQ">
@@ -972,7 +972,7 @@ Super fast and esay to using with local signing!</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qDf-5Z-DVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2461" y="657"/>
+            <point key="canvasLocation" x="-2868" y="657"/>
         </scene>
         <!--WALLET-->
         <scene sceneID="rXu-tB-qbz">
@@ -1001,7 +1001,7 @@ Super fast and esay to using with local signing!</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yaG-sH-K47" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3601" y="657"/>
+            <point key="canvasLocation" x="-4129" y="657"/>
         </scene>
         <!--HISTORY-->
         <scene sceneID="9A2-0D-p3l">
@@ -1118,7 +1118,44 @@ Super fast and esay to using with local signing!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LnM-g5-zLQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2868.115942028986" y="2158.59375"/>
+            <point key="canvasLocation" x="-2870" y="2264"/>
+        </scene>
+        <!--Vaidator Detail View Controller-->
+        <scene sceneID="14y-Lh-7ZW">
+            <objects>
+                <viewController storyboardIdentifier="VaidatorDetailViewController" id="ycC-Du-flc" customClass="VaidatorDetailViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e36-ti-ucg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="O36-pQ-ghZ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Mm-R4-ygv">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="O36-pQ-ghZ" firstAttribute="leading" secondItem="MZu-nE-yCY" secondAttribute="leading" id="1sy-Og-ZvC"/>
+                            <constraint firstItem="4Mm-R4-ygv" firstAttribute="leading" secondItem="MZu-nE-yCY" secondAttribute="leading" id="HMQ-MW-kbF"/>
+                            <constraint firstItem="O36-pQ-ghZ" firstAttribute="trailing" secondItem="MZu-nE-yCY" secondAttribute="trailing" id="Icj-Ha-Buy"/>
+                            <constraint firstItem="MZu-nE-yCY" firstAttribute="bottom" secondItem="4Mm-R4-ygv" secondAttribute="bottom" id="MU2-JY-id1"/>
+                            <constraint firstItem="MZu-nE-yCY" firstAttribute="trailing" secondItem="4Mm-R4-ygv" secondAttribute="trailing" id="efN-Tm-6IT"/>
+                            <constraint firstItem="O36-pQ-ghZ" firstAttribute="bottom" secondItem="e36-ti-ucg" secondAttribute="bottom" id="kEH-wd-nsQ"/>
+                            <constraint firstItem="4Mm-R4-ygv" firstAttribute="top" secondItem="MZu-nE-yCY" secondAttribute="top" id="sh9-oK-naD"/>
+                            <constraint firstAttribute="top" secondItem="O36-pQ-ghZ" secondAttribute="top" id="tr6-jN-Rka"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MZu-nE-yCY"/>
+                    </view>
+                    <connections>
+                        <outlet property="validatorDetailTableView" destination="4Mm-R4-ygv" id="hhh-2k-txL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MnD-0U-qoY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2871.1999999999998" y="3094.5812807881775"/>
         </scene>
         <!--Add View Controller-->
         <scene sceneID="0eE-A4-44w">
@@ -1259,7 +1296,7 @@ Super fast and esay to using with local signing!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P8s-8j-AoR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3533" y="2834"/>
+            <point key="canvasLocation" x="-5026" y="64"/>
         </scene>
         <!--All Validator View Controller-->
         <scene sceneID="5Yc-5Z-PPB">
@@ -1289,7 +1326,7 @@ Super fast and esay to using with local signing!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gie-wG-xSH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1842" y="2159"/>
+            <point key="canvasLocation" x="-1588" y="2264"/>
         </scene>
         <!--Setting Table View Controller-->
         <scene sceneID="7JN-ga-57r">

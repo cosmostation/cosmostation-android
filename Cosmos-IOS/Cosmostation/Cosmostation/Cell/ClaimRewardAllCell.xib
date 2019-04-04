@@ -13,20 +13,20 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="KGk-i7-Jjw" customClass="ClaimRewardAllCell" customModule="Cosmostation" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Claim Reward All" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYr-BF-Qsc">
-                        <rect key="frame" x="106.5" y="41" width="107" height="16.5"/>
+                        <rect key="frame" x="106.5" y="35" width="107" height="16.5"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                         <color key="textColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="liV-CD-bWn">
-                        <rect key="frame" x="85" y="22" width="150.5" height="14"/>
+                        <rect key="frame" x="85" y="18" width="150.5" height="14"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="121,232,212.000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNn-gq-MZA">
                                 <rect key="frame" x="0.0" y="0.0" width="110.5" height="14"/>
@@ -43,7 +43,7 @@
                         </subviews>
                     </stackView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oxN-Dn-clr">
-                        <rect key="frame" x="12" y="4" width="296" height="71.5"/>
+                        <rect key="frame" x="12" y="4" width="296" height="61.5"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                 <real key="value" value="1"/>
@@ -60,12 +60,12 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="oxN-Dn-clr" secondAttribute="bottom" constant="4" id="2zE-y1-L1h"/>
-                    <constraint firstAttribute="bottom" secondItem="ZYr-BF-Qsc" secondAttribute="bottom" constant="22" id="Kay-zp-KAP"/>
+                    <constraint firstAttribute="bottom" secondItem="ZYr-BF-Qsc" secondAttribute="bottom" constant="18" id="Kay-zp-KAP"/>
                     <constraint firstItem="liV-CD-bWn" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Otg-D1-PH8"/>
                     <constraint firstAttribute="trailing" secondItem="oxN-Dn-clr" secondAttribute="trailing" constant="12" id="UJQ-PV-hGf"/>
                     <constraint firstItem="oxN-Dn-clr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="iaX-1S-yGe"/>
                     <constraint firstItem="oxN-Dn-clr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="pUV-6X-c1o"/>
-                    <constraint firstItem="liV-CD-bWn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="22" id="w6P-RJ-EnO"/>
+                    <constraint firstItem="liV-CD-bWn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="w6P-RJ-EnO"/>
                     <constraint firstItem="ZYr-BF-Qsc" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="xEL-oc-vL1"/>
                 </constraints>
             </tableViewCellContentView>

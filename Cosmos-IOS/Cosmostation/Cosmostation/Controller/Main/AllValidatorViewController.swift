@@ -87,6 +87,17 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         return 80;
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let validator = self.mainTabVC.mAllValidators[indexPath.row] as? Validator {
+//            print("seelct ", validator.description.moniker)
+            let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaidatorDetailViewController") as! VaidatorDetailViewController
+            validatorDetailVC.mValidator = validator
+            validatorDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(validatorDetailVC, animated: true)
+        }
+    }
+    
     
     
     func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator) {
