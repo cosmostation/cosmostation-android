@@ -108,7 +108,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (mainTabVC.mMyValidators.count > 1 && indexPath.row != mainTabVC.mMyValidators.count) {
-            if let validator = self.mainTabVC.mAllValidators[indexPath.row] as? Validator {
+            if let validator = self.mainTabVC.mMyValidators[indexPath.row] as? Validator {
 //                print("seelct ", validator.description.moniker)
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaidatorDetailViewController") as! VaidatorDetailViewController
                 validatorDetailVC.mValidator = validator

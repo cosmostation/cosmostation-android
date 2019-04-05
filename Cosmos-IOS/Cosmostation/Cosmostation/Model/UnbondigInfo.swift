@@ -20,9 +20,14 @@ public class UnbondingInfo {
         self.validator_address = dictionary["validator_address"] as? String ?? ""
         
         self.entries.removeAll()
-        let rawEntries = dictionary["entries"] as! Array<NSDictionary>
-        for entry in rawEntries {
-            self.entries.append(Entry.init(entry as! [String : Any]))
+//        let rawEntries = dictionary["entries"] as! Array<NSDictionary>
+//        for entry in rawEntries {
+//            self.entries.append(Entry.init(entry as! [String : Any]))
+//        }
+        if let rawEntries = dictionary["entries"] as? Array<NSDictionary> {
+            for entry in rawEntries {
+                self.entries.append(Entry.init(entry as! [String : Any]))
+            }
         }
     }
     
