@@ -21,6 +21,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     var mRewards = Array<Reward>()
     var mHistories = Array<History.InnerHits>()
     var mFetchCnt = 0
+    var mMyValidator = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.validatorDetailTableView.delegate = self
         self.validatorDetailTableView.dataSource = self
         self.validatorDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailMyDetailCell", bundle: nil), forCellReuseIdentifier: "ValidatorDetailMyDetailCell")
+        self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailMyActionCell", bundle: nil), forCellReuseIdentifier: "ValidatorDetailMyActionCell")
+        self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailCell", bundle: nil), forCellReuseIdentifier: "ValidatorDetailCell")
+        self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailHistoryEmpty", bundle: nil), forCellReuseIdentifier: "ValidatorDetailHistoryEmpty")
+        self.validatorDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
         
         self.onFech()
@@ -63,20 +69,102 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
+        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
             print("onFetchFinished mBonding ", mBonding?.bonding_shares)
             print("onFetchFinished mUnbondings ", mUnbondings.count)
             print("onFetchFinished mRewards ", mRewards.count)
             print("onFetchFinished mHistories ", mHistories.count)
+            
+            if(WUtils.stringToDecimal(mBonding?.bonding_shares ?? "0") != NSDecimalNumber.zero || mUnbondings.count > 0) {
+                mMyValidator = true
+            } else {
+                mMyValidator = false
+            }
+            print("mMyValidator ", mMyValidator)
+            self.validatorDetailTableView.reloadData()
+            
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        if (section == 0) {
+            if(mMyValidator) {
+                return 2
+            } else {
+                return 1
+            }
+            
+        } else {
+            if(mHistories.count > 0) {
+                return mHistories.count
+            } else {
+                return 1
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = ValidatorDetailHistoryHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        return view
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        if(indexPath.section == 0) {
+            if (indexPath.row == 0 && mMyValidator) {
+                let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
+                return cell!
+            } else if (indexPath.row == 0 && !mMyValidator) {
+                let cell:ValidatorDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailCell") as? ValidatorDetailCell
+                return cell!
+            } else {
+                let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
+                return cell!
+            }
+            
+        } else {
+            if(mHistories.count > 0) {
+                let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+                return cell!
+            } else {
+                let cell:ValidatorDetailHistoryEmpty? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailHistoryEmpty") as? ValidatorDetailHistoryEmpty
+                return cell!
+            }
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if(indexPath.section == 0) {
+            if (indexPath.row == 0 && mMyValidator) {
+                return 195;
+            } else if (indexPath.row == 0 && !mMyValidator) {
+                return 250;
+            } else {
+                return 240;
+            }
+        } else {
+            if(mHistories.count > 0) {
+                return 80;
+            } else {
+                return 70;
+            }
+        }
+        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if(section == 0) {
+            return 0
+        } else {
+            return 30
+        }
+        
     }
     
     
@@ -86,6 +174,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+                print("onFetchValidatorInfo ", res)
                 guard let validator = res as? NSDictionary else {
                     print("no validator Error!!")
                     self.onFetchFinished()
@@ -96,6 +185,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             case .failure(let error):
                 print("onFetchValidatorInfo ", error)
             }
+            print("onFetchValidatorInfo!!! ")
             self.onFetchFinished()
         }
     }
@@ -148,6 +238,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             case .failure(let error):
                 print("onFetchSignleUnBondingInfo ", error)
             }
+            print("onFetchSignleUnBondingInfo!!! ")
             self.onFetchFinished()
         }
     }
@@ -186,6 +277,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { response in
                 switch response.result {
                 case .success(let res):
+//                    print("onFetchHistory ", res)
                     guard let history = res as? [String : Any] else {
                         print("no history!!")
                         self.onFetchFinished()
@@ -197,12 +289,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 case .failure(let error):
                     print("error ", error)
                 }
+                self.onFetchFinished()
             }
             
         } catch {
             print(error)
         }
-        self.onFetchFinished()
+        
     }
     
     

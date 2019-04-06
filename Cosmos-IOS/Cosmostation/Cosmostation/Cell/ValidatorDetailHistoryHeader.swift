@@ -9,13 +9,27 @@
 import UIKit
 
 class ValidatorDetailHistoryHeader: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    private let xibName = "ValidatorDetailHistoryHeader"
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.commonInit()
     }
-    */
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.commonInit()
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        self.commonInit()
+    }
+    
+    private func commonInit(){
+        let view = Bundle.main.loadNibNamed(xibName, owner: self, options: nil)?.first as! UIView
+        view.frame = self.bounds
+        self.addSubview(view)
+    }
 
 }

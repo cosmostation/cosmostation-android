@@ -22,9 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             KeychainWrapper.standard.removeAllKeys()
             UserDefaults.standard.set(false, forKey: "FirstInstall")
             UserDefaults.standard.synchronize()
-        } else {
-            print("22222")
         }
+//        else {
+//            print("AppDelegate ")
+//        }
         
         return true
     }
