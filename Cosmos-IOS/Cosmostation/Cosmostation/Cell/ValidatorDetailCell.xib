@@ -50,14 +50,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cosmosopaskjhaskjdhaksj" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syK-pw-V0v">
-                                <rect key="frame" x="74" y="36.5" width="210" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <rect key="frame" x="74" y="30.5" width="210" height="11.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://www.cosmostation.io" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdp-y1-b9R">
-                                <rect key="frame" x="74" y="36.5" width="142.5" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <rect key="frame" x="74" y="44" width="118.5" height="11.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -131,6 +131,9 @@
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onClickDelegate:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zs9-mQ-SJe"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -146,9 +149,9 @@
                             <constraint firstItem="qo3-RG-tii" firstAttribute="leading" secondItem="eJW-z2-mOV" secondAttribute="leading" constant="12" id="I4s-xh-B61"/>
                             <constraint firstAttribute="trailing" secondItem="syK-pw-V0v" secondAttribute="trailing" constant="12" id="IIB-u6-VFx"/>
                             <constraint firstItem="qo3-RG-tii" firstAttribute="top" secondItem="eJW-z2-mOV" secondAttribute="top" constant="12" id="Ip3-Z4-mpi"/>
-                            <constraint firstItem="syK-pw-V0v" firstAttribute="top" secondItem="aad-Rq-g3G" secondAttribute="bottom" constant="8" id="Ixm-P5-iw6"/>
-                            <constraint firstItem="xdp-y1-b9R" firstAttribute="top" secondItem="aad-Rq-g3G" secondAttribute="bottom" constant="8" id="OAr-e6-QB3"/>
+                            <constraint firstItem="syK-pw-V0v" firstAttribute="top" secondItem="aad-Rq-g3G" secondAttribute="bottom" constant="2" id="Ixm-P5-iw6"/>
                             <constraint firstItem="Zs5-hY-ch8" firstAttribute="centerY" secondItem="eCp-SZ-dsD" secondAttribute="centerY" id="PFI-KY-ndX"/>
+                            <constraint firstItem="xdp-y1-b9R" firstAttribute="top" secondItem="syK-pw-V0v" secondAttribute="bottom" constant="2" id="QUh-rb-YRH"/>
                             <constraint firstItem="xMh-mb-xP2" firstAttribute="top" secondItem="b1h-xY-buQ" secondAttribute="bottom" constant="8" id="QcL-ro-e0J"/>
                             <constraint firstItem="Zs5-hY-ch8" firstAttribute="trailing" secondItem="BTd-zn-57S" secondAttribute="trailing" id="Qyf-k3-EJF"/>
                             <constraint firstAttribute="trailing" secondItem="W4b-Ph-MWH" secondAttribute="trailing" constant="12" id="U2L-vX-yAZ"/>
@@ -199,6 +202,19 @@
                 <constraint firstItem="njF-e1-oar" firstAttribute="trailing" secondItem="eJW-z2-mOV" secondAttribute="trailing" constant="12" id="gMl-5o-2yj"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="commissionRate" destination="Zs5-hY-ch8" id="e6N-uR-xKn"/>
+                <outlet property="delegateBtn" destination="W4b-Ph-MWH" id="1mO-1G-vgz"/>
+                <outlet property="descriptionMsg" destination="WDc-ts-HFZ" id="U0x-QX-e9g"/>
+                <outlet property="freeEventImg" destination="4ux-Kr-gb8" id="aVR-Ju-BY9"/>
+                <outlet property="jailedImg" destination="IwB-dq-iZr" id="Jar-kb-8J8"/>
+                <outlet property="monikerName" destination="aad-Rq-g3G" id="8xm-Jy-jqi"/>
+                <outlet property="operatorAddress" destination="syK-pw-V0v" id="adb-Jo-8LK"/>
+                <outlet property="selfBondedRate" destination="71S-76-YZs" id="X0Y-M6-qN2"/>
+                <outlet property="totalBondedAmount" destination="BTd-zn-57S" id="djn-gY-hH7"/>
+                <outlet property="validatorImg" destination="qo3-RG-tii" id="rc8-ko-UPB"/>
+                <outlet property="website" destination="xdp-y1-b9R" id="9k1-Sv-3sE"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

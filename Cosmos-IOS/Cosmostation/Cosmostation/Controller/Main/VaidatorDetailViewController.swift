@@ -120,9 +120,26 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 return cell!
             } else if (indexPath.row == 0 && !mMyValidator) {
                 let cell:ValidatorDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailCell") as? ValidatorDetailCell
+                
+                cell?.actionDelegate = {
+                    print("actionDelegate")
+                }
                 return cell!
             } else {
                 let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
+                
+                
+                cell?.actionDelegate = {
+                    print("actionDelegate")
+                }
+                
+                cell?.actionUndelegate = {
+                    print("actionUndelegate")
+                }
+                
+                cell?.actionReward = {
+                    print("actionReward")
+                }
                 return cell!
             }
             
@@ -145,7 +162,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             } else if (indexPath.row == 0 && !mMyValidator) {
                 return 250;
             } else {
-                return 240;
+                return 244;
             }
         } else {
             if(mHistories.count > 0) {

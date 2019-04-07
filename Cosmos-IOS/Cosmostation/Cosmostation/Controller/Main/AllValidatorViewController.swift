@@ -78,10 +78,14 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:AllValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"AllValidatorCell") as? AllValidatorCell
         if let validator = self.mainTabVC.mAllValidators[indexPath.row] as? Validator {
-            self.onSetValidatorItem(cell!, validator)
+            self.onSetValidatorItem(cell!, validator, indexPath)
         }
         return cell!
     }
+    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        print("willDisplay", indexPath.row)
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80;
@@ -100,17 +104,24 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     
     
     
-    func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator) {
+    func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         cell.monikerLabel.text = validator.description.moniker
         
-        if(validator.jailed) { cell.revokedImg.isHidden = false
-        } else { cell.revokedImg.isHidden = true }
+        if(validator.jailed) {
+            cell.revokedImg.isHidden = false
+            cell.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+        } else {
+            cell.revokedImg.isHidden = true
+            cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+            
+        }
         
         cell.freeEventImg.isHidden = true
         
         cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
         cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
         
+        cell.validatorImg.tag = indexPath.row
         cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
         if (validator.description.identity != "") {
             let parameters: Parameters = ["fields": "pictures", "key_suffix": validator.description.identity]
@@ -133,7 +144,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                         guard let image = response.result.value else {
                             return
                         }
-                        cell.validatorImg.image = image
+                        if(indexPath.row == cell.validatorImg.tag) {
+                            cell.validatorImg.image = image
+                        }
                     }
                     
                 case .failure(let error):

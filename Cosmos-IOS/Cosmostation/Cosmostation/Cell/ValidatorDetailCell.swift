@@ -9,7 +9,19 @@
 import UIKit
 
 class ValidatorDetailCell: UITableViewCell {
-
+    
+    @IBOutlet weak var validatorImg: UIImageView!
+    @IBOutlet weak var freeEventImg: UIImageView!
+    @IBOutlet weak var jailedImg: UIImageView!
+    @IBOutlet weak var monikerName: UILabel!
+    @IBOutlet weak var operatorAddress: UILabel!
+    @IBOutlet weak var website: UILabel!
+    @IBOutlet weak var descriptionMsg: UILabel!
+    @IBOutlet weak var totalBondedAmount: UILabel!
+    @IBOutlet weak var selfBondedRate: UILabel!
+    @IBOutlet weak var commissionRate: UILabel!
+    @IBOutlet weak var delegateBtn: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -17,8 +29,10 @@ class ValidatorDetailCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    var actionDelegate: (() -> Void)? = nil
+    @IBAction func onClickDelegate(_ sender: Any) {
+        actionDelegate?()
+    }
 }

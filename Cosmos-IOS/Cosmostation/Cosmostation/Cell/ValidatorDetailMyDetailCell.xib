@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BY9-QD-zwX" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                        <rect key="frame" x="12" y="8" width="296" height="178.5"/>
+                        <rect key="frame" x="12" y="4" width="296" height="186.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="validatorNoneImg" translatesAutoresizingMaskIntoConstraints="NO" id="0km-T1-lF1">
                                 <rect key="frame" x="12" y="12" width="50" height="50"/>
@@ -50,14 +50,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cosmosopaskjhaskjdhaksj" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyc-Me-0Ds">
-                                <rect key="frame" x="74" y="32.5" width="210" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <rect key="frame" x="74" y="30.5" width="210" height="11.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://www.cosmostation.io" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGs-21-mY1">
-                                <rect key="frame" x="74" y="50.5" width="142.5" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <rect key="frame" x="74" y="44" width="118.5" height="11.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -123,7 +123,7 @@
                             <constraint firstItem="Gvi-TG-hcA" firstAttribute="top" secondItem="VAm-mk-uUf" secondAttribute="bottom" constant="8" id="IIQ-bu-ZBr"/>
                             <constraint firstItem="9ll-al-VsK" firstAttribute="leading" secondItem="BY9-QD-zwX" secondAttribute="leading" constant="12" id="JXI-YL-lLU"/>
                             <constraint firstItem="Dia-5p-cPA" firstAttribute="centerX" secondItem="0km-T1-lF1" secondAttribute="centerX" id="Jqg-33-S7A"/>
-                            <constraint firstItem="GGs-21-mY1" firstAttribute="top" secondItem="eyc-Me-0Ds" secondAttribute="bottom" constant="4" id="Kdi-E8-b9N"/>
+                            <constraint firstItem="GGs-21-mY1" firstAttribute="top" secondItem="eyc-Me-0Ds" secondAttribute="bottom" constant="2" id="Kdi-E8-b9N"/>
                             <constraint firstAttribute="trailing" secondItem="5eB-mD-Bct" secondAttribute="trailing" constant="12" id="N2c-5Y-h0k"/>
                             <constraint firstItem="wIc-1S-aDh" firstAttribute="leading" secondItem="0km-T1-lF1" secondAttribute="trailing" constant="12" id="NAI-Um-hlP"/>
                             <constraint firstItem="Gvi-TG-hcA" firstAttribute="leading" secondItem="AVl-yd-FMi" secondAttribute="leading" id="Nub-L7-YhY"/>
@@ -143,7 +143,7 @@
                             <constraint firstItem="0km-T1-lF1" firstAttribute="leading" secondItem="BY9-QD-zwX" secondAttribute="leading" constant="12" id="tmb-Sd-LCa"/>
                             <constraint firstItem="qj9-s1-0J8" firstAttribute="trailing" secondItem="yML-pq-fhg" secondAttribute="trailing" id="u99-xS-hqZ"/>
                             <constraint firstItem="eyc-Me-0Ds" firstAttribute="leading" secondItem="wIc-1S-aDh" secondAttribute="leading" id="xJL-mc-MIP"/>
-                            <constraint firstItem="eyc-Me-0Ds" firstAttribute="top" secondItem="wIc-1S-aDh" secondAttribute="bottom" constant="4" id="ycM-Yk-yrB"/>
+                            <constraint firstItem="eyc-Me-0Ds" firstAttribute="top" secondItem="wIc-1S-aDh" secondAttribute="bottom" constant="2" id="ycM-Yk-yrB"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -167,13 +167,25 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="BY9-QD-zwX" secondAttribute="trailing" constant="12" id="F6I-3Q-Mpc"/>
-                    <constraint firstAttribute="bottom" secondItem="BY9-QD-zwX" secondAttribute="bottom" constant="8" id="XNf-0x-DZN"/>
+                    <constraint firstAttribute="bottom" secondItem="BY9-QD-zwX" secondAttribute="bottom" constant="4" id="XNf-0x-DZN"/>
                     <constraint firstItem="BY9-QD-zwX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="a6z-9N-CzL"/>
-                    <constraint firstItem="BY9-QD-zwX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="dUO-Vb-OhB"/>
+                    <constraint firstItem="BY9-QD-zwX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="dUO-Vb-OhB"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="commissionRate" destination="MLi-H4-EiM" id="bbH-48-EYv"/>
+                <outlet property="descriptionMsg" destination="9ll-al-VsK" id="r7d-IJ-gAi"/>
+                <outlet property="freeEventImg" destination="Go0-oH-K2Z" id="tE2-m3-u6l"/>
+                <outlet property="jailedImg" destination="Dia-5p-cPA" id="tpk-EU-cQA"/>
+                <outlet property="monikerName" destination="wIc-1S-aDh" id="gIt-Ln-CP0"/>
+                <outlet property="operatorAddress" destination="eyc-Me-0Ds" id="xAG-Jq-BIt"/>
+                <outlet property="selfBondedRate" destination="qj9-s1-0J8" id="XnO-zs-iaN"/>
+                <outlet property="totalBondedAmount" destination="yML-pq-fhg" id="U9S-QG-RpR"/>
+                <outlet property="validatorImg" destination="0km-T1-lF1" id="tuH-t6-BEM"/>
+                <outlet property="website" destination="GGs-21-mY1" id="eg5-Cp-Sj5"/>
+            </connections>
             <point key="canvasLocation" x="52.799999999999997" y="48.575712143928037"/>
         </tableViewCell>
     </objects>

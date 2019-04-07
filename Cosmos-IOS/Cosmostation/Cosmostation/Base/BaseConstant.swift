@@ -37,8 +37,9 @@ let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
 
 
 
-let CSS_ES_URL                          = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/txs/_search/";
-let CSS_ES_URL2                         = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/";
+//let CSS_ES_URL                          = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/txs/_search/";
+//let CSS_ES_URL2                         = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/";
+let CSS_ES_URL                          = "https://search-explorer-mainnet-app-dornfmxm5qw3cd46j3k2noox5u.ap-northeast-2.es.amazonaws.com/tx_index/_search/";
 
 
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
