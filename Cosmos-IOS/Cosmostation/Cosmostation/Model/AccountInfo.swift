@@ -34,7 +34,10 @@ public class AccountInfo {
             self.account_number = dictionary["account_number"] as? String ?? ""
             self.sequence = dictionary["sequence"] as? String ?? ""
             
-            self.public_key = PublicKey.init(dictionary["public_key"] as! [String : Any])
+            if let pkey = dictionary["public_key"] as? [String : Any] {
+                self.public_key = PublicKey.init(pkey)
+            }
+            
             if let bva = dictionary["BaseVestingAccount"] as? [String : Any] {
                 self.BaseVestingAccount = BaseVestingAccountC.init(bva)
             }

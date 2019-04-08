@@ -8,9 +8,9 @@
 
 import UIKit
 import Alamofire
+import SafariServices
 
 class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
-//class VaidatorDetailViewController: BaseViewController {
 
     @IBOutlet weak var validatorDetailTableView: UITableView!
     
@@ -20,6 +20,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     var mUnbondings = Array<Unbonding>()
     var mRewards = Array<Reward>()
     var mHistories = Array<History.InnerHits>()
+    var mSelfBondingShare: String?
     var mFetchCnt = 0
     var mMyValidator = false
 
@@ -40,11 +41,9 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailHistoryEmpty", bundle: nil), forCellReuseIdentifier: "ValidatorDetailHistoryEmpty")
         self.validatorDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
-        
         self.onFech()
         
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -54,27 +53,25 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    
-    
     func onFech(){
         mUnbondings.removeAll()
         mRewards.removeAll()
-        mFetchCnt = 4
+        mFetchCnt = 5
         onFetchValidatorInfo(mValidator!)
         onFetchSignleBondingInfo(mAccount!, mValidator!)
         onFetchSignleUnBondingInfo(mAccount!, mValidator!)
+        onFetchSelfBondRate(WKey.getCosmosAddressFromOpAddress(mValidator!.operator_address), mValidator!.operator_address)
         onFetchHistory(mAccount!, mValidator!, "0", "100");
     }
     
-    
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
-        print("onFetchFinished ", self.mFetchCnt)
+//        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
-            print("onFetchFinished mBonding ", mBonding?.bonding_shares)
-            print("onFetchFinished mUnbondings ", mUnbondings.count)
-            print("onFetchFinished mRewards ", mRewards.count)
-            print("onFetchFinished mHistories ", mHistories.count)
+//            print("onFetchFinished mBonding ", mBonding?.bonding_shares)
+//            print("onFetchFinished mUnbondings ", mUnbondings.count)
+//            print("onFetchFinished mRewards ", mRewards.count)
+//            print("onFetchFinished mHistories ", mHistories.count)
             
             if(WUtils.stringToDecimal(mBonding?.bonding_shares ?? "0") != NSDecimalNumber.zero || mUnbondings.count > 0) {
                 mMyValidator = true
@@ -117,28 +114,147 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         if(indexPath.section == 0) {
             if (indexPath.row == 0 && mMyValidator) {
                 let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
+                cell!.monikerName.text = self.mValidator!.description.moniker
+                if(self.mValidator!.jailed) {
+                    cell!.jailedImg.isHidden = false
+                    cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+                } else {
+                    cell!.jailedImg.isHidden = true
+                    cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+                }
+                cell!.freeEventImg.isHidden = true
+                cell!.operatorAddress.text = mValidator!.operator_address
+                cell!.operatorAddress.adjustsFontSizeToFitWidth = true
+                cell!.website.text = mValidator!.description.website
+                cell!.descriptionMsg.text = mValidator!.description.details
+                cell!.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+                cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
+                cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
+                if (mValidator!.description.identity != "") {
+                    let parameters: Parameters = ["fields": "pictures", "key_suffix": mValidator!.description.identity]
+                    let request = Alamofire.request(KEY_BASE_URL_USER_INFO,
+                                                    method: .get,
+                                                    parameters: parameters,
+                                                    encoding: URLEncoding.default,
+                                                    headers: [:]);
+                    request.responseJSON { (response) in
+                        switch response.result {
+                        case .success(let res):
+                            guard let keybaseInfo = res as? NSDictionary,
+                                let thems = keybaseInfo.value(forKey: "them") as? Array<NSDictionary>,
+                                thems.count > 0,
+                                let url = thems[0].value(forKeyPath: "pictures.primary.url") as? String else {
+                                    return
+                            }
+                            Alamofire.request(url, method: .get).responseImage { response  in
+                                guard let image = response.result.value else {
+                                    return
+                                }
+                                cell!.validatorImg.image = image
+                            }
+                            
+                        case .failure(let error):
+                            print("onSetValidatorItem error : ", error)
+                        }
+                    }
+                }
                 return cell!
+                
             } else if (indexPath.row == 0 && !mMyValidator) {
                 let cell:ValidatorDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailCell") as? ValidatorDetailCell
-                
+                cell!.monikerName.text = self.mValidator!.description.moniker
+                if(self.mValidator!.jailed) {
+                    cell!.jailedImg.isHidden = false
+                    cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+                } else {
+                    cell!.jailedImg.isHidden = true
+                    cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+                }
+                cell!.freeEventImg.isHidden = true
+                cell!.operatorAddress.text = mValidator!.operator_address
+                cell!.operatorAddress.adjustsFontSizeToFitWidth = true
+                cell!.website.text = mValidator!.description.website
+                cell!.descriptionMsg.text = mValidator!.description.details
+                cell!.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+                if(mSelfBondingShare != nil) {
+                    cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
+                }
+                cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
+                if (mValidator!.description.identity != "") {
+                    let parameters: Parameters = ["fields": "pictures", "key_suffix": mValidator!.description.identity]
+                    let request = Alamofire.request(KEY_BASE_URL_USER_INFO,
+                                                    method: .get,
+                                                    parameters: parameters,
+                                                    encoding: URLEncoding.default,
+                                                    headers: [:]);
+                    request.responseJSON { (response) in
+                        switch response.result {
+                        case .success(let res):
+                            guard let keybaseInfo = res as? NSDictionary,
+                                let thems = keybaseInfo.value(forKey: "them") as? Array<NSDictionary>,
+                                thems.count > 0,
+                                let url = thems[0].value(forKeyPath: "pictures.primary.url") as? String else {
+                                    return
+                            }
+                            Alamofire.request(url, method: .get).responseImage { response  in
+                                guard let image = response.result.value else {
+                                    return
+                                }
+                                cell!.validatorImg.image = image
+                            }
+                            
+                        case .failure(let error):
+                            print("onSetValidatorItem error : ", error)
+                        }
+                    }
+                }
                 cell?.actionDelegate = {
                     print("actionDelegate")
+                    self.onStartDelegate()
                 }
                 return cell!
             } else {
                 let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
+                if(mBonding != nil) {
+                    cell!.myDelegateAmount.attributedText =  WUtils.displayAmout(mBonding!.bonding_shares, cell!.myDelegateAmount.font, 6)
+                } else {
+                    cell!.myDelegateAmount.attributedText =  WUtils.displayAmout("0", cell!.myDelegateAmount.font, 6)
+                }
+                
+                if(mUnbondings.count > 0) {
+                    var unbondSum = NSDecimalNumber.zero
+                    for unbonding in mUnbondings {
+                        unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+                    }
+                    cell!.myUndelegateAmount.attributedText =  WUtils.displayAmout(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6)
+                } else {
+                    cell!.myUndelegateAmount.attributedText =  WUtils.displayAmout("0", cell!.myUndelegateAmount.font, 6)
+                }
+                
+                if(mRewards.count > 0) {
+                    var rewardSum = NSDecimalNumber.zero
+                    for reward in mRewards {
+                        rewardSum  = rewardSum.adding(WUtils.stringToDecimal(reward.reward_amount[0].amount))
+                    }
+                    cell!.myRewardAmount.attributedText =  WUtils.displayAmout(rewardSum.stringValue, cell!.myRewardAmount.font, 6)
+                } else {
+                    cell!.myRewardAmount.attributedText =  WUtils.displayAmout("0", cell!.myRewardAmount.font, 6)
+                }
                 
                 
                 cell?.actionDelegate = {
                     print("actionDelegate")
+                    self.onStartDelegate()
                 }
                 
                 cell?.actionUndelegate = {
                     print("actionUndelegate")
+                    self.onStartUndelegate()
                 }
                 
                 cell?.actionReward = {
                     print("actionReward")
+                    self.onStartGetSingleReward()
                 }
                 return cell!
             }
@@ -146,11 +262,31 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         } else {
             if(mHistories.count > 0) {
                 let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+                let history = mHistories[indexPath.row]
+                
+                cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.time)
+                cell?.txBlockLabel.text = String(history._source.height) + " block"
+                cell?.txHashLabel.text = history._source.hash
+                cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg)
+                if(history._source.result.success) {
+                    cell?.txResultLabel.isHidden = true
+                } else {
+                    cell?.txResultLabel.isHidden = false
+                }
                 return cell!
             } else {
                 let cell:ValidatorDetailHistoryEmpty? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailHistoryEmpty") as? ValidatorDetailHistoryEmpty
                 return cell!
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if(indexPath.section == 1 && mHistories.count > 0) {
+            let history = mHistories[indexPath.row]
+            guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -168,12 +304,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             if(mHistories.count > 0) {
                 return 80;
             } else {
-                return 70;
+                return 60;
             }
         }
         
     }
-    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if(section == 0) {
@@ -183,8 +318,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         }
         
     }
-    
-    
     
     func onFetchValidatorInfo(_ validator: Validator) {
         let request = Alamofire.request(CSS_LCD_URL_VALIDATORS + "/" + validator.operator_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -236,7 +369,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchSignleUnBondingInfo(_ account: Account, _ validator: Validator) {
         let url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
-         print("onFetchSignleUnBondingInfo url ", url)
+        print("onFetchSignleUnBondingInfo url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
@@ -315,7 +448,46 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         
     }
     
+    func onFetchSelfBondRate(_ address: String, _ vAddress: String) {
+        let url = CSS_LCD_URL_BONDING + address + CSS_LCD_URL_BONDING_TAIL + "/" + vAddress
+        print("onFetchSelfBondRate url ", url)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                print("onFetchSelfBondRate ", res)
+                guard let rawData = res as? [String : Any], rawData["error"] == nil else {
+                    print("no self bondinginfo Error!!")
+                    self.onFetchFinished()
+                    return
+                }
+                self.mSelfBondingShare = BondingInfo(rawData).shares
+                
+            case .failure(let error):
+                print("onFetchSelfBondRate ", error)
+            }
+            print("onFetchSelfBondRate!!! ")
+            self.onFetchFinished()
+        }
+    }
     
     
+    func onStartDelegate() {
+        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount) == NSDecimalNumber.zero) {
+            //TODO return with no money
+            return
+        }
+        
+        
+        
+    }
     
+    func onStartUndelegate() {
+        
+    }
+    
+    func onStartGetSingleReward() {
+        
+    }
 }

@@ -28,7 +28,6 @@ class ValidatorDetailMyDetailCell: UITableViewCell {
         validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         validatorImg.layer.cornerRadius = validatorImg.frame.height/2
         validatorImg.clipsToBounds = true
-        
         self.selectionStyle = .none
     }
 

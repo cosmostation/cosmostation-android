@@ -35,7 +35,6 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         self.voteTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.voteTableView.register(UINib(nibName: "ProposalCell", bundle: nil), forCellReuseIdentifier: "ProposalCell")
         
-        
         self.refresher = UIRefreshControl()
         self.refresher.addTarget(self, action: #selector(onFetchProposals), for: .valueChanged)
         self.refresher.tintColor = UIColor.white

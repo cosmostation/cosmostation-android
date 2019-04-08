@@ -64,9 +64,18 @@ class WKey {
         } catch {
             print(error)
         }
-        
-        
         return result;
+    }
+    
+    
+    static func getCosmosAddressFromOpAddress(_ opAddress:String) -> String{
+        var result = ""
+        let bech32 = Bech32()
+        guard let (_, data) = try? bech32.decode(opAddress) else {
+            return result
+        }
+        result = bech32.encode("cosmos", values: data)
+        return result
     }
     
     
