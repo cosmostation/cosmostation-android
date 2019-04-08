@@ -40,12 +40,16 @@ class KeyboardViewController: UIPageViewController, UIPageViewControllerDelegate
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.setViewControllerForce(_:)),
                                                name: Notification.Name("KeyBoardPage"),
                                                object: nil)
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("KeyBoardPage"), object: nil)
     }
     
 //    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {

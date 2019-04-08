@@ -16,7 +16,8 @@ let KEY_MY_VAL_SORT                     = "KEY_MY_VAL_SORT"
 let KEY_LAST_TAB                        = "KEY_LAST_TAB"
 
 
-let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";
+//let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";
+let CSS_LCD_URL                         = "https://lcd-dev-internal.cosmostation.io/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let KEY_BASE_URL                        = "https://keybase.io/";
 

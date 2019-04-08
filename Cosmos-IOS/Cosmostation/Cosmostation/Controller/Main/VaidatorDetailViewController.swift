@@ -49,6 +49,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.topItem?.title = "Validator Details";
+        self.navigationItem.title = "Validator Details";
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
@@ -209,7 +210,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     }
                 }
                 cell?.actionDelegate = {
-                    print("actionDelegate")
                     self.onStartDelegate()
                 }
                 return cell!
@@ -243,17 +243,14 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 
                 
                 cell?.actionDelegate = {
-                    print("actionDelegate")
                     self.onStartDelegate()
                 }
                 
                 cell?.actionUndelegate = {
-                    print("actionUndelegate")
                     self.onStartUndelegate()
                 }
                 
                 cell?.actionReward = {
-                    print("actionReward")
                     self.onStartGetSingleReward()
                 }
                 return cell!
@@ -473,21 +470,28 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     
     func onStartDelegate() {
+        print("onStartDelegate")
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
         if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount) == NSDecimalNumber.zero) {
             //TODO return with no money
             return
         }
-        
+        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+        stakingVC.mTargetValidator = mValidator
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(stakingVC, animated: true)
         
         
     }
     
     func onStartUndelegate() {
+        print("onStartUndelegate")
         
     }
     
     func onStartGetSingleReward() {
+        print("onStartGetSingleReward")
         
     }
 }
+

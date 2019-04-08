@@ -21,6 +21,10 @@
 "address_copied" = "Address copied";
 "mnemonic_copied" = "Mnemonic copied\nClear your clipboard after paste it!";
 "wallet_delete_complete" = "Delete Completed!";
+"delegate_step_1" = "Enter delegation amount.";
+"delegate_step_2" = "Insert memo. (optional)";
+"delegate_step_3" = "Select transaction fee.";
+"delegate_step_4" = "Check delegation detail.";
 
 "only_USD" = "now only support USD";
 "only_cmc" = "now only support coinmarket cap";
