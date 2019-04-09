@@ -18,4 +18,9 @@ public class Coin {
         self.denom = dictionary["denom"] as? String ?? ""
         self.amount = dictionary["amount"] as? String ?? ""
     }
+    
+    init(_ denom:String, _ amount:String) {
+        self.denom = denom
+        self.amount = amount
+    }
 }

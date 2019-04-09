@@ -10,6 +10,8 @@ import UIKit
 
 class StakingViewController: UIViewController {
 
+    @IBOutlet weak var titleView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var stepImg: UIImageView!
     @IBOutlet weak var stepDescription: UILabel!
     @IBOutlet weak var loadingImg: UIImageView!
@@ -25,12 +27,36 @@ class StakingViewController: UIViewController {
         stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
 //        loadingImg.image = UIImage.gifImageWithName("cosmostation_loading_wh")
 //        loadingImg.image = UIImage.init(named: "freeIc")
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+        
+//        self.navigationItem.hidesBackButton = true
+//        let newBackButton = UIBarButtonItem(image: UIImage.init(named: "backBtn"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(StakingViewController.back(sender:)))
+//        self.navigationItem.leftBarButtonItem = newBackButton
+//        self.titleLabel.text = "Delegate"
     }
     
+//    @objc func back(sender: UIBarButtonItem) {
+//        print("StakingViewController BACK")
+////        // Perform your custom actions
+////        // ...
+////        // Go back to the previous ViewController
+//        _ = navigationController?.popViewController(animated: true)
+//    }
+    
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.topItem?.title = "Delegate";
+        self.titleLabel.text = "Delegate to " + String((mTargetValidator?.description.moniker)!)
+        
+//        self.navigationController?.navigationBar.layoutMargins.left = 100
+//        self.navigationController?.navigationBar.topItem?.title = "Delegate";
+//        self.navigationItem.title = "Delegate";
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.stepChanged(_:)),
                                                name: Notification.Name("stepChanged"),
@@ -39,10 +65,7 @@ class StakingViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if(self.isMovingFromParent) {
-            print("StakingViewController BACK")
-        }
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("pageChanged"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("stepChanged"), object: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,7 +79,6 @@ class StakingViewController: UIViewController {
     
     @objc func stepChanged(_ notification: NSNotification) {
         if let step = notification.userInfo?["step"] as? Int {
-            print("step ", step)
             if (step == 0) {
                 stepImg.image = UIImage.init(named: "4StepImg1")
                 stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
@@ -77,8 +99,7 @@ class StakingViewController: UIViewController {
         }
     }
     
-//    func exitDelegate() {
-//        self.navigationController?.popViewController(animated: true)
-//    }
-
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }

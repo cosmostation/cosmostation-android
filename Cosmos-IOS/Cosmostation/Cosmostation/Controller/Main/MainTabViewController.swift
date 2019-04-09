@@ -44,8 +44,9 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate {
         onUpdateDropDownView()
         
         self.selectedIndex = BaseData.instance.getLastTab()
+        
+        
     }
-    
     
     
     func onUpdateDropDownView() {

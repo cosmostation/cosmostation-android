@@ -11,6 +11,7 @@ import UIKit
 class StepDelegateViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIScrollViewDelegate {
     
     fileprivate var currentIndex = 0
+    var disableBounce = false
     
     var topVC: StakingViewController!
     
@@ -58,14 +59,15 @@ class StepDelegateViewController: UIPageViewController, UIPageViewControllerDele
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
         
-//        for view in self.view.subviews {
-//            if let subView = view as? UIScrollView {
-//                subView.delegate = self
-//                subView.isScrollEnabled = true
-//                subView.bouncesZoom = false
-//
-//            }
-//        }
+        for view in self.view.subviews {
+            if let subView = view as? UIScrollView {
+                subView.delegate = self
+                subView.isScrollEnabled = false
+                subView.bouncesZoom = false
+
+            }
+        }
+        disableBounce = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,7 +79,8 @@ class StepDelegateViewController: UIPageViewController, UIPageViewControllerDele
     }
     
     func onBeforePage() {
-        print("onBeforePage ", currentIndex)
+//        print("onBeforePage ", currentIndex)
+        disableBounce = false
         if(currentIndex == 0) {
             self.navigationController?.popViewController(animated: true)
         } else {
@@ -85,30 +88,32 @@ class StepDelegateViewController: UIPageViewController, UIPageViewControllerDele
                 self.currentIndex = self.currentIndex - 1
                 let value:[String: Int] = ["step": self.currentIndex ]
                 NotificationCenter.default.post(name: Notification.Name("stepChanged"), object: nil, userInfo: value)
-//                self.orderedViewControllers[self.currentIndex].view.isUserInteractionEnabled = true
+                let currentVC = self.orderedViewControllers[self.currentIndex] as! BaseViewController
+                currentVC.enableUserInteraction()
+                self.disableBounce = true
             })
         }
         
     }
     
     func onNextPage() {
-        print("onNextPage")
+//        print("onNextPage ", currentIndex)
+        disableBounce = false
         if(currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]
                 NotificationCenter.default.post(name: Notification.Name("stepChanged"), object: nil, userInfo: value)
-//                self.orderedViewControllers[self.currentIndex].view.isUserInteractionEnabled = true
+                let currentVC = self.orderedViewControllers[self.currentIndex] as! BaseViewController
+                currentVC.enableUserInteraction()
+                self.disableBounce = true
             })
         }
     }
     
-    
-    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
     }
-
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         return nil
@@ -127,4 +132,17 @@ class StepDelegateViewController: UIPageViewController, UIPageViewControllerDele
             NotificationCenter.default.post(name: Notification.Name("stepChanged"), object: nil, userInfo: value)
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(disableBounce) {
+            scrollView.contentOffset = CGPoint(x: scrollView.bounds.size.width, y: 0);
+        }
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if(disableBounce) {
+            targetContentOffset.pointee = CGPoint(x: scrollView.bounds.size.width, y: 0);
+        }
+    }
+    
 }

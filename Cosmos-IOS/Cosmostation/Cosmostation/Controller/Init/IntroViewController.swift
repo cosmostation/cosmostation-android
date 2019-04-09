@@ -61,6 +61,10 @@ class IntroViewController: BaseViewController {
         
         
 //        WKey.getCosmosAddressFromPubKey("cosmospub1addwnpepq2djnv5m0aqqeqjlkul9yza2g4fdfyupa9gde66x7d4m80tm4evpyxll4ss")
+        
+//        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(stakingVC, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {

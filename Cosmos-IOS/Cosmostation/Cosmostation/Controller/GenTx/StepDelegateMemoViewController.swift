@@ -8,10 +8,12 @@
 
 import UIKit
 
-class StepDelegateMemoViewController: BaseViewController {
+class StepDelegateMemoViewController: BaseViewController, UITextViewDelegate {
 
     @IBOutlet weak var memoInputTextView: MemoTextView!
     @IBOutlet weak var memoCntLabel: UILabel!
+    @IBOutlet weak var beforeBtn: UIButton!
+    @IBOutlet weak var nextBtn: UIButton!
     
     var pageHolderVC: StepDelegateViewController!
     
@@ -20,18 +22,48 @@ class StepDelegateMemoViewController: BaseViewController {
         pageHolderVC = self.parent as? StepDelegateViewController
         
         memoInputTextView.tintColor = UIColor.init(hexString: "FFFFFF")
-//        self.view.isUserInteractionEnabled = false
+        memoInputTextView.delegate = self
     }
 
     @IBAction func onClickBack(_ sender: Any) {
-//        self.view.isUserInteractionEnabled = false
+        self.beforeBtn.isUserInteractionEnabled = false
+        self.nextBtn.isUserInteractionEnabled = false
         pageHolderVC.onBeforePage()
         
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-//        self.view.isUserInteractionEnabled = false
-        pageHolderVC.onNextPage()
+        if(isValiadAmount()) {
+            pageHolderVC.mMemo = memoInputTextView.text
+            
+            self.beforeBtn.isUserInteractionEnabled = false
+            self.nextBtn.isUserInteractionEnabled = false
+            pageHolderVC.onNextPage()
+        } else {
+            self.onShowToast(NSLocalizedString("error_memo", comment: ""))
+        }
+        
     }
     
+    override func enableUserInteraction() {
+        self.beforeBtn.isUserInteractionEnabled = true
+        self.nextBtn.isUserInteractionEnabled = true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        print("textViewDidChange ", textView.text)
+        let byteArray = [UInt8](textView.text.utf8)
+        memoCntLabel.text = String(byteArray.count) + "/255"
+        if (byteArray.count > 255) {
+            self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+        } else {
+            self.memoInputTextView.layer.borderColor = UIColor.white.cgColor
+        }
+    }
+    
+    func isValiadAmount() -> Bool {
+        let byteArray = [UInt8](memoInputTextView.text.utf8)
+        if (byteArray.count > 255) { return false }
+        return true
+    }
 }

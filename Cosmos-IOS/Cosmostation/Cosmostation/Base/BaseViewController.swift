@@ -155,4 +155,11 @@ extension BaseViewController {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+    
+    
+    @objc func enableUserInteraction() {
+    }
+    
+    @objc func disableUserInteraction() {
+    }
 }

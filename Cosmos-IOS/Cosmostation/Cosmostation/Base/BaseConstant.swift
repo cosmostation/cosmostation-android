@@ -152,3 +152,7 @@ let SUPPORT_CHAIN_IRSI_MAIN                 = "irishub"
 
 
 let BASE_PATH                               = "44'/118'/0'/0/"
+let FEE_ATOM_LOW                            = "5000";
+let FEE_ATOM_MID                            = "10000";
+let FEE_ATOM_HIGH                           = "20000";
+
