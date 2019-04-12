@@ -28,14 +28,14 @@ class StepDelegateViewController: UIPageViewController, UIPageViewControllerDele
     
     lazy var orderedViewControllers: [UIViewController] = {
         if(currentIndex > 0) {
-            return [self.newVc(viewController: "StepDelegateAmountViewController"),
-                    self.newVc(viewController: "StepDelegateMemoViewController"),
-                    self.newVc(viewController: "StepDelegateFeeViewController"),
+            return [self.newVc(viewController: "StepAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepDelegateCheckViewController")]
         } else {
-            return [self.newVc(viewController: "StepDelegateAmountViewController"),
-                    self.newVc(viewController: "StepDelegateMemoViewController"),
-                    self.newVc(viewController: "StepDelegateFeeViewController"),
+            return [self.newVc(viewController: "StepAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepDelegateCheckViewController")]
         }
     }()

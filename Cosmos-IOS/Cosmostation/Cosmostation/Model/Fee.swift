@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Fee {
+public struct Fee: Codable{
     var gas: String = ""
     var amount: Array<Coin> = Array<Coin>()
     

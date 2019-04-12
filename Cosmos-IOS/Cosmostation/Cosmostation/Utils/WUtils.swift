@@ -276,6 +276,19 @@ class WUtils {
         return atomFees
     }
     
+    
+    static func getChainName(_ type:String) -> String {
+        print("getChainName type : ", type)
+        print("?? : ", ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue)
+        if (type == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
+//            return "cosmoshub-1"
+            return "stationhub-1"
+        } else if (type == ChainType.SUPPORT_CHAIN_IRSI_MAIN.rawValue) {
+            return "irishub"
+        }
+        return "cosmoshub-1"
+    }
+    
 }
 
 extension Date {

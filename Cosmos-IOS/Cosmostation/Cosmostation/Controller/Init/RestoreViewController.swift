@@ -272,7 +272,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             let restorePathVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestorePathViewController") as! RestorePathViewController
             self.navigationItem.title = ""
             restorePathVC.userInputWords = self.userInputWords
-            restorePathVC.userChain = SUPPORT_CHAIN_COSMOS_MAIN
+            restorePathVC.userChain = ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue
             self.navigationController?.pushViewController(restorePathVC, animated: true)
             
         })

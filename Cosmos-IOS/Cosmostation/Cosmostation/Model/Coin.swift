@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Coin {
+public struct Coin: Codable {
     var denom: String = ""
     var amount: String = ""
     

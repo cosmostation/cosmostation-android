@@ -21,6 +21,8 @@ let CSS_LCD_URL                         = "https://lcd-dev-internal.cosmostation
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let KEY_BASE_URL                        = "https://keybase.io/";
 
+let CSS_LCD_URL_BLOCK                   = CSS_LCD_URL + "blocks/";
+let CSS_LCD_URL_TX                      = CSS_LCD_URL + "txs/";
 let CSS_LCD_URL_VALIDATORS              = CSS_LCD_URL + "staking/validators";
 let CSS_LCD_URL_ACCOUNT_INFO            = CSS_LCD_URL + "auth/accounts/";
 let CSS_LCD_URL_BONDING                 = CSS_LCD_URL + "staking/delegators/";
@@ -31,10 +33,8 @@ let CSS_LCD_URL_REWARD_ALL              = CSS_LCD_URL + "distribution/delegators
 let CSS_LCD_URL_REWARD_ALL_TAIL         = "/rewards";
 let CSS_LCD_URL_REWARD_FROM_VAL         = CSS_LCD_URL + "distribution/delegators/";
 let CSS_LCD_URL_REWARD_FROM_VAL_TAIL    = "/rewards/";
-
-
 let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
-
+let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
 
 
 
@@ -127,6 +127,10 @@ let COSMOS_MSG_TYPE_WITHDRAW_DEL            = "cosmos-sdk/MsgWithdrawDelegationR
 let COSMOS_MSG_TYPE_WITHDRAW_VAL            = "cosmos-sdk/MsgWithdrawValidatorCommission";
 let COSMOS_MSG_TYPE_WITHDRAW_MIDIFY         = "cosmos-sdk/MsgModifyWithdrawAddress";
 
+let COSMOS_KEY_TYPE_PUBLIC                  = "tendermint/PubKeySecp256k1";
+let COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
+
+
 
 
 
@@ -135,6 +139,7 @@ let COSMOS_MSG_TYPE_WITHDRAW_MIDIFY         = "cosmos-sdk/MsgModifyWithdrawAddre
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
 let PASSWORD_ACTION_DELETE_ACCOUNT          = "ACTION_DELETE_ACCOUNT"
+let PASSWORD_ACTION_CHECK_TX                = "PASSWORD_ACTION_CHECK_TX"
 
 
 
@@ -146,8 +151,8 @@ let PASSWORD_RESUKT_OK_FOR_DELETE           = 3
 
 
 
-let SUPPORT_CHAIN_COSMOS_MAIN               = "cosmoshub"
-let SUPPORT_CHAIN_IRSI_MAIN                 = "irishub"
+//let SUPPORT_CHAIN_COSMOS_MAIN               = "cosmoshub"
+//let SUPPORT_CHAIN_IRSI_MAIN                 = "irishub"
 
 
 
@@ -156,3 +161,8 @@ let FEE_ATOM_LOW                            = "5000";
 let FEE_ATOM_MID                            = "10000";
 let FEE_ATOM_HIGH                           = "20000";
 
+enum ChainType: String {
+    case SUPPORT_CHAIN_COSMOS_MAIN
+    case SUPPORT_CHAIN_IRSI_MAIN
+    
+}

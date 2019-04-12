@@ -67,6 +67,9 @@ class PasswordViewController: BaseViewController {
         } else if (mTarget == PASSWORD_ACTION_DELETE_ACCOUNT) {
             passwordTitleLable.text = NSLocalizedString("password_delete", comment: "")
             
+        } else if (mTarget == PASSWORD_ACTION_CHECK_TX) {
+            passwordTitleLable.text = NSLocalizedString("password_tx", comment: "")
+            
         }
         passwordTitleLable.adjustsFontSizeToFitWidth = true
         
@@ -166,7 +169,8 @@ class PasswordViewController: BaseViewController {
                 self.initConfirmView()
             }
             
-        } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK) {
+        } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK ||
+                    mTarget == PASSWORD_ACTION_CHECK_TX) {
             self.onStartCheckPassword(mUserInsert)
             
         } else if (mTarget == PASSWORD_ACTION_DELETE_ACCOUNT) {

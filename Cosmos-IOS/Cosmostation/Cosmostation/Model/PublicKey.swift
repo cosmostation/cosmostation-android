@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class PublicKey {
+public struct PublicKey: Codable {
     var type: String = ""
     var value: String = ""
     
@@ -17,5 +17,10 @@ public class PublicKey {
     init(_ dictionary: [String: Any]) {
         self.type = dictionary["type"] as? String ?? ""
         self.value = dictionary["value"] as? String ?? ""
+    }
+    
+    init(_ type:String, _ value:String) {
+        self.type = type
+        self.value = value
     }
 }

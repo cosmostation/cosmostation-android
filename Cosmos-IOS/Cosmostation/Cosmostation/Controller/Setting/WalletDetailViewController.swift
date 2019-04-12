@@ -45,11 +45,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         walletAddress.text = mAccount.account_address
         walletAddress.adjustsFontSizeToFitWidth = true
         
-        if(mAccount.account_base_chain == SUPPORT_CHAIN_COSMOS_MAIN) {
+        if(mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
             chainName.text = "Cosmos Hub"
         } else {
             chainName.text = ""
         }
+        
+        
         
         importDate.text = WUtils.longTimetoString(input:mAccount.account_import_time)
         

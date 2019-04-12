@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import SwiftyJSON
 
-public class StdSignedMsg {
+public struct StdSignedMsg: Codable{
     var chain_id: String = ""
     var account_number: String = ""
     var sequence: String = ""
@@ -16,6 +17,7 @@ public class StdSignedMsg {
     var msgs: Array<Msg> = Array<Msg>()
     var memo: String = ""
     
+//    override init() {}
     init() {}
     
     init(_ dictionary: [String: Any]) {
@@ -33,5 +35,9 @@ public class StdSignedMsg {
         self.memo = dictionary["memo"] as? String ?? ""
     }
     
-    //TODO  add Sign func
+    
+//    func getTosignData() -> String {
+//        let encoder = JSONEncoder()
+//        encoder.outputFormatting = .prettyPrinted
+//    }
 }

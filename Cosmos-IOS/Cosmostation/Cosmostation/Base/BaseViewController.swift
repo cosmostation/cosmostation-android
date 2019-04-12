@@ -83,6 +83,14 @@ class BaseViewController: UIViewController {
         self.navigationController?.pushViewController(createVC, animated: true)
     }
     
+    func onStartTxResult(_ response:[String:Any]) {
+        print("onStartCreate")
+        let resultVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "GenTxResultViewController") as! GenTxResultViewController
+        resultVC.response = response
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(resultVC, animated: true)
+    }
+    
     func onDeleteWallet(_ account:Account) {
         self.showWaittingAlert()
         DispatchQueue.global().async {

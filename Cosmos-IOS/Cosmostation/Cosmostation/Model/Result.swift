@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Result {
+public struct Result {
     var gas_wanted: String = ""
     var gas_used: String = ""
     var log: Data?

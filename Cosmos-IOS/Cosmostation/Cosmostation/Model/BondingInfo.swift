@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class BondingInfo {
+public struct BondingInfo {
     var delegator_address: String = ""
     var validator_address: String = ""
     var shares: String = ""

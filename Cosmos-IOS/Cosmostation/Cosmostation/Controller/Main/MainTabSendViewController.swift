@@ -80,7 +80,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         if(mainTabVC.mAccount.account_has_private) { keyTypeImg.image = UIImage(named: "key_on")
         } else { keyTypeImg.image = UIImage(named: "key_off") }
         
-        if(mainTabVC.mAccount.account_base_chain == SUPPORT_CHAIN_COSMOS_MAIN) {
+        if(mainTabVC.mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
             photonCard.isHidden = true
             ConstraintAtom.priority = UILayoutPriority(rawValue: 1000)
             ConstraintPhoton.priority = UILayoutPriority(rawValue: 500)

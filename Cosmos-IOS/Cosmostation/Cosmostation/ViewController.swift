@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 //        testFunc()
         onStartMainTab()
+        self.test()
     }
     
     
@@ -27,6 +28,43 @@ class ViewController: UIViewController {
     }
     
     
+    
+    func test() {
+        DispatchQueue.global().async {
+            
+            var amino = Amino.init()
+            amino.name = "hihi"
+            amino.id = 10
+            //            amino.data = String(NSNull())
+            //            amino.data = noNull
+            
+            var inner = Amino.Inner.init()
+            inner.innerName = "yoyo"
+            
+            amino.innder = inner
+            
+            let encoder = JSONEncoder()
+            //            encoder.outputFormatting = .prettyPrinted
+            let data = try? encoder.encode(amino)
+            print("data ", data)
+            print("data ", data?.toHexString())
+            print("data string ", String(data:data!, encoding:.utf8)!)
+            
+            
+            let json = try? JSONSerialization.data(withJSONObject: amino.toDic2(), options: [])
+            print("json ", json)
+            print("json hex ", json!.toHexString())
+            print("json string ", String(data:json!, encoding:.utf8)!)
+            
+            
+            
+            //            amino.encode(to: encoder)
+            
+            DispatchQueue.main.async(execute: {
+                print("finish")
+            });
+        }
+    }
     
 
     let PRE_PUB_KEY = "eb5ae98721";

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class StdTx {
+public class StdTx: Codable {
     var type: String = ""
     var value: Value = Value.init()
     
@@ -19,7 +19,7 @@ public class StdTx {
         self.value = Value.init(dictionary["value"] as! [String : Any])
     }
     
-    public class Value {
+    public class Value: Codable {
         var msg: Array<Msg> = Array<Msg>()
         var fee: Fee = Fee.init()
         var signatures: Array<Signature> = Array<Signature>()

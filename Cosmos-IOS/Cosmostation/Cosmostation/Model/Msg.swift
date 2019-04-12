@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Msg {
+public struct Msg: Codable {
     var type: String = ""
     var value: Value = Value.init()
     
@@ -21,7 +21,7 @@ public class Msg {
     
     
     
-    public class Value {
+    public struct Value: Codable {
 //        var inputs: Array<InOutPut> = Array<InOutPut>()
 //        var outputs: Array<InOutPut> = Array<InOutPut>()
 //        var from_address: String = ""

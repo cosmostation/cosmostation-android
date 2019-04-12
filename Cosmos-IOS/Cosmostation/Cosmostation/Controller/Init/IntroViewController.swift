@@ -25,9 +25,6 @@ class IntroViewController: BaseViewController {
         super.viewDidLoad()
         print("IntroViewController viewDidLoad")
         print("password ", BaseData.instance.hasPassword())
-        
-        //TEST
-//        testFunc()
                 
         let accouts = BaseData.instance.selectAllAccounts()
         if(accouts.count <= 0) {
@@ -65,7 +62,10 @@ class IntroViewController: BaseViewController {
 //        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
 //        self.navigationItem.title = ""
 //        self.navigationController?.pushViewController(stakingVC, animated: true)
+        
+
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

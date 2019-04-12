@@ -203,7 +203,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         
         let cosmosAction = UIAlertAction(title: NSLocalizedString("COSMOS", comment: ""), style: .default, handler: { _ in
-            self.onGenAccount(SUPPORT_CHAIN_COSMOS_MAIN)
+            self.onGenAccount(ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue)
         })
         cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
         cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")

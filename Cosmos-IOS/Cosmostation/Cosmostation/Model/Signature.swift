@@ -8,9 +8,11 @@
 
 import Foundation
 
-public class Signature {
+public struct Signature: Codable {
     var pub_key: PublicKey = PublicKey.init()
     var signature: String = ""
+    
+    init() {}
     
     init(_ dictionary: [String: Any]) {
         self.signature = dictionary["signature"] as? String ?? ""

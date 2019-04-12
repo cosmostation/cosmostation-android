@@ -9,6 +9,7 @@
 "password_init2" = "Please insert again for confirm.";
 "password_check" = "Please type your password";
 "password_delete" = "Insert password for delete";
+"password_tx" = "Insert password for Transaction";
 "password_init_warnning" = "No way to recover this.\nPlease remember!";
 "password_msg1" = "Losing your mnemonics could lead to loss of your asset.\nWe highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.";
 "password_msg2" = "Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.";

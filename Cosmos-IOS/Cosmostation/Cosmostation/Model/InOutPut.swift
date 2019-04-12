@@ -9,7 +9,7 @@
 import Foundation
 
 
-public class InOutPut {
+public struct InOutPut: Codable {
     var address: String = ""
     var coins: Array<Coin> = Array<Coin>()
     

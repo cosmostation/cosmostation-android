@@ -56,7 +56,7 @@ class AddAddressViewController: BaseViewController {
         if (WKey.isValidateAddressOrPubKey(userInput)) {
             if(userInput.starts(with: "cosmospub")) { address = WKey.getCosmosAddressFromPubKey(userInput)
             } else {  address = userInput }
-            self.onGenWatchAccount(SUPPORT_CHAIN_COSMOS_MAIN, address)
+            self.onGenWatchAccount(ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue, address)
             
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
