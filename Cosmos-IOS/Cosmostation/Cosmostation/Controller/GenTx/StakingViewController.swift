@@ -31,6 +31,11 @@ class StakingViewController: UIViewController {
         } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             stepDescription.text = NSLocalizedString("undelegate_step_1", comment: "")
             self.titleLabel.text = "Undelegate from " + String((mTargetValidator?.description.moniker)!)
+            
+        } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+            stepDescription.text = NSLocalizedString("withdraw_single_step_1", comment: "")
+            self.titleLabel.text = "Get reward from " + String((mTargetValidator?.description.moniker)!)
+            
         }
         self.titleLabel.adjustsFontSizeToFitWidth = true
         
@@ -74,6 +79,8 @@ class StakingViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
                 } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
                     stepDescription.text = NSLocalizedString("undelegate_step_1", comment: "")
+                } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                    stepDescription.text = NSLocalizedString("withdraw_single_step_1", comment: "")
                 }
                 
                 
@@ -91,6 +98,8 @@ class StakingViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("delegate_step_4", comment: "")
                 } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
                     stepDescription.text = NSLocalizedString("undelegate_step_4", comment: "")
+                } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                    stepDescription.text = NSLocalizedString("withdraw_single_step_4", comment: "")
                 }
                 
             }

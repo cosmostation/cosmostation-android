@@ -345,7 +345,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dpR-Aj-Iwn" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dpR-Aj-Iwn" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="16" y="36" width="343" height="220"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward Amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBp-6N-Ir3">
@@ -397,9 +397,9 @@
                                         <color key="textColor" red="0.95294117649999999" green="0.098039215690000001" blue="0.38823529410000002" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLr-AV-Cs3">
-                                        <rect key="frame" x="24" y="168.5" width="303" height="16.5"/>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLr-AV-Cs3">
+                                        <rect key="frame" x="24" y="168.5" width="303" height="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -441,7 +441,7 @@
                                     <constraint firstAttribute="width" constant="60" id="lUz-e8-nJz"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZnH-rF-BkP">
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZnH-rF-BkP">
                                 <rect key="frame" x="16" y="601" width="343" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxj-8a-Kpr">
@@ -510,6 +510,8 @@
                     </view>
                     <connections>
                         <outlet property="cancelBtn" destination="zxj-8a-Kpr" id="qES-Ai-rod"/>
+                        <outlet property="cardView" destination="dpR-Aj-Iwn" id="dvl-bI-PMx"/>
+                        <outlet property="controlLayer" destination="ZnH-rF-BkP" id="4sG-JQ-GRz"/>
                         <outlet property="loadingImg" destination="mDC-qx-uiX" id="qIS-kq-6fx"/>
                         <outlet property="nextBtn" destination="gZw-z1-0l3" id="mmX-et-pDG"/>
                         <outlet property="rewardAmountLabel" destination="WAC-zm-EDp" id="Uns-EQ-dmy"/>
@@ -1336,6 +1338,12 @@
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(self)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvX-qw-osV">
+                                        <rect key="frame" x="133" y="200.5" width="27" height="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <color key="textColor" red="0.95294117649999999" green="0.098039215690000001" blue="0.38823529410000002" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrU-if-jGX">
                                         <rect key="frame" x="24" y="223" width="303" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
@@ -1362,6 +1370,7 @@
                                     <constraint firstItem="EQ9-3G-1Si" firstAttribute="top" secondItem="liw-l8-phK" secondAttribute="bottom" constant="16" id="5zJ-W3-wfa"/>
                                     <constraint firstItem="oUF-9B-3Wj" firstAttribute="leading" secondItem="acl-iM-CuU" secondAttribute="leading" id="9jn-6j-pTd"/>
                                     <constraint firstItem="liw-l8-phK" firstAttribute="top" secondItem="acl-iM-CuU" secondAttribute="bottom" constant="16" id="AcP-a6-FW1"/>
+                                    <constraint firstItem="mvX-qw-osV" firstAttribute="firstBaseline" secondItem="Mjn-tU-bDU" secondAttribute="firstBaseline" id="BTx-Tc-7GD"/>
                                     <constraint firstAttribute="trailing" secondItem="6qP-FZ-PaU" secondAttribute="trailing" constant="16" id="EQE-H3-NPO"/>
                                     <constraint firstItem="8SH-nc-hSl" firstAttribute="leading" secondItem="hs2-Cp-sIV" secondAttribute="leading" constant="16" id="GWa-QM-YBj"/>
                                     <constraint firstItem="mQv-vj-oGV" firstAttribute="leading" secondItem="8SH-nc-hSl" secondAttribute="leading" id="Ggb-cx-OaJ"/>
@@ -1372,6 +1381,7 @@
                                     <constraint firstItem="I3D-DX-Pnj" firstAttribute="firstBaseline" secondItem="acl-iM-CuU" secondAttribute="firstBaseline" id="KyF-ac-jRC"/>
                                     <constraint firstItem="Mjn-tU-bDU" firstAttribute="leading" secondItem="8SH-nc-hSl" secondAttribute="leading" id="LRn-TN-DgM"/>
                                     <constraint firstItem="V77-qx-hi9" firstAttribute="top" secondItem="8SH-nc-hSl" secondAttribute="bottom" constant="8" id="QJN-qZ-CbP"/>
+                                    <constraint firstItem="mvX-qw-osV" firstAttribute="leading" secondItem="Mjn-tU-bDU" secondAttribute="trailing" constant="4" id="Rhp-8t-mWg"/>
                                     <constraint firstItem="acl-iM-CuU" firstAttribute="leading" secondItem="V77-qx-hi9" secondAttribute="leading" id="Uw9-Xb-rgG"/>
                                     <constraint firstItem="V77-qx-hi9" firstAttribute="leading" secondItem="hs2-Cp-sIV" secondAttribute="leading" constant="24" id="V3H-Zo-rJT"/>
                                     <constraint firstItem="8SH-nc-hSl" firstAttribute="top" secondItem="hs2-Cp-sIV" secondAttribute="top" constant="16" id="V5C-xF-U7D"/>
@@ -1467,6 +1477,7 @@
                         <outlet property="memoLabel" destination="jJH-82-FMf" id="ntM-cP-Sxo"/>
                         <outlet property="recipientLabel" destination="qrU-if-jGX" id="wwy-rp-Fgf"/>
                         <outlet property="rewardAmoutLaebl" destination="6qP-FZ-PaU" id="kKb-lr-Zfu"/>
+                        <outlet property="selfLabel" destination="mvX-qw-osV" id="slM-gB-sAz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BW9-x9-Yge" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1866,7 +1877,9 @@
                         <outlet property="errorCode" destination="Hfp-Lj-mpz" id="rac-GS-Qzx"/>
                         <outlet property="loadingImgs" destination="dcS-mU-muJ" id="YqN-XF-jL6"/>
                         <outlet property="mainCardView" destination="Jsd-4w-Ms3" id="JAz-lA-6dC"/>
+                        <outlet property="txAmountAtomLabel" destination="H1i-q9-jeH" id="6K2-q3-g4q"/>
                         <outlet property="txAmountLabel" destination="B9s-8S-wIb" id="iRM-Kg-lZu"/>
+                        <outlet property="txAmountTitleLabel" destination="lVB-pw-W8u" id="XXi-t0-fMu"/>
                         <outlet property="txFeeLabel" destination="HXP-Uy-psi" id="Ay7-nI-NZp"/>
                         <outlet property="txHashLabel" destination="jwa-bE-tyt" id="B3z-rw-hBE"/>
                         <outlet property="txMemoLabel" destination="O4m-qP-aYd" id="hGM-kn-kfe"/>

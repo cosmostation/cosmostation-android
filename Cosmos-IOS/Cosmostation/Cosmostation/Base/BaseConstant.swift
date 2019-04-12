@@ -33,9 +33,12 @@ let CSS_LCD_URL_REWARD_ALL              = CSS_LCD_URL + "distribution/delegators
 let CSS_LCD_URL_REWARD_ALL_TAIL         = "/rewards";
 let CSS_LCD_URL_REWARD_FROM_VAL         = CSS_LCD_URL + "distribution/delegators/";
 let CSS_LCD_URL_REWARD_FROM_VAL_TAIL    = "/rewards/";
-let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
-let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
+let CSS_LCD_URL_REWARD_ADDRESS          = CSS_LCD_URL + "distribution/delegators/";
+let CSS_LCD_URL_REWARD_ADDRESS_TAIL     = "/withdraw_address";
 
+let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
+
+let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
 
 
 //let CSS_ES_URL                          = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/txs/_search/";

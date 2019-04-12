@@ -25,6 +25,8 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var blockHeightLabel: UILabel!
     @IBOutlet weak var blockTimeLabel: UILabel!
     
+    @IBOutlet weak var txAmountTitleLabel: UILabel!
+    @IBOutlet weak var txAmountAtomLabel: UILabel!
     @IBOutlet weak var txAmountLabel: UILabel!
     @IBOutlet weak var txFeeLabel: UILabel!
     
@@ -96,7 +98,16 @@ class GenTxResultViewController: BaseViewController {
             txSecondContentLabel.adjustsFontSizeToFitWidth = true
             
             
+        } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+            txTypeLabel.text = "Get Reward"
+            txAmountTitleLabel.isHidden = true
+            txAmountAtomLabel.isHidden = true
+            txAmountLabel.isHidden = true
+            
         } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER || mTxType == COSMOS_MSG_TYPE_TRANSFER) {
+            txSecondTitleLabel.text = "Validator address"
+            txSecondContentLabel.text = mTxInfo?.tx.value.msg[0].value.validator_address
+            txSecondContentLabel.adjustsFontSizeToFitWidth = true
             
         } else {
             

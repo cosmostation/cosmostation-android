@@ -503,6 +503,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onStartGetSingleReward() {
         print("onStartGetSingleReward")
+        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+        stakingVC.mTargetValidator = mValidator
+        stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(stakingVC, animated: true)
         
     }
 }

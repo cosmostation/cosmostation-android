@@ -20,6 +20,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mBalances = Array<Balance>()
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
+    var mReward = Reward.init()
+    var mRewardAddress: String?
     
     var mTargetValidator: Validator?
     var mToDelegateAmount: Coin?
@@ -35,11 +37,17 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepDelegateCheckViewController")]
             
-        } else {
+        } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             return [self.newVc(viewController: "StepUndelegateAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepUndelegateCheckViewController")]
+            
+        } else {
+            return [self.newVc(viewController: "StepRewardViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepRewardCheckViewController")]
             
         }
         

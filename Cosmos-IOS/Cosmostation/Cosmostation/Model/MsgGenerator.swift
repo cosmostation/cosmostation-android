@@ -24,7 +24,7 @@ class MsgGenerator {
         return msg
     }
     
-    static func genUndelegateMsg(_ fromAddress: String, _ toValAddress: String, _ amount: String) ->Msg {
+    static func genUndelegateMsg(_ fromAddress: String, _ toValAddress: String, _ amount: String) -> Msg {
         var msg = Msg.init()
         
         var value = Msg.Value.init()
@@ -33,6 +33,19 @@ class MsgGenerator {
         value.shares_amount = amount
         
         msg.type = COSMOS_MSG_TYPE_UNDELEGATE2 
+        msg.value = value
+        
+        return msg
+    }
+    
+    static func genGetRewardMsg(_ fromAddress: String, _ toValAddress: String) -> Msg {
+        var msg = Msg.init()
+        
+        var value = Msg.Value.init()
+        value.delegator_address = fromAddress
+        value.validator_address = toValAddress
+        
+        msg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL
         msg.value = value
         
         return msg
