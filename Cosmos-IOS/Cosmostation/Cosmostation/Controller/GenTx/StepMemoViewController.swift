@@ -16,11 +16,11 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
     @IBOutlet weak var beforeBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     
-    var pageHolderVC: StepDelegateViewController!
+    var pageHolderVC: StepGenTxViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepDelegateViewController
+        pageHolderVC = self.parent as? StepGenTxViewController
         
         memoInputTextView.tintColor = UIColor.init(hexString: "FFFFFF")
         memoInputTextView.delegate = self

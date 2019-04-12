@@ -11,9 +11,13 @@ import UIKit
 
 class WUtils {
     
+    static let handler18 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 18, raiseOnExactness: true, raiseOnOverflow: false, raiseOnUnderflow: true, raiseOnDivideByZero: true)
+    
     static let handler6 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 6, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static let handler2 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
+    
     
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
         let result = account
@@ -112,6 +116,17 @@ class WUtils {
         return localFormatter.string(from: fullDate)
     }
     
+    static func unbondingDateFromNow() -> String {
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = "yy-MM-dd HH:mm:ss"
+        
+        let afterDate = Calendar.current.date(
+            byAdding: .day,
+            value: +21,
+            to: Date())
+        return localFormatter.string(from: afterDate!)
+    }
+    
     
     
     static func historyTitle(_ msgs:Array<Msg>) -> String {
@@ -163,6 +178,16 @@ class WUtils {
             result = NSDecimalNumber(string: input)
         } catch { }
         return result
+    }
+    
+    static func unDelegateFormat(_ amount: String) -> String {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = 18
+        nf.maximumFractionDigits = 18
+        nf.numberStyle = .none
+        
+        let oriAmount = stringToDecimal(amount)
+        return  nf.string(from: oriAmount)!
     }
     
     static func displayAmout(_ amount: String, _ font:UIFont, _ deciaml:Int) -> NSMutableAttributedString {

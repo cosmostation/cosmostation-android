@@ -13,8 +13,6 @@ import SwiftKeychainWrapper
 
 class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
     
-    
-
     @IBOutlet weak var toDelegateAmoutLaebl: UILabel!
     @IBOutlet weak var feeAmountLabel: UILabel!
     @IBOutlet weak var targetValidatorLabel: UILabel!
@@ -22,11 +20,11 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
     @IBOutlet weak var beforeBtn: UIButton!
     @IBOutlet weak var confirmBtn: UIButton!
     
-    var pageHolderVC: StepDelegateViewController!
+    var pageHolderVC: StepGenTxViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepDelegateViewController
+        pageHolderVC = self.parent as? StepGenTxViewController
     }
 
     @IBAction func onClickConfirm(_ sender: Any) {
@@ -111,7 +109,6 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                 print("rawResult ", rawResult)
                 let rawData: Data? = rawResult!.data(using: .utf8)
                 print("rawData ", rawData?.toHexString())
-                
                 let hash = Crypto.sha256(rawData!)
                 print("hash ", hash.hexEncodedString())
                 
@@ -141,7 +138,6 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
             
             DispatchQueue.main.async(execute: {
                 print("stdTx ", stdTx)
-                
                 let postTx = PostTx.init("sync", stdTx.value)
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
@@ -159,9 +155,9 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                     print("params ", params)
                     let request = Alamofire.request(CSS_LCD_URL_BORAD_TX, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
-                        print("request1 ", request.request)
-                        print("request2 ", request.request?.httpBody)
-                        print("request3 ", String(data:(request.request?.httpBody)!, encoding:.utf8) )
+//                        print("request1 ", request.request)
+//                        print("request2 ", request.request?.httpBody)
+//                        print("request3 ", String(data:(request.request?.httpBody)!, encoding:.utf8) )
                         
                         var txResult = [String:Any]()
                         switch response.result {

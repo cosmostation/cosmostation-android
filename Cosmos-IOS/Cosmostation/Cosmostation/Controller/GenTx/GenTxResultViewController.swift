@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SafariServices
 
 class GenTxResultViewController: BaseViewController {
     
@@ -35,8 +36,7 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var errorCardView: CardView!
     @IBOutlet weak var errorCode: UILabel!
     
-    @IBOutlet weak var loadingImg: UIImageView!
-    
+    @IBOutlet weak var loadingImgs: LoadingImageView!
     
     var mTxType: String?
     var mTxHash: String?
@@ -64,8 +64,8 @@ class GenTxResultViewController: BaseViewController {
             return
         }
         
+        self.loadingImgs.onStartAnimation()
         self.onFetchTx(mTxHash!)
-        
         
     }
     
@@ -74,7 +74,7 @@ class GenTxResultViewController: BaseViewController {
         self.txResultTitleLabel.text = "Transaction Failed"
         self.txResultTitleLabel.textColor = UIColor.init(hexString: "f31963")
         self.errorCode.text =  "error code : " + String(code)
-        self.loadingImg.isHidden = true
+        self.loadingImgs.isHidden = true
         self.errorCardView.isHidden = false
     }
     
@@ -88,6 +88,14 @@ class GenTxResultViewController: BaseViewController {
             txSecondContentLabel.text = mTxInfo?.tx.value.msg[0].value.validator_address
             txSecondContentLabel.adjustsFontSizeToFitWidth = true
             
+        } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+            txTypeLabel.text = "UnDelegate"
+            txAmountLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.shares_amount)!, txAmountLabel.font, 6)
+            txSecondTitleLabel.text = "Validator address"
+            txSecondContentLabel.text = mTxInfo?.tx.value.msg[0].value.validator_address
+            txSecondContentLabel.adjustsFontSizeToFitWidth = true
+            
+            
         } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER || mTxType == COSMOS_MSG_TYPE_TRANSFER) {
             
         } else {
@@ -95,6 +103,7 @@ class GenTxResultViewController: BaseViewController {
         }
         
         txHashLabel.text = mTxInfo?.txhash
+        txHashLabel.adjustsFontSizeToFitWidth = true
         blockHeightLabel.text = mBlockInfo?.block_meta.header.height
         blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
         
@@ -102,7 +111,7 @@ class GenTxResultViewController: BaseViewController {
         txMemoLabel.text = mTxInfo?.tx.value.memo
         
         
-        self.loadingImg.isHidden = true
+        self.loadingImgs.isHidden = true
         self.mainCardView.isHidden = false
         
         self.dismissBtn.isHidden = true
@@ -112,15 +121,25 @@ class GenTxResultViewController: BaseViewController {
     
     
     @IBAction func onClickDismiss(_ sender: UIButton) {
+        self.onStartMainTab()
     }
     
     @IBAction func onClickExplorer(_ sender: UIButton) {
+        guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true, completion: nil)
     }
     
     @IBAction func onClickShare(_ sender: UIButton) {
+        let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
+        let textToShare = [ text ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view 
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     @IBAction func onClickOK(_ sender: UIButton) {
+        self.onStartMainTab()
     }
     
     

@@ -26,6 +26,8 @@
 "delegate_step_2" = "Insert memo. (optional)";
 "delegate_step_3" = "Select transaction fee.";
 "delegate_step_4" = "Check delegation detail.";
+"undelegate_step_1" = "Enter undelegation amount.";
+"undelegate_step_4" = "Check undelegation detail.";
 
 "only_USD" = "now only support USD";
 "only_cmc" = "now only support coinmarket cap";

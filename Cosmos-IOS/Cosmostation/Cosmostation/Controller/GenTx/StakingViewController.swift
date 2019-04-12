@@ -17,33 +17,27 @@ class StakingViewController: UIViewController {
     @IBOutlet weak var loadingImg: UIImageView!
     
     var mTargetValidator: Validator?
+    var mType: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //         print("StakingViewController")
         
-        
         stepImg.image = UIImage.init(named: "4StepImg1")
-        stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
-//        loadingImg.image = UIImage.gifImageWithName("cosmostation_loading_wh")
-//        loadingImg.image = UIImage.init(named: "freeIc")
+        if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+            stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
+            self.titleLabel.text = "Delegate to " + String((mTargetValidator?.description.moniker)!)
+            
+        } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+            stepDescription.text = NSLocalizedString("undelegate_step_1", comment: "")
+            self.titleLabel.text = "Undelegate from " + String((mTargetValidator?.description.moniker)!)
+        }
+        self.titleLabel.adjustsFontSizeToFitWidth = true
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
-        
-//        self.navigationItem.hidesBackButton = true
-//        let newBackButton = UIBarButtonItem(image: UIImage.init(named: "backBtn"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(StakingViewController.back(sender:)))
-//        self.navigationItem.leftBarButtonItem = newBackButton
-//        self.titleLabel.text = "Delegate"
     }
-    
-//    @objc func back(sender: UIBarButtonItem) {
-//        print("StakingViewController BACK")
-////        // Perform your custom actions
-////        // ...
-////        // Go back to the previous ViewController
-//        _ = navigationController?.popViewController(animated: true)
-//    }
     
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
@@ -51,11 +45,6 @@ class StakingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.titleLabel.text = "Delegate to " + String((mTargetValidator?.description.moniker)!)
-        
-//        self.navigationController?.navigationBar.layoutMargins.left = 100
-//        self.navigationController?.navigationBar.topItem?.title = "Delegate";
-//        self.navigationItem.title = "Delegate";
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.stepChanged(_:)),
@@ -70,8 +59,9 @@ class StakingViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "containerTxPage") {
-            let StepVc = segue.destination as! StepDelegateViewController
+            let StepVc = segue.destination as! StepGenTxViewController
             StepVc.topVC = self
+            StepVc.mType = self.mType
             StepVc.mTargetValidator = self.mTargetValidator
         }
     }
@@ -81,7 +71,12 @@ class StakingViewController: UIViewController {
         if let step = notification.userInfo?["step"] as? Int {
             if (step == 0) {
                 stepImg.image = UIImage.init(named: "4StepImg1")
-                stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
+                if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+                    stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
+                } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                    stepDescription.text = NSLocalizedString("undelegate_step_1", comment: "")
+                }
+                
                 
             } else if (step == 1) {
                 stepImg.image = UIImage.init(named: "4StepImg2")
@@ -93,7 +88,11 @@ class StakingViewController: UIViewController {
                 
             } else if (step == 3) {
                 stepImg.image = UIImage.init(named: "4StepImg4")
-                stepDescription.text = NSLocalizedString("delegate_step_4", comment: "")
+                if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+                    stepDescription.text = NSLocalizedString("delegate_step_4", comment: "")
+                } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                    stepDescription.text = NSLocalizedString("undelegate_step_4", comment: "")
+                }
                 
             }
         }

@@ -16,13 +16,13 @@ class StepFeeViewController: BaseViewController {
     @IBOutlet weak var beforeBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     
-    var pageHolderVC: StepDelegateViewController!
+    var pageHolderVC: StepGenTxViewController!
     var atomFees: Array<NSDecimalNumber>!
     var feeCoin:Coin!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepDelegateViewController
+        pageHolderVC = self.parent as? StepGenTxViewController
         
         atomFees = WUtils.getAtomFees()
         feeAmountLabel.attributedText = WUtils.displayAmout(atomFees[1].stringValue, feeAmountLabel.font, 6)

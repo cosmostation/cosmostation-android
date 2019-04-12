@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import DropDown
 
-class MainTabViewController: UITabBarController, SBCardPopupDelegate {
+class MainTabViewController: UITabBarController, SBCardPopupDelegate{
     
     var mAccount:Account!
     var mAccounts = Array<Account>()
@@ -35,6 +35,7 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate {
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
         }
+        print("mAccounts ", mAccounts.count)
         
         self.onFetchAccountData()
         
@@ -43,10 +44,16 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate {
         dimView!.alpha  = 0.85
         onUpdateDropDownView()
         
-        self.selectedIndex = BaseData.instance.getLastTab()
-        
+//        print("viewDidLoad", BaseData.instance.getLastTab())
+//        self.selectedIndex = BaseData.instance.getLastTab()
+//        print("viewDidLoad", self.selectedIndex)
         
     }
+    
+//    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+//        print("tabBar didSelect", self.selectedIndex)
+//        BaseData.instance.setLastTab(self.selectedIndex)
+//    }
     
     
     func onUpdateDropDownView() {
@@ -55,9 +62,11 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate {
         for account in mAccounts {
             dropmenu.append(String(account.account_id))
         }
+        print("dropmenu.count ", dropmenu.count)
         if(dropmenu.count < 6) {
             dropmenu.append("bottom")
         }
+        print("dropmenu.count ", dropmenu.count)
         
         dropDown.anchorView = self.view
         dropDown.bottomOffset = CGPoint(x: 0, y:UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0)
@@ -81,7 +90,8 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate {
                 cell.accountView.isHidden = true
                 cell.newAccount.isHidden = true
                 
-            } else if (self.dropDown.dataSource.count <= 5 && index == self.dropDown.dataSource.count - 1) {
+//            } else if (self.dropDown.dataSource.count == 6 || index == self.dropDown.dataSource.count - 1) {
+            } else if (index == 6 || index == self.dropDown.dataSource.count - 1) {
                 cell.topPadding.isHidden = true
                 cell.accountView.isHidden = true
                 cell.newAccount.isHidden = false

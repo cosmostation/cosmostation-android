@@ -15,12 +15,12 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     
-    var pageHolderVC: StepDelegateViewController!
+    var pageHolderVC: StepGenTxViewController!
     var userBalance = NSDecimalNumber.zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepDelegateViewController
+        pageHolderVC = self.parent as? StepGenTxViewController
         for balance in pageHolderVC.mBalances {
             if(balance.balance_denom == "uatom") {
                 userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))

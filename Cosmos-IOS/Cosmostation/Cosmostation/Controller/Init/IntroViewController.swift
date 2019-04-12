@@ -63,6 +63,8 @@ class IntroViewController: BaseViewController {
 //        self.navigationItem.title = ""
 //        self.navigationController?.pushViewController(stakingVC, animated: true)
         
+        
+//        print("amount18 ", WUtils.unDelegateFormat("10.45"))
 
     }
     

@@ -13,6 +13,7 @@ import SafariServices
 class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var validatorDetailTableView: UITableView!
+    @IBOutlet weak var loadingImg: LoadingImageView!
     
     var mAccount: Account?
     var mValidator: Validator?
@@ -41,6 +42,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailHistoryEmpty", bundle: nil), forCellReuseIdentifier: "ValidatorDetailHistoryEmpty")
         self.validatorDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
+        self.loadingImg.onStartAnimation()
         self.onFech()
         
     }
@@ -81,6 +83,10 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             }
             print("mMyValidator ", mMyValidator)
             self.validatorDetailTableView.reloadData()
+            
+            self.loadingImg.onStopAnimation()
+            self.loadingImg.isHidden = true
+            self.validatorDetailTableView.isHidden = false
             
         }
     }
@@ -478,6 +484,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         }
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         stakingVC.mTargetValidator = mValidator
+        stakingVC.mType = COSMOS_MSG_TYPE_DELEGATE
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
         
@@ -486,6 +493,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onStartUndelegate() {
         print("onStartUndelegate")
+        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+        stakingVC.mTargetValidator = mValidator
+        stakingVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(stakingVC, animated: true)
         
     }
     
