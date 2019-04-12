@@ -19,6 +19,8 @@
 		E1406FC422607B8500D9440C /* LoadingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC322607B8500D9440C /* LoadingImageView.swift */; };
 		E1406FC62260860E00D9440C /* StepUndelegateAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC52260860E00D9440C /* StepUndelegateAmountViewController.swift */; };
 		E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC722608ABA00D9440C /* StepUndelegateCheckViewController.swift */; };
+		E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC92260A0FD00D9440C /* StepRewardViewController.swift */; };
+		E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FCB2260A11300D9440C /* StepRewardCheckViewController.swift */; };
 		E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */; };
 		E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */; };
 		E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */; };
@@ -151,6 +153,8 @@
 		E1406FC322607B8500D9440C /* LoadingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingImageView.swift; sourceTree = "<group>"; };
 		E1406FC52260860E00D9440C /* StepUndelegateAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepUndelegateAmountViewController.swift; sourceTree = "<group>"; };
 		E1406FC722608ABA00D9440C /* StepUndelegateCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepUndelegateCheckViewController.swift; sourceTree = "<group>"; };
+		E1406FC92260A0FD00D9440C /* StepRewardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRewardViewController.swift; sourceTree = "<group>"; };
+		E1406FCB2260A11300D9440C /* StepRewardCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRewardCheckViewController.swift; sourceTree = "<group>"; };
 		E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicCell.swift; sourceTree = "<group>"; };
 		E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MnemonicCell.xib; sourceTree = "<group>"; };
 		E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathViewController.swift; sourceTree = "<group>"; };
@@ -344,10 +348,12 @@
 				E171A074225B091300C5756C /* StepGenTxViewController.swift */,
 				E171A06C225B08A000C5756C /* StepDelegateAmountViewController.swift */,
 				E1406FC52260860E00D9440C /* StepUndelegateAmountViewController.swift */,
+				E1406FC92260A0FD00D9440C /* StepRewardViewController.swift */,
 				E171A06E225B08B100C5756C /* StepMemoViewController.swift */,
 				E171A070225B08C100C5756C /* StepFeeViewController.swift */,
 				E171A072225B08CE00C5756C /* StepDelegateCheckViewController.swift */,
 				E1406FC722608ABA00D9440C /* StepUndelegateCheckViewController.swift */,
+				E1406FCB2260A11300D9440C /* StepRewardCheckViewController.swift */,
 				E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */,
 			);
 			path = GenTx;
@@ -750,12 +756,14 @@
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
 				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
+				E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */,
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
 				E151B647224850040026B8C0 /* Msg.swift in Sources */,
 				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
+				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
 				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
 				E1945E46222E819300A1436F /* MainTabSendViewController.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,

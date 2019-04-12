@@ -14,7 +14,6 @@ class StakingViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var stepImg: UIImageView!
     @IBOutlet weak var stepDescription: UILabel!
-    @IBOutlet weak var loadingImg: UIImageView!
     
     var mTargetValidator: Validator?
     var mType: String?
