@@ -477,9 +477,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onStartDelegate() {
         print("onStartDelegate")
+        if(!mAccount!.account_has_private) {
+            self.onShowAddMenomicDialog()
+        }
+        
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
         if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount) == NSDecimalNumber.zero) {
-            //TODO return with no money
+            self.onShowToast(NSLocalizedString("error_not_enough_balance", comment: ""))
             return
         }
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
@@ -493,6 +497,24 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onStartUndelegate() {
         print("onStartUndelegate")
+        if(!mAccount!.account_has_private) {
+            self.onShowAddMenomicDialog()
+        }
+        
+        if(mUnbondings.count > 0) {
+            var unbondSum = NSDecimalNumber.zero
+            for unbonding in mUnbondings {
+                unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+            }
+            if(unbondSum == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+                return
+            }
+        } else {
+            self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+            return
+        }
+        
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         stakingVC.mTargetValidator = mValidator
         stakingVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
@@ -503,12 +525,39 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onStartGetSingleReward() {
         print("onStartGetSingleReward")
+        if(!mAccount!.account_has_private) {
+            self.onShowAddMenomicDialog()
+        }
+        if(mRewards.count > 0) {
+            var rewardSum = NSDecimalNumber.zero
+            for reward in mRewards {
+                rewardSum  = rewardSum.adding(WUtils.stringToDecimal(reward.reward_amount[0].amount))
+            }
+            if(rewardSum == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+        } else {
+            self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+            return
+        }
+        
+        
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         stakingVC.mTargetValidator = mValidator
         stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
         
+    }
+    
+    func onShowAddMenomicDialog() {
+        let alert = UIAlertController(title: "No Private Key", message: "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Add Mnemonic", style: .default, handler: { [weak alert] (_) in
+            self.onStartImportMnemonic()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

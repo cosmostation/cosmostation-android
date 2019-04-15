@@ -42,3 +42,6 @@
 "error_amount" = "Please insert validate amount";
 "error_memo" = "Please insert validate memo";
 "error_only_fee_with_atom" = "Now only support ATOM for fee";
+"error_not_enough_balance" = "No enough Balance to Delegate";
+"error_not_undelegate" = "Nothing to undelegate";
+"error_not_reward" = "No enough reward to Claim";

@@ -91,7 +91,7 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
                 cell.newAccount.isHidden = true
                 
 //            } else if (self.dropDown.dataSource.count == 6 || index == self.dropDown.dataSource.count - 1) {
-            } else if (index == 6 || index == self.dropDown.dataSource.count - 1) {
+            } else if (self.mAccounts.count != 5 && (index == 6 || index == self.dropDown.dataSource.count - 1)) {
                 cell.topPadding.isHidden = true
                 cell.accountView.isHidden = true
                 cell.newAccount.isHidden = false

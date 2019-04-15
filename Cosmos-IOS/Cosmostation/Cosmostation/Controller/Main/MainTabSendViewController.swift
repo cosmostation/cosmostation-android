@@ -146,7 +146,9 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     func emptyFloatySelected(_ floaty: Floaty) {
-        print("emptyFloatySelected")
+        let alert = UIAlertController(title: "Unable to transfer", message: "Token transfer will be enabled following SDK upgrades after proposal #3 is passed.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
