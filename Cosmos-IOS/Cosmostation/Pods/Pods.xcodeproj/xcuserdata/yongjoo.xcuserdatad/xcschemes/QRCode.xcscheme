@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "21395E7FCB8C69BB0317179844A7D39B"
-               BlueprintName = "PromiseKit"
+               BlueprintIdentifier = "85FF930D85BE02D020889F28C191CBC0"
+               BlueprintName = "QRCode"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "PromiseKit.framework">
+               BuildableName = "QRCode.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

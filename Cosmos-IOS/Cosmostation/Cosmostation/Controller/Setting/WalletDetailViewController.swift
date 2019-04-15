@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QRCode
 
 class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
@@ -122,7 +123,51 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     }
     
     @IBAction func onClickQrCode(_ sender: Any) {
-        onShowToast(NSLocalizedString("prepare", comment: ""))
+        var qrCode = QRCode(self.mAccount.account_address)
+        qrCode?.backgroundColor = CIColor(rgba: "EEEEEE")
+        qrCode?.size = CGSize(width: 200, height: 200)
+        
+        var walletName: String?
+        if (self.mAccount!.account_nick_name == "") {
+            walletName = "Wallet " + String(self.mAccount!.account_id)
+        } else {
+            walletName = self.mAccount!.account_nick_name
+        }
+        
+        let alert = UIAlertController(title: walletName, message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Share", style: .default, handler:  { [weak alert] (_) in
+            let shareTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+            shareTypeAlert.addAction(UIAlertAction(title: "Share Text Address", style: .default, handler: { [weak shareTypeAlert] (_) in
+                let text = self.mAccount.account_address
+                let textToShare = [ text ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                self.present(activityViewController, animated: true, completion: nil)
+            }))
+            shareTypeAlert.addAction(UIAlertAction(title: "Share QrCode Image", style: .default, handler: { [weak shareTypeAlert] (_) in
+                let image = qrCode?.image
+                let imageToShare = [ image! ]
+                let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                self.present(activityViewController, animated: true, completion: nil)
+            }))
+            self.present(shareTypeAlert, animated: true, completion: nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { [weak alert] (_) in
+            UIPasteboard.general.string = self.mAccount.account_address
+            self.onShowToast(NSLocalizedString("address_copied", comment: ""))
+        }))
+        
+        let image = UIImageView(image: qrCode?.image)
+        image.contentMode = .scaleAspectFit
+        alert.view.addSubview(image)
+        image.translatesAutoresizingMaskIntoConstraints = false
+        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerX, relatedBy: .equal, toItem: alert.view, attribute: .centerX, multiplier: 1, constant: 0))
+        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: alert.view, attribute: .centerY, multiplier: 1, constant: 0))
+        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
+        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func onClickActionBtn(_ sender: Any) {

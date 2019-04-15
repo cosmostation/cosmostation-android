@@ -80,6 +80,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fim-i8-hc1">
                                                         <rect key="frame" x="317" y="23" width="24" height="24"/>
                                                         <state key="normal" image="qrcodeIc"/>
+                                                        <connections>
+                                                            <action selector="onClickMyAddressShare:" destination="e4x-hE-Zla" eventType="touchUpInside" id="Tz6-Tt-EEr"/>
+                                                        </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="key_on" translatesAutoresizingMaskIntoConstraints="NO" id="3YD-Ky-lU0">
                                                         <rect key="frame" x="12" y="14" width="22" height="22"/>

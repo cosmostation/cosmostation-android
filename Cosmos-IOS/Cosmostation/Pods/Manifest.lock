@@ -8,6 +8,7 @@ PODS:
   - Floaty (4.1.0)
   - MBProgressHUD (1.1.0)
   - PromiseKit/CorePromise (6.8.3)
+  - QRCode (2.0)
   - SQLite.swift (0.11.5):
     - SQLite.swift/standard (= 0.11.5)
   - SQLite.swift/standard (0.11.5)
@@ -24,6 +25,7 @@ DEPENDENCIES:
   - Floaty (~> 4.1.0)
   - MBProgressHUD (~> 1.1.0)
   - PromiseKit/CorePromise (~> 6.8)
+  - QRCode
   - SQLite.swift (~> 0.11.5)
   - SwiftKeychainWrapper
   - SwiftyJSON (~> 4.0)
@@ -39,6 +41,7 @@ SPEC REPOS:
     - Floaty
     - MBProgressHUD
     - PromiseKit
+    - QRCode
     - SQLite.swift
     - SwiftKeychainWrapper
     - SwiftyJSON
@@ -53,11 +56,12 @@ SPEC CHECKSUMS:
   Floaty: 1a4e213f3512cf3045ef9cb0c1ff456226d1f66a
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
+  QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
   SwiftKeychainWrapper: 82c4c02cdc36f9a24f7edfcaab3e336401caa1a1
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
 
-PODFILE CHECKSUM: af5e29be7003be14a9d1e4d93bc8e2cd8d22e5df
+PODFILE CHECKSUM: 2c69c9b196b55af096f5cae113e0c0703c21acc7
 
 COCOAPODS: 1.5.3

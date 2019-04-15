@@ -18,6 +18,7 @@ target 'Cosmostation' do
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Floaty', '~> 4.1.0'
   pod 'DropDown'
+  pod 'QRCode'
 #  pod 'Toaster', '~> 2.1.1'
 
 end
