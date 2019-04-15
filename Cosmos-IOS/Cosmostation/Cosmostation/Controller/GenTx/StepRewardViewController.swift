@@ -35,7 +35,7 @@ class StepRewardViewController: BaseViewController {
     }
     
     func updateView() {
-        print("updateView")
+//        print("updateView")
         rewardAmountLabel.attributedText = WUtils.displayAmout(pageHolderVC.mReward.reward_amount[0].amount, rewardAmountLabel.font, 6)
         rewardFromLabel.text = pageHolderVC.mTargetValidator!.description.moniker
         rewardToAddressLabel.text = pageHolderVC.mRewardAddress
@@ -85,9 +85,9 @@ class StepRewardViewController: BaseViewController {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchEachReward ", res)
+//                print("onFetchEachReward ", res)
                 guard let rawRewards = res as? Array<NSDictionary> else {
-                    print("error no reward")
+//                    print("error no reward")
                     return;
                 }
                 self.pageHolderVC.mReward.reward_v_address = validatorAddr
@@ -97,13 +97,15 @@ class StepRewardViewController: BaseViewController {
                 self.onFetchRewardAddress(accountAddr)
                 
             case .failure(let error):
-                print("onFetchEachReward ", error)
+                if(SHOW_LOG) {
+                    print("onFetchEachReward ", error)
+                }
             }
         }
     }
     
     func onFetchRewardAddress(_ accountAddr: String) {
-        print("onFetchRewardAddress")
+//        print("onFetchRewardAddress")
         let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
         let request = Alamofire.request(url,
                                         method: .get,
@@ -111,20 +113,22 @@ class StepRewardViewController: BaseViewController {
                                         encoding: URLEncoding.default,
                                         headers: [:]);
         
-        print("onFetchRewardAddress ", request.request?.url)
+//        print("onFetchRewardAddress ", request.request?.url)
         
         request.responseString { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchRewardAddress ", res)
+//                print("onFetchRewardAddress ", res)
                 guard let address = res as? String else {
-                    print("error no address")
+//                    print("error no address")
                     return;
                 }
                 self.pageHolderVC.mRewardAddress = address.replacingOccurrences(of: "\"", with: "")
                 
             case .failure(let error):
-                print("onFetchEachReward ", error)
+                if(SHOW_LOG) {
+                    print("onFetchRewardAddress ", error)
+                }
             }
             self.updateView()
         }

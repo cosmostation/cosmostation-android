@@ -109,48 +109,36 @@ class WKey {
         var subDataR: Data!
         
         if(data.count == 69) {
-            print ("69")
             let rangeR = Range(4..<36)
             subDataR = data.subdata(in: rangeR)
-            print("subDataR ", subDataR.hexEncodedString())
             
             let rangeL = Range(37..<69)
             let subDataL = data.subdata(in: rangeL)
-            print("subDataL ", subDataL.hexEncodedString())
             subDataR.append(subDataL)
             result = subDataR.hexEncodedString()
             
         } else if (data.count == 70) {
-            print ("70")
             let rangeR = Range(4..<36)
             subDataR = data.subdata(in: rangeR)
-            print("subDataR ", subDataR.hexEncodedString())
             
             let rangeL = Range(38..<70)
             let subDataL = data.subdata(in: rangeL)
-            print("subDataL ", subDataL.hexEncodedString())
             subDataR.append(subDataL)
             result = subDataR.hexEncodedString()
             
         } else if (data.count == 71) {
-            print ("71")
             let rangeR = Range(5..<37)
             subDataR = data.subdata(in: rangeR)
-            print("subDataR ", subDataR.hexEncodedString())
             
             let rangeL = Range(39..<71)
             let subDataL = data.subdata(in: rangeL)
-            print("subDataL ", subDataL.hexEncodedString())
             subDataR.append(subDataL)
             result = subDataR.hexEncodedString()
             
         } else {
-            print ("WTF")
         }
         
-        print("result " , result)
         result = subDataR.base64EncodedString()
-        print("result " , result)
         
         return result
     }

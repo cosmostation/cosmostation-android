@@ -77,14 +77,14 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
             var stdTx:StdTx!
             
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
-                print("ERROR words")
+//                print("ERROR words")
                 return
             }
             
             do {
                 let pKey = WKey.getCosmosKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
     
-                print("pKey address ", WKey.getCosmosDpAddress(key: pKey))
+//                print("pKey address ", WKey.getCosmosDpAddress(key: pKey))
                 
                 let msg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
                                                       self.pageHolderVC.mTargetValidator!.operator_address,
@@ -100,20 +100,20 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                                                        self.pageHolderVC.mFee!,
                                                        self.pageHolderVC.mMemo!)
                 
-                print("stdMsg ", stdMsg)
+//                print("stdMsg ", stdMsg)
                 
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(stdMsg)
                 var rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                print("rawResult ", rawResult)
+//                print("rawResult ", rawResult)
                 let rawData: Data? = rawResult!.data(using: .utf8)
-                print("rawData ", rawData?.toHexString())
+//                print("rawData ", rawData?.toHexString())
                 let hash = Crypto.sha256(rawData!)
-                print("hash ", hash.hexEncodedString())
+//                print("hash ", hash.hexEncodedString())
                 
                 let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-                print("signature ", WKey.convertSignature(signedData!))
+//                print("signature ", WKey.convertSignature(signedData!))
                 
                 var genedSignature = Signature.init()
                 var genPubkey =  PublicKey.init()
@@ -130,20 +130,20 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                                                  self.pageHolderVC.mMemo!,
                                                  signatures)
                 
-                print("stdTx ", stdTx)
+//                print("stdTx ", stdTx)
                 
             } catch {
                 print(error)
             }
             
             DispatchQueue.main.async(execute: {
-                print("stdTx ", stdTx)
+//                print("stdTx ", stdTx)
                 let postTx = PostTx.init("sync", stdTx.value)
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(postTx)
                 let rawResult = String(data:data!, encoding:.utf8)
-                print("rawResult ", rawResult)
+//                print("rawResult ", rawResult)
                 
 //                var rawResult2 = rawResult!.replacingOccurrences(of: "\\/", with: "/")
 //                print("rawResult2 ", rawResult2)
@@ -152,7 +152,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                 
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    print("params ", params)
+//                    print("params ", params)
                     let request = Alamofire.request(CSS_LCD_URL_BORAD_TX, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
 //                        print("request1 ", request.request)
@@ -162,12 +162,14 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            print("Delegate ", res)
+//                            print("Delegate ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
-                            print("Delegate error ", error)
+                            if(SHOW_LOG) {
+                                print("Delegate error ", error)
+                            }
                         }
                         self.hideWaittingAlert()
                         txResult["type"] = COSMOS_MSG_TYPE_DELEGATE

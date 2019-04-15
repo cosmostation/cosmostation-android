@@ -134,13 +134,13 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if(!completed) {
-            print("not completed")
+//            print("not completed")
         } else {
             if let currentViewController = pageViewController.viewControllers?.first,
                 let index = orderedViewControllers.index(of: currentViewController) {
                 currentIndex = index
             }
-            print("currentIndex ", currentIndex)
+//            print("currentIndex ", currentIndex)
             let value:[String: Int] = ["step": currentIndex]
             NotificationCenter.default.post(name: Notification.Name("stepChanged"), object: nil, userInfo: value)
         }

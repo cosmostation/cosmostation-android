@@ -29,7 +29,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("WalletDetailViewController ", accountId)
+//        print("WalletDetailViewController ", accountId)
         updateView()
     }
     
@@ -37,7 +37,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     func updateView() {
         mAccount = BaseData.instance.selectAccountById(id: accountId!)
         if(mAccount == nil) {
-            print("WalletDetailViewController no that accout Error")
+//            print("WalletDetailViewController no that accout Error")
+            return
         }
         
         if (mAccount.account_nick_name == "") { walletName.text = "Wallet " + String(mAccount.account_id)

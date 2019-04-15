@@ -56,7 +56,7 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        print("textViewDidChange ", textView.text)
+//        print("textViewDidChange ", textView.text)
         let byteArray = [UInt8](textView.text.utf8)
         memoCntLabel.text = String(byteArray.count) + "/255"
         if (byteArray.count > 255) {

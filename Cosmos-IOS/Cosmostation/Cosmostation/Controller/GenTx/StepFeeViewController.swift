@@ -37,7 +37,7 @@ class StepFeeViewController: BaseViewController {
     }
     
     @IBAction func onSlideEnd(_ sender: UISlider) {
-        print("onSlideEnd : ", sender.value)
+//        print("onSlideEnd : ", sender.value)
         if(sender.value > 0.33 && sender.value < 0.66) {
             sender.value = 0.5
             feeAmountLabel.attributedText = WUtils.displayAmout(atomFees[1].stringValue, feeAmountLabel.font, 6)

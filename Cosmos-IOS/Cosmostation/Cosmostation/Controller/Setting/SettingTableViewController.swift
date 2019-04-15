@@ -25,7 +25,6 @@ class SettingTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0) {
             if(indexPath.row == 0) {
-                print("1-1")
                 let accoutManageVC = WalletManageViewController(nibName: "WalletManageViewController", bundle: nil)
                 accoutManageVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
@@ -42,7 +41,6 @@ class SettingTableViewController: UITableViewController {
             
         } else if (indexPath.section == 2) {
             if(indexPath.row == 0) {
-                print("3-1")
                 let url = URL(string: "tg://resolve?domain=cosmostation")
                 if(UIApplication.shared.canOpenURL(url!))
                 {

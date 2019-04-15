@@ -111,7 +111,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                         return;
                     }
                     let rawHistory = History.init(history)
-                    print("rawHistory " , rawHistory.hits.hits.count)
+//                    print("rawHistory " , rawHistory.hits.hits.count)
                     
                     self.mHistories.removeAll()
                     self.mHistories = rawHistory.hits.hits

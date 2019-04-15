@@ -123,18 +123,18 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onGenAccount(_ address:String, _ chain:String, _ path:String) {
-        print("onGenAccount ", address, " ", chain, " ", path)
+//        print("onGenAccount ", address, " ", chain, " ", path)
         self.showWaittingAlert()
         DispatchQueue.global().async {
             var resource: String = ""
             for word in self.userInputWords! {
                 resource = resource + " " + word
             }
-            print("resource ", resource)
+//            print("resource ", resource)
             
             let newAccount = Account.init(isNew: true)
             let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1())
-            print("keyResult ", keyResult)
+//            print("keyResult ", keyResult)
             var insertResult :Int64 = -1
             if(keyResult) {
                 newAccount.account_address = address
@@ -146,7 +146,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 newAccount.account_import_time = Date().millisecondsSince1970
                 
                 insertResult = BaseData.instance.insertAccount(newAccount)
-                print("insertResult ", insertResult)
+//                print("insertResult ", insertResult)
                 
                 if(insertResult < 0) {
                     KeychainWrapper.standard.removeObject(forKey: newAccount.account_uuid.sha1())
@@ -155,14 +155,14 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
-                print("keyResult ", keyResult)
-                print("insertResult ", insertResult)
+//                print("keyResult ", keyResult)
+//                print("insertResult ", insertResult)
                 if(keyResult && insertResult > 0) {
-                    print("OKOKOK")
+//                    print("OKOKOK")
                     BaseData.instance.setRecentAccountId(insertResult)
                     self.onStartMainTab()
                 } else {
-                    print("NONONO")
+//                    print("NONONO")
                     //TODO Error control
                 }
             });
@@ -171,7 +171,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
     
     
     func onOverrideAccount(_ address:String, _ inchain:String, _ path:String) {
-        print("onOverrideAccount")
+//        print("onOverrideAccount")
         self.showWaittingAlert()
         self.showWaittingAlert()
         DispatchQueue.global().async {
@@ -179,7 +179,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             for word in self.userInputWords! {
                 resource = resource + " " + word
             }
-            print("resource ", resource)
+//            print("resource ", resource)
             
             let existedAccount = BaseData.instance.selectExistAccount(address: address, chain: inchain)
             let keyResult = KeychainWrapper.standard.set(resource, forKey: existedAccount!.account_uuid.sha1())
@@ -191,7 +191,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 existedAccount!.account_m_size = Int64(self.userInputWords!.count)
                 
                 updateResult = BaseData.instance.overrideAccount(existedAccount!)
-                print("updateResult ", updateResult)
+//                print("updateResult ", updateResult)
                 
                 if(updateResult < 0) {
                     KeychainWrapper.standard.removeObject(forKey: existedAccount!.account_uuid.sha1())
@@ -201,14 +201,14 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
-                print("keyResult ", keyResult)
-                print("updateResult ", updateResult)
+//                print("keyResult ", keyResult)
+//                print("updateResult ", updateResult)
                 if(keyResult && updateResult > 0) {
-                    print("OKOKOK")
+//                    print("OKOKOK")
                     BaseData.instance.setRecentAccountId(updateResult)
                     self.onStartMainTab()
                 } else {
-                    print("NONONO")
+//                    print("NONONO")
                     //TODO Error control
                 }
             });

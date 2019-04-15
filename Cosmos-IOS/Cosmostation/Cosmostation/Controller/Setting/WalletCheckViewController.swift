@@ -59,7 +59,8 @@ class WalletCheckViewController: BaseViewController {
         
         mAccount = BaseData.instance.selectAccountById(id: accountId!)
         if(mAccount == nil) {
-            print("WalletDetailViewController no that accout Error")
+//            print("WalletDetailViewController no that accout Error")
+            return
         }
         onRetriveKey()
     }

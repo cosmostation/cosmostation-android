@@ -25,7 +25,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
         for bonding in pageHolderVC.mBondingList {
             userDelegated = userDelegated.adding(WUtils.stringToDecimal(bonding.bonding_shares))
         }
-        print("userDelegated ", userDelegated.stringValue)
+//        print("userDelegated ", userDelegated.stringValue)
         availableAmountLabel.attributedText = WUtils.displayAmout(userDelegated.stringValue, availableAmountLabel.font, 6)
         toUndelegateAmountInput.delegate = self
         toUndelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)

@@ -168,12 +168,12 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        print("MainTabSendViewController onFetchDone")
+//        print("MainTabSendViewController onFetchDone")
         updateView();
     }
     
     @objc func onRequestFetch() {
-        print("onRequestFetch")
+//        print("onRequestFetch")
         if(!mainTabVC.onFetchAccountData()) {
             self.refresher.endRefreshing()
         }

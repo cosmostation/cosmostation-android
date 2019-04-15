@@ -50,10 +50,9 @@ class GenTxResultViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("GenTxResultViewController viewDidLoad ", response)
+//        print("GenTxResultViewController viewDidLoad ", response)
     
         guard let txType = response?["type"] as? String, let txHash = response?["txhash"] as? String  else {
-            print("BIG ERROR1")
             self.onStartMainTab()
             return
         }
@@ -61,7 +60,7 @@ class GenTxResultViewController: BaseViewController {
         mTxHash = txHash
         
         if let code = response?["code"] as? Int {
-            print("code " , code)
+//            print("code " , code)
             onShowErrorView(code)
             return
         }
@@ -72,7 +71,7 @@ class GenTxResultViewController: BaseViewController {
     }
     
     func onShowErrorView(_ code: Int) {
-        print("onShowErrorView")
+//        print("onShowErrorView")
         self.txResultTitleLabel.text = "Transaction Failed"
         self.txResultTitleLabel.textColor = UIColor.init(hexString: "f31963")
         self.errorCode.text =  "error code : " + String(code)
@@ -82,7 +81,7 @@ class GenTxResultViewController: BaseViewController {
     
     
     func onTxDetailView() {
-        print("onTxDetailView")
+//        print("onTxDetailView")
         if (mTxType == COSMOS_MSG_TYPE_DELEGATE) {
             txTypeLabel.text = "Delegate"
             txAmountLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.value?.amount)!, txAmountLabel.font, 6)
@@ -161,26 +160,28 @@ class GenTxResultViewController: BaseViewController {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchTx ", res)
+//                print("onFetchTx ", res)
                 guard let info = res as? [String : Any], info["error"] == nil else {
-                    print("onFetchTx guard in")
+//                    print("onFetchTx guard in")
                     self.fetchCnt = self.fetchCnt - 1
-                    print("fetchCnt ", self.fetchCnt)
+//                    print("fetchCnt ", self.fetchCnt)
                     if(self.fetchCnt > 0) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
                             self.onFetchTx(txHash)
                         })
                     } else {
-                        print("onFetchTx error")
+//                        print("onFetchTx error")
                     }
                     return
                 }
-                print("onFetchTx guard out")
+//                print("onFetchTx guard out")
                 self.mTxInfo = TxInfo.init(info)
                 self.onFetchBlock(self.mTxInfo!.height)
                 
             case .failure(let error):
-                print("onFetchTx ", error)
+                if(SHOW_LOG) {
+                    print("onFetchTx ", error)
+                }
             }
         }
         
@@ -192,15 +193,18 @@ class GenTxResultViewController: BaseViewController {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchBlock ", res)
+//                print("onFetchBlock ", res)
                 guard let info = res as? [String : Any] else {
-                    print("onFetchTx error")
+//                    print("onFetchTx error")
                     return
                 }
                 self.mBlockInfo = BlockInfo.init(info)
                 
             case .failure(let error):
-                print("onFetchBlock ", error)
+                if(SHOW_LOG) {
+                    print("onFetchBlock ", error)
+                }
+                
             }
             self.onTxDetailView()
         }

@@ -51,7 +51,7 @@ class BaseViewController: UIViewController {
     
     
     func onStartMainTab() {
-        print("onStartMainTab")
+//        print("onStartMainTab")
         let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = mainTabVC
@@ -60,7 +60,7 @@ class BaseViewController: UIViewController {
     
     
     func onStartImportMnemonic() {
-        print("onStartImportMnemonic")
+//        print("onStartImportMnemonic")
         let restoreVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestoreViewController") as! RestoreViewController
         restoreVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
@@ -68,7 +68,7 @@ class BaseViewController: UIViewController {
     }
     
     func onStartImportAddress() {
-        print("onStartImportAddress")
+//        print("onStartImportAddress")
         let addAddressVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
         addAddressVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
@@ -76,7 +76,7 @@ class BaseViewController: UIViewController {
     }
     
     func onStartCreate() {
-        print("onStartCreate")
+//        print("onStartCreate")
         let createVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as! CreateViewController
         createVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
@@ -84,7 +84,7 @@ class BaseViewController: UIViewController {
     }
     
     func onStartTxResult(_ response:[String:Any]) {
-        print("onStartCreate")
+//        print("onStartCreate")
         let resultVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "GenTxResultViewController") as! GenTxResultViewController
         resultVC.response = response
         self.navigationItem.title = ""

@@ -35,7 +35,7 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
         }
-        print("mAccounts ", mAccounts.count)
+//        print("mAccounts ", mAccounts.count)
         
         self.onFetchAccountData()
         
@@ -62,11 +62,9 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
         for account in mAccounts {
             dropmenu.append(String(account.account_id))
         }
-        print("dropmenu.count ", dropmenu.count)
         if(dropmenu.count < 6) {
             dropmenu.append("bottom")
         }
-        print("dropmenu.count ", dropmenu.count)
         
         dropDown.anchorView = self.view
         dropDown.bottomOffset = CGPoint(x: 0, y:UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0)

@@ -112,7 +112,7 @@ class PasswordViewController: BaseViewController {
                     mUserInsert = String(subString)
                     
                 } else {
-                    print("back to stack")
+//                    print("back to stack")
                     self.sendResultAndPop(PASSWORD_RESUKT_CANCEL)
                 }
                 

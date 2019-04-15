@@ -82,7 +82,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        print("onUpdateView ", mnemonicWords)
+//        print("onUpdateView ", mnemonicWords)
         self.addressLabel.text = WKey.getCosmosDpAddress(key: createdKey!)
         for i in 0 ... mnemonicWords!.count - 1{
             if(checkedPassword) {
@@ -137,31 +137,28 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            print("PASSWORD_RESUKT_OK")
             checkedPassword = true
             onUpdateView()
             
         } else if (result == PASSWORD_RESUKT_CANCEL) {
-            print("PASSWORD_RESUKT_CANCEL")
             
         } else if (result == PASSWORD_RESUKT_FAIL) {
-            print("PASSWORD_RESUKT_FAIL")
         }
     }
     
     func onGenAccount(_ chain:String) {
-        print("onGenAccount")
+//        print("onGenAccount")
         self.showWaittingAlert()
         DispatchQueue.global().async {
             var resource: String = ""
             for word in self.mnemonicWords! {
                 resource = resource + " " + word
             }
-            print("resource ", resource)
+//            print("resource ", resource)
             
             let newAccount = Account.init(isNew: true)
             let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1())
-            print("keyResult ", keyResult)
+//            print("keyResult ", keyResult)
             var insertResult :Int64 = -1
             if(keyResult) {
                 newAccount.account_address = WKey.getCosmosDpAddress(key: self.createdKey!)
@@ -173,7 +170,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                 newAccount.account_import_time = Date().millisecondsSince1970
                 
                 insertResult = BaseData.instance.insertAccount(newAccount)
-                print("insertResult ", insertResult)
+//                print("insertResult ", insertResult)
                 
                 if(insertResult < 0) {
                     KeychainWrapper.standard.removeObject(forKey: newAccount.account_uuid.sha1())
@@ -182,15 +179,15 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
-                print("keyResult ", keyResult)
-                print("insertResult ", insertResult)
+//                print("keyResult ", keyResult)
+//                print("insertResult ", insertResult)
                 if(keyResult && insertResult > 0) {
-                    print("OKOKOK")
+//                    print("OKOKOK")
 //                    self.sendResultAndPop(PASSWORD_RESUKT_OK)
                     BaseData.instance.setRecentAccountId(insertResult)
                     self.onStartMainTab()
                 } else {
-                    print("NONONO")
+//                    print("NONONO")
                     //TODO Error control
 //                    self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
                 }

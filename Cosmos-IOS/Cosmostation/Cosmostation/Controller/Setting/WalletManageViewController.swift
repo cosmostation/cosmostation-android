@@ -149,7 +149,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             account = mWatchAccounts[indexPath.row]
         }
-        print("didSelectRowAt ", account?.account_id)
+//        print("didSelectRowAt ", account?.account_id)
         let walletDetailVC = WalletDetailViewController(nibName: "WalletDetailViewController", bundle: nil)
         walletDetailVC.hidesBottomBarWhenPushed = true
         walletDetailVC.accountId = account?.account_id
@@ -160,13 +160,13 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     
     
     @IBAction func onClickCreate(_ sender: Any) {
-        print("onClickCreate");
+//        print("onClickCreate");
         self.onStartCreate()
         
     }
     
     @IBAction func onClickImport(_ sender: Any) {
-        print("onClickImport");
+//        print("onClickImport");
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
             self.importBtn.alpha = 0.0
         }, completion: { (finished) -> Void in
@@ -184,12 +184,12 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
 
     
     @IBAction func onClickImportMnemonic(_ sender: Any) {
-        print("onClickImportMnemonic");
+//        print("onClickImportMnemonic");
         self.onStartImportMnemonic()
     }
     
     @IBAction func onClickImportAddress(_ sender: Any) {
-        print("onClickImportAddress");
+//        print("onClickImportAddress");
         self.onStartImportAddress()
         
     }

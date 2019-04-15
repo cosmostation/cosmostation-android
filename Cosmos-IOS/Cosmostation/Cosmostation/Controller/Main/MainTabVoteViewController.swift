@@ -109,7 +109,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onFetchProposals() {
-        print("onFetchProposals")
+//        print("onFetchProposals")
         let request = Alamofire.request(CSS_LCD_URL_PROPOSALS, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -122,7 +122,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
                 for proposal in proposals {
                     self.mProposals.append(Proposal(proposal as! [String : Any]))
                 }
-                print("mProposals size : ", self.mProposals.count)
+//                print("mProposals size : ", self.mProposals.count)
                 
             case .failure(let error):
                 print(error)

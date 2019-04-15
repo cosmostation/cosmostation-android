@@ -62,7 +62,7 @@ class MainTabRewardViewController: BaseViewController {
     
     @IBAction func onSortClick(_ sender: Any) {
         if (myValidatorView.alpha == 1) {
-            print("my val sort show")
+//            print("my val sort show")
             
             
         } else {

@@ -88,7 +88,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     }
     
     @objc func myTargetFunction(sender: UITextField) {
-        print("myTargetFunction ", sender.tag)
+//        print("myTargetFunction ", sender.tag)
         mCurrentPosition = sender.tag
         updateFocus()
         
@@ -109,7 +109,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             let match = self.mNemonicInputs[mCurrentPosition].text
             filteredMnemonicWords = allMnemonicWords.filter { $0.starts(with: match ?? "") }
         }
-        print("filteredMnemonicWords", filteredMnemonicWords.count)
+//        print("filteredMnemonicWords", filteredMnemonicWords.count)
         self.suggestCollectionView.reloadData()
     }
     
@@ -169,7 +169,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     }
     
     @IBAction func onDeleteClick(_ sender: Any) {
-        print("onDeleteClick ", (self.mNemonicInputs[mCurrentPosition].text?.count)!)
+//        print("onDeleteClick ", (self.mNemonicInputs[mCurrentPosition].text?.count)!)
         if((self.mNemonicInputs[mCurrentPosition].text?.count)! > 0) {
             let subText = String(self.mNemonicInputs[mCurrentPosition].text?.dropLast() ?? "")
             self.mNemonicInputs[mCurrentPosition].text = subText
@@ -224,7 +224,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     }
     
     @IBAction func onConfirmClick(_ sender: Any) {
-        print("onConfirmClick ")
+//        print("onConfirmClick ")
         if(!onValidateUserinput()) {
             self.onShowToast(NSLocalizedString("error_recover_mnemonic", comment: ""))
             

@@ -68,9 +68,9 @@ public class SegwitAddrCoder {
     public func encode(hrp: String, version: Int, program: Data) throws -> String {
         var enc = Data([UInt8(version)])
         enc.append(try convertBits(from: 8, to: 5, pad: true, idata: program))
-        print("enc", enc.hexEncodedString())
+//        print("enc", enc.hexEncodedString())
         let result = bech32.encode(hrp, values: enc)
-        print("result", result)
+//        print("result", result)
         guard let _ = try? decode(addr: result) else {
             throw CoderError.encodingCheckFailed
         }

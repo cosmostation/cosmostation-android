@@ -27,7 +27,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("mValidator ", mValidator?.description.moniker)
+//        print("mValidator ", mValidator?.description.moniker)
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
@@ -81,7 +81,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             } else {
                 mMyValidator = false
             }
-            print("mMyValidator ", mMyValidator)
+//            print("mMyValidator ", mMyValidator)
             self.validatorDetailTableView.reloadData()
             
             self.loadingImg.onStopAnimation()
@@ -327,9 +327,9 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchValidatorInfo ", res)
+//                print("onFetchValidatorInfo ", res)
                 guard let validator = res as? NSDictionary else {
-                    print("no validator Error!!")
+//                    print("no validator Error!!")
                     self.onFetchFinished()
                     return
                 }
@@ -338,21 +338,21 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             case .failure(let error):
                 print("onFetchValidatorInfo ", error)
             }
-            print("onFetchValidatorInfo!!! ")
+//            print("onFetchValidatorInfo!!! ")
             self.onFetchFinished()
         }
     }
     
     func onFetchSignleBondingInfo(_ account: Account, _ validator: Validator) {
         let url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
-        print("onFetchSignleBondingInfo url ", url)
+//        print("onFetchSignleBondingInfo url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchSignleBondingInfo ", res)
+//                print("onFetchSignleBondingInfo ", res)
                 guard let rawData = res as? [String : Any], rawData["error"] == nil else {
-                    print("no bondinginfo Error!!")
+//                    print("no bondinginfo Error!!")
                     self.onFetchFinished()
                     return
                 }
@@ -372,14 +372,14 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchSignleUnBondingInfo(_ account: Account, _ validator: Validator) {
         let url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
-        print("onFetchSignleUnBondingInfo url ", url)
+//        print("onFetchSignleUnBondingInfo url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchSignleUnBondingInfo ", res)
+//                print("onFetchSignleUnBondingInfo ", res)
                 guard let rawData = res as? [String : Any], rawData["error"] == nil else {
-                    print("no unbondinginfo Error!!")
+//                    print("no unbondinginfo Error!!")
                     self.onFetchFinished()
                     return
                 }
@@ -391,7 +391,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             case .failure(let error):
                 print("onFetchSignleUnBondingInfo ", error)
             }
-            print("onFetchSignleUnBondingInfo!!! ")
+//            print("onFetchSignleUnBondingInfo!!! ")
             self.onFetchFinished()
         }
     }
@@ -432,7 +432,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 case .success(let res):
 //                    print("onFetchHistory ", res)
                     guard let history = res as? [String : Any] else {
-                        print("no history!!")
+//                        print("no history!!")
                         self.onFetchFinished()
                         return;
                     }
@@ -453,14 +453,14 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchSelfBondRate(_ address: String, _ vAddress: String) {
         let url = CSS_LCD_URL_BONDING + address + CSS_LCD_URL_BONDING_TAIL + "/" + vAddress
-        print("onFetchSelfBondRate url ", url)
+//        print("onFetchSelfBondRate url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchSelfBondRate ", res)
+//                print("onFetchSelfBondRate ", res)
                 guard let rawData = res as? [String : Any], rawData["error"] == nil else {
-                    print("no self bondinginfo Error!!")
+//                    print("no self bondinginfo Error!!")
                     self.onFetchFinished()
                     return
                 }
@@ -469,14 +469,14 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             case .failure(let error):
                 print("onFetchSelfBondRate ", error)
             }
-            print("onFetchSelfBondRate!!! ")
+//            print("onFetchSelfBondRate!!! ")
             self.onFetchFinished()
         }
     }
     
     
     func onStartDelegate() {
-        print("onStartDelegate")
+//        print("onStartDelegate")
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
         }
@@ -496,7 +496,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onStartUndelegate() {
-        print("onStartUndelegate")
+//        print("onStartUndelegate")
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
         }
@@ -524,7 +524,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onStartGetSingleReward() {
-        print("onStartGetSingleReward")
+//        print("onStartGetSingleReward")
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
         }

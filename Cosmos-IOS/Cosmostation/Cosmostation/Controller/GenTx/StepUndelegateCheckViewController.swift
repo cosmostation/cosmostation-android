@@ -73,12 +73,12 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     
     
     func onGenUnDelegateTx() {
-        print("onGenUnDelegateTx")
+//        print("onGenUnDelegateTx")
         self.showWaittingAlert()
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
-                print("ERROR words")
+//                print("ERROR words")
                 return
             }
             
@@ -99,20 +99,20 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                                                        self.pageHolderVC.mFee!,
                                                        self.pageHolderVC.mMemo!)
                 
-                print("stdMsg ", stdMsg)
+//                print("stdMsg ", stdMsg)
                 
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(stdMsg)
                 let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                print("rawResult ", rawResult)
+//                print("rawResult ", rawResult)
                 let rawData: Data? = rawResult!.data(using: .utf8)
-                print("rawData ", rawData?.toHexString())
+//                print("rawData ", rawData?.toHexString())
                 let hash = Crypto.sha256(rawData!)
-                print("hash ", hash.hexEncodedString())
+//                print("hash ", hash.hexEncodedString())
                 
                 let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-                print("signature ", WKey.convertSignature(signedData!))
+//                print("signature ", WKey.convertSignature(signedData!))
                 
                 var genedSignature = Signature.init()
                 var genPubkey =  PublicKey.init()
@@ -128,7 +128,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                                                  self.pageHolderVC.mFee!,
                                                  self.pageHolderVC.mMemo!,
                                                  signatures)
-                print("stdTx ", stdTx)
+//                print("stdTx ", stdTx)
                 
             } catch {
                 print(error)
@@ -148,12 +148,15 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            print("undelegate ", res)
+//                            print("undelegate ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
-                            print("undelegate error ", error)
+                            if(SHOW_LOG) {
+                                print("undelegate error ", error)
+                            }
+                            
                         }
                         self.hideWaittingAlert()
                         txResult["type"] = COSMOS_MSG_TYPE_UNDELEGATE2

@@ -23,12 +23,12 @@ class IntroViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("IntroViewController viewDidLoad")
-        print("password ", BaseData.instance.hasPassword())
-                
+//        print("IntroViewController viewDidLoad")
+//        print("password ", BaseData.instance.hasPassword())
+        
         let accouts = BaseData.instance.selectAllAccounts()
         if(accouts.count <= 0) {
-            print("No accounts");
+//            print("No accounts");
             UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseOut, animations: {
                 self.bottomLogoView.alpha = 0.0
             }, completion: { (finished) -> Void in
@@ -39,7 +39,7 @@ class IntroViewController: BaseViewController {
             })
 
         } else {
-            print("accounts size : ", accouts.count);
+//            print("accounts size : ", accouts.count);
             self.onStartMainTab()
 
         }
@@ -76,13 +76,13 @@ class IntroViewController: BaseViewController {
     }
     
     @IBAction func onClickCreate(_ sender: Any) {
-        print("onClickCreate");
+//        print("onClickCreate");
         self.onStartCreate()
         
     }
     
     @IBAction func onClickImport(_ sender: Any) {
-        print("onClickImport");
+//        print("onClickImport");
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
             self.importBtn.alpha = 0.0
         }, completion: { (finished) -> Void in
@@ -98,12 +98,12 @@ class IntroViewController: BaseViewController {
     }
     
     @IBAction func onClickImportMnemonic(_ sender: Any) {
-        print("onClickImportMnemonic");
+//        print("onClickImportMnemonic");
         self.onStartImportMnemonic()
     }
     
     @IBAction func onClickImportAddress(_ sender: Any) {
-        print("onClickImportAddress");
+//        print("onClickImportAddress");
         self.onStartImportAddress()
         
     }

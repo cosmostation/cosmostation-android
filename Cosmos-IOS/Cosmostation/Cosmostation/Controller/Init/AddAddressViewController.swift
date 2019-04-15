@@ -66,7 +66,7 @@ class AddAddressViewController: BaseViewController {
     }
     
     func onGenWatchAccount(_ chain:String, _ address: String) {
-        print("onGenWatchAccount")
+//        print("onGenWatchAccount")
         self.showWaittingAlert()
         DispatchQueue.global().async {
             let newAccount = Account.init(isNew: true)
@@ -85,7 +85,7 @@ class AddAddressViewController: BaseViewController {
                     self.onStartMainTab()
                     
                 } else {
-                    print("NONONO")
+//                    print("NONONO")
                     //TODO Error control
                 }
                 
