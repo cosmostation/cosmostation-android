@@ -2,23 +2,10 @@ package wannabit.io.cosmostaion.network;
 
 import android.content.Context;
 
-import com.google.gson.JsonObject;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.TreeMap;
-
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import wannabit.io.cosmostaion.AWSV4Auth;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
