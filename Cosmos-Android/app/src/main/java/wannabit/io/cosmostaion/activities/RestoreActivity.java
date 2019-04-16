@@ -64,6 +64,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_restore);
         mToolbar        = findViewById(R.id.tool_bar);
         mPaste          = findViewById(R.id.btn_paste);
