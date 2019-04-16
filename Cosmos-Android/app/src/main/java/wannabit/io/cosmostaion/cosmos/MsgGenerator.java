@@ -2,14 +2,10 @@ package wannabit.io.cosmostaion.cosmos;
 
 import android.util.Base64;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.crypto.DeterministicKey;
 
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 
@@ -20,16 +16,10 @@ import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdSignMsgWithType;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Delegation;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Signature;
-import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.utils.WUtil.ByteArrayToHexString;
-import static wannabit.io.cosmostaion.utils.WUtil.BytearryToDecimalString;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class MsgGenerator {
@@ -62,20 +52,6 @@ public class MsgGenerator {
         result.value = value;
         return result;
     }
-
-//    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Delegation delegation) {
-//        Msg result  = new Msg();
-//        Msg.Value value = new Msg.Value();
-//
-//        value.delegator_addr = fromAddr;
-//        value.validator_addr = toValAddr;
-//        value.delegation = delegation;
-//
-//        result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
-//        result.value = value;
-//
-//        return result;
-//    }
 
     public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout, BaseChain chain) {
         Msg result  = new Msg();

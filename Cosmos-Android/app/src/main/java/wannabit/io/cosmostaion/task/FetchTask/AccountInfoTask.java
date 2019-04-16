@@ -43,6 +43,9 @@ public class AccountInfoTask extends CommonTask {
 
         } catch (Exception e) {
             WLog.w("AccountInfoTask Error " + e.getMessage());
+//            for(Account account : mAccounts) {
+//                mApp.getBaseDao().onDeleteBalance(""+account.id);
+//            }
 
         }
         return mResult;

@@ -244,7 +244,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 //        }
 
         if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -276,10 +276,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
 
-        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
-            return;
-        }
+
 
         if(mReward == null) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();

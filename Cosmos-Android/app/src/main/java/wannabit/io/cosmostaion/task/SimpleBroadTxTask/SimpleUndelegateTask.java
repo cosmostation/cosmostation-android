@@ -67,24 +67,20 @@ public class SimpleUndelegateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("SimpleUndelegateTask 00");
             Password checkPw = mApp.getBaseDao().onSelectPassword();
             if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-                WLog.w("SimpleUndelegateTask 99");
                 return mResult;
             }
-            WLog.w("SimpleUndelegateTask 11");
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-            WLog.w("amount : " + new BigDecimal(mUndelegateAmount).setScale(18).toPlainString());
+//            WLog.w("amount : " + new BigDecimal(mUndelegateAmount).setScale(18).toPlainString());
             Msg singleUnbondMsg = MsgGenerator.genUnbondMsg(mAccount.address, mFromValidatorAddress, new BigDecimal(mUndelegateAmount).setScale(18).toPlainString(), BaseChain.getChain(mAccount.baseChain));
 
-//            ArrayList<Msg.Value> msgs = new ArrayList<>();
-            //TODO type change check
+
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleUnbondMsg);
 
@@ -97,7 +93,11 @@ public class SimpleUndelegateTask extends CommonTask {
                     mUnDelegateMemo);
             WLog.w("SimpleUndelegateTask tosign : " +  WUtil.getPresentor().toJson(tosign));
 
+            byte[] ToSignByte = tosign.getToSignByte();
+            WLog.w("ToSignByte  " + WUtil.ByteArrayToHexString(ToSignByte));
+
             String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
+            WLog.w("String  " + signatureTx);
 
             // build Signature object
             Signature signature = new Signature();
@@ -112,11 +112,12 @@ public class SimpleUndelegateTask extends CommonTask {
 
             StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mUnFees, mUnDelegateMemo, signatures);
             signedTx.value.signatures = signatures;
+            WLog.w("SimpleUndelegateTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
 
             ReqBroadCast reqBroadCast = new ReqBroadCast();
             reqBroadCast.returns = "sync";
-//            reqBroadCast.returns = "block";
             reqBroadCast.tx = signedTx.value;
+            WLog.w("ReqBroadCast : " +  WUtil.getPresentor().toJson(reqBroadCast));
 
 
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
@@ -137,51 +138,13 @@ public class SimpleUndelegateTask extends CommonTask {
             } else {
                 WLog.w("SimpleUndelegateTask not success!!");
                 mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                try {
-                    JSONObject jObjError = new JSONObject(response.errorBody().string());
-                    WLog.w("jObjError1 : " + jObjError.toString());
-                } catch (Exception e) {
-                    WLog.w("jObjError3 : " + e.getMessage());
-                }
-            }
-
-
-
-
-//            WLog.w("SimpleUndelegateTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
-//
-//            String gentx = WUtil.str2Hex(WUtil.getPresentor().toJson(signedTx));
-//            WLog.w("SimpleUndelegateTask gentx : " +  gentx);
-//            Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
-//            if(response.isSuccessful() && response.body() != null) {
-//                if(response.body() != null) {
-//                    WLog.w("SimpleUndelegateTask ok: " + response.body().toString());
-//                    JSONObject fullresponse = new JSONObject(response.body().toString());
-//                    WLog.w("fullresponse : " + fullresponse.toString());
-//
+//                try {
+//                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+//                    WLog.w("jObjError1 : " + jObjError.toString());
+//                } catch (Exception e) {
+//                    WLog.w("jObjError3 : " + e.getMessage());
 //                }
-//
-//
-//                WLog.w("SimpleUndelegateTask hash: " + response.body().hash);
-//                WLog.w("SimpleUndelegateTask isAllSuccess: " + response.body().isAllSuccess());
-//                mResult.resultData = response.body();
-//                mResult.isSuccess = true;
-////                ResBroadTx result = response.body();
-////                WLog.w("SimpleUndelegateTask result errorMsg : " + result.errorMsg);
-////                WLog.w("SimpleUndelegateTask result errorCode : " + result.errorCode);
-////                WLog.w("SimpleUndelegateTask result hash : " + result.hash);
-////                WLog.w("SimpleUndelegateTask result height : " + result.height);
-////                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
-////                    mResult.resultData = result.hash;
-////                    mResult.isSuccess = true;
-////                }
-//            }
-//
-//            if(response.errorBody() != null) {
-//                WLog.w("SimpleUndelegateTask error: " + response.errorBody().toString());
-//                JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                WLog.w("jObjError1 : " + jObjError.toString());
-//            }
+            }
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());

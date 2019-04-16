@@ -105,7 +105,6 @@ public class SimpleRewardTask extends CommonTask {
 
             ReqBroadCast reqBroadCast = new ReqBroadCast();
             reqBroadCast.returns = "sync";
-//            reqBroadCast.returns = "block";
             reqBroadCast.tx = signedTx.value;
 
 

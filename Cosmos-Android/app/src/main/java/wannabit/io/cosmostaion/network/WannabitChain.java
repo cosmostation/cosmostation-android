@@ -64,14 +64,15 @@ public interface WannabitChain {
     Call<ResLcdUnBondings> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
 
-    @POST("/txs")
-    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
-    @POST("/txs")
-    Call<JsonObject> broadTx2(@Body ReqBroadCast data);
 
 
     //Proposals
     @GET("/gov/proposals")
     Call<ArrayList<Proposal>> getProposalList();
+
+
+    //Broadcast Tx
+    @POST("/txs")
+    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 }

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -66,19 +67,13 @@ public class SimpleDelegateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("SimpleDelegateTask 00");
             Password checkPw = mApp.getBaseDao().onSelectPassword();
             if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-                WLog.w("SimpleDelegateTask 99");
                 return mResult;
             }
-            WLog.w("SimpleDelegateTask 11");
 
-
-            //TODO TEST
-//            mAccount = mApp.getBaseDao().onSelectAccount(""+1);
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
@@ -96,7 +91,11 @@ public class SimpleDelegateTask extends CommonTask {
                     mToDelegateMemo);
             WLog.w("SimpleDelegateTask tosign : " +  WUtil.getPresentor().toJson(tosign));
 
+            byte[] ToSignByte = tosign.getToSignByte();
+            WLog.w("ToSignByte  " + WUtil.ByteArrayToHexString(ToSignByte));
+
             String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
+            WLog.w("String  " + signatureTx);
 
             // build Signature object
             Signature signature = new Signature();
@@ -115,9 +114,8 @@ public class SimpleDelegateTask extends CommonTask {
 
             ReqBroadCast reqBroadCast = new ReqBroadCast();
             reqBroadCast.returns = "sync";
-//            reqBroadCast.returns = "block";
             reqBroadCast.tx = signedTx.value;
-
+            WLog.w("ReqBroadCast : " +  WUtil.getPresentor().toJson(reqBroadCast));
 
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
@@ -138,36 +136,6 @@ public class SimpleDelegateTask extends CommonTask {
                 WLog.w("SimpleDelegateTask not success!!");
                 mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
             }
-
-
-//            WLog.w("SimpleDelegateTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
-//
-//            String gentx = WUtil.str2Hex(WUtil.getPresentor().toJson(signedTx));
-//            WLog.w("SimpleDelegateTask gentx : " +  gentx);
-//            Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
-//            if(response.isSuccessful() && response.body() != null) {
-//                WLog.w("SimpleDelegateTask result: " + response.body().hash + " " + response.body().isAllSuccess());
-//                mResult.resultData = response.body();
-//                mResult.isSuccess = true;
-////                ResBroadTx result = response.body();
-////                WLog.w("SimpleDelegateTask result errorMsg : " + result.errorMsg);
-////                WLog.w("SimpleDelegateTask result errorCode : " + result.errorCode);
-////                WLog.w("SimpleDelegateTask result hash : " + result.hash);
-////                if(result.log != null) {
-////                    WLog.w("SimpleDelegateTask result.log : " + result.log);
-////                } else {
-////                    WLog.w("SimpleDelegateTask result.log : " + null);
-////                }
-////
-////                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
-////                    mResult.resultData = result.hash;
-////                    mResult.isSuccess = true;
-////                }
-////                WLog.w("SimpleDelegateTask result hash : " + result.hash);
-////                WLog.w("SimpleDelegateTask result height : " + result.height);
-//            }
-
-
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());

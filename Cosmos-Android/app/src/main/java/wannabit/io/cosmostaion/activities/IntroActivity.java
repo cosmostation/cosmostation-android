@@ -19,55 +19,8 @@ import com.romainpiel.shimmer.ShimmerTextView;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.test.TestActivity;
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 import wannabit.io.cosmostaion.utils.WLog;
-/*
-public class IntroActivity extends BaseActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
-
-//        startActivity(new Intent(IntroActivity.this, TestActivity.class));
-//
-//        startActivity(new Intent(IntroActivity.this, CreateActivity.class));
-
-//        startActivity(new Intent(IntroActivity.this, PasswordSetActivity.class));
-//        startActivity(new Intent(IntroActivity.this, MainActivity.class));
-
-
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(getString(R.string.url_lcd_wannabit))
-//                .client(WUtil.getUnsafeOkHttpClient().build())
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        retrofit.create(retorfitTest.class).getVersion().enqueue(new Callback<JsonObject>() {
-//            @Override
-//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//                WLog.w("111 : " + response.body().toString());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<JsonObject> call, Throwable t) {
-//                WLog.w("2222 " + t.getMessage());
-//            }
-//        });
-
-//        WLog.w("" + WKey.convertDpAddressToDpOpAddress("cosmos1gfzexy3z0qfc97mjudjy5zeg2fje6k442phy6r"));
-//        WLog.w("" + WKey.convertDpOpAddressToDpAddress("cosmosvaloper1gfzexy3z0qfc97mjudjy5zeg2fje6k4404r3ks"));
-
-//        if(getBaseDao().onSelectAccounts().size() > 1) {
-//            onStartListActivity();
-//        } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-//            onStartMainActivity();
-//        } else {
-//            startActivity(new Intent(IntroActivity.this, CreateActivity.class));
-//        }
-    }
-}
-*/
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
@@ -104,13 +57,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                if(getBaseDao().onSelectAccounts().size() == 0) {
-//                    onInitView();
-//                } else if(getBaseDao().onSelectAccounts().size() == 1)  {
-//                    onStartMainActivity();
-//                } else {
-//                    onStartListActivity();
-//                }
                 if(getBaseDao().onSelectAccounts().size() == 0) {
                     onInitView();
                 } else {
@@ -119,12 +65,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             }
         }, 1500);
 
-        onShowWaitDialog();
-
-
-
         WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
-//        WLog.w("FCM token: " + FirebaseInstanceId.getInstance().getInstanceId().toString());
+        WLog.w("FCM token: " + FirebaseInstanceId.getInstance().getInstanceId().toString());
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -133,47 +75,12 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                             WLog.w("getInstanceId failed" + task.getException());
                             return;
                         }
-
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
                         WLog.w("token  " + token);
-
-//                        // Log and toast
-//                        String msg = getString(R.string.msg_token_fmt, token);
-//                        WLog.w( msg);
-//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        WLog.w("INTRO");
-//        startActivity(new Intent(IntroActivity.this, TestActivity.class));
-
-//        startActivity(new Intent(IntroActivity.this, TestActivity.class));
-
-//        logoTitle.setVisibility(View.INVISIBLE);
-
-
-//        startActivity(new Intent(IntroActivity.this, RestoreActivity.class));
-
-//        startActivity(new Intent(IntroActivity.this, CreateActivity.class));
-//        startActivity(new Intent(IntroActivity.this, PasswordSetActivity.class));
-
-//        Intent intent = new Intent(IntroActivity.this, PasswordCheckActivity.class);
-//        startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-//        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-
-
-
-//        if(bottomLayer2.getVisibility() != View.VISIBLE)
-//            onInitView();
-//
-//        onTest();
     }
 
     private void onInitView(){
@@ -208,24 +115,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             mImport.setVisibility(View.GONE);
             bottomDetail.setVisibility(View.VISIBLE);
 
-//            final Animation fadein = AnimationUtils.loadAnimation(this, R.anim.fade_in4);
-//            Animation fadeout = AnimationUtils.loadAnimation(this, R.anim.fade_out4);
-//            fadeout.setAnimationListener(new Animation.AnimationListener() {
-//                @Override
-//                public void onAnimationStart(Animation animation) { }
-//                @Override
-//                public void onAnimationRepeat(Animation animation) { }
-//
-//                @Override
-//                public void onAnimationEnd(Animation animation) {
-//                    mImport.setVisibility(View.GONE);
-//                    mImport.setClickable(false);
-//                    bottomDetail.setVisibility(View.VISIBLE);
-//                    bottomDetail.startAnimation(fadein);
-//                }
-//            });
-//            mImport.startAnimation(fadeout);
-
             Animation fadein = AnimationUtils.loadAnimation(this, R.anim.fade_in4);
             mNmemonicLayer.startAnimation(fadein);
             mWatchLayer.startAnimation(fadein);
@@ -242,11 +131,5 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         }
 
     }
-
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        finish();
-//    }
 }
 
