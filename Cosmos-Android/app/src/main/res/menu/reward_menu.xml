@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_sorting"
+        android:icon="@drawable/ic_sorting_btn"
+        app:showAsAction="always"
+        android:title="@string/str_sorting" />
+    <item
+        android:id="@+id/menu_accounts"
+        android:icon="@drawable/accout_ic"
+        app:showAsAction="always"
+        android:title="@string/str_accounts" />
+</menu>

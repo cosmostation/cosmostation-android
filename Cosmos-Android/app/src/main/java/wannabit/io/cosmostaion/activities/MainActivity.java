@@ -290,20 +290,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
 
     private void onUpdateTitle() {
-//        if(mContentsPager.getCurrentItem() == 0) {
-//            if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText("Wallet " + mAccount.id);
-//            else mToolbarTitle.setText(mAccount.nickName);
-//
-//        } else if (mContentsPager.getCurrentItem() == 1) {
-//            mToolbarTitle.setText("Reward & Validator");
-//
-//        } else if (mContentsPager.getCurrentItem() == 2) {
-//            mToolbarTitle.setText("Transaction History");
-//
-//        } else if (mContentsPager.getCurrentItem() == 3) {
-//            mToolbarTitle.setText("Vote");
-//
-//        }
         if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText("Wallet " + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
     }
@@ -452,22 +438,24 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_accounts:
-                onShowTopAccountsView();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        WLog.w("MainActivity onCreateOptionsMenu");
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menu_accounts:
+//                onShowTopAccountsView();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     private void onFetchCurrentPage() {
         if(!isFinishing()) {
@@ -476,7 +464,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     }
 
-    private void onShowTopAccountsView() {
+    public void onShowTopAccountsView() {
         mDimLayer.setVisibility(View.VISIBLE);
         mTopSheetBehavior.setState(TopSheetBehavior.STATE_EXPANDED);
     }

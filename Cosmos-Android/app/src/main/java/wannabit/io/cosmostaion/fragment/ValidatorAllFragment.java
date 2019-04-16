@@ -40,12 +40,10 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class ValidatorAllFragment extends BaseFragment {
 
-    public final static int SELECT_SORTING = 6002;
 
     private SwipeRefreshLayout      mSwipeRefreshLayout;
     private RecyclerView            mRecyclerView;
     private AllValidatorAdapter     mAllValidatorAdapter;
-    private TextView                mSorting;
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Validator>        mAllValidators = new ArrayList<>();
@@ -66,7 +64,6 @@ public class ValidatorAllFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_validator_all, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mSorting                = rootView.findViewById(R.id.sorting);
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -82,17 +79,6 @@ public class ValidatorAllFragment extends BaseFragment {
         mAllValidatorAdapter = new AllValidatorAdapter();
         mRecyclerView.setAdapter(mAllValidatorAdapter);
 
-        mSorting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WLog.w("sorting");
-                Dialog_ValidatorSorting bottomSheetDialog = Dialog_ValidatorSorting.getInstance();
-                bottomSheetDialog.setArguments(null);
-                bottomSheetDialog.setTargetFragment(ValidatorAllFragment.this, SELECT_SORTING);
-                bottomSheetDialog.show(getFragmentManager(), "dialog");
-            }
-        });
-
         return rootView;
     }
 
@@ -103,9 +89,6 @@ public class ValidatorAllFragment extends BaseFragment {
         if(!isAdded()) return;
         mAllValidators  = getMainActivity().mAllValidators;
         mMyValidators   = getMainActivity().mMyValidators;
-//        OnSortByName(mAllValidators);
-//        onSortingByAmount(mAllValidators);
-//        onSortingByCommission(mAllValidators);
         onSortValidator();
 
         mAllValidatorAdapter.notifyDataSetChanged();
@@ -115,15 +98,6 @@ public class ValidatorAllFragment extends BaseFragment {
 
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == SELECT_SORTING && resultCode == Activity.RESULT_OK) {
-            getBaseDao().setValSorting(data.getIntExtra("sorting", 1));
-            onSortValidator();
-            mAllValidatorAdapter.notifyDataSetChanged();
-        }
     }
 
 
@@ -220,13 +194,10 @@ public class ValidatorAllFragment extends BaseFragment {
     public void onSortValidator() {
         if(getBaseDao().getValSorting() == 2){
             onSortingByCommission(mAllValidators);
-            mSorting.setText(getString(R.string.str_sorting_by_commission));
         } else if (getBaseDao().getValSorting() == 0){
             onSortByName(mAllValidators);
-            mSorting.setText(getString(R.string.str_sorting_by_name));
         } else {
             onSortingByAmount(mAllValidators);
-            mSorting.setText(getString(R.string.str_sorting_by_power));
         }
     }
 

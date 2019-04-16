@@ -10,6 +10,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -49,7 +52,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -71,22 +74,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mRecyclerView.setHasFixedSize(true);
         mHistoryAdapter = new HistoryAdapter();
         mRecyclerView.setAdapter(mHistoryAdapter);
-//        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                if (dy >0) {
-//                    if (getMainActivity().mFloatBtn.isShown()) {
-//                        getMainActivity().mFloatBtn.hide();
-//                    }
-//                }
-//                else if (dy <0) {
-//                    if (!getMainActivity().mFloatBtn.isShown()) {
-//                        getMainActivity().mFloatBtn.show();
-//                    }
-//                }
-//            }
-//        });
         onFetchHistory();
         return rootView;
     }
@@ -97,23 +84,21 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         onFetchHistory();
     }
 
-    //    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.history_menu, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu_sorting:
-//                WLog.w("menu_sorting");
-//                startActivity(new Intent(getMainActivity(), RestoreActivity.class));
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.main_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_accounts :
+                getMainActivity().onShowTopAccountsView();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void onFetchHistory() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;

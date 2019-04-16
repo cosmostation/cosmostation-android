@@ -5,6 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
+import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
@@ -33,6 +37,23 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.main_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_accounts :
+                getMainActivity().onShowTopAccountsView();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -119,5 +140,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         }
 
+    }
+
+    public MainActivity getMainActivity() {
+        return (MainActivity)getBaseActivity();
     }
 }

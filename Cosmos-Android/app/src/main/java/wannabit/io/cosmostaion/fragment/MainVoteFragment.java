@@ -10,6 +10,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -47,6 +50,7 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -70,6 +74,22 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
         mRecyclerView.setAdapter(mVoteAdapter);
         onFetchProposals();
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.main_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_accounts :
+                getMainActivity().onShowTopAccountsView();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -174,26 +194,3 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
         return (MainActivity)getBaseActivity();
     }
 }
-
-
-/*
-public class MainVoteFragment extends BaseFragment {
-
-    public static MainVoteFragment newInstance(Bundle bundle) {
-        MainVoteFragment fragment = new MainVoteFragment();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main_vote, container, false);
-        return rootView;
-    }
-}
-*/
