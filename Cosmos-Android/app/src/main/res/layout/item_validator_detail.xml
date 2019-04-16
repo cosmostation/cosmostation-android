@@ -27,68 +27,75 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/validator_avatar"
-                        android:layout_width="@dimen/space_50"
-                        android:layout_height="@dimen/space_50"
-                        android:src="@drawable/validator_none_img"
-                        app:civ_border_width="1dp"
-                        app:civ_border_color="@color/colorGray3"/>
-                    <ImageView
-                        android:id="@+id/avatar_validator_revoke"
-                        android:layout_width="@dimen/space_50"
-                        android:layout_height="@dimen/space_50"
-                        android:src="@drawable/revoked_img"/>
-                    <ImageView
-                        android:id="@+id/avatar_validator_free"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignRight="@+id/validator_avatar"
-                        android:src="@drawable/free_ic"/>
-                </RelativeLayout>
-
+                android:orientation="vertical">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/validator_moniker"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/validator_avatar"
+                            android:layout_width="@dimen/space_50"
+                            android:layout_height="@dimen/space_50"
+                            android:src="@drawable/validator_none_img"
+                            app:civ_border_width="1dp"
+                            app:civ_border_color="@color/colorGray3"/>
+                        <ImageView
+                            android:id="@+id/avatar_validator_revoke"
+                            android:layout_width="@dimen/space_50"
+                            android:layout_height="@dimen/space_50"
+                            android:src="@drawable/revoked_img"/>
+                        <ImageView
+                            android:id="@+id/avatar_validator_free"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignRight="@+id/validator_avatar"
+                            android:src="@drawable/free_ic"/>
+                    </RelativeLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        style="@style/font_ss_14_white"
-                        android:text="moniker"/>
-                    <TextView
-                        android:id="@+id/validator_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_2"
-                        android:singleLine="true"
-                        style="@style/font_ss_9_gray1"
-                        android:text="cosmosValbkjk482812739812733hnnn"/>
-                    <TextView
-                        android:id="@+id/validator_site"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        style="@style/font_ss_9_gray1"
-                        android:text="www.google.com"/>
-                    <TextView
-                        android:id="@+id/validator_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="2"
-                        android:minLines="2"
-                        style="@style/font_ss_9_gray1"
-                        android:text="kfjhsdjkfnldsfsdkmf;lsdkmnflsdknfldsnfldsnkflsdknfksdjghkfdjgnkagjnlsakngjlsdkjgflsdkjfgldskfjldskfjsd/lkfjdsfkjdsfjs/"/>
+                        android:layout_marginLeft="@dimen/space_12"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/validator_moniker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            style="@style/font_ss_14_white"
+                            android:text="moniker"/>
+                        <TextView
+                            android:id="@+id/validator_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_2"
+                            android:singleLine="true"
+                            style="@style/font_ss_10_gray1"
+                            android:text="cosmosValbkjk482812739812733hnnn"/>
+                        <TextView
+                            android:id="@+id/validator_site"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            style="@style/font_ss_10_gray1"
+                            android:text="www.google.com"/>
+                    </LinearLayout>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/validator_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    style="@style/font_ss_9_gray1"
+                    android:text="kfjhsdjkfnldsfsdkmf;lsdkmnflsdknfldsnfldsnkflsdknfksdjghkfdjgnkagjnlsakngjlsdkjgflsdkjfgldskfjldskfjsd/lkfjdsfkjdsfjs/"/>
             </LinearLayout>
 
             <View

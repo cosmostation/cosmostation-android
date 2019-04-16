@@ -489,13 +489,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     });
                 }
 
-                holder.itemHideShow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        WLog.w("TOGGLE");
-                    }
-                });
-
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("");
@@ -732,7 +725,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             CircleImageView  itemAvatar;
             ImageView    itemImgRevoked;
             ImageView    itemImgFree;
-            ImageView   itemHideShow;
             TextView    itemTvMoniker;
             TextView    itemTvAddress;
             TextView    itemTvWebsite;
@@ -746,7 +738,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemAvatar              = itemView.findViewById(R.id.validator_avatar);
                 itemImgRevoked          = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemImgFree             = itemView.findViewById(R.id.avatar_validator_free);
-                itemHideShow            = itemView.findViewById(R.id.validator_hide_show);
                 itemTvMoniker           = itemView.findViewById(R.id.validator_moniker);
                 itemTvAddress           = itemView.findViewById(R.id.validator_address);
                 itemTvWebsite           = itemView.findViewById(R.id.validator_site);

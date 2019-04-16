@@ -8,17 +8,12 @@
         android:id="@+id/layer_refresher"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:overScrollMode="never" />
-        </LinearLayout>
-
+            android:paddingTop="@dimen/space_4"
+            android:clipToPadding="false"
+            android:overScrollMode="never" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
