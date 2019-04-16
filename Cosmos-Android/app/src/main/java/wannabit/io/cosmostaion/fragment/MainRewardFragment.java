@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_My_ValidatorSorting;
 import wannabit.io.cosmostaion.dialog.Dialog_ValidatorSorting;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -31,6 +32,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 public class MainRewardFragment extends BaseFragment {
 
     public final static int SELECT_All_VALIDATOR_SORTING = 6002;
+    public final static int SELECT_MY_VALIDATOR_SORTING = 6003;
 
     private ViewPager                   mValidatorPager;
     private TabLayout                   mValidatorTapLayer;
@@ -102,9 +104,8 @@ public class MainRewardFragment extends BaseFragment {
                 if(mValidatorPager.getCurrentItem() == 1) {
                     onShowAllValidatorSort();
                 } else {
-
+                    onShowMyValidatorSort();
                 }
-
                 break;
             case R.id.menu_accounts :
                 getMainActivity().onShowTopAccountsView();
@@ -139,6 +140,15 @@ public class MainRewardFragment extends BaseFragment {
         bottomSheetDialog.show(getFragmentManager(), "dialog");
     }
 
+    private void onShowMyValidatorSort() {
+        Dialog_My_ValidatorSorting bottomSheetDialog = Dialog_My_ValidatorSorting.getInstance();
+        bottomSheetDialog.setArguments(null);
+        bottomSheetDialog.setTargetFragment(MainRewardFragment.this, SELECT_MY_VALIDATOR_SORTING);
+        bottomSheetDialog.show(getFragmentManager(), "dialog");
+    }
+
+
+
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();
     }
@@ -149,6 +159,10 @@ public class MainRewardFragment extends BaseFragment {
         if(requestCode == SELECT_All_VALIDATOR_SORTING && resultCode == Activity.RESULT_OK) {
             getBaseDao().setValSorting(data.getIntExtra("sorting", 1));
             mPageAdapter.mFragments.get(1).onRefreshTab();
+
+        } else if(requestCode == SELECT_MY_VALIDATOR_SORTING && resultCode == Activity.RESULT_OK) {
+            getBaseDao().setMyValSorting(data.getIntExtra("sorting", 1));
+            mPageAdapter.mFragments.get(0).onRefreshTab();
         }
     }
 

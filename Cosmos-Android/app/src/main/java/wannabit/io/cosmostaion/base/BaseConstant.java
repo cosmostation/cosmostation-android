@@ -18,6 +18,7 @@ public class BaseConstant {
 
     public final static String					PRE_USER_ID			                    = "PRE_USER_ID";
     public final static String					PRE_VALIDATOR_SORTING			        = "PRE_VALIDATOR_SORTING";
+    public final static String					PRE_MY_VALIDATOR_SORTING			    = "PRE_MY_VALIDATOR_SORTING";
     public final static String					PRE_ATOM_TIC			                = "PRE_ATOM_TIC";
 
     public final static String					SET_USE_FINGERPRINT			            = "SET_USE_FINGERPRINT";

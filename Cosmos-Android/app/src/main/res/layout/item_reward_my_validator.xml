@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_amount_validator"
                         style="@style/font_ss_11_gray1"
-                        android:text="@string/str_delegated"/>
+                        android:text="@string/str_tx_delegated_amount"/>
                     <TextView
                         android:id="@+id/delegate_amount_validator"
                         android:layout_width="wrap_content"
@@ -125,9 +125,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_commission_validator"
                         style="@style/font_ss_11_gray1"
-                        android:text="@string/str_commission"/>
+                        android:text="@string/str_reward_amount"/>
                     <TextView
-                        android:id="@+id/delegate_commission_validator"
+                        android:id="@+id/my_reward_validator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

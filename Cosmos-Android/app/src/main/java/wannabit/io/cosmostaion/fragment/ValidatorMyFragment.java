@@ -19,6 +19,8 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -86,6 +88,8 @@ public class ValidatorMyFragment extends BaseFragment {
         if(!isAdded()) return;
         mMyValidators   = getMainActivity().mMyValidators;
         mRewards        = getMainActivity().mRewards;
+        onSortValidator();
+
         mMyValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
         WLog.w("ValidatorMyFragment mMyValidators " + mMyValidators.size());
@@ -152,7 +156,7 @@ public class ValidatorMyFragment extends BaseFragment {
                 } else {
                     holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 0, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 }
-                holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
+                holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -220,7 +224,7 @@ public class ValidatorMyFragment extends BaseFragment {
             ImageView itemRevoked;
             TextView    itemTvMoniker;
             TextView    itemTvDelegateAmount;
-            TextView    itemTvCommission;
+            TextView    itemTvReward;
 
             public RewardMyValidatorHolder(@NonNull View itemView) {
                 super(itemView);
@@ -230,7 +234,7 @@ public class ValidatorMyFragment extends BaseFragment {
                 itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
                 itemTvDelegateAmount = itemView.findViewById(R.id.delegate_amount_validator);
-                itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
+                itemTvReward        = itemView.findViewById(R.id.my_reward_validator);
             }
         }
 
@@ -256,4 +260,78 @@ public class ValidatorMyFragment extends BaseFragment {
         }
 
     }
+
+    public void onSortValidator() {
+        if(getBaseDao().getMyValSorting() == 2){
+            onSortingByReward(mMyValidators);
+        } else if (getBaseDao().getMyValSorting() == 0){
+            onSortByName(mMyValidators);
+        } else {
+            onSortingByDelegate(mMyValidators);
+        }
+    }
+
+
+    public void onSortByName(ArrayList<Validator> validators) {
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                return o1.description.moniker.compareTo(o2.description.moniker);
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+
+    public void onSortingByDelegate(ArrayList<Validator> validators) {
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                BondingState bondingO1 = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address);
+                BondingState bondingO2 = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address);
+                return bondingO2.shares.compareTo(bondingO1.shares);
+
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+
+    public void onSortingByReward(final ArrayList<Validator> validators) {
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                BigDecimal rewardO1 = WDp.getValidatorReward(mRewards, o1.operator_address);
+                BigDecimal rewardO2 = WDp.getValidatorReward(mRewards, o2.operator_address);
+                return rewardO2.compareTo(rewardO1);
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+
+
+
+
 }

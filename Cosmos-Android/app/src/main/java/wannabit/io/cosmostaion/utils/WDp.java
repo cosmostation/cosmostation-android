@@ -75,6 +75,30 @@ public class WDp {
     }
 
 
+
+    public static SpannableString getValidatorReward(Context c, ArrayList<Reward> rewards, String valOpAddress, BaseChain chain) {
+        BigDecimal result = BigDecimal.ZERO;
+        for(Reward reward : rewards) {
+            if(reward.validatorAddress.equals(valOpAddress)) {
+                result = reward.getAtomAmount();
+                break;
+            }
+        }
+        return getDpAmount(c, result, 6, chain);
+    }
+
+    public static BigDecimal getValidatorReward(ArrayList<Reward> rewards, String valOpAddress) {
+        BigDecimal result = BigDecimal.ZERO;
+        for(Reward reward : rewards) {
+            if(reward.validatorAddress.equals(valOpAddress)) {
+                result = reward.getAtomAmount();
+                break;
+            }
+        }
+        return result;
+    }
+
+
     public static SpannableString getDpAtomBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {

@@ -80,6 +80,14 @@ public class BaseData {
     }
 
 
+    public void setMyValSorting(int sort) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_MY_VALIDATOR_SORTING, sort).commit();
+    }
+
+    public int getMyValSorting() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_MY_VALIDATOR_SORTING, 1);
+    }
+
     public void setLastUser(long user) {
         getSharedPreferences().edit().putLong(BaseConstant.PRE_USER_ID, user).commit();
     }
