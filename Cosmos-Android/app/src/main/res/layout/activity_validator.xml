@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 style="@style/font_ss_11_gray1"
                 android:ellipsize="middle"
-                android:maxWidth="@dimen/space_240"
+                android:maxWidth="@dimen/space_280"
                 android:singleLine="true"
                 android:text="cosmos1gfzexy3z0qfc97mjudjy5zeg2fje6k442phy6r"/>
         </LinearLayout>

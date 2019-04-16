@@ -61,15 +61,6 @@
                     android:gravity="right"
                     android:text="12,232.008232"
                     style="@style/font_ssl_11_white"/>
-                <TextView
-                    android:id="@+id/validator_unbonding_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/validator_unbonding"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:text="(D-4)"
-                    style="@style/font_ss_9_photon"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -102,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorGray3"
-                android:layout_marginTop="@dimen/space_8"/>
+                android:layout_marginTop="@dimen/space_12"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -114,11 +105,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_6">
+                android:layout_marginTop="@dimen/space_4">
                 <TextView
                     android:id="@+id/action_atom_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"
                     android:layout_alignBaseline="@+id/validator_atom_reward"
                     android:text="ATOM"
                     style="@style/font_ss_10_atom"/>
@@ -141,6 +133,7 @@
                     android:id="@+id/action_photon_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"
                     android:layout_alignBaseline="@+id/validator_photon_reward"
                     android:text="PHOTON"
                     style="@style/font_ss_10_photon"/>

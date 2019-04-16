@@ -518,10 +518,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     }
                     WLog.w("sum" + sum.toPlainString());
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6, BaseChain.getChain(mAccount.baseChain)));
-                    holder.itemTvUnbondingTime.setVisibility(View.INVISIBLE);
                 } else {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
-                    holder.itemTvUnbondingTime.setVisibility(View.INVISIBLE);
                 }
                 if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) holder.itemPhotonLayer.setVisibility(View.GONE);
                 if(mReward != null) {
@@ -749,7 +747,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         public class MyActionHolder extends RecyclerView.ViewHolder {
-            TextView    itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvUnbondingTime, itemTvAtomReward, itemTvPhotonReward;
+            TextView    itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvAtomReward, itemTvPhotonReward;
             Button      itemBtnDelegate, itemBtnUndelegate, itemBtnReward;
             TextView    itemAtomTitle, itemPhotonTitle;
             RelativeLayout itemPhotonLayer;
@@ -758,7 +756,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 super(v);
                 itemTvDelegatedAmount   = itemView.findViewById(R.id.validator_delegated);
                 itemTvUnbondingAmount   = itemView.findViewById(R.id.validator_unbonding);
-                itemTvUnbondingTime     = itemView.findViewById(R.id.validator_unbonding_time);
                 itemTvAtomReward        = itemView.findViewById(R.id.validator_atom_reward);
                 itemTvPhotonReward      = itemView.findViewById(R.id.validator_photon_reward);
                 itemBtnDelegate         = itemView.findViewById(R.id.validator_btn_delegate);
