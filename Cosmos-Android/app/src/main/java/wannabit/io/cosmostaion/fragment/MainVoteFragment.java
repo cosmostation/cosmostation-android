@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -113,6 +115,7 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
                 ArrayList<Proposal> temp = (ArrayList<Proposal>)result.resultData;
                 if(temp != null && temp.size() > 0) {
                     mProposals = temp;
+                    onSortingProposal(mProposals);
                     mVoteAdapter.notifyDataSetChanged();
                     mEmptyProposal.setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.VISIBLE);
@@ -192,5 +195,18 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
 
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();
+    }
+
+
+    public void onSortingProposal(ArrayList<Proposal> proposals) {
+        Collections.sort(proposals, new Comparator<Proposal>() {
+            @Override
+            public int compare(Proposal o1, Proposal o2) {
+                if (Integer.parseInt(o1.value.proposal_id) < Integer.parseInt(o2.value.proposal_id)) return 1;
+                else if (Integer.parseInt(o1.value.proposal_id) > Integer.parseInt(o2.value.proposal_id)) return -1;
+                else return 0;
+
+            }
+        });
     }
 }
