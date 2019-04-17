@@ -191,7 +191,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         if(v.equals(mBtnAddressDetail)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", getMainActivity().mAccount.address);
-            if(TextUtils.isEmpty(getMainActivity().mAccount.nickName)) bundle.putString("title", "Wallet " + getMainActivity().mAccount.id);
+            if(TextUtils.isEmpty(getMainActivity().mAccount.nickName)) bundle.putString("title", getString(R.string.str_my_wallet) + getMainActivity().mAccount.id);
             else bundle.putString("title", getMainActivity().mAccount.nickName);
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);

@@ -244,7 +244,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="A"
+                        android:text="@string/str_photon_c"
                         style="@style/font_ss_11_photon"/>
                     <TextView
                         android:id="@+id/remind_photon"

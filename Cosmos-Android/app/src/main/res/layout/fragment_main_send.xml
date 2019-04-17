@@ -56,7 +56,7 @@
                                 android:layout_height="wrap_content"
                                 style="@style/font_ss_14_white"
                                 android:singleLine="true"
-                                android:text="My Address"/>
+                                android:text="@string/str_my_address"/>
                             <TextView
                                 android:id="@+id/account_Address"
                                 android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                                 android:layout_marginTop="@dimen/space_4"
                                 style="@style/font_ss_11_white"
                                 android:singleLine="true"
-                                android:text="cosmos1gfzexy3z0qfc97mjudjy5zeg2fje6k442phy6r"/>
+                                android:text=""/>
                         </LinearLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -175,7 +175,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Unbonding"
+                                android:text="@string/str_unbonding"
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_atom_unbonding"
@@ -194,7 +194,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Reward"
+                                android:text="@string/str_reward"
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_atom_reward"

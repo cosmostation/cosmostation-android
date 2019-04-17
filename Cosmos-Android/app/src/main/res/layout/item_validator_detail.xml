@@ -116,7 +116,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Bonded"
+                        android:text="@string/str_total_bonded"
                         style="@style/font_ss_11_gray1"/>
                     <TextView
                         android:id="@+id/validator_total_bonded"
@@ -134,7 +134,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Self Bonded Rate"
+                        android:text="@string/str_self_bonded_rate"
                         style="@style/font_ss_11_gray1"/>
                     <TextView
                         android:id="@+id/validator_self_bond_rate"
@@ -152,7 +152,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Commision"
+                        android:text="@string/str_commission"
                         style="@style/font_ss_11_gray1"/>
                     <TextView
                         android:id="@+id/validator_commission"
@@ -174,7 +174,7 @@
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
                 style="@style/font_ss_12_photon"
-                android:text="Delegate"/>
+                android:text="@string/str_delegate"/>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

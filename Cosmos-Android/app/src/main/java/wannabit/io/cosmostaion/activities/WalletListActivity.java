@@ -196,7 +196,7 @@ public class WalletListActivity extends BaseActivity implements TaskListener {
                 final TotalReward totalReward               = mTotalRewards.get(account.id);
 
                 if(TextUtils.isEmpty(account.nickName)) {
-                    holder.itemTvNickname.setText("Wallet " + account.id);
+                    holder.itemTvNickname.setText(getString(R.string.str_my_wallet) + account.id);
                 } else {
                     holder.itemTvNickname.setText(account.nickName);
                 }

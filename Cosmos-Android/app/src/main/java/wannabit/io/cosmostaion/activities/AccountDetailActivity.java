@@ -131,8 +131,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         if(mAccount == null)  onBackPressed();
 
         if(TextUtils.isEmpty(mAccount.nickName)) {
-            mToolbarTitle.setText("Wallet " + mAccount.id);
-            mAccountName.setText("Wallet " + mAccount.id);
+            mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
+            mAccountName.setText(getString(R.string.str_my_wallet) + mAccount.id);
         } else {
             mToolbarTitle.setText(mAccount.nickName);
             mAccountName.setText(mAccount.nickName);

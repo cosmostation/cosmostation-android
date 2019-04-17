@@ -139,7 +139,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 //        mReward         = getBaseDao().getValidatorDetail().mReward;
 
         if(TextUtils.isEmpty(mAccount.nickName)) {
-            mToolbarNickName.setText("Wallet " + mAccount.id);
+            mToolbarNickName.setText(getString(R.string.str_my_wallet) + mAccount.id);
         } else {
             mToolbarNickName.setText(mAccount.nickName);
         }

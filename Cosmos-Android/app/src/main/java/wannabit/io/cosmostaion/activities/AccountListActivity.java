@@ -162,7 +162,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
                 holder.wallet_address.setText(account.address);
 
-                if(TextUtils.isEmpty(account.nickName)) holder.wallet_name.setText("Wallet " + account.id);
+                if(TextUtils.isEmpty(account.nickName)) holder.wallet_name.setText(getString(R.string.str_my_wallet) + account.id);
                 else holder.wallet_name.setText(account.nickName);
 
 
@@ -193,7 +193,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 }
                 holder.wallet_address.setText(account.address);
 
-                if(TextUtils.isEmpty(account.nickName)) holder.wallet_name.setText("Wallet " + account.id);
+                if(TextUtils.isEmpty(account.nickName)) holder.wallet_name.setText(getString(R.string.str_my_wallet) + account.id);
                 else holder.wallet_name.setText(account.nickName);
 
                 if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));

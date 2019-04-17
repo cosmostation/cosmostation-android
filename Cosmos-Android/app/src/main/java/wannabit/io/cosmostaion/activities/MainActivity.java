@@ -290,7 +290,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
 
     private void onUpdateTitle() {
-        if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText("Wallet " + mAccount.id);
+        if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
     }
 
@@ -602,7 +602,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 if (account.hasPrivateKey) holder.img_account.setImageDrawable(getResources().getDrawable(R.drawable.key_on));
                 else holder.img_account.setImageDrawable(getResources().getDrawable(R.drawable.key_off));
 
-                if(TextUtils.isEmpty(account.nickName)) holder.img_name.setText("Wallet " + account.id);
+                if(TextUtils.isEmpty(account.nickName)) holder.img_name.setText(getString(R.string.str_my_wallet) + account.id);
                 else holder.img_name.setText(account.nickName);
 
                 holder.img_address.setText(account.address);
@@ -654,7 +654,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         onHideTopAccountsView();
-                        WLog.w("ADD Account");
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {

@@ -145,16 +145,16 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             holder.new_address.setText(address);
             final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
             if(temp == null) {
-                holder.new_state.setText("ready");
+                holder.new_state.setText(getString(R.string.str_ready));
                 holder.new_state.setTextColor(getResources().getColor(R.color.colorWhite));
                 holder.card_new_wallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             } else  {
                 if(temp.hasPrivateKey) {
-                    holder.new_state.setText("imported");
+                    holder.new_state.setText(getString(R.string.str_imported));
                     holder.new_state.setTextColor(getResources().getColor(R.color.colorGray1));
                     holder.card_new_wallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 } else {
-                    holder.new_state.setText("override");
+                    holder.new_state.setText(getString(R.string.str_override));
                     holder.new_state.setTextColor(getResources().getColor(R.color.colorWhite));
                     holder.card_new_wallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                 }

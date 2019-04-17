@@ -1,42 +1,54 @@
 <resources>
     <string name="app_name">Cosmostation</string>
-    <string name="db_password">wannabit</string>
+    <string name="db_password" translatable="false">wannabit</string>
 
-    <string name="coinmarketcap_url">https://api.coinmarketcap.com/</string>
-
-    <!--<string name="url_lcd_wannabit">https://52.231.71.66:1317/</string>-->
-    <string name="url_lcd_gaia">https://lcd-dev.cosmostation.io</string>
-    <string name="url_lcd_gos">cosmos lcd gos</string>
-    <string name="url_keybase">https://keybase.io/</string>
-    <!--<string name="url_esearch">https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/</string>-->
-    <string name="url_esearch">https://search-explorer-mainnet-app-dornfmxm5qw3cd46j3k2noox5u.ap-northeast-2.es.amazonaws.com/</string>
-    <string name="url_cosmostation">https://api-dev.cosmostation.io/</string>
-
-
-    <!--<string name="url_lcd_wannabit_13k">http://54.180.171.141:1317/</string>-->
-    <string name="url_lcd_gaia_13k">https://lcd-dev-gaia13k.cosmostation.io/</string>
-    <string name="url_esearch_13k">https://search-cosmostation-explorer-dev-2-yvgjzlpmadeaypebfp2a33r3lm.ap-northeast-2.es.amazonaws.com/</string>
-    <string name="url_cosmostation_13k">https://api-dev-gaia13k.cosmostation.io/</string>
+    <string name="coinmarketcap_url" translatable="false">https://api.coinmarketcap.com/</string>
+    <string name="url_keybase" translatable="false">https://keybase.io/</string>
 
 
     <!--No Free fee lcd-->
-    <!--<string name="url_lcd_main">https://lcd.cosmostation.io/</string>-->
+    <!--<string name="url_lcd_main" translatable="false">https://lcd.cosmostation.io/</string>-->
+
     <!--Free fee lcd-->
-    <string name="url_lcd_main">https://lcd-dev.cosmostation.io/</string>
+    <string name="url_lcd_main" translatable="false">https://lcd-dev.cosmostation.io/</string>
+
     <!--inner test net-->
-    <!--<string name="url_lcd_main">https://lcd-dev-internal.cosmostation.io/</string>-->
-
-    <!--<string name="url_esearch_main">https://search-cosmostation-explorer-prod-ycwrdnmjwpn2mzjycmqjgjfboi.ap-northeast-2.es.amazonaws.com/</string>-->
-    <!--<string name="url_esearch_main">https://search-explorer-mainnet-app-dornfmxm5qw3cd46j3k2noox5u.ap-northeast-2.es.amazonaws.com/</string>-->
-
-    <string name="key_mnemonic">MNEMONIC_KEY</string>
-    <string name="key_password">PASSWORD_KEY</string>
+    <!--<string name="url_lcd_main" translatable="false">https://lcd-dev-internal.cosmostation.io/</string>-->
 
 
-    <!--<string name="str_atom_c">ATOM</string>-->
-    <!--<string name="str_photon_c">PHOTON</string>-->
-    <string name="str_atom_c">MUON</string>
-    <string name="str_photon_c">PHOTINO</string>
+    <string name="url_cosmostation" translatable="false">https://api-dev.cosmostation.io/</string>
+    <string name="url_esearch" translatable="false">https://search-explorer-mainnet-app-dornfmxm5qw3cd46j3k2noox5u.ap-northeast-2.es.amazonaws.com/</string>
+
+    <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
+    <string name="key_password" translatable="false">PASSWORD_KEY</string>
+    <string name="str_atom_c" translatable="false">MUON</string>
+    <string name="str_photon_c" translatable="false">PHOTINO</string>
+
+    <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
+    <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
+    <string name="str_dp_time_format1" translatable="false">yy-MM-dd HH:mm:ss</string>
+    <string name="str_dp_time_format2" translatable="false">yy-MM-dd HH:mm</string>
+
+    <string name="str_decimal_pattern_0" translatable="false">###,###,###,###,###,###,###,##0</string>
+    <string name="str_decimal_pattern_1" translatable="false">###,###,###,###,###,###,###,##0.0</string>
+    <string name="str_decimal_pattern_2" translatable="false">###,###,###,###,###,###,###,##0.00</string>
+    <string name="str_decimal_pattern_3" translatable="false">###,###,###,###,###,###,###,##0.000</string>
+    <string name="str_decimal_pattern_4" translatable="false">###,###,###,###,###,###,###,##0.0000</string>
+    <string name="str_decimal_pattern_5" translatable="false">###,###,###,###,###,###,###,##0.00000</string>
+    <string name="str_decimal_pattern_6" translatable="false">###,###,###,###,###,###,###,##0.000000</string>
+    <string name="str_decimal_pattern_7" translatable="false">###,###,###,###,###,###,###,##0.0000000</string>
+    <string name="str_decimal_pattern_8" translatable="false">###,###,###,###,###,###,###,##0.00000000</string>
+    <string name="str_decimal_pattern_9" translatable="false">###,###,###,###,###,###,###,##0.000000000</string>
+    <string name="str_decimal_pattern_10" translatable="false">###,###,###,###,###,###,###,##0.0000000000</string>
+    <string name="str_decimal_pattern_11" translatable="false">###,###,###,###,###,###,###,##0.00000000000</string>
+    <string name="str_decimal_pattern_12" translatable="false">###,###,###,###,###,###,###,##0.000000000000</string>
+    <string name="str_decimal_pattern_13" translatable="false">###,###,###,###,###,###,###,##0.0000000000000</string>
+    <string name="str_decimal_pattern_14" translatable="false">###,###,###,###,###,###,###,##0.00000000000000</string>
+    <string name="str_decimal_pattern_15" translatable="false">###,###,###,###,###,###,###,##0.000000000000000</string>
+    <string name="str_decimal_pattern_16" translatable="false">###,###,###,###,###,###,###,##0.0000000000000000</string>
+    <string name="str_decimal_pattern_17" translatable="false">###,###,###,###,###,###,###,##0.00000000000000000</string>
+    <string name="str_decimal_pattern_18" translatable="false">###,###,###,###,###,###,###,##0.000000000000000000</string>
+
     <string name="str_cosmos_main_net">COSMOS Mainnet</string>
     <string name="str_cosmos_test_net_12k">COSMOS Testnet (GAIA 12k)</string>
     <string name="str_cosmos_test_net_13k">COSMOS Testnet (GAIA 13k)</string>
@@ -87,7 +99,6 @@
     <string name="str_undelegate_complete_time">Expected Delivery</string>
     <string name="str_remind_delegate">Remind Delegate</string>
     <string name="str_reward_c">CLAIM REWARD</string>
-    <string name="str_reward_all_c">CLAIM ALL REWARD</string>
     <string name="str_reward_amount">Reward Amount</string>
     <string name="str_reward_from">Reward From</string>
     <string name="str_reward_to">Recipient address</string>
@@ -134,7 +145,7 @@
     <string name="str_chain_info">Chain Info</string>
     <string name="str_import_state">Import State</string>
     <string name="str_import_path">Key Path</string>
-    <string name="str_import_msg">Currently only watch mode. \nAll services are available after mnemonics integration.</string>
+    <string name="str_import_msg">Currently in watch mode.\nAll transactions are made available after registering your mnemonic phrase.</string>
     <string name="str_import_mnemonic">Import Mnemonic</string>
     <string name="str_share">Share</string>
     <string name="str_copy">Copy</string>
@@ -171,11 +182,22 @@
     <string name="str_tx_chain_upgrade_msg">Gaia 12k is deprecated and Gaia 13K is available\n If you select Yes, your wallet can use in 13k with same address.\n But your test coins are be zero. and delegate information are reset.</string>
     <string name="str_notice_c">NOTICE</string>
     <string name="str_next_word">Next Word</string>
-    <string name="str_mnemonic_title">Please enter the recovery phrase.</string>
+    <string name="str_mnemonic_title">Please enter the recovery word.</string>
     <string name="str_mnemonic_msg">(12 / 16 / 24 words)</string>
     <string name="str_test_net_deprecated">Testnet deprecated..</string>
     <string name="str_tx_delegated_amount">Delegated Amount</string>
-
+    <string name="str_tx_undelegated_amount">Unbonding Amount</string>
+    <string name="str_my_address">My address</string>
+    <string name="str_my_wallet">Wallet<![CDATA[ ]]></string>
+    <string name="str_ready">ready</string>
+    <string name="str_imported">imported</string>
+    <string name="str_override">override</string>
+    <string name="str_total_bonded">Total Bonded</string>
+    <string name="str_self_bonded_rate">Self Bonded Rate</string>
+    <string name="str_delegate">Delegate</string>
+    <string name="str_undelegate">Undelegate</string>
+    <string name="str_claim_reward">Claim Reward</string>
+    <string name="str_history_validator">History with this validator</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -190,7 +212,6 @@
     <string name="str_using_fingerprint">Using Fingerprint</string>
     <string name="str_ask_using_fingerprint">Do you want to enable fingerprint authentication?</string>
     <string name="str_mnemonic_copied">Mnemonic copied to clipboard.</string>
-    <string name="str_enter_mnemonics">Enter Mnemonics</string>
     <string name="str_enter_address">Enter Address or Public-Key</string>
     <string name="str_copy_right">COSMOS Wallet by Cosmostation</string>
     <string name="str_password_init">Init your password.</string>
@@ -216,14 +237,14 @@
     <string name="str_reward_step_3">Select transaction fees.</string>
     <string name="str_reward_step_4">Check your information to claim rewards</string>
     <string name="str_already_imported_key">Already imported key.</string>
-    <string name="str_delete_title">Delete Account</string>
+    <string name="str_delete_title">Delete Wallet</string>
     <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
     <string name="str_delete">Delete</string>
     <string name="str_close">Close</string>
-    <string name="str_intro">Decentralized crypto currency wallet\nFor Tendermint based blockchains.\nSupport Cosmos Hub MainNet and Gaia testnet.</string>
+    <string name="str_intro"></string>
     <string name="str_no_history_with_this_validator">No history.</string>
-    <string name="str_let_start_cosmos"><![CDATA["Explore the Cosmos Hub"]]></string>
-    <string name="str_let_start_cosmos2"> Delegate your ATOM and claim rewards with Cosmostation.\nFast and easy transactions with local signing!</string>
+    <string name="str_let_start_cosmos">Explore the Cosmos Hub</string>
+    <string name="str_let_start_cosmos2">Delegate your ATOM and claim rewards with Cosmostation.\nFast and easy transactions with local signing!</string>
     <string name="str_change_nickname">Change wallet Name</string>
     <string name="str_wallet_nickname">Wallet Name</string>
     <string name="str_start_delegate">Receive a certain amount of interest\nfrom delegating to validators.</string>
@@ -236,6 +257,8 @@
     <string name="str_my_validators">My Validators</string>
     <string name="str_withdraw_all">Claim all Rewards</string>
     <string name="str_delegated">Delegated</string>
+    <string name="str_unbonding">Unbonding</string>
+    <string name="str_reward">Reward</string>
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>
     <string name="str_low">Low</string>
@@ -255,8 +278,6 @@
     <string name="str_fee_free_msg">To commemorate the launch of the main net, \nwe will hold a free 3-week event.</string>
     <string name="str_delegate_notice">If you delegate to the validator you already delegated, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>
     <string name="str_undelegate_notice">If you undelegate to the validator, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>
-
-
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
@@ -283,32 +304,35 @@
     <string name="error_real_testing">Open soon after real testing.</string>
     <string name="error_invalid_amounts">Invalid Amount</string>
 
-    <string name="str_cosmos_time_format">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
-    <string name="str_block_time_format"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
-    <string name="str_dp_time_format1">yy/MM/dd HH:mm:ss</string>
-    <string name="str_dp_time_format2">yy/MM/dd HH:mm</string>
 
-    <string name="str_decimal_pattern_0">###,###,###,###,###,###,###,##0</string>
-    <string name="str_decimal_pattern_1">###,###,###,###,###,###,###,##0.0</string>
-    <string name="str_decimal_pattern_2">###,###,###,###,###,###,###,##0.00</string>
-    <string name="str_decimal_pattern_3">###,###,###,###,###,###,###,##0.000</string>
-    <string name="str_decimal_pattern_4">###,###,###,###,###,###,###,##0.0000</string>
-    <string name="str_decimal_pattern_5">###,###,###,###,###,###,###,##0.00000</string>
-    <string name="str_decimal_pattern_6">###,###,###,###,###,###,###,##0.000000</string>
-    <string name="str_decimal_pattern_7">###,###,###,###,###,###,###,##0.0000000</string>
-    <string name="str_decimal_pattern_8">###,###,###,###,###,###,###,##0.00000000</string>
-    <string name="str_decimal_pattern_9">###,###,###,###,###,###,###,##0.000000000</string>
-    <string name="str_decimal_pattern_10">###,###,###,###,###,###,###,##0.0000000000</string>
-    <string name="str_decimal_pattern_11">###,###,###,###,###,###,###,##0.00000000000</string>
-    <string name="str_decimal_pattern_12">###,###,###,###,###,###,###,##0.000000000000</string>
-    <string name="str_decimal_pattern_13">###,###,###,###,###,###,###,##0.0000000000000</string>
-    <string name="str_decimal_pattern_14">###,###,###,###,###,###,###,##0.00000000000000</string>
-    <string name="str_decimal_pattern_15">###,###,###,###,###,###,###,##0.000000000000000</string>
-    <string name="str_decimal_pattern_16">###,###,###,###,###,###,###,##0.0000000000000000</string>
-    <string name="str_decimal_pattern_17">###,###,###,###,###,###,###,##0.00000000000000000</string>
-    <string name="str_decimal_pattern_18">###,###,###,###,###,###,###,##0.000000000000000000</string>
+    <string name="s_atom">ATOM</string>
+    <string name="s_photon">PHOTON</string>
+    <string name="s_muon">MUON</string>
+    <string name="s_photino">PHOTINO</string>
 
-    <string-array name="password_number">
+    <string name="tx_send">Send</string>
+    <string name="tx_receive">Received</string>
+    <string name="tx_transfer">Transfer</string>
+    <string name="tx_delegate">Delegate</string>
+    <string name="tx_undelegate">Undelegate</string>
+    <string name="tx_redelegate">Redelegate</string>
+    <string name="tx_get_reward">Get Reward</string>
+    <string name="tx_get_commission">Get Commission</string>
+    <string name="tx_change_reward_address">Edit Address</string>
+    <string name="tx_vote">Vote</string>
+    <string name="tx_submit_proposal">Proposal</string>
+    <string name="tx_deposit">Deposit</string>
+    <string name="tx_create_validator">Create Val</string>
+    <string name="tx_edit_validator">Edit Val</string>
+    <string name="tx_known">Known</string>
+
+
+
+
+
+
+
+    <string-array name="password_number" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -321,7 +345,7 @@
         <item>9</item>
     </string-array>
 
-    <string-array name="password_alphabet">
+    <string-array name="password_alphabet" translatable="false">
         <item>A</item>
         <item>B</item>
         <item>C</item>
@@ -351,60 +375,41 @@
     </string-array>
 
 
-    <string-array name="atom_fee">
+    <string-array name="atom_fee" translatable="false">
         <item>0.005</item>
         <item>0.010</item>
         <item>0.020</item>
     </string-array>
-    <string name="atom_fee_l">0.005</string>
-    <string name="atom_fee_m">0.010</string>
-    <string name="atom_fee_h">0.020</string>
+    <string name="atom_fee_l" translatable="false">0.005</string>
+    <string name="atom_fee_m" translatable="false">0.010</string>
+    <string name="atom_fee_h" translatable="false">0.020</string>
 
-    <string-array name="muon_fee">
+    <string-array name="muon_fee" translatable="false">
         <item>1</item>
         <item>2</item>
         <item>4</item>
     </string-array>
-    <string name="muon_fee_l">1</string>
-    <string name="muon_fee_m">2</string>
-    <string name="muon_fee_h">4</string>
+    <string name="muon_fee_l" translatable="false">1</string>
+    <string name="muon_fee_m" translatable="false">2</string>
+    <string name="muon_fee_h" translatable="false">4</string>
 
 
-    <string-array name="photino_fee">
+    <string-array name="photino_fee" translatable="false">
         <item>60</item>
         <item>120</item>
         <item>240</item>
     </string-array>
-    <string name="photino_fee_l">60</string>
-    <string name="photino_fee_m">120</string>
-    <string name="photino_fee_h">240</string>
+    <string name="photino_fee_l" translatable="false">60</string>
+    <string name="photino_fee_m" translatable="false">120</string>
+    <string name="photino_fee_h" translatable="false">240</string>
 
 
 
-    <string name="s_atom">ATOM</string>
-    <string name="s_photon">PHOTON</string>
-    <string name="s_muon">MUON</string>
-    <string name="s_photino">PHOTINO</string>
-
-    <string name="tx_send">Send</string>
-    <string name="tx_receive">Received</string>
-    <string name="tx_transfer">Transfer</string>
-    <string name="tx_delegate">Delegate</string>
-    <string name="tx_undelegate">Undelegate</string>
-    <string name="tx_redelegate">Redelegate</string>
-    <string name="tx_get_reward">Get Reward</string>
-    <string name="tx_get_commission">Get Commission</string>
-    <string name="tx_change_reward_address">Edit Address</string>
-    <string name="tx_vote">Vote</string>
-    <string name="tx_submit_proposal">Proposal</string>
-    <string name="tx_deposit">Deposit</string>
-    <string name="tx_create_validator">Create Val</string>
-    <string name="tx_edit_validator">Edit Val</string>
-    <string name="tx_known">Known</string>
 
 
 
-    <string-array name="free_event">
+
+    <string-array name="free_event" translatable="false">
         <item>cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn</item>
         <item>cosmosvaloper1ec3p6a75mqwkv33zt543n6cnxqwun37rr5xlqv</item>
         <item>cosmosvaloper10e4vsut6suau8tk9m6dnrm0slgd6npe3jx5xpv</item>

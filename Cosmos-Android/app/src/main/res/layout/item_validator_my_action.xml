@@ -31,7 +31,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delegated"
+                    android:text="@string/str_tx_delegated_amount"
                     style="@style/font_ss_11_gray1"/>
                 <TextView
                     android:id="@+id/validator_delegated"
@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/validator_unbonding"
-                    android:text="Unbonding"
+                    android:text="@string/str_tx_undelegated_amount"
                     style="@style/font_ss_11_gray1"/>
                 <TextView
                     android:id="@+id/validator_unbonding"
@@ -76,7 +76,7 @@
                     android:minHeight="@dimen/space_40"
                     android:background="@drawable/btn_trans_with_border"
                     style="@style/font_ss_12_white"
-                    android:text="Delegate"/>
+                    android:text="@string/str_delegate"/>
                 <Button
                     android:id="@+id/validator_btn_undelegate"
                     android:layout_width="0dp"
@@ -86,7 +86,7 @@
                     android:minHeight="@dimen/space_40"
                     android:background="@drawable/btn_trans_with_border"
                     style="@style/font_ss_12_white"
-                    android:text="Undelegate"/>
+                    android:text="@string/str_undelegate"/>
             </LinearLayout>
 
             <View
@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12"
-                android:text="Rewards"
+                android:text="@string/str_reward"
                 style="@style/font_ss_11_gray1"/>
 
             <RelativeLayout
@@ -155,7 +155,7 @@
                 android:minHeight="@dimen/space_40"
                 android:background="@drawable/btn_trans_with_border"
                 style="@style/font_ss_12_white"
-                android:text="Claim Reward"/>
+                android:text="@string/str_claim_reward"/>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

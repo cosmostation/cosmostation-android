@@ -15,5 +15,5 @@
         android:layout_marginLeft="@dimen/space_4"
         android:layout_centerVertical="true"
         style="@style/font_ss_11_gray1"
-        android:text="History"/>
+        android:text="@string/str_history_validator"/>
 </RelativeLayout>

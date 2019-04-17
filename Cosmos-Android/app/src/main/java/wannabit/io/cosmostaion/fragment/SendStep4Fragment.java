@@ -112,7 +112,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
         if(TextUtils.isEmpty(getSActivity().mAccount.nickName)) {
-            mFromNickName.setText("Wallet " + getSActivity().mAccount.id);
+            mFromNickName.setText(getString(R.string.str_my_wallet) + getSActivity().mAccount.id);
         } else {
             mFromNickName.setText(getSActivity().mAccount.nickName);
         }
