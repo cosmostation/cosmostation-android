@@ -82,6 +82,7 @@ public class ReqTx {
             fields.add(voter_addr);
             fields.add(input_addr);
             fields.add(output_addr);
+            fields.add(addr_proposer);
             if(chain.equals(BaseChain.GAIA_12K)) {
                 fields.add(delegator_addr);
             } else {
@@ -104,5 +105,6 @@ public class ReqTx {
     public static final String voter_addr = "tx.value.msg.value.voter";
     public static final String input_addr = "tx.value.msg.value.input.address";
     public static final String output_addr = "tx.value.msg.value.output.address";
+    public static final String addr_proposer = "tx.value.msg.value.proposer";
 
 }

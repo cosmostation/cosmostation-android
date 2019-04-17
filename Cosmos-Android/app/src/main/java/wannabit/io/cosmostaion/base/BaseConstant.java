@@ -78,6 +78,11 @@ public class BaseConstant {
     public final static String                  COSMOS_MSG_TYPE_WITHDRAW_DEL            = "cosmos-sdk/MsgWithdrawDelegationReward";
     public final static String                  COSMOS_MSG_TYPE_WITHDRAW_VAL            = "cosmos-sdk/MsgWithdrawValidatorCommission";
     public final static String                  COSMOS_MSG_TYPE_WITHDRAW_MIDIFY         = "cosmos-sdk/MsgModifyWithdrawAddress";
+    public final static String                  COSMOS_MSG_TYPE_VOTE                    = "cosmos-sdk/MsgVote";
+    public final static String                  COSMOS_MSG_TYPE_SUBMIT_PROPOSAL         = "cosmos-sdk/MsgSubmitProposal";
+    public final static String                  COSMOS_MSG_TYPE_DEPOSIT                 = "cosmos-sdk/MsgDeposit";
+    public final static String                  COSMOS_MSG_TYPE_CREATE_VALIDATOR        = "cosmos-sdk/MsgCreateValidator";
+    public final static String                  COSMOS_MSG_TYPE_EDIT_VALIDATOR          = "cosmos-sdk/MsgEditValidator";
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
@@ -111,6 +116,11 @@ public class BaseConstant {
     public final static int					    TX_TYPE_GET_CPMMISSION		            = 3007;
     public final static int					    TX_TYPE_CHAGE_REWARD_ADDRESS		    = 3008;
     public final static int					    TX_TYPE_TRANSFER		                = 3009;
+    public final static int					    TX_TYPE_VOTE		                    = 3010;
+    public final static int					    TX_TYPE_SUBMIT_PROPOSAL		            = 3011;
+    public final static int					    TX_TYPE_DEPOSIT		                    = 3012;
+    public final static int					    TX_TYPE_CREATE_VALIDATOR		        = 3013;
+    public final static int					    TX_TYPE_EDIT_VALIDATOR		            = 3014;
 
     public final static int					    ERROR_CODE_UNKNOWN		                = 8000;
     public final static int					    ERROR_CODE_NETWORK		                = 8001;

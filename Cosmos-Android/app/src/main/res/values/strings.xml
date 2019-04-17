@@ -394,7 +394,12 @@
     <string name="tx_redelegate">Redelegate</string>
     <string name="tx_get_reward">Get Reward</string>
     <string name="tx_get_commission">Get Commission</string>
-    <string name="tx_change_reward_address">Change Reward Address</string>
+    <string name="tx_change_reward_address">Edit Address</string>
+    <string name="tx_vote">Vote</string>
+    <string name="tx_submit_proposal">Proposal</string>
+    <string name="tx_deposit">Deposit</string>
+    <string name="tx_create_validator">Create Val</string>
+    <string name="tx_edit_validator">Edit Val</string>
     <string name="tx_known">Known</string>
 
 

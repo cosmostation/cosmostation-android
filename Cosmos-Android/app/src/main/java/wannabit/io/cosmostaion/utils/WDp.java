@@ -388,6 +388,21 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY)) {
             result = BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS;
 
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_VOTE)) {
+            result = BaseConstant.TX_TYPE_VOTE;
+
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_SUBMIT_PROPOSAL)) {
+            result = BaseConstant.TX_TYPE_SUBMIT_PROPOSAL;
+
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DEPOSIT)) {
+            result = BaseConstant.TX_TYPE_DEPOSIT;
+
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_CREATE_VALIDATOR)) {
+            result = BaseConstant.TX_TYPE_CREATE_VALIDATOR;
+
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_EDIT_VALIDATOR)) {
+            result = BaseConstant.TX_TYPE_EDIT_VALIDATOR;
+
         }
         return result;
     }

@@ -114,11 +114,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onStartDeleteUser() {
-        Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_DELETE_ACCOUNT);
-        intent.putExtra("id", mAccount.id);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if(mAccount.hasPrivateKey) {
+            Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_DELETE_ACCOUNT);
+            intent.putExtra("id", mAccount.id);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        } else {
+            onDeleteAccount(mAccount.id);
+        }
     }
 
 

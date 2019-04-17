@@ -189,11 +189,41 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
+                case BaseConstant.TX_TYPE_VOTE:
+                    viewHolder.historyType.setText(getString(R.string.tx_vote));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_SUBMIT_PROPOSAL:
+                    viewHolder.historyType.setText(getString(R.string.tx_submit_proposal));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_DEPOSIT:
+                    viewHolder.historyType.setText(getString(R.string.tx_deposit));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_CREATE_VALIDATOR:
+                    viewHolder.historyType.setText(getString(R.string.tx_create_validator));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
+                case BaseConstant.TX_TYPE_EDIT_VALIDATOR:
+                    viewHolder.historyType.setText(getString(R.string.tx_edit_validator));
+                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                    break;
+
                 case BaseConstant.TX_TYPE_UNKNOWN:
                     viewHolder.historyType.setText(getString(R.string.tx_known));
                     viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
+            }
+
+            if(source.tx.value.msg.size() > 1) {
+                String type = viewHolder.historyType.getText().toString() + " + " + (source.tx.value.msg.size() - 1);
+                viewHolder.historyType.setText(type);
             }
 
             if(!source.result.isSuccess()) {
