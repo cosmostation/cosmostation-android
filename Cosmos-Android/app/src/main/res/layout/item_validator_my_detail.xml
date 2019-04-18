@@ -81,6 +81,8 @@
                             android:layout_height="wrap_content"
                             android:singleLine="true"
                             style="@style/font_ss_10_gray1"
+                            android:autoLink="web"
+                            android:clickable="true"
                             android:text="www.google.com"/>
                     </LinearLayout>
                 </LinearLayout>

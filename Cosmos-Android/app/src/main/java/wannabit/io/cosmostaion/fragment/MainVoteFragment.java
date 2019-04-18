@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -143,21 +144,22 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull VoteHolder voteHolder, int position) {
             final Proposal proposal = mProposals.get(position);
-            voteHolder.proposal_id.setText(proposal.value.proposal_id);
+            voteHolder.proposal_id.setText("#" + proposal.value.proposal_id);
             voteHolder.proposal_status.setText(proposal.value.proposal_status);
             voteHolder.proposal_title.setText(proposal.value.title);
             voteHolder.proposal_details.setText(proposal.value.description);
-            voteHolder.proposal_submit_time.setText(WDp.getTimeformat(getContext(), proposal.value.submit_time));
-            if(!proposal.value.voting_start_time.startsWith("0")) {
-                voteHolder.proposal_voting_start_time.setText(WDp.getTimeformat(getContext(), proposal.value.voting_start_time));
+            if (proposal.value.proposal_status.equals("DepositPeriod")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+            } else if (proposal.value.proposal_status.equals("VotingPeriod")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+            } else if (proposal.value.proposal_status.equals("Rejected")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+            } else if (proposal.value.proposal_status.equals("Passed")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
             } else {
-                voteHolder.proposal_voting_start_time.setText("n/a");
+                voteHolder.proposal_status_img.setVisibility(View.GONE);
             }
-            if(!proposal.value.voting_end_time.startsWith("0")) {
-                voteHolder.proposal_voting_end_time.setText(WDp.getTimeformat(getContext(), proposal.value.voting_end_time));
-            } else {
-                voteHolder.proposal_voting_end_time.setText("n/a");
-            }
+
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -175,8 +177,8 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
 
         public class VoteHolder extends RecyclerView.ViewHolder {
             private CardView card_proposal;
-            private TextView proposal_id, proposal_status, proposal_title, proposal_details, proposal_submit_time,
-                    proposal_voting_start_time, proposal_voting_end_time;
+            private TextView proposal_id, proposal_status, proposal_title, proposal_details;
+            private ImageView proposal_status_img;
 
             public VoteHolder(@NonNull View itemView) {
                 super(itemView);
@@ -185,9 +187,7 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
                 proposal_status             = itemView.findViewById(R.id.proposal_status);
                 proposal_title              = itemView.findViewById(R.id.proposal_title);
                 proposal_details            = itemView.findViewById(R.id.proposal_details);
-                proposal_submit_time        = itemView.findViewById(R.id.proposal_submit_time);
-                proposal_voting_start_time  = itemView.findViewById(R.id.proposal_voting_start_time);
-                proposal_voting_end_time    = itemView.findViewById(R.id.proposal_voting_end_time);
+                proposal_status_img         = itemView.findViewById(R.id.proposal_status_img);
 
             }
         }
