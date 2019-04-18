@@ -108,8 +108,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
-
-
         onInitView();
     }
 
@@ -127,6 +125,9 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
 
     private void onInitView() {
+        if(getIntent() == null || TextUtils.isEmpty(getIntent().getStringExtra("id"))) {
+            onBackPressed();
+        }
         mAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("id"));
         if(mAccount == null)  onBackPressed();
 

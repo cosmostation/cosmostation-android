@@ -91,12 +91,10 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-//        new GenerateAccountTask(getBaseApplication(), this).execute(mChain, ""+path, mHdSeed, ""+mWordSize);
         new GenerateAccountTask(getBaseApplication(), this).execute(mChain, ""+path, mEntorpy, ""+mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
-//        new OverrideAccountTask(getBaseApplication(), this, account).execute(""+path, mHdSeed, ""+mWordSize);
         new OverrideAccountTask(getBaseApplication(), this, account).execute(""+path, mEntorpy, ""+mWordSize);
     }
 
@@ -105,22 +103,14 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if(result.isSuccess) {
-//                if(getBaseDao().onSelectAccounts().size() > 1) {
-//                    onStartListActivity();
-//                } else {
-                    onStartMainActivity();
-//                }
+                onStartMainActivity();
             } else {
                 WLog.w("CREATE ACCOUNT with new mnemonic error : " + result.errorCode);
             }
 
         } else if (result.taskType == BaseConstant.TASK_OVERRIDE_ACCOUNT) {
             if(result.isSuccess) {
-//                if(getBaseDao().onSelectAccounts().size() > 1) {
-//                    onStartListActivity();
-//                } else {
-                    onStartMainActivity();
-//                }
+                onStartMainActivity();
             } else {
                 WLog.w("OVERRIDE with new mnemonic error : " + result.errorCode);
             }
@@ -166,11 +156,10 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             holder.card_new_wallet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(holder.new_state.getText().toString().equals("ready")) {
+                    if(holder.new_state.getText().toString().equals(getString(R.string.str_ready))) {
                         onGenAccount(position);
-                    } else if (holder.new_state.getText().toString().equals("imported")) {
+                    } else if (holder.new_state.getText().toString().equals(getString(R.string.str_override))) {
                         Toast.makeText(getBaseContext(), getString(R.string.str_already_imported_key), Toast.LENGTH_SHORT).show();
-
                     } else {
                         onOverrideAccount(temp, position);
                     }
