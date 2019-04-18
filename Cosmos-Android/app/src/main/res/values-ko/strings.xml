@@ -150,6 +150,7 @@
     <string name="str_undelegate">위임 철회 하기</string>
     <string name="str_claim_reward">이자 청구 하기</string>
     <string name="str_history_validator">이 검증인과의 거래내역</string>
+    <string name="str_price">현재 가격</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

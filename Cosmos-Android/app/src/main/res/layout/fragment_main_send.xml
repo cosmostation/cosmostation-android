@@ -48,21 +48,34 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:paddingBottom="@dimen/space_16"
+                            android:paddingBottom="@dimen/space_12"
                             android:paddingTop="@dimen/space_12"
                             android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/font_ss_14_white"
-                                android:singleLine="true"
-                                android:text="@string/str_my_address"/>
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+                                <ImageView
+                                    android:id="@+id/img_account"
+                                    android:layout_width="@dimen/space_24"
+                                    android:layout_height="@dimen/space_24"
+                                    android:src="@drawable/key_off"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/space_4"
+                                    style="@style/font_ss_14_white"
+                                    android:singleLine="true"
+                                    android:ellipsize="middle"
+                                    android:text="@string/str_my_address"/>
+                            </LinearLayout>
                             <TextView
                                 android:id="@+id/account_Address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/space_4"
-                                style="@style/font_ss_11_white"
+                                android:layout_marginTop="@dimen/space_2"
+                                style="@style/font_ss_12_white"
                                 android:singleLine="true"
                                 android:text=""/>
                         </LinearLayout>
@@ -109,18 +122,19 @@
                                 android:orientation="vertical"
                                 android:gravity="right">
                                 <TextView
-                                    android:id="@+id/dash_atom_price"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="right"
-                                    style="@style/font_ssm_17_white"/>
-                                <TextView
                                     android:id="@+id/dash_atom_amount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="right"
-                                    android:text="2,132,232.232145"
-                                    style="@style/font_ssl_14_white"/>
+                                    android:text="-"
+                                    style="@style/font_ssm_17_white"/>
+                                <TextView
+                                    android:id="@+id/dash_atom_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right"
+                                    style="@style/font_ss_14_gray1"
+                                    android:text="-"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -145,7 +159,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                android:text="232,743.738291"
+                                android:text="-"
                                 style="@style/font_ssl_12_white"/>
                         </RelativeLayout>
 
@@ -164,7 +178,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                android:text="7,542,325,743.000000"
+                                android:text="-"
                                 style="@style/font_ssl_12_white"/>
                         </RelativeLayout>
 
@@ -183,7 +197,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                android:text="500.000000"
+                                android:text="-"
                                 style="@style/font_ssl_12_white"/>
                         </RelativeLayout>
 
@@ -202,7 +216,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                android:text="0.342123"
+                                android:text="-"
                                 style="@style/font_ssl_12_white"/>
                         </RelativeLayout>
 
@@ -298,6 +312,68 @@
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_12"
+                    android:layout_marginTop="@dimen/space_2"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardCornerRadius="@dimen/space_6"
+                    app:cardElevation="1.5dp"
+                    app:cardBackgroundColor="@color/colorTransBg2"
+                    app:cardUseCompatPadding="true">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/space_16">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_price"
+                            style="@style/font_ss_12_gray1"/>
+                        <TextView
+                            android:id="@+id/dash_atom_per_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            style="@style/font_ssl_12_white"
+                            android:text="-"/>
+                        <LinearLayout
+                            android:id="@+id/dash_atom_per_change"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/dash_atom_per_price"
+                            android:layout_marginTop="@dimen/space_2"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <ImageView
+                                android:id="@+id/ic_price_updown"
+                                android:layout_width="@dimen/space_20"
+                                android:layout_height="@dimen/space_20"
+                                android:src="@drawable/ic_price_down"/>
+                            <TextView
+                                android:id="@+id/dash_atom_price_updown_tx"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="right"
+                                style="@style/font_ssl_12_white"
+                                android:text="-0.95% (24h)"/>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_24"
+                            android:text="(CoinMarketCap)"
+                            style="@style/font_ss_9_gray1"/>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
                 <android.support.v7.widget.CardView
                     android:id="@+id/card_validator"
                     android:layout_width="match_parent"
@@ -320,7 +396,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16"
-                            android:src="@drawable/reward_img"/>
+                            android:src="@drawable/reward_img"
+                            android:tint="@color/colorPhoton"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

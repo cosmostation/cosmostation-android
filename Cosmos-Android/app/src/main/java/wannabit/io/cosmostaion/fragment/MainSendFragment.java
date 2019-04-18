@@ -39,6 +39,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private NestedScrollView    mNestedScrollView;
 
     private ImageView           mBtnAddressDetail;
+    private ImageView           mKeyState;
     private TextView            mAddress;
     private TextView            mTvAtomTotal, mTvAtomUndelegated,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
@@ -47,7 +48,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     private TextView            mAtomPrice;
 
-    private CardView            mAtomCard, mPhotonCard;
+    private CardView            mAtomCard, mPhotonCard, mPriceCard;
+
+    private TextView            mAtomPerPrice, mAtomUpDownPrice;
+    private ImageView           matomUpDownImg;
 
 
     public static MainSendFragment newInstance(Bundle bundle) {
@@ -68,6 +72,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mNestedScrollView       = rootView.findViewById(R.id.layer_scrollview);
         mBtnAddressDetail       = rootView.findViewById(R.id.address_detail);
+        mKeyState               = rootView.findViewById(R.id.img_account);
         mAddress                = rootView.findViewById(R.id.account_Address);
         mTvAtomTotal            = rootView.findViewById(R.id.dash_atom_amount);
         mTvAtomUndelegated      = rootView.findViewById(R.id.dash_atom_undelegate);
@@ -77,14 +82,18 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvPhotonTotal          = rootView.findViewById(R.id.dash_photon_amount);
         mTvPhotonBalance        = rootView.findViewById(R.id.dash_photon_balance);
         mTvPhotonRewards        = rootView.findViewById(R.id.dash_photon_reward);
-
         mTvAtomTitle            = rootView.findViewById(R.id.dash_atom_title);
         mTvPhotonTitle          = rootView.findViewById(R.id.dash_photon_title);
-
         mAtomCard               = rootView.findViewById(R.id.card_atom);
         mPhotonCard             = rootView.findViewById(R.id.card_photon);
-
         mAtomPrice              = rootView.findViewById(R.id.dash_atom_price);
+
+        mPriceCard              = rootView.findViewById(R.id.card_price);
+        mAtomPerPrice           = rootView.findViewById(R.id.dash_atom_per_price);
+        mAtomUpDownPrice        = rootView.findViewById(R.id.dash_atom_price_updown_tx);
+        matomUpDownImg          = rootView.findViewById(R.id.ic_price_updown);
+
+
 
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -145,14 +154,16 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
 
 
-
-//        if(getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()))
-//            mTestnet.setVisibility(View.VISIBLE);
-
         mTvAtomTitle.setText(WDp.DpAtom(getContext(), getMainActivity().mAccount.baseChain));
         mTvPhotonTitle.setText(WDp.DpPoton(getContext(), getMainActivity().mAccount.baseChain));
 
         mAddress.setText(getMainActivity().mAccount.address);
+
+        if(getMainActivity().mAccount.hasPrivateKey) {
+            mKeyState.setImageDrawable(getResources().getDrawable(R.drawable.key_on));
+        } else {
+            mKeyState.setImageDrawable(getResources().getDrawable(R.drawable.key_off));
+        }
 
         mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
         mTvAtomUndelegated.setText(WDp.getDpAtomBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
@@ -168,10 +179,24 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 !getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
             mPhotonCard.setVisibility(View.GONE);
             mAtomPrice.setVisibility(View.VISIBLE);
+            mPriceCard.setVisibility(View.VISIBLE);
 
             try {
                 BigDecimal total = new BigDecimal(""+mTvAtomTotal.getText().toString().trim().replace(",","")).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
                 mAtomPrice.setText("$ " +  WDp.getDolor(getContext(), total));
+                mAtomPerPrice.setText("$ " + new BigDecimal(""+getBaseDao().getLastAtomTic()).setScale(2, RoundingMode.DOWN));
+                mAtomUpDownPrice.setText("" + new BigDecimal(""+getBaseDao().getLastAtomUpDown()).setScale(2, RoundingMode.DOWN) + "%");
+                if(getBaseDao().getLastAtomUpDown() > 0) {
+                    matomUpDownImg.setVisibility(View.VISIBLE);
+                    matomUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                } else if (getBaseDao().getLastAtomUpDown() < 0){
+                    matomUpDownImg.setVisibility(View.VISIBLE);
+                    matomUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                } else {
+                    matomUpDownImg.setVisibility(View.GONE);
+                }
+
+
             }catch (Exception e) {
                 mAtomPrice.setText("price not support");
             }
@@ -179,6 +204,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else {
             mPhotonCard.setVisibility(View.VISIBLE);
             mAtomPrice.setVisibility(View.GONE);
+            mPriceCard.setVisibility(View.GONE);
         }
     }
 
@@ -199,47 +225,4 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         }
     }
 }
-/*
-public class MainSendFragment extends BaseFragment {
-
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLinearLayoutManager;
-    private TestAdapter mTestAdapter;
-
-    public static MainSendFragment newInstance(Bundle bundle) {
-        MainSendFragment fragment = new MainSendFragment();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main_send, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
-        mLinearLayoutManager = new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.setHasFixedSize(true);
-        mTestAdapter = new TestAdapter(getBaseActivity());
-        mRecyclerView.setAdapter(mTestAdapter);
-        return rootView;
-    }
-}
-*/
-
 

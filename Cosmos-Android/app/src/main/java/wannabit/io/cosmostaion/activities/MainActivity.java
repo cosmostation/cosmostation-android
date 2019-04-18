@@ -756,6 +756,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     if(response.isSuccessful()) {
                         ResAtomTic mResAtomTic = new Gson().fromJson(response.body(), ResAtomTic.class);
                         getBaseDao().setLastAtomTic(mResAtomTic.getData().getQuotesMap().get("USD").getPrice());
+                        getBaseDao().setLastAtomUpDown(mResAtomTic.getData().getQuotesMap().get("USD").getPercent_change_24h());
                         onFetchCurrentPage();
                     }
                 }catch (Exception e) {}

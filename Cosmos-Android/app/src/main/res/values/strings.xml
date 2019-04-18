@@ -187,7 +187,7 @@
     <string name="str_test_net_deprecated">Testnet deprecated..</string>
     <string name="str_tx_delegated_amount">Delegated Amount</string>
     <string name="str_tx_undelegated_amount">Unbonding Amount</string>
-    <string name="str_my_address">My address</string>
+    <string name="str_my_address">My Address</string>
     <string name="str_my_wallet">Wallet<![CDATA[ ]]></string>
     <string name="str_ready">ready</string>
     <string name="str_imported">imported</string>
@@ -198,6 +198,7 @@
     <string name="str_undelegate">Undelegate</string>
     <string name="str_claim_reward">Claim Reward</string>
     <string name="str_history_validator">History with this validator</string>
+    <string name="str_price">Price</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
