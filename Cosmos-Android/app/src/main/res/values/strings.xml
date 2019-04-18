@@ -26,8 +26,7 @@
 
     <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
-    <string name="str_dp_time_format1" translatable="false">yyyy-MM-dd HH:mm:ss</string>
-    <string name="str_dp_time_format2" translatable="false">yyyy-MM-dd HH:mm</string>
+
 
     <string name="str_decimal_pattern_0" translatable="false">###,###,###,###,###,###,###,##0</string>
     <string name="str_decimal_pattern_1" translatable="false">###,###,###,###,###,###,###,##0.0</string>
@@ -334,7 +333,8 @@
     <string name="tx_known">Known</string>
 
 
-
+    <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>
+    <string name="str_dp_time_format2" >MMM d, yyyy HH:mm</string>
 
 
 

@@ -284,4 +284,7 @@
     <string name="tx_create_validator">검증인 생성</string>
     <string name="tx_edit_validator">검증인 편집</string>
     <string name="tx_known">알수없음</string>
+
+    <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
+    <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>
 </resources>
