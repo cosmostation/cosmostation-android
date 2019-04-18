@@ -563,6 +563,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
                 holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
+                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.time));
 
                 int dpType = WDp.getHistoryDpType(source.tx.value.msg, mAccount.address);
                 switch (dpType) {
@@ -628,7 +629,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
                 holder.history_block.setText(source.height + " block");
-                holder.history_hash.setText(source.hash);
                 holder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -777,7 +777,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         public class HistoryHolder extends RecyclerView.ViewHolder {
             private CardView historyRoot;
-            private TextView historyType, historySuccess, history_time, history_block, history_hash;
+            private TextView historyType, historySuccess, history_time, history_block, history_time_gap;
 
             public HistoryHolder(View v) {
                 super(v);
@@ -786,7 +786,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 historySuccess      = itemView.findViewById(R.id.history_success);
                 history_time        = itemView.findViewById(R.id.history_time);
                 history_block       = itemView.findViewById(R.id.history_block_height);
-                history_hash        = itemView.findViewById(R.id.history_hash);
+                history_time_gap    = itemView.findViewById(R.id.history_time_gap);
             }
         }
 

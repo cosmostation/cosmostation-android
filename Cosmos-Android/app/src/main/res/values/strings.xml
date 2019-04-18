@@ -26,8 +26,8 @@
 
     <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
-    <string name="str_dp_time_format1" translatable="false">yy-MM-dd HH:mm:ss</string>
-    <string name="str_dp_time_format2" translatable="false">yy-MM-dd HH:mm</string>
+    <string name="str_dp_time_format1" translatable="false">yyyy-MM-dd HH:mm:ss</string>
+    <string name="str_dp_time_format2" translatable="false">yyyy-MM-dd HH:mm</string>
 
     <string name="str_decimal_pattern_0" translatable="false">###,###,###,###,###,###,###,##0</string>
     <string name="str_decimal_pattern_1" translatable="false">###,###,###,###,###,###,###,##0.0</string>
@@ -199,6 +199,12 @@
     <string name="str_claim_reward">Claim Reward</string>
     <string name="str_history_validator">History with this validator</string>
     <string name="str_price">Price</string>
+    <string name="str_ago">ago</string>
+    <string name="str_day">day</string>
+    <string name="str_d">d</string>
+    <string name="str_h">h</string>
+    <string name="str_m">m</string>
+    <string name="str_s">s</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

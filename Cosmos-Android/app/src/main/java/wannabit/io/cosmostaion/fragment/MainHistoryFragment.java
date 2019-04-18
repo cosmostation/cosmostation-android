@@ -233,8 +233,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
             viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.time));
+            viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.time));
             viewHolder.history_block.setText(source.height + " block");
-            viewHolder.history_hash.setText(source.hash);
             viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -254,7 +254,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         public class HistoryHolder extends RecyclerView.ViewHolder {
             private CardView historyRoot;
-            private TextView historyType, historySuccess, history_time, history_block, history_hash;
+            private TextView historyType, historySuccess, history_time, history_block, history_time_gap;
 
             public HistoryHolder(View v) {
                 super(v);
@@ -263,7 +263,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 historySuccess      = itemView.findViewById(R.id.history_success);
                 history_time        = itemView.findViewById(R.id.history_time);
                 history_block       = itemView.findViewById(R.id.history_block_height);
-                history_hash        = itemView.findViewById(R.id.history_hash);
+                history_time_gap    = itemView.findViewById(R.id.history_time_gap);
             }
         }
 

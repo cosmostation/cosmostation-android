@@ -151,6 +151,12 @@
     <string name="str_claim_reward">이자 청구 하기</string>
     <string name="str_history_validator">이 검증인과의 거래내역</string>
     <string name="str_price">현재 가격</string>
+    <string name="str_ago">전</string>
+    <string name="str_day">일</string>
+    <string name="str_d">일</string>
+    <string name="str_h">시간</string>
+    <string name="str_m">분</string>
+    <string name="str_s">초</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

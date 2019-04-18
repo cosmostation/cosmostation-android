@@ -75,26 +75,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    style="@style/font_ss_10_white"
+                    style="@style/font_ss_11_white"
                     android:text="2018-12-23"/>
+                <TextView
+                    android:id="@+id/history_time_gap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    style="@style/font_ss_10_gray1"
+                    android:text="(1D 4H ago)"/>
                 <TextView
                     android:id="@+id/history_block_height"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="right"
-                    style="@style/font_ss_9_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:text="13123 block"/>
-                <TextView
-                    android:id="@+id/history_hash"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_2"
-                    android:gravity="right"
-                    android:singleLine="true"
-                    android:ellipsize="middle"
-                    style="@style/font_ss_9_gray1"
-                    android:text="D5AB9B38584FDF9C94A5E8ED24675701E9675A9F9580B20352D5B1BDDC75D454"/>
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
