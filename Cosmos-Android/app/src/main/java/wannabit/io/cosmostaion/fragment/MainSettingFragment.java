@@ -17,6 +17,7 @@ import android.widget.Toast;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
+import wannabit.io.cosmostaion.activities.GuideListActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 
@@ -88,7 +89,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
 
-        mBtnGuide.setVisibility(View.GONE);
+//        mBtnGuide.setVisibility(View.GONE);
         mBtnAlaram.setVisibility(View.GONE);
         return rootView;
     }
@@ -116,6 +117,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             return;
 
         } else if (v.equals(mBtnGuide)) {
+            startActivity(new Intent(getBaseActivity(), GuideListActivity.class));
 
         } else if (v.equals(mBtnTelegram)) {
             Intent telegram = new Intent(Intent.ACTION_VIEW , Uri.parse("https://t.me/cosmostation"));
