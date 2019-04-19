@@ -13,8 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.google.gson.JsonNull;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +23,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_GasType;
-import wannabit.io.cosmostaion.dialog.Dialog_free_fee;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -115,13 +112,6 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain()) &&
-            getSActivity().mFreeEvent.contains(getSActivity().mValidator.operator_address)) {
-            Dialog_free_fee dialog = Dialog_free_fee.newInstance(null);
-            dialog.setCancelable(false);
-            dialog.setTargetFragment(this, SELECT_FREE_DIALOG);
-            dialog.show(getFragmentManager().beginTransaction(), "dialog");
-        }
 
     }
 

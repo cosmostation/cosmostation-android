@@ -82,7 +82,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private int                         mTaskCount;
     private boolean                     mExpended = true;
 
-    public ArrayList<String>            mFreeEvent;
+//    public ArrayList<String>            mFreeEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +98,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
+//        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -399,16 +399,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if(!TextUtils.isEmpty(mValidator.description.details)) holder.itemTvDescription.setText(mValidator.description.details);
                 else holder.itemTvDescription.setVisibility(View.GONE);
 
-                if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                    if(mFreeEvent.contains(mValidator.operator_address)) {
-                        holder.itemImgFree.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.itemImgFree.setVisibility(View.GONE);
-                    }
-                } else {
-                    holder.itemImgFree.setVisibility(View.GONE);
-
-                }
+                holder.itemImgFree.setVisibility(View.GONE);
 
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
@@ -458,16 +449,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if(!TextUtils.isEmpty(mValidator.description.details)) holder.itemTvDescription.setText(mValidator.description.details);
                 else holder.itemTvDescription.setVisibility(View.GONE);
 
-                if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                    if(mFreeEvent.contains(mValidator.operator_address)) {
-                        holder.itemImgFree.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.itemImgFree.setVisibility(View.GONE);
-                    }
-                } else {
-                    holder.itemImgFree.setVisibility(View.GONE);
-
-                }
+                holder.itemImgFree.setVisibility(View.GONE);
 
 
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {

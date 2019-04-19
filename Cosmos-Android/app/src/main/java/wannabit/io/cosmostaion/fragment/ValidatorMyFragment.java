@@ -140,15 +140,7 @@ public class ValidatorMyFragment extends BaseFragment {
                 final Validator validator               = mMyValidators.get(position);
                 holder.itemTvMoniker.setText(validator.description.moniker);
 
-                if(getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                    if(getMainActivity().mFreeEvent.contains(validator.operator_address)) {
-                        holder.itemFree.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.itemFree.setVisibility(View.GONE);
-                    }
-                } else {
-                    holder.itemFree.setVisibility(View.GONE);
-                }
+                holder.itemFree.setVisibility(View.GONE);
 
                 BondingState bonding = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, validator.operator_address);
                 if(bonding != null && bonding.shares != null) {

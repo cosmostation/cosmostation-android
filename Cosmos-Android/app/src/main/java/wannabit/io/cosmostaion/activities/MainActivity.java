@@ -120,7 +120,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
     private RecyclerView                mRecyclerView;
     private AccountAdapter              mAccountAdapter;
 
-    public ArrayList<String>           mFreeEvent;
+//    public ArrayList<String>           mFreeEvent;
 
 
     @Override
@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mDimLayer                   = findViewById(R.id.dim_layer);
 
         //For event
-        mFreeEvent                  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
+//        mFreeEvent                  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 
         mRecyclerView               = findViewById(R.id.account_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

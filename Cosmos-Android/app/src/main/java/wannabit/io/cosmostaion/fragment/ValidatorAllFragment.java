@@ -119,15 +119,7 @@ public class ValidatorAllFragment extends BaseFragment {
             holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
             holder.itemTvCommission.setTextColor(getResources().getColor(WDp.getCommisionColor(validator.commission.rate)));
 
-            if(getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                if(getMainActivity().mFreeEvent.contains(validator.operator_address)) {
-                    holder.itemFree.setVisibility(View.VISIBLE);
-                } else {
-                    holder.itemFree.setVisibility(View.GONE);
-                }
-            } else {
-                holder.itemFree.setVisibility(View.GONE);
-            }
+            holder.itemFree.setVisibility(View.GONE);
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

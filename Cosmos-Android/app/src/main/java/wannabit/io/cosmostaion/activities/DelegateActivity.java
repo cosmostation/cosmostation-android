@@ -43,7 +43,7 @@ public class DelegateActivity extends BaseActivity {
     public String       mToDelegateMemo;
     public Fee          mToDelegateFee;
 
-    public ArrayList<String>            mFreeEvent;
+//    public ArrayList<String>            mFreeEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class DelegateActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
+//        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_delegate_step_1));
@@ -118,7 +118,7 @@ public class DelegateActivity extends BaseActivity {
     public void onBackPressed() {
         onHideKeyboard();
         if(mViewPager.getCurrentItem() == 3) {
-            if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain()) && mFreeEvent.contains(mValidator.operator_address)) {
+            if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                 mViewPager.setCurrentItem(1, true);
             } else {
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
