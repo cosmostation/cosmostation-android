@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -271,10 +272,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
         public class AccountListHolder extends RecyclerView.ViewHolder {
             CardView wallet_card;
+            ImageView  wallet_chain_img;
             TextView wallet_name, wallet_atom_amount, wallet_atom_title, wallet_address;
             public AccountListHolder(@NonNull View itemView) {
                 super(itemView);
                 wallet_card         = itemView.findViewById(R.id.wallet_card);
+                wallet_chain_img    = itemView.findViewById(R.id.account_chain_img);
                 wallet_name         = itemView.findViewById(R.id.wallet_name);
                 wallet_atom_amount  = itemView.findViewById(R.id.wallet_atom_amount);
                 wallet_atom_title   = itemView.findViewById(R.id.wallet_atom_title);
