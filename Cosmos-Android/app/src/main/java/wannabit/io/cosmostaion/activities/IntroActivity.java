@@ -17,8 +17,12 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 
+import java.util.ArrayList;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -50,6 +54,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         mCreate.setOnClickListener(this);
         btnImportMnemonic.setOnClickListener(this);
         btnWatchAddress.setOnClickListener(this);
+
+        onHardCodeHub2();
 
 //        Account account = getBaseDao().onSelectAccounts().get(0);
 //        WLog.w("account : " + account.address + "  " + account.baseChain);
@@ -130,6 +136,14 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             startActivity(new Intent(IntroActivity.this, WatchingAccountAddActivity.class));
         }
 
+    }
+
+    public void onHardCodeHub2() {
+        ArrayList<Account> accounts = getBaseDao().onSelectAccounts();
+        for(Account account:accounts) {
+            account.baseChain = BaseChain.COSMOS_MAIN.getChain();
+            getBaseDao().onUpdateAccount(account);
+        }
     }
 }
 

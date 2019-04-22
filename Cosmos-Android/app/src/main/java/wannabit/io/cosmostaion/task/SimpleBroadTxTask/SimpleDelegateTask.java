@@ -17,6 +17,8 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
+import wannabit.io.cosmostaion.model.StakeStdSignMsgWithType;
+import wannabit.io.cosmostaion.model.StakeStdTx;
 import wannabit.io.cosmostaion.model.StdSignMsgWithType;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -24,8 +26,10 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
+import wannabit.io.cosmostaion.model.type.StakeMsg;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.req.ReqStakeBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -77,12 +81,12 @@ public class SimpleDelegateTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-            Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mToValidatorAddress, mToDelegateAmount, BaseChain.getChain(mAccount.baseChain));
+            StakeMsg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mToValidatorAddress, mToDelegateAmount);
 
-            ArrayList<Msg> msgs= new ArrayList<>();
+            ArrayList<StakeMsg> msgs= new ArrayList<>();
             msgs.add(singleDelegateMsg);
 
-            StdSignMsgWithType tosign = MsgGenerator.genToSignMsgWithType(
+            StakeStdSignMsgWithType tosign = MsgGenerator.genStakeToSignMsgWithType(
                     mAccount.baseChain,
                     ""+mAccount.accountNumber,
                     ""+mAccount.sequenceNumber,
@@ -108,16 +112,16 @@ public class SimpleDelegateTask extends CommonTask {
             ArrayList<Signature> signatures = new ArrayList<>();
             signatures.add(signature);
 
-            StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mToFees, mToDelegateMemo, signatures);
+            StakeStdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mToFees, mToDelegateMemo, signatures);
             signedTx.value.signatures = signatures;
             WLog.w("SimpleDelegateTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
 
-            ReqBroadCast reqBroadCast = new ReqBroadCast();
+            ReqStakeBroadCast reqBroadCast = new ReqStakeBroadCast();
             reqBroadCast.returns = "sync";
             reqBroadCast.tx = signedTx.value;
             WLog.w("ReqBroadCast : " +  WUtil.getPresentor().toJson(reqBroadCast));
 
-            Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
+            Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadStakeTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
                 WLog.w("SimpleDelegateTask success!!");
                 WLog.w("response.body() : " + response.body());

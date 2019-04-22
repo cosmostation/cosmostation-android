@@ -369,6 +369,8 @@ public class BaseData {
             values.put("accountNumber",    account.accountNumber);
         if(account.fetchTime != null)
             values.put("fetchTime",         account.fetchTime);
+        if(account.baseChain != null)
+            values.put("baseChain",         account.baseChain);
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
@@ -455,7 +457,11 @@ public class BaseData {
 //        }
     }
 
-    public void onUpdateBalances(ArrayList<Balance> balances) {
+    public void onUpdateBalances(long accountId,  ArrayList<Balance> balances) {
+        if(balances == null || balances.size() == 0) {
+            onDeleteBalance(""+accountId);
+            return;
+        }
         onDeleteBalance(""+balances.get(0).accountId);
         for(Balance balance : balances) {
             onInsertBalance(balance);

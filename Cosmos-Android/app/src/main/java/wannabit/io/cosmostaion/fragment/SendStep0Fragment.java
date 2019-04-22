@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -52,6 +53,13 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mBtnQr = rootView.findViewById(R.id.btn_qr);
         mBtnPaste = rootView.findViewById(R.id.btn_paste);
         mBtnHistory = rootView.findViewById(R.id.btn_history);
+
+        if(BaseConstant.IS_TEST) {
+            mTest.setVisibility(View.VISIBLE);
+        } else {
+            mTest.setVisibility(View.GONE);
+
+        }
 
 
         mCancel.setOnClickListener(this);
@@ -91,6 +99,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mBtnQr)) {
             WLog.w("mBtnQr");
+            Toast.makeText(getSActivity(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -109,6 +118,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mBtnHistory)) {
             WLog.w("mBtnHistory");
+            Toast.makeText(getSActivity(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
 
         }
     }

@@ -80,15 +80,6 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
         if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-//            if(getSActivity().mToDelegateFee.amount == null) {
-//                mFeeType.setVisibility(View.GONE);
-//                mFeeAmount.setText("FREE");
-//                mFeeAmount.setTextColor(getResources().getColor(R.color.colorRed));
-//            } else {
-//                mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-//                mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-//                mFeeAmount.setText(new BigDecimal(getSActivity().mToDelegateFee.amount.get(6).amount).toPlainString());
-//            }
             if(getSActivity().mToDelegateFee.amount.get(0).amount.equals("0")) {
                 mFeeType.setVisibility(View.GONE);
                 mFeeAmount.setText("FREE");

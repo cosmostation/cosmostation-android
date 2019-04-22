@@ -19,14 +19,19 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
+import wannabit.io.cosmostaion.model.StakeStdSignMsgWithType;
+import wannabit.io.cosmostaion.model.StakeStdTx;
 import wannabit.io.cosmostaion.model.StdSignMsgWithType;
 import wannabit.io.cosmostaion.model.StdTx;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
+import wannabit.io.cosmostaion.model.type.StakeMsg;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.req.ReqStakeBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -39,12 +44,12 @@ public class SimpleUndelegateTask extends CommonTask {
 
     private Account     mAccount;
     private String      mFromValidatorAddress;
-    private String      mUndelegateAmount;
+    private Coin mUndelegateAmount;
     private String      mUnDelegateMemo;
     private Fee         mUnFees;
 
     public SimpleUndelegateTask(BaseApplication app, TaskListener listener, Account account,
-                                String fromValidatorAddress, String undelegateAmount,
+                                String fromValidatorAddress, Coin undelegateAmount,
                                 String unDelegateMemo, Fee unFees) {
         super(app, listener);
         this.mAccount = account;
@@ -78,13 +83,13 @@ public class SimpleUndelegateTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
 //            WLog.w("amount : " + new BigDecimal(mUndelegateAmount).setScale(18).toPlainString());
-            Msg singleUnbondMsg = MsgGenerator.genUnbondMsg(mAccount.address, mFromValidatorAddress, new BigDecimal(mUndelegateAmount).setScale(18).toPlainString(), BaseChain.getChain(mAccount.baseChain));
+            StakeMsg singleUnbondMsg = MsgGenerator.genUnbondMsg(mAccount.address, mFromValidatorAddress, mUndelegateAmount);
 
 
-            ArrayList<Msg> msgs= new ArrayList<>();
+            ArrayList<StakeMsg> msgs= new ArrayList<>();
             msgs.add(singleUnbondMsg);
 
-            StdSignMsgWithType tosign = MsgGenerator.genToSignMsgWithType(
+            StakeStdSignMsgWithType tosign = MsgGenerator.genStakeToSignMsgWithType(
                     mAccount.baseChain,
                     ""+mAccount.accountNumber,
                     ""+mAccount.sequenceNumber,
@@ -110,17 +115,17 @@ public class SimpleUndelegateTask extends CommonTask {
             ArrayList<Signature> signatures = new ArrayList<>();
             signatures.add(signature);
 
-            StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mUnFees, mUnDelegateMemo, signatures);
+            StakeStdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mUnFees, mUnDelegateMemo, signatures);
             signedTx.value.signatures = signatures;
             WLog.w("SimpleUndelegateTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
 
-            ReqBroadCast reqBroadCast = new ReqBroadCast();
+            ReqStakeBroadCast reqBroadCast = new ReqStakeBroadCast();
             reqBroadCast.returns = "sync";
             reqBroadCast.tx = signedTx.value;
             WLog.w("ReqBroadCast : " +  WUtil.getPresentor().toJson(reqBroadCast));
 
 
-            Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
+            Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadStakeTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
                 WLog.w("SimpleUndelegateTask success!!");
                 WLog.w("response.body() : " + response.body());

@@ -202,10 +202,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 //                    (balance.balance.compareTo(new BigDecimal("1")) > 0)){
 //                hasAtom  = true;
 //            }
-
-            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
-                hasAtom  = true;
+            if(BaseConstant.IS_TEST) {
+                if(balance.symbol.equals("muon") && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                    hasAtom  = true;
+                }
+            } else {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                    hasAtom  = true;
+                }
             }
+
         }
         if(!hasAtom) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();

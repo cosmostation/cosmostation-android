@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.TotalReward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.HistoryMsg;
 import wannabit.io.cosmostaion.model.type.Msg;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
@@ -356,12 +357,12 @@ public class WDp {
 
 
 
-    public static int getHistoryDpType(ArrayList<Msg> msgs, String address) {
+    public static int getHistoryDpType(ArrayList<HistoryMsg> msgs, String address) {
         int result = BaseConstant.TX_TYPE_UNKNOWN;
         if(msgs == null || msgs.size() <= 0)
             return result;
 
-        Msg msg = msgs.get(0);
+        HistoryMsg msg = msgs.get(0);
         if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) || msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2)) {
             if (msg.value.from_address != null && msg.value.from_address.equals(address)) {
                 result = BaseConstant.TX_TYPE_SEND;

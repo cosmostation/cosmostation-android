@@ -262,6 +262,7 @@
     <string name="error_beta_test">아직 전송이 활성화 되지 않았습니다.</string>
     <string name="error_real_testing">이 기능은 테스트 중입니다.</string>
     <string name="error_invalid_amounts">불가능한 수량</string>
+    <string name="error_prepare">준비중...</string>
 
 
     <string name="s_atom">ATOM</string>

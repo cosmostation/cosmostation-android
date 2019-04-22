@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 style="@style/font_ss_14_photon"
-                android:text="PHOTON"/>
+                android:text="ATOM"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

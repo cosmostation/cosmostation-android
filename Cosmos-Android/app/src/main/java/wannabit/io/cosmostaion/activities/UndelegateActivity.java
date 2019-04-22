@@ -42,7 +42,8 @@ public class UndelegateActivity extends BaseActivity {
     public Account                      mAccount;
     public Validator                    mValidator;
     public BondingState                 mBondingState;
-    public String                       mUnDelegateAmount;
+//    public String                       mUnDelegateAmount;
+    public Coin                         mUnDelegateAmount;
     public String                       mUnDelegateMemo;
     public Fee                          mUnDelegateFee;
 

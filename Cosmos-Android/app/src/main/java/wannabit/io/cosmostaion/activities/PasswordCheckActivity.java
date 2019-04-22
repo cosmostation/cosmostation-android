@@ -61,7 +61,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                   mTargetMemo;
     private Fee                      mTargetFee;
     private Coin                     mDAmount;
-    private String                   mUAmount;
+//    private String                   mUAmount;
+    private Coin                    mUAmount;
 
     private long                     mIdToDelete;
     private long                     mIdToCheck;
@@ -94,7 +95,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mTargetMemo = getIntent().getStringExtra("memo");
         mTargetFee = getIntent().getParcelableExtra("fee");
         mDAmount = getIntent().getParcelableExtra("dAmount");
-        mUAmount = getIntent().getStringExtra("uAmount");
+//        mUAmount = getIntent().getStringExtra("uAmount");
+        mUAmount = getIntent().getParcelableExtra("uAmount");
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
@@ -106,7 +108,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             WLog.w("mUAmount " + mUAmount);
 
         if(mTargetCoins != null)
-            WLog.w("amlout " + mTargetCoins.get(0).denom + "  " + mTargetCoins.get(0).amount);
+            WLog.w("amount " + mTargetCoins.get(0).denom + "  " + mTargetCoins.get(0).amount);
 
 //        if(mTargetFee != null) {
 //            if(mTargetFee.amount == null || mTargetFee.amount.size() == 0) {
@@ -290,20 +292,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD) {
             WLog.w("onTaskResponse GENTX ");
-//            if(result.isSuccess) {
-//                String hash = String.valueOf(result.resultData);
-//                if(!TextUtils.isEmpty(hash)) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("hash", hash);
-//                    Dialog_Tx_Result  dialog = Dialog_Tx_Result.newInstance(bundle);
-//                    dialog.setCancelable(false);
-//                    dialog.show(getSupportFragmentManager(), "dialog");
-//                } else {
-//                    onStartMainActivity();
-//                }
-//            } else {
-//                onStartMainActivity();
-//            }
             if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;
@@ -318,9 +306,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 txIntent.putExtra("txHash", hash);
             txIntent.putExtra("errorCode", result.errorCode);
 
-//            if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_TIMEOUT) {
-//                txIntent.putExtra("timeout", true);
-//            }
             startActivity(txIntent);
 
         } else if (result.taskType == BaseConstant.TASK_DELETE_USER) {

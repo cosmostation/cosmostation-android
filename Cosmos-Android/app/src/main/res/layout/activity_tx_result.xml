@@ -267,7 +267,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
                                     android:layout_marginLeft="@dimen/space_24"
-                                    android:text="@string/str_atom_c"
+                                    android:text="@string/s_atom"
                                     style="@style/font_ss_11_atom"/>
                                 <TextView
                                     android:id="@+id/send_atom"
@@ -483,7 +483,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
                                     android:layout_marginLeft="@dimen/space_24"
-                                    android:text="@string/str_atom_c"
+                                    android:text="@string/s_atom"
                                     style="@style/font_ss_11_atom"/>
                                 <TextView
                                     android:id="@+id/fee_atom"

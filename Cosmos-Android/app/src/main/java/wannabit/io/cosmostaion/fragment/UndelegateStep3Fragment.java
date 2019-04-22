@@ -72,21 +72,13 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toUnDeleagteAtom = new BigDecimal(getSActivity().mUnDelegateAmount);
+        BigDecimal toUnDeleagteAtom = new BigDecimal(getSActivity().mUnDelegateAmount.amount);
         WLog.w("toUnDeleagteAtom : " + toUnDeleagteAtom.toPlainString());
 
         if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             mTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
             mTotalDeleagteAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-//            if(getSActivity().mUnDelegateFee.amount == null) {
-//                mFeeType.setVisibility(View.GONE);
-//                mFeeAmount.setText("FREE");
-//                mFeeAmount.setTextColor(getResources().getColor(R.color.colorRed));
-//            } else {
-//                mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-//                mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-//                mFeeAmount.setText(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(6).amount).toPlainString());
-//            }
+
             if(getSActivity().mUnDelegateFee.amount.get(0).amount.equals("0")) {
                 mFeeType.setVisibility(View.GONE);
                 mFeeAmount.setText("FREE");
@@ -136,32 +128,6 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         mValidatorName.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mUnDelegateMemo);
         mUnDelegateAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-
-//        BigDecimal toUnDeleagteAtom = new BigDecimal(getSActivity().mUnDelegateAmount);
-//        BigDecimal remindAtom = getSActivity().mAccount.getAtomBalance().subtract(toUnDeleagteAtom);
-//        BigDecimal remindPhoton = BigDecimal.ZERO;
-//
-//        mUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-//        mTotalDeleagteAmount.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-//
-//        if(getSActivity().mUnDelegateFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
-//            mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-//            mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-//            remindAtom.subtract(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount));
-//        } else {
-//            mFeeType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
-//            mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
-//            remindPhoton.subtract(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount));
-//        }
-//        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-//        mValidatorName.setText(getSActivity().mValidator.description.moniker);
-//        mMemo.setText(getSActivity().mUnDelegateMemo);
-//        mTime.setText(WDp.getUnbondTime(getContext()));
-//        mRemindAtom.setText(WDp.getDpAmount(getContext(), getSActivity().mBondingState.shares.subtract(toUnDeleagteAtom), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-//
-//
-//        mUnDelegateAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-//        mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
 
     }
 

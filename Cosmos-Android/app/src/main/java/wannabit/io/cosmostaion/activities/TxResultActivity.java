@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBlockInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResStakeTxInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -51,6 +52,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private String                      mTxHash;
 
     private ResTxInfo                   mResTxInfo;
+    private ResStakeTxInfo              mResStakeTxInfo;
     private ResBlockInfo                mResBlockInfo;
 
 //    public ArrayList<Balance>           mBalances = new ArrayList<>();
@@ -163,18 +165,25 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         WLog.w("mTxType : " + mTxType);
         WLog.w("mIsSuccess : " + mIsSuccess);
         WLog.w("mErrorCode : " + mErrorCode);
-        if(!TextUtils.isEmpty(mTxHash))
-            WLog.w("mTxHash : " + mTxHash);
-
-//        mTxHash = "BC3AA65165833693BB6177DFA835260E7B73A6554EFD471C6892CF904A278E12";
-
-        if(!TextUtils.isEmpty(mTxHash)) {
-            WLog.w("mTxHash : " + mTxHash);
-            onFetchTx(mTxHash);
-
+//        if(!TextUtils.isEmpty(mTxHash))
+//            WLog.w("mTxHash : " + mTxHash);
+//
+////        mTxHash = "BC3AA65165833693BB6177DFA835260E7B73A6554EFD471C6892CF904A278E12";
+//
+//        if(!TextUtils.isEmpty(mTxHash)) {
+//            WLog.w("mTxHash : " + mTxHash);
+//            onFetchTx(mTxHash);
+//
+//        } else {
+//            // TODO no hash
+//        }
+        if(mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
+                mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE) {
+            onStakeFetchTx(mTxHash);
         } else {
-            // TODO no hash
+            onFetchTx(mTxHash);
         }
+
 
         if(mIsSuccess) {
             mToolbarTitle.setText(getString(R.string.str_tx_success));
@@ -182,48 +191,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mToolbarTitle.setText(getString(R.string.str_tx_failed));
         }
 
-
-//        mBalances   = getBaseDao().onSelectBalance(mAccount.id);
-//        mResBroadTx = getBaseDao().getTxResult();
-//        mTxType     = getIntent().getIntExtra("txType", BaseConstant.TASK_GEN_TX_SIMPLE_SEND);
-//        mTimeout    = getIntent().getBooleanExtra("timeout", false);
-//
-//        if(mTimeout) {
-//            mRootCard.setVisibility(View.GONE);
-//            mTimeoutCard.setVisibility(View.INVISIBLE);
-//            mBtnScan.setClickable(false);
-//            mBtnShare.setClickable(false);
-//            return;
-//        }
-//
-//        if(mResBroadTx == null) {
-//            WLog.w("mResBroadTx NULL");
-//            onStartMainActivity();
-//            return;
-//        }
-//
-//        if(mResBroadTx.isAllSuccess()) {
-//            mToolbarTitle.setText(getString(R.string.str_tx_success));
-//            mTxError.setVisibility(View.GONE);
-//        } else {
-//            mToolbarTitle.setText(getString(R.string.str_tx_failed));
-//            mTxError.setText(getString(R.string.str_tx_block_error) + " : " + mResBroadTx.getErrorReason());
-//            mTxError.setVisibility(View.VISIBLE);
-//        }
-//
-//        mSendAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-//        mSendPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
-//        mRemindAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-//        mRemindPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
-//        mFeeAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-//        mFeePhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
-//
         mDelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
         mUndelegateAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-//
-//        onFetchTx();
-//        onFetchBlock(mResBroadTx.height);
-//        onFetchSingleAccount();
 
     }
 
@@ -260,34 +229,11 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void onUpdateTx() {
-        WLog.w("onUpdateTx : " + mResTxInfo.tx.value.msg.get(0).type);
+        WLog.w("onUpdateTx : ");
 //        if(mResTxInfo == null) {
 //            return;
 //        }
-        mTvTxHash.setText(mResTxInfo.txhash);
-        mMemo.setText(mResTxInfo.tx.value.memo);
-
-        if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mFeeFree.setVisibility(View.VISIBLE);
-
-        } else {
-            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
-                    mFeeAtomLayer.setVisibility(View.VISIBLE);
-                    mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
-                }
-                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)|| coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
-                    mFeePhotonLayer.setVisibility(View.VISIBLE);
-                    mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
-                }
-            }
-        }
-
-
-
-
-        if(mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) ||
-                mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2)) {
+        if(mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_SEND) {
             mSendLayer.setVisibility(View.VISIBLE);
             mTvtxType.setText(R.string.tx_send);
 
@@ -306,23 +252,80 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
             }
 
-        } else if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE)){
+            mTvTxHash.setText(mResTxInfo.txhash);
+            mMemo.setText(mResTxInfo.tx.value.memo);
+
+            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
+                    mFeeAtomLayer.setVisibility(View.VISIBLE);
+                    mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)|| coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
+                    mFeePhotonLayer.setVisibility(View.VISIBLE);
+                    mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+            }
+
+
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE){
             mDelegateLayer.setVisibility(View.VISIBLE);
             mTvtxType.setText(R.string.tx_delegate);
-            mDelegateTo.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
-            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.value.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            mDelegateTo.setText(mResStakeTxInfo.tx.value.msg.get(0).value.validator_address);
+            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.amount.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+//            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.value.amount), 6, BaseChain.getChain(mAccount.baseChain)));
 
-        } else if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL)){
+            mTvTxHash.setText(mResStakeTxInfo.txhash);
+            mMemo.setText(mResStakeTxInfo.tx.value.memo);
+
+            for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
+                    mFeeAtomLayer.setVisibility(View.VISIBLE);
+                    mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)|| coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
+                    mFeePhotonLayer.setVisibility(View.VISIBLE);
+                    mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+            }
+
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD){
             mRewardLayer.setVisibility(View.VISIBLE);
             mTvtxType.setText(R.string.tx_get_reward);
             mRewardFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
 
-        } else if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE) ||
-                mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2)){
+            mTvTxHash.setText(mResTxInfo.txhash);
+            mMemo.setText(mResTxInfo.tx.value.memo);
+
+            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
+                    mFeeAtomLayer.setVisibility(View.VISIBLE);
+                    mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)|| coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
+                    mFeePhotonLayer.setVisibility(View.VISIBLE);
+                    mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+            }
+
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE){
             mUndelegateLayer.setVisibility(View.VISIBLE);
             mTvtxType.setText(R.string.tx_undelegate);
-            mUndelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
-            mUndelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.shares_amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            mUndelegateFrom.setText(mResStakeTxInfo.tx.value.msg.get(0).value.validator_address);
+            mUndelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.amount.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+
+            mTvTxHash.setText(mResStakeTxInfo.txhash);
+            mMemo.setText(mResStakeTxInfo.tx.value.memo);
+
+            for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
+                    mFeeAtomLayer.setVisibility(View.VISIBLE);
+                    mFeeAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+                if(coin.denom.equals(BaseConstant.COSMOS_PHOTON)|| coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
+                    mFeePhotonLayer.setVisibility(View.VISIBLE);
+                    mFeePhoton.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+            }
 
         }
 
@@ -390,6 +393,66 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
+    private void onStakeFetchTx(String hash) {
+        ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mAccount.baseChain)).getStakeSearchTx(hash).enqueue(new Callback<ResStakeTxInfo>() {
+            @Override
+            public void onResponse(Call<ResStakeTxInfo> call, Response<ResStakeTxInfo> response) {
+                if(isFinishing()) return;
+                WLog.w("onStakeFetchTx " + response.toString());
+                if(response.isSuccessful()) {
+                    if(response.body() == null) {
+                        if(mIsSuccess && FetchCnt < 5) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FetchCnt++;
+                                    onStakeFetchTx(mTxHash);
+                                }
+                            }, 2500);
+                        } else {
+                            //TODO finish
+                            WLog.w("Looop");
+                        }
+                        return;
+                    }
+                    WLog.w("getSearchTx : " + response.body().height);
+                    mResStakeTxInfo = response.body();
+                    onFetchBlock(mResStakeTxInfo.height);
+                    onUpdateTx();
+
+                } else {
+                    if(mIsSuccess && FetchCnt < 5) {
+                        WLog.w("retry : " + FetchCnt + " " + mIsSuccess);
+                        if(mIsSuccess && FetchCnt < 5) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FetchCnt++;
+                                    onStakeFetchTx(mTxHash);
+                                }
+                            }, 8000);
+                        } else {
+                            //TODO finish
+                            WLog.w("Looop");
+                        }
+                        return;
+                    } else {
+                        WLog.w("retry : " + FetchCnt + " " + mIsSuccess);
+                        onBackPressed();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResStakeTxInfo> call, Throwable t) {
+                WLog.w("onFailure " + t.getMessage());
+                t.printStackTrace();
+                if(isFinishing()) return;
+            }
+        });
+    }
+
     private void onFetchBlock(String height) {
         ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mAccount.baseChain)).getSearchBlock(height).enqueue(new Callback<ResBlockInfo>() {
             @Override
@@ -415,7 +478,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
                 if(response != null) {
                     getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                    getBaseDao().onUpdateBalances(WUtil.getBalancesFromLcd(mAccount.id, response.body()));
+                    getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
                     onUpdateBalances();
                 }
             }
@@ -431,17 +494,39 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             onBackPressed();
 
         } else if (v.equals(mBtnScan)) {
-            Intent webintent = new Intent(this, WebActivity.class);
-            webintent.putExtra("txid", mResTxInfo.txhash);
-            webintent.putExtra("goMain", true);
-            startActivity(webintent);
+            if(mResStakeTxInfo == null || mResTxInfo == null) {
+                return;
+            }
+
+            if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE || mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE){
+                Intent webintent = new Intent(this, WebActivity.class);
+                webintent.putExtra("txid", mResStakeTxInfo.txhash);
+                webintent.putExtra("goMain", true);
+                startActivity(webintent);
+            } else {
+                Intent webintent = new Intent(this, WebActivity.class);
+                webintent.putExtra("txid", mResTxInfo.txhash);
+                webintent.putExtra("goMain", true);
+                startActivity(webintent);
+            }
 
         } else if (v.equals(mBtnShare)) {
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
-            shareIntent.setType("text/plain");
-            startActivity(Intent.createChooser(shareIntent, "send"));
+            if(mResStakeTxInfo == null || mResTxInfo == null) {
+                return;
+            }
+            if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE || mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE){
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResStakeTxInfo.txhash);
+                shareIntent.setType("text/plain");
+                startActivity(Intent.createChooser(shareIntent, "send"));
+            } else {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
+                shareIntent.setType("text/plain");
+                startActivity(Intent.createChooser(shareIntent, "send"));
+            }
         }
     }
 

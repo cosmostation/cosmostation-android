@@ -249,7 +249,13 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 BigDecimal atomTemp = new BigDecimal(mAtomInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mAccount.getAtomBalance().movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin atom = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).toPlainString());
+                Coin atom;
+                if(BaseConstant.IS_TEST) {
+                    atom = new Coin(BaseConstant.COSMOS_MUON, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                } else {
+                    atom = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                }
+
                 mToSendCoins.add(atom);
                 return true;
             } catch (Exception e) {
@@ -302,6 +308,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if(isValidateSendAmount()) {
                 getSActivity().mTargetCoins = mToSendCoins;
                 getSActivity().onNextStep();
+
+                WLog.w(" alal " + getSActivity().mTargetCoins.get(0).denom + "   " + getSActivity().mTargetCoins.get(0).amount);
+
 
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();

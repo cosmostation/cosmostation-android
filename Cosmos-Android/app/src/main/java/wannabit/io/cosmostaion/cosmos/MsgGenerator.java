@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
+import wannabit.io.cosmostaion.model.StakeStdSignMsgWithType;
+import wannabit.io.cosmostaion.model.StakeStdTx;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdSignMsgWithType;
 import wannabit.io.cosmostaion.model.StdTx;
@@ -19,6 +21,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Signature;
+import wannabit.io.cosmostaion.model.type.StakeMsg;
 
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
@@ -53,20 +56,34 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
+//    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout, BaseChain chain) {
+//        Msg result  = new Msg();
+//        Msg.Value value = new Msg.Value();
+//
+//        if(chain.equals(BaseChain.GAIA_12K)) {
+//            value.delegator_addr = fromAddr;
+//            value.validator_addr = toValAddr;
+//
+//        } else {
+//            value.delegator_address = fromAddr;
+//            value.validator_address = toValAddr;
+//
+//        }
+//        value.value = toDeleagteAmout;
+//
+//        result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
+//        result.value = value;
+//
+//        return result;
+//    }
 
-        if(chain.equals(BaseChain.GAIA_12K)) {
-            value.delegator_addr = fromAddr;
-            value.validator_addr = toValAddr;
+    public static StakeMsg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout) {
+        StakeMsg result  = new StakeMsg();
+        StakeMsg.Value value = new StakeMsg.Value();
 
-        } else {
-            value.delegator_address = fromAddr;
-            value.validator_address = toValAddr;
-
-        }
-        value.value = toDeleagteAmout;
+        value.delegator_address = fromAddr;
+        value.validator_address = toValAddr;
+        value.amount = toDeleagteAmout;
 
         result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
         result.value = value;
@@ -74,22 +91,38 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genUnbondMsg(String requestAddr, String fromValAddr, String amount, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
 
-        if(chain.equals(BaseChain.GAIA_12K)) {
-            value.delegator_addr = requestAddr;
-            value.validator_addr = fromValAddr;
-            result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE;
-        } else {
-            value.delegator_address = requestAddr;
-            value.validator_address = fromValAddr;
-            result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
-        }
-        value.shares_amount = amount;
+//    public static Msg genUnbondMsg(String requestAddr, String fromValAddr, String amount, BaseChain chain) {
+//        Msg result  = new Msg();
+//        Msg.Value value = new Msg.Value();
+//
+//        if(chain.equals(BaseChain.GAIA_12K)) {
+//            value.delegator_addr = requestAddr;
+//            value.validator_addr = fromValAddr;
+//            result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE;
+//        } else {
+//            value.delegator_address = requestAddr;
+//            value.validator_address = fromValAddr;
+//            result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
+//        }
+//        value.shares_amount = amount;
+//
+//
+//        result.value = value;
+//
+//        return result;
+//    }
+
+    public static StakeMsg genUnbondMsg(String requestAddr, String fromValAddr, Coin amount) {
+        StakeMsg result  = new StakeMsg();
+        StakeMsg.Value value = new StakeMsg.Value();
+
+        value.delegator_address = requestAddr;
+        value.validator_address = fromValAddr;
+        value.amount = amount;
 
 
+        result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
         result.value = value;
 
         return result;
@@ -146,6 +179,20 @@ public class MsgGenerator {
         return result;
     }
 
+    public static StakeStdTx genStakeSignedTransferTx(ArrayList<StakeMsg> msgs, Fee fee, String memo, ArrayList<Signature> signatures) {
+        StakeStdTx result = new StakeStdTx();
+        StakeStdTx.Value value = new StakeStdTx.Value();
+
+        value.msg = msgs;
+        value.fee = fee;
+        value.signatures = signatures;
+        value.memo = memo;
+
+        result.type = BaseConstant.COSMOS_AUTH_TYPE_STDTX;
+        result.value = value;
+        return result;
+    }
+
 
     public static StdSignMsg genToSignMsg(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg.Value> msgs, Fee fee, String memo) {
         StdSignMsg result = new StdSignMsg();
@@ -160,6 +207,18 @@ public class MsgGenerator {
 
     public static StdSignMsgWithType genToSignMsgWithType(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
         StdSignMsgWithType result = new StdSignMsgWithType();
+        result.chain_id = chainId;
+        result.account_number = accountNumber;
+        result.sequence = SequenceNumber;
+        result.msgs = msgs;
+        result.fee = fee;
+        result.memo = memo;
+
+        return result;
+    }
+
+    public static StakeStdSignMsgWithType genStakeToSignMsgWithType(String chainId, String accountNumber, String SequenceNumber, ArrayList<StakeMsg> msgs, Fee fee, String memo) {
+        StakeStdSignMsgWithType result = new StakeStdSignMsgWithType();
         result.chain_id = chainId;
         result.account_number = accountNumber;
         result.sequence = SequenceNumber;

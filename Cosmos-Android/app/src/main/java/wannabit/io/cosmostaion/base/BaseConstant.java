@@ -3,7 +3,8 @@ package wannabit.io.cosmostaion.base;
 import java.util.ArrayList;
 
 public class BaseConstant {
-    public final static boolean                 IS_SHOWLOG 					            = true;
+    public final static boolean                 IS_SHOWLOG 					            = false;
+    public final static boolean                 IS_TEST 					            = false;
     public final static String                  LOG_TAG                                 = "Cosmostation";
 
     public final static String					DB_NAME			                        = "WannaBit";

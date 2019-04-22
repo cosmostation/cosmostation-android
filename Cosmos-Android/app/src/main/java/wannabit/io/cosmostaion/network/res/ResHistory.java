@@ -4,8 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import wannabit.io.cosmostaion.model.StdTx;
-import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.model.HistoryStdTx;
 import wannabit.io.cosmostaion.model.type.Result;
 
 public class ResHistory {
@@ -36,8 +35,11 @@ public class ResHistory {
         @SerializedName("time")
         public String time;
 
+//        @SerializedName("tx")
+//        public StdTx tx;
+
         @SerializedName("tx")
-        public StdTx tx;
+        public HistoryStdTx tx;
 
         @SerializedName("result")
         public Result result;

@@ -5,7 +5,8 @@ public enum BaseChain {
     GAME_OF_STAKE("game_of_stake_3"),
     GAIA_12K("gaia-12001"),
     GAIA_13K("gaia-13001"),
-    COSMOS_MAIN("cosmoshub-1"),
+    COSMOS_MAIN("cosmoshub-2"),
+//    COSMOS_MAIN("gaia-13003"),
     IRIS_MAIN("irishub");
 
     private final String chainName;

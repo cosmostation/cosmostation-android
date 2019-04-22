@@ -85,7 +85,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         BigDecimal remindPhoton = BigDecimal.ZERO;
 
         for(Coin coin:getSActivity().mTargetCoins) {
-            if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+            if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
                 mSendAtomLayer.setVisibility(View.VISIBLE);
                 toSendAtom = new BigDecimal(coin.amount);
                 mSendAtomAmount.setText(WDp.getDpAmount(getContext(), toSendAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
@@ -100,7 +100,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         remindAtom   = getSActivity().mAccount.getAtomBalance().subtract(toSendAtom);
         remindPhoton = getSActivity().mAccount.getPhotonBalance().subtract(toSendPhoton);
 
-        if(getSActivity().mTargetFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM)) {
+        if(getSActivity().mTargetFee.amount.get(0).denom.equals(BaseConstant.COSMOS_ATOM) ||
+                getSActivity().mTargetFee.amount.get(0).denom.equals(BaseConstant.COSMOS_MUON)) {
             mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
             mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
             remindAtom.subtract(new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount));

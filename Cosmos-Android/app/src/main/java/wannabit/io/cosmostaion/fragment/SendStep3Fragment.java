@@ -115,8 +115,12 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-//            getSActivity().mTargetFee = mGas;
-            //TODO check gas amount
+            Coin gas = mGas;
+            gas.amount = new BigDecimal(gas.amount).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
+            if(BaseConstant.IS_TEST) {
+                gas.denom = "muon";
+            }
+
             Fee fee = new Fee();
             ArrayList<Coin> amount = new ArrayList<>();
             amount.add(mGas);

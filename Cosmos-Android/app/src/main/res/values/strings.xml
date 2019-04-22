@@ -7,13 +7,13 @@
 
 
     <!--No Free fee lcd-->
-    <!--<string name="url_lcd_main" translatable="false">https://lcd.cosmostation.io/</string>-->
+    <string name="url_lcd_main" translatable="false">https://lcd-dev.cosmostation.io/</string>
 
     <!--Free fee lcd-->
     <!--<string name="url_lcd_main" translatable="false">https://lcd-dev.cosmostation.io/</string>-->
 
     <!--inner test net-->
-    <string name="url_lcd_main" translatable="false">https://lcd-gaia.cosmostation.io/</string>
+    <!--<string name="url_lcd_main" translatable="false">https://lcd-gaia.cosmostation.io/</string>-->
 
 
     <string name="url_cosmostation" translatable="false">https://api-dev.cosmostation.io/</string>
@@ -309,7 +309,7 @@
     <string name="error_beta_test">Token transfer is locked for three weeks following mainnet launch.</string>
     <string name="error_real_testing">Open soon after real testing.</string>
     <string name="error_invalid_amounts">Invalid Amount</string>
-
+    <string name="error_prepare">Preparing...</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

@@ -126,7 +126,9 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
             if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                 Coin gas = mGas;
                 gas.amount = new BigDecimal(gas.amount).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
-
+                if(BaseConstant.IS_TEST) {
+                    gas.denom = "muon";
+                }
                 Fee fee = new Fee();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gas);

@@ -17,9 +17,11 @@ public class ResBroadTx {
     @SerializedName("txhash")
     public String txhash;
 
-
     @SerializedName("code")
     public Integer code;
+
+    @SerializedName("raw_log")
+    public String raw_log;
 
 
     /*

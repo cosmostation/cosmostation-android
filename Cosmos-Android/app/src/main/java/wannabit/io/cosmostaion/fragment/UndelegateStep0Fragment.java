@@ -178,7 +178,14 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.shares.movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                getSActivity().mUnDelegateAmount = atomTemp.multiply(new BigDecimal("1000000")).toPlainString();
+//                getSActivity().mUnDelegateAmount = atomTemp.multiply(new BigDecimal("1000000")).toPlainString();
+                Coin atom;
+                if(BaseConstant.IS_TEST) {
+                    atom = new Coin("muon", atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                } else {
+                    atom = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                }
+                getSActivity().mUnDelegateAmount = atom;
                 return true;
             } catch (Exception e) {
                 return false;
@@ -188,7 +195,8 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 BigDecimal muonTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(muonTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(muonTemp.compareTo(getSActivity().mBondingState.shares) > 0) return false;
-                getSActivity().mUnDelegateAmount = muonTemp.toPlainString();
+                Coin atom = new Coin(BaseConstant.COSMOS_MUON, muonTemp.toPlainString());
+                getSActivity().mUnDelegateAmount = atom;
                 return true;
             } catch (Exception e) {
                 return false;
