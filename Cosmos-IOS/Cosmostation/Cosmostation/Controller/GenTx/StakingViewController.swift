@@ -23,20 +23,30 @@ class StakingViewController: UIViewController {
         super.viewDidLoad()
 //         print("StakingViewController")
         
-        stepImg.image = UIImage.init(named: "4StepImg1")
+        
         if (mType == COSMOS_MSG_TYPE_DELEGATE) {
             stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text = "Delegate to " + String((mTargetValidator?.description.moniker)!)
             
         } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             stepDescription.text = NSLocalizedString("undelegate_step_1", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text = "Undelegate from " + String((mTargetValidator?.description.moniker)!)
             
         } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             stepDescription.text = NSLocalizedString("withdraw_single_step_1", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text = "Get reward from " + String((mTargetValidator?.description.moniker)!)
             
+        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
+            stepDescription.text = NSLocalizedString("send_step_1", comment: "")
+            stepImg.image = UIImage.init(named: "step1Img")
+            self.titleLabel.text = "Send Coin"
         }
+        
+        
+        
         self.titleLabel.adjustsFontSizeToFitWidth = true
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
@@ -74,33 +84,58 @@ class StakingViewController: UIViewController {
     @objc func stepChanged(_ notification: NSNotification) {
         if let step = notification.userInfo?["step"] as? Int {
             if (step == 0) {
-                stepImg.image = UIImage.init(named: "4StepImg1")
-                if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+                if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
+                    stepImg.image = UIImage.init(named: "step1Img")
+                    stepDescription.text = NSLocalizedString("send_step_1", comment: "")
+                } else if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
                 } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("undelegate_step_1", comment: "")
                 } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                    stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("withdraw_single_step_1", comment: "")
                 }
                 
                 
             } else if (step == 1) {
-                stepImg.image = UIImage.init(named: "4StepImg2")
-                stepDescription.text = NSLocalizedString("delegate_step_2", comment: "")
+                if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
+                    stepImg.image = UIImage.init(named: "step2Img")
+                    stepDescription.text = NSLocalizedString("send_step_2", comment: "")
+                } else {
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    stepDescription.text = NSLocalizedString("delegate_step_2", comment: "")
+                }
                 
             } else if (step == 2) {
-                stepImg.image = UIImage.init(named: "4StepImg3")
-                stepDescription.text = NSLocalizedString("delegate_step_3", comment: "")
+                if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
+                    stepImg.image = UIImage.init(named: "step3Img")
+                    stepDescription.text = NSLocalizedString("send_step_3", comment: "")
+                } else {
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    stepDescription.text = NSLocalizedString("delegate_step_3", comment: "")
+                }
+                
                 
             } else if (step == 3) {
-                stepImg.image = UIImage.init(named: "4StepImg4")
-                if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+                if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
+                    stepImg.image = UIImage.init(named: "step4Img")
+                    stepDescription.text = NSLocalizedString("send_step_4", comment: "")
+                } else if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("delegate_step_4", comment: "")
                 } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("undelegate_step_4", comment: "")
                 } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                    stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("withdraw_single_step_4", comment: "")
                 }
+                
+            } else if (step == 4) {
+                stepImg.image = UIImage.init(named: "step5Img")
+                stepDescription.text = NSLocalizedString("send_step_5", comment: "")
                 
             }
         }

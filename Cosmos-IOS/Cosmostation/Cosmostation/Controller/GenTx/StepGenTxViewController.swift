@@ -43,6 +43,13 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepUndelegateCheckViewController")]
             
+        }else if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
+            return [self.newVc(viewController: "StepSendAddressViewController"),
+                    self.newVc(viewController: "StepSendAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepSendCheckViewController")]
+            
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
@@ -110,9 +117,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     }
     
     func onNextPage() {
-//        print("onNextPage ", currentIndex)
         disableBounce = false
-        if(currentIndex <= 2) {
+        if((currentIndex <= 3 && mType == COSMOS_MSG_TYPE_TRANSFER2) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]

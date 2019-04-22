@@ -164,9 +164,19 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     func emptyFloatySelected(_ floaty: Floaty) {
-        let alert = UIAlertController(title: "Unable to transfer", message: "Token transfer will be enabled following SDK upgrades after proposal #3 is passed.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController(title: "Unable to transfer", message: "Token transfer will be enabled following SDK upgrades after proposal #3 is passed.", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//        self.present(alert, animated: true, completion: nil)
+        print("onStartSend")
+        if(!mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+        }
+        
+        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+        stakingVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+        stakingVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(stakingVC, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -261,5 +271,12 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         self.dismiss(animated: true, completion: nil)
     }
     
-    
+    func onShowAddMenomicDialog() {
+        let alert = UIAlertController(title: "No Private Key", message: "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Add Mnemonic", style: .default, handler: { [weak alert] (_) in
+            self.onStartImportMnemonic()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }

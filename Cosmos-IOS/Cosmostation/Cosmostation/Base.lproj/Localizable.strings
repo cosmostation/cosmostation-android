@@ -30,6 +30,12 @@
 "undelegate_step_4" = "Check undelegation detail.";
 "withdraw_single_step_1" = "Check your reward amount.";
 "withdraw_single_step_4" = "Check your information to claim rewards.";
+"send_step_1" = "Enter recipient address";
+"send_step_2" = "Enter to send amount.";
+"send_step_3" = "Insert memo. (optional)";
+"send_step_4" = "Select transaction fee.";
+"send_step_5" = "Check transfer detail.";
+"recipient_address" = "Recipient Address";
 
 "only_USD" = "now only support USD";
 "only_cmc" = "now only support coinmarket cap";

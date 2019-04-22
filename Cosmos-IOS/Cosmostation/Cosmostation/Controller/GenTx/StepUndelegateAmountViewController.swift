@@ -99,8 +99,10 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             var coin:Coin
             if(TESTNET) {
                 coin = Coin.init("muon", userInput.multiplying(by: 1000000).stringValue)
+//                coin = Coin.init("bitcoin", userInput.multiplying(by: 1000000).stringValue)
             } else {
                 coin = Coin.init("uatom", userInput.multiplying(by: 1000000).stringValue)
+                
             }
             pageHolderVC.mToUndelegateAmount = coin
             
