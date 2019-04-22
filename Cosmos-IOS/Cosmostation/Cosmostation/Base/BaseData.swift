@@ -48,6 +48,14 @@ final class BaseData : NSObject{
         return UserDefaults.standard.integer(forKey: KEY_LAST_TAB)
     }
     
+    func setNeedRefresh(_ refresh : Bool) {
+        UserDefaults.standard.set(refresh, forKey: KEY_ACCOUNT_REFRESH_ALL)
+    }
+    
+    func getNeedRefresh() -> Bool {
+        return UserDefaults.standard.bool(forKey: KEY_ACCOUNT_REFRESH_ALL)
+    }
+    
     
     
     

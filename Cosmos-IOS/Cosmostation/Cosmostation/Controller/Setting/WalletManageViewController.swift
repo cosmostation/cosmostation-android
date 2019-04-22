@@ -26,19 +26,6 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let mAccounts = BaseData.instance.selectAllAccounts()
-        if(mAccounts.count > 4) {
-            controlLayer.isHidden = true
-        }
-        
-        for account in mAccounts {
-            if(account.account_has_private) {
-                mFullAccounts.append(account)
-            } else {
-                mWatchAccounts.append(account)
-            }
-        }
-        
         
         self.accountTableView.delegate = self
         self.accountTableView.dataSource = self
@@ -53,8 +40,26 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         self.navigationItem.title = "Wallet Manage";
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-//        print("WalletManageViewController viewWillAppear1 ", self.navigationController?.navigationBar.topItem?.title)
-//        print("WalletManageViewController viewWillAppear2 ", self.navigationItem.title)
+    
+        self.onRefechUserInfo()
+    }
+    
+    func onRefechUserInfo() {
+        let mAccounts = BaseData.instance.selectAllAccounts()
+        if(mAccounts.count > 4) {
+            controlLayer.isHidden = true
+        }
+        
+        mFullAccounts.removeAll()
+        mWatchAccounts.removeAll()
+        for account in mAccounts {
+            if(account.account_has_private) {
+                mFullAccounts.append(account)
+            } else {
+                mWatchAccounts.append(account)
+            }
+        }
+        self.accountTableView.reloadData()
     }
 
     

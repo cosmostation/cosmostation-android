@@ -402,7 +402,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchRewardInfo ", res)
+//                print("onFetchRewardInfo ", res)
                 guard let rawRewards = res as? Array<NSDictionary> else {
                     self.onFetchFinished()
                     return;

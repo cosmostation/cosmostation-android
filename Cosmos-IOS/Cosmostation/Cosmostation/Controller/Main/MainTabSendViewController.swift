@@ -92,7 +92,6 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     func updateView() {
-        
         keyAddressLabel.text = mainTabVC.mAccount.account_address
         
         if(mainTabVC.mBalances.count > 0) {
@@ -196,6 +195,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         }
         
         let alert = UIAlertController(title: walletName, message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+        alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.init(hexString: "EEEEEE")
         alert.addAction(UIAlertAction(title: "Share", style: .default, handler:  { [weak alert] (_) in
             let shareTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
             shareTypeAlert.addAction(UIAlertAction(title: "Share Text Address", style: .default, handler: { [weak shareTypeAlert] (_) in
@@ -212,7 +212,10 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
                 activityViewController.popoverPresentationController?.sourceView = self.view
                 self.present(activityViewController, animated: true, completion: nil)
             }))
-            self.present(shareTypeAlert, animated: true, completion: nil)
+            self.present(shareTypeAlert, animated: true) {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                shareTypeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            }
         }))
         
         alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { [weak alert] (_) in
@@ -228,8 +231,15 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: alert.view, attribute: .centerY, multiplier: 1, constant: 0))
         alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
         alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
         
+    }
+    
+    @objc func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
     }
     
     

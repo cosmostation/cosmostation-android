@@ -30,12 +30,8 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
-        mAccounts = BaseData.instance.selectAllAccounts()
-        if(mAccount == nil) {
-            print("NO ACCOUNT ERROR!!!!")
-        }
         
+        self.onUpdateAccountDB()
         self.onFetchAccountData()
         
         dimView = UIView(frame: window.bounds)
@@ -43,17 +39,7 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
         dimView!.alpha  = 0.85
         onUpdateDropDownView()
         
-//        print("viewDidLoad", BaseData.instance.getLastTab())
-//        self.selectedIndex = BaseData.instance.getLastTab()
-//        print("viewDidLoad", self.selectedIndex)
-        
     }
-    
-//    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-//        print("tabBar didSelect", self.selectedIndex)
-//        BaseData.instance.setLastTab(self.selectedIndex)
-//    }
-    
     
     func onUpdateDropDownView() {
         var dropmenu = [String]()
@@ -172,6 +158,14 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
         })
     }
     
+    
+    func onUpdateAccountDB() {
+        mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        mAccounts = BaseData.instance.selectAllAccounts()
+        if(mAccount == nil) {
+            print("NO ACCOUNT ERROR!!!!")
+        }
+    }
     
     
     func onFetchAccountData() -> Bool {

@@ -111,10 +111,14 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             if(trimmedString?.count ?? 0 > 0) {
                 self.mAccount!.account_nick_name = trimmedString!
                 BaseData.instance.updateAccount(self.mAccount!)
+                BaseData.instance.setNeedRefresh(true)
                 self.updateView()
             }
         }))
-        self.present(nameAlert, animated: true, completion:nil)
+        self.present(nameAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            nameAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
         
     }
     
@@ -152,7 +156,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 activityViewController.popoverPresentationController?.sourceView = self.view
                 self.present(activityViewController, animated: true, completion: nil)
             }))
-            self.present(shareTypeAlert, animated: true, completion: nil)
+            self.present(shareTypeAlert, animated: true) {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                shareTypeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            }
         }))
         
         alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { [weak alert] (_) in
@@ -168,7 +175,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: alert.view, attribute: .centerY, multiplier: 1, constant: 0))
         alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
         alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
     }
     
     @IBAction func onClickActionBtn(_ sender: Any) {
@@ -199,9 +209,15 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         deleteAlert.addAction(UIAlertAction(title: "Close", style: .default, handler: { [weak deleteAlert] (_) in
             self.dismiss(animated: true, completion: nil)
         }))
-        self.present(deleteAlert, animated: true, completion:nil)
+        self.present(deleteAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            deleteAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
     }
     
+    @objc func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func confirmDelete() {
         if(self.mAccount.account_has_private) {
