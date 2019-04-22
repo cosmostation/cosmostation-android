@@ -290,8 +290,8 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBI-Ug-rT3">
-                                                        <rect key="frame" x="336" y="36.666666666666686" width="3" height="11.666666666666664"/>
-                                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="10"/>
+                                                        <rect key="frame" x="336" y="36.333333333333314" width="3" height="12.666666666666664"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="11"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>

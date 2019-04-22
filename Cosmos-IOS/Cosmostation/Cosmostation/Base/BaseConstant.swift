@@ -133,6 +133,14 @@ let COSMOS_MSG_TYPE_WITHDRAW_DEL            = "cosmos-sdk/MsgWithdrawDelegationR
 let COSMOS_MSG_TYPE_WITHDRAW_VAL            = "cosmos-sdk/MsgWithdrawValidatorCommission";
 let COSMOS_MSG_TYPE_WITHDRAW_MIDIFY         = "cosmos-sdk/MsgModifyWithdrawAddress";
 
+
+let COSMOS_MSG_TYPE_VOTE                    = "cosmos-sdk/MsgVote";
+let COSMOS_MSG_TYPE_SUBMIT_PROPOSAL         = "cosmos-sdk/MsgSubmitProposal";
+let COSMOS_MSG_TYPE_DEPOSIT                 = "cosmos-sdk/MsgDeposit";
+let COSMOS_MSG_TYPE_CREATE_VALIDATOR        = "cosmos-sdk/MsgCreateValidator";
+let COSMOS_MSG_TYPE_EDIT_VALIDATOR          = "cosmos-sdk/MsgEditValidator";
+
+
 let COSMOS_KEY_TYPE_PUBLIC                  = "tendermint/PubKeySecp256k1";
 let COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
 

@@ -102,7 +102,7 @@ class WUtils {
         nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         
         let localFormatter = DateFormatter()
-        localFormatter.dateFormat = "yy-MM-dd HH:mm:ss"
+        localFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         let fullDate = nodeFormatter.date(from: input)
         return localFormatter.string(from: fullDate!)
@@ -110,7 +110,7 @@ class WUtils {
     
     static func longTimetoString(input: Int64) -> String {
         let localFormatter = DateFormatter()
-        localFormatter.dateFormat = "yy-MM-dd HH:mm:ss"
+        localFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         let fullDate = Date.init(milliseconds: Int(input))
         return localFormatter.string(from: fullDate)
@@ -118,13 +118,31 @@ class WUtils {
     
     static func unbondingDateFromNow() -> String {
         let localFormatter = DateFormatter()
-        localFormatter.dateFormat = "yy-MM-dd HH:mm:ss"
+        localFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         let afterDate = Calendar.current.date(
             byAdding: .day,
             value: +21,
             to: Date())
         return localFormatter.string(from: afterDate!)
+    }
+    
+    static func timeGap(input: String) -> String {
+        let secondsAgo = Int(Date().timeIntervalSince(nodeTimeToInt64(input: input)))
+        
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        
+        if secondsAgo < minute {
+            return "(\(secondsAgo) seconds ago)"
+        } else if secondsAgo < hour {
+            return "(\(secondsAgo / minute) minutes ago)"
+        } else if secondsAgo < day {
+            return "(\(secondsAgo / hour) hours ago)"
+        } else {
+            return "(\(secondsAgo / day) days ago)"
+        }
     }
     
     
@@ -155,11 +173,27 @@ class WUtils {
             resultMsg = "Get Commission"
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-            resultMsg = "Change Reward Address"
+            resultMsg = "Edit Address"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_VOTE) {
+            resultMsg = "Vote"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_SUBMIT_PROPOSAL) {
+            resultMsg = "Proposal"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_DEPOSIT) {
+            resultMsg = "Deposit"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_CREATE_VALIDATOR) {
+            resultMsg = "Create Val"
+            
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_EDIT_VALIDATOR) {
+            resultMsg = "Edit Val"
             
         }
-        if(msgs.count > 2) {
-            resultMsg = resultMsg +  " + " + String(msgs.count)
+        
+        if(msgs.count > 1) {
+            resultMsg = resultMsg +  " + " + String(msgs.count - 1)
         }
         return resultMsg
     }
@@ -294,7 +328,7 @@ class WUtils {
         for reward in rewards {
             if(reward.reward_v_address == valOpAddr) {
                 result = stringToDecimal(reward.reward_amount[0].amount)
-                break
+                break;
             }
         }
         return result

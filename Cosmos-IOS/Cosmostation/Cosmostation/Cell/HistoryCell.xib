@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,35 +49,31 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19/03/21 13:24:54" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2f-be-V7K">
-                                <rect key="frame" x="177" y="14" width="81" height="11.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
+                                <rect key="frame" x="161" y="12" width="97" height="14"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="c4s-fh-ziC">
-                                <rect key="frame" x="118.5" y="31.5" width="139.5" height="27.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="234234 Block" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7b-b1-dhx">
-                                        <rect key="frame" x="66.5" y="0.0" width="73" height="14"/>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                        <color key="textColor" red="0.47843137254901957" green="0.49803921568627452" blue="0.53333333333333333" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fewfwefwefwefefwefewfewfwefwefwefewfewwfwefwe" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHt-n7-nm7">
-                                        <rect key="frame" x="0.0" y="16" width="139.5" height="11.5"/>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
-                                        <color key="textColor" red="0.47843137254901957" green="0.49803921568627452" blue="0.53333333333333333" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(3min ago)" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHt-n7-nm7">
+                                <rect key="frame" x="210" y="28" width="48" height="11.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
+                                <color key="textColor" red="0.47843137254901957" green="0.49803921568627452" blue="0.53333333333333333" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="234234 Block" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7b-b1-dhx">
+                                <rect key="frame" x="185" y="45.5" width="73" height="14"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <color key="textColor" red="0.47843137254901957" green="0.49803921568627452" blue="0.53333333333333333" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="iHt-n7-nm7" firstAttribute="trailing" secondItem="D2f-be-V7K" secondAttribute="trailing" id="0WW-Wi-oMP"/>
                             <constraint firstItem="Ojg-Ly-3W9" firstAttribute="leading" secondItem="D2f-be-V7K" secondAttribute="trailing" constant="8" id="1EM-Qe-vsv"/>
-                            <constraint firstItem="c4s-fh-ziC" firstAttribute="leading" secondItem="Ks8-1z-hFR" secondAttribute="trailing" constant="8" id="8uv-9M-eXN"/>
+                            <constraint firstItem="iHt-n7-nm7" firstAttribute="top" secondItem="D2f-be-V7K" secondAttribute="bottom" constant="2" id="B06-pu-nPa"/>
                             <constraint firstItem="D2f-be-V7K" firstAttribute="firstBaseline" secondItem="Bx3-AE-Buo" secondAttribute="firstBaseline" id="HcD-Dc-aQw"/>
-                            <constraint firstItem="Ojg-Ly-3W9" firstAttribute="leading" secondItem="c4s-fh-ziC" secondAttribute="trailing" constant="8" id="KtS-az-CrT"/>
+                            <constraint firstItem="B7b-b1-dhx" firstAttribute="top" secondItem="iHt-n7-nm7" secondAttribute="bottom" constant="6" id="KeE-3U-x6z"/>
                             <constraint firstAttribute="bottom" secondItem="Ks8-1z-hFR" secondAttribute="bottom" constant="12" id="LNn-O8-BFU"/>
                             <constraint firstItem="Ks8-1z-hFR" firstAttribute="top" secondItem="g9a-pf-IC8" secondAttribute="top" constant="12" id="PCD-1c-sf4"/>
                             <constraint firstItem="Bx3-AE-Buo" firstAttribute="leading" secondItem="g9a-pf-IC8" secondAttribute="leading" constant="12" id="S1Q-pJ-hp7"/>
@@ -85,8 +81,8 @@
                             <constraint firstItem="vt3-f7-mI1" firstAttribute="leading" secondItem="Bx3-AE-Buo" secondAttribute="leading" id="b4I-ha-W0A"/>
                             <constraint firstItem="Ojg-Ly-3W9" firstAttribute="centerY" secondItem="g9a-pf-IC8" secondAttribute="centerY" id="eFm-GI-LqT"/>
                             <constraint firstAttribute="trailing" secondItem="Ojg-Ly-3W9" secondAttribute="trailing" constant="6" id="fXz-F2-qMW"/>
-                            <constraint firstItem="c4s-fh-ziC" firstAttribute="top" secondItem="D2f-be-V7K" secondAttribute="bottom" constant="6" id="jFe-NG-Rkv"/>
                             <constraint firstItem="vt3-f7-mI1" firstAttribute="top" secondItem="Bx3-AE-Buo" secondAttribute="bottom" constant="4" id="sOA-Je-Tqt"/>
+                            <constraint firstItem="B7b-b1-dhx" firstAttribute="trailing" secondItem="D2f-be-V7K" secondAttribute="trailing" id="usG-Rd-EsL"/>
                             <constraint firstItem="Bx3-AE-Buo" firstAttribute="top" secondItem="g9a-pf-IC8" secondAttribute="top" constant="12" id="ygI-Jm-S3Z"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -120,8 +116,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="txBlockLabel" destination="B7b-b1-dhx" id="BtV-kB-Sfp"/>
-                <outlet property="txHashLabel" destination="iHt-n7-nm7" id="JBv-Ik-scq"/>
                 <outlet property="txResultLabel" destination="vt3-f7-mI1" id="9yH-Ke-VSe"/>
+                <outlet property="txTimeGapLabel" destination="iHt-n7-nm7" id="DMb-gI-COK"/>
                 <outlet property="txTimeLabel" destination="D2f-be-V7K" id="j2a-ZK-ztj"/>
                 <outlet property="txTypeLabel" destination="Bx3-AE-Buo" id="E5P-ks-XPS"/>
             </connections>

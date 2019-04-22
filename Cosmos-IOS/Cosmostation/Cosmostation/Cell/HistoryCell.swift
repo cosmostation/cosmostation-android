@@ -13,8 +13,8 @@ class HistoryCell: UITableViewCell {
     @IBOutlet weak var txTypeLabel: UILabel!
     @IBOutlet weak var txResultLabel: UILabel!
     @IBOutlet weak var txTimeLabel: UILabel!
+    @IBOutlet weak var txTimeGapLabel: UILabel!
     @IBOutlet weak var txBlockLabel: UILabel!
-    @IBOutlet weak var txHashLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

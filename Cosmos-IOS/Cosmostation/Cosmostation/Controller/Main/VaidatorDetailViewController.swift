@@ -269,7 +269,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 
                 cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.time)
                 cell?.txBlockLabel.text = String(history._source.height) + " block"
-                cell?.txHashLabel.text = history._source.hash
+                cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
                 cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg)
                 if(history._source.result.success) {
                     cell?.txResultLabel.isHidden = true

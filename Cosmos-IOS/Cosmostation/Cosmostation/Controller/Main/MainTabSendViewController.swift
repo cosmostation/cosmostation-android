@@ -150,10 +150,10 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             
             if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
                 priceUpDownImg.image = UIImage(named: "priceUp")
-                priceUpDownLabel.text = changeValue.stringValue + "% (24h)"
+                priceUpDownLabel.text = changeValue.rounding(accordingToBehavior: WUtils.handler2).stringValue + "% (24h)"
             } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
                 priceUpDownImg.image = UIImage(named: "priceDown")
-                priceUpDownLabel.text = changeValue.stringValue + "% (24h)"
+                priceUpDownLabel.text = changeValue.rounding(accordingToBehavior: WUtils.handler2).stringValue + "% (24h)"
             } else {
                 priceUpDownImg.image = nil
                 priceUpDownLabel.text = ""
