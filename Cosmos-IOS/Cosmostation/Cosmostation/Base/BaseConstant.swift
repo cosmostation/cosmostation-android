@@ -10,7 +10,7 @@ import Foundation
 import SQLite
 
 let SHOW_LOG                            = true;
-let TESTNET                             = true;
+let TESTNET                             = false;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
 let KEY_ALL_VAL_SORT                    = "KEY_ALL_VAL_SORT"
@@ -23,10 +23,10 @@ let KEY_ACCOUNT_REFRESH_ALL             = "KEY_ACCOUNT_REFRESH_ALL"
 //let CSS_LCD_URL                         = "https://lcd-dev-internal.cosmostation.io/";
 
 //product URL
-//let CSS_LCD_URL                         = "https://lcd.cosmostation.io/";
+let CSS_LCD_URL                         = "https://lcd.cosmostation.io/";
 
 //testnet URL
-let CSS_LCD_URL                         = "https://lcd-gaia.cosmostation.io/";
+//let CSS_LCD_URL                         = "https://lcd-gaia.cosmostation.io/";
 
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let KEY_BASE_URL                        = "https://keybase.io/";
@@ -53,7 +53,8 @@ let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
 
 //let CSS_ES_URL                          = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/txs/_search/";
 //let CSS_ES_URL2                         = "https://search-cosmostation-explorer-dev-siq6ewpnpu4trly2edquz5yica.ap-northeast-2.es.amazonaws.com/";
-let CSS_ES_URL                          = "https://search-explorer-mainnet-app-dornfmxm5qw3cd46j3k2noox5u.ap-northeast-2.es.amazonaws.com/tx_index/_search/";
+//let CSS_ES_URL                          = "https://search-explorer-mainnet-app-dornfmxm5qw3cd46j3k2noox5u.ap-northeast-2.es.amazonaws.com/tx_index/_search/";
+let CSS_ES_URL                          = "https://search-cosmoshub-2-app-7rb6ujvvmemw6holj6cr7em23u.ap-northeast-2.es.amazonaws.com/tx_index/_search/";
 
 
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
