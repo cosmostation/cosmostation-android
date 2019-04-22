@@ -210,9 +210,15 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             if (!$0.jailed && $1.jailed) {
                 return true
             }
-            let bonding0 = BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address)
-            let bonding1 = BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address)
-            return Double(bonding0!.bonding_shares)! > Double(bonding1!.bonding_shares)!
+            var bonding0:Double = 0
+            var bonding1:Double = 0
+            if(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address) != nil) {
+                bonding0 = Double(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address)!.bonding_shares) as! Double
+            }
+            if(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address) != nil) {
+                bonding1 = Double(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address)!.bonding_shares) as! Double
+            }
+            return bonding0 > bonding1
         }
     }
     
