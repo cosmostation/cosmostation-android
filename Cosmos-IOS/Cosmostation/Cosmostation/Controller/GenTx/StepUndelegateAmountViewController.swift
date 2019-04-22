@@ -22,10 +22,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
         
-        for bonding in pageHolderVC.mBondingList {
-            userDelegated = userDelegated.adding(WUtils.stringToDecimal(bonding.bonding_shares))
-        }
-//        print("userDelegated ", userDelegated.stringValue)
+        userDelegated = WUtils.stringToDecimal(BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address)!.bonding_shares)
         availableAmountLabel.attributedText = WUtils.displayAmout(userDelegated.stringValue, availableAmountLabel.font, 6)
         toUndelegateAmountInput.delegate = self
         toUndelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -95,7 +92,18 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
     @IBAction func onClickNext(_ sender: UIButton) {
         if(isValiadAmount()) {
             let userInput = WUtils.stringToDecimal((toUndelegateAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
-            self.pageHolderVC.mToUndelegateAmount = userInput.multiplying(by: 1000000).stringValue
+//            self.pageHolderVC.mToUndelegateAmount = userInput.multiplying(by: 1000000).stringValue
+//            sender.isUserInteractionEnabled = false
+//            pageHolderVC.onNextPage()
+            
+            var coin:Coin
+            if(TESTNET) {
+                coin = Coin.init("muon", userInput.multiplying(by: 1000000).stringValue)
+            } else {
+                coin = Coin.init("uatom", userInput.multiplying(by: 1000000).stringValue)
+            }
+            pageHolderVC.mToUndelegateAmount = coin
+            
             sender.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
             

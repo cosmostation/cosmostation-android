@@ -58,7 +58,8 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
-        toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmout((pageHolderVC.mToUndelegateAmount)!, toUnDelegateAmoutLaebl.font, 6)
+//        toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmout((pageHolderVC.mToUndelegateAmount)!, toUnDelegateAmoutLaebl.font, 6)
+        toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmout((pageHolderVC.mToUndelegateAmount?.amount)!, toUnDelegateAmoutLaebl.font, 6)
         feeAmountLabel.attributedText = WUtils.displayAmout((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6)
         targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
         memoLabel.text = pageHolderVC.mMemo
@@ -76,7 +77,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
 //        print("onGenUnDelegateTx")
         self.showWaittingAlert()
         DispatchQueue.global().async {
-            var stdTx:StdTx!
+            var stakeStdTx:StakeStdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
 //                print("ERROR words")
                 return
@@ -85,11 +86,14 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             do {
                 let pKey = WKey.getCosmosKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 
+//                let msg = MsgGenerator.genUndelegateMsg(self.pageHolderVC.mAccount!.account_address,
+//                                                      self.pageHolderVC.mTargetValidator!.operator_address,
+//                                                      WUtils.unDelegateFormat(self.pageHolderVC.mToUndelegateAmount!))
                 let msg = MsgGenerator.genUndelegateMsg(self.pageHolderVC.mAccount!.account_address,
                                                       self.pageHolderVC.mTargetValidator!.operator_address,
-                                                      WUtils.unDelegateFormat(self.pageHolderVC.mToUndelegateAmount!))
+                                                      self.pageHolderVC.mToUndelegateAmount!)
                 
-                var msgList = Array<Msg>()
+                var msgList = Array<StakeMsg>()
                 msgList.append(msg)
                 
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
@@ -124,7 +128,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 var signatures: Array<Signature> = Array<Signature>()
                 signatures.append(genedSignature)
                 
-                stdTx = MsgGenerator.genSignedTx(msgList,
+                stakeStdTx = MsgGenerator.genSignedTx(msgList,
                                                  self.pageHolderVC.mFee!,
                                                  self.pageHolderVC.mMemo!,
                                                  signatures)
@@ -136,7 +140,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             }
             
             DispatchQueue.main.async(execute: {
-                let postTx = PostTx.init("sync", stdTx.value)
+                let postTx = StakePostTx.init("sync", stakeStdTx.value)
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(postTx)

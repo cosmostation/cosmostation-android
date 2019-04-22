@@ -501,16 +501,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             self.onShowAddMenomicDialog()
         }
         
-        if(mUnbondings.count > 0) {
-            var unbondSum = NSDecimalNumber.zero
-            for unbonding in mUnbondings {
-                unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
-            }
-            if(unbondSum == NSDecimalNumber.zero) {
-                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
-                return
-            }
-        } else {
+        if(mBonding == nil || WUtils.stringToDecimal(mBonding?.bonding_shares ?? "0") == NSDecimalNumber.zero) {
             self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
             return
         }

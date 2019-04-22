@@ -101,9 +101,9 @@ class GenTxResultViewController: BaseViewController {
             
         } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             txTypeLabel.text = "UnDelegate"
-            txAmountLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.shares_amount)!, txAmountLabel.font, 6)
+            txAmountLabel.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, txAmountLabel.font, 6)
             txSecondTitleLabel.text = "Validator address"
-            txSecondContentLabel.text = mTxInfo?.tx.value.msg[0].value.validator_address
+            txSecondContentLabel.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
             txSecondContentLabel.adjustsFontSizeToFitWidth = true
             
             txHashLabel.text = mTxInfo?.txhash
@@ -111,8 +111,8 @@ class GenTxResultViewController: BaseViewController {
             blockHeightLabel.text = mBlockInfo?.block_meta.header.height
             blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
             
-            txFeeLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
-            txMemoLabel.text = mTxInfo?.tx.value.memo
+            txFeeLabel.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
+            txMemoLabel.text = mStakTxInfo?.tx.value.memo
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
@@ -198,7 +198,7 @@ class GenTxResultViewController: BaseViewController {
                     }
                     return
                 }
-                if (self.mTxType == COSMOS_MSG_TYPE_DELEGATE) {
+                if (self.mTxType == COSMOS_MSG_TYPE_DELEGATE || self.mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
                     self.mStakTxInfo = StakeTxInfo.init(info)
                     self.onFetchBlock(self.mStakTxInfo!.height)
                 } else {

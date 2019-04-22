@@ -25,7 +25,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mTargetValidator: Validator?
     var mToDelegateAmount: Coin?
-    var mToUndelegateAmount:String?
+    var mToUndelegateAmount:Coin?
     
     var mMemo: String?
     var mFee: Fee?
