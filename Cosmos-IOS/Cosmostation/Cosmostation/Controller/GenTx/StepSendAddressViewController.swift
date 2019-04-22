@@ -21,18 +21,25 @@ class StepSendAddressViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        
         mTargetAddressTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("recipient_address", comment: ""), attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
     }
     
-    
-    
-    
     @IBAction func onClickQrCode(_ sender: Any) {
+        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        
     }
+    
     @IBAction func onClickPaste(_ sender: Any) {
+        if let myString = UIPasteboard.general.string {
+            self.mTargetAddressTextField.text = myString
+        } else {
+            self.onShowToast(NSLocalizedString("error_no_clipboard", comment: ""))
+        }
     }
+    
     @IBAction func onClickRecent(_ sender: Any) {
+        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        
     }
     
     @IBAction func onClickCancel(_ sender: Any) {
@@ -42,9 +49,21 @@ class StepSendAddressViewController: BaseViewController {
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-        self.CancelBtn.isUserInteractionEnabled = false
-        self.NextBtn.isUserInteractionEnabled = false
-        pageHolderVC.onNextPage()
+        let userInput = mTargetAddressTextField.text?.trimmingCharacters(in: .whitespaces)
+        if (pageHolderVC.mAccount?.account_address == userInput) {
+            self.onShowToast(NSLocalizedString("error_self_send", comment: ""))
+            return;
+            
+        } else if(WKey.isValidateAddress(userInput!)) {
+            self.CancelBtn.isUserInteractionEnabled = false
+            self.NextBtn.isUserInteractionEnabled = false
+            pageHolderVC.mToSendRecipientAddress = userInput
+            pageHolderVC.onNextPage()
+            
+        } else {
+            self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+            return;
+        }
     }
     
     override func enableUserInteraction() {

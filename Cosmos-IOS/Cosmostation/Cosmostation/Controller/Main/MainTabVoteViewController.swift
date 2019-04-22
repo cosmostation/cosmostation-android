@@ -132,7 +132,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchProposals ", res)
+//                print("onFetchProposals ", res)
                 guard let proposals = res as? Array<NSDictionary> else {
                     self.onUpdateViews()
                     return

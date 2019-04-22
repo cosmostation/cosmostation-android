@@ -54,8 +54,11 @@ class AddAddressViewController: BaseViewController {
         var address = "";
         //TODO check iris or cosmos or else
         if (WKey.isValidateAddressOrPubKey(userInput)) {
-            if(userInput.starts(with: "cosmospub")) { address = WKey.getCosmosAddressFromPubKey(userInput)
-            } else {  address = userInput }
+            if(userInput.starts(with: "cosmospub")) {
+                address = WKey.getCosmosAddressFromPubKey(userInput)
+            } else {
+                address = userInput
+            }
             self.onGenWatchAccount(ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue, address)
             
         } else {

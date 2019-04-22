@@ -41,6 +41,18 @@ class WKey {
     }
     
     
+    static func isValidateAddress(_ address:String) -> Bool {
+        if(address.count != 45 && !address.starts(with: "cosmos")) {
+            return false
+        }
+        
+        let bech32 = Bech32()
+        guard let _ = try? bech32.decode(address) else {
+            return false
+        }
+        return true
+    }
+    
     static func isValidateAddressOrPubKey(_ address:String) -> Bool {
         let bech32 = Bech32()
         guard let _ = try? bech32.decode(address) else {

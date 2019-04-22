@@ -129,9 +129,13 @@ class GenTxResultViewController: BaseViewController {
             txFeeLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
             txMemoLabel.text = mTxInfo?.tx.value.memo
             
-        } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER || mTxType == COSMOS_MSG_TYPE_TRANSFER) {
-            txSecondTitleLabel.text = "Validator address"
-            txSecondContentLabel.text = mTxInfo?.tx.value.msg[0].value.validator_address
+        } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2) {
+            txTypeLabel.text = "Send Transfer"
+            
+            txAmountLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount![0].amount)!, txAmountLabel.font, 6)
+            
+            txSecondTitleLabel.text = "To"
+            txSecondContentLabel.text = mTxInfo?.tx.value.msg[0].value.to_address
             txSecondContentLabel.adjustsFontSizeToFitWidth = true
             
             txHashLabel.text = mTxInfo?.txhash

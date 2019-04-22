@@ -383,32 +383,8 @@
                                             <action selector="onClickQrCode:" destination="EiA-GI-5Nt" eventType="touchUpInside" id="rj8-6f-ggc"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-zM-WC2">
-                                        <rect key="frame" x="119.5" y="0.0" width="104" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="3vk-C8-FcJ"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title=" Paste" image="copyIc">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="onClickPaste:" destination="EiA-GI-5Nt" eventType="touchUpInside" id="6bP-Pn-jAj"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPo-J2-K4w">
-                                        <rect key="frame" x="239.5" y="0.0" width="103.5" height="35"/>
+                                        <rect key="frame" x="119.5" y="0.0" width="104" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="pqy-Gc-lxm"/>
                                         </constraints>
@@ -429,6 +405,30 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onClickRecent:" destination="EiA-GI-5Nt" eventType="touchUpInside" id="jHS-BH-iQJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-zM-WC2">
+                                        <rect key="frame" x="239.5" y="0.0" width="103.5" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="3vk-C8-FcJ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title=" Paste" image="copyIc">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickPaste:" destination="EiA-GI-5Nt" eventType="touchUpInside" id="6bP-Pn-jAj"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1838,8 +1838,8 @@
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9YX-Li-xaZ">
-                                        <rect key="frame" x="24" y="166" width="5" height="16.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9YX-Li-xaZ">
+                                        <rect key="frame" x="24" y="166" width="303" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1891,6 +1891,7 @@
                                     <constraint firstItem="6c2-ev-eh9" firstAttribute="leading" secondItem="ln1-Dk-jKF" secondAttribute="leading" id="ZQQ-Fy-UmG"/>
                                     <constraint firstItem="ln1-Dk-jKF" firstAttribute="top" secondItem="FnX-cT-Hbf" secondAttribute="bottom" constant="8" id="ake-F1-LBt"/>
                                     <constraint firstItem="nPi-8l-Zjv" firstAttribute="top" secondItem="gcN-Jn-myK" secondAttribute="top" constant="16" id="c4f-Rg-0Ed"/>
+                                    <constraint firstAttribute="trailing" secondItem="9YX-Li-xaZ" secondAttribute="trailing" constant="16" id="cyE-EN-0vc"/>
                                     <constraint firstItem="FnX-cT-Hbf" firstAttribute="top" secondItem="Xjw-ph-Lfs" secondAttribute="bottom" constant="16" id="fk0-1Z-jrY"/>
                                     <constraint firstAttribute="trailing" secondItem="dsK-Nh-HsL" secondAttribute="trailing" constant="16" id="hio-b6-CG9"/>
                                     <constraint firstItem="oh3-vV-DVi" firstAttribute="top" secondItem="6c2-ev-eh9" secondAttribute="bottom" constant="16" id="iVr-Y5-65F"/>

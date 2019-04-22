@@ -27,6 +27,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mToDelegateAmount: Coin?
     var mToUndelegateAmount:Coin?
     
+    var mToSendRecipientAddress:String?
+    var mToSendAmount = Array<Coin>()
+    
     var mMemo: String?
     var mFee: Fee?
     
@@ -99,7 +102,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     }
     
     func onBeforePage() {
-//        print("onBeforePage ", currentIndex)
         disableBounce = false
         if(currentIndex == 0) {
             self.navigationController?.popViewController(animated: true)

@@ -80,6 +80,21 @@ class MsgGenerator {
         return msg
     }
     
+    static func genGetSendMsg(_ fromAddress: String, _ toAddress: String, _ amount: Array<Coin>) -> Msg {
+        
+        var msg = Msg.init()
+        
+        var value = Msg.Value.init()
+        value.from_address = fromAddress
+        value.to_address = toAddress
+        value.amount = amount
+        
+        msg.type = COSMOS_MSG_TYPE_TRANSFER2
+        msg.value = value
+        
+        return msg
+    }
+    
     
     
     
