@@ -22,8 +22,14 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
         for balance in pageHolderVC.mBalances {
-            if(balance.balance_denom == "uatom") {
-                userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+            if(TESTNET) {
+                if(balance.balance_denom == "muon") {
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                }
+            } else {
+                if(balance.balance_denom == "uatom") {
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                }
             }
         }
         availableAmountLabel.attributedText = WUtils.displayAmout(userBalance.stringValue, availableAmountLabel.font, 6)
@@ -95,7 +101,12 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     @IBAction func onClickNext(_ sender: UIButton) {
         if(isValiadAmount()) {
             let userInput = WUtils.stringToDecimal((toDelegateAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
-            let coin = Coin.init("uatom", userInput.multiplying(by: 1000000).stringValue)
+            var coin:Coin
+            if(TESTNET) {
+                coin = Coin.init("muon", userInput.multiplying(by: 1000000).stringValue)
+            } else {
+                coin = Coin.init("uatom", userInput.multiplying(by: 1000000).stringValue)
+            }
             pageHolderVC.mToDelegateAmount = coin
             
             sender.isUserInteractionEnabled = false

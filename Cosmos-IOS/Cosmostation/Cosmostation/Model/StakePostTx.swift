@@ -1,20 +1,20 @@
 //
-//  PostTx.swift
+//  StakePostTx.swift
 //  Cosmostation
 //
-//  Created by yongjoo on 11/04/2019.
+//  Created by yongjoo on 22/04/2019.
 //  Copyright © 2019 wannabit. All rights reserved.
 //
 
 import Foundation
 
-public struct PostTx: Codable {
+public struct StakePostTx: Codable {
     var returns: String = ""
-    var tx: StdTx.Value?
+    var tx: StakeStdTx.Value?
     
     init() {}
     
-    init(_ returns:String, _ tx:StdTx.Value) {
+    init(_ returns:String, _ tx:StakeStdTx.Value) {
         self.returns = returns
         self.tx = tx
     }

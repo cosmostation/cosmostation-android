@@ -67,7 +67,12 @@ class StepFeeViewController: BaseViewController {
         } else if (feeSlider.value > 0.66) {
             gasAmount = atomFees[2].stringValue
         }
-        feeCoin = Coin.init("uatom", gasAmount)
+        if(TESTNET) {
+            feeCoin = Coin.init("muon", gasAmount)
+        } else {
+            feeCoin = Coin.init("uatom", gasAmount)
+        }
+        
         
         var fee = Fee.init()
         var amount: Array<Coin> = Array<Coin>()

@@ -346,12 +346,13 @@ class WUtils {
     
     
     static func getChainName(_ type:String) -> String {
-        if (type == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
-            return "cosmoshub-1"
-        } else if (type == ChainType.SUPPORT_CHAIN_IRSI_MAIN.rawValue) {
-            return "irishub"
-        }
-        return "cosmoshub-1"
+//        if (type == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
+//            return "cosmoshub-1"
+//        } else if (type == ChainType.SUPPORT_CHAIN_IRSI_MAIN.rawValue) {
+//            return "irishub"
+//        }
+//        return "cosmoshub-1"
+        return "gaia-13003"
     }
     
 }

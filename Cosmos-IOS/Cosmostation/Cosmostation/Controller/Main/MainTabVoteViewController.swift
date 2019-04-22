@@ -79,17 +79,33 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
         let proposal = mProposals[indexPath.row]
-        cell?.proposalIdLabel.text = "# ".appending(proposal.value.proposal_id)
-        cell?.proposalTitleLabel.text = proposal.value.title
-        cell?.proposalMsgLabel.text = proposal.value.description
-        cell?.proposalStateLabel.text = proposal.value.proposal_status
-        if (proposal.value.proposal_status == "DepositPeriod") {
+//        cell?.proposalIdLabel.text = "# ".appending(proposal.value.proposal_id)
+//        cell?.proposalTitleLabel.text = proposal.value.title
+//        cell?.proposalMsgLabel.text = proposal.value.description
+//        cell?.proposalStateLabel.text = proposal.value.proposal_status
+//        if (proposal.value.proposal_status == "DepositPeriod") {
+//            cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
+//        } else if (proposal.value.proposal_status == "VotingPeriod") {
+//            cell?.proposalStateImg.image = UIImage.init(named: "votingImg")
+//        } else if (proposal.value.proposal_status == "Rejected") {
+//            cell?.proposalStateImg.image = UIImage.init(named: "rejectedImg")
+//        } else if (proposal.value.proposal_status == "Passed") {
+//            cell?.proposalStateImg.image = UIImage.init(named: "passedImg")
+//        } else {
+//            cell?.proposalStateImg.image = nil
+//        }
+        
+        cell?.proposalIdLabel.text = "# ".appending(proposal.proposal_id)
+        cell?.proposalTitleLabel.text = proposal.proposal_content?.value.title
+        cell?.proposalMsgLabel.text = proposal.proposal_content?.value.description
+        cell?.proposalStateLabel.text = proposal.proposal_status
+        if (proposal.proposal_status == "DepositPeriod") {
             cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
-        } else if (proposal.value.proposal_status == "VotingPeriod") {
+        } else if (proposal.proposal_status == "VotingPeriod") {
             cell?.proposalStateImg.image = UIImage.init(named: "votingImg")
-        } else if (proposal.value.proposal_status == "Rejected") {
+        } else if (proposal.proposal_status == "Rejected") {
             cell?.proposalStateImg.image = UIImage.init(named: "rejectedImg")
-        } else if (proposal.value.proposal_status == "Passed") {
+        } else if (proposal.proposal_status == "Passed") {
             cell?.proposalStateImg.image = UIImage.init(named: "passedImg")
         } else {
             cell?.proposalStateImg.image = nil
@@ -104,7 +120,8 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let proposal = mProposals[indexPath.row]
-        guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.value.proposal_id) else { return }
+//        guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.value.proposal_id) else { return }
+         guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.proposal_id) else { return }
         let safariViewController = SFSafariViewController(url: url)
         present(safariViewController, animated: true, completion: nil)
     }
@@ -115,6 +132,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+                print("onFetchProposals ", res)
                 guard let proposals = res as? Array<NSDictionary> else {
                     self.onUpdateViews()
                     return
@@ -138,7 +156,8 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func sortProposals() {
         self.mProposals.sort{
-            return Int($0.value.proposal_id)! < Int($1.value.proposal_id)! ? false : true
+//            return Int($0.value.proposal_id)! < Int($1.value.proposal_id)! ? false : true
+            return Int($0.proposal_id)! < Int($1.proposal_id)! ? false : true
         }
     }
 

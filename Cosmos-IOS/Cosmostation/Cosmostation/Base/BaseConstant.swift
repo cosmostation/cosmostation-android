@@ -10,6 +10,8 @@ import Foundation
 import SQLite
 
 let SHOW_LOG                            = true;
+let TESTNET                             = true;
+
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
 let KEY_ALL_VAL_SORT                    = "KEY_ALL_VAL_SORT"
 let KEY_MY_VAL_SORT                     = "KEY_MY_VAL_SORT"
@@ -19,7 +21,12 @@ let KEY_ACCOUNT_REFRESH_ALL             = "KEY_ACCOUNT_REFRESH_ALL"
 
 //let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";
 //let CSS_LCD_URL                         = "https://lcd-dev-internal.cosmostation.io/";
-let CSS_LCD_URL                         = "https://lcd.cosmostation.io/";
+
+//product URL
+//let CSS_LCD_URL                         = "https://lcd.cosmostation.io/";
+
+//testnet URL
+let CSS_LCD_URL                         = "https://lcd-gaia.cosmostation.io/";
 
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let KEY_BASE_URL                        = "https://keybase.io/";

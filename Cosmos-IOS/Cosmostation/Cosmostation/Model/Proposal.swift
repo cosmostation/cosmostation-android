@@ -9,10 +9,57 @@
 import Foundation
 
 public class Proposal {
+    var proposal_id: String = ""
+    var proposal_status: String = ""
+    var proposal_content: ProposalContent?
+    
+    init() {}
+    
+    init(_ dictionary: [String: Any]) {
+        self.proposal_id = dictionary["proposal_id"] as? String ?? ""
+        self.proposal_status = dictionary["proposal_status"] as? String ?? ""
+        
+        if let pc = dictionary["proposal_content"] as? [String : Any] {
+            self.proposal_content = ProposalContent.init(pc)
+        }
+    }
+    
+    public class ProposalContent {
+        var type: String = ""
+        var value: Value = Value.init()
+        
+        init() {}
+        
+        init(_ dictionary: [String: Any]) {
+            self.type = dictionary["type"] as? String ?? ""
+            if let value = dictionary["value"] as? [String : Any] {
+                self.value = Value.init(value)
+            }
+        }
+    }
+    
+    public class Value {
+        var title: String = ""
+        var description: String = ""
+        
+        init() {}
+        
+        init(_ dictionary: [String: Any]) {
+            self.title = dictionary["title"] as? String ?? ""
+            self.description = dictionary["description"] as? String ?? ""
+        }
+        
+    }
+    
+}
+/*
+public class Proposal {
     var type: String = ""
     var value: Value = Value.init()
     
     init() {}
+    
+    
     
     init(_ dictionary: [String: Any]) {
         self.type = dictionary["type"] as? String ?? ""
@@ -70,3 +117,4 @@ public class Proposal {
         }
     }
 }
+*/

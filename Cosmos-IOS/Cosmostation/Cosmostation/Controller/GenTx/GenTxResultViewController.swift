@@ -44,6 +44,7 @@ class GenTxResultViewController: BaseViewController {
     var mTxHash: String?
     
     var mTxInfo: TxInfo?
+    var mStakTxInfo: StakeTxInfo?
     var mBlockInfo: BlockInfo?
     
     
@@ -74,7 +75,7 @@ class GenTxResultViewController: BaseViewController {
 //        print("onShowErrorView")
         self.txResultTitleLabel.text = "Transaction Failed"
         self.txResultTitleLabel.textColor = UIColor.init(hexString: "f31963")
-        self.errorCode.text =  "error code : " + String(code)
+        self.errorCode.text =  "error code : " + String(code) + "\n" + ((response?["raw_log"] as? String)!)
         self.loadingImgs.isHidden = true
         self.errorCardView.isHidden = false
     }
@@ -84,10 +85,19 @@ class GenTxResultViewController: BaseViewController {
 //        print("onTxDetailView")
         if (mTxType == COSMOS_MSG_TYPE_DELEGATE) {
             txTypeLabel.text = "Delegate"
-            txAmountLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.value?.amount)!, txAmountLabel.font, 6)
+            txAmountLabel.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, txAmountLabel.font, 6)
             txSecondTitleLabel.text = "Validator address"
-            txSecondContentLabel.text = mTxInfo?.tx.value.msg[0].value.validator_address
+            txSecondContentLabel.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
             txSecondContentLabel.adjustsFontSizeToFitWidth = true
+            
+            txHashLabel.text = mStakTxInfo?.txhash
+            txHashLabel.adjustsFontSizeToFitWidth = true
+            blockHeightLabel.text = mBlockInfo?.block_meta.header.height
+            blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
+            
+            txFeeLabel.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
+            txMemoLabel.text = mStakTxInfo?.tx.value.memo
+            
             
         } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             txTypeLabel.text = "UnDelegate"
@@ -96,6 +106,14 @@ class GenTxResultViewController: BaseViewController {
             txSecondContentLabel.text = mTxInfo?.tx.value.msg[0].value.validator_address
             txSecondContentLabel.adjustsFontSizeToFitWidth = true
             
+            txHashLabel.text = mTxInfo?.txhash
+            txHashLabel.adjustsFontSizeToFitWidth = true
+            blockHeightLabel.text = mBlockInfo?.block_meta.header.height
+            blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
+            
+            txFeeLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
+            txMemoLabel.text = mTxInfo?.tx.value.memo
+            
             
         } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             txTypeLabel.text = "Get Reward"
@@ -103,22 +121,32 @@ class GenTxResultViewController: BaseViewController {
             txAmountAtomLabel.isHidden = true
             txAmountLabel.isHidden = true
             
+            txHashLabel.text = mTxInfo?.txhash
+            txHashLabel.adjustsFontSizeToFitWidth = true
+            blockHeightLabel.text = mBlockInfo?.block_meta.header.height
+            blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
+            
+            txFeeLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
+            txMemoLabel.text = mTxInfo?.tx.value.memo
+            
         } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER || mTxType == COSMOS_MSG_TYPE_TRANSFER) {
             txSecondTitleLabel.text = "Validator address"
             txSecondContentLabel.text = mTxInfo?.tx.value.msg[0].value.validator_address
             txSecondContentLabel.adjustsFontSizeToFitWidth = true
             
+            txHashLabel.text = mTxInfo?.txhash
+            txHashLabel.adjustsFontSizeToFitWidth = true
+            blockHeightLabel.text = mBlockInfo?.block_meta.header.height
+            blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
+            
+            txFeeLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
+            txMemoLabel.text = mTxInfo?.tx.value.memo
+            
         } else {
             
         }
         
-        txHashLabel.text = mTxInfo?.txhash
-        txHashLabel.adjustsFontSizeToFitWidth = true
-        blockHeightLabel.text = mBlockInfo?.block_meta.header.height
-        blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
-        
-        txFeeLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
-        txMemoLabel.text = mTxInfo?.tx.value.memo
+
         
         
         self.loadingImgs.isHidden = true
@@ -160,23 +188,25 @@ class GenTxResultViewController: BaseViewController {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchTx ", res)
+                print("onFetchTx ", res)
                 guard let info = res as? [String : Any], info["error"] == nil else {
-//                    print("onFetchTx guard in")
                     self.fetchCnt = self.fetchCnt - 1
-//                    print("fetchCnt ", self.fetchCnt)
                     if(self.fetchCnt > 0) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
                             self.onFetchTx(txHash)
                         })
-                    } else {
-//                        print("onFetchTx error")
                     }
                     return
                 }
-//                print("onFetchTx guard out")
-                self.mTxInfo = TxInfo.init(info)
-                self.onFetchBlock(self.mTxInfo!.height)
+                if (self.mTxType == COSMOS_MSG_TYPE_DELEGATE) {
+                    self.mStakTxInfo = StakeTxInfo.init(info)
+                    self.onFetchBlock(self.mStakTxInfo!.height)
+                } else {
+                    self.mTxInfo = TxInfo.init(info)
+                    self.onFetchBlock(self.mTxInfo!.height)
+                }
+                
+                
                 
             case .failure(let error):
                 if(SHOW_LOG) {

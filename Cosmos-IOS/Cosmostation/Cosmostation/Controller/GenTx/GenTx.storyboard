@@ -1694,25 +1694,22 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQ7-3H-Ihk" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="16" y="283.5" width="337" height="120"/>
+                                <rect key="frame" x="16" y="253.5" width="337" height="180"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ERROR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qx-1b-owe">
-                                        <rect key="frame" x="143" y="28" width="51" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qx-1b-owe">
+                                        <rect key="frame" x="143" y="58.5" width="51" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Soory, but your transaction request are failed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eey-cC-EjY">
-                                        <rect key="frame" x="49" y="51.5" width="239" height="14"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soory, but your transaction request are failed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eey-cC-EjY">
+                                        <rect key="frame" x="49" y="83" width="239" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="error code : 3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hfp-Lj-mpz">
-                                        <rect key="frame" x="126" y="73" width="84" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error code : 3" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hfp-Lj-mpz">
+                                        <rect key="frame" x="24" y="105" width="289" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" red="0.95294117649999999" green="0.098039215690000001" blue="0.38823529410000002" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1720,7 +1717,14 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39509310790000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="zKN-5M-x2X"/>
+                                    <constraint firstItem="Hfp-Lj-mpz" firstAttribute="top" secondItem="Eey-cC-EjY" secondAttribute="bottom" constant="8" id="HDy-2u-aGZ"/>
+                                    <constraint firstItem="Eey-cC-EjY" firstAttribute="centerX" secondItem="RQ7-3H-Ihk" secondAttribute="centerX" id="mUc-xA-Nha"/>
+                                    <constraint firstItem="4qx-1b-owe" firstAttribute="centerX" secondItem="RQ7-3H-Ihk" secondAttribute="centerX" id="oUm-Vc-ife"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hfp-Lj-mpz" secondAttribute="trailing" constant="24" id="qY6-Oy-80r"/>
+                                    <constraint firstItem="Eey-cC-EjY" firstAttribute="centerY" secondItem="RQ7-3H-Ihk" secondAttribute="centerY" id="r9y-6p-RkQ"/>
+                                    <constraint firstItem="Hfp-Lj-mpz" firstAttribute="leading" secondItem="RQ7-3H-Ihk" secondAttribute="leading" constant="24" id="tYR-Pv-cUQ"/>
+                                    <constraint firstItem="Eey-cC-EjY" firstAttribute="top" secondItem="4qx-1b-owe" secondAttribute="bottom" constant="8" id="w9f-XH-XLH"/>
+                                    <constraint firstAttribute="height" constant="180" id="zKN-5M-x2X"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

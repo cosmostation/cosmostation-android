@@ -74,7 +74,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
     func onGenDelegateTx() {
         self.showWaittingAlert()
         DispatchQueue.global().async {
-            var stdTx:StdTx!
+            var stakeStdTx:StakeStdTx!
             
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
 //                print("ERROR words")
@@ -90,7 +90,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                                                       self.pageHolderVC.mTargetValidator!.operator_address,
                                                       self.pageHolderVC.mToDelegateAmount!)
                 
-                var msgList = Array<Msg>()
+                var msgList = Array<StakeMsg>()
                 msgList.append(msg)
                 
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
@@ -125,7 +125,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                 var signatures: Array<Signature> = Array<Signature>()
                 signatures.append(genedSignature)
                 
-                stdTx = MsgGenerator.genSignedTx(msgList,
+                stakeStdTx = MsgGenerator.genSignedTx(msgList,
                                                  self.pageHolderVC.mFee!,
                                                  self.pageHolderVC.mMemo!,
                                                  signatures)
@@ -138,12 +138,12 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
             
             DispatchQueue.main.async(execute: {
 //                print("stdTx ", stdTx)
-                let postTx = PostTx.init("sync", stdTx.value)
+                let postTx = StakePostTx.init("sync", stakeStdTx.value)
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(postTx)
                 let rawResult = String(data:data!, encoding:.utf8)
-//                print("rawResult ", rawResult)
+                print("rawResult ", rawResult)
                 
 //                var rawResult2 = rawResult!.replacingOccurrences(of: "\\/", with: "/")
 //                print("rawResult2 ", rawResult2)
@@ -152,17 +152,17 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                 
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-//                    print("params ", params)
+                    print("params ", params)
                     let request = Alamofire.request(CSS_LCD_URL_BORAD_TX, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
-//                        print("request1 ", request.request)
-//                        print("request2 ", request.request?.httpBody)
-//                        print("request3 ", String(data:(request.request?.httpBody)!, encoding:.utf8) )
+                        print("request1 ", request.request)
+                        print("request2 ", request.request?.httpBody)
+                        print("request3 ", String(data:(request.request?.httpBody)!, encoding:.utf8) )
                         
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-//                            print("Delegate ", res)
+                            print("Delegate ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
