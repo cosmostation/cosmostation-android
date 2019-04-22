@@ -286,9 +286,17 @@ public class ValidatorMyFragment extends BaseFragment {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                BondingState bondingO1 = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address);
-                BondingState bondingO2 = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address);
-                return bondingO2.shares.compareTo(bondingO1.shares);
+                BigDecimal bondingO1 = BigDecimal.ZERO;
+                BigDecimal bondingO2 = BigDecimal.ZERO;
+                if(getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address) != null &&
+                        getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address).shares != null) {
+                    bondingO1  = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address).shares;
+                }
+                if(getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address) != null &&
+                        getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address).shares != null) {
+                    bondingO2  = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address).shares;
+                }
+                return bondingO2.compareTo(bondingO1);
 
             }
         });

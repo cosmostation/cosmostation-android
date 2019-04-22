@@ -240,7 +240,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
 
-        onAtomTic();
+//        onAtomTic();
     }
 
     @Override
@@ -724,6 +724,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
         new AccountInfoTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new BondingStateTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new UnBondingStateTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        onAtomTic();
         return true;
     }
 

@@ -144,7 +144,7 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull VoteHolder voteHolder, int position) {
             final Proposal proposal = mProposals.get(position);
-            voteHolder.proposal_id.setText("#" + proposal.value.proposal_id);
+            voteHolder.proposal_id.setText("# " + proposal.value.proposal_id);
             voteHolder.proposal_status.setText(proposal.value.proposal_status);
             voteHolder.proposal_title.setText(proposal.value.title);
             voteHolder.proposal_details.setText(proposal.value.description);

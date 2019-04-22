@@ -42,13 +42,13 @@ public class ResLcdAccountInfo {
         @SerializedName("BaseAccount")
         public BaseAccount BaseAccount;
 
-        @SerializedName("OriginalVesting")
+        @SerializedName("original_vesting")
         public ArrayList<Coin> OriginalVesting;
 
-        @SerializedName("DelegatedFree")
+        @SerializedName("delegated_free")
         public ArrayList<Coin> DelegatedFree;
 
-        @SerializedName("DelegatedVesting")
+        @SerializedName("delegated_vesting")
         public ArrayList<Coin> DelegatedVesting;
 
         @SerializedName("EndTime")

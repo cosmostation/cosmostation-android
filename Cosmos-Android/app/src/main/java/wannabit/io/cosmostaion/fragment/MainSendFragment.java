@@ -184,8 +184,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             try {
                 BigDecimal total = new BigDecimal(""+mTvAtomTotal.getText().toString().trim().replace(",","")).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
                 mAtomPrice.setText("$ " +  WDp.getDolor(getContext(), total));
-                mAtomPerPrice.setText("$ " + new BigDecimal(""+getBaseDao().getLastAtomTic()).setScale(2, RoundingMode.DOWN));
-                mAtomUpDownPrice.setText("" + new BigDecimal(""+getBaseDao().getLastAtomUpDown()).setScale(2, RoundingMode.DOWN) + "%");
+                mAtomPerPrice.setText("$ " + new BigDecimal(""+getBaseDao().getLastAtomTic()).setScale(2, RoundingMode.HALF_UP));
+                mAtomUpDownPrice.setText("" + new BigDecimal(""+getBaseDao().getLastAtomUpDown()).setScale(2, RoundingMode.HALF_UP) + "% (24h)");
                 if(getBaseDao().getLastAtomUpDown() > 0) {
                     matomUpDownImg.setVisibility(View.VISIBLE);
                     matomUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
