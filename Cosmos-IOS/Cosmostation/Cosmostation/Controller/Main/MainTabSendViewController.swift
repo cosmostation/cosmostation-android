@@ -27,21 +27,27 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     @IBOutlet weak var keyQrcodeBtn: UIButton!
     
     @IBOutlet weak var AtomCard: CardView!
-    @IBOutlet weak var atomPriceLabel: UILabel!
     @IBOutlet weak var atomTotalLabel: UILabel!
+    @IBOutlet weak var atomPriceLabel: UILabel!
     @IBOutlet weak var atomAvailableAmount: UILabel!
     @IBOutlet weak var atomDelegatedAmount: UILabel!
     @IBOutlet weak var atomUnbondingAmount: UILabel!
     @IBOutlet weak var atomRewardAmount: UILabel!
     
+    @IBOutlet weak var priceCard: CardView!
+    @IBOutlet weak var pricePerAtom: UILabel!
+    @IBOutlet weak var priceUpDownLabel: UILabel!
+    @IBOutlet weak var priceUpDownImg: UIImageView!
     
     @IBOutlet weak var photonCard: CardView!
     @IBOutlet weak var photonPriceLabel: UILabel!
     @IBOutlet weak var photonTotalLabel: UILabel!
     @IBOutlet weak var photonAvailableAmount: UILabel!
     @IBOutlet weak var photonRewardAmount: UILabel!
+    
+    
     @IBOutlet weak var ConstraintPhoton: NSLayoutConstraint!
-    @IBOutlet weak var ConstraintAtom: NSLayoutConstraint!
+    @IBOutlet weak var ConstaraintPrice: NSLayoutConstraint!
     
     @IBOutlet weak var rewardCard: CardView!
     @IBOutlet weak var rewardImg: UIImageView!
@@ -67,7 +73,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         
         let floaty = Floaty()
         floaty.buttonColor = UIColor.init(hexString: "9C6CFF")
-        floaty.buttonImage = UIImage.init(named: "send_btn")
+        floaty.buttonImage = UIImage.init(named: "sendImg")
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
         
@@ -83,7 +89,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         
         if(mainTabVC.mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
             photonCard.isHidden = true
-            ConstraintAtom.priority = UILayoutPriority(rawValue: 1000)
+            ConstaraintPrice.priority = UILayoutPriority(rawValue: 1000)
             ConstraintPhoton.priority = UILayoutPriority(rawValue: 500)
             titleChainName.text = "(Cosmos Hub)"
         } else {
@@ -133,13 +139,26 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         totalSum = totalSum.multiplying(by: 1000000)
         atomTotalLabel.attributedText = WUtils.displayAmout(totalSum.stringValue, atomTotalLabel.font, 6)
         
-        var priceValue = NSDecimalNumber.zero
-        guard let price = mainTabVC.mAtomTic?.value(forKeyPath: "data.quotes.USD.price") else {
-            return
+        if let change = mainTabVC.mAtomTic?.value(forKeyPath: "data.quotes.USD.percent_change_24h") as? Double,
+            let price = mainTabVC.mAtomTic?.value(forKeyPath: "data.quotes.USD.price") as? Double {
+            let changeValue = NSDecimalNumber(value: change)
+            let priceValue = NSDecimalNumber(value: price)
+
+            let dpPrice = priceValue.multiplying(by: WUtils.stringToDecimal(atomTotalLabel.text!.replacingOccurrences(of: ",", with: "")), withBehavior: WUtils.handler2)
+            atomPriceLabel.attributedText = WUtils.displayUSD(dpPrice, font: atomPriceLabel.font)
+            pricePerAtom.attributedText = WUtils.displayUSD(priceValue, font: pricePerAtom.font)
+            
+            if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                priceUpDownImg.image = UIImage(named: "priceUp")
+                priceUpDownLabel.text = changeValue.stringValue + "% (24h)"
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                priceUpDownImg.image = UIImage(named: "priceDown")
+                priceUpDownLabel.text = changeValue.stringValue + "% (24h)"
+            } else {
+                priceUpDownImg.image = nil
+                priceUpDownLabel.text = ""
+            }
         }
-        priceValue = NSDecimalNumber(string: String(describing: price))
-        let dpPrice = priceValue.multiplying(by: WUtils.stringToDecimal(atomTotalLabel.text!.replacingOccurrences(of: ",", with: "")), withBehavior: WUtils.handler2)
-        atomPriceLabel.attributedText = WUtils.displayUSD(dpPrice, font: atomPriceLabel.font)
         
         self.refresher.endRefreshing()
     }
