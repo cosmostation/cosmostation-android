@@ -35,7 +35,6 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
         }
-//        print("mAccounts ", mAccounts.count)
         
         self.onFetchAccountData()
         

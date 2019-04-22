@@ -43,9 +43,10 @@ public class AccountInfo {
             }
             
             self.coins.removeAll()
-            let rawCoins = dictionary["coins"] as! Array<NSDictionary>
-            for coin in rawCoins {
-                self.coins.append(Coin(coin as! [String : Any]))
+            if let rawCoins = dictionary["coins"] as? Array<NSDictionary> {
+                for coin in rawCoins {
+                    self.coins.append(Coin(coin as! [String : Any]))
+                }
             }
         }
     }
@@ -65,19 +66,19 @@ public class AccountInfo {
             self.EndTime = dictionary["EndTime"] as? String ?? ""
             
             self.OriginalVesting.removeAll()
-            let oriCoins = dictionary["OriginalVesting"] as! Array<NSDictionary>
+            let oriCoins = dictionary["original_vesting"] as! Array<NSDictionary>
             for coin in oriCoins {
                 self.OriginalVesting.append(Coin(coin as! [String : Any]))
             }
             
             self.DelegatedFree.removeAll()
-            let deleCoins = dictionary["DelegatedFree"] as! Array<NSDictionary>
+            let deleCoins = dictionary["delegated_free"] as! Array<NSDictionary>
             for coin in deleCoins {
                 self.DelegatedFree.append(Coin(coin as! [String : Any]))
             }
             
             self.DelegatedVesting.removeAll()
-            let vestCoins = dictionary["DelegatedVesting"] as! Array<NSDictionary>
+            let vestCoins = dictionary["delegated_vesting"] as! Array<NSDictionary>
             for coin in vestCoins {
                 self.DelegatedVesting.append(Coin(coin as! [String : Any]))
             }

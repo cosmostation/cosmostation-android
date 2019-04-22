@@ -348,11 +348,10 @@ final class BaseData : NSObject{
     }
     
     public func insertBalance(balance: Balance) -> Int64 {
-        let insertBalance = DB_BALANCE.insert(DB_BALANCE_ID <- balance.balance_id,
-                                               DB_BALANCE_ACCOUNT_ID <- balance.balance_account_id,
-                                               DB_BALANCE_DENOM <- balance.balance_denom,
-                                               DB_BALANCE_AMOUNT <- balance.balance_amount,
-                                               DB_BALANCE_FETCH_TIME <- balance.balance_fetch_time)
+        let insertBalance = DB_BALANCE.insert(DB_BALANCE_ACCOUNT_ID <- balance.balance_account_id,
+                                              DB_BALANCE_DENOM <- balance.balance_denom,
+                                              DB_BALANCE_AMOUNT <- balance.balance_amount,
+                                              DB_BALANCE_FETCH_TIME <- balance.balance_fetch_time)
         do {
             return try database.run(insertBalance)
         } catch {
