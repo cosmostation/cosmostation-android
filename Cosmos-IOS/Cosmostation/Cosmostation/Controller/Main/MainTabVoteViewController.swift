@@ -67,6 +67,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         } else {
             self.emptyLabel.isHidden = false
         }
+        self.sortProposals()
         self.refresher.endRefreshing()
     }
     
@@ -78,27 +79,27 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
         let proposal = mProposals[indexPath.row]
-        cell?.proposalIdLabel.text = proposal.value.proposal_id
+        cell?.proposalIdLabel.text = "# ".appending(proposal.value.proposal_id)
         cell?.proposalTitleLabel.text = proposal.value.title
         cell?.proposalMsgLabel.text = proposal.value.description
         cell?.proposalStateLabel.text = proposal.value.proposal_status
-        cell?.proposalSubmitTime.text = WUtils.nodeTimetoString(input: proposal.value.submit_time)
-        if(proposal.value.voting_start_time.starts(with: "0")) {
-            cell?.proposalStartTime.text = "n/a"
+        if (proposal.value.proposal_status == "DepositPeriod") {
+            cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
+        } else if (proposal.value.proposal_status == "VotingPeriod") {
+            cell?.proposalStateImg.image = UIImage.init(named: "votingImg")
+        } else if (proposal.value.proposal_status == "Rejected") {
+            cell?.proposalStateImg.image = UIImage.init(named: "rejectedImg")
+        } else if (proposal.value.proposal_status == "Passed") {
+            cell?.proposalStateImg.image = UIImage.init(named: "passedImg")
         } else {
-            cell?.proposalStartTime.text = WUtils.nodeTimetoString(input: proposal.value.voting_start_time)
+            cell?.proposalStateImg.image = nil
         }
-        
-        if(proposal.value.voting_end_time.starts(with: "0")) {
-            cell?.proposalEndTime.text = "n/a"
-        } else {
-            cell?.proposalEndTime.text = WUtils.nodeTimetoString(input: proposal.value.voting_end_time)
-        }
+
         return cell!
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130;
+        return 90;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -133,6 +134,12 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.dropDown.show()
+    }
+    
+    func sortProposals() {
+        self.mProposals.sort{
+            return Int($0.value.proposal_id)! < Int($1.value.proposal_id)! ? false : true
+        }
     }
 
 }
