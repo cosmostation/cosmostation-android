@@ -40,6 +40,14 @@ final class BaseData : NSObject{
         return Int64(UserDefaults.standard.integer(forKey: KEY_ALL_VAL_SORT))
     }
     
+    func setMyValidatorSort(_ sort : Int64) {
+        UserDefaults.standard.set(sort, forKey: KEY_MY_VAL_SORT)
+    }
+    
+    func getMyValidatorSort() -> Int64 {
+        return Int64(UserDefaults.standard.integer(forKey: KEY_MY_VAL_SORT))
+    }
+    
     func setLastTab(_ index : Int) {
         UserDefaults.standard.set(index, forKey: KEY_LAST_TAB)
     }

@@ -40,16 +40,30 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onSortingMy), name: Notification.Name("onSortingMy"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("onSortingMy"), object: nil)
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        self.myValidatorTableView.reloadData()
+        self.onSortingMy()
         self.refresher.endRefreshing()
+    }
+    
+    @objc func onSortingMy() {
+        print("onSortingMy")
+        if (BaseData.instance.getMyValidatorSort() == 0) {
+            sortByDelegated()
+        } else if (BaseData.instance.getMyValidatorSort() == 1) {
+            sortByName()
+        } else {
+            sortByReward()
+        }
+        self.myValidatorTableView.reloadData()
     }
     
     @objc func onRequestFetch() {
@@ -133,7 +147,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         if(bonding != nil) { cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmout(bonding!.bonding_shares, cell.myDelegatedAmoutLabel.font, 6)
         } else { cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmout("0", cell.myDelegatedAmoutLabel.font, 6) }
         
-        cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
+        cell.rewardAmoutLabel.attributedText = WUtils.displayAmout(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6)
         
         cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
         if (validator.description.identity != "") {
@@ -174,4 +188,50 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             cell.totalRewardLabel.attributedText = WUtils.displayAmout("0", cell.totalRewardLabel.font, 6)
         }
     }
+    
+    
+    func sortByName() {
+        mainTabVC.mMyValidators.sort{
+            if ($0.jailed && !$1.jailed) {
+                return false
+            }
+            if (!$0.jailed && $1.jailed) {
+                return true
+            }
+            return $0.description.moniker < $1.description.moniker
+        }
+    }
+    
+    func sortByDelegated() {
+        mainTabVC.mMyValidators.sort{
+            if ($0.jailed && !$1.jailed) {
+                return false
+            }
+            if (!$0.jailed && $1.jailed) {
+                return true
+            }
+            let bonding0 = BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address)
+            let bonding1 = BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address)
+            return Double(bonding0!.bonding_shares)! > Double(bonding1!.bonding_shares)!
+        }
+    }
+    
+    func sortByReward() {
+        mainTabVC.mMyValidators.sort{
+            if ($0.jailed && !$1.jailed) {
+                return false
+            }
+            if (!$0.jailed && $1.jailed) {
+                return true
+            }
+//            let bonding0 = BaseData.instance.s
+//            let bonding1 = BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address)
+//            return Double(bonding0!.bonding_shares)! > Double(bonding1!.bonding_shares)!
+            
+            let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
+            let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+            return reward0.compare(reward1).rawValue > 0 ? true : false
+        }
+    }
+    
 }

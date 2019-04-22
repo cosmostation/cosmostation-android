@@ -289,7 +289,16 @@ class WUtils {
         return attributedString1
     }
     
-    
+    static func getValidatorReward(_ rewards:Array<Reward>, _ valOpAddr:String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        for reward in rewards {
+            if(reward.reward_v_address == valOpAddr) {
+                result = stringToDecimal(reward.reward_amount[0].amount)
+                break
+            }
+        }
+        return result
+    }
     
     
     
