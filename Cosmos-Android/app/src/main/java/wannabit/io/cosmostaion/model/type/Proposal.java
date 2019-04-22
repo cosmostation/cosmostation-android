@@ -5,6 +5,36 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Proposal {
+    @SerializedName("proposal_id")
+    public String proposal_id;
+
+    @SerializedName("proposal_status")
+    public String proposal_status;
+
+    @SerializedName("proposal_content")
+    public ProposalContent proposal_content;
+
+
+    public class ProposalContent {
+        @SerializedName("type")
+        public String type;
+
+        @SerializedName("value")
+        public Value value;
+
+    }
+
+    public class Value {
+        @SerializedName("title")
+        public String title;
+
+        @SerializedName("description")
+        public String description;
+    }
+}
+
+/*
+public class Proposal {
 
     @SerializedName("type")
     public String type;
@@ -64,3 +94,4 @@ public class Proposal {
 
 
 }
+*/

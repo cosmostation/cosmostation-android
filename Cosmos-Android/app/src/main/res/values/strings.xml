@@ -10,14 +10,14 @@
     <!--<string name="url_lcd_main" translatable="false">https://lcd.cosmostation.io/</string>-->
 
     <!--Free fee lcd-->
-    <string name="url_lcd_main" translatable="false">https://lcd-dev.cosmostation.io/</string>
+    <!--<string name="url_lcd_main" translatable="false">https://lcd-dev.cosmostation.io/</string>-->
 
     <!--inner test net-->
-    <!--<string name="url_lcd_main" translatable="false">https://lcd-dev-internal.cosmostation.io/</string>-->
+    <string name="url_lcd_main" translatable="false">https://lcd-gaia.cosmostation.io/</string>
 
 
     <string name="url_cosmostation" translatable="false">https://api-dev.cosmostation.io/</string>
-    <string name="url_esearch" translatable="false">https://search-explorer-mainnet-app-dornfmxm5qw3cd46j3k2noox5u.ap-northeast-2.es.amazonaws.com/</string>
+    <string name="url_esearch" translatable="false">https://search-cosmoshub-2-app-7rb6ujvvmemw6holj6cr7em23u.ap-northeast-2.es.amazonaws.com/</string>
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
