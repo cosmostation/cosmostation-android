@@ -47,7 +47,7 @@ class SettingTableViewController: UITableViewController {
                     UIApplication.shared.open(url!, options: [:], completionHandler: nil)
                 }else
                 {
-                    let alert = UIAlertController(title: "Error", message: "you don't have telegram,\nyou need to install telegram", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Error", message: "Telegram not installed\nPlease install to continue.", preferredStyle: .alert)
                     let action = UIAlertAction(title: "Download And Install", style: .default, handler: { (UIAlertAction) in
                         let urlAppStore = URL(string: "itms-apps://itunes.apple.com/app/id686449807")
                         if(UIApplication.shared.canOpenURL(urlAppStore!))

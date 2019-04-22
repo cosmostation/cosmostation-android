@@ -228,7 +228,7 @@ final class BaseData : NSObject{
         do {
             return try Int64(database.run(target.update(DB_ACCOUNT_NICKNAME <- account.account_nick_name,
                                                         DB_ACCOUNT_FAVO <- account.account_favo,
-                                                        DB_ACCOUNT_BASECHAIN <- "cosmoshub-2",
+                                                        DB_ACCOUNT_BASECHAIN <- ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue,
                                                         DB_ACCOUNT_SEQUENCE_NUMBER <- account.account_sequence_number,
                                                         DB_ACCOUNT_ACCOUNT_NUMBER <- account.account_account_numner,
                                                         DB_ACCOUNT_RESOURCE <- account.account_resource,
@@ -379,7 +379,11 @@ final class BaseData : NSObject{
         }
     }
     
-    public func updateBalances(_ newBalances: Array<Balance>) {
+    public func updateBalances(_ accountId: Int64, _ newBalances: Array<Balance>) {
+        if(newBalances.count == 0) {
+            _ = deleteBalanceById(accountId: accountId)
+            return
+        }
         _ = deleteBalanceById(accountId: newBalances[0].balance_account_id)
         for balance in newBalances {
             _ = self.insertBalance(balance: balance)

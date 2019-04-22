@@ -209,11 +209,12 @@ class PasswordViewController: BaseViewController {
             }
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
+                print("onStartCheckPassword ", result)
                 if(result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK)
                 } else {
-//                    self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
-                    //TODO no match check
+                    self.onShowToast(NSLocalizedString("error_invalid_password", comment: ""))
+                    self.initView()
                 }
             });
             
@@ -235,8 +236,8 @@ class PasswordViewController: BaseViewController {
                 if(result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK_FOR_DELETE)
                 } else {
-//                    self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
-//                    TODO no match check
+                    self.onShowToast(NSLocalizedString("error_invalid_password", comment: ""))
+                    self.initView()
                 }
             });
         }

@@ -167,17 +167,34 @@ class GenTxResultViewController: BaseViewController {
     }
     
     @IBAction func onClickExplorer(_ sender: UIButton) {
-        guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
-        let safariViewController = SFSafariViewController(url: url)
-        present(safariViewController, animated: true, completion: nil)
+        if (mTxType == COSMOS_MSG_TYPE_DELEGATE || mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+            guard let url = URL(string: "https://www.mintscan.io/txs/" + mStakTxInfo!.txhash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+
+        } else {
+            guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+
+        }
     }
     
     @IBAction func onClickShare(_ sender: UIButton) {
-        let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
-        let textToShare = [ text ]
-        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view 
-        self.present(activityViewController, animated: true, completion: nil)
+        if (mTxType == COSMOS_MSG_TYPE_DELEGATE || mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+            let text = "https://www.mintscan.io/txs/" + mStakTxInfo!.txhash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+        } else {
+            let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        }
     }
     
     @IBAction func onClickOK(_ sender: UIButton) {

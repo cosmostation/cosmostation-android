@@ -124,9 +124,19 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 let accountInfo = AccountInfo.init(info)
                 if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                    cell?.amount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, cell!.amount.font!, 6)
+                    if(accountInfo.value.coins.count == 0) {
+                        cell?.amount.attributedText = WUtils.displayAmout("0", cell!.amount.font!, 6)
+                    } else {
+                        cell?.amount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, cell!.amount.font!, 6)
+                    }
+                    
                 } else {
-                    cell?.amount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.amount.font!, 6)
+                    if(accountInfo.value.BaseVestingAccount.BaseAccount.coins.count == 0) {
+                        cell?.amount.attributedText = WUtils.displayAmout("0", cell!.amount.font!, 6)
+                    } else {
+                        cell?.amount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.amount.font!, 6)
+                    }
+                    
                 }
                 
             case .failure(let error):

@@ -165,6 +165,7 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
         }
+        print("mAccount ", mAccount.account_base_chain)
     }
     
     
@@ -250,6 +251,7 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+                print("onFetchAccountInfo ", res)
                 guard let info = res as? [String : Any] else {
 //                    print("no account!!")
                     BaseData.instance.deleteBalance(account: account)
@@ -258,7 +260,7 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
                 }
                 let accountInfo = AccountInfo.init(info)
                 BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                BaseData.instance.updateBalances(WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                 
             case .failure(let error):
                 print("onFetchAccountInfo ", error)

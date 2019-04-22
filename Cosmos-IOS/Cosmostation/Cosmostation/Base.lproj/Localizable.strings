@@ -55,3 +55,4 @@
 "error_invalid_address" = "Invalid Address, please check again.";
 "error_self_send" = "Self sending is not support.";
 "error_no_fee" = "No fee left";
+"error_invalid_password" = "Invalid Password";
