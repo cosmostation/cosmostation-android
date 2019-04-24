@@ -198,10 +198,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasAtom = false;
         for (Balance balance:balances) {
-//            if(balance.symbol.toLowerCase().equals(WDp.DpAtom(getBaseContext(), mAccount.baseChain).toLowerCase()) &&
-//                    (balance.balance.compareTo(new BigDecimal("1")) > 0)){
-//                hasAtom  = true;
-//            }
             if(BaseConstant.IS_TEST) {
                 if(balance.symbol.equals("muon") && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
                     hasAtom  = true;
@@ -215,17 +211,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
         if(!hasAtom) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) ||
-                mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
-            Toast.makeText(getBaseContext(), R.string.str_test_net_deprecated, Toast.LENGTH_SHORT).show();
-            Bundle bundle = new Bundle();
-            bundle.putLong("id", mAccount.id);
-            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
 
@@ -243,25 +228,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-
-//        if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-//            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-
         if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) ||
-                mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
-            Toast.makeText(getBaseContext(), R.string.str_test_net_deprecated, Toast.LENGTH_SHORT).show();
-//            Bundle bundle = new Bundle();
-//            bundle.putLong("id", mAccount.id);
-//            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
 
@@ -286,17 +254,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         if(mReward == null) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) ||
-                mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
-            Toast.makeText(getBaseContext(), R.string.str_test_net_deprecated, Toast.LENGTH_SHORT).show();
-//            Bundle bundle = new Bundle();
-//            bundle.putLong("id", mAccount.id);
-//            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
 

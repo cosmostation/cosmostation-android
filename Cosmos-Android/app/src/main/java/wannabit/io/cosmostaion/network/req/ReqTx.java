@@ -83,11 +83,7 @@ public class ReqTx {
             fields.add(input_addr);
             fields.add(output_addr);
             fields.add(addr_proposer);
-            if(chain.equals(BaseChain.GAIA_12K)) {
-                fields.add(delegator_addr);
-            } else {
-                fields.add(delegator_address);
-            }
+            fields.add(delegator_address);
         }
         multiMatch.fields = fields;
         Query query = new Query();

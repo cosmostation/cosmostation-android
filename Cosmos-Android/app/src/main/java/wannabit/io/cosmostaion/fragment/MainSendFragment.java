@@ -175,36 +175,28 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvPhotonBalance.setText(WDp.getDpPhotonBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
         mTvPhotonRewards.setText(WDp.getDpAllPhotonRewardAmount(getContext(), getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
 
-        if(!getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) &&
-                !getMainActivity().mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
-            mPhotonCard.setVisibility(View.GONE);
-            mAtomPrice.setVisibility(View.VISIBLE);
-            mPriceCard.setVisibility(View.VISIBLE);
+        mPhotonCard.setVisibility(View.GONE);
+        mAtomPrice.setVisibility(View.VISIBLE);
+        mPriceCard.setVisibility(View.VISIBLE);
 
-            try {
-                BigDecimal total = new BigDecimal(""+mTvAtomTotal.getText().toString().trim().replace(",","")).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
-                mAtomPrice.setText("$ " +  WDp.getDolor(getContext(), total));
-                mAtomPerPrice.setText("$ " + new BigDecimal(""+getBaseDao().getLastAtomTic()).setScale(2, RoundingMode.HALF_UP));
-                mAtomUpDownPrice.setText("" + new BigDecimal(""+getBaseDao().getLastAtomUpDown()).setScale(2, RoundingMode.HALF_UP) + "% (24h)");
-                if(getBaseDao().getLastAtomUpDown() > 0) {
-                    matomUpDownImg.setVisibility(View.VISIBLE);
-                    matomUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
-                } else if (getBaseDao().getLastAtomUpDown() < 0){
-                    matomUpDownImg.setVisibility(View.VISIBLE);
-                    matomUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
-                } else {
-                    matomUpDownImg.setVisibility(View.GONE);
-                }
-
-
-            }catch (Exception e) {
-                mAtomPrice.setText("price not support");
+        try {
+            BigDecimal total = new BigDecimal(""+mTvAtomTotal.getText().toString().trim().replace(",","")).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+            mAtomPrice.setText("$ " +  WDp.getDolor(getContext(), total));
+            mAtomPerPrice.setText("$ " + new BigDecimal(""+getBaseDao().getLastAtomTic()).setScale(2, RoundingMode.HALF_UP));
+            mAtomUpDownPrice.setText("" + new BigDecimal(""+getBaseDao().getLastAtomUpDown()).setScale(2, RoundingMode.HALF_UP) + "% (24h)");
+            if(getBaseDao().getLastAtomUpDown() > 0) {
+                matomUpDownImg.setVisibility(View.VISIBLE);
+                matomUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+            } else if (getBaseDao().getLastAtomUpDown() < 0){
+                matomUpDownImg.setVisibility(View.VISIBLE);
+                matomUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+            } else {
+                matomUpDownImg.setVisibility(View.GONE);
             }
 
-        } else {
-            mPhotonCard.setVisibility(View.VISIBLE);
-            mAtomPrice.setVisibility(View.GONE);
-            mPriceCard.setVisibility(View.GONE);
+
+        }catch (Exception e) {
+            mAtomPrice.setText("price not support");
         }
     }
 

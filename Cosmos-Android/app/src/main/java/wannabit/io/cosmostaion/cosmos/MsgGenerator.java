@@ -47,11 +47,7 @@ public class MsgGenerator {
 //        value.outputs = outputs;
 
 
-        if(chain.equals(BaseChain.GAIA_12K)) {
-            result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER;
-        } else {
-            result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
-        }
+        result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
         result.value = value;
         return result;
     }
@@ -133,13 +129,8 @@ public class MsgGenerator {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
 
-        if(chain.equals(BaseChain.GAIA_12K)) {
-            value.delegator_addr = requestAddr;
-            value.validator_addr = fromValAddr;
-        } else {
-            value.delegator_address = requestAddr;
-            value.validator_address = fromValAddr;
-        }
+        value.delegator_address = requestAddr;
+        value.validator_address = fromValAddr;
 
 
         result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;

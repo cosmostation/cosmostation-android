@@ -102,7 +102,7 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
                 mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
             }
             mFeeAmount.setText(new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount).toPlainString());
-            mTime.setText(WDp.getUnbondTime(getContext(), BaseChain.GAIA_13K));
+//            mTime.setText(WDp.getUnbondTime(getContext(), BaseChain.GAIA_13K));
         }
         if(!TextUtils.isEmpty(getSActivity().mValidator.description.identity)) {
             ApiClient.getKeybaseService(getSActivity()).getUserInfo("pictures", getSActivity().mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {

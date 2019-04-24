@@ -109,16 +109,16 @@ public class BaseActivity extends AppCompatActivity {
 //        getBaseDao().onSelectBalance(id);
 //        getBaseDao().onDeleteBondingStates(id);
 //        getBaseDao().onDeleteUnbondingStates(id);
-        WLog.w("onUpdateTestNet : " + id);
-        Account account = getBaseDao().onSelectAccount(""+id);
-        account.baseChain = BaseChain.GAIA_13K.getChain();
-        if(getBaseDao().onUpdateTestChain(account) > 0) {
-            getBaseDao().onDeleteBondingStates(id);
-            getBaseDao().onDeleteUnbondingStates(id);
-            getBaseDao().onDeleteBalance(""+id);
-            onStartMainActivity();
-        } else {
-            WLog.w("Update error");
-        }
+//        WLog.w("onUpdateTestNet : " + id);
+//        Account account = getBaseDao().onSelectAccount(""+id);
+//        account.baseChain = BaseChain.GAIA_13K.getChain();
+//        if(getBaseDao().onUpdateTestChain(account) > 0) {
+//            getBaseDao().onDeleteBondingStates(id);
+//            getBaseDao().onDeleteUnbondingStates(id);
+//            getBaseDao().onDeleteBalance(""+id);
+//            onStartMainActivity();
+//        } else {
+//            WLog.w("Update error");
+//        }
     }
 }

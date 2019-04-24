@@ -258,17 +258,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         WLog.w("mAccount.baseChain : " + mAccount.baseChain);
         WLog.w("mAccount.id : " + mAccount.id);
         WLog.w("mAccount.address : " + mAccount.address);
-        if (mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
-            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
-            mToolbarChainName.setText(getString(R.string.str_gaia_12k));
-            mToolbarChainName.setVisibility(View.VISIBLE);
-
-        } else if (mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
-            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
-            mToolbarChainName.setText(getString(R.string.str_gaia_13k));
-            mToolbarChainName.setVisibility(View.VISIBLE);
-
-        } else if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));
             mToolbarChainName.setVisibility(View.VISIBLE);
@@ -312,17 +302,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         }
         if(!hasbalance){
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(mAccount.baseChain.equals(BaseChain.GAIA_12K.getChain()) ||
-                mAccount.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
-            Toast.makeText(getBaseContext(), R.string.str_test_net_deprecated, Toast.LENGTH_SHORT).show();
-//            Bundle bundle = new Bundle();
-//            bundle.putLong("id", mAccount.id);
-//            Dialog_ChainUpgrade add = Dialog_ChainUpgrade.newInstance(bundle);
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
 
@@ -622,17 +601,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     }
                 });
 
-                if (account.baseChain.equals(BaseChain.GAIA_12K.getChain())) {
-                    holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
-                    holder.tv_chain.setText(getString(R.string.str_gaia_12k));
-                    holder.tv_chain.setVisibility(View.VISIBLE);
-
-                } else if (account.baseChain.equals(BaseChain.GAIA_13K.getChain())) {
-                    holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
-                    holder.tv_chain.setText(getString(R.string.str_gaia_13k));
-                    holder.tv_chain.setVisibility(View.VISIBLE);
-
-                } else if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                     holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
                     holder.tv_chain.setText(getString(R.string.str_cosmos_hub));
                     holder.tv_chain.setVisibility(View.VISIBLE);
