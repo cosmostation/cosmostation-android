@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
@@ -24,6 +25,7 @@ import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -38,7 +40,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private NestedScrollView    mNestedScrollView;
 
-    private ImageView           mBtnAddressDetail;
+    private ImageView           mBtnWebDetail, mBtnAddressDetail;
     private ImageView           mKeyState;
     private TextView            mAddress;
     private TextView            mTvAtomTotal, mTvAtomUndelegated,
@@ -71,6 +73,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         View rootView = inflater.inflate(R.layout.fragment_main_send, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mNestedScrollView       = rootView.findViewById(R.id.layer_scrollview);
+        mBtnWebDetail           = rootView.findViewById(R.id.web_detail);
         mBtnAddressDetail       = rootView.findViewById(R.id.address_detail);
         mKeyState               = rootView.findViewById(R.id.img_account);
         mAddress                = rootView.findViewById(R.id.account_Address);
@@ -122,6 +125,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
         });
 
+        mBtnWebDetail.setOnClickListener(this);
         mBtnAddressDetail.setOnClickListener(this);
         onUpdateView();
         return rootView;
@@ -195,8 +199,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
 
-        }catch (Exception e) {
-            mAtomPrice.setText("price not support");
+        } catch (Exception e) {
+            mAtomPrice.setText("???");
+            mAtomPerPrice.setText("???");
+            mAtomUpDownPrice.setText("???");
+            matomUpDownImg.setVisibility(View.GONE);
         }
     }
 
@@ -214,6 +221,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             show.show(getFragmentManager().beginTransaction(), "dialog");
+
+        } else if (v.equals(mBtnWebDetail)) {
+            Intent webintent = new Intent(getMainActivity(), WebActivity.class);
+            webintent.putExtra("address", getMainActivity().mAccount.address);
+            webintent.putExtra("goMain", false);
+            startActivity(webintent);
         }
     }
 }

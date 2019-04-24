@@ -29,6 +29,7 @@ public class ValHistoryTask extends CommonTask {
         try {
             Response<ResHistory> response = ApiClient.getEsService(mApp, mChain).getValTx(mReq).execute();
             if(response.isSuccessful() && response.body() != null) {
+                WLog.w("ValHistoryTask : result "+ response.body().hits.hits.size());
                 mResult.resultData = response.body().hits.hits;
                 mResult.isSuccess = true;
             } else {

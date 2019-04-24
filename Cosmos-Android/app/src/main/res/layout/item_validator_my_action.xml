@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_tx_delegated_amount"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/validator_delegated"
                     android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="232,743.738291"
-                    style="@style/font_ssl_11_white"/>
+                    style="@style/font_ssl_14_white"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/validator_unbonding"
                     android:text="@string/str_tx_undelegated_amount"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/validator_unbonding"
                     android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="12,232.008232"
-                    style="@style/font_ssl_11_white"/>
+                    style="@style/font_ssl_14_white"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -95,17 +95,33 @@
                 android:background="@color/colorGray3"
                 android:layout_marginTop="@dimen/space_12"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12"
-                android:text="@string/str_reward"
-                style="@style/font_ss_11_gray1"/>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4">
+                android:layout_marginTop="@dimen/space_12">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_reward"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/validator_simple_reward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:text="0.000005"
+                    style="@style/font_ssl_14_white"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/validator_atom_reward_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_4"
+                android:visibility="gone">
                 <TextView
                     android:id="@+id/action_atom_title"
                     android:layout_width="wrap_content"
@@ -121,14 +137,15 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="0.000005"
-                    style="@style/font_ssl_11_white"/>
+                    style="@style/font_ssl_14_white"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/validator_photon_reward_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4">
+                android:layout_marginTop="@dimen/space_4"
+                android:visibility="gone">
                 <TextView
                     android:id="@+id/action_photon_title"
                     android:layout_width="wrap_content"
@@ -144,7 +161,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="232.232145"
-                    style="@style/font_ssl_11_white"/>
+                    style="@style/font_ssl_14_white"/>
             </RelativeLayout>
 
             <Button

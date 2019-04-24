@@ -168,8 +168,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
     private void onInitFetch() {
-        WLog.w("onInitFetch : " + mAccount.baseChain);
-        WLog.w("onInitFetch : " + BaseChain.getChain(mAccount.baseChain).getChain());
+        WLog.w("onInitFetch1 ");
         if(mTaskCount > 0) return;
         mTaskCount = 4;
         new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -466,14 +465,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 } else {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
-                if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) holder.itemPhotonLayer.setVisibility(View.GONE);
                 if(mReward != null) {
-                    holder.itemTvAtomReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getAtomAmount(), 6, BaseChain.getChain(mAccount.baseChain)));
-                    holder.itemTvPhotonReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getPhotonAmount(), 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getAtomAmount(), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
-                    holder.itemTvAtomReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
-                    holder.itemTvPhotonReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
+
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -692,10 +689,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         public class MyActionHolder extends RecyclerView.ViewHolder {
-            TextView    itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvAtomReward, itemTvPhotonReward;
+            TextView    itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvAtomReward, itemTvPhotonReward, itemTvSimpleReward;
             Button      itemBtnDelegate, itemBtnUndelegate, itemBtnReward;
             TextView    itemAtomTitle, itemPhotonTitle;
-            RelativeLayout itemPhotonLayer;
+            RelativeLayout itemAtomLayer, itemPhotonLayer;
 
             public MyActionHolder(View v) {
                 super(v);
@@ -709,6 +706,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemAtomTitle           = itemView.findViewById(R.id.action_atom_title);
                 itemPhotonTitle         = itemView.findViewById(R.id.action_photon_title);
                 itemPhotonLayer         = itemView.findViewById(R.id.validator_photon_reward_layer);
+                itemAtomLayer           = itemView.findViewById(R.id.validator_atom_reward_layer);
+                itemTvSimpleReward      = itemView.findViewById(R.id.validator_simple_reward);
             }
         }
 

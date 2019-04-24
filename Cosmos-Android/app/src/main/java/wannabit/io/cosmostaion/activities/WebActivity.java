@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 public class WebActivity extends BaseActivity {
 
     private WebView     mWebview;
-    private String      mTxid, mVoteId;
+    private String      mTxid, mVoteId, mAddress;
     private boolean         mGoMain;
     private FloatingActionButton mShare;
 
@@ -38,12 +38,15 @@ public class WebActivity extends BaseActivity {
 
         mTxid  = getIntent().getStringExtra("txid");
         mVoteId = getIntent().getStringExtra("voteId");
+        mAddress = getIntent().getStringExtra("address");
         mGoMain = getIntent().getBooleanExtra("goMain", false);
 
         if (!TextUtils.isEmpty(mTxid))
             mWebview.loadUrl("https://www.mintscan.io/txs/"+mTxid);
         else if (!TextUtils.isEmpty(mVoteId))
             mWebview.loadUrl("https://www.mintscan.io/proposals/"+mVoteId);
+        else if (!TextUtils.isEmpty(mAddress))
+            mWebview.loadUrl("https://www.mintscan.io/account/"+mAddress);
         else
             mWebview.loadUrl("https://www.mintscan.io");
 

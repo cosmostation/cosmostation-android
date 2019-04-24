@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     private SwipeRefreshLayout              mSwipeRefreshLayout;
     private RecyclerView                    mRecyclerView;
-    private TextView                        mEmptyHistory;
+    private LinearLayout                    mEmptyHistory;
     private HistoryAdapter                  mHistoryAdapter;
 
     private ArrayList<ResHistory.InnerHits> mHistory = new ArrayList<>();
