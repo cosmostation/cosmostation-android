@@ -59,6 +59,7 @@ public class BaseActivity extends AppCompatActivity {
             v = new View(getBaseContext());
         }
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        v.clearFocus();
     }
 
     public void onStartMainActivity() {

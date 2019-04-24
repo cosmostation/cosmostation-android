@@ -204,6 +204,11 @@
     <string name="str_h">h</string>
     <string name="str_m">m</string>
     <string name="str_s">s</string>
+    <string name="str_add1">+ 1</string>
+    <string name="str_add10">+ 10</string>
+    <string name="str_add100">+ 100</string>
+    <string name="str_add_half">Half</string>
+    <string name="str_add_max">Max</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

@@ -202,7 +202,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+//                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
                     hasAtom  = true;
                 }
             }
@@ -232,6 +233,26 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasAtom = false;
+        for (Balance balance:balances) {
+            if(BaseConstant.IS_TEST) {
+                if(balance.symbol.equals("muon") && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                    hasAtom  = true;
+                }
+            } else {
+//                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
+                    hasAtom  = true;
+                }
+            }
+
+        }
+        if(!hasAtom) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         getBaseDao().setValidator(mValidator);
         Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
         startActivity(unDelegate);
@@ -249,10 +270,28 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
 
-
-
         if(mReward == null) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasAtom = false;
+        for (Balance balance:balances) {
+            if(BaseConstant.IS_TEST) {
+                if(balance.symbol.equals("muon") && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                    hasAtom  = true;
+                }
+            } else {
+//                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
+                    hasAtom  = true;
+                }
+            }
+
+        }
+        if(!hasAtom) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
             return;
         }
 

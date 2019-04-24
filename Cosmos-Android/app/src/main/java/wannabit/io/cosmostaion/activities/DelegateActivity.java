@@ -7,8 +7,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 
 public class DelegateActivity extends BaseActivity {
 
+    private RelativeLayout              mRootView;
     private Toolbar                     mToolbar;
     private TextView                    mTitle;
     private ImageView                   mIvStep;
@@ -49,6 +52,7 @@ public class DelegateActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        mRootView           = findViewById(R.id.root_view);
         mToolbar            = findViewById(R.id.tool_bar);
         mTitle              = findViewById(R.id.toolbar_title);
         mIvStep             = findViewById(R.id.send_step);
@@ -99,6 +103,13 @@ public class DelegateActivity extends BaseActivity {
             public void onPageScrollStateChanged(int i) { }
         });
         mViewPager.setCurrentItem(0);
+
+        mRootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHideKeyboard();
+            }
+        });
 
     }
 

@@ -78,6 +78,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
+        mTvStep.setText(getString(R.string.str_reward_step_1));
 
 //        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 

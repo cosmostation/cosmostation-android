@@ -157,6 +157,11 @@
     <string name="str_h">시간</string>
     <string name="str_m">분</string>
     <string name="str_s">초</string>
+    <string name="str_add1">+ 1</string>
+    <string name="str_add10">+ 10</string>
+    <string name="str_add100">+ 100</string>
+    <string name="str_add_half">절반</string>
+    <string name="str_add_max">최대</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

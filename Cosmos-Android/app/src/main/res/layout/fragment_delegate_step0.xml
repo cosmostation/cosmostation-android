@@ -4,86 +4,152 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:id="@+id/input_control"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_12">
-        <EditText
-            android:id="@+id/et_amount_coin"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_50"
-            android:textCursorDrawable="@drawable/white_cursor"
-            android:maxLength="46"
-            android:textColorHint="@color/colorGray4"
-            android:background="@drawable/edittext_box"
-            android:paddingLeft="@dimen/space_60"
-            android:paddingRight="@dimen/space_12"
-            style="@style/font_ss_12_white"
-            android:inputType="numberDecimal"
-            android:imeOptions="actionDone"
-            android:gravity="center_vertical|right"/>
-        <TextView
-            android:id="@+id/tv_symbol_coin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_12"
-            android:text="@string/s_atom"
-            style="@style/font_ss_14_atom" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/cnt_layer"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/input_control"
-        android:layout_marginTop="@dimen/space_4">
+        android:layout_above="@+id/bottom_control">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginTop="@dimen/space_4"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_2"
-                style="@style/font_ss_11_gray1"
-                android:text="Available : "/>
-            <TextView
-                android:id="@+id/tv_max_coin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_2"
-                style="@style/font_ss_11_gray1"
-                android:text="12,343,343.000000"/>
-        </LinearLayout>
-        <TextView
-            android:id="@+id/tv_atom_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/space_12"
-            style="@style/font_ss_11_red"
-            android:text="@string/error_invalid_amounts"
-            android:visibility="gone"/>
-    </RelativeLayout>
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/create_msg2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_14"
-        android:layout_marginRight="@dimen/space_14"
-        android:layout_below="@+id/cnt_layer"
-        android:layout_marginTop="@dimen/space_14"
-        style="@style/font_ss_9_red"
-        android:visibility="gone"
-        android:text="@string/str_gaia"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginRight="@dimen/space_12"
+                android:layout_marginLeft="@dimen/space_12">
+                <TextView
+                    android:id="@+id/tv_symbol_coin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_atom"
+                    style="@style/font_ss_14_atom" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_2"
+                        style="@style/font_ss_11_gray1"
+                        android:text="Max Available : "/>
+                    <TextView
+                        android:id="@+id/tv_max_coin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_2"
+                        style="@style/font_ss_11_gray1"
+                        android:text="12,343,343.000000"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/input_control"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_12"
+                android:layout_marginRight="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_6">
+                <EditText
+                    android:id="@+id/et_amount_coin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_50"
+                    android:textCursorDrawable="@drawable/white_cursor"
+                    android:maxLength="46"
+                    android:textColorHint="@color/colorGray4"
+                    android:background="@drawable/edittext_box"
+                    android:paddingRight="@dimen/space_60"
+                    style="@style/font_ss_12_white"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionDone"
+                    android:gravity="center_vertical|left"/>
+                <ImageView
+                    android:id="@+id/clearAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_8"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/close_btn"/>
+            </RelativeLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/btns_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_12"
+                android:layout_marginRight="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_12"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_add_1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_36"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_trans_with_border"
+                    style="@style/font_ss_9_white"
+                    android:textAllCaps="false"
+                    android:text="@string/str_add1"/>
+                <Button
+                    android:id="@+id/btn_add_10"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_36"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:background="@drawable/btn_trans_with_border"
+                    style="@style/font_ss_9_white"
+                    android:textAllCaps="false"
+                    android:text="@string/str_add10"/>
+                <Button
+                    android:id="@+id/btn_add_100"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_36"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:background="@drawable/btn_trans_with_border"
+                    style="@style/font_ss_9_white"
+                    android:textAllCaps="false"
+                    android:text="@string/str_add100"/>
+                <Button
+                    android:id="@+id/btn_add_half"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_36"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:background="@drawable/btn_trans_with_border"
+                    style="@style/font_ss_9_white"
+                    android:textAllCaps="false"
+                    android:text="@string/str_add_half"/>
+                <Button
+                    android:id="@+id/btn_add_all"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_36"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:background="@drawable/btn_trans_with_border"
+                    style="@style/font_ss_9_white"
+                    android:textAllCaps="false"
+                    android:text="@string/str_add_max"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
+
+
+
 
 
 

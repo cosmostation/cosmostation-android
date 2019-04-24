@@ -108,7 +108,6 @@
                     style="@style/font_ss_9_white"
                     android:text="@string/str_paste"/>
             </LinearLayout>
-
         </LinearLayout>
 
         <Button
