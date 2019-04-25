@@ -148,14 +148,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() == 3) {
-            if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                mViewPager.setCurrentItem(1, true);
-            } else {
-                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
-            }
-
-        } else if(mViewPager.getCurrentItem() > 0) {
+        if(mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -213,8 +206,6 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             mRewards = (Reward)result.resultData;
-            WLog.w("mRewards : " + mRewards.amount.size());
-            WLog.w("mRewards : " + mRewards.validatorAddress);
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_TOTAL_REWARDS) {
             HashMap<Long, TotalReward> temp = (HashMap<Long, TotalReward>)result.resultData;
@@ -226,7 +217,6 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         }
 
         if(mTaskCount == 0) {
-            WLog.w("reward fetched!!");
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
     }

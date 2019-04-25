@@ -126,7 +126,6 @@ public class SendActivity extends BaseActivity {
     }
 
     public void onNextStep() {
-//        WLog.w("onNextStep : " + mViewPager.getCurrentItem());
         if(mViewPager.getCurrentItem() < 4) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
@@ -135,7 +134,6 @@ public class SendActivity extends BaseActivity {
     }
 
     public void onBeforeStep() {
-//        WLog.w("onBeforeStep : " + mViewPager.getCurrentItem());
         onHideKeyboard();
         if(mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);

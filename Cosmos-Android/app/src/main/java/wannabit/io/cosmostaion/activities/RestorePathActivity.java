@@ -104,15 +104,11 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if(result.isSuccess) {
                 onStartMainActivity();
-            } else {
-                WLog.w("CREATE ACCOUNT with new mnemonic error : " + result.errorCode);
             }
 
         } else if (result.taskType == BaseConstant.TASK_OVERRIDE_ACCOUNT) {
             if(result.isSuccess) {
                 onStartMainActivity();
-            } else {
-                WLog.w("OVERRIDE with new mnemonic error : " + result.errorCode);
             }
         }
     }

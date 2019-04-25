@@ -128,8 +128,6 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
             } else {
-//                onShowWaitDialog();
-//                new GenerateAccountTask(getBaseApplication(), this).execute(BaseChain.GAIA_12K.getChain(), "0", WUtil.ByteArrayToHexString(mEntropy), "24");
                 Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
                 dialog.setCancelable(false);
                 getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -149,10 +147,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == BaseConstant.CONST_PW_INIT && resultCode == Activity.RESULT_OK) {
-            WLog.w("onActivityResult REQ_INIT_PASSWORD RESULT_OK");
             mCheckPassword = true;
         } else if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
-            WLog.w("onActivityResult CONST_PW_SIMPLE_CHECK RESULT_OK");
             mCheckPassword = true;
         }
         onUpdateView();
@@ -163,11 +159,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if(result.isSuccess) {
-//                if(getBaseDao().onSelectAccounts().size() > 1) {
-//                    onStartListActivity();
-//                } else {
-                    onStartMainActivity();
-//                }
+                onStartMainActivity();
             } else {
                 WLog.w("CREATE ACCOUNT with new mnemonic error : " + result.errorCode);
             }

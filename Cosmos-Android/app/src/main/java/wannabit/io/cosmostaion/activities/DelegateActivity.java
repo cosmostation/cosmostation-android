@@ -87,7 +87,6 @@ public class DelegateActivity extends BaseActivity {
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_delegate_step_2));
-//                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_delegate_step_3));
@@ -128,14 +127,7 @@ public class DelegateActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() == 3) {
-            if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                mViewPager.setCurrentItem(1, true);
-            } else {
-                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
-            }
-
-        } else if(mViewPager.getCurrentItem() > 0) {
+        if(mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -157,12 +149,6 @@ public class DelegateActivity extends BaseActivity {
             onBackPressed();
         }
     }
-
-//    public void onBeforeStep2() {
-//        onHideKeyboard();
-//        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 2, true);
-//    }
-
 
     public void onStartDelegate() {
         Intent intent = new Intent(DelegateActivity.this, PasswordCheckActivity.class);

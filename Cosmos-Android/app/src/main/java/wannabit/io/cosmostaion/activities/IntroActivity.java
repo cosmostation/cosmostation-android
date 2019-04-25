@@ -55,10 +55,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         btnImportMnemonic.setOnClickListener(this);
         btnWatchAddress.setOnClickListener(this);
 
-//        onHardCodeHub2();
-
-//        Account account = getBaseDao().onSelectAccounts().get(0);
-//        WLog.w("account : " + account.address + "  " + account.baseChain);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -78,12 +74,10 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-                            WLog.w("getInstanceId failed" + task.getException());
                             return;
                         }
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-                        WLog.w("token  " + token);
                     }
                 });
 
@@ -137,13 +131,5 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         }
 
     }
-
-//    public void onHardCodeHub2() {
-//        ArrayList<Account> accounts = getBaseDao().onSelectAccounts();
-//        for(Account account:accounts) {
-//            account.baseChain = BaseChain.COSMOS_MAIN.getChain();
-//            getBaseDao().onUpdateAccount(account);
-//        }
-//    }
 }
 

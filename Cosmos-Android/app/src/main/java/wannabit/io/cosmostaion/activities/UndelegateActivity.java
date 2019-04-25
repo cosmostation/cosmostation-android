@@ -42,12 +42,9 @@ public class UndelegateActivity extends BaseActivity {
     public Account                      mAccount;
     public Validator                    mValidator;
     public BondingState                 mBondingState;
-//    public String                       mUnDelegateAmount;
     public Coin                         mUnDelegateAmount;
     public String                       mUnDelegateMemo;
     public Fee                          mUnDelegateFee;
-
-//    public ArrayList<String>            mFreeEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +62,6 @@ public class UndelegateActivity extends BaseActivity {
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_undelegate_step_1));
 
-//        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 
         mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mValidator      = getBaseDao().getValidator();
@@ -120,14 +116,7 @@ public class UndelegateActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() == 3) {
-            if(mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                mViewPager.setCurrentItem(1, true);
-            } else {
-                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
-            }
-
-        } else if(mViewPager.getCurrentItem() > 0) {
+        if(mViewPager.getCurrentItem() > 0) {
 
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
@@ -151,11 +140,6 @@ public class UndelegateActivity extends BaseActivity {
         }
     }
 
-//    public void onBeforeStep2() {
-//        onHideKeyboard();
-//        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 2, true);
-//    }
-
     public void onStartUndelegate() {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE);
@@ -167,8 +151,6 @@ public class UndelegateActivity extends BaseActivity {
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
     }
-
-
 
 
     private class UndelegatePageAdapter extends FragmentPagerAdapter {

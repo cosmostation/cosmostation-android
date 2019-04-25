@@ -61,7 +61,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                   mTargetMemo;
     private Fee                      mTargetFee;
     private Coin                     mDAmount;
-//    private String                   mUAmount;
     private Coin                    mUAmount;
 
     private long                     mIdToDelete;
@@ -95,29 +94,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mTargetMemo = getIntent().getStringExtra("memo");
         mTargetFee = getIntent().getParcelableExtra("fee");
         mDAmount = getIntent().getParcelableExtra("dAmount");
-//        mUAmount = getIntent().getStringExtra("uAmount");
         mUAmount = getIntent().getParcelableExtra("uAmount");
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
-
-        if(mDAmount != null)
-            WLog.w("mDAmount " + mDAmount.denom + "  " + mDAmount.amount);
-
-        if(mUAmount != null)
-            WLog.w("mUAmount " + mUAmount);
-
-        if(mTargetCoins != null)
-            WLog.w("amount " + mTargetCoins.get(0).denom + "  " + mTargetCoins.get(0).amount);
-
-//        if(mTargetFee != null) {
-//            if(mTargetFee.amount == null || mTargetFee.amount.size() == 0) {
-//                mTargetFee.amount = null;
-//            } else {
-////                WLog.w("fee amount null : " + mTargetFee.amount.size());
-////                WLog.w("fee " + mTargetFee.gas + " " + mTargetFee.amount.get(0).denom + " " +  mTargetFee.amount.get(0).amount);
-//            }
-//        }
 
         onInitView();
     }
@@ -129,8 +109,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else {
             setResult(Activity.RESULT_CANCELED, getIntent());
             finish();
-//            super.onBackPressed();
-//            startActivityForResult(getIntent(), Activity.RESULT_CANCELED);
         }
     }
 
@@ -183,7 +161,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
 
     private void onFinishInput() {
-        //TODO Start Task
         if (mPurpose == BaseConstant.CONST_PW_SIMPLE_CHECK) {
             onShowWaitDialog();
             new CheckPasswordTask(getBaseApplication(), this).execute(mUserInput);
@@ -273,7 +250,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        WLog.w("onTaskResponse ");
         if(isFinishing()) return;
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_PASSWORD_CHECK) {
@@ -291,13 +267,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD) {
-            WLog.w("onTaskResponse GENTX ");
             if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;
             }
-
-//            getBaseDao().setTxResult((ResBroadTx)result.resultData);
             Intent txIntent = new Intent(PasswordCheckActivity.this, TxResultActivity.class);
             txIntent.putExtra("txType", result.taskType);
             txIntent.putExtra("isSuccess", result.isSuccess);
@@ -322,7 +295,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             if(result.isSuccess) {
                 Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);
                 checkintent.putExtra("checkid", mIdToCheck);
-                WLog.w("entropy : " + String.valueOf(result.resultData));
                 checkintent.putExtra("entropy", String.valueOf(result.resultData));
                 startActivity(checkintent);
 

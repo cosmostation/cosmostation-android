@@ -66,7 +66,6 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
     }
 
     private void onInitView() {
-//        mPassowrdMsg.setText(getString(R.string.str_init_password));
         mIsConfirmSequence = false;
         mUserInput = "";
         mConfirmInput = "";
@@ -122,7 +121,6 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
             }
 
         } else {
-//            mPassowrdMsg.setText(getString(R.string.str_init_again));
             mPassowrdMsg1.setVisibility(View.VISIBLE);
             if(mAdapter != null && mAdapter.getFragments() != null) {
                 for (KeyboardFragment frag: mAdapter.getFragments()) {
@@ -195,17 +193,10 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         onHideWaitDialog();
-//        if (result.taskType == BaseConstant.TASK_INIT_PW && result.isSuccess) {
-//            WLog.w("onTaskResponse TASK_INIT_PW");
-//            Dialog_UsingBio dialog = Dialog_UsingBio.newInstance();
-//            dialog.setCancelable(false);
-//            dialog.show(getSupportFragmentManager(), "dialog");
-//        }
         onNextPage();
     }
 
     public void onNextPage() {
-//        onStartMainActivity();
         Intent result = new Intent();
         setResult(Activity.RESULT_OK, result);
         finish();

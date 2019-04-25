@@ -82,13 +82,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             if(account.hasPrivateKey) mFullAccounts.add(account);
             else mAddressAccounts.add(account);
         }
-        WLog.w("accounts : " + accounts.size());
-        WLog.w("mFullAccounts : " + mFullAccounts.size());
-        WLog.w("mAddressAccounts : " + mAddressAccounts.size());
-
         mAccountListAdapter.notifyDataSetChanged();
-
-        WLog.w("mAccountListAdapter : " + mAccountListAdapter.getItemCount());
 
         if(accounts.size() > 4) {
             bottomLayer.setVisibility(View.GONE);

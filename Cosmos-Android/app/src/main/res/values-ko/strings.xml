@@ -270,6 +270,7 @@
     <string name="error_invalid_amounts">불가능한 수량</string>
     <string name="error_prepare">준비중...</string>
     <string name="error_not_enough_fee">잔액이 부족하여, Tx 수수료를 높일 수 없습니다.</string>
+    <string name="error_network_error">네크워크 연결이 원활하지 않습니다.</string>
 
 
     <string name="s_atom">ATOM</string>

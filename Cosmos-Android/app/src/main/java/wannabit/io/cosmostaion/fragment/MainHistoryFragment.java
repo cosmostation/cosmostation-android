@@ -103,10 +103,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     private void onFetchHistory() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-//        WLog.w("onFetchHistory");
         ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
-//        String jsonText = new Gson().toJson(req);
-//        WLog.w("jsonText : " + jsonText);
         new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -116,13 +113,12 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if (result.taskType == BaseConstant.TASK_FETCH_HISTORY) {
             ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
             if(hits != null && hits.size() > 0) {
-                WLog.w("hit size " + hits.size());
+//                WLog.w("hit size " + hits.size());
                 mHistory = hits;
                 mHistoryAdapter.notifyDataSetChanged();
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
             } else {
-                WLog.w("hit null");
                 mEmptyHistory.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
             }
@@ -147,77 +143,62 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             switch (dpType) {
                 case BaseConstant.TX_TYPE_SEND:
                     viewHolder.historyType.setText(getString(R.string.tx_send));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorPhoton));
                     break;
 
                 case BaseConstant.TX_TYPE_RECEIVE:
                     viewHolder.historyType.setText(getString(R.string.tx_receive));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorAtom));
                     break;
 
                 case BaseConstant.TX_TYPE_TRANSFER:
                     viewHolder.historyType.setText(getString(R.string.tx_transfer));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_DELEGATE:
                     viewHolder.historyType.setText(getString(R.string.tx_delegate));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_UNDELEGATE:
                     viewHolder.historyType.setText(getString(R.string.tx_undelegate));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_REDELEGATE:
                     viewHolder.historyType.setText(getString(R.string.tx_redelegate));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_GET_REWARD:
                     viewHolder.historyType.setText(getString(R.string.tx_get_reward));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_GET_CPMMISSION:
                     viewHolder.historyType.setText(getString(R.string.tx_get_commission));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS:
                     viewHolder.historyType.setText(getString(R.string.tx_change_reward_address));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_VOTE:
                     viewHolder.historyType.setText(getString(R.string.tx_vote));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_SUBMIT_PROPOSAL:
                     viewHolder.historyType.setText(getString(R.string.tx_submit_proposal));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_DEPOSIT:
                     viewHolder.historyType.setText(getString(R.string.tx_deposit));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_CREATE_VALIDATOR:
                     viewHolder.historyType.setText(getString(R.string.tx_create_validator));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_EDIT_VALIDATOR:
                     viewHolder.historyType.setText(getString(R.string.tx_edit_validator));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
                 case BaseConstant.TX_TYPE_UNKNOWN:
                     viewHolder.historyType.setText(getString(R.string.tx_known));
-                    viewHolder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                     break;
 
             }
@@ -239,7 +220,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    WLog.w("GO detail!!");
                     Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
                     webintent.putExtra("txid", source.hash);
                     startActivity(webintent);
@@ -270,33 +250,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     }
 
-
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();
     }
 }
-
-
-
-
-/*
-public class MainHistoryFragment extends BaseFragment {
-
-    public static MainHistoryFragment newInstance(Bundle bundle) {
-        MainHistoryFragment fragment = new MainHistoryFragment();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main_history, container, false);
-        return rootView;
-    }
-}
-*/

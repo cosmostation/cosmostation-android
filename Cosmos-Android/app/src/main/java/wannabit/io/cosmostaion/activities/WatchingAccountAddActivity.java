@@ -94,7 +94,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
     @Override
     public void onChoiceNet(BaseChain chain) {
         super.onChoiceNet(chain);
-//        onCheckInNodeAddress(mUserInputAddress, chain);
         onShowWaitDialog();
         new GenerateEmptyAccountTask(getBaseApplication(), WatchingAccountAddActivity.this).execute(chain.getChain(), mUserInputAddress);
 
@@ -127,13 +126,8 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
             if(result.isSuccess) {
-//                if(getBaseDao().onSelectAccounts().size() > 1) {
-//                    onStartListActivity();
-//                } else {
-                    onStartMainActivity();
-//                }
+                onStartMainActivity();
             } else {
-                WLog.w("CREATE EMPTY ACCOUNT error : " + result.errorCode);
                 if(result.errorCode == 7001) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_already_imported_address), Toast.LENGTH_SHORT).show();
                 } else {

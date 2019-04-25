@@ -102,7 +102,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
     private FrameLayout                 mDimLayer;
     public FloatingActionButton         mFloatBtn;
 
-
     public Account                     mAccount;
     private ArrayList<Account>         mAccounts = new ArrayList<>();
     public ArrayList<Validator>        mAllValidators = new ArrayList<>();
@@ -116,12 +115,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
     private int                         mTaskCount;
     private TopSheetBehavior            mTopSheetBehavior;
 
-
     private RecyclerView                mRecyclerView;
     private AccountAdapter              mAccountAdapter;
-
-//    public ArrayList<String>           mFreeEvent;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,8 +130,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mTabLayer                   = findViewById(R.id.bottom_tab);
         mDimLayer                   = findViewById(R.id.dim_layer);
 
-        //For event
-//        mFreeEvent                  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 
         mRecyclerView               = findViewById(R.id.account_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -240,7 +233,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
 
-//        onAtomTic();
     }
 
     @Override
@@ -248,16 +240,9 @@ public class MainActivity extends BaseActivity implements TaskListener {
         super.onResume();
         mAccounts = getBaseDao().onSelectAccounts();
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        WLog.w("onResume : " + mAccount.address + " " + mAccount.sequenceNumber + " " + mAccount.accountNumber + "  " + mAccount.id);
         if(mAccount == null) {
-            //Show error dialog!
-            WLog.w("mAccount null");
             return;
         }
-
-        WLog.w("mAccount.baseChain : " + mAccount.baseChain);
-        WLog.w("mAccount.id : " + mAccount.id);
-        WLog.w("mAccount.address : " + mAccount.address);
         if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));
@@ -316,7 +301,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
     }
 
     public void onStartRewardAll() {
-        WLog.w("onStartRewardAll");
         if(!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -335,7 +319,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     @Override
     public void onBackPressed() {
-        WLog.w("onBackPressed");
         if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED) {
             mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
             return;
@@ -430,29 +413,24 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-//        WLog.w("onTaskResponse : " + result.taskType + "  " + result.isSuccess);
         mTaskCount--;
         if(isFinishing()) return;
+        if(!result.isSuccess) {
+            Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+        }
+
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
-            WLog.w("mAccount : " + mAccount.address);
-            WLog.w("mBalances : " + mBalances.size());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_ALL_VALIDATOR) {
-//            mAllValidators = (ArrayList<Validator>)result.resultData;
-//            WLog.w("mAllValidators : " + mAllValidators.size());
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
             if(temp != null) {
-                WLog.w("mAllValidators : " + mAllValidators.size());
                 mAllValidators = temp;
-            } else {
-                WLog.w("Show network error!!!");
             }
 
         } else if(result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
-            WLog.w("mBondings : " + mBondings.size());
             mTaskCount = mTaskCount + mBondings.size();
             mRewards.clear();
             for(BondingState bonding:mBondings) {
@@ -461,17 +439,13 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_STATE) {
             mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
-            WLog.w("mUnbondings : " + mUnbondings.size());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             Reward reward = (Reward)result.resultData;
             if(reward != null)
                 onUpdateReward(reward);
-//            WLog.w("mRewards : " + mRewards.size());
         }
-//        WLog.w("mTaskCount : " + mTaskCount);
         if(mTaskCount == 0) {
-            WLog.w("mTaskFinished");
             mMyValidators.clear();
             mElseValidators.clear();
             for(Validator all:mAllValidators) {
@@ -492,10 +466,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 if(already) mMyValidators.add(all);
                 else  mElseValidators.add(all);
             }
-
-
-            WLog.w("mMyValidators : " + mMyValidators.size());
-            WLog.w("mElseValidators : " + mElseValidators.size());
             onFetchCurrentPage();
         }
     }
@@ -588,7 +558,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
                             return;
                         } else {
                             onHideTopAccountsView();
-                            WLog.w("START SWITCH ACCOUNT");
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {

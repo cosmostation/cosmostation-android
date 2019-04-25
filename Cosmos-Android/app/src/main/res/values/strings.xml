@@ -317,6 +317,7 @@
     <string name="error_invalid_amounts">Invalid Amount</string>
     <string name="error_prepare">Preparing...</string>
     <string name="error_not_enough_fee">No enough fee for fast send.</string>
+    <string name="error_network_error">The network connection problem.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

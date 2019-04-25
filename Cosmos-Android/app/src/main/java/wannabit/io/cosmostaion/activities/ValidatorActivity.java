@@ -65,7 +65,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private TextView                    mToolbarAddress;
     private SwipeRefreshLayout          mSwipeRefreshLayout;
     private RecyclerView                mRecyclerView;
-//    private LinearLayoutManager         mLinearLayoutManager;
 
     private ValidatorAdapter            mValidatorAdapter;
 
@@ -82,7 +81,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private int                         mTaskCount;
     private boolean                     mExpended = true;
 
-//    public ArrayList<String>            mFreeEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +96,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
-
-
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -111,10 +106,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-
-        WLog.w("Address : " + getIntent().getStringExtra("valAddr"));
-
-
     }
 
     @Override
@@ -124,19 +115,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mValidator      = getBaseDao().getValidator();
         if(mAccount == null) {
-            WLog.w("NO Account ERROR");
             onBackPressed();
         }
 
         if(mValidator == null || TextUtils.isEmpty(mValidator.operator_address)) {
-            WLog.w("NO Validator ERROR");
             onBackPressed();
         }
 
 
         mBondingState       = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
         mUnBondingStates    = getBaseDao().onSelectUnbondingStates(mAccount.id, mValidator.operator_address);
-//        mReward         = getBaseDao().getValidatorDetail().mReward;
 
         if(TextUtils.isEmpty(mAccount.nickName)) {
             mToolbarNickName.setText(getString(R.string.str_my_wallet) + mAccount.id);
@@ -145,9 +133,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
         mToolbarAddress.setText(mAccount.address);
 
-
-        WLog.w("Validator : " + mValidator.description.moniker);
-        WLog.w("Validator : " + mValidator.operator_address);
         mValidatorAdapter = new ValidatorAdapter();
         mRecyclerView.setAdapter(mValidatorAdapter);
 
@@ -168,7 +153,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
     private void onInitFetch() {
-        WLog.w("onInitFetch1 ");
         if(mTaskCount > 0) return;
         mTaskCount = 4;
         new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -184,7 +168,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
     private void onStartDelegate() {
-        WLog.w("onStartDelegate");
         if(mAccount == null || mValidator == null) return;
         if(!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
@@ -202,7 +185,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-//                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
                 if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
                     hasAtom  = true;
                 }
@@ -220,7 +202,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onStartUndelegate() {
-        WLog.w("onStartUndelegate");
         if(mAccount == null || mValidator == null) return;
         if(!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
@@ -241,7 +222,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-//                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
                 if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
                     hasAtom  = true;
                 }
@@ -261,7 +241,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onGetReward() {
-        WLog.w("onGetReward");
         if(!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -283,7 +262,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-//                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
                 if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
                     hasAtom  = true;
                 }
@@ -302,23 +280,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchValHistory() {
-        WLog.w("onFetchValHistory");
         mTaskCount++;
         ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
-//        String jsonText = new Gson().toJson(req);
-//        WLog.w("jsonText : " + jsonText);
         new ValHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
-//        WLog.w("TaskResult : " + result.taskType);
         mTaskCount--;
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_VALIDATOR) {
             mValidator = (Validator)result.resultData;
             if(mValidator == null) {
-                WLog.w("Show network error!!!");
+                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_BONDING) {
@@ -330,7 +304,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_UNBONDING) {
             mUnBondingStates = getBaseDao().onSelectUnbondingStates(mAccount.id, mValidator.operator_address);
-            WLog.w("mUnBondingStates : " + mUnBondingStates.size());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_SELF_BONDING) {
             ResLcdBondings temp = (ResLcdBondings)result.resultData;
@@ -344,17 +317,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_VAL_HISTORY) {
             ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
             if(hits != null && hits.size() > 0) {
-                WLog.w("hit size " + hits.size());
                 mTx = hits;
-            } else {
-                WLog.w("hit null");
             }
         }
 
-
-
         if(mTaskCount == 0) {
-            WLog.w("mTaskFinished");
             mValidatorAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -613,7 +580,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WLog.w("GO detail!!");
                         Intent webintent = new Intent(getBaseContext(), WebActivity.class);
                         webintent.putExtra("txid", source.hash);
                         startActivity(webintent);
