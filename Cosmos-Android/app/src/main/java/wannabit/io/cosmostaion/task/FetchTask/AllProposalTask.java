@@ -25,7 +25,6 @@ public class AllProposalTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        WLog.w("AllProposalTask : " + mChain.getChain());
         try {
             Response<ArrayList<Proposal>> response = ApiClient.getWannabitChain(mApp, mChain).getProposalList().execute();
             if(!response.isSuccessful()) {

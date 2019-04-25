@@ -30,13 +30,9 @@ public class AccountInfoTask extends CommonTask {
         try {
             for(Account account : mAccounts) {
                 Response<ResLcdAccountInfo> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(account.baseChain)).getAccountInfo(account.address).execute();
-                if(response == null) {
-                    WLog.w("AccountInfoTask null " + account.address);
-                }
                 if(response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(account.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(account.id, WUtil.getBalancesFromLcd(account.id, response.body()));
-                    WLog.w("AccountInfoTask isSuccessful : " + account.address);
                 }
             }
             mResult.isSuccess = true;

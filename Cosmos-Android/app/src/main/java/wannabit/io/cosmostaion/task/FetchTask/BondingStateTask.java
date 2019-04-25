@@ -32,7 +32,6 @@ public class BondingStateTask extends CommonTask {
             for(Account account : mAccounts) {
                 Response<ArrayList<ResLcdBondings>> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(account.baseChain)).getBondingList(account.address).execute();
                 if(response.isSuccessful()) {
-//                    WLog.w("BondingStateTask : " + response.body().size());
                     if (response.body() != null && response.body().size() > 0) {
                         mApp.getBaseDao().onUpdateBondingStates(account.id, WUtil.getBondingFromLcds(account.id, response.body()));
                     } else {

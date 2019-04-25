@@ -36,10 +36,6 @@ public class GenerateAccountTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            Mnemonic mnemonic  = mApp.getBaseDao().onSelectMnemonic(strings[2]);
-//            String seed        = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic)+ mnemonic.uuid, mnemonic.resource, mnemonic.spec);
-
-            WLog.w("gen chain : " + strings[0]);
             long id = mApp.getBaseDao().onInsertAccount(onGenAccount(strings[2], strings[1], strings[0], strings[3]));
             if(id > 0) {
                 mResult.isSuccess = true;
@@ -73,11 +69,6 @@ public class GenerateAccountTask extends CommonTask {
         newAccount.importTime       = System.currentTimeMillis();
 
         return newAccount;
-
-
-//        ECKey key  = ECKey.fromPrivate(new BigInteger("23"));
-//        key.getp
-
     }
 
 }

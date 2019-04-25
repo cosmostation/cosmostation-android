@@ -29,8 +29,6 @@ public class TopSheetDialog extends AppCompatDialog {
 
     public TopSheetDialog(@NonNull Context context, @StyleRes int theme) {
         super(context, getThemeResId(context, theme));
-        // We hide the title bar for any style configuration. Otherwise, there will be a gap
-        // above the bottom sheet when it is expanded.
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 

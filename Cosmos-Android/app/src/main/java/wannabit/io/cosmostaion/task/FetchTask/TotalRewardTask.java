@@ -33,28 +33,12 @@ public class TotalRewardTask extends CommonTask {
             for(Account account : mAccounts) {
                 Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(account.baseChain)).getTotalRewards(account.address).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().size() > 0) {
-//                    mTotalRewards.put()
                     TotalReward totalReward = new TotalReward(account.id, response.body());
                     mTotalRewards.put(account.id, totalReward);
                 }
             }
             mResult.resultData = mTotalRewards;
             mResult.isSuccess = true;
-
-
-//            Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp).getTotalRewards(mAccount.address).execute();
-//            if(!response.isSuccessful()) {
-//                mResult.isSuccess = false;
-//                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                return mResult;
-//            }
-//
-//            if(response.body() != null && response.body().size() > 0) {
-//                ArrayList<Coin> rewards = response.body();
-////                WLog.w("TotalRewardTask Coin : " + rewards.size());
-//                mResult.resultData = response.body();
-//                mResult.isSuccess = true;
-//            }
 
         } catch (Exception e) {
             WLog.w("TotalRewardTask Error " + e.getMessage());

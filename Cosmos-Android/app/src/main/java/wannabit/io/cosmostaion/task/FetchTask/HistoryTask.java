@@ -28,8 +28,6 @@ public class HistoryTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<ResHistory> response = ApiClient.getEsService(mApp, mChain).getTx(mReq).execute();
-            WLog.w("response body " + response.body());
-            WLog.w("response " + response);
             if(response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body().hits.hits;
                 mResult.isSuccess = true;

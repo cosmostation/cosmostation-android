@@ -40,7 +40,6 @@ public class SingleRewardTask extends CommonTask {
             if(response.body() != null && response.body().size() > 0) {
                 ArrayList<Coin> amounts = response.body();
                 long time = System.currentTimeMillis();
-//                WLog.w("SingleRewardTask Coin : " + amounts.size());
                 Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
                 mResult.resultData = temp;
                 mResult.isSuccess = true;

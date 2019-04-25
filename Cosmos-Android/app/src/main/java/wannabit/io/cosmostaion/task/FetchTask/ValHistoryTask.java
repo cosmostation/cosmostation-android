@@ -29,27 +29,11 @@ public class ValHistoryTask extends CommonTask {
         try {
             Response<ResHistory> response = ApiClient.getEsService(mApp, mChain).getValTx(mReq).execute();
             if(response.isSuccessful() && response.body() != null) {
-                WLog.w("ValHistoryTask : result "+ response.body().hits.hits.size());
                 mResult.resultData = response.body().hits.hits;
                 mResult.isSuccess = true;
             } else {
                 WLog.w("ValHistoryTask : NOk");
             }
-//            ApiClient.getEsService(mApp).getValTx(mReq).enqueue(new Callback<ResHistory>() {
-//                @Override
-//                public void onResponse(Call<ResHistory> call, Response<ResHistory> response) {
-//                    WLog.w("ValHistoryTask : OK");
-//                    if(response.isSuccessful() && response.body() != null) {
-//                        WLog.w("ValHistoryTask : OK : " + response.body().hits.hits.size());
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ResHistory> call, Throwable t) {
-//                    WLog.w("ValHistoryTask : onFailure " + t.getMessage());
-//                    t.printStackTrace();
-//                }
-//            });
 
         } catch (Exception e) {
             WLog.w("ValHistoryTask Error " + e.getMessage());
