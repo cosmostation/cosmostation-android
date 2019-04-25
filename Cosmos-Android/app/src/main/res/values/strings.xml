@@ -21,7 +21,7 @@
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
-    <string name="str_atom_c" translatable="false">MUON</string>
+    <string name="str_atom_c" translatable="false">ATOM</string>
     <string name="str_photon_c" translatable="false">PHOTINO</string>
 
     <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
@@ -83,16 +83,16 @@
     <string name="str_before">Before</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_recipient_address">Recipient Address</string>
-    <string name="str_memo">memo</string>
-    <string name="str_fees">fees</string>
-    <string name="str_fees_c">FEES</string>
+    <string name="str_memo">Memo</string>
+    <string name="str_fees">Fee</string>
+    <string name="str_fees_c">FEE</string>
     <string name="str_to_send_amount">Amount</string>
     <string name="str_from_c">FROM</string>
     <string name="str_to_c">TO</string>
     <string name="str_memo_c">MEMO</string>
     <string name="str_remind_balance">Remaining balance</string>
-    <string name="str_to_delegate_amount">Amount</string>
-    <string name="str_to_delegate_validator">Validator</string>
+    <string name="str_to_delegate_amount">To Delegate Amount</string>
+    <string name="str_to_delegate_validator">To Delegate Validator</string>
     <string name="str_undelegate_amount">To Undelegate Amount</string>
     <string name="str_from_undelegate_validator">Undelegate From</string>
     <string name="str_undelegate_complete_time">Expected Delivery</string>
@@ -210,6 +210,7 @@
     <string name="str_add100">+ 100</string>
     <string name="str_add_half">Half</string>
     <string name="str_add_max">Max</string>
+    <string name="str_approximately"><![CDATA[≈]]></string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -316,8 +317,9 @@
     <string name="error_real_testing">Open soon after real testing.</string>
     <string name="error_invalid_amounts">Invalid Amount</string>
     <string name="error_prepare">Preparing...</string>
-    <string name="error_not_enough_fee">No enough fee for fast send.</string>
+    <string name="error_not_enough_fee">No enough budget for fee.</string>
     <string name="error_network_error">The network connection problem.</string>
+    <string name="error_only_atom_for_fee">Only pay for Tx fee with ATOM</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

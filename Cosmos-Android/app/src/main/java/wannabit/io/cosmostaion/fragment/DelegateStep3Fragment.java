@@ -36,7 +36,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     private CircleImageView mAvator;
     private TextView        mRemindAtom, mRemindPhoton;
     private Button          mBeforeBtn, mConfirmBtn;
-    private TextView        mDelegateAtomTitle, mRemindAtomTitle, mRemindPhotonTitle;
+    private TextView        mDelegateAtomTitle;
 
 
     public static DelegateStep3Fragment newInstance(Bundle bundle) {
@@ -64,8 +64,6 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
         mDelegateAtomTitle      = rootView.findViewById(R.id.delegate_atom_title);
-        mRemindAtomTitle        = rootView.findViewById(R.id.remind_atom_title);
-        mRemindPhotonTitle      = rootView.findViewById(R.id.remind_photon_title);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -74,37 +72,10 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         BigDecimal toDeleagteAtom = new BigDecimal(getSActivity().mToDelegateAmount.amount);
-        BigDecimal remindAtom = getSActivity().mAccount.getAtomBalance().subtract(toDeleagteAtom);
-        BigDecimal remindPhoton = getSActivity().mAccount.getPhotonBalance();
+        BigDecimal feeAtom = new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount);
 
         mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-
-        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            if(getSActivity().mToDelegateFee.amount.get(0).amount.equals("0")) {
-                mFeeType.setVisibility(View.GONE);
-                mFeeAmount.setText("FREE");
-                mFeeAmount.setTextColor(getResources().getColor(R.color.colorRed));
-            } else {
-                mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-                mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-                mFeeAmount.setText(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount).divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
-            }
-            mRemindPhoton.setVisibility(View.GONE);
-
-        } else {
-            if(getSActivity().mToDelegateFee.amount.get(0).denom.equals(BaseConstant.COSMOS_MUON)) {
-                mFeeType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-                mFeeType.setTextColor(getResources().getColor(R.color.colorAtom));
-                remindAtom.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
-            } else {
-                mFeeType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
-                mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
-                remindPhoton.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
-            }
-            mFeeAmount.setText(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount).toPlainString());
-            mRemindPhoton.setVisibility(View.VISIBLE);
-        }
-
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
         if(!TextUtils.isEmpty(getSActivity().mValidator.description.identity)) {
             ApiClient.getKeybaseService(getSActivity()).getUserInfo("pictures", getSActivity().mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
@@ -126,13 +97,6 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         }
         mValidatorName.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mToDelegateMemo);
-
-        mDelegateAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-        mRemindAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-        mRemindPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
-
-        mRemindAtom.setText(WDp.getDpAmount(getContext(), remindAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        mRemindPhoton.setText(WDp.getDpAmount(getContext(), remindPhoton, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
     }
 
     @Override

@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
                         style="@style/font_ss_11_gray1"
-                        android:text="12,343,343.000000"/>
+                        android:text="-"/>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -77,9 +77,6 @@
                     android:src="@drawable/close_btn"/>
             </RelativeLayout>
 
-
-
-
             <LinearLayout
                 android:id="@+id/btns_layer"
                 android:layout_width="match_parent"
@@ -87,8 +84,7 @@
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_12"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="horizontal">
                 <Button
                     android:id="@+id/btn_add_01"
                     android:layout_width="0dp"
@@ -149,20 +145,8 @@
                     android:textAllCaps="false"
                     android:text="@string/str_add_max"/>
             </LinearLayout>
-
-
         </LinearLayout>
-
     </android.support.v4.widget.NestedScrollView>
-
-
-
-
-
-
-
-
-
 
     <LinearLayout
         android:id="@+id/bottom_control"

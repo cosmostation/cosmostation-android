@@ -35,7 +35,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     private TextView    mAvailableAmount;
     private TextView    mAtomTitle;
     private ImageView   mClearAll;
-    private Button      mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
+    private Button      mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
     private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
 
     public static DelegateStep0Fragment newInstance(Bundle bundle) {
@@ -58,6 +58,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
         mAtomTitle = rootView.findViewById(R.id.tv_symbol_coin);
         mClearAll = rootView.findViewById(R.id.clearAll);
+        mAdd01 = rootView.findViewById(R.id.btn_add_01);
         mAdd1 = rootView.findViewById(R.id.btn_add_1);
         mAdd10 = rootView.findViewById(R.id.btn_add_10);
         mAdd100 = rootView.findViewById(R.id.btn_add_100);
@@ -66,6 +67,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         mClearAll.setOnClickListener(this);
+        mAdd01.setOnClickListener(this);
         mAdd1.setOnClickListener(this);
         mAdd10.setOnClickListener(this);
         mAdd100.setOnClickListener(this);
@@ -144,11 +146,18 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mNextBtn)) {
             if(isValidateDelegateAmount()) {
-                WLog.w("coin : denom : " + getSActivity().mToDelegateAmount.denom + "    amount : " + getSActivity().mToDelegateAmount.amount);
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
             }
+
+        } else if (v.equals(mAdd01)) {
+            BigDecimal existed = BigDecimal.ZERO;
+            String es = mAmountInput.getText().toString().replace(",","").trim();
+            if(es.length() > 0) {
+                existed = new BigDecimal(es);
+            }
+            mAmountInput.setText(existed.add(new BigDecimal("0.1")).toPlainString());
 
         } else if (v.equals(mAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;

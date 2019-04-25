@@ -45,6 +45,7 @@ public class DelegateActivity extends BaseActivity {
     public Coin         mToDelegateAmount;
     public String       mToDelegateMemo;
     public Fee          mToDelegateFee;
+    public boolean      mCheckedMax;
 
 //    public ArrayList<String>            mFreeEvent;
 
