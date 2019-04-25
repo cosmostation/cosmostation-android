@@ -147,7 +147,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            print("send ", res)
+//                            print("send ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }

@@ -163,7 +163,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                             }
                         case .failure(let error):
                             if(SHOW_LOG) {
-                                print("et reward error ", error)
+//                                print("et reward error ", error)
                             }
 //
                         }

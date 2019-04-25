@@ -55,7 +55,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onSortingMy() {
-        print("onSortingMy")
+//        print("onSortingMy")
         if (BaseData.instance.getMyValidatorSort() == 0) {
             sortByDelegated()
         } else if (BaseData.instance.getMyValidatorSort() == 1) {

@@ -23,10 +23,10 @@ let KEY_ACCOUNT_REFRESH_ALL             = "KEY_ACCOUNT_REFRESH_ALL"
 //let CSS_LCD_URL                         = "https://lcd-dev-internal.cosmostation.io/";
 
 //product URL
-//let CSS_LCD_URL                         = "https://lcd.cosmostation.io/";
+let CSS_LCD_URL                         = "https://lcd.cosmostation.io/";
 
 //free URL
-let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";
+//let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";
 
 
 //testnet URL

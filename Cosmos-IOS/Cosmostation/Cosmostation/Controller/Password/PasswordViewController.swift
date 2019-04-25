@@ -209,7 +209,7 @@ class PasswordViewController: BaseViewController {
             }
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
-                print("onStartCheckPassword ", result)
+//                print("onStartCheckPassword ", result)
                 if(result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK)
                 } else {

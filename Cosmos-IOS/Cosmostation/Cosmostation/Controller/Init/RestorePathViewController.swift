@@ -22,7 +22,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         
         maskerKey = WKey.getMasterKeyFromWords(mnemonic: userInputWords!)
-        print("RestorePathViewController userInputWords ", userInputWords)
+//        print("RestorePathViewController userInputWords ", userInputWords)
         
         self.restoreTableView.delegate = self
         self.restoreTableView.dataSource = self
@@ -80,7 +80,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
-                print(res)
+//                print(res)
                 guard let info = res as? [String : Any] else {
                     cell?.atomAmount.attributedText = WUtils.displayAmout("0", cell!.atomAmount.font!, 6)
                     return

@@ -104,9 +104,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { response in
                 switch response.result {
                 case .success(let res):
-                    print("res " , res)
+//                    print("res " , res)
                     guard let history = res as? [String : Any] else {
-                        print("no history!!")
+//                        print("no history!!")
                         self.emptyLabel.isHidden = false
                         return;
                     }
