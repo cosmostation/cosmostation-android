@@ -45,9 +45,6 @@ public class DelegateActivity extends BaseActivity {
     public Coin         mToDelegateAmount;
     public String       mToDelegateMemo;
     public Fee          mToDelegateFee;
-    public boolean      mCheckedMax;
-
-//    public ArrayList<String>            mFreeEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +60,6 @@ public class DelegateActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-//        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_delegate_step_1));

@@ -91,9 +91,9 @@
     <string name="str_to_c">TO</string>
     <string name="str_memo_c">MEMO</string>
     <string name="str_remind_balance">Remaining balance</string>
+    <string name="str_to_undelegate_amount">To Undelegate Amount</string>
     <string name="str_to_delegate_amount">To Delegate Amount</string>
     <string name="str_to_delegate_validator">To Delegate Validator</string>
-    <string name="str_undelegate_amount">To Undelegate Amount</string>
     <string name="str_from_undelegate_validator">Undelegate From</string>
     <string name="str_undelegate_complete_time">Expected Delivery</string>
     <string name="str_remind_delegate">Remind Delegate</string>
@@ -211,6 +211,8 @@
     <string name="str_add_half">Half</string>
     <string name="str_add_max">Max</string>
     <string name="str_approximately"><![CDATA[≈]]></string>
+    <string name="str_max_available_delegate_amount"><![CDATA[Max Available : ]]></string>
+    <string name="str_max_available_undelegate_amount"><![CDATA[Max Available : ]]></string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

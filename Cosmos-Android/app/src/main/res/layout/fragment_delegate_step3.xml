@@ -115,15 +115,6 @@
                     android:orientation="horizontal"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/to_delegate_avatar"
-                        android:layout_width="@dimen/space_24"
-                        android:layout_height="@dimen/space_24"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/validator_none_img"
-                        app:civ_border_width="1dp"
-                        app:civ_border_color="@color/colorGray3"
-                        android:visibility="gone"/>
                     <TextView
                         android:id="@+id/to_delegate_moniker"
                         android:layout_width="wrap_content"

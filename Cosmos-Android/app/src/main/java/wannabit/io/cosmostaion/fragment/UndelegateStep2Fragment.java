@@ -12,8 +12,10 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -33,16 +35,17 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
     public final static int SELECT_GAS_DIALOG = 6001;
     public final static int SELECT_FREE_DIALOG = 6002;
 
-    private RelativeLayout mBtnGasType;
-    private TextView mTvGasType;
+    private RelativeLayout  mBtnGasType;
+    private TextView        mTvGasType;
     private TextView        mTvGasAmount;
-    private SeekBar mSeekBarGas;
-    private Button mBeforeBtn, mNextBtn;
+    private TextView        mTvGasPrice;
+    private SeekBar         mSeekBarGas;
+    private Button          mBeforeBtn, mNextBtn;
 
-    private Coin mGas = new Coin();
+    private BigDecimal      mAvailable      = BigDecimal.ZERO;
+    private BigDecimal      mFeeAmount      = BigDecimal.ZERO;
+
     private ArrayList<String>   mAtomFees = new ArrayList<>();
-    private ArrayList<String>   mMuonFees = new ArrayList<>();
-    private ArrayList<String>   mPhotinoFees = new ArrayList<>();
 
     public static UndelegateStep2Fragment newInstance(Bundle bundle) {
         UndelegateStep2Fragment fragment = new UndelegateStep2Fragment();
@@ -54,8 +57,6 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAtomFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.atom_fee)));
-        mMuonFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.muon_fee)));
-        mPhotinoFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.photino_fee)));
     }
 
     @Override
@@ -64,36 +65,25 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
         mBtnGasType     = rootView.findViewById(R.id.btn_gas_type);
         mTvGasType      = rootView.findViewById(R.id.gas_type);
         mTvGasAmount    = rootView.findViewById(R.id.fee_amount);
+        mTvGasPrice     = rootView.findViewById(R.id.fee_price);
         mSeekBarGas     = rootView.findViewById(R.id.gas_price_seekbar);
+
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mBtnGasType.setOnClickListener(this);
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
-        if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mGas = new Coin(BaseConstant.COSMOS_ATOM, mAtomFees.get(1));
-            mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-            Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
-            mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
-            mSeekBarGas.getProgressDrawable().setBounds(bounds);
-            mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
-        } else {
-            mGas = new Coin(BaseConstant.COSMOS_PHOTINO, mPhotinoFees.get(1));
-            mTvGasType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
-        }
+        mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
+        mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
+        mSeekBarGas.getProgressDrawable().setBounds(bounds);
+        mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
 
         mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser) {
-                    if (mGas.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                        mGas.amount = mAtomFees.get(progress);
-                    } else if (mGas.denom.equals(BaseConstant.COSMOS_MUON)){
-                        mGas.amount = mMuonFees.get(progress);
-                    } else {
-                        mGas.amount = mPhotinoFees.get(progress);
-                    }
                     onUpdateGasAmountDp();
                 }
             }
@@ -104,14 +94,15 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
-        onUpdateGasAmountDp();
+        mSeekBarGas.setProgress(0);
         return rootView;
     }
 
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-
+        mAvailable  = getSActivity().mAccount.getAtomBalance();
+        onUpdateGasAmountDp();
     }
 
     @Override
@@ -120,81 +111,39 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                Coin gas = mGas;
-                gas.amount = new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
-
-                if(BaseConstant.IS_TEST) {
-                    gas.denom = "muon";
-                }
-                Fee fee = new Fee();
-                ArrayList<Coin> amount = new ArrayList<>();
-                amount.add(gas);
-                fee.amount = amount;
-                fee.gas = "200000";
-                getSActivity().mUnDelegateFee = fee;
-                getSActivity().onNextStep();
-
-            } else {
-                Fee fee = new Fee();
-                ArrayList<Coin> amount = new ArrayList<>();
-                amount.add(mGas);
-                fee.amount = amount;
-                fee.gas = "200000";
-                getSActivity().mUnDelegateFee = fee;
-                getSActivity().onNextStep();
-            }
-//            Fee fee = new Fee();
-//            ArrayList<Coin> amount = new ArrayList<>();
-//            amount.add(mGas);
-//            fee.amount = amount;
-//            fee.gas = "200000";
-//            getSActivity().mUnDelegateFee = fee;
-//            getSActivity().onNextStep();
+            Fee fee = new Fee();
+            ArrayList<Coin> amount = new ArrayList<>();
+            Coin gasCoin = new Coin();
+            gasCoin.amount = new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
+            gasCoin.denom = BaseConstant.COSMOS_ATOM;
+            amount.add(gasCoin);
+            fee.amount = amount;
+            fee.gas = "200000";
+            getSActivity().mUnDelegateFee = fee;
+            getSActivity().onNextStep();
 
         } else if (v.equals(mBtnGasType)) {
-            Bundle bundle = new Bundle();
-            bundle.putString("chain", getSActivity().mAccount.baseChain);
-            Dialog_GasType dialog = Dialog_GasType.newInstance(bundle);
-            dialog.setCancelable(true);
-            dialog.setTargetFragment(this, SELECT_GAS_DIALOG);
-            dialog.show(getFragmentManager().beginTransaction(), "dialog");
+            Toast.makeText(getContext(), getString(R.string.error_only_atom_for_fee), Toast.LENGTH_SHORT).show();
+//            Bundle bundle = new Bundle();
+//            bundle.putString("chain", getSActivity().mAccount.baseChain);
+//            Dialog_GasType dialog = Dialog_GasType.newInstance(bundle);
+//            dialog.setCancelable(true);
+//            dialog.setTargetFragment(this, SELECT_GAS_DIALOG);
+//            dialog.show(getFragmentManager().beginTransaction(), "dialog");
         }
-    }
-
-    private void onUpdateGasType(String type) {
-        WLog.w("onUpdateGasType : " + type);
-        mGas.denom = type;
-        if (type.equals(BaseConstant.COSMOS_ATOM)) {
-            mGas.amount = mAtomFees.get(mSeekBarGas.getProgress());
-            Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
-            mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
-            mSeekBarGas.getProgressDrawable().setBounds(bounds);
-            mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-            mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
-
-        } else if (type.equals(BaseConstant.COSMOS_MUON)) {
-            mGas.amount = mMuonFees.get(mSeekBarGas.getProgress());
-            Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
-            mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
-            mSeekBarGas.getProgressDrawable().setBounds(bounds);
-            mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-            mTvGasType.setTextColor(getResources().getColor(R.color.colorPhoton));
-
-        } else if (type.equals(BaseConstant.COSMOS_PHOTINO)) {
-            mGas.amount = mPhotinoFees.get(mSeekBarGas.getProgress());
-            Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
-            mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_photon_seekbar_style));
-            mSeekBarGas.getProgressDrawable().setBounds(bounds);
-            mTvGasType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
-            mTvGasType.setTextColor(getResources().getColor(R.color.colorPhoton));
-        }
-        onUpdateGasAmountDp();
     }
 
     private void onUpdateGasAmountDp() {
-        WLog.w("onUpdateGasAmountDp : " + mGas.amount + " " + mGas.denom);
-        mTvGasAmount.setText(new BigDecimal(mGas.amount).setScale(6).toPlainString());
+        mFeeAmount = new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).multiply(new BigDecimal("1000000")).setScale(0);
+
+        if(mFeeAmount.compareTo(mAvailable) > 0) {
+            Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+            mSeekBarGas.setProgress(0);
+            onUpdateGasAmountDp();
+        }
+        mTvGasAmount.setText(new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).toPlainString());
+        BigDecimal total = new BigDecimal(""+mTvGasAmount.getText().toString().trim().replace(",","")).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+        mTvGasPrice.setText(getString(R.string.str_approximately)+ " $" +  WDp.getDolor(getContext(), total));
     }
 
     private UndelegateActivity getSActivity() {
@@ -204,19 +153,10 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        WLog.w("onActivityResult : " + requestCode + " " + resultCode);
-        if(requestCode == SELECT_GAS_DIALOG && resultCode == Activity.RESULT_OK) {
-            onUpdateGasType(data.getStringExtra("coin"));
-        } else if(requestCode == SELECT_FREE_DIALOG && resultCode == Activity.RESULT_OK) {
-//            Fee fee = new Fee();
-//            fee.amount = null;
-//            fee.gas = "200000";
-//            getSActivity().mUnDelegateFee = fee;
-//            getSActivity().onNextStep();
-
+        if(requestCode == SELECT_FREE_DIALOG && resultCode == Activity.RESULT_OK) {
             Fee result = new Fee();
             ArrayList<Coin> amount = new ArrayList<>();
-            Coin testCoin = new Coin("uatom", "0");
+            Coin testCoin = new Coin(BaseConstant.COSMOS_ATOM, "0");
             amount.add(testCoin);
             result.amount = amount;
             result.gas = "200000";

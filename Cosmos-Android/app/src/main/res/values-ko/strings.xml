@@ -45,10 +45,10 @@
     <string name="str_memo_c">메모</string>
     <string name="str_remind_balance">Remaining balance</string>
     <string name="str_to_delegate_amount">위임 수량</string>
+    <string name="str_to_undelegate_amount">위임 해제 수량</string>
     <string name="str_to_delegate_validator">위임할 검증인</string>
-    <string name="str_undelegate_amount">To Undelegate Amount</string>
-    <string name="str_from_undelegate_validator">Undelegate From</string>
-    <string name="str_undelegate_complete_time">Expected Delivery</string>
+    <string name="str_from_undelegate_validator">위임 해제할 검증인</string>
+    <string name="str_undelegate_complete_time">해제 금액 전송 완료 시간</string>
     <string name="str_remind_delegate">Remind Delegate</string>
     <string name="str_reward_c">이자 청구</string>
     <string name="str_reward_amount">현재 이자량</string>
@@ -164,6 +164,8 @@
     <string name="str_add_half">절반</string>
     <string name="str_add_max">최대</string>
     <string name="str_approximately"><![CDATA[≈]]></string>
+    <string name="str_max_available_delegate_amount"><![CDATA[최대 위임 가능량 : ]]></string>
+    <string name="str_max_available_undelegate_amount"><![CDATA[최대 위임 철회 가능량 : ]]></string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

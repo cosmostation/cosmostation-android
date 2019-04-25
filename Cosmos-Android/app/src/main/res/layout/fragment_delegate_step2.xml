@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ss_14_photon"
+                style="@style/font_ss_14_atom"
                 android:text="ATOM"/>
             <ImageView
                 android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                 android:splitTrack="false"
                 android:progress="0"
                 android:max="2"
-                android:progressDrawable="@drawable/gas_photon_seekbar_style"
+                android:progressDrawable="@drawable/gas_atom_seekbar_style"
                 android:thumb="@drawable/gas_seekbar_thumb"/>
             <RelativeLayout
                 android:layout_width="match_parent"

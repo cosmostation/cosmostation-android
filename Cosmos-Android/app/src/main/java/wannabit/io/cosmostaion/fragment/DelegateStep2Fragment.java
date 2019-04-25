@@ -81,7 +81,6 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
         mSeekBarGas.getProgressDrawable().setBounds(bounds);
         mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
 
-
         mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

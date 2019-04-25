@@ -33,8 +33,6 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView        mDelegateAmount;
     private TextView        mFeeAmount, mFeeType;
     private TextView        mValidatorName, mMemo;
-    private CircleImageView mAvator;
-    private TextView        mRemindAtom, mRemindPhoton;
     private Button          mBeforeBtn, mConfirmBtn;
     private TextView        mDelegateAtomTitle;
 
@@ -56,11 +54,8 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         mDelegateAmount         = rootView.findViewById(R.id.delegate_atom);
         mFeeAmount              = rootView.findViewById(R.id.delegate_fees);
         mFeeType                = rootView.findViewById(R.id.delegate_fees_type);
-        mAvator                 = rootView.findViewById(R.id.to_delegate_avatar);
         mValidatorName          = rootView.findViewById(R.id.to_delegate_moniker);
         mMemo                   = rootView.findViewById(R.id.memo);
-        mRemindAtom             = rootView.findViewById(R.id.remind_atom);
-        mRemindPhoton           = rootView.findViewById(R.id.remind_photon);
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
         mDelegateAtomTitle      = rootView.findViewById(R.id.delegate_atom_title);
@@ -76,25 +71,6 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
         mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-
-        if(!TextUtils.isEmpty(getSActivity().mValidator.description.identity)) {
-            ApiClient.getKeybaseService(getSActivity()).getUserInfo("pictures", getSActivity().mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
-                @Override
-                public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
-                    if(isAdded()) {
-                        try {
-                            Picasso.get()
-                                    .load(response.body().getUrl())
-                                    .placeholder(R.drawable.validator_none_img)
-                                    .into(mAvator);
-                        }catch (Exception e){}
-
-                    }
-                }
-                @Override
-                public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
-            });
-        }
         mValidatorName.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mToDelegateMemo);
     }
@@ -106,7 +82,6 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
 
         } else if (v.equals(mConfirmBtn)) {
-            WLog.w("mConfirmBtn");
             getSActivity().onStartDelegate();
 
         }
