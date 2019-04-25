@@ -157,6 +157,7 @@
     <string name="str_h">시간</string>
     <string name="str_m">분</string>
     <string name="str_s">초</string>
+    <string name="str_add01">+ 0.1</string>
     <string name="str_add1">+ 1</string>
     <string name="str_add10">+ 10</string>
     <string name="str_add100">+ 100</string>
@@ -268,6 +269,7 @@
     <string name="error_real_testing">이 기능은 테스트 중입니다.</string>
     <string name="error_invalid_amounts">불가능한 수량</string>
     <string name="error_prepare">준비중...</string>
+    <string name="error_not_enough_fee">잔액이 부족하여, Tx 수수료를 높일 수 없습니다.</string>
 
 
     <string name="s_atom">ATOM</string>

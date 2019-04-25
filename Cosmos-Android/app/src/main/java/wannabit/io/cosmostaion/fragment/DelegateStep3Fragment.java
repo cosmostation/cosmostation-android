@@ -101,7 +101,6 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
                 mFeeType.setTextColor(getResources().getColor(R.color.colorPhoton));
                 remindPhoton.subtract(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount));
             }
-//            mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
             mFeeAmount.setText(new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount).toPlainString());
             mRemindPhoton.setVisibility(View.VISIBLE);
         }

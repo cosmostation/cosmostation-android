@@ -116,7 +116,8 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mNextBtn)) {
             Coin gas = mGas;
-            gas.amount = new BigDecimal(gas.amount).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
+            WLog.w("gas!!! : " + gas.amount);
+            gas.amount = new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
             if(BaseConstant.IS_TEST) {
                 gas.denom = "muon";
             }
@@ -143,7 +144,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void onUpdateGasType(String type) {
-        WLog.w("onUpdateGasType : " + type);
+        WLog.w("onUpdateGasType : " + type + "  " + mGas.amount);
         mGas.denom = type;
         if (type.equals(BaseConstant.COSMOS_ATOM)) {
             mGas.amount = mAtomFees.get(mSeekBarGas.getProgress());

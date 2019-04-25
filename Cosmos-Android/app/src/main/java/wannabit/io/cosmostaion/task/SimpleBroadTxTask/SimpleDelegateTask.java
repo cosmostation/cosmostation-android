@@ -130,7 +130,7 @@ public class SimpleDelegateTask extends CommonTask {
                 }
 
                 if(response.body().code != null) {
-                    WLog.w("response.code() : " + response.body().code);
+                    WLog.w("response.code() : " + response.body().code + "  " + response.body().raw_log);
                     mResult.errorCode = response.body().code;
                     return mResult;
                 }

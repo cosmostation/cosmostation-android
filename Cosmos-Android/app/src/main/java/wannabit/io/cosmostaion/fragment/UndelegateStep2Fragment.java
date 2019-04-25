@@ -104,7 +104,6 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
-        mTvGasType.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
         onUpdateGasAmountDp();
         return rootView;
     }
@@ -123,7 +122,8 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
         } else if (v.equals(mNextBtn)) {
             if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                 Coin gas = mGas;
-                gas.amount = new BigDecimal(gas.amount).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
+                gas.amount = new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
+
                 if(BaseConstant.IS_TEST) {
                     gas.denom = "muon";
                 }
