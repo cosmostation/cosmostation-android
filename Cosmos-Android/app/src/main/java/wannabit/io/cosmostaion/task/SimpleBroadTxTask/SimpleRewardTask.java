@@ -109,9 +109,12 @@ public class SimpleRewardTask extends CommonTask {
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
                 WLog.w("SimpleRewardTask success!!");
-                WLog.w("response.body() : " + response.body());
                 if (response.body().txhash != null) {
+                    WLog.w("response.txhash()  : " + response.body().txhash);
                     mResult.resultData = response.body().txhash;
+                }
+                if(response.body().raw_log != null) {
+                    WLog.w("response.raw_log()  : " + response.body().raw_log);
                 }
 
                 if(response.body().code != null) {

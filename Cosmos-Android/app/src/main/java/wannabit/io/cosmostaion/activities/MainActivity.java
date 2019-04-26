@@ -310,14 +310,22 @@ public class MainActivity extends BaseActivity implements TaskListener {
             return;
         }
 
+        ArrayList<Validator> myValidators = new ArrayList<>();
         ArrayList<Validator> toClaimValidators = new ArrayList<>();
-        if(mMyValidators.size() < 17) {
-            toClaimValidators = mMyValidators;
-        } else {
-            onSortingByReward(mMyValidators);
-            for(int i = 0; i < 17; i++){
-                toClaimValidators.add(mMyValidators.get(i));
+        for(Validator validator:mAllValidators) {
+            for(BondingState bond:mBondings) {
+                if(bond.validatorAddress.equals(validator.operator_address)) {
+                    myValidators.add(validator);
+                    break;
+                }
             }
+        }
+
+        if(myValidators.size() < 17) {
+            toClaimValidators = myValidators;
+        } else {
+            onSortingByReward(myValidators);
+            toClaimValidators =  new ArrayList<>(myValidators.subList(0,16));
         }
 
         ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));
@@ -341,7 +349,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if(mMyValidators.size() > 16) {
+        if(toClaimValidators.size() > 16) {
             Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
         }
 
