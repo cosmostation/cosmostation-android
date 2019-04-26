@@ -1,8 +1,11 @@
 package wannabit.io.cosmostaion.model.type;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Validator {
+public class Validator implements Parcelable{
 
     @SerializedName("operator_address")
     public String operator_address;
@@ -20,7 +23,7 @@ public class Validator {
     public String delegator_shares;
 
     @SerializedName("bond_height")
-    public Boolean bond_height;
+    public String bond_height;
 
     @SerializedName("unbonding_height")
     public String unbonding_height;
@@ -30,39 +33,103 @@ public class Validator {
 
 
     @SerializedName("description")
-    public Description description;
+    public ValidatorDescrition description;
 
     @SerializedName("commission")
-    public Commission commission;
+    public ValidatorCommission commission;
 
-
-    public class Description {
-        @SerializedName("moniker")
-        public String moniker;
-
-        @SerializedName("identity")
-        public String identity;
-
-        @SerializedName("website")
-        public String website;
-
-        @SerializedName("details")
-        public String details;
+    public Validator() {
     }
 
-    public class Commission {
-        @SerializedName("rate")
-        public String rate;
-
-        @SerializedName("max_rate")
-        public String max_rate;
-
-        @SerializedName("max_change_rate")
-        public String max_change_rate;
-
-        @SerializedName("update_time")
-        public String update_time;
+    public Validator(String operator_address, String consensus_pubkey, Boolean jailed, String tokens, String delegator_shares, String bond_height, String unbonding_height, String unbonding_time, ValidatorDescrition description, ValidatorCommission commission) {
+        this.operator_address = operator_address;
+        this.consensus_pubkey = consensus_pubkey;
+        this.jailed = jailed;
+        this.tokens = tokens;
+        this.delegator_shares = delegator_shares;
+        this.bond_height = bond_height;
+        this.unbonding_height = unbonding_height;
+        this.unbonding_time = unbonding_time;
+        this.description = description;
+        this.commission = commission;
     }
+
+    protected Validator(Parcel in) {
+        readFromParcel(in);
+    }
+
+    public void readFromParcel(Parcel in) {
+        operator_address = in.readString();
+        consensus_pubkey = in.readString();
+        jailed = in.readByte() != 0;
+        tokens = in.readString();
+        delegator_shares = in.readString();
+        bond_height = in.readString();
+        unbonding_height = in.readString();
+        unbonding_time = in.readString();
+        description = in.readParcelable(ValidatorDescrition.class.getClassLoader());
+        commission = in.readParcelable(ValidatorCommission.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(operator_address);
+        dest.writeString(consensus_pubkey);
+        dest.writeByte((byte) (jailed ? 1 : 0));
+        dest.writeString(tokens);
+        dest.writeString(delegator_shares);
+        dest.writeString(bond_height);
+        dest.writeString(unbonding_height);
+        dest.writeString(unbonding_time);
+        dest.writeParcelable(description , flags);
+        dest.writeParcelable(commission , flags);
+    }
+
+    public static final Creator<Validator> CREATOR = new Creator<Validator>() {
+        @Override
+        public Validator createFromParcel(Parcel in) {
+            return new Validator(in);
+        }
+
+        @Override
+        public Validator[] newArray(int size) {
+            return new Validator[size];
+        }
+    };
+
+
+//    public class Description {
+//        @SerializedName("moniker")
+//        public String moniker;
+//
+//        @SerializedName("identity")
+//        public String identity;
+//
+//        @SerializedName("website")
+//        public String website;
+//
+//        @SerializedName("details")
+//        public String details;
+//    }
+//
+//    public class Commission {
+//        @SerializedName("rate")
+//        public String rate;
+//
+//        @SerializedName("max_rate")
+//        public String max_rate;
+//
+//        @SerializedName("max_change_rate")
+//        public String max_change_rate;
+//
+//        @SerializedName("update_time")
+//        public String update_time;
+//    }
 
 
     @Override
@@ -76,4 +143,5 @@ public class Validator {
 
         return sameSame;
     }
+
 }

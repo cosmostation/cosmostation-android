@@ -39,6 +39,9 @@ import com.gun0912.tedpermission.TedPermission;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,6 +75,7 @@ import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -305,10 +309,45 @@ public class MainActivity extends BaseActivity implements TaskListener {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
             return;
         }
-//        Intent claimReward = new Intent(MainActivity.this, ClaimRewardActivity.class);
-//        claimReward.putExtra("isAll", true);
-//        startActivity(claimReward);
-        Toast.makeText(getBaseContext(), "Preparing...", Toast.LENGTH_SHORT).show();
+
+        ArrayList<Validator> toClaimValidators = new ArrayList<>();
+        if(mMyValidators.size() < 17) {
+            toClaimValidators = mMyValidators;
+        } else {
+            onSortingByReward(mMyValidators);
+            for(int i = 0; i < 17; i++){
+                toClaimValidators.add(mMyValidators.get(i));
+            }
+        }
+
+        ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));
+        BigDecimal mGasMinFee = new BigDecimal(getString(R.string.gas_constant)).multiply(new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1))).setScale(0);
+
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasbalance = false;
+        for (Balance balance:balances) {
+            if(BaseConstant.IS_TEST) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                    hasbalance  = true;
+                }
+            } else {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(mGasMinFee)) > 0)) {
+                    hasbalance  = true;
+                }
+            }
+        }
+        if(!hasbalance){
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(mMyValidators.size() > 16) {
+            Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+        }
+
+        Intent claimReward = new Intent(MainActivity.this, ClaimRewardActivity.class);
+        claimReward.putExtra("opAddresses", toClaimValidators);
+        startActivity(claimReward);
     }
 
     @Override
@@ -695,6 +734,25 @@ public class MainActivity extends BaseActivity implements TaskListener {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
 
+            }
+        });
+    }
+
+    public void onSortingByReward(final ArrayList<Validator> validators) {
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                BigDecimal rewardO1 = WDp.getValidatorReward(mRewards, o1.operator_address);
+                BigDecimal rewardO2 = WDp.getValidatorReward(mRewards, o2.operator_address);
+                return rewardO2.compareTo(rewardO1);
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
             }
         });
     }

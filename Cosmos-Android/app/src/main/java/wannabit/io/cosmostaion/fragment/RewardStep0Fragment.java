@@ -3,28 +3,36 @@ package wannabit.io.cosmostaion.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Reward;
+import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class RewardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private CardView    mCardReward;
-    private TextView    mTvAtomReward, mTvPhotonReward;
-    private TextView    mTvAtomTitle, mTvPhotonTitle;
-    private TextView    mTvFromValidators;
-    private TextView    mTvGoalAddress, mTvSelf;
-    private ProgressBar mProgressBar;
+    private CardView        mCardReward;
+    private TextView        mTvAtomReward, mTvAtomTitle;
+    private TextView        mTvFromValidators;
+
+    private LinearLayout    mReceiveLayer;
+    private TextView        mTvReceiveAddress;
+    private ProgressBar     mProgressBar;
+
     private Button      mCancelBtn, mNextBtn;
 
 
@@ -44,64 +52,46 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
         View rootView = inflater.inflate(R.layout.fragment_reward_step0, container, false);
         mCardReward             = rootView.findViewById(R.id.reward_card);
         mTvAtomReward           = rootView.findViewById(R.id.reward_atom);
-        mTvPhotonReward         = rootView.findViewById(R.id.reward_photon);
+        mTvAtomTitle            = rootView.findViewById(R.id.reward_atom_title);
         mTvFromValidators       = rootView.findViewById(R.id.reward_moniker);
-        mTvGoalAddress          = rootView.findViewById(R.id.reward_receive_address);
-        mTvSelf                 = rootView.findViewById(R.id.reward_receive_address_self);
+        mReceiveLayer           = rootView.findViewById(R.id.reward_receive_address_layer);
+        mTvReceiveAddress       = rootView.findViewById(R.id.reward_receive_address);
         mProgressBar            = rootView.findViewById(R.id.reward_progress);
         mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                = rootView.findViewById(R.id.btn_next);
-        mTvAtomTitle            = rootView.findViewById(R.id.reward_atom_title);
-        mTvPhotonTitle          = rootView.findViewById(R.id.reward_photon_title);
-        mTvAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-        mTvPhotonTitle.setText(WDp.DpPoton(getContext(), getSActivity().mAccount.baseChain));
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         mNextBtn.setClickable(false);
-
         return rootView;
     }
 
     @Override
     public void onRefreshTab() {
-
-        WLog.w("getSActivity().mAccount.baseChain : " + getSActivity().mAccount.baseChain);
-        WLog.w("BaseChain.COSMOS_MAIN.getChain() : " + BaseChain.COSMOS_MAIN.getChain());
-
-        if(getSActivity().isAll) {
-            // get all reward
-            if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getAtomAmount(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-                mTvPhotonTitle.setVisibility(View.GONE);
-                mTvPhotonReward.setVisibility(View.GONE);
-            } else {
-                mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getAtomAmount(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-                mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mTotalReward.getPhotonAmount(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-                mTvFromValidators.setText("from " + getSActivity().mBondings.size() + "Validators");
-            }
-
-        } else {
-            // get single reward
-            if(getSActivity().mRewards == null) getSActivity().onBackPressed();
-            if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getAtomAmount(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-                mTvPhotonTitle.setVisibility(View.GONE);
-                mTvPhotonReward.setVisibility(View.GONE);
-            } else {
-                mTvAtomReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getAtomAmount(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-                mTvPhotonReward.setText(WDp.getDpAmount(getContext(), getSActivity().mRewards.getPhotonAmount(), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-                mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
-            }
-
+//        WLog.w("RewardStep0Fragment onRefreshTab");
+        BigDecimal rewardSum = BigDecimal.ZERO;
+        for (Reward reward:getSActivity().mRewards) {
+            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount));
         }
+//        WLog.w("RewardStep0Fragment "+rewardSum);
+        mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
+        String monikers = "";
+        for (Validator validator:getSActivity().mValidators) {
+            if(TextUtils.isEmpty(monikers)) {
+                monikers = validator.description.moniker;
+            } else {
+                monikers = monikers + ",    " + validator.description.moniker;
+            }
+        }
+        mTvFromValidators.setText(monikers);
 
-        mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
-        if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) mTvSelf.setVisibility(View.VISIBLE);
-        else mTvSelf.setVisibility(View.GONE);
-        mCardReward.setVisibility(View.VISIBLE);
-        mProgressBar.setVisibility(View.GONE);
+        mTvReceiveAddress.setText(getSActivity().mWithdrawAddress);
+        if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+            mReceiveLayer.setVisibility(View.GONE);
+        } else {
+            mReceiveLayer.setVisibility(View.VISIBLE);
+        }
         mNextBtn.setClickable(true);
     }
 

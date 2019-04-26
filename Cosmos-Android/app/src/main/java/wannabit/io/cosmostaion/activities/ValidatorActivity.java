@@ -246,7 +246,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-
         if(mReward == null) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
             return;
@@ -271,9 +270,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        getBaseDao().setValidator(mValidator);
+//        getBaseDao().setValidator(mValidator);
+        ArrayList<Validator> val = new ArrayList<>();
+        val.add(mValidator);
         Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
-        claimReward.putExtra("isAll", false);
+        claimReward.putExtra("opAddresses", val);
         startActivity(claimReward);
     }
 

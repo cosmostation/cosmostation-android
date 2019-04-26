@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,81 +25,71 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/space_16">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_reward_amount"
-                    style="@style/font_ss_14_gray1"/>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8">
+                    android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/reward_atom_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/space_24"
-                        android:text="@string/str_atom_c"
-                        style="@style/font_ss_11_atom"/>
-                    <TextView
-                        android:id="@+id/reward_atom"
+                        android:text="@string/str_reward_amount"
+                        style="@style/font_ss_12_gray1"/>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="1,232,000.000"
-                        style="@style/font_ssl_11_white"/>
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/reward_atom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            style="@style/font_ssl_12_white"/>
+                        <TextView
+                            android:id="@+id/reward_atom_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_2"
+                            android:text="@string/str_atom_c"
+                            style="@style/font_ss_12_atom"/>
+                    </LinearLayout>
                 </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/reward_photon_layer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8">
-                    <TextView
-                        android:id="@+id/reward_photon_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/space_24"
-                        android:text="@string/str_photon_c"
-                        style="@style/font_ss_11_photon"/>
-                    <TextView
-                        android:id="@+id/reward_photon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="7,342,000,000.000"
-                        style="@style/font_ssl_11_white"/>
-                </RelativeLayout>
-                <TextView
-                    android:id="@+id/reward_fees_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_fees_c"
-                    android:layout_marginTop="@dimen/space_12"
-                    android:textAllCaps="true"
-                    style="@style/font_ss_11_gray1"/>
+
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8">
+                    android:layout_marginTop="@dimen/space_16">
                     <TextView
-                        android:id="@+id/reward_fees_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_24"
-                        android:text="@string/str_photon_c"
-                        style="@style/font_ss_11_photon"/>
-                    <TextView
-                        android:id="@+id/reward_fees"
+                        android:text="@string/str_fees"
+                        style="@style/font_ss_12_gray1"/>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="6,000.000"
-                        style="@style/font_ssl_10_white"/>
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/reward_fees"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-"
+                            style="@style/font_ssl_12_white"/>
+                        <TextView
+                            android:id="@+id/reward_fees_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_2"
+                            android:text="@string/str_atom_c"
+                            style="@style/font_ss_12_atom"/>
+                    </LinearLayout>
                 </RelativeLayout>
+
             </LinearLayout>
 
 
@@ -119,120 +108,101 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_reward_from"
-                    style="@style/font_ss_14_gray1"/>
+                    style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/reward_moniker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_24"
                     android:layout_marginTop="@dimen/space_8"
-                    android:text="Cosmostation"
-                    style="@style/font_ss_11_white"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_reward_to"
-                    android:layout_marginTop="@dimen/space_16"
-                    style="@style/font_ss_14_gray1"/>
-                <RelativeLayout
+                    android:text="-"
+                    style="@style/font_ss_12_white"/>
+
+                <LinearLayout
+                    android:id="@+id/reward_receive_layer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="@dimen/space_24"
-                    android:layout_marginTop="@dimen/space_8">
+                    android:layout_marginTop="@dimen/space_16"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_reward_to"
+                        style="@style/font_ss_12_gray1"/>
                     <TextView
                         android:id="@+id/reward_receive_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="cosmosjhdskjfhksjnjksdncsdnddasdassdasz"
-                        style="@style/font_ss_11_white"/>
-                    <TextView
-                        android:id="@+id/reward_receive_address_self"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/reward_receive_address"
-                        android:layout_marginLeft="@dimen/space_4"
-                        android:layout_alignBaseline="@+id/reward_receive_address"
-                        android:text="(self)"
-                        style="@style/font_ss_9_red"/>
-                </RelativeLayout>
+                        android:layout_marginTop="@dimen/space_8"
+                        android:text="-"
+                        style="@style/font_ss_12_white"/>
+                </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16"
-                    android:text="@string/str_memo_c"
-                    style="@style/font_ss_14_gray1"/>
+                    android:text="@string/str_memo"
+                    style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/memo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_24"
                     android:layout_marginTop="@dimen/space_8"
                     android:lines="2"
-                    android:text="java.util.concurrent.ExecutionException: com.android.builder.internal.aapt.v2.Aapt2Exception: Android resource compilation failed"
-                    style="@style/font_ss_11_white"/>
+                    android:ellipsize="end"
+                    android:text="-"
+                    style="@style/font_ss_12_white"/>
             </LinearLayout>
 
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGray3"
-                android:visibility="gone"/>
+                android:background="@color/colorGray3"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/space_16"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_marginTop="@dimen/space_16">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_expected_balance"
-                    style="@style/font_ss_14_gray1"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                    style="@style/font_ss_12_gray1"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8">
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:gravity="center">
                     <TextView
-                        android:id="@+id/remind_atom_title"
+                        android:id="@+id/expected_atom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:text="-"
+                        style="@style/font_ssl_12_white"/>
+                    <TextView
+                        android:id="@+id/expected_atom_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_2"
                         android:text="@string/str_atom_c"
-                        style="@style/font_ss_11_atom"/>
-                    <TextView
-                        android:id="@+id/remind_atom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="1,232,000.000"
-                        style="@style/font_ssl_11_white"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8">
-                    <TextView
-                        android:id="@+id/remind_photon_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="@string/str_photon_c"
-                        style="@style/font_ss_11_photon"/>
-                    <TextView
-                        android:id="@+id/remind_photon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="7,342,000,000.000"
-                        style="@style/font_ssl_11_white"/>
-                </RelativeLayout>
-            </LinearLayout>
+                        style="@style/font_ss_12_atom"/>
+                </LinearLayout>
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/expected_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    style="@style/font_ss_10_gray1"
+                    android:text=" ~ $ 12.23"/>
+            </RelativeLayout>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

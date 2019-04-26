@@ -49,20 +49,24 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     private ViewPager                   mViewPager;
     private RewardPageAdapter           mPageAdapter;
 
-    public boolean                       isAll = false;
+
+//    public Validator                    mValidator;
     public Account                      mAccount;
-    public Validator                    mValidator;
     public String                       mRewardMemo;
     public Fee                          mRewardFee;
 
-    public ArrayList<BondingState>      mBondings = new ArrayList<>();
-    public ArrayList<Balance>           mBalances = new ArrayList<>();
-    public TotalReward                  mTotalReward;
-    public Reward                       mRewards;
+//    public ArrayList<BondingState>      mBondings = new ArrayList<>();
+//    public ArrayList<Balance>           mBalances = new ArrayList<>();
+//    public Reward                       mRewards;
+
+
+    public ArrayList<Validator>         mValidators = new ArrayList<>();
+    public ArrayList<Reward>            mRewards = new ArrayList<>();
+//    public TotalReward                  mTotalReward;
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 
-//    public ArrayList<String>            mFreeEvent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,26 +84,17 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_reward_step_1));
 
-//        mFreeEvent  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.free_event)));
 
         mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBalances   = getBaseDao().onSelectBalance(mAccount.id);
-        mBondings   = getBaseDao().onSelectBondingStates(mAccount.id);
+//        mBalances   = getBaseDao().onSelectBalance(mAccount.id);
+//        mBondings   = getBaseDao().onSelectBondingStates(mAccount.id);
         mPageAdapter = new RewardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
-        isAll = getIntent().getBooleanExtra("isAll", false);
-        if(!isAll) {
-            WLog.w("single");
-            mValidator = getBaseDao().getValidator();
-            onFetchReward();
-        } else {
-            WLog.w("all");
-            onFetchAllReward();
-        }
-
-
+        mValidators = (ArrayList<Validator>)(getIntent().getSerializableExtra("opAddresses"));
+        WLog.w("mValidators : " + mValidators.size());
+        if(mValidators.size() < 1) {onBackPressed();}
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -131,6 +126,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
             public void onPageScrollStateChanged(int i) { }
         });
         mViewPager.setCurrentItem(0);
+        onFetchReward();
     }
 
 
@@ -172,31 +168,42 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     }
 
 
-    private void onFetchAllReward() {
-        if(mTaskCount > 0) return;
-        mTaskCount = 2;
-        ArrayList<Account> accounts = new ArrayList<Account>();
-        accounts.add(mAccount);
-        new TotalRewardTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
+//    private void onFetchAllReward() {
+//        if(mTaskCount > 0) return;
+//        mTaskCount = 2;
+//        ArrayList<Account> accounts = new ArrayList<Account>();
+//        accounts.add(mAccount);
+//        new TotalRewardTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//    }
+//
+//    private void onFetchReward() {
+//        if(mTaskCount > 0) return;
+//        mTaskCount = 2;
+//        new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//
+//    }
 
     private void onFetchReward() {
         if(mTaskCount > 0) return;
-        mTaskCount = 2;
-        new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        mTaskCount = mValidators.size() + 1;
+        mRewards.clear();
+        for(Validator val:mValidators) {
+            new SingleRewardTask(getBaseApplication(), this, mAccount, val.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
         new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
     }
 
+
     public void onStartReward() {
-        Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_REWARD);
-        intent.putExtra("toAddress", mValidator.operator_address);
-        intent.putExtra("memo", mRewardMemo);
-        intent.putExtra("fee", mRewardFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+//        Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
+//        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_REWARD);
+//        intent.putExtra("toAddress", mValidator.operator_address);
+//        intent.putExtra("memo", mRewardMemo);
+//        intent.putExtra("fee", mRewardFee);
+//        startActivity(intent);
+//        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
 
@@ -205,19 +212,34 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         mTaskCount--;
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
-            mRewards = (Reward)result.resultData;
+            Reward reward = (Reward)result.resultData;
+            if(reward != null)
+                onUpdateReward(reward);
 
-        } else if (result.taskType == BaseConstant.TASK_FETCH_TOTAL_REWARDS) {
-            HashMap<Long, TotalReward> temp = (HashMap<Long, TotalReward>)result.resultData;
-            if(temp != null) {
-                mTotalReward = temp.get(mAccount.id);
-            }
         } else if (result.taskType == BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS) {
             mWithdrawAddress = (String)result.resultData;
         }
 
         if(mTaskCount == 0) {
             mPageAdapter.mCurrentFragment.onRefreshTab();
+        }
+    }
+
+    private void onUpdateReward(Reward reward) {
+        if(mRewards == null) mRewards = new ArrayList<>();
+        if(mRewards.size() == 0) {
+            mRewards.add(reward);
+        } else {
+            int match = -1;
+            for(int i = 0; i < mRewards.size(); i++) {
+                if(mRewards.get(i).validatorAddress.equals(reward.validatorAddress)) {
+                    match = i; break;
+                }
+            }
+            if(match > 0) {
+                mRewards.remove(match);
+            }
+            mRewards.add(reward);
         }
     }
 

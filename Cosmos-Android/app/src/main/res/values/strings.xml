@@ -7,7 +7,7 @@
 
 
     <!--No Free fee lcd-->
-    <string name="url_lcd_main" translatable="false">https://lcd.cosmostation.io/</string>
+    <string name="url_lcd_main" translatable="false">https://lcd-app.cosmostation.io/</string>
 
     <!--Free fee lcd-->
     <!--<string name="url_lcd_main" translatable="false">https://lcd-dev.cosmostation.io/</string>-->
@@ -103,8 +103,8 @@
     <string name="str_reward_c">CLAIM REWARD</string>
     <string name="str_reward_amount">Reward Amount</string>
     <string name="str_reward_from">Reward From</string>
-    <string name="str_reward_to">Recipient address</string>
-    <string name="str_expected_balance">Expected Final Balance</string>
+    <string name="str_reward_to">Recipient Address</string>
+    <string name="str_expected_balance">Expected Available</string>
     <string name="str_success">success</string>
     <string name="str_failed">failed</string>
     <string name="str_preparing">Preparing...</string>
@@ -297,6 +297,9 @@
     <string name="str_fee_free_msg">To commemorate the launch of the main net, \nwe will hold a free 3-week event.</string>
     <string name="str_delegate_notice">If you delegate to the validator you already delegated, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>
     <string name="str_undelegate_notice">If you undelegate to the validator, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>
+    <string name="str_reward_notice">Rewards are accumulated each block.\nThe actual amount of rewards you receive may be equal to or greater than what is displayed now.</string>
+    <string name="str_multi_reward_notice">Claiming rewards from multiple validators in one transaction requires more fees than a regular transaction. However, using this function is less expensive than claiming your rewards individually from each validator.</string>
+    <string name="str_multi_reward_max_16">We claim rewards from up to 16 validators in order of reward amount.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
@@ -415,6 +418,26 @@
     <string name="atom_fee_l" translatable="false">0.001</string>
     <string name="atom_fee_m" translatable="false">0.002</string>
     <string name="atom_fee_h" translatable="false">0.004</string>
+
+    <string name="gas_constant" translatable="false">0.005</string>
+    <string-array name="gas_multi_reward" translatable="false">
+        <item>200000</item>
+        <item>200000</item>
+        <item>220000</item>
+        <item>300000</item>
+        <item>380000</item>
+        <item>400000</item>
+        <item>560000</item>
+        <item>600000</item>
+        <item>740000</item>
+        <item>800000</item>
+        <item>920000</item>
+        <item>1000000</item>
+        <item>1050000</item>
+        <item>1100000</item>
+        <item>1150000</item>
+        <item>1200000</item>
+    </string-array>
 
     <string-array name="muon_fee" translatable="false">
         <item>1</item>
