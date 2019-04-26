@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 
 public class MainHistoryFragment extends BaseFragment implements TaskListener {
@@ -104,6 +105,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private void onFetchHistory() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
         ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
+        WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
         new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

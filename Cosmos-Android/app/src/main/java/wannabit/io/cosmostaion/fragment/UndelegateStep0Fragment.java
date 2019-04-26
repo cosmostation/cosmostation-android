@@ -199,7 +199,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             if(atomTemp.compareTo(getSActivity().mBondingState.shares.movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
             Coin atom;
             if(BaseConstant.IS_TEST) {
-                atom = new Coin("muon", atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                atom = new Coin(BaseConstant.COSMOS_MUON, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
             } else {
                 atom = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
             }

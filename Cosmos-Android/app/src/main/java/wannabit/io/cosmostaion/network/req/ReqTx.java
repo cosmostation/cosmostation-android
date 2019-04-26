@@ -14,7 +14,6 @@ public class ReqTx {
     @SerializedName("size")
     public int size;
 
-
     @SerializedName("query")
     public Query query;
 
@@ -54,12 +53,6 @@ public class ReqTx {
 
     }
 
-//    public ReqTx(int from, int size, String address,) {
-//        this.from = from;
-//        this.size = size;
-//    }
-
-
     public ReqTx(int from, int searchType, boolean isDesc, String address, BaseChain chain) {
         this.from = from;
 
@@ -84,6 +77,9 @@ public class ReqTx {
             fields.add(output_addr);
             fields.add(addr_proposer);
             fields.add(delegator_address);
+        } else if(searchType == 1) {
+            fields.add(from_addr);
+            fields.add(to_addr);
         }
         multiMatch.fields = fields;
         Query query = new Query();

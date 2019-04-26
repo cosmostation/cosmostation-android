@@ -86,14 +86,17 @@
     <string name="str_memo">Memo</string>
     <string name="str_fees">Fee</string>
     <string name="str_fees_c">FEE</string>
-    <string name="str_to_send_amount">Amount</string>
+    <string name="str_to_send_amount">Send Amount</string>
+    <string name="str_total_spend_amount">Total Spend</string>
+    <string name="str_current_available">Current Available</string>
+    <string name="str_remaining_available">Remaining Available</string>
     <string name="str_from_c">FROM</string>
     <string name="str_to_c">TO</string>
     <string name="str_memo_c">MEMO</string>
     <string name="str_remind_balance">Remaining balance</string>
-    <string name="str_to_undelegate_amount">To Undelegate Amount</string>
-    <string name="str_to_delegate_amount">To Delegate Amount</string>
-    <string name="str_to_delegate_validator">To Delegate Validator</string>
+    <string name="str_to_undelegate_amount">Undelegate Amount</string>
+    <string name="str_to_delegate_amount">Delegate Amount</string>
+    <string name="str_to_delegate_validator">Delegate To</string>
     <string name="str_from_undelegate_validator">Undelegate From</string>
     <string name="str_undelegate_complete_time">Expected Delivery</string>
     <string name="str_remind_delegate">Remind Delegate</string>
@@ -213,6 +216,7 @@
     <string name="str_approximately"><![CDATA[≈]]></string>
     <string name="str_max_available_delegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[Max Available : ]]></string>
+    <string name="str_max_available_send_amount"><![CDATA[Max Available : ]]></string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -394,14 +398,23 @@
     </string-array>
 
 
+    <!--<string-array name="atom_fee" translatable="false">-->
+        <!--<item>0.005</item>-->
+        <!--<item>0.010</item>-->
+        <!--<item>0.020</item>-->
+    <!--</string-array>-->
+    <!--<string name="atom_fee_l" translatable="false">0.005</string>-->
+    <!--<string name="atom_fee_m" translatable="false">0.010</string>-->
+    <!--<string name="atom_fee_h" translatable="false">0.020</string>-->
+
     <string-array name="atom_fee" translatable="false">
-        <item>0.005</item>
-        <item>0.010</item>
-        <item>0.020</item>
+        <item>0.001</item>
+        <item>0.002</item>
+        <item>0.004</item>
     </string-array>
-    <string name="atom_fee_l" translatable="false">0.005</string>
-    <string name="atom_fee_m" translatable="false">0.010</string>
-    <string name="atom_fee_h" translatable="false">0.020</string>
+    <string name="atom_fee_l" translatable="false">0.001</string>
+    <string name="atom_fee_m" translatable="false">0.002</string>
+    <string name="atom_fee_h" translatable="false">0.004</string>
 
     <string-array name="muon_fee" translatable="false">
         <item>1</item>

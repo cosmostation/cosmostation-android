@@ -132,12 +132,10 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         super.onResume();
         if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
         mAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-        mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(new BigDecimal("5000"));
+        mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(new BigDecimal("1000"));
         mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
     }
-
-
 
     @Override
     public void onClick(View v) {
@@ -203,7 +201,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             if(atomTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
             Coin atom;
             if(BaseConstant.IS_TEST) {
-                atom = new Coin("muon", atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                atom = new Coin(BaseConstant.COSMOS_MUON, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
             } else {
                 atom = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
             }

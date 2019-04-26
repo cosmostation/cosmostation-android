@@ -22,8 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                style="@style/font_ss_14_photon"
-                android:text="PHOTON"/>
+                style="@style/font_ss_14_atom"
+                android:text="ATOM"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,17 +43,18 @@
             android:layout_marginTop="@dimen/space_24"
             android:background="@color/colorTransBg">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/font_ss_11_gray1"
-                android:text="@string/str_fees"/>
-            <TextView
                 android:id="@+id/fee_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4"
                 style="@style/font_ss_14_white"
-                android:text="1,676,000"/>
+                android:text="-"/>
+            <TextView
+                android:id="@+id/fee_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_2"
+                style="@style/font_ss_10_gray1"
+                android:text="-"/>
         </LinearLayout>
 
         <LinearLayout
@@ -69,9 +70,9 @@
                 android:layout_height="wrap_content"
                 android:maxHeight="2dp"
                 android:splitTrack="false"
-                android:progress="1"
+                android:progress="0"
                 android:max="2"
-                android:progressDrawable="@drawable/gas_photon_seekbar_style"
+                android:progressDrawable="@drawable/gas_atom_seekbar_style"
                 android:thumb="@drawable/gas_seekbar_thumb"/>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -94,6 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/space_4"
                     style="@style/font_ss_11_gray1"
                     android:text="@string/str_high"/>
             </RelativeLayout>

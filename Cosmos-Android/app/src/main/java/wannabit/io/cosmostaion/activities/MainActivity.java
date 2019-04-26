@@ -269,8 +269,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         for (Balance balance:balances) {
-            if(balance.balance.compareTo(BigDecimal.ZERO) > 0) {
-                hasbalance = true;
+            if(BaseConstant.IS_TEST) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                    hasbalance  = true;
+                }
+            } else {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) > 0)) {
+                    hasbalance  = true;
+                }
             }
         }
         if(!hasbalance){

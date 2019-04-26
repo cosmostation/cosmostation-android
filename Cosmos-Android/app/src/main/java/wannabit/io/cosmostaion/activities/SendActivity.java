@@ -85,6 +85,7 @@ public class SendActivity extends BaseActivity {
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_send_step_3));
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 4 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_send_step_4));

@@ -142,10 +142,10 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
         mFeeAmount = new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).multiply(new BigDecimal("1000000")).setScale(0);
         if(mToDelegate.add(mFeeAmount).compareTo(mAvailable) > 0) {
             Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-            mSeekBarGas.setProgress(0);
+            mSeekBarGas.setProgress(mSeekBarGas.getProgress() - 1);
             onUpdateGasAmountDp();
         }
-        mTvGasAmount.setText(new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).toPlainString());
+        mTvGasAmount.setText(new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).setScale(6).toPlainString());
         BigDecimal total = new BigDecimal(""+mTvGasAmount.getText().toString().trim().replace(",","")).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
         mTvGasPrice.setText(getString(R.string.str_approximately)+ " $" +  WDp.getDolor(getContext(), total));
 

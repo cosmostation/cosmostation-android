@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.fragment;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -14,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -23,11 +27,9 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private EditText    mAddressInput;
-//    private ImageView   mQrBtn;
-    private Button      mCancel, mNextBtn;
-    private Button      mTest;
-    private LinearLayout mBtnQr, mBtnPaste, mBtnHistory;
+    private EditText        mAddressInput;
+    private Button          mCancel, mNextBtn;
+    private LinearLayout    mBtnQr, mBtnPaste, mBtnHistory;
 
     public static SendStep0Fragment newInstance(Bundle bundle) {
         SendStep0Fragment fragment = new SendStep0Fragment();
@@ -44,27 +46,16 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_send_step0, container, false);
         mAddressInput = rootView.findViewById(R.id.receiver_account);
-//        mQrBtn = rootView.findViewById(R.id.receiver_camera);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mCancel = rootView.findViewById(R.id.btn_cancel);
-        mTest = rootView.findViewById(R.id.btn_test);
-//        mQrBtn.setOnClickListener(this);
 
         mBtnQr = rootView.findViewById(R.id.btn_qr);
         mBtnPaste = rootView.findViewById(R.id.btn_paste);
         mBtnHistory = rootView.findViewById(R.id.btn_history);
-
-        if(BaseConstant.IS_TEST) {
-            mTest.setVisibility(View.VISIBLE);
-        } else {
-            mTest.setVisibility(View.GONE);
-
-        }
-
+        mBtnHistory.setVisibility(View.GONE);
 
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
-        mTest.setOnClickListener(this);
         mBtnQr.setOnClickListener(this);
         mBtnPaste.setOnClickListener(this);
         mBtnHistory.setOnClickListener(this);
@@ -88,18 +79,13 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 return;
             }
 
-        } else if (v.equals(mTest)) {
-//            if(!getSActivity().mAccount.address.equals("cosmos1pzllggpn22094j3mwq79u4ql63cwac6enqkjck"))
-//                mAddressInput.setText("cosmos1pzllggpn22094j3mwq79u4ql63cwac6enqkjck");
-//            else
-                mAddressInput.setText("cosmos1xjdgwn8gnd5ve9tv87c87f6r79uyl9477nal2g");
-
         } else if (v.equals(mCancel)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnQr)) {
-            WLog.w("mBtnQr");
-            Toast.makeText(getSActivity(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
+            IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
+            integrator.setOrientationLocked(true);
+            integrator.initiateScan();
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -110,6 +96,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     return;
                 }
                 mAddressInput.setText(userPaste);
+                mAddressInput.setSelection(mAddressInput.getText().length());
 
             } else {
                 Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
@@ -125,5 +112,19 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     private SendActivity getSActivity() {
         return (SendActivity)getBaseActivity();
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() != null) {
+                mAddressInput.setText(result.getContents());
+                mAddressInput.setSelection(mAddressInput.getText().length());
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

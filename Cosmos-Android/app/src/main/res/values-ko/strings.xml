@@ -39,7 +39,10 @@
     <string name="str_memo">메모</string>
     <string name="str_fees">Tx 수수료</string>
     <string name="str_fees_c">Tx 수수료</string>
-    <string name="str_to_send_amount">Amount</string>
+    <string name="str_to_send_amount">송금할 수량</string>
+    <string name="str_total_spend_amount">지출 총량</string>
+    <string name="str_current_available">현재 사용 가능 수량</string>
+    <string name="str_remaining_available">송금 후 사용 가능 수량</string>
     <string name="str_from_c">FROM</string>
     <string name="str_to_c">TO</string>
     <string name="str_memo_c">메모</string>
@@ -166,6 +169,7 @@
     <string name="str_approximately"><![CDATA[≈]]></string>
     <string name="str_max_available_delegate_amount"><![CDATA[최대 위임 가능량 : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[최대 위임 철회 가능량 : ]]></string>
+    <string name="str_max_available_send_amount"><![CDATA[최대 송금 가능량 : ]]></string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
