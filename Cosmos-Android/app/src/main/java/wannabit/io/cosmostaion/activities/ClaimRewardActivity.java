@@ -40,6 +40,8 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.FetchTask.TotalRewardTask;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
+
 public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
     private Toolbar                     mToolbar;
@@ -50,19 +52,12 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     private RewardPageAdapter           mPageAdapter;
 
 
-//    public Validator                    mValidator;
     public Account                      mAccount;
     public String                       mRewardMemo;
     public Fee                          mRewardFee;
 
-//    public ArrayList<BondingState>      mBondings = new ArrayList<>();
-//    public ArrayList<Balance>           mBalances = new ArrayList<>();
-//    public Reward                       mRewards;
-
-
     public ArrayList<Validator>         mValidators = new ArrayList<>();
     public ArrayList<Reward>            mRewards = new ArrayList<>();
-//    public TotalReward                  mTotalReward;
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 
@@ -86,8 +81,6 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
 
         mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-//        mBalances   = getBaseDao().onSelectBalance(mAccount.id);
-//        mBondings   = getBaseDao().onSelectBondingStates(mAccount.id);
         mPageAdapter = new RewardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
@@ -167,24 +160,6 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         }
     }
 
-
-//    private void onFetchAllReward() {
-//        if(mTaskCount > 0) return;
-//        mTaskCount = 2;
-//        ArrayList<Account> accounts = new ArrayList<Account>();
-//        accounts.add(mAccount);
-//        new TotalRewardTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//        new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//    }
-//
-//    private void onFetchReward() {
-//        if(mTaskCount > 0) return;
-//        mTaskCount = 2;
-//        new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//        new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//
-//    }
-
     private void onFetchReward() {
         if(mTaskCount > 0) return;
         mTaskCount = mValidators.size() + 1;
@@ -197,13 +172,15 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
 
     public void onStartReward() {
-//        Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
-//        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_REWARD);
-//        intent.putExtra("toAddress", mValidator.operator_address);
-//        intent.putExtra("memo", mRewardMemo);
-//        intent.putExtra("fee", mRewardFee);
-//        startActivity(intent);
-//        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_REWARD);
+        intent.putExtra("validators", mValidators);
+        intent.putExtra("memo", mRewardMemo);
+        //TODO testcode
+        if(IS_FEE_FREE) mRewardFee.amount.get(0).amount = "0";
+        intent.putExtra("fee", mRewardFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
 

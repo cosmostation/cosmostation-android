@@ -27,6 +27,8 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
+
 public class SendActivity extends BaseActivity {
 
     private Toolbar                 mToolbar;
@@ -152,6 +154,8 @@ public class SendActivity extends BaseActivity {
         intent.putExtra("toAddress", mTagetAddress);
         intent.putParcelableArrayListExtra("amount", mTargetCoins);
         intent.putExtra("memo", mTargetMemo);
+        //TODO testcode
+        if(IS_FEE_FREE) mTargetFee.amount.get(0).amount = "0";
         intent.putExtra("fee", mTargetFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);

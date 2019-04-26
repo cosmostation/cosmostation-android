@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
@@ -55,16 +56,17 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private int                         mPurpose;
 
 
-    private Account                  mAccount;
-    private String                   mTargetAddress;
-    private ArrayList<Coin>          mTargetCoins;
-    private String                   mTargetMemo;
-    private Fee                      mTargetFee;
-    private Coin                     mDAmount;
-    private Coin                    mUAmount;
+    private Account                     mAccount;
+    private String                      mTargetAddress;
+    private ArrayList<Coin>             mTargetCoins;
+    private String                      mTargetMemo;
+    private Fee                         mTargetFee;
+    private Coin                        mDAmount;
+    private Coin                        mUAmount;
+    private ArrayList<Validator>        mValidators = new ArrayList<>();
 
-    private long                     mIdToDelete;
-    private long                     mIdToCheck;
+    private long                        mIdToDelete;
+    private long                        mIdToCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mTargetFee = getIntent().getParcelableExtra("fee");
         mDAmount = getIntent().getParcelableExtra("dAmount");
         mUAmount = getIntent().getParcelableExtra("uAmount");
+        mValidators = getIntent().getParcelableArrayListExtra("validators");
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
@@ -200,7 +203,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SimpleRewardTask(getBaseApplication(),
                     this,
                     mAccount,
-                    mTargetAddress,
+                    mValidators,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -278,6 +281,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             if(!TextUtils.isEmpty(hash))
                 txIntent.putExtra("txHash", hash);
             txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
 
             startActivity(txIntent);
 

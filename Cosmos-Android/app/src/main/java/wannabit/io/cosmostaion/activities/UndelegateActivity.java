@@ -30,6 +30,8 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
+
 public class UndelegateActivity extends BaseActivity {
 
     private Toolbar                     mToolbar;
@@ -146,6 +148,8 @@ public class UndelegateActivity extends BaseActivity {
         intent.putExtra("toAddress", mValidator.operator_address);
         intent.putExtra("uAmount", mUnDelegateAmount);
         intent.putExtra("memo", mUnDelegateMemo);
+        //TODO testcode
+        if(IS_FEE_FREE) mUnDelegateFee.amount.get(0).amount = "0";
         intent.putExtra("fee", mUnDelegateFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);

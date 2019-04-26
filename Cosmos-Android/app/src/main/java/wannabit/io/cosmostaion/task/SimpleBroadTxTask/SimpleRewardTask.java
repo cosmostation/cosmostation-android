@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
+import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
@@ -34,18 +35,17 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SimpleRewardTask extends CommonTask {
 
-    private Account     mAccount;
-    private String      mFromValidatorAddress;
-    private String      mRewardMemo;
-    private Fee         mRewardFees;
+    private Account                 mAccount;
+    private ArrayList<Validator>    mValidators = new ArrayList<>();
+    private String                  mRewardMemo;
+    private Fee                     mRewardFees;
 
-    public SimpleRewardTask(BaseApplication app, TaskListener listener, Account account,
-                            String fromValidatorAddress, String rewardMemo, Fee rewardFees) {
+    public SimpleRewardTask(BaseApplication app, TaskListener listener, Account mAccount, ArrayList<Validator> mValidators, String mRewardMemo, Fee mRewardFees) {
         super(app, listener);
-        this.mAccount = account;
-        this.mFromValidatorAddress = fromValidatorAddress;
-        this.mRewardMemo = rewardMemo;
-        this.mRewardFees = rewardFees;
+        this.mAccount = mAccount;
+        this.mValidators = mValidators;
+        this.mRewardMemo = mRewardMemo;
+        this.mRewardFees = mRewardFees;
         this.mResult.taskType   = BaseConstant.TASK_GEN_TX_SIMPLE_REWARD;
     }
 
@@ -59,24 +59,22 @@ public class SimpleRewardTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-
-            WLog.w("SimpleRewardTask 00");
             Password checkPw = mApp.getBaseDao().onSelectPassword();
             if(!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-                WLog.w("SimpleRewardTask 99");
                 return mResult;
             }
-            WLog.w("SimpleRewardTask 11");
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-            Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, mFromValidatorAddress, BaseChain.getChain(mAccount.baseChain));
-
             ArrayList<Msg> msgs= new ArrayList<>();
-            msgs.add(singleWithdrawDeleMsg);
+            for(Validator val:mValidators) {
+                Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, val.operator_address, BaseChain.getChain(mAccount.baseChain));
+                msgs.add(singleWithdrawDeleMsg);
+            }
+            WLog.w("Msg " + msgs.size());
 
             StdSignMsgWithType tosign = MsgGenerator.genToSignMsgWithType(
                     mAccount.baseChain,
@@ -119,6 +117,7 @@ public class SimpleRewardTask extends CommonTask {
                 if(response.body().code != null) {
                     WLog.w("response.code() : " + response.body().code);
                     mResult.errorCode = response.body().code;
+                    mResult.errorMsg = response.body().raw_log;
                     return mResult;
                 }
                 mResult.isSuccess = true;
@@ -127,30 +126,6 @@ public class SimpleRewardTask extends CommonTask {
                 WLog.w("SimpleRewardTask not success!!");
                 mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
             }
-
-
-
-//            WLog.w("SimpleRewardTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
-//
-//            String gentx = WUtil.str2Hex(WUtil.getPresentor().toJson(signedTx));
-//            WLog.w("SimpleRewardTask gentx : " +  gentx);
-//            Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
-//            if(response.isSuccessful() && response.body() != null) {
-//                WLog.w("SimpleRewardTask result: " + response.body().hash + " " + response.body().isAllSuccess());
-//                mResult.resultData = response.body();
-//                mResult.isSuccess = true;
-////                ResBroadTx result = response.body();
-////                WLog.w("SimpleRewardTask result errorMsg : " + result.errorMsg);
-////                WLog.w("SimpleRewardTask result errorCode : " + result.errorCode);
-////                WLog.w("SimpleRewardTask result hash : " + result.hash);
-////                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
-////                    mResult.resultData = result.hash;
-////                    mResult.isSuccess = true;
-////                }
-////                WLog.w("SimpleRewardTask result hash : " + result.hash);
-////                WLog.w("SimpleRewardTask result height : " + result.height);
-//            }
-
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());

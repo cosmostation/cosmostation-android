@@ -190,7 +190,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         }
         if(!hasAtom) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -227,7 +227,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         }
         if(!hasAtom) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -266,7 +266,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         }
         if(!hasAtom) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_atom, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
 

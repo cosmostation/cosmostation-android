@@ -36,6 +36,7 @@
     <string name="str_before">이전</string>
     <string name="str_cancel">취소</string>
     <string name="str_recipient_address">수취인 주소</string>
+    <string name="str_dismiss">닫기</string>
     <string name="str_memo">메모</string>
     <string name="str_fees">Tx 수수료</string>
     <string name="str_fees_c">Tx 수수료</string>
@@ -83,7 +84,7 @@
     <string name="str_support">지원</string>
     <string name="str_guide">도움말</string>
     <string name="str_telegram">텔레그램</string>
-    <string name="str_explore">민트스캔 익스플로어</string>
+    <string name="str_explore">민트스캔 익스플로러</string>
     <string name="str_homepage">코스모스테이션</string>
     <string name="str_app_info">앱 정보</string>
     <string name="str_term">약관</string>
@@ -114,19 +115,19 @@
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
     <string name="str_cosmos_hub">(Cosmos Hub)</string>
-    <string name="str_mintscan">익스플로어 에서 확인</string>
-    <string name="str_tx_success">Transaction Success</string>
-    <string name="str_tx_failed">Transaction Failed</string>
-    <string name="str_tx_type">Transaction Type</string>
-    <string name="str_tx_hash">Transaction Hash</string>
+    <string name="str_mintscan">익스플로러에서 확인</string>
+    <string name="str_tx_success">Transaction 성공</string>
+    <string name="str_tx_failed">Transaction 실패</string>
+    <string name="str_tx_type">Tx 종류</string>
+    <string name="str_tx_hash">Tx Hash</string>
     <string name="str_tx_after_balance">Remaining balance</string>
     <string name="str_tx_from">From</string>
     <string name="str_tx_to">To</string>
     <string name="str_tx_send_amount">Sent Amount</string>
     <string name="str_tx_send_fees">Fees</string>
     <string name="str_tx_memo">Memo</string>
-    <string name="str_tx_block_height">Block</string>
-    <string name="str_tx_block_time">Time</string>
+    <string name="str_tx_block_height">블럭 높이</string>
+    <string name="str_tx_block_time">시간</string>
     <string name="str_tx_block_error">Error</string>
     <string name="str_tx_delegate_to">Delegate To</string>
     <string name="str_tx_delegate_amount">Delegate Amount</string>
@@ -170,6 +171,8 @@
     <string name="str_max_available_delegate_amount"><![CDATA[최대 위임 가능량 : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[최대 위임 철회 가능량 : ]]></string>
     <string name="str_max_available_send_amount"><![CDATA[최대 송금 가능량 : ]]></string>
+    <string name="str_tx_error_description">죄송합니다. 요청하신 전송이 실패하였습니다.\n아래에 보여지는 에러 코드와 메시지를 확인해 주세요.</string>
+    <string name="str_success_loading">트랜젝션 전송에 성공하였습니다. \n잠시후 완전한 결과값이 표시됩니다.</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -272,7 +275,7 @@
     <string name="error_already_imported_address">이미 등록된 주소입니다.</string>
     <string name="error_import_errer">이 주소 또는 공개키는 등록이 불가능 합니다.</string>
     <string name="error_not_enough_atom">위임하기에 사용 가능 수량이 충분하지 않습니다.</string>
-    <string name="error_not_enough_budget">수량이 충분하지 않습니다.</string>
+    <string name="error_not_enough_budget">사용 가능 수량이 충분하지 않습니다.</string>
     <string name="error_not_enough_reward">요청할 이자가 충분하지 않습니다.</string>
     <string name="error_tx_time_out">블록 체인이 너무 바빠서 시간이 초과되었습니다. \ n요청한 트랜잭션이 수행되었을 것입니다. \ n히스토리를 참조하십시오.</string>
     <string name="error_vesting_time">아직 전송이 활성화 되지 않았습니다.</string>

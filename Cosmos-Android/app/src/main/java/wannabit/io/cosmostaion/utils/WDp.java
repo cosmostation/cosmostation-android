@@ -586,6 +586,18 @@ public class WDp {
         return result;
     }
 
+    public static String getTimeTxformat(Context c, String rawValue) {
+        String result = "??";
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_tx_time_format));
+            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            result = myFormat.format(blockDateFormat.parse(rawValue));
+        } catch (Exception e) {};
+
+        return result;
+    }
+
     public static String getTimeGap(Context c, String rawValue) {
         String result = "";
         try {

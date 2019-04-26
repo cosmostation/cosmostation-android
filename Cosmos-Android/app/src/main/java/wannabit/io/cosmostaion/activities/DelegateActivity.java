@@ -30,6 +30,8 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
+
 public class DelegateActivity extends BaseActivity {
 
     private RelativeLayout              mRootView;
@@ -152,6 +154,8 @@ public class DelegateActivity extends BaseActivity {
         intent.putExtra("toAddress", mValidator.operator_address);
         intent.putExtra("dAmount", mToDelegateAmount);
         intent.putExtra("memo", mToDelegateMemo);
+        //TODO testcode
+        if(IS_FEE_FREE) mToDelegateFee.amount.get(0).amount = "0";
         intent.putExtra("fee", mToDelegateFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);

@@ -107,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_from_undelegate_validator"
-                    style="@style/font_ss_14_gray1"/>
+                    style="@style/font_ss_12_gray1"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -120,21 +120,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cosmostation"
-                        style="@style/font_ss_11_white"/>
+                        style="@style/font_ss_12_white"/>
                 </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16"
                     android:text="@string/str_undelegate_complete_time"
-                    style="@style/font_ss_14_gray1"/>
+                    style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/undelegate_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8"
                     android:text="18-12-34 18:11:23 (D-13)"
-                    style="@style/font_ss_11_white"/>
+                    style="@style/font_ss_12_white"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                     android:lines="2"
                     android:ellipsize="end"
                     android:text="java.util.concurrent.ExecutionException: com.android.builder.internal.aapt.v2.Aapt2Exception: Android resource compilation failed"
-                    style="@style/font_ss_11_white"/>
+                    style="@style/font_ss_12_white"/>
             </LinearLayout>
 
         </LinearLayout>

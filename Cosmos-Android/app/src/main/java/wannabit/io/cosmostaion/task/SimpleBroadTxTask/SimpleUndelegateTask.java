@@ -136,6 +136,7 @@ public class SimpleUndelegateTask extends CommonTask {
                 if(response.body().code != null) {
                     WLog.w("response.code() : " + response.body().code);
                     mResult.errorCode = response.body().code;
+                    mResult.errorMsg = response.body().raw_log;
                     return mResult;
                 }
                 mResult.isSuccess = true;

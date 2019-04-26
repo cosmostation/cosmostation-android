@@ -13,4 +13,7 @@ public class ResStakeTxInfo {
 
     @SerializedName("tx")
     public StakeStdTx tx;
+
+    @SerializedName("timestamp")
+    public String timestamp;
 }

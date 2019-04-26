@@ -26,7 +26,7 @@
 
     <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
-
+    <string name="str_tx_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss\'Z\']]></string>
 
     <string name="str_decimal_pattern_0" translatable="false">###,###,###,###,###,###,###,##0</string>
     <string name="str_decimal_pattern_1" translatable="false">###,###,###,###,###,###,###,##0.0</string>
@@ -83,6 +83,7 @@
     <string name="str_before">Before</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_recipient_address">Recipient Address</string>
+    <string name="str_dismiss">Dismiss</string>
     <string name="str_memo">Memo</string>
     <string name="str_fees">Fee</string>
     <string name="str_fees_c">FEE</string>
@@ -172,7 +173,7 @@
     <string name="str_tx_send_amount">Sent Amount</string>
     <string name="str_tx_send_fees">Fees</string>
     <string name="str_tx_memo">Memo</string>
-    <string name="str_tx_block_height">Block</string>
+    <string name="str_tx_block_height">Block Height</string>
     <string name="str_tx_block_time">Time</string>
     <string name="str_tx_block_error">Error</string>
     <string name="str_tx_delegate_to">Delegate To</string>
@@ -217,6 +218,8 @@
     <string name="str_max_available_delegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_send_amount"><![CDATA[Max Available : ]]></string>
+    <string name="str_tx_error_description">Sorry, but your transaction request is failed. \nPlease check below code and msg</string>
+    <string name="str_success_loading">Your transaction request submitted successfully!! \nAfter a few moments, the full results will be displayed.</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -318,7 +321,7 @@
     <string name="error_already_imported_address">Already Imported Address.</string>
     <string name="error_import_errer">Can not add this address/public key.</string>
     <string name="error_not_enough_atom">No enough Balance to Delegate</string>
-    <string name="error_not_enough_budget">Insufficient balance</string>
+    <string name="error_not_enough_budget">Insufficient available balance</string>
     <string name="error_not_enough_reward">No enough reward to Claim</string>
     <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
     <string name="error_vesting_time">Token transfer is locked for three weeks following mainnet launch.</string>

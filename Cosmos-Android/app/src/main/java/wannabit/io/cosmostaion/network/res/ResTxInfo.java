@@ -31,7 +31,8 @@ public class ResTxInfo {
     @SerializedName("tx")
     public StdTx tx;
 
-
+    @SerializedName("timestamp")
+    public String timestamp;
 
     public class Log {
         @SerializedName("msg_index")
