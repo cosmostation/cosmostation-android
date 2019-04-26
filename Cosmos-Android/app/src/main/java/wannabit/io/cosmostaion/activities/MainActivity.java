@@ -414,7 +414,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                                     startActivity(Intent.createChooser(shareIntent, "send"));
 
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+                                    if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
                                 }
                             }
 
@@ -428,7 +428,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                         .check();
 
             } catch (WriterException e) {
-                e.printStackTrace();
+                if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
             }
         }
 

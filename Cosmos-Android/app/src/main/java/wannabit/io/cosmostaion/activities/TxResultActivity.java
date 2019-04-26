@@ -34,6 +34,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
+
 public class TxResultActivity extends BaseActivity implements View.OnClickListener {
 
     private Account                     mAccount;
@@ -165,7 +167,11 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
         } else {
             mLoading.setVisibility(View.GONE);
-            mErrorDetails.setText("error code : " + mErrorCode + "\n" + mErrorMsg);
+            if(mErrorCode == ERROR_CODE_BROADCAST) {
+                mErrorDetails.setText(getString(R.string.error_network));
+            } else {
+                mErrorDetails.setText("error code : " + mErrorCode + "\n" + mErrorMsg);
+            }
             mErrorCard.setVisibility(View.VISIBLE);
             mToolbarTitle.setText(getString(R.string.str_tx_failed));
         }
@@ -304,7 +310,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                                     FetchCnt++;
                                     onFetchTx(mTxHash);
                                 }
-                            }, 3000);
+                            }, 3500);
                         } else {
                             //TODO finish
                             WLog.w("Looop");
@@ -325,7 +331,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                                     FetchCnt++;
                                     onFetchTx(mTxHash);
                                 }
-                            }, 3000);
+                            }, 3500);
                         } else {
                             //TODO finish
                             WLog.w("Looop");
@@ -363,7 +369,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                                     FetchCnt++;
                                     onStakeFetchTx(mTxHash);
                                 }
-                            }, 3000);
+                            }, 3500);
                         } else {
                             //TODO finish
                             WLog.w("Looop");
@@ -384,7 +390,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                                     FetchCnt++;
                                     onStakeFetchTx(mTxHash);
                                 }
-                            }, 3000);
+                            }, 3500);
                         } else {
                             //TODO finish
                             WLog.w("Looop");

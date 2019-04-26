@@ -110,7 +110,7 @@ public class CryptoHelper {
             result = Base64.encodeToString(signature, Base64.DEFAULT);
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return result;
         }
         WLog.w("signData : " + result);

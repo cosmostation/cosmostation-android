@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.req.ReqStakeBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
+import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -77,6 +78,15 @@ public class SimpleDelegateTask extends CommonTask {
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
                 return mResult;
             }
+
+            Response<ResLcdAccountInfo> accountResponse = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getAccountInfo(mAccount.address).execute();
+            if(!accountResponse.isSuccessful()) {
+                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                return mResult;
+            }
+            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+            mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+            mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
@@ -144,7 +154,7 @@ public class SimpleDelegateTask extends CommonTask {
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());
-            e.printStackTrace();
+            if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
         }
         return mResult;
     }

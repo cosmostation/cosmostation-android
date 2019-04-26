@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
+import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -76,6 +77,16 @@ public class SimpleSendTask extends CommonTask {
                 return mResult;
             }
             WLog.w("SimpleSendTask 11");
+
+            Response<ResLcdAccountInfo> accountResponse = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getAccountInfo(mAccount.address).execute();
+            if(!accountResponse.isSuccessful()) {
+                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                return mResult;
+            }
+            WLog.w("accountResponse.body() " + accountResponse.body().type);
+            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+            mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+            mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -174,8 +185,7 @@ public class SimpleSendTask extends CommonTask {
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());
-            e.printStackTrace();
-            mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+            if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
 
         }
         return mResult;
