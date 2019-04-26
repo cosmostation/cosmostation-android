@@ -41,7 +41,7 @@ public class Result {
 //    }
 
     public boolean isSuccess() {
-        boolean result = false;
+        boolean result = true;
         try {
             Log temp = new Gson().fromJson(new Gson().toJson(log), Log.class);
             result = temp.success;
@@ -51,7 +51,12 @@ public class Result {
         }
         try {
             ArrayList<Log> temp = new Gson().fromJson(new Gson().toJson(log), new TypeToken<List<Log>>(){}.getType());
-            result = temp.get(0).success;
+            for (Log log:temp) {
+                if(!log.success) {
+                    result = false;
+                    break;
+                }
+            }
 
         } catch (Exception e) {
 

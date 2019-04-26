@@ -7,8 +7,8 @@ android {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 22
-        versionName "1.0.5"
+        versionCode 23
+        versionName "1.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

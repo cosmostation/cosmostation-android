@@ -456,9 +456,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if(isFinishing()) return;
-        if(!result.isSuccess) {
-            Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-        }
+
 
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -469,6 +467,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             if(temp != null) {
                 mAllValidators = temp;
             }
+            if(!result.isSuccess) { Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show(); }
 
         } else if(result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
