@@ -145,10 +145,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.card_new_wallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                 }
             }
-
-            holder.atom_title.setText(WDp.DpAtom(getBaseContext(), mChain));
-            holder.photon_title.setText(WDp.DpPoton(getBaseContext(), mChain));
-
             holder.card_new_wallet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -165,21 +161,17 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mChain)).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                 @Override
                 public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                    if(response.isSuccessful() && response.body() != null) {
+                    if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
                         ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                         if(balance != null && balance.size() > 0 && balance.get(0) != null)
                             holder.atom_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
-                        if(balance != null && balance.size() > 1 && balance.get(1) != null)
-                            holder.photon_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(1).balance, 6, BaseChain.getChain(mChain)));
                     } else {
                         holder.atom_amount.setText("0");
-                        holder.photon_amount.setText("0");
                     }
                 }
                 @Override
                 public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {
                     holder.atom_amount.setText("0");
-                    holder.photon_amount.setText("0");
                 }
             });
 
