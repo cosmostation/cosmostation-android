@@ -278,7 +278,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     hasbalance  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) >= 0)) {
                     hasbalance  = true;
                 }
             }
@@ -339,7 +339,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     hasbalance  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(mGasMinFee)) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(mGasMinFee)) >= 0)) {
                     hasbalance  = true;
                 }
             }

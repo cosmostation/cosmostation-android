@@ -183,7 +183,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) >= 0)) {
                     hasAtom  = true;
                 }
             }
@@ -220,7 +220,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) >= 0)) {
                     hasAtom  = true;
                 }
             }
@@ -259,7 +259,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) >= 0)) {
                     hasAtom  = true;
                 }
             }
