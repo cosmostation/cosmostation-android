@@ -143,8 +143,8 @@ public class ValidatorMyFragment extends BaseFragment {
                 holder.itemFree.setVisibility(View.GONE);
 
                 BondingState bonding = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, validator.operator_address);
-                if(bonding != null && bonding.shares != null) {
-                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), bonding.shares, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                if(bonding != null && bonding.getBondingAtom(validator) != null) {
+                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAtom(validator), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 } else {
                     holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 0, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 }
@@ -289,12 +289,12 @@ public class ValidatorMyFragment extends BaseFragment {
                 BigDecimal bondingO1 = BigDecimal.ZERO;
                 BigDecimal bondingO2 = BigDecimal.ZERO;
                 if(getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address) != null &&
-                        getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address).shares != null) {
-                    bondingO1  = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address).shares;
+                        getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address).getBondingAtom(o1) != null) {
+                    bondingO1  = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address).getBondingAtom(o1) ;
                 }
                 if(getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address) != null &&
-                        getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address).shares != null) {
-                    bondingO2  = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address).shares;
+                        getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address).getBondingAtom(o2)  != null) {
+                    bondingO2  = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address).getBondingAtom(o2) ;
                 }
                 return bondingO2.compareTo(bondingO1);
 

@@ -208,7 +208,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-        if(mBondingState == null || mBondingState.shares.compareTo(BigDecimal.ZERO) <= 0) {
+        if(mBondingState == null || mBondingState.getBondingAtom(mValidator).compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -461,8 +461,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 final MyActionHolder holder = (MyActionHolder)viewHolder;
                 holder.itemAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
                 holder.itemPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
-                if(mBondingState != null && mBondingState.shares != null) {
-                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.shares, 6, BaseChain.getChain(mAccount.baseChain)));
+                if(mBondingState != null && mBondingState.getBondingAtom(mValidator) != null) {
+                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
                     holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 0, BaseChain.getChain(mAccount.baseChain)));
                 }

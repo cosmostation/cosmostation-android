@@ -322,10 +322,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
             }
         }
 
+        onSortingByReward(myValidators);
         if(myValidators.size() < 17) {
             toClaimValidators = myValidators;
         } else {
-            onSortingByReward(myValidators);
             toClaimValidators =  new ArrayList<>(myValidators.subList(0,16));
         }
 
