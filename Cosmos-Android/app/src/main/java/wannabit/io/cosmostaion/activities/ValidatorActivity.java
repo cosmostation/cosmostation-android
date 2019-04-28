@@ -55,6 +55,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
 
@@ -183,7 +184,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
                     hasAtom  = true;
                 }
             }
@@ -220,7 +221,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
                     hasAtom  = true;
                 }
             }
@@ -246,10 +247,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if(mReward == null) {
+        if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("500")) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasAtom = false;
@@ -259,7 +266,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
                     hasAtom  = true;
                 }
             }

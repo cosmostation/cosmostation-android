@@ -310,7 +310,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                                     FetchCnt++;
                                     onFetchTx(mTxHash);
                                 }
-                            }, 3500);
+                            }, 4500);
                         } else {
                             //TODO finish
                             WLog.w("Looop");
@@ -331,7 +331,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                                     FetchCnt++;
                                     onFetchTx(mTxHash);
                                 }
-                            }, 3500);
+                            }, 4500);
                         } else {
                             //TODO finish
                             WLog.w("Looop");
@@ -369,7 +369,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                                     FetchCnt++;
                                     onStakeFetchTx(mTxHash);
                                 }
-                            }, 3500);
+                            }, 4500);
                         } else {
                             //TODO finish
                             WLog.w("Looop");
@@ -390,7 +390,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                                     FetchCnt++;
                                     onStakeFetchTx(mTxHash);
                                 }
-                            }, 3500);
+                            }, 4500);
                         } else {
                             //TODO finish
                             WLog.w("Looop");

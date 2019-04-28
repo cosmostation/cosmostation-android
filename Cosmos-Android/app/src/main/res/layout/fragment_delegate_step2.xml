@@ -70,8 +70,8 @@
                 android:layout_height="wrap_content"
                 android:maxHeight="2dp"
                 android:splitTrack="false"
-                android:progress="0"
-                android:max="2"
+                android:progress="1"
+                android:max="3"
                 android:progressDrawable="@drawable/gas_atom_seekbar_style"
                 android:thumb="@drawable/gas_seekbar_thumb"/>
             <RelativeLayout
@@ -84,20 +84,42 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_11_gray1"
-                    android:text="@string/str_low"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    style="@style/font_ss_11_gray1"
-                    android:text="@string/str_average"/>
+                    android:text="@string/str_tiny"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginLeft="@dimen/space_4"
                     style="@style/font_ss_11_gray1"
                     android:text="@string/str_high"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_marginLeft="@dimen/space_4"
+                        android:gravity="center"
+                        style="@style/font_ss_11_gray1"
+                        android:text="@string/str_low"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_marginRight="@dimen/space_4"
+                        android:gravity="center"
+                        style="@style/font_ss_11_gray1"
+                        android:text="@string/str_average"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
 

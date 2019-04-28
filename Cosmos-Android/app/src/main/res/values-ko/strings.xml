@@ -172,7 +172,7 @@
     <string name="str_max_available_undelegate_amount"><![CDATA[최대 위임 철회 가능량 : ]]></string>
     <string name="str_max_available_send_amount"><![CDATA[최대 송금 가능량 : ]]></string>
     <string name="str_tx_error_description">죄송합니다. 요청하신 전송이 실패하였습니다.\n아래에 보여지는 에러 코드와 메시지를 확인해 주세요.</string>
-    <string name="str_success_loading">트랜젝션 전송에 성공하였습니다. \n잠시후 완전한 결과값이 표시됩니다.</string>
+    <string name="str_success_loading">트랜잭션 전송에 성공하였습니다.\n전송 상세 내용을 불러오는 중입니다.\n조금만 기다려주세요.</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -236,7 +236,8 @@
     <string name="str_reward">이자</string>
     <string name="str_commission">검증인 수수료</string>
     <string name="str_voting_power">전체 위임량</string>
-    <string name="str_low">최소</string>
+    <string name="str_tiny">최소</string>
+    <string name="str_low">적음</string>
     <string name="str_average">평균</string>
     <string name="str_high">높게</string>
     <string name="str_available">사용 가능 수량</string>
@@ -275,8 +276,10 @@
     <string name="error_already_imported_address">이미 등록된 주소입니다.</string>
     <string name="error_import_errer">이 주소 또는 공개키는 등록이 불가능 합니다.</string>
     <string name="error_not_enough_atom">위임하기에 사용 가능 수량이 충분하지 않습니다.</string>
-    <string name="error_not_enough_budget">사용 가능 수량이 충분하지 않습니다.</string>
+    <string name="error_not_enough_budget">사용 가능 수량이 충분하지 않습니다.\n최소 0.0005 Tx 수수료가 필요합니다.</string>
+    <string name="error_not_enough_reward_all">사용 가능 수량이 충분하지 않습니다.\n이용 가능 수량이 최소 수수료 이하 입니다.</string>
     <string name="error_not_enough_reward">요청할 이자가 충분하지 않습니다.</string>
+    <string name="error_small_reward">요청할 이자가 Tx 수수료 보다 낮습니다.\n수수료 낭비 입니다.</string>
     <string name="error_tx_time_out">블록 체인이 너무 바빠서 시간이 초과되었습니다. \ n요청한 트랜잭션이 수행되었을 것입니다. \ n히스토리를 참조하십시오.</string>
     <string name="error_vesting_time">아직 전송이 활성화 되지 않았습니다.</string>
     <string name="error_beta_test">아직 전송이 활성화 되지 않았습니다.</string>

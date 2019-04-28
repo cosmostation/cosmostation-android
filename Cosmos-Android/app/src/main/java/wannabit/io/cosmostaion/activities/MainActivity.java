@@ -76,6 +76,7 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -278,7 +279,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     hasbalance  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1000"))) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
                     hasbalance  = true;
                 }
             }
@@ -345,11 +346,21 @@ public class MainActivity extends BaseActivity implements TaskListener {
             }
         }
         if(!hasbalance){
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward_all, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(toClaimValidators.size() > 16) {
+        BigDecimal rewardSum = BigDecimal.ZERO;
+        for (Reward reward:mRewards) {
+            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount));
+        }
+        if (rewardSum.compareTo(mGasMinFee) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        if(myValidators.size() > 16) {
             Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
         }
 
