@@ -360,7 +360,7 @@
                                 <rect key="frame" x="16" y="102" width="343" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OM-sA-lLw">
-                                        <rect key="frame" x="0.0" y="0.0" width="103.5" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="163.5" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="a41-st-ORA"/>
                                         </constraints>
@@ -383,8 +383,8 @@
                                             <action selector="onClickQrCode:" destination="EiA-GI-5Nt" eventType="touchUpInside" id="rj8-6f-ggc"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPo-J2-K4w">
-                                        <rect key="frame" x="119.5" y="0.0" width="104" height="35"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPo-J2-K4w">
+                                        <rect key="frame" x="171.5" y="0.0" width="0.0" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="pqy-Gc-lxm"/>
                                         </constraints>
@@ -408,7 +408,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-zM-WC2">
-                                        <rect key="frame" x="239.5" y="0.0" width="103.5" height="35"/>
+                                        <rect key="frame" x="179.5" y="0.0" width="163.5" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="3vk-C8-FcJ"/>
                                         </constraints>
@@ -2236,7 +2236,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dcS-mU-muJ" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="dcS-mU-muJ" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="157.5" y="313.5" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="AXQ-wM-uCK"/>
@@ -2424,6 +2424,7 @@
         <image name="copyIc" width="18" height="18"/>
         <image name="dropdown_btn" width="24" height="24"/>
         <image name="listIc" width="18" height="18"/>
+        <image name="loading_1" width="144" height="144"/>
         <image name="qrIc" width="18" height="18"/>
         <image name="warning_ic" width="38" height="38"/>
     </resources>

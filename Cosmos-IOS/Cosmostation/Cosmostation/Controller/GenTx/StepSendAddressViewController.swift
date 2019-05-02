@@ -8,7 +8,8 @@
 
 import UIKit
 
-class StepSendAddressViewController: BaseViewController {
+class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
+    
 
     @IBOutlet weak var mTargetAddressTextField: AddressInputTextField!
     @IBOutlet weak var controlLayer: UIStackView!
@@ -25,7 +26,12 @@ class StepSendAddressViewController: BaseViewController {
     }
     
     @IBAction func onClickQrCode(_ sender: Any) {
-        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+//        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        let qrScanVC = QRScanViewController(nibName: "QRScanViewController", bundle: nil)
+        qrScanVC.hidesBottomBarWhenPushed = true
+        qrScanVC.resultDelegate = self
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(qrScanVC, animated: true)
         
     }
     
@@ -71,4 +77,10 @@ class StepSendAddressViewController: BaseViewController {
         self.NextBtn.isUserInteractionEnabled = true
     }
     
+    
+    
+    func scannedAddress(result: String) {
+        print("result")
+        mTargetAddressTextField.text = result
+    }
 }

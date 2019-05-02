@@ -33,11 +33,9 @@ class StepFeeViewController: BaseViewController {
     }
 
     @IBAction func onSlideChanged(_ sender: UISlider) {
-//        print("sender : ", sender.value)
     }
     
     @IBAction func onSlideEnd(_ sender: UISlider) {
-//        print("onSlideEnd : ", sender.value)
         if(sender.value > 0.33 && sender.value < 0.66) {
             sender.value = 0.5
             feeAmountLabel.attributedText = WUtils.displayAmout(atomFees[1].stringValue, feeAmountLabel.font, 6)
@@ -72,7 +70,6 @@ class StepFeeViewController: BaseViewController {
         } else {
             feeCoin = Coin.init("uatom", gasAmount)
         }
-        
         
         var fee = Fee.init()
         var amount: Array<Coin> = Array<Coin>()

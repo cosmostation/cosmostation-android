@@ -32,6 +32,8 @@
 		E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */; };
 		E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */; };
 		E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */; };
+		E14F7FB6227ADAA300FDDC75 /* QRScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14F7FB4227ADAA300FDDC75 /* QRScanViewController.swift */; };
+		E14F7FB7227ADAA300FDDC75 /* QRScanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14F7FB5227ADAA300FDDC75 /* QRScanViewController.xib */; };
 		E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */; };
 		E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */; };
 		E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */; };
@@ -174,6 +176,8 @@
 		E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicCell.swift; sourceTree = "<group>"; };
 		E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MnemonicCell.xib; sourceTree = "<group>"; };
 		E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathViewController.swift; sourceTree = "<group>"; };
+		E14F7FB4227ADAA300FDDC75 /* QRScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanViewController.swift; sourceTree = "<group>"; };
+		E14F7FB5227ADAA300FDDC75 /* QRScanViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRScanViewController.xib; sourceTree = "<group>"; };
 		E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyValidatorCell.swift; sourceTree = "<group>"; };
 		E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyValidatorCell.xib; sourceTree = "<group>"; };
 		E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRewardAllCell.swift; sourceTree = "<group>"; };
@@ -317,6 +321,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E14F7FB3227ADA6600FDDC75 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				E14F7FB4227ADAA300FDDC75 /* QRScanViewController.swift */,
+				E14F7FB5227ADAA300FDDC75 /* QRScanViewController.xib */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		E151B656224873270026B8C0 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,6 +449,7 @@
 				E16D9B1E2249E99D0019B7BB /* Password */,
 				E16D9B1122489AC20019B7BB /* Init */,
 				E151B656224873270026B8C0 /* Setting */,
+				E14F7FB3227ADA6600FDDC75 /* Util */,
 				E1945E40222E7FB000A1436F /* Main */,
 			);
 			path = Controller;
@@ -646,6 +660,7 @@
 				E1827E262256293900BC0350 /* ValidatorDetailCell.xib in Resources */,
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
+				E14F7FB7227ADAA300FDDC75 /* QRScanViewController.xib in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
 				E1827E1C225628FF00BC0350 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
@@ -823,6 +838,7 @@
 				E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */,
 				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
+				E14F7FB6227ADAA300FDDC75 /* QRScanViewController.swift in Sources */,
 				E19A32232254A61E00A05E41 /* WalletManageViewController.swift in Sources */,
 				E171A071225B08C100C5756C /* StepFeeViewController.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
