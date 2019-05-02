@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import DropDown
 
-class MainTabViewController: UITabBarController, SBCardPopupDelegate{
+class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBCardPopupDelegate{
     
     var mAccount:Account!
     var mAccounts = Array<Account>()
@@ -39,6 +39,13 @@ class MainTabViewController: UITabBarController, SBCardPopupDelegate{
         dimView!.alpha  = 0.85
         onUpdateDropDownView()
         
+        self.delegate = self
+        self.selectedIndex = BaseData.instance.getLastTab()
+        
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        BaseData.instance.setLastTab(tabBarController.selectedIndex)
     }
     
     func onUpdateDropDownView() {

@@ -77,13 +77,6 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gyy-Eq-HbO" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                                 <rect key="frame" x="12" y="12" width="351" height="70"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fim-i8-hc1">
-                                                        <rect key="frame" x="317" y="23" width="24" height="24"/>
-                                                        <state key="normal" image="qrcodeIc"/>
-                                                        <connections>
-                                                            <action selector="onClickMyAddressShare:" destination="e4x-hE-Zla" eventType="touchUpInside" id="Tz6-Tt-EEr"/>
-                                                        </connections>
-                                                    </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="key_on" translatesAutoresizingMaskIntoConstraints="NO" id="3YD-Ky-lU0">
                                                         <rect key="frame" x="12" y="14" width="22" height="22"/>
                                                         <constraints>
@@ -97,8 +90,22 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWS-ee-fUC">
+                                                        <rect key="frame" x="280" y="13" width="25" height="24"/>
+                                                        <state key="normal" image="walletDetailBtn"/>
+                                                        <connections>
+                                                            <action selector="onClickCheckWeb:" destination="e4x-hE-Zla" eventType="touchUpInside" id="35e-3b-UZD"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fim-i8-hc1">
+                                                        <rect key="frame" x="317" y="13" width="24" height="24"/>
+                                                        <state key="normal" image="qrcodeIc"/>
+                                                        <connections>
+                                                            <action selector="onClickMyAddressShare:" destination="e4x-hE-Zla" eventType="touchUpInside" id="Tz6-Tt-EEr"/>
+                                                        </connections>
+                                                    </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cosmos13cc4y0z8d8jyhgsx6gz9hq07p5d2mq56cs35qe" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TQi-w4-Lb5">
-                                                        <rect key="frame" x="12" y="38" width="294" height="14"/>
+                                                        <rect key="frame" x="12" y="46" width="327" height="14"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -107,15 +114,17 @@
                                                 <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40154109589041098" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="TQi-w4-Lb5" firstAttribute="leading" secondItem="gyy-Eq-HbO" secondAttribute="leading" constant="12" id="Abq-d4-Zxp"/>
+                                                    <constraint firstItem="TQi-w4-Lb5" firstAttribute="top" secondItem="3YD-Ky-lU0" secondAttribute="bottom" constant="10" id="Dhf-vl-tNY"/>
                                                     <constraint firstItem="3YD-Ky-lU0" firstAttribute="top" secondItem="gyy-Eq-HbO" secondAttribute="top" constant="14" id="HmN-YD-UDO"/>
                                                     <constraint firstAttribute="height" constant="70" id="JbC-FX-YkH"/>
-                                                    <constraint firstAttribute="trailing" secondItem="TQi-w4-Lb5" secondAttribute="trailing" constant="45" id="Lgn-oD-Azx"/>
+                                                    <constraint firstAttribute="trailing" secondItem="TQi-w4-Lb5" secondAttribute="trailing" constant="12" id="Lgn-oD-Azx"/>
                                                     <constraint firstAttribute="trailing" secondItem="fim-i8-hc1" secondAttribute="trailing" constant="10" id="Lts-iH-V2P"/>
+                                                    <constraint firstItem="fim-i8-hc1" firstAttribute="centerY" secondItem="3YD-Ky-lU0" secondAttribute="centerY" id="RE0-kD-sr1"/>
+                                                    <constraint firstItem="EWS-ee-fUC" firstAttribute="centerY" secondItem="3YD-Ky-lU0" secondAttribute="centerY" id="VCe-Vo-UFh"/>
                                                     <constraint firstItem="7XC-g0-Xht" firstAttribute="leading" secondItem="3YD-Ky-lU0" secondAttribute="trailing" constant="4" id="XwO-Sw-y4B"/>
                                                     <constraint firstItem="7XC-g0-Xht" firstAttribute="top" secondItem="gyy-Eq-HbO" secondAttribute="top" constant="16" id="cBf-Ec-GwY"/>
                                                     <constraint firstItem="3YD-Ky-lU0" firstAttribute="leading" secondItem="gyy-Eq-HbO" secondAttribute="leading" constant="12" id="jmI-Ub-Izu"/>
-                                                    <constraint firstItem="TQi-w4-Lb5" firstAttribute="top" secondItem="3YD-Ky-lU0" secondAttribute="bottom" constant="2" id="vHz-HQ-uK2"/>
-                                                    <constraint firstItem="fim-i8-hc1" firstAttribute="centerY" secondItem="gyy-Eq-HbO" secondAttribute="centerY" id="z6Y-gb-tXM"/>
+                                                    <constraint firstItem="fim-i8-hc1" firstAttribute="leading" secondItem="EWS-ee-fUC" secondAttribute="trailing" constant="12" id="sKc-My-yey"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -647,10 +656,10 @@ Super fast and esay to using with local signing!</string>
                                 </constraints>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lAa-HU-H1G">
-                                <rect key="frame" x="97" y="58" width="181" height="29"/>
+                                <rect key="frame" x="61" y="58" width="253" height="29"/>
                                 <segments>
-                                    <segment title="My Validator"/>
-                                    <segment title="All Validator"/>
+                                    <segment title="My Validators"/>
+                                    <segment title="Top 100 Validators"/>
                                 </segments>
                                 <color key="tintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
@@ -1951,7 +1960,7 @@ Super fast and esay to using with local signing!</string>
                                         <rect key="frame" x="0.0" y="575.33333333333337" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pmA-WH-bai" id="dhU-n3-suc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6s-so-uCp" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
@@ -2048,6 +2057,7 @@ Super fast and esay to using with local signing!</string>
         <image name="sortingBtn" width="24" height="24"/>
         <image name="ts_ic" width="24" height="24"/>
         <image name="vote_ic" width="24" height="24"/>
+        <image name="walletDetailBtn" width="25" height="24"/>
         <image name="wallet_ic" width="24" height="24"/>
     </resources>
 </document>

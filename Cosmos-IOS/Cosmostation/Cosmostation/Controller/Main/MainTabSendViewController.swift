@@ -11,6 +11,7 @@ import Alamofire
 import Floaty
 import DropDown
 import QRCode
+import SafariServices
 
 class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
@@ -109,7 +110,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         if(mainTabVC.mBondingList.count > 0) {
             var sum = NSDecimalNumber.zero
             for bonding in mainTabVC.mBondingList {
-                sum = sum.adding(WUtils.stringToDecimal(bonding.bonding_shares))
+                sum = sum.adding(bonding.getBondingAtom(mainTabVC.mAllValidators))
             }
             atomDelegatedAmount.attributedText = WUtils.displayAmout(sum.stringValue, atomDelegatedAmount.font, 6)
             
@@ -164,9 +165,6 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     func emptyFloatySelected(_ floaty: Floaty) {
-//        let alert = UIAlertController(title: "Unable to transfer", message: "Token transfer will be enabled following SDK upgrades after proposal #3 is passed.", preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
         print("onStartSend")
         if(!mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
@@ -209,6 +207,12 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.dropDown.show()
+    }
+    
+    @IBAction func onClickCheckWeb(_ sender: UIButton) {
+        guard let url = URL(string: "https://www.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true, completion: nil)
     }
     
     @IBAction func onClickMyAddressShare(_ sender: UIButton) {

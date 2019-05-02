@@ -71,12 +71,12 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
-//            print("onFetchFinished mBonding ", mBonding?.bonding_shares)
+//            print("onFetchFinished mBonding ", mBonding?.getBondingAtom(mValidator))
 //            print("onFetchFinished mUnbondings ", mUnbondings.count)
 //            print("onFetchFinished mRewards ", mRewards.count)
 //            print("onFetchFinished mHistories ", mHistories.count)
             
-            if(WUtils.stringToDecimal(mBonding?.bonding_shares ?? "0") != NSDecimalNumber.zero || mUnbondings.count > 0) {
+            if(mBonding?.getBondingAtom(mValidator!) != NSDecimalNumber.zero || mUnbondings.count > 0) {
                 mMyValidator = true
             } else {
                 mMyValidator = false
@@ -222,7 +222,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             } else {
                 let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
                 if(mBonding != nil) {
-                    cell!.myDelegateAmount.attributedText =  WUtils.displayAmout(mBonding!.bonding_shares, cell!.myDelegateAmount.font, 6)
+                    cell!.myDelegateAmount.attributedText =  WUtils.displayAmout((mBonding?.getBondingAtom(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6)
                 } else {
                     cell!.myDelegateAmount.attributedText =  WUtils.displayAmout("0", cell!.myDelegateAmount.font, 6)
                 }
@@ -358,7 +358,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 let bondinginfo = BondingInfo(rawData)
                 self.mBonding = Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970)
-                if(self.mBonding != nil && WUtils.stringToDecimal(self.mBonding!.bonding_shares) != NSDecimalNumber.zero) {
+                if(self.mBonding != nil && self.mBonding!.getBondingAtom(self.mValidator!) != NSDecimalNumber.zero) {
                     self.mFetchCnt = self.mFetchCnt + 1
                     self.onFetchRewardInfo(account, validator)
                 }
@@ -501,7 +501,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             self.onShowAddMenomicDialog()
         }
         
-        if(mBonding == nil || WUtils.stringToDecimal(mBonding?.bonding_shares ?? "0") == NSDecimalNumber.zero) {
+        if(mBonding == nil || self.mBonding!.getBondingAtom(mValidator!) == NSDecimalNumber.zero) {
             self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
             return
         }
