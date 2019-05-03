@@ -21,6 +21,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        userBalance = NSDecimalNumber.zero
         for balance in pageHolderVC.mBalances {
             if(TESTNET) {
                 if(balance.balance_denom == "muon") {
@@ -28,7 +29,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 }
             } else {
                 if(balance.balance_denom == "uatom") {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "500"))
                 }
             }
         }
@@ -57,28 +58,32 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         if (textField == mTargetAmountTextField) {
-            guard let text = textField.text?.trimmingCharacters(in: .whitespaces) else {
-                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
-
-            if(text.count == 0) {
-                self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
-                return
-            }
-
-            let userInput = WUtils.stringToDecimal(text)
-
-            if (text.count > 1 && userInput == NSDecimalNumber.zero) {
-                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
-            if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
-                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
-            self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
+            onUIupdate()
         }
+    }
+    
+    func onUIupdate() {
+        guard let text = mTargetAmountTextField.text?.trimmingCharacters(in: .whitespaces) else {
+            self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            return
+        }
+        
+        if(text.count == 0) {
+            self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
+            return
+        }
+        
+        let userInput = WUtils.stringToDecimal(text)
+        
+        if (text.count > 1 && userInput == NSDecimalNumber.zero) {
+            self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            return
+        }
+        if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
+            self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            return
+        }
+        self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
     }
     
     func isValiadAmount() -> Bool {
@@ -100,7 +105,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             
         }
         
-        if (userInput.multiplying(by: 1000000).compare(userBalance.subtracting(5000)).rawValue > 0) {
+        if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
             self.onShowToast(NSLocalizedString("error_no_fee", comment: ""))
             return false
             
@@ -139,5 +144,51 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     override func enableUserInteraction() {
         self.backBtn.isUserInteractionEnabled = true
         self.nextBtn.isUserInteractionEnabled = true
+    }
+    
+    
+    @IBAction func onClickClear(_ sender: UIButton) {
+        mTargetAmountTextField.text = ""
+        self.onUIupdate()
+    }
+    @IBAction func onClickAdd01(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(mTargetAmountTextField.text!.count > 0) {
+            exist = WUtils.stringToDecimal(mTargetAmountTextField.text!)
+        }
+        mTargetAmountTextField.text = exist.adding(NSDecimalNumber(string: "0.1")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickAdd1(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(mTargetAmountTextField.text!.count > 0) {
+            exist = WUtils.stringToDecimal(mTargetAmountTextField.text!)
+        }
+        mTargetAmountTextField.text = exist.adding(NSDecimalNumber(string: "1")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickAdd10(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(mTargetAmountTextField.text!.count > 0) {
+            exist = WUtils.stringToDecimal(mTargetAmountTextField.text!)
+        }
+        mTargetAmountTextField.text = exist.adding(NSDecimalNumber(string: "10")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickAdd100(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(mTargetAmountTextField.text!.count > 0) {
+            exist = WUtils.stringToDecimal(mTargetAmountTextField.text!)
+        }
+        mTargetAmountTextField.text = exist.adding(NSDecimalNumber(string: "100")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickHalf(_ sender: UIButton) {
+        mTargetAmountTextField.text = userBalance.dividing(by: NSDecimalNumber(string: "2000000"), withBehavior: WUtils.handler6).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickMax(_ sender: UIButton) {
+        mTargetAmountTextField.text = userBalance.dividing(by: NSDecimalNumber(string: "1000000"), withBehavior: WUtils.handler6).stringValue
+        self.onUIupdate()
     }
 }

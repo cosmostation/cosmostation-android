@@ -15,7 +15,13 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
 
     @IBOutlet weak var mToSendAmountLabel: UILabel!
     @IBOutlet weak var mFeeAmountLabel: UILabel!
-    @IBOutlet weak var mFromAddressLabel: UILabel!
+    @IBOutlet weak var mTotalSpendLabel: UILabel!
+    @IBOutlet weak var mTotalSpendPrice: UILabel!
+    
+    @IBOutlet weak var mCurrentAvailable: UILabel!
+    @IBOutlet weak var mReminaingAvailable: UILabel!
+    @IBOutlet weak var mReminaingPrice: UILabel!
+    
     @IBOutlet weak var mToAddressLabel: UILabel!
     @IBOutlet weak var mMemoLabel: UILabel!
     @IBOutlet weak var backBtn: UIButton!
@@ -58,20 +64,40 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        mToSendAmountLabel.attributedText = WUtils.displayAmout(pageHolderVC.mToSendAmount[0].amount, mToSendAmountLabel.font, 6)
-        mFeeAmountLabel.attributedText = WUtils.displayAmout((pageHolderVC.mFee?.amount[0].amount)!, mFeeAmountLabel.font, 6)
-       
-        var fromString = pageHolderVC.mAccount?.account_address
-        if (pageHolderVC.mAccount!.account_nick_name == "") {
-            fromString = fromString! + "\n(Wallet " + String(pageHolderVC.mAccount!.account_id) + ")"
-        } else {
-            fromString = fromString! + "\n("  + pageHolderVC.mAccount!.account_nick_name + ")"
+        let toSendAmount = WUtils.stringToDecimal(pageHolderVC.mToSendAmount[0].amount)
+        let feeAmout = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
+        var currentAva = NSDecimalNumber.zero
+        for balance in pageHolderVC.mBalances {
+            if(TESTNET) {
+                if(balance.balance_denom == "muon") {
+                    currentAva = currentAva.adding(WUtils.stringToDecimal(balance.balance_amount))
+                }
+            } else {
+                if(balance.balance_denom == "uatom") {
+                    currentAva = currentAva.adding(WUtils.stringToDecimal(balance.balance_amount))
+                }
+            }
         }
-        mFromAddressLabel.text = fromString
+        mToSendAmountLabel.attributedText = WUtils.displayAmout(toSendAmount.stringValue, mToSendAmountLabel.font, 6)
+        mFeeAmountLabel.attributedText = WUtils.displayAmout(feeAmout.stringValue, mFeeAmountLabel.font, 6)
+        mTotalSpendLabel.attributedText = WUtils.displayAmout(feeAmout.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6)
+        
+        mCurrentAvailable.attributedText = WUtils.displayAmout(currentAva.stringValue, mCurrentAvailable.font, 6)
+        mReminaingAvailable.attributedText = WUtils.displayAmout(currentAva.subtracting(feeAmout).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6)
+        
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
-        mFromAddressLabel.adjustsFontSizeToFitWidth = true
         mToAddressLabel.adjustsFontSizeToFitWidth = true
+        
         mMemoLabel.text = pageHolderVC.mMemo
+        
+        guard let tic = BaseData.instance.getAtomTicCmc() else {
+            return
+        }
+        if let price = tic.value(forKeyPath: "data.quotes.USD.price") as? Double {
+            let priceValue = NSDecimalNumber(value: price)
+            mTotalSpendPrice.attributedText = WUtils.displayUSD((feeAmout.adding(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.displayUSD((currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: mReminaingPrice.font)
+        }
     }
     
     func passwordResponse(result: Int) {

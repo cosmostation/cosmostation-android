@@ -12,6 +12,7 @@ class StepFeeViewController: BaseViewController {
 
     @IBOutlet weak var feeTypeCardView: CardView!
     @IBOutlet weak var feeAmountLabel: UILabel!
+    @IBOutlet weak var feePriceLabel: UILabel!
     @IBOutlet weak var feeSlider: UISlider!
     @IBOutlet weak var beforeBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
@@ -84,66 +85,50 @@ class StepFeeViewController: BaseViewController {
         if(pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
             toSpend = WUtils.stringToDecimal(pageHolderVC.mToDelegateAmount!.amount)
             feeAmount = atomFees[position]
-            if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                feeSlider.value = 0
-                return false;
-            }
-            print("available : ",available)
-            print("toSpend   : ",toSpend)
-            print("feeAmount : ",feeAmount)
-            feeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, feeAmountLabel.font, 6)
-            //TODO price show!!
-            return true;
             
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             feeAmount = atomFees[position]
-            if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                feeSlider.value = 0
-                return false;
-            }
-            print("available : ",available)
-            print("toSpend   : ",toSpend)
-            print("feeAmount : ",feeAmount)
-            feeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, feeAmountLabel.font, 6)
-            //TODO price show!!
-            return true;
             
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
-            
+            toSpend = WUtils.stringToDecimal(pageHolderVC.mToSendAmount[0].amount)
+            feeAmount = atomFees[position]
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             
         }
-        return false;
+        
+        
+        if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+            feeSlider.value = 0
+            feeAmount = atomFees[0]
+            feeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, feeAmountLabel.font, 6)
+            updateFeePrice()
+            return false;
+        }
+        print("available : ",available)
+        print("toSpend   : ",toSpend)
+        print("feeAmount : ",feeAmount)
+        feeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, feeAmountLabel.font, 6)
+        updateFeePrice()
+        
+        
+        
+        return true;
+    }
+    
+    
+    func updateFeePrice() {
+        guard let tic = BaseData.instance.getAtomTicCmc() else {
+            return
+        }
+        if let price = tic.value(forKeyPath: "data.quotes.USD.price") as? Double {
+            let priceValue = NSDecimalNumber(value: price)
+            feePriceLabel.attributedText = WUtils.displayUSD(feeAmount.dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: feePriceLabel.font)
+        }
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-//        var gasAmount = atomFees[0].stringValue
-//        if (feeSlider.value < 0.5) {
-//            gasAmount = atomFees[0].stringValue
-//        } else if (feeSlider.value < 1.5) {
-//            gasAmount = atomFees[1].stringValue
-//        } else if (feeSlider.value < 2.5) {
-//            gasAmount = atomFees[2].stringValue
-//        } else {
-//            gasAmount = atomFees[3].stringValue
-//        }
-//        if(TESTNET) {
-//            feeCoin = Coin.init("muon", gasAmount)
-//        } else {
-//            feeCoin = Coin.init("uatom", gasAmount)
-//        }
-//
-//        var fee = Fee.init()
-//        var amount: Array<Coin> = Array<Coin>()
-//        amount.append(feeCoin)
-//        let gas = "200000"
-//        fee.amount = amount
-//        fee.gas = gas
-//
-//        pageHolderVC.mFee = fee
         if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             
         } else {

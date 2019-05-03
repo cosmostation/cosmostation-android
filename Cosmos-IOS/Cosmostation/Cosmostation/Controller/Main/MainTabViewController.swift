@@ -397,6 +397,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 self.mAtomTic = res as? NSDictionary
+                if(self.mAtomTic != nil){
+                    BaseData.instance.setAtomTicCmc(self.mAtomTic!)
+                }
+                
                 
             case .failure(let error):
                 print(error)

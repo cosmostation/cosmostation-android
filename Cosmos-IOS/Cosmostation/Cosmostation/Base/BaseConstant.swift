@@ -17,6 +17,7 @@ let KEY_ALL_VAL_SORT                    = "KEY_ALL_VAL_SORT"
 let KEY_MY_VAL_SORT                     = "KEY_MY_VAL_SORT"
 let KEY_LAST_TAB                        = "KEY_LAST_TAB"
 let KEY_ACCOUNT_REFRESH_ALL             = "KEY_ACCOUNT_REFRESH_ALL"
+let KEY_ATOM_TIC_CMC                    = "KEY_ATOM_TIC_CMC"
 
 
 //let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";
@@ -186,8 +187,8 @@ let PASSWORD_RESUKT_OK_FOR_DELETE           = 3
 let BASE_PATH                               = "44'/118'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
-let FEE_ATOM_MID                            = "20000";
-let FEE_ATOM_HIGH                           = "40000";
+let FEE_ATOM_MID                            = "2000";
+let FEE_ATOM_HIGH                           = "4000";
 let FEE_MIN_RATE                            = "0.0025";
 
 enum ChainType: String {
