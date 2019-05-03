@@ -47,28 +47,33 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         if (textField == toUndelegateAmountInput) {
-            guard let text = textField.text?.trimmingCharacters(in: .whitespaces) else {
-                self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
-            
-            if(text.count == 0) {
-                self.toUndelegateAmountInput.layer.borderColor = UIColor.white.cgColor
-                return
-            }
-            
-            let userInput = WUtils.stringToDecimal(text)
-            
-            if (text.count > 1 && userInput == NSDecimalNumber.zero) {
-                self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
-            if (userInput.multiplying(by: 1000000).compare(userDelegated).rawValue > 0) {
-                self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
-            self.toUndelegateAmountInput.layer.borderColor = UIColor.white.cgColor
+            self.onUIupdate()
         }
+    }
+    
+    
+    func onUIupdate() {
+        guard let text = toUndelegateAmountInput.text?.trimmingCharacters(in: .whitespaces) else {
+            self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            return
+        }
+        
+        if(text.count == 0) {
+            self.toUndelegateAmountInput.layer.borderColor = UIColor.white.cgColor
+            return
+        }
+        
+        let userInput = WUtils.stringToDecimal(text)
+        
+        if (text.count > 1 && userInput == NSDecimalNumber.zero) {
+            self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            return
+        }
+        if (userInput.multiplying(by: 1000000).compare(userDelegated).rawValue > 0) {
+            self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            return
+        }
+        self.toUndelegateAmountInput.layer.borderColor = UIColor.white.cgColor
     }
     
     
@@ -91,14 +96,9 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
     @IBAction func onClickNext(_ sender: UIButton) {
         if(isValiadAmount()) {
             let userInput = WUtils.stringToDecimal((toUndelegateAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
-//            self.pageHolderVC.mToUndelegateAmount = userInput.multiplying(by: 1000000).stringValue
-//            sender.isUserInteractionEnabled = false
-//            pageHolderVC.onNextPage()
-            
             var coin:Coin
             if(TESTNET) {
                 coin = Coin.init("muon", userInput.multiplying(by: 1000000).stringValue)
-//                coin = Coin.init("bitcoin", userInput.multiplying(by: 1000000).stringValue)
             } else {
                 coin = Coin.init("uatom", userInput.multiplying(by: 1000000).stringValue)
                 
@@ -119,4 +119,51 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
         self.nextBtn.isUserInteractionEnabled = true
     }
     
+    
+    @IBAction func onClickClear(_ sender: UIButton) {
+        print("onClickClear")
+        toUndelegateAmountInput.text = "";
+        self.onUIupdate()
+    }
+    
+    @IBAction func onClickAdd01(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(toUndelegateAmountInput.text!.count > 0) {
+            exist = WUtils.stringToDecimal(toUndelegateAmountInput.text!)
+        }
+        toUndelegateAmountInput.text = exist.adding(NSDecimalNumber(string: "0.1")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickAdd1(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(toUndelegateAmountInput.text!.count > 0) {
+            exist = WUtils.stringToDecimal(toUndelegateAmountInput.text!)
+        }
+        toUndelegateAmountInput.text = exist.adding(NSDecimalNumber(string: "1")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickAdd10(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(toUndelegateAmountInput.text!.count > 0) {
+            exist = WUtils.stringToDecimal(toUndelegateAmountInput.text!)
+        }
+        toUndelegateAmountInput.text = exist.adding(NSDecimalNumber(string: "10")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickAdd100(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(toUndelegateAmountInput.text!.count > 0) {
+            exist = WUtils.stringToDecimal(toUndelegateAmountInput.text!)
+        }
+        toUndelegateAmountInput.text = exist.adding(NSDecimalNumber(string: "100")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickHalf(_ sender: UIButton) {
+        toUndelegateAmountInput.text = userDelegated.dividing(by: NSDecimalNumber(string: "2000000"), withBehavior: WUtils.handler6).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickMax(_ sender: UIButton) {
+        toUndelegateAmountInput.text = userDelegated.dividing(by: NSDecimalNumber(string: "1000000"), withBehavior: WUtils.handler6).stringValue
+        self.onUIupdate()
+    }
 }

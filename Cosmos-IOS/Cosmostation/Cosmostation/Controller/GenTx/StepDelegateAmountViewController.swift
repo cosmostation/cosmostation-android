@@ -36,11 +36,6 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         availableAmountLabel.attributedText = WUtils.displayAmout(userBalance.stringValue, availableAmountLabel.font, 6)
         toDelegateAmountInput.delegate = self
         toDelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
-//        (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().setTitleColor(UIColor.red, for: .normal)
-//        (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().setBac(UIColor.red, for: .normal)
-        (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().backgroundColor = UIColor.white
-        (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().setTitleColor(UIColor.black, for: .normal)
     }
     
     

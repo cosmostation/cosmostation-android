@@ -32,13 +32,7 @@ class StepFeeViewController: BaseViewController {
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapFeeType(sender:)))
         self.feeTypeCardView.addGestureRecognizer(gesture)
         
-//        feeSlider.value = 0
-//        if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-//
-//        } else {
-//            feeAmountLabel.attributedText = WUtils.displayAmout(atomFees[0].stringValue, feeAmountLabel.font, 6)
-//        }
-        updateView(0)
+        _ = updateView(0)
     }
 
     @IBAction func onSlideChanged(_ sender: UISlider) {
@@ -47,16 +41,16 @@ class StepFeeViewController: BaseViewController {
     @IBAction func onSlideEnd(_ sender: UISlider) {
         if(sender.value < 0.5) {
             sender.value = 0.0
-            updateView(0)
+            _ = updateView(0)
         } else if (sender.value < 1.5) {
             sender.value = 1.0
-            updateView(1)
+            _ = updateView(1)
         } else if (sender.value < 2.5) {
             sender.value = 2.0
-            updateView(2)
+            _ = updateView(2)
         } else {
             sender.value = 3.0
-            updateView(3)
+            _ = updateView(3)
         }
             
     }
@@ -99,11 +93,22 @@ class StepFeeViewController: BaseViewController {
             print("toSpend   : ",toSpend)
             print("feeAmount : ",feeAmount)
             feeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, feeAmountLabel.font, 6)
+            //TODO price show!!
             return true;
-            //TODO cal usd price
             
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-            
+            feeAmount = atomFees[position]
+            if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                feeSlider.value = 0
+                return false;
+            }
+            print("available : ",available)
+            print("toSpend   : ",toSpend)
+            print("feeAmount : ",feeAmount)
+            feeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, feeAmountLabel.font, 6)
+            //TODO price show!!
+            return true;
             
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
             
@@ -155,12 +160,15 @@ class StepFeeViewController: BaseViewController {
                 fee.amount = amount
                 fee.gas = gas
                 pageHolderVC.mFee = fee
+                
+                self.beforeBtn.isUserInteractionEnabled = false
+                self.nextBtn.isUserInteractionEnabled = false
+                pageHolderVC.onNextPage()
+                
             }
         }
         
-        self.beforeBtn.isUserInteractionEnabled = false
-        self.nextBtn.isUserInteractionEnabled = false
-        pageHolderVC.onNextPage()
+        
     }
     
     override func enableUserInteraction() {
