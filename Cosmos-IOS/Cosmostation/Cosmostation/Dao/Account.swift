@@ -59,4 +59,10 @@ public class Account {
         self.account_import_time = importTime;
         
     }
+    
+//    func getAtomBalance() -> NSDecimalNumber {
+//        var result = NSDecimalNumber.zero
+//        
+//        return result;
+//    }
 }

@@ -21,6 +21,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        userBalance = NSDecimalNumber.zero
         for balance in pageHolderVC.mBalances {
             if(TESTNET) {
                 if(balance.balance_denom == "muon") {
@@ -28,7 +29,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
                 }
             } else {
                 if(balance.balance_denom == "uatom") {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "500"))
                 }
             }
         }
@@ -36,7 +37,10 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         toDelegateAmountInput.delegate = self
         toDelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        
+//        (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().setTitleColor(UIColor.red, for: .normal)
+//        (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().setBac(UIColor.red, for: .normal)
+        (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().backgroundColor = UIColor.white
+        (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().setTitleColor(UIColor.black, for: .normal)
     }
     
     
@@ -59,28 +63,32 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         if (textField == toDelegateAmountInput) {
-            guard let text = textField.text?.trimmingCharacters(in: .whitespaces) else {
-                self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
-            
-            if(text.count == 0) {
-                self.toDelegateAmountInput.layer.borderColor = UIColor.white.cgColor
-                return
-            }
-            
-            let userInput = WUtils.stringToDecimal(text)
-            
-            if (text.count > 1 && userInput == NSDecimalNumber.zero) {
-                self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
-            if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
-                self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
-            self.toDelegateAmountInput.layer.borderColor = UIColor.white.cgColor
+            self.onUIupdate()
         }
+    }
+    
+    func onUIupdate() {
+        guard let text = toDelegateAmountInput.text?.trimmingCharacters(in: .whitespaces) else {
+            self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            return
+        }
+        
+        if(text.count == 0) {
+            self.toDelegateAmountInput.layer.borderColor = UIColor.white.cgColor
+            return
+        }
+        
+        let userInput = WUtils.stringToDecimal(text)
+        
+        if (text.count > 1 && userInput == NSDecimalNumber.zero) {
+            self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            return
+        }
+        if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
+            self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            return
+        }
+        self.toDelegateAmountInput.layer.borderColor = UIColor.white.cgColor
     }
     
     func isValiadAmount() -> Bool {
@@ -122,5 +130,50 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         self.nextBtn.isUserInteractionEnabled = true
     }
     
+    @IBAction func onClickClear(_ sender: UIButton) {
+        print("onClickClear")
+        toDelegateAmountInput.text = ""
+        self.onUIupdate()
+    }
     
+    @IBAction func onClickAdd01(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(toDelegateAmountInput.text!.count > 0) {
+            exist = WUtils.stringToDecimal(toDelegateAmountInput.text!)
+        }
+        toDelegateAmountInput.text = exist.adding(NSDecimalNumber(string: "0.1")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickAdd1(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(toDelegateAmountInput.text!.count > 0) {
+            exist = WUtils.stringToDecimal(toDelegateAmountInput.text!)
+        }
+        toDelegateAmountInput.text = exist.adding(NSDecimalNumber(string: "1")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickAdd10(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(toDelegateAmountInput.text!.count > 0) {
+            exist = WUtils.stringToDecimal(toDelegateAmountInput.text!)
+        }
+        toDelegateAmountInput.text = exist.adding(NSDecimalNumber(string: "10")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickAdd100(_ sender: UIButton) {
+        var exist = NSDecimalNumber.zero
+        if(toDelegateAmountInput.text!.count > 0) {
+            exist = WUtils.stringToDecimal(toDelegateAmountInput.text!)
+        }
+        toDelegateAmountInput.text = exist.adding(NSDecimalNumber(string: "100")).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickHalf(_ sender: UIButton) {
+        toDelegateAmountInput.text = userBalance.dividing(by: NSDecimalNumber(string: "2000000"), withBehavior: WUtils.handler6).stringValue
+        self.onUIupdate()
+    }
+    @IBAction func onClickMax(_ sender: UIButton) {
+        toDelegateAmountInput.text = userBalance.dividing(by: NSDecimalNumber(string: "1000000"), withBehavior: WUtils.handler6).stringValue
+        self.onUIupdate()
+    }
 }

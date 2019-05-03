@@ -137,15 +137,15 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             .adding(WUtils.stringToDecimal(atomDelegatedAmount.text!.replacingOccurrences(of: ",", with: "")))
             .adding(WUtils.stringToDecimal(atomUnbondingAmount.text!.replacingOccurrences(of: ",", with: "")))
             .adding(WUtils.stringToDecimal(atomRewardAmount.text!.replacingOccurrences(of: ",", with: "")))
-        totalSum = totalSum.multiplying(by: 1000000)
-        atomTotalLabel.attributedText = WUtils.displayAmout(totalSum.stringValue, atomTotalLabel.font, 6)
+        let calTotalSum = totalSum.multiplying(by: 1000000)
+        atomTotalLabel.attributedText = WUtils.displayAmout(calTotalSum.stringValue, atomTotalLabel.font, 6)
         
         if let change = mainTabVC.mAtomTic?.value(forKeyPath: "data.quotes.USD.percent_change_24h") as? Double,
             let price = mainTabVC.mAtomTic?.value(forKeyPath: "data.quotes.USD.price") as? Double {
             let changeValue = NSDecimalNumber(value: change)
             let priceValue = NSDecimalNumber(value: price)
 
-            let dpPrice = priceValue.multiplying(by: WUtils.stringToDecimal(atomTotalLabel.text!.replacingOccurrences(of: ",", with: "")), withBehavior: WUtils.handler2)
+            let dpPrice = priceValue.multiplying(by: totalSum, withBehavior: WUtils.handler2)
             atomPriceLabel.attributedText = WUtils.displayUSD(dpPrice, font: atomPriceLabel.font)
             pricePerAtom.attributedText = WUtils.displayUSD(priceValue, font: pricePerAtom.font)
             

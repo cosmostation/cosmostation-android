@@ -56,3 +56,4 @@
 "error_self_send" = "Self sending is not support.";
 "error_no_fee" = "No fee left";
 "error_invalid_password" = "Invalid Password";
+"error_not_enough_fee" = "No enough budget for fee.";

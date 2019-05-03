@@ -341,6 +341,7 @@ class WUtils {
     
     static func getAtomFees() -> Array<NSDecimalNumber> {
         var atomFees = Array<NSDecimalNumber>()
+        atomFees.append(WUtils.stringToDecimal(FEE_ATOM_TINY))
         atomFees.append(WUtils.stringToDecimal(FEE_ATOM_LOW))
         atomFees.append(WUtils.stringToDecimal(FEE_ATOM_MID))
         atomFees.append(WUtils.stringToDecimal(FEE_ATOM_HIGH))

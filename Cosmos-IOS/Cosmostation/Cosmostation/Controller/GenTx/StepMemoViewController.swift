@@ -24,6 +24,9 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
         
         memoInputTextView.tintColor = UIColor.init(hexString: "FFFFFF")
         memoInputTextView.delegate = self
+        
+        (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().backgroundColor = UIColor.white
+        (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().setTitleColor(UIColor.black, for: .normal)
     }
 
     @IBAction func onClickBack(_ sender: Any) {

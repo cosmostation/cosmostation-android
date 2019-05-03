@@ -18,10 +18,19 @@ class AmountInputTextField: UITextField {
         self.backgroundColor = UIColor.clear
 //        self.setLeftPaddingPoints(60)
 //        self.setRightPaddingPoints(12)
-        self.setLeftPaddingPoints(12)
+        self.setLeftPaddingPoints(8)
         self.setRightPaddingPoints(60)
         
 //        self.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("add_address_hint", comment: ""), attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
     }
 
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+//        return action == #selector(UIResponderStandardEditActions.cut) ||
+//            action == #selector(UIResponderStandardEditActions.copy) ||
+//            action == #selector(UIResponderStandardEditActions.paste) ||
+//            action == #selector(UIResponderStandardEditActions.select) ||
+//            action == #selector(UIResponderStandardEditActions.selectAll) ||
+//            action == #selector(UIResponderStandardEditActions.delete)
+        return false
+    }
 }

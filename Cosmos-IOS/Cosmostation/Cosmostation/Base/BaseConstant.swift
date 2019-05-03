@@ -184,9 +184,11 @@ let PASSWORD_RESUKT_OK_FOR_DELETE           = 3
 
 
 let BASE_PATH                               = "44'/118'/0'/0/"
-let FEE_ATOM_LOW                            = "5000";
-let FEE_ATOM_MID                            = "10000";
-let FEE_ATOM_HIGH                           = "20000";
+let FEE_ATOM_TINY                           = "500";
+let FEE_ATOM_LOW                            = "1000";
+let FEE_ATOM_MID                            = "20000";
+let FEE_ATOM_HIGH                           = "40000";
+let FEE_MIN_RATE                            = "0.0025";
 
 enum ChainType: String {
     case SUPPORT_CHAIN_COSMOS_MAIN
