@@ -27,7 +27,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("mValidator ", mValidator?.description.moniker)
+        print("mValidator ", mValidator?.description.moniker)
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
@@ -71,17 +71,19 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
-//            print("onFetchFinished mBonding ", mBonding?.getBondingAtom(mValidator))
+//            print("onFetchFinished mBonding ", mBonding)
+//            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAtom(mValidator!))
 //            print("onFetchFinished mUnbondings ", mUnbondings.count)
 //            print("onFetchFinished mRewards ", mRewards.count)
 //            print("onFetchFinished mHistories ", mHistories.count)
-            
-            if(mBonding?.getBondingAtom(mValidator!) != NSDecimalNumber.zero || mUnbondings.count > 0) {
+
+            if((mBonding != nil && mBonding?.getBondingAtom(mValidator!) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
                 mMyValidator = true
             } else {
                 mMyValidator = false
             }
 //            print("mMyValidator ", mMyValidator)
+            
             self.validatorDetailTableView.reloadData()
             
             self.loadingImg.onStopAnimation()
@@ -130,8 +132,8 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
                 }
                 cell!.freeEventImg.isHidden = true
-                cell!.operatorAddress.text = mValidator!.operator_address
-                cell!.operatorAddress.adjustsFontSizeToFitWidth = true
+//                cell!.operatorAddress.text = mValidator!.operator_address
+//                cell!.operatorAddress.adjustsFontSizeToFitWidth = true
                 cell!.website.text = mValidator!.description.website
                 cell!.descriptionMsg.text = mValidator!.description.details
                 cell!.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
@@ -178,8 +180,8 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
                 }
                 cell!.freeEventImg.isHidden = true
-                cell!.operatorAddress.text = mValidator!.operator_address
-                cell!.operatorAddress.adjustsFontSizeToFitWidth = true
+//                cell!.operatorAddress.text = mValidator!.operator_address
+//                cell!.operatorAddress.adjustsFontSizeToFitWidth = true
                 cell!.website.text = mValidator!.description.website
                 cell!.descriptionMsg.text = mValidator!.description.details
                 cell!.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
@@ -297,17 +299,17 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if(indexPath.section == 0) {
             if (indexPath.row == 0 && mMyValidator) {
-                return 195;
+                return 200;
             } else if (indexPath.row == 0 && !mMyValidator) {
-                return 250;
+                return 260;
             } else {
-                return 244;
+                return 215;
             }
         } else {
             if(mHistories.count > 0) {
                 return 80;
             } else {
-                return 60;
+                return 90;
             }
         }
         

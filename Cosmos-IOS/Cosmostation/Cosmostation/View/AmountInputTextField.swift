@@ -16,8 +16,10 @@ class AmountInputTextField: UITextField {
         self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor.white.cgColor
         self.backgroundColor = UIColor.clear
-        self.setLeftPaddingPoints(60)
-        self.setRightPaddingPoints(12)
+//        self.setLeftPaddingPoints(60)
+//        self.setRightPaddingPoints(12)
+        self.setLeftPaddingPoints(12)
+        self.setRightPaddingPoints(60)
         
 //        self.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("add_address_hint", comment: ""), attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
     }

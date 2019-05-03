@@ -150,9 +150,6 @@ class GenTxResultViewController: BaseViewController {
             
         }
         
-
-        
-        
         self.loadingImgs.isHidden = true
         self.mainCardView.isHidden = false
         
