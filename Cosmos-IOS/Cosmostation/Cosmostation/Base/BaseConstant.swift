@@ -11,6 +11,7 @@ import SQLite
 
 let SHOW_LOG                            = false;
 let TESTNET                             = false;
+let FEE_FREE                            = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
 let KEY_ALL_VAL_SORT                    = "KEY_ALL_VAL_SORT"
@@ -190,6 +191,25 @@ let FEE_ATOM_LOW                            = "1000";
 let FEE_ATOM_MID                            = "2000";
 let FEE_ATOM_HIGH                           = "4000";
 let FEE_MIN_RATE                            = "0.0025";
+
+let FEE_REWARD_GAS_1                        = "200000";
+let FEE_REWARD_GAS_2                        = "200000";
+let FEE_REWARD_GAS_3                        = "220000";
+let FEE_REWARD_GAS_4                        = "300000";
+let FEE_REWARD_GAS_5                        = "380000";
+let FEE_REWARD_GAS_6                        = "400000";
+let FEE_REWARD_GAS_7                        = "560000";
+let FEE_REWARD_GAS_8                        = "600000";
+let FEE_REWARD_GAS_9                        = "740000";
+let FEE_REWARD_GAS_10                       = "800000";
+let FEE_REWARD_GAS_11                       = "920000";
+let FEE_REWARD_GAS_12                       = "1000000";
+let FEE_REWARD_GAS_13                       = "1050000";
+let FEE_REWARD_GAS_14                       = "1100000";
+let FEE_REWARD_GAS_15                       = "1150000";
+let FEE_REWARD_GAS_16                       = "1200000";
+
+
 
 enum ChainType: String {
     case SUPPORT_CHAIN_COSMOS_MAIN

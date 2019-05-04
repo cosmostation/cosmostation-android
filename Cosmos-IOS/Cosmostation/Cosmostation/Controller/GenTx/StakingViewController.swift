@@ -17,6 +17,7 @@ class StakingViewController: UIViewController {
     
     var mTargetValidator: Validator?
     var mType: String?
+    var mRewardTargetValidators = Array<Validator>()
     
     
     override func viewDidLoad() {
@@ -37,7 +38,15 @@ class StakingViewController: UIViewController {
         } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             stepDescription.text = NSLocalizedString("withdraw_single_step_1", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
-            self.titleLabel.text = "Get reward from " + String((mTargetValidator?.description.moniker)!)
+            var title = String((mRewardTargetValidators[0].description.moniker))
+            if(mRewardTargetValidators.count > 1) {
+                title.append(" + " + String(mRewardTargetValidators.count - 1))
+            } else {
+                
+            }
+            self.titleLabel.text = "Get reward from " + title
+            self.titleLabel.adjustsFontSizeToFitWidth = true
+            
             
         } else if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
             stepDescription.text = NSLocalizedString("send_step_1", comment: "")
@@ -77,6 +86,7 @@ class StakingViewController: UIViewController {
             StepVc.topVC = self
             StepVc.mType = self.mType
             StepVc.mTargetValidator = self.mTargetValidator
+            StepVc.mRewardTargetValidators = self.mRewardTargetValidators
         }
     }
     

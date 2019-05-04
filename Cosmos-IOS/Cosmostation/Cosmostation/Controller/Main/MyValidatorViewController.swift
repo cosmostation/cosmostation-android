@@ -10,7 +10,8 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, ClaimRewardAllDelegate {
+    
     
     @IBOutlet weak var myValidatorTableView: UITableView!
     
@@ -121,6 +122,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("mainTabVC.mMyValidators.count ", mainTabVC.mMyValidators.count)
+//        print("indexPath.row ", indexPath.row)
         if (mainTabVC.mMyValidators.count > 0 && indexPath.row != mainTabVC.mMyValidators.count) {
             if let validator = self.mainTabVC.mMyValidators[indexPath.row] as? Validator {
 //                print("seelct ", validator.description.moniker)
@@ -131,6 +134,9 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.navigationController?.pushViewController(validatorDetailVC, animated: true)
             }
         }
+//        else if (mainTabVC.mMyValidators.count > 1 && indexPath.row == mainTabVC.mMyValidators.count) {
+//            print("calim all")
+//        }
     }
     
     
@@ -192,6 +198,90 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         } else {
             cell.totalRewardLabel.attributedText = WUtils.displayAmout("0", cell.totalRewardLabel.font, 6)
         }
+        cell.delegate = self
+    }
+    
+    
+    func didTapClaimAll(_ sender: UIButton) {
+        print("didTapClaimAll ",  self.mainTabVC.mAllRewards[0].amount)
+        if(!self.mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+        }
+        
+        if(WUtils.stringToDecimal(self.mainTabVC.mAllRewards[0].amount).rounding(accordingToBehavior: WUtils.handler0).compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+            return
+        }
+        
+        
+        var myBondedValidator = Array<Validator>()
+        var toClaimValidator = Array<Validator>()
+        
+        for validator in self.mainTabVC.mAllValidators {
+            for bonding in self.mainTabVC.mBondingList {
+                if(bonding.bonding_v_address == validator.operator_address) {
+                    myBondedValidator.append(validator)
+                    break;
+                }
+            }
+        }
+        
+        print("myBondedValidator ", myBondedValidator.count)
+        
+        myBondedValidator.sort{
+            if ($0.jailed && !$1.jailed) {
+                return false
+            }
+            if (!$0.jailed && $1.jailed) {
+                return true
+            }
+            
+            let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
+            let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+            return reward0.compare(reward1).rawValue > 0 ? true : false
+        }
+        
+        if(myBondedValidator.count > 17) {
+            toClaimValidator = Array(myBondedValidator[0..<16])
+        } else {
+            toClaimValidator = myBondedValidator
+        }
+        
+        print("toClaimValidator ", toClaimValidator.count)
+        
+        let mintFee = WUtils.getGasAmountForRewards()[toClaimValidator.count-1].multiplying(by: WUtils.stringToDecimal(FEE_MIN_RATE))
+        print("mintFee ", mintFee)
+        
+        var available = NSDecimalNumber.zero
+        for balance in self.mainTabVC.mBalances {
+            if(TESTNET) {
+                if(balance.balance_denom == "muon") {
+                    available = available.adding(WUtils.stringToDecimal(balance.balance_amount))
+                }
+            } else {
+                if(balance.balance_denom == "uatom") {
+                    available = available.adding(WUtils.stringToDecimal(balance.balance_amount))
+                }
+            }
+        }
+        print("available ", available)
+        
+        if(available.compare(mintFee).rawValue < 0 ) {
+            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+            return
+        }
+        
+        if(WUtils.stringToDecimal(self.mainTabVC.mAllRewards[0].amount).rounding(accordingToBehavior: WUtils.handler0).compare(mintFee).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+            return
+        }
+        
+        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+        stakingVC.mRewardTargetValidators = toClaimValidator
+        stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+        stakingVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(stakingVC, animated: true)
     }
     
     
@@ -235,9 +325,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             if (!$0.jailed && $1.jailed) {
                 return true
             }
-//            let bonding0 = BaseData.instance.s
-//            let bonding1 = BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address)
-//            return Double(bonding0!.bonding_shares)! > Double(bonding1!.bonding_shares)!
             
             let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
             let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
@@ -245,4 +332,15 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         }
     }
     
+    
+    
+    
+    func onShowAddMenomicDialog() {
+        let alert = UIAlertController(title: "No Private Key", message: "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Add Mnemonic", style: .default, handler: { [weak alert] (_) in
+            self.onStartImportMnemonic()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }

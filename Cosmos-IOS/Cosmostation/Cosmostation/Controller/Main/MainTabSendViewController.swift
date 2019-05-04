@@ -170,6 +170,11 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             self.onShowAddMenomicDialog()
         }
         
+        if(self.mainTabVC.mBalances.count <= 0 || WUtils.stringToDecimal(self.mainTabVC.mBalances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+            return
+        }
+        
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         stakingVC.mType = COSMOS_MSG_TYPE_TRANSFER2
         stakingVC.hidesBottomBarWhenPushed = true

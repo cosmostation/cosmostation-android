@@ -20,12 +20,15 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mBalances = Array<Balance>()
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
-    var mReward = Reward.init()
+//    var mReward = Reward.init()
+    
+    var mRewardList = Array<Reward>()
     var mRewardAddress: String?
     
     var mTargetValidator: Validator?
     var mToDelegateAmount: Coin?
     var mToUndelegateAmount:Coin?
+    var mRewardTargetValidators = Array<Validator>()
     
     var mToSendRecipientAddress:String?
     var mToSendAmount = Array<Coin>()

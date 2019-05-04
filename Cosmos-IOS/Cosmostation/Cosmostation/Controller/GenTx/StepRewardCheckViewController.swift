@@ -15,10 +15,18 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     
     @IBOutlet weak var rewardAmoutLaebl: UILabel!
     @IBOutlet weak var feeAmountLabel: UILabel!
+    
     @IBOutlet weak var fromValidatorLabel: UILabel!
-    @IBOutlet weak var selfLabel: UILabel!
+    @IBOutlet weak var recipientTitleLabel: UILabel!
     @IBOutlet weak var recipientLabel: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
+    
+    @IBOutlet weak var expectedSeparator: UIView!
+    @IBOutlet weak var expectedAmountTitle: UILabel!
+    @IBOutlet weak var expectedAmountLabel: UILabel!
+    @IBOutlet weak var expectedAmountAtom: UILabel!
+    
+    
     @IBOutlet weak var beforeBtn: UIButton!
     @IBOutlet weak var confirmBtn: UIButton!
 
@@ -27,7 +35,6 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        
         
     }
     
@@ -62,17 +69,66 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
 
     
     func onUpdateView() {
-        rewardAmoutLaebl.attributedText = WUtils.displayAmout(pageHolderVC.mReward.reward_amount[0].amount, rewardAmoutLaebl.font, 6)
+        var rewardSum = NSDecimalNumber.zero
+        for reward in pageHolderVC.mRewardList {
+            rewardSum = rewardSum.adding(WUtils.stringToDecimal(reward.reward_amount[0].amount))
+        }
+        rewardAmoutLaebl.attributedText = WUtils.displayAmout(rewardSum.stringValue, rewardAmoutLaebl.font, 6)
         feeAmountLabel.attributedText = WUtils.displayAmout((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6)
-        fromValidatorLabel.text = pageHolderVC.mTargetValidator!.description.moniker
+        
+        var monikers = ""
+        for validator in pageHolderVC.mRewardTargetValidators {
+            if(monikers.count > 0) {
+                monikers = monikers + ",   " + validator.description.moniker
+            } else {
+                monikers = validator.description.moniker
+            }
+        }
+        fromValidatorLabel.text = monikers
+        memoLabel.text = pageHolderVC.mMemo
+        
         recipientLabel.text = pageHolderVC.mRewardAddress
         recipientLabel.adjustsFontSizeToFitWidth = true
         if (pageHolderVC.mAccount?.account_address == pageHolderVC.mRewardAddress) {
-            self.selfLabel.isHidden = false
+            recipientTitleLabel.isHidden = true
+            recipientLabel.isHidden = true
+            
+            var userBalance = NSDecimalNumber.zero
+            for balance in pageHolderVC.mBalances {
+                if(TESTNET) {
+                    if(balance.balance_denom == "muon") {
+                        userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                    }
+                } else {
+                    if(balance.balance_denom == "uatom") {
+                        userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                    }
+                }
+            }
+            
+            print("userBalance ", userBalance)
+            print("rewardSum ", rewardSum)
+            print("fee ", WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            expectedAmountLabel.attributedText = WUtils.displayAmout(expectedAmount.stringValue, rewardAmoutLaebl.font, 6)
+            
+            expectedSeparator.isHidden = false
+            expectedAmountTitle.isHidden = false
+            expectedAmountLabel.isHidden = false
+            expectedAmountAtom.isHidden = false
+            
         } else {
-            self.selfLabel.isHidden = true
+            recipientTitleLabel.isHidden = false
+            recipientLabel.isHidden = false
+            
+            expectedSeparator.isHidden = true
+            expectedAmountTitle.isHidden = true
+            expectedAmountLabel.isHidden = true
+            expectedAmountAtom.isHidden = true
         }
-        memoLabel.text = pageHolderVC.mMemo
+        
+        
     }
     
     func passwordResponse(result: Int) {
@@ -94,11 +150,13 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             do {
                 let pKey = WKey.getCosmosKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 
-                let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
-                                                        self.pageHolderVC.mTargetValidator!.operator_address)
                 
                 var msgList = Array<Msg>()
-                msgList.append(msg)
+                for val in self.pageHolderVC.mRewardTargetValidators {
+                    let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
+                                                           val.operator_address)
+                    msgList.append(msg)
+                }
                 
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),

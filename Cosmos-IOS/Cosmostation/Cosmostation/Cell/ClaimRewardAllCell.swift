@@ -13,6 +13,8 @@ class ClaimRewardAllCell: UITableViewCell {
     @IBOutlet weak var claimAllBtn: UIButton!
     @IBOutlet weak var totalRewardLabel: UILabel!
     
+    weak var delegate: ClaimRewardAllDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -35,5 +37,11 @@ class ClaimRewardAllCell: UITableViewCell {
     @objc func stopHighlight(sender: UIButton) {
         claimAllBtn.layer.borderColor = UIColor.white.cgColor
     }
+    @IBAction func onClickClaimAll(_ sender: UIButton) {
+        delegate?.didTapClaimAll(sender)
+    }
     
+}
+protocol ClaimRewardAllDelegate: class {
+    func didTapClaimAll(_ sender: UIButton)
 }

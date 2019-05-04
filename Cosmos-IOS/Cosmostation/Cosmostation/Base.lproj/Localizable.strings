@@ -36,6 +36,7 @@
 "send_step_4" = "Select transaction fee.";
 "send_step_5" = "Check transfer detail.";
 "recipient_address" = "Recipient Address";
+"reward_claim_top_16" = "We claim rewards from up to max 16 validators in order of reward amount.";
 
 "only_USD" = "now only support USD";
 "only_cmc" = "now only support coinmarket cap";
@@ -56,4 +57,6 @@
 "error_self_send" = "Self sending is not support.";
 "error_no_fee" = "No fee left";
 "error_invalid_password" = "Invalid Password";
-"error_not_enough_fee" = "No enough budget for fee.";
+"error_not_enough_fee" = "No enough balance for fee.";
+"error_not_enough_balance_to_send" = "No enough balance for send.";
+"error_wasting_fee" = "fee is bigger than reward. \nIt's waste coin!";

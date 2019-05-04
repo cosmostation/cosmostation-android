@@ -20,37 +20,76 @@ class StepRewardViewController: BaseViewController {
     @IBOutlet weak var cardView: CardView!
     @IBOutlet weak var rewardAmountLabel: UILabel!
     @IBOutlet weak var rewardFromLabel: UILabel!
-    @IBOutlet weak var selfLabel: UILabel!
+    
+    
+    @IBOutlet weak var rewardToAddressTitle: UILabel!
     @IBOutlet weak var rewardToAddressLabel: UILabel!
     
     
     var pageHolderVC: StepGenTxViewController!
+    var mFetchCnt = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
         
+        if(pageHolderVC.mRewardTargetValidators.count == 16) {
+            self.onShowToast(NSLocalizedString("reward_claim_top_16", comment: ""))
+        }
+        
         self.loadingImg.onStartAnimation()
-        self.onFetchEachReward(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address)
+        self.onFetchRewardsInfoData()
+    }
+    
+    func onFetchRewardsInfoData()  {
+        if(self.mFetchCnt > 0)  {
+            return
+        }
+        pageHolderVC.mRewardList.removeAll()
+        mFetchCnt = 1 + pageHolderVC.mRewardTargetValidators.count;
+        for val in pageHolderVC.mRewardTargetValidators {
+            self.onFetchEachReward(pageHolderVC.mAccount!.account_address, val.operator_address)
+        }
+        self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
+    }
+    
+    func onFetchFinished() {
+        self.mFetchCnt = self.mFetchCnt - 1
+        if(mFetchCnt <= 0) {
+            updateView()
+        }
     }
     
     func updateView() {
-//        print("updateView")
-        rewardAmountLabel.attributedText = WUtils.displayAmout(pageHolderVC.mReward.reward_amount[0].amount, rewardAmountLabel.font, 6)
-        rewardFromLabel.text = pageHolderVC.mTargetValidator!.description.moniker
+        var rewardSum = NSDecimalNumber.zero
+        for reward in pageHolderVC.mRewardList {
+            rewardSum = rewardSum.adding(WUtils.stringToDecimal(reward.reward_amount[0].amount))
+        }
+        rewardAmountLabel.attributedText = WUtils.displayAmout(rewardSum.stringValue, rewardAmountLabel.font, 6)
+        
+        var monikers = ""
+        for validator in pageHolderVC.mRewardTargetValidators {
+            if(monikers.count > 0) {
+                monikers = monikers + ",   " + validator.description.moniker
+            } else {
+                monikers = validator.description.moniker
+            }
+        }
+        rewardFromLabel.text = monikers
+        
         rewardToAddressLabel.text = pageHolderVC.mRewardAddress
         rewardToAddressLabel.adjustsFontSizeToFitWidth = true
         if (pageHolderVC.mAccount?.account_address == pageHolderVC.mRewardAddress) {
-            self.selfLabel.isHidden = false
+            self.rewardToAddressTitle.isHidden = true
+            self.rewardToAddressLabel.isHidden = true
         } else {
-            self.selfLabel.isHidden = true
+            self.rewardToAddressTitle.isHidden = false
+            self.rewardToAddressLabel.isHidden = false
         }
-        
         
         self.loadingImg.isHidden = true
         self.controlLayer.isHidden = false
         self.cardView.isHidden = false
-        
         
     }
     
@@ -88,19 +127,26 @@ class StepRewardViewController: BaseViewController {
 //                print("onFetchEachReward ", res)
                 guard let rawRewards = res as? Array<NSDictionary> else {
 //                    print("error no reward")
+                    self.onFetchFinished()
                     return;
                 }
-                self.pageHolderVC.mReward.reward_v_address = validatorAddr
+//                self.pageHolderVC.mReward.reward_v_address = validatorAddr
+//                for rawReward in rawRewards {
+//                    self.pageHolderVC.mReward.reward_amount.append(Coin(rawReward as! [String : Any]))
+//                }
+                let reward = Reward.init()
+                reward.reward_v_address = validatorAddr
                 for rawReward in rawRewards {
-                    self.pageHolderVC.mReward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                    reward.reward_amount.append(Coin(rawReward as! [String : Any]))
                 }
-                self.onFetchRewardAddress(accountAddr)
+                self.pageHolderVC.mRewardList.append(reward)
                 
             case .failure(let error):
                 if(SHOW_LOG) {
                     print("onFetchEachReward ", error)
                 }
             }
+            self.onFetchFinished()
         }
     }
     
@@ -121,6 +167,7 @@ class StepRewardViewController: BaseViewController {
 //                print("onFetchRewardAddress ", res)
                 guard let address = res as? String else {
 //                    print("error no address")
+                    self.onFetchFinished()
                     return;
                 }
                 self.pageHolderVC.mRewardAddress = address.replacingOccurrences(of: "\"", with: "")
@@ -130,7 +177,7 @@ class StepRewardViewController: BaseViewController {
                     print("onFetchRewardAddress ", error)
                 }
             }
-            self.updateView()
+            self.onFetchFinished()
         }
         
     }

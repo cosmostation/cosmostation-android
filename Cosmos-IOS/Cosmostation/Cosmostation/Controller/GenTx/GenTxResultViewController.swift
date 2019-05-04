@@ -121,6 +121,16 @@ class GenTxResultViewController: BaseViewController {
             txAmountAtomLabel.isHidden = true
             txAmountLabel.isHidden = true
             
+            txSecondTitleLabel.text = "Validator address"
+            var rewardValAddress = ""
+            if((mTxInfo?.tx.value.msg.count)! > 1) {
+                rewardValAddress = (mTxInfo?.tx.value.msg[0].value.validator_address)! + " \n + " + String((mTxInfo?.tx.value.msg.count)! - 1)
+            } else {
+                rewardValAddress = (mTxInfo?.tx.value.msg[0].value.validator_address)!
+            }
+            txSecondContentLabel.text = rewardValAddress
+            txSecondContentLabel.adjustsFontSizeToFitWidth = true
+            
             txHashLabel.text = mTxInfo?.txhash
             txHashLabel.adjustsFontSizeToFitWidth = true
             blockHeightLabel.text = mBlockInfo?.block_meta.header.height

@@ -348,6 +348,30 @@ class WUtils {
         return atomFees
     }
     
+    static func getGasAmountForRewards() -> Array<NSDecimalNumber> {
+        var gasAmounts = Array<NSDecimalNumber>()
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_1))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_2))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_3))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_4))
+        
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_5))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_6))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_7))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_8))
+        
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_9))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_10))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_11))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_12))
+        
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_13))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_14))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_15))
+        gasAmounts.append(WUtils.stringToDecimal(FEE_REWARD_GAS_16))
+        return gasAmounts
+    }
+    
     
     static func getChainName(_ type:String) -> String {
         if (type == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {

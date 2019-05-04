@@ -484,10 +484,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         }
         
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount) == NSDecimalNumber.zero) {
-            self.onShowToast(NSLocalizedString("error_not_enough_balance", comment: ""))
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return
         }
+        
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         stakingVC.mTargetValidator = mValidator
         stakingVC.mType = COSMOS_MSG_TYPE_DELEGATE
@@ -505,6 +506,12 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         
         if(mBonding == nil || self.mBonding!.getBondingAtom(mValidator!) == NSDecimalNumber.zero) {
             self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+            return
+        }
+        
+        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return
         }
         
@@ -530,14 +537,27 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
+            if(rewardSum.compare(NSDecimalNumber(string: "500")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
             return
         }
         
+        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+            return
+        }
+        
         
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-        stakingVC.mTargetValidator = mValidator
+        var validators = Array<Validator>()
+        validators.append(mValidator!)
+        stakingVC.mRewardTargetValidators = validators
         stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)

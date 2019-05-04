@@ -19,6 +19,7 @@ class StepFeeViewController: BaseViewController {
     
     var pageHolderVC: StepGenTxViewController!
     var atomFees: Array<NSDecimalNumber>!
+    var rewardAllGasAmounts: Array<NSDecimalNumber>!
     var feeAmount   = NSDecimalNumber.zero
     var feeCoin:Coin!
     
@@ -27,8 +28,7 @@ class StepFeeViewController: BaseViewController {
         pageHolderVC = self.parent as? StepGenTxViewController
         
         atomFees = WUtils.getAtomFees()
-        feeAmountLabel.attributedText = WUtils.displayAmout(atomFees[1].stringValue, feeAmountLabel.font, 6)
-        
+        rewardAllGasAmounts = WUtils.getGasAmountForRewards()
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapFeeType(sender:)))
         self.feeTypeCardView.addGestureRecognizer(gesture)
@@ -94,7 +94,8 @@ class StepFeeViewController: BaseViewController {
             feeAmount = atomFees[position]
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-            
+            let needGas = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1]
+            feeAmount = needGas.multiplying(by: WUtils.stringToDecimal(FEE_MIN_RATE)).multiplying(by: NSDecimalNumber(integerLiteral: position + 1))
         }
         
         
@@ -112,8 +113,6 @@ class StepFeeViewController: BaseViewController {
         feeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, feeAmountLabel.font, 6)
         updateFeePrice()
         
-        
-        
         return true;
     }
     
@@ -129,15 +128,21 @@ class StepFeeViewController: BaseViewController {
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-        if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+        if(self.updateView(Int(feeSlider!.value))) {
             
-        } else {
-            if(self.updateView(Int(feeSlider!.value))) {
-                if(TESTNET) {
-                    feeCoin = Coin.init("muon", feeAmount.stringValue)
-                } else {
-                    feeCoin = Coin.init("uatom", feeAmount.stringValue)
-                }
+            if(TESTNET) { feeCoin = Coin.init("muon", feeAmount.stringValue) }
+            else { feeCoin = Coin.init("uatom", feeAmount.stringValue) }
+            
+            if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                var fee = Fee.init()
+                var amount: Array<Coin> = Array<Coin>()
+                amount.append(feeCoin)
+                let gas = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1].stringValue
+                fee.amount = amount
+                fee.gas = gas
+                pageHolderVC.mFee = fee
+                
+            } else {
                 var fee = Fee.init()
                 var amount: Array<Coin> = Array<Coin>()
                 amount.append(feeCoin)
@@ -146,11 +151,11 @@ class StepFeeViewController: BaseViewController {
                 fee.gas = gas
                 pageHolderVC.mFee = fee
                 
-                self.beforeBtn.isUserInteractionEnabled = false
-                self.nextBtn.isUserInteractionEnabled = false
-                pageHolderVC.onNextPage()
-                
             }
+            
+            self.beforeBtn.isUserInteractionEnabled = false
+            self.nextBtn.isUserInteractionEnabled = false
+            pageHolderVC.onNextPage()
         }
         
         
