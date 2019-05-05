@@ -98,7 +98,6 @@
 		E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E3C222E7E2900A1436F /* SegwitAddrCoder.swift */; };
 		E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E3D222E7E2900A1436F /* Bech32.swift */; };
 		E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E41222E7FC800A1436F /* MainTabViewController.swift */; };
-		E1945E44222E7FF500A1436F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E43222E7FF500A1436F /* MainStoryboard.storyboard */; };
 		E1945E46222E819300A1436F /* MainTabSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E45222E819300A1436F /* MainTabSendViewController.swift */; };
 		E1945E48222E81A300A1436F /* MainTabRewardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E47222E81A300A1436F /* MainTabRewardViewController.swift */; };
 		E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E49222E81B300A1436F /* MainTabHistoryViewController.swift */; };
@@ -141,6 +140,8 @@
 		E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E15FC12253748B00A10C7B /* DashedButton.swift */; };
 		E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */; };
 		E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED75AA2251B37C002CFE85 /* Reward.swift */; };
+		E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE50227EC05100C87F3F /* InfoPlist.strings */; };
+		E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */; };
 		E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FEE458225B17970040FAFD /* AmountInputTextField.swift */; };
 		E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FEE45A225B1AEF0040FAFD /* MemoTextView.swift */; };
 		E1FEE45D225B51EE0040FAFD /* cosmostation_loading_wh.gif in Resources */ = {isa = PBXBuildFile; fileRef = E1FEE45C225B51EE0040FAFD /* cosmostation_loading_wh.gif */; };
@@ -244,7 +245,6 @@
 		E1945E3C222E7E2900A1436F /* SegwitAddrCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegwitAddrCoder.swift; sourceTree = "<group>"; };
 		E1945E3D222E7E2900A1436F /* Bech32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bech32.swift; sourceTree = "<group>"; };
 		E1945E41222E7FC800A1436F /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
-		E1945E43222E7FF500A1436F /* MainStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		E1945E45222E819300A1436F /* MainTabSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabSendViewController.swift; sourceTree = "<group>"; };
 		E1945E47222E81A300A1436F /* MainTabRewardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabRewardViewController.swift; sourceTree = "<group>"; };
 		E1945E49222E81B300A1436F /* MainTabHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabHistoryViewController.swift; sourceTree = "<group>"; };
@@ -287,6 +287,13 @@
 		E1E15FC12253748B00A10C7B /* DashedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedButton.swift; sourceTree = "<group>"; };
 		E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineTextField.swift; sourceTree = "<group>"; };
 		E1ED75AA2251B37C002CFE85 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
+		E1F2AE49227E865D00C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		E1F2AE4A227E865D00C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		E1F2AE4B227E865D00C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E1F2AE4F227EC05100C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E1F2AE51227EC06900C87F3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E1F2AE5A227EC5B600C87F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		E1F2AE64227EC8A800C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ko; path = ko.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		E1FEE458225B17970040FAFD /* AmountInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountInputTextField.swift; sourceTree = "<group>"; };
 		E1FEE45A225B1AEF0040FAFD /* MemoTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTextView.swift; sourceTree = "<group>"; };
 		E1FEE45C225B51EE0040FAFD /* cosmostation_loading_wh.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cosmostation_loading_wh.gif; sourceTree = "<group>"; };
@@ -427,6 +434,7 @@
 				E1945E2B222E7C0600A1436F /* Main.storyboard */,
 				E1945E30222E7C0800A1436F /* LaunchScreen.storyboard */,
 				E1271B02224B17230083AF17 /* Localizable.strings */,
+				E1F2AE50227EC05100C87F3F /* InfoPlist.strings */,
 			);
 			path = Cosmostation;
 			sourceTree = "<group>";
@@ -467,7 +475,7 @@
 		E1945E40222E7FB000A1436F /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				E1945E43222E7FF500A1436F /* MainStoryboard.storyboard */,
+				E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */,
 				E1945E41222E7FC800A1436F /* MainTabViewController.swift */,
 				E1945E45222E819300A1436F /* MainTabSendViewController.swift */,
 				E1945E47222E81A300A1436F /* MainTabRewardViewController.swift */,
@@ -639,6 +647,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = E1945E1B222E7C0600A1436F;
 			productRefGroup = E1945E25222E7C0600A1436F /* Products */;
@@ -661,6 +670,7 @@
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
 				E14F7FB7227ADAA300FDDC75 /* QRScanViewController.xib in Resources */,
+				E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
 				E1827E1C225628FF00BC0350 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
@@ -674,9 +684,9 @@
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
+				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				E1827E222256292900BC0350 /* ValidatorDetailMyActionCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
-				E1945E44222E7FF500A1436F /* MainStoryboard.storyboard in Resources */,
 				E1827E30225629BF00BC0350 /* ValidatorDetailHistoryEmpty.xib in Resources */,
 				E1827E162255E6AE00BC0350 /* WalletCheckViewController.xib in Resources */,
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
@@ -874,6 +884,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E1271B03224B17230083AF17 /* Base */,
+				E1F2AE4B227E865D00C87F3F /* ko */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -883,6 +894,7 @@
 			children = (
 				E1945E2C222E7C0600A1436F /* Base */,
 				E1271B00224B16E20083AF17 /* en */,
+				E1F2AE49227E865D00C87F3F /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -892,8 +904,27 @@
 			children = (
 				E1945E31222E7C0800A1436F /* Base */,
 				E1271B01224B16E20083AF17 /* en */,
+				E1F2AE4A227E865D00C87F3F /* ko */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		E1F2AE50227EC05100C87F3F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1F2AE4F227EC05100C87F3F /* ko */,
+				E1F2AE51227EC06900C87F3F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1F2AE5A227EC5B600C87F3F /* Base */,
+				E1F2AE64227EC8A800C87F3F /* ko */,
+			);
+			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

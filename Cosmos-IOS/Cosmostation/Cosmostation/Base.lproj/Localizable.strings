@@ -22,24 +22,24 @@
 "address_copied" = "Address copied";
 "mnemonic_copied" = "Mnemonic copied\nClear your clipboard after paste it!";
 "wallet_delete_complete" = "Delete Completed!";
-"delegate_step_1" = "Enter delegation amount.";
-"delegate_step_2" = "Insert memo. (optional)";
-"delegate_step_3" = "Select transaction fee.";
-"delegate_step_4" = "Check delegation detail.";
-"undelegate_step_1" = "Enter undelegation amount.";
-"undelegate_step_4" = "Check undelegation detail.";
-"withdraw_single_step_1" = "Check your reward amount.";
+"delegate_step_1" = "Enter delegation amount";
+"delegate_step_2" = "Insert memo (optional)";
+"delegate_step_3" = "Select transaction fee";
+"delegate_step_4" = "Check delegation detail";
+"undelegate_step_1" = "Enter undelegation amount";
+"undelegate_step_4" = "Check undelegation detail";
+"withdraw_single_step_1" = "Check your rewards detail";
 "withdraw_single_step_4" = "Check your information to claim rewards.";
 "send_step_1" = "Enter recipient address";
-"send_step_2" = "Enter to send amount.";
-"send_step_3" = "Insert memo. (optional)";
-"send_step_4" = "Select transaction fee.";
-"send_step_5" = "Check transfer detail.";
+"send_step_2" = "Enter to send amount";
+"send_step_3" = "Insert memo (optional)";
+"send_step_4" = "Select transaction fee";
+"send_step_5" = "Check transfer detail";
 "recipient_address" = "Recipient Address";
 "reward_claim_top_16" = "We claim rewards from up to max 16 validators in order of reward amount.";
 
 "only_USD" = "now only support USD";
-"only_cmc" = "now only support coinmarket cap";
+"only_cmc" = "now only support CoinMarketCap";
 
 
 "error_password_fail" = "Password is not same. Please init password again!";
@@ -55,8 +55,7 @@
 "error_memo" = "Please insert validate memo.";
 "error_invalid_address" = "Invalid Address, please check again.";
 "error_self_send" = "Self sending is not support.";
-"error_no_fee" = "No fee left";
 "error_invalid_password" = "Invalid Password";
 "error_not_enough_fee" = "No enough balance for fee.";
 "error_not_enough_balance_to_send" = "No enough balance for send.";
-"error_wasting_fee" = "fee is bigger than reward. \nIt's waste coin!";
+"error_wasting_fee" = "Fee is bigger than reward. \nIt's waste coin!";

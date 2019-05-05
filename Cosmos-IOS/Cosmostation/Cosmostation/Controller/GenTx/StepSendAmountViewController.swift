@@ -104,12 +104,6 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             return false
             
         }
-        
-        if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
-            self.onShowToast(NSLocalizedString("error_no_fee", comment: ""))
-            return false
-            
-        }
         return true
     }
     

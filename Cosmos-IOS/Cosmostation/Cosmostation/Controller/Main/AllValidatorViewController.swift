@@ -77,6 +77,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:AllValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"AllValidatorCell") as? AllValidatorCell
+        guard self.mainTabVC.mAllValidators.count > 0 else {
+            return cell!
+        }
         if let validator = self.mainTabVC.mAllValidators[indexPath.row] as? Validator {
             self.onSetValidatorItem(cell!, validator, indexPath)
         }
