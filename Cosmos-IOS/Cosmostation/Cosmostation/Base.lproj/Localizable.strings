@@ -43,15 +43,49 @@
 "sort_by_reward" = "By Reward Amount";
 "sort_by_power" = "By Voting Power";
 "sort_by_commission" = "By Commission";
+"with_mnemonics" = "With Mnemonics";
+"only_address" = "Only Address";
+"wallet_dash" = "Wallet ";
+"with_mnemonic" = "With Mnemonics ";
+"only_address" = "Only Address";
+"check_mnemonic" = "Check Mnemonic";
+"import_address" = "Import Mnemonic";
+"change_wallet_name" = "Change Wallet Name";
+"wallet_name" = "wallet name";
+"share_text" = "Share Text Address";
+"share_qr" = "Share QrCode Image";
+"delete_wallet" = "Delete Wallet";
+"delete_wallet_msg" = "All information about this wallet will delete. \nIf you do not backup your mnemonics, you can not find it again!";
+"ready" = "Ready";
+"imported" = "Imported";
+"override" = "Override";
+"validator_address" = "Validator address";
 
 
 
 
+"delete" = "Delete";
+"close" = "Close";
+"copy" = "Copy";
+"share" = "Share";
 "cancel" = "Cancel";
+"ok" = "OK";
+"warnning" = "Warnning";
 
 "only_USD" = "now only support USD";
 "only_cmc" = "now only support CoinMarketCap";
 
+"title_wallet_manage" = "Wallet Manage";
+"title_wallet_detail" = "Wallet Detail";
+"title_check_mnemonics" = "Check Mnemonics";
+"title_create" = "Create Wallet";
+"title_watch_wallet" = "Watch Wallet";
+"title_restore" = "Import";
+"title_path" = "Select Wallet";
+"title_delegate" = "Delegate To";
+"title_undelegate" = "Undelegate From";
+"title_reward" = "Claim Reward From";
+"title_send" = "Send";
 
 "error_password_fail" = "Password is not same. Please init password again!";
 "error_no_clipboard" = "No text from clipboard.";
@@ -70,6 +104,7 @@
 "error_not_enough_fee" = "No enough balance for fee.";
 "error_not_enough_balance_to_send" = "No enough balance for send.";
 "error_wasting_fee" = "Fee is bigger than reward. \nIt's waste coin!";
+"error_no_telegram" = "Telegram not installed\nPlease install to continue.";
 
 
 "alert_title_no_private_key" = "No Private Key";

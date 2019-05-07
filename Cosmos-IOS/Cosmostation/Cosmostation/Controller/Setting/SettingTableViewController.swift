@@ -47,7 +47,7 @@ class SettingTableViewController: UITableViewController {
                     UIApplication.shared.open(url!, options: [:], completionHandler: nil)
                 }else
                 {
-                    let alert = UIAlertController(title: "Error", message: "Telegram not installed\nPlease install to continue.", preferredStyle: .alert)
+                    let alert = UIAlertController(title: NSLocalizedString("warnning", comment: ""), message: NSLocalizedString("error_no_telegram", comment: ""), preferredStyle: .alert)
                     let action = UIAlertAction(title: "Download And Install", style: .default, handler: { (UIAlertAction) in
                         let urlAppStore = URL(string: "itms-apps://itunes.apple.com/app/id686449807")
                         if(UIApplication.shared.canOpenURL(urlAppStore!))
@@ -56,7 +56,7 @@ class SettingTableViewController: UITableViewController {
                         }
                         
                     })
-                    let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let actionCancel = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
                     alert.addAction(action)
                     alert.addAction(actionCancel)
                     self.present(alert, animated: true, completion: nil)

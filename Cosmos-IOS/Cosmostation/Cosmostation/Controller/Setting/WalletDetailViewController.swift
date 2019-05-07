@@ -41,7 +41,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             return
         }
         
-        if (mAccount.account_nick_name == "") { walletName.text = "Wallet " + String(mAccount.account_id)
+        if (mAccount.account_nick_name == "") { walletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mAccount.account_id)
         } else { walletName.text = mAccount.account_nick_name }
         
         walletAddress.text = mAccount.account_address
@@ -58,8 +58,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         importDate.text = WUtils.longTimetoString(input:mAccount.account_import_time)
         
         if(mAccount.account_has_private)  {
-            actionBtn.setTitle("Check Mnemonic", for: .normal)
-            importState.text = "With Mnemonics"
+            actionBtn.setTitle(NSLocalizedString("check_mnemonic", comment: ""), for: .normal)
+            importState.text = NSLocalizedString("with_mnemonic", comment: "")
             keyPath.text = BASE_PATH.appending(mAccount.account_path)
             
             pathTitle.isHidden = false
@@ -67,8 +67,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             noKeyMsg.isHidden = true
             
         } else {
-            actionBtn.setTitle("Import Mnemonic", for: .normal)
-            importState.text = "Only Address"
+            actionBtn.setTitle(NSLocalizedString("import_address", comment: ""), for: .normal)
+            importState.text = NSLocalizedString("only_address", comment: "")
             pathTitle.isHidden = true
             keyPath.isHidden = true
             noKeyMsg.isHidden = false
@@ -79,8 +79,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.topItem?.title = "Wallet Detail";
-        self.navigationItem.title = "Wallet Detail";
+        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_wallet_detail", comment: "")
+        self.navigationItem.title = NSLocalizedString("title_wallet_detail", comment: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
@@ -95,17 +95,17 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     
     @IBAction func onClickNameChange(_ sender: Any) {
-        let nameAlert = UIAlertController(title: "Change Wallet Name", message: nil, preferredStyle: .alert)
+        let nameAlert = UIAlertController(title: NSLocalizedString("change_wallet_name", comment: ""), message: nil, preferredStyle: .alert)
         
         nameAlert.addTextField { (textField) in
-            textField.placeholder = "wallet name"
+            textField.placeholder = NSLocalizedString("wallet_name", comment: "")
         }
         
-        nameAlert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { [weak nameAlert] (_) in
+        nameAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: { [weak nameAlert] (_) in
             self.dismiss(animated: true, completion: nil)
         }))
         
-        nameAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak nameAlert] (_) in
+        nameAlert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { [weak nameAlert] (_) in
             let textField = nameAlert?.textFields![0]
             let trimmedString = textField?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             if(trimmedString?.count ?? 0 > 0) {
@@ -140,16 +140,16 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         }
         
         let alert = UIAlertController(title: walletName, message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Share", style: .default, handler:  { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("share", comment: ""), style: .default, handler:  { [weak alert] (_) in
             let shareTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-            shareTypeAlert.addAction(UIAlertAction(title: "Share Text Address", style: .default, handler: { [weak shareTypeAlert] (_) in
+            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_text", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
                 let text = self.mAccount.account_address
                 let textToShare = [ text ]
                 let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = self.view
                 self.present(activityViewController, animated: true, completion: nil)
             }))
-            shareTypeAlert.addAction(UIAlertAction(title: "Share QrCode Image", style: .default, handler: { [weak shareTypeAlert] (_) in
+            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_qr", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
                 let image = qrCode?.image
                 let imageToShare = [ image! ]
                 let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
@@ -162,7 +162,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default, handler: { [weak alert] (_) in
             UIPasteboard.general.string = self.mAccount.account_address
             self.onShowToast(NSLocalizedString("address_copied", comment: ""))
         }))
@@ -202,11 +202,11 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     }
     
     @IBAction func onClickDelete(_ sender: Any) {
-        let deleteAlert = UIAlertController(title: "Delete Wallet", message: "All information about this wallet will delete. \nIf you do not backup your mnemonics, you can not find it again!", preferredStyle: .alert)
-        deleteAlert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak deleteAlert] (_) in
+        let deleteAlert = UIAlertController(title: NSLocalizedString("delete_wallet", comment: ""), message: NSLocalizedString("delete_wallet_msg", comment: ""), preferredStyle: .alert)
+        deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("delete", comment: ""), style: .destructive, handler: { [weak deleteAlert] (_) in
             self.confirmDelete()
         }))
-        deleteAlert.addAction(UIAlertAction(title: "Close", style: .default, handler: { [weak deleteAlert] (_) in
+        deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { [weak deleteAlert] (_) in
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(deleteAlert, animated: true) {

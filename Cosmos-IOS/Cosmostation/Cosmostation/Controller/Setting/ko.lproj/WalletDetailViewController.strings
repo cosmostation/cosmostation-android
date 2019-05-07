@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = "Imported Date"; ObjectID = "1FQ-6L-D0A"; */
+"1FQ-6L-D0A.text" = "입력 날짜";
+
+/* Class = "UIButton"; normalTitle = "CEHCK MNEMONIC"; ObjectID = "7YT-6H-gLA"; */
+"7YT-6H-gLA.normalTitle" = "복구 단어 확인";
+
+/* Class = "UILabel"; text = "Key Path"; ObjectID = "87G-OB-BRl"; */
+"87G-OB-BRl.text" = "키 경로";
+
+/* Class = "UILabel"; text = "Chain Info"; ObjectID = "GFx-iE-W5a"; */
+"GFx-iE-W5a.text" = "체인 정보";
+
+/* Class = "UILabel"; text = "Cosmos Main"; ObjectID = "Op6-9y-J50"; */
+"Op6-9y-J50.text" = "-";
+
+/* Class = "UILabel"; text = "Cosmos Main"; ObjectID = "RVk-TP-eew"; */
+"RVk-TP-eew.text" = "-";
+
+/* Class = "UILabel"; text = "Cosmos Main"; ObjectID = "Yyi-i3-uWr"; */
+"Yyi-i3-uWr.text" = "-";
+
+/* Class = "UILabel"; text = "Wallet Address"; ObjectID = "aiF-4w-nQ8"; */
+"aiF-4w-nQ8.text" = "주소";
+
+/* Class = "UILabel"; text = "cosmos1kjshfwkjehfwkjehfkjwehfckjnwdkclsdknflsd"; ObjectID = "b9A-Sm-obj"; */
+"b9A-Sm-obj.text" = "-";
+
+/* Class = "UILabel"; text = "Imported State"; ObjectID = "bxH-Wt-SxB"; */
+"bxH-Wt-SxB.text" = "지갑 상태";
+
+/* Class = "UILabel"; text = "Cosmos Main"; ObjectID = "gsg-Id-mWi"; */
+"gsg-Id-mWi.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "Delete Wallet"; ObjectID = "lkh-oe-cma"; */
+"lkh-oe-cma.normalTitle" = "지갑 삭제";
+
+/* Class = "UILabel"; text = "Wallet1"; ObjectID = "n5W-aU-crt"; */
+"n5W-aU-crt.text" = "Wallet1";
+
+/* Class = "UILabel"; text = "Wallet Infomation"; ObjectID = "tln-EH-q4o"; */
+"tln-EH-q4o.text" = "지갑 정보";
+
+/* Class = "UILabel"; text = "Now only watch mode\nAll services are available after mnemonics integration"; ObjectID = "xGz-gq-KBU"; */
+"xGz-gq-KBU.text" = "관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.";

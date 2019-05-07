@@ -36,8 +36,8 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.topItem?.title = "Wallet Manage";
-        self.navigationItem.title = "Wallet Manage";
+        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_wallet_manage", comment: "");
+        self.navigationItem.title = NSLocalizedString("title_wallet_manage", comment: "");
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     
@@ -83,12 +83,12 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (mFullAccounts.count > 0 && section == 0) {
             let view = ManageHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            view.headerLabel.text = "With Mnemonics"
+            view.headerLabel.text = NSLocalizedString("with_mnemonics", comment: "")
             view.keyImg.image = UIImage.init(named: "key_on")
             return view
         } else {
             let view = ManageHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            view.headerLabel.text = "Only Address"
+            view.headerLabel.text = NSLocalizedString("only_address", comment: "")
             view.keyImg.image = UIImage.init(named: "key_off")
             return view
         }
@@ -107,7 +107,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         }
         cell?.address.adjustsFontSizeToFitWidth = true
         
-        if (account!.account_nick_name == "") { cell?.nameLabel.text = "Wallet " + String(account!.account_id)
+        if (account!.account_nick_name == "") { cell?.nameLabel.text = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
         } else { cell?.nameLabel.text = account!.account_nick_name }
         
         let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account!.account_address,

@@ -43,12 +43,46 @@
 "sort_by_reward" = "내 이자 수량으로 정렬";
 "sort_by_power" = "전체 위임랼으로 정렬";
 "sort_by_commission" = "검증인 수수료로 정렬";
+"with_mnemonics" = "전송 가능 지갑";
+"only_address" = "관찰용 지갑";
+"wallet_dash" = "내 지갑 ";
+"with_mnemonic" = "전송 가능 지갑";
+"only_address" = "관찰용 지갑";
+"check_mnemonic" = "복구 단어 확인";
+"import_address" = "복구 단어 입력";
+"change_wallet_name" = "지갑 별칭 변경";
+"wallet_name" = "별칭";
+"share_text" = "주소 공유";
+"share_qr" = "QR 코드 공유";
+"delete_wallet" = "지갑 삭제";
+"delete_wallet_msg" = "지갑의 모든 정보가 삭제됩니다.\n복구 단어를 백업하지 않았을 경우 해당 지갑을 영구히 다시 복원할 수 없습니다!";
+"ready" = "준비 완료";
+"imported" = "이미 존재함";
+"override" = "덮어쓰기";
+"validator_address" = "검증인 주소";
 
-
+"delete" = "삭제";
+"close" = "닫기";
+"copy" = "복사";
+"share" = "공유";
 "cancel" = "취소";
+"ok" = "결정";
+"warnning" = "경고";
 
 "only_USD" = "현재 USD만 지원합니다.";
 "only_cmc" = "현재 CoinMarketCap만 지원합니다.";
+
+"title_wallet_manage" = "지갑 관리";
+"title_wallet_detail" = "지갑 상세";
+"title_check_mnemonics" = "복구 단어 확인";
+"title_create" = "지갑 생성";
+"title_watch_wallet" = "관찰 지갑";
+"title_restore" = "지갑 복원";
+"title_path" = "지갑 선택";
+"title_delegate" = "위임하기";
+"title_undelegate" = "위임철회하기";
+"title_reward" = "이자청구하기";
+"title_send" = "송금하기";
 
 
 "error_password_fail" = "입력하신 두 패스워드가 다릅니다.\n다시 설정해 주세요.";
@@ -68,6 +102,7 @@
 "error_not_enough_fee" = "Tx 수수료를 지불할 만한 사용 가능 수량이 없습니다.";
 "error_not_enough_balance_to_send" = "현재 잔액이 적어 송금을 할 수 없습니다.";
 "error_wasting_fee" = "요청할 이자가 Tx 수수료 보다 낮습니다.\n수수료 낭비 입니다.";
+"error_no_telegram" = "텔레그렘이 설치되어있지 않습니다.\n다운로드후 사용가능합니다.";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";

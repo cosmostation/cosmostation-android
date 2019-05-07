@@ -1,0 +1,81 @@
+
+/* Class = "UILabel"; text = "-"; ObjectID = "3dR-BO-itK"; */
+"3dR-BO-itK.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "6mo-EW-5RF"; */
+"6mo-EW-5RF.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "83N-wS-IZM"; */
+"83N-wS-IZM.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Crj-rC-vzh"; */
+"Crj-rC-vzh.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "DJU-vT-tcH"; */
+"DJU-vT-tcH.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "G9N-IV-8Xv"; */
+"G9N-IV-8Xv.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "HQS-M8-eLR"; */
+"HQS-M8-eLR.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Izo-IU-iIW"; */
+"Izo-IU-iIW.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Jme-GH-vbz"; */
+"Jme-GH-vbz.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "OMg-I8-q0K"; */
+"OMg-I8-q0K.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "W0C-qY-R8g"; */
+"W0C-qY-R8g.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "Wi9-IX-heE"; */
+"Wi9-IX-heE.normalTitle" = "확인";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "X4I-4n-cM6"; */
+"X4I-4n-cM6.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Z03-N2-zIM"; */
+"Z03-N2-zIM.text" = "-";
+
+/* Class = "UILabel"; text = "Copy your mnemonics on a piece of paper \nand keep if in a secure location. \nYou can recover your wallet using your mnemonics"; ObjectID = "ZEO-2O-Gad"; */
+"ZEO-2O-Gad.text" = "고객님의 자산 보호를 위해 \n복구 단어를 반드시 종이에 적어 따로 보관해주세요.\n이 단어들을 이용하여 지갑을 복원할 수 있습니다.\n(지갑관리에서 다시 확인하실 수 있습니다.)";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "ZR4-f6-erd"; */
+"ZR4-f6-erd.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "aID-tu-lLl"; */
+"aID-tu-lLl.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "cFO-Wb-TG7"; */
+"cFO-Wb-TG7.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "gnV-aM-O6l"; */
+"gnV-aM-O6l.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "jKT-Ud-tHu"; */
+"jKT-Ud-tHu.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "mn9-b4-a5n"; */
+"mn9-b4-a5n.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "niI-ii-edA"; */
+"niI-ii-edA.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "pIM-de-GTg"; */
+"pIM-de-GTg.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "qmf-a1-vy7"; */
+"qmf-a1-vy7.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "qp8-GR-g8z"; */
+"qp8-GR-g8z.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "Copy to Clipboard"; ObjectID = "u3D-nF-ee2"; */
+"u3D-nF-ee2.normalTitle" = "클립보드에 복사";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "xfn-xG-HtT"; */
+"xfn-xG-HtT.text" = "-";

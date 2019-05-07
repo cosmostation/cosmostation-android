@@ -1,0 +1,216 @@
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "0MK-Uk-7ku"; */
+"0MK-Uk-7ku.normalTitle" = "취소";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "0gL-tk-0g2"; */
+"0gL-tk-0g2.normalTitle" = "다음";
+
+/* Class = "UIButton"; normalTitle = "l"; ObjectID = "0z0-Ba-2wt"; */
+"0z0-Ba-2wt.normalTitle" = "l";
+
+/* Class = "UIButton"; normalTitle = "Paste"; ObjectID = "3wZ-2n-AYU"; */
+"3wZ-2n-AYU.normalTitle" = "Paste";
+
+/* Class = "UILabel"; text = "bembino"; ObjectID = "4Ur-oF-KIO"; */
+"4Ur-oF-KIO.text" = "bembino";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "7xw-Ld-M3k"; */
+"7xw-Ld-M3k.text" = "Label";
+
+/* Class = "UILabel"; text = "Please enter the recovery phrase. "; ObjectID = "8nI-jb-YLg"; */
+"8nI-jb-YLg.text" = "복구 단어를 입력해 주세요.";
+
+/* Class = "UIButton"; normalTitle = "x"; ObjectID = "9fl-qQ-lyt"; */
+"9fl-qQ-lyt.normalTitle" = "x";
+
+/* Class = "UIButton"; normalTitle = "w"; ObjectID = "A9F-lq-R3b"; */
+"A9F-lq-R3b.normalTitle" = "w";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "As9-fW-dJB"; */
+"As9-fW-dJB.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "a"; ObjectID = "CYT-7K-ski"; */
+"CYT-7K-ski.normalTitle" = "a";
+
+/* Class = "UIButton"; normalTitle = "p"; ObjectID = "Dn9-4M-7Yi"; */
+"Dn9-4M-7Yi.normalTitle" = "p";
+
+/* Class = "UIButton"; normalTitle = "q"; ObjectID = "E5f-B8-LVU"; */
+"E5f-B8-LVU.normalTitle" = "q";
+
+/* Class = "UILabel"; text = "Warning"; ObjectID = "Ejd-Fb-j4A"; */
+"Ejd-Fb-j4A.text" = "Warning";
+
+/* Class = "UIButton"; normalTitle = "f"; ObjectID = "GL3-3C-viB"; */
+"GL3-3C-viB.normalTitle" = "f";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "HJ6-LR-X1a"; */
+"HJ6-LR-X1a.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "HNB-jS-hpG"; */
+"HNB-jS-hpG.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "K7J-5P-VMz"; */
+"K7J-5P-VMz.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "r"; ObjectID = "Ksd-SJ-b5s"; */
+"Ksd-SJ-b5s.normalTitle" = "r";
+
+/* Class = "UIButton"; normalTitle = "t"; ObjectID = "L9C-RR-L3h"; */
+"L9C-RR-L3h.normalTitle" = "t";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "M1h-kg-IbT"; */
+"M1h-kg-IbT.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "g"; ObjectID = "M3z-Ss-9zg"; */
+"M3z-Ss-9zg.normalTitle" = "g";
+
+/* Class = "UIButton"; normalTitle = "u"; ObjectID = "Mr7-3h-LHz"; */
+"Mr7-3h-LHz.normalTitle" = "u";
+
+/* Class = "UIButton"; normalTitle = "Paste"; ObjectID = "Ms6-S6-Zz4"; */
+"Ms6-S6-Zz4.normalTitle" = "붙여넣기";
+
+/* Class = "UILabel"; text = "Mnemonics"; ObjectID = "MyZ-4a-Zu8"; */
+"MyZ-4a-Zu8.text" = "복구 단어";
+
+/* Class = "UILabel"; text = "With watch mode, you can check the status of your account. \nTo make transaction can add private information with later."; ObjectID = "Nmm-Yx-iF1"; */
+"Nmm-Yx-iF1.text" = "관찰 모드로 복구 단어 입력 없이 지갑의 상태를 확인할 수 있습니다.\n추후 설정에서 복구 단어를 입력하면 송금 등의 활동이 가능합니다.";
+
+/* Class = "UIButton"; normalTitle = "k"; ObjectID = "PVl-kT-fc2"; */
+"PVl-kT-fc2.normalTitle" = "k";
+
+/* Class = "UIButton"; normalTitle = "m"; ObjectID = "PYc-4P-U9y"; */
+"PYc-4P-U9y.normalTitle" = "m";
+
+/* Class = "UIButton"; normalTitle = "Show Mnemonics"; ObjectID = "QVi-w5-xru"; */
+"QVi-w5-xru.normalTitle" = "복구 단어 보기";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "RHN-Jz-BKa"; */
+"RHN-Jz-BKa.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Next Word"; ObjectID = "S7t-S6-L4S"; */
+"S7t-S6-L4S.normalTitle" = "다음 단어";
+
+/* Class = "UIButton"; normalTitle = "Confirm"; ObjectID = "SHd-GC-jER"; */
+"SHd-GC-jER.normalTitle" = "확인";
+
+/* Class = "UIButton"; normalTitle = "h"; ObjectID = "Srl-JZ-Osv"; */
+"Srl-JZ-Osv.normalTitle" = "h";
+
+/* Class = "UILabel"; text = "(12 / 16 / 24 words)"; ObjectID = "T7f-fK-doe"; */
+"T7f-fK-doe.text" = "(12 / 16 / 24 words)";
+
+/* Class = "UIButton"; normalTitle = "c"; ObjectID = "TZL-B9-PL4"; */
+"TZL-B9-PL4.normalTitle" = "c";
+
+/* Class = "UIButton"; normalTitle = "i"; ObjectID = "WHl-rB-L40"; */
+"WHl-rB-L40.normalTitle" = "i";
+
+/* Class = "UITextField"; placeholder = "Insert address or public key."; ObjectID = "WW3-aL-nwf"; */
+"WW3-aL-nwf.placeholder" = "Insert address or public key.";
+
+/* Class = "UILabel"; text = "bembino"; ObjectID = "Y0j-mA-yFz"; */
+"Y0j-mA-yFz.text" = "bembino";
+
+/* Class = "UIButton"; normalTitle = "s"; ObjectID = "Ypi-Su-lsf"; */
+"Ypi-Su-lsf.normalTitle" = "s";
+
+/* Class = "UILabel"; text = "Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else."; ObjectID = "cgM-k7-H5E"; */
+"cgM-k7-H5E.text" = "복구 단어 분실은 자산 피해로 이어질 수 있습니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.";
+
+/* Class = "UILabel"; text = "bembino"; ObjectID = "cqi-I0-lpm"; */
+"cqi-I0-lpm.text" = "bembino";
+
+/* Class = "UIButton"; normalTitle = "e"; ObjectID = "e61-sR-5dr"; */
+"e61-sR-5dr.normalTitle" = "e";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "eWy-Cx-e8I"; */
+"eWy-Cx-e8I.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "o"; ObjectID = "fxq-xs-k3v"; */
+"fxq-xs-k3v.normalTitle" = "o";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "i2I-Ul-ttO"; */
+"i2I-Ul-ttO.text" = "주소";
+
+/* Class = "UIButton"; normalTitle = "IMPORT"; ObjectID = "jLS-QI-9ca"; */
+"jLS-QI-9ca.normalTitle" = "지갑 복원";
+
+/* Class = "UIButton"; normalTitle = "j"; ObjectID = "jyx-9x-t0m"; */
+"jyx-9x-t0m.normalTitle" = "j";
+
+/* Class = "UILabel"; text = "bembino"; ObjectID = "mKz-5B-ZOk"; */
+"mKz-5B-ZOk.text" = "bembino";
+
+/* Class = "UIButton"; normalTitle = "d"; ObjectID = "mYQ-wD-QSr"; */
+"mYQ-wD-QSr.normalTitle" = "d";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "nKB-db-hXI"; */
+"nKB-db-hXI.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "nOj-jQ-lE7"; */
+"nOj-jQ-lE7.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "z"; ObjectID = "nP4-5b-eLI"; */
+"nP4-5b-eLI.normalTitle" = "z";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pat-01-kjq"; */
+"pat-01-kjq.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "rMu-ju-i02"; */
+"rMu-ju-i02.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "sG8-D6-Wc6"; */
+"sG8-D6-Wc6.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "y"; ObjectID = "sgk-aL-rIK"; */
+"sgk-aL-rIK.normalTitle" = "y";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "sjR-GR-Mxr"; */
+"sjR-GR-Mxr.text" = "주소";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "spa-rV-qOF"; */
+"spa-rV-qOF.text" = "Label";
+
+/* Class = "UILabel"; text = "0 words"; ObjectID = "ssN-7c-XaK"; */
+"ssN-7c-XaK.text" = "0 words";
+
+/* Class = "UILabel"; text = "import"; ObjectID = "tNZ-y0-Nn3"; */
+"tNZ-y0-Nn3.text" = "복원하기";
+
+/* Class = "UILabel"; text = "bembino"; ObjectID = "tgQ-pi-NWr"; */
+"tgQ-pi-NWr.text" = "bembino";
+
+/* Class = "UIButton"; normalTitle = "v"; ObjectID = "uP0-RI-i0X"; */
+"uP0-RI-i0X.normalTitle" = "v";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "uRF-rm-ovP"; */
+"uRF-rm-ovP.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "utk-wv-xfm"; */
+"utk-wv-xfm.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "wRK-Xr-Dvd"; */
+"wRK-Xr-Dvd.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "b"; ObjectID = "wut-Aj-61s"; */
+"wut-Aj-61s.normalTitle" = "b";
+
+/* Class = "UILabel"; text = "import"; ObjectID = "xRh-ge-bAh"; */
+"xRh-ge-bAh.text" = "관찰하기";
+
+/* Class = "UILabel"; text = "COSMOS Wallet by Cosmostation"; ObjectID = "y3l-gc-HM4"; */
+"y3l-gc-HM4.text" = "COSMOS Wallet by Cosmostation";
+
+/* Class = "UIButton"; normalTitle = "n"; ObjectID = "yDW-0A-2w2"; */
+"yDW-0A-2w2.normalTitle" = "n";
+
+/* Class = "UIButton"; normalTitle = "CREATE"; ObjectID = "yqM-8h-gAN"; */
+"yqM-8h-gAN.normalTitle" = "지갑 생성";
+
+/* Class = "UILabel"; text = "bembino"; ObjectID = "yua-My-VbZ"; */
+"yua-My-VbZ.text" = "bembino";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "zle-n6-KK9"; */
+"zle-n6-KK9.text" = "Label";

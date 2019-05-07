@@ -66,7 +66,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.navigationBar.topItem?.title = "CREATE";
+        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_create", comment: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }

@@ -33,7 +33,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.navigationBar.topItem?.title = "SELECT WALLET TO RESTORE";
+        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_path", comment: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
@@ -56,16 +56,16 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         
         let tempAccount = BaseData.instance.selectExistAccount(address: address, chain: userChain!)
         if(tempAccount == nil) {
-            cell?.stateLabel.text = "Ready"
+            cell?.stateLabel.text = NSLocalizedString("ready", comment: "")
             cell?.stateLabel.textColor = UIColor.white
             cell?.rootCardView.backgroundColor = UIColor.init(hexString: "9c6cff", alpha: 0.15)
         } else {
             if(tempAccount?.account_has_private ?? false) {
-                cell?.stateLabel.text = "Imported"
+                cell?.stateLabel.text = NSLocalizedString("imported", comment: "")
                 cell?.stateLabel.textColor = UIColor.init(hexString: "7A7f88")
                 cell?.rootCardView.backgroundColor = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
             } else {
-                cell?.stateLabel.text = "Override"
+                cell?.stateLabel.text = NSLocalizedString("override", comment: "")
                 cell?.stateLabel.textColor = UIColor.white
                 cell?.rootCardView.backgroundColor = UIColor.init(hexString: "9c6cff", alpha: 0.15)
             }
@@ -102,16 +102,18 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell:RestorePathCell? = tableView.cellForRow(at: indexPath) as? RestorePathCell
-        if (cell?.stateLabel.text == "Imported") {
+        if (cell?.stateLabel.text == NSLocalizedString("imported", comment: "")) {
             return
-        } else if (cell?.stateLabel.text == "Ready") {
+        } else if (cell?.stateLabel.text == NSLocalizedString("ready", comment: "")) {
             //Add new Account
+            BaseData.instance.setLastTab(0)
             self.onGenAccount(WKey.getCosmosDpAddressWithPath(maskerKey!, indexPath.row),
                               self.userChain!,
                               String(indexPath.row))
             
         } else {
             //Update Account with key
+            BaseData.instance.setLastTab(0)
             self.onOverrideAccount(WKey.getCosmosDpAddressWithPath(maskerKey!, indexPath.row),
                                    self.userChain!,
                                    String(indexPath.row))

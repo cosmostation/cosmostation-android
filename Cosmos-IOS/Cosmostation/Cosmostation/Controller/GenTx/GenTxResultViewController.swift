@@ -84,9 +84,9 @@ class GenTxResultViewController: BaseViewController {
     func onTxDetailView() {
 //        print("onTxDetailView")
         if (mTxType == COSMOS_MSG_TYPE_DELEGATE) {
-            txTypeLabel.text = "Delegate"
+            txTypeLabel.text = NSLocalizedString("tx_delegate", comment: "")
             txAmountLabel.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, txAmountLabel.font, 6)
-            txSecondTitleLabel.text = "Validator address"
+            txSecondTitleLabel.text = NSLocalizedString("validator_address", comment: "")
             txSecondContentLabel.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
             txSecondContentLabel.adjustsFontSizeToFitWidth = true
             
@@ -100,9 +100,9 @@ class GenTxResultViewController: BaseViewController {
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-            txTypeLabel.text = "UnDelegate"
+            txTypeLabel.text = NSLocalizedString("tx_undelegate", comment: "")
             txAmountLabel.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, txAmountLabel.font, 6)
-            txSecondTitleLabel.text = "Validator address"
+            txSecondTitleLabel.text = NSLocalizedString("validator_address", comment: "")
             txSecondContentLabel.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
             txSecondContentLabel.adjustsFontSizeToFitWidth = true
             
@@ -116,12 +116,12 @@ class GenTxResultViewController: BaseViewController {
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-            txTypeLabel.text = "Get Reward"
+            txTypeLabel.text = NSLocalizedString("tx_get_reward", comment: "")
             txAmountTitleLabel.isHidden = true
             txAmountAtomLabel.isHidden = true
             txAmountLabel.isHidden = true
             
-            txSecondTitleLabel.text = "Validator address"
+            txSecondTitleLabel.text = NSLocalizedString("validator_address", comment: "")
             var rewardValAddress = ""
             if((mTxInfo?.tx.value.msg.count)! > 1) {
                 rewardValAddress = (mTxInfo?.tx.value.msg[0].value.validator_address)! + " \n + " + String((mTxInfo?.tx.value.msg.count)! - 1)
@@ -140,7 +140,7 @@ class GenTxResultViewController: BaseViewController {
             txMemoLabel.text = mTxInfo?.tx.value.memo
             
         } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2) {
-            txTypeLabel.text = "Send Transfer"
+            txTypeLabel.text = NSLocalizedString("tx_transfer", comment: "")
             
             txAmountLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount![0].amount)!, txAmountLabel.font, 6)
             

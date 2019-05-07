@@ -28,30 +28,34 @@ class StakingViewController: UIViewController {
         if (mType == COSMOS_MSG_TYPE_DELEGATE) {
             stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
-            self.titleLabel.text = "Delegate to " + String((mTargetValidator?.description.moniker)!)
+//            self.titleLabel.text = "Delegate to " + String((mTargetValidator?.description.moniker)!)
+            self.titleLabel.text =  NSLocalizedString("title_delegate", comment: "")
             
         } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             stepDescription.text = NSLocalizedString("undelegate_step_1", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
-            self.titleLabel.text = "Undelegate from " + String((mTargetValidator?.description.moniker)!)
+//            self.titleLabel.text = "Undelegate from " + String((mTargetValidator?.description.moniker)!)
+            self.titleLabel.text =  NSLocalizedString("title_undelegate", comment: "")
             
         } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             stepDescription.text = NSLocalizedString("withdraw_single_step_1", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
-            var title = String((mRewardTargetValidators[0].description.moniker))
-            if(mRewardTargetValidators.count > 1) {
-                title.append(" + " + String(mRewardTargetValidators.count - 1))
-            } else {
-                
-            }
-            self.titleLabel.text = "Get reward from " + title
-            self.titleLabel.adjustsFontSizeToFitWidth = true
+//            var title = String((mRewardTargetValidators[0].description.moniker))
+//            if(mRewardTargetValidators.count > 1) {
+//                title.append(" + " + String(mRewardTargetValidators.count - 1))
+//            } else {
+//
+//            }
+//            self.titleLabel.text = "Get reward from " + title
+//            self.titleLabel.adjustsFontSizeToFitWidth = true
+            self.titleLabel.text =  NSLocalizedString("title_reward", comment: "")
             
             
         } else if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
             stepDescription.text = NSLocalizedString("send_step_1", comment: "")
             stepImg.image = UIImage.init(named: "step1Img")
-            self.titleLabel.text = "Send Coin"
+//            self.titleLabel.text = "Send Coin"
+            self.titleLabel.text =  NSLocalizedString("title_send", comment: "")
         }
         
         
