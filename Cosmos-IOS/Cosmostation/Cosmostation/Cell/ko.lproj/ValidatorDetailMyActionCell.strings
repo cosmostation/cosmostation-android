@@ -1,0 +1,27 @@
+
+/* Class = "UILabel"; text = "Delegated"; ObjectID = "Bs6-H3-HZs"; */
+"Bs6-H3-HZs.text" = "내 위임 수량";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "FTh-Xd-UEg"; */
+"FTh-Xd-UEg.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "UNDELEGATE"; ObjectID = "Ghn-OR-Lj6"; */
+"Ghn-OR-Lj6.normalTitle" = "위임 철회 하기";
+
+/* Class = "UIButton"; normalTitle = "DELEGATE"; ObjectID = "IWh-8K-Tdg"; */
+"IWh-8K-Tdg.normalTitle" = "위임 하기";
+
+/* Class = "UILabel"; text = "Unbonding"; ObjectID = "L8L-5t-Ob2"; */
+"L8L-5t-Ob2.text" = "내 위임 철회 수량";
+
+/* Class = "UILabel"; text = "Reward"; ObjectID = "QOT-VC-ZBU"; */
+"QOT-VC-ZBU.text" = "이자";
+
+/* Class = "UIButton"; normalTitle = "CLAIM REWARD"; ObjectID = "Uax-LB-HdT"; */
+"Uax-LB-HdT.normalTitle" = "이자 받기";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "hib-JF-mPX"; */
+"hib-JF-mPX.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "sgs-C1-O6R"; */
+"sgs-C1-O6R.text" = "-";

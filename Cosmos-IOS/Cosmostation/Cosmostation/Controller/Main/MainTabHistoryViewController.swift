@@ -74,7 +74,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.time)
         cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
         cell?.txBlockLabel.text = String(history._source.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg)
+        cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mainTabVC.mAccount.account_address)
         if(history._source.result.success) {
             cell?.txResultLabel.isHidden = true
         } else {

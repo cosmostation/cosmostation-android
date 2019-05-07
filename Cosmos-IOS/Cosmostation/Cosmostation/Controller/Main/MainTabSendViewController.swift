@@ -281,11 +281,11 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     func onShowAddMenomicDialog() {
-        let alert = UIAlertController(title: "No Private Key", message: "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Add Mnemonic", style: .default, handler: { [weak alert] (_) in
+        let alert = UIAlertController(title: NSLocalizedString("alert_title_no_private_key", comment: ""), message: NSLocalizedString("alert_msg_no_private_key", comment: ""), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("add_mnemonic", comment: ""), style: .default, handler: { [weak alert] (_) in
             self.onStartImportMnemonic()
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }

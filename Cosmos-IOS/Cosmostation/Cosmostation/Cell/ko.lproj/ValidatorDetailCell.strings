@@ -1,0 +1,30 @@
+
+/* Class = "UILabel"; text = "0"; ObjectID = "71S-76-YZs"; */
+"71S-76-YZs.text" = "0";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "BTd-zn-57S"; */
+"BTd-zn-57S.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "DELEGATE"; ObjectID = "W4b-Ph-MWH"; */
+"W4b-Ph-MWH.normalTitle" = "위임 하기";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "WDc-ts-HFZ"; */
+"WDc-ts-HFZ.text" = "-";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Zs5-hY-ch8"; */
+"Zs5-hY-ch8.text" = "0";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "aad-Rq-g3G"; */
+"aad-Rq-g3G.text" = "-";
+
+/* Class = "UILabel"; text = "Total Bonded"; ObjectID = "b1h-xY-buQ"; */
+"b1h-xY-buQ.text" = "전체 위임량";
+
+/* Class = "UILabel"; text = "Commission"; ObjectID = "eCp-SZ-dsD"; */
+"eCp-SZ-dsD.text" = "검증인 수수료";
+
+/* Class = "UILabel"; text = "Self Bonded Rate"; ObjectID = "xMh-mb-xP2"; */
+"xMh-mb-xP2.text" = "자체 위임 비율";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "xdp-y1-b9R"; */
+"xdp-y1-b9R.text" = "-";

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2B086C41D1AE96515832211B /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C343D91DD12833CEE33C581 /* Pods_Cosmostation.framework */; };
+		E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAA52281266D006C2146 /* ValidatorDetailCell.xib */; };
+		E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAAC2281274A006C2146 /* ValidatorDetailHistoryHeader.xib */; };
+		E103DAAF22812773006C2146 /* ValidatorDetailHistoryEmpty.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAB122812773006C2146 /* ValidatorDetailHistoryEmpty.xib */; };
+		E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAB6228127A3006C2146 /* ValidatorDetailMyDetailCell.xib */; };
+		E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DABB228127D8006C2146 /* ValidatorDetailMyActionCell.xib */; };
 		E1271B04224B17230083AF17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1271B02224B17230083AF17 /* Localizable.strings */; };
 		E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B05224B874A0083AF17 /* AddAddressViewController.swift */; };
 		E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B07224B90230083AF17 /* AddressInputTextField.swift */; };
@@ -80,15 +85,10 @@
 		E1827E162255E6AE00BC0350 /* WalletCheckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1827E142255E6AE00BC0350 /* WalletCheckViewController.xib */; };
 		E1827E18225620D000BC0350 /* VaidatorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */; };
 		E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E19225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift */; };
-		E1827E1C225628FF00BC0350 /* ValidatorDetailMyDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1827E1A225628FF00BC0350 /* ValidatorDetailMyDetailCell.xib */; };
 		E1827E212256292900BC0350 /* ValidatorDetailMyActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E1F2256292900BC0350 /* ValidatorDetailMyActionCell.swift */; };
-		E1827E222256292900BC0350 /* ValidatorDetailMyActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1827E202256292900BC0350 /* ValidatorDetailMyActionCell.xib */; };
 		E1827E252256293900BC0350 /* ValidatorDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E232256293900BC0350 /* ValidatorDetailCell.swift */; };
-		E1827E262256293900BC0350 /* ValidatorDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1827E242256293900BC0350 /* ValidatorDetailCell.xib */; };
 		E1827E2A2256298300BC0350 /* ValidatorDetailHistoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E292256298300BC0350 /* ValidatorDetailHistoryHeader.swift */; };
-		E1827E2C2256298E00BC0350 /* ValidatorDetailHistoryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1827E2B2256298E00BC0350 /* ValidatorDetailHistoryHeader.xib */; };
 		E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E2D225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift */; };
-		E1827E30225629BF00BC0350 /* ValidatorDetailHistoryEmpty.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1827E2E225629BF00BC0350 /* ValidatorDetailHistoryEmpty.xib */; };
 		E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1861D2D224DB1570027DED1 /* RestorePathCell.swift */; };
 		E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1861D2E224DB1570027DED1 /* RestorePathCell.xib */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
@@ -151,6 +151,16 @@
 		00BAE96F02E7C0B2F69BAEF0 /* Pods-Cosmostation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cosmostation/Pods-Cosmostation.debug.xcconfig"; sourceTree = "<group>"; };
 		8AF7F57C7285EED5E4415BAE /* Pods-Cosmostation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cosmostation/Pods-Cosmostation.release.xcconfig"; sourceTree = "<group>"; };
 		9C343D91DD12833CEE33C581 /* Pods_Cosmostation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cosmostation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E103DAA42281266D006C2146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ValidatorDetailCell.xib; sourceTree = "<group>"; };
+		E103DAA9228126F3006C2146 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ValidatorDetailCell.strings; sourceTree = "<group>"; };
+		E103DAAB2281274A006C2146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ValidatorDetailHistoryHeader.xib; sourceTree = "<group>"; };
+		E103DAAE22812750006C2146 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ValidatorDetailHistoryHeader.strings; sourceTree = "<group>"; };
+		E103DAB022812773006C2146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ValidatorDetailHistoryEmpty.xib; sourceTree = "<group>"; };
+		E103DAB322812780006C2146 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ValidatorDetailHistoryEmpty.strings; sourceTree = "<group>"; };
+		E103DAB5228127A3006C2146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ValidatorDetailMyDetailCell.xib; sourceTree = "<group>"; };
+		E103DAB8228127AF006C2146 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ValidatorDetailMyDetailCell.strings; sourceTree = "<group>"; };
+		E103DABA228127D8006C2146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ValidatorDetailMyActionCell.xib; sourceTree = "<group>"; };
+		E103DABF22812849006C2146 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ValidatorDetailMyActionCell.strings; sourceTree = "<group>"; };
 		E1271B00224B16E20083AF17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E1271B01224B16E20083AF17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E1271B03224B17230083AF17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -225,15 +235,10 @@
 		E1827E142255E6AE00BC0350 /* WalletCheckViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletCheckViewController.xib; sourceTree = "<group>"; };
 		E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaidatorDetailViewController.swift; sourceTree = "<group>"; };
 		E1827E19225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorDetailMyDetailCell.swift; sourceTree = "<group>"; };
-		E1827E1A225628FF00BC0350 /* ValidatorDetailMyDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValidatorDetailMyDetailCell.xib; sourceTree = "<group>"; };
 		E1827E1F2256292900BC0350 /* ValidatorDetailMyActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorDetailMyActionCell.swift; sourceTree = "<group>"; };
-		E1827E202256292900BC0350 /* ValidatorDetailMyActionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValidatorDetailMyActionCell.xib; sourceTree = "<group>"; };
 		E1827E232256293900BC0350 /* ValidatorDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorDetailCell.swift; sourceTree = "<group>"; };
-		E1827E242256293900BC0350 /* ValidatorDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValidatorDetailCell.xib; sourceTree = "<group>"; };
 		E1827E292256298300BC0350 /* ValidatorDetailHistoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorDetailHistoryHeader.swift; sourceTree = "<group>"; };
-		E1827E2B2256298E00BC0350 /* ValidatorDetailHistoryHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValidatorDetailHistoryHeader.xib; sourceTree = "<group>"; };
 		E1827E2D225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorDetailHistoryEmpty.swift; sourceTree = "<group>"; };
-		E1827E2E225629BF00BC0350 /* ValidatorDetailHistoryEmpty.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValidatorDetailHistoryEmpty.xib; sourceTree = "<group>"; };
 		E1861D2D224DB1570027DED1 /* RestorePathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathCell.swift; sourceTree = "<group>"; };
 		E1861D2E224DB1570027DED1 /* RestorePathCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestorePathCell.xib; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -590,15 +595,15 @@
 				E19A32292254AFE100A05E41 /* ManageAccountCell.swift */,
 				E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */,
 				E1827E19225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift */,
-				E1827E1A225628FF00BC0350 /* ValidatorDetailMyDetailCell.xib */,
+				E103DAB6228127A3006C2146 /* ValidatorDetailMyDetailCell.xib */,
 				E1827E1F2256292900BC0350 /* ValidatorDetailMyActionCell.swift */,
-				E1827E202256292900BC0350 /* ValidatorDetailMyActionCell.xib */,
+				E103DABB228127D8006C2146 /* ValidatorDetailMyActionCell.xib */,
 				E1827E232256293900BC0350 /* ValidatorDetailCell.swift */,
-				E1827E242256293900BC0350 /* ValidatorDetailCell.xib */,
+				E103DAA52281266D006C2146 /* ValidatorDetailCell.xib */,
 				E1827E292256298300BC0350 /* ValidatorDetailHistoryHeader.swift */,
-				E1827E2B2256298E00BC0350 /* ValidatorDetailHistoryHeader.xib */,
+				E103DAAC2281274A006C2146 /* ValidatorDetailHistoryHeader.xib */,
 				E1827E2D225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift */,
-				E1827E2E225629BF00BC0350 /* ValidatorDetailHistoryEmpty.xib */,
+				E103DAB122812773006C2146 /* ValidatorDetailHistoryEmpty.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -666,18 +671,18 @@
 			files = (
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
 				E1FEE45D225B51EE0040FAFD /* cosmostation_loading_wh.gif in Resources */,
-				E1827E262256293900BC0350 /* ValidatorDetailCell.xib in Resources */,
+				E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */,
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
 				E14F7FB7227ADAA300FDDC75 /* QRScanViewController.xib in Resources */,
 				E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
-				E1827E1C225628FF00BC0350 /* ValidatorDetailMyDetailCell.xib in Resources */,
+				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */,
 				E1827E122254C92900BC0350 /* WalletDetailViewController.xib in Resources */,
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
-				E1827E2C2256298E00BC0350 /* ValidatorDetailHistoryHeader.xib in Resources */,
+				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
 				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
 				E19A32242254A61E00A05E41 /* WalletManageViewController.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
@@ -685,9 +690,9 @@
 				E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
-				E1827E222256292900BC0350 /* ValidatorDetailMyActionCell.xib in Resources */,
+				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
-				E1827E30225629BF00BC0350 /* ValidatorDetailHistoryEmpty.xib in Resources */,
+				E103DAAF22812773006C2146 /* ValidatorDetailHistoryEmpty.xib in Resources */,
 				E1827E162255E6AE00BC0350 /* WalletCheckViewController.xib in Resources */,
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
 				E16D9B1322489AE10019B7BB /* Init.storyboard in Resources */,
@@ -880,6 +885,51 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		E103DAA52281266D006C2146 /* ValidatorDetailCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E103DAA42281266D006C2146 /* Base */,
+				E103DAA9228126F3006C2146 /* ko */,
+			);
+			name = ValidatorDetailCell.xib;
+			sourceTree = "<group>";
+		};
+		E103DAAC2281274A006C2146 /* ValidatorDetailHistoryHeader.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E103DAAB2281274A006C2146 /* Base */,
+				E103DAAE22812750006C2146 /* ko */,
+			);
+			name = ValidatorDetailHistoryHeader.xib;
+			sourceTree = "<group>";
+		};
+		E103DAB122812773006C2146 /* ValidatorDetailHistoryEmpty.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E103DAB022812773006C2146 /* Base */,
+				E103DAB322812780006C2146 /* ko */,
+			);
+			name = ValidatorDetailHistoryEmpty.xib;
+			sourceTree = "<group>";
+		};
+		E103DAB6228127A3006C2146 /* ValidatorDetailMyDetailCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E103DAB5228127A3006C2146 /* Base */,
+				E103DAB8228127AF006C2146 /* ko */,
+			);
+			name = ValidatorDetailMyDetailCell.xib;
+			sourceTree = "<group>";
+		};
+		E103DABB228127D8006C2146 /* ValidatorDetailMyActionCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E103DABA228127D8006C2146 /* Base */,
+				E103DABF22812849006C2146 /* ko */,
+			);
+			name = ValidatorDetailMyActionCell.xib;
+			sourceTree = "<group>";
+		};
 		E1271B02224B17230083AF17 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

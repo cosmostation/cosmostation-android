@@ -150,48 +150,54 @@ class WUtils {
     
     
     
-    static func historyTitle(_ msgs:Array<Msg>) -> String {
-        var resultMsg = "UnKnown"
+    static func historyTitle(_ msgs:Array<Msg>, _ myaddress:String) -> String {
+        var resultMsg = NSLocalizedString("tx_known", comment: "")
         
         if(msgs == nil || msgs.count <= 0) {
             return resultMsg
         }
         
         if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2) {
-            resultMsg = "Transfer"
+            if (msgs[0].value.from_address != nil && msgs[0].value.from_address == myaddress) {
+                resultMsg = NSLocalizedString("tx_send", comment: "")
+            } else if (msgs[0].value.to_address != nil && msgs[0].value.to_address == myaddress) {
+                resultMsg = NSLocalizedString("tx_receive", comment: "")
+            } else {
+                resultMsg = NSLocalizedString("tx_transfer", comment: "")
+            }
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_DELEGATE) {
-            resultMsg = "Delegate"
+            resultMsg = NSLocalizedString("tx_delegate", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_UNDELEGATE || msgs[0].type == COSMOS_MSG_TYPE_UNDELEGATE2) {
-            resultMsg = "Undelegate"
+            resultMsg = NSLocalizedString("tx_undelegate", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_REDELEGATE || msgs[0].type == COSMOS_MSG_TYPE_REDELEGATE2) {
-            resultMsg = "Redelegate"
+            resultMsg = NSLocalizedString("tx_redelegate", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-            resultMsg = "Get Reward"
+            resultMsg = NSLocalizedString("tx_get_reward", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_VAL) {
-            resultMsg = "Get Commission"
+            resultMsg = NSLocalizedString("tx_get_commission", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-            resultMsg = "Edit Address"
+            resultMsg = NSLocalizedString("tx_change_reward_address", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_VOTE) {
-            resultMsg = "Vote"
+            resultMsg = NSLocalizedString("tx_vote", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_SUBMIT_PROPOSAL) {
-            resultMsg = "Proposal"
+            resultMsg = NSLocalizedString("tx_submit_proposal", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_DEPOSIT) {
-            resultMsg = "Deposit"
+            resultMsg = NSLocalizedString("tx_deposit", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_CREATE_VALIDATOR) {
-            resultMsg = "Create Val"
+            resultMsg = NSLocalizedString("tx_create_validator", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_EDIT_VALIDATOR) {
-            resultMsg = "Edit Val"
+            resultMsg = NSLocalizedString("tx_edit_validator", comment: "")
             
         }
         

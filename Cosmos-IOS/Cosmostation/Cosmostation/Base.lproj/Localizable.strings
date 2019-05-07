@@ -37,6 +37,17 @@
 "send_step_5" = "Check transfer detail";
 "recipient_address" = "Recipient Address";
 "reward_claim_top_16" = "We claim rewards from up to max 16 validators in order of reward amount.";
+"add_mnemonic" = "Add Mnemonic";
+"sort_by_name" = "By Name";
+"sort_by_my_delegate" = "By My Deleagted Amount";
+"sort_by_reward" = "By Reward Amount";
+"sort_by_power" = "By Voting Power";
+"sort_by_commission" = "By Commission";
+
+
+
+
+"cancel" = "Cancel";
 
 "only_USD" = "now only support USD";
 "only_cmc" = "now only support CoinMarketCap";
@@ -59,3 +70,26 @@
 "error_not_enough_fee" = "No enough balance for fee.";
 "error_not_enough_balance_to_send" = "No enough balance for send.";
 "error_wasting_fee" = "Fee is bigger than reward. \nIt's waste coin!";
+
+
+"alert_title_no_private_key" = "No Private Key";
+"alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";
+
+
+
+
+"tx_send" = "Send";
+"tx_receive" = "Received";
+"tx_transfer" = "Transfer";
+"tx_delegate" = "Delegate";
+"tx_undelegate" = "Undelegate";
+"tx_redelegate" = "Redelegate";
+"tx_get_reward" = "Get Rewards";
+"tx_get_commission" = "Get Commission";
+"tx_change_reward_address" = "Edit Address";
+"tx_vote" = "Vote";
+"tx_submit_proposal" = "Proposal";
+"tx_deposit" = "Deposit";
+"tx_create_validator" = "Create Val";
+"tx_edit_validator" = "Edit Val";
+"tx_known" = "Known";

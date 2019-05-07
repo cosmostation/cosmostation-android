@@ -37,6 +37,15 @@
 "send_step_5" = "입력하신 정보를 확인하세요";
 "recipient_address" = "받을 주소";
 "reward_claim_top_16" = "이자량 순서대로 최대 16검증인으로부터 이자를 청구 합니다.";
+"add_mnemonic" = "복구 단어 추가";
+"sort_by_name" = "이름으로 정렬";
+"sort_by_my_delegate" = "내 위임 수량으로 정렬";
+"sort_by_reward" = "내 이자 수량으로 정렬";
+"sort_by_power" = "전체 위임랼으로 정렬";
+"sort_by_commission" = "검증인 수수료로 정렬";
+
+
+"cancel" = "취소";
 
 "only_USD" = "현재 USD만 지원합니다.";
 "only_cmc" = "현재 CoinMarketCap만 지원합니다.";
@@ -59,3 +68,24 @@
 "error_not_enough_fee" = "Tx 수수료를 지불할 만한 사용 가능 수량이 없습니다.";
 "error_not_enough_balance_to_send" = "현재 잔액이 적어 송금을 할 수 없습니다.";
 "error_wasting_fee" = "요청할 이자가 Tx 수수료 보다 낮습니다.\n수수료 낭비 입니다.";
+
+
+"alert_title_no_private_key" = "관찰 모드 지갑";
+"alert_msg_no_private_key" = "관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.";
+
+
+"tx_send" = "출금";
+"tx_receive" = "입금";
+"tx_transfer" = "송금";
+"tx_delegate" = "위임";
+"tx_undelegate" = "위임철회";
+"tx_redelegate" = "재 위임";
+"tx_get_reward" = "이자 청구";
+"tx_get_commission" = "수수료 청구";
+"tx_change_reward_address" = "이자 주소 변경";
+"tx_vote" = "투표";
+"tx_submit_proposal" = "의제 제안";
+"tx_deposit" = "디파짓";
+"tx_create_validator" = "검증인 생성";
+"tx_edit_validator" = "검증인 편집";
+"tx_known" = "알수없음";

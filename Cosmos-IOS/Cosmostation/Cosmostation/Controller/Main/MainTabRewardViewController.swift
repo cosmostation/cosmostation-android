@@ -64,16 +64,16 @@ class MainTabRewardViewController: BaseViewController {
         if (myValidatorView.alpha == 1) {
 //            print("my val sort show")
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "By Name", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_name", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
                 BaseData.instance.setMyValidatorSort(1)
                 NotificationCenter.default.post(name: Notification.Name("onSortingMy"), object: nil, userInfo: nil)
             }))
-            alert.addAction(UIAlertAction(title: "By My Deleagted Amount", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_my_delegate", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
                 BaseData.instance.setMyValidatorSort(0)
                 NotificationCenter.default.post(name: Notification.Name("onSortingMy"), object: nil, userInfo: nil)
             }))
-            alert.addAction(UIAlertAction(title: "By Reward Amount", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_reward", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
                 BaseData.instance.setMyValidatorSort(2)
                 NotificationCenter.default.post(name: Notification.Name("onSortingMy"), object: nil, userInfo: nil)
             }))
@@ -83,15 +83,15 @@ class MainTabRewardViewController: BaseViewController {
         } else {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "By Name", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_name", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
                 BaseData.instance.setAllValidatorSort(1)
                 NotificationCenter.default.post(name: Notification.Name("onSorting"), object: nil, userInfo: nil)
             }))
-            alert.addAction(UIAlertAction(title: "By Voting Power", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_power", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
                 BaseData.instance.setAllValidatorSort(0)
                 NotificationCenter.default.post(name: Notification.Name("onSorting"), object: nil, userInfo: nil)
             }))
-            alert.addAction(UIAlertAction(title: "By Commission", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_commission", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
                 BaseData.instance.setAllValidatorSort(2)
                 NotificationCenter.default.post(name: Notification.Name("onSorting"), object: nil, userInfo: nil)
             }))

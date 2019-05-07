@@ -272,7 +272,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.time)
                 cell?.txBlockLabel.text = String(history._source.height) + " block"
                 cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
-                cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg)
+                cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mAccount!.account_address)
                 if(history._source.result.success) {
                     cell?.txResultLabel.isHidden = true
                 } else {
@@ -565,11 +565,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onShowAddMenomicDialog() {
-        let alert = UIAlertController(title: "No Private Key", message: "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Add Mnemonic", style: .default, handler: { [weak alert] (_) in
+        let alert = UIAlertController(title: NSLocalizedString("alert_title_no_private_key", comment: ""), message: NSLocalizedString("alert_msg_no_private_key", comment: ""), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("add_mnemonic", comment: ""), style: .default, handler: { [weak alert] (_) in
             self.onStartImportMnemonic()
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }
