@@ -82,6 +82,8 @@
 		E171A071225B08C100C5756C /* StepFeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A070225B08C100C5756C /* StepFeeViewController.swift */; };
 		E171A073225B08CE00C5756C /* StepDelegateCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A072225B08CE00C5756C /* StepDelegateCheckViewController.swift */; };
 		E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A074225B091300C5756C /* StepGenTxViewController.swift */; };
+		E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */ = {isa = PBXBuildFile; fileRef = E17748E12282D6AD003D8CD1 /* BTCMnemonic.m */; };
+		E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = E17748E52282D782003D8CD1 /* BTCProtocolSerialization.m */; };
 		E1827E112254C92900BC0350 /* WalletDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E0F2254C92900BC0350 /* WalletDetailViewController.swift */; };
 		E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */; };
 		E1827E18225620D000BC0350 /* VaidatorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */; };
@@ -237,6 +239,11 @@
 		E171A070225B08C100C5756C /* StepFeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepFeeViewController.swift; sourceTree = "<group>"; };
 		E171A072225B08CE00C5756C /* StepDelegateCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDelegateCheckViewController.swift; sourceTree = "<group>"; };
 		E171A074225B091300C5756C /* StepGenTxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepGenTxViewController.swift; sourceTree = "<group>"; };
+		E17748D82282C612003D8CD1 /* Cosmostation-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cosmostation-Bridging-Header.h"; sourceTree = "<group>"; };
+		E17748E12282D6AD003D8CD1 /* BTCMnemonic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCMnemonic.m; sourceTree = "<group>"; };
+		E17748E22282D6AD003D8CD1 /* BTCMnemonic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCMnemonic.h; sourceTree = "<group>"; };
+		E17748E42282D782003D8CD1 /* BTCProtocolSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCProtocolSerialization.h; sourceTree = "<group>"; };
+		E17748E52282D782003D8CD1 /* BTCProtocolSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCProtocolSerialization.m; sourceTree = "<group>"; };
 		E1827E0F2254C92900BC0350 /* WalletDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewController.swift; sourceTree = "<group>"; };
 		E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCheckViewController.swift; sourceTree = "<group>"; };
 		E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaidatorDetailViewController.swift; sourceTree = "<group>"; };
@@ -567,9 +574,14 @@
 		E1A82DE622448E800097CAEE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E17748E42282D782003D8CD1 /* BTCProtocolSerialization.h */,
+				E17748E52282D782003D8CD1 /* BTCProtocolSerialization.m */,
+				E17748E22282D6AD003D8CD1 /* BTCMnemonic.h */,
+				E17748E12282D6AD003D8CD1 /* BTCMnemonic.m */,
 				E1A82DE722448E940097CAEE /* WUtils.swift */,
 				E1A82DF62244FA750097CAEE /* UIColor.swift */,
 				E16D9B1C2248E6A60019B7BB /* WKey.swift */,
+				E17748D82282C612003D8CD1 /* Cosmostation-Bridging-Header.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -647,6 +659,7 @@
 				TargetAttributes = {
 					E1945E23222E7C0600A1436F = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -841,6 +854,7 @@
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
 				E1406FC62260860E00D9440C /* StepUndelegateAmountViewController.swift in Sources */,
 				E1827E18225620D000BC0350 /* VaidatorDetailViewController.swift in Sources */,
+				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,
 				E13171442260215E00EE5AD0 /* GenTxResultViewController.swift in Sources */,
@@ -864,6 +878,7 @@
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				E1406FC22260654F00D9440C /* TxInfo.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
+				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,
 				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
@@ -1161,6 +1176,7 @@
 			baseConfigurationReference = 00BAE96F02E7C0B2F69BAEF0 /* Pods-Cosmostation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
@@ -1170,6 +1186,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Cosmostation/Utils/Cosmostation-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1180,6 +1198,7 @@
 			baseConfigurationReference = 8AF7F57C7285EED5E4415BAE /* Pods-Cosmostation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
@@ -1189,6 +1208,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Cosmostation/Utils/Cosmostation-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

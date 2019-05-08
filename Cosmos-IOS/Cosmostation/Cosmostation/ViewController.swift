@@ -81,6 +81,7 @@ class ViewController: UIViewController {
             
             
             let seed = Mnemonic.seed(mnemonic: ["iron", "breeze", "tongue", "voice", "stomach", "nut", "manage", "advance", "rather", "mad", "hurry", "neutral", "identify", "armed", "unusual", "crunch", "hammer", "scan", "riot", "mom", "surface", "horn", "stamp", "thank"])
+            let seed2 = Mnemonic.seed(mnemonic: ["car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car", "car"])
             print("seedHD", seed.hexEncodedString())
             
             let masterKey = HDPrivateKey(seed: seed, network: .testnet)

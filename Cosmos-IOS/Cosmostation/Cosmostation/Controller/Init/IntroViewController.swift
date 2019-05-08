@@ -114,4 +114,5 @@ class IntroViewController: BaseViewController {
     @objc func stopHighlight(sender: UIButton) {
         sender.layer.borderColor = UIColor.white.cgColor
     }
+    
 }

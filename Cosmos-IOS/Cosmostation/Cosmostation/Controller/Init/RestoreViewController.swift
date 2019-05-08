@@ -156,6 +156,11 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
                 return false
             }
         }
+        
+        if(BTCMnemonic.init(words: userInputWords, password: "", wordListType: .english) == nil) {
+            return false
+        }
+        
         return true
     }
     

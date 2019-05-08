@@ -214,39 +214,4 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.actions[1].isEnabled = false
         self.present(showAlert, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    func test() {
-        let showAlert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
-        showAlert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.gray
-        let imageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 80, height: 80))
-        imageView.image = UIImage(named: "loading_3")
-        imageView.backgroundColor = UIColor.clear
-        showAlert.view.addSubview(imageView)
-        let height = NSLayoutConstraint(item: showAlert.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
-        let width = NSLayoutConstraint(item: showAlert.view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
-        showAlert.view.addConstraint(height)
-        showAlert.view.addConstraint(width)
-        
-//        let myimgArr = ["loading_1","loading_2","loading_3","loading_4","loading_5","loading_6","loading_22"]
-//        let animation = UIImage.an   .animatedImage(with: myimgArr, duration: 1)
-//        var images = [UIImage]()
-//        for i in 0..<myimgArr.count
-//        {
-//            images.append(UIImage(named: myimgArr[i])!)
-//        }
-//        imageView.animationImages = images
-//        imageView.animationDuration = 0.1
-//        imageView.animationRepeatCount = 100
-//        imageView.startAnimating()
-        
-        self.present(showAlert, animated: true, completion: nil)
-    }
-    
 }
