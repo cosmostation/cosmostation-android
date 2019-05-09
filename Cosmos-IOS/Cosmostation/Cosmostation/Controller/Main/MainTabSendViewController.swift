@@ -82,7 +82,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     func updateTitle() {
-        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = "Wallet " + String(mainTabVC.mAccount.account_id)
+        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
         
         if(mainTabVC.mAccount.account_has_private) { keyTypeImg.image = UIImage(named: "key_on")
@@ -227,7 +227,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         
         var walletName: String?
         if (mainTabVC.mAccount.account_nick_name == "") {
-            walletName = "Wallet " + String(mainTabVC.mAccount.account_id)
+            walletName = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else {
             walletName = mainTabVC.mAccount.account_nick_name
         }

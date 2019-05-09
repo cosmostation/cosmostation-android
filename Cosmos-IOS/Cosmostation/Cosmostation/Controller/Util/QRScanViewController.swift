@@ -88,6 +88,12 @@ class QRScanViewController: UIViewController {
     }
 
     @IBAction func onClickCancel(_ sender: UIButton) {
+        let transition:CATransition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        self.navigationController!.view.layer.add(transition, forKey: kCATransition)
         self.navigationController?.popViewController(animated: false)
     }
     
@@ -95,8 +101,14 @@ class QRScanViewController: UIViewController {
         if presentedViewController != nil {
             return
         }
+        let transition:CATransition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
         
         self.resultDelegate?.scannedAddress(result: address)
+        self.navigationController!.view.layer.add(transition, forKey: kCATransition)
         self.navigationController?.popViewController(animated: false)
     }
 }

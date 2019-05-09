@@ -41,7 +41,7 @@
 "sort_by_name" = "이름으로 정렬";
 "sort_by_my_delegate" = "내 위임 수량으로 정렬";
 "sort_by_reward" = "내 이자 수량으로 정렬";
-"sort_by_power" = "전체 위임랼으로 정렬";
+"sort_by_power" = "전체 위임량으로 정렬";
 "sort_by_commission" = "검증인 수수료로 정렬";
 "with_mnemonics" = "전송 가능 지갑";
 "only_address" = "관찰용 지갑";
@@ -61,6 +61,7 @@
 "override" = "덮어쓰기";
 "validator_address" = "검증인 주소";
 
+"clear_all" = "전체 삭제";
 "delete" = "삭제";
 "close" = "닫기";
 "copy" = "복사";

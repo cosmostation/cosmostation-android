@@ -107,9 +107,9 @@ class StepFeeViewController: BaseViewController {
             updateFeePrice()
             return false;
         }
-        print("available : ",available)
-        print("toSpend   : ",toSpend)
-        print("feeAmount : ",feeAmount)
+//        print("available : ",available)
+//        print("toSpend   : ",toSpend)
+//        print("feeAmount : ",feeAmount)
         feeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, feeAmountLabel.font, 6)
         updateFeePrice()
         

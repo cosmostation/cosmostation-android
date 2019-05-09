@@ -215,23 +215,17 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         
         for validator in self.mainTabVC.mAllValidators {
             for bonding in self.mainTabVC.mBondingList {
-                if(bonding.bonding_v_address == validator.operator_address) {
+                if(bonding.bonding_v_address == validator.operator_address &&
+                    WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber(string: "1")).rawValue > 0) {
                     myBondedValidator.append(validator)
                     break;
                 }
             }
         }
         
-        print("myBondedValidator ", myBondedValidator.count)
+//        print("myBondedValidator ", myBondedValidator.count)
         
         myBondedValidator.sort{
-            if ($0.jailed && !$1.jailed) {
-                return false
-            }
-            if (!$0.jailed && $1.jailed) {
-                return true
-            }
-            
             let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
             let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
             return reward0.compare(reward1).rawValue > 0 ? true : false
@@ -243,10 +237,10 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             toClaimValidator = myBondedValidator
         }
         
-        print("toClaimValidator ", toClaimValidator.count)
+//        print("toClaimValidator ", toClaimValidator.count)
         
         let mintFee = WUtils.getGasAmountForRewards()[toClaimValidator.count-1].multiplying(by: WUtils.stringToDecimal(FEE_MIN_RATE))
-        print("mintFee ", mintFee)
+//        print("mintFee ", mintFee)
         
         var available = NSDecimalNumber.zero
         for balance in self.mainTabVC.mBalances {
@@ -260,8 +254,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 }
             }
         }
-        print("available ", available)
-        
+//        print("available ", available)
         if(available.compare(mintFee).rawValue < 0 ) {
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return

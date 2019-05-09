@@ -80,6 +80,18 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_restore", comment: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("clear_all", comment: ""), style: .done, target: self, action: #selector(clearAll))
+
+    }
+    
+    @objc func clearAll(sender: AnyObject) {
+        userInputWords.removeAll()
+        for i in 0 ..< self.mNemonicInputs.count {
+            self.mNemonicInputs[i].text = ""
+        }
+        mCurrentPosition = 0
+        updateFocus()
+        updateWordCnt()
     }
     
     override func viewDidAppear(_ animated: Bool) {

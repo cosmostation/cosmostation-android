@@ -100,7 +100,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     cell.cardview.borderColor = UIColor.init(hexString: "#222426")
                 }
                 
-                if (tempAccount.account_nick_name == "") { cell.name.text = "Wallet " + String(tempAccount.account_id)
+                if (tempAccount.account_nick_name == "") { cell.name.text = NSLocalizedString("wallet_dash", comment: "") + String(tempAccount.account_id)
                 } else { cell.name.text = tempAccount.account_nick_name }
                 
                 if(tempAccount.account_has_private) { cell.keystate.image = UIImage(named: "key_on")

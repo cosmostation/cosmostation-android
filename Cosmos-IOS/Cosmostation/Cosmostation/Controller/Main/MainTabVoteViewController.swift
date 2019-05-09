@@ -50,7 +50,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func updateTitle() {
-        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = "Wallet " + String(mainTabVC.mAccount.account_id)
+        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
         
         if(mainTabVC.mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {

@@ -84,6 +84,7 @@ class AddAddressViewController: BaseViewController {
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
                 if(insertResult > 0) {
+                    BaseData.instance.setLastTab(0)
                     BaseData.instance.setRecentAccountId(insertResult)
                     self.onStartMainTab()
                     

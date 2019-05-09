@@ -134,7 +134,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         
         var walletName: String?
         if (self.mAccount!.account_nick_name == "") {
-            walletName = "Wallet " + String(self.mAccount!.account_id)
+            walletName = NSLocalizedString("wallet_dash", comment: "") + String(self.mAccount!.account_id)
         } else {
             walletName = self.mAccount!.account_nick_name
         }
