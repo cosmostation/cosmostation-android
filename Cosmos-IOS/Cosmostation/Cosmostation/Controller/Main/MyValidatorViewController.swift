@@ -36,6 +36,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
+        self.onSortingMy()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,7 +57,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onSortingMy() {
-//        print("onSortingMy")
         if (BaseData.instance.getMyValidatorSort() == 0) {
             sortByDelegated()
         } else if (BaseData.instance.getMyValidatorSort() == 1) {
@@ -91,7 +91,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         } else if (mainTabVC.mMyValidators.count == 1) {
             let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
             let validator = mainTabVC.mMyValidators[indexPath.row]
-            self.onSetValidatorItem(cell!, validator)
+            self.onSetValidatorItem(cell!, validator, indexPath)
             return cell!
             
         } else {
@@ -102,7 +102,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 let cell:MyValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"MyValidatorCell") as? MyValidatorCell
                 let validator = mainTabVC.mMyValidators[indexPath.row]
-                self.onSetValidatorItem(cell!, validator)
+                self.onSetValidatorItem(cell!, validator, indexPath)
                 return cell!
             }
         }
@@ -122,11 +122,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("mainTabVC.mMyValidators.count ", mainTabVC.mMyValidators.count)
-//        print("indexPath.row ", indexPath.row)
         if (mainTabVC.mMyValidators.count > 0 && indexPath.row != mainTabVC.mMyValidators.count) {
             if let validator = self.mainTabVC.mMyValidators[indexPath.row] as? Validator {
-//                print("seelct ", validator.description.moniker)
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaidatorDetailViewController") as! VaidatorDetailViewController
                 validatorDetailVC.mValidator = validator
                 validatorDetailVC.hidesBottomBarWhenPushed = true
@@ -134,13 +131,10 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.navigationController?.pushViewController(validatorDetailVC, animated: true)
             }
         }
-//        else if (mainTabVC.mMyValidators.count > 1 && indexPath.row == mainTabVC.mMyValidators.count) {
-//            print("calim all")
-//        }
     }
     
     
-    func onSetValidatorItem(_ cell: MyValidatorCell, _ validator: Validator) {
+    func onSetValidatorItem(_ cell: MyValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         cell.monikerLabel.text = validator.description.moniker
         
         if(validator.jailed) { cell.revokedImg.isHidden = false
@@ -160,10 +154,10 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         
         cell.rewardAmoutLabel.attributedText = WUtils.displayAmout(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6)
         
+        cell.validatorImg.tag = indexPath.row
         cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
         if (validator.description.identity != "") {
             let parameters: Parameters = ["fields": "pictures", "key_suffix": validator.description.identity]
-            
             let request = Alamofire.request(KEY_BASE_URL_USER_INFO,
                                             method: .get,
                                             parameters: parameters,
@@ -182,7 +176,9 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                         guard let image = response.result.value else {
                             return
                         }
-                        cell.validatorImg.image = image
+                        if(indexPath.row == cell.validatorImg.tag) {
+                            cell.validatorImg.image = image
+                        }
                     }
                 
                 case .failure(let error):

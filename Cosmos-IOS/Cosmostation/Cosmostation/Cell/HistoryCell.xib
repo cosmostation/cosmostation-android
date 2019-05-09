@@ -22,15 +22,15 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9a-pf-IC8" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                         <rect key="frame" x="12" y="4" width="296" height="71.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Undelegate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bx3-AE-Buo">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Undelegate" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bx3-AE-Buo">
                                 <rect key="frame" x="12" y="12" width="61.5" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="failed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt3-f7-mI1">
-                                <rect key="frame" x="12" y="30" width="22" height="10.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="9"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Failed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt3-f7-mI1">
+                                <rect key="frame" x="12" y="47.5" width="27.5" height="11.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
                                 <color key="textColor" red="0.95294117649999999" green="0.098039215690000001" blue="0.38823529410000002" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -81,8 +81,8 @@
                             <constraint firstItem="vt3-f7-mI1" firstAttribute="leading" secondItem="Bx3-AE-Buo" secondAttribute="leading" id="b4I-ha-W0A"/>
                             <constraint firstItem="Ojg-Ly-3W9" firstAttribute="centerY" secondItem="g9a-pf-IC8" secondAttribute="centerY" id="eFm-GI-LqT"/>
                             <constraint firstAttribute="trailing" secondItem="Ojg-Ly-3W9" secondAttribute="trailing" constant="6" id="fXz-F2-qMW"/>
-                            <constraint firstItem="vt3-f7-mI1" firstAttribute="top" secondItem="Bx3-AE-Buo" secondAttribute="bottom" constant="4" id="sOA-Je-Tqt"/>
                             <constraint firstItem="B7b-b1-dhx" firstAttribute="trailing" secondItem="D2f-be-V7K" secondAttribute="trailing" id="usG-Rd-EsL"/>
+                            <constraint firstItem="vt3-f7-mI1" firstAttribute="firstBaseline" secondItem="B7b-b1-dhx" secondAttribute="firstBaseline" id="wzo-UD-Fzh"/>
                             <constraint firstItem="Bx3-AE-Buo" firstAttribute="top" secondItem="g9a-pf-IC8" secondAttribute="top" constant="12" id="ygI-Jm-S3Z"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>

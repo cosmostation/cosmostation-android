@@ -105,7 +105,7 @@ class WUtils {
         nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         
         let localFormatter = DateFormatter()
-        localFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
         
         let fullDate = nodeFormatter.date(from: input)
         return localFormatter.string(from: fullDate!)
@@ -113,7 +113,7 @@ class WUtils {
     
     static func longTimetoString(input: Int64) -> String {
         let localFormatter = DateFormatter()
-        localFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
         
         let fullDate = Date.init(milliseconds: Int(input))
         return localFormatter.string(from: fullDate)
@@ -121,7 +121,7 @@ class WUtils {
     
     static func unbondingDateFromNow() -> String {
         let localFormatter = DateFormatter()
-        localFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
         
         let afterDate = Calendar.current.date(
             byAdding: .day,
@@ -150,7 +150,7 @@ class WUtils {
     
     
     
-    static func historyTitle(_ msgs:Array<Msg>, _ myaddress:String) -> String {
+    static func historyTitle(_ msgs:Array<HistoryMsg>, _ myaddress:String) -> String {
         var resultMsg = NSLocalizedString("tx_known", comment: "")
         
         if(msgs == nil || msgs.count <= 0) {
@@ -202,7 +202,7 @@ class WUtils {
         }
         
         if(msgs.count > 1) {
-            resultMsg = resultMsg +  " + " + String(msgs.count - 1)
+            resultMsg = resultMsg +  "\n+ " + String(msgs.count - 1)
         }
         return resultMsg
     }

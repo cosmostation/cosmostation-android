@@ -75,7 +75,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
         cell?.txBlockLabel.text = String(history._source.height) + " block"
         cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mainTabVC.mAccount.account_address)
-        if(history._source.result.success) {
+        if(history._source.result.allResult) {
             cell?.txResultLabel.isHidden = true
         } else {
             cell?.txResultLabel.isHidden = false
@@ -97,6 +97,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchHistory(_ address:String, _ from:String, _ size:String) {
         let query = "{\"from\": \"" + from + "\",\"size\": \"" + size + "\",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.input.address\", \"tx.value.msg.value.output.address\"]}},\"sort\": [{\"height\": {\"order\": \"desc\"}}]}"
+        
+//        let query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"filter\" : {\"bool\" : {\"should\" : [ {\"term\" : {\"validator_addr\" : \"" + from + "\",\"validator_address\" : null,\"validator_dst_addr\" : null}}, {\"term\" : {\"validator_addr\" : null,\"validator_address\" : null,\"validator_dst_addr\" : \"" + from + "\"}}, {\"term\" : {\"validator_addr\" : null,\"validator_address\" : \"" + from + "\",\"validator_dst_addr\" : null}} ]}},\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.validator_dst_addr\" ],\"query\" : \"" + address + "\"} } ] }},\"size\" : 100,\"sort\" : [ {\"height\" : {\"order\" : \"desc\"}} ]}"
+        
         let data = query.data(using: .utf8)
         do {
             let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
@@ -104,7 +107,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { response in
                 switch response.result {
                 case .success(let res):
-//                    print("res " , res)
+                    print("res " , res)
                     guard let history = res as? [String : Any] else {
 //                        print("no history!!")
                         self.emptyLabel.isHidden = false

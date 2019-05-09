@@ -33,7 +33,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
-        sortByPower()
+        self.onSorting()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -85,10 +85,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         }
         return cell!
     }
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        print("willDisplay", indexPath.row)
-//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80;

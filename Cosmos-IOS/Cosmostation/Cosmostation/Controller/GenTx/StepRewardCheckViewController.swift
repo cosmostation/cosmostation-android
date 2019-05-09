@@ -157,7 +157,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                                                            val.operator_address)
                     msgList.append(msg)
                 }
-                
+                if(FEE_FREE) {
+                    self.pageHolderVC.mFee?.amount[0].amount = "0"
+                }
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
                                                        String(self.pageHolderVC.mAccount!.account_sequence_number),

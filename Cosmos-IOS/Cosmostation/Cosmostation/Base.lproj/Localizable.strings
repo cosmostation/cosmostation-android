@@ -128,3 +128,6 @@
 "tx_create_validator" = "Create Val";
 "tx_edit_validator" = "Edit Val";
 "tx_known" = "Known";
+
+
+"date_format" = "MMM d, yyyy HH:mm:ss";

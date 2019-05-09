@@ -273,7 +273,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 cell?.txBlockLabel.text = String(history._source.height) + " block"
                 cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
                 cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mAccount!.account_address)
-                if(history._source.result.success) {
+                if(history._source.result.allResult) {
                     cell?.txResultLabel.isHidden = true
                 } else {
                     cell?.txResultLabel.isHidden = false
@@ -441,6 +441,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     let rawHistory = History.init(history)
                     self.mHistories.removeAll()
                     self.mHistories = rawHistory.hits.hits
+//                    print("onFetchHistory ", self.mHistories.count)
                 case .failure(let error):
                     print("error ", error)
                 }

@@ -124,3 +124,6 @@
 "tx_create_validator" = "검증인 생성";
 "tx_edit_validator" = "검증인 편집";
 "tx_known" = "알수없음";
+
+
+"date_format" = "yyyy-MM-dd HH:mm:ss";

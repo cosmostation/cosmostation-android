@@ -106,7 +106,7 @@ class GenTxResultViewController: BaseViewController {
             txSecondContentLabel.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
             txSecondContentLabel.adjustsFontSizeToFitWidth = true
             
-            txHashLabel.text = mTxInfo?.txhash
+            txHashLabel.text = mStakTxInfo?.txhash
             txHashLabel.adjustsFontSizeToFitWidth = true
             blockHeightLabel.text = mBlockInfo?.block_meta.header.height
             blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
