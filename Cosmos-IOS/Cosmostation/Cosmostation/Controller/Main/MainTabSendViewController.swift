@@ -291,7 +291,6 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
     
     @IBAction func onClickGuide(_ sender: UIButton) {
-        print("onClickGuide")
         if(Locale.current.languageCode == "ko") {
             guard let url = URL(string: "http://bit.ly/Cosmostation_Guide_KR") else { return }
             let safariViewController = SFSafariViewController(url: url)
@@ -304,7 +303,6 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     @IBAction func onClickFaq(_ sender: UIButton) {
-        print("onClickFaq")
         let guideVC = GuideViewController(nibName: "GuideViewController", bundle: nil)
         guideVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

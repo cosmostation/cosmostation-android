@@ -510,6 +510,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             return
         }
         
+        if(mUnbondings.count >= 7) {
+            self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
+            return
+        }
+        
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
         if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
