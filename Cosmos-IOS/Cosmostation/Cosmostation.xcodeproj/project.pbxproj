@@ -45,9 +45,7 @@
 		E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */; };
 		E14F7FB6227ADAA300FDDC75 /* QRScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14F7FB4227ADAA300FDDC75 /* QRScanViewController.swift */; };
 		E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */; };
-		E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */; };
 		E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */; };
-		E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B631224533DC0026B8C0 /* ClaimRewardAllCell.xib */; };
 		E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B634224533F90026B8C0 /* PromotionCell.swift */; };
 		E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B635224533F90026B8C0 /* PromotionCell.xib */; };
 		E151B639224626990026B8C0 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B638224626990026B8C0 /* BorderButton.swift */; };
@@ -87,6 +85,15 @@
 		E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17748E72283D0F4003D8CD1 /* GuideCategory.swift */; };
 		E17748EA2283E4CE003D8CD1 /* HistoryStdTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17748E92283E4CE003D8CD1 /* HistoryStdTx.swift */; };
 		E17748EC2283E4FB003D8CD1 /* HistoryMsg.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17748EB2283E4FB003D8CD1 /* HistoryMsg.swift */; };
+		E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17748ED2284229B003D8CD1 /* GuideListTableViewCell.swift */; };
+		E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17748EE2284229B003D8CD1 /* GuideListTableViewCell.xib */; };
+		E17748F3228422BE003D8CD1 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17748F1228422BE003D8CD1 /* GuideViewController.swift */; };
+		E17748F4228422BE003D8CD1 /* GuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17748F2228422BE003D8CD1 /* GuideViewController.xib */; };
+		E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17748F722842628003D8CD1 /* ClaimRewardAllCell.xib */; };
+		E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17748FC22842689003D8CD1 /* AllValidatorCell.xib */; };
+		E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E177490322842724003D8CD1 /* MyValidatorCell.xib */; };
+		E1774908228523C5003D8CD1 /* GuideDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1774906228523C5003D8CD1 /* GuideDetailViewController.swift */; };
+		E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1774907228523C5003D8CD1 /* GuideDetailViewController.xib */; };
 		E1827E112254C92900BC0350 /* WalletDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E0F2254C92900BC0350 /* WalletDetailViewController.swift */; };
 		E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */; };
 		E1827E18225620D000BC0350 /* VaidatorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */; };
@@ -136,7 +143,6 @@
 		E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DED2244DE680097CAEE /* MyValidatorViewController.swift */; };
 		E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DEF2244E0BD0097CAEE /* AllValidatorViewController.swift */; };
 		E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */; };
-		E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */; };
 		E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF62244FA750097CAEE /* UIColor.swift */; };
 		E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDBC07225C705000810D2E /* MsgGenerator.swift */; };
 		E1BDBC0A225C9BE100810D2E /* Amino.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDBC09225C9BE100810D2E /* Amino.swift */; };
@@ -205,9 +211,7 @@
 		E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathViewController.swift; sourceTree = "<group>"; };
 		E14F7FB4227ADAA300FDDC75 /* QRScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanViewController.swift; sourceTree = "<group>"; };
 		E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyValidatorCell.swift; sourceTree = "<group>"; };
-		E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyValidatorCell.xib; sourceTree = "<group>"; };
 		E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRewardAllCell.swift; sourceTree = "<group>"; };
-		E151B631224533DC0026B8C0 /* ClaimRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClaimRewardAllCell.xib; sourceTree = "<group>"; };
 		E151B634224533F90026B8C0 /* PromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionCell.swift; sourceTree = "<group>"; };
 		E151B635224533F90026B8C0 /* PromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromotionCell.xib; sourceTree = "<group>"; };
 		E151B638224626990026B8C0 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
@@ -250,6 +254,18 @@
 		E17748E72283D0F4003D8CD1 /* GuideCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideCategory.swift; sourceTree = "<group>"; };
 		E17748E92283E4CE003D8CD1 /* HistoryStdTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStdTx.swift; sourceTree = "<group>"; };
 		E17748EB2283E4FB003D8CD1 /* HistoryMsg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMsg.swift; sourceTree = "<group>"; };
+		E17748ED2284229B003D8CD1 /* GuideListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideListTableViewCell.swift; sourceTree = "<group>"; };
+		E17748EE2284229B003D8CD1 /* GuideListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideListTableViewCell.xib; sourceTree = "<group>"; };
+		E17748F1228422BE003D8CD1 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		E17748F2228422BE003D8CD1 /* GuideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideViewController.xib; sourceTree = "<group>"; };
+		E17748F622842628003D8CD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ClaimRewardAllCell.xib; sourceTree = "<group>"; };
+		E17748F92284263F003D8CD1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/ClaimRewardAllCell.strings; sourceTree = "<group>"; };
+		E17748FB22842689003D8CD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AllValidatorCell.xib; sourceTree = "<group>"; };
+		E1774900228426DC003D8CD1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/AllValidatorCell.strings; sourceTree = "<group>"; };
+		E177490222842724003D8CD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MyValidatorCell.xib; sourceTree = "<group>"; };
+		E177490522842737003D8CD1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MyValidatorCell.strings; sourceTree = "<group>"; };
+		E1774906228523C5003D8CD1 /* GuideDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDetailViewController.swift; sourceTree = "<group>"; };
+		E1774907228523C5003D8CD1 /* GuideDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideDetailViewController.xib; sourceTree = "<group>"; };
 		E1827E0F2254C92900BC0350 /* WalletDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewController.swift; sourceTree = "<group>"; };
 		E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCheckViewController.swift; sourceTree = "<group>"; };
 		E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaidatorDetailViewController.swift; sourceTree = "<group>"; };
@@ -301,7 +317,6 @@
 		E1A82DED2244DE680097CAEE /* MyValidatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyValidatorViewController.swift; sourceTree = "<group>"; };
 		E1A82DEF2244E0BD0097CAEE /* AllValidatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllValidatorViewController.swift; sourceTree = "<group>"; };
 		E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllValidatorCell.swift; sourceTree = "<group>"; };
-		E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllValidatorCell.xib; sourceTree = "<group>"; };
 		E1A82DF62244FA750097CAEE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E1BDBC07225C705000810D2E /* MsgGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgGenerator.swift; sourceTree = "<group>"; };
 		E1BDBC09225C9BE100810D2E /* Amino.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amino.swift; sourceTree = "<group>"; };
@@ -370,6 +385,10 @@
 				E103DAD022813248006C2146 /* WalletDetailViewController.xib */,
 				E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */,
 				E103DAD5228143D0006C2146 /* WalletCheckViewController.xib */,
+				E17748F1228422BE003D8CD1 /* GuideViewController.swift */,
+				E17748F2228422BE003D8CD1 /* GuideViewController.xib */,
+				E1774906228523C5003D8CD1 /* GuideDetailViewController.swift */,
+				E1774907228523C5003D8CD1 /* GuideDetailViewController.xib */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -573,9 +592,9 @@
 				E12D6B82226DD32A00D07CE4 /* StakeStdTx.swift */,
 				E12D6B84226DD45200D07CE4 /* StakePostTx.swift */,
 				E12D6B86226DDE2700D07CE4 /* StakeTxInfo.swift */,
-				E17748E72283D0F4003D8CD1 /* GuideCategory.swift */,
 				E17748E92283E4CE003D8CD1 /* HistoryStdTx.swift */,
 				E17748EB2283E4FB003D8CD1 /* HistoryMsg.swift */,
+				E17748E72283D0F4003D8CD1 /* GuideCategory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -599,11 +618,11 @@
 			isa = PBXGroup;
 			children = (
 				E1A82DF22244EC440097CAEE /* AllValidatorCell.swift */,
-				E1A82DF32244EC440097CAEE /* AllValidatorCell.xib */,
+				E17748FC22842689003D8CD1 /* AllValidatorCell.xib */,
 				E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */,
-				E151B62D2245248C0026B8C0 /* MyValidatorCell.xib */,
+				E177490322842724003D8CD1 /* MyValidatorCell.xib */,
 				E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */,
-				E151B631224533DC0026B8C0 /* ClaimRewardAllCell.xib */,
+				E17748F722842628003D8CD1 /* ClaimRewardAllCell.xib */,
 				E151B634224533F90026B8C0 /* PromotionCell.swift */,
 				E151B635224533F90026B8C0 /* PromotionCell.xib */,
 				E151B63A22467E520026B8C0 /* HistoryCell.swift */,
@@ -630,6 +649,8 @@
 				E103DAAC2281274A006C2146 /* ValidatorDetailHistoryHeader.xib */,
 				E1827E2D225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift */,
 				E103DAB122812773006C2146 /* ValidatorDetailHistoryEmpty.xib */,
+				E17748ED2284229B003D8CD1 /* GuideListTableViewCell.swift */,
+				E17748EE2284229B003D8CD1 /* GuideListTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -704,18 +725,21 @@
 				E103DAC02281296E006C2146 /* QRScanViewController.xib in Resources */,
 				E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
+				E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */,
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
+				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */,
 				E103DACE22813248006C2146 /* WalletDetailViewController.xib in Resources */,
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
 				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
-				E1A82DF52244EC440097CAEE /* AllValidatorCell.xib in Resources */,
+				E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */,
 				E103DAC9228129FD006C2146 /* WalletManageViewController.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
-				E151B633224533DC0026B8C0 /* ClaimRewardAllCell.xib in Resources */,
+				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
+				E17748F4228422BE003D8CD1 /* GuideViewController.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
@@ -724,7 +748,7 @@
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
 				E103DADE22814802006C2146 /* Init.storyboard in Resources */,
 				E103DAE322814DFC006C2146 /* GenTx.storyboard in Resources */,
-				E151B62F2245248C0026B8C0 /* MyValidatorCell.xib in Resources */,
+				E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */,
 				E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -831,6 +855,7 @@
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
 				E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */,
+				E1774908228523C5003D8CD1 /* GuideDetailViewController.swift in Sources */,
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
@@ -876,6 +901,7 @@
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
 				E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */,
+				E17748F3228422BE003D8CD1 /* GuideViewController.swift in Sources */,
 				E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */,
 				E1827E212256292900BC0350 /* ValidatorDetailMyActionCell.swift in Sources */,
 				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
@@ -901,6 +927,7 @@
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
 				E1945E4C222E81C200A1436F /* MainTabVoteViewController.swift in Sources */,
+				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
 				E12D6B87226DDE2700D07CE4 /* StakeTxInfo.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
 				E151B651224867D60026B8C0 /* Proposal.swift in Sources */,
@@ -1022,6 +1049,33 @@
 				E1F2AE4B227E865D00C87F3F /* ko */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		E17748F722842628003D8CD1 /* ClaimRewardAllCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E17748F622842628003D8CD1 /* Base */,
+				E17748F92284263F003D8CD1 /* ko */,
+			);
+			name = ClaimRewardAllCell.xib;
+			sourceTree = "<group>";
+		};
+		E17748FC22842689003D8CD1 /* AllValidatorCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E17748FB22842689003D8CD1 /* Base */,
+				E1774900228426DC003D8CD1 /* ko */,
+			);
+			name = AllValidatorCell.xib;
+			sourceTree = "<group>";
+		};
+		E177490322842724003D8CD1 /* MyValidatorCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E177490222842724003D8CD1 /* Base */,
+				E177490522842737003D8CD1 /* ko */,
+			);
+			name = MyValidatorCell.xib;
 			sourceTree = "<group>";
 		};
 		E1945E2B222E7C0600A1436F /* Main.storyboard */ = {

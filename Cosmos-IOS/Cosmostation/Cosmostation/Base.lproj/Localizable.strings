@@ -86,6 +86,7 @@
 "title_undelegate" = "Undelegate From";
 "title_reward" = "Claim Reward From";
 "title_send" = "Send";
+"title_guide" = "Guide";
 
 "error_password_fail" = "Password is not same. Please init password again!";
 "error_no_clipboard" = "No text from clipboard.";
@@ -131,3 +132,70 @@
 
 
 "date_format" = "MMM d, yyyy HH:mm:ss";
+
+
+"guide_category_0" = "Cosmos";
+"guide_category_1" = "Wallet";
+"guide_category_2" = "Reward";
+"guide_category_3" = "Transaction";
+"guide_category_4" = "Vote";
+"guide_category_5" = "General";
+"guide_category_6" = "TroubleShooting";
+
+
+"guide_title_cosmos_0" = "What is Tendermint?";
+"guide_title_cosmos_1" = "What is IBC?";
+"guide_title_cosmos_2" = "What is the Cosmos Hub?";
+"guide_msg_cosmos_0" = "Before Tendermint, building a blockchain required building all three layers of a blockchain(networking, consensus, application) from the ground up. It was a difficult task, so most developers preferred forking the Bitcoin codebase, thereby being constrained by the limitations of the Bitcoin protocol.\n\nEthereum introduced a virtual machine based on smart contract, simplifying the development of decentralized applications. However, Go-Ethereum remained a very monolithic tech stack difficult to hard-fork from. That is where Tendermint came in.\n\nThe goal of Tendermint is to provide the networking and consensus layers of a blockchain as a generic engine on which arbitrary applications can be built. With Tendermint, developers can save hundreds of hours of development work.";
+"guide_msg_cosmos_1" = "Blockchains developed with Tendermint engine have the potential to be connected to each other easily because they share the same networking and consensus stack.\n\nThis means that blockchains with different applications and validator sets are interoperable. This is a very important feat, as it gives maximum flexibility to each blockchain.\n\nThe principle behind IBC is fairly simple. Let’s take an example where an account on chain A wants to send 10 tokens X on chain B. First, these tokens are locked on chain A. Then, a proof that these 10 tokens X are locked is relayed from chain A to chain B. Chain B tracks the validator set of chain A. If the proof is signed by more than 2/3rd of chain A’s validators, then it is valid, and 10 tokens X are created on chain B.";
+"guide_msg_cosmos_2" = "Cosmos proposes a modular architecture with two classes of blockchain: Hubs and Zones. Hubs are blockchains specifically used to connect Zones together.\n\nWhen a Zone creates an IBC connection with a Hub, it can automatically access every other Zone that is connected to it. Each Zone only needs to establish a limited number of connections with restricted sets of Hubs.\n\nHubs also prevent double spend among Zones. This means that when a Zone receives a token from a Hub, it needs to only trust the origin Zone of this token and the Hub.";
+
+"guide_title_wallet_0" = "How can I add a wallet to the Cosmostation application?";
+"guide_title_wallet_1" = "What is a mnemonic phrase?";
+"guide_title_wallet_2" = "Where are my Mnemonics stored?";
+"guide_title_wallet_3" = "Sending & Receiving Atoms";
+"guide_title_wallet_4" = "I want to back up my Mnemonics. What should I do?";
+"guide_msg_wallet_0" = "[Creating a new wallet]\n1. Start the Cosmostation Wallet application\n2. Create\n\n[Creating a new wallet]\n1. Start the Cosmostation Wallet application\n2. Create > Show Mnemonic > Enter PIN > Store and verify your 24 word Mnemonics > Choose wallet and register > Complete\n\n[Restoring a wallet - Mnemonics]\n1. Start the Cosmostation Wallet application\n2. Import Mnemonics > Enter Mnemonics and verify (12/16/ 24 words) > Select Wallet > Enter PIN & register > Complete\n[Restoring a wallet - Address]\n1. Start the Cosmostation Wallet application\n2. Watch Address > Enter Wallet Address / Public key > Select Wallet > Enter PIN & register > Complete\n* When you restore a wallet with an Address, you can only watch the wallet. Please enter and verify your mnemonics in order to withdraw, delegate, vote, and make transactions";
+"guide_msg_wallet_1" = "A mnemonic phrase is a list of words required to import or restore your wallet. With a single mnemonic phrase, you can import multiple wallets. Losing your mnemonic phrase could lead to loss of your funds.";
+"guide_msg_wallet_2" = "Your mnemonics are stored locally with strong encryption. Mnemonics are stored with high security in order to protect your private information.";
+"guide_msg_wallet_3" = "[Send]\nChoose your “Wallet” and check your balance.\nTap the Send button in the right corner to go to the withdrawal page. Enter amount, memo, and transaction fee. You can set transaction fees to  Low, Average, High. The higher your transaction fee, the higher priority your transactions will have.\n\n[Receive]\nTap the QR code icon next to your wallet address. You can receive coins with the address and the QR code provided.";
+"guide_msg_wallet_4" = "Settings > Select wallet and Tap the “back up” confirmation button. You will be able to check your mnemonics after PIN confirmation.\n\n* Exposing your Mnemonics could lead to loss of your funds. We strongly recommend keeping your Mnemonics offline, and make sure that no one else but you have access to it.";
+
+"guide_title_reward_0" = "What is a delegator?";
+"guide_title_reward_1" = "What is a validator?";
+"guide_title_reward_2" = "What is the difference between Fee and Commission?";
+"guide_title_reward_3" = "How do I claim my rewards?";
+"guide_title_reward_4" = "What is undelegation?";
+"guide_title_reward_5" = "Risks";
+"guide_msg_reward_0" = "Delegators are Atom holders who cannot run validator operations themselves. Through Cosmostation Wallet, users can delegate Atoms to a validator and obtain a part of its revenue in exchange.\n\nValidators can charge a specific amount of commission in exchange for operating validator nodes for delegators.\n\nIn order to become a delegator, you must delegate Atoms to Validators. You can view Validator lists in the “reward” tab in Cosmostation Wallet.";
+"guide_msg_reward_1" = "A validator is a Cosmos Hub node operator with sufficient voting power. A validator is responsible for maintaining a stable node operation as well as actively participating in the governance process—in return, a validator receives rewards for this responsibility.\n\nThe Cosmos Hub is a blockchain based on Tendermint. Every block, each validator is given the opportunity to propose. There are initially a batch of 100 validators from Mainnet launch. This number is increased 13% yearly for the next 10 years, with a final cap of 300 validators.\n\nAnyone wiling to operate a node can become a Cosmos Hub validator. If the number of validators is higher than the maximum capacity, validators with the most voting power(amount of a validator’s self-bonded ATOM combined with the amount of ATOM delegated to a validator) gets the priority to become included in the validator set.";
+"guide_msg_reward_2" = "Fee is the transaction fee required to make a transaction.\n\nCommission refers to the fee a delegator pays to a validator in return for operating a validator node and helping non-validators stake on their behalf. This validator commission could differ from each validator.";
+"guide_msg_reward_3" = "As soon as you delegate Atoms to a Validator, you will start accumulating staking rewards. In order to claim your reward, click “Claim reward” or “Claim all” in the “Reward” tab.\n\nYou can designate an address you wish you receive your rewards in.";
+"guide_msg_reward_4" = "If you wish to undelegate all Atoms or a portion of your delegation from a Validator, you must “unbond transaction.“ You will be able to have access to your Atoms 3 weeks after you request “unbond transaction.“\n\nIn order to undelegated, go to the “Rewards” tab, choose the Validator you wish to undelegated from, and press “Undelegate.”";
+"guide_msg_reward_5" = "There are some risks in staking Atoms. First of all, staked Atoms have an unbonding period of 3 weeks—you will not have access to your “unbonding” Atoms in that period.\n\nAlso, depending on how the Validator operation is going, a portion your staked Atoms can become “slashed.” There are three conditions in which your Atoms can get slashed: 1) Double signing 2) Inactive Validator 3) No-vote.\n\nAtom holders must to their due diligence before choosing a Validator to delegate to. You must also monitor the activities of each validator. If a Validator is often offline or behaves suspiciously, you can unbond from the Validator or choose a different Validator to redelegate to. You can also mitigate you risks by distributing your Atoms to multiple Validators.";
+
+"guide_title_transaction_0" = "Transaction types";
+"guide_msg_transaction_0" = "[Send]\n1. Send : Sending tokens\n2. MultiSend : N:N, 1:N, N:1 Sending to or receiving from multiple addresses in one transaction.\n\n[Distribution]\n1. get rewards : Claiming rewards\n2. getCommission : Distribution of validator commission\n3. editAddress : Changing the reward deposit address\n\n[Vote]\n1. MsgSubmitProposal : Submitting a proposal\n2. MsgDeposit : Depositing ATOM\n3. MsgVote : Voting for a proposal\n4. TextProposal : All the proposals that do not involve a modification of the source code go under this type.\n\n[Slashing]\n1. MsgUnjail : Requeset to be unjailed from revoked status\n\n[Delegation]\n1. MsgCreateValidator : Creating a validator\n2. MsgEditValidator : Editing validator information\n3. MsgDelegate : Delegation\n4. Undelegate : Undelegation\n5. BeginRedelegate : Redelegation to a different validator";
+
+"guide_title_vote_0" = "How does governance work?";
+"guide_title_vote_1" = "What is voting deposit?";
+"guide_msg_vote_0" = "1. Deposit period\n- Minimum 512 ATOM must be deposited within a 2 week period after the governance has been proposed in order for the vote to begin.\n2. Voting period\n- Voting lasts for 2 weeks(336 hours) and ATOM holders can vote on the proposal(Yes/No/No with veto/Abstain).\n- Voting is available only for bonded tokens.\n- The larger the amount of bonded tokens, the larger the voting power.\n3. Results\n- The results of the vote must meet the following requirements in order to pass.\n- Minimum 40% of bonded tokens must have participated in the governance proposal.\n- Yes : More than 50% of voting power must have voted ‘Yes.’\n- No : More than 33.4% of voting power must have voted as ‘No.’\n4. Proposal results\n- Results of the proposal and proposed change is done by the network.";
+"guide_msg_vote_1" = "Minimum 512 ATOM must be deposited to the proposal in order for the vote to begin. If the proposal hasn't reached its minimum deposit within 2 weeks, your ATOM will be returned.";
+
+"guide_title_general_0" = "Can I change my PIN?";
+"guide_title_general_1" = "I want a different base currency.";
+"guide_title_general_2" = "Where can I find my mnemonic phrase?";
+"guide_title_general_3" = "Caution when backing up mnemonic phrase";
+"guide_title_general_4" = "Do I have to lock my phone?";
+"guide_title_general_5" = "Can I connect through a different device?";
+"guide_msg_general_0" = "No, you cannot change your PIN. \nPIN is required for withdrawal and other services on the application, so never lose your PIN.";
+"guide_msg_general_1" = "Cosmostation wallet currently supports KRW(\), USD($).\nYou can change the currency in Settings > Currency Settings, and we will continuously add new currencies.";
+"guide_msg_general_2" = "Go to Settings > Manage Wallet to select the wallet you wish to view the mnemonic phrase for. Press [Check mnemonic phrase].\n*This is only available for wallets you have registered a mnemonic phrase for.\n*You cannot view mnemonics for a wallet you have registered as observer mode.";
+"guide_msg_general_3" = "When you back up your mnemonic phrase using [Mnemonic phrase backup] > Copy, your phrase is in your clipboard. Losing your mnemonic phrase could lead to loss of your funds. Please remember to delete your seed phrase saved in your clipboard.";
+"guide_msg_general_4" = "Locking your phone is highly suggested. For iPhone, the keystore technology automatically encryptes your data./ However, locking your phone in highly recommened in order to achieve higher level of security.";
+"guide_msg_general_5" = "Yes, you can either create a new wallet or import an existing wallet on a different device.\n\n* Using multiple devices could lead to exposure of your Mnemonics. Make sure not to expose your Mnemonics to anyone else.";
+
+"guide_title_trouble_0" = "Bug report and inquiries";
+"guide_title_trouble_1" = "I lost my PIN. What should I do?";
+"guide_msg_trouble_0" = "Please feedback us in Settings > Telegram or inquiries. We are always open for feedback.";
+"guide_msg_trouble_1" = "You cannot restore your PIN.\nIf you lose your PIN and cannot open the application, you must delete and re-install the application. Re-install the application and restore your wallet.";

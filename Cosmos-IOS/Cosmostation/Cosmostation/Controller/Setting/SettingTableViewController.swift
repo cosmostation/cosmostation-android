@@ -41,6 +41,12 @@ class SettingTableViewController: UITableViewController {
             
         } else if (indexPath.section == 2) {
             if(indexPath.row == 0) {
+                let guideVC = GuideViewController(nibName: "GuideViewController", bundle: nil)
+                guideVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(guideVC, animated: true)
+                
+            } else if(indexPath.row == 1) {
                 let url = URL(string: "tg://resolve?domain=cosmostation")
                 if(UIApplication.shared.canOpenURL(url!))
                 {
@@ -62,12 +68,12 @@ class SettingTableViewController: UITableViewController {
                     self.present(alert, animated: true, completion: nil)
                 }
                 
-            } else if(indexPath.row == 1) {
+            } else if(indexPath.row == 2) {
                 guard let url = URL(string: "https://www.mintscan.io") else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 present(safariViewController, animated: true, completion: nil)
                 
-            } else if(indexPath.row == 2) {
+            } else if(indexPath.row == 3) {
                 guard let url = URL(string: "https://www.cosmostation.io") else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 present(safariViewController, animated: true, completion: nil)

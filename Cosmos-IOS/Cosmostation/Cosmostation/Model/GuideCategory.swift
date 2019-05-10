@@ -12,6 +12,7 @@ public struct GuideCategory {
     var expended:Bool = false
     var category:String?
     var titles: Array<String> = Array<String>()
+    var details: Array<String> = Array<String>()
     
     init() {}
 }

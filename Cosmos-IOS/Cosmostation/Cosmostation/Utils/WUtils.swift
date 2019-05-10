@@ -379,6 +379,90 @@ class WUtils {
     }
     
     
+    static func getGuideList() -> Array<GuideCategory> {
+        var result = Array<GuideCategory>()
+        var cg_cosmos = GuideCategory.init()
+        cg_cosmos.category = NSLocalizedString("guide_category_0", comment: "")
+        cg_cosmos.titles.append(NSLocalizedString("guide_title_cosmos_0", comment: ""))
+        cg_cosmos.titles.append(NSLocalizedString("guide_title_cosmos_1", comment: ""))
+        cg_cosmos.titles.append(NSLocalizedString("guide_title_cosmos_2", comment: ""))
+        cg_cosmos.details.append(NSLocalizedString("guide_msg_cosmos_0", comment: ""))
+        cg_cosmos.details.append(NSLocalizedString("guide_msg_cosmos_1", comment: ""))
+        cg_cosmos.details.append(NSLocalizedString("guide_msg_cosmos_2", comment: ""))
+        result.append(cg_cosmos)
+        
+        var cg_wallet = GuideCategory.init()
+        cg_wallet.category = NSLocalizedString("guide_category_1", comment: "")
+        cg_wallet.titles.append(NSLocalizedString("guide_title_wallet_0", comment: ""))
+        cg_wallet.titles.append(NSLocalizedString("guide_title_wallet_1", comment: ""))
+        cg_wallet.titles.append(NSLocalizedString("guide_title_wallet_2", comment: ""))
+        cg_wallet.titles.append(NSLocalizedString("guide_title_wallet_3", comment: ""))
+        cg_wallet.titles.append(NSLocalizedString("guide_title_wallet_4", comment: ""))
+        cg_wallet.details.append(NSLocalizedString("guide_msg_wallet_0", comment: ""))
+        cg_wallet.details.append(NSLocalizedString("guide_msg_wallet_1", comment: ""))
+        cg_wallet.details.append(NSLocalizedString("guide_msg_wallet_2", comment: ""))
+        cg_wallet.details.append(NSLocalizedString("guide_msg_wallet_3", comment: ""))
+        cg_wallet.details.append(NSLocalizedString("guide_msg_wallet_4", comment: ""))
+        result.append(cg_wallet)
+        
+        var cg_reward = GuideCategory.init()
+        cg_reward.category = NSLocalizedString("guide_category_2", comment: "")
+        cg_reward.titles.append(NSLocalizedString("guide_title_reward_0", comment: ""))
+        cg_reward.titles.append(NSLocalizedString("guide_title_reward_1", comment: ""))
+        cg_reward.titles.append(NSLocalizedString("guide_title_reward_2", comment: ""))
+        cg_reward.titles.append(NSLocalizedString("guide_title_reward_3", comment: ""))
+        cg_reward.titles.append(NSLocalizedString("guide_title_reward_4", comment: ""))
+        cg_reward.titles.append(NSLocalizedString("guide_title_reward_5", comment: ""))
+        cg_reward.details.append(NSLocalizedString("guide_msg_reward_0", comment: ""))
+        cg_reward.details.append(NSLocalizedString("guide_msg_reward_1", comment: ""))
+        cg_reward.details.append(NSLocalizedString("guide_msg_reward_2", comment: ""))
+        cg_reward.details.append(NSLocalizedString("guide_msg_reward_3", comment: ""))
+        cg_reward.details.append(NSLocalizedString("guide_msg_reward_4", comment: ""))
+        cg_reward.details.append(NSLocalizedString("guide_msg_reward_5", comment: ""))
+        result.append(cg_reward)
+        
+        var cg_tx = GuideCategory.init()
+        cg_tx.category = NSLocalizedString("guide_category_3", comment: "")
+        cg_tx.titles.append(NSLocalizedString("guide_title_transaction_0", comment: ""))
+        cg_tx.details.append(NSLocalizedString("guide_msg_transaction_0", comment: ""))
+        result.append(cg_tx)
+        
+        var cg_vote = GuideCategory.init()
+        cg_vote.category = NSLocalizedString("guide_category_4", comment: "")
+        cg_vote.titles.append(NSLocalizedString("guide_title_vote_0", comment: ""))
+        cg_vote.titles.append(NSLocalizedString("guide_title_vote_1", comment: ""))
+        cg_vote.details.append(NSLocalizedString("guide_msg_vote_0", comment: ""))
+        cg_vote.details.append(NSLocalizedString("guide_msg_vote_1", comment: ""))
+        result.append(cg_vote)
+        
+        var cg_general = GuideCategory.init()
+        cg_general.category = NSLocalizedString("guide_category_5", comment: "")
+        cg_general.titles.append(NSLocalizedString("guide_title_general_0", comment: ""))
+        cg_general.titles.append(NSLocalizedString("guide_title_general_1", comment: ""))
+        cg_general.titles.append(NSLocalizedString("guide_title_general_2", comment: ""))
+        cg_general.titles.append(NSLocalizedString("guide_title_general_3", comment: ""))
+        cg_general.titles.append(NSLocalizedString("guide_title_general_4", comment: ""))
+        cg_general.titles.append(NSLocalizedString("guide_title_general_5", comment: ""))
+        cg_general.details.append(NSLocalizedString("guide_msg_general_0", comment: ""))
+        cg_general.details.append(NSLocalizedString("guide_msg_general_1", comment: ""))
+        cg_general.details.append(NSLocalizedString("guide_msg_general_2", comment: ""))
+        cg_general.details.append(NSLocalizedString("guide_msg_general_3", comment: ""))
+        cg_general.details.append(NSLocalizedString("guide_msg_general_4", comment: ""))
+        cg_general.details.append(NSLocalizedString("guide_msg_general_5", comment: ""))
+        result.append(cg_general)
+        
+        var cg_trouble = GuideCategory.init()
+        cg_trouble.category = NSLocalizedString("guide_category_6", comment: "")
+        cg_trouble.titles.append(NSLocalizedString("guide_title_trouble_0", comment: ""))
+        cg_trouble.titles.append(NSLocalizedString("guide_title_trouble_1", comment: ""))
+        cg_trouble.details.append(NSLocalizedString("guide_msg_trouble_0", comment: ""))
+        cg_trouble.details.append(NSLocalizedString("guide_msg_trouble_1", comment: ""))
+        result.append(cg_trouble)
+        
+        return result;
+    }
+    
+    
     static func getChainName(_ type:String) -> String {
         if (type == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
             return "cosmoshub-2"
