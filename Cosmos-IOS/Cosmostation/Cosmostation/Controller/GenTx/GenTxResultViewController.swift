@@ -223,6 +223,8 @@ class GenTxResultViewController: BaseViewController {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
                             self.onFetchTx(txHash)
                         })
+                    } else {
+                        self.onStartMainTab()
                     }
                     return
                 }

@@ -109,7 +109,7 @@
 "error_no_telegram" = "Telegram not installed\nPlease install to continue.";
 "error_access_camera_title" = "Camera Access";
 "error_access_camera_msg" = "Request camera access for scan QR-code. Please provide camera access from settings.";
-"error_unbonding_count_over" = "Max undelegate count over";
+"error_unbonding_count_over" = "Exceeded maximum redelegation count";
 
 
 "alert_title_no_private_key" = "No Private Key";

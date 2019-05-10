@@ -27,7 +27,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("mValidator ", mValidator?.description.moniker)
+//        print("mValidator ", mValidator?.description.moniker)
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")

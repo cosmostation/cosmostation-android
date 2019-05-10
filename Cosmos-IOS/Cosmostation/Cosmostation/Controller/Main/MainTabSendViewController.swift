@@ -165,7 +165,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     func emptyFloatySelected(_ floaty: Floaty) {
-        print("onStartSend")
+//        print("onStartSend")
         if(!mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
         }
@@ -292,11 +292,11 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
     @IBAction func onClickGuide(_ sender: UIButton) {
         if(Locale.current.languageCode == "ko") {
-            guard let url = URL(string: "http://bit.ly/Cosmostation_Guide_KR") else { return }
+            guard let url = URL(string: "https://www.cosmostation.io/files/guide_KO.pdf") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         } else {
-            guard let url = URL(string: "http://bit.ly/Cosmostation_Guide_EN") else { return }
+            guard let url = URL(string: "https://www.cosmostation.io/files/guide_EN.pdf") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
