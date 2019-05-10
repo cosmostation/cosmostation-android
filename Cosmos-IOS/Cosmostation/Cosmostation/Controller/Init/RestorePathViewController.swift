@@ -175,7 +175,6 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
     func onOverrideAccount(_ address:String, _ inchain:String, _ path:String) {
 //        print("onOverrideAccount")
         self.showWaittingAlert()
-        self.showWaittingAlert()
         DispatchQueue.global().async {
             var resource: String = ""
             for word in self.userInputWords! {

@@ -68,10 +68,22 @@ class AlphabetViewController: UIViewController {
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.enbleButtons),
+                                               name: Notification.Name("unlockBtns"),
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.onRefreshKeyBoard),
                                                name: Notification.Name("KeyboardShuffle"),
                                                object: nil)
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("lockBtns"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("unlockBtns"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("KeyboardShuffle"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,14 +93,6 @@ class AlphabetViewController: UIViewController {
             self.AlphaBtns[i].isEnabled = true;
         }
     }
-//    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        print("AlphabetViewController  viewWillDisappear")
-//        for i in 0 ..< Char.count {
-//            self.AlphaBtns[i].isEnabled = false;
-//        }
-//    }
     
     @objc func onRefreshKeyBoard() {
         Char.shuffle()
@@ -108,9 +112,11 @@ class AlphabetViewController: UIViewController {
     }
     
     @objc func diableButtons() {
-        for i in 0 ..< Char.count {
-            self.self.AlphaBtns[i].isEnabled = false;
-        }
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    @objc func enbleButtons() {
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
 
 }

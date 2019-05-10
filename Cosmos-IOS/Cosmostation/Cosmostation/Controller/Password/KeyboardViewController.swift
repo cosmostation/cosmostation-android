@@ -25,12 +25,6 @@ class KeyboardViewController: UIPageViewController, UIPageViewControllerDelegate
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
-        
-//        for view in self.view.subviews {
-//            if let scrollView = view as? UIScrollView {
-//                scrollView.delegate = self
-//            }
-//        }
     }
 
     
@@ -52,24 +46,20 @@ class KeyboardViewController: UIPageViewController, UIPageViewControllerDelegate
         NotificationCenter.default.removeObserver(self, name: Notification.Name("KeyBoardPage"), object: nil)
     }
     
-//    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-//        print("pageViewController  finish")
-//    }
-//
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("scrollViewDidScroll")
-//    }
-    
     
     @objc func setViewControllerForce(_ notification: NSNotification) {
         if let page = notification.userInfo?["Page"] as? Int {
             if(page == 0) {
                 if let firstViewController = orderedViewControllers.first {
-                    setViewControllers([firstViewController], direction: .reverse, animated: true, completion: nil)
+                    setViewControllers([firstViewController], direction: .reverse, animated: true, completion: { (finished) -> Void in
+                        NotificationCenter.default.post(name: Notification.Name("unlockBtns"), object: nil, userInfo: nil)
+                    })
                 }
             } else {
                 if let secondController = orderedViewControllers.last {
-                    setViewControllers([secondController], direction: .forward, animated: true, completion: nil)
+                    setViewControllers([secondController], direction: .forward, animated: true, completion: { (finished) -> Void in
+                        NotificationCenter.default.post(name: Notification.Name("unlockBtns"), object: nil, userInfo: nil)
+                    })
                 }
             }
         }
