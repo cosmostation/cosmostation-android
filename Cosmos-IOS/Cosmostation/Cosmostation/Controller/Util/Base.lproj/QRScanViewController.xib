@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QRScanViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
                 <outlet property="BtnCancel" destination="w21-Vl-IGS" id="ZZ2-Cx-nf4"/>
+                <outlet property="scanGuide" destination="S3w-ig-01u" id="ZDw-ki-0u3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,14 +25,22 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="3A5-s1-uRf">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                 </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scanImg" translatesAutoresizingMaskIntoConstraints="NO" id="S3w-ig-01u">
+                    <rect key="frame" x="107" y="353" width="200" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="kOc-DQ-WpJ"/>
+                        <constraint firstAttribute="width" constant="200" id="lKQ-jD-oPP"/>
+                    </constraints>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w21-Vl-IGS">
                     <rect key="frame" x="16" y="796" width="382" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="uuc-QF-2Ug"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                     <state key="normal" title="Cancel">
-                        <color key="titleColor" red="0.95294117649999999" green="0.098039215690000001" blue="0.38823529410000002" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -41,7 +50,7 @@
                             <real key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -56,7 +65,9 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="w21-Vl-IGS" secondAttribute="bottom" constant="16" id="bLg-tf-4kN"/>
                 <constraint firstAttribute="top" secondItem="3A5-s1-uRf" secondAttribute="top" id="bj5-gq-Le5"/>
                 <constraint firstAttribute="bottom" secondItem="3A5-s1-uRf" secondAttribute="bottom" id="e6V-eq-ROE"/>
+                <constraint firstItem="S3w-ig-01u" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="hrd-i0-xeX"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="w21-Vl-IGS" secondAttribute="trailing" constant="16" id="oo8-N4-lBh"/>
+                <constraint firstItem="S3w-ig-01u" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="sVX-Cx-wch"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3A5-s1-uRf" secondAttribute="trailing" id="zvL-c1-Cnl"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -64,5 +75,6 @@
     </objects>
     <resources>
         <image name="bg_01" width="807" height="1500"/>
+        <image name="scanImg" width="222" height="225"/>
     </resources>
 </document>

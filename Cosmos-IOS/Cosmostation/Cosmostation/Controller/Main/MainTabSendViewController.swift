@@ -288,4 +288,26 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    
+    @IBAction func onClickGuide(_ sender: UIButton) {
+        print("onClickGuide")
+        if(Locale.current.languageCode == "ko") {
+            guard let url = URL(string: "http://bit.ly/Cosmostation_Guide_KR") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        } else {
+            guard let url = URL(string: "http://bit.ly/Cosmostation_Guide_EN") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func onClickFaq(_ sender: UIButton) {
+        print("onClickFaq")
+        let guideVC = GuideViewController(nibName: "GuideViewController", bundle: nil)
+        guideVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(guideVC, animated: true)
+    }
 }

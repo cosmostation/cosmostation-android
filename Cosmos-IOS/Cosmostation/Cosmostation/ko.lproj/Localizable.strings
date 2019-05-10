@@ -68,6 +68,7 @@
 "share" = "공유";
 "cancel" = "취소";
 "ok" = "결정";
+"settings" = "설정";
 "warnning" = "경고";
 
 "only_USD" = "현재 USD만 지원합니다.";
@@ -105,6 +106,8 @@
 "error_not_enough_balance_to_send" = "현재 잔액이 적어 송금을 할 수 없습니다.";
 "error_wasting_fee" = "요청할 이자가 Tx 수수료 보다 낮습니다.\n수수료 낭비 입니다.";
 "error_no_telegram" = "텔레그렘이 설치되어있지 않습니다.\n다운로드후 사용가능합니다.";
+"error_access_camera_title" = "카메라 권한";
+"error_access_camera_msg" = "QR코드 스켄을 위해 카메라 접근을 허락해 주세요.";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";

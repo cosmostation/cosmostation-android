@@ -231,7 +231,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             return reward0.compare(reward1).rawValue > 0 ? true : false
         }
         
-        if(myBondedValidator.count > 17) {
+        if(myBondedValidator.count > 16) {
             toClaimValidator = Array(myBondedValidator[0..<16])
         } else {
             toClaimValidator = myBondedValidator

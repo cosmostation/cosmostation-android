@@ -81,9 +81,16 @@ class SettingTableViewController: UITableViewController {
             
         } else if (indexPath.section == 3) {
             if(indexPath.row == 0) {
-                guard let url = URL(string: "https://www.cosmostation.io/service_en.html") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                present(safariViewController, animated: true, completion: nil)
+                if(Locale.current.languageCode == "ko") {
+                    guard let url = URL(string: "https://www.cosmostation.io/service_ko.html") else { return }
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true, completion: nil)
+                } else {
+                    guard let url = URL(string: "https://www.cosmostation.io/service_en.html") else { return }
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true, completion: nil)
+                }
+                
                 
             } else if(indexPath.row == 1) {
                  onShowToast(NSLocalizedString("prepare", comment: ""))

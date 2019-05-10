@@ -70,6 +70,7 @@
 "share" = "Share";
 "cancel" = "Cancel";
 "ok" = "OK";
+"settings" = "Settings";
 "warnning" = "Warnning";
 
 "only_USD" = "now only support USD";
@@ -86,7 +87,7 @@
 "title_undelegate" = "Undelegate From";
 "title_reward" = "Claim Reward From";
 "title_send" = "Send";
-"title_guide" = "Guide";
+"title_guide" = "FAQ";
 
 "error_password_fail" = "Password is not same. Please init password again!";
 "error_no_clipboard" = "No text from clipboard.";
@@ -106,6 +107,8 @@
 "error_not_enough_balance_to_send" = "No enough balance for send.";
 "error_wasting_fee" = "Fee is bigger than reward. \nIt's waste coin!";
 "error_no_telegram" = "Telegram not installed\nPlease install to continue.";
+"error_access_camera_title" = "Camera Access";
+"error_access_camera_msg" = "Request camera access for scan QR-code. Please provide camera access from settings.";
 
 
 "alert_title_no_private_key" = "No Private Key";

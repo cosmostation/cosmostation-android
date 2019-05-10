@@ -17,6 +17,7 @@ class QRScanViewController: UIViewController {
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
     
+    @IBOutlet weak var scanGuide: UIImageView!
     @IBOutlet weak var BtnCancel: UIButton!
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                                       AVMetadataObject.ObjectType.code39,
@@ -55,6 +56,18 @@ class QRScanViewController: UIViewController {
             
         } catch {
             print(error)
+            let permissionAlert = UIAlertController(title: NSLocalizedString("error_access_camera_title", comment: ""), message: NSLocalizedString("error_access_camera_msg", comment: ""), preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: nil)
+            let settingAction = UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .default) { (action) in
+                guard let appSettingURl = URL(string: UIApplication.openSettingsURLString) else { return }
+                if UIApplication.shared.canOpenURL(appSettingURl) {
+                    UIApplication.shared.open(appSettingURl, options: [:], completionHandler: nil)
+                }
+            }
+            permissionAlert.addAction(cancelAction)
+            permissionAlert.addAction(settingAction)
+            present(permissionAlert, animated: true, completion: nil)
             return
         }
         
@@ -65,6 +78,7 @@ class QRScanViewController: UIViewController {
         
         captureSession.startRunning()
         
+        view.bringSubviewToFront(scanGuide)
         view.bringSubviewToFront(BtnCancel)
         
         qrCodeFrameView = UIView()

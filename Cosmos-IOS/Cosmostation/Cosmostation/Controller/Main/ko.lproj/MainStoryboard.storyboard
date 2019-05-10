@@ -38,7 +38,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Cosmos Hub)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZu-1u-gLc">
-                                        <rect key="frame" x="132.66666666666666" y="20.333333333333329" width="77.333333333333343" height="14"/>
+                                        <rect key="frame" x="132.66666666666666" y="20.333333333333329" width="77.666666666666657" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137254901957" green="0.49803921568627452" blue="0.53333333333333333" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -85,7 +85,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내 주소" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7XC-g0-Xht">
-                                                        <rect key="frame" x="38" y="16" width="43.333333333333343" height="18"/>
+                                                        <rect key="frame" x="38" y="15.999999999999998" width="43.333333333333343" height="17.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -155,7 +155,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSx-gp-M43">
-                                                        <rect key="frame" x="38" y="17" width="42" height="18"/>
+                                                        <rect key="frame" x="38" y="17.333333333333343" width="42" height="17.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                                         <color key="textColor" red="0.61176470588235299" green="0.42352941176470588" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -167,7 +167,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aW-UC-eKD">
-                                                        <rect key="frame" x="330.33333333333331" y="42.666666666666686" width="8.6666666666666856" height="16.333333333333329"/>
+                                                        <rect key="frame" x="329.66666666666669" y="42.666666666666686" width="9.3333333333333144" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -186,7 +186,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="위임된 수량" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YgY-IO-wcS">
-                                                        <rect key="frame" x="12" y="109.33333333333331" width="55" height="14"/>
+                                                        <rect key="frame" x="12.000000000000004" y="109.33333333333331" width="55.333333333333343" height="14"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -204,25 +204,25 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbe-cJ-v9G">
-                                                        <rect key="frame" x="330.33333333333331" y="82.333333333333314" width="8.6666666666666856" height="16.333333333333329"/>
+                                                        <rect key="frame" x="329.66666666666669" y="82.333333333333314" width="9.3333333333333144" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9j-9l-RZQ">
-                                                        <rect key="frame" x="330.33333333333331" y="108.33333333333331" width="8.6666666666666856" height="16.333333333333329"/>
+                                                        <rect key="frame" x="329.66666666666669" y="108.33333333333331" width="9.3333333333333144" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDe-0h-ItV">
-                                                        <rect key="frame" x="330.33333333333331" y="134.33333333333331" width="8.6666666666666856" height="16.333333333333343"/>
+                                                        <rect key="frame" x="329.66666666666669" y="134.33333333333331" width="9.3333333333333144" height="16.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgW-v4-VpK">
-                                                        <rect key="frame" x="330.33333333333331" y="160.33333333333331" width="8.6666666666666856" height="16.333333333333343"/>
+                                                        <rect key="frame" x="329.66666666666669" y="160.33333333333331" width="9.3333333333333144" height="16.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -287,25 +287,25 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GY0-NF-Fzj">
-                                                        <rect key="frame" x="334.33333333333331" y="10.666666666666686" width="4.6666666666666856" height="17"/>
+                                                        <rect key="frame" x="334.33333333333331" y="10.999999999999998" width="4.6666666666666856" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(CoinMarketCap)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6TF-Qv-8do">
-                                                        <rect key="frame" x="12" y="37" width="76.333333333333329" height="11"/>
+                                                        <rect key="frame" x="12" y="36.333333333333314" width="76.333333333333329" height="11.666666666666664"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
                                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBI-Ug-rT3">
-                                                        <rect key="frame" x="336" y="36.333333333333314" width="3" height="12.666666666666664"/>
+                                                        <rect key="frame" x="335.33333333333331" y="36" width="3.6666666666666856" height="12.666666666666664"/>
                                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="11"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priceDown" translatesAutoresizingMaskIntoConstraints="NO" id="d3y-e5-wLG">
-                                                        <rect key="frame" x="322" y="36.666666666666686" width="12" height="12"/>
+                                                        <rect key="frame" x="321.33333333333331" y="36.333333333333314" width="12" height="12"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="12" id="3mj-pg-nQZ"/>
                                                             <constraint firstAttribute="height" constant="12" id="ZT6-UD-eOv"/>
@@ -355,7 +355,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHOTON" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1h-kd-UJK">
-                                                        <rect key="frame" x="38" y="17" width="64" height="18"/>
+                                                        <rect key="frame" x="38" y="17.333333333333371" width="64" height="17.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                                         <color key="textColor" red="0.019607843137254902" green="0.82352941176470584" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -446,39 +446,87 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEB-3M-FxV" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                <rect key="frame" x="12" y="512" width="351" height="160"/>
+                                                <rect key="frame" x="12" y="512" width="351" height="145"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reward_img" translatesAutoresizingMaskIntoConstraints="NO" id="0NV-iC-Aok">
-                                                        <rect key="frame" x="133.66666666666666" y="16" width="84" height="63"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guideImg" translatesAutoresizingMaskIntoConstraints="NO" id="0NV-iC-Aok">
+                                                        <rect key="frame" x="16" y="16" width="84" height="63"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="84" id="AtB-ma-qsN"/>
                                                             <constraint firstAttribute="height" constant="63" id="UqS-eC-C6N"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;코스모스 네트워크를 탐험하세요&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ari-Ny-Pmt">
-                                                        <rect key="frame" x="65.666666666666671" y="87" width="227.66666666666663" height="20"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="코스모스 및 지갑 도움말" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ari-Ny-Pmt">
+                                                        <rect key="frame" x="104.00000000000001" y="24" width="161.33333333333337" height="19.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3T-mY-y4c">
-                                                        <rect key="frame" x="49.333333333333329" y="115.00000000000001" width="252.33333333333337" height="27.666666666666671"/>
-                                                        <string key="text">코스모스테이션과 스테이킹하고 이자를 지급받으세요!
-로컬사이닝을 통한 빠르고 안전한 거래를 제공합니다!</string>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3T-mY-y4c">
+                                                        <rect key="frame" x="103.99999999999999" y="47.666666666666629" width="227.66666666666663" height="27.666666666666671"/>
+                                                        <string key="text">코스모스와 코스모스테이션 지갑 이용 관련 
+궁금한 부분은 도움말에서 확인하실 수 있습니다.</string>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                         <color key="textColor" red="0.47843137254901957" green="0.49803921568627452" blue="0.53333333333333333" alpha="1" colorSpace="deviceRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0EB-Fa-Kmu">
+                                                        <rect key="frame" x="12" y="91" width="327" height="0.6666666666666714"/>
+                                                        <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="0.5" id="2ML-wY-2HN"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Js-a0-J7c">
+                                                        <rect key="frame" x="12" y="95.666666666666629" width="327" height="45"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WgA-Mm-SAd">
+                                                                <rect key="frame" x="0.0" y="0.0" width="159.66666666666666" height="45"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                                                <state key="normal" title="가이드">
+                                                                    <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="onClickGuide:" destination="e4x-hE-Zla" eventType="touchUpInside" id="klK-oJ-gYG"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixf-Q1-K0G">
+                                                                <rect key="frame" x="167.66666666666663" y="0.0" width="159.33333333333337" height="45"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                                                <state key="normal" title="도움말">
+                                                                    <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="onClickFaq:" destination="e4x-hE-Zla" eventType="touchUpInside" id="ONw-aU-BNk"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="45" id="YrU-j4-Ggf"/>
+                                                        </constraints>
+                                                    </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="0.1524507705" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstItem="ari-Ny-Pmt" firstAttribute="top" secondItem="0NV-iC-Aok" secondAttribute="bottom" constant="8" id="7V7-zo-4FF"/>
-                                                    <constraint firstItem="ari-Ny-Pmt" firstAttribute="centerX" secondItem="iEB-3M-FxV" secondAttribute="centerX" constant="4" id="BaV-LC-QtH"/>
-                                                    <constraint firstItem="0NV-iC-Aok" firstAttribute="centerX" secondItem="iEB-3M-FxV" secondAttribute="centerX" id="G3R-XB-Y8A"/>
-                                                    <constraint firstItem="x3T-mY-y4c" firstAttribute="centerX" secondItem="iEB-3M-FxV" secondAttribute="centerX" id="JaE-cm-9V5"/>
-                                                    <constraint firstItem="x3T-mY-y4c" firstAttribute="top" secondItem="ari-Ny-Pmt" secondAttribute="bottom" constant="8" id="QkQ-CE-pUk"/>
-                                                    <constraint firstItem="0NV-iC-Aok" firstAttribute="top" secondItem="iEB-3M-FxV" secondAttribute="top" constant="16" id="ThC-63-hpB"/>
-                                                    <constraint firstAttribute="height" constant="160" id="Wua-Hf-2Bu"/>
+                                                    <constraint firstItem="ari-Ny-Pmt" firstAttribute="top" secondItem="iEB-3M-FxV" secondAttribute="top" constant="24" id="6V9-k5-fhw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="8Js-a0-J7c" secondAttribute="trailing" constant="12" id="FNo-tu-hsF"/>
+                                                    <constraint firstItem="0NV-iC-Aok" firstAttribute="top" secondItem="iEB-3M-FxV" secondAttribute="top" constant="16" id="I5J-9A-oKT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="0EB-Fa-Kmu" secondAttribute="trailing" constant="12" id="IaS-Vm-2Mc"/>
+                                                    <constraint firstItem="0EB-Fa-Kmu" firstAttribute="leading" secondItem="iEB-3M-FxV" secondAttribute="leading" constant="12" id="NHM-CB-tRe"/>
+                                                    <constraint firstItem="0NV-iC-Aok" firstAttribute="leading" secondItem="iEB-3M-FxV" secondAttribute="leading" constant="16" id="Tnh-Jb-FF1"/>
+                                                    <constraint firstItem="x3T-mY-y4c" firstAttribute="top" secondItem="ari-Ny-Pmt" secondAttribute="bottom" constant="4" id="Tth-kH-nOC"/>
+                                                    <constraint firstAttribute="height" constant="145" id="Wua-Hf-2Bu"/>
+                                                    <constraint firstItem="8Js-a0-J7c" firstAttribute="top" secondItem="0EB-Fa-Kmu" secondAttribute="bottom" constant="4" id="aI9-hd-whv"/>
+                                                    <constraint firstItem="0EB-Fa-Kmu" firstAttribute="top" secondItem="0NV-iC-Aok" secondAttribute="bottom" constant="12" id="b9T-LG-FSa"/>
+                                                    <constraint firstItem="x3T-mY-y4c" firstAttribute="leading" secondItem="0NV-iC-Aok" secondAttribute="trailing" constant="4" id="dPx-Tw-QeD"/>
+                                                    <constraint firstItem="ari-Ny-Pmt" firstAttribute="leading" secondItem="0NV-iC-Aok" secondAttribute="trailing" constant="4" id="fdH-dR-nok"/>
+                                                    <constraint firstItem="8Js-a0-J7c" firstAttribute="leading" secondItem="iEB-3M-FxV" secondAttribute="leading" constant="12" id="mjs-xD-ZrG"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -1960,21 +2008,21 @@
                                         <rect key="frame" x="0.0" y="575.33333333333337" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2MO-ua-hRs" id="pmK-dl-V48">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDH-gK-oNp" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-N7-kva">
-                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="NgU-KH-xRT"/>
                                                                 <constraint firstAttribute="height" constant="24" id="Rp7-n2-dg8"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오픈소스 (Github)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Seb-qT-zPj">
-                                                            <rect key="frame" x="12" y="13.666666666666664" width="103" height="17"/>
+                                                            <rect key="frame" x="12" y="13.666666666666668" width="103" height="17"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -2020,7 +2068,7 @@
                                         <rect key="frame" x="0.0" y="619.33333333333337" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pmA-WH-bai" id="dhU-n3-suc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6s-so-uCp" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
@@ -2107,12 +2155,12 @@
         <image name="atom_ic" width="22" height="22"/>
         <image name="bg_01" width="807" height="1500"/>
         <image name="cosmosWhMain" width="42" height="42"/>
+        <image name="guideImg" width="63" height="63"/>
         <image name="key_on" width="20" height="20"/>
         <image name="photon_ic" width="22" height="22"/>
         <image name="priceDown" width="16" height="16"/>
         <image name="qrcodeIc" width="24" height="24"/>
         <image name="reward_ic" width="24" height="24"/>
-        <image name="reward_img" width="84.666664123535156" height="63"/>
         <image name="setting_ic" width="24" height="24"/>
         <image name="sortingBtn" width="24" height="24"/>
         <image name="ts_ic" width="24" height="24"/>
