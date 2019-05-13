@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.test.TestAdapter;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 
 public class MainSendFragment extends BaseFragment implements View.OnClickListener {
@@ -184,8 +185,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mPriceCard.setVisibility(View.VISIBLE);
 
         try {
-            BigDecimal total = new BigDecimal(""+mTvAtomTotal.getText().toString().trim().replace(",","")).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
-            mAtomPrice.setText("$ " +  WDp.getDolor(getContext(), total));
+            BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            BigDecimal totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000")).setScale(2, RoundingMode.DOWN);
+            mAtomPrice.setText("$ " +  WDp.getDolor(getContext(), totalPrice));
             mAtomPerPrice.setText("$ " + new BigDecimal(""+getBaseDao().getLastAtomTic()).setScale(2, RoundingMode.HALF_UP));
             mAtomUpDownPrice.setText("" + new BigDecimal(""+getBaseDao().getLastAtomUpDown()).setScale(2, RoundingMode.HALF_UP) + "% (24h)");
             if(getBaseDao().getLastAtomUpDown() > 0) {

@@ -202,7 +202,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                 ArrayList<String> newinsert = new ArrayList<>(Arrays.asList(userPaste.split("\\s+")));
                 for(int i = 0; i < mEtMnemonics.length; i++) {
                     if(newinsert.size() > i) {
-                        String toinsert = newinsert.get(i).replace(",","").replace(" ", "");
+                        String toinsert = newinsert.get(i).replace(" ", "");
                         mEtMnemonics[i].setText(toinsert);
                     }
                 }

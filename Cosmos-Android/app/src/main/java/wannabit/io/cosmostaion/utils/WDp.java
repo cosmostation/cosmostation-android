@@ -7,11 +7,13 @@ import android.text.style.RelativeSizeSpan;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -155,6 +157,25 @@ public class WDp {
             sum = sum.add(reward.getAtomAmount());
         }
         return getDpAmount(c, sum, 6, chain);
+    }
+
+    public static BigDecimal getAllAtom(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
+                sum = sum.add(balance.balance);
+            }
+        }
+        for(BondingState bonding : bondings) {
+            sum = sum.add(bonding.getBondingAtom(selectValidator(validators, bonding.validatorAddress)));
+        }
+        for(UnBondingState unbonding : unbondings) {
+            sum = sum.add(unbonding.balance);
+        }
+        for(Reward reward : rewards) {
+            sum = sum.add(reward.getAtomAmount());
+        }
+        return sum;
     }
 
     public static SpannableString getDpAllAtom2(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, TotalReward totalReward, ArrayList<Validator> validators, BaseChain chain) {
@@ -431,68 +452,69 @@ public class WDp {
 
 
     public static DecimalFormat getDecimalFormat(Context c, int cnt) {
-        DecimalFormat decimalformat = null;
+        NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
+        DecimalFormat decimalformat = (DecimalFormat)formatter;
         switch (cnt) {
             case 0:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_0));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_0));
                 break;
             case 1:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_1));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_1));
                 break;
             case 2:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_2));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_2));
                 break;
             case 3:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_3));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_3));
                 break;
             case 4:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_4));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_4));
                 break;
             case 5:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_5));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_5));
                 break;
             case 6:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_6));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_6));
                 break;
             case 7:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_7));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_7));
                 break;
             case 8:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_8));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_8));
                 break;
             case 9:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_9));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_9));
                 break;
             case 10:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_10));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_10));
                 break;
             case 11:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_11));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_11));
                 break;
             case 12:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_12));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_12));
                 break;
             case 13:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_13));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_13));
                 break;
             case 14:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_14));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_14));
                 break;
             case 15:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_15));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_15));
                 break;
             case 16:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_16));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_16));
                 break;
             case 17:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_17));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_17));
                 break;
             case 18:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_18));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_18));
                 break;
 
             default:
-                decimalformat = new DecimalFormat(c.getString(R.string.str_decimal_pattern_6));
+                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_6));
                 break;
         }
         return decimalformat;

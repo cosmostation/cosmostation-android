@@ -82,7 +82,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable et) {
-                String es = et.toString().replace(",","").trim();
+                String es = et.toString().trim();
                 if(es == null || es.length() == 0) {
                     mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                 } else if (es.startsWith(".")) {
@@ -150,7 +150,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             }
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().replace(",","").trim();
+            String es = mAmountInput.getText().toString().trim();
             if(es.length() > 0) {
                 existed = new BigDecimal(es);
             }
@@ -158,7 +158,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().replace(",","").trim();
+            String es = mAmountInput.getText().toString().trim();
             if(es.length() > 0) {
                 existed = new BigDecimal(es);
             }
@@ -166,7 +166,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().replace(",","").trim();
+            String es = mAmountInput.getText().toString().trim();
             if(es.length() > 0) {
                 existed = new BigDecimal(es);
             }
@@ -174,7 +174,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mAdd100)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().replace(",","").trim();
+            String es = mAmountInput.getText().toString().trim();
             if(es.length() > 0) {
                 existed = new BigDecimal(es);
             }
