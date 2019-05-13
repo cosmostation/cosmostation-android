@@ -177,7 +177,7 @@
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
                         style="@style/font_ss_12_white"
-                        android:text="@string/str_guide"/>
+                        android:text="@string/str_faq"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

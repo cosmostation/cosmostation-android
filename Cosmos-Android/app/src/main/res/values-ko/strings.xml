@@ -82,7 +82,8 @@
     <string name="str_currency">통화</string>
     <string name="str_base_price">가격 정보 출처</string>
     <string name="str_support">지원</string>
-    <string name="str_guide">도움말</string>
+    <string name="str_faq">도움말</string>
+    <string name="str_guide">가이드</string>
     <string name="str_telegram">텔레그램</string>
     <string name="str_explore">민트스캔 익스플로러</string>
     <string name="str_homepage">코스모스테이션</string>
@@ -173,6 +174,8 @@
     <string name="str_max_available_send_amount"><![CDATA[최대 송금 가능량 : ]]></string>
     <string name="str_tx_error_description">죄송합니다. 요청하신 전송이 실패하였습니다.\n아래에 보여지는 에러 코드와 메시지를 확인해 주세요.</string>
     <string name="str_success_loading">트랜잭션 전송에 성공하였습니다.\n전송 상세 내용을 불러오는 중입니다.\n조금만 기다려주세요.</string>
+    <string name="str_front_guide_title">코스모스 및 지갑 도움말</string>
+    <string name="str_front_guide_msg">코스모스와 코스모스테이션 지갑 이용 관련\n궁금한 부분은 도움말에서 확인하실 수 있습니다.</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -503,10 +506,10 @@ IBC의 작동 원리는 생각보다 간단합니다. 체인A의 어떤 계정�
  - Bonded 상태의 토큰으로만 참여할 수 있습니다.
  - Bonded 중인 토큰이 많을수록 영향력이 높습니다.
 3. 결과 집계
- - 투표 참여 결과를 집계하며 아래 사항을 만족해야합니다.
- - 투표 종료 시 총 위임수량 중 40% 이상이 표결에 참여해야 합니다.
+ - 투표 참여 결과를 집계하며 아래 사항을 모두 만족해야 합니다.
+ - 투표 종료 시 총 위임수량 중 40% (기권 포함)이상이 표결에 참여해야 하며 강력 반대가 33.4% (기권 제외) 이하여야 합니다.
  - 찬성 : 참여한 토큰 중 50% (기권 제외) 이상이 찬성에 투표해야 합니다.
- - 반대 : 참여한 토큰 중 33.4% (기권 제외) 이상이 반대에 투표해야 합니다.
+ - 반대 : 참여한 토큰 중 50% (기권 제외) 이상이 반대에 투표해야 합니다.
 4. 제안 구현
  - 통과된 제안은 검증인들의 네트워크에 의해 구현됩니다.]]></item>
         <item><![CDATA[제안서 제출 후 2주 이내에 최소 512 아톰이 보증금으로 예치되어야 합니다.  예치된 아톰은 제안서가 수락되거나, 2주 후에도 512 아톰에 도달하지 않았을 경우 돌려받을 수 있습니다.]]></item>

@@ -121,7 +121,7 @@ public class ValidatorMyFragment extends BaseFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
             if (getItemViewType(position) == TYPE_PROMOTION) {
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
@@ -157,11 +157,12 @@ public class ValidatorMyFragment extends BaseFragment {
                     }
                 });
                 holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
+                holder.itemAvatar.setTag("imgv" + position);
                 if(!TextUtils.isEmpty(validator.description.identity)) {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
-                            if(isAdded()) {
+                            if(isAdded()&& holder.itemAvatar.getTag().equals("imgv" + position)) {
                                 try {
                                     Picasso.get()
                                             .load(response.body().getUrl())

@@ -14,6 +14,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
@@ -132,8 +134,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnTerm)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_en.html"));
-            startActivity(intent);
+            if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_ko.html"));
+                startActivity(intent);
+            }  else {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_en.html"));
+                startActivity(intent);
+            }
 
         } else if (v.equals(mBtnGithub)) {
             Toast.makeText(getBaseActivity(), R.string.str_will_support_after_mainnet, Toast.LENGTH_SHORT).show();

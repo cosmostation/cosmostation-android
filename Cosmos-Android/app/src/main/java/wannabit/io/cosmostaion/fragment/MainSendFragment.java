@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
@@ -16,14 +17,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Locale;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.GuideListActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -55,6 +59,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     private TextView            mAtomPerPrice, mAtomUpDownPrice;
     private ImageView           matomUpDownImg;
+
+    private Button              mGuideBtn, mFaqBtn;
+
 
 
     public static MainSendFragment newInstance(Bundle bundle) {
@@ -98,6 +105,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         matomUpDownImg          = rootView.findViewById(R.id.ic_price_updown);
 
 
+        mGuideBtn               = rootView.findViewById(R.id.btn_guide);
+        mFaqBtn                 = rootView.findViewById(R.id.btn_faq);
 
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -128,6 +137,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         mBtnWebDetail.setOnClickListener(this);
         mBtnAddressDetail.setOnClickListener(this);
+        mGuideBtn.setOnClickListener(this);
+        mFaqBtn.setOnClickListener(this);
         onUpdateView();
         return rootView;
     }
@@ -229,6 +240,18 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             webintent.putExtra("address", getMainActivity().mAccount.address);
             webintent.putExtra("goMain", false);
             startActivity(webintent);
+
+        } else if (v.equals(mGuideBtn)) {
+            if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/guide_KO.pdf"));
+                startActivity(guideIntent);
+            } else {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/guide_EN.pdf"));
+                startActivity(guideIntent);
+            }
+
+        } else if (v.equals(mFaqBtn)) {
+            startActivity(new Intent(getBaseActivity(), GuideListActivity.class));
         }
     }
 }
