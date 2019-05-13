@@ -72,6 +72,8 @@ import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
+import wannabit.io.cosmostaion.task.FetchTask.UnbondedValidatorInfoTask;
+import wannabit.io.cosmostaion.task.FetchTask.UnbondingValidatorInfoTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -97,7 +99,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     public Account                     mAccount;
     private ArrayList<Account>         mAccounts = new ArrayList<>();
-    public ArrayList<Validator>        mAllValidators = new ArrayList<>();
+    public ArrayList<Validator>        mOtherValidators = new ArrayList<>();
+    public ArrayList<Validator>        mTopValidators = new ArrayList<>();
     public ArrayList<Validator>        mMyValidators = new ArrayList<>();
     public ArrayList<Validator>        mElseValidators = new ArrayList<>();
     public ArrayList<Balance>          mBalances = new ArrayList<>();
@@ -314,7 +317,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         ArrayList<Validator> myValidators = new ArrayList<>();
         ArrayList<Validator> toClaimValidators = new ArrayList<>();
-        for(Validator validator:mAllValidators) {
+        for(Validator validator:mTopValidators) {
             for(BondingState bond:mBondings) {
                 if(bond.validatorAddress.equals(validator.operator_address)) {
                     myValidators.add(validator);
@@ -477,9 +480,20 @@ public class MainActivity extends BaseActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_ALL_VALIDATOR) {
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
             if(temp != null) {
-                mAllValidators = temp;
+                mTopValidators = temp;
             }
             if(!result.isSuccess) { Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show(); }
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_VALIDATOR) {
+            ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
+            if(temp != null) {
+                mOtherValidators.addAll(temp);
+            }
+        } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDED_VALIDATOR) {
+            ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
+            if(temp != null) {
+                mOtherValidators.addAll(temp);
+            }
 
         } else if(result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
@@ -500,7 +514,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         if(mTaskCount == 0) {
             mMyValidators.clear();
             mElseValidators.clear();
-            for(Validator all:mAllValidators) {
+            for(Validator all:mTopValidators) {
                 boolean already = false;
                 for(BondingState bond:mBondings) {
                     if(bond.validatorAddress.equals(all.operator_address)) {
@@ -519,6 +533,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 else  mElseValidators.add(all);
             }
             onFetchCurrentPage();
+
+            WLog.w("mOtherValidators " + mOtherValidators.size());
         }
     }
 
@@ -702,10 +718,13 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     public boolean onFetchAccountInfo() {
         if(mTaskCount > 0) return false;
-        mTaskCount = 4;
+        mTaskCount = 6;
         ArrayList<Account> accounts = new ArrayList<Account>();
         accounts.add(mAccount);
+        mOtherValidators.clear();
         new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new AccountInfoTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new BondingStateTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new UnBondingStateTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

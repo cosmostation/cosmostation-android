@@ -69,8 +69,13 @@ public class MainRewardFragment extends BaseFragment {
 
         View tab1 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_validator, null);
         TextView            tabItemText1  = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setText(getString(R.string.str_all_validators)+ "(" + getMainActivity().mAllValidators.size() + ")");
+        tabItemText1.setText(getString(R.string.str_top_100_validators)+ "(" + getMainActivity().mTopValidators.size() + ")");
         mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
+
+        View tab2 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_validator, null);
+        TextView            tabItemText2  = tab2.findViewById(R.id.tabItemText);
+        tabItemText2.setText(getString(R.string.str_other_validators)+ "(" + getMainActivity().mOtherValidators.size() + ")");
+        mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
         mValidatorPager.setCurrentItem(0, false);
 
         mValidatorPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -103,7 +108,7 @@ public class MainRewardFragment extends BaseFragment {
             case R.id.menu_sorting :
                 if(mValidatorPager.getCurrentItem() == 1) {
                     onShowAllValidatorSort();
-                } else {
+                } else if(mValidatorPager.getCurrentItem() == 0){
                     onShowMyValidatorSort();
                 }
                 break;
@@ -130,7 +135,13 @@ public class MainRewardFragment extends BaseFragment {
         TabLayout.Tab tab1 = mValidatorTapLayer.getTabAt(1);
         View view1 = tab1.getCustomView();
         TextView tabItemText1 = view1.findViewById(R.id.tabItemText);
-        tabItemText1.setText(getString(R.string.str_all_validators)+ " (" + getMainActivity().mAllValidators.size() + ")");
+        tabItemText1.setText(getString(R.string.str_top_100_validators)+ " (" + getMainActivity().mTopValidators.size() + ")");
+
+        TabLayout.Tab tab2 = mValidatorTapLayer.getTabAt(2);
+        View view2 = tab2.getCustomView();
+        TextView tabItemText2 = view2.findViewById(R.id.tabItemText);
+        tabItemText2.setText(getString(R.string.str_other_validators)+ " (" + getMainActivity().mOtherValidators.size() + ")");
+
     }
 
     private void onShowAllValidatorSort() {
@@ -177,6 +188,7 @@ public class MainRewardFragment extends BaseFragment {
             mFragments.clear();
             mFragments.add(ValidatorMyFragment.newInstance(null));
             mFragments.add(ValidatorAllFragment.newInstance(null));
+            mFragments.add(ValidatorOtherFragment.newInstance(null));
         }
 
         @Override

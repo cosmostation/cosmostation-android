@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,25 +29,21 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_ValidatorSorting;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
-public class ValidatorAllFragment extends BaseFragment {
+public class ValidatorOtherFragment extends BaseFragment {
 
+    private SwipeRefreshLayout          mSwipeRefreshLayout;
+    private RecyclerView                mRecyclerView;
+    private OtherValidatorAdapter       mOtherValidatorAdapter;
 
-    private SwipeRefreshLayout      mSwipeRefreshLayout;
-    private RecyclerView            mRecyclerView;
-    private AllValidatorAdapter     mAllValidatorAdapter;
+    private ArrayList<Validator>        mOtherValidators = new ArrayList<>();
 
-    private ArrayList<Validator>        mMyValidators = new ArrayList<>();
-    private ArrayList<Validator>        mTopValidators = new ArrayList<>();
-
-    public static ValidatorAllFragment newInstance(Bundle bundle) {
-        ValidatorAllFragment fragment = new ValidatorAllFragment();
+    public static ValidatorOtherFragment newInstance(Bundle bundle) {
+        ValidatorOtherFragment fragment = new ValidatorOtherFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -61,7 +55,7 @@ public class ValidatorAllFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_validator_all, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_validator_other, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -76,8 +70,8 @@ public class ValidatorAllFragment extends BaseFragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mAllValidatorAdapter = new AllValidatorAdapter();
-        mRecyclerView.setAdapter(mAllValidatorAdapter);
+        mOtherValidatorAdapter = new OtherValidatorAdapter();
+        mRecyclerView.setAdapter(mOtherValidatorAdapter);
 
         return rootView;
     }
@@ -86,11 +80,9 @@ public class ValidatorAllFragment extends BaseFragment {
     @Override
     public void onRefreshTab() {
         if(!isAdded()) return;
-        mTopValidators  = getMainActivity().mTopValidators;
-        mMyValidators   = getMainActivity().mMyValidators;
-        onSortValidator();
-
-        mAllValidatorAdapter.notifyDataSetChanged();
+        mOtherValidators  = getMainActivity().mOtherValidators;
+        onSortingByAmount(mOtherValidators);
+        mOtherValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
@@ -99,19 +91,21 @@ public class ValidatorAllFragment extends BaseFragment {
     }
 
 
-    private class AllValidatorAdapter extends RecyclerView.Adapter<AllValidatorAdapter.AllValidatorHolder> {
+
+    private class OtherValidatorAdapter extends RecyclerView.Adapter<OtherValidatorAdapter.OtherValidatorHolder> {
 
 
         @NonNull
         @Override
-        public AllValidatorHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new AllValidatorHolder(getLayoutInflater().inflate(R.layout.item_reward_validator, viewGroup, false));
+        public OtherValidatorHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new OtherValidatorHolder(getLayoutInflater().inflate(R.layout.item_reward_validator, viewGroup, false));
 
         }
 
+
         @Override
-        public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
-            final Validator validator  = mTopValidators.get(position);
+        public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
+            final Validator validator  = mOtherValidators.get(position);
             holder.itemTvMoniker.setText(validator.description.moniker);
             holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
             holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
@@ -156,10 +150,10 @@ public class ValidatorAllFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            return mTopValidators.size();
+            return mOtherValidators.size();
         }
 
-        public class AllValidatorHolder extends RecyclerView.ViewHolder {
+        public class OtherValidatorHolder extends RecyclerView.ViewHolder {
             CardView        itemRoot;
             CircleImageView itemAvatar;
             ImageView       itemRevoked;
@@ -168,7 +162,7 @@ public class ValidatorAllFragment extends BaseFragment {
             TextView        itemTvVotingPower;
             TextView        itemTvCommission;
 
-            public AllValidatorHolder(@NonNull View itemView) {
+            public OtherValidatorHolder(@NonNull View itemView) {
                 super(itemView);
                 itemRoot            = itemView.findViewById(R.id.card_validator);
                 itemAvatar          = itemView.findViewById(R.id.avatar_validator);
@@ -181,36 +175,6 @@ public class ValidatorAllFragment extends BaseFragment {
         }
     }
 
-
-    public void onSortValidator() {
-        if(getBaseDao().getValSorting() == 2){
-            onSortingByCommission(mTopValidators);
-        } else if (getBaseDao().getValSorting() == 0){
-            onSortByName(mTopValidators);
-        } else {
-            onSortingByAmount(mTopValidators);
-        }
-    }
-
-    public void onSortByName(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
-                return o1.description.moniker.compareTo(o2.description.moniker);
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
     public void onSortingByAmount(ArrayList<Validator> validators) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
@@ -220,28 +184,6 @@ public class ValidatorAllFragment extends BaseFragment {
 
                 if (Long.parseLong(o1.tokens) > Long.parseLong(o2.tokens)) return -1;
                 else if (Long.parseLong(o1.tokens) < Long.parseLong(o2.tokens)) return 1;
-                else return 0;
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
-    public void onSortingByCommission(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
-
-                if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
-                else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
                 else return 0;
             }
         });

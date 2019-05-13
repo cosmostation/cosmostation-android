@@ -40,8 +40,14 @@ public interface WannabitChain {
     @GET("/blocks/{height}")
     Call<ResBlockInfo> getSearchBlock(@Path("height") String height);
 
-    @GET("/staking/validators")
+    @GET("/staking/validators?status=bonded")
     Call<ArrayList<Validator>> getValidatorDetailList();
+
+    @GET("/staking/validators?status=unbonding")
+    Call<ArrayList<Validator>> getUnBondingValidatorDetailList();
+
+    @GET("/staking/validators?status=unbonded")
+    Call<ArrayList<Validator>> getUnBondedValidatorDetailList();
 
     @GET("/staking/delegators/{address}/delegations")
     Call<ArrayList<ResLcdBondings>> getBondingList(@Path("address") String address);

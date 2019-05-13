@@ -232,6 +232,8 @@
     <string name="str_only_observe_title">관찰 모드 지갑</string>
     <string name="str_only_observe_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
     <string name="str_all_validators">모든 검증인</string>
+    <string name="str_top_100_validators">모든 검증인</string>
+    <string name="str_other_validators">기타 노드</string>
     <string name="str_my_validators">나의 검증인</string>
     <string name="str_withdraw_all">이자 모두 받기</string>
     <string name="str_delegated">위임된 수량</string>
