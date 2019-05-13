@@ -252,6 +252,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
         mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
         mAccountAdapter.notifyDataSetChanged();
+
         onUpdateTitle();
 
     }

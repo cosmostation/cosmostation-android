@@ -347,7 +347,7 @@
     <string name="tx_delegate">Delegate</string>
     <string name="tx_undelegate">Undelegate</string>
     <string name="tx_redelegate">Redelegate</string>
-    <string name="tx_get_reward">Get Reward</string>
+    <string name="tx_get_reward">Get Rewards</string>
     <string name="tx_get_commission">Get Commission</string>
     <string name="tx_change_reward_address">Edit Address</string>
     <string name="tx_vote">Vote</string>
@@ -589,7 +589,7 @@ Hubs also prevent double spend among Zones. This means that when a Zone receives
 1. Start the Cosmostation Wallet application
 2. Watch Address > Enter Wallet Address / Public key > Select Wallet > Enter PIN & register > Complete
 
-* When you restore a wallet with an Address, you can only watch the wallet. Please enter and verify your mnemonics in order to withdraw, delegate, vote, and make transacitons]]></item>
+* When you restore a wallet with an Address, you can only watch the wallet. Please enter and verify your mnemonics in order to withdraw, delegate, vote, and make transactions]]></item>
         <item><![CDATA[A mnemonic phrase is a list of words required to import or restore your wallet. With a single mnemonic phrase, you can import multiple wallets. Losing your mnemonic phrase could lead to loss of your funds.]]></item>
         <item><![CDATA[Your mnemonics are stored locally with strong encryption. Mnemonics are stored with high security in order to protect your private information.]]></item>
         <item><![CDATA[[Send]
@@ -636,7 +636,7 @@ Atom holders must to their due diligence before choosing a Validator to delegate
 2. MultiSend : N:N, 1:N, N:1 Sending to or receiving from multiple addresses in one transaction.
 
 [Distribution]
-1. get reward : Claiming rewards
+1. get rewards : Claiming rewards
 2. getCommission : Distribution of validator commission
 3. editAddress : Changing the reward deposit address
 
@@ -691,7 +691,7 @@ You can change the currency in Settings > Currency Settings, and we will continu
     </string-array>
 
     <string-array name="guide_detail_trouble">
-        <item><![CDATA[Please e-mail us in Settings > Telegram or inquiries. We are always open for feedback.]]></item>
+        <item><![CDATA[Please feedback us in Settings > Telegram or inquiries. We are always open for feedback.]]></item>
         <item><![CDATA[You cannot restore your PIN.
 If you lose your PIN and cannot open the application, you must delete and re-install the application. Re-install the application and restore your wallet.]]></item>
     </string-array>
