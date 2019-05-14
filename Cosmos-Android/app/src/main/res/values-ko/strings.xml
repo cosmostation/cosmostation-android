@@ -52,8 +52,11 @@
     <string name="str_remind_balance">Remaining balance</string>
     <string name="str_to_delegate_amount">위임 수량</string>
     <string name="str_to_undelegate_amount">위임 철회 수량</string>
+    <string name="str_to_redelegate_amount">재위임 수량</string>
     <string name="str_to_delegate_validator">위임할 검증인</string>
     <string name="str_from_undelegate_validator">위임 철회할 검증인</string>
+    <string name="str_from_redelegate_validator">기존 검증인</string>
+    <string name="str_to_redelegate_validator">재위임 할 검증인</string>
     <string name="str_undelegate_complete_time">철회 금액 전송 완료 시간</string>
     <string name="str_remind_delegate">Remind Delegate</string>
     <string name="str_reward_c">이자 청구</string>
@@ -277,7 +280,7 @@
     <string name="str_redelegation_limitted_msg">이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(21일 후) 이 검증인으로부터 재위임을 신청할 수 있습니다.</string>
     <string name="str_redelegation_warnning_title">경고</string>
     <string name="str_redelegation_warnning_msg">재위임을 받는 검증인은 21일동안 다시 재위임을 할 수 없습니다. 계속 진행 하시겠습니까?</string>
-    <string name="str_redelegation_description">위임을 받을 검증인으로부터 다시 재위임을 하는것은 21일간 불가능 합니다.</string>
+    <string name="str_redelegation_description">재위임을 받을 검증인에서\n다시 재위임을 하는것은 21일간 불가능 합니다.</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -325,11 +328,11 @@
     <string name="tx_receive">입금</string>
     <string name="tx_transfer">송금</string>
     <string name="tx_delegate">위임</string>
-    <string name="tx_undelegate">위임철회</string>
-    <string name="tx_redelegate">재 위임</string>
+    <string name="tx_undelegate">위임 철회</string>
+    <string name="tx_redelegate">재위임</string>
     <string name="tx_get_reward">이자 청구</string>
     <string name="tx_get_commission">수수료 청구</string>
-    <string name="tx_change_reward_address">이자 주소 변경</string>
+    <string name="tx_change_reward_address">이자주소 변경</string>
     <string name="tx_vote">투표</string>
     <string name="tx_submit_proposal">의제 제안</string>
     <string name="tx_deposit">디파짓</string>

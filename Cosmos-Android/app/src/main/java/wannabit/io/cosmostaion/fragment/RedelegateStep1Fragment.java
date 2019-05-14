@@ -43,7 +43,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
     private ToValidatorAdapter      mToValidatorAdapter;
     private ArrayList<Validator>    mToValidators = new ArrayList<>();
 
-    private String                  mCheckedValidator = "";
+    private Validator               mCheckedValidator = null;
 
     public static RedelegateStep1Fragment newInstance(Bundle bundle) {
         RedelegateStep1Fragment fragment = new RedelegateStep1Fragment();
@@ -83,10 +83,10 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(TextUtils.isEmpty(mCheckedValidator)) {
+            if(mCheckedValidator == null) {
                 Toast.makeText(getContext(), R.string.error_no_to_validator, Toast.LENGTH_SHORT).show();
             } else {
-                getSActivity().mReDelegateTo = mCheckedValidator;
+                getSActivity().mToValidator = mCheckedValidator;
                 getSActivity().onNextStep();
             }
         }
@@ -116,8 +116,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 @Override
                 public void onClick(View v) {
                     WLog.w("Click");
-//                    getMainActivity().onStartValidatorDetail(validator);
-                    mCheckedValidator = validator.operator_address;
+                    mCheckedValidator = validator;
                     notifyDataSetChanged();
                 }
             });
@@ -149,7 +148,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemRevoked.setVisibility(View.GONE);
             }
 
-            if(validator.operator_address.equals(mCheckedValidator)) {
+            if(mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                 holder.itemChecked.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_on));
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
@@ -158,15 +157,6 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemCheckedBorder.setVisibility(View.GONE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             }
-        }
-
-        private boolean checkIsMyValidator(ArrayList<Validator> userList, final String targetName){
-            return FluentIterable.from(userList).anyMatch(new Predicate<Validator>() {
-                @Override
-                public boolean apply(@Nullable Validator input) {
-                    return input.description.moniker.equals(targetName);
-                }
-            });
         }
 
         @Override

@@ -47,10 +47,9 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
 
     public ArrayList<Validator>         mToValidators = new ArrayList<>();
     public Account                      mAccount;
-    public Validator                    mValidator;
     public BondingState                 mBondingState;
-    public String                       mReDelegateFrom;
-    public String                       mReDelegateTo;
+    public Validator                    mFromValidator;
+    public Validator                    mToValidator;
     public Coin                         mReDelegateAmount;
     public String                       mReDelegateMemo;
     public Fee                          mReDelegateFee;
@@ -74,8 +73,8 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         mTvStep.setText(getString(R.string.str_redelegate_step_0));
 
         mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mValidator      = getIntent().getParcelableExtra("validator");
-        mBondingState   = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
+        mFromValidator      = getIntent().getParcelableExtra("validator");
+        mBondingState   = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
 
         mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -112,7 +111,6 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
             public void onPageScrollStateChanged(int i) { }
         });
         mViewPager.setCurrentItem(0);
-        mReDelegateFrom = mValidator.operator_address;
         onFetchReward();
     }
 
@@ -182,7 +180,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
             if(temp != null) {
                 for (Validator val:temp) {
-                    if(!val.operator_address.equals(mValidator.operator_address)) {
+                    if(!val.operator_address.equals(mFromValidator.operator_address)) {
                         mToValidators.add(val);
                     }
                 }

@@ -98,9 +98,12 @@
     <string name="str_memo_c">MEMO</string>
     <string name="str_remind_balance">Remaining balance</string>
     <string name="str_to_undelegate_amount">Undelegate Amount</string>
+    <string name="str_to_redelegate_amount">Redelegate Amount</string>
     <string name="str_to_delegate_amount">Delegate Amount</string>
     <string name="str_to_delegate_validator">Delegate To</string>
     <string name="str_from_undelegate_validator">Undelegate From</string>
+    <string name="str_from_redelegate_validator">Redelegate From</string>
+    <string name="str_to_redelegate_validator">Redelegate To</string>
     <string name="str_undelegate_complete_time">Expected Delivery</string>
     <string name="str_remind_delegate">Remind Delegate</string>
     <string name="str_reward_c">CLAIM REWARD</string>
