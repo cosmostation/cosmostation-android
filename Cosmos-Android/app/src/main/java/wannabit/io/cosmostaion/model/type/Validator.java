@@ -5,7 +5,11 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Validator implements Parcelable{
+public class Validator implements Parcelable {
+
+    public static final int UNBONDED    = 0;
+    public static final int UNBONDING   = 1;
+    public static final int BONDED      = 2;
 
     @SerializedName("operator_address")
     public String operator_address;
@@ -15,6 +19,9 @@ public class Validator implements Parcelable{
 
     @SerializedName("jailed")
     public Boolean jailed;
+
+    @SerializedName("status")
+    public int status;
 
     @SerializedName("tokens")
     public String tokens;
@@ -41,10 +48,12 @@ public class Validator implements Parcelable{
     public Validator() {
     }
 
-    public Validator(String operator_address, String consensus_pubkey, Boolean jailed, String tokens, String delegator_shares, String bond_height, String unbonding_height, String unbonding_time, ValidatorDescrition description, ValidatorCommission commission) {
+    public Validator(String operator_address, String consensus_pubkey, Boolean jailed, String tokens, int status,
+                     String delegator_shares, String bond_height, String unbonding_height, String unbonding_time, ValidatorDescrition description, ValidatorCommission commission) {
         this.operator_address = operator_address;
         this.consensus_pubkey = consensus_pubkey;
         this.jailed = jailed;
+        this.status = status;
         this.tokens = tokens;
         this.delegator_shares = delegator_shares;
         this.bond_height = bond_height;
@@ -62,6 +71,7 @@ public class Validator implements Parcelable{
         operator_address = in.readString();
         consensus_pubkey = in.readString();
         jailed = in.readByte() != 0;
+        status = in.readInt();
         tokens = in.readString();
         delegator_shares = in.readString();
         bond_height = in.readString();
@@ -81,6 +91,7 @@ public class Validator implements Parcelable{
         dest.writeString(operator_address);
         dest.writeString(consensus_pubkey);
         dest.writeByte((byte) (jailed ? 1 : 0));
+        dest.writeInt(status);
         dest.writeString(tokens);
         dest.writeString(delegator_shares);
         dest.writeString(bond_height);

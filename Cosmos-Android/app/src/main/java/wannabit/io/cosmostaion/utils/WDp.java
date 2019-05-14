@@ -587,9 +587,9 @@ public class WDp {
             long start = blockDateFormat.parse(rawStartTime).getTime();
             long left  = start + BaseConstant.COSMOS_UNBONDING_TIME - now;
 
-            WLog.w("start : " + start);
-            WLog.w("COSMOS_UNBONDING_TIME : " + BaseConstant.COSMOS_UNBONDING_TIME);
-            WLog.w("now : " + now);
+//            WLog.w("start : " + start);
+//            WLog.w("COSMOS_UNBONDING_TIME : " + BaseConstant.COSMOS_UNBONDING_TIME);
+//            WLog.w("now : " + now);
 
             if (left >= BaseConstant.CONSTANT_D ) {
                 result = "(D-" + (left / BaseConstant.CONSTANT_D) +")";

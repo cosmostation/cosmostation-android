@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.dialog.Dialog_Not_Top_100;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -166,7 +167,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
 
-    private void onStartDelegate() {
+    private void onCheckDelegate() {
         if(mAccount == null || mValidator == null) return;
         if(!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
@@ -174,7 +175,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasAtom = false;
@@ -195,6 +195,22 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
+        if(mValidator.jailed) {
+            Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(mValidator.status != Validator.BONDED) {
+            Dialog_Not_Top_100 add = Dialog_Not_Top_100.newInstance(null);
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+        } else {
+            onStartDelegate();
+        }
+
+    }
+
+    public void onStartDelegate() {
         getBaseDao().setValidator(mValidator);
         Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
         startActivity(toDelegate);
@@ -277,7 +293,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-//        getBaseDao().setValidator(mValidator);
+
         ArrayList<Validator> val = new ArrayList<>();
         val.add(mValidator);
         Intent claimReward = new Intent(ValidatorActivity.this, ClaimRewardActivity.class);
@@ -288,7 +304,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onFetchValHistory() {
         mTaskCount++;
         ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
-        WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
+//        WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
         new ValHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -397,11 +413,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
-                if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("");
+                if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("0%");
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onStartDelegate();
+                        onCheckDelegate();
 
                     }
                 });
@@ -448,7 +464,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
-                if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("");
+                if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("0%");
 
                 if(mValidator.jailed) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
@@ -465,7 +481,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if(mBondingState != null && mBondingState.getBondingAtom(mValidator) != null) {
                     holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
-                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 0, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
 
                 if(mUnBondingStates != null && mUnBondingStates.size() > 0 ) {
@@ -473,7 +489,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     for(UnBondingState unbond:mUnBondingStates) {
                         sum = sum.add(unbond.balance);
                     }
-                    WLog.w("sum" + sum.toPlainString());
+//                    WLog.w("sum " + sum.toPlainString());
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
@@ -487,7 +503,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onStartDelegate();
+                        onCheckDelegate();
 
                     }
                 });

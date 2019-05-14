@@ -20,5 +20,5 @@
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_16"
         app:backgroundTint="#9C6CFF"
-        app:srcCompat="@drawable/ic_baseline_share_24px"/>
+        app:srcCompat="@drawable/share_icon"/>
 </RelativeLayout>

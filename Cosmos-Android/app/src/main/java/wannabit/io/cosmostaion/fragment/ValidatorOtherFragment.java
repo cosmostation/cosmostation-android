@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -40,6 +42,7 @@ public class ValidatorOtherFragment extends BaseFragment {
     private RecyclerView                mRecyclerView;
     private OtherValidatorAdapter       mOtherValidatorAdapter;
 
+    private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Validator>        mOtherValidators = new ArrayList<>();
 
     public static ValidatorOtherFragment newInstance(Bundle bundle) {
@@ -80,7 +83,8 @@ public class ValidatorOtherFragment extends BaseFragment {
     @Override
     public void onRefreshTab() {
         if(!isAdded()) return;
-        mOtherValidators  = getMainActivity().mOtherValidators;
+        mOtherValidators    = getMainActivity().mOtherValidators;
+        mMyValidators       = getMainActivity().mMyValidators;
         onSortingByAmount(mOtherValidators);
         mOtherValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
@@ -146,6 +150,22 @@ public class ValidatorOtherFragment extends BaseFragment {
                 holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
                 holder.itemRevoked.setVisibility(View.GONE);
             }
+
+            if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+            } else {
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            }
+        }
+
+
+        private boolean checkIsMyValidator(ArrayList<Validator> userList, final String targetName){
+            return FluentIterable.from(userList).anyMatch(new Predicate<Validator>() {
+                @Override
+                public boolean apply(@Nullable Validator input) {
+                    return input.description.moniker.equals(targetName);
+                }
+            });
         }
 
         @Override

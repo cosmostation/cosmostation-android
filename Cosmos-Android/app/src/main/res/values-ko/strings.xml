@@ -35,6 +35,7 @@
     <string name="str_undelegate_c">위임 철회 하기</string>
     <string name="str_before">이전</string>
     <string name="str_cancel">취소</string>
+    <string name="str_continue">계속</string>
     <string name="str_recipient_address">수취인 주소</string>
     <string name="str_dismiss">닫기</string>
     <string name="str_memo">메모</string>
@@ -49,10 +50,10 @@
     <string name="str_memo_c">메모</string>
     <string name="str_remind_balance">Remaining balance</string>
     <string name="str_to_delegate_amount">위임 수량</string>
-    <string name="str_to_undelegate_amount">위임 해제 수량</string>
+    <string name="str_to_undelegate_amount">위임 철회 수량</string>
     <string name="str_to_delegate_validator">위임할 검증인</string>
-    <string name="str_from_undelegate_validator">위임 해제할 검증인</string>
-    <string name="str_undelegate_complete_time">해제 금액 전송 완료 시간</string>
+    <string name="str_from_undelegate_validator">위임 철회할 검증인</string>
+    <string name="str_undelegate_complete_time">철회 금액 전송 완료 시간</string>
     <string name="str_remind_delegate">Remind Delegate</string>
     <string name="str_reward_c">이자 청구</string>
     <string name="str_reward_amount">현재 이자량</string>
@@ -262,7 +263,8 @@
     <string name="str_reward_notice">이자는 매 블럭 마다 증가합니다.\n실제로 받게되는 이자량은 지금 표시되는 것보다 같거나 많을 수 있습니다.</string>
     <string name="str_multi_reward_notice">한번에 여러 검증인으로 부터 이자를 \n청구하기 위해서는 더 많은 Tx 수수료가 필요합니다.\n * 각 검증인에게 각각 이자를 청구 하는 것에 비하여 저렴합니다.</string>
     <string name="str_multi_reward_max_16">이자가 많은 순서대로 최대 16 검증인으로 부터 이자를 청구합니다.</string>
-
+    <string name="str_not_validator_title">유효한 검증인이 아닙니다.</string>
+    <string name="str_not_validator_msg">이 노드는 유효한 검증인이 아닙니다.\n코스모스 컨센서스에 참여하는 검증인 노드가 아니며, 따라서 이자 또한 발생하지 않습니다.\n계속 진행하시겠습니까?</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 비밀번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -294,6 +296,7 @@
     <string name="error_not_enough_fee">잔액이 부족하여, Tx 수수료를 높일 수 없습니다.</string>
     <string name="error_network_error">네크워크 연결이 원활하지 않습니다.</string>
     <string name="error_only_atom_for_fee">현재 아톰으로만 Tx 수수료가 가능합니다.</string>
+    <string name="error_disabled_jailed">수감중인 노드에 위임하는 기능은 지원하지 않습니다.</string>
 
 
     <string name="s_atom">ATOM</string>

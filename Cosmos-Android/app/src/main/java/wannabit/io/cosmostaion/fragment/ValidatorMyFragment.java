@@ -146,7 +146,7 @@ public class ValidatorMyFragment extends BaseFragment {
                 if(bonding != null && bonding.getBondingAtom(validator) != null) {
                     holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAtom(validator), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 } else {
-                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 0, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 }
                 holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {

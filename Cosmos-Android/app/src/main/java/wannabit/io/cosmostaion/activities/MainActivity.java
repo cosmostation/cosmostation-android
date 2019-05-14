@@ -315,11 +315,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
             return;
         }
 
+
+
         ArrayList<Validator> myValidators = new ArrayList<>();
         ArrayList<Validator> toClaimValidators = new ArrayList<>();
-        for(Validator validator:mTopValidators) {
+        for(Validator validator:mAllValidators) {
             for(BondingState bond:mBondings) {
-                if(bond.validatorAddress.equals(validator.operator_address)) {
+                if(bond.validatorAddress.equals(validator.operator_address) &&
+                        WDp.getValidatorReward(mRewards, validator.operator_address).compareTo(new BigDecimal("1")) >= 0) {
                     myValidators.add(validator);
                     break;
                 }
@@ -330,7 +333,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         if(myValidators.size() < 17) {
             toClaimValidators = myValidators;
         } else {
-            toClaimValidators =  new ArrayList<>(myValidators.subList(0,16));
+            toClaimValidators = new ArrayList<>(myValidators.subList(0,16));
         }
 
         ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));

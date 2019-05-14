@@ -82,6 +82,7 @@
     <string name="str_undelegate_c">UNDELEGATE</string>
     <string name="str_before">Before</string>
     <string name="str_cancel">Cancel</string>
+    <string name="str_continue">Continue</string>
     <string name="str_recipient_address">Recipient Address</string>
     <string name="str_dismiss">Dismiss</string>
     <string name="str_memo">Memo</string>
@@ -309,6 +310,9 @@
     <string name="str_reward_notice">Rewards are accumulated each block.\nThe actual amount of rewards you receive may be equal to or greater than what is displayed now.</string>
     <string name="str_multi_reward_notice">Claiming rewards from multiple validators in one transaction requires more fees than a regular transaction. However, using this function is less expensive than claiming your rewards individually from each validator.</string>
     <string name="str_multi_reward_max_16">We claim rewards from up to 16 validators in order of reward amount.</string>
+    <string name="str_not_validator_title">Not Validator</string>
+    <string name="str_not_validator_msg">This node is not a valid Cosmos validator.\nThis node does not participate in consensus, and therefore does not yield any rewards.\nWould you like to continue?</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
@@ -340,6 +344,7 @@
     <string name="error_not_enough_fee">No enough budget for fee.</string>
     <string name="error_network_error">The network connection problem.</string>
     <string name="error_only_atom_for_fee">Only pay for Tx fee with ATOM</string>
+    <string name="error_disabled_jailed">Delegation to jailed validator is not supported.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

@@ -16,12 +16,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -152,6 +155,22 @@ public class ValidatorAllFragment extends BaseFragment {
                 holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
                 holder.itemRevoked.setVisibility(View.GONE);
             }
+
+            if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+            } else {
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            }
+
+        }
+
+        private boolean checkIsMyValidator(ArrayList<Validator> userList, final String targetName){
+            return FluentIterable.from(userList).anyMatch(new Predicate<Validator>() {
+                @Override
+                public boolean apply(@Nullable Validator input) {
+                    return input.description.moniker.equals(targetName);
+                }
+            });
         }
 
         @Override
