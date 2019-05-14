@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
     public ArrayList<Validator>        mOtherValidators = new ArrayList<>();
     public ArrayList<Validator>        mTopValidators = new ArrayList<>();
     public ArrayList<Validator>        mMyValidators = new ArrayList<>();
-    public ArrayList<Validator>        mElseValidators = new ArrayList<>();
+    public ArrayList<Validator>        mAllValidators = new ArrayList<>();
     public ArrayList<Balance>          mBalances = new ArrayList<>();
     public ArrayList<BondingState>     mBondings = new ArrayList<>();
     public ArrayList<UnBondingState>   mUnbondings = new ArrayList<>();
@@ -513,28 +513,48 @@ public class MainActivity extends BaseActivity implements TaskListener {
         }
         if(mTaskCount == 0) {
             mMyValidators.clear();
-            mElseValidators.clear();
-            for(Validator all:mTopValidators) {
+            for(Validator top:mTopValidators) {
                 boolean already = false;
                 for(BondingState bond:mBondings) {
-                    if(bond.validatorAddress.equals(all.operator_address)) {
+                    if(bond.validatorAddress.equals(top.operator_address)) {
                         already = true;
                         break;
                     }
                 }
                 for(UnBondingState unbond:mUnbondings) {
-                    if(unbond.validatorAddress.equals(all.operator_address) && !already) {
+                    if(unbond.validatorAddress.equals(top.operator_address) && !already) {
                         already = true;
                         break;
                     }
                 }
 
-                if(already) mMyValidators.add(all);
-                else  mElseValidators.add(all);
+                if(already) mMyValidators.add(top);
             }
+
+            for(Validator other:mOtherValidators) {
+                boolean already = false;
+                for(BondingState bond:mBondings) {
+                    if(bond.validatorAddress.equals(other.operator_address)) {
+                        already = true;
+                        break;
+                    }
+                }
+                for(UnBondingState unbond:mUnbondings) {
+                    if(unbond.validatorAddress.equals(other.operator_address) && !already) {
+                        already = true;
+                        break;
+                    }
+                }
+
+                if(already) mMyValidators.add(other);
+            }
+            mAllValidators.addAll(mTopValidators);
+            mAllValidators.addAll(mOtherValidators);
             onFetchCurrentPage();
 
-            WLog.w("mOtherValidators " + mOtherValidators.size());
+//            WLog.w("mAllValidators " + mAllValidators.size());
+//            WLog.w("mTopValidators " + mTopValidators.size());
+//            WLog.w("mOtherValidators " + mOtherValidators.size());
         }
     }
 
@@ -722,6 +742,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         ArrayList<Account> accounts = new ArrayList<Account>();
         accounts.add(mAccount);
         mOtherValidators.clear();
+        mAllValidators.clear();
         new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -763,7 +784,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                         ResAtomTic mResAtomTic = new Gson().fromJson(response.body(), ResAtomTic.class);
                         getBaseDao().setLastAtomTic(mResAtomTic.getData().getQuotesMap().get("USD").getPrice());
                         getBaseDao().setLastAtomUpDown(mResAtomTic.getData().getQuotesMap().get("USD").getPercent_change_24h());
-                        onFetchCurrentPage();
+//                        onFetchCurrentPage();
                     }
                 }catch (Exception e) {}
 
