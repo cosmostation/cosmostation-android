@@ -299,7 +299,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     public void onStartValidatorDetail(Validator validator) {
         Intent intent = new Intent(MainActivity.this, ValidatorActivity.class);
-        intent.putExtra("valAddr", validator.operator_address);
+        intent.putExtra("validator", validator);
         startActivity(intent);
     }
 

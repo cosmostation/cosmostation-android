@@ -117,22 +117,6 @@ public class BaseData {
         return ""+result;
     }
 
-    public Validator getValidator() {
-        return mValidator;
-    }
-
-    public void setValidator(Validator validator) {
-        this.mValidator = validator;
-    }
-
-//    public ResBroadTx getTxResult() {
-//        return mTxResult;
-//    }
-//
-//    public void setTxResult(ResBroadTx txResult) {
-//        this.mTxResult = txResult;
-//    }
-
     public Password onSelectPassword() {
         Password result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_PASSWORD, new String[]{"resource", "spec"}, null, null, null, null, null);

@@ -66,7 +66,7 @@ public class UndelegateActivity extends BaseActivity {
 
 
         mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mValidator      = getBaseDao().getValidator();
+        mValidator      = getIntent().getParcelableExtra("validator");
         mBondingState   = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
 
         mPageAdapter = new UndelegatePageAdapter(getSupportFragmentManager());

@@ -67,7 +67,7 @@ public class DelegateActivity extends BaseActivity {
         mTvStep.setText(getString(R.string.str_delegate_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mValidator = getBaseDao().getValidator();
+        mValidator = getIntent().getParcelableExtra("validator");
 
         mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);

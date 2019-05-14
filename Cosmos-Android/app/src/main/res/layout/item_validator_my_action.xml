@@ -82,11 +82,22 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_4"
+                    android:layout_marginRight="@dimen/space_4"
                     android:layout_height="@dimen/space_40"
                     android:minHeight="@dimen/space_40"
                     android:background="@drawable/btn_trans_with_border"
                     style="@style/font_ss_12_white"
                     android:text="@string/str_undelegate"/>
+                <Button
+                    android:id="@+id/validator_btn_redelegate"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:layout_height="@dimen/space_40"
+                    android:minHeight="@dimen/space_40"
+                    android:background="@drawable/btn_trans_with_border"
+                    style="@style/font_ss_12_white"
+                    android:text="@string/str_redelegate"/>
             </LinearLayout>
 
             <View

@@ -62,6 +62,7 @@ public class BaseConstant {
     public final static int					    TASK_FETCH_VAL_HISTORY	                = 2026;
     public final static int					    TASK_FETCH_UNBONDING_VALIDATOR		    = 2027;
     public final static int					    TASK_FETCH_UNBONDED_VALIDATOR		    = 2028;
+    public final static int					    TASK_FETCH_SINGLE_REDELEGATE		    = 2029;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;

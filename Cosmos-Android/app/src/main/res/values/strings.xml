@@ -80,6 +80,7 @@
     <string name="str_send_c">SEND</string>
     <string name="str_delegate_c">DELEGATE</string>
     <string name="str_undelegate_c">UNDELEGATE</string>
+    <string name="str_redelegate_c">REDELEGATE</string>
     <string name="str_before">Before</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_continue">Continue</string>
@@ -201,6 +202,7 @@
     <string name="str_self_bonded_rate">Self Bonded Rate</string>
     <string name="str_delegate">Delegate</string>
     <string name="str_undelegate">Undelegate</string>
+    <string name="str_redelegate">Redelegate</string>
     <string name="str_claim_reward">Claim Reward</string>
     <string name="str_history_validator">History with this validator</string>
     <string name="str_price">Price</string>
@@ -219,6 +221,7 @@
     <string name="str_approximately"><![CDATA[≈]]></string>
     <string name="str_max_available_delegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[Max Available : ]]></string>
+    <string name="str_max_available_redelegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_send_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_tx_error_description">Sorry, but your transaction request is failed. \nPlease check below code and msg</string>
     <string name="str_success_loading">Your transaction request submitted successfully!! \nAfter a few moments, the full results will be displayed.</string>
@@ -247,7 +250,7 @@
     <string name="str_send_step_1">Insert send amount and select token type</string>
     <string name="str_send_step_2">Insert memo (optional)</string>
     <string name="str_send_step_3">Select transaction fee</string>
-    <string name="str_send_step_4"> Check transaction detail</string>
+    <string name="str_send_step_4">Check transaction detail</string>
     <string name="str_delegate_step_1">Enter delegation amount</string>
     <string name="str_delegate_step_2">Insert memo (optional)</string>
     <string name="str_delegate_step_3">Select transaction fee</string>
@@ -262,6 +265,11 @@
     <string name="str_reward_step_2">Insert memo. (optional)</string>
     <string name="str_reward_step_3">Select transaction fee</string>
     <string name="str_reward_step_4">Check claim reward detail</string>
+    <string name="str_redelegate_step_0">Enter redelegation amount</string>
+    <string name="str_redelegate_step_1">Select validator redelegate.</string>
+    <string name="str_redelegate_step_2">Insert memo (optional)</string>
+    <string name="str_redelegate_step_3">Select transaction fee</string>
+    <string name="str_redelegate_step_4"> Check transaction detail</string>
     <string name="str_already_imported_key">Already imported key.</string>
     <string name="str_delete_title">Delete Wallet</string>
     <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
@@ -312,7 +320,11 @@
     <string name="str_multi_reward_max_16">We claim rewards from up to 16 validators in order of reward amount.</string>
     <string name="str_not_validator_title">Not Validator</string>
     <string name="str_not_validator_msg">This node is not a valid Cosmos validator.\nThis node does not participate in consensus, and therefore does not yield any rewards.\nWould you like to continue?</string>
-
+    <string name="str_redelegation_limitted_title">Unable to redelegate.</string>
+    <string name="str_redelegation_limitted_msg">You have redelegated to this validator in the past 21 days.</string>
+    <string name="str_redelegation_warnning_title">Notice</string>
+    <string name="str_redelegation_warnning_msg">Once you redelegate TO this validator, \nyou will not be able to redelegate FROM this validator for 21 days. \nWould you like to continue?</string>
+    <string name="str_redelegation_description">For the next 21 days, you will not be able to redelegate from the validator you are redelegating to.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
@@ -326,7 +338,8 @@
     <string name="error_invalid_memo">Invalid memo, please type under 256 char.</string>
     <string name="error_network">Network Error.</string>
     <string name="error_address_not_in_node">Address or Public key is valid format but no data in block chain.</string>
-    <string name="error_no_delegate">Nothing to undelegate</string>
+    <string name="error_no_delegate">Nothing to undelegate.</string>
+    <string name="error_no_redelegate">Nothing to redelegate.</string>
     <string name="error_permission">You rejected permission. please enable for this.</string>
     <string name="error_already_imported_address">Already Imported Address.</string>
     <string name="error_import_errer">Can not add this address/public key.</string>
@@ -345,6 +358,8 @@
     <string name="error_network_error">The network connection problem.</string>
     <string name="error_only_atom_for_fee">Only pay for Tx fee with ATOM</string>
     <string name="error_disabled_jailed">Delegation to jailed validator is not supported.</string>
+    <string name="error_unbond_cnt_over">Exceeded maximum undelegation count.</string>
+    <string name="error_no_to_validator">Please select validator to redelegate.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

@@ -33,6 +33,7 @@
     <string name="str_send_c">송금 하기</string>
     <string name="str_delegate_c">위임 하기</string>
     <string name="str_undelegate_c">위임 철회 하기</string>
+    <string name="str_redelegate_c">재위임 하기</string>
     <string name="str_before">이전</string>
     <string name="str_cancel">취소</string>
     <string name="str_continue">계속</string>
@@ -154,6 +155,7 @@
     <string name="str_self_bonded_rate">자체 위임 비율</string>
     <string name="str_delegate">위임 하기</string>
     <string name="str_undelegate">위임 철회 하기</string>
+    <string name="str_redelegate">재위임 하기</string>
     <string name="str_claim_reward">이자 청구 하기</string>
     <string name="str_history_validator">이 검증인과의 거래내역</string>
     <string name="str_price">현재 가격</string>
@@ -172,6 +174,7 @@
     <string name="str_approximately"><![CDATA[≈]]></string>
     <string name="str_max_available_delegate_amount"><![CDATA[최대 위임 가능량 : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[최대 위임 철회 가능량 : ]]></string>
+    <string name="str_max_available_redelegate_amount"><![CDATA[최대 재위임 가능량 : ]]></string>
     <string name="str_max_available_send_amount"><![CDATA[최대 송금 가능량 : ]]></string>
     <string name="str_tx_error_description">죄송합니다. 요청하신 전송이 실패하였습니다.\n아래에 보여지는 에러 코드와 메시지를 확인해 주세요.</string>
     <string name="str_success_loading">트랜잭션 전송에 성공하였습니다.\n전송 상세 내용을 불러오는 중입니다.\n조금만 기다려주세요.</string>
@@ -215,6 +218,11 @@
     <string name="str_reward_step_2">메모를 입력하세요 (선택사항)</string>
     <string name="str_reward_step_3">Tx 수수료를 선택하세요</string>
     <string name="str_reward_step_4">입력하신 정보를 확인하세요</string>
+    <string name="str_redelegate_step_0">재위임 할 수량을 입력하세요.</string>
+    <string name="str_redelegate_step_1">재위임 할 검증인을 선택하세요.</string>
+    <string name="str_redelegate_step_2">메모를 입력하세요 (선택사항)</string>
+    <string name="str_redelegate_step_3">Tx 수수료를 선택하세요</string>
+    <string name="str_redelegate_step_4">입력하신 정보를 확인하세요</string>
     <string name="str_already_imported_key">이미 등록된 키 입니다.</string>
     <string name="str_delete_title">지갑 삭제</string>
     <string name="str_delete_msg">지갑의 모든 정보가 삭제됩니다.\n복구 단어를 백업하지 않았을 경우 해당 지갑을 영구히 다시 복원할 수 없습니다.</string>
@@ -259,12 +267,18 @@
     <string name="str_fee_free_title">Tx 수수료 무료 </string>
     <string name="str_fee_free_msg">Tx 수수료 무료 이벤트가 진행중 입니다.</string>
     <string name="str_delegate_notice">현재 이 검증인에게 받을 이자가 있다면,\n위임을 하는 순간 모든 이자는 귀하의 사용가능\n수량으로 자동적으로 입금될 것입니다.</string>
-    <string name="str_undelegate_notice">현재 이 검증인에게 받을 이자가 있다면,\n위임해재를 하는 순간 모든 이자는 귀하의 사용가능\n수량으로 자동적으로 입금될 것입니다.</string>
+    <string name="str_undelegate_notice">현재 이 검증인에게 받을 이자가 있다면,\n위임 철회를 하는 순간 모든 이자는 귀하의 사용가능\n수량으로 자동적으로 입금될 것입니다.</string>
     <string name="str_reward_notice">이자는 매 블럭 마다 증가합니다.\n실제로 받게되는 이자량은 지금 표시되는 것보다 같거나 많을 수 있습니다.</string>
     <string name="str_multi_reward_notice">한번에 여러 검증인으로 부터 이자를 \n청구하기 위해서는 더 많은 Tx 수수료가 필요합니다.\n * 각 검증인에게 각각 이자를 청구 하는 것에 비하여 저렴합니다.</string>
     <string name="str_multi_reward_max_16">이자가 많은 순서대로 최대 16 검증인으로 부터 이자를 청구합니다.</string>
     <string name="str_not_validator_title">유효한 검증인이 아닙니다.</string>
     <string name="str_not_validator_msg">이 노드는 유효한 검증인이 아닙니다.\n코스모스 컨센서스에 참여하는 검증인 노드가 아니며, 따라서 이자 또한 발생하지 않습니다.\n계속 진행하시겠습니까?</string>
+    <string name="str_redelegation_limitted_title">재위임 불가</string>
+    <string name="str_redelegation_limitted_msg">이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(21일 후) 이 검증인으로부터 재위임을 신청할 수 있습니다.</string>
+    <string name="str_redelegation_warnning_title">경고</string>
+    <string name="str_redelegation_warnning_msg">재위임을 받는 검증인은 21일동안 다시 재위임을 할 수 없습니다. 계속 진행 하시겠습니까?</string>
+    <string name="str_redelegation_description">위임을 받을 검증인으로부터 다시 재위임을 하는것은 21일간 불가능 합니다.</string>
+
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 비밀번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -278,7 +292,8 @@
     <string name="error_invalid_memo">불가능한 메모입니다.</string>
     <string name="error_network">네트워크 에러</string>
     <string name="error_address_not_in_node">주소 또는 공개키는 정확하지만 요청하신 주소는 블럭체인상에 아직 존재하지 않습니다.</string>
-    <string name="error_no_delegate">위임 해재 할 양이 없습니다.</string>
+    <string name="error_no_delegate">위임 철회 할 양이 없습니다.</string>
+    <string name="error_no_redelegate">재 위임 할 양이 없습니다.</string>
     <string name="error_permission">권한을 허락하지 않으셨습니다. 셋팅에서 허락해 주세요.</string>
     <string name="error_already_imported_address">이미 등록된 주소입니다.</string>
     <string name="error_import_errer">이 주소 또는 공개키는 등록이 불가능 합니다.</string>
@@ -297,6 +312,8 @@
     <string name="error_network_error">네크워크 연결이 원활하지 않습니다.</string>
     <string name="error_only_atom_for_fee">현재 아톰으로만 Tx 수수료가 가능합니다.</string>
     <string name="error_disabled_jailed">수감중인 노드에 위임하는 기능은 지원하지 않습니다.</string>
+    <string name="error_unbond_cnt_over">위임 철회 가능 횟수를 초과하였습니다.</string>
+    <string name="error_no_to_validator">재위임 받을 검증인을 선택해 주세요.</string>
 
 
     <string name="s_atom">ATOM</string>

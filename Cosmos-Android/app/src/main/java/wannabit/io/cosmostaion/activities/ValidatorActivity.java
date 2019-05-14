@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_Not_Top_100;
+import wannabit.io.cosmostaion.dialog.Dialog_RedelegationLimited;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -47,6 +48,7 @@ import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
+import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRedelegateStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleSelfBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleUnBondingStateTask;
@@ -80,6 +82,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private int                         mTaskCount;
     private boolean                     mExpended = true;
+    private TaskResult                  mRedelegateResult;
 
 
     @Override
@@ -113,7 +116,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         super.onResume();
 
         mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mValidator      = getBaseDao().getValidator();
+        mValidator      = getIntent().getParcelableExtra("validator");
         if(mAccount == null) {
             onBackPressed();
         }
@@ -154,11 +157,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onInitFetch() {
         if(mTaskCount > 0) return;
-        mTaskCount = 4;
+        mTaskCount = 5;
         new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         if(mBondingState != null) {
             mTaskCount = mTaskCount + 1;
             new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -211,21 +215,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     public void onStartDelegate() {
-        getBaseDao().setValidator(mValidator);
         Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
+        toDelegate.putExtra("validator", mValidator);
         startActivity(toDelegate);
     }
 
-    private void onStartUndelegate() {
+    public void onCheckRedelegate() {
         if(mAccount == null || mValidator == null) return;
         if(!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-        if(mBondingState == null || mBondingState.getBondingAtom(mValidator).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -248,11 +248,68 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        getBaseDao().setValidator(mValidator);
+        if(mBondingState == null || mBondingState.getBondingAtom(mValidator).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!(mRedelegateResult != null && mRedelegateResult.isSuccess && mRedelegateResult.resultData == null)) {
+            Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        onStartRedelegate();
+    }
+
+    public void onStartRedelegate() {
+        Intent reDelegate = new Intent(ValidatorActivity.this, RedelegateActivity.class);
+        reDelegate.putExtra("validator", mValidator);
+        startActivity(reDelegate);
+    }
+
+
+    private void onStartUndelegate() {
+        if(mAccount == null || mValidator == null) return;
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+        if(mBondingState == null || mBondingState.getBondingAtom(mValidator).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_delegate, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(mUnBondingStates != null && mUnBondingStates.size() >= 7){
+            Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasAtom = false;
+        for (Balance balance:balances) {
+            if(BaseConstant.IS_TEST) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                    hasAtom  = true;
+                }
+            } else {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
+                    hasAtom  = true;
+                }
+            }
+
+        }
+        if(!hasAtom) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
+        unDelegate.putExtra("validator", mValidator);
         startActivity(unDelegate);
-
-
     }
 
     private void onGetReward() {
@@ -342,6 +399,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if(hits != null && hits.size() > 0) {
                 mTx = hits;
             }
+        } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REDELEGATE) {
+            mRedelegateResult = result;
         }
 
         if(mTaskCount == 0) {
@@ -511,6 +570,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         onStartUndelegate();
+
+                    }
+                });
+
+                holder.itemBtnRedelegate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onCheckRedelegate();
 
                     }
                 });
@@ -718,7 +785,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         public class MyActionHolder extends RecyclerView.ViewHolder {
             TextView    itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvAtomReward, itemTvPhotonReward, itemTvSimpleReward;
-            Button      itemBtnDelegate, itemBtnUndelegate, itemBtnReward;
+            Button      itemBtnDelegate, itemBtnUndelegate, itemBtnRedelegate, itemBtnReward ;
             TextView    itemAtomTitle, itemPhotonTitle;
             RelativeLayout itemAtomLayer, itemPhotonLayer;
 
@@ -730,6 +797,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemTvPhotonReward      = itemView.findViewById(R.id.validator_photon_reward);
                 itemBtnDelegate         = itemView.findViewById(R.id.validator_btn_delegate);
                 itemBtnUndelegate       = itemView.findViewById(R.id.validator_btn_undelegate);
+                itemBtnRedelegate       = itemView.findViewById(R.id.validator_btn_redelegate);
                 itemBtnReward           = itemView.findViewById(R.id.validator_btn_claim_reward);
                 itemAtomTitle           = itemView.findViewById(R.id.action_atom_title);
                 itemPhotonTitle         = itemView.findViewById(R.id.action_photon_title);

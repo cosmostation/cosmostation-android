@@ -3,8 +3,6 @@ package wannabit.io.cosmostaion.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
-import android.text.InputType;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,15 +18,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.UndelegateActivity;
+import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
-public class UndelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class RedelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button      mCancel, mNextBtn;
     private EditText    mAmountInput;
@@ -36,9 +34,10 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
     private ImageView   mClearAll;
     private Button      mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
     private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
+    private RelativeLayout mProgress;
 
-    public static UndelegateStep0Fragment newInstance(Bundle bundle) {
-        UndelegateStep0Fragment fragment = new UndelegateStep0Fragment();
+    public static RedelegateStep0Fragment newInstance(Bundle bundle) {
+        RedelegateStep0Fragment fragment = new RedelegateStep0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -50,7 +49,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_undelegate_step0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_redelegate_step0, container, false);
         mCancel = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
@@ -63,6 +62,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         mAdd100 = rootView.findViewById(R.id.btn_add_100);
         mAddHalf = rootView.findViewById(R.id.btn_add_half);
         mAddMax = rootView.findViewById(R.id.btn_add_all);
+        mProgress = rootView.findViewById(R.id.reward_progress);
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         mClearAll.setOnClickListener(this);
@@ -136,6 +136,10 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
     }
 
+    @Override
+    public void onRefreshTab() {
+        mProgress.setVisibility(View.GONE);
+    }
 
     @Override
     public void onClick(View v) {
@@ -143,7 +147,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(isValidateUnDelegateAmount()) {
+            if(isValidateReDelegateAmount()) {
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
@@ -192,7 +196,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         }
     }
 
-    private boolean isValidateUnDelegateAmount() {
+    private boolean isValidateReDelegateAmount() {
         try {
             BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
             if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
@@ -203,14 +207,15 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             } else {
                 atom = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
             }
-            getSActivity().mUnDelegateAmount = atom;
+            getSActivity().mReDelegateAmount = atom;
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    private UndelegateActivity getSActivity() {
-        return (UndelegateActivity)getBaseActivity();
+    private RedelegateActivity getSActivity() {
+        return (RedelegateActivity)getBaseActivity();
     }
+
 }

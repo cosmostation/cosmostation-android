@@ -152,7 +152,6 @@ public class ValidatorMyFragment extends BaseFragment {
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getBaseDao().setValidator(validator);
                         getMainActivity().onStartValidatorDetail(validator);
                     }
                 });

@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -19,6 +20,7 @@ import wannabit.io.cosmostaion.network.res.ResBlockInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResStakeTxInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -75,7 +77,9 @@ public interface WannabitChain {
     Call<ResLcdUnBondings> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
 
-
+    //ReDelegate History
+    @GET("/staking/redelegations")
+    Call<ArrayList<ResLcdRedelegate>> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
 
 
     //Proposals

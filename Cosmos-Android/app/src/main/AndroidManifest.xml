@@ -122,6 +122,13 @@
         </activity>
 
         <activity
+            android:name=".activities.RedelegateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
             android:name=".activities.ClaimRewardActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

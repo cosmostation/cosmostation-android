@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -31,7 +32,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 
     private LinearLayout    mReceiveLayer;
     private TextView        mTvReceiveAddress;
-    private ProgressBar     mProgressBar;
+    private RelativeLayout  mProgressBar;
 
     private Button      mCancelBtn, mNextBtn;
 
@@ -92,6 +93,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
         } else {
             mReceiveLayer.setVisibility(View.VISIBLE);
         }
+        mProgressBar.setVisibility(View.GONE);
         mNextBtn.setClickable(true);
     }
 
