@@ -19,20 +19,19 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.SendActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.activities.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
-public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class RewardAddressChangeStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private EditText        mAddressInput;
+    private LinearLayout    mBtnQr, mBtnPaste;
+    private TextView        mCurrentAddress;
     private Button          mCancel, mNextBtn;
-    private LinearLayout    mBtnQr, mBtnPaste, mBtnHistory;
 
-    public static SendStep0Fragment newInstance(Bundle bundle) {
-        SendStep0Fragment fragment = new SendStep0Fragment();
+    public static RewardAddressChangeStep0Fragment newInstance(Bundle bundle) {
+        RewardAddressChangeStep0Fragment fragment = new RewardAddressChangeStep0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -44,34 +43,33 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_send_step0, container, false);
-        mAddressInput = rootView.findViewById(R.id.receiver_account);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
-        mCancel = rootView.findViewById(R.id.btn_cancel);
-
-        mBtnQr = rootView.findViewById(R.id.btn_qr);
-        mBtnPaste = rootView.findViewById(R.id.btn_paste);
-        mBtnHistory = rootView.findViewById(R.id.btn_history);
-        mBtnHistory.setVisibility(View.GONE);
+        View rootView   = inflater.inflate(R.layout.fragment_reward_address_change_step0, container, false);
+        mAddressInput   = rootView.findViewById(R.id.reward_account);
+        mCurrentAddress = rootView.findViewById(R.id.current_address);
+        mBtnQr          = rootView.findViewById(R.id.btn_qr);
+        mBtnPaste       = rootView.findViewById(R.id.btn_paste);
+        mNextBtn        = rootView.findViewById(R.id.btn_next);
+        mCancel         = rootView.findViewById(R.id.btn_cancel);
 
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         mBtnQr.setOnClickListener(this);
         mBtnPaste.setOnClickListener(this);
-        mBtnHistory.setOnClickListener(this);
+
+        mCurrentAddress.setText(getSActivity().mCurrentRewardAddress);
         return rootView;
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(mNextBtn)) {
-            String targetAddress = mAddressInput.getText().toString();
-            if(getSActivity().mAccount.address.equals(targetAddress)) {
-                Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
+            String targetAddress = mAddressInput.getText().toString().trim();
+            if(getSActivity().mCurrentRewardAddress.equals(targetAddress)) {
+                Toast.makeText(getContext(), R.string.error_same_reward_address, Toast.LENGTH_SHORT).show();
                 return;
 
             } else if(!TextUtils.isEmpty(targetAddress) && WKey.isValidBech32(targetAddress)) {
-                getSActivity().mTagetAddress = targetAddress;
+                getSActivity().mNewRewardAddress = targetAddress;
                 getSActivity().onNextStep();
                 return;
             }else {
@@ -101,19 +99,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             } else {
                 Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
             }
-
-
-        } else if (v.equals(mBtnHistory)) {
-            WLog.w("mBtnHistory");
-            Toast.makeText(getSActivity(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
-
         }
     }
 
-    private SendActivity getSActivity() {
-        return (SendActivity)getBaseActivity();
+    private RewardAddressChangeActivity getSActivity() {
+        return (RewardAddressChangeActivity)getBaseActivity();
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

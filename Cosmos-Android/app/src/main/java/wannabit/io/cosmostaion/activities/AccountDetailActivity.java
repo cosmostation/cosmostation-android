@@ -31,6 +31,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -38,6 +39,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
@@ -137,7 +139,28 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onStartChangeRewardAddress() {
+        getBaseDao().setLastUser(mAccount.id);
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasbalance = false;
+        for (Balance balance:balances) {
+            if(BaseConstant.IS_TEST) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                    hasbalance  = true;
+                }
+            } else {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
+                    hasbalance  = true;
+                }
+            }
+        }
+        if(!hasbalance){
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
+        changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
+        startActivity(changeAddress);
     }
 
 
@@ -312,7 +335,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         if (result.taskType == BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS) {
             String rewardAddress = (String)result.resultData;
             if(!TextUtils.isEmpty(rewardAddress)) {
-                mRewardAddress.setText(rewardAddress);
+                mRewardAddress.setText(rewardAddress.trim());
                 if(rewardAddress.equals(mAccount.address)) {
                     mRewardAddress.setTextColor(getResources().getColor(R.color.colorWhite));
                 } else {

@@ -65,6 +65,7 @@ public class BaseConstant {
     public final static int					    TASK_FETCH_SINGLE_REDELEGATE		    = 2029;
     public final static int					    TASK_FETCH_SINGLE_ALL_REDELEGATE	    = 2030;
     public final static int					    TASK_GEN_TX_SIMPLE_REDELEGATE	        = 2031;
+    public final static int					    TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE = 2032;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;
@@ -107,6 +108,7 @@ public class BaseConstant {
     public final static int					    CONST_PW_DELETE_ACCOUNT		            = 5007;
     public final static int					    CONST_PW_CHECK_MNEMONIC	                = 5008;
     public final static int					    CONST_PW_TX_SIMPLE_REDELEGATE		    = 5009;
+    public final static int					    CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS    = 5010;
 
 //    public final static int					    CONST_PW_SEND		                    = 5002;
 //    public final static int					    CONST_PW_CHECK_MNEMONIC		            = 5003;

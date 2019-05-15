@@ -1,11 +1,6 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
-import android.text.TextUtils;
-
-import com.google.gson.JsonObject;
-
 import org.bitcoinj.crypto.DeterministicKey;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -20,7 +15,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.StdSignMsgWithType;
 import wannabit.io.cosmostaion.model.StdTx;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Pub_key;
@@ -36,27 +30,23 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class SimpleSendTask extends CommonTask {
+public class SimpleChangeRewardAddressTask extends CommonTask {
 
     private Account         mAccount;
-    private String          mToAddress;
-    private ArrayList<Coin> mToSendAmount;
-    private String          mToSendMemo;
-    private Fee             mToFees;
+    private String          mToRewardAddress;
+    private String          mMemo;
+    private Fee             mFees;
 
-    public SimpleSendTask(BaseApplication app, TaskListener listener, Account account,
-                          String toAddress, ArrayList<Coin> toSendAmount, String toSendMemo,
-                          Fee toFees) {
+    public SimpleChangeRewardAddressTask(BaseApplication app, TaskListener listener,
+                                         Account mAccount, String mToRewardAddress,
+                                         String mMemo, Fee mFees) {
         super(app, listener);
-        WLog.w("SimpleSendTask");
-        this.mAccount           = account;
-        this.mToAddress         = toAddress;
-        this.mToSendAmount      = toSendAmount;
-        this.mToSendMemo        = toSendMemo;
-        this.mToFees            = toFees;
-        this.mResult.taskType   = BaseConstant.TASK_GEN_TX_SIMPLE_SEND;
+        this.mAccount = mAccount;
+        this.mToRewardAddress = mToRewardAddress;
+        this.mMemo = mMemo;
+        this.mFees = mFees;
+        this.mResult.taskType   = BaseConstant.TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE;
     }
-
 
     /**
      *
@@ -84,12 +74,10 @@ public class SimpleSendTask extends CommonTask {
             mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
             mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
-
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-            Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mToSendAmount, BaseChain.getChain(mAccount.baseChain));
-//            WLog.w("SimpleSendTask stdTx : " +  WUtil.getPresentor().toJson(singleSendMsg));
+            Msg singleSendMsg = MsgGenerator.genRewardAddressChange(mAccount.address, mToRewardAddress, BaseChain.getChain(mAccount.baseChain));
 
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleSendMsg);
@@ -99,16 +87,12 @@ public class SimpleSendTask extends CommonTask {
                     ""+mAccount.accountNumber,
                     ""+mAccount.sequenceNumber,
                     msgs,
-                    mToFees,
-                    mToSendMemo);
-            WLog.w("SimpleSendTask tosign : " +  WUtil.getPresentor().toJson(tosign));
+                    mFees,
+                    mMemo);
+            WLog.w("SimpleChangeRewardAddressTask tosign : " +  WUtil.getPresentor().toJson(tosign));
 
-//            String signatureTx = MsgGenerator.getSignature(orikey, tosign.getToSignByte());
             String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
-//            WLog.w("SimpleSendTask tosign1 : " +  WUtil.getPresentor().toJson(tosign));
-//            WLog.w("SimpleSendTask tosign2 : " +  WUtil.prettyPrinter(tosign));
 
-            // build Signature object
             Signature signature = new Signature();
             Pub_key pubKey = new Pub_key();
             pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
@@ -119,18 +103,14 @@ public class SimpleSendTask extends CommonTask {
             ArrayList<Signature> signatures = new ArrayList<>();
             signatures.add(signature);
 
-
-            // build complete tx type
-            StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mToFees, mToSendMemo, signatures);
+            StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mFees, mMemo, signatures);
             ReqBroadCast reqBroadCast = new ReqBroadCast();
             reqBroadCast.returns = "sync";
-//            reqBroadCast.returns = "block";
             reqBroadCast.tx = signedTx.value;
-            WLog.w("SimpleSendTask signed1 : " +  WUtil.getPresentor().toJson(reqBroadCast));
 
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
-                WLog.w("SimpleSendTask success!!");
+                WLog.w("SimpleChangeRewardAddressTask success!!");
                 WLog.w("response.body() hash: " + response.body().txhash);
                 if (response.body().txhash != null) {
                     mResult.resultData = response.body().txhash;
@@ -147,37 +127,9 @@ public class SimpleSendTask extends CommonTask {
 
 
             } else {
-                WLog.w("SimpleSendTask not success!!");
+                WLog.w("SimpleChangeRewardAddressTask not success!!");
                 mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
             }
-
-
-            /*
-            signedTx.value.signatures = signatures;
-            WLog.w("SimpleSendTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
-//            WLog.w("SimpleSendTask signed2 : " +  WUtil.prettyPrinter(signedTx));
-
-            String gentx = WUtil.str2Hex(WUtil.getPresentor().toJson(signedTx));
-            WLog.w("SimpleSendTask gentx : " +  gentx);
-            Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
-            if(response.isSuccessful() && response.body() != null) {
-                WLog.w("SimpleSendTask result: " + response.body().hash + " " + response.body().isAllSuccess());
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
-//                ResBroadTx result = response.body();
-////                WLog.w("SimpleSendTask result errorMsg : " + result.errorMsg);
-////                WLog.w("SimpleSendTask result errorCode : " + result.errorCode);
-////                WLog.w("SimpleSendTask result hash : " + result.hash);
-////                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
-////                    mResult.resultData = result.hash;
-////                    mResult.isSuccess = true;
-////                }
-//                WLog.w("SimpleSendTask result hash : " + result.hash);
-//                WLog.w("SimpleSendTask result height : " + response.body());
-//                WLog.w("SimpleSendTask result height : " + response.body().toString());
-            }
-            */
-
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());

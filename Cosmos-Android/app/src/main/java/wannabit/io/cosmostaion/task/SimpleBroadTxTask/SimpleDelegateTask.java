@@ -52,7 +52,6 @@ public class SimpleDelegateTask extends CommonTask {
                               Coin toDelegateAmount,
                               String toDelegateMemo, Fee toFees) {
         super(app, listener);
-        WLog.w("SimpleDelegateTask");
         this.mAccount = account;
         this.mToValidatorAddress = toValidatorAddress;
         this.mToDelegateAmount = toDelegateAmount;

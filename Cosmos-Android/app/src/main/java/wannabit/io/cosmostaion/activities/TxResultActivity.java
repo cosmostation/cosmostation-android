@@ -75,6 +75,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private LinearLayout                mRedelegateLayer;
     private TextView                    mRedelegateAtom, mRedelegateFee, mRedelegateFrom, mRedelegateTo, mRedelegateMemo;
 
+    private LinearLayout                mRewardAddressChangeLayer;
+    private TextView                    mRewardAddressChangeFee, mNewRewardAddress, mRewardAddressChangeMemo;
+
     private CardView                    mErrorCard;
     private TextView                    mErrorDetails;
 
@@ -132,6 +135,11 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mRedelegateFrom         = findViewById(R.id.from_redelegate_moniker);
         mRedelegateTo           = findViewById(R.id.to_redelegate_moniker);
         mRedelegateMemo         = findViewById(R.id.redelegate_memo);
+
+        mRewardAddressChangeLayer   = findViewById(R.id.reward_address_change_layer);
+        mRewardAddressChangeFee     = findViewById(R.id.reward_address_change_fees);
+        mNewRewardAddress           = findViewById(R.id.new_reward_address);
+        mRewardAddressChangeMemo    = findViewById(R.id.reward_address_change_memo);
 
         mErrorCard              = findViewById(R.id.error_Card);
         mErrorDetails           = findViewById(R.id.error_details);
@@ -325,6 +333,28 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
+
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE && mResTxInfo != null) {
+            mLoading.setVisibility(View.GONE);
+            mScrollLayer.setVisibility(View.VISIBLE);
+            mRewardAddressChangeLayer.setVisibility(View.VISIBLE);
+
+            mTvtxType.setText(R.string.tx_change_reward_address);
+            mTvTxHash.setText(mResTxInfo.txhash);
+            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+            mTxBlockHeight.setText(mResTxInfo.height);
+
+            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                    mRewardAddressChangeFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+            }
+            mNewRewardAddress.setText(mResTxInfo.tx.value.msg.get(0).value.withdraw_address);
+            mRewardAddressChangeMemo.setText(mResTxInfo.tx.value.memo);
+
+            mBtnDismiss.setVisibility(View.GONE);
+            mBottomAfterLayer.setVisibility(View.VISIBLE);
+
         }
     }
 

@@ -34,44 +34,10 @@ public class MsgGenerator {
         value.to_address = toAddr;
         value.amount = coins;
 
-//        ArrayList<Input> inputs = new ArrayList<>();
-//        ArrayList<Output> outputs = new ArrayList<>();
-//
-//        Input input = new Input(fromAddr, coins);
-//        Output output = new Output(toAddr, coins);
-//
-//        inputs.add(input);
-//        outputs.add(output);
-//
-//        value.inputs = inputs;
-//        value.outputs = outputs;
-
-
         result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
         result.value = value;
         return result;
     }
-
-//    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout, BaseChain chain) {
-//        Msg result  = new Msg();
-//        Msg.Value value = new Msg.Value();
-//
-//        if(chain.equals(BaseChain.GAIA_12K)) {
-//            value.delegator_addr = fromAddr;
-//            value.validator_addr = toValAddr;
-//
-//        } else {
-//            value.delegator_address = fromAddr;
-//            value.validator_address = toValAddr;
-//
-//        }
-//        value.value = toDeleagteAmout;
-//
-//        result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
-//        result.value = value;
-//
-//        return result;
-//    }
 
     public static StakeMsg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout) {
         StakeMsg result  = new StakeMsg();
@@ -86,28 +52,6 @@ public class MsgGenerator {
 
         return result;
     }
-
-
-//    public static Msg genUnbondMsg(String requestAddr, String fromValAddr, String amount, BaseChain chain) {
-//        Msg result  = new Msg();
-//        Msg.Value value = new Msg.Value();
-//
-//        if(chain.equals(BaseChain.GAIA_12K)) {
-//            value.delegator_addr = requestAddr;
-//            value.validator_addr = fromValAddr;
-//            result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE;
-//        } else {
-//            value.delegator_address = requestAddr;
-//            value.validator_address = fromValAddr;
-//            result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
-//        }
-//        value.shares_amount = amount;
-//
-//
-//        result.value = value;
-//
-//        return result;
-//    }
 
     public static StakeMsg genUnbondMsg(String requestAddr, String fromValAddr, Coin amount) {
         StakeMsg result  = new StakeMsg();
@@ -149,6 +93,19 @@ public class MsgGenerator {
         value.amount = amount;
 
         result.type = BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
+        result.value = value;
+
+        return result;
+    }
+
+    public static Msg genRewardAddressChange(String requestAddr, String newRewardAddr, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+
+        value.delegator_address = requestAddr;
+        value.withdraw_address = newRewardAddr;
+
+        result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
         result.value = value;
 
         return result;

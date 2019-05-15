@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
-                android:id="@+id/receiver_account"
+                android:id="@+id/reward_account"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
                 android:hint="@string/str_recipient_address"
@@ -33,7 +33,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="@dimen/space_12"
+            android:layout_marginTop="@dimen/space_12"
+            android:background="@color/colorTransBg">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_2"
+                style="@style/font_ss_10_gray1"
+                android:text="@string/str_current_reward_address"/>
+            <TextView
+                android:id="@+id/current_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_ss_12_white"
+                android:singleLine="true"
+                android:text="-"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
             android:orientation="horizontal">
             <LinearLayout
                 android:id="@+id/btn_qr"
@@ -54,27 +77,6 @@
                     android:layout_marginLeft="@dimen/space_4"
                     style="@style/font_ss_9_white"
                     android:text="@string/str_qr_code"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/btn_history"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/space_36"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/space_8"
-                android:clickable="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:background="@drawable/btn_trans_with_border">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/list_ic"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_4"
-                    style="@style/font_ss_9_white"
-                    android:text="@string/str_recent"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/btn_paste"

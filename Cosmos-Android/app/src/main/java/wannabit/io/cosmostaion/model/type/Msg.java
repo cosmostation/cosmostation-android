@@ -62,6 +62,10 @@ public class Msg {
         @SerializedName("validator_address")
         public String validator_address;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("withdraw_address")
+        public String withdraw_address;
+
     }
 
 }

@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
@@ -68,6 +69,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Validator                   mToReDelegate;
     private Coin                        mRAmount;
     private ArrayList<Validator>        mValidators = new ArrayList<>();
+    private String                      mNewRewardAddress;
 
     private long                        mIdToDelete;
     private long                        mIdToCheck;
@@ -105,6 +107,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mFromReDelegate = getIntent().getParcelableExtra("fromValidator");
         mToReDelegate = getIntent().getParcelableExtra("toValidator");
         mValidators = getIntent().getParcelableArrayListExtra("validators");
+        mNewRewardAddress = getIntent().getStringExtra("newRewardAddress");
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
@@ -233,6 +236,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mRAmount,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+            onShowWaitDialog();
+            new SimpleChangeRewardAddressTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mNewRewardAddress,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
     }
 
@@ -288,7 +300,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE) {
             if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;
