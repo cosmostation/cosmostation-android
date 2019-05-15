@@ -215,8 +215,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             } else {
                 viewHolder.historySuccess.setVisibility(View.GONE);
             }
-
-            WLog.w("source.time " + source.time);
             viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.time));
             viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.time));
             viewHolder.history_block.setText(source.height + " block");

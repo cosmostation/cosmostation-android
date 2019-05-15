@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -33,16 +35,23 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
+import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeInfo;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class AccountDetailActivity extends BaseActivity implements View.OnClickListener {
+public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
 
     private Toolbar         mToolbar;
@@ -56,6 +65,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private TextView        mAccountChain, mAccountState, mAccountPath, mImportMsg;
     private RelativeLayout  mPathLayer;
 
+
+    private CardView        mRewardCard;
+    private ImageView       mBtnRewardAddressChange;
+    private TextView        mRewardAddress;
 
     private Account         mAccount;
 
@@ -77,6 +90,9 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mAccountPath            = findViewById(R.id.account_path);
         mImportMsg              = findViewById(R.id.import_msg);
         mPathLayer              = findViewById(R.id.account_path_layer);
+        mRewardCard             = findViewById(R.id.reward_card);
+        mBtnRewardAddressChange = findViewById(R.id.reward_change_btn);
+        mRewardAddress          = findViewById(R.id.reward_address);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -86,6 +102,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnDelete.setOnClickListener(this);
         mNameEditImg.setOnClickListener(this);
         mBtnQr.setOnClickListener(this);
+        mBtnRewardAddressChange.setOnClickListener(this);
 
     }
 
@@ -119,6 +136,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    public void onStartChangeRewardAddress() {
+
+    }
+
 
     private void onInitView() {
         if(getIntent() == null || TextUtils.isEmpty(getIntent().getStringExtra("id"))) {
@@ -126,6 +147,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         }
         mAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("id"));
         if(mAccount == null)  onBackPressed();
+
+        new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         if(TextUtils.isEmpty(mAccount.nickName)) {
             mAccountName.setText(getString(R.string.str_my_wallet) + mAccount.id);
@@ -149,9 +172,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mPathLayer.setVisibility(View.GONE);
             mImportMsg.setVisibility(View.VISIBLE);
             mBtnCheck.setText(getString(R.string.str_import_mnemonic));
-
         }
-
 
     }
 
@@ -264,9 +285,40 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
+        } else if (v.equals(mBtnRewardAddressChange)) {
+            if(!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+
+            if(TextUtils.isEmpty(mRewardAddress.getText().toString())) {
+                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Dialog_RewardAddressChangeInfo change = Dialog_RewardAddressChangeInfo.newInstance();
+            change.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(change, "dialog").commitNowAllowingStateLoss();
+
         }
 
     }
 
 
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if (result.taskType == BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS) {
+            String rewardAddress = (String)result.resultData;
+            if(!TextUtils.isEmpty(rewardAddress)) {
+                mRewardAddress.setText(rewardAddress);
+                if(rewardAddress.equals(mAccount.address)) {
+                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorWhite));
+                } else {
+                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+            }
+        }
+    }
 }

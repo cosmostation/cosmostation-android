@@ -25,6 +25,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<String> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getWithdrawAddress(mAccount.address).execute();
+            WLog.w("response" + response);
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
@@ -38,7 +39,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
 
 
         } catch (Exception e) {
-            WLog.w("AllValidatorInfo Error " + e.getMessage());
+            WLog.w("CheckWithdrawAddressTask Error " + e.getMessage());
         }
 
         return mResult;

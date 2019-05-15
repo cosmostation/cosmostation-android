@@ -283,6 +283,9 @@
     <string name="str_redelegation_warnning_title">경고</string>
     <string name="str_redelegation_warnning_msg">재위임을 받는 검증인은 21일동안 다시 재위임을 할 수 없습니다. 계속 진행 하시겠습니까?</string>
     <string name="str_redelegation_description">재위임을 받을 검증인에서\n다시 재위임을 하는것은 21일간 불가능 합니다.</string>
+    <string name="str_reward_address_change_title">이자 지급 주소 변경</string>
+    <string name="str_reward_address_change_msg">이자 지급 주소를 변경하실 수 있습니다.\n주소 변경 후 이자요청시 모든 이자는 변경된 주소로 지급됩니다.\n복구 단어로 접근이 가능하신 주소를 변경주소로 선택하셔야 합니다.</string>
+
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
