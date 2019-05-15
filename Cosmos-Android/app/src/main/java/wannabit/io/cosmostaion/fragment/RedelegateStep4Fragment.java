@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,10 +15,15 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_RedelegateConfirm;
+import wannabit.io.cosmostaion.dialog.Dialog_SendType;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RedelegateStep4Fragment extends BaseFragment implements View.OnClickListener {
+
+    public final static int REDELEGATE_CONFIRM_DIALOG = 6016;
 
     private TextView        mTvRedelegateAmount;
     private TextView        mFeeAmount, mFeeType;
@@ -79,7 +86,18 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
         } else if (v.equals(mConfirmBtn)) {
 //            getSActivity().onStartUndelegate();
             //TODO confirm dialog!!!
+            Dialog_RedelegateConfirm dialog = Dialog_RedelegateConfirm.newInstance();
+            dialog.setCancelable(true);
+            dialog.setTargetFragment(this, REDELEGATE_CONFIRM_DIALOG);
+            dialog.show(getFragmentManager().beginTransaction(), "dialog");
 
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REDELEGATE_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+            getSActivity().onStartRedelegate();
         }
     }
 }

@@ -139,6 +139,20 @@ public class MsgGenerator {
         return result;
     }
 
+    public static StakeMsg genReDelegateMsg(String accountAddr, String fromValAddr, String toValAddr, Coin amount) {
+        StakeMsg result  = new StakeMsg();
+        StakeMsg.Value value = new StakeMsg.Value();
+
+        value.delegator_address = accountAddr;
+        value.validator_src_address = fromValAddr;
+        value.validator_dst_address = toValAddr;
+        value.amount = amount;
+
+        result.type = BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
+        result.value = value;
+
+        return result;
+    }
 
 
 

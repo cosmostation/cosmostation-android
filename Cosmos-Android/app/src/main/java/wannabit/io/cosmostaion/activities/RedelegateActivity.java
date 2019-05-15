@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +35,8 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class RedelegateActivity extends BaseActivity implements TaskListener {
 
@@ -160,6 +163,17 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
 
 
     public void onStartRedelegate() {
+        Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE);
+        intent.putExtra("fromValidator", mFromValidator);
+        intent.putExtra("toValidator", mToValidator);
+        intent.putExtra("rAmount", mReDelegateAmount);
+        intent.putExtra("memo", mReDelegateMemo);
+        //TODO testcode
+        if(IS_FEE_FREE) mReDelegateFee.amount.get(0).amount = "0";
+        intent.putExtra("fee", mReDelegateFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
     }
 

@@ -72,6 +72,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private LinearLayout                mRewardLayer;
     private TextView                    mRewardFee, mRewardFrom, mRewardMemo;
 
+    private LinearLayout                mRedelegateLayer;
+    private TextView                    mRedelegateAtom, mRedelegateFee, mRedelegateFrom, mRedelegateTo, mRedelegateMemo;
+
     private CardView                    mErrorCard;
     private TextView                    mErrorDetails;
 
@@ -123,6 +126,13 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mRewardFrom             = findViewById(R.id.reward_moniker);
         mRewardMemo             = findViewById(R.id.reward_memo);
 
+        mRedelegateLayer        = findViewById(R.id.redelegate_layer);
+        mRedelegateAtom         = findViewById(R.id.redelegate_atom);
+        mRedelegateFee          = findViewById(R.id.redelegate_fees);
+        mRedelegateFrom         = findViewById(R.id.from_redelegate_moniker);
+        mRedelegateTo           = findViewById(R.id.to_redelegate_moniker);
+        mRedelegateMemo         = findViewById(R.id.redelegate_memo);
+
         mErrorCard              = findViewById(R.id.error_Card);
         mErrorDetails           = findViewById(R.id.error_details);
 
@@ -158,7 +168,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         }
 
         if(mIsSuccess) {
-            if(mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE || mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE) {
+            if(mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
+                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
+                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE) {
                 onStakeFetchTx(mTxHash);
             } else {
                 onFetchTx(mTxHash);
@@ -287,6 +299,29 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             }
             mRewardFrom.setText(from);
             mRewardMemo.setText(mResTxInfo.tx.value.memo);
+
+            mBtnDismiss.setVisibility(View.GONE);
+            mBottomAfterLayer.setVisibility(View.VISIBLE);
+
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE && mResStakeTxInfo != null){
+            mLoading.setVisibility(View.GONE);
+            mScrollLayer.setVisibility(View.VISIBLE);
+            mRedelegateLayer.setVisibility(View.VISIBLE);
+
+            mTvtxType.setText(R.string.tx_redelegate);
+            mTvTxHash.setText(mResStakeTxInfo.txhash);
+            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResStakeTxInfo.timestamp));
+            mTxBlockHeight.setText(mResStakeTxInfo.height);
+
+            mRedelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.amount.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                    mRedelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+            }
+            mRedelegateFrom.setText(mResStakeTxInfo.tx.value.msg.get(0).value.validator_src_address);
+            mRedelegateTo.setText(mResStakeTxInfo.tx.value.msg.get(0).value.validator_dst_address);
+            mRedelegateMemo.setText(mResStakeTxInfo.tx.value.memo);
 
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);

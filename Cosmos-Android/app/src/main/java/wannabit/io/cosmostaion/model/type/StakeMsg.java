@@ -26,5 +26,13 @@ public class StakeMsg {
         @SerializedName("validator_address")
         public String validator_address;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("validator_src_address")
+        public String validator_src_address;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("validator_dst_address")
+        public String validator_dst_address;
+
     }
 }

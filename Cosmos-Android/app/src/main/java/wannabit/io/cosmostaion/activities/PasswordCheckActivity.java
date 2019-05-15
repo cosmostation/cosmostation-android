@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleUndelegateTask;
@@ -63,6 +64,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Fee                         mTargetFee;
     private Coin                        mDAmount;
     private Coin                        mUAmount;
+    private Validator                   mFromReDelegate;
+    private Validator                   mToReDelegate;
+    private Coin                        mRAmount;
     private ArrayList<Validator>        mValidators = new ArrayList<>();
 
     private long                        mIdToDelete;
@@ -97,7 +101,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mTargetFee = getIntent().getParcelableExtra("fee");
         mDAmount = getIntent().getParcelableExtra("dAmount");
         mUAmount = getIntent().getParcelableExtra("uAmount");
+        mRAmount = getIntent().getParcelableExtra("rAmount");
+        mFromReDelegate = getIntent().getParcelableExtra("fromValidator");
+        mToReDelegate = getIntent().getParcelableExtra("toValidator");
         mValidators = getIntent().getParcelableArrayListExtra("validators");
+
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
@@ -215,6 +223,16 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             onShowWaitDialog();
             new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount(""+mIdToCheck)).execute(mUserInput);
 
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE) {
+            onShowWaitDialog();
+            new SimpleRedelegateTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mFromReDelegate,
+                    mToReDelegate,
+                    mRAmount,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
     }
 
@@ -269,7 +287,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_SEND ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE) {
             if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;

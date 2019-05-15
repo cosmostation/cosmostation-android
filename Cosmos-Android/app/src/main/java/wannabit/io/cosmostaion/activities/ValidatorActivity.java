@@ -46,7 +46,9 @@ import wannabit.io.cosmostaion.network.req.ReqTxVal;
 import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
+import wannabit.io.cosmostaion.task.SingleFetchTask.SingleAllRedelegateState;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRedelegateStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
@@ -77,12 +79,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private Reward                      mReward;
     private ArrayList<ResHistory.InnerHits> mTx = new ArrayList<>();
 
-    private String                      mValidatorPicture;
     private String                      mSelfBondingRate;
 
     private int                         mTaskCount;
-    private boolean                     mExpended = true;
-    private TaskResult                  mRedelegateResult;
+    private TaskResult                  mRedelegateResultAll;
+    private TaskResult                  mRedelegateResultThisVal;
 
 
     @Override
@@ -157,12 +158,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onInitFetch() {
         if(mTaskCount > 0) return;
-        mTaskCount = 5;
+        mTaskCount = 6;
         new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SingleAllRedelegateState(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         if(mBondingState != null) {
             mTaskCount = mTaskCount + 1;
             new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -253,11 +255,21 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if(!(mRedelegateResult != null && mRedelegateResult.isSuccess && mRedelegateResult.resultData == null)) {
+        if(!(mRedelegateResultThisVal != null && mRedelegateResultThisVal.isSuccess && mRedelegateResultThisVal.resultData == null)) {
             Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
+        }
+
+        if(mRedelegateResultAll != null && mRedelegateResultAll.isSuccess) {
+            ArrayList<ResLcdRedelegate> allRedeleHistory = (ArrayList<ResLcdRedelegate>)mRedelegateResultAll.resultData;
+            if(allRedeleHistory != null && allRedeleHistory.size() > 6) {
+                Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
         }
 
         onStartRedelegate();
@@ -400,7 +412,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 mTx = hits;
             }
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REDELEGATE) {
-            mRedelegateResult = result;
+            mRedelegateResultThisVal = result;
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_ALL_REDELEGATE) {
+            mRedelegateResultAll = result;
         }
 
         if(mTaskCount == 0) {
