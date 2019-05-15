@@ -46,13 +46,12 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
 
     private Toolbar         mToolbar;
-    private TextView        mToolbarTitle;
     private Button          mBtnCheck, mBtnDelete;
 
-    private ImageView       mKeyTypeImg, mNameEditImg;
+    private ImageView       mChainImg, mNameEditImg;
     private TextView        mAccountName;
 
-    private ImageView       mBtnCopy, mBtnQr;
+    private ImageView       mBtnQr;
     private TextView        mAccountAddress, mAccountGenTime;
     private TextView        mAccountChain, mAccountState, mAccountPath, mImportMsg;
     private RelativeLayout  mPathLayer;
@@ -65,17 +64,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_detail);
         mToolbar                = findViewById(R.id.tool_bar);
-        mToolbarTitle           = findViewById(R.id.toolbar_title);
         mBtnCheck               = findViewById(R.id.btn_check);
         mBtnDelete              = findViewById(R.id.btn_delete);
-        mKeyTypeImg             = findViewById(R.id.account_img);
+        mChainImg               = findViewById(R.id.chain_img);
         mNameEditImg            = findViewById(R.id.account_edit);
         mAccountName            = findViewById(R.id.account_name);
-        mBtnCopy                = findViewById(R.id.account_copy);
         mBtnQr                  = findViewById(R.id.account_qr);
         mAccountAddress         = findViewById(R.id.account_address);
-        mAccountGenTime         = findViewById(R.id.account_import_time);
         mAccountChain           = findViewById(R.id.account_chain);
+        mAccountGenTime         = findViewById(R.id.account_import_time);
         mAccountState           = findViewById(R.id.account_import_state);
         mAccountPath            = findViewById(R.id.account_path);
         mImportMsg              = findViewById(R.id.import_msg);
@@ -88,7 +85,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnCheck.setOnClickListener(this);
         mBtnDelete.setOnClickListener(this);
         mNameEditImg.setOnClickListener(this);
-        mBtnCopy.setOnClickListener(this);
         mBtnQr.setOnClickListener(this);
 
     }
@@ -132,10 +128,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         if(mAccount == null)  onBackPressed();
 
         if(TextUtils.isEmpty(mAccount.nickName)) {
-            mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
             mAccountName.setText(getString(R.string.str_my_wallet) + mAccount.id);
         } else {
-            mToolbarTitle.setText(mAccount.nickName);
             mAccountName.setText(mAccount.nickName);
         }
 
@@ -144,7 +138,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mAccountChain.setText(mAccount.baseChain);
 
         if(mAccount.hasPrivateKey) {
-            mKeyTypeImg.setImageDrawable(getResources().getDrawable(R.drawable.key_on));
             mAccountState.setText(getString(R.string.str_with_mnemonic));
             mAccountPath.setText(BaseConstant.KEY_PATH + mAccount.path);
             mPathLayer.setVisibility(View.VISIBLE);
@@ -152,7 +145,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mBtnCheck.setText(getString(R.string.str_check_mnemonic));
 
         } else {
-            mKeyTypeImg.setImageDrawable(getResources().getDrawable(R.drawable.key_off));
             mAccountState.setText(getString(R.string.str_only_address));
             mPathLayer.setVisibility(View.GONE);
             mImportMsg.setVisibility(View.VISIBLE);
@@ -264,16 +256,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             delete.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
 
-        } else if (v.equals(mBtnCopy)) {
-            ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("address", mAccount.address);
-            clipboard.setPrimaryClip(clip);
-            Toast.makeText(this, R.string.str_copied, Toast.LENGTH_SHORT).show();
-
         } else if (v.equals(mBtnQr)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
-            bundle.putString("title", mToolbarTitle.getText().toString());
+            bundle.putString("title", mAccountName.getText().toString());
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();

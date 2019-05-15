@@ -129,6 +129,7 @@
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_manage">Wallet Manage</string>
+    <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>
     <string name="str_alarm">Alarm</string>
     <string name="str_currency">Currency</string>
@@ -152,7 +153,8 @@
     <string name="str_wallet_address">Wallet address</string>
     <string name="str_wallet_info">Wallet Information</string>
     <string name="str_chain_info">Chain Info</string>
-    <string name="str_import_state">Import State</string>
+    <string name="str_import_time">Imported Date</string>
+    <string name="str_import_state">Imported State</string>
     <string name="str_import_path">Key Path</string>
     <string name="str_import_msg">Currently in watch mode.\nAll transactions are made available after registering your mnemonic phrase.</string>
     <string name="str_import_mnemonic">Import Mnemonic</string>

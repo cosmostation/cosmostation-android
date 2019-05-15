@@ -82,6 +82,7 @@
     <string name="str_detail">Detail</string>
     <string name="str_wallet">지갑</string>
     <string name="str_wallet_manage">지갑 관리</string>
+    <string name="str_wallet_detail">지갑 상세</string>
     <string name="str_general">일반</string>
     <string name="str_alarm">알람</string>
     <string name="str_currency">통화</string>
@@ -105,6 +106,7 @@
     <string name="str_wallet_address">지갑 주소</string>
     <string name="str_wallet_info">지갑 정보</string>
     <string name="str_chain_info">블럭체인 정보</string>
+    <string name="str_import_time">압력 날짜</string>
     <string name="str_import_state">상태</string>
     <string name="str_import_path">경로</string>
     <string name="str_import_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
