@@ -23,6 +23,8 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
+import wannabit.io.cosmostaion.dialog.Dialog_Not_Top_100;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -358,6 +360,24 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    private void onShowMoreWait() {
+        Dialog_MoreWait waitMore = Dialog_MoreWait.newInstance(null);
+        waitMore.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(waitMore, "dialog").commitNowAllowingStateLoss();
+
+    }
+
+    public void onWaitMore() {
+        FetchCnt = 0;
+        if(mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
+                mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
+                mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE) {
+            onStakeFetchTx(mTxHash);
+        } else {
+            onFetchTx(mTxHash);
+        }
+    }
+
 
     private int FetchCnt = 0;
     private void onFetchTx(String hash) {
@@ -366,45 +386,21 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
                 if(isFinishing()) return;
                 WLog.w("onFetchTx " + response.toString());
-                if(response.isSuccessful()) {
-                    if(response.body() == null) {
-                        if(mIsSuccess && FetchCnt < 10) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    FetchCnt++;
-                                    onFetchTx(mTxHash);
-                                }
-                            }, 4500);
-                        } else {
-                            //TODO finish
-                            WLog.w("Looop");
-                        }
-                        return;
-                    }
-                    WLog.w("getSearchTx : " + response.body().height);
+                if(response.isSuccessful() && response.body() != null) {
                     mResTxInfo = response.body();
                     onUpdateView();
 
                 } else {
                     if(mIsSuccess && FetchCnt < 10) {
-                        WLog.w("retry : " + FetchCnt + " " + mIsSuccess);
-                        if(mIsSuccess && FetchCnt < 10) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    FetchCnt++;
-                                    onFetchTx(mTxHash);
-                                }
-                            }, 4500);
-                        } else {
-                            //TODO finish
-                            WLog.w("Looop");
-                        }
-                        return;
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                FetchCnt++;
+                                onFetchTx(mTxHash);
+                            }
+                        }, 6000);
                     } else {
-                        WLog.w("retry : " + FetchCnt + " " + mIsSuccess);
-                        onBackPressed();
+                        onShowMoreWait();
                     }
 
                 }
@@ -425,45 +421,21 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             public void onResponse(Call<ResStakeTxInfo> call, Response<ResStakeTxInfo> response) {
                 if(isFinishing()) return;
                 WLog.w("onStakeFetchTx " + response.toString());
-                if(response.isSuccessful()) {
-                    if(response.body() == null) {
-                        if(mIsSuccess && FetchCnt < 10) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    FetchCnt++;
-                                    onStakeFetchTx(mTxHash);
-                                }
-                            }, 4500);
-                        } else {
-                            //TODO finish
-                            WLog.w("Looop");
-                        }
-                        return;
-                    }
-                    WLog.w("getSearchTx : " + response.body().height);
+                if(response.isSuccessful() && response.body() != null) {
                     mResStakeTxInfo = response.body();
                     onUpdateView();
 
                 } else {
                     if(mIsSuccess && FetchCnt < 10) {
-                        WLog.w("retry : " + FetchCnt + " " + mIsSuccess);
-                        if(mIsSuccess && FetchCnt < 10) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    FetchCnt++;
-                                    onStakeFetchTx(mTxHash);
-                                }
-                            }, 4500);
-                        } else {
-                            //TODO finish
-                            WLog.w("Looop");
-                        }
-                        return;
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                FetchCnt++;
+                                onStakeFetchTx(mTxHash);
+                            }
+                        }, 6000);
                     } else {
-                        WLog.w("retry : " + FetchCnt + " " + mIsSuccess);
-                        onBackPressed();
+                        onShowMoreWait();
                     }
 
                 }
