@@ -149,9 +149,14 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 @Override
                 public void onClick(View v) {
                     if(holder.new_state.getText().toString().equals(getString(R.string.str_ready))) {
+                        if(getBaseDao().onSelectAccounts().size() >= 5) {
+                            Toast.makeText(getBaseContext(), getString(R.string.error_max_account_over), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         onGenAccount(position);
-                    } else if (holder.new_state.getText().toString().equals(getString(R.string.str_override))) {
+                    } else if (holder.new_state.getText().toString().equals(getString(R.string.str_imported))) {
                         Toast.makeText(getBaseContext(), getString(R.string.str_already_imported_key), Toast.LENGTH_SHORT).show();
+
                     } else {
                         onOverrideAccount(temp, position);
                     }

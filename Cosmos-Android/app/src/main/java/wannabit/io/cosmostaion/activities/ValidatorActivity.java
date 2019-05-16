@@ -82,7 +82,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private String                      mSelfBondingRate;
 
     private int                         mTaskCount;
-    private TaskResult                  mRedelegateResultAll;
     private TaskResult                  mRedelegateResultThisVal;
 
 
@@ -158,18 +157,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onInitFetch() {
         if(mTaskCount > 0) return;
-        mTaskCount = 6;
+        mTaskCount = 5;
         new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new SingleAllRedelegateState(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         if(mBondingState != null) {
             mTaskCount = mTaskCount + 1;
             new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
-
     }
 
 
@@ -260,16 +257,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
-        }
-
-        if(mRedelegateResultAll != null && mRedelegateResultAll.isSuccess) {
-            ArrayList<ResLcdRedelegate> allRedeleHistory = (ArrayList<ResLcdRedelegate>)mRedelegateResultAll.resultData;
-            if(allRedeleHistory != null && allRedeleHistory.size() > 6) {
-                Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                return;
-            }
         }
 
         onStartRedelegate();
@@ -373,7 +360,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onFetchValHistory() {
         mTaskCount++;
         ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
-//        WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
+        WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
         new ValHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -414,8 +401,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REDELEGATE) {
             mRedelegateResultThisVal = result;
 
-        } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_ALL_REDELEGATE) {
-            mRedelegateResultAll = result;
         }
 
         if(mTaskCount == 0) {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">코스모스테이션</string>
+    <string name="app_name">Cosmostation</string>
 
     <string name="str_cosmos_main_net">코스모스 메인넷</string>
     <string name="str_cosmos_test_net_12k">코스모스 테스트넷 (GAIA 12k)</string>
@@ -330,8 +330,10 @@
     <string name="error_only_atom_for_fee">현재 아톰으로만 Tx 수수료가 가능합니다.</string>
     <string name="error_disabled_jailed">수감중인 노드에 위임하는 기능은 지원하지 않습니다.</string>
     <string name="error_unbond_cnt_over">위임 철회 가능 횟수를 초과하였습니다.</string>
+    <string name="error_redelegate_cnt_over">재위임 가능 횟수를 초과하였습니다. 다른 검증인을 선택해주세요.</string>
     <string name="error_no_to_validator">재위임 받을 검증인을 선택해 주세요.</string>
     <string name="error_same_reward_address">이미 등록된 이자 주소와 동일합니다.</string>
+    <string name="error_max_account_over">최대 5개의 지갑이 등록 가능합니다.</string>
 
 
     <string name="s_atom">ATOM</string>

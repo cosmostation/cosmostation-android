@@ -72,7 +72,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 //        WLog.w("RewardStep0Fragment onRefreshTab");
         BigDecimal rewardSum = BigDecimal.ZERO;
         for (Reward reward:getSActivity().mRewards) {
-            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount));
+            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
         }
 //        WLog.w("RewardStep0Fragment "+rewardSum);
         mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));

@@ -72,7 +72,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
 
         for (Reward reward:getSActivity().mRewards) {
-            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount));
+            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
         }
         mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));

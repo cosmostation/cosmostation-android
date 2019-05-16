@@ -213,7 +213,7 @@
     <string name="str_history_validator">History with this validator</string>
     <string name="str_price">Price</string>
     <string name="str_ago">ago</string>
-    <string name="str_day">day</string>
+    <string name="str_day">days</string>
     <string name="str_d">d</string>
     <string name="str_h">h</string>
     <string name="str_m">m</string>
@@ -340,7 +340,7 @@
     <string name="str_reward_address_change_title">Reward Address Change</string>
     <string name="str_reward_address_change_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. \nPlease confirm you have full authority with to change address.</string>
     <string name="str_reward_address_change_confirm_title">Double Check!</string>
-    <string name="str_reward_address_change_confirm_msg">You gonna change your reward recipient address.\nMake sure you have full authority for to change address. Without auth for new address you never find your reward at all.</string>
+    <string name="str_reward_address_change_confirm_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. \nPlease confirm you have full authority with to change address.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonics, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Password is not same. Please init password again!</string>
@@ -375,8 +375,10 @@
     <string name="error_only_atom_for_fee">Only pay for Tx fee with ATOM</string>
     <string name="error_disabled_jailed">Delegation to jailed validator is not supported.</string>
     <string name="error_unbond_cnt_over">Exceeded maximum undelegation count.</string>
+    <string name="error_redelegate_cnt_over">Exceeded maximum redelegation count.\nSelect another validator.</string>
     <string name="error_no_to_validator">Please select validator to redelegate.</string>
     <string name="error_same_reward_address">already registered address for reward.</string>
+    <string name="error_max_account_over">Max account is 5.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

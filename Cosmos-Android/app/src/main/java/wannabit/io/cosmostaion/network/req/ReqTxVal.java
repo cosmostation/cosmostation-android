@@ -70,8 +70,11 @@ public class ReqTxVal {
         @SerializedName("tx.value.msg.value.validator_addr")
         public String validator_addr;
 
-        @SerializedName("tx.value.msg.value.validator_dst_addr")
-        public String validator_dst_addr;
+        @SerializedName("tx.value.msg.value.validator_src_address")
+        public String validator_src_address;
+
+        @SerializedName("tx.value.msg.value.validator_dst_address")
+        public String validator_dst_address;
 
         @SerializedName("tx.value.msg.value.validator_address")
         public String validator_address;
@@ -115,7 +118,8 @@ public class ReqTxVal {
         if(searchType == 0) {
             fields.add(delegator_addr);
             fields.add(delegator_address);
-            fields.add(validator_dst_addr);
+            fields.add(validator_src_address);
+            fields.add(validator_dst_address);
         }
         multiMatch.fields = fields;
 
@@ -128,22 +132,27 @@ public class ReqTxVal {
         Should should1 = new Should();
         Should should2 = new Should();
         Should should3 = new Should();
+        Should should4 = new Should();
 
         Term term1 = new Term();
         term1.validator_addr = opAddress;
         Term term2 = new Term();
-        term2.validator_dst_addr = opAddress;
+        term2.validator_src_address = opAddress;
         Term term3 = new Term();
         term3.validator_address = opAddress;
+        Term term4 = new Term();
+        term4.validator_dst_address = opAddress;
 
         should1.term = term1;
         should2.term = term2;
         should3.term = term3;
+        should4.term = term4;
 
         ArrayList<Should> shoulds = new ArrayList<>();
         shoulds.add(should1);
         shoulds.add(should2);
         shoulds.add(should3);
+        shoulds.add(should4);
 
         Bool bool = new Bool();
         bool.should = shoulds;
@@ -162,5 +171,6 @@ public class ReqTxVal {
 
     public static final String delegator_addr = "tx.value.msg.value.delegator_addr";
     public static final String delegator_address = "tx.value.msg.value.delegator_address";
-    public static final String validator_dst_addr = "tx.value.msg.value.validator_dst_addr";
+    public static final String validator_dst_address = "tx.value.msg.value.validator_dst_address";
+    public static final String validator_src_address = "tx.value.msg.value.validator_src_address";
 }

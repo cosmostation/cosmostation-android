@@ -359,7 +359,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         BigDecimal rewardSum = BigDecimal.ZERO;
         for (Reward reward:mRewards) {
-            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount));
+            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
         }
         if (rewardSum.compareTo(mGasMinFee) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();

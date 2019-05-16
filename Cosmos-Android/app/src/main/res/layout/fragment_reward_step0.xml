@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8"
                     android:text="-"
-                    style="@style/font_ss_12_white"/>
+                    style="@style/font_ss_12_red"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

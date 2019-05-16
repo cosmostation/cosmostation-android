@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,14 +30,20 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_RedelegationLimited;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
+import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
+import wannabit.io.cosmostaion.task.SingleFetchTask.SingleAllRedelegateState;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class RedelegateStep1Fragment extends BaseFragment implements View.OnClickListener {
+public class RedelegateStep1Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
     private Button                  mBefore, mNextBtn;
     private RecyclerView            mRecyclerView;
@@ -86,15 +93,35 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             if(mCheckedValidator == null) {
                 Toast.makeText(getContext(), R.string.error_no_to_validator, Toast.LENGTH_SHORT).show();
             } else {
-                getSActivity().mToValidator = mCheckedValidator;
-                getSActivity().onNextStep();
+                new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
+                        getSActivity().mFromValidator.operator_address,
+                        mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+        }
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if(!isAdded()) return;
+        if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_ALL_REDELEGATE ) {
+            if(result.isSuccess) {
+                ArrayList<ResLcdRedelegate> redelegates = (ArrayList<ResLcdRedelegate>) result.resultData;
+                if(redelegates != null && redelegates.get(0) != null && redelegates.get(0).entries.size() >= 7 ) {
+                    Toast.makeText(getContext(), R.string.error_redelegate_cnt_over, Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    getSActivity().mToValidator = mCheckedValidator;
+                    getSActivity().onNextStep();
+                }
+
+            } else {
+                Toast.makeText(getContext(), R.string.error_network, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
 
     private class ToValidatorAdapter extends RecyclerView.Adapter<ToValidatorAdapter.ToValidatorHolder> {
-
 
         @NonNull
         @Override

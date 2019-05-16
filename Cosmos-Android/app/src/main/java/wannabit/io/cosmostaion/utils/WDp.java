@@ -73,7 +73,7 @@ public class WDp {
     public static SpannableString getDpAllAtomRewardAmount(Context c, ArrayList<Reward> rewards, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Reward reward : rewards) {
-            sum = sum.add(reward.getAtomAmount());
+            sum = sum.add(reward.getAtomAmount().setScale(0, BigDecimal.ROUND_DOWN));
         }
         return getDpAmount(c, sum, 6, chain);
     }
