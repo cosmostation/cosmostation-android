@@ -81,6 +81,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                     }
                 });
 
+        onHardCodeHub2();
     }
 
     private void onInitView(){
@@ -130,6 +131,14 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             startActivity(new Intent(IntroActivity.this, WatchingAccountAddActivity.class));
         }
 
+    }
+
+    public void onHardCodeHub2() {
+        ArrayList<Account> accounts = getBaseDao().onSelectAccounts();
+        for(Account account:accounts) {
+            account.baseChain = BaseChain.COSMOS_MAIN.getChain();
+            getBaseDao().onUpdateAccount(account);
+        }
     }
 }
 

@@ -6,5 +6,5 @@
   Copyright © 2019 wannabit. All rights reserved.
 */
 
-"CFBundleDisplayName" = "코스모스테이션";
+"CFBundleDisplayName" = "Cosmostation";
 "NSCameraUsageDescription" = "QR Code 스캔을 위해 카메라 권한을 요청합니다.";

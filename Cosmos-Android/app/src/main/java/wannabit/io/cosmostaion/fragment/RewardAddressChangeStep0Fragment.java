@@ -56,6 +56,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
         mBtnQr.setOnClickListener(this);
         mBtnPaste.setOnClickListener(this);
 
+        mAddressInput.setHint(getString(R.string.str_new_reward_address));
         mCurrentAddress.setText(getSActivity().mCurrentRewardAddress);
         return rootView;
     }

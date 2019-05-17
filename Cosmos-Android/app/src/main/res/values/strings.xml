@@ -358,7 +358,7 @@
     <string name="error_invalid_address">Invalid Address.</string>
     <string name="error_self_sending">Self sending is not support.</string>
     <string name="error_invalid_amount">Invalid amount, please insert correct amount to send.</string>
-    <string name="error_invalid_memo">Invalid memo, please type under 256 char.</string>
+    <string name="error_invalid_memo">Invalid memo, please type under 255 char.</string>
     <string name="error_network">Network Error.</string>
     <string name="error_address_not_in_node">Address or Public key is valid format but no data in block chain.</string>
     <string name="error_no_delegate">Nothing to undelegate.</string>

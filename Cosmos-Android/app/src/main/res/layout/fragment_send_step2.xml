@@ -35,7 +35,7 @@
             android:layout_below="@+id/et_memo"
             android:layout_alignParentRight="true"
             style="@style/font_ss_11_gray1"
-            android:text="0/256"/>
+            android:text="0/255"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

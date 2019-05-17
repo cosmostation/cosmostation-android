@@ -268,7 +268,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:padding="@dimen/space_8"
-                            android:src="@drawable/ic_rewardaddress_change_ic"/>
+                            android:src="@drawable/edit_btn"/>
                         <TextView
                             android:id="@+id/reward_address"
                             android:layout_width="match_parent"

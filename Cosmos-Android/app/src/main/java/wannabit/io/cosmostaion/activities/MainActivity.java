@@ -316,7 +316,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         }
 
 
-
         ArrayList<Validator> myValidators = new ArrayList<>();
         ArrayList<Validator> toClaimValidators = new ArrayList<>();
         for(Validator validator:mAllValidators) {
@@ -327,6 +326,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     break;
                 }
             }
+        }
+        if(myValidators.size() == 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+            return;
         }
 
         onSortingByReward(myValidators);

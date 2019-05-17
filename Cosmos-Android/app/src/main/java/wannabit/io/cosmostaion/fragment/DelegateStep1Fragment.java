@@ -49,14 +49,14 @@ public class DelegateStep1Fragment extends BaseFragment implements View.OnClickL
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 int memoSize = mMemo.getText().toString().trim().length();
-                if(memoSize <= 256) {
+                if(memoSize <= 255) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
                 }
-                mMemoCnt.setText("" + memoSize + "/256");
+                mMemoCnt.setText("" + memoSize + "/255");
 
             }
 
@@ -64,7 +64,17 @@ public class DelegateStep1Fragment extends BaseFragment implements View.OnClickL
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+                int memoSize = mMemo.getText().toString().trim().length();
+                if(memoSize <= 255) {
+                    mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
+                } else {
+                    mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+                mMemoCnt.setText("" + memoSize + "/255");
+            }
         });
         return rootView;
     }
@@ -75,7 +85,7 @@ public class DelegateStep1Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(mMemo.getText().toString().trim().length() <= 256) {
+            if(mMemo.getText().toString().trim().length() <= 255) {
                 getSActivity().mToDelegateMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
 

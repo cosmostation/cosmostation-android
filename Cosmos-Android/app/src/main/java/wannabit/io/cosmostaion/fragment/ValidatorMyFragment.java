@@ -221,10 +221,10 @@ public class ValidatorMyFragment extends BaseFragment {
             CardView itemRoot;
             CircleImageView itemAvatar;
             ImageView       itemFree;
-            ImageView itemRevoked;
-            TextView    itemTvMoniker;
-            TextView    itemTvDelegateAmount;
-            TextView    itemTvReward;
+            ImageView       itemRevoked;
+            TextView        itemTvMoniker;
+            TextView        itemTvDelegateAmount;
+            TextView        itemTvReward;
 
             public RewardMyValidatorHolder(@NonNull View itemView) {
                 super(itemView);

@@ -32,7 +32,7 @@
     <string name="str_paste">붙여넣기</string>
     <string name="str_send_c">송금 하기</string>
     <string name="str_change_reward_address_c">이자 주소 변경</string>
-    <string name="str_delegate_c">위임 하기</string>
+    <string name="str_delegate_c">위임 변경하기</string>
     <string name="str_undelegate_c">위임 철회 하기</string>
     <string name="str_redelegate_c">재위임 하기</string>
     <string name="str_before">이전</string>
