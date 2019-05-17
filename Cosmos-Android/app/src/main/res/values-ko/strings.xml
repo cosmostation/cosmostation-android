@@ -108,7 +108,7 @@
     <string name="str_wallet_address">지갑 주소</string>
     <string name="str_wallet_info">지갑 정보</string>
     <string name="str_chain_info">블럭체인 정보</string>
-    <string name="str_import_time">압력 날짜</string>
+    <string name="str_import_time">등록 날짜</string>
     <string name="str_import_state">상태</string>
     <string name="str_import_path">경로</string>
     <string name="str_import_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
