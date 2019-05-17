@@ -126,7 +126,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
             gasCoin.denom = BaseConstant.COSMOS_ATOM;
             amount.add(gasCoin);
             fee.amount = amount;
-            fee.gas = "200000";
+            fee.gas = "220000";
             getSActivity().mReDelegateFee = fee;
             getSActivity().onNextStep();
 

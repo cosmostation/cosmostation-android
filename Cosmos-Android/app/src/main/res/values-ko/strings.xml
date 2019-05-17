@@ -30,7 +30,7 @@
     <string name="str_watch">관찰하기</string>
     <string name="str_address">주소</string>
     <string name="str_paste">붙여넣기</string>
-    <string name="str_send_c">송금 하기</string>
+    <string name="str_send_c">전송 하기</string>
     <string name="str_change_reward_address_c">이자 주소 변경</string>
     <string name="str_delegate_c">위임 변경하기</string>
     <string name="str_undelegate_c">위임 철회 하기</string>
@@ -44,10 +44,10 @@
     <string name="str_memo">메모</string>
     <string name="str_fees">Tx 수수료</string>
     <string name="str_fees_c">Tx 수수료</string>
-    <string name="str_to_send_amount">송금할 수량</string>
+    <string name="str_to_send_amount">전송할 수량</string>
     <string name="str_total_spend_amount">지출 총량</string>
     <string name="str_current_available">현재 사용 가능 수량</string>
-    <string name="str_remaining_available">송금 후 사용 가능 수량</string>
+    <string name="str_remaining_available">전송 후 사용 가능 수량</string>
     <string name="str_from_c">FROM</string>
     <string name="str_to_c">TO</string>
     <string name="str_memo_c">메모</string>
@@ -73,7 +73,7 @@
     <string name="str_select_wallet_path_c">복구 지갑 선택</string>
     <string name="str_watch_address_path_c">주소 관찰</string>
     <string name="str_address_pubkey">주소 또는 공개키 입력.</string>
-    <string name="str_watch_msg">관찰 모드로 복구 단어 입력 없이 지갑의 상태를 확인할 수 있습니다.\n추후 설정에서 복구 단어를 입력하면 송금 등의 활동이 가능합니다.</string>
+    <string name="str_watch_msg">관찰 모드로 복구 단어 입력 없이 지갑의 상태를 확인할 수 있습니다.\n추후 설정에서 복구 단어를 입력하면 전송 등의 활동이 가능합니다.</string>
     <string name="str_submit_time">의제 제출 시간</string>
     <string name="str_voting_start_time">투표 시작 시간</string>
     <string name="str_voting_end_time">투표 종료 시간</string>
@@ -182,7 +182,7 @@
     <string name="str_max_available_delegate_amount"><![CDATA[최대 위임 가능량 : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[최대 위임 철회 가능량 : ]]></string>
     <string name="str_max_available_redelegate_amount"><![CDATA[최대 재위임 가능량 : ]]></string>
-    <string name="str_max_available_send_amount"><![CDATA[최대 송금 가능량 : ]]></string>
+    <string name="str_max_available_send_amount"><![CDATA[최대 전송 가능량 : ]]></string>
     <string name="str_tx_error_description">죄송합니다. 요청하신 전송이 실패하였습니다.\n아래에 보여지는 에러 코드와 메시지를 확인해 주세요.</string>
     <string name="str_success_loading">트랜잭션 전송에 성공하였습니다.\n전송 상세 내용을 불러오는 중입니다.\n조금만 기다려주세요.</string>
     <string name="str_front_guide_title">코스모스 및 지갑 도움말</string>
@@ -308,7 +308,7 @@
     <string name="error_invalid_password">비밀번호가 틀렸습니다.</string>
     <string name="error_clipboard_no_data">클립보드에 아무것도 없습니다.</string>
     <string name="error_invalid_address">부정확한 주소입니다.</string>
-    <string name="error_self_sending">자기 자신에게는 송금할 수 없습니다.</string>
+    <string name="error_self_sending">자기 자신에게는 전송할 수 없습니다.</string>
     <string name="error_invalid_amount">부정확한 숫자입니다. 정확히 입력해 주세요.</string>
     <string name="error_invalid_memo">불가능한 메모입니다.</string>
     <string name="error_network">네트워크 에러</string>
@@ -347,7 +347,7 @@
 
     <string name="tx_send">출금</string>
     <string name="tx_receive">입금</string>
-    <string name="tx_transfer">송금</string>
+    <string name="tx_transfer">전송</string>
     <string name="tx_delegate">위임</string>
     <string name="tx_undelegate">위임 철회</string>
     <string name="tx_redelegate">재위임</string>
@@ -466,14 +466,14 @@ IBC의 작동 원리는 생각보다 간단합니다. 체인A의 어떤 계정�
 1. 코스모스테이션 앱 실행
 2. Watch Address > 지갑 주소 / Public key 입력 > 지갑 선택 > 비밀번호 입력 및 등록 > 완료
 
-* Address로 등록 시, 오직 관찰만 가능합니다. 송금 등 서비스 이용을 원하실 경우 Mnemonics 단어 검증 후 지갑을 등록해주세요.]]></item>
+* Address로 등록 시, 오직 관찰만 가능합니다. 전송 등 서비스 이용을 원하실 경우 Mnemonics 단어 검증 후 지갑을 등록해주세요.]]></item>
         <item><![CDATA[복구 단어 (Mnemonics phrase)는 지갑을 복구하기 위한 단어구입니다.
 개인키 (Private key)와 동일한 기능으로, 개인키가 복잡한 단어들로 구성이 되어있는 반면 복구 단어는 기억하기 쉽게 조합된 형태입니다. 이 단어구를 통해 1,2,3~n개의 지갑을 복구할 수 있습니다. 유출될 경우 아톰을 모두 잃게 될 수 있습니다.]]></item>
         <item><![CDATA[복구 단어 (Mnemonics phrase)는 강력한 암호화를 통해 저장됩니다.
 고객님의 자산을 보호하기 위해 철저한 보안을 유지합니다.]]></item>
         <item><![CDATA[[보내기]
 상단에서 전송을 원하는 "Wallet"을 선택하고 잔액을 확인해주세요.
-오른쪽 하단의 Send 버튼을 Tap 해주시면 송금 화면으로 이동합니다. 보내실 금액, 첨부하실 메모, 수수료를 설정해주세요.
+오른쪽 하단의 Send 버튼을 Tap 해주시면 전송 화면으로 이동합니다. 보내실 금액, 첨부하실 메모, 수수료를 설정해주세요.
 수수료는 Low, Average, High 세 가지로 설정하실 수 있습니다. 수수료가 높을 수록 우선순위가 높아집니다.
 
 [받기]
@@ -518,9 +518,9 @@ IBC의 작동 원리는 생각보다 간단합니다. 체인A의 어떤 계정�
     </string-array>
 
     <string-array name="guide_detail_transaction">
-        <item><![CDATA[[송금]
-1. Send : 송금
-2. MultiSend : N:N, 1:N, N:1 지갑간 송금
+        <item><![CDATA[[전송]
+1. Send : 전송
+2. MultiSend : N:N, 1:N, N:1 지갑간 전송
 
 [분배]
 1. get reward : 이자 받기
@@ -563,7 +563,7 @@ IBC의 작동 원리는 생각보다 간단합니다. 체인A의 어떤 계정�
 
     <string-array name="guide_detail_general">
         <item><![CDATA[아니요. 비밀번호 변경은 불가합니다.
-송금 등의 서비스 이용 시 필요하오니 비밀번호를 꼭 기억해주세요]]></item>
+전송 등의 서비스 이용 시 필요하오니 비밀번호를 꼭 기억해주세요]]></item>
         <item>
 <![CDATA[코스모스테이션에서는 KRW(\), USD($) 통화를 지원하고 있습니다.
 설정 > 통화설정에서 변경 가능하며, 앞으로도 지속적인 업데이트로 다양한 통화를 제공할 예정입니다.]]></item>

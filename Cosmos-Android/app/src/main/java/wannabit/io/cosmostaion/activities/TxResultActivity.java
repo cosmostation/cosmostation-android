@@ -461,7 +461,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 return;
             }
 
-            if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE || mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE){
+            if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
+                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
+                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE){
                 Intent webintent = new Intent(this, WebActivity.class);
                 webintent.putExtra("txid", mResStakeTxInfo.txhash);
                 webintent.putExtra("goMain", true);
@@ -477,7 +479,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             if(mResStakeTxInfo == null && mResTxInfo == null) {
                 return;
             }
-            if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE || mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE){
+            if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
+                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
+                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE){
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResStakeTxInfo.txhash);

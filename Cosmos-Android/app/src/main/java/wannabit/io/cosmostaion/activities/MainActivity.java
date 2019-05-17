@@ -283,7 +283,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     hasbalance  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) > 0)) {
                     hasbalance  = true;
                 }
             }

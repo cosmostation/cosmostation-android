@@ -71,7 +71,9 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
             if (!TextUtils.isEmpty(userInput) && WKey.isValidBech32(userInput)) {
                 mUserInputAddress = userInput;
                 onShowNetDialog();
-
+            } else if (!TextUtils.isEmpty(userInput) && userInput.startsWith("cosmosvaloper") ) {
+                Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                return;
 
             } else if (!TextUtils.isEmpty(userInput) && WKey.getCosmosDpPubToDpAddress(userInput) != null) {
                 mUserInputAddress = WKey.getCosmosDpPubToDpAddress(userInput);
