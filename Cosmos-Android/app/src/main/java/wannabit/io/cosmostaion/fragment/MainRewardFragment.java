@@ -76,6 +76,7 @@ public class MainRewardFragment extends BaseFragment {
         TextView            tabItemText2  = tab2.findViewById(R.id.tabItemText);
         tabItemText2.setText(getString(R.string.str_other_validators)+ "(" + getMainActivity().mOtherValidators.size() + ")");
         mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
+        mValidatorPager.setOffscreenPageLimit(3);
         mValidatorPager.setCurrentItem(0, false);
 
         mValidatorPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -89,6 +90,7 @@ public class MainRewardFragment extends BaseFragment {
             public void onPageSelected(int i) {
                 WLog.w("onPageSelected : " + i);
                 mPageAdapter.mFragments.get(i).onRefreshTab();
+                getMainActivity().invalidateOptionsMenu();
             }
         });
 
@@ -99,7 +101,12 @@ public class MainRewardFragment extends BaseFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.reward_menu, menu);
+        if(mValidatorPager.getCurrentItem() == 2) {
+            inflater.inflate(R.menu.reward_other, menu);
+
+        } else {
+            inflater.inflate(R.menu.reward_menu, menu);
+        }
     }
 
     @Override
@@ -107,9 +114,10 @@ public class MainRewardFragment extends BaseFragment {
         switch(item.getItemId()) {
             case R.id.menu_sorting :
                 if(mValidatorPager.getCurrentItem() == 1) {
-                    onShowAllValidatorSort();
+                    ((ValidatorAllFragment)mPageAdapter.getCurrentFragment()).onShowAllValidatorSort();
+
                 } else if(mValidatorPager.getCurrentItem() == 0){
-                    onShowMyValidatorSort();
+                    ((ValidatorMyFragment)mPageAdapter.getCurrentFragment()).onShowMyValidatorSort();
                 }
                 break;
             case R.id.menu_accounts :
@@ -144,39 +152,9 @@ public class MainRewardFragment extends BaseFragment {
 
     }
 
-    private void onShowAllValidatorSort() {
-        Dialog_ValidatorSorting bottomSheetDialog = Dialog_ValidatorSorting.getInstance();
-        bottomSheetDialog.setArguments(null);
-        bottomSheetDialog.setTargetFragment(MainRewardFragment.this, SELECT_All_VALIDATOR_SORTING);
-        bottomSheetDialog.show(getFragmentManager(), "dialog");
-    }
-
-    private void onShowMyValidatorSort() {
-        Dialog_My_ValidatorSorting bottomSheetDialog = Dialog_My_ValidatorSorting.getInstance();
-        bottomSheetDialog.setArguments(null);
-        bottomSheetDialog.setTargetFragment(MainRewardFragment.this, SELECT_MY_VALIDATOR_SORTING);
-        bottomSheetDialog.show(getFragmentManager(), "dialog");
-    }
-
-
-
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();
     }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == SELECT_All_VALIDATOR_SORTING && resultCode == Activity.RESULT_OK) {
-            getBaseDao().setValSorting(data.getIntExtra("sorting", 1));
-            mPageAdapter.mFragments.get(1).onRefreshTab();
-
-        } else if(requestCode == SELECT_MY_VALIDATOR_SORTING && resultCode == Activity.RESULT_OK) {
-            getBaseDao().setMyValSorting(data.getIntExtra("sorting", 1));
-            mPageAdapter.mFragments.get(0).onRefreshTab();
-        }
-    }
-
 
     private class ValidatorPageAdapter extends FragmentPagerAdapter {
 

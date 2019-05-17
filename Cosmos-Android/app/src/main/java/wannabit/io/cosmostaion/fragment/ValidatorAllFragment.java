@@ -11,6 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -42,6 +45,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ValidatorAllFragment extends BaseFragment {
+
+    public final static int SELECT_All_VALIDATOR_SORTING = 6002;
 
 
     private SwipeRefreshLayout      mSwipeRefreshLayout;
@@ -84,7 +89,6 @@ public class ValidatorAllFragment extends BaseFragment {
 
         return rootView;
     }
-
 
     @Override
     public void onRefreshTab() {
@@ -272,4 +276,20 @@ public class ValidatorAllFragment extends BaseFragment {
             }
         });
     }
+
+    public void onShowAllValidatorSort() {
+        Dialog_ValidatorSorting bottomSheetDialog = Dialog_ValidatorSorting.getInstance();
+        bottomSheetDialog.setArguments(null);
+        bottomSheetDialog.setTargetFragment(ValidatorAllFragment.this, SELECT_All_VALIDATOR_SORTING);
+        bottomSheetDialog.show(getFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == SELECT_All_VALIDATOR_SORTING && resultCode == Activity.RESULT_OK) {
+            getBaseDao().setValSorting(data.getIntExtra("sorting", 1));
+            onRefreshTab();
+        }
+    }
+
 }

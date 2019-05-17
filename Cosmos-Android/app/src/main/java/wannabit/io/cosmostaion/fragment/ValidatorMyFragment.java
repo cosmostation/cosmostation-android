@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -32,6 +37,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
+import wannabit.io.cosmostaion.dialog.Dialog_My_ValidatorSorting;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
@@ -39,6 +45,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ValidatorMyFragment extends BaseFragment {
+
+    public final static int SELECT_MY_VALIDATOR_SORTING = 6003;
 
     private SwipeRefreshLayout      mSwipeRefreshLayout;
     private RecyclerView            mRecyclerView;
@@ -330,8 +338,19 @@ public class ValidatorMyFragment extends BaseFragment {
         });
     }
 
+    public void onShowMyValidatorSort() {
+        Dialog_My_ValidatorSorting bottomSheetDialog = Dialog_My_ValidatorSorting.getInstance();
+        bottomSheetDialog.setArguments(null);
+        bottomSheetDialog.setTargetFragment(ValidatorMyFragment.this, SELECT_MY_VALIDATOR_SORTING);
+        bottomSheetDialog.show(getFragmentManager(), "dialog");
+    }
 
-
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == SELECT_MY_VALIDATOR_SORTING && resultCode == Activity.RESULT_OK) {
+            getBaseDao().setMyValSorting(data.getIntExtra("sorting", 1));
+            onRefreshTab();
+        }
+    }
 
 }
