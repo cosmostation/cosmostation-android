@@ -132,12 +132,14 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
                 }
                 cell!.freeEventImg.isHidden = true
-//                cell!.operatorAddress.text = mValidator!.operator_address
-//                cell!.operatorAddress.adjustsFontSizeToFitWidth = true
                 cell!.website.text = mValidator!.description.website
                 cell!.descriptionMsg.text = mValidator!.description.details
                 cell!.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
-                cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
+                if(mSelfBondingShare != nil) {
+                    cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
+                } else {
+                    cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
+                }
                 cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
                 if (mValidator!.description.identity != "") {
                     let parameters: Parameters = ["fields": "pictures", "key_suffix": mValidator!.description.identity]
@@ -180,13 +182,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
                 }
                 cell!.freeEventImg.isHidden = true
-//                cell!.operatorAddress.text = mValidator!.operator_address
-//                cell!.operatorAddress.adjustsFontSizeToFitWidth = true
                 cell!.website.text = mValidator!.description.website
                 cell!.descriptionMsg.text = mValidator!.description.details
                 cell!.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
                 if(mSelfBondingShare != nil) {
                     cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
+                } else {
+                    cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
                 }
                 cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
                 if (mValidator!.description.identity != "") {
@@ -218,7 +220,12 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     }
                 }
                 cell?.actionDelegate = {
-                    self.onStartDelegate()
+                    if(self.mValidator!.jailed) {
+                        self.onShowToast(NSLocalizedString("error_jailded_delegate", comment: ""))
+                        return
+                    } else {
+                        self.onStartDelegate()
+                    }
                 }
                 return cell!
             } else {
@@ -251,7 +258,12 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 
                 
                 cell?.actionDelegate = {
-                    self.onStartDelegate()
+                    if(self.mValidator!.jailed) {
+                        self.onShowToast(NSLocalizedString("error_jailded_delegate", comment: ""))
+                        return
+                    } else {
+                        self.onStartDelegate()
+                    }
                 }
                 
                 cell?.actionUndelegate = {

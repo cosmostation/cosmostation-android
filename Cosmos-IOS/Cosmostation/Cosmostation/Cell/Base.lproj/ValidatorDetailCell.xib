@@ -36,7 +36,7 @@
                                     <constraint firstAttribute="width" constant="20" id="yae-bm-8NB"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="revokedImg" translatesAutoresizingMaskIntoConstraints="NO" id="IwB-dq-iZr">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jailedImg" translatesAutoresizingMaskIntoConstraints="NO" id="IwB-dq-iZr">
                                 <rect key="frame" x="12" y="12" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="1cY-aF-30k"/>
@@ -216,7 +216,7 @@
     </objects>
     <resources>
         <image name="freeIc" width="20" height="20"/>
-        <image name="revokedImg" width="44" height="44"/>
+        <image name="jailedImg" width="44" height="44"/>
         <image name="validatorNoneImg" width="44" height="44"/>
     </resources>
 </document>

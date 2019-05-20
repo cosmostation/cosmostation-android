@@ -703,10 +703,11 @@ Learn more about us in the links below</string>
                                 </constraints>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lAa-HU-H1G">
-                                <rect key="frame" x="61" y="58" width="253" height="29"/>
+                                <rect key="frame" x="87.666666666666686" y="58" width="200" height="29"/>
                                 <segments>
-                                    <segment title="My Validators"/>
-                                    <segment title="Top 100 Validators"/>
+                                    <segment title="My"/>
+                                    <segment title="Top 100 "/>
+                                    <segment title="Other"/>
                                 </segments>
                                 <color key="tintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
@@ -725,6 +726,12 @@ Learn more about us in the links below</string>
                                     <segue destination="TPk-7b-ccf" kind="embed" identifier="allValidator" id="3M1-Dc-bvf"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="553-02-5Bz">
+                                <rect key="frame" x="0.0" y="94" width="375" height="547"/>
+                                <connections>
+                                    <segue destination="QXN-Be-TMt" kind="embed" identifier="otherValidator" id="7Sw-Nw-O0f"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
@@ -735,7 +742,10 @@ Learn more about us in the links below</string>
                             <constraint firstItem="2dl-Bs-BTe" firstAttribute="leading" secondItem="qad-RP-sDI" secondAttribute="leading" id="Ltj-hd-Fog"/>
                             <constraint firstItem="2dl-Bs-BTe" firstAttribute="top" secondItem="qad-RP-sDI" secondAttribute="top" id="NVC-4m-gFM"/>
                             <constraint firstItem="LKN-bl-aNw" firstAttribute="trailing" secondItem="SA3-XZ-w7Y" secondAttribute="trailing" id="OGJ-pF-Ned"/>
+                            <constraint firstItem="553-02-5Bz" firstAttribute="bottom" secondItem="SA3-XZ-w7Y" secondAttribute="bottom" id="TDx-SC-b78"/>
                             <constraint firstItem="SA3-XZ-w7Y" firstAttribute="top" secondItem="lAa-HU-H1G" secondAttribute="bottom" constant="8" id="UE1-uN-fVc"/>
+                            <constraint firstItem="553-02-5Bz" firstAttribute="trailing" secondItem="SA3-XZ-w7Y" secondAttribute="trailing" id="UNd-g8-Mul"/>
+                            <constraint firstItem="553-02-5Bz" firstAttribute="top" secondItem="SA3-XZ-w7Y" secondAttribute="top" id="YZH-4K-mls"/>
                             <constraint firstItem="SA3-XZ-w7Y" firstAttribute="leading" secondItem="qad-RP-sDI" secondAttribute="leading" id="Z0j-ll-uyc"/>
                             <constraint firstItem="2dl-Bs-BTe" firstAttribute="width" secondItem="ilN-v5-iKh" secondAttribute="width" id="bSG-iJ-8b9"/>
                             <constraint firstItem="qad-RP-sDI" firstAttribute="bottom" secondItem="SA3-XZ-w7Y" secondAttribute="bottom" id="cw1-ca-PR6"/>
@@ -745,6 +755,7 @@ Learn more about us in the links below</string>
                             <constraint firstItem="LKN-bl-aNw" firstAttribute="leading" secondItem="SA3-XZ-w7Y" secondAttribute="leading" id="olP-f2-ep3"/>
                             <constraint firstItem="OVh-y6-LOK" firstAttribute="top" secondItem="ilN-v5-iKh" secondAttribute="top" id="sjr-iW-ltn"/>
                             <constraint firstItem="SA3-XZ-w7Y" firstAttribute="width" secondItem="ilN-v5-iKh" secondAttribute="width" id="v1c-mP-B7T"/>
+                            <constraint firstItem="553-02-5Bz" firstAttribute="leading" secondItem="SA3-XZ-w7Y" secondAttribute="leading" id="w5x-hQ-QXi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qad-RP-sDI"/>
                     </view>
@@ -752,6 +763,7 @@ Learn more about us in the links below</string>
                     <connections>
                         <outlet property="allValidatorView" destination="LKN-bl-aNw" id="hJa-n6-lxj"/>
                         <outlet property="myValidatorView" destination="SA3-XZ-w7Y" id="tJE-zd-JUV"/>
+                        <outlet property="otherValidatorView" destination="553-02-5Bz" id="p3q-EQ-hoF"/>
                         <outlet property="titleAccountBtn" destination="wAN-OI-ZR7" id="O61-BK-tAO"/>
                         <outlet property="titleChainImg" destination="ODl-3R-y6u" id="uaE-pN-zgq"/>
                         <outlet property="titleChainName" destination="zF8-Xq-vMq" id="kUI-2k-UHc"/>
@@ -763,7 +775,7 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D2n-8S-hMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2868" y="1514"/>
+            <point key="canvasLocation" x="-2868" y="1513.3004926108374"/>
         </scene>
         <!--Main Tab History View Controller-->
         <scene sceneID="CBM-nz-DKQ">
@@ -1260,7 +1272,7 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LnM-g5-zLQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2870" y="2264"/>
+            <point key="canvasLocation" x="-3177" y="2264"/>
         </scene>
         <!--Vaidator Detail View Controller-->
         <scene sceneID="14y-Lh-7ZW">
@@ -1478,7 +1490,7 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gie-wG-xSH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1588" y="2264"/>
+            <point key="canvasLocation" x="-2370" y="2264"/>
         </scene>
         <!--Setting Table View Controller-->
         <scene sceneID="7JN-ga-57r">
@@ -2146,6 +2158,35 @@ Learn more about us in the links below</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ul-Xu-TpF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2644" y="1622.2906403940888"/>
+        </scene>
+        <!--Other Validator View Controller-->
+        <scene sceneID="qbA-Dc-LBH">
+            <objects>
+                <viewController id="QXN-Be-TMt" customClass="OtherValidatorViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tps-Ma-pY6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="547"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EfH-ca-sl4">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="547"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="EfH-ca-sl4" firstAttribute="top" secondItem="tps-Ma-pY6" secondAttribute="top" id="ARy-rJ-4hg"/>
+                            <constraint firstAttribute="bottom" secondItem="EfH-ca-sl4" secondAttribute="bottom" id="gjd-vg-SV8"/>
+                            <constraint firstItem="EfH-ca-sl4" firstAttribute="leading" secondItem="tps-Ma-pY6" secondAttribute="leading" id="leu-IM-3Tx"/>
+                            <constraint firstAttribute="trailing" secondItem="EfH-ca-sl4" secondAttribute="trailing" id="yrx-d6-uBW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="otherValidatorTableView" destination="EfH-ca-sl4" id="ylx-QA-Q9Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="url-Dn-BR0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1559.2" y="2263.6699507389162"/>
         </scene>
     </scenes>
     <resources>

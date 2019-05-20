@@ -20,6 +20,7 @@ class MainTabRewardViewController: BaseViewController {
     @IBOutlet weak var validatorSegment: UISegmentedControl!
     @IBOutlet weak var myValidatorView: UIView!
     @IBOutlet weak var allValidatorView: UIView!
+    @IBOutlet weak var otherValidatorView: UIView!
     
     var mainTabVC: MainTabViewController!
     
@@ -27,10 +28,18 @@ class MainTabRewardViewController: BaseViewController {
         if sender.selectedSegmentIndex == 0 {
             myValidatorView.alpha = 1
             allValidatorView.alpha = 0
-        } else {
+            otherValidatorView.alpha = 0
+        } else if sender.selectedSegmentIndex == 1 {
             myValidatorView.alpha = 0
             allValidatorView.alpha = 1
+            otherValidatorView.alpha = 0
+        } else {
+            myValidatorView.alpha = 0
+            allValidatorView.alpha = 0
+            otherValidatorView.alpha = 1
+            
         }
+        
     }
     
 
@@ -38,6 +47,7 @@ class MainTabRewardViewController: BaseViewController {
         super.viewDidLoad()
         myValidatorView.alpha = 1
         allValidatorView.alpha = 0
+        otherValidatorView.alpha = 0
         
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         self.updateTitle()
@@ -80,7 +90,7 @@ class MainTabRewardViewController: BaseViewController {
             self.present(alert, animated: true, completion: nil)
             
             
-        } else {
+        } else if (allValidatorView.alpha == 1) {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
             alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_name", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
@@ -96,6 +106,9 @@ class MainTabRewardViewController: BaseViewController {
                 NotificationCenter.default.post(name: Notification.Name("onSorting"), object: nil, userInfo: nil)
             }))
             self.present(alert, animated: true, completion: nil)
+            
+        } else if (otherValidatorView.alpha == 1) {
+            
         }
     }
 

@@ -1,8 +1,8 @@
 //
-//  AllValidatorViewController.swift
+//  OtherValidatorViewController.swift
 //  Cosmostation
 //
-//  Created by yongjoo on 22/03/2019.
+//  Created by yongjoo on 20/05/2019.
 //  Copyright © 2019 wannabit. All rights reserved.
 //
 
@@ -10,26 +10,27 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var allValidatorTableView: UITableView!
     
+
+    @IBOutlet weak var otherValidatorTableView: UITableView!
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.allValidatorTableView.delegate = self
-        self.allValidatorTableView.dataSource = self
-        self.allValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        self.allValidatorTableView.register(UINib(nibName: "AllValidatorCell", bundle: nil), forCellReuseIdentifier: "AllValidatorCell")
-    
+        self.otherValidatorTableView.delegate = self
+        self.otherValidatorTableView.dataSource = self
+        self.otherValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.otherValidatorTableView.register(UINib(nibName: "AllValidatorCell", bundle: nil), forCellReuseIdentifier: "AllValidatorCell")
+        
         self.refresher = UIRefreshControl()
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         self.refresher.tintColor = UIColor.white
-        self.allValidatorTableView.addSubview(refresher)
+        self.otherValidatorTableView.addSubview(refresher)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
@@ -54,15 +55,10 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onSorting() {
-        if (BaseData.instance.getAllValidatorSort() == 0) {
-            sortByPower()
-        } else if (BaseData.instance.getAllValidatorSort() == 1) {
-            sortByName()
-        } else {
-            sortByCommission()
-        }
-        self.allValidatorTableView.reloadData()
+        self.sortByPower()
+        self.otherValidatorTableView.reloadData()
     }
+    
     
     @objc func onRequestFetch() {
         if(!mainTabVC.onFetchAccountData()) {
@@ -70,9 +66,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         }
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.mainTabVC.mTopValidators.count
+        return self.mainTabVC.mOtherValidators.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,7 +75,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         guard self.mainTabVC.mTopValidators.count > 0 else {
             return cell!
         }
-        if let validator = self.mainTabVC.mTopValidators[indexPath.row] as? Validator {
+        if let validator = self.mainTabVC.mOtherValidators[indexPath.row] as? Validator {
             self.onSetValidatorItem(cell!, validator, indexPath)
         }
         return cell!
@@ -89,10 +84,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80;
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let validator = self.mainTabVC.mTopValidators[indexPath.row] as? Validator {
-//            print("seelct ", validator.description.moniker)
+        if let validator = self.mainTabVC.mOtherValidators[indexPath.row] as? Validator {
             let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaidatorDetailViewController") as! VaidatorDetailViewController
             validatorDetailVC.mValidator = validator
             validatorDetailVC.hidesBottomBarWhenPushed = true
@@ -100,7 +93,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             self.navigationController?.pushViewController(validatorDetailVC, animated: true)
         }
     }
-    
     
     
     func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
@@ -112,14 +104,10 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             cell.revokedImg.isHidden = true
             cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
-            
         }
-        
         cell.freeEventImg.isHidden = true
-        
         cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
         cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
-        
         cell.validatorImg.tag = indexPath.row
         cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
         if (validator.description.identity != "") {
@@ -132,7 +120,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-//                    print("res : ", res)
                     guard let keybaseInfo = res as? NSDictionary,
                         let thems = keybaseInfo.value(forKey: "them") as? Array<NSDictionary>,
                         thems.count > 0,
@@ -156,26 +143,10 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     
-    func sortByName() {
-        mainTabVC.mTopValidators.sort{
-            if ($0.description.moniker == "Cosmostation") {
-                return true
-            }
-            if ($1.description.moniker == "Cosmostation"){
-                return false
-            }
-            if ($0.jailed && !$1.jailed) {
-                return false
-            }
-            if (!$0.jailed && $1.jailed) {
-                return true
-            }
-            return $0.description.moniker < $1.description.moniker
-        }
-    }
+    
     
     func sortByPower() {
-        mainTabVC.mTopValidators.sort{
+        mainTabVC.mOtherValidators.sort{
             if ($0.description.moniker == "Cosmostation") {
                 return true
             }
@@ -191,23 +162,4 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             return Double($0.tokens)! > Double($1.tokens)!
         }
     }
-    
-    func sortByCommission() {
-        mainTabVC.mTopValidators.sort{
-            if ($0.description.moniker == "Cosmostation") {
-                return true
-            }
-            if ($1.description.moniker == "Cosmostation") {
-                return false
-            }
-            if ($0.jailed && !$1.jailed) {
-                return false
-            }
-            if (!$0.jailed && $1.jailed) {
-                return true
-            }
-            return Double($0.commission.rate)! < Double($1.commission.rate)!
-        }
-    }
-
 }

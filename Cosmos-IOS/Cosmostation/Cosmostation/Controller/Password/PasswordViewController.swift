@@ -152,6 +152,7 @@ class PasswordViewController: BaseViewController {
         }
     }
     
+    //TODO btn screen lock!!!
     func onUserInsertFinish() {
         if (mTarget == PASSWORD_ACTION_INIT) {
             if(mIsConfirmSequence == true) {
@@ -209,7 +210,6 @@ class PasswordViewController: BaseViewController {
             }
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
-//                print("onStartCheckPassword ", result)
                 if(result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK)
                 } else {
@@ -217,9 +217,6 @@ class PasswordViewController: BaseViewController {
                     self.initView()
                 }
             });
-            
-//            let retrievedString: String? = KeychainWrapper.standard.string(forKey: "password")
-//            print("retrievedString : ", retrievedString)
         }
     }
     

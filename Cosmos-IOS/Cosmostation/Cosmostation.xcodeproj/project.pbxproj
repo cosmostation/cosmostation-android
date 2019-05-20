@@ -33,6 +33,7 @@
 		E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12D6B8C226DF3BB00D07CE4 /* StepSendCheckViewController.swift */; };
 		E1317142225F352A00EE5AD0 /* PostTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1317141225F352A00EE5AD0 /* PostTx.swift */; };
 		E13171442260215E00EE5AD0 /* GenTxResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */; };
+		E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */; };
 		E1406FC02260643200D9440C /* BlockInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FBF2260643200D9440C /* BlockInfo.swift */; };
 		E1406FC22260654F00D9440C /* TxInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC12260654F00D9440C /* TxInfo.swift */; };
 		E1406FC422607B8500D9440C /* LoadingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC322607B8500D9440C /* LoadingImageView.swift */; };
@@ -199,6 +200,8 @@
 		E12D6B8C226DF3BB00D07CE4 /* StepSendCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSendCheckViewController.swift; sourceTree = "<group>"; };
 		E1317141225F352A00EE5AD0 /* PostTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTx.swift; sourceTree = "<group>"; };
 		E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenTxResultViewController.swift; sourceTree = "<group>"; };
+		E13696572292492800F3D5E2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
+		E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherValidatorViewController.swift; sourceTree = "<group>"; };
 		E1406FBF2260643200D9440C /* BlockInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInfo.swift; sourceTree = "<group>"; };
 		E1406FC12260654F00D9440C /* TxInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxInfo.swift; sourceTree = "<group>"; };
 		E1406FC322607B8500D9440C /* LoadingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingImageView.swift; sourceTree = "<group>"; };
@@ -331,7 +334,6 @@
 		E1F2AE4F227EC05100C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E1F2AE51227EC06900C87F3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E1F2AE5A227EC5B600C87F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		E1F2AE64227EC8A800C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ko; path = ko.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		E1FEE458225B17970040FAFD /* AmountInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountInputTextField.swift; sourceTree = "<group>"; };
 		E1FEE45A225B1AEF0040FAFD /* MemoTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTextView.swift; sourceTree = "<group>"; };
 		E1FEE45C225B51EE0040FAFD /* cosmostation_loading_wh.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cosmostation_loading_wh.gif; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 				E1945E4D222E81D000A1436F /* MainTabSettingViewController.swift */,
 				E1A82DED2244DE680097CAEE /* MyValidatorViewController.swift */,
 				E1A82DEF2244E0BD0097CAEE /* AllValidatorViewController.swift */,
+				E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
 				E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */,
 			);
@@ -927,6 +930,7 @@
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
 				E1945E4C222E81C200A1436F /* MainTabVoteViewController.swift in Sources */,
+				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
 				E12D6B87226DDE2700D07CE4 /* StakeTxInfo.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
@@ -1111,7 +1115,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E1F2AE5A227EC5B600C87F3F /* Base */,
-				E1F2AE64227EC8A800C87F3F /* ko */,
+				E13696572292492800F3D5E2 /* ko */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";

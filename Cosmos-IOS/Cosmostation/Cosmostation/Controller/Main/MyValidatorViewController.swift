@@ -213,7 +213,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         var myBondedValidator = Array<Validator>()
         var toClaimValidator = Array<Validator>()
         
-        for validator in self.mainTabVC.mAllValidators {
+        for validator in self.mainTabVC.mTopValidators {
             for bonding in self.mainTabVC.mBondingList {
                 if(bonding.bonding_v_address == validator.operator_address &&
                     WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber(string: "1")).rawValue > 0) {

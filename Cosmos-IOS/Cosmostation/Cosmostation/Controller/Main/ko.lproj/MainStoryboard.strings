@@ -1,0 +1,210 @@
+
+/* Class = "UITabBarItem"; title = "REWARD"; ObjectID = "10a-ev-i1V"; */
+"10a-ev-i1V.title" = "REWARD";
+
+/* Class = "UILabel"; text = "Unbonding"; ObjectID = "1qJ-UR-M6n"; */
+"1qJ-UR-M6n.text" = "Unbonding";
+
+/* Class = "UITabBarItem"; title = "VOTE"; ObjectID = "3qo-be-85R"; */
+"3qo-be-85R.title" = "VOTE";
+
+/* Class = "UILabel"; text = "Reward"; ObjectID = "4Ts-0I-78J"; */
+"4Ts-0I-78J.text" = "Reward";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "4aW-UC-eKD"; */
+"4aW-UC-eKD.text" = "--";
+
+/* Class = "UILabel"; text = "(CoinMarketCap)"; ObjectID = "6TF-Qv-8do"; */
+"6TF-Qv-8do.text" = "(CoinMarketCap)";
+
+/* Class = "UILabel"; text = "Mnemonic"; ObjectID = "7Wu-Zh-1eV"; */
+"7Wu-Zh-1eV.text" = "Mnemonic";
+
+/* Class = "UILabel"; text = "My Address"; ObjectID = "7XC-g0-Xht"; */
+"7XC-g0-Xht.text" = "내 주소";
+
+/* Class = "UILabel"; text = "Current Price"; ObjectID = "8x5-8w-P8g"; */
+"8x5-8w-P8g.text" = "Current Price";
+
+/* Class = "UIButton"; normalTitle = "Guide"; ObjectID = "BBB-cM-nZX"; */
+"BBB-cM-nZX.normalTitle" = "Guide";
+
+/* Class = "UILabel"; text = "(Cosmos Hub)"; ObjectID = "BZu-1u-gLc"; */
+"BZu-1u-gLc.text" = "(Cosmos Hub)";
+
+/* Class = "UITableViewSection"; headerTitle = "About App"; ObjectID = "Ckg-1F-Dy6"; */
+"Ckg-1F-Dy6.headerTitle" = "About App";
+
+/* Class = "UILabel"; text = "My Wallet"; ObjectID = "D4N-0h-U3Y"; */
+"D4N-0h-U3Y.text" = "My Wallet";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "DMH-qS-3mS"; */
+"DMH-qS-3mS.text" = "-";
+
+/* Class = "UILabel"; text = "Reward"; ObjectID = "DQ1-z8-MaI"; */
+"DQ1-z8-MaI.text" = "Reward";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "FBI-Ug-rT3"; */
+"FBI-Ug-rT3.text" = "-";
+
+/* Class = "UILabel"; text = "(Cosmos Hub)"; ObjectID = "Fbt-1W-jma"; */
+"Fbt-1W-jma.text" = "(Cosmos Hub)";
+
+/* Class = "UILabel"; text = "USD"; ObjectID = "G7m-AX-VFV"; */
+"G7m-AX-VFV.text" = "USD";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "GY0-NF-Fzj"; */
+"GY0-NF-Fzj.text" = "-";
+
+/* Class = "UILabel"; text = "v 1.0.1"; ObjectID = "IGV-pj-L9Y"; */
+"IGV-pj-L9Y.text" = "v 1.0.1";
+
+/* Class = "UITabBarItem"; title = "WALLET"; ObjectID = "IIN-KY-Jus"; */
+"IIN-KY-Jus.title" = "WALLET";
+
+/* Class = "UIButton"; normalTitle = "FAQ"; ObjectID = "JTl-DR-e0d"; */
+"JTl-DR-e0d.normalTitle" = "FAQ";
+
+/* Class = "UILabel"; text = "Telegram"; ObjectID = "KCh-Gs-kbA"; */
+"KCh-Gs-kbA.text" = "Telegram";
+
+/* Class = "UITableViewSection"; headerTitle = "Support"; ObjectID = "Lha-J2-JjS"; */
+"Lha-J2-JjS.headerTitle" = "Support";
+
+/* Class = "UILabel"; text = "Base Price"; ObjectID = "Lme-Ht-n9U"; */
+"Lme-Ht-n9U.text" = "Base Price";
+
+/* Class = "UILabel"; text = "CoinMarket Cap"; ObjectID = "M47-eO-1CQ"; */
+"M47-eO-1CQ.text" = "CoinMarket Cap";
+
+/* Class = "UILabel"; text = "(Cosmos Hub)"; ObjectID = "NCH-6t-2hM"; */
+"NCH-6t-2hM.text" = "(Cosmos Hub)";
+
+/* Class = "UILabel"; text = "Cosmos Guide"; ObjectID = "P6S-5r-Y3d"; */
+"P6S-5r-Y3d.text" = "Cosmos Guide";
+
+/* Class = "UITabBarItem"; title = "HISTORY"; ObjectID = "Pah-Ab-5sf"; */
+"Pah-Ab-5sf.title" = "HISTORY";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "R5d-2d-lvJ"; */
+"R5d-2d-lvJ.text" = "-";
+
+/* Class = "UILabel"; text = "Open source (Github)"; ObjectID = "Seb-qT-zPj"; */
+"Seb-qT-zPj.text" = "Open source (Github)";
+
+/* Class = "UILabel"; text = "(Cosmos Hub)"; ObjectID = "TB1-BC-2Oc"; */
+"TB1-BC-2Oc.text" = "(Cosmos Hub)";
+
+/* Class = "UILabel"; text = "No History"; ObjectID = "TLK-Ns-Awb"; */
+"TLK-Ns-Awb.text" = "No History";
+
+/* Class = "UILabel"; text = "cosmos13cc4y0z8d8jyhgsx6gz9hq07p5d2mq56cs35qe"; ObjectID = "TQi-w4-Lb5"; */
+"TQi-w4-Lb5.text" = "cosmos13cc4y0z8d8jyhgsx6gz9hq07p5d2mq56cs35qe";
+
+/* Class = "UILabel"; text = "Term and Policy"; ObjectID = "Vmi-R5-2dt"; */
+"Vmi-R5-2dt.text" = "Term and Policy";
+
+/* Class = "UILabel"; text = "Available"; ObjectID = "Vv9-ry-62s"; */
+"Vv9-ry-62s.text" = "Available";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "WSx-gp-M43"; */
+"WSx-gp-M43.text" = "ATOM";
+
+/* Class = "UILabel"; text = "Delegated"; ObjectID = "YgY-IO-wcS"; */
+"YgY-IO-wcS.text" = "Delegated";
+
+/* Class = "UILabel"; text = "No Proposal"; ObjectID = "a3x-sr-rPq"; */
+"a3x-sr-rPq.text" = "No Proposal";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "a9j-9l-RZQ"; */
+"a9j-9l-RZQ.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "bgW-v4-VpK"; */
+"bgW-v4-VpK.text" = "--";
+
+/* Class = "UILabel"; text = "My Wallet"; ObjectID = "c52-Ib-H2q"; */
+"c52-Ib-H2q.text" = "My Wallet";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "cFp-js-s7V"; */
+"cFp-js-s7V.text" = "Version";
+
+/* Class = "UITableViewSection"; headerTitle = "General"; ObjectID = "dDV-sI-rMG"; */
+"dDV-sI-rMG.headerTitle" = "General";
+
+/* Class = "UILabel"; text = "Currency"; ObjectID = "eE5-yJ-glc"; */
+"eE5-yJ-glc.text" = "Currency";
+
+/* Class = "UILabel"; text = "PHOTON"; ObjectID = "f1h-kd-UJK"; */
+"f1h-kd-UJK.text" = "PHOTON";
+
+/* Class = "UILabel"; text = "FAQ"; ObjectID = "fIr-lJ-P4Q"; */
+"fIr-lJ-P4Q.text" = "FAQ";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "faY-Ox-ts9"; */
+"faY-Ox-ts9.text" = "-";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "flY-eb-6Ss"; */
+"flY-eb-6Ss.text" = "--";
+
+/* Class = "UILabel"; text = "import"; ObjectID = "g3W-9r-PBP"; */
+"g3W-9r-PBP.text" = "import";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "gDe-0h-ItV"; */
+"gDe-0h-ItV.text" = "--";
+
+/* Class = "UITabBarItem"; title = "SETTING"; ObjectID = "hWX-Vb-kcg"; */
+"hWX-Vb-kcg.title" = "SETTING";
+
+/* Class = "UILabel"; text = "My Wallet"; ObjectID = "imU-di-2sz"; */
+"imU-di-2sz.text" = "My Wallet";
+
+/* Class = "UILabel"; text = "Explorer Mintscan"; ObjectID = "j4V-kv-pau"; */
+"j4V-kv-pau.text" = "Explorer Mintscan";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "jbe-cJ-v9G"; */
+"jbe-cJ-v9G.text" = "--";
+
+/* Class = "UILabel"; text = "import"; ObjectID = "kvK-GP-8jv"; */
+"kvK-GP-8jv.text" = "import";
+
+/* Class = "UISegmentedControl"; lAa-HU-H1G.segmentTitles[0] = "My Validators"; ObjectID = "lAa-HU-H1G"; */
+"lAa-HU-H1G.segmentTitles[0]" = "내 검증인";
+
+/* Class = "UISegmentedControl"; lAa-HU-H1G.segmentTitles[1] = "Top 100 Validators"; ObjectID = "lAa-HU-H1G"; */
+"lAa-HU-H1G.segmentTitles[1]" = "모든 검증인";
+
+/* Class = "UISegmentedControl"; lAa-HU-H1G.segmentTitles[2] = "Top 100 Validators"; ObjectID = "lAa-HU-H1G"; */
+"lAa-HU-H1G.segmentTitles[2]" = "기타 노드";
+
+/* Class = "UILabel"; text = "Cosmos and Cosmostation Wallet FAQ\nLearn more about us in the links below"; ObjectID = "lvs-rA-ORq"; */
+"lvs-rA-ORq.text" = "Cosmos and Cosmostation Wallet FAQ\nLearn more about us in the links below";
+
+/* Class = "UILabel"; text = "My Wallet"; ObjectID = "qpt-XS-dJ0"; */
+"qpt-XS-dJ0.text" = "My Wallet";
+
+/* Class = "UITableViewSection"; headerTitle = "Wallet"; ObjectID = "rEO-fz-cbK"; */
+"rEO-fz-cbK.headerTitle" = "Wallet";
+
+/* Class = "UILabel"; text = "Wallet Manage"; ObjectID = "s1Y-7N-iWS"; */
+"s1Y-7N-iWS.text" = "Wallet Manage";
+
+/* Class = "UILabel"; text = "Available"; ObjectID = "tH3-op-17D"; */
+"tH3-op-17D.text" = "Available";
+
+/* Class = "UILabel"; text = "My Wallet"; ObjectID = "vEs-a2-fLM"; */
+"vEs-a2-fLM.text" = "My Wallet";
+
+/* Class = "UILabel"; text = "Cosmostation"; ObjectID = "vkk-Df-UXk"; */
+"vkk-Df-UXk.text" = "Cosmostation";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "vle-Ox-Lga"; */
+"vle-Ox-Lga.text" = "-";
+
+/* Class = "UILabel"; text = "CREATE"; ObjectID = "x6G-6q-fXT"; */
+"x6G-6q-fXT.text" = "CREATE";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "xgt-eD-Lkj"; */
+"xgt-eD-Lkj.text" = "Address";
+
+/* Class = "UILabel"; text = "(Cosmos Hub)"; ObjectID = "zF8-Xq-vMq"; */
+"zF8-Xq-vMq.text" = "(Cosmos Hub)";

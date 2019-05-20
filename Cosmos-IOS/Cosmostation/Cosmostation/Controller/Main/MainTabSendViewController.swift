@@ -110,7 +110,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         if(mainTabVC.mBondingList.count > 0) {
             var sum = NSDecimalNumber.zero
             for bonding in mainTabVC.mBondingList {
-                sum = sum.adding(bonding.getBondingAtom(mainTabVC.mAllValidators))
+                sum = sum.adding(bonding.getBondingAtom(mainTabVC.mTopValidators))
             }
             atomDelegatedAmount.attributedText = WUtils.displayAmout(sum.stringValue, atomDelegatedAmount.font, 6)
             

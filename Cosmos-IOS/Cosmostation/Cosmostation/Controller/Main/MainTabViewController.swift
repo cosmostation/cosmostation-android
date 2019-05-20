@@ -15,7 +15,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mAccount:Account!
     var mAccounts = Array<Account>()
     var mBalances = Array<Balance>()
-    var mAllValidators = Array<Validator>()
+    var mTopValidators = Array<Validator>()
+    var mOtherValidators = Array<Validator>()
     var mMyValidators = Array<Validator>()
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
@@ -180,12 +181,15 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if(self.mFetchCnt > 0)  {
             return false
         }
-        self.mAllValidators.removeAll()
+        self.mTopValidators.removeAll()
+        self.mOtherValidators.removeAll()
         self.mMyValidators.removeAll()
         self.mRewardList.removeAll()
         
-        self.mFetchCnt = 6
-        onFetchValidatorsInfo()
+        self.mFetchCnt = 8
+        onFetchTopValidatorsInfo()
+        onFetchUnbondedValidatorsInfo()
+        onFetchUnbondingValidatorsInfo()
         onFetchAccountInfo(mAccount)
         onFetchBondingInfo(mAccount)
         onFetchUnbondingInfo(mAccount)
@@ -205,7 +209,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
             mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
             
-            for validator in mAllValidators {
+            for validator in mTopValidators {
                 var mine = false;
                 for bonding in mBondingList {
                     if(bonding.bonding_v_address == validator.operator_address) {
@@ -224,14 +228,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
+            
+//            print("mtop " , mTopValidators.count)
+//            print("mother " , mOtherValidators.count)
         }
     }
     
     
     
-    func onFetchValidatorsInfo() {
-//        print("onFetchValidatorsInfo")
-        let request = Alamofire.request(CSS_LCD_URL_VALIDATORS, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+    func onFetchTopValidatorsInfo() {
+//        print("onFetchTopValidatorsInfo")
+        let request = Alamofire.request(CSS_LCD_URL_VALIDATORS, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -239,18 +246,62 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     print("no validators!!")
                     return
                 }
-                self.mAllValidators.removeAll()
+                self.mTopValidators.removeAll()
                 for validator in validators {
-                    self.mAllValidators.append(Validator(validator as! [String : Any]))
+                    self.mTopValidators.append(Validator(validator as! [String : Any]))
                 }
 //                print("size : ", self.mAllValidators.count)
                 
             case .failure(let error):
-                print("onFetchValidatorsInfo ", error)
+                print("onFetchTopValidatorsInfo ", error)
             }
             self.onFetchFinished()
         }
     }
+    
+    func onFetchUnbondedValidatorsInfo() {
+//        print("onFetchUnbondedValidatorsInfo")
+        let request = Alamofire.request(CSS_LCD_URL_VALIDATORS, method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let validators = res as? Array<NSDictionary> else {
+                    print("no Unbonded!!")
+                    return
+                }
+                for validator in validators {
+                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                }
+                
+            case .failure(let error):
+                print("onFetchUnbondedValidatorsInfo ", error)
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchUnbondingValidatorsInfo() {
+//        print("onFetchUnbondingValidatorsInfo")
+        let request = Alamofire.request(CSS_LCD_URL_VALIDATORS, method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let validators = res as? Array<NSDictionary> else {
+                    print("no Unbonding!!")
+                    return
+                }
+                for validator in validators {
+                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                }
+                
+            case .failure(let error):
+                print("onFetchUnbondingValidatorsInfo ", error)
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    
     
     func onFetchAccountInfo(_ account: Account) {
 //        print("onFetchAccountInfo")
