@@ -3,13 +3,13 @@
 "10a-ev-i1V.title" = "REWARD";
 
 /* Class = "UILabel"; text = "Unbonding"; ObjectID = "1qJ-UR-M6n"; */
-"1qJ-UR-M6n.text" = "Unbonding";
+"1qJ-UR-M6n.text" = "위임 철회중인 수량";
 
 /* Class = "UITabBarItem"; title = "VOTE"; ObjectID = "3qo-be-85R"; */
 "3qo-be-85R.title" = "VOTE";
 
 /* Class = "UILabel"; text = "Reward"; ObjectID = "4Ts-0I-78J"; */
-"4Ts-0I-78J.text" = "Reward";
+"4Ts-0I-78J.text" = "이자";
 
 /* Class = "UILabel"; text = "--"; ObjectID = "4aW-UC-eKD"; */
 "4aW-UC-eKD.text" = "--";
@@ -18,16 +18,16 @@
 "6TF-Qv-8do.text" = "(CoinMarketCap)";
 
 /* Class = "UILabel"; text = "Mnemonic"; ObjectID = "7Wu-Zh-1eV"; */
-"7Wu-Zh-1eV.text" = "Mnemonic";
+"7Wu-Zh-1eV.text" = "복구 단어";
 
 /* Class = "UILabel"; text = "My Address"; ObjectID = "7XC-g0-Xht"; */
 "7XC-g0-Xht.text" = "내 주소";
 
 /* Class = "UILabel"; text = "Current Price"; ObjectID = "8x5-8w-P8g"; */
-"8x5-8w-P8g.text" = "Current Price";
+"8x5-8w-P8g.text" = "현재 가격";
 
 /* Class = "UIButton"; normalTitle = "Guide"; ObjectID = "BBB-cM-nZX"; */
-"BBB-cM-nZX.normalTitle" = "Guide";
+"BBB-cM-nZX.normalTitle" = "가이드";
 
 /* Class = "UILabel"; text = "(Cosmos Hub)"; ObjectID = "BZu-1u-gLc"; */
 "BZu-1u-gLc.text" = "(Cosmos Hub)";
@@ -42,7 +42,7 @@
 "DMH-qS-3mS.text" = "-";
 
 /* Class = "UILabel"; text = "Reward"; ObjectID = "DQ1-z8-MaI"; */
-"DQ1-z8-MaI.text" = "Reward";
+"DQ1-z8-MaI.text" = "이자";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "FBI-Ug-rT3"; */
 "FBI-Ug-rT3.text" = "-";
@@ -60,19 +60,19 @@
 "IGV-pj-L9Y.text" = "v 1.0.1";
 
 /* Class = "UITabBarItem"; title = "WALLET"; ObjectID = "IIN-KY-Jus"; */
-"IIN-KY-Jus.title" = "WALLET";
+"IIN-KY-Jus.title" = "지갑";
 
 /* Class = "UIButton"; normalTitle = "FAQ"; ObjectID = "JTl-DR-e0d"; */
-"JTl-DR-e0d.normalTitle" = "FAQ";
+"JTl-DR-e0d.normalTitle" = "도움말";
 
 /* Class = "UILabel"; text = "Telegram"; ObjectID = "KCh-Gs-kbA"; */
-"KCh-Gs-kbA.text" = "Telegram";
+"KCh-Gs-kbA.text" = "텔레그램";
 
 /* Class = "UITableViewSection"; headerTitle = "Support"; ObjectID = "Lha-J2-JjS"; */
-"Lha-J2-JjS.headerTitle" = "Support";
+"Lha-J2-JjS.headerTitle" = "지원";
 
 /* Class = "UILabel"; text = "Base Price"; ObjectID = "Lme-Ht-n9U"; */
-"Lme-Ht-n9U.text" = "Base Price";
+"Lme-Ht-n9U.text" = "가격 정보 출처";
 
 /* Class = "UILabel"; text = "CoinMarket Cap"; ObjectID = "M47-eO-1CQ"; */
 "M47-eO-1CQ.text" = "CoinMarket Cap";
@@ -81,7 +81,7 @@
 "NCH-6t-2hM.text" = "(Cosmos Hub)";
 
 /* Class = "UILabel"; text = "Cosmos Guide"; ObjectID = "P6S-5r-Y3d"; */
-"P6S-5r-Y3d.text" = "Cosmos Guide";
+"P6S-5r-Y3d.text" = "코스모스 및 지갑 도움말";
 
 /* Class = "UITabBarItem"; title = "HISTORY"; ObjectID = "Pah-Ab-5sf"; */
 "Pah-Ab-5sf.title" = "HISTORY";
@@ -90,7 +90,7 @@
 "R5d-2d-lvJ.text" = "-";
 
 /* Class = "UILabel"; text = "Open source (Github)"; ObjectID = "Seb-qT-zPj"; */
-"Seb-qT-zPj.text" = "Open source (Github)";
+"Seb-qT-zPj.text" = "오픈소스 (Github)";
 
 /* Class = "UILabel"; text = "(Cosmos Hub)"; ObjectID = "TB1-BC-2Oc"; */
 "TB1-BC-2Oc.text" = "(Cosmos Hub)";
@@ -102,16 +102,16 @@
 "TQi-w4-Lb5.text" = "cosmos13cc4y0z8d8jyhgsx6gz9hq07p5d2mq56cs35qe";
 
 /* Class = "UILabel"; text = "Term and Policy"; ObjectID = "Vmi-R5-2dt"; */
-"Vmi-R5-2dt.text" = "Term and Policy";
+"Vmi-R5-2dt.text" = "약관";
 
 /* Class = "UILabel"; text = "Available"; ObjectID = "Vv9-ry-62s"; */
-"Vv9-ry-62s.text" = "Available";
+"Vv9-ry-62s.text" = "사용 가능 수량";
 
 /* Class = "UILabel"; text = "ATOM"; ObjectID = "WSx-gp-M43"; */
 "WSx-gp-M43.text" = "ATOM";
 
 /* Class = "UILabel"; text = "Delegated"; ObjectID = "YgY-IO-wcS"; */
-"YgY-IO-wcS.text" = "Delegated";
+"YgY-IO-wcS.text" = "위임된 수량";
 
 /* Class = "UILabel"; text = "No Proposal"; ObjectID = "a3x-sr-rPq"; */
 "a3x-sr-rPq.text" = "No Proposal";
@@ -126,19 +126,19 @@
 "c52-Ib-H2q.text" = "My Wallet";
 
 /* Class = "UILabel"; text = "Version"; ObjectID = "cFp-js-s7V"; */
-"cFp-js-s7V.text" = "Version";
+"cFp-js-s7V.text" = "버전";
 
 /* Class = "UITableViewSection"; headerTitle = "General"; ObjectID = "dDV-sI-rMG"; */
-"dDV-sI-rMG.headerTitle" = "General";
+"dDV-sI-rMG.headerTitle" = "일반";
 
 /* Class = "UILabel"; text = "Currency"; ObjectID = "eE5-yJ-glc"; */
-"eE5-yJ-glc.text" = "Currency";
+"eE5-yJ-glc.text" = "통화";
 
 /* Class = "UILabel"; text = "PHOTON"; ObjectID = "f1h-kd-UJK"; */
 "f1h-kd-UJK.text" = "PHOTON";
 
 /* Class = "UILabel"; text = "FAQ"; ObjectID = "fIr-lJ-P4Q"; */
-"fIr-lJ-P4Q.text" = "FAQ";
+"fIr-lJ-P4Q.text" = "도움말";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "faY-Ox-ts9"; */
 "faY-Ox-ts9.text" = "-";
@@ -147,7 +147,7 @@
 "flY-eb-6Ss.text" = "--";
 
 /* Class = "UILabel"; text = "import"; ObjectID = "g3W-9r-PBP"; */
-"g3W-9r-PBP.text" = "import";
+"g3W-9r-PBP.text" = "복원하기";
 
 /* Class = "UILabel"; text = "--"; ObjectID = "gDe-0h-ItV"; */
 "gDe-0h-ItV.text" = "--";
@@ -159,13 +159,13 @@
 "imU-di-2sz.text" = "My Wallet";
 
 /* Class = "UILabel"; text = "Explorer Mintscan"; ObjectID = "j4V-kv-pau"; */
-"j4V-kv-pau.text" = "Explorer Mintscan";
+"j4V-kv-pau.text" = "민트스캔 익스플로러";
 
 /* Class = "UILabel"; text = "--"; ObjectID = "jbe-cJ-v9G"; */
 "jbe-cJ-v9G.text" = "--";
 
 /* Class = "UILabel"; text = "import"; ObjectID = "kvK-GP-8jv"; */
-"kvK-GP-8jv.text" = "import";
+"kvK-GP-8jv.text" = "관찰하기";
 
 /* Class = "UISegmentedControl"; lAa-HU-H1G.segmentTitles[0] = "My Validators"; ObjectID = "lAa-HU-H1G"; */
 "lAa-HU-H1G.segmentTitles[0]" = "내 검증인";
@@ -183,28 +183,28 @@
 "qpt-XS-dJ0.text" = "My Wallet";
 
 /* Class = "UITableViewSection"; headerTitle = "Wallet"; ObjectID = "rEO-fz-cbK"; */
-"rEO-fz-cbK.headerTitle" = "Wallet";
+"rEO-fz-cbK.headerTitle" = "지갑";
 
 /* Class = "UILabel"; text = "Wallet Manage"; ObjectID = "s1Y-7N-iWS"; */
-"s1Y-7N-iWS.text" = "Wallet Manage";
+"s1Y-7N-iWS.text" = "지갑 관리";
 
 /* Class = "UILabel"; text = "Available"; ObjectID = "tH3-op-17D"; */
-"tH3-op-17D.text" = "Available";
+"tH3-op-17D.text" = "사용 가능 수량";
 
 /* Class = "UILabel"; text = "My Wallet"; ObjectID = "vEs-a2-fLM"; */
 "vEs-a2-fLM.text" = "My Wallet";
 
 /* Class = "UILabel"; text = "Cosmostation"; ObjectID = "vkk-Df-UXk"; */
-"vkk-Df-UXk.text" = "Cosmostation";
+"vkk-Df-UXk.text" = "코스모스테이션";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "vle-Ox-Lga"; */
 "vle-Ox-Lga.text" = "-";
 
 /* Class = "UILabel"; text = "CREATE"; ObjectID = "x6G-6q-fXT"; */
-"x6G-6q-fXT.text" = "CREATE";
+"x6G-6q-fXT.text" = "지갑생성";
 
 /* Class = "UILabel"; text = "Address"; ObjectID = "xgt-eD-Lkj"; */
-"xgt-eD-Lkj.text" = "Address";
+"xgt-eD-Lkj.text" = "주소";
 
 /* Class = "UILabel"; text = "(Cosmos Hub)"; ObjectID = "zF8-Xq-vMq"; */
 "zF8-Xq-vMq.text" = "(Cosmos Hub)";
