@@ -270,6 +270,10 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     self.onStartUndelegate()
                 }
                 
+                cell?.actionRedelegate = {
+                    self.onStartRedelegate()
+                }
+                
                 cell?.actionReward = {
                     self.onStartGetSingleReward()
                 }
@@ -540,6 +544,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.navigationController?.pushViewController(stakingVC, animated: true)
         
     }
+    
+    
+    func onStartRedelegate() {
+        print("onStartRedelegate")
+    }
+    
+    
     
     func onStartGetSingleReward() {
 //        print("onStartGetSingleReward")

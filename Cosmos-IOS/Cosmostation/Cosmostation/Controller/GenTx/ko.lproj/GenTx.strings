@@ -1,0 +1,471 @@
+
+/* Class = "UIButton"; normalTitle = "+ 1"; ObjectID = "0LM-ou-2l6"; */
+"0LM-ou-2l6.normalTitle" = "+ 1";
+
+/* Class = "UIButton"; normalTitle = "Confirm"; ObjectID = "0Wc-Bz-kyT"; */
+"0Wc-Bz-kyT.normalTitle" = "확인";
+
+/* Class = "UIButton"; normalTitle = "+ 0.1"; ObjectID = "0fi-72-KPs"; */
+"0fi-72-KPs.normalTitle" = "+ 0.1";
+
+/* Class = "UILabel"; text = "Validator"; ObjectID = "0yC-6E-SBu"; */
+"0yC-6E-SBu.text" = "검증인";
+
+/* Class = "UILabel"; text = "My Wallet"; ObjectID = "11r-5X-rUr"; */
+"11r-5X-rUr.text" = "내 지갑";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "165-Bz-bOt"; */
+"165-Bz-bOt.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "2XG-Zs-0o8"; */
+"2XG-Zs-0o8.normalTitle" = "뒤로";
+
+/* Class = "UILabel"; text = "Fee"; ObjectID = "2g6-Mi-rFi"; */
+"2g6-Mi-rFi.text" = "Tx 수수료";
+
+/* Class = "UIButton"; normalTitle = "Half"; ObjectID = "4HC-Ve-dVy"; */
+"4HC-Ve-dVy.normalTitle" = "절반";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "4bd-6d-3iY"; */
+"4bd-6d-3iY.text" = "ATOM";
+
+/* Class = "UILabel"; text = "ERROR"; ObjectID = "4qx-1b-owe"; */
+"4qx-1b-owe.text" = "ERROR";
+
+/* Class = "UIButton"; normalTitle = " QR Code"; ObjectID = "5OM-sA-lLw"; */
+"5OM-sA-lLw.normalTitle" = " QR Code";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "6c2-ev-eh9"; */
+"6c2-ev-eh9.text" = "-";
+
+/* Class = "UILabel"; text = "Recipient Address"; ObjectID = "6eu-qT-mNK"; */
+"6eu-qT-mNK.text" = "Recipient Address";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "6qP-FZ-PaU"; */
+"6qP-FZ-PaU.text" = "-";
+
+/* Class = "UILabel"; text = "Expected Available"; ObjectID = "7ti-nr-hEI"; */
+"7ti-nr-hEI.text" = "Expected Available";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "8Dc-Kp-Vws"; */
+"8Dc-Kp-Vws.text" = "-";
+
+/* Class = "UILabel"; text = "Reward Amount"; ObjectID = "8SH-nc-hSl"; */
+"8SH-nc-hSl.text" = "Reward Amount";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "8mD-Fz-fbx"; */
+"8mD-Fz-fbx.text" = "-";
+
+/* Class = "UILabel"; text = "If you delegate to the validator you already delegated, the accumulated rewards will be automatically withdrawn and deposited into your available balance."; ObjectID = "B8f-6U-Ri8"; */
+"B8f-6U-Ri8.text" = "현재 이 검증인에게 받을 이자가 있다면, 위임을 하는 순간 모든 이자는 귀하의 사용가능 수량으로 자동적으로 입금될 것입니다.";
+
+/* Class = "UILabel"; text = "1232124214"; ObjectID = "B9s-8S-wIb"; */
+"B9s-8S-wIb.text" = "1232124214";
+
+/* Class = "UILabel"; text = "Undelegate takes 21days for delivery to your wallet, the accumulated rewards will be automatically withdrawn and deposited into your available balance, Immediately."; ObjectID = "BWk-A7-Iqg"; */
+"BWk-A7-Iqg.text" = "모든 위임 철회는 21일이 소요됩니다. 현재 이 검증인에게 받을 이자가 있다면, 위임철회를 하는 순간 모든 이자는 귀하의 사용가능 수량으로 자동적으로 입금될 것입니다.";
+
+/* Class = "UILabel"; text = "Fee"; ObjectID = "BxN-19-h60"; */
+"BxN-19-h60.text" = "Tx 수수료";
+
+/* Class = "UIButton"; normalTitle = "Half"; ObjectID = "DdV-Mp-h34"; */
+"DdV-Mp-h34.normalTitle" = "절반";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "EDE-9a-njG"; */
+"EDE-9a-njG.text" = "ATOM";
+
+/* Class = "UILabel"; text = "Reward From"; ObjectID = "EQ9-3G-1Si"; */
+"EQ9-3G-1Si.text" = "Reward From";
+
+/* Class = "UILabel"; text = "Soory, but your transaction request are failed"; ObjectID = "Eey-cC-EjY"; */
+"Eey-cC-EjY.text" = "Soory, but your transaction request are failed";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "EzL-hl-CJz"; */
+"EzL-hl-CJz.normalTitle" = "다음";
+
+/* Class = "UIButton"; normalTitle = "Confirm"; ObjectID = "FNK-rn-Q6z"; */
+"FNK-rn-Q6z.normalTitle" = "확인";
+
+/* Class = "UILabel"; text = "0/255"; ObjectID = "FP5-q9-8gZ"; */
+"FP5-q9-8gZ.text" = "0/255";
+
+/* Class = "UIButton"; normalTitle = "Confirm"; ObjectID = "FaM-ng-nuA"; */
+"FaM-ng-nuA.normalTitle" = "확인";
+
+/* Class = "UILabel"; text = "Fee"; ObjectID = "FnX-cT-Hbf"; */
+"FnX-cT-Hbf.text" = "Fee";
+
+/* Class = "UILabel"; text = "Tiny"; ObjectID = "GR1-ub-wRj"; */
+"GR1-ub-wRj.text" = "Tiny";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "H1i-q9-jeH"; */
+"H1i-q9-jeH.text" = "ATOM";
+
+/* Class = "UILabel"; text = "1232124214"; ObjectID = "HXP-Uy-psi"; */
+"HXP-Uy-psi.text" = "1232124214";
+
+/* Class = "UILabel"; text = "error code : 3"; ObjectID = "Hfp-Lj-mpz"; */
+"Hfp-Lj-mpz.text" = "error code : 3";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "I3D-DX-Pnj"; */
+"I3D-DX-Pnj.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "I73-y3-k1r"; */
+"I73-y3-k1r.text" = "-";
+
+/* Class = "UILabel"; text = "Transaction"; ObjectID = "I7P-kh-ryg"; */
+"I7P-kh-ryg.text" = "Transaction";
+
+/* Class = "UILabel"; text = "Total Spend"; ObjectID = "IA5-XZ-ucD"; */
+"IA5-XZ-ucD.text" = "Total Spend";
+
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "IMu-38-qIE"; */
+"IMu-38-qIE.normalTitle" = "OK";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "KIB-9Q-ntd"; */
+"KIB-9Q-ntd.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "KcI-v9-dWn"; */
+"KcI-v9-dWn.text" = "-";
+
+/* Class = "UILabel"; text = "Current Available"; ObjectID = "Lbt-gj-bR1"; */
+"Lbt-gj-bR1.text" = "Current Available";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "M3x-EA-AuW"; */
+"M3x-EA-AuW.text" = "-";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "M9m-C3-Kqd"; */
+"M9m-C3-Kqd.text" = "ATOM";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "MLr-AV-Cs3"; */
+"MLr-AV-Cs3.text" = "-";
+
+/* Class = "UILabel"; text = "Recipient Address"; ObjectID = "Mjn-tU-bDU"; */
+"Mjn-tU-bDU.text" = "Recipient Address";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "N0r-0y-KxQ"; */
+"N0r-0y-KxQ.normalTitle" = "뒤로";
+
+/* Class = "UIButton"; normalTitle = "+ 1"; ObjectID = "NIX-7T-aSL"; */
+"NIX-7T-aSL.normalTitle" = "+ 1";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "NtY-Ye-cGf"; */
+"NtY-Ye-cGf.text" = "ATOM";
+
+/* Class = "UILabel"; text = "sfsfsdfsdf"; ObjectID = "O4m-qP-aYd"; */
+"O4m-qP-aYd.text" = "sfsfsdfsdf";
+
+/* Class = "UIButton"; normalTitle = "+ 10"; ObjectID = "P7R-yl-AMr"; */
+"P7R-yl-AMr.normalTitle" = "+ 10";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "PXu-Z5-ayV"; */
+"PXu-Z5-ayV.normalTitle" = "Cancel";
+
+/* Class = "UILabel"; text = "Memo"; ObjectID = "Pgc-Et-LK7"; */
+"Pgc-Et-LK7.text" = "Memo";
+
+/* Class = "UIButton"; normalTitle = "+ 0.1"; ObjectID = "QEJ-qm-9j4"; */
+"QEJ-qm-9j4.normalTitle" = "+ 0.1";
+
+/* Class = "UIButton"; normalTitle = " Recent"; ObjectID = "QPo-J2-K4w"; */
+"QPo-J2-K4w.normalTitle" = " Recent";
+
+/* Class = "UILabel"; text = "Recipient Address"; ObjectID = "Qwe-1G-kEd"; */
+"Qwe-1G-kEd.text" = "Recipient Address";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "Rhf-lF-k9m"; */
+"Rhf-lF-k9m.normalTitle" = "취소";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "SND-Hn-2SF"; */
+"SND-Hn-2SF.text" = "ATOM";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "Sam-Qu-o4h"; */
+"Sam-Qu-o4h.normalTitle" = "뒤로";
+
+/* Class = "UIButton"; normalTitle = "Confirm"; ObjectID = "TZa-Y3-lIX"; */
+"TZa-Y3-lIX.normalTitle" = "Confirm";
+
+/* Class = "UILabel"; text = "Transaction Success"; ObjectID = "UPJ-xu-d6V"; */
+"UPJ-xu-d6V.text" = "Transaction Success";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "UfZ-dh-qrz"; */
+"UfZ-dh-qrz.text" = "ATOM";
+
+/* Class = "UIButton"; normalTitle = "+ 10"; ObjectID = "V5d-5b-I1c"; */
+"V5d-5b-I1c.normalTitle" = "+ 10";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "V77-qx-hi9"; */
+"V77-qx-hi9.text" = "ATOM";
+
+/* Class = "UILabel"; text = "Expected Delivery"; ObjectID = "VZj-O2-IEF"; */
+"VZj-O2-IEF.text" = "Expected Delivery";
+
+/* Class = "UIButton"; normalTitle = "+ 100"; ObjectID = "Vvk-Sp-fKU"; */
+"Vvk-Sp-fKU.normalTitle" = "+ 100";
+
+/* Class = "UIButton"; normalTitle = "+ 1"; ObjectID = "W4Y-Vs-Jkd"; */
+"W4Y-Vs-Jkd.normalTitle" = "+ 1";
+
+/* Class = "UILabel"; text = "21312"; ObjectID = "WAC-zm-EDp"; */
+"WAC-zm-EDp.text" = "21312";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "WCe-JE-8f3"; */
+"WCe-JE-8f3.text" = "ATOM";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "WYk-ag-3LV"; */
+"WYk-ag-3LV.text" = "ATOM";
+
+/* Class = "UIButton"; normalTitle = "+ 10"; ObjectID = "WnD-h9-7eW"; */
+"WnD-h9-7eW.normalTitle" = "+ 10";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "Wrm-Ux-zPh"; */
+"Wrm-Ux-zPh.normalTitle" = "취소";
+
+/* Class = "UILabel"; text = "Remaining Available"; ObjectID = "WxI-rb-Fvi"; */
+"WxI-rb-Fvi.text" = "Remaining Available";
+
+/* Class = "UILabel"; text = "32423432"; ObjectID = "XbH-gt-35i"; */
+"XbH-gt-35i.text" = "32423432";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "Xjw-ph-Lfs"; */
+"Xjw-ph-Lfs.text" = "ATOM";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Xnk-sp-TBa"; */
+"Xnk-sp-TBa.text" = "-";
+
+/* Class = "UILabel"; text = "Delegate To"; ObjectID = "Yf6-To-DVw"; */
+"Yf6-To-DVw.text" = "Delegate To";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Ym4-5H-0AT"; */
+"Ym4-5H-0AT.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "+ 100"; ObjectID = "Zh4-bO-xzi"; */
+"Zh4-bO-xzi.normalTitle" = "+ 100";
+
+/* Class = "UIButton"; normalTitle = "Max"; ObjectID = "Zsu-xk-uwx"; */
+"Zsu-xk-uwx.normalTitle" = "최대";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "acl-iM-CuU"; */
+"acl-iM-CuU.text" = "ATOM";
+
+/* Class = "UILabel"; text = "Average"; ObjectID = "b45-To-wXG"; */
+"b45-To-wXG.text" = "Average";
+
+/* Class = "UITextField"; placeholder = "Recipient Address"; ObjectID = "bF3-6L-krq"; */
+"bF3-6L-krq.placeholder" = "Recipient Address";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "bTQ-5m-tOV"; */
+"bTQ-5m-tOV.text" = "-";
+
+/* Class = "UILabel"; text = "Description for Transaction"; ObjectID = "bUG-5q-kHF"; */
+"bUG-5q-kHF.text" = "Description for Transaction";
+
+/* Class = "UILabel"; text = "Undelegate Amount"; ObjectID = "bny-aO-NqV"; */
+"bny-aO-NqV.text" = "Undelegate Amount";
+
+/* Class = "UILabel"; text = "Success"; ObjectID = "bqp-5d-nJj"; */
+"bqp-5d-nJj.text" = "Success";
+
+/* Class = "UILabel"; text = "Max Available : "; ObjectID = "cMX-QV-1HO"; */
+"cMX-QV-1HO.text" = "Max Available : ";
+
+/* Class = "UIButton"; normalTitle = "Share Hash"; ObjectID = "cfM-EG-2ij"; */
+"cfM-EG-2ij.normalTitle" = "Share Hash";
+
+/* Class = "UILabel"; text = "Undelegate From"; ObjectID = "czb-T3-yJi"; */
+"czb-T3-yJi.text" = "Undelegate From";
+
+/* Class = "UILabel"; text = "Rewards are accumulated each block.\nThe actual amount of rewards you receive may be equal to or greater than what is displayed now."; ObjectID = "dRg-i3-PJK"; */
+"dRg-i3-PJK.text" = "Rewards are accumulated each block.\nThe actual amount of rewards you receive may be equal to or greater than what is displayed now.";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "dsK-Nh-HsL"; */
+"dsK-Nh-HsL.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "+ 0.1"; ObjectID = "e1b-Kv-uy4"; */
+"e1b-Kv-uy4.normalTitle" = "+ 0.1";
+
+/* Class = "UILabel"; text = "19-04-23 14:34:32"; ObjectID = "eEs-4j-mq0"; */
+"eEs-4j-mq0.text" = "19-04-23 14:34:32";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "eYG-f0-HLx"; */
+"eYG-f0-HLx.normalTitle" = "뒤로";
+
+/* Class = "UILabel"; text = "Hash"; ObjectID = "efO-QS-bVe"; */
+"efO-QS-bVe.text" = "Hash";
+
+/* Class = "UILabel"; text = "Reward From"; ObjectID = "fm0-as-TpH"; */
+"fm0-as-TpH.text" = "Reward From";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "ftb-kO-B70"; */
+"ftb-kO-B70.text" = "ATOM";
+
+/* Class = "UILabel"; text = "Reward Amount"; ObjectID = "gBp-6N-Ir3"; */
+"gBp-6N-Ir3.text" = "Reward Amount";
+
+/* Class = "UIButton"; normalTitle = "Half"; ObjectID = "gWg-q5-q1s"; */
+"gWg-q5-q1s.normalTitle" = "절반";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "gZw-z1-0l3"; */
+"gZw-z1-0l3.normalTitle" = "다음";
+
+/* Class = "UILabel"; text = "Low"; ObjectID = "gb3-q6-sZr"; */
+"gb3-q6-sZr.text" = "Low";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "hEJ-Gw-Dx6"; */
+"hEJ-Gw-Dx6.text" = "ATOM";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "hNu-Zl-4j8"; */
+"hNu-Zl-4j8.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "hrT-jx-lIm"; */
+"hrT-jx-lIm.normalTitle" = "다음";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "iT5-ku-aJw"; */
+"iT5-ku-aJw.text" = "-";
+
+/* Class = "UILabel"; text = "Memo"; ObjectID = "jAf-dy-Edm"; */
+"jAf-dy-Edm.text" = "Memo";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "jJH-82-FMf"; */
+"jJH-82-FMf.text" = "-";
+
+/* Class = "UILabel"; text = "Delegate Amount"; ObjectID = "jXx-yV-zcs"; */
+"jXx-yV-zcs.text" = "Delegate Amount";
+
+/* Class = "UILabel"; text = "DFSFSFSDFSDFDSFSDFDSFDSFSDFSDFSDFSDFDSFSDFs"; ObjectID = "jwa-bE-tyt"; */
+"jwa-bE-tyt.text" = "DFSFSFSDFSDFDSFSDFDSFDSFSDFSDFSDFSDFDSFSDFs";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "jzT-Qn-Dpv"; */
+"jzT-Qn-Dpv.normalTitle" = "다음";
+
+/* Class = "UIButton"; normalTitle = "Max"; ObjectID = "kBN-Cx-ZW5"; */
+"kBN-Cx-ZW5.normalTitle" = "최대";
+
+/* Class = "UILabel"; text = "Max Available : "; ObjectID = "kKV-sT-2Dn"; */
+"kKV-sT-2Dn.text" = "최대 위임 가능 수량 : ";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "koC-1t-Q0E"; */
+"koC-1t-Q0E.normalTitle" = "뒤로";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "kun-C4-glw"; */
+"kun-C4-glw.text" = "ATOM";
+
+/* Class = "UILabel"; text = "Fee"; ObjectID = "kvC-MK-MX0"; */
+"kvC-MK-MX0.text" = "Fee";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "l6o-dV-tyt"; */
+"l6o-dV-tyt.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "lQh-Mg-QiO"; */
+"lQh-Mg-QiO.text" = "-";
+
+/* Class = "UILabel"; text = "Amount"; ObjectID = "lVB-pw-W8u"; */
+"lVB-pw-W8u.text" = "Amount";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "ln1-Dk-jKF"; */
+"ln1-Dk-jKF.text" = "ATOM";
+
+/* Class = "UILabel"; text = "Block"; ObjectID = "mBv-Nc-oXO"; */
+"mBv-Nc-oXO.text" = "Block";
+
+/* Class = "UILabel"; text = "Memo"; ObjectID = "mQv-vj-oGV"; */
+"mQv-vj-oGV.text" = "Memo";
+
+/* Class = "UILabel"; text = "Memo"; ObjectID = "mxN-bR-rjs"; */
+"mxN-bR-rjs.text" = "Memo";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "myt-1d-ac3"; */
+"myt-1d-ac3.text" = "ATOM";
+
+/* Class = "UILabel"; text = "Send Amount"; ObjectID = "nPi-8l-Zjv"; */
+"nPi-8l-Zjv.text" = "Send Amount";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "o0K-uG-YwI"; */
+"o0K-uG-YwI.normalTitle" = "다음";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "oUF-9B-3Wj"; */
+"oUF-9B-3Wj.text" = "-";
+
+/* Class = "UILabel"; text = "Memo"; ObjectID = "oh3-vV-DVi"; */
+"oh3-vV-DVi.text" = "Memo";
+
+/* Class = "UIButton"; normalTitle = " Paste"; ObjectID = "p3T-zM-WC2"; */
+"p3T-zM-WC2.normalTitle" = " Paste";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "q4U-Jx-Gjp"; */
+"q4U-Jx-Gjp.normalTitle" = "뒤로";
+
+/* Class = "UIButton"; normalTitle = "Dismiss"; ObjectID = "qKk-zy-YCy"; */
+"qKk-zy-YCy.normalTitle" = "Dismiss";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "qha-8w-Emu"; */
+"qha-8w-Emu.text" = "ATOM";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "qrU-if-jGX"; */
+"qrU-if-jGX.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "+ 100"; ObjectID = "qys-8Z-rrm"; */
+"qys-8Z-rrm.normalTitle" = "+ 100";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "rDT-J4-fp8"; */
+"rDT-J4-fp8.text" = "-";
+
+/* Class = "UILabel"; text = "Fee"; ObjectID = "rW0-Hz-q5Z"; */
+"rW0-Hz-q5Z.text" = "Fee";
+
+/* Class = "UILabel"; text = "High"; ObjectID = "s3N-8g-Lyh"; */
+"s3N-8g-Lyh.text" = "High";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "sNc-sK-vcI"; */
+"sNc-sK-vcI.text" = "-";
+
+/* Class = "UILabel"; text = "Max Available : "; ObjectID = "syg-Aq-Gbd"; */
+"syg-Aq-Gbd.text" = "Max Available : ";
+
+/* Class = "UILabel"; text = "ATOM"; ObjectID = "tCV-bA-Hz1"; */
+"tCV-bA-Hz1.text" = "ATOM";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "tFc-rs-Vhb"; */
+"tFc-rs-Vhb.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "Check with Explorer"; ObjectID = "tMW-jY-gJY"; */
+"tMW-jY-gJY.normalTitle" = "Check with Explorer";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "tjA-fe-Yfb"; */
+"tjA-fe-Yfb.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "ufC-VN-wuz"; */
+"ufC-VN-wuz.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "Max"; ObjectID = "uuD-HO-iFW"; */
+"uuD-HO-iFW.normalTitle" = "최대";
+
+/* Class = "UILabel"; text = "Cosmostation"; ObjectID = "vJt-Zv-gfD"; */
+"vJt-Zv-gfD.text" = "Cosmostation";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "vWJ-RQ-3f7"; */
+"vWJ-RQ-3f7.normalTitle" = "다음";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "vZf-sd-tql"; */
+"vZf-sd-tql.normalTitle" = "다음";
+
+/* Class = "UILabel"; text = "Deleagte"; ObjectID = "vbg-Fa-XDC"; */
+"vbg-Fa-XDC.text" = "Deleagte";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "wGh-fn-1xE"; */
+"wGh-fn-1xE.text" = "-";
+
+/* Class = "UILabel"; text = "000,000"; ObjectID = "xE1-cJ-uvV"; */
+"xE1-cJ-uvV.text" = "000,000";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "zFS-bl-Ntw"; */
+"zFS-bl-Ntw.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "zLR-h7-KgV"; */
+"zLR-h7-KgV.normalTitle" = "뒤로";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "zVi-Do-p21"; */
+"zVi-Do-p21.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "zxj-8a-Kpr"; */
+"zxj-8a-Kpr.normalTitle" = "취소";

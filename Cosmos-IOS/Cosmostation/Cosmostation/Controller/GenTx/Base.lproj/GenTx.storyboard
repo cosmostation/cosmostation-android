@@ -2639,7 +2639,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstItem="UPJ-xu-d6V" firstAttribute="centerY" secondItem="LO5-S9-H8N" secondAttribute="centerY" id="jhJ-sS-LNA"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jsd-4w-Ms3" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jsd-4w-Ms3" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="16" y="78" width="343" height="400"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I7P-kh-ryg">
@@ -2821,7 +2821,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQ7-3H-Ihk" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="16" y="253.5" width="337" height="180"/>
+                                <rect key="frame" x="16" y="1020" width="337" height="180"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qx-1b-owe">
                                         <rect key="frame" x="143" y="58.5" width="51" height="16.5"/>
@@ -2860,7 +2860,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="dcS-mU-muJ" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="157.5" y="313.5" width="60" height="60"/>
+                                <rect key="frame" x="157.5" y="1020" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="AXQ-wM-uCK"/>
                                     <constraint firstAttribute="width" constant="60" id="N9v-9u-NSx"/>
@@ -2976,6 +2976,8 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="qKk-zy-YCy" firstAttribute="leading" secondItem="NQD-N9-kqf" secondAttribute="leading" constant="16" id="5pS-tM-vgL"/>
+                            <constraint firstItem="RQ7-3H-Ihk" firstAttribute="top" secondItem="NQD-N9-kqf" secondAttribute="top" constant="1000" id="6Ro-8Y-VDq"/>
+                            <constraint firstItem="dcS-mU-muJ" firstAttribute="top" secondItem="NQD-N9-kqf" secondAttribute="top" constant="1000" id="D7I-pH-Gdc"/>
                             <constraint firstItem="RQ7-3H-Ihk" firstAttribute="leading" secondItem="NQD-N9-kqf" secondAttribute="leading" constant="16" id="IVV-C7-nFf"/>
                             <constraint firstItem="NQD-N9-kqf" firstAttribute="trailing" secondItem="xic-Dy-ZCh" secondAttribute="trailing" constant="16" id="KBg-RA-DZn"/>
                             <constraint firstItem="NQD-N9-kqf" firstAttribute="trailing" secondItem="Jsd-4w-Ms3" secondAttribute="trailing" constant="16" id="N4N-KO-xqt"/>
@@ -2989,10 +2991,8 @@ The actual amount of rewards you receive may be equal to or greater than what is
                             <constraint firstItem="Ut1-DN-UcI" firstAttribute="leading" secondItem="NQD-N9-kqf" secondAttribute="leading" id="j6H-xz-PCI"/>
                             <constraint firstItem="LO5-S9-H8N" firstAttribute="trailing" secondItem="NQD-N9-kqf" secondAttribute="trailing" id="om0-83-rC0"/>
                             <constraint firstItem="NQD-N9-kqf" firstAttribute="bottom" secondItem="xic-Dy-ZCh" secondAttribute="bottom" constant="16" id="ptn-fc-zRg"/>
-                            <constraint firstItem="dcS-mU-muJ" firstAttribute="centerY" secondItem="NQD-N9-kqf" secondAttribute="centerY" id="r1y-b0-oK8"/>
                             <constraint firstItem="NQD-N9-kqf" firstAttribute="trailing" secondItem="RQ7-3H-Ihk" secondAttribute="trailing" constant="22" id="s4G-SP-VTZ"/>
                             <constraint firstAttribute="top" secondItem="Ut1-DN-UcI" secondAttribute="top" id="s5M-Dd-1Py"/>
-                            <constraint firstItem="RQ7-3H-Ihk" firstAttribute="centerY" secondItem="NQD-N9-kqf" secondAttribute="centerY" id="v0K-nl-NEj"/>
                             <constraint firstItem="dcS-mU-muJ" firstAttribute="centerX" secondItem="NQD-N9-kqf" secondAttribute="centerX" id="xfc-gX-oSc"/>
                             <constraint firstAttribute="bottom" secondItem="Ut1-DN-UcI" secondAttribute="bottom" id="yA8-Eh-VXH"/>
                             <constraint firstItem="NQD-N9-kqf" firstAttribute="top" secondItem="LO5-S9-H8N" secondAttribute="top" id="yMp-lh-8Fe"/>

@@ -50,12 +50,12 @@
                                 <rect key="frame" x="12" y="60" width="272" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWh-8K-Tdg">
-                                        <rect key="frame" x="0.0" y="0.0" width="130" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="82.5" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="goW-YD-cM9"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <state key="normal" title="DELEGATE">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -75,12 +75,12 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ghn-OR-Lj6">
-                                        <rect key="frame" x="142" y="0.0" width="130" height="40"/>
+                                        <rect key="frame" x="94.5" y="0.0" width="83" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="YcO-41-brJ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <state key="normal" title="UNDELEGATE">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -97,6 +97,31 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onClickUndelegate:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZMN-gd-6TQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxf-ut-Qfe">
+                                        <rect key="frame" x="189.5" y="0.0" width="82.5" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="t56-56-7DT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <state key="normal" title="REDELEGATE">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.69999999999999996"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickRedelegate:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Uhv-Ge-Lon"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -126,7 +151,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="y3S-Tm-jXw"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <state key="normal" title="CLAIM REWARD">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -205,6 +230,7 @@
                 <outlet property="myDelegateAmount" destination="sgs-C1-O6R" id="7fj-kb-jdn"/>
                 <outlet property="myRewardAmount" destination="FTh-Xd-UEg" id="AWJ-Ob-nga"/>
                 <outlet property="myUndelegateAmount" destination="hib-JF-mPX" id="mcv-Vt-nkP"/>
+                <outlet property="redelegateBtn" destination="vxf-ut-Qfe" id="4tZ-hp-d4e"/>
                 <outlet property="undelegateBtn" destination="Ghn-OR-Lj6" id="aGU-U0-icj"/>
             </connections>
             <point key="canvasLocation" x="80" y="53.973013493253376"/>

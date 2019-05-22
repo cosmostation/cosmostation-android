@@ -60,7 +60,7 @@
 "IGV-pj-L9Y.text" = "v 1.0.1";
 
 /* Class = "UITabBarItem"; title = "WALLET"; ObjectID = "IIN-KY-Jus"; */
-"IIN-KY-Jus.title" = "지갑";
+"IIN-KY-Jus.title" = "WALLET";
 
 /* Class = "UIButton"; normalTitle = "FAQ"; ObjectID = "JTl-DR-e0d"; */
 "JTl-DR-e0d.normalTitle" = "도움말";
