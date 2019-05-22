@@ -76,12 +76,14 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAtom.add(toSendAtom), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        BigDecimal spendTotal = new BigDecimal(""+mTotalSpendAmount.getText().toString().trim()).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+//        BigDecimal spendTotal = new BigDecimal(""+mTotalSpendAmount.getText().toString().trim()).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+        BigDecimal spendTotal = feeAtom.add(toSendAtom).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
         mTotalPrice.setText(getString(R.string.str_approximately)+ " $" +  WDp.getDolor(getContext(), spendTotal));
 
         mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAtom).subtract(feeAtom), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        BigDecimal remainTotal = new BigDecimal(""+mRemainingBalance.getText().toString().trim()).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+//        BigDecimal remainTotal = new BigDecimal(""+mRemainingBalance.getText().toString().trim()).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+        BigDecimal remainTotal = currentAvai.subtract(toSendAtom).subtract(feeAtom).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
         mRemainingPrice.setText(getString(R.string.str_approximately)+ " $" +  WDp.getDolor(getContext(), remainTotal));
 
         mRecipientAddress.setText(getSActivity().mTagetAddress);

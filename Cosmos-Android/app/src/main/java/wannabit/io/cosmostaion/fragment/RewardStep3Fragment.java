@@ -99,7 +99,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         BigDecimal currentAtom      = getSActivity().mAccount.getAtomBalance();
         BigDecimal expectedAtom     = currentAtom.add(rewardSum).subtract(feeAtom);
         mExpectedAmount.setText(WDp.getDpAmount(getContext(), expectedAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        BigDecimal expectedPrice = new BigDecimal(""+mExpectedAmount.getText().toString().trim().replace(",","")).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+//        BigDecimal expectedPrice = new BigDecimal(""+mExpectedAmount.getText().toString().trim().replace(",","")).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+        BigDecimal expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
         mExpectedPrice.setText(getString(R.string.str_approximately)+ " $" +  WDp.getDolor(getContext(), expectedPrice));
 
     }

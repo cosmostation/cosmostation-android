@@ -161,7 +161,8 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             onUpdateGasAmountDp();
         }
         mTvGasAmount.setText(mFeeAmount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_HALF_UP).setScale(6).toPlainString());
-        BigDecimal total = new BigDecimal(""+mTvGasAmount.getText().toString().trim()).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+//        BigDecimal total = new BigDecimal(""+mTvGasAmount.getText().toString().trim()).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+        BigDecimal total = mFeeAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
         mTvGasPrice.setText(getString(R.string.str_approximately)+ " $" +  WDp.getDolor(getContext(), total));
 
     }
