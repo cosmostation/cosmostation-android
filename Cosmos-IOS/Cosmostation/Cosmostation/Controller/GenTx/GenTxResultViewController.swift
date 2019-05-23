@@ -149,7 +149,7 @@ class GenTxResultViewController: BaseViewController {
             
             delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
             delegateResultHash.text = mStakTxInfo?.txhash
-            delegateResultHash.adjustsFontSizeToFitWidth = true
+//            delegateResultHash.adjustsFontSizeToFitWidth = true
             delegateResultBlock.text = mStakTxInfo?.height
             delegateResultTime.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
             
@@ -166,7 +166,7 @@ class GenTxResultViewController: BaseViewController {
             
             undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
             undelegateResultHash.text = mStakTxInfo?.txhash
-            undelegateResultHash.adjustsFontSizeToFitWidth = true
+//            undelegateResultHash.adjustsFontSizeToFitWidth = true
             undelegateResultBlock.text = mStakTxInfo?.height
             undelegateResultTime.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
             
@@ -183,7 +183,7 @@ class GenTxResultViewController: BaseViewController {
             
             redelegateResultType.text = NSLocalizedString("tx_redelegate", comment: "")
             redelegateResultHash.text = mStakTxInfo?.txhash
-            redelegateResultHash.adjustsFontSizeToFitWidth = true
+//            redelegateResultHash.adjustsFontSizeToFitWidth = true
             redelegateResultBlock.text = mStakTxInfo?.height
             redelegateResultTime.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
             
@@ -198,7 +198,7 @@ class GenTxResultViewController: BaseViewController {
             
             sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
             sendResultHash.text = mTxInfo?.txhash
-            sendResultHash.adjustsFontSizeToFitWidth = true
+//            sendResultHash.adjustsFontSizeToFitWidth = true
             sendResultBlock.text = mTxInfo?.height
             sendResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             
@@ -215,7 +215,7 @@ class GenTxResultViewController: BaseViewController {
             
             rewardResultType.text = NSLocalizedString("tx_get_reward", comment: "")
             rewardResultHash.text = mTxInfo?.txhash
-            rewardResultHash.adjustsFontSizeToFitWidth = true
+//            rewardResultHash.adjustsFontSizeToFitWidth = true
             rewardResultBlock.text = mTxInfo?.height
             rewardResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             
@@ -237,7 +237,7 @@ class GenTxResultViewController: BaseViewController {
             
             addressChangeResultType.text = NSLocalizedString("tx_change_reward_address", comment: "")
             addressChangeResultHash.text = mTxInfo?.txhash
-            addressChangeResultHash.adjustsFontSizeToFitWidth = true
+//            addressChangeResultHash.adjustsFontSizeToFitWidth = true
             addressChangeResultBlock.text = mTxInfo?.height
             addressChangeResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             

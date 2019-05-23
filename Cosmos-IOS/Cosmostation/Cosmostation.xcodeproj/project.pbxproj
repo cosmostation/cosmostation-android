@@ -19,6 +19,11 @@
 		E103DAD3228143D0006C2146 /* WalletCheckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAD5228143D0006C2146 /* WalletCheckViewController.xib */; };
 		E103DADE22814802006C2146 /* Init.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E103DAE022814802006C2146 /* Init.storyboard */; };
 		E103DAE322814DFC006C2146 /* GenTx.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E103DAE522814DFC006C2146 /* GenTx.storyboard */; };
+		E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B0B22968DCA007517DC /* StepRedelegateAmountViewController.swift */; };
+		E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B0D22968DF4007517DC /* StepRedelegateToViewController.swift */; };
+		E1069B1022968E05007517DC /* StepRedelegateCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */; };
+		E1069B12229698BA007517DC /* StepChangeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B11229698BA007517DC /* StepChangeAddressViewController.swift */; };
+		E1069B14229698CB007517DC /* StepChangeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */; };
 		E1271B04224B17230083AF17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1271B02224B17230083AF17 /* Localizable.strings */; };
 		E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B05224B874A0083AF17 /* AddAddressViewController.swift */; };
 		E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B07224B90230083AF17 /* AddressInputTextField.swift */; };
@@ -183,6 +188,12 @@
 		E103DADF22814802006C2146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Init.storyboard; sourceTree = "<group>"; };
 		E103DAE222814815006C2146 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Init.strings; sourceTree = "<group>"; };
 		E103DAE422814DFC006C2146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/GenTx.storyboard; sourceTree = "<group>"; };
+		E1069B0B22968DCA007517DC /* StepRedelegateAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRedelegateAmountViewController.swift; sourceTree = "<group>"; };
+		E1069B0D22968DF4007517DC /* StepRedelegateToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRedelegateToViewController.swift; sourceTree = "<group>"; };
+		E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRedelegateCheckViewController.swift; sourceTree = "<group>"; };
+		E1069B11229698BA007517DC /* StepChangeAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepChangeAddressViewController.swift; sourceTree = "<group>"; };
+		E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepChangeCheckViewController.swift; sourceTree = "<group>"; };
+		E1069B1622969CF9007517DC /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/GenTx.strings; sourceTree = "<group>"; };
 		E1271B00224B16E20083AF17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E1271B01224B16E20083AF17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E1271B03224B17230083AF17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -201,7 +212,6 @@
 		E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenTxResultViewController.swift; sourceTree = "<group>"; };
 		E13696572292492800F3D5E2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherValidatorViewController.swift; sourceTree = "<group>"; };
-		E136965B2292759E00F3D5E2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/GenTx.strings; sourceTree = "<group>"; };
 		E1406FBF2260643200D9440C /* BlockInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInfo.swift; sourceTree = "<group>"; };
 		E1406FC12260654F00D9440C /* TxInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxInfo.swift; sourceTree = "<group>"; };
 		E1406FC322607B8500D9440C /* LoadingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingImageView.swift; sourceTree = "<group>"; };
@@ -438,6 +448,11 @@
 				E12D6B88226DF36D00D07CE4 /* StepSendAddressViewController.swift */,
 				E12D6B8A226DF3A700D07CE4 /* StepSendAmountViewController.swift */,
 				E12D6B8C226DF3BB00D07CE4 /* StepSendCheckViewController.swift */,
+				E1069B0B22968DCA007517DC /* StepRedelegateAmountViewController.swift */,
+				E1069B0D22968DF4007517DC /* StepRedelegateToViewController.swift */,
+				E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */,
+				E1069B11229698BA007517DC /* StepChangeAddressViewController.swift */,
+				E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */,
 			);
 			path = GenTx;
 			sourceTree = "<group>";
@@ -826,6 +841,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1069B14229698CB007517DC /* StepChangeCheckViewController.swift in Sources */,
 				E1A82DEA2244A20B0097CAEE /* BondingInfo.swift in Sources */,
 				E1406FC422607B8500D9440C /* LoadingImageView.swift in Sources */,
 				E19A321E22547DF400A05E41 /* SBCardPopupViewController.swift in Sources */,
@@ -833,6 +849,7 @@
 				E17748EC2283E4FB003D8CD1 /* HistoryMsg.swift in Sources */,
 				E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */,
 				E1827E112254C92900BC0350 /* WalletDetailViewController.swift in Sources */,
+				E1069B12229698BA007517DC /* StepChangeAddressViewController.swift in Sources */,
 				E1406FC02260643200D9440C /* BlockInfo.swift in Sources */,
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
@@ -873,6 +890,7 @@
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
+				E1069B1022968E05007517DC /* StepRedelegateCheckViewController.swift in Sources */,
 				E151B647224850040026B8C0 /* Msg.swift in Sources */,
 				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
@@ -893,6 +911,7 @@
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
 				E1406FC62260860E00D9440C /* StepUndelegateAmountViewController.swift in Sources */,
 				E1827E18225620D000BC0350 /* VaidatorDetailViewController.swift in Sources */,
+				E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */,
 				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,
@@ -932,6 +951,7 @@
 				E1945E4C222E81C200A1436F /* MainTabVoteViewController.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
+				E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */,
 				E12D6B87226DDE2700D07CE4 /* StakeTxInfo.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
 				E151B651224867D60026B8C0 /* Proposal.swift in Sources */,
@@ -1041,7 +1061,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E103DAE422814DFC006C2146 /* Base */,
-				E136965B2292759E00F3D5E2 /* ko */,
+				E1069B1622969CF9007517DC /* ko */,
 			);
 			name = GenTx.storyboard;
 			sourceTree = "<group>";
