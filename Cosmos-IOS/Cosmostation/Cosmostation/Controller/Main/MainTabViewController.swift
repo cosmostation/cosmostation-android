@@ -22,7 +22,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
     var mRewardList = Array<Reward>()
-//    var mAllRewards = Array<Coin>()
     var mAtomTic: NSDictionary?
     var mFetchCnt = 0
     
@@ -194,7 +193,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         onFetchAccountInfo(mAccount)
         onFetchBondingInfo(mAccount)
         onFetchUnbondingInfo(mAccount)
-//        onFetchAllRewards(mAccount)
         onFetchAtomTic()
         return true
     }
@@ -395,7 +393,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                                         encoding: URLEncoding.default,
                                         headers: [:]);
         request.responseJSON { (response) in
-            print("onFetchEachReward ", validatorAddr)
+//            print("onFetchEachReward ", validatorAddr)
             switch response.result {
             case .success(let res):
                 guard let rawRewards = res as? Array<NSDictionary> else {
@@ -415,34 +413,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchFinished()
         }
     }
-    
-//    func onFetchAllRewards(_ account: Account) {
-////        print("onFetchAllRewards")
-//        let url = CSS_LCD_URL_REWARD_ALL + account.account_address + CSS_LCD_URL_REWARD_ALL_TAIL
-//        let request = Alamofire.request(url,
-//                                        method: .get,
-//                                        parameters: [:],
-//                                        encoding: URLEncoding.default,
-//                                        headers: [:]);
-//        request.responseJSON { (response) in
-//            switch response.result {
-//            case .success(let res):
-////                print("onFetchAllRewards ", res)
-//                guard let rewards = res as? Array<NSDictionary> else {
-//                    self.onFetchFinished()
-//                    return;
-//                }
-//                self.mAllRewards.removeAll()
-//                for reward in rewards {
-//                    self.mAllRewards.append(Coin(reward as! [String : Any]))
-//                }
-//                
-//            case .failure(let error):
-//                print("onFetchAllRewards error", error)
-//            }
-//            self.onFetchFinished()
-//        }
-//    }
     
     func onFetchAtomTic() {
 //         print("onFetchAtomTic")

@@ -135,23 +135,18 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             atomRewardAmount.attributedText = WUtils.displayAmout("0", atomRewardAmount.font, 6)
         }
         
-        var totalSum = NSDecimalNumber.zero
-        totalSum = totalSum.adding(WUtils.stringToDecimal(atomAvailableAmount.text!.replacingOccurrences(of: ",", with: "")))
-            .adding(WUtils.stringToDecimal(atomDelegatedAmount.text!.replacingOccurrences(of: ",", with: "")))
-            .adding(WUtils.stringToDecimal(atomUnbondingAmount.text!.replacingOccurrences(of: ",", with: "")))
-            .adding(WUtils.stringToDecimal(atomRewardAmount.text!.replacingOccurrences(of: ",", with: "")))
-        let calTotalSum = totalSum.multiplying(by: 1000000)
-        atomTotalLabel.attributedText = WUtils.displayAmout(calTotalSum.stringValue, atomTotalLabel.font, 6)
+        let totalSum = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+        atomTotalLabel.attributedText = WUtils.displayAmout(totalSum.stringValue, atomTotalLabel.font, 6)
         
         if let change = mainTabVC.mAtomTic?.value(forKeyPath: "data.quotes.USD.percent_change_24h") as? Double,
             let price = mainTabVC.mAtomTic?.value(forKeyPath: "data.quotes.USD.price") as? Double {
             let changeValue = NSDecimalNumber(value: change)
             let priceValue = NSDecimalNumber(value: price)
 
-            let dpPrice = priceValue.multiplying(by: totalSum, withBehavior: WUtils.handler2)
+            let dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: totalSum, withBehavior: WUtils.handler2)
             atomPriceLabel.attributedText = WUtils.displayUSD(dpPrice, font: atomPriceLabel.font)
             pricePerAtom.attributedText = WUtils.displayUSD(priceValue, font: pricePerAtom.font)
-            
+
             if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
                 priceUpDownImg.image = UIImage(named: "priceUp")
                 priceUpDownLabel.text = changeValue.rounding(accordingToBehavior: WUtils.handler2).stringValue + "% (24h)"
