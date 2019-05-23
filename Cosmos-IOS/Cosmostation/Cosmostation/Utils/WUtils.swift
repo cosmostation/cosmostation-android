@@ -111,6 +111,18 @@ class WUtils {
         return localFormatter.string(from: fullDate!)
     }
     
+    static func txTimetoString(input: String) -> String {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
+        
+        let fullDate = nodeFormatter.date(from: input)
+        return localFormatter.string(from: fullDate!)
+    }
+    
     static func longTimetoString(input: Int64) -> String {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")

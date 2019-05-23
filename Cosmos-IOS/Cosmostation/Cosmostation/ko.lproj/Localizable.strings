@@ -120,8 +120,8 @@
 "tx_receive" = "입금";
 "tx_transfer" = "송금";
 "tx_delegate" = "위임";
-"tx_undelegate" = "위임철회";
-"tx_redelegate" = "재 위임";
+"tx_undelegate" = "위임 철회";
+"tx_redelegate" = "재위임";
 "tx_get_reward" = "이자 청구";
 "tx_get_commission" = "수수료 청구";
 "tx_change_reward_address" = "이자 주소 변경";

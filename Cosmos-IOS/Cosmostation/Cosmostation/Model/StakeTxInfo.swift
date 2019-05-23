@@ -11,6 +11,7 @@ import Foundation
 public struct StakeTxInfo {
     var height: String = ""
     var txhash: String = ""
+    var txTime: String = ""
     var tx: StakeStdTx = StakeStdTx.init()
     
     init() {}
@@ -18,6 +19,7 @@ public struct StakeTxInfo {
     init(_ dictionary: [String: Any]) {
         self.height = dictionary["height"] as? String ?? ""
         self.txhash = dictionary["txhash"] as? String ?? ""
+        self.txTime = dictionary["timestamp"] as? String ?? ""
         self.tx = StakeStdTx.init(dictionary["tx"] as! [String : Any])
         
     }

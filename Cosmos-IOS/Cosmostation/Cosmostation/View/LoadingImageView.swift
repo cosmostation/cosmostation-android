@@ -32,7 +32,8 @@ class LoadingImageView: UIImageView {
             images.append(UIImage(named: imagesName[i])!)
         }
         self.animationImages = images
-        self.animationDuration = 0.5
+//        self.animationDuration = 0.5
+        self.animationDuration = 1
     }
     
     func onStartAnimation() {

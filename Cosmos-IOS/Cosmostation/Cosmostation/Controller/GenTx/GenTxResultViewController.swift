@@ -11,6 +11,65 @@ import Alamofire
 import SafariServices
 
 class GenTxResultViewController: BaseViewController {
+    @IBOutlet weak var sendResultView: CardView!
+    @IBOutlet weak var sendResultType: UILabel!
+    @IBOutlet weak var sendResultHash: UILabel!
+    @IBOutlet weak var sendResultTime: UILabel!
+    @IBOutlet weak var sendResultBlock: UILabel!
+    @IBOutlet weak var sendResultAmount: UILabel!
+    @IBOutlet weak var sendResultFee: UILabel!
+    @IBOutlet weak var sendResultToAddress: UILabel!
+    @IBOutlet weak var sendResultMemo: UILabel!
+    
+    @IBOutlet weak var delegateResultView: CardView!
+    @IBOutlet weak var delegateResultType: UILabel!
+    @IBOutlet weak var delegateResultHash: UILabel!
+    @IBOutlet weak var delegateResultTime: UILabel!
+    @IBOutlet weak var delegateResultBlock: UILabel!
+    @IBOutlet weak var delegateResultAmount: UILabel!
+    @IBOutlet weak var delegateResultFee: UILabel!
+    @IBOutlet weak var delegateResultValAddress: UILabel!
+    @IBOutlet weak var delegateResultMemo: UILabel!
+    
+    @IBOutlet weak var undelegateResultView: CardView!
+    @IBOutlet weak var undelegateResultType: UILabel!
+    @IBOutlet weak var undelegateResultHash: UILabel!
+    @IBOutlet weak var undelegateResultTime: UILabel!
+    @IBOutlet weak var undelegateResultBlock: UILabel!
+    @IBOutlet weak var undelegateResultAmount: UILabel!
+    @IBOutlet weak var undelegateResultFee: UILabel!
+    @IBOutlet weak var undelegateResultValAddress: UILabel!
+    @IBOutlet weak var undelegateResultMemo: UILabel!
+    
+    @IBOutlet weak var redelegateResultView: CardView!
+    @IBOutlet weak var redelegateResultType: UILabel!
+    @IBOutlet weak var redelegateResultHash: UILabel!
+    @IBOutlet weak var redelegateResultTime: UILabel!
+    @IBOutlet weak var redelegateResultBlock: UILabel!
+    @IBOutlet weak var redelegateResultAmount: UILabel!
+    @IBOutlet weak var redelegateResultFee: UILabel!
+    @IBOutlet weak var redelegateResultFromValAddress: UILabel!
+    @IBOutlet weak var redelegateResultToValAddress: UILabel!
+    @IBOutlet weak var redelegateResultMemo: UILabel!
+    
+    @IBOutlet weak var rewardResultView: CardView!
+    @IBOutlet weak var rewardResultType: UILabel!
+    @IBOutlet weak var rewardResultHash: UILabel!
+    @IBOutlet weak var rewardResultTime: UILabel!
+    @IBOutlet weak var rewardResultBlock: UILabel!
+    @IBOutlet weak var rewardResultFee: UILabel!
+    @IBOutlet weak var rewardResultFromValAddress: UILabel!
+    @IBOutlet weak var rewardResultMemo: UILabel!
+    
+    @IBOutlet weak var addressChangeResultView: CardView!
+    @IBOutlet weak var addressChangeResultType: UILabel!
+    @IBOutlet weak var addressChangeResultHash: UILabel!
+    @IBOutlet weak var addressChangeResultTime: UILabel!
+    @IBOutlet weak var addressChangeResultBlock: UILabel!
+    @IBOutlet weak var addressChangeResultFee: UILabel!
+    @IBOutlet weak var addressChangeResultAddress: UILabel!
+    @IBOutlet weak var addressChangeResultMemo: UILabel!
+    
     
     var response:[String:Any]?
 
@@ -18,26 +77,27 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var actionLayer: UIStackView!
     @IBOutlet weak var dismissBtn: UIButton!
     
-    @IBOutlet weak var mainCardView: CardView!
-    @IBOutlet weak var txTypeLabel: UILabel!
-    @IBOutlet weak var txResultLabel: UILabel!
-    @IBOutlet weak var txHashLabel: UILabel!
-    @IBOutlet weak var blockHeightLabel: UILabel!
-    @IBOutlet weak var blockTimeLabel: UILabel!
-    
-    @IBOutlet weak var txAmountTitleLabel: UILabel!
-    @IBOutlet weak var txAmountAtomLabel: UILabel!
-    @IBOutlet weak var txAmountLabel: UILabel!
-    @IBOutlet weak var txFeeLabel: UILabel!
-    
-    @IBOutlet weak var txSecondTitleLabel: UILabel!
-    @IBOutlet weak var txSecondContentLabel: UILabel!
-    
-    @IBOutlet weak var txMemoLabel: UILabel!
+//    @IBOutlet weak var mainCardView: CardView!
+//    @IBOutlet weak var txTypeLabel: UILabel!
+//    @IBOutlet weak var txResultLabel: UILabel!
+//    @IBOutlet weak var txHashLabel: UILabel!
+//    @IBOutlet weak var blockHeightLabel: UILabel!
+//    @IBOutlet weak var blockTimeLabel: UILabel!
+//
+//    @IBOutlet weak var txAmountTitleLabel: UILabel!
+//    @IBOutlet weak var txAmountAtomLabel: UILabel!
+//    @IBOutlet weak var txAmountLabel: UILabel!
+//    @IBOutlet weak var txFeeLabel: UILabel!
+//
+//    @IBOutlet weak var txSecondTitleLabel: UILabel!
+//    @IBOutlet weak var txSecondContentLabel: UILabel!
+//
+//    @IBOutlet weak var txMemoLabel: UILabel!
     
     @IBOutlet weak var errorCardView: CardView!
     @IBOutlet weak var errorCode: UILabel!
     
+    @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var loadingImgs: LoadingImageView!
     
     var mTxType: String?
@@ -45,8 +105,8 @@ class GenTxResultViewController: BaseViewController {
     
     var mTxInfo: TxInfo?
     var mStakTxInfo: StakeTxInfo?
-    var mBlockInfo: BlockInfo?
-    
+//    var mBlockInfo: BlockInfo?
+//
     
     
     override func viewDidLoad() {
@@ -76,7 +136,7 @@ class GenTxResultViewController: BaseViewController {
         self.txResultTitleLabel.text = "Transaction Failed"
         self.txResultTitleLabel.textColor = UIColor.init(hexString: "f31963")
         self.errorCode.text =  "error code : " + String(code) + "\n" + ((response?["raw_log"] as? String)!)
-        self.loadingImgs.isHidden = true
+        self.loadingView.isHidden = true
         self.errorCardView.isHidden = false
     }
     
@@ -84,87 +144,103 @@ class GenTxResultViewController: BaseViewController {
     func onTxDetailView() {
 //        print("onTxDetailView")
         if (mTxType == COSMOS_MSG_TYPE_DELEGATE) {
-            txTypeLabel.text = NSLocalizedString("tx_delegate", comment: "")
-            txAmountLabel.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, txAmountLabel.font, 6)
-            txSecondTitleLabel.text = NSLocalizedString("validator_address", comment: "")
-            txSecondContentLabel.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
-            txSecondContentLabel.adjustsFontSizeToFitWidth = true
+            delegateResultView.isHidden = false
             
-            txHashLabel.text = mStakTxInfo?.txhash
-            txHashLabel.adjustsFontSizeToFitWidth = true
-            blockHeightLabel.text = mBlockInfo?.block_meta.header.height
-            blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
+            delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
+            delegateResultHash.text = mStakTxInfo?.txhash
+            delegateResultHash.adjustsFontSizeToFitWidth = true
+            delegateResultBlock.text = mStakTxInfo?.height
+            delegateResultTime.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
             
-            txFeeLabel.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
-            txMemoLabel.text = mStakTxInfo?.tx.value.memo
+            delegateResultAmount.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, delegateResultAmount.font, 6)
+            delegateResultFee.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 6)
+            delegateResultValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
+            delegateResultValAddress.adjustsFontSizeToFitWidth = true
+            delegateResultMemo.text = mStakTxInfo?.tx.value.memo
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-            txTypeLabel.text = NSLocalizedString("tx_undelegate", comment: "")
-            txAmountLabel.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, txAmountLabel.font, 6)
-            txSecondTitleLabel.text = NSLocalizedString("validator_address", comment: "")
-            txSecondContentLabel.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
-            txSecondContentLabel.adjustsFontSizeToFitWidth = true
+            undelegateResultView.isHidden = false
             
-            txHashLabel.text = mStakTxInfo?.txhash
-            txHashLabel.adjustsFontSizeToFitWidth = true
-            blockHeightLabel.text = mBlockInfo?.block_meta.header.height
-            blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
+            undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
+            undelegateResultHash.text = mStakTxInfo?.txhash
+            undelegateResultHash.adjustsFontSizeToFitWidth = true
+            undelegateResultBlock.text = mStakTxInfo?.height
+            undelegateResultTime.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
             
-            txFeeLabel.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
-            txMemoLabel.text = mStakTxInfo?.tx.value.memo
+            undelegateResultAmount.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, undelegateResultAmount.font, 6)
+            undelegateResultFee.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, undelegateResultFee.font, 6)
+            undelegateResultValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
+            undelegateResultValAddress.adjustsFontSizeToFitWidth = true
+            undelegateResultMemo.text = mStakTxInfo?.tx.value.memo
+            
+            
+        } else if (mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
+            redelegateResultView.isHidden = false
+            
+            redelegateResultType.text = NSLocalizedString("tx_redelegate", comment: "")
+            redelegateResultHash.text = mStakTxInfo?.txhash
+            redelegateResultHash.adjustsFontSizeToFitWidth = true
+            redelegateResultBlock.text = mStakTxInfo?.height
+            redelegateResultTime.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
+            
+            redelegateResultAmount.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, redelegateResultAmount.font, 6)
+            redelegateResultFee.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, redelegateResultFee.font, 6)
+            //TODO redelegate from to!!!
+            redelegateResultMemo.text = mStakTxInfo?.tx.value.memo
+            
+        } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2) {
+            sendResultView.isHidden = false
+            
+            sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
+            sendResultHash.text = mTxInfo?.txhash
+            sendResultHash.adjustsFontSizeToFitWidth = true
+            sendResultBlock.text = mTxInfo?.height
+            sendResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+            
+            sendResultAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount![0].amount)!, sendResultAmount.font, 6)
+            sendResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, sendResultFee.font, 6)
+            sendResultToAddress.text = mTxInfo?.tx.value.msg[0].value.to_address
+            sendResultToAddress.adjustsFontSizeToFitWidth = true
+            sendResultMemo.text = mTxInfo?.tx.value.memo
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-            txTypeLabel.text = NSLocalizedString("tx_get_reward", comment: "")
-            txAmountTitleLabel.isHidden = true
-            txAmountAtomLabel.isHidden = true
-            txAmountLabel.isHidden = true
+            rewardResultView.isHidden = false
             
-            txSecondTitleLabel.text = NSLocalizedString("validator_address", comment: "")
+            rewardResultType.text = NSLocalizedString("tx_get_reward", comment: "")
+            rewardResultHash.text = mTxInfo?.txhash
+            rewardResultHash.adjustsFontSizeToFitWidth = true
+            rewardResultBlock.text = mTxInfo?.height
+            rewardResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+            
+            rewardResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, rewardResultFee.font, 6)
             var rewardValAddress = ""
             if((mTxInfo?.tx.value.msg.count)! > 1) {
                 rewardValAddress = (mTxInfo?.tx.value.msg[0].value.validator_address)! + " \n + " + String((mTxInfo?.tx.value.msg.count)! - 1)
             } else {
                 rewardValAddress = (mTxInfo?.tx.value.msg[0].value.validator_address)!
             }
-            txSecondContentLabel.text = rewardValAddress
-            txSecondContentLabel.adjustsFontSizeToFitWidth = true
+            rewardResultFromValAddress.text = rewardValAddress
+            rewardResultFromValAddress.adjustsFontSizeToFitWidth = true
+            rewardResultMemo.text = mTxInfo?.tx.value.memo
             
-            txHashLabel.text = mTxInfo?.txhash
-            txHashLabel.adjustsFontSizeToFitWidth = true
-            blockHeightLabel.text = mBlockInfo?.block_meta.header.height
-            blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
             
-            txFeeLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
-            txMemoLabel.text = mTxInfo?.tx.value.memo
+        } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+            addressChangeResultView.isHidden = false
             
-        } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2) {
-            txTypeLabel.text = NSLocalizedString("tx_transfer", comment: "")
+            addressChangeResultType.text = NSLocalizedString("tx_change_reward_address", comment: "")
+            addressChangeResultHash.text = mTxInfo?.txhash
+            addressChangeResultHash.adjustsFontSizeToFitWidth = true
+            addressChangeResultBlock.text = mTxInfo?.height
+            addressChangeResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             
-            txAmountLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount![0].amount)!, txAmountLabel.font, 6)
-            
-            txSecondTitleLabel.text = "To"
-            txSecondContentLabel.text = mTxInfo?.tx.value.msg[0].value.to_address
-            txSecondContentLabel.adjustsFontSizeToFitWidth = true
-            
-            txHashLabel.text = mTxInfo?.txhash
-            txHashLabel.adjustsFontSizeToFitWidth = true
-            blockHeightLabel.text = mBlockInfo?.block_meta.header.height
-            blockTimeLabel.text = WUtils.nodeTimetoString(input: (mBlockInfo?.block_meta.header.time)!)
-            
-            txFeeLabel.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, txMemoLabel.font, 6)
-            txMemoLabel.text = mTxInfo?.tx.value.memo
-            
-        } else {
-            
+            addressChangeResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, addressChangeResultFee.font, 6)
+            //TODO target address!!
+            addressChangeResultMemo.text = mTxInfo?.tx.value.memo
         }
+
         
-        self.loadingImgs.isHidden = true
-        self.mainCardView.isHidden = false
-        
-        self.dismissBtn.isHidden = true
-        self.actionLayer.isHidden = false
     }
 
     
@@ -174,7 +250,9 @@ class GenTxResultViewController: BaseViewController {
     }
     
     @IBAction func onClickExplorer(_ sender: UIButton) {
-        if (mTxType == COSMOS_MSG_TYPE_DELEGATE || mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+        if (mTxType == COSMOS_MSG_TYPE_DELEGATE ||
+                mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 ||
+                mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
             guard let url = URL(string: "https://www.mintscan.io/txs/" + mStakTxInfo!.txhash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
@@ -188,7 +266,9 @@ class GenTxResultViewController: BaseViewController {
     }
     
     @IBAction func onClickShare(_ sender: UIButton) {
-        if (mTxType == COSMOS_MSG_TYPE_DELEGATE || mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+        if (mTxType == COSMOS_MSG_TYPE_DELEGATE ||
+                mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 ||
+                mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
             let text = "https://www.mintscan.io/txs/" + mStakTxInfo!.txhash
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
@@ -228,12 +308,14 @@ class GenTxResultViewController: BaseViewController {
                     }
                     return
                 }
-                if (self.mTxType == COSMOS_MSG_TYPE_DELEGATE || self.mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                if (self.mTxType == COSMOS_MSG_TYPE_DELEGATE ||
+                        self.mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 ||
+                        self.mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
                     self.mStakTxInfo = StakeTxInfo.init(info)
-                    self.onFetchBlock(self.mStakTxInfo!.height)
+//                    self.onFetchBlock(self.mStakTxInfo!.height)
                 } else {
                     self.mTxInfo = TxInfo.init(info)
-                    self.onFetchBlock(self.mTxInfo!.height)
+//                    self.onFetchBlock(self.mTxInfo!.height)
                 }
                 
                 
@@ -243,30 +325,8 @@ class GenTxResultViewController: BaseViewController {
                     print("onFetchTx ", error)
                 }
             }
-        }
-        
-    }
-    
-    func onFetchBlock(_ height: String) {
-        let url = CSS_LCD_URL_BLOCK + height
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchBlock ", res)
-                guard let info = res as? [String : Any] else {
-//                    print("onFetchTx error")
-                    return
-                }
-                self.mBlockInfo = BlockInfo.init(info)
-                
-            case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchBlock ", error)
-                }
-                
-            }
             self.onTxDetailView()
         }
+        
     }
 }
