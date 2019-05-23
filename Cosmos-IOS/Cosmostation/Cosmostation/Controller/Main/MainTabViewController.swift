@@ -15,13 +15,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mAccount:Account!
     var mAccounts = Array<Account>()
     var mBalances = Array<Balance>()
+    var mAllValidator = Array<Validator>()
     var mTopValidators = Array<Validator>()
     var mOtherValidators = Array<Validator>()
     var mMyValidators = Array<Validator>()
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
     var mRewardList = Array<Reward>()
-    var mAllRewards = Array<Coin>()
+//    var mAllRewards = Array<Coin>()
     var mAtomTic: NSDictionary?
     var mFetchCnt = 0
     
@@ -186,14 +187,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         self.mMyValidators.removeAll()
         self.mRewardList.removeAll()
         
-        self.mFetchCnt = 8
+        self.mFetchCnt = 7
         onFetchTopValidatorsInfo()
         onFetchUnbondedValidatorsInfo()
         onFetchUnbondingValidatorsInfo()
         onFetchAccountInfo(mAccount)
         onFetchBondingInfo(mAccount)
         onFetchUnbondingInfo(mAccount)
-        onFetchAllRewards(mAccount)
+//        onFetchAllRewards(mAccount)
         onFetchAtomTic()
         return true
     }
@@ -209,7 +210,16 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
             mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
             
-            for validator in mTopValidators {
+            mAllValidator.removeAll()
+            mAllValidator.append(contentsOf: mTopValidators)
+            mAllValidator.append(contentsOf: mOtherValidators)
+//            print("mTopValidators Cnt " , mTopValidators.count)
+//            print("mOtherValidators Cnt " , mOtherValidators.count)
+//            print("mAllValidator Cnt " , mAllValidator.count)
+//            print("Reward Cnt " , mRewardList.count)
+            
+            
+            for validator in mAllValidator {
                 var mine = false;
                 for bonding in mBondingList {
                     if(bonding.bonding_v_address == validator.operator_address) {
@@ -228,9 +238,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
-            
-//            print("mtop " , mTopValidators.count)
-//            print("mother " , mOtherValidators.count)
         }
     }
     
@@ -250,7 +257,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for validator in validators {
                     self.mTopValidators.append(Validator(validator as! [String : Any]))
                 }
-//                print("size : ", self.mAllValidators.count)
+//                print("size : ", self.mTopValidators.count)
                 
             case .failure(let error):
                 print("onFetchTopValidatorsInfo ", error)
@@ -388,6 +395,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                                         encoding: URLEncoding.default,
                                         headers: [:]);
         request.responseJSON { (response) in
+            print("onFetchEachReward ", validatorAddr)
             switch response.result {
             case .success(let res):
                 guard let rawRewards = res as? Array<NSDictionary> else {
@@ -408,33 +416,33 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchAllRewards(_ account: Account) {
-//        print("onFetchAllRewards")
-        let url = CSS_LCD_URL_REWARD_ALL + account.account_address + CSS_LCD_URL_REWARD_ALL_TAIL
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchAllRewards ", res)
-                guard let rewards = res as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return;
-                }
-                self.mAllRewards.removeAll()
-                for reward in rewards {
-                    self.mAllRewards.append(Coin(reward as! [String : Any]))
-                }
-                
-            case .failure(let error):
-                print("onFetchAllRewards error", error)
-            }
-            self.onFetchFinished()
-        }
-    }
+//    func onFetchAllRewards(_ account: Account) {
+////        print("onFetchAllRewards")
+//        let url = CSS_LCD_URL_REWARD_ALL + account.account_address + CSS_LCD_URL_REWARD_ALL_TAIL
+//        let request = Alamofire.request(url,
+//                                        method: .get,
+//                                        parameters: [:],
+//                                        encoding: URLEncoding.default,
+//                                        headers: [:]);
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+////                print("onFetchAllRewards ", res)
+//                guard let rewards = res as? Array<NSDictionary> else {
+//                    self.onFetchFinished()
+//                    return;
+//                }
+//                self.mAllRewards.removeAll()
+//                for reward in rewards {
+//                    self.mAllRewards.append(Coin(reward as! [String : Any]))
+//                }
+//                
+//            case .failure(let error):
+//                print("onFetchAllRewards error", error)
+//            }
+//            self.onFetchFinished()
+//        }
+//    }
     
     func onFetchAtomTic() {
 //         print("onFetchAtomTic")

@@ -189,22 +189,22 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {
-        if let allReward = self.mainTabVC.mAllRewards[0].amount as? String {
-            cell.totalRewardLabel.attributedText = WUtils.displayAmout(allReward, cell.totalRewardLabel.font, 6)
+        if(mainTabVC.mRewardList.count > 0) {
+            cell.totalRewardLabel.attributedText = WUtils.displayAllAtomReward(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6)
         } else {
             cell.totalRewardLabel.attributedText = WUtils.displayAmout("0", cell.totalRewardLabel.font, 6)
         }
+        
         cell.delegate = self
     }
     
     
     func didTapClaimAll(_ sender: UIButton) {
-        print("didTapClaimAll ",  self.mainTabVC.mAllRewards[0].amount)
+        print("didTapClaimAll")
         if(!self.mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
         }
-        
-        if(WUtils.stringToDecimal(self.mainTabVC.mAllRewards[0].amount).rounding(accordingToBehavior: WUtils.handler0).compare(NSDecimalNumber.zero).rawValue <= 0) {
+        if(WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(NSDecimalNumber.zero).rawValue <= 0 ){
             self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
             return
         }
@@ -259,8 +259,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return
         }
-        
-        if(WUtils.stringToDecimal(self.mainTabVC.mAllRewards[0].amount).rounding(accordingToBehavior: WUtils.handler0).compare(mintFee).rawValue <= 0) {
+        if(WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(mintFee).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
             return
         }

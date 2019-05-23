@@ -2758,7 +2758,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.1803921568627451" alpha="0.4001765839041096" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="R0V-PD-YpM" firstAttribute="firstBaseline" secondItem="VsL-5i-qCS" secondAttribute="firstBaseline" id="7dV-dJ-Di5"/>
                                     <constraint firstItem="Nd4-pe-e4B" firstAttribute="leading" secondItem="lcA-hC-svp" secondAttribute="leading" id="CjE-NY-Rgu"/>
@@ -2805,6 +2805,23 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstItem="O8l-dM-X6b" firstAttribute="trailing" secondItem="EaG-53-ucb" secondAttribute="trailing" id="w3r-Ea-vJU"/>
                                     <constraint firstItem="R0V-PD-YpM" firstAttribute="trailing" secondItem="EaG-53-ucb" secondAttribute="trailing" id="x1g-yr-qKZ"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPA-qb-3Ov" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="16" y="78" width="343" height="455"/>
@@ -2925,7 +2942,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.1803921568627451" alpha="0.40194242294520549" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="FCG-7N-dXF" firstAttribute="top" secondItem="p9h-20-HEC" secondAttribute="bottom" constant="8" id="0Eb-fp-2TD"/>
                                     <constraint firstItem="ynz-SO-eVa" firstAttribute="top" secondItem="bVC-4Q-U10" secondAttribute="bottom" constant="16" id="0Jn-Wm-fuK"/>
@@ -2972,6 +2989,23 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstItem="2ag-Ih-9hq" firstAttribute="top" secondItem="Jph-q1-Yem" secondAttribute="bottom" constant="8" id="yJ8-Oo-bPg"/>
                                     <constraint firstItem="MYd-R0-ckP" firstAttribute="top" secondItem="R6H-wo-3zn" secondAttribute="bottom" constant="16" id="yNh-38-KFL"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qz7-eb-WPs" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="16" y="78" width="343" height="455"/>
@@ -3092,7 +3126,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40017658389999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Pm7-Mq-rcv" firstAttribute="trailing" secondItem="YRT-ct-7Me" secondAttribute="trailing" id="410-la-BtP"/>
                                     <constraint firstItem="Eq1-8f-dgZ" firstAttribute="leading" secondItem="EPY-HG-pBq" secondAttribute="leading" id="6gh-zr-VUn"/>
@@ -3139,6 +3173,23 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstItem="eKQ-YU-Pr2" firstAttribute="top" secondItem="rRx-A0-28X" secondAttribute="bottom" constant="12" id="wjr-bD-YSN"/>
                                     <constraint firstItem="sbA-bT-uia" firstAttribute="leading" secondItem="eKQ-YU-Pr2" secondAttribute="leading" id="zqO-sk-sF0"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i4c-dL-ebk" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="16" y="78" width="343" height="455"/>
@@ -3271,7 +3322,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40017658389999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="MOb-4T-yXx" firstAttribute="leading" secondItem="769-hP-HgS" secondAttribute="leading" id="06t-JT-tlw"/>
                                     <constraint firstItem="8Sk-Gv-aCg" firstAttribute="leading" secondItem="Q0u-Gb-rft" secondAttribute="leading" id="2a6-j1-2fb"/>
@@ -3322,6 +3373,23 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstAttribute="trailing" secondItem="d4I-CR-BEn" secondAttribute="trailing" constant="16" id="yOj-HD-ri6"/>
                                     <constraint firstItem="5GJ-gX-oKR" firstAttribute="firstBaseline" secondItem="769-hP-HgS" secondAttribute="firstBaseline" id="yTz-aA-K4G"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4DE-hW-f7c" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="16" y="78" width="343" height="455"/>
@@ -3424,7 +3492,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40017658389999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="RW6-PG-52H" firstAttribute="top" secondItem="AE7-pR-0w8" secondAttribute="bottom" constant="12" id="3EY-3d-63y"/>
                                     <constraint firstItem="oab-N6-PON" firstAttribute="leading" secondItem="8JP-OD-JJQ" secondAttribute="leading" id="3JN-RY-4j7"/>
@@ -3465,6 +3533,23 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstAttribute="trailing" secondItem="AE7-pR-0w8" secondAttribute="trailing" constant="16" id="tjr-ms-m39"/>
                                     <constraint firstItem="OSU-Kc-vpe" firstAttribute="leading" secondItem="RW6-PG-52H" secondAttribute="leading" id="ySc-fK-Abo"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rt5-9O-YOY" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="16" y="78" width="343" height="455"/>
@@ -3567,7 +3652,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40017658389999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="uT9-FP-LTM" firstAttribute="top" secondItem="AQg-X5-4Wj" secondAttribute="bottom" constant="8" id="2ZK-bN-gVJ"/>
                                     <constraint firstItem="czM-QT-X6B" firstAttribute="firstBaseline" secondItem="efc-ol-PRx" secondAttribute="firstBaseline" id="BzH-zr-fVk"/>
@@ -3608,6 +3693,23 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstItem="dlr-bc-78L" firstAttribute="leading" secondItem="rt5-9O-YOY" secondAttribute="leading" constant="16" id="z95-iw-Iqt"/>
                                     <constraint firstItem="eGl-lI-bNW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H3z-sz-QV8" secondAttribute="trailing" constant="8" symbolic="YES" id="zso-xv-jnV"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQ7-3H-Ihk" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="16" y="253.5" width="343" height="180"/>

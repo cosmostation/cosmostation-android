@@ -144,7 +144,8 @@ class GenTxResultViewController: BaseViewController {
     func onTxDetailView() {
 //        print("onTxDetailView")
         if (mTxType == COSMOS_MSG_TYPE_DELEGATE) {
-            delegateResultView.isHidden = false
+            self.delegateResultView.isHidden = false
+            self.loadingView.isHidden = true
             
             delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
             delegateResultHash.text = mStakTxInfo?.txhash
@@ -160,7 +161,8 @@ class GenTxResultViewController: BaseViewController {
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-            undelegateResultView.isHidden = false
+            self.undelegateResultView.isHidden = false
+            self.loadingView.isHidden = true
             
             undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
             undelegateResultHash.text = mStakTxInfo?.txhash
@@ -176,7 +178,8 @@ class GenTxResultViewController: BaseViewController {
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
-            redelegateResultView.isHidden = false
+            self.redelegateResultView.isHidden = false
+            self.loadingView.isHidden = true
             
             redelegateResultType.text = NSLocalizedString("tx_redelegate", comment: "")
             redelegateResultHash.text = mStakTxInfo?.txhash
@@ -190,7 +193,8 @@ class GenTxResultViewController: BaseViewController {
             redelegateResultMemo.text = mStakTxInfo?.tx.value.memo
             
         } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2) {
-            sendResultView.isHidden = false
+            self.sendResultView.isHidden = false
+            self.loadingView.isHidden = true
             
             sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
             sendResultHash.text = mTxInfo?.txhash
@@ -206,7 +210,8 @@ class GenTxResultViewController: BaseViewController {
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-            rewardResultView.isHidden = false
+            self.rewardResultView.isHidden = false
+            self.loadingView.isHidden = true
             
             rewardResultType.text = NSLocalizedString("tx_get_reward", comment: "")
             rewardResultHash.text = mTxInfo?.txhash
@@ -227,7 +232,8 @@ class GenTxResultViewController: BaseViewController {
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-            addressChangeResultView.isHidden = false
+            self.addressChangeResultView.isHidden = false
+            self.loadingView.isHidden = true
             
             addressChangeResultType.text = NSLocalizedString("tx_change_reward_address", comment: "")
             addressChangeResultHash.text = mTxInfo?.txhash
@@ -289,18 +295,18 @@ class GenTxResultViewController: BaseViewController {
     }
     
     
-    var fetchCnt = 5
+    var fetchCnt = 10
     func onFetchTx(_ txHash: String) {
         let url = CSS_LCD_URL_TX + txHash
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchTx ", res)
+                if(SHOW_LOG) { print("onFetchTx ", res) }
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     self.fetchCnt = self.fetchCnt - 1
                     if(self.fetchCnt > 0) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5000), execute: {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
                             self.onFetchTx(txHash)
                         })
                     } else {

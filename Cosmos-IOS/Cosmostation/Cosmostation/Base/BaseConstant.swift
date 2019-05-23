@@ -27,6 +27,8 @@ let KEY_ATOM_TIC_CMC                    = "KEY_ATOM_TIC_CMC"
 //product URL
 //let CSS_LCD_URL                         = "https://lcd.cosmostation.io/";
 let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
+//let CSS_LCD_URL                         = "https://lcd-mainnet-dev.cosmostation.io/";
+
 
 //free URL
 //let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";

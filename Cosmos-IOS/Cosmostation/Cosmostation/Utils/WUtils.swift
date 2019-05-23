@@ -20,6 +20,8 @@ class WUtils {
     static let handler2 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static let handler0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
+    static let handlerdown0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
 
     
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
@@ -342,6 +344,22 @@ class WUtils {
         
         attributedString1.append(attributedString2)
         return attributedString1
+    }
+    
+    static func displayAllAtomReward(_ rewards:Array<Reward>, _ font:UIFont, _ deciaml:Int ) ->  NSMutableAttributedString {
+        var rewardSum = NSDecimalNumber.zero
+        for reward in rewards {
+            rewardSum = rewardSum.adding(stringToDecimal(reward.reward_amount[0].amount).rounding(accordingToBehavior: handlerdown0))
+        }
+        return displayAmout(rewardSum.stringValue, font, deciaml)
+    }
+    
+    static func getAllAtomReward(_ rewards:Array<Reward>) ->  NSDecimalNumber {
+        var rewardSum = NSDecimalNumber.zero
+        for reward in rewards {
+            rewardSum = rewardSum.adding(stringToDecimal(reward.reward_amount[0].amount).rounding(accordingToBehavior: handlerdown0))
+        }
+        return rewardSum
     }
     
     static func getValidatorReward(_ rewards:Array<Reward>, _ valOpAddr:String) -> NSDecimalNumber {

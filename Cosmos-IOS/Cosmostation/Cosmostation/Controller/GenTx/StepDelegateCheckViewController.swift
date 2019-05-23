@@ -92,7 +92,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                 var msgList = Array<StakeMsg>()
                 msgList.append(msg)
                 if(FEE_FREE) {
-                    self.pageHolderVC.mFee?.amount[0].amount = "0"
+                    self.pageHolderVC.mFee?.amount[0].amount = "100"
                 }
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
@@ -153,7 +153,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                 
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-//                    print("params ", params)
+                    print("params ", params)
                     let request = Alamofire.request(CSS_LCD_URL_BORAD_TX, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
 //                        print("request1 ", request.request)
@@ -163,7 +163,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-//                            print("Delegate ", res)
+                            if(SHOW_LOG) { print("Delegate ", res) }
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }

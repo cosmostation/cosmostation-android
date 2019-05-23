@@ -110,7 +110,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         if(mainTabVC.mBondingList.count > 0) {
             var sum = NSDecimalNumber.zero
             for bonding in mainTabVC.mBondingList {
-                sum = sum.adding(bonding.getBondingAtom(mainTabVC.mTopValidators))
+                sum = sum.adding(bonding.getBondingAtom(mainTabVC.mAllValidator))
             }
             atomDelegatedAmount.attributedText = WUtils.displayAmout(sum.stringValue, atomDelegatedAmount.font, 6)
             
@@ -129,8 +129,11 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             atomUnbondingAmount.attributedText = WUtils.displayAmout("0", atomUnbondingAmount.font, 6)
         }
         
-        if(mainTabVC.mAllRewards.count > 0) { atomRewardAmount.attributedText = WUtils.displayAmout(mainTabVC.mAllRewards[0].amount, atomRewardAmount.font, 6)
-        } else { atomRewardAmount.attributedText = WUtils.displayAmout("0", atomRewardAmount.font, 6) }
+        if(mainTabVC.mRewardList.count > 0) {
+            atomRewardAmount.attributedText = WUtils.displayAllAtomReward(mainTabVC.mRewardList, atomRewardAmount.font, 6)
+        } else {
+            atomRewardAmount.attributedText = WUtils.displayAmout("0", atomRewardAmount.font, 6)
+        }
         
         var totalSum = NSDecimalNumber.zero
         totalSum = totalSum.adding(WUtils.stringToDecimal(atomAvailableAmount.text!.replacingOccurrences(of: ",", with: "")))
