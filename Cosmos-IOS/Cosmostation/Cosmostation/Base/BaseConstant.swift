@@ -54,6 +54,7 @@ let CSS_LCD_URL_REWARD_FROM_VAL         = CSS_LCD_URL + "distribution/delegators
 let CSS_LCD_URL_REWARD_FROM_VAL_TAIL    = "/rewards/";
 let CSS_LCD_URL_REWARD_ADDRESS          = CSS_LCD_URL + "distribution/delegators/";
 let CSS_LCD_URL_REWARD_ADDRESS_TAIL     = "/withdraw_address";
+let CSS_LCD_URL_REDELEGATION            = CSS_LCD_URL + "staking/redelegations";
 
 let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
 

@@ -33,4 +33,19 @@ class AmountInputTextField: UITextField {
 //            action == #selector(UIResponderStandardEditActions.delete)
         return false
     }
+    
+//    private func getKeyboardLanguage() -> String? {
+//        return "en" // here you can choose keyboard any way you need
+//    }
+//    
+//    override var textInputMode: UITextInputMode? {
+//        if let language = getKeyboardLanguage() {
+//            for tim in UITextInputMode.activeInputModes {
+//                if tim.primaryLanguage!.contains(language) {
+//                    return tim
+//                }
+//            }
+//        }
+//        return super.textInputMode
+//    }
 }

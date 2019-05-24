@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepChangeAddressViewController: UIViewController {
+class StepChangeAddressViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

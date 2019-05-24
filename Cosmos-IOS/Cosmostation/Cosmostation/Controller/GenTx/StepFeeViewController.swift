@@ -96,6 +96,9 @@ class StepFeeViewController: BaseViewController {
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             let needGas = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1]
             feeAmount = needGas.multiplying(by: WUtils.stringToDecimal(FEE_MIN_RATE)).multiplying(by: NSDecimalNumber(integerLiteral: position + 1))
+            
+        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+            feeAmount = atomFees[position]
         }
         
         
@@ -128,6 +131,7 @@ class StepFeeViewController: BaseViewController {
     }
     
     @IBAction func onClickNext(_ sender: Any) {
+        print("onClickNext")
         if(self.updateView(Int(feeSlider!.value))) {
             
             if(TESTNET) { feeCoin = Coin.init("muon", feeAmount.stringValue) }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIScrollViewDelegate {
     
@@ -20,7 +21,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mBalances = Array<Balance>()
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
-//    var mReward = Reward.init()
     
     var mRewardList = Array<Reward>()
     var mRewardAddress: String?
@@ -32,6 +32,10 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mToSendRecipientAddress:String?
     var mToSendAmount = Array<Coin>()
+    
+    var mToReDelegateAmount: Coin?
+    var mToReDelegateValidator: Validator?
+    var mToReDelegateValidators = Array<Validator>()
     
     var mMemo: String?
     var mFee: Fee?
@@ -49,12 +53,19 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepUndelegateCheckViewController")]
             
-        }else if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
+        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
             return [self.newVc(viewController: "StepSendAddressViewController"),
                     self.newVc(viewController: "StepSendAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepSendCheckViewController")]
+            
+        } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+            return [self.newVc(viewController: "StepRedelegateAmountViewController"),
+                    self.newVc(viewController: "StepRedelegateToViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepRedelegateCheckViewController")]
             
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),
@@ -72,12 +83,14 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("StepGenTxViewController")
-        
         mAccount        = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         mBalances       = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
         mBondingList    = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
         mUnbondingList  = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
+        
+        if(mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+            onFetchTopValidatorsInfo()
+        }
             
         self.dataSource = self
         self.delegate = self
@@ -123,7 +136,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func onNextPage() {
         disableBounce = false
-        if((currentIndex <= 3 && mType == COSMOS_MSG_TYPE_TRANSFER2) || currentIndex <= 2) {
+        if((currentIndex <= 3 && (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2)) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]
@@ -145,13 +158,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if(!completed) {
-//            print("not completed")
+            
         } else {
             if let currentViewController = pageViewController.viewControllers?.first,
                 let index = orderedViewControllers.index(of: currentViewController) {
                 currentIndex = index
             }
-//            print("currentIndex ", currentIndex)
             let value:[String: Int] = ["step": currentIndex]
             NotificationCenter.default.post(name: Notification.Name("stepChanged"), object: nil, userInfo: value)
         }
@@ -169,4 +181,48 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         }
     }
     
+    func onFetchTopValidatorsInfo() {
+        let request = Alamofire.request(CSS_LCD_URL_VALIDATORS, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let validators = res as? Array<NSDictionary> else {
+                    print("no validators!!")
+                    return
+                }
+                self.mToReDelegateValidators.removeAll()
+                for validator in validators {
+                    let tempVal = Validator(validator as! [String : Any])
+                    if(tempVal.operator_address != self.mTargetValidator?.operator_address) {
+                        self.mToReDelegateValidators.append(tempVal)
+                    }
+                }
+                self.sortByPower()
+                print("mToReDelegateValidators cnt " , self.mToReDelegateValidators.count)
+                
+            case .failure(let error):
+                print("onFetchTopValidatorsInfo ", error)
+            }
+        }
+    }
+    
+    
+    
+    func sortByPower() {
+        mToReDelegateValidators.sort{
+            if ($0.description.moniker == "Cosmostation") {
+                return true
+            }
+            if ($1.description.moniker == "Cosmostation") {
+                return false
+            }
+            if ($0.jailed && !$1.jailed) {
+                return false
+            }
+            if (!$0.jailed && $1.jailed) {
+                return true
+            }
+            return Double($0.tokens)! > Double($1.tokens)!
+        }
+    }
 }

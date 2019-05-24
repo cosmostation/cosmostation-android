@@ -35,6 +35,13 @@
 "send_step_3" = "Insert memo (optional)";
 "send_step_4" = "Select transaction fee";
 "send_step_5" = "Check transfer detail";
+"redelegate_step_1" = "Enter redelegation amount";
+"redelegate_step_2" = "Select validator redelegate";
+"redelegate_step_3" = "Insert memo (optional)";
+"redelegate_step_4" = "Select transaction fee";
+"redelegate_step_5" = "Check transaction detail";
+"reward_address_step_1" = "Insert address to receive reward";
+"reward_address_step_4" = "Check transaction detail";
 "recipient_address" = "Recipient Address";
 "reward_claim_top_16" = "We claim rewards from up to max 16 validators in order of reward amount.";
 "add_mnemonic" = "Add Mnemonic";
@@ -87,6 +94,8 @@
 "title_undelegate" = "Undelegate From";
 "title_reward" = "Claim Reward From";
 "title_send" = "Send";
+"title_redelegate" = "Redelegate";
+"title_reword_address_change" = "Reward Address Chagne";
 "title_guide" = "FAQ";
 
 "error_password_fail" = "Password is not same. Please init password again!";
@@ -98,6 +107,7 @@
 "error_only_fee_with_atom" = "Now only support ATOM for fee.";
 "error_not_enough_balance" = "No enough Balance to Delegate.";
 "error_not_undelegate" = "Nothing to undelegate.";
+"error_not_redelegate" = "Nothing to redelegate.";
 "error_not_reward" = "No enough reward to Claim.";
 "error_memo" = "Please insert validate memo.";
 "error_invalid_address" = "Invalid Address, please check again.";
@@ -111,6 +121,8 @@
 "error_access_camera_msg" = "Request camera access for scan QR-code. Please provide camera access from settings.";
 "error_unbonding_count_over" = "Exceeded maximum undelegation count";
 "error_jailded_delegate" = "Delegation to jailed validator is not supported.";
+"error_redelegate_cnt_over" = "Exceeded maximum redelegation count. Select another validator.";
+"error_network" = "Network Error.";
 
 
 "alert_title_no_private_key" = "No Private Key";

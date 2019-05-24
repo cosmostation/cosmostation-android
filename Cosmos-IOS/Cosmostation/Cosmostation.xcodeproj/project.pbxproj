@@ -152,6 +152,8 @@
 		E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF62244FA750097CAEE /* UIColor.swift */; };
 		E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDBC07225C705000810D2E /* MsgGenerator.swift */; };
 		E1BDBC0A225C9BE100810D2E /* Amino.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDBC09225C9BE100810D2E /* Amino.swift */; };
+		E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D279612297B40D00C49B2D /* RedelegateCell.swift */; };
+		E1D279642297B40D00C49B2D /* RedelegateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1D279622297B40D00C49B2D /* RedelegateCell.xib */; };
 		E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */; };
 		E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */; };
 		E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E15FC12253748B00A10C7B /* DashedButton.swift */; };
@@ -333,6 +335,8 @@
 		E1A82DF62244FA750097CAEE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E1BDBC07225C705000810D2E /* MsgGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgGenerator.swift; sourceTree = "<group>"; };
 		E1BDBC09225C9BE100810D2E /* Amino.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amino.swift; sourceTree = "<group>"; };
+		E1D279612297B40D00C49B2D /* RedelegateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedelegateCell.swift; sourceTree = "<group>"; };
+		E1D279622297B40D00C49B2D /* RedelegateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RedelegateCell.xib; sourceTree = "<group>"; };
 		E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPopupCell.swift; sourceTree = "<group>"; };
 		E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountPopupCell.xib; sourceTree = "<group>"; };
 		E1E15FC12253748B00A10C7B /* DashedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedButton.swift; sourceTree = "<group>"; };
@@ -669,6 +673,8 @@
 				E103DAB122812773006C2146 /* ValidatorDetailHistoryEmpty.xib */,
 				E17748ED2284229B003D8CD1 /* GuideListTableViewCell.swift */,
 				E17748EE2284229B003D8CD1 /* GuideListTableViewCell.xib */,
+				E1D279612297B40D00C49B2D /* RedelegateCell.swift */,
+				E1D279622297B40D00C49B2D /* RedelegateCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -754,6 +760,7 @@
 				E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */,
 				E103DAC9228129FD006C2146 /* WalletManageViewController.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
+				E1D279642297B40D00C49B2D /* RedelegateCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
@@ -856,6 +863,7 @@
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
 				E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */,
 				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
+				E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,

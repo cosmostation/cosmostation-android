@@ -121,7 +121,6 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
     
     
     @IBAction func onClickClear(_ sender: UIButton) {
-        print("onClickClear")
         toUndelegateAmountInput.text = "";
         self.onUIupdate()
     }

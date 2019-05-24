@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepChangeCheckViewController: UIViewController {
+class StepChangeCheckViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

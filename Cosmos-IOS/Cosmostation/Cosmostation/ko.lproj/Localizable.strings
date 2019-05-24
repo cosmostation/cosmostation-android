@@ -35,6 +35,13 @@
 "send_step_3" = "메모를 입력하세요 (선택사항)";
 "send_step_4" = "Tx 수수료를 선택하세요";
 "send_step_5" = "입력하신 정보를 확인하세요";
+"redelegate_step_1" = "재위임 할 수량을 입력하세요";
+"redelegate_step_2" = "재위임 할 검증인을 선택하세요";
+"redelegate_step_3" = "메모를 입력하세요 (선택사항)";
+"redelegate_step_4" = "Tx 수수료를 선택하세요";
+"redelegate_step_5" = "입력하신 정보를 확인하세요";
+"reward_address_step_1" = "이자 받을 주소를 설정하세요";
+"reward_address_step_4" = "입력하신 정보를 확인하세요";
 "recipient_address" = "받을 주소";
 "reward_claim_top_16" = "이자량 순서대로 최대 16검증인으로부터 이자를 청구 합니다.";
 "add_mnemonic" = "복구 단어 추가";
@@ -82,9 +89,11 @@
 "title_restore" = "지갑 복원";
 "title_path" = "지갑 선택";
 "title_delegate" = "위임하기";
-"title_undelegate" = "위임철회하기";
-"title_reward" = "이자청구하기";
-"title_send" = "송금하기";
+"title_undelegate" = "위임 철회 하기";
+"title_reward" = "이자 청구 하기";
+"title_send" = "송금 하기";
+"title_redelegate" = "재위임 하기";
+"title_reword_address_change" = "이자 지급 주소 변경";
 "title_guide" = "도움말";
 
 
@@ -97,6 +106,7 @@
 "error_only_fee_with_atom" = "지금은 ATOM만 수수료로 설정가능 합니다.";
 "error_not_enough_balance" = "위임할만한 충분한 수량이 없습니다.";
 "error_not_undelegate" = "위임 해제할 수량이 없습니다.";
+"error_not_redelegate" = "재위임 할 수량이 없습니다.";
 "error_not_reward" = "쌓인 이자가 충분하지 않습니다.";
 "error_memo" = "메모를 정확히 입력해 주세요.";
 "error_invalid_address" = "부정확한 주소입니다. 다시한번 확인해 주세요.";
@@ -110,6 +120,8 @@
 "error_access_camera_msg" = "QR코드 스켄을 위해 카메라 접근을 허락해 주세요.";
 "error_unbonding_count_over" = "위임 철회 가능 횟수를 초과하였습니다.";
 "error_jailded_delegate" = "수감중인 노드에 위임하는 기능은 지원하지 않습니다.";
+"error_redelegate_cnt_over" = "재위임 가능 횟수를 초과하였습니다. 다른 검증인을 선택해주세요.";
+"error_network" = "네트워크 에러.";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";

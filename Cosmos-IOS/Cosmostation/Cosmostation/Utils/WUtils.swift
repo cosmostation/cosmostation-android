@@ -229,10 +229,19 @@ class WUtils {
         return check
     }
     
+    static func DecimalToLocalString(_ input: NSDecimalNumber) -> String {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = 0
+        nf.maximumFractionDigits = 6
+        nf.numberStyle = .decimal
+        nf.locale = Locale.current
+        return nf.string(from: input)!
+    }
+    
     static func stringToDecimal(_ input: String) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
         do{
-            result = NSDecimalNumber(string: input)
+           result = NSDecimalNumber(string: input, locale: Locale.current)
         } catch { }
         return result
     }

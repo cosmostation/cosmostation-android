@@ -548,6 +548,25 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onStartRedelegate() {
         print("onStartRedelegate")
+        if(!mAccount!.account_has_private) {
+            self.onShowAddMenomicDialog()
+        }
+        if(mBonding == nil || self.mBonding!.getBondingAtom(mValidator!) == NSDecimalNumber.zero) {
+            self.onShowToast(NSLocalizedString("error_not_redelegate", comment: ""))
+            return
+        }
+        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+            return
+        }
+        
+        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+        stakingVC.mTargetValidator = mValidator
+        stakingVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(stakingVC, animated: true)
+        
     }
     
     
