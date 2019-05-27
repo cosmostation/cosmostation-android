@@ -37,6 +37,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mToReDelegateValidator: Validator?
     var mToReDelegateValidators = Array<Validator>()
     
+    var mCurrentRewardAddress: String?
+    var mToChangeRewardAddress: String?
+    
     var mMemo: String?
     var mFee: Fee?
     
@@ -66,6 +69,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepRedelegateCheckViewController")]
+            
+        } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+            return [self.newVc(viewController: "StepChangeAddressViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "StepChangeCheckViewController")]
             
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),

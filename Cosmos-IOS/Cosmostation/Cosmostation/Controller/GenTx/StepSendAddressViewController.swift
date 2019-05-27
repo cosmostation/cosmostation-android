@@ -43,7 +43,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
     
     @IBAction func onClickPaste(_ sender: Any) {
         if let myString = UIPasteboard.general.string {
-            self.mTargetAddressTextField.text = myString
+            self.mTargetAddressTextField.text = myString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         } else {
             self.onShowToast(NSLocalizedString("error_no_clipboard", comment: ""))
         }

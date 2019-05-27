@@ -8,6 +8,7 @@
 
 import UIKit
 import QRCode
+import Alamofire
 
 class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
@@ -25,11 +26,14 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     @IBOutlet weak var pathTitle: UILabel!
     @IBOutlet weak var keyPath: UILabel!
     @IBOutlet weak var noKeyMsg: UILabel!
+    
+    @IBOutlet weak var rewardCard: CardView!
+    @IBOutlet weak var rewardAddress: UILabel!
+    
     @IBOutlet weak var actionBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("WalletDetailViewController ", accountId)
         updateView()
     }
     
@@ -37,9 +41,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     func updateView() {
         mAccount = BaseData.instance.selectAccountById(id: accountId!)
         if(mAccount == nil) {
-//            print("WalletDetailViewController no that accout Error")
             return
         }
+        
+        self.onFetchRewardAddress(mAccount.account_address)
         
         if (mAccount.account_nick_name == "") { walletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mAccount.account_id)
         } else { walletName.text = mAccount.account_nick_name }
@@ -52,8 +57,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         } else {
             chainName.text = ""
         }
-        
-        
         
         importDate.text = WUtils.longTimetoString(input:mAccount.account_import_time)
         
@@ -122,10 +125,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         
     }
     
-    @IBAction func onClickCopy(_ sender: Any) {
-        UIPasteboard.general.string = self.mAccount.account_address
-        onShowToast(NSLocalizedString("address_copied", comment: ""))
-    }
+//    @IBAction func onClickCopy(_ sender: Any) {
+//        UIPasteboard.general.string = self.mAccount.account_address
+//        onShowToast(NSLocalizedString("address_copied", comment: ""))
+//    }
     
     @IBAction func onClickQrCode(_ sender: Any) {
         var qrCode = QRCode(self.mAccount.account_address)
@@ -140,6 +143,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         }
         
         let alert = UIAlertController(title: walletName, message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+        alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.init(hexString: "EEEEEE")
         alert.addAction(UIAlertAction(title: NSLocalizedString("share", comment: ""), style: .default, handler:  { [weak alert] (_) in
             let shareTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
             shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_text", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
@@ -180,6 +184,34 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
     }
+    
+    @IBAction func onClickRewardAddressChange(_ sender: UIButton) {
+        if(!mAccount!.account_has_private) {
+            self.onShowAddMenomicDialog()
+        }
+        
+        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+            return
+        }
+        
+        let noticeAlert = UIAlertController(title: NSLocalizedString("reward_address_notice_title", comment: ""), message: NSLocalizedString("reward_address_notice_msg", comment: ""), preferredStyle: .alert)
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { [weak noticeAlert] (_) in
+            let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+            stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(stakingVC, animated: true)
+        }))
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(noticeAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
     
     @IBAction func onClickActionBtn(_ sender: Any) {
         if(self.mAccount.account_has_private) {
@@ -256,5 +288,45 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             })
             
         }
+    }
+    
+    func onFetchRewardAddress(_ accountAddr: String) {
+        let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+        let request = Alamofire.request(url,
+                                        method: .get,
+                                        parameters: [:],
+                                        encoding: URLEncoding.default,
+                                        headers: [:]);
+        request.responseString { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let address = res as? String else {
+                    return;
+                }
+                self.rewardCard.isHidden = false
+                let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                self.rewardAddress.text = trimAddress
+                if(trimAddress != accountAddr) {
+                    self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
+                }
+                self.rewardAddress.adjustsFontSizeToFitWidth = true
+                
+            case .failure(let error):
+                if(SHOW_LOG) {
+                    print("onFetchRewardAddress ", error)
+                }
+            }
+        }
+        
+    }
+    
+    
+    func onShowAddMenomicDialog() {
+        let alert = UIAlertController(title: NSLocalizedString("alert_title_no_private_key", comment: ""), message: NSLocalizedString("alert_msg_no_private_key", comment: ""), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("add_mnemonic", comment: ""), style: .default, handler: { [weak alert] (_) in
+            self.onStartImportMnemonic()
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

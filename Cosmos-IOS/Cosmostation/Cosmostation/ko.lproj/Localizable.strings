@@ -67,6 +67,9 @@
 "imported" = "이미 존재함";
 "override" = "덮어쓰기";
 "validator_address" = "검증인 주소";
+"reward_address_notice_title" = "이자 지급 주소 변경";
+"reward_address_notice_msg" = "이자 지급 주소를 변경하실 수 있습니다.\n주소 변경 후 이자요청시 모든 이자는 변경된 주소로 지급됩니다. 복구 단어로 접근이 가능하신 주소를 변경주소로 선택하셔야 합니다.";
+"reward_address_warnning_title" = "한번 더 확인!";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";
@@ -77,6 +80,7 @@
 "ok" = "결정";
 "settings" = "설정";
 "warnning" = "경고";
+"continue" = "계속";
 
 "only_USD" = "현재 USD만 지원합니다.";
 "only_cmc" = "현재 CoinMarketCap만 지원합니다.";
@@ -123,6 +127,7 @@
 "error_redelegate_cnt_over" = "재위임 가능 횟수를 초과하였습니다. 다른 검증인을 선택해주세요.";
 "error_network" = "네트워크 에러.";
 "error_redelegate_no_to_address" = "재위임할 검증인을 선택해 주세요.";
+"error_same_reward_address" = "이미 등록된 이자 주소와 동일합니다.";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";

@@ -130,10 +130,6 @@ class StepRewardViewController: BaseViewController {
                     self.onFetchFinished()
                     return;
                 }
-//                self.pageHolderVC.mReward.reward_v_address = validatorAddr
-//                for rawReward in rawRewards {
-//                    self.pageHolderVC.mReward.reward_amount.append(Coin(rawReward as! [String : Any]))
-//                }
                 let reward = Reward.init()
                 reward.reward_v_address = validatorAddr
                 for rawReward in rawRewards {
@@ -158,15 +154,10 @@ class StepRewardViewController: BaseViewController {
                                         parameters: [:],
                                         encoding: URLEncoding.default,
                                         headers: [:]);
-        
-//        print("onFetchRewardAddress ", request.request?.url)
-        
         request.responseString { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchRewardAddress ", res)
                 guard let address = res as? String else {
-//                    print("error no address")
                     self.onFetchFinished()
                     return;
                 }

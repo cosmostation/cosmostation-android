@@ -232,16 +232,16 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         
         let alert = UIAlertController(title: walletName, message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
         alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.init(hexString: "EEEEEE")
-        alert.addAction(UIAlertAction(title: "Share", style: .default, handler:  { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("share", comment: ""), style: .default, handler:  { [weak alert] (_) in
             let shareTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-            shareTypeAlert.addAction(UIAlertAction(title: "Share Text Address", style: .default, handler: { [weak shareTypeAlert] (_) in
+            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_text", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
                 let text = self.mainTabVC.mAccount.account_address
                 let textToShare = [ text ]
                 let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = self.view
                 self.present(activityViewController, animated: true, completion: nil)
             }))
-            shareTypeAlert.addAction(UIAlertAction(title: "Share QrCode Image", style: .default, handler: { [weak shareTypeAlert] (_) in
+            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_qr", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
                 let image = qrCode?.image
                 let imageToShare = [ image! ]
                 let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
@@ -254,7 +254,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default, handler: { [weak alert] (_) in
             UIPasteboard.general.string = self.mainTabVC.mAccount.account_address
             self.onShowToast(NSLocalizedString("address_copied", comment: ""))
         }))

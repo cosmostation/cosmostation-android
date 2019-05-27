@@ -99,6 +99,9 @@ class StepFeeViewController: BaseViewController {
             
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
             feeAmount = atomFees[position]
+            
+        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+            feeAmount = atomFees[position]
         }
         
         

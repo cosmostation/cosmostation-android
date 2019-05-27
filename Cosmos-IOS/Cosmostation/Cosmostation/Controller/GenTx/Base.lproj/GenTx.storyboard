@@ -1190,10 +1190,10 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="done" smartInsertDeleteType="no"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VVb-8x-Rzd" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="16" y="102" width="343" height="68"/>
+                                <rect key="frame" x="16" y="102" width="343" height="54"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="73E-G0-n1u">
-                                        <rect key="frame" x="110" y="18" width="123.5" height="32.5"/>
+                                        <rect key="frame" x="110" y="11" width="123.5" height="32.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="current reward address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gP-Eo-2SY">
                                                 <rect key="frame" x="0.0" y="0.0" width="123.5" height="14"/>
@@ -1201,7 +1201,7 @@
                                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000,000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ie0-F7-lzz">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ie0-F7-lzz">
                                                 <rect key="frame" x="0.0" y="16" width="123.5" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1213,7 +1213,7 @@
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39509310790000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="73E-G0-n1u" firstAttribute="centerY" secondItem="VVb-8x-Rzd" secondAttribute="centerY" id="B9l-Vt-FAm"/>
-                                    <constraint firstAttribute="height" constant="68" id="fcQ-xi-rhD"/>
+                                    <constraint firstAttribute="height" constant="54" id="fcQ-xi-rhD"/>
                                     <constraint firstItem="73E-G0-n1u" firstAttribute="centerX" secondItem="VVb-8x-Rzd" secondAttribute="centerX" id="oeq-9W-MyI"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -1245,6 +1245,9 @@
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickCancel:" destination="q13-Di-4d3" eventType="touchUpInside" id="rxW-AX-heg"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4c-5F-Myr">
                                         <rect key="frame" x="176.5" y="0.0" width="166.5" height="50"/>
@@ -1266,14 +1269,17 @@
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickNext:" destination="q13-Di-4d3" eventType="touchUpInside" id="Ozz-lQ-r8U"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ync-7Z-nqq">
-                                <rect key="frame" x="16" y="186" width="343" height="35"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ync-7Z-nqq">
+                                <rect key="frame" x="16" y="172" width="343" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYs-yc-sJp">
-                                        <rect key="frame" x="0.0" y="0.0" width="163.5" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="166.5" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="B1R-9I-3Em"/>
                                         </constraints>
@@ -1292,6 +1298,9 @@
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickQrScan:" destination="q13-Di-4d3" eventType="touchUpInside" id="u8K-Sg-p48"/>
+                                        </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCC-Cm-jBy">
                                         <rect key="frame" x="171.5" y="0.0" width="0.0" height="35"/>
@@ -1315,7 +1324,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zdf-Zt-L83">
-                                        <rect key="frame" x="179.5" y="0.0" width="163.5" height="35"/>
+                                        <rect key="frame" x="176.5" y="0.0" width="166.5" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="cby-Kn-b93"/>
                                         </constraints>
@@ -1334,6 +1343,9 @@
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickPaste:" destination="q13-Di-4d3" eventType="touchUpInside" id="fGG-vM-SWC"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -1355,6 +1367,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Hfj-Dy-i1C"/>
                     </view>
+                    <connections>
+                        <outlet property="btnCancel" destination="q6X-4D-54R" id="idn-J5-gz3"/>
+                        <outlet property="btnNext" destination="C4c-5F-Myr" id="Qaq-S6-NrP"/>
+                        <outlet property="currentRewardAddressLabel" destination="Ie0-F7-lzz" id="EhS-hV-ZVT"/>
+                        <outlet property="newRewardAddressInput" destination="bOz-sp-8fD" id="gD9-Lk-7Rs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mb-Op-N4N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3412,6 +3430,9 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickBefore:" destination="YJk-cb-XyI" eventType="touchUpInside" id="5iA-5p-hop"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cFD-kF-azx">
                                         <rect key="frame" x="176.5" y="0.0" width="166.5" height="50"/>
@@ -3433,6 +3454,9 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickConfirm:" destination="YJk-cb-XyI" eventType="touchUpInside" id="np7-SG-KTy"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -3536,17 +3560,15 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning_ic" translatesAutoresizingMaskIntoConstraints="NO" id="v1B-Nv-rWa">
-                                <rect key="frame" x="170.5" y="483.5" width="34" height="34"/>
+                                <rect key="frame" x="170.5" y="497.5" width="34" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="y2d-O9-Xtf"/>
                                     <constraint firstAttribute="height" constant="34" id="zzM-Bh-HjZ"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqz-q8-hlq">
-                                <rect key="frame" x="21" y="521.5" width="333" height="55.5"/>
-                                <string key="text">You can change reward recipient address.
-After change this, every claimed rewards are going to changed address.
-Please confirm you have full authority with to change address.</string>
+                                <rect key="frame" x="21" y="535.5" width="333" height="41.5"/>
+                                <string key="text">You can change reward recipient address. After change this, every claimed rewards are going to changed address. Please confirm you have full authority with to change address.</string>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -3568,6 +3590,14 @@ Please confirm you have full authority with to change address.</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0xq-EL-Gfl"/>
                     </view>
+                    <connections>
+                        <outlet property="btnBack" destination="xkz-U9-W7I" id="z5E-4v-NRg"/>
+                        <outlet property="btnConfirm" destination="cFD-kF-azx" id="Dr5-WQ-OVb"/>
+                        <outlet property="currentRewardAddress" destination="rCi-gy-HMe" id="Ojc-SS-pRI"/>
+                        <outlet property="memoLabel" destination="AH4-iV-fa6" id="adn-hl-tlS"/>
+                        <outlet property="newRewardAddress" destination="xmz-Yi-G6S" id="YKe-LG-b3d"/>
+                        <outlet property="rewardAddressChangeFee" destination="KPj-iy-gIb" id="5aL-xZ-NRc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4aT-lr-6s5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4601,7 +4631,7 @@ Please confirm you have full authority with to change address.</string>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1O-Dk-h1K">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1O-Dk-h1K">
                                         <rect key="frame" x="16" y="211.5" width="311" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" red="0.95294117649999999" green="0.098039215690000001" blue="0.38823529410000002" alpha="1" colorSpace="deviceRGB"/>

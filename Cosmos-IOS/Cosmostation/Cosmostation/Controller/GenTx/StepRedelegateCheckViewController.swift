@@ -40,7 +40,6 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
         redelegateFromValLabel.text = pageHolderVC.mTargetValidator?.description.moniker
         redelegateToValLabel.text = pageHolderVC.mToReDelegateValidator?.description.moniker
         redelegateMemoLabel.text = pageHolderVC.mMemo
-        
     }
     
     override func enableUserInteraction() {

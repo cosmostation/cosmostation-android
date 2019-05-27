@@ -222,7 +222,8 @@ class GenTxResultViewController: BaseViewController {
             addressChangeResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             
             addressChangeResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, addressChangeResultFee.font, 6)
-            //TODO target address!!
+            addressChangeResultAddress.text = mTxInfo?.tx.value.msg[0].value.withdraw_address
+            addressChangeResultAddress.adjustsFontSizeToFitWidth = true
             addressChangeResultMemo.text = mTxInfo?.tx.value.memo
         }
 

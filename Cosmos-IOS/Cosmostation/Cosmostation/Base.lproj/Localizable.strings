@@ -67,7 +67,9 @@
 "imported" = "Imported";
 "override" = "Override";
 "validator_address" = "Validator address";
-
+"reward_address_notice_title" = "Reward Address Change";
+"reward_address_notice_msg" = "You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. Please confirm you have full authority with to change address.";
+"reward_address_warnning_title" = "Double Check!";
 
 
 "clear_all" = "Clear All";
@@ -79,6 +81,7 @@
 "ok" = "OK";
 "settings" = "Settings";
 "warnning" = "Warnning";
+"continue" = "Continue";
 
 "only_USD" = "now only support USD";
 "only_cmc" = "now only support CoinMarketCap";
@@ -124,6 +127,7 @@
 "error_redelegate_cnt_over" = "Exceeded maximum redelegation count. Select another validator.";
 "error_network" = "Network Error.";
 "error_redelegate_no_to_address" = "Please select your new validator to redelegate.";
+"error_same_reward_address" = "This address is already registered as your claim reward address.";
 
 
 "alert_title_no_private_key" = "No Private Key";

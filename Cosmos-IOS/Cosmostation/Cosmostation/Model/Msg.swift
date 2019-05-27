@@ -22,16 +22,6 @@ public struct Msg: Codable {
     
     
     public struct Value: Codable {
-//        var inputs: Array<InOutPut> = Array<InOutPut>()
-//        var outputs: Array<InOutPut> = Array<InOutPut>()
-//        var from_address: String = ""
-//        var to_address: String = ""
-//        var delegator_address: String = ""
-//        var validator_address: String = ""
-//        var value: Coin = Coin.init()
-//        var shares_amount: String = ""
-//        var amount: Array<Coin> = Array<Coin>()
-        
         var inputs: Array<InOutPut>?
         var outputs: Array<InOutPut>?
         var from_address: String?
@@ -41,6 +31,7 @@ public struct Msg: Codable {
         var value: Coin?
         var shares_amount: String?
         var amount: Array<Coin>?
+        var withdraw_address: String?
         
         init() {}
         
@@ -90,7 +81,9 @@ public struct Msg: Codable {
                 }
             }
             
-            
+            if let vaddress =  dictionary["withdraw_address"] as? String {
+                self.withdraw_address = vaddress
+            }
         }
         
     }

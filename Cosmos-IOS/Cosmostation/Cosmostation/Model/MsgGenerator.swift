@@ -111,6 +111,20 @@ class MsgGenerator {
     }
     
     
+    static func genGetModifyRewardAddressMsg(_ requestAddress: String, _ newRewardAddress: String) -> Msg {
+        
+        var msg = Msg.init()
+        
+        var value = Msg.Value.init()
+        value.delegator_address = requestAddress
+        value.withdraw_address = newRewardAddress
+        
+        msg.type = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
+        msg.value = value
+        
+        return msg
+    }
+    
     
     
     static func genSignedTx(_ msgs: Array<Msg>, _ fee: Fee, _ memo: String, _ signatures: Array<Signature>) -> StdTx {
