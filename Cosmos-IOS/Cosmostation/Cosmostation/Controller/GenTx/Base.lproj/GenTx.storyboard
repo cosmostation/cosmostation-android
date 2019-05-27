@@ -1090,8 +1090,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EWQ-zh-rF9">
-                                <rect key="frame" x="0.0" y="28" width="375" height="565"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TqY-IK-Gbl">
+                                <rect key="frame" x="0.0" y="28" width="375" height="561"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oBB-ql-YBS">
@@ -1150,20 +1150,20 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="0Hy-DH-jQk" firstAttribute="trailing" secondItem="TqY-IK-Gbl" secondAttribute="trailing" id="19I-zx-nsF"/>
                             <constraint firstItem="oBB-ql-YBS" firstAttribute="leading" secondItem="0Hy-DH-jQk" secondAttribute="leading" constant="16" id="84E-sK-5eI"/>
-                            <constraint firstItem="EWQ-zh-rF9" firstAttribute="top" secondItem="0Hy-DH-jQk" secondAttribute="top" constant="8" id="KLq-NV-WHt"/>
-                            <constraint firstItem="EWQ-zh-rF9" firstAttribute="leading" secondItem="0Hy-DH-jQk" secondAttribute="leading" id="QsA-mc-4iU"/>
+                            <constraint firstItem="TqY-IK-Gbl" firstAttribute="top" secondItem="0Hy-DH-jQk" secondAttribute="top" constant="8" id="Fw3-eG-YsQ"/>
+                            <constraint firstItem="TqY-IK-Gbl" firstAttribute="leading" secondItem="0Hy-DH-jQk" secondAttribute="leading" id="LtQ-fO-ecP"/>
+                            <constraint firstItem="oBB-ql-YBS" firstAttribute="top" secondItem="TqY-IK-Gbl" secondAttribute="bottom" constant="12" id="M2B-Tx-nhV"/>
                             <constraint firstItem="0Hy-DH-jQk" firstAttribute="bottom" secondItem="oBB-ql-YBS" secondAttribute="bottom" constant="16" id="hQJ-GP-eAi"/>
                             <constraint firstItem="0Hy-DH-jQk" firstAttribute="trailing" secondItem="oBB-ql-YBS" secondAttribute="trailing" constant="16" id="iJL-6N-kue"/>
-                            <constraint firstItem="oBB-ql-YBS" firstAttribute="top" secondItem="EWQ-zh-rF9" secondAttribute="bottom" constant="8" id="vHW-DN-2yh"/>
-                            <constraint firstItem="0Hy-DH-jQk" firstAttribute="trailing" secondItem="EWQ-zh-rF9" secondAttribute="trailing" id="weF-Zd-Yj0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0Hy-DH-jQk"/>
                     </view>
                     <connections>
                         <outlet property="btnBefore" destination="CAg-6f-x9v" id="IB3-Xc-khb"/>
                         <outlet property="btnNext" destination="4wR-mw-TBE" id="Jah-I0-B9I"/>
-                        <outlet property="redelegateToValTableView" destination="EWQ-zh-rF9" id="VMg-pF-83T"/>
+                        <outlet property="redelegateToValTableView" destination="TqY-IK-Gbl" id="tTi-oU-qcv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yQF-R7-FQt" userLabel="First Responder" sceneMemberID="firstResponder"/>

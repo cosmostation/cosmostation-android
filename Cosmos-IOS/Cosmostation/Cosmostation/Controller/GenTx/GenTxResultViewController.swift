@@ -77,23 +77,6 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var actionLayer: UIStackView!
     @IBOutlet weak var dismissBtn: UIButton!
     
-//    @IBOutlet weak var mainCardView: CardView!
-//    @IBOutlet weak var txTypeLabel: UILabel!
-//    @IBOutlet weak var txResultLabel: UILabel!
-//    @IBOutlet weak var txHashLabel: UILabel!
-//    @IBOutlet weak var blockHeightLabel: UILabel!
-//    @IBOutlet weak var blockTimeLabel: UILabel!
-//
-//    @IBOutlet weak var txAmountTitleLabel: UILabel!
-//    @IBOutlet weak var txAmountAtomLabel: UILabel!
-//    @IBOutlet weak var txAmountLabel: UILabel!
-//    @IBOutlet weak var txFeeLabel: UILabel!
-//
-//    @IBOutlet weak var txSecondTitleLabel: UILabel!
-//    @IBOutlet weak var txSecondContentLabel: UILabel!
-//
-//    @IBOutlet weak var txMemoLabel: UILabel!
-    
     @IBOutlet weak var errorCardView: CardView!
     @IBOutlet weak var errorCode: UILabel!
     
@@ -187,7 +170,9 @@ class GenTxResultViewController: BaseViewController {
             redelegateResultAmount.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, redelegateResultAmount.font, 6)
             redelegateResultFee.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, redelegateResultFee.font, 6)
             redelegateResultFromValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_src_address
-            redelegateResultFromValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_dst_address
+            redelegateResultFromValAddress.adjustsFontSizeToFitWidth = true
+            delegateResultValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_dst_address
+            delegateResultValAddress.adjustsFontSizeToFitWidth = true
             redelegateResultMemo.text = mStakTxInfo?.tx.value.memo
             
         } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2) {
@@ -241,6 +226,8 @@ class GenTxResultViewController: BaseViewController {
             addressChangeResultMemo.text = mTxInfo?.tx.value.memo
         }
 
+        self.actionLayer.isHidden = false
+        self.dismissBtn.isHidden = true
         
     }
 

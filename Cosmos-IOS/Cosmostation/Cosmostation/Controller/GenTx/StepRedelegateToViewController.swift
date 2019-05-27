@@ -11,7 +11,7 @@ import Alamofire
 import AlamofireImage
 
 class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
     @IBOutlet weak var redelegateToValTableView: UITableView!
     @IBOutlet weak var btnBefore: UIButton!
     @IBOutlet weak var btnNext: UIButton!
@@ -97,6 +97,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
 
         }
         return cell!
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -104,7 +105,6 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didSelectRowAt")
         if let validator = self.pageHolderVC.mToReDelegateValidators[indexPath.row] as? Validator {
             self.checkedValidator = validator
         }
