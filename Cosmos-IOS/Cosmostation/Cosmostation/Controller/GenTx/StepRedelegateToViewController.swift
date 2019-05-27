@@ -47,7 +47,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             }
             cell?.valPowerLabel.attributedText  =  WUtils.displayAmout(validator.tokens, cell!.valPowerLabel.font, 6)
             cell?.valCommissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell!.valCommissionLabel.font)
-            
+
             cell?.valImg.tag = indexPath.row
             cell?.valImg.image = UIImage.init(named: "validatorNoneImg")
             if (validator.description.identity != "") {
@@ -75,20 +75,20 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                                 cell?.valImg.image = image
                             }
                         }
-                        
+
                     case .failure(let error):
                         print("onSetValidatorItem error : ", error)
                     }
                 }
             }
-            
+
             if(validator.operator_address == checkedValidator?.operator_address){
                 cell?.valCheckedImg.image = UIImage.init(named: "checkOn")
                 cell?.rootCard.backgroundColor = UIColor.clear
                 cell?.rootCard.layer.borderWidth = 1
                 cell?.rootCard.layer.borderColor = UIColor(hexString: "#7A8388").cgColor
                 cell?.rootCard.clipsToBounds = true
-                
+
             } else {
                 cell?.valCheckedImg.image = UIImage.init(named: "checkOff")
                 cell?.rootCard.backgroundColor = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
@@ -104,6 +104,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("didSelectRowAt")
         if let validator = self.pageHolderVC.mToReDelegateValidators[indexPath.row] as? Validator {
             self.checkedValidator = validator
         }
@@ -112,7 +113,6 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     
     override func enableUserInteraction() {
-        print("StepRedelegateToViewController enableUserInteraction ", self.pageHolderVC.mToReDelegateValidators.count)
         self.btnBefore.isUserInteractionEnabled = true
         self.btnNext.isUserInteractionEnabled = true
         self.redelegateToValTableView.reloadData()
@@ -129,6 +129,8 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
         if(self.checkedValidator != nil && self.checkedValidator?.operator_address != nil) {
             //TODO redelegate count check!!!
             self.onFetchRedelegateState(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address, self.checkedValidator!.operator_address)
+        } else {
+            self.onShowToast(NSLocalizedString("error_redelegate_no_to_address", comment: ""))
         }
     }
     

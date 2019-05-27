@@ -23,6 +23,8 @@ public struct StakeMsg: Codable {
     public struct Value: Codable {
         var delegator_address: String?
         var validator_address: String?
+        var validator_src_address: String?
+        var validator_dst_address: String?
         var amount: Coin?
         
         init() {}
@@ -35,6 +37,14 @@ public struct StakeMsg: Codable {
             
             if let vaddress =  dictionary["validator_address"] as? String {
                 self.validator_address = vaddress
+            }
+            
+            if let vaddress =  dictionary["validator_src_address"] as? String {
+                self.validator_src_address = vaddress
+            }
+            
+            if let vaddress =  dictionary["validator_dst_address"] as? String {
+                self.validator_dst_address = vaddress
             }
             
             if let rawAmount = dictionary["amount"] as? [String : Any] {

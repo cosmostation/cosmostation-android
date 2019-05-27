@@ -30,6 +30,9 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     
     
     @IBAction func onClickConfirm(_ sender: Any) {
+        self.beforeBtn.isUserInteractionEnabled = false
+        self.confirmBtn.isUserInteractionEnabled = false
+        
         let transition:CATransition = CATransition()
         transition.duration = 0.3
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -86,9 +89,6 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             do {
                 let pKey = WKey.getCosmosKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 
-//                let msg = MsgGenerator.genUndelegateMsg(self.pageHolderVC.mAccount!.account_address,
-//                                                      self.pageHolderVC.mTargetValidator!.operator_address,
-//                                                      WUtils.unDelegateFormat(self.pageHolderVC.mToUndelegateAmount!))
                 let msg = MsgGenerator.genUndelegateMsg(self.pageHolderVC.mAccount!.account_address,
                                                       self.pageHolderVC.mTargetValidator!.operator_address,
                                                       self.pageHolderVC.mToUndelegateAmount!)
@@ -96,7 +96,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 var msgList = Array<StakeMsg>()
                 msgList.append(msg)
                 if(FEE_FREE) {
-                    self.pageHolderVC.mFee?.amount[0].amount = "0"
+                    self.pageHolderVC.mFee?.amount[0].amount = "1"
                 }
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),

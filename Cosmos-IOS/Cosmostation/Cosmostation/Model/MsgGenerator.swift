@@ -95,6 +95,20 @@ class MsgGenerator {
         return msg
     }
     
+    static func genGetRedelegateMsg(_ address: String, _ fromValAddress: String, _ toValAddress: String, _ amount: Coin) -> StakeMsg {
+        var msg = StakeMsg.init()
+        
+        var value = StakeMsg.Value.init()
+        value.delegator_address = address
+        value.validator_src_address = fromValAddress
+        value.validator_dst_address = toValAddress
+        value.amount = amount
+        
+        msg.type = COSMOS_MSG_TYPE_REDELEGATE2
+        msg.value = value
+        
+        return msg
+    }
     
     
     

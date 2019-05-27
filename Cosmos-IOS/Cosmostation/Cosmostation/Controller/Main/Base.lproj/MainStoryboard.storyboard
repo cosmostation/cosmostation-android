@@ -15,7 +15,7 @@
             <objects>
                 <viewController id="e4x-hE-Zla" customClass="MainTabSendViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5KG-xW-pwp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="Lgj-up-xSa">
@@ -91,14 +91,14 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWS-ee-fUC">
-                                                        <rect key="frame" x="280" y="13" width="25" height="24"/>
+                                                        <rect key="frame" x="297" y="14" width="16" height="22"/>
                                                         <state key="normal" image="walletDetailBtn"/>
                                                         <connections>
                                                             <action selector="onClickCheckWeb:" destination="e4x-hE-Zla" eventType="touchUpInside" id="35e-3b-UZD"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fim-i8-hc1">
-                                                        <rect key="frame" x="317" y="13" width="24" height="24"/>
+                                                        <rect key="frame" x="325" y="14" width="16" height="22"/>
                                                         <state key="normal" image="qrcodeIc"/>
                                                         <connections>
                                                             <action selector="onClickMyAddressShare:" destination="e4x-hE-Zla" eventType="touchUpInside" id="Tz6-Tt-EEr"/>

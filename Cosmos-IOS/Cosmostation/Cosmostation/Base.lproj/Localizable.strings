@@ -123,6 +123,7 @@
 "error_jailded_delegate" = "Delegation to jailed validator is not supported.";
 "error_redelegate_cnt_over" = "Exceeded maximum redelegation count. Select another validator.";
 "error_network" = "Network Error.";
+"error_redelegate_no_to_address" = "Please select your new validator to redelegate.";
 
 
 "alert_title_no_private_key" = "No Private Key";
