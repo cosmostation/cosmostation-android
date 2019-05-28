@@ -277,6 +277,26 @@ class GenTxResultViewController: BaseViewController {
         self.onStartMainTab()
     }
     
+    func onShowMoreWait() {
+        let noticeAlert = UIAlertController(title: NSLocalizedString("more_wait_title", comment: ""), message: NSLocalizedString("more_wait_msg", comment: ""), preferredStyle: .alert)
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
+            self.dismiss(animated: true, completion: nil)
+            self.onStartMainTab()
+        }))
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("wait", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
+            self.fetchCnt = 10
+            self.onFetchTx(self.mTxHash!)
+        }))
+        self.present(noticeAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    @objc func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
     var fetchCnt = 10
     func onFetchTx(_ txHash: String) {
@@ -293,7 +313,7 @@ class GenTxResultViewController: BaseViewController {
                             self.onFetchTx(txHash)
                         })
                     } else {
-                        self.onStartMainTab()
+                        self.onShowMoreWait()
                     }
                     return
                 }
@@ -301,13 +321,9 @@ class GenTxResultViewController: BaseViewController {
                         self.mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 ||
                         self.mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
                     self.mStakTxInfo = StakeTxInfo.init(info)
-//                    self.onFetchBlock(self.mStakTxInfo!.height)
                 } else {
                     self.mTxInfo = TxInfo.init(info)
-//                    self.onFetchBlock(self.mTxInfo!.height)
                 }
-                
-                
                 
             case .failure(let error):
                 if(SHOW_LOG) {

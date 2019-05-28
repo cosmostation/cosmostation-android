@@ -64,10 +64,6 @@ class DecimalViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        print("DecimalViewController  viewDidAppear")
-        for i in 0 ..< DeciamlBtns.count {
-            self.DeciamlBtns[i].isEnabled = true;
-        }
     }
     
     @objc func onRefreshKeyBoard() {

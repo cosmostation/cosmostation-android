@@ -54,9 +54,6 @@ class AlphabetViewController: UIViewController {
                           self.alphaBtn20, self.alphaBtn21, self.alphaBtn22, self.alphaBtn23, self.alphaBtn24, self.alphaBtn25]
         
         onRefreshKeyBoard()
-        for i in 0 ..< Char.count {
-            self.AlphaBtns[i].isEnabled = false;
-        }
 
     }
     
@@ -88,10 +85,6 @@ class AlphabetViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        print("AlphabetViewController  viewDidAppear")
-        for i in 0 ..< Char.count {
-            self.AlphaBtns[i].isEnabled = true;
-        }
     }
     
     @objc func onRefreshKeyBoard() {

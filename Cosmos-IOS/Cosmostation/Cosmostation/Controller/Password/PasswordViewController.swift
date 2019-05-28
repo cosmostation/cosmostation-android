@@ -112,7 +112,6 @@ class PasswordViewController: BaseViewController {
                     mUserInsert = String(subString)
                     
                 } else {
-//                    print("back to stack")
                     self.sendResultAndPop(PASSWORD_RESUKT_CANCEL)
                 }
                 
@@ -152,13 +151,12 @@ class PasswordViewController: BaseViewController {
         }
     }
     
-    //TODO btn screen lock!!!
     func onUserInsertFinish() {
+        NotificationCenter.default.post(name: Notification.Name("lockBtns"), object: nil, userInfo: nil)
         if (mTarget == PASSWORD_ACTION_INIT) {
             if(mIsConfirmSequence == true) {
                 if(mUserConfirm == mUserInsert) {
                     self.onStartInitPassword(mUserInsert)
-//                    self.onStartCheckPassword(mUserInsert)
                     
                 } else {
                     self.onShowToast(NSLocalizedString("error_password_fail", comment: ""))
