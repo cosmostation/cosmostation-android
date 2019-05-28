@@ -72,6 +72,15 @@
 "reward_address_warnning_title" = "Double Check!";
 "more_wait_title" = "Result Display Delayed";
 "more_wait_msg" = "The transaction you requested has been successfully broadcasted to the blockchain.However, there is a delay in displaying the result. Please press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.";
+"fee_speed_title_0" = "Only a handful of validators will process this Tx.";
+"fee_speed_title_1" = "More validators include \"Cosmostaion\" will process this Tx.";
+"fee_speed_title_2" = "Most validators will process this Tx.";
+"fee_description_title_0" = "Tx fee 0.000001 ATOM";
+"fee_description_title_1" = "Tx fee rate 0.0025";
+"fee_description_title_2" = "Tx fee rate 0.025";
+"fee_description_msg_0" = "\nOnly a handful of validators will process this Tx. Validators with a minimum Tx fee setting of 0.000001 ATOM or less must propose a block in order for this Tx to be included. Depending on which validator is proposing the block at the time of your Tx, there may be a delay in having your Tx reflected on the blockchain.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Polychain Labs, jackzampolin, Forbole, BouBounNode";
+"fee_description_msg_1" = "\nThis Tx will be processed by Cosmostation and other validators with a minimum Tx fee rate setting lower than or equal to 0.0025. Depending on which validator is proposing the block at the time of your Tx, there may be a delay in having your Tx reflected on the blockchain.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Cosmostation, Polychain Labs, jackzampolin, Forbole, BouBounNode";
+"fee_description_msg_2" = "\nThe majority of validators have a minimum Tx fee rate higher than or equal to 0.025. Most validators will process this Tx. Therefore, there is a higher probability of your Tx being reflected on the blockchain within one block time(~7 seconds) when you use a Tx fee rate of 0.025.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Majority(~80%) of validators.";
 
 
 "clear_all" = "Clear All";

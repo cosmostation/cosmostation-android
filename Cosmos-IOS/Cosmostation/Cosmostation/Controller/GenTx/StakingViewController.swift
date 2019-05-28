@@ -12,6 +12,7 @@ class StakingViewController: UIViewController {
 
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var stepView: UIView!
     @IBOutlet weak var stepImg: UIImageView!
     @IBOutlet weak var stepDescription: UILabel!
     
@@ -58,9 +59,8 @@ class StakingViewController: UIViewController {
         
         
         self.titleLabel.adjustsFontSizeToFitWidth = true
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
-        self.view.addGestureRecognizer(tapGesture)
+        self.titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:))))
+        self.stepView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:))))
     }
     
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
@@ -119,8 +119,6 @@ class StakingViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("reward_address_step_1", comment: "")
                 }
-                
-                
                 
                 
             } else if (step == 1) {

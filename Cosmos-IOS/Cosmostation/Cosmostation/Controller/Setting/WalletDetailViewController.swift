@@ -329,4 +329,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    
 }

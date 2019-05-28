@@ -192,22 +192,30 @@ let FEE_ATOM_MID                            = "2000";
 let FEE_ATOM_HIGH                           = "4000";
 let FEE_MIN_RATE                            = "0.0025";
 
-let FEE_REWARD_GAS_1                        = "200000";
+
+let GAS_FEE_RATE_LOW                        = 0.0025
+let GAS_FEE_RATE_AVERAGE                    = 0.025
+
+let GAS_FEE_AMOUNT_LOW                      = "100000"
+let GAS_FEE_AMOUNT_MID                      = "200000"
+let GAS_FEE_AMOUNT_REDELE                   = "240000"
+
+let FEE_REWARD_GAS_1                        = "100000";
 let FEE_REWARD_GAS_2                        = "200000";
 let FEE_REWARD_GAS_3                        = "220000";
-let FEE_REWARD_GAS_4                        = "300000";
-let FEE_REWARD_GAS_5                        = "380000";
-let FEE_REWARD_GAS_6                        = "400000";
-let FEE_REWARD_GAS_7                        = "560000";
-let FEE_REWARD_GAS_8                        = "600000";
-let FEE_REWARD_GAS_9                        = "740000";
-let FEE_REWARD_GAS_10                       = "800000";
-let FEE_REWARD_GAS_11                       = "920000";
-let FEE_REWARD_GAS_12                       = "1000000";
-let FEE_REWARD_GAS_13                       = "1050000";
-let FEE_REWARD_GAS_14                       = "1100000";
-let FEE_REWARD_GAS_15                       = "1150000";
-let FEE_REWARD_GAS_16                       = "1200000";
+let FEE_REWARD_GAS_4                        = "280000";
+let FEE_REWARD_GAS_5                        = "360000";
+let FEE_REWARD_GAS_6                        = "420000";
+let FEE_REWARD_GAS_7                        = "480000";
+let FEE_REWARD_GAS_8                        = "540000";
+let FEE_REWARD_GAS_9                        = "600000";
+let FEE_REWARD_GAS_10                       = "660000";
+let FEE_REWARD_GAS_11                       = "720000";
+let FEE_REWARD_GAS_12                       = "780000";
+let FEE_REWARD_GAS_13                       = "840000";
+let FEE_REWARD_GAS_14                       = "900000";
+let FEE_REWARD_GAS_15                       = "960000";
+let FEE_REWARD_GAS_16                       = "1020000";
 
 
 
