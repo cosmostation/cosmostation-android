@@ -128,6 +128,7 @@
 "error_network" = "네트워크 에러.";
 "error_redelegate_no_to_address" = "재위임할 검증인을 선택해 주세요.";
 "error_same_reward_address" = "이미 등록된 이자 주소와 동일합니다.";
+"error_redelegation_limitted" = "이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(21일 후) 이 검증인으로부터 재위임을 신청할 수 있습니다.";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";

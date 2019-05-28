@@ -128,6 +128,7 @@
 "error_network" = "Network Error.";
 "error_redelegate_no_to_address" = "Please select your new validator to redelegate.";
 "error_same_reward_address" = "This address is already registered as your claim reward address.";
+"error_redelegation_limitted" = "You have redelegated to this validator in the past 21 days.";
 
 
 "alert_title_no_private_key" = "No Private Key";

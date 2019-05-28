@@ -271,7 +271,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 
                 cell?.actionRedelegate = {
-                    self.onStartRedelegate()
+                    self.onCheckRedelegate()
                 }
                 
                 cell?.actionReward = {
@@ -493,6 +493,30 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         }
     }
     
+    func onFetchRedelegatedState(_ address: String, _ to: String) {
+        let request = Alamofire.request(CSS_LCD_URL_REDELEGATION, method: .get, parameters: ["delegator":address, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchRedelegatedState ", res)
+                if let redelegateHistories = res as? Array<NSDictionary>, let entries = redelegateHistories[0]["entries"] as? Array<NSDictionary> {
+                    if(entries.count >= 0) {
+                        self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
+                    } else {
+                        self.onStartRedelegate()
+                    }
+                } else {
+                    self.onStartRedelegate()
+                    
+                }
+                
+            case .failure(let error):
+                print("onFetchRedelegatedState ", error)
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            }
+        }
+    }
+    
     
     func onStartDelegate() {
 //        print("onStartDelegate")
@@ -546,8 +570,8 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     
-    func onStartRedelegate() {
-        print("onStartRedelegate")
+    func onCheckRedelegate() {
+//        print("onStartRedelegate")
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
         }
@@ -561,12 +585,15 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             return
         }
         
+        self.onFetchRedelegatedState(mAccount!.account_address, mValidator!.operator_address)
+    }
+    
+    func onStartRedelegate() {
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         stakingVC.mTargetValidator = mValidator
         stakingVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
-        
     }
     
     
