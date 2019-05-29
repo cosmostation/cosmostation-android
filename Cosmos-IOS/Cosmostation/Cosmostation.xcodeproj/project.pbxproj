@@ -244,6 +244,7 @@
 		E151B65222486C300026B8C0 /* ProposalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalCell.swift; sourceTree = "<group>"; };
 		E151B65322486C300026B8C0 /* ProposalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalCell.xib; sourceTree = "<group>"; };
 		E151B657224873640026B8C0 /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		E16B70DC229E619A001D6B9C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/GenTx.strings; sourceTree = "<group>"; };
 		E16D9B1422489B030019B7BB /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E16D9B162248BD990019B7BB /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		E16D9B182248C4880019B7BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1068,6 +1069,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E103DAE422814DFC006C2146 /* Base */,
+				E16B70DC229E619A001D6B9C /* ko */,
 			);
 			name = GenTx.storyboard;
 			sourceTree = "<group>";
