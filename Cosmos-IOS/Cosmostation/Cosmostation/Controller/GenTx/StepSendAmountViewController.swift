@@ -29,7 +29,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 }
             } else {
                 if(balance.balance_denom == "uatom") {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "500"))
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "1"))
                 }
             }
         }

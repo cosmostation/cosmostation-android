@@ -33,13 +33,14 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         transition.type = CATransitionType.moveIn
         transition.subtype = CATransitionSubtype.fromTop
-        
+
         let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
         self.navigationItem.title = ""
         self.navigationController!.view.layer.add(transition, forKey: kCATransition)
         passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
         passwordVC.resultDelegate = self
         self.navigationController?.pushViewController(passwordVC, animated: false)
+        
     }
     
     
@@ -66,6 +67,12 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             self.onGenDelegateTx()
+            
+//            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3000), execute: {
+//                let resultVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "GenTxResultViewController") as! GenTxResultViewController
+//                self.navigationItem.title = ""
+//                self.navigationController?.pushViewController(resultVC, animated: true)
+//            })
         }
     }
     

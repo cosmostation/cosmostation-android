@@ -211,7 +211,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             self.onShowAddMenomicDialog()
         }
         
-        if(self.mainTabVC.mBalances.count <= 0 || WUtils.stringToDecimal(self.mainTabVC.mBalances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue <= 0) {
+        if(self.mainTabVC.mBalances.count <= 0 || WUtils.stringToDecimal(self.mainTabVC.mBalances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
             return
         }

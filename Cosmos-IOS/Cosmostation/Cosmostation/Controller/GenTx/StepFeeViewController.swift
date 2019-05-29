@@ -28,7 +28,6 @@ class StepFeeViewController: BaseViewController {
     @IBOutlet weak var nextBtn: UIButton!
     
     var pageHolderVC: StepGenTxViewController!
-    var atomFees: Array<NSDecimalNumber>!
     var rewardAllGasAmounts: Array<NSDecimalNumber>!
     var feeAmount   = NSDecimalNumber.zero
     var feeCoin:Coin!
@@ -36,8 +35,6 @@ class StepFeeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        
-        atomFees = WUtils.getAtomFees()
         rewardAllGasAmounts = WUtils.getGasAmountForRewards()
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapFeeType(sender:)))

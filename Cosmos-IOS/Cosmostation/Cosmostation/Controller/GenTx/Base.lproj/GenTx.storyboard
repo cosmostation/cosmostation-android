@@ -4881,7 +4881,7 @@ After a few moments, the full results will be displayed.</string>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="onClickExplorer:" destination="8qJ-ET-nod" eventType="touchUpInside" id="RSt-HZ-TMq"/>
+                                            <action selector="onClickExplorer:" destination="8qJ-ET-nod" eventType="touchUpInside" id="z2j-Rf-LhW"/>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="y8s-qc-rMu">
@@ -4908,7 +4908,7 @@ After a few moments, the full results will be displayed.</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="onClickShare:" destination="8qJ-ET-nod" eventType="touchUpInside" id="bpg-Ay-ctS"/>
+                                                    <action selector="onClickShare:" destination="8qJ-ET-nod" eventType="touchUpInside" id="0a3-Je-lfH"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMu-38-qIE">
@@ -4932,7 +4932,7 @@ After a few moments, the full results will be displayed.</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="onClickOK:" destination="8qJ-ET-nod" eventType="touchUpInside" id="dxL-rX-uBo"/>
+                                                    <action selector="onClickOK:" destination="8qJ-ET-nod" eventType="touchUpInside" id="5OB-ZU-Hek"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -4960,7 +4960,7 @@ After a few moments, the full results will be displayed.</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="onClickDismiss:" destination="8qJ-ET-nod" eventType="touchUpInside" id="cGJ-9i-OQd"/>
+                                    <action selector="onClickDismiss:" destination="8qJ-ET-nod" eventType="touchUpInside" id="mie-cd-anJ"/>
                                 </connections>
                             </button>
                         </subviews>

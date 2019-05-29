@@ -555,7 +555,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         }
         
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue <= 0) {
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return
         }
@@ -586,7 +586,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         }
         
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue < 0) {
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return
         }
@@ -610,7 +610,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             return
         }
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue < 0) {
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return
         }
@@ -642,7 +642,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if(rewardSum.compare(NSDecimalNumber(string: "500")).rawValue < 0) {
+            if(rewardSum.compare(NSDecimalNumber(string: "1")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                 return
             }
@@ -653,7 +653,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         }
         
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "500")).rawValue < 0) {
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return
         }

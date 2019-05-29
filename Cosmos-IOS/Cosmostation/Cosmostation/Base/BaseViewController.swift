@@ -46,7 +46,7 @@ class BaseViewController: UIViewController {
     }
     
     public func hideWaittingAlert() {
-        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+//        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
     }
     
     

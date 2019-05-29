@@ -43,14 +43,13 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
             } else {
                 pageHolderVC.mMemo = ""
             }
-            
+
             self.beforeBtn.isUserInteractionEnabled = false
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
         } else {
             self.onShowToast(NSLocalizedString("error_memo", comment: ""))
         }
-        
     }
     
     override func enableUserInteraction() {

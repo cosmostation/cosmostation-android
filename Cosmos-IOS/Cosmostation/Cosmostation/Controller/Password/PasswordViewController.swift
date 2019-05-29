@@ -130,6 +130,7 @@ class PasswordViewController: BaseViewController {
     }
     
     func sendResultAndPop(_ data: Int) {
+        UIApplication.shared.endIgnoringInteractionEvents()
         let transition:CATransition = CATransition()
         transition.duration = 0.3
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)

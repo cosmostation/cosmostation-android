@@ -448,7 +448,6 @@
 				E171A072225B08CE00C5756C /* StepDelegateCheckViewController.swift */,
 				E1406FC722608ABA00D9440C /* StepUndelegateCheckViewController.swift */,
 				E1406FCB2260A11300D9440C /* StepRewardCheckViewController.swift */,
-				E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */,
 				E12D6B88226DF36D00D07CE4 /* StepSendAddressViewController.swift */,
 				E12D6B8A226DF3A700D07CE4 /* StepSendAmountViewController.swift */,
 				E12D6B8C226DF3BB00D07CE4 /* StepSendCheckViewController.swift */,
@@ -457,6 +456,7 @@
 				E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */,
 				E1069B11229698BA007517DC /* StepChangeAddressViewController.swift */,
 				E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */,
+				E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */,
 			);
 			path = GenTx;
 			sourceTree = "<group>";

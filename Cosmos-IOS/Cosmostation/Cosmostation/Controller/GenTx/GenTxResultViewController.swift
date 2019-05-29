@@ -94,21 +94,19 @@ class GenTxResultViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("GenTxResultViewController viewDidLoad ", response)
-    
         guard let txType = response?["type"] as? String, let txHash = response?["txhash"] as? String  else {
             self.onStartMainTab()
             return
         }
         mTxType = txType
         mTxHash = txHash
-        
+
         if let code = response?["code"] as? Int {
 //            print("code " , code)
             onShowErrorView(code)
             return
         }
-        
+
         self.loadingImgs.onStartAnimation()
         self.onFetchTx(mTxHash!)
         
@@ -229,7 +227,6 @@ class GenTxResultViewController: BaseViewController {
 
         self.actionLayer.isHidden = false
         self.dismissBtn.isHidden = true
-        
     }
 
     
@@ -305,7 +302,7 @@ class GenTxResultViewController: BaseViewController {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if(SHOW_LOG) { print("onFetchTx ", res) }
+//                if(SHOW_LOG) { print("onFetchTx ", res) }
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     self.fetchCnt = self.fetchCnt - 1
                     if(self.fetchCnt > 0) {

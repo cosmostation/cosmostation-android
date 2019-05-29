@@ -29,7 +29,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
                 }
             } else {
                 if(balance.balance_denom == "uatom") {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "500"))
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "1"))
                 }
             }
         }
@@ -126,7 +126,6 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     }
     
     @IBAction func onClickClear(_ sender: UIButton) {
-        print("onClickClear")
         toDelegateAmountInput.text = ""
         self.onUIupdate()
     }

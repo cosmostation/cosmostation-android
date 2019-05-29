@@ -242,7 +242,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         
 //        print("toClaimValidator ", toClaimValidator.count)
         
-        let mintFee = WUtils.getGasAmountForRewards()[toClaimValidator.count-1].multiplying(by: WUtils.stringToDecimal(FEE_MIN_RATE))
+//        let mintFee = WUtils.getGasAmountForRewards()[toClaimValidator.count-1].multiplying(by: WUtils.stringToDecimal(FEE_MIN_RATE))
 //        print("mintFee ", mintFee)
         
         var available = NSDecimalNumber.zero
@@ -258,11 +258,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
         }
 //        print("available ", available)
-        if(available.compare(mintFee).rawValue < 0 ) {
+        if(available.compare(NSDecimalNumber(string: "1")).rawValue < 0 ) {
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return
         }
-        if(WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(mintFee).rawValue <= 0) {
+        if(WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(NSDecimalNumber(string: "1")).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
             return
         }
