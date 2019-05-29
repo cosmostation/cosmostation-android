@@ -24,6 +24,10 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     var mSelfBondingShare: String?
     var mFetchCnt = 0
     var mMyValidator = false
+    
+    var mInflation: String?
+    var mProvision: String?
+    var mStakingPool: NSDictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,6 +144,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 } else {
                     cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
                 }
+                if(mStakingPool != nil && mProvision != nil) {
+                    let provisions = NSDecimalNumber.init(string: mProvision)
+                    let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                    cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                } else {
+                    cell!.avergaeYield.text = "?? %"
+                }
                 cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
                 if (mValidator!.description.identity != "") {
                     let parameters: Parameters = ["fields": "pictures", "key_suffix": mValidator!.description.identity]
@@ -189,6 +200,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
                 } else {
                     cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
+                }
+                if(mStakingPool != nil && mProvision != nil) {
+                    let provisions = NSDecimalNumber.init(string: mProvision)
+                    let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                    cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                } else {
+                    cell!.avergaeYield.text = "?? %"
                 }
                 cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
                 if (mValidator!.description.identity != "") {
@@ -244,6 +262,18 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     cell!.myUndelegateAmount.attributedText =  WUtils.displayAmout(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6)
                 } else {
                     cell!.myUndelegateAmount.attributedText =  WUtils.displayAmout("0", cell!.myUndelegateAmount.font, 6)
+                }
+                
+                
+                
+                if(mStakingPool != nil && mProvision != nil && mBonding != nil) {
+                    let provisions = NSDecimalNumber.init(string: mProvision)
+                    let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                    cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAtom(mValidator!))! , font: cell!.myDailyReturns.font)
+                    cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAtom(mValidator!))! , font: cell!.myMonthlyReturns.font)
+                } else {
+                    cell!.myDailyReturns.text = "-"
+                    cell!.myMonthlyReturns.text = "-"
                 }
                 
                 if(mRewards.count > 0) {
@@ -315,11 +345,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if(indexPath.section == 0) {
             if (indexPath.row == 0 && mMyValidator) {
-                return 200;
+                return 225;
             } else if (indexPath.row == 0 && !mMyValidator) {
-                return 260;
+                return 285;
             } else {
-                return 215;
+                return 255;
             }
         } else {
             if(mHistories.count > 0) {

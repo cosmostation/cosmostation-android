@@ -126,6 +126,9 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             if let validator = self.mainTabVC.mMyValidators[indexPath.row] as? Validator {
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaidatorDetailViewController") as! VaidatorDetailViewController
                 validatorDetailVC.mValidator = validator
+                validatorDetailVC.mInflation = mainTabVC.mInflation
+                validatorDetailVC.mProvision = mainTabVC.mProvision
+                validatorDetailVC.mStakingPool = mainTabVC.mStakingPool
                 validatorDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(validatorDetailVC, animated: true)

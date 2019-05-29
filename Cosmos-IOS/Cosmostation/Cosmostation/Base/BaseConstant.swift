@@ -55,6 +55,10 @@ let CSS_LCD_URL_REWARD_FROM_VAL_TAIL    = "/rewards/";
 let CSS_LCD_URL_REWARD_ADDRESS          = CSS_LCD_URL + "distribution/delegators/";
 let CSS_LCD_URL_REWARD_ADDRESS_TAIL     = "/withdraw_address";
 let CSS_LCD_URL_REDELEGATION            = CSS_LCD_URL + "staking/redelegations";
+let CSS_LCD_URL_INFLATION               = CSS_LCD_URL + "minting/inflation";
+let CSS_LCD_URL_PROVISIONS              = CSS_LCD_URL + "minting/annual-provisions";
+let CSS_LCD_URL_MINT                    = CSS_LCD_URL + "minting/parameters";
+let CSS_LCD_URL_STAKING_POOL            = CSS_LCD_URL + "staking/pool";
 
 let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
 

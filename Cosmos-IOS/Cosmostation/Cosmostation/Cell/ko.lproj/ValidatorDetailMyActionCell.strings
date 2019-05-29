@@ -20,6 +20,12 @@
 /* Class = "UILabel"; text = "Reward"; ObjectID = "QOT-VC-ZBU"; */
 "QOT-VC-ZBU.text" = "이자";
 
+/* Class = "UILabel"; text = "Daily Return"; ObjectID = "IeA-BC-eAP"; */
+"IeA-BC-eAP.text" = "일 예상 이자량";
+
+/* Class = "UILabel"; text = "Monthly Return"; ObjectID = "C3b-SX-Z56"; */
+"C3b-SX-Z56.text" = "월 예상 이자량";
+
 /* Class = "UIButton"; normalTitle = "CLAIM REWARD"; ObjectID = "Uax-LB-HdT"; */
 "Uax-LB-HdT.normalTitle" = "이자 받기";
 

@@ -6,10 +6,10 @@
 "Cdf-lL-EcX.text" = "내 위임 수량";
 
 /* Class = "UILabel"; text = "12.34%"; ObjectID = "Mma-bi-v2Y"; */
-"Mma-bi-v2Y.text" = "12.34%";
+"Mma-bi-v2Y.text" = "-";
 
 /* Class = "UILabel"; text = "232,232,122"; ObjectID = "ZI9-I9-znv"; */
-"ZI9-I9-znv.text" = "232,232,122";
+"ZI9-I9-znv.text" = "-";
 
 /* Class = "UILabel"; text = "Reward Amount"; ObjectID = "lCZ-OT-X4w"; */
 "lCZ-OT-X4w.text" = "현재 이자량";

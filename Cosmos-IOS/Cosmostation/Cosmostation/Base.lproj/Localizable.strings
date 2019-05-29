@@ -50,6 +50,7 @@
 "sort_by_reward" = "By Reward Amount";
 "sort_by_power" = "By Voting Power";
 "sort_by_commission" = "By Commission";
+"sort_by_yield" = "By Yield";
 "with_mnemonics" = "With Mnemonics";
 "only_address" = "Only Address";
 "wallet_dash" = "Wallet ";
@@ -73,7 +74,7 @@
 "more_wait_title" = "Result Display Delayed";
 "more_wait_msg" = "The transaction you requested has been successfully broadcasted to the blockchain.However, there is a delay in displaying the result. Please press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.";
 "fee_speed_title_0" = "Only a handful of validators will process this Tx.";
-"fee_speed_title_1" = "More validators include \"Cosmostaion\" will process this Tx.";
+"fee_speed_title_1" = "A few validators include \"Cosmostaion\" will process this Tx.";
 "fee_speed_title_2" = "Most validators will process this Tx.";
 "fee_description_title_0" = "Tx fee 0.000001 ATOM";
 "fee_description_title_1" = "Tx fee rate 0.0025";
@@ -141,7 +142,7 @@
 "error_redelegate_no_to_address" = "Please select your new validator to redelegate.";
 "error_same_reward_address" = "This address is already registered as your claim reward address.";
 "error_redelegation_limitted" = "You have redelegated to this validator in the past 21 days.";
-
+"error_max_account_over" = "Max account is 5.";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";

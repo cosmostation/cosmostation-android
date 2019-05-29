@@ -106,6 +106,10 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             return
         } else if (cell?.stateLabel.text == NSLocalizedString("ready", comment: "")) {
             //Add new Account
+            if(BaseData.instance.selectAllAccounts().count >= 5) {
+                self.onShowToast(NSLocalizedString("error_max_account_over", comment: ""))
+                return
+            }
             BaseData.instance.setLastTab(0)
             self.onGenAccount(WKey.getCosmosDpAddressWithPath(maskerKey!, indexPath.row),
                               self.userChain!,

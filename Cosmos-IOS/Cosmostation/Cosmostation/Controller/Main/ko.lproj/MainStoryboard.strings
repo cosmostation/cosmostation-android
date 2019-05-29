@@ -208,3 +208,9 @@
 
 /* Class = "UILabel"; text = "(Cosmos Hub)"; ObjectID = "zF8-Xq-vMq"; */
 "zF8-Xq-vMq.text" = "(Cosmos Hub)";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "w40-ID-INN"; */
+"w40-ID-INN.text" = "인플레이션";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "Ev1-Hy-gni"; */
+"Ev1-Hy-gni.text" = "연 이율";

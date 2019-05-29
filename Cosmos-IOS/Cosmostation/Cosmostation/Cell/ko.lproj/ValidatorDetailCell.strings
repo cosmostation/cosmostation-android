@@ -20,8 +20,11 @@
 /* Class = "UILabel"; text = "Total Bonded"; ObjectID = "b1h-xY-buQ"; */
 "b1h-xY-buQ.text" = "전체 위임량";
 
-/* Class = "UILabel"; text = "Commission"; ObjectID = "eCp-SZ-dsD"; */
-"eCp-SZ-dsD.text" = "검증인 수수료";
+/* Class = "UILabel"; text = "Average Yield"; ObjectID = "eCp-SZ-dsD"; */
+"eCp-SZ-dsD.text" = "연 이율";
+
+/* Class = "UILabel"; text = "Commission"; ObjectID = "emk-Tb-qGI"; */
+"emk-Tb-qGI.text" = "검증인 수수료";
 
 /* Class = "UILabel"; text = "Self Bonded Rate"; ObjectID = "xMh-mb-xP2"; */
 "xMh-mb-xP2.text" = "자체 위임 비율";

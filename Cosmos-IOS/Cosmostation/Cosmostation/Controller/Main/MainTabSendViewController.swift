@@ -40,18 +40,19 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     @IBOutlet weak var priceUpDownLabel: UILabel!
     @IBOutlet weak var priceUpDownImg: UIImageView!
     
-    @IBOutlet weak var photonCard: CardView!
-    @IBOutlet weak var photonPriceLabel: UILabel!
-    @IBOutlet weak var photonTotalLabel: UILabel!
-    @IBOutlet weak var photonAvailableAmount: UILabel!
-    @IBOutlet weak var photonRewardAmount: UILabel!
+//    @IBOutlet weak var photonCard: CardView!
+//    @IBOutlet weak var photonPriceLabel: UILabel!
+//    @IBOutlet weak var photonTotalLabel: UILabel!
+//    @IBOutlet weak var photonAvailableAmount: UILabel!
+//    @IBOutlet weak var photonRewardAmount: UILabel!
     
     
-    @IBOutlet weak var ConstraintPhoton: NSLayoutConstraint!
-    @IBOutlet weak var ConstaraintPrice: NSLayoutConstraint!
+//    @IBOutlet weak var ConstraintPhoton: NSLayoutConstraint!
+//    @IBOutlet weak var ConstaraintPrice: NSLayoutConstraint!
+    @IBOutlet weak var inflationLabel: UILabel!
+    @IBOutlet weak var yieldLabel: UILabel!
     
     @IBOutlet weak var rewardCard: CardView!
-    @IBOutlet weak var rewardImg: UIImageView!
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
@@ -89,9 +90,9 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         } else { keyTypeImg.image = UIImage(named: "key_off") }
         
         if(mainTabVC.mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
-            photonCard.isHidden = true
-            ConstaraintPrice.priority = UILayoutPriority(rawValue: 1000)
-            ConstraintPhoton.priority = UILayoutPriority(rawValue: 500)
+//            photonCard.isHidden = true
+//            ConstaraintPrice.priority = UILayoutPriority(rawValue: 1000)
+//            ConstraintPhoton.priority = UILayoutPriority(rawValue: 500)
             titleChainName.text = "(Cosmos Hub)"
         } else {
             titleChainName.text = ""
@@ -158,6 +159,48 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
                 priceUpDownLabel.text = ""
             }
         }
+        
+        
+        var provisions = NSDecimalNumber.zero
+        var inflation = NSDecimalNumber.zero
+        var bonded_tokens = NSDecimalNumber.zero
+        
+        if(mainTabVC!.mInflation != nil) {
+            inflation = NSDecimalNumber.init(string: mainTabVC.mInflation)
+            inflationLabel.attributedText = WUtils.displayInflation(inflation, font: inflationLabel.font)
+        }
+        if(mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
+            provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
+            bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
+            yieldLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.zero, font: inflationLabel.font)
+//            yieldLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: "0.12"), font: inflationLabel.font)
+        }
+//        print("provisions", provisions.stringValue)
+//        print("inflation", inflation.stringValue)
+//        print("bonded_tokens", bonded_tokens.stringValue)
+        
+        
+        
+        
+        
+//        if((mainTabVC!.mProvision != nil) && (mainTabVC!.mInflation != nil) && (mainTabVC!.mStakingPool != nil)) {
+//            //TODO infomation Inflation
+//            print("provisions SS", mainTabVC.mProvision)
+//            var provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
+//            var inflation = NSDecimalNumber.init(string: mainTabVC.mInflation)
+//            //        var bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
+//            //        var not_bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "not_bonded_tokens") as! String)
+//
+//            print("provisions", provisions.stringValue)
+//            print("inflation", inflation.stringValue)
+//            //        print("bonded_tokens", bonded_tokens.stringValue)
+//            //        print("not_bonded_tokens", not_bonded_tokens.stringValue)
+//            print("mStakingPool", (mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as! String) )
+//        }
+        
+
+        
+        
         
         self.refresher.endRefreshing()
     }

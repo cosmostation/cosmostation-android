@@ -95,6 +95,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
 //            print("seelct ", validator.description.moniker)
             let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaidatorDetailViewController") as! VaidatorDetailViewController
             validatorDetailVC.mValidator = validator
+            validatorDetailVC.mInflation = mainTabVC.mInflation
+            validatorDetailVC.mProvision = mainTabVC.mProvision
+            validatorDetailVC.mStakingPool = mainTabVC.mStakingPool
             validatorDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(validatorDetailVC, animated: true)
@@ -116,10 +119,14 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         }
         
         cell.freeEventImg.isHidden = true
-        
         cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
-        cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
-        
+        if(mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
+            let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
+            let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
+            cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.rate), font: cell.commissionLabel.font)
+        } else {
+            cell.commissionLabel.text = "-"
+        }
         cell.validatorImg.tag = indexPath.row
         cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
         if (validator.description.identity != "") {
@@ -152,6 +159,12 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                     print("onSetValidatorItem error : ", error)
                 }
             }
+        }
+        
+        if let isMyVal =  mainTabVC.mMyValidators.first(where: {$0.operator_address == validator.operator_address}) {
+            cell.cardView.backgroundColor = UIColor.init(hexString: "9c6cff", alpha: 0.15)
+        } else {
+            cell.cardView.backgroundColor = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
         }
     }
     

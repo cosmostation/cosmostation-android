@@ -19,6 +19,7 @@ class ValidatorDetailCell: UITableViewCell {
     @IBOutlet weak var descriptionMsg: UILabel!
     @IBOutlet weak var totalBondedAmount: UILabel!
     @IBOutlet weak var selfBondedRate: UILabel!
+    @IBOutlet weak var avergaeYield: UILabel!
     @IBOutlet weak var commissionRate: UILabel!
     @IBOutlet weak var delegateBtn: UIButton!
     

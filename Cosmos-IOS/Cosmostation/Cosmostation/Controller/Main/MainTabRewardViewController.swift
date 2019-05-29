@@ -101,7 +101,7 @@ class MainTabRewardViewController: BaseViewController {
                 BaseData.instance.setAllValidatorSort(0)
                 NotificationCenter.default.post(name: Notification.Name("onSorting"), object: nil, userInfo: nil)
             }))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_commission", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_yield", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
                 BaseData.instance.setAllValidatorSort(2)
                 NotificationCenter.default.post(name: Notification.Name("onSorting"), object: nil, userInfo: nil)
             }))

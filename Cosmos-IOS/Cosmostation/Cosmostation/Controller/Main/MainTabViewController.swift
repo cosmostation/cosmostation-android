@@ -25,6 +25,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mAtomTic: NSDictionary?
     var mFetchCnt = 0
     
+    var mInflation: String?
+    var mProvision: String?
+    var mStakingPool: NSDictionary?
+    
+    
+    
     var dimView: UIView?
     let window = UIApplication.shared.keyWindow!
     let dropDown = DropDown()
@@ -186,13 +192,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         self.mMyValidators.removeAll()
         self.mRewardList.removeAll()
         
-        self.mFetchCnt = 7
+        self.mFetchCnt = 10
         onFetchTopValidatorsInfo()
         onFetchUnbondedValidatorsInfo()
         onFetchUnbondingValidatorsInfo()
         onFetchAccountInfo(mAccount)
         onFetchBondingInfo(mAccount)
         onFetchUnbondingInfo(mAccount)
+        onFetchInflation()
+        onFetchProvision()
+//        onFetchMintInfo()
+        onFetchStakingPool()
         onFetchAtomTic()
         return true
     }
@@ -433,6 +443,97 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             case .failure(let error):
                 print(error)
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    
+    func onFetchInflation() {
+        let url = CSS_LCD_URL_INFLATION
+        let request = Alamofire.request(url,
+                                        method: .get,
+                                        parameters: [:],
+                                        encoding: URLEncoding.default,
+                                        headers: [:]);
+        request.responseString { (response) in
+            switch response.result {
+            case .success(let res):
+                if let inflation = res as? String {
+//                    print("onFetchInflation ", inflation)
+                    self.mInflation = inflation.replacingOccurrences(of: "\"", with: "")
+                }
+            case .failure(let error):
+                if(SHOW_LOG) {
+                    print("onFetchInflation ", error)
+                }
+            }
+            self.onFetchFinished()
+        }
+        
+    }
+    
+    func onFetchProvision() {
+        let url = CSS_LCD_URL_PROVISIONS
+        let request = Alamofire.request(url,
+                                        method: .get,
+                                        parameters: [:],
+                                        encoding: URLEncoding.default,
+                                        headers: [:]);
+        request.responseString { (response) in
+            switch response.result {
+            case .success(let res):
+                if let provisions = res as? String {
+//                    print("onFetchProvision ", provisions)
+                    self.mProvision = provisions.replacingOccurrences(of: "\"", with: "")
+                    
+                }
+            case .failure(let error):
+                if(SHOW_LOG) {
+                    print("onFetchProvision ", error)
+                }
+            }
+            self.onFetchFinished()
+        }
+        
+    }
+    
+    func onFetchStakingPool() {
+        let url = CSS_LCD_URL_STAKING_POOL
+        let request = Alamofire.request(url,
+                                        method: .get,
+                                        parameters: [:],
+                                        encoding: URLEncoding.default,
+                                        headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let stakingPool = res as? NSDictionary {
+//                    print("onFetchStakingPool ", stakingPool)
+                    self.mStakingPool = stakingPool
+                }
+            case .failure(let error):
+                print("onFetchStakingPool ", error)
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchMintInfo() {
+        let url = CSS_LCD_URL_MINT
+        let request = Alamofire.request(url,
+                                        method: .get,
+                                        parameters: [:],
+                                        encoding: URLEncoding.default,
+                                        headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let mintInfo = res as? NSDictionary {
+                    print("onFetchMintInfo ", mintInfo)
+                }
+            case .failure(let error):
+                print("onFetchMintInfo ", error)
             }
             self.onFetchFinished()
         }

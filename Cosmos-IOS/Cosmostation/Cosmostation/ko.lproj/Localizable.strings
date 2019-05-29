@@ -50,6 +50,7 @@
 "sort_by_reward" = "내 이자 수량으로 정렬";
 "sort_by_power" = "전체 위임량으로 정렬";
 "sort_by_commission" = "검증인 수수료로 정렬";
+"sort_by_yield" = "이율로 정렬";
 "with_mnemonics" = "전송 가능 지갑";
 "only_address" = "관찰용 지갑";
 "wallet_dash" = "내 지갑 ";
@@ -141,7 +142,7 @@
 "error_redelegate_no_to_address" = "재위임할 검증인을 선택해 주세요.";
 "error_same_reward_address" = "이미 등록된 이자 주소와 동일합니다.";
 "error_redelegation_limitted" = "이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(21일 후) 이 검증인으로부터 재위임을 신청할 수 있습니다.";
-
+"error_max_account_over" = "최대 5개의 지갑이 등록 가능합니다.";
 
 "alert_title_no_private_key" = "관찰 모드 지갑";
 "alert_msg_no_private_key" = "관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.";

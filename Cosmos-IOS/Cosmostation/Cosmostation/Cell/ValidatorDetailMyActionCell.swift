@@ -13,6 +13,8 @@ class ValidatorDetailMyActionCell: UITableViewCell {
     @IBOutlet weak var myDelegateAmount: UILabel!
     @IBOutlet weak var myUndelegateAmount: UILabel!
     @IBOutlet weak var myRewardAmount: UILabel!
+    @IBOutlet weak var myDailyReturns: UILabel!
+    @IBOutlet weak var myMonthlyReturns: UILabel!
     
     
     @IBOutlet weak var delegateBtn: UIButton!

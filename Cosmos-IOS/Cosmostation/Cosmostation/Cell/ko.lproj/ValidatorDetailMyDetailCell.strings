@@ -8,8 +8,11 @@
 /* Class = "UILabel"; text = "-"; ObjectID = "GGs-21-mY1"; */
 "GGs-21-mY1.text" = "-";
 
-/* Class = "UILabel"; text = "Commission"; ObjectID = "Gvi-TG-hcA"; */
-"Gvi-TG-hcA.text" = "검증인 수수료";
+/* Class = "UILabel"; text = "Average Yield"; ObjectID = "Gvi-TG-hcA"; */
+"Gvi-TG-hcA.text" = "연 이율";
+
+/* Class = "UILabel"; text = "Commission"; ObjectID = "7dw-Do-0Kx"; */
+"7dw-Do-0Kx.text" = "검증인 수수료";
 
 /* Class = "UILabel"; text = "0"; ObjectID = "MLi-H4-EiM"; */
 "MLi-H4-EiM.text" = "0";
