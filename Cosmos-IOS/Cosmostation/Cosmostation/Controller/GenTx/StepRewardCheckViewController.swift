@@ -40,6 +40,17 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     
     
     @IBAction func onClickConfirm(_ sender: Any) {
+        if(checkIsWasteFee()) {
+            let disableAlert = UIAlertController(title: NSLocalizedString("fee_over_title", comment: ""), message: NSLocalizedString("fee_over_msg", comment: ""), preferredStyle: .alert)
+            disableAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { [weak disableAlert] (_) in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(disableAlert, animated: true) {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                disableAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            }
+            return
+        }
         let transition:CATransition = CATransition()
         transition.duration = 0.3
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -67,6 +78,18 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         self.confirmBtn.isUserInteractionEnabled = true
     }
 
+    
+    func checkIsWasteFee() -> Bool {
+        var rewardSum = NSDecimalNumber.zero
+        for reward in pageHolderVC.mRewardList {
+            rewardSum = rewardSum.adding(WUtils.stringToDecimal(reward.reward_amount[0].amount))
+        }
+        
+        if(NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
+            return true
+        }
+        return false
+    }
     
     func onUpdateView() {
         var rewardSum = NSDecimalNumber.zero
@@ -238,5 +261,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 }
             });
         }
+    }
+    
+    @objc func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
     }
 }

@@ -84,14 +84,7 @@ class StepFeeViewController: BaseViewController {
             noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
         
-//        let noticeAlert = UIAlertController(title: NSLocalizedString("fee_description_title_0", comment: ""), message: NSLocalizedString("fee_description_msg_0", comment: ""), preferredStyle: .alert)
-//        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
-//            self.dismiss(animated: true, completion: nil)
-//        }))
-//        self.present(noticeAlert, animated: true) {
-//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
-//            noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
-//        }
+
         
     }
 

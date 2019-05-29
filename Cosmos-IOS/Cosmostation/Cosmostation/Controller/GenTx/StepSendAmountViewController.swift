@@ -184,5 +184,22 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     @IBAction func onClickMax(_ sender: UIButton) {
         mTargetAmountTextField.text = userBalance.dividing(by: NSDecimalNumber(string: "1000000"), withBehavior: WUtils.handler6).stringValue
         self.onUIupdate()
+        self.showMaxWarnning()
+    }
+    
+    
+    func showMaxWarnning() {
+        let noticeAlert = UIAlertController(title: NSLocalizedString("max_spend_title", comment: ""), message: NSLocalizedString("max_spend_msg", comment: ""), preferredStyle: .alert)
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(noticeAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    @objc func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
     }
 }

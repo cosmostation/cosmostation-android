@@ -38,7 +38,7 @@ class StakingViewController: UIViewController {
         } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
             stepDescription.text = NSLocalizedString("redelegate_step_1", comment: "")
             stepImg.image = UIImage.init(named: "step1Img")
-            self.titleLabel.text =  NSLocalizedString("title_send", comment: "")
+            self.titleLabel.text =  NSLocalizedString("title_redelegate", comment: "")
             
         } else if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
             stepDescription.text = NSLocalizedString("send_step_1", comment: "")
@@ -48,7 +48,7 @@ class StakingViewController: UIViewController {
         } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             stepDescription.text = NSLocalizedString("withdraw_single_step_1", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
-            self.titleLabel.text =  NSLocalizedString("title_redelegate", comment: "")
+            self.titleLabel.text =  NSLocalizedString("title_reward", comment: "")
             
         } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
             stepDescription.text = NSLocalizedString("reward_address_step_1", comment: "")
