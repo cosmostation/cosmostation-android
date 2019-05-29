@@ -43,3 +43,6 @@
 
 /* Class = "UILabel"; text = "Now only watch mode\nAll services are available after mnemonics integration"; ObjectID = "xGz-gq-KBU"; */
 "xGz-gq-KBU.text" = "관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.";
+
+/* Class = "UILabel"; text = "Reward Recipient Address"; ObjectID = "LQ4-c4-4FH"; */
+"LQ4-c4-4FH.text" = "이자 지급 주소";

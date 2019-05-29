@@ -28,6 +28,12 @@ class MainTabSettingViewController: BaseViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
+        if(BaseData.instance.getNeedRefresh()) {
+            BaseData.instance.setNeedRefresh(false)
+            mainTabVC.onUpdateAccountDB()
+            mainTabVC.onUpdateDropDownView()
+            self.updateTitle()
+        }
     }
     
     func updateTitle() {

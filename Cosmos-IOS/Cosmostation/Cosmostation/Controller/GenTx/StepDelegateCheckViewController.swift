@@ -67,12 +67,6 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             self.onGenDelegateTx()
-            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3000), execute: {
-//                let resultVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "GenTxResultViewController") as! GenTxResultViewController
-//                self.navigationItem.title = ""
-//                self.navigationController?.pushViewController(resultVC, animated: true)
-//            })
         }
     }
     

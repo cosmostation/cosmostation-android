@@ -3,7 +3,7 @@
 "9ll-al-VsK.text" = "-";
 
 /* Class = "UILabel"; text = "Total Bonded"; ObjectID = "AVl-yd-FMi"; */
-"AVl-yd-FMi.text" = "전채 위임량";
+"AVl-yd-FMi.text" = "전체 위임량";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "GGs-21-mY1"; */
 "GGs-21-mY1.text" = "-";

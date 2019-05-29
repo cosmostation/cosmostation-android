@@ -86,6 +86,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         self.navigationItem.title = NSLocalizedString("title_wallet_detail", comment: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.stopAvoidingKeyboard()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

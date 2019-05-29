@@ -169,8 +169,8 @@ class GenTxResultViewController: BaseViewController {
             redelegateResultFee.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, redelegateResultFee.font, 6)
             redelegateResultFromValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_src_address
             redelegateResultFromValAddress.adjustsFontSizeToFitWidth = true
-            delegateResultValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_dst_address
-            delegateResultValAddress.adjustsFontSizeToFitWidth = true
+            redelegateResultToValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_dst_address
+            redelegateResultToValAddress.adjustsFontSizeToFitWidth = true
             redelegateResultMemo.text = mStakTxInfo?.tx.value.memo
             
         } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2) {
