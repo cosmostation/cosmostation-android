@@ -83,9 +83,6 @@ class StepFeeViewController: BaseViewController {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
-        
-
-        
     }
 
     @IBAction func onSlideChanged(_ sender: UISlider) {
@@ -150,10 +147,10 @@ class StepFeeViewController: BaseViewController {
             let gasAmount = getEstimateGasAmount()
             let gasRate = NSDecimalNumber.init(string: String(GAS_FEE_RATE_LOW))
             self.rateFeeGasAmountLabel.text = gasAmount.stringValue
-            self.rateFeeGasRateLabel.text = gasRate.stringValue
+            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 4)
 
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
-            self.rateFeeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, minFeeAmountLabel.font, 6)
+            self.rateFeeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, rateFeeAmountLabel.font, 6)
             
         } else if (position == 2) {
             self.minFeeCardView.isHidden = true
@@ -164,10 +161,10 @@ class StepFeeViewController: BaseViewController {
             let gasAmount = getEstimateGasAmount()
             let gasRate = NSDecimalNumber.init(string: String(GAS_FEE_RATE_AVERAGE))
             self.rateFeeGasAmountLabel.text = gasAmount.stringValue
-            self.rateFeeGasRateLabel.text = gasRate.stringValue
+            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 3)
             
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
-            self.rateFeeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, minFeeAmountLabel.font, 6)
+            self.rateFeeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, rateFeeAmountLabel.font, 6)
         }
         
         if let tic = BaseData.instance.getAtomTicCmc(),  let price = tic.value(forKeyPath: "data.quotes.USD.price") as? Double {

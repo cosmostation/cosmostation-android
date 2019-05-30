@@ -210,7 +210,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     }
                 }
                 self.sortByPower()
-                print("mToReDelegateValidators cnt " , self.mToReDelegateValidators.count)
+//                print("mToReDelegateValidators cnt " , self.mToReDelegateValidators.count)
                 
             case .failure(let error):
                 print("onFetchTopValidatorsInfo ", error)

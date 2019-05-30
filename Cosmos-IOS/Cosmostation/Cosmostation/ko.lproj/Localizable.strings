@@ -60,8 +60,8 @@
 "import_address" = "복구 단어 입력";
 "change_wallet_name" = "지갑 별칭 변경";
 "wallet_name" = "별칭";
-"share_text" = "주소 공유";
-"share_qr" = "QR 코드 공유";
+"share_text" = "\t\t주소 공유\t\t";
+"share_qr" = "\t\tQR 코드 공유\t\t";
 "delete_wallet" = "지갑 삭제";
 "delete_wallet_msg" = "지갑의 모든 정보가 삭제됩니다.\n복구 단어를 백업하지 않았을 경우 해당 지갑을 영구히 다시 복원할 수 없습니다!";
 "ready" = "준비 완료";

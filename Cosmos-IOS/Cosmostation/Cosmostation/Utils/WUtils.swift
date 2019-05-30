@@ -307,6 +307,28 @@ class WUtils {
         return attributedString1
     }
     
+    static func displayGasRate(_ rate: NSDecimalNumber, font:UIFont, _ deciaml:Int) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = deciaml
+        nf.maximumFractionDigits = deciaml
+        nf.numberStyle = .decimal
+        
+        let formatted   = nf.string(from: rate)!
+        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -(deciaml))
+        
+        let preString   = formatted[..<endIndex]
+        let postString  = formatted[endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
     static func displayPriceUPdown(_ updown:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 2
