@@ -47,7 +47,14 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 cell?.valjailedImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
             }
             cell?.valPowerLabel.attributedText  =  WUtils.displayAmout(validator.tokens, cell!.valPowerLabel.font, 6)
-            cell?.valCommissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell!.valCommissionLabel.font)
+//            cell?.valCommissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell!.valCommissionLabel.font)
+            if(self.pageHolderVC.mStakingPool != nil && self.pageHolderVC.mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: self.pageHolderVC.mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: self.pageHolderVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.rate), font: cell!.valCommissionLabel.font)
+            } else {
+                cell?.valCommissionLabel.text = "?? %"
+            }
 
             cell?.valImg.tag = indexPath.row
             cell?.valImg.image = UIImage.init(named: "validatorNoneImg")

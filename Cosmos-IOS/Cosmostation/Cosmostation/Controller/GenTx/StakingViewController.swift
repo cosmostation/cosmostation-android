@@ -20,6 +20,10 @@ class StakingViewController: UIViewController {
     var mType: String?
     var mRewardTargetValidators = Array<Validator>()
     
+    var mInflation: String?
+    var mProvision: String?
+    var mStakingPool: NSDictionary?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +92,8 @@ class StakingViewController: UIViewController {
             StepVc.mType = self.mType
             StepVc.mTargetValidator = self.mTargetValidator
             StepVc.mRewardTargetValidators = self.mRewardTargetValidators
+            StepVc.mProvision = self.mProvision
+            StepVc.mStakingPool = self.mStakingPool
         }
     }
     

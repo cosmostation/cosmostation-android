@@ -43,6 +43,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mMemo: String?
     var mFee: Fee?
     
+    var mProvision: String?
+    var mStakingPool: NSDictionary?
+    
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE) {
             return [self.newVc(viewController: "StepDelegateAmountViewController"),

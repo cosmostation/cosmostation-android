@@ -618,6 +618,9 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     func onStartRedelegate() {
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         stakingVC.mTargetValidator = mValidator
+        stakingVC.mInflation = mInflation
+        stakingVC.mProvision = mProvision
+        stakingVC.mStakingPool = mStakingPool
         stakingVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)

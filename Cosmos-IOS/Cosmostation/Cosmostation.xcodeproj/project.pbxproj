@@ -70,6 +70,7 @@
 		E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B65222486C300026B8C0 /* ProposalCell.swift */; };
 		E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B65322486C300026B8C0 /* ProposalCell.xib */; };
 		E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B657224873640026B8C0 /* SettingTableViewController.swift */; };
+		E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16B70DF229F9A78001D6B9C /* RedelegateCell.xib */; };
 		E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B1422489B030019B7BB /* IntroViewController.swift */; };
 		E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B162248BD990019B7BB /* CreateViewController.swift */; };
 		E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E16D9B182248C4880019B7BB /* Assets.xcassets */; };
@@ -153,7 +154,6 @@
 		E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDBC07225C705000810D2E /* MsgGenerator.swift */; };
 		E1BDBC0A225C9BE100810D2E /* Amino.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDBC09225C9BE100810D2E /* Amino.swift */; };
 		E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D279612297B40D00C49B2D /* RedelegateCell.swift */; };
-		E1D279642297B40D00C49B2D /* RedelegateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1D279622297B40D00C49B2D /* RedelegateCell.xib */; };
 		E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */; };
 		E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */; };
 		E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E15FC12253748B00A10C7B /* DashedButton.swift */; };
@@ -245,6 +245,8 @@
 		E151B65322486C300026B8C0 /* ProposalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalCell.xib; sourceTree = "<group>"; };
 		E151B657224873640026B8C0 /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		E16B70DC229E619A001D6B9C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/GenTx.strings; sourceTree = "<group>"; };
+		E16B70DE229F9A78001D6B9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RedelegateCell.xib; sourceTree = "<group>"; };
+		E16B70E3229F9FAD001D6B9C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/RedelegateCell.strings; sourceTree = "<group>"; };
 		E16D9B1422489B030019B7BB /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E16D9B162248BD990019B7BB /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		E16D9B182248C4880019B7BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -336,7 +338,6 @@
 		E1BDBC07225C705000810D2E /* MsgGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgGenerator.swift; sourceTree = "<group>"; };
 		E1BDBC09225C9BE100810D2E /* Amino.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amino.swift; sourceTree = "<group>"; };
 		E1D279612297B40D00C49B2D /* RedelegateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedelegateCell.swift; sourceTree = "<group>"; };
-		E1D279622297B40D00C49B2D /* RedelegateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RedelegateCell.xib; sourceTree = "<group>"; };
 		E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPopupCell.swift; sourceTree = "<group>"; };
 		E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountPopupCell.xib; sourceTree = "<group>"; };
 		E1E15FC12253748B00A10C7B /* DashedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedButton.swift; sourceTree = "<group>"; };
@@ -674,7 +675,7 @@
 				E17748ED2284229B003D8CD1 /* GuideListTableViewCell.swift */,
 				E17748EE2284229B003D8CD1 /* GuideListTableViewCell.xib */,
 				E1D279612297B40D00C49B2D /* RedelegateCell.swift */,
-				E1D279622297B40D00C49B2D /* RedelegateCell.xib */,
+				E16B70DF229F9A78001D6B9C /* RedelegateCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -760,7 +761,7 @@
 				E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */,
 				E103DAC9228129FD006C2146 /* WalletManageViewController.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
-				E1D279642297B40D00C49B2D /* RedelegateCell.xib in Resources */,
+				E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
@@ -1081,6 +1082,15 @@
 				E1F2AE4B227E865D00C87F3F /* ko */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		E16B70DF229F9A78001D6B9C /* RedelegateCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E16B70DE229F9A78001D6B9C /* Base */,
+				E16B70E3229F9FAD001D6B9C /* ko */,
+			);
+			name = RedelegateCell.xib;
 			sourceTree = "<group>";
 		};
 		E17748F722842628003D8CD1 /* ClaimRewardAllCell.xib */ = {

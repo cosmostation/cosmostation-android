@@ -14,6 +14,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     @IBOutlet weak var mAvailableAmountLabel: UILabel!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
+    @IBOutlet weak var btn01: UIButton!
     
     var pageHolderVC: StepGenTxViewController!
     var userBalance = NSDecimalNumber.zero
@@ -36,6 +37,9 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         mAvailableAmountLabel.attributedText = WUtils.displayAmout(userBalance.stringValue, mAvailableAmountLabel.font, 6)
         mTargetAmountTextField.delegate = self
         mTargetAmountTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"))
+        btn01.setTitle(dp, for: .normal)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -46,6 +50,16 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             if (text.count == 0 && string.starts(with: ".")) { return false }
             
             if let index = text.range(of: ".")?.upperBound {
+                if(text.substring(from: index).count > 5 && range.length == 0) {
+                    return false
+                }
+            }
+            
+            if (text.contains(",") && string.contains(",") && range.length == 0) { return false }
+            
+            if (text.count == 0 && string.starts(with: ",")) { return false }
+            
+            if let index = text.range(of: ",")?.upperBound {
                 if(text.substring(from: index).count > 5 && range.length == 0) {
                     return false
                 }
@@ -148,41 +162,48 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     @IBAction func onClickAdd01(_ sender: UIButton) {
         var exist = NSDecimalNumber.zero
         if(mTargetAmountTextField.text!.count > 0) {
-            exist = WUtils.stringToDecimal(mTargetAmountTextField.text!)
+            exist = NSDecimalNumber(string: mTargetAmountTextField.text!, locale: Locale.current)
         }
-        mTargetAmountTextField.text = exist.adding(NSDecimalNumber(string: "0.1")).stringValue
+        let added = exist.adding(NSDecimalNumber(string: "0.1"))
+        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added)
         self.onUIupdate()
+        
     }
     @IBAction func onClickAdd1(_ sender: UIButton) {
         var exist = NSDecimalNumber.zero
         if(mTargetAmountTextField.text!.count > 0) {
-            exist = WUtils.stringToDecimal(mTargetAmountTextField.text!)
+            exist = NSDecimalNumber(string: mTargetAmountTextField.text!, locale: Locale.current)
         }
-        mTargetAmountTextField.text = exist.adding(NSDecimalNumber(string: "1")).stringValue
+        let added = exist.adding(NSDecimalNumber(string: "1"))
+        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added)
         self.onUIupdate()
     }
     @IBAction func onClickAdd10(_ sender: UIButton) {
         var exist = NSDecimalNumber.zero
         if(mTargetAmountTextField.text!.count > 0) {
-            exist = WUtils.stringToDecimal(mTargetAmountTextField.text!)
+            exist = NSDecimalNumber(string: mTargetAmountTextField.text!, locale: Locale.current)
         }
-        mTargetAmountTextField.text = exist.adding(NSDecimalNumber(string: "10")).stringValue
+        let added = exist.adding(NSDecimalNumber(string: "10"))
+        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added)
         self.onUIupdate()
     }
     @IBAction func onClickAdd100(_ sender: UIButton) {
         var exist = NSDecimalNumber.zero
         if(mTargetAmountTextField.text!.count > 0) {
-            exist = WUtils.stringToDecimal(mTargetAmountTextField.text!)
+            exist = NSDecimalNumber(string: mTargetAmountTextField.text!, locale: Locale.current)
         }
-        mTargetAmountTextField.text = exist.adding(NSDecimalNumber(string: "100")).stringValue
+        let added = exist.adding(NSDecimalNumber(string: "100"))
+        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added)
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
-        mTargetAmountTextField.text = userBalance.dividing(by: NSDecimalNumber(string: "2000000"), withBehavior: WUtils.handler6).stringValue
+        let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
+        mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue)
         self.onUIupdate()
     }
     @IBAction func onClickMax(_ sender: UIButton) {
-        mTargetAmountTextField.text = userBalance.dividing(by: NSDecimalNumber(string: "1000000"), withBehavior: WUtils.handler6).stringValue
+        let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
+        mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue)
         self.onUIupdate()
         self.showMaxWarnning()
     }

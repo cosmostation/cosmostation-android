@@ -123,8 +123,8 @@
 "error_no_clipboard" = "No text from clipboard.";
 "error_invalid_address_or_pubkey" = "Invalid Address or PubKey, please check again.";
 "error_recover_mnemonic" = "Please insert validate mnemonics.";
-"error_amount" = "Please insert validate amount.";
-"error_memo" = "Please insert validate memo.";
+"error_amount" = "Please enter valid amount.";
+"error_memo" = "Please enter valid memo.";
 "error_only_fee_with_atom" = "Now only support ATOM for fee.";
 "error_not_enough_balance" = "No enough Balance to Delegate.";
 "error_not_undelegate" = "Nothing to undelegate.";

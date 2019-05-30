@@ -360,6 +360,7 @@
                     </view>
                     <connections>
                         <outlet property="availableAmountLabel" destination="I73-y3-k1r" id="voA-QF-XYq"/>
+                        <outlet property="btn01" destination="e1b-Kv-uy4" id="02N-zB-2rt"/>
                         <outlet property="cancelBtn" destination="Wrm-Ux-zPh" id="A5Y-VC-5jN"/>
                         <outlet property="nextBtn" destination="vZf-sd-tql" id="R0T-rG-ble"/>
                         <outlet property="toDelegateAmountInput" destination="W87-fN-DZa" id="49V-ys-uzP"/>
@@ -629,6 +630,7 @@
                     </view>
                     <connections>
                         <outlet property="availableAmountLabel" destination="zVi-Do-p21" id="iow-cF-yMX"/>
+                        <outlet property="btn01" destination="QEJ-qm-9j4" id="glO-L1-16X"/>
                         <outlet property="cancelBtn" destination="Rhf-lF-k9m" id="zwp-2L-5KT"/>
                         <outlet property="nextBtn" destination="hrT-jx-lIm" id="5zV-Qn-lJQ"/>
                         <outlet property="toUndelegateAmountInput" destination="86d-1d-w9t" id="VhA-PG-LiR"/>
@@ -1639,6 +1641,7 @@
                     </view>
                     <connections>
                         <outlet property="backBtn" destination="q4U-Jx-Gjp" id="GZN-ro-sXk"/>
+                        <outlet property="btn01" destination="0fi-72-KPs" id="8Gz-Yj-i3f"/>
                         <outlet property="mAvailableAmountLabel" destination="tjA-fe-Yfb" id="mmE-To-xEN"/>
                         <outlet property="mTargetAmountTextField" destination="hT7-iN-uYF" id="sS6-gv-rKx"/>
                         <outlet property="nextBtn" destination="jzT-Qn-Dpv" id="uhe-C7-uAe"/>
