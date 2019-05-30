@@ -82,6 +82,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         self.updateView()
     }
     
+    
     func updateTitle() {
         if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
@@ -199,6 +200,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
+        self.updateTitle()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
         

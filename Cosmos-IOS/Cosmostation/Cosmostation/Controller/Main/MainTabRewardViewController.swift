@@ -40,9 +40,7 @@ class MainTabRewardViewController: BaseViewController {
             allValidatorView.alpha = 0
             otherValidatorView.alpha = 1
             titleSortBtn.isHidden = true
-            
         }
-        
     }
     
 
@@ -53,13 +51,14 @@ class MainTabRewardViewController: BaseViewController {
         otherValidatorView.alpha = 0
         
         mainTabVC = (self.parent)?.parent as? MainTabViewController
-        self.updateTitle()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
+        self.updateTitle()
     }
     
     func updateTitle() {

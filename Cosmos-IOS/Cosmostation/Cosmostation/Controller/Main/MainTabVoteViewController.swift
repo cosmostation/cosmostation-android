@@ -47,6 +47,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
+        self.updateTitle()
     }
     
     func updateTitle() {
