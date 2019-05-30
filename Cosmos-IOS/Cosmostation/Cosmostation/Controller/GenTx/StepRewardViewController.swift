@@ -61,11 +61,7 @@ class StepRewardViewController: BaseViewController {
     }
     
     func updateView() {
-        var rewardSum = NSDecimalNumber.zero
-        for reward in pageHolderVC.mRewardList {
-            rewardSum = rewardSum.adding(WUtils.stringToDecimal(reward.reward_amount[0].amount))
-        }
-        rewardAmountLabel.attributedText = WUtils.displayAmout(rewardSum.stringValue, rewardAmountLabel.font, 6)
+        rewardAmountLabel.attributedText = WUtils.displayAllAtomReward(pageHolderVC.mRewardList, rewardAmountLabel.font, 6)
         
         var monikers = ""
         for validator in pageHolderVC.mRewardTargetValidators {

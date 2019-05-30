@@ -80,11 +80,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
 
     
     func checkIsWasteFee() -> Bool {
-        var rewardSum = NSDecimalNumber.zero
-        for reward in pageHolderVC.mRewardList {
-            rewardSum = rewardSum.adding(WUtils.stringToDecimal(reward.reward_amount[0].amount))
-        }
-        
+        let rewardSum = WUtils.getAllAtomReward(pageHolderVC.mRewardList)
         if(NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
             return true
         }
@@ -92,10 +88,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        var rewardSum = NSDecimalNumber.zero
-        for reward in pageHolderVC.mRewardList {
-            rewardSum = rewardSum.adding(WUtils.stringToDecimal(reward.reward_amount[0].amount))
-        }
+        let rewardSum = WUtils.getAllAtomReward(pageHolderVC.mRewardList)
         rewardAmoutLaebl.attributedText = WUtils.displayAmout(rewardSum.stringValue, rewardAmoutLaebl.font, 6)
         feeAmountLabel.attributedText = WUtils.displayAmout((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6)
         

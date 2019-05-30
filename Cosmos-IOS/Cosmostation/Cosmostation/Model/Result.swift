@@ -20,15 +20,25 @@ public struct Result {
         self.gas_wanted = dictionary["gas_wanted"] as? String ?? ""
         self.gas_used = dictionary["gas_used"] as? String ?? ""
         if let logs = dictionary["log"] as? Array<NSDictionary> {
+//            print("log Array ", logs.count, "   ", logs)
             for log in logs {
-                guard let success = log.object(forKey: "success") as? Bool else {
-                    return
-                }
-                if(!success) {
-                    self.allResult = false
+                if let success = log.object(forKey: "success") as? Bool {
+                    if(!success) {
+                        self.allResult = false
+                        return;
+                    }
                 }
             }
-            return
+        }
+        
+        if let log = dictionary["log"] as? NSDictionary {
+//            print("log NSDictionary ", log)
+            if let code = log.object(forKey: "code") as? Int {
+                if(code > -1) {
+                    self.allResult = false
+                    return;
+                }
+            }
         }
     }
 }

@@ -177,7 +177,7 @@
 "lAa-HU-H1G.segmentTitles[2]" = "기타 노드";
 
 /* Class = "UILabel"; text = "Cosmos and Cosmostation Wallet FAQ\nLearn more about us in the links below"; ObjectID = "lvs-rA-ORq"; */
-"lvs-rA-ORq.text" = "Cosmos and Cosmostation Wallet FAQ\nLearn more about us in the links below";
+"lvs-rA-ORq.text" = "코스모스와 코스모스테이션 지갑 이용 관련\n궁금한 부분은 도움말에서 확인하실 수 있습니다.";
 
 /* Class = "UILabel"; text = "My Wallet"; ObjectID = "qpt-XS-dJ0"; */
 "qpt-XS-dJ0.text" = "My Wallet";

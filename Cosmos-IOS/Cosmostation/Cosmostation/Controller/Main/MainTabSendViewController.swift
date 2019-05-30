@@ -173,35 +173,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
             bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
             yieldLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.zero, font: inflationLabel.font)
-//            yieldLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: "0.12"), font: inflationLabel.font)
         }
-//        print("provisions", provisions.stringValue)
-//        print("inflation", inflation.stringValue)
-//        print("bonded_tokens", bonded_tokens.stringValue)
-        
-        
-        
-        
-        
-//        if((mainTabVC!.mProvision != nil) && (mainTabVC!.mInflation != nil) && (mainTabVC!.mStakingPool != nil)) {
-//            //TODO infomation Inflation
-//            print("provisions SS", mainTabVC.mProvision)
-//            var provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
-//            var inflation = NSDecimalNumber.init(string: mainTabVC.mInflation)
-//            //        var bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-//            //        var not_bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "not_bonded_tokens") as! String)
-//
-//            print("provisions", provisions.stringValue)
-//            print("inflation", inflation.stringValue)
-//            //        print("bonded_tokens", bonded_tokens.stringValue)
-//            //        print("not_bonded_tokens", not_bonded_tokens.stringValue)
-//            print("mStakingPool", (mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as! String) )
-//        }
-        
-
-        
-        
-        
         self.refresher.endRefreshing()
     }
     

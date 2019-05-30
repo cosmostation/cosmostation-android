@@ -313,7 +313,7 @@ class WUtils {
         nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let formatted   = nf.string(from: rate.multiplying(by: 100))! + "%"
+        let formatted   = nf.string(from: rate.multiplying(by: 100).rounding(accordingToBehavior: handler2))! + "%"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]

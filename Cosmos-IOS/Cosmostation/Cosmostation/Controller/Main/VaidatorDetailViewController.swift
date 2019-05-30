@@ -277,10 +277,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 
                 if(mRewards.count > 0) {
-                    var rewardSum = NSDecimalNumber.zero
-                    for reward in mRewards {
-                        rewardSum  = rewardSum.adding(WUtils.stringToDecimal(reward.reward_amount[0].amount))
-                    }
+                    let rewardSum = WUtils.getAllAtomReward(mRewards)
                     cell!.myRewardAmount.attributedText =  WUtils.displayAmout(rewardSum.stringValue, cell!.myRewardAmount.font, 6)
                 } else {
                     cell!.myRewardAmount.attributedText =  WUtils.displayAmout("0", cell!.myRewardAmount.font, 6)
@@ -634,10 +631,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             self.onShowAddMenomicDialog()
         }
         if(mRewards.count > 0) {
-            var rewardSum = NSDecimalNumber.zero
-            for reward in mRewards {
-                rewardSum  = rewardSum.adding(WUtils.stringToDecimal(reward.reward_amount[0].amount))
-            }
+            let rewardSum = WUtils.getAllAtomReward(mRewards)
             if(rewardSum == NSDecimalNumber.zero) {
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
