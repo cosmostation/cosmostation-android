@@ -80,16 +80,18 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
-//                print(res)
+                print(res)
                 guard let info = res as? [String : Any] else {
                     cell?.atomAmount.attributedText = WUtils.displayAmout("0", cell!.atomAmount.font!, 6)
                     return
                 }
                 let accountInfo = AccountInfo.init(info)
-                if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+                if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
                     cell?.atomAmount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, cell!.atomAmount.font!, 6)
-                } else {
+                } else if (accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
                     cell?.atomAmount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.atomAmount.font!, 6)
+                } else {
+                    cell?.atomAmount.attributedText = WUtils.displayAmout(NSDecimalNumber.zero.stringValue, cell!.atomAmount.font!, 6)
                 }
                 
                 case .failure(let error):
