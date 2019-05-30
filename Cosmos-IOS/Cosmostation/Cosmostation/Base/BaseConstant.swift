@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = true;
+let SHOW_LOG                            = false;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
