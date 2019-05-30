@@ -140,8 +140,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     func onSetValidatorItem(_ cell: MyValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         cell.monikerLabel.text = validator.description.moniker
         
-        if(validator.jailed) { cell.revokedImg.isHidden = false
-        } else { cell.revokedImg.isHidden = true }
+        if(validator.jailed) {
+            cell.revokedImg.isHidden = false
+            cell.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+        } else {
+            cell.revokedImg.isHidden = true
+            cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+        }
         
         cell.freeEventImg.isHidden = true
         
@@ -216,7 +221,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         var myBondedValidator = Array<Validator>()
         var toClaimValidator = Array<Validator>()
         
-        for validator in self.mainTabVC.mTopValidators {
+        for validator in self.mainTabVC.mAllValidator {
             for bonding in self.mainTabVC.mBondingList {
                 if(bonding.bonding_v_address == validator.operator_address &&
                     WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber(string: "1")).rawValue > 0) {

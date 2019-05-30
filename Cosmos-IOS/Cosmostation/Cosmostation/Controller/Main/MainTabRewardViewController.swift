@@ -29,14 +29,17 @@ class MainTabRewardViewController: BaseViewController {
             myValidatorView.alpha = 1
             allValidatorView.alpha = 0
             otherValidatorView.alpha = 0
+            titleSortBtn.isHidden = false
         } else if sender.selectedSegmentIndex == 1 {
             myValidatorView.alpha = 0
             allValidatorView.alpha = 1
             otherValidatorView.alpha = 0
+            titleSortBtn.isHidden = false
         } else {
             myValidatorView.alpha = 0
             allValidatorView.alpha = 0
             otherValidatorView.alpha = 1
+            titleSortBtn.isHidden = true
             
         }
         

@@ -18,6 +18,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     var pageHolderVC: StepGenTxViewController!
     var checkedValidator: Validator?
+    var checkedPosition:IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +61,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 request.responseJSON { (response) in
                     switch response.result {
                     case .success(let res):
-                        //                    print("res : ", res)
+//                        print("res : ", res)
                         guard let keybaseInfo = res as? NSDictionary,
                             let thems = keybaseInfo.value(forKey: "them") as? Array<NSDictionary>,
                             thems.count > 0,
@@ -82,7 +83,8 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 }
             }
 
-            if(validator.operator_address == checkedValidator?.operator_address){
+            cell?.rootCard.needBorderUpdate = false
+            if(validator.operator_address == checkedValidator?.operator_address) {
                 cell?.valCheckedImg.image = UIImage.init(named: "checkOn")
                 cell?.rootCard.backgroundColor = UIColor.clear
                 cell?.rootCard.layer.borderWidth = 1
@@ -93,10 +95,10 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 cell?.valCheckedImg.image = UIImage.init(named: "checkOff")
                 cell?.rootCard.backgroundColor = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
                 cell?.rootCard.layer.borderWidth = 0
+                cell?.rootCard.clipsToBounds = true
             }
 
         }
-        return cell!
         return cell!
     }
     
@@ -107,16 +109,32 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let validator = self.pageHolderVC.mToReDelegateValidators[indexPath.row] as? Validator {
             self.checkedValidator = validator
+            self.checkedPosition = indexPath
+            let cell:RedelegateCell? = tableView.cellForRow(at: indexPath) as? RedelegateCell
+            cell?.rootCard.needBorderUpdate = false
+            cell?.valCheckedImg.image = UIImage.init(named: "checkOn")
+            cell?.rootCard.backgroundColor = UIColor.clear
+            cell?.rootCard.layer.borderWidth = 1
+            cell?.rootCard.layer.borderColor = UIColor(hexString: "#7A8388").cgColor
+            cell?.rootCard.clipsToBounds = true
         }
-        self.redelegateToValTableView.reloadData()
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell:RedelegateCell? = tableView.cellForRow(at: indexPath) as? RedelegateCell
+        cell?.valCheckedImg.image = UIImage.init(named: "checkOff")
+        cell?.rootCard.backgroundColor = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
+        cell?.rootCard.layer.borderWidth = 0
+        cell?.rootCard.clipsToBounds = true
+    }
     
     override func enableUserInteraction() {
         self.btnBefore.isUserInteractionEnabled = true
         self.btnNext.isUserInteractionEnabled = true
-        self.redelegateToValTableView.reloadData()
-        self.checkedValidator = nil
+        if(self.checkedPosition != nil) {
+            self.redelegateToValTableView.selectRow(at: checkedPosition, animated: false, scrollPosition: .middle)
+        }
+        self.checkedValidator = pageHolderVC.mToReDelegateValidator
     }
     
     @IBAction func onClickBack(_ sender: UIButton) {
@@ -127,7 +145,6 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     @IBAction func onClickNext(_ sender: UIButton) {
         if(self.checkedValidator != nil && self.checkedValidator?.operator_address != nil) {
-            //TODO redelegate count check!!!
             self.onFetchRedelegateState(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address, self.checkedValidator!.operator_address)
         } else {
             self.onShowToast(NSLocalizedString("error_redelegate_no_to_address", comment: ""))
@@ -135,7 +152,6 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func goNextPage() {
-        print("goNextPage")
         self.btnBefore.isUserInteractionEnabled = false
         self.btnNext.isUserInteractionEnabled = false
         pageHolderVC.mToReDelegateValidator = self.checkedValidator

@@ -129,9 +129,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 }
             }
             
-            print("userBalance ", userBalance)
-            print("rewardSum ", rewardSum)
-            print("fee ", WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+//            print("userBalance ", userBalance)
+//            print("rewardSum ", rewardSum)
+//            print("fee ", WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
             
             let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
             expectedAmountLabel.attributedText = WUtils.displayAmout(expectedAmount.stringValue, rewardAmoutLaebl.font, 6)
