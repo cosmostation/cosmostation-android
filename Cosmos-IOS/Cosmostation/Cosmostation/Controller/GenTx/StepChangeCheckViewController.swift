@@ -68,9 +68,6 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onShowPasswordCheck() {
-        self.btnBack.isUserInteractionEnabled = false
-        self.btnConfirm.isUserInteractionEnabled = false
-        
         let transition:CATransition = CATransition()
         transition.duration = 0.3
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
