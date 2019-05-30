@@ -102,6 +102,20 @@ public class WDp {
         return result;
     }
 
+    public static BigDecimal getYield(BigDecimal bonded, BigDecimal provision, BigDecimal commission) {
+        BigDecimal result = BigDecimal.ZERO;
+        try {
+            WLog.w("A " + provision.toPlainString());
+//            WLog.w("A " + provision.divide(bonded).toPlainString());
+//            WLog.w("A " + provision.divide(bonded).multiply(BigDecimal.ONE.subtract(commission)).toPlainString());
+//            WLog.w("B " + provision.divide(bonded).multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).toPlainString());
+//            WLog.w("C " + provision.divide(bonded).multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN));
+            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).divide(bonded, 2, RoundingMode.DOWN);
+
+        }catch (Exception e) {}
+        return result;
+    }
+
 
     public static SpannableString getDpAtomBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;

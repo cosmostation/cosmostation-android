@@ -60,6 +60,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mAtomPerPrice, mAtomUpDownPrice;
     private ImageView           matomUpDownImg;
 
+    private TextView            mAtomInflation, mAtomYield;
+
     private Button              mGuideBtn, mFaqBtn;
 
 
@@ -103,6 +105,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mAtomPerPrice           = rootView.findViewById(R.id.dash_atom_per_price);
         mAtomUpDownPrice        = rootView.findViewById(R.id.dash_atom_price_updown_tx);
         matomUpDownImg          = rootView.findViewById(R.id.ic_price_updown);
+        mAtomInflation          = rootView.findViewById(R.id.dash_atom_inflation);
+        mAtomYield              = rootView.findViewById(R.id.dash_atom_yield);
 
 
         mGuideBtn               = rootView.findViewById(R.id.btn_guide);
@@ -181,7 +185,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKeyState.setImageDrawable(getResources().getDrawable(R.drawable.key_off));
         }
 
-        mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mTopValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+        mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
         mTvAtomUndelegated.setText(WDp.getDpAtomBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
         mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
         mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
@@ -210,6 +214,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             } else {
                 matomUpDownImg.setVisibility(View.GONE);
             }
+
+
+            mAtomInflation.setText("" + getMainActivity().mInflation.multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN) + "%");
+            mAtomYield.setText("" + WDp.getYield(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
 
 
         } catch (Exception e) {

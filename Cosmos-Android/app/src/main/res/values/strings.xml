@@ -212,7 +212,7 @@
     <string name="str_redelegate">Redelegate</string>
     <string name="str_claim_reward">Claim Reward</string>
     <string name="str_history_validator">History with this validator</string>
-    <string name="str_price">Price</string>
+    <string name="str_price">Current Price</string>
     <string name="str_ago">ago</string>
     <string name="str_day">days</string>
     <string name="str_d">d</string>
@@ -236,6 +236,8 @@
     <string name="str_front_guide_msg">Cosmos and Cosmostation Wallet FAQ\nLearn more about us in the links below</string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
+    <string name="str_inflation">Inflation</string>
+    <string name="str_average_yield">Average Yield</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -278,7 +280,7 @@
     <string name="str_redelegate_step_1">Select validator redelegate.</string>
     <string name="str_redelegate_step_2">Insert memo (optional)</string>
     <string name="str_redelegate_step_3">Select transaction fee</string>
-    <string name="str_redelegate_step_4"> Check transaction detail</string>
+    <string name="str_redelegate_step_4">Check transaction detail</string>
     <string name="str_change_reward_address_step_0">Insert address to receive reward</string>
     <string name="str_change_reward_address_step_1">Insert memo (optional)</string>
     <string name="str_change_reward_address_step_2">Select transaction fee</string>

@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.dao;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -26,7 +27,7 @@ public class Reward {
         BigDecimal result = BigDecimal.ZERO;
         for(Coin coin:amount) {
             if(coin.denom.equals(BaseConstant.COSMOS_ATOM)|| coin.denom.equals(BaseConstant.COSMOS_MUON)) {
-                result = new BigDecimal(coin.amount);
+                result = new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN);
                 break;
             }
         }
@@ -37,7 +38,7 @@ public class Reward {
         BigDecimal result = BigDecimal.ZERO;
         for(Coin coin:amount) {
             if(coin.denom.equals(BaseConstant.COSMOS_PHOTON) || coin.denom.equals(BaseConstant.COSMOS_PHOTINO)) {
-                result = new BigDecimal(coin.amount);
+                result = new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN);
                 break;
             }
         }

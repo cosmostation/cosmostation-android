@@ -68,13 +68,17 @@ import wannabit.io.cosmostaion.fragment.MainVoteFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResAtomTic;
+import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnbondedValidatorInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnbondingValidatorInfoTask;
+import wannabit.io.cosmostaion.task.SingleFetchTask.SingleInflationTask;
+import wannabit.io.cosmostaion.task.SingleFetchTask.SingleProvisionsTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
+import wannabit.io.cosmostaion.task.SingleFetchTask.SingleStakingPoolTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -107,6 +111,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
     public ArrayList<BondingState>     mBondings = new ArrayList<>();
     public ArrayList<UnBondingState>   mUnbondings = new ArrayList<>();
     public ArrayList<Reward>           mRewards = new ArrayList<>();
+    public BigDecimal                  mInflation = BigDecimal.ZERO;
+    public BigDecimal                  mProvisions = BigDecimal.ZERO;
+    public BigDecimal                  mBondedToken = BigDecimal.ZERO;
+
 
     private int                         mTaskCount;
     private TopSheetBehavior            mTopSheetBehavior;
@@ -516,7 +524,29 @@ public class MainActivity extends BaseActivity implements TaskListener {
             Reward reward = (Reward)result.resultData;
             if(reward != null)
                 onUpdateReward(reward);
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_INFLATION) {
+            try {
+                mInflation = new BigDecimal((String)result.resultData);
+            } catch (Exception e) {}
+            WLog.w("mInflation " + mInflation.toPlainString());
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_PROVISIONS) {
+            try {
+                mProvisions = new BigDecimal((String)result.resultData);
+            } catch (Exception e) {}
+            WLog.w("mProvisions " + mProvisions.toPlainString());
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
+            try {
+                mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).bonded_tokens);
+            } catch (Exception e) {}
+            WLog.w("mBondedToken " + mBondedToken.toPlainString());
+
         }
+
+
+
         if(mTaskCount == 0) {
             mMyValidators.clear();
             for(Validator top:mTopValidators) {
@@ -744,7 +774,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     public boolean onFetchAccountInfo() {
         if(mTaskCount > 0) return false;
-        mTaskCount = 6;
+        mTaskCount = 9;
         ArrayList<Account> accounts = new ArrayList<Account>();
         accounts.add(mAccount);
         mOtherValidators.clear();
@@ -755,6 +785,9 @@ public class MainActivity extends BaseActivity implements TaskListener {
         new AccountInfoTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new BondingStateTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new UnBondingStateTask(getBaseApplication(), this, accounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         onAtomTic();
         return true;

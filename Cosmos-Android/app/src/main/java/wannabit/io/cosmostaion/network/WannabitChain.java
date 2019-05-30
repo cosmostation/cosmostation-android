@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResStakeTxInfo;
+import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface WannabitChain {
@@ -84,6 +85,16 @@ public interface WannabitChain {
     @GET("/staking/redelegations")
     Call<ArrayList<ResLcdRedelegate>> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
 
+
+
+    @GET("/minting/inflation")
+    Call<String> getInflation();
+
+    @GET("/minting/annual-provisions")
+    Call<String> getProvisions();
+
+    @GET("/staking/pool")
+    Call<ResStakingPool> getStakingPool();
 
     //Proposals
     @GET("/gov/proposals")

@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean                 IS_SHOWLOG 					            = false;
+    public final static boolean                 IS_SHOWLOG 					            = true;
     public final static boolean                 IS_TEST 					            = false;
     public final static boolean                 IS_FEE_FREE 					        = false;
     public final static String                  LOG_TAG                                 = "Cosmostation";
@@ -66,6 +66,9 @@ public class BaseConstant {
     public final static int					    TASK_FETCH_SINGLE_ALL_REDELEGATE	    = 2030;
     public final static int					    TASK_GEN_TX_SIMPLE_REDELEGATE	        = 2031;
     public final static int					    TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE = 2032;
+    public final static int					    TASK_FETCH_INFLATION		            = 2033;
+    public final static int					    TASK_FETCH_PROVISIONS		            = 2034;
+    public final static int					    TASK_FETCH_STAKING_POOL		            = 2035;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;
