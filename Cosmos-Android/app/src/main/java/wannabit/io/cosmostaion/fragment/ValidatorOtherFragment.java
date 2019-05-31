@@ -114,8 +114,9 @@ public class ValidatorOtherFragment extends BaseFragment {
             final Validator validator  = mOtherValidators.get(position);
             holder.itemTvMoniker.setText(validator.description.moniker);
             holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-            holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
-            holder.itemTvCommission.setTextColor(getResources().getColor(WDp.getCommisionColor(validator.commission.rate)));
+            if(getMainActivity().mBondedToken != null && getMainActivity().mProvisions != null) {
+                holder.itemTvCommission.setText("" + WDp.getYield(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.rate))+ "%");
+            }
 
             holder.itemFree.setVisibility(View.GONE);
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {

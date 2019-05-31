@@ -47,6 +47,13 @@ public class WDp {
         return result;
     }
 
+    public static SpannableString getDpAmount2(Context c, BigDecimal input, int point) {
+        SpannableString result;
+        result = new SpannableString(getDecimalFormat(c, point).format(input));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+    }
+
 //    public static SpannableString getDpDelegatedAmount(Context c, ArrayList<BondingState> bondingStates, String valOpAddr, BaseChain chain) {
 //        BigDecimal sum = BigDecimal.ZERO;
 //        for(BondingState bond : bondingStates) {
@@ -105,15 +112,47 @@ public class WDp {
     public static BigDecimal getYield(BigDecimal bonded, BigDecimal provision, BigDecimal commission) {
         BigDecimal result = BigDecimal.ZERO;
         try {
-            WLog.w("A " + provision.toPlainString());
-//            WLog.w("A " + provision.divide(bonded).toPlainString());
-//            WLog.w("A " + provision.divide(bonded).multiply(BigDecimal.ONE.subtract(commission)).toPlainString());
-//            WLog.w("B " + provision.divide(bonded).multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).toPlainString());
-//            WLog.w("C " + provision.divide(bonded).multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN));
-            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).divide(bonded, 2, RoundingMode.DOWN);
+            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).divide(bonded, 2, RoundingMode.HALF_UP);
 
         }catch (Exception e) {}
         return result;
+    }
+
+    public static BigDecimal getDailyReturn(BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
+        BigDecimal result = BigDecimal.ZERO;
+        try {
+            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("365000000")), 12, RoundingMode.HALF_UP);
+
+        }catch (Exception e) {}
+        return result;
+    }
+
+    public static SpannableString getDailyReturn(Context c, BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
+        BigDecimal result = BigDecimal.ZERO;
+        try {
+            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("365000000")), 12, RoundingMode.HALF_UP);
+
+        }catch (Exception e) {}
+        return getDpAmount2(c, result, 12);
+    }
+
+
+    public static BigDecimal getMonthlyReturn(BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
+        BigDecimal result = BigDecimal.ZERO;
+        try {
+            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.HALF_UP);
+
+        }catch (Exception e) {}
+        return result;
+    }
+
+    public static SpannableString getMonthlyReturn(Context c, BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
+        BigDecimal result = BigDecimal.ZERO;
+        try {
+            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.HALF_UP);
+
+        }catch (Exception e) {}
+        return getDpAmount2(c, result, 12);
     }
 
 
@@ -377,6 +416,10 @@ public class WDp {
     public static String getCommissionRate(String rate) {
         BigDecimal result = new BigDecimal(rate).multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN);
         return  result.toPlainString()+"%";
+    }
+
+    public static BigDecimal getCommissionRateDecimal(String rate) {
+        return new BigDecimal(rate).setScale(2, RoundingMode.DOWN);
     }
 
     public static int getCommisionColor(String rateS) {

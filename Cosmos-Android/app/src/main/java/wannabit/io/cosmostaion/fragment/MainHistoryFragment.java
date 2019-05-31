@@ -206,7 +206,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
             if(source.tx.value.msg.size() > 1) {
-                String type = viewHolder.historyType.getText().toString() + " + " + (source.tx.value.msg.size() - 1);
+                String type = viewHolder.historyType.getText().toString() + "\n+ " + (source.tx.value.msg.size() - 1);
                 viewHolder.historyType.setText(type);
             }
 

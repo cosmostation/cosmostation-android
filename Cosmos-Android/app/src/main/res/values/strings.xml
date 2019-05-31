@@ -238,6 +238,8 @@
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
     <string name="str_average_yield">Average Yield</string>
+    <string name="str_daily_return">Daily Return</string>
+    <string name="str_monthly_return">Monthly Return</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

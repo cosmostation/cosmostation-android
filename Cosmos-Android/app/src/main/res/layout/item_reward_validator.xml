@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         style="@style/font_ss_11_gray1"
-                        android:text="23.349000"/>
+                        android:text="-"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -126,14 +126,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_commission_validator"
                         style="@style/font_ss_11_gray1"
-                        android:text="@string/str_commission"/>
+                        android:text="@string/str_average_yield"/>
                     <TextView
                         android:id="@+id/delegate_commission_validator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         style="@style/font_ss_11_gray1"
-                        android:text="20%"/>
+                        android:text="-"/>
                 </RelativeLayout>
 
             </LinearLayout>

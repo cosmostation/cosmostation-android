@@ -85,6 +85,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private TaskResult                  mRedelegateResultThisVal;
 
 
+    public BigDecimal                   mBondedToken = BigDecimal.ZERO;
+    public BigDecimal                   mProvisions = BigDecimal.ZERO;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +98,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mToolbarAddress             = findViewById(R.id.toolbar_Address);
         mSwipeRefreshLayout         = findViewById(R.id.layer_refresher);
         mRecyclerView               = findViewById(R.id.recycler);
+
+        mBondedToken = new BigDecimal(getIntent().getStringExtra("bondedToken"));
+        mProvisions = new BigDecimal(getIntent().getStringExtra("provisions"));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -471,6 +478,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
+                if(mBondedToken != null && mProvisions != null) {
+                    holder.itemTvYieldRate.setText("" + WDp.getYield(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate))+ "%");
+                }
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("0%");
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
@@ -522,6 +532,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
+                if(mBondedToken != null && mProvisions != null) {
+                    holder.itemTvYieldRate.setText("" + WDp.getYield(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate))+ "%");
+                }
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                 if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("0%");
 
@@ -558,6 +571,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 } else {
                     holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
+
+                holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
+                holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
 
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -659,6 +675,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
                 }
 
+                if(source.tx.value.msg.size() > 1) {
+                    String type = holder.historyType.getText().toString() + "\n+ " + (source.tx.value.msg.size() - 1);
+                    holder.historyType.setText(type);
+                }
+
                 if(!source.result.isSuccess()) {
                     holder.historySuccess.setVisibility(View.VISIBLE);
                 } else {
@@ -737,6 +758,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             TextView    itemTvDescription;
             TextView    itemTvTotalBondAmount;
             TextView    itemTvSelfBondRate;
+            TextView    itemTvYieldRate;
             TextView    itemTvCommissionRate;
             Button      itemBtnDelegate;
 
@@ -751,6 +773,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemTvDescription       = itemView.findViewById(R.id.validator_description);
                 itemTvTotalBondAmount   = itemView.findViewById(R.id.validator_total_bonded);
                 itemTvSelfBondRate      = itemView.findViewById(R.id.validator_self_bond_rate);
+                itemTvYieldRate         = itemView.findViewById(R.id.validator_yield);
                 itemTvCommissionRate    = itemView.findViewById(R.id.validator_commission);
                 itemBtnDelegate         = itemView.findViewById(R.id.validator_btn_delegate);
             }
@@ -765,6 +788,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             TextView    itemTvWebsite;
             TextView    itemTvDescription;
             TextView    itemTvTotalBondAmount;
+            TextView    itemTvYieldRate;
             TextView    itemTvSelfBondRate;
             TextView    itemTvCommissionRate;
 
@@ -779,6 +803,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemTvDescription       = itemView.findViewById(R.id.validator_description);
                 itemTvTotalBondAmount   = itemView.findViewById(R.id.validator_total_bonded);
                 itemTvSelfBondRate      = itemView.findViewById(R.id.validator_self_bond_rate);
+                itemTvYieldRate         = itemView.findViewById(R.id.validator_yield);
                 itemTvCommissionRate    = itemView.findViewById(R.id.validator_commission);
             }
         }
@@ -788,6 +813,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             Button      itemBtnDelegate, itemBtnUndelegate, itemBtnRedelegate, itemBtnReward ;
             TextView    itemAtomTitle, itemPhotonTitle;
             RelativeLayout itemAtomLayer, itemPhotonLayer;
+            TextView    itemDailyReturn, itemMonthlyReturn;
 
             public MyActionHolder(View v) {
                 super(v);
@@ -804,6 +830,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemPhotonLayer         = itemView.findViewById(R.id.validator_photon_reward_layer);
                 itemAtomLayer           = itemView.findViewById(R.id.validator_atom_reward_layer);
                 itemTvSimpleReward      = itemView.findViewById(R.id.validator_simple_reward);
+                itemDailyReturn         = itemView.findViewById(R.id.validator_daily_return);
+                itemMonthlyReturn       = itemView.findViewById(R.id.validator_monthly_return);
             }
         }
 

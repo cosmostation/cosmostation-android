@@ -67,7 +67,7 @@
                             android:layout_height="wrap_content"
                             android:singleLine="true"
                             style="@style/font_ss_14_white"
-                            android:text="moniker"/>
+                            android:text="-"/>
                         <TextView
                             android:id="@+id/validator_address"
                             android:layout_width="wrap_content"
@@ -75,7 +75,7 @@
                             android:layout_marginTop="@dimen/space_2"
                             android:singleLine="true"
                             style="@style/font_ss_10_gray1"
-                            android:text="cosmosValbkjk482812739812733hnnn"
+                            android:text="-"
                             android:visibility="gone"/>
                         <TextView
                             android:id="@+id/validator_site"
@@ -86,7 +86,7 @@
                             android:layout_marginTop="@dimen/space_2"
                             android:autoLink="web"
                             android:clickable="true"
-                            android:text="www.google.com"/>
+                            android:text="-"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -99,7 +99,7 @@
                     android:maxLines="2"
                     android:ellipsize="end"
                     style="@style/font_ss_12_gray1"
-                    android:text="kfjhsdjkfnldsfsdkmf;lsdkmnflsdknfldsnfldsnkflsdknfksdjghkfdjgnkagjnlsakngjlsdkjgflsdkjfgldskfjldskfjsd/lkfjdsfkjdsfjs/"/>
+                    android:text="-/"/>
             </LinearLayout>
 
             <View
@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        android:text="232,743.738291"
+                        android:text="-"
                         style="@style/font_ssl_14_white"/>
                 </RelativeLayout>
                 <RelativeLayout
@@ -146,8 +146,26 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        android:text="23%"
+                        android:text="-"
                         style="@style/font_ssl_14_white"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_6">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_average_yield"
+                        style="@style/font_ss_12_gray1"/>
+                    <TextView
+                        android:id="@+id/validator_yield"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="right"
+                        android:text="-"
+                        style="@style/font_ssl_14_photon"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -164,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
-                        android:text="42%"
+                        android:text="-"
                         style="@style/font_ssl_14_white"/>
                 </RelativeLayout>
 

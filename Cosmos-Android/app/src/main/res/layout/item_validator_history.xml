@@ -33,7 +33,7 @@
                     android:id="@+id/history_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
+                    android:maxLines="2"
                     style="@style/font_ss_12_white"
                     android:text="Send"/>
                 <TextView

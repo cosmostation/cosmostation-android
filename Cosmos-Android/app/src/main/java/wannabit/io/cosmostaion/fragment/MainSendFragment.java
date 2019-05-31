@@ -217,7 +217,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
 
             mAtomInflation.setText("" + getMainActivity().mInflation.multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN) + "%");
-            mAtomYield.setText("" + WDp.getYield(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+            mAtomYield.setText("" + WDp.getYield(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO) + "%");
 
 
         } catch (Exception e) {
