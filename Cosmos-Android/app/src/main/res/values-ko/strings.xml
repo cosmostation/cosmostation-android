@@ -280,6 +280,7 @@
     <string name="str_sorting_by_name">이름으로 정렬</string>
     <string name="str_sorting_by_power">전체 위임량으로 정렬</string>
     <string name="str_sorting_by_commission">검증인 수수료로 정렬</string>
+    <string name="str_sorting_by_yield">이율로 정렬</string>
     <string name="str_sorting_by_my_delegated">내 위임 수량으로 정렬</string>
     <string name="str_sorting_by_reward">내 이자 수량으로 정렬</string>
     <string name="str_qr_code">QR 코드</string>

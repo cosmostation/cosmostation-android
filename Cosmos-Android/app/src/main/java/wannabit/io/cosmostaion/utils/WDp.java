@@ -47,9 +47,9 @@ public class WDp {
         return result;
     }
 
-    public static SpannableString getDpAmount2(Context c, BigDecimal input, int point) {
+    public static SpannableString getDpString(String input, int point) {
         SpannableString result;
-        result = new SpannableString(getDecimalFormat(c, point).format(input));
+        result = new SpannableString(input);
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
     }
@@ -118,6 +118,15 @@ public class WDp {
         return result;
     }
 
+    public static SpannableString getYieldString(BigDecimal bonded, BigDecimal provision, BigDecimal commission) {
+        BigDecimal result = BigDecimal.ZERO;
+        try {
+            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).divide(bonded, 2, RoundingMode.HALF_UP);
+
+        }catch (Exception e) {}
+        return getPercentDp(result);
+    }
+
     public static BigDecimal getDailyReturn(BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
         BigDecimal result = BigDecimal.ZERO;
         try {
@@ -133,7 +142,7 @@ public class WDp {
             result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("365000000")), 12, RoundingMode.HALF_UP);
 
         }catch (Exception e) {}
-        return getDpAmount2(c, result, 12);
+        return getDpString(result.toPlainString(), 12);
     }
 
 
@@ -152,7 +161,7 @@ public class WDp {
             result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.HALF_UP);
 
         }catch (Exception e) {}
-        return getDpAmount2(c, result, 12);
+        return getDpString(result.toPlainString(), 12);
     }
 
 
@@ -327,52 +336,6 @@ public class WDp {
         return getDpAmount(c, sum, 6, chain);
     }
 
-
-
-
-
-
-//    public static SpannableString getDpTotalAtomAmount(Context c, HashMap<Long, ArrayList<Balance>> balanceHashMap,
-//                                                       HashMap<Long, ArrayList<BondingState>> bondingHashMap,
-//                                                       HashMap<Long, ArrayList<UnBondingState>> unbondingHashMap,
-//                                                       HashMap<Long, TotalReward> rewardHashMap,
-//                                                       BaseChain chain) {
-//        BigDecimal sum = BigDecimal.ZERO;
-//        if(balanceHashMap != null) {
-//            for (long key : balanceHashMap.keySet() ) {
-//                for(Balance balance : balanceHashMap.get(key)) {
-//                    if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
-//                        sum = sum.add(balance.balance);
-//                    }
-//                }
-//            }
-//        }
-//        if(balanceHashMap != null) {
-//            for (long key : balanceHashMap.keySet() ) {
-//                for(BondingState bonding : bondingHashMap.get(key)) {
-//                    sum = sum.add(bonding.shares);
-//                }
-//            }
-//        }
-//        if(unbondingHashMap != null) {
-//            for (long key : unbondingHashMap.keySet() ) {
-//                for(UnBondingState unbonding : unbondingHashMap.get(key)) {
-//                    sum = sum.add(unbonding.balance);
-//                }
-//            }
-//        }
-//        if(rewardHashMap != null) {
-//            for (long key : rewardHashMap.keySet() ) {
-//                for(Coin coin : rewardHashMap.get(key).coins) {
-//                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
-//                        sum = sum.add(new BigDecimal(coin.amount));
-//                    }
-//                }
-//            }
-//        }
-//        return getDpAmount(c, sum, 6, chain);
-//    }
-
     public static SpannableString getDpTotalPhotonAmount(Context c, HashMap<Long, ArrayList<Balance>> balanceHashMap,
                                                        HashMap<Long, TotalReward> rewardHashMap,
                                                          BaseChain chain) {
@@ -405,17 +368,27 @@ public class WDp {
         return df.format(input);
     }
 
-
-
-
-    public static String getSelfBondRate(String total, String self) {
-        BigDecimal result = new BigDecimal(self).multiply(new BigDecimal("100")).divide(new BigDecimal(total), 2, RoundingMode.DOWN);
-        return  result.toPlainString()+"%";
+    public static SpannableString getDolorDp(BigDecimal input) {
+        return getDpString("$ " + input.setScale(2, RoundingMode.DOWN).toPlainString(), 2);
     }
 
-    public static String getCommissionRate(String rate) {
+    public static SpannableString getPriceUpDown(BigDecimal input) {
+        return getDpString(input.setScale(2, RoundingMode.DOWN).toPlainString() + "% (24h)", 9);
+    }
+
+    public static SpannableString getPercentDp(BigDecimal input) {
+        return getDpString(input.setScale(2, RoundingMode.DOWN).toPlainString() + "%", 3);
+    }
+
+
+    public static SpannableString getSelfBondRate(String total, String self) {
+        BigDecimal result = new BigDecimal(self).multiply(new BigDecimal("100")).divide(new BigDecimal(total), 2, RoundingMode.DOWN);
+        return  getPercentDp(result);
+    }
+
+    public static SpannableString getCommissionRate(String rate) {
         BigDecimal result = new BigDecimal(rate).multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN);
-        return  result.toPlainString()+"%";
+        return getPercentDp(result);
     }
 
     public static BigDecimal getCommissionRateDecimal(String rate) {

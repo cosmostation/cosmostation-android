@@ -324,6 +324,7 @@
     <string name="str_sorting_by_name">By Name</string>
     <string name="str_sorting_by_power">By Voting Power</string>
     <string name="str_sorting_by_commission">By Commission</string>
+    <string name="str_sorting_by_yield">By Yield</string>
     <string name="str_sorting_by_my_delegated">By My Delegations</string>
     <string name="str_sorting_by_reward">By Reward</string>
     <string name="str_qr_code">QR code</string>

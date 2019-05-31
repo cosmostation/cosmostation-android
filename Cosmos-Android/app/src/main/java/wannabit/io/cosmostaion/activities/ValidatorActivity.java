@@ -9,6 +9,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -79,7 +80,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private Reward                      mReward;
     private ArrayList<ResHistory.InnerHits> mTx = new ArrayList<>();
 
-    private String                      mSelfBondingRate;
+    private SpannableString             mSelfBondingRate;
 
     private int                         mTaskCount;
     private TaskResult                  mRedelegateResultThisVal;
@@ -272,6 +273,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     public void onStartRedelegate() {
         Intent reDelegate = new Intent(ValidatorActivity.this, RedelegateActivity.class);
         reDelegate.putExtra("validator", mValidator);
+        reDelegate.putExtra("bondedToken", mBondedToken.toPlainString());
+        reDelegate.putExtra("provisions", mProvisions.toPlainString());
         startActivity(reDelegate);
     }
 
@@ -367,7 +370,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onFetchValHistory() {
         mTaskCount++;
         ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
-        WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
+//        WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
         new ValHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -479,10 +482,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if(mBondedToken != null && mProvisions != null) {
-                    holder.itemTvYieldRate.setText("" + WDp.getYield(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate))+ "%");
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate)));
                 }
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
-                if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("0%");
+                if(!TextUtils.isEmpty(mSelfBondingRate)) {
+                    holder.itemTvSelfBondRate.setText(mSelfBondingRate);
+                } else {
+                    holder.itemTvSelfBondRate.setText(WDp.getPercentDp(BigDecimal.ZERO));
+                }
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -533,10 +540,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if(mBondedToken != null && mProvisions != null) {
-                    holder.itemTvYieldRate.setText("" + WDp.getYield(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate))+ "%");
+                    holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate)));
                 }
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
-                if(!TextUtils.isEmpty(mSelfBondingRate)) holder.itemTvSelfBondRate.setText(mSelfBondingRate); else holder.itemTvSelfBondRate.setText("0%");
+                if(!TextUtils.isEmpty(mSelfBondingRate)){
+                    holder.itemTvSelfBondRate.setText(mSelfBondingRate);
+                } else{
+                    holder.itemTvSelfBondRate.setText(WDp.getPercentDp(BigDecimal.ZERO));
+                }
 
                 if(mValidator.jailed) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
@@ -552,8 +563,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
                 if(mBondingState != null && mBondingState.getBondingAtom(mValidator) != null) {
                     holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
+                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
+
                 } else {
                     holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemDailyReturn.setText("-");
+                    holder.itemMonthlyReturn.setText("-");
                 }
 
                 if(mUnBondingStates != null && mUnBondingStates.size() > 0 ) {
@@ -572,8 +588,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
 
-                holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
-                holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
 
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override

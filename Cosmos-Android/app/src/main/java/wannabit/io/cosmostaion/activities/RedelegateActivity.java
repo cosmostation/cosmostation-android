@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -57,6 +58,10 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     public String                       mReDelegateMemo;
     public Fee                          mReDelegateFee;
 
+
+    public BigDecimal                   mProvisions = BigDecimal.ZERO;
+    public BigDecimal                   mBondedToken = BigDecimal.ZERO;
+
     private int                         mTaskCount;
 
     @Override
@@ -75,9 +80,11 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_1_img));
         mTvStep.setText(getString(R.string.str_redelegate_step_0));
 
-        mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mAccount            = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mFromValidator      = getIntent().getParcelableExtra("validator");
-        mBondingState   = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
+        mBondedToken        = new BigDecimal(getIntent().getStringExtra("bondedToken"));
+        mProvisions         = new BigDecimal(getIntent().getStringExtra("provisions"));
+        mBondingState       = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
 
         mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);

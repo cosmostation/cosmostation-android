@@ -54,7 +54,7 @@
             android:layout_marginRight="@dimen/space_12"
             android:background="@drawable/btn_bottom_select_dialog"
             style="@style/font_ss_14_white"
-            android:text="@string/str_sorting_by_commission"
+            android:text="@string/str_sorting_by_yield"
             android:textColor="@color/color_bottom_dialog_btn_text"
             android:textAllCaps="false"/>
     </LinearLayout>

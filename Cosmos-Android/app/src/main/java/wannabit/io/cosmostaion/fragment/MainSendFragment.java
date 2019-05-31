@@ -202,9 +202,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         try {
             BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             BigDecimal totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000")).setScale(2, RoundingMode.DOWN);
-            mAtomPrice.setText("$ " +  WDp.getDolor(getContext(), totalPrice));
-            mAtomPerPrice.setText("$ " + new BigDecimal(""+getBaseDao().getLastAtomTic()).setScale(2, RoundingMode.HALF_UP));
-            mAtomUpDownPrice.setText("" + new BigDecimal(""+getBaseDao().getLastAtomUpDown()).setScale(2, RoundingMode.HALF_UP) + "% (24h)");
+            mAtomPrice.setText(WDp.getDolorDp(totalPrice));
+            mAtomPerPrice.setText(WDp.getDolorDp(new BigDecimal(""+getBaseDao().getLastAtomTic()).setScale(2, RoundingMode.HALF_UP)));
+            mAtomUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastAtomUpDown())));
             if(getBaseDao().getLastAtomUpDown() > 0) {
                 matomUpDownImg.setVisibility(View.VISIBLE);
                 matomUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
@@ -215,9 +215,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 matomUpDownImg.setVisibility(View.GONE);
             }
 
-
-            mAtomInflation.setText("" + getMainActivity().mInflation.multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN) + "%");
-            mAtomYield.setText("" + WDp.getYield(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO) + "%");
+            mAtomInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
+            mAtomYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
 
 
         } catch (Exception e) {
