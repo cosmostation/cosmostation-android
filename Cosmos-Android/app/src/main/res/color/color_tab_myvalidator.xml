@@ -4,5 +4,5 @@
         android:color="@color/colorAtom" />
 
     <item android:state_selected="false"
-        android:color="@color/colorAtom3" />
+        android:color="@color/colorGray4" />
 </selector>

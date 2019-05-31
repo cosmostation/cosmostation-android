@@ -303,7 +303,7 @@
     <string name="str_only_observe_title">No Private Key.</string>
     <string name="str_only_observe_msg">This account has only address with watch mode.\nYou need add mnemonics for generate transaction.</string>
     <string name="str_all_validators">All Validators</string>
-    <string name="str_top_100_validators">Top 100</string>
+    <string name="str_top_100_validators">All</string>
     <string name="str_other_validators">Others</string>
     <string name="str_my_validators">My</string>
     <string name="str_withdraw_all">Claim all Rewards</string>

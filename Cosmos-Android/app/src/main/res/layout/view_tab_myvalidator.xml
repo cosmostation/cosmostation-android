@@ -10,6 +10,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textColor="@color/color_tab_myvalidator"
-        android:textSize="@dimen/text_size_12"
+        android:textSize="@dimen/text_size_14"
         android:fontFamily="sans-serif"/>
 </RelativeLayout>

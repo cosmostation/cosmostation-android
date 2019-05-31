@@ -67,12 +67,12 @@ public class MainRewardFragment extends BaseFragment {
         tabItemText0.setText(getString(R.string.str_my_validators) + "(" + getMainActivity().mMyValidators.size() + ")");
         mValidatorTapLayer.getTabAt(0).setCustomView(tab0);
 
-        View tab1 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_validator, null);
+        View tab1 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_myvalidator, null);
         TextView            tabItemText1  = tab1.findViewById(R.id.tabItemText);
         tabItemText1.setText(getString(R.string.str_top_100_validators)+ "(" + getMainActivity().mTopValidators.size() + ")");
         mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
 
-        View tab2 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_validator, null);
+        View tab2 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_myvalidator, null);
         TextView            tabItemText2  = tab2.findViewById(R.id.tabItemText);
         tabItemText2.setText(getString(R.string.str_other_validators)+ "(" + getMainActivity().mOtherValidators.size() + ")");
         mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
