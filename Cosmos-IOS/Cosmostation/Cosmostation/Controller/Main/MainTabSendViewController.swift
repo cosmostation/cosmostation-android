@@ -304,9 +304,14 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     @IBAction func onClickFaq(_ sender: UIButton) {
-        let guideVC = GuideViewController(nibName: "GuideViewController", bundle: nil)
-        guideVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(guideVC, animated: true)
+        if(Locale.current.languageCode == "ko") {
+            guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_ko.html") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        } else {
+            guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_en.html") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
     }
 }
