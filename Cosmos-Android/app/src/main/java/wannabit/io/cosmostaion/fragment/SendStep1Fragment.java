@@ -141,7 +141,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         super.onResume();
         if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
         mAtomTitle.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-        mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(new BigDecimal("500"));
+        mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(new BigDecimal("1"));
         mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
     }
 

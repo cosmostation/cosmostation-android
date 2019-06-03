@@ -195,7 +195,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) > 0)) {
                     hasAtom  = true;
                 }
             }
@@ -244,7 +244,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) >= 0)) {
                     hasAtom  = true;
                 }
             }
@@ -305,7 +305,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) >= 0)) {
                     hasAtom  = true;
                 }
             }
@@ -334,7 +334,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("500")) <= 0) {
+        if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("1")) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -348,7 +348,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasAtom  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) >= 0)) {
                     hasAtom  = true;
                 }
             }

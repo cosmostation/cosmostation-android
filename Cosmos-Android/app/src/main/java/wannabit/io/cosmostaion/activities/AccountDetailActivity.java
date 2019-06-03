@@ -148,7 +148,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                     hasbalance  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) >= 0)) {
                     hasbalance  = true;
                 }
             }

@@ -48,7 +48,7 @@
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:background="@drawable/btn_dia_white"
-                style="@style/font_ss_14_photon"
+                style="@style/font_ss_14_gray1"
                 android:text="@string/str_ok"/>
         </LinearLayout>
     </LinearLayout>

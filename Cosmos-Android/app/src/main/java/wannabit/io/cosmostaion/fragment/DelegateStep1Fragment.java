@@ -37,7 +37,7 @@ public class DelegateStep1Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_delegate_step1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tx_step_memo, container, false);
         mMemo       = rootView.findViewById(R.id.et_memo);
         mMemoCnt    = rootView.findViewById(R.id.tv_memoCnt);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);

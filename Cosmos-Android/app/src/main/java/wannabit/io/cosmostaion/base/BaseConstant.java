@@ -168,4 +168,5 @@ public class BaseConstant {
 
     public final static String                  FEE_GAS_AMOUNT_HALF                     = "100000";
     public final static String                  FEE_GAS_AMOUNT_AVERAGE                  = "200000";
+    public final static String                  FEE_GAS_AMOUNT_REDELEGATE               = "240000";
 }

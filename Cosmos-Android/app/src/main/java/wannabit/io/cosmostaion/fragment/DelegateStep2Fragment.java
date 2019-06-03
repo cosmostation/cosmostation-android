@@ -19,20 +19,16 @@ import android.widget.Toast;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Fee_Description;
-import wannabit.io.cosmostaion.dialog.Dialog_GasType;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class DelegateStep2Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -65,8 +61,6 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
     private BigDecimal      mFeeAmount      = BigDecimal.ZERO;      // uatom scale
     private BigDecimal      mFeePrice       = BigDecimal.ZERO;
 
-    private ArrayList<String>   mAtomFees = new ArrayList<>();
-
     public static DelegateStep2Fragment newInstance(Bundle bundle) {
         DelegateStep2Fragment fragment = new DelegateStep2Fragment();
         fragment.setArguments(bundle);
@@ -76,12 +70,11 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAtomFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.atom_fee)));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_delegate_step2, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tx_step_fee, container, false);
         mBtnGasType     = rootView.findViewById(R.id.btn_gas_type);
         mTvGasType      = rootView.findViewById(R.id.gas_type);
 
@@ -220,7 +213,7 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
         WLog.w("mToDelegate " + mToDelegate.toPlainString());
         WLog.w("mFeeAmount " + mFeeAmount.toPlainString());
 
-        if(mToDelegate.add(mFeeAmount).compareTo(mAvailable) > 0) {
+        if((mToDelegate.add(mFeeAmount)).compareTo(mAvailable) > 0) {
             Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
             mSeekBarGas.setProgress(mSeekBarGas.getProgress() - 1);
             onUpdateFeeLayer();
@@ -235,15 +228,15 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == SELECT_FREE_DIALOG && resultCode == Activity.RESULT_OK) {
-            Fee result = new Fee();
-            ArrayList<Coin> amount = new ArrayList<>();
-            Coin testCoin = new Coin("uatom", "0");
-            amount.add(testCoin);
-            result.amount = amount;
-            result.gas = "200000";
-
-            getSActivity().mToDelegateFee = result;
-            getSActivity().onNextStep();
+//            Fee result = new Fee();
+//            ArrayList<Coin> amount = new ArrayList<>();
+//            Coin testCoin = new Coin("uatom", "0");
+//            amount.add(testCoin);
+//            result.amount = amount;
+//            result.gas = "200000";
+//
+//            getSActivity().mToDelegateFee = result;
+//            getSActivity().onNextStep();
         }
     }
 }
