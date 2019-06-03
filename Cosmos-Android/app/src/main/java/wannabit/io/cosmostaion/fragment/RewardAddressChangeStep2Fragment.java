@@ -170,10 +170,15 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             mFeeLayer2.setVisibility(View.GONE);
 
             mFeeAmount  = BigDecimal.ONE;
-            mFeePrice   = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(8, RoundingMode.DOWN);
+            }
 
             mMinFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
-            mMinFeePrice.setText(getString(R.string.str_approximately)+ " " +WDp.getDolorDp(mFeePrice));
+            mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
 
         } else if (mSeekBarGas.getProgress() == 1) {
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.car_img));
@@ -185,10 +190,14 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_LOW, 4));
 
             mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
-            mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(8, RoundingMode.DOWN);
+            }
 
             mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
-            mGasFeePrice.setText(getString(R.string.str_approximately)+ " " +WDp.getDolorDp(mFeePrice));
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
 
         } else if (mSeekBarGas.getProgress() == 2) {
@@ -201,10 +210,13 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
 
             mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
-            mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
-
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(8, RoundingMode.DOWN);
+            }
             mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
-            mGasFeePrice.setText(getString(R.string.str_approximately)+ " " +WDp.getDolorDp(mFeePrice));
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
         }
 
         if(mFeeAmount.compareTo(mAvailable) > 0) {

@@ -165,6 +165,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onRefreshTab() {
+        WLog.w("MainSendFragment onRefreshTab");
         if(!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
         onUpdateView();
@@ -201,9 +202,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         try {
             BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
-            BigDecimal totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000")).setScale(2, RoundingMode.DOWN);
-            mAtomPrice.setText(WDp.getDolorDp(totalPrice));
-            mAtomPerPrice.setText(WDp.getDolorDp(new BigDecimal(""+getBaseDao().getLastAtomTic()).setScale(2, RoundingMode.HALF_UP)));
+            BigDecimal totalPrice = BigDecimal.ZERO;
+            if(getBaseDao().getCurrency() != 5) {
+                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000")).setScale(2, RoundingMode.DOWN);
+            } else {
+                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000")).setScale(8, RoundingMode.DOWN);
+            }
+            mAtomPrice.setText(WDp.getPriceDp(getContext(), totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mAtomPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastAtomTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
             mAtomUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastAtomUpDown())));
             if(getBaseDao().getLastAtomUpDown() > 0) {
                 matomUpDownImg.setVisibility(View.VISIBLE);

@@ -117,6 +117,52 @@ public class BaseData {
         return ""+result;
     }
 
+
+    public int getCurrency() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_CURRENCY, 0);
+    }
+
+    public String getCurrencyString() {
+        if (getCurrency() == 1) {
+            return "EUR";
+        } else if (getCurrency() == 2) {
+            return "KRW";
+        } else if (getCurrency() == 3) {
+            return "JPY";
+        } else if (getCurrency() == 4) {
+            return "CNY";
+        } else if (getCurrency() == 5) {
+            return "BTC";
+        } else {
+            return "USD";
+        }
+    }
+
+    public String getCurrencySymbol() {
+        if (getCurrency() == 1) {
+            return "€";
+        } else if (getCurrency() == 2) {
+            return "₩";
+        } else if (getCurrency() == 3) {
+            return "¥";
+        } else if (getCurrency() == 4) {
+            return "¥";
+        } else if (getCurrency() == 5) {
+            return "\u20BF";
+        } else {
+            return "$";
+        }
+
+    }
+
+    public void setCurrency(int currency) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_CURRENCY, currency).commit();
+    }
+
+
+
+
+
     public Password onSelectPassword() {
         Password result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_PASSWORD, new String[]{"resource", "spec"}, null, null, null, null, null);

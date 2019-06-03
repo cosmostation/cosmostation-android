@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,16 +15,29 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.GuideListActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResAtomTic;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
+
+    public final static int SELECT_CURRENCY = 9034;
 
     private FrameLayout mBtnWallet, mBtnAlaram, mBtnCurrency, mBtnBasePrice,
                         mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage,
@@ -100,6 +114,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         if(!isAdded()) return;
+        mTvCurrency.setText(getBaseDao().getCurrencyString());
     }
 
     @Override
@@ -111,7 +126,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnCurrency)) {
-//            Toast.makeText(getBaseActivity(), R.string.str_will_support_with_mainnet, Toast.LENGTH_SHORT).show();
+            Dialog_Currency_Set cyrrency_dialog = Dialog_Currency_Set.newInstance(null);
+            cyrrency_dialog.setCancelable(true);
+            cyrrency_dialog.setTargetFragment(this, SELECT_CURRENCY);
+            getFragmentManager().beginTransaction().add(cyrrency_dialog, "dialog").commitNowAllowingStateLoss();
             return;
 
         } else if (v.equals(mBtnBasePrice)) {
@@ -159,5 +177,42 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
+            getBaseDao().setCurrency(data.getIntExtra("currency", 0));
+            mTvCurrency.setText(getBaseDao().getCurrencyString());
+            onAtomTic();
+        }
+    }
+
+
+    private void onAtomTic() {
+        ApiClient.getCMCClient(getMainActivity()).getAtomTic(3794,getBaseDao().getCurrencyString()).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(!isAdded()) return;
+                try {
+                    if(response.isSuccessful()) {
+                        ResAtomTic mResAtomTic = new Gson().fromJson(response.body(), ResAtomTic.class);
+                        getBaseDao().setLastAtomTic(mResAtomTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
+                        getBaseDao().setLastAtomUpDown(mResAtomTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
+                    }
+                } catch (Exception e) {
+                    getBaseDao().setLastAtomTic(0d);
+                    getBaseDao().setLastAtomUpDown(0d);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                getBaseDao().setLastAtomTic(0d);
+                getBaseDao().setLastAtomUpDown(0d);
+
+            }
+        });
     }
 }

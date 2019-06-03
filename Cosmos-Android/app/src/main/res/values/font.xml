@@ -251,6 +251,12 @@
         <item name="android:textSize">@dimen/text_size_15</item>
     </style>
 
+    <style name="font_ss_15_gray8" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorGray8</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+    </style>
+
 
 
 
@@ -281,6 +287,12 @@
     <style name="font_ss_17_gray8" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray8</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <style name="font_ss_17_atom" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorAtom</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 

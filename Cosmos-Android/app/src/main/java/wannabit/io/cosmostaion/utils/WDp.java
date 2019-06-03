@@ -54,20 +54,6 @@ public class WDp {
         return result;
     }
 
-//    public static SpannableString getDpDelegatedAmount(Context c, ArrayList<BondingState> bondingStates, String valOpAddr, BaseChain chain) {
-//        BigDecimal sum = BigDecimal.ZERO;
-//        for(BondingState bond : bondingStates) {
-//            if(bond.validatorAddress.equals(valOpAddr)) {
-//                sum = bond.shares;
-//                break;
-//            }
-//        }
-//        return getDpAmount(c, sum, 6, chain);
-//
-//    }
-
-
-
     public static SpannableString getDpAtomRewardAmount(Context c, ArrayList<Reward> rewards, String valOpAddr, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Reward reward : rewards) {
@@ -365,14 +351,47 @@ public class WDp {
 
 
 
-    public static String getDolor(Context c, BigDecimal input) {
-        DecimalFormat df = getDecimalFormat(c, 2);
-        return df.format(input);
+//    public static String getDolor(Context c, BigDecimal input) {
+//        DecimalFormat df = getDecimalFormat(c, 2);
+//        return df.format(input);
+//    }
+//
+//    public static SpannableString getDolorDp(BigDecimal input) {
+//        return getDpString("$ " + input.setScale(2, RoundingMode.DOWN).toPlainString(), 2);
+//    }
+
+    public static SpannableString getPriceDp(Context c, BigDecimal input, String symbol, int currency) {
+        if (currency == 5) {
+            SpannableString result;
+            result = new SpannableString(symbol + " " +getDecimalFormat(c, 8).format(input));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            SpannableString result;
+            result = new SpannableString(symbol + " " +getDecimalFormat(c, 2).format(input));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        }
     }
 
-    public static SpannableString getDolorDp(BigDecimal input) {
-        return getDpString("$ " + input.setScale(2, RoundingMode.DOWN).toPlainString(), 2);
+    public static SpannableString getPriceApproximatelyDp(Context c, BigDecimal input, String symbol, int currency) {
+        if (currency == 5) {
+            SpannableString result;
+            result = new SpannableString(c.getString(R.string.str_approximately)+ " " + symbol + " " +getDecimalFormat(c, 8).format(input));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            SpannableString result;
+            result = new SpannableString(c.getString(R.string.str_approximately)+ " " + symbol + " " +getDecimalFormat(c, 2).format(input));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        }
     }
+
 
     public static SpannableString getPriceUpDown(BigDecimal input) {
         return getDpString(input.setScale(2, RoundingMode.DOWN).toPlainString() + "% (24h)", 9);

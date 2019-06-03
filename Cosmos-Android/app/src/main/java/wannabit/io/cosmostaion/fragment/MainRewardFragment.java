@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -15,18 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.ValidatorActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_My_ValidatorSorting;
-import wannabit.io.cosmostaion.dialog.Dialog_ValidatorSorting;
-import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class MainRewardFragment extends BaseFragment {

@@ -21,6 +21,7 @@ public class BaseConstant {
     public final static String					PRE_MY_VALIDATOR_SORTING			    = "PRE_MY_VALIDATOR_SORTING";
     public final static String					PRE_ATOM_TIC			                = "PRE_ATOM_TIC";
     public final static String					PRE_ATOM_UP_DOWN_24			            = "PRE_ATOM_UP_DOWN_24";
+    public final static String					PRE_CURRENCY			                = "PRE_CURRENCY";
 
     public final static String					SET_USE_FINGERPRINT			            = "SET_USE_FINGERPRINT";
     public final static String					SET_HISTORY_QUERY			            = "SET_HISTORY_QUERY";

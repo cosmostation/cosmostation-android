@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     private StopViewPager               mContentsPager;
     private TabLayout                   mTabLayer;
-    private MainViewPageAdapter         mPageAdapter;
+    public  MainViewPageAdapter         mPageAdapter;
     private FrameLayout                 mDimLayer;
     public FloatingActionButton         mFloatBtn;
 
@@ -810,16 +810,15 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
 
     private void onAtomTic() {
-        ApiClient.getCMCClient(getBaseContext()).getAtomTic(3794,"USD").enqueue(new Callback<JsonObject>() {
+        ApiClient.getCMCClient(getBaseContext()).getAtomTic(3794,getBaseDao().getCurrencyString()).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if(isFinishing()) return;
                 try {
                     if(response.isSuccessful()) {
                         ResAtomTic mResAtomTic = new Gson().fromJson(response.body(), ResAtomTic.class);
-                        getBaseDao().setLastAtomTic(mResAtomTic.getData().getQuotesMap().get("USD").getPrice());
-                        getBaseDao().setLastAtomUpDown(mResAtomTic.getData().getQuotesMap().get("USD").getPercent_change_24h());
-//                        onFetchCurrentPage();
+                        getBaseDao().setLastAtomTic(mResAtomTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
+                        getBaseDao().setLastAtomUpDown(mResAtomTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
                     }
                 }catch (Exception e) {}
 
