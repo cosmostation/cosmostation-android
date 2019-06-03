@@ -119,7 +119,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             return;
 
         } else if (v.equals(mBtnGuide)) {
-            startActivity(new Intent(getBaseActivity(), GuideListActivity.class));
+            if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
+                startActivity(guideIntent);
+            } else {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
+                startActivity(guideIntent);
+            }
 
         } else if (v.equals(mBtnTelegram)) {
             Intent telegram = new Intent(Intent.ACTION_VIEW , Uri.parse("https://t.me/cosmostation"));

@@ -258,8 +258,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (v.equals(mFaqBtn)) {
-            startActivity(new Intent(getBaseActivity(), GuideListActivity.class));
+            if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
+                startActivity(guideIntent);
+            } else {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
+                startActivity(guideIntent);
+            }
         }
+
     }
 }
 
