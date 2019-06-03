@@ -302,7 +302,7 @@ class GenTxResultViewController: BaseViewController {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                if(SHOW_LOG) { print("onFetchTx ", res) }
+                if(SHOW_LOG) { print("onFetchTx ", res) }
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     self.fetchCnt = self.fetchCnt - 1
                     if(self.fetchCnt > 0) {

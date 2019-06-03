@@ -235,6 +235,7 @@ class WUtils {
         nf.maximumFractionDigits = 6
         nf.numberStyle = .decimal
         nf.locale = Locale.current
+        nf.groupingSeparator = ""
         return nf.string(from: input)!
     }
     

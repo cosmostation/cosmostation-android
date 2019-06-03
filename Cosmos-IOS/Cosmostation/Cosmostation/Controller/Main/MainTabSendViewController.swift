@@ -40,15 +40,6 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     @IBOutlet weak var priceUpDownLabel: UILabel!
     @IBOutlet weak var priceUpDownImg: UIImageView!
     
-//    @IBOutlet weak var photonCard: CardView!
-//    @IBOutlet weak var photonPriceLabel: UILabel!
-//    @IBOutlet weak var photonTotalLabel: UILabel!
-//    @IBOutlet weak var photonAvailableAmount: UILabel!
-//    @IBOutlet weak var photonRewardAmount: UILabel!
-    
-    
-//    @IBOutlet weak var ConstraintPhoton: NSLayoutConstraint!
-//    @IBOutlet weak var ConstaraintPrice: NSLayoutConstraint!
     @IBOutlet weak var inflationLabel: UILabel!
     @IBOutlet weak var yieldLabel: UILabel!
     
@@ -62,8 +53,6 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        rewardImg.image = rewardImg.image?.withRenderingMode(.alwaysTemplate)
-//        rewardImg.tintColor = UIColor.white
         
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         self.updateTitle()
@@ -91,9 +80,6 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         } else { keyTypeImg.image = UIImage(named: "key_off") }
         
         if(mainTabVC.mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
-//            photonCard.isHidden = true
-//            ConstaraintPrice.priority = UILayoutPriority(rawValue: 1000)
-//            ConstraintPhoton.priority = UILayoutPriority(rawValue: 500)
             titleChainName.text = "(Cosmos Hub)"
         } else {
             titleChainName.text = ""
