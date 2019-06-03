@@ -29,6 +29,16 @@
             android:gravity="center"
             android:text="@string/str_reward_address_change_msg"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginLeft="@dimen/space_40"
+            android:layout_marginRight="@dimen/space_40"
+            style="@style/font_ss_12_red"
+            android:gravity="center"
+            android:text="@string/str_reward_address_change_market_no"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"

@@ -316,6 +316,7 @@
     <string name="str_redelegation_description">재위임을 받을 검증인에서\n다시 재위임을 하는것은 21일간 불가능 합니다.</string>
     <string name="str_reward_address_change_title">이자 지급 주소 변경</string>
     <string name="str_reward_address_change_msg">이자 지급 주소를 변경하실 수 있습니다.\n주소 변경 후 이자요청시 모든 이자는 변경된 주소로 지급됩니다.\n복구 단어로 접근이 가능하신 주소를 변경주소로 선택하셔야 합니다.</string>
+    <string name="str_reward_address_change_market_no">거래소 입금 주소로 설정하지 마세요.</string>
     <string name="str_more_wait_title">결과 확인 지연</string>
     <string name="str_more_wait_msg"><![CDATA[요청하신 트랜잭션은 블럭체인에 정확히 전달하였습니다.
     하지만 결과값을 보여주는데 시간이 지연되고 있습니다.

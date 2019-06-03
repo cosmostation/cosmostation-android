@@ -362,6 +362,7 @@
     <string name="str_reward_address_change_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. \nPlease confirm you have full authority with to change address.</string>
     <string name="str_reward_address_change_confirm_title">Double Check!</string>
     <string name="str_reward_address_change_confirm_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. \nPlease confirm you have full authority with to change address.</string>
+    <string name="str_reward_address_change_market_no">Do not set this as an exchange address.</string>
     <string name="str_more_wait_title">Result Display Delayed</string>
     <string name="str_more_wait_msg"><![CDATA[The transaction you requested has been successfully broadcasted to the blockchain.
     However, there is a delay in displaying the result.
