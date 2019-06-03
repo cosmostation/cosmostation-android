@@ -226,6 +226,7 @@ class StepFeeViewController: BaseViewController {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             result = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1]
