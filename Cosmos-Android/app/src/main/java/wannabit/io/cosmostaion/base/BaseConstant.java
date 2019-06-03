@@ -161,4 +161,11 @@ public class BaseConstant {
     public final static long					CONSTANT_H			                    = CONSTANT_M * 60;
     public final static long					CONSTANT_D			                    = CONSTANT_H * 24;
 
+
+    public final static String                  FEE_GAS_RATE_LOW                        = "0.0025";
+    public final static String                  FEE_GAS_RATE_AVERAGE                    = "0.025";
+
+
+    public final static String                  FEE_GAS_AMOUNT_HALF                     = "100000";
+    public final static String                  FEE_GAS_AMOUNT_AVERAGE                  = "200000";
 }

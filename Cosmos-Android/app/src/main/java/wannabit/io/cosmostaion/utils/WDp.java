@@ -66,6 +66,8 @@ public class WDp {
 //
 //    }
 
+
+
     public static SpannableString getDpAtomRewardAmount(Context c, ArrayList<Reward> rewards, String valOpAddr, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Reward reward : rewards) {
@@ -413,6 +415,13 @@ public class WDp {
         return result;
     }
 
+    public static BigDecimal uAtomToAtom(BigDecimal uatom) {
+        return uatom.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN);
+    }
+
+    public static BigDecimal atomToUatom(BigDecimal atom) {
+        return atom.multiply(new BigDecimal("1000000"));
+    }
 
 
 

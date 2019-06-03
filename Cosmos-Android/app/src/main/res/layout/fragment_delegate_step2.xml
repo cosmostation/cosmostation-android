@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_16">
         <RelativeLayout
             android:id="@+id/btn_gas_type"
@@ -33,28 +34,124 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/fee_dp_layer1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/space_54"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="@dimen/space_12"
+            android:paddingLeft="@dimen/space_12"
+            android:paddingRight="@dimen/space_12"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginTop="@dimen/space_24"
-            android:background="@color/colorTransBg">
+            android:background="@color/colorTransBg"
+            android:visibility="gone">
             <TextView
-                android:id="@+id/fee_amount"
+                android:id="@+id/min_fee_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/font_ss_14_white"
                 android:text="-"/>
             <TextView
-                android:id="@+id/fee_price"
+                android:id="@+id/min_fee_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_2"
                 style="@style/font_ss_10_gray1"
                 android:text="-"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fee_dp_layer2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_54"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingLeft="@dimen/space_12"
+            android:paddingRight="@dimen/space_12"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_24"
+            android:background="@color/colorTransBg">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/gas_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_ss_12_white"
+                    android:text="-"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_ss_9_gray1"
+                    android:text="@string/str_gas_amount"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_ss_17_white"
+                    android:text="X"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/gas_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_ss_12_white"
+                    android:text="-"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_ss_9_gray1"
+                    android:text="@string/str_gas_rate"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_ss_17_white"
+                    android:text="="/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/gas_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_ss_15_white"
+                    android:text="-"/>
+                <TextView
+                    android:id="@+id/gas_fee_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_ss_9_gray1"
+                    android:text="$35"/>
+            </LinearLayout>-
         </LinearLayout>
 
         <LinearLayout
@@ -71,56 +168,60 @@
                 android:maxHeight="2dp"
                 android:splitTrack="false"
                 android:progress="1"
-                android:max="3"
+                android:max="2"
                 android:progressDrawable="@drawable/gas_atom_seekbar_style"
                 android:thumb="@drawable/gas_seekbar_thumb"/>
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/space_8"
                 android:layout_marginLeft="@dimen/space_8"
                 android:layout_marginRight="@dimen/space_8">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     style="@style/font_ss_11_gray1"
                     android:text="@string/str_tiny"/>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_weight="1"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
                     style="@style/font_ss_11_gray1"
-                    android:text="@string/str_high"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:text="@string/str_low"/>
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:layout_marginLeft="@dimen/space_4"
-                        android:gravity="center"
-                        style="@style/font_ss_11_gray1"
-                        android:text="@string/str_low"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:layout_marginRight="@dimen/space_4"
-                        android:gravity="center"
-                        style="@style/font_ss_11_gray1"
-                        android:text="@string/str_average"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
-                </LinearLayout>
-            </RelativeLayout>
+                    android:layout_weight="1"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    style="@style/font_ss_11_gray1"
+                    android:text="@string/str_average"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/speed_layer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_44"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/speed_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bycicle_img"/>
+            <TextView
+                android:id="@+id/speed_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                style="@style/font_ss_12_gray1"
+                android:text="@string/str_fee_speed_title_0"/>
         </LinearLayout>
 
     </LinearLayout>
