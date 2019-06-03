@@ -208,11 +208,6 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
             mGasFeePrice.setText(getString(R.string.str_approximately)+ " " +WDp.getDolorDp(mFeePrice));
         }
 
-
-        WLog.w("mAvailable " + mAvailable.toPlainString());
-        WLog.w("mToDelegate " + mToDelegate.toPlainString());
-        WLog.w("mFeeAmount " + mFeeAmount.toPlainString());
-
         if((mToDelegate.add(mFeeAmount)).compareTo(mAvailable) > 0) {
             Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
             mSeekBarGas.setProgress(mSeekBarGas.getProgress() - 1);

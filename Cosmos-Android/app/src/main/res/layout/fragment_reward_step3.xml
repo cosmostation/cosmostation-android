@@ -154,55 +154,63 @@
             </LinearLayout>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorGray3"/>
-
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/expected_Layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_16">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_expected_balance"
-                    style="@style/font_ss_12_gray1"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-                    <TextView
-                        android:id="@+id/expected_atom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-"
-                        style="@style/font_ssl_12_white"/>
-                    <TextView
-                        android:id="@+id/expected_atom_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_2"
-                        android:text="@string/str_atom_c"
-                        style="@style/font_ss_12_atom"/>
-                </LinearLayout>
-            </RelativeLayout>
+                android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGray3"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/expected_price"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    style="@style/font_ss_10_gray1"
-                    android:text=" ~ $ 12.23"/>
-            </RelativeLayout>
+                    android:layout_marginTop="@dimen/space_16">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_expected_balance"
+                        style="@style/font_ss_12_gray1"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/expected_atom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            style="@style/font_ssl_12_white"/>
+                        <TextView
+                            android:id="@+id/expected_atom_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_2"
+                            android:text="@string/str_atom_c"
+                            style="@style/font_ss_12_atom"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/expected_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="right"
+                        style="@style/font_ss_10_gray1"
+                        android:text=" ~ $ 12.23"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

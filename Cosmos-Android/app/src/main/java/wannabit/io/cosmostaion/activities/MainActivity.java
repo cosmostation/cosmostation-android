@@ -349,9 +349,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
             toClaimValidators = new ArrayList<>(myValidators.subList(0,16));
         }
 
-        ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));
-        BigDecimal mGasMinFee = new BigDecimal(getString(R.string.gas_constant)).multiply(new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1))).setScale(0);
-
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         for (Balance balance:balances) {
@@ -360,7 +357,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     hasbalance  = true;
                 }
             } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(mGasMinFee)) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) >= 0)) {
                     hasbalance  = true;
                 }
             }
@@ -374,7 +371,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         for (Reward reward:mRewards) {
             rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
         }
-        if (rewardSum.compareTo(mGasMinFee) <= 0) {
+        if (rewardSum.compareTo(new BigDecimal("1")) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -531,19 +528,16 @@ public class MainActivity extends BaseActivity implements TaskListener {
             try {
                 mInflation = new BigDecimal((String)result.resultData);
             } catch (Exception e) {}
-            WLog.w("mInflation " + mInflation.toPlainString());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_PROVISIONS) {
             try {
                 mProvisions = new BigDecimal((String)result.resultData);
             } catch (Exception e) {}
-            WLog.w("mProvisions " + mProvisions.toPlainString());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
             try {
                 mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).bonded_tokens);
             } catch (Exception e) {}
-            WLog.w("mBondedToken " + mBondedToken.toPlainString());
 
         }
 

@@ -24,6 +24,8 @@ import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
+import wannabit.io.cosmostaion.dialog.Dialog_Fee_Description;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -187,6 +189,9 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mAddMax)) {
             mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
+            Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
+            dialog.setCancelable(true);
+            dialog.show(getFragmentManager().beginTransaction(), "dialog");
 
         } else if (v.equals(mClearAll)) {
             mAmountInput.setText("");
