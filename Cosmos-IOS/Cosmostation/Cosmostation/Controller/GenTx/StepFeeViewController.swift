@@ -167,10 +167,16 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, rateFeeAmountLabel.font, 6)
         }
         
-        if let tic = BaseData.instance.getAtomTicCmc(),  let price = tic.value(forKeyPath: "data.quotes.USD.price") as? Double {
+        if let tic = BaseData.instance.getAtomTicCmc(),  let price = tic.value(forKeyPath: getPricePath()) as? Double {
             let priceValue = NSDecimalNumber(value: price)
-            self.minFeePriceLabel.attributedText = WUtils.displayUSD(feeAmount.dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: minFeePriceLabel.font)
-            self.rateFeePriceLabel.attributedText = WUtils.displayUSD(feeAmount.dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: minFeePriceLabel.font)
+            var dpPrice = NSDecimalNumber.zero
+            if(BaseData.instance.getCurrency() == 5) {
+                dpPrice = feeAmount.dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler8)
+            } else {
+                dpPrice = feeAmount.dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
+            }
+            self.minFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: minFeePriceLabel.font)
+            self.rateFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: minFeePriceLabel.font)
         }
         
         

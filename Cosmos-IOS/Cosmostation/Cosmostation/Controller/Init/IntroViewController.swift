@@ -23,12 +23,9 @@ class IntroViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("IntroViewController viewDidLoad")
-//        print("password ", BaseData.instance.hasPassword())
         
         let accouts = BaseData.instance.selectAllAccounts()
         if(accouts.count <= 0) {
-//            print("No accounts");
             UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseOut, animations: {
                 self.bottomLogoView.alpha = 0.0
             }, completion: { (finished) -> Void in
@@ -39,7 +36,6 @@ class IntroViewController: BaseViewController {
             })
 
         } else {
-//            print("accounts size : ", accouts.count);
             self.onStartMainTab()
 
         }
@@ -51,20 +47,6 @@ class IntroViewController: BaseViewController {
         importAddressBtn.addTarget(self, action: #selector(startHighlight), for: .touchDown)
         importAddressBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpInside)
         importAddressBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpOutside)
-        
-//        let createVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(createVC, animated: true)
-        
-        
-//        WKey.getCosmosAddressFromPubKey("cosmospub1addwnpepq2djnv5m0aqqeqjlkul9yza2g4fdfyupa9gde66x7d4m80tm4evpyxll4ss")
-        
-//        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(stakingVC, animated: true)
-        
-        
-//        print("amount18 ", WUtils.unDelegateFormat("10.45"))
 
     }
     
@@ -76,13 +58,11 @@ class IntroViewController: BaseViewController {
     }
     
     @IBAction func onClickCreate(_ sender: Any) {
-//        print("onClickCreate");
         self.onStartCreate()
         
     }
     
     @IBAction func onClickImport(_ sender: Any) {
-//        print("onClickImport");
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
             self.importBtn.alpha = 0.0
         }, completion: { (finished) -> Void in
@@ -98,12 +78,10 @@ class IntroViewController: BaseViewController {
     }
     
     @IBAction func onClickImportMnemonic(_ sender: Any) {
-//        print("onClickImportMnemonic");
         self.onStartImportMnemonic()
     }
     
     @IBAction func onClickImportAddress(_ sender: Any) {
-//        print("onClickImportAddress");
         self.onStartImportAddress()
         
     }

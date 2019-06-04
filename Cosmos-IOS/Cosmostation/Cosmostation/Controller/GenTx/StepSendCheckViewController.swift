@@ -90,13 +90,27 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         
         mMemoLabel.text = pageHolderVC.mMemo
         
-        guard let tic = BaseData.instance.getAtomTicCmc() else {
-            return
-        }
-        if let price = tic.value(forKeyPath: "data.quotes.USD.price") as? Double {
+//        guard let tic = BaseData.instance.getAtomTicCmc() else {
+//            return
+//        }
+//        if let price = tic.value(forKeyPath: "data.quotes.USD.price") as? Double {
+//            let priceValue = NSDecimalNumber(value: price)
+//            mTotalSpendPrice.attributedText = WUtils.displayUSD((feeAmout.adding(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: mTotalSpendPrice.font)
+//            mReminaingPrice.attributedText = WUtils.displayUSD((currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: mReminaingPrice.font)
+//        }
+        if let tic = BaseData.instance.getAtomTicCmc(),  let price = tic.value(forKeyPath: getPricePath()) as? Double {
             let priceValue = NSDecimalNumber(value: price)
-            mTotalSpendPrice.attributedText = WUtils.displayUSD((feeAmout.adding(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.displayUSD((currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: mReminaingPrice.font)
+            var totalSpendDpPrice = NSDecimalNumber.zero
+            var remindDpPrice = NSDecimalNumber.zero
+            if(BaseData.instance.getCurrency() == 5) {
+                totalSpendDpPrice = (feeAmout.adding(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler8)
+                remindDpPrice = (currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler8)
+            } else {
+                totalSpendDpPrice = (feeAmout.adding(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
+                remindDpPrice = (currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
+            }
+            mTotalSpendPrice.attributedText = WUtils.displayPrice(totalSpendDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: mTotalSpendPrice.font);
+            mReminaingPrice.attributedText = WUtils.displayPrice(remindDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: mReminaingPrice.font);
         }
     }
     

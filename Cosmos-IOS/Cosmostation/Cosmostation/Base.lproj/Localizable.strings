@@ -152,7 +152,21 @@
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";
 
+"currency_usd" = "USD";
+"currency_eur" = "EUR";
+"currency_krw" = "KRW";
+"currency_jpy" = "JPY";
+"currency_cny" = "CNY";
+"currency_btc" = "BTC";
+"currency_usd_symbol" = "$";
+"currency_eur_symbol" = "€";
+"currency_krw_symbol" = "₩";
+"currency_jpy_symbol" = "¥";
+"currency_cny_symbol" = "¥";
+"currency_btc_symbol" = "₿";
 
+"currency_fetch_success" = "Currency updated";
+"currency_fetch_failed" = "Currency fetching failed";
 
 
 "tx_send" = "Send";

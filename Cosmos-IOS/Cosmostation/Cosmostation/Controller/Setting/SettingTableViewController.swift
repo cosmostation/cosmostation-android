@@ -13,6 +13,7 @@ import Toast_Swift
 class SettingTableViewController: UITableViewController {
 
     @IBOutlet weak var versionLabel: UILabel!
+    @IBOutlet weak var currecyLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +21,9 @@ class SettingTableViewController: UITableViewController {
         if let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String {
             self.versionLabel.text = "v " + appVersion
         }
+        self.onUpdateCurrency()
+        
     }
-    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0) {
@@ -34,7 +36,8 @@ class SettingTableViewController: UITableViewController {
             
         } else if (indexPath.section == 1) {
             if(indexPath.row == 0) {
-                onShowToast(NSLocalizedString("only_USD", comment: ""))
+//                onShowToast(NSLocalizedString("only_USD", comment: ""))
+                self.onShowCurrenyDialog()
                 
             } else if(indexPath.row == 1) {
                 onShowToast(NSLocalizedString("only_cmc", comment: ""))
@@ -107,10 +110,72 @@ class SettingTableViewController: UITableViewController {
         }
     }
     
+    func onUpdateCurrency() {
+        currecyLabel.text = BaseData.instance.getCurrencyString()
+    }
+    
     
     func onShowToast(_ text:String) {
         var style = ToastStyle()
         style.backgroundColor = UIColor.gray
         self.parent?.view.makeToast(text, duration: 2.0, position: .bottom, style: style)
+    }
+    
+    func onShowCurrenyDialog() {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let usdAction = UIAlertAction(title: NSLocalizedString("currency_usd", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(0)
+        })
+        usdAction.setValue(UIColor.black, forKey: "titleTextColor")
+        
+        let eurAction = UIAlertAction(title: NSLocalizedString("currency_eur", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(1)
+        })
+        eurAction.setValue(UIColor.black, forKey: "titleTextColor")
+        
+        let krwAction = UIAlertAction(title: NSLocalizedString("currency_krw", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(2)
+        })
+        krwAction.setValue(UIColor.black, forKey: "titleTextColor")
+        
+        let jpyAction = UIAlertAction(title: NSLocalizedString("currency_jpy", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(3)
+        })
+        jpyAction.setValue(UIColor.black, forKey: "titleTextColor")
+        
+        let cnyAction = UIAlertAction(title: NSLocalizedString("currency_cny", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(4)
+        })
+        cnyAction.setValue(UIColor.black, forKey: "titleTextColor")
+        
+        let btcAction = UIAlertAction(title: NSLocalizedString("currency_btc", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(5)
+        })
+        btcAction.setValue(UIColor.black, forKey: "titleTextColor")
+        
+        showAlert.addAction(usdAction)
+        showAlert.addAction(eurAction)
+        showAlert.addAction(krwAction)
+        showAlert.addAction(jpyAction)
+        showAlert.addAction(cnyAction)
+        showAlert.addAction(btcAction)
+        
+        self.present(showAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            showAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func onSetCurrency(_ value:Int) {
+        if(BaseData.instance.getCurrency() != value) {
+            BaseData.instance.setCurrency(value)
+            self.onUpdateCurrency()
+            NotificationCenter.default.post(name: Notification.Name("refreshCurrency"), object: nil, userInfo: nil)
+        }
+        
+    }
+    
+    @objc func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
     }
 }

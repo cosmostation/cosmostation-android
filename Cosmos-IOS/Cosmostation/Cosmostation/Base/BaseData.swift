@@ -78,6 +78,63 @@ final class BaseData : NSObject{
     }
     
     
+    func setCurrency(_ currency : Int) {
+        UserDefaults.standard.set(currency, forKey: KEY_CURRENCY)
+    }
+    
+    func getCurrency() -> Int {
+        return UserDefaults.standard.integer(forKey: KEY_CURRENCY)
+    }
+    
+    func getCurrencyString() -> String {
+        if (getCurrency() == 0) {
+            return NSLocalizedString("currency_usd", comment: "")
+            
+        } else if (getCurrency() == 1) {
+            return NSLocalizedString("currency_eur", comment: "")
+            
+        } else if (getCurrency() == 2) {
+            return NSLocalizedString("currency_krw", comment: "")
+            
+        } else if (getCurrency() == 3) {
+            return NSLocalizedString("currency_jpy", comment: "")
+            
+        } else if (getCurrency() == 4) {
+            return NSLocalizedString("currency_cny", comment: "")
+            
+        } else if (getCurrency() == 5) {
+            return NSLocalizedString("currency_btc", comment: "")
+            
+        } else {
+            return NSLocalizedString("currency_usd", comment: "")
+        }
+    }
+    
+    func getCurrencySymbol() -> String {
+        if (getCurrency() == 0) {
+            return NSLocalizedString("currency_usd_symbol", comment: "")
+            
+        } else if (getCurrency() == 1) {
+            return NSLocalizedString("currency_eur_symbol", comment: "")
+            
+        } else if (getCurrency() == 2) {
+            return NSLocalizedString("currency_krw_symbol", comment: "")
+            
+        } else if (getCurrency() == 3) {
+            return NSLocalizedString("currency_jpy_symbol", comment: "")
+            
+        } else if (getCurrency() == 4) {
+            return NSLocalizedString("currency_cny_symbol", comment: "")
+            
+        } else if (getCurrency() == 5) {
+            return NSLocalizedString("currency_btc_symbol", comment: "")
+            
+        } else {
+            return NSLocalizedString("currency_usd_symbol", comment: "")
+        }
+        
+    }
+    
     
     func initdb() {
         do {

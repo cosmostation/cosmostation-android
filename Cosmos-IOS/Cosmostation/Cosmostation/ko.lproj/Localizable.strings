@@ -152,6 +152,21 @@
 "alert_title_no_private_key" = "관찰 모드 지갑";
 "alert_msg_no_private_key" = "관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.";
 
+"currency_usd" = "USD";
+"currency_eur" = "EUR";
+"currency_krw" = "KRW";
+"currency_jpy" = "JPY";
+"currency_cny" = "CNY";
+"currency_btc" = "BTC";
+"currency_usd_symbol" = "$";
+"currency_eur_symbol" = "€";
+"currency_krw_symbol" = "₩";
+"currency_jpy_symbol" = "¥";
+"currency_cny_symbol" = "¥";
+"currency_btc_symbol" = "₿";
+
+"currency_fetch_success" = "가격 정보를 갱신 하였습니다.";
+"currency_fetch_failed" = "가격 정보 갱신에 실패하였습니다.";
 
 "tx_send" = "출금";
 "tx_receive" = "입금";

@@ -52,6 +52,11 @@ class PasswordViewController: BaseViewController {
         self.initView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("KeyboardClick"), object: nil)
+    }
+    
     
     func initView() {
         passwordMsgLabel.text = NSLocalizedString("password_init_warnning", comment: "")

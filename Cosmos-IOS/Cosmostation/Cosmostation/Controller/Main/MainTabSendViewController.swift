@@ -126,27 +126,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         let totalSum = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
         atomTotalLabel.attributedText = WUtils.displayAmout(totalSum.stringValue, atomTotalLabel.font, 6)
         
-        if let change = mainTabVC.mAtomTic?.value(forKeyPath: "data.quotes.USD.percent_change_24h") as? Double,
-            let price = mainTabVC.mAtomTic?.value(forKeyPath: "data.quotes.USD.price") as? Double {
-            let changeValue = NSDecimalNumber(value: change)
-            let priceValue = NSDecimalNumber(value: price)
-
-            let dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: totalSum, withBehavior: WUtils.handler2)
-            atomPriceLabel.attributedText = WUtils.displayUSD(dpPrice, font: atomPriceLabel.font)
-            pricePerAtom.attributedText = WUtils.displayUSD(priceValue, font: pricePerAtom.font)
-
-            if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                priceUpDownImg.image = UIImage(named: "priceUp")
-                priceUpDownLabel.attributedText = WUtils.displayPriceUPdown(changeValue, font: priceUpDownLabel.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                priceUpDownImg.image = UIImage(named: "priceDown")
-                priceUpDownLabel.attributedText = WUtils.displayPriceUPdown(changeValue, font: priceUpDownLabel.font)
-            } else {
-                priceUpDownImg.image = nil
-                priceUpDownLabel.text = ""
-            }
-        }
-        
+        self.updatePrice()
         
         var provisions = NSDecimalNumber.zero
         var inflation = NSDecimalNumber.zero
@@ -164,8 +144,36 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         self.refresher.endRefreshing()
     }
     
+    func updatePrice() {
+        let totalSum = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+        if let change = mainTabVC.mAtomTic?.value(forKeyPath: getPrice24hPath()) as? Double,
+            let price = mainTabVC.mAtomTic?.value(forKeyPath: getPricePath()) as? Double {
+            let changeValue = NSDecimalNumber(value: change)
+            let priceValue = NSDecimalNumber(value: price)
+            var dpPrice = NSDecimalNumber.zero
+            if(BaseData.instance.getCurrency() == 5) {
+                dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: totalSum, withBehavior: WUtils.handler8)
+            } else {
+                dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: totalSum, withBehavior: WUtils.handler2)
+            }
+            
+            atomPriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: atomPriceLabel.font)
+            pricePerAtom.attributedText = WUtils.displayPrice(priceValue, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: pricePerAtom.font)
+            
+            if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                priceUpDownImg.image = UIImage(named: "priceUp")
+                priceUpDownLabel.attributedText = WUtils.displayPriceUPdown(changeValue, font: priceUpDownLabel.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                priceUpDownImg.image = UIImage(named: "priceDown")
+                priceUpDownLabel.attributedText = WUtils.displayPriceUPdown(changeValue, font: priceUpDownLabel.font)
+            } else {
+                priceUpDownImg.image = nil
+                priceUpDownLabel.text = ""
+            }
+        }
+    }
+    
     func emptyFloatySelected(_ floaty: Floaty) {
-//        print("onStartSend")
         if(!mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
         }
@@ -187,7 +195,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
         self.updateTitle()
-        
+        self.updatePrice()
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
         
     }
@@ -200,12 +208,10 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
     
     @objc func onFetchDone(_ notification: NSNotification) {
-//        print("MainTabSendViewController onFetchDone")
         updateView();
     }
     
     @objc func onRequestFetch() {
-//        print("onRequestFetch")
         if(!mainTabVC.onFetchAccountData()) {
             self.refresher.endRefreshing()
         }

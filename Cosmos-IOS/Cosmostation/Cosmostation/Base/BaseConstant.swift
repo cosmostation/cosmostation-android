@@ -19,6 +19,7 @@ let KEY_MY_VAL_SORT                     = "KEY_MY_VAL_SORT"
 let KEY_LAST_TAB                        = "KEY_LAST_TAB"
 let KEY_ACCOUNT_REFRESH_ALL             = "KEY_ACCOUNT_REFRESH_ALL"
 let KEY_ATOM_TIC_CMC                    = "KEY_ATOM_TIC_CMC"
+let KEY_CURRENCY                        = "KEY_CURRENCY"
 
 
 //let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";

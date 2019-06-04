@@ -34,6 +34,15 @@ class MainTabSettingViewController: BaseViewController {
             mainTabVC.onUpdateDropDownView()
             self.updateTitle()
         }
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.onRefreshCurrency(_:)),
+                                               name: Notification.Name("refreshCurrency"),
+                                               object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("refreshCurrency"), object: nil)
     }
     
     func updateTitle() {
@@ -49,5 +58,9 @@ class MainTabSettingViewController: BaseViewController {
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.dropDown.show()
+    }
+    
+    @objc func onRefreshCurrency(_ notification: NSNotification) {
+        mainTabVC.onFetchAtomTic(false)
     }
 }

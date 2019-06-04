@@ -15,6 +15,8 @@ class WUtils {
     
     static let handler12 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 12, raiseOnExactness: true, raiseOnOverflow: false, raiseOnUnderflow: true, raiseOnDivideByZero: true)
     
+    static let handler8 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 8, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
     static let handler6 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 6, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static let handler2 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
@@ -286,17 +288,27 @@ class WUtils {
         return attributedString1
     }
     
-    static func displayUSD(_ usd: NSDecimalNumber, font:UIFont) -> NSMutableAttributedString {
+    static func displayPrice(_ amount: NSDecimalNumber, _ currency:Int, _ symbol:String, font:UIFont) -> NSMutableAttributedString {
         let nf = NumberFormatter()
-        nf.minimumFractionDigits = 2
-        nf.maximumFractionDigits = 2
         nf.numberStyle = .decimal
         
-        let formatted = "$ " + nf.string(from: usd)!
-        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -2)
+        var formatted = ""
+        var endIndex:String.Index?
+        if(currency == 5) {
+            nf.minimumFractionDigits = 8
+            nf.maximumFractionDigits = 8
+            formatted = symbol + " " + nf.string(from: amount)!
+            endIndex    = formatted.index(formatted.endIndex, offsetBy: -8)
+    
+        } else {
+            nf.minimumFractionDigits = 2
+            nf.maximumFractionDigits = 2
+            formatted = symbol + " " + nf.string(from: amount)!
+            endIndex    = formatted.index(formatted.endIndex, offsetBy: -2)
+        }
         
-        let preString   = formatted[..<endIndex]
-        let postString  = formatted[endIndex...]
+        let preString   = formatted[..<endIndex!]
+        let postString  = formatted[endIndex!...]
         
         let preAttrs = [NSAttributedString.Key.font : font]
         let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
@@ -306,7 +318,9 @@ class WUtils {
         
         attributedString1.append(attributedString2)
         return attributedString1
+        
     }
+    
     
     static func displayGasRate(_ rate: NSDecimalNumber, font:UIFont, _ deciaml:Int) -> NSMutableAttributedString {
         let nf = NumberFormatter()

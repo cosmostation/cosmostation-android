@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import DropDown
+import Toast_Swift
 
 class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBCardPopupDelegate{
     
@@ -203,14 +204,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         onFetchProvision()
 //        onFetchMintInfo()
         onFetchStakingPool()
-        onFetchAtomTic()
+        onFetchAtomTic(true)
         return true
     }
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if(mFetchCnt <= 0) {
-            //update Validators
 //            print("onFetchFinished")
             
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -424,12 +424,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchAtomTic() {
-//         print("onFetchAtomTic")
+    func onFetchAtomTic(_ callback:Bool) {
         let request = Alamofire
             .request(CMC_PRICE_TIC+"3794",
                      method: .get,
-                     parameters: ["convert":"USD"],
+                     parameters: ["convert":BaseData.instance.getCurrencyString()],
                      encoding: URLEncoding.default,
                      headers: [:]);
         request.responseJSON { (response) in
@@ -438,13 +437,18 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.mAtomTic = res as? NSDictionary
                 if(self.mAtomTic != nil){
                     BaseData.instance.setAtomTicCmc(self.mAtomTic!)
+                    if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_success", comment: "")) }
+                } else  {
+                    if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
                 }
                 
-                
             case .failure(let error):
+                if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
                 print(error)
             }
-            self.onFetchFinished()
+            if(callback) {
+                self.onFetchFinished()
+            }
         }
     }
     
@@ -537,5 +541,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             self.onFetchFinished()
         }
+    }
+    
+    
+    func onShowToast(_ text:String) {
+        var style = ToastStyle()
+        style.backgroundColor = UIColor.gray
+        self.view.makeToast(text, duration: 2.0, position: .bottom, style: style)
     }
 }

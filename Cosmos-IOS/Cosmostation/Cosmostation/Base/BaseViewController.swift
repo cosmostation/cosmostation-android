@@ -121,6 +121,14 @@ class BaseViewController: UIViewController {
         style.backgroundColor = UIColor.gray
         self.view.makeToast(text, duration: 2.0, position: .bottom, style: style)
     }
+    
+    func getPricePath() -> String {
+        return "data.quotes." + BaseData.instance.getCurrencyString() + ".price"
+    }
+    
+    func getPrice24hPath() -> String {
+        return "data.quotes." + BaseData.instance.getCurrencyString() + ".percent_change_24h"
+    }
 }
 extension BaseViewController {
     
