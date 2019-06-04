@@ -581,6 +581,23 @@ final class BaseData : NSObject{
         return result
     }
     
+    public func selectUnBondingWithValAdd(_ accountId: Int64, _ valAddr: String) -> Array<Unbonding> {
+        var result = Array<Unbonding>()
+        do {
+            for unbondingBD in try database.prepare(DB_UNBONDING.filter(DB_UNBONDING_ACCOUNT_ID == accountId && DB_UNBONDING_V_Address == valAddr)) {
+                let unbonding = Unbonding(unbondingBD[DB_UNBONDING_ID], unbondingBD[DB_UNBONDING_ACCOUNT_ID],
+                                          unbondingBD[DB_UNBONDING_V_Address], unbondingBD[DB_UNBONDING_CREATE_HEIGHT],
+                                          unbondingBD[DB_UNBONDING_COMPLETE_TIME], unbondingBD[DB_UNBONDING_INITIAL_BALANCE],
+                                          unbondingBD[DB_UNBONDING_BALANCE], unbondingBD[DB_UNBONDING_FETCH_TIME])
+                result.append(unbonding);
+            }
+        } catch {
+            if(SHOW_LOG) { print(error) }
+        }
+        
+        return result
+    }
+    
     public func deleteUnbonding(account: Account) -> Int {
         let query = DB_UNBONDING.filter(DB_UNBONDING_ACCOUNT_ID == account.account_id)
         do {

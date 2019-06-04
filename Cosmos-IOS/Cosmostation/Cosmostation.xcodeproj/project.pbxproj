@@ -280,7 +280,6 @@
 		E17748FB22842689003D8CD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AllValidatorCell.xib; sourceTree = "<group>"; };
 		E1774900228426DC003D8CD1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/AllValidatorCell.strings; sourceTree = "<group>"; };
 		E177490222842724003D8CD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MyValidatorCell.xib; sourceTree = "<group>"; };
-		E177490522842737003D8CD1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MyValidatorCell.strings; sourceTree = "<group>"; };
 		E1774906228523C5003D8CD1 /* GuideDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDetailViewController.swift; sourceTree = "<group>"; };
 		E1774907228523C5003D8CD1 /* GuideDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideDetailViewController.xib; sourceTree = "<group>"; };
 		E1827E0F2254C92900BC0350 /* WalletDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewController.swift; sourceTree = "<group>"; };
@@ -341,6 +340,7 @@
 		E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPopupCell.swift; sourceTree = "<group>"; };
 		E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountPopupCell.xib; sourceTree = "<group>"; };
 		E1E15FC12253748B00A10C7B /* DashedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedButton.swift; sourceTree = "<group>"; };
+		E1E251DC22A66B860008F0DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MyValidatorCell.strings; sourceTree = "<group>"; };
 		E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineTextField.swift; sourceTree = "<group>"; };
 		E1ED75AA2251B37C002CFE85 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		E1F2AE49227E865D00C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
@@ -1115,7 +1115,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E177490222842724003D8CD1 /* Base */,
-				E177490522842737003D8CD1 /* ko */,
+				E1E251DC22A66B860008F0DB /* ko */,
 			);
 			name = MyValidatorCell.xib;
 			sourceTree = "<group>";

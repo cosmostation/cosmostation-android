@@ -115,7 +115,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             if (indexPath.row == mainTabVC.mMyValidators.count) {
                 return 70;
             } else {
-                return 80;
+                return 95;
             }
             
         }
@@ -151,14 +151,18 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         cell.freeEventImg.isHidden = true
         
         let bonding = BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, validator.operator_address)
-        
-        
-//        print("bonding ", bonding!.getBondingAtom(validator))
         if(bonding != nil) {
             cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmout(bonding!.getBondingAtom(validator).stringValue, cell.myDelegatedAmoutLabel.font, 6)
         } else {
             cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmout("0", cell.myDelegatedAmoutLabel.font, 6)
         }
+        
+        let unbonding = BaseData.instance.selectUnBondingWithValAdd(mainTabVC.mAccount.account_id, validator.operator_address)
+        var unbondSum = NSDecimalNumber.zero
+        for unbond in unbonding {
+            unbondSum = unbondSum.adding(WUtils.stringToDecimal(unbond.unbonding_balance))
+        }
+        cell.myUndelegatingAmountLabel.attributedText =  WUtils.displayAmout(unbondSum.stringValue, cell.myUndelegatingAmountLabel.font, 6)
         
         cell.rewardAmoutLabel.attributedText = WUtils.displayAmout(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6)
         
@@ -231,8 +235,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
         }
         
-//        print("myBondedValidator ", myBondedValidator.count)
-        
         myBondedValidator.sort{
             let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
             let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
@@ -244,11 +246,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         } else {
             toClaimValidator = myBondedValidator
         }
-        
-//        print("toClaimValidator ", toClaimValidator.count)
-        
-//        let mintFee = WUtils.getGasAmountForRewards()[toClaimValidator.count-1].multiplying(by: WUtils.stringToDecimal(FEE_MIN_RATE))
-//        print("mintFee ", mintFee)
         
         var available = NSDecimalNumber.zero
         for balance in self.mainTabVC.mBalances {
@@ -262,7 +259,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 }
             }
         }
-//        print("available ", available)
         if(available.compare(NSDecimalNumber(string: "1")).rawValue < 0 ) {
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return

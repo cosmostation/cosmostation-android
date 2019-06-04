@@ -16,6 +16,7 @@ class MyValidatorCell: UITableViewCell {
     @IBOutlet weak var revokedImg: UIImageView!
     @IBOutlet weak var monikerLabel: UILabel!
     @IBOutlet weak var myDelegatedAmoutLabel: UILabel!
+    @IBOutlet weak var myUndelegatingAmountLabel: UILabel!
     @IBOutlet weak var rewardAmoutLabel: UILabel!
     
     
