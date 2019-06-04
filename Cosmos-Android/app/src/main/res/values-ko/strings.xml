@@ -191,7 +191,7 @@
     <string name="str_new_reward_address">변경할 이자 지급 주소</string>
     <string name="str_reward_address_change_confirm_title">한번 더 확인!</string>
     <string name="str_reward_address_change_confirm_msg">이자 지급 주소변경을 신청하시려고 합니다.\n새로운 이자 지급 주소에 관한 모든 권한을 가지고 있는지 다시한번 확인해 주세요. 그렇지 않다면, 차후 지급되는 이자 금액에 접근 하실 수 없습니다.</string>
-    <string name="str_inflation">인플레이</string>
+    <string name="str_inflation">인플레이션</string>
     <string name="str_average_yield">연 이율</string>
     <string name="str_daily_return">일 예상 이자량</string>
     <string name="str_monthly_return">월 예상 이자량</string>
