@@ -18,7 +18,7 @@
 "L8L-5t-Ob2.text" = "내 위임 철회 수량";
 
 /* Class = "UILabel"; text = "Reward"; ObjectID = "QOT-VC-ZBU"; */
-"QOT-VC-ZBU.text" = "이자";
+"QOT-VC-ZBU.text" = "현재 이자량";
 
 /* Class = "UILabel"; text = "Daily Return"; ObjectID = "IeA-BC-eAP"; */
 "IeA-BC-eAP.text" = "일 예상 이자량";

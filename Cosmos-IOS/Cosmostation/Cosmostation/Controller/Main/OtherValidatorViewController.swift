@@ -23,7 +23,7 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
         self.otherValidatorTableView.delegate = self
         self.otherValidatorTableView.dataSource = self
         self.otherValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        self.otherValidatorTableView.register(UINib(nibName: "AllValidatorCell", bundle: nil), forCellReuseIdentifier: "AllValidatorCell")
+        self.otherValidatorTableView.register(UINib(nibName: "OtherValidatorCell", bundle: nil), forCellReuseIdentifier: "OtherValidatorCell")
         
         self.refresher = UIRefreshControl()
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
@@ -71,7 +71,7 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:AllValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"AllValidatorCell") as? AllValidatorCell
+        let cell:OtherValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"OtherValidatorCell") as? OtherValidatorCell
         guard self.mainTabVC.mTopValidators.count > 0 else {
             return cell!
         }
@@ -91,6 +91,7 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
             validatorDetailVC.mInflation = mainTabVC.mInflation
             validatorDetailVC.mProvision = mainTabVC.mProvision
             validatorDetailVC.mStakingPool = mainTabVC.mStakingPool
+            validatorDetailVC.mIsTop100 = mainTabVC.mTopValidators.contains(where: {$0.operator_address == validator.operator_address})
             validatorDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(validatorDetailVC, animated: true)
@@ -98,7 +99,7 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     
-    func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
+    func onSetValidatorItem(_ cell: OtherValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         cell.monikerLabel.text = validator.description.moniker
         
         if(validator.jailed) {
@@ -110,13 +111,8 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
         }
         cell.freeEventImg.isHidden = true
         cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
-        if(mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-            let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
-            let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-            cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.rate), font: cell.commissionLabel.font)
-        } else {
-            cell.commissionLabel.text = "-"
-        }
+        cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
+        
         cell.validatorImg.tag = indexPath.row
         cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
         if (validator.description.identity != "") {

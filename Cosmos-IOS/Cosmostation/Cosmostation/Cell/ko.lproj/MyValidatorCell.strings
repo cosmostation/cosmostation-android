@@ -3,7 +3,7 @@
 "5rW-3b-Lm5.text" = "Moniker";
 
 /* Class = "UILabel"; text = "Delegated Amount"; ObjectID = "Cdf-lL-EcX"; */
-"Cdf-lL-EcX.text" = "위임 수량";
+"Cdf-lL-EcX.text" = "내 위임 수량";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "Mma-bi-v2Y"; */
 "Mma-bi-v2Y.text" = "-";
@@ -15,7 +15,7 @@
 "ago-pl-psR.text" = "-";
 
 /* Class = "UILabel"; text = "Reward Amount"; ObjectID = "bwg-AL-vPt"; */
-"bwg-AL-vPt.text" = "이자량";
+"bwg-AL-vPt.text" = "현재 이자량";
 
 /* Class = "UILabel"; text = "Undelegating Amount"; ObjectID = "lCZ-OT-X4w"; */
-"lCZ-OT-X4w.text" = "위임 철회 수량";
+"lCZ-OT-X4w.text" = "내 위임 철회 수량";

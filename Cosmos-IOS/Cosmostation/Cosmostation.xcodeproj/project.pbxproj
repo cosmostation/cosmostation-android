@@ -157,6 +157,8 @@
 		E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */; };
 		E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */; };
 		E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E15FC12253748B00A10C7B /* DashedButton.swift */; };
+		E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E251DD22A66FC30008F0DB /* OtherValidatorCell.swift */; };
+		E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E251E322A671180008F0DB /* OtherValidatorCell.xib */; };
 		E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */; };
 		E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED75AA2251B37C002CFE85 /* Reward.swift */; };
 		E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE50227EC05100C87F3F /* InfoPlist.strings */; };
@@ -341,6 +343,9 @@
 		E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountPopupCell.xib; sourceTree = "<group>"; };
 		E1E15FC12253748B00A10C7B /* DashedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedButton.swift; sourceTree = "<group>"; };
 		E1E251DC22A66B860008F0DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MyValidatorCell.strings; sourceTree = "<group>"; };
+		E1E251DD22A66FC30008F0DB /* OtherValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherValidatorCell.swift; sourceTree = "<group>"; };
+		E1E251E222A671180008F0DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OtherValidatorCell.xib; sourceTree = "<group>"; };
+		E1E251E522A671260008F0DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/OtherValidatorCell.strings; sourceTree = "<group>"; };
 		E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineTextField.swift; sourceTree = "<group>"; };
 		E1ED75AA2251B37C002CFE85 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		E1F2AE49227E865D00C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
@@ -644,6 +649,8 @@
 				E17748FC22842689003D8CD1 /* AllValidatorCell.xib */,
 				E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */,
 				E177490322842724003D8CD1 /* MyValidatorCell.xib */,
+				E1E251DD22A66FC30008F0DB /* OtherValidatorCell.swift */,
+				E1E251E322A671180008F0DB /* OtherValidatorCell.xib */,
 				E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */,
 				E17748F722842628003D8CD1 /* ClaimRewardAllCell.xib */,
 				E151B634224533F90026B8C0 /* PromotionCell.swift */,
@@ -765,6 +772,7 @@
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
+				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
 				E17748F4228422BE003D8CD1 /* GuideViewController.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
@@ -879,6 +887,7 @@
 				E16D9B24224A083E0019B7BB /* KeyboardViewController.swift in Sources */,
 				E151B63F22484A710026B8C0 /* InOutPut.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
+				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
 				E171A06B225B04BD00C5756C /* StakingViewController.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
@@ -1138,6 +1147,15 @@
 				E1F2AE4A227E865D00C87F3F /* ko */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		E1E251E322A671180008F0DB /* OtherValidatorCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1E251E222A671180008F0DB /* Base */,
+				E1E251E522A671260008F0DB /* ko */,
+			);
+			name = OtherValidatorCell.xib;
 			sourceTree = "<group>";
 		};
 		E1F2AE50227EC05100C87F3F /* InfoPlist.strings */ = {

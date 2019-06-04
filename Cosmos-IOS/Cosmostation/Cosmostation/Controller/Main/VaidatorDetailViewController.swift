@@ -24,6 +24,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     var mSelfBondingShare: String?
     var mFetchCnt = 0
     var mMyValidator = false
+    var mIsTop100 = false
     
     var mInflation: String?
     var mProvision: String?
@@ -58,6 +59,8 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.navigationItem.title = NSLocalizedString("title_validator_detail", comment: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        print("mIsTop100", mIsTop100)
     }
     
     func onFech(){
@@ -144,13 +147,20 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 } else {
                     cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
                 }
-                if(mStakingPool != nil && mProvision != nil) {
-                    let provisions = NSDecimalNumber.init(string: mProvision)
-                    let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                    cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                
+                if(mIsTop100) {
+                    if(mStakingPool != nil && mProvision != nil) {
+                        let provisions = NSDecimalNumber.init(string: mProvision)
+                        let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                    } else {
+                        cell!.avergaeYield.text = "?? %"
+                    }
                 } else {
-                    cell!.avergaeYield.text = "?? %"
+                    cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
+                    cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
                 }
+                
                 cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
                 if (mValidator!.description.identity != "") {
                     let parameters: Parameters = ["fields": "pictures", "key_suffix": mValidator!.description.identity]
@@ -201,13 +211,20 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 } else {
                     cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
                 }
-                if(mStakingPool != nil && mProvision != nil) {
-                    let provisions = NSDecimalNumber.init(string: mProvision)
-                    let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                    cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                
+                if(mIsTop100) {
+                    if(mStakingPool != nil && mProvision != nil) {
+                        let provisions = NSDecimalNumber.init(string: mProvision)
+                        let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                    } else {
+                        cell!.avergaeYield.text = "?? %"
+                    }
                 } else {
-                    cell!.avergaeYield.text = "?? %"
+                    cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
+                    cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
                 }
+                
                 cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
                 if (mValidator!.description.identity != "") {
                     let parameters: Parameters = ["fields": "pictures", "key_suffix": mValidator!.description.identity]
@@ -265,16 +282,24 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 
                 
-                
-                if(mStakingPool != nil && mProvision != nil && mBonding != nil) {
-                    let provisions = NSDecimalNumber.init(string: mProvision)
-                    let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                    cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAtom(mValidator!))! , font: cell!.myDailyReturns.font)
-                    cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAtom(mValidator!))! , font: cell!.myMonthlyReturns.font)
+                if(mIsTop100) {
+                    if(mStakingPool != nil && mProvision != nil && mBonding != nil) {
+                        let provisions = NSDecimalNumber.init(string: mProvision)
+                        let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                        cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAtom(mValidator!))! , font: cell!.myDailyReturns.font)
+                        cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAtom(mValidator!))! , font: cell!.myMonthlyReturns.font)
+                    } else {
+                        cell!.myDailyReturns.text = "-"
+                        cell!.myMonthlyReturns.text = "-"
+                    }
                 } else {
-                    cell!.myDailyReturns.text = "-"
-                    cell!.myMonthlyReturns.text = "-"
+                    cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, (mBonding?.getBondingAtom(mValidator!))! , font: cell!.myDailyReturns.font)
+                    cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, (mBonding?.getBondingAtom(mValidator!))! , font: cell!.myMonthlyReturns.font)
+                    cell!.myDailyReturns.textColor = UIColor.init(hexString: "f31963")
+                    cell!.myMonthlyReturns.textColor = UIColor.init(hexString: "f31963")
                 }
+                
+                
                 
                 if(mRewards.count > 0) {
                     let rewardSum = WUtils.getAllAtomReward(mRewards)
