@@ -125,12 +125,16 @@ public class WDp {
     }
 
     public static SpannableString getDailyReturn(Context c, BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
-        BigDecimal result = BigDecimal.ZERO;
+        BigDecimal value = BigDecimal.ZERO;
         try {
-            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("365000000")), 12, RoundingMode.HALF_UP);
+            value = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("365000000")), 12, RoundingMode.HALF_UP);
 
         }catch (Exception e) {}
-        return getDpString(result.toPlainString(), 12);
+
+        SpannableString result;
+        result = new SpannableString(getDecimalFormat(c, 12).format(value));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 12, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
     }
 
 
@@ -144,12 +148,15 @@ public class WDp {
     }
 
     public static SpannableString getMonthlyReturn(Context c, BigDecimal bonded, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
-        BigDecimal result = BigDecimal.ZERO;
+        BigDecimal value = BigDecimal.ZERO;
         try {
-            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.HALF_UP);
+            value = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.HALF_UP);
 
         }catch (Exception e) {}
-        return getDpString(result.toPlainString(), 12);
+        SpannableString result;
+        result = new SpannableString(getDecimalFormat(c, 12).format(value));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 12, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
     }
 
 
