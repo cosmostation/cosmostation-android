@@ -60,7 +60,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        print("mIsTop100", mIsTop100)
     }
     
     func onFech(){
@@ -329,6 +328,9 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 cell?.actionReward = {
                     self.onStartGetSingleReward()
                 }
+                cell?.actionReinvest = {
+                    self.onStartReinvest()
+                }
                 return cell!
             }
             
@@ -574,6 +576,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
 //        print("onStartDelegate")
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
+            return
         }
         
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
@@ -595,6 +598,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
 //        print("onStartUndelegate")
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
+            return
         }
         
         if(mBonding == nil || self.mBonding!.getBondingAtom(mValidator!) == NSDecimalNumber.zero) {
@@ -626,6 +630,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
 //        print("onStartRedelegate")
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
+            return
         }
         if(mBonding == nil || self.mBonding!.getBondingAtom(mValidator!) == NSDecimalNumber.zero) {
             self.onShowToast(NSLocalizedString("error_not_redelegate", comment: ""))
@@ -657,6 +662,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
 //        print("onStartGetSingleReward")
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
+            return
         }
         if(mRewards.count > 0) {
             let rewardSum = WUtils.getAllAtomReward(mRewards)
@@ -686,6 +692,43 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         validators.append(mValidator!)
         stakingVC.mRewardTargetValidators = validators
         stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(stakingVC, animated: true)
+        
+    }
+    
+    func onStartReinvest() {
+        print("onStartReinvest")
+        if(!mAccount!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        if(mRewards.count > 0) {
+            let rewardSum = WUtils.getAllAtomReward(mRewards)
+            if(rewardSum == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            if(rewardSum.compare(NSDecimalNumber(string: "1")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            
+        } else {
+            self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+            return
+        }
+        
+        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+            return
+        }
+        
+        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+        stakingVC.mTargetValidator = self.mValidator
+        stakingVC.mType = COSMOS_MULTI_MSG_TYPE_REINVEST
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
         

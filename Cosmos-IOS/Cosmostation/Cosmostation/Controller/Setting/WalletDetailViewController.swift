@@ -189,6 +189,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     @IBAction func onClickRewardAddressChange(_ sender: UIButton) {
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
+            return
         }
         
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)

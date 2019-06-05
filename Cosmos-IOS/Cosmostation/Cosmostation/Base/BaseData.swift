@@ -139,7 +139,14 @@ final class BaseData : NSObject{
     func initdb() {
         do {
             let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            let fileUrl = documentDirectory.appendingPathComponent("cosmostation").appendingPathExtension("sqlite3")
+            var fileUrl = documentDirectory.appendingPathComponent("cosmostation").appendingPathExtension("sqlite3")
+            do {
+                var resourceValues = URLResourceValues()
+                resourceValues.isExcludedFromBackup = true
+                try fileUrl.setResourceValues(resourceValues)
+                
+            } catch { print("failed to set resource value") }
+            
             let database = try Connection(fileUrl.path)
             self.database = database
             

@@ -176,6 +176,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     func emptyFloatySelected(_ floaty: Floaty) {
         if(!mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
+            return
         }
         
         if(self.mainTabVC.mBalances.count <= 0 || WUtils.stringToDecimal(self.mainTabVC.mBalances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue <= 0) {

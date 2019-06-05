@@ -29,6 +29,9 @@
 /* Class = "UIButton"; normalTitle = "CLAIM REWARD"; ObjectID = "Uax-LB-HdT"; */
 "Uax-LB-HdT.normalTitle" = "이자 받기";
 
+/* Class = "UIButton"; normalTitle = "RE-INVEST"; ObjectID = "Das-Dc-QgD"; */
+"Das-Dc-QgD.normalTitle" = "이자 즉시 위임";
+
 /* Class = "UILabel"; text = "-"; ObjectID = "hib-JF-mPX"; */
 "hib-JF-mPX.text" = "-";
 

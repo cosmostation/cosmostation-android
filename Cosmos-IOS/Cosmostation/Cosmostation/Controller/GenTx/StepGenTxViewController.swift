@@ -40,6 +40,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mCurrentRewardAddress: String?
     var mToChangeRewardAddress: String?
     
+    var mReinvestReward: Coin?
+    
     var mMemo: String?
     var mFee: Fee?
     
@@ -78,6 +80,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepChangeCheckViewController")]
+            
+        } else if (mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+            return [self.newVc(viewController: "ReInvestAmountViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "ReInvestCheckViewController")]
             
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),

@@ -42,6 +42,8 @@
 "redelegate_step_5" = "입력하신 정보를 확인하세요";
 "reward_address_step_1" = "이자 받을 주소를 설정하세요";
 "reward_address_step_4" = "입력하신 정보를 확인하세요";
+"reinvest_step_1" = "즉시 위임할 이자량을 확인하세요";
+"reinvest_step_4" = "입력하신 정보를 확인하세요";
 "recipient_address" = "받을 주소";
 "reward_claim_top_16" = "이자량 순서대로 최대 16검증인으로부터 이자를 청구 합니다.";
 "add_mnemonic" = "복구 단어 추가";
@@ -116,6 +118,7 @@
 "title_redelegate" = "재위임 하기";
 "title_validator_detail" = "검증인 정보";
 "title_reword_address_change" = "이자 지급 주소 변경";
+"title_reinvest" = "이자 즉시 위임";
 "title_guide" = "도움말";
 
 
@@ -182,6 +185,7 @@
 "tx_deposit" = "디파짓";
 "tx_create_validator" = "검증인 생성";
 "tx_edit_validator" = "검증인 편집";
+"tx_reinvest" = "이자 즉시 위임";
 "tx_known" = "알수없음";
 
 

@@ -21,6 +21,7 @@ class ValidatorDetailMyActionCell: UITableViewCell {
     @IBOutlet weak var undelegateBtn: UIButton!
     @IBOutlet weak var redelegateBtn: UIButton!
     @IBOutlet weak var claimRewardBtn: UIButton!
+    @IBOutlet weak var reInvestBtn: UIButton!
     
     
     
@@ -37,6 +38,8 @@ class ValidatorDetailMyActionCell: UITableViewCell {
     var actionUndelegate: (() -> Void)? = nil
     var actionRedelegate: (() -> Void)? = nil
     var actionReward: (() -> Void)? = nil
+    var actionReinvest: (() -> Void)? = nil
+    
     @IBAction func onClickDelegate(_ sender: Any) {
         actionDelegate?()
     }
@@ -48,6 +51,9 @@ class ValidatorDetailMyActionCell: UITableViewCell {
     }
     @IBAction func onClickReward(_ sender: Any) {
         actionReward?()
+    }
+    @IBAction func onClickReInvest(_ sender: Any) {
+        actionReinvest?()
     }
     
     

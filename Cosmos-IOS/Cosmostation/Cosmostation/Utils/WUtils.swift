@@ -173,6 +173,13 @@ class WUtils {
             return resultMsg
         }
         
+        if(msgs.count == 2) {
+            if(msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_DEL && msgs[1].type == COSMOS_MSG_TYPE_DELEGATE) {
+                resultMsg = NSLocalizedString("tx_reinvest", comment: "")
+                return resultMsg
+            }
+        }
+        
         if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2) {
             if (msgs[0].value.from_address != nil && msgs[0].value.from_address == myaddress) {
                 resultMsg = NSLocalizedString("tx_send", comment: "")

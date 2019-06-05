@@ -898,3 +898,44 @@
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "zxj-8a-Kpr"; */
 "zxj-8a-Kpr.normalTitle" = "취소";
+
+/* Class = "UIButton"; normalTitle = "Reward Amount"; ObjectID = "uNb-ul-DhB"; */
+"uNb-ul-DhB.text" = "이자량";
+
+/* Class = "UIButton"; normalTitle = "Validator"; ObjectID = "j5O-IL-Jfl"; */
+"j5O-IL-Jfl.text" = "검증인";
+
+/* Class = "UIButton"; normalTitle = "Validator"; ObjectID = "aiL-Pg-9zU"; */
+"aiL-Pg-9zU.text" = "이자는 매 블럭 마다 증가합니다. 실제로 받게되는 이자량은 지금 표시되는 것보다 같거나 많을 수 있습니다.";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "Xgv-fi-3Gz"; */
+"Xgv-fi-3Gz.normalTitle" = "취소";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "j6a-Q0-Vyk"; */
+"j6a-Q0-Vyk.normalTitle" = "다음";
+
+
+
+/* Class = "UIButton"; normalTitle = "Validator"; ObjectID = "oo2-7G-0I5"; */
+"oo2-7G-0I5.text" = "이자량";
+
+/* Class = "UIButton"; normalTitle = "Validator"; ObjectID = "vPl-eJ-3ca"; */
+"vPl-eJ-3ca.text" = "Tx 수수료";
+
+/* Class = "UIButton"; normalTitle = "Validator"; ObjectID = "j5O-IL-Jfl"; */
+"eUK-dj-Ce1.text" = "검증인";
+
+/* Class = "UIButton"; normalTitle = "Validator"; ObjectID = "1rs-xK-krp"; */
+"1rs-xK-krp.text" = "메모";
+
+/* Class = "UIButton"; normalTitle = "Validator"; ObjectID = "bWt-gf-J0u"; */
+"bWt-gf-J0u.text" = "현재 위임량";
+
+/* Class = "UIButton"; normalTitle = "Validator"; ObjectID = "Yfe-CU-rml"; */
+"Yfe-CU-rml.text" = "예상 위임량";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "Xgv-fi-3Gz"; */
+"H86-EF-dHn.normalTitle" = "이전";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "j6a-Q0-Vyk"; */
+"DSf-kh-3jv.normalTitle" = "확인";

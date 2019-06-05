@@ -216,6 +216,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         print("didTapClaimAll")
         if(!self.mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
+            return
         }
         if(WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(NSDecimalNumber.zero).rawValue <= 0 ){
             self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))

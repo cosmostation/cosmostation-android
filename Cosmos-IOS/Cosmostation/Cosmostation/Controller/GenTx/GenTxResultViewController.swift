@@ -70,6 +70,19 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var addressChangeResultAddress: UILabel!
     @IBOutlet weak var addressChangeResultMemo: UILabel!
     
+    @IBOutlet weak var reInvestResultView: CardView!
+    @IBOutlet weak var reInvestResultType: UILabel!
+    @IBOutlet weak var reInvestResultHash: UILabel!
+    @IBOutlet weak var reInvestResultTime: UILabel!
+    @IBOutlet weak var reInvestResultBlock: UILabel!
+    @IBOutlet weak var reInvestResultRewardAmount: UILabel!
+    @IBOutlet weak var reInvestResultDelegateAmount: UILabel!
+    @IBOutlet weak var reInvestResultFee: UILabel!
+    @IBOutlet weak var reInvestValidatorAddress: UILabel!
+    @IBOutlet weak var reInvestResultMemo: UILabel!
+    
+    
+    
     
     var response:[String:Any]?
 
@@ -223,6 +236,21 @@ class GenTxResultViewController: BaseViewController {
             addressChangeResultAddress.text = mTxInfo?.tx.value.msg[0].value.withdraw_address
             addressChangeResultAddress.adjustsFontSizeToFitWidth = true
             addressChangeResultMemo.text = mTxInfo?.tx.value.memo
+            
+        }  else if (mTxType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+            self.reInvestResultView.isHidden = false
+            self.loadingView.isHidden = true
+            
+            reInvestResultType.text = NSLocalizedString("tx_reinvest", comment: "")
+            reInvestResultHash.text = mStakTxInfo?.txhash
+            reInvestResultTime.text = mStakTxInfo?.height
+            reInvestResultBlock.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
+            
+            reInvestResultDelegateAmount.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[1].value.amount?.amount)!, reInvestResultDelegateAmount.font, 6)
+            reInvestResultFee.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, reInvestResultFee.font, 6)
+            reInvestValidatorAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
+            reInvestValidatorAddress.adjustsFontSizeToFitWidth = true
+            reInvestResultMemo.text = mStakTxInfo?.tx.value.memo
         }
 
         self.actionLayer.isHidden = false
@@ -238,7 +266,8 @@ class GenTxResultViewController: BaseViewController {
     @IBAction func onClickExplorer(_ sender: UIButton) {
         if (mTxType == COSMOS_MSG_TYPE_DELEGATE ||
                 mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 ||
-                mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                mTxType == COSMOS_MSG_TYPE_REDELEGATE2 ||
+                mTxType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
             guard let url = URL(string: "https://www.mintscan.io/txs/" + mStakTxInfo!.txhash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
@@ -254,7 +283,8 @@ class GenTxResultViewController: BaseViewController {
     @IBAction func onClickShare(_ sender: UIButton) {
         if (mTxType == COSMOS_MSG_TYPE_DELEGATE ||
                 mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 ||
-                mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                mTxType == COSMOS_MSG_TYPE_REDELEGATE2 ||
+                mTxType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
             let text = "https://www.mintscan.io/txs/" + mStakTxInfo!.txhash
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
@@ -316,7 +346,8 @@ class GenTxResultViewController: BaseViewController {
                 }
                 if (self.mTxType == COSMOS_MSG_TYPE_DELEGATE ||
                         self.mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 ||
-                        self.mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                        self.mTxType == COSMOS_MSG_TYPE_REDELEGATE2 ||
+                        self.mTxType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                     self.mStakTxInfo = StakeTxInfo.init(info)
                 } else {
                     self.mTxInfo = TxInfo.init(info)

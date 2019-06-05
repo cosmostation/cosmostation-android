@@ -237,6 +237,9 @@ class StepFeeViewController: BaseViewController {
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             result = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1]
             
+        } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
+            
         }
 //        print("getEstimateGasAmount ", result.stringValue)
         return result

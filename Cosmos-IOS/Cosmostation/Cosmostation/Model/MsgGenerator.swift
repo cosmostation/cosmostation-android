@@ -66,6 +66,19 @@ class MsgGenerator {
         return msg
     }
     
+    static func genGetRewardMsgReInvest(_ fromAddress: String, _ toValAddress: String) -> StakeMsg {
+        var msg = StakeMsg.init()
+        
+        var value = StakeMsg.Value.init()
+        value.delegator_address = fromAddress
+        value.validator_address = toValAddress
+        
+        msg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL
+        msg.value = value
+        
+        return msg
+    }
+    
     
     static func genGetRewardMsg(_ fromAddress: String, _ toValAddress: String) -> Msg {
         var msg = Msg.init()

@@ -109,6 +109,8 @@
 		E1827E252256293900BC0350 /* ValidatorDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E232256293900BC0350 /* ValidatorDetailCell.swift */; };
 		E1827E2A2256298300BC0350 /* ValidatorDetailHistoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E292256298300BC0350 /* ValidatorDetailHistoryHeader.swift */; };
 		E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E2D225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift */; };
+		E183EF1F22A75DFC003B3580 /* ReInvestAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E183EF1E22A75DFC003B3580 /* ReInvestAmountViewController.swift */; };
+		E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E183EF2022A75E09003B3580 /* ReInvestCheckViewController.swift */; };
 		E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1861D2D224DB1570027DED1 /* RestorePathCell.swift */; };
 		E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1861D2E224DB1570027DED1 /* RestorePathCell.xib */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
@@ -292,6 +294,8 @@
 		E1827E232256293900BC0350 /* ValidatorDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorDetailCell.swift; sourceTree = "<group>"; };
 		E1827E292256298300BC0350 /* ValidatorDetailHistoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorDetailHistoryHeader.swift; sourceTree = "<group>"; };
 		E1827E2D225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorDetailHistoryEmpty.swift; sourceTree = "<group>"; };
+		E183EF1E22A75DFC003B3580 /* ReInvestAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReInvestAmountViewController.swift; sourceTree = "<group>"; };
+		E183EF2022A75E09003B3580 /* ReInvestCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReInvestCheckViewController.swift; sourceTree = "<group>"; };
 		E1861D2D224DB1570027DED1 /* RestorePathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathCell.swift; sourceTree = "<group>"; };
 		E1861D2E224DB1570027DED1 /* RestorePathCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestorePathCell.xib; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -463,6 +467,8 @@
 				E1069B11229698BA007517DC /* StepChangeAddressViewController.swift */,
 				E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */,
 				E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */,
+				E183EF1E22A75DFC003B3580 /* ReInvestAmountViewController.swift */,
+				E183EF2022A75E09003B3580 /* ReInvestCheckViewController.swift */,
 			);
 			path = GenTx;
 			sourceTree = "<group>";
@@ -885,6 +891,7 @@
 				E16D9B1B2248D1370019B7BB /* BoarderLabel.swift in Sources */,
 				E151B64F22485B3B0026B8C0 /* Result.swift in Sources */,
 				E16D9B24224A083E0019B7BB /* KeyboardViewController.swift in Sources */,
+				E183EF1F22A75DFC003B3580 /* ReInvestAmountViewController.swift in Sources */,
 				E151B63F22484A710026B8C0 /* InOutPut.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
@@ -931,6 +938,7 @@
 				E1827E18225620D000BC0350 /* VaidatorDetailViewController.swift in Sources */,
 				E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */,
 				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,
+				E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,
 				E13171442260215E00EE5AD0 /* GenTxResultViewController.swift in Sources */,

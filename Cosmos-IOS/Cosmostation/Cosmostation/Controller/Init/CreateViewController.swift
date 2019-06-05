@@ -157,7 +157,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
 //            print("resource ", resource)
             
             let newAccount = Account.init(isNew: true)
-            let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1())
+            let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
 //            print("keyResult ", keyResult)
             var insertResult :Int64 = -1
             if(keyResult) {

@@ -42,6 +42,8 @@
 "redelegate_step_5" = "Check transaction detail";
 "reward_address_step_1" = "Insert address to receive reward";
 "reward_address_step_4" = "Check transaction detail";
+"reinvest_step_1" = "Check reward for re-invest";
+"reinvest_step_4" = "Check transaction detail";
 "recipient_address" = "Recipient Address";
 "reward_claim_top_16" = "We claim rewards from up to max 16 validators in order of reward amount.";
 "add_mnemonic" = "Add Mnemonic";
@@ -117,6 +119,7 @@
 "title_redelegate" = "Redelegate";
 "title_validator_detail" = "Validator Details";
 "title_reword_address_change" = "Reward Address Chagne";
+"title_reinvest" = "Re-Invest";
 "title_guide" = "FAQ";
 
 "error_password_fail" = "Password is not same. Please init password again!";
@@ -183,6 +186,7 @@
 "tx_deposit" = "Deposit";
 "tx_create_validator" = "Create Val";
 "tx_edit_validator" = "Edit Val";
+"tx_reinvest" = "Re-Invest";
 "tx_known" = "Known";
 
 

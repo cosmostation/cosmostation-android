@@ -153,6 +153,8 @@ let COSMOS_MSG_TYPE_WITHDRAW_DEL            = "cosmos-sdk/MsgWithdrawDelegationR
 let COSMOS_MSG_TYPE_WITHDRAW_VAL            = "cosmos-sdk/MsgWithdrawValidatorCommission";
 let COSMOS_MSG_TYPE_WITHDRAW_MIDIFY         = "cosmos-sdk/MsgModifyWithdrawAddress";
 
+let COSMOS_MULTI_MSG_TYPE_REINVEST          = "multi-ReInvest";
+
 
 let COSMOS_MSG_TYPE_VOTE                    = "cosmos-sdk/MsgVote";
 let COSMOS_MSG_TYPE_SUBMIT_PROPOSAL         = "cosmos-sdk/MsgSubmitProposal";
@@ -203,6 +205,7 @@ let GAS_FEE_RATE_AVERAGE                    = 0.025
 
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
+let GAS_FEE_AMOUNT_REINVEST                 = "220000"
 let GAS_FEE_AMOUNT_REDELE                   = "240000"
 
 let FEE_REWARD_GAS_1                        = "100000";

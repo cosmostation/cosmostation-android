@@ -141,7 +141,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
 //            print("resource ", resource)
             
             let newAccount = Account.init(isNew: true)
-            let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1())
+            let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
 //            print("keyResult ", keyResult)
             var insertResult :Int64 = -1
             if(keyResult) {
@@ -189,7 +189,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
 //            print("resource ", resource)
             
             let existedAccount = BaseData.instance.selectExistAccount(address: address, chain: inchain)
-            let keyResult = KeychainWrapper.standard.set(resource, forKey: existedAccount!.account_uuid.sha1())
+            let keyResult = KeychainWrapper.standard.set(resource, forKey: existedAccount!.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var updateResult :Int64 = -1
             if(keyResult) {
                 existedAccount!.account_has_private = true

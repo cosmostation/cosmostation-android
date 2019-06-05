@@ -190,7 +190,7 @@ class PasswordViewController: BaseViewController {
         DispatchQueue.global().async {
             var result = false
             if(!KeychainWrapper.standard.hasValue(forKey: "password")) {
-                result = KeychainWrapper.standard.set(initInput, forKey: "password")
+                result = KeychainWrapper.standard.set(initInput, forKey: "password", withAccessibility: .afterFirstUnlockThisDeviceOnly)
             }
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
