@@ -292,8 +292,8 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                         cell!.myMonthlyReturns.text = "-"
                     }
                 } else {
-                    cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, (mBonding?.getBondingAtom(mValidator!))! , font: cell!.myDailyReturns.font)
-                    cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, (mBonding?.getBondingAtom(mValidator!))! , font: cell!.myMonthlyReturns.font)
+                    cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, font: cell!.myDailyReturns.font)
+                    cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, font: cell!.myMonthlyReturns.font)
                     cell!.myDailyReturns.textColor = UIColor.init(hexString: "f31963")
                     cell!.myMonthlyReturns.textColor = UIColor.init(hexString: "f31963")
                 }
