@@ -329,7 +329,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     self.onStartGetSingleReward()
                 }
                 cell?.actionReinvest = {
-                    self.onStartReinvest()
+                    self.onCheckReinvest()
                 }
                 return cell!
             }
@@ -697,7 +697,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         
     }
     
-    func onStartReinvest() {
+    func onCheckReinvest() {
         print("onStartReinvest")
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
@@ -726,11 +726,47 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             return
         }
         
+        self.onFetchRewardAddress(mAccount!.account_address)
+    }
+    
+    func onStartReInvest() {
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         stakingVC.mTargetValidator = self.mValidator
         stakingVC.mType = COSMOS_MULTI_MSG_TYPE_REINVEST
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
+    }
+    
+    
+    
+    
+    func onFetchRewardAddress(_ accountAddr: String) {
+        let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+        let request = Alamofire.request(url,
+                                        method: .get,
+                                        parameters: [:],
+                                        encoding: URLEncoding.default,
+                                        headers: [:]);
+        request.responseString { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let address = res as? String else {
+                    self.onShowReInvsetFailDialog()
+                    return;
+                }
+                let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                if(trimAddress == accountAddr) {
+                    self.onStartReInvest()
+                } else {
+                    self.onShowReInvsetFailDialog()
+                }
+                
+            case .failure(let error):
+                if(SHOW_LOG) {
+                    print("onFetchRewardAddress ", error)
+                }
+            }
+        }
         
     }
     
@@ -740,6 +776,12 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             self.onStartImportMnemonic()
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func onShowReInvsetFailDialog() {
+        let alert = UIAlertController(title: NSLocalizedString("error_reward_address_changed_title", comment: ""), message: NSLocalizedString("error_reward_address_changed_msg", comment: ""), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("confirm", comment: ""), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }

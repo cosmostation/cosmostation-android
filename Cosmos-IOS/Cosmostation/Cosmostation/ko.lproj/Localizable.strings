@@ -96,6 +96,7 @@
 "share" = "공유";
 "cancel" = "취소";
 "ok" = "결정";
+"confirm" = "확인";
 "settings" = "설정";
 "warnning" = "경고";
 "continue" = "계속";
@@ -151,6 +152,8 @@
 "error_same_reward_address" = "이미 등록된 이자 주소와 동일합니다.";
 "error_redelegation_limitted" = "이 검증인은 이미 재위임을 받은 기록이 있습니다.\n기존 재위임이 완전히 완료된 후(21일 후) 이 검증인으로부터 재위임을 신청할 수 있습니다.";
 "error_max_account_over" = "최대 5개의 지갑이 등록 가능합니다.";
+"error_reward_address_changed_title" = "이자 지급 주소 변경됨";
+"error_reward_address_changed_msg" = "이자 지급 주소가 변경된 계정입니다. 이자 즉시 위임 기능을 사용하실 수 없습니다.";
 
 "alert_title_no_private_key" = "관찰 모드 지갑";
 "alert_msg_no_private_key" = "관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.";
