@@ -82,6 +82,7 @@
     <string name="str_delegate_c">DELEGATE</string>
     <string name="str_undelegate_c">UNDELEGATE</string>
     <string name="str_redelegate_c">REDELEGATE</string>
+    <string name="str_reinvest_c">RE-INVEST</string>
     <string name="str_before">Before</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_continue">Continue</string>
@@ -102,6 +103,7 @@
     <string name="str_to_undelegate_amount">Undelegate Amount</string>
     <string name="str_to_redelegate_amount">Redelegate Amount</string>
     <string name="str_to_delegate_amount">Delegate Amount</string>
+    <string name="str_reinvest_amount">Reinvest Amount</string>
     <string name="str_to_delegate_validator">Delegate To</string>
     <string name="str_from_undelegate_validator">Undelegate From</string>
     <string name="str_from_redelegate_validator">Redelegate From</string>
@@ -256,6 +258,9 @@
     <string name="str_empty_warnning_msg">You will be left with no available balance after this Tx. You will not have any Atom to be used as gas to make another Tx after this.</string>
     <string name="str_fee_over_title">Unable to claim rewards</string>
     <string name="str_fee_over_msg">Tx fee is higher than your unclaimed rewards. Set your fee to a lower amount or try again when you have more rewards accumulated.</string>
+    <string name="str_validator">Validator</string>
+    <string name="str_current_delegation">Current Delegation</string>
+    <string name="str_expected_delegation">Expected Delegation</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -303,6 +308,10 @@
     <string name="str_change_reward_address_step_1">Insert memo (optional)</string>
     <string name="str_change_reward_address_step_2">Select transaction fee</string>
     <string name="str_change_reward_address_step_3">Check transaction detail</string>
+    <string name="str_reinvest_step_0">Check reward for re-invest</string>
+    <string name="str_reinvest_step_1">Insert memo (optional)</string>
+    <string name="str_reinvest_step_2">Select transaction fee</string>
+    <string name="str_reinvest_step_3">Check transaction detail</string>
     <string name="str_already_imported_key">Already imported key.</string>
     <string name="str_delete_title">Delete Wallet</string>
     <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
@@ -429,6 +438,7 @@
     <string name="tx_deposit">Deposit</string>
     <string name="tx_create_validator">Create Val</string>
     <string name="tx_edit_validator">Edit Val</string>
+    <string name="tx_reinvest">Re-Invest</string>
     <string name="tx_known">Known</string>
 
 

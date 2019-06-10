@@ -80,6 +80,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private LinearLayout                mRewardAddressChangeLayer;
     private TextView                    mRewardAddressChangeFee, mNewRewardAddress, mRewardAddressChangeMemo;
 
+    private LinearLayout                mReinvestLayer;
+    private TextView                    mReinvestAmount, mReinvestFee, mReinvestAddress, mReinvestMemo;
+
     private CardView                    mErrorCard;
     private TextView                    mErrorDetails;
 
@@ -143,6 +146,12 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mNewRewardAddress           = findViewById(R.id.new_reward_address);
         mRewardAddressChangeMemo    = findViewById(R.id.reward_address_change_memo);
 
+        mReinvestLayer          = findViewById(R.id.reinvest_layer);
+        mReinvestAmount         = findViewById(R.id.reinvest_atom);
+        mReinvestFee            = findViewById(R.id.reinvest_fees);
+        mReinvestAddress        = findViewById(R.id.reinvest_moniker);
+        mReinvestMemo           = findViewById(R.id.reinvest_memo);
+
         mErrorCard              = findViewById(R.id.error_Card);
         mErrorDetails           = findViewById(R.id.error_details);
 
@@ -180,7 +189,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         if(mIsSuccess) {
             if(mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
                     mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE) {
+                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
+                    mTxType == BaseConstant.TASK_GEN_TX_REINVEST) {
                 onStakeFetchTx(mTxHash);
             } else {
                 onFetchTx(mTxHash);
@@ -261,7 +271,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 
 
-        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE && mResStakeTxInfo != null){
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE && mResStakeTxInfo != null) {
             mLoading.setVisibility(View.GONE);
             mScrollLayer.setVisibility(View.VISIBLE);
             mUndelegateLayer.setVisibility(View.VISIBLE);
@@ -357,6 +367,27 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_REINVEST && mResStakeTxInfo != null) {
+            mLoading.setVisibility(View.GONE);
+            mScrollLayer.setVisibility(View.VISIBLE);
+            mReinvestLayer.setVisibility(View.VISIBLE);
+
+            mTvtxType.setText(R.string.tx_reinvest);
+            mTvTxHash.setText(mResStakeTxInfo.txhash);
+            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResStakeTxInfo.timestamp));
+            mTxBlockHeight.setText(mResStakeTxInfo.height);
+
+            mReinvestAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(1).value.amount.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
+                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                    mReinvestFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                }
+            }
+            mReinvestAddress.setText(mResStakeTxInfo.tx.value.msg.get(0).value.validator_address);
+            mReinvestMemo.setText(mResStakeTxInfo.tx.value.memo);
+
+            mBtnDismiss.setVisibility(View.GONE);
+            mBottomAfterLayer.setVisibility(View.VISIBLE);
         }
     }
 
@@ -371,7 +402,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         FetchCnt = 0;
         if(mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
                 mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
-                mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE) {
+                mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
+                mTxType == BaseConstant.TASK_GEN_TX_REINVEST) {
             onStakeFetchTx(mTxHash);
         } else {
             onFetchTx(mTxHash);
@@ -463,7 +495,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
             if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
                     mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE){
+                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
+                    mTxType == BaseConstant.TASK_GEN_TX_REINVEST){
                 Intent webintent = new Intent(this, WebActivity.class);
                 webintent.putExtra("txid", mResStakeTxInfo.txhash);
                 webintent.putExtra("goMain", true);
@@ -481,7 +514,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             }
             if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
                     mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE){
+                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
+                    mTxType == BaseConstant.TASK_GEN_TX_REINVEST){
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResStakeTxInfo.txhash);

@@ -411,7 +411,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if(rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
                     Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
                 } else {
-                    WLog.w("start ReInvest");
+                    Intent reinvest = new Intent(ValidatorActivity.this, ReInvestActivity.class);
+                    reinvest.putExtra("validator", mValidator);
+                    startActivity(reinvest);
                 }
             }
         }, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

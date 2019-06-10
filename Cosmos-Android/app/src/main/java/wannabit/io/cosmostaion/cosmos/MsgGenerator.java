@@ -83,6 +83,20 @@ public class MsgGenerator {
         return result;
     }
 
+    public static StakeMsg genWithdrawMsgReInvest(String requestAddr, String fromValAddr, BaseChain chain) {
+        StakeMsg result  = new StakeMsg();
+        StakeMsg.Value value = new StakeMsg.Value();
+
+        value.delegator_address = requestAddr;
+        value.validator_address = fromValAddr;
+
+
+        result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
+        result.value = value;
+
+        return result;
+    }
+
     public static StakeMsg genReDelegateMsg(String accountAddr, String fromValAddr, String toValAddr, Coin amount) {
         StakeMsg result  = new StakeMsg();
         StakeMsg.Value value = new StakeMsg.Value();
