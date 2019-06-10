@@ -763,6 +763,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                         break;
 
+                    case BaseConstant.TX_TYPE_REINVEST:
+                        holder.historyType.setText(getString(R.string.tx_reinvest));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        break;
+
                     case BaseConstant.TX_TYPE_UNKNOWN:
                         holder.historyType.setText(getString(R.string.tx_known));
                         holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -770,7 +775,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
                 }
 
-                if(source.tx.value.msg.size() > 1) {
+                if(dpType != BaseConstant.TX_TYPE_REINVEST && source.tx.value.msg.size() > 1) {
                     String type = holder.historyType.getText().toString() + "\n+ " + (source.tx.value.msg.size() - 1);
                     holder.historyType.setText(type);
                 }

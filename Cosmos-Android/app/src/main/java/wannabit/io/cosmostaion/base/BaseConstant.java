@@ -136,6 +136,7 @@ public class BaseConstant {
     public final static int					    TX_TYPE_DEPOSIT		                    = 3012;
     public final static int					    TX_TYPE_CREATE_VALIDATOR		        = 3013;
     public final static int					    TX_TYPE_EDIT_VALIDATOR		            = 3014;
+    public final static int					    TX_TYPE_REINVEST		                = 3015;
 
     public final static int					    ERROR_CODE_UNKNOWN		                = 8000;
     public final static int					    ERROR_CODE_NETWORK		                = 8001;

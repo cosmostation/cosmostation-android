@@ -458,6 +458,13 @@ public class WDp {
         if(msgs == null || msgs.size() <= 0)
             return result;
 
+        if(msgs != null && msgs.size() == 2) {
+            if(msgs.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL) &&
+                    msgs.get(1).type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE)) {
+                return BaseConstant.TX_TYPE_REINVEST;
+            }
+        }
+
         HistoryMsg msg = msgs.get(0);
         if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) || msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2)) {
             if (msg.value.from_address != null && msg.value.from_address.equals(address)) {

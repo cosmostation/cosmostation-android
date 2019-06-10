@@ -199,13 +199,17 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historyType.setText(getString(R.string.tx_edit_validator));
                     break;
 
+                case BaseConstant.TX_TYPE_REINVEST:
+                    viewHolder.historyType.setText(getString(R.string.tx_reinvest));
+                    break;
+
                 case BaseConstant.TX_TYPE_UNKNOWN:
                     viewHolder.historyType.setText(getString(R.string.tx_known));
                     break;
 
             }
 
-            if(source.tx.value.msg.size() > 1) {
+            if(dpType != BaseConstant.TX_TYPE_REINVEST && source.tx.value.msg.size() > 1) {
                 String type = viewHolder.historyType.getText().toString() + "\n+ " + (source.tx.value.msg.size() - 1);
                 viewHolder.historyType.setText(type);
             }
