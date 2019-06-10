@@ -21,7 +21,7 @@
         app:cardUseCompatPadding="true" >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_72">
+            android:layout_height="@dimen/space_84">
             <LinearLayout
                 android:id="@+id/views_validator"
                 android:layout_width="@dimen/space_72"
@@ -95,7 +95,7 @@
                         android:singleLine="true"
                         android:ellipsize="end"
                         style="@style/font_ss_12_white"
-                        android:text="moniker"/>
+                        android:text="-"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -114,7 +114,25 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         style="@style/font_ss_11_gray1"
-                        android:text="23.349000"/>
+                        android:text="-"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/undelegate_amount_validator"
+                        style="@style/font_ss_11_gray1"
+                        android:text="@string/str_tx_undelegated_amount"/>
+                    <TextView
+                        android:id="@+id/undelegate_amount_validator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        style="@style/font_ss_11_gray1"
+                        android:text="-"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -132,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         style="@style/font_ss_11_gray1"
-                        android:text="20%"/>
+                        android:text="-"/>
                 </RelativeLayout>
 
                 <!--<TextView-->

@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
+import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_My_ValidatorSorting;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -189,6 +190,14 @@ public class ValidatorMyFragment extends BaseFragment {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
+
+                BigDecimal unBondSum = BigDecimal.ZERO;
+                ArrayList<UnBondingState> unBondingStates = getBaseDao().onSelectUnbondingStates(getMainActivity().mAccount.id, validator.operator_address);
+                for(UnBondingState unbond:unBondingStates) {
+                    unBondSum = unBondSum.add(unbond.balance);
+                }
+                holder.itemTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), unBondSum, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+
             }
         }
 
@@ -224,6 +233,7 @@ public class ValidatorMyFragment extends BaseFragment {
             ImageView       itemRevoked;
             TextView        itemTvMoniker;
             TextView        itemTvDelegateAmount;
+            TextView        itemTvUndelegateAmount;
             TextView        itemTvReward;
 
             public RewardMyValidatorHolder(@NonNull View itemView) {
@@ -234,6 +244,7 @@ public class ValidatorMyFragment extends BaseFragment {
                 itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
                 itemTvDelegateAmount = itemView.findViewById(R.id.delegate_amount_validator);
+                itemTvUndelegateAmount = itemView.findViewById(R.id.undelegate_amount_validator);
                 itemTvReward        = itemView.findViewById(R.id.my_reward_validator);
             }
         }
