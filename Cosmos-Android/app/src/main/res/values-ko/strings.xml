@@ -163,7 +163,8 @@
     <string name="str_delegate">위임 하기</string>
     <string name="str_undelegate">위임 철회 하기</string>
     <string name="str_redelegate">재위임 하기</string>
-    <string name="str_claim_reward">이자 청구 하기</string>
+    <string name="str_claim_reward">이자 받기</string>
+    <string name="str_reinvest">이자 즉시 위임</string>
     <string name="str_history_validator">이 검증인과의 거래내역</string>
     <string name="str_price">현재 가격</string>
     <string name="str_ago">전</string>
@@ -360,6 +361,7 @@
     <string name="error_no_to_validator">재위임 받을 검증인을 선택해 주세요.</string>
     <string name="error_same_reward_address">이미 등록된 이자 주소와 동일합니다.</string>
     <string name="error_max_account_over">최대 5개의 지갑이 등록 가능합니다.</string>
+    <string name="error_reward_address_changed_msg">이자 지급 주소가 변경된 계정입니다. 이자 즉시 위임 기능을 사용하실 수 없습니다.</string>
 
 
     <string name="s_atom">ATOM</string>

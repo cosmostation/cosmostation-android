@@ -211,6 +211,7 @@
     <string name="str_undelegate">Undelegate</string>
     <string name="str_redelegate">Redelegate</string>
     <string name="str_claim_reward">Claim Reward</string>
+    <string name="str_reinvest">Re-Invest</string>
     <string name="str_history_validator">History with this validator</string>
     <string name="str_price">Current Price</string>
     <string name="str_ago">ago</string>
@@ -407,6 +408,7 @@
     <string name="error_no_to_validator">Please select validator to redelegate.</string>
     <string name="error_same_reward_address">This address is already registered as your claim reward address.</string>
     <string name="error_max_account_over">Max account is 5.</string>
+    <string name="error_reward_address_changed_msg">This account has changed its reward address.\nYou can user re-invest feature after reset your reward address to self.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

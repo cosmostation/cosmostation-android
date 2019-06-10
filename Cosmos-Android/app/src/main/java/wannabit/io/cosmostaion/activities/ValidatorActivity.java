@@ -49,6 +49,7 @@ import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
+import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleAllRedelegateState;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRedelegateStateTask;
@@ -366,6 +367,59 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         startActivity(claimReward);
     }
 
+    private void onCheckReInvest() {
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("1")) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasAtom = false;
+        for (Balance balance:balances) {
+            if(BaseConstant.IS_TEST) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+                    hasAtom  = true;
+                }
+            } else {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) >= 0)) {
+                    hasAtom  = true;
+                }
+            }
+
+        }
+        if(!hasAtom) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        new CheckWithdrawAddressTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                String rewardAddress = (String)result.resultData;
+                if(rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
+                    Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
+                } else {
+                    WLog.w("start ReInvest");
+                }
+            }
+        }, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+    }
+
+
+
     private void onFetchValHistory() {
         mTaskCount++;
         ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
@@ -636,6 +690,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         onGetReward();
                     }
                 });
+                holder.itemBtnReinvest.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onCheckReInvest();
+                    }
+                });
 
             } else if (getItemViewType(position) == TYPE_HISTORY_HEADER) {
                 final HistoryHeaderHolder holder = (HistoryHeaderHolder)viewHolder;
@@ -843,7 +903,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         public class MyActionHolder extends RecyclerView.ViewHolder {
             TextView    itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvAtomReward, itemTvPhotonReward, itemTvSimpleReward;
-            Button      itemBtnDelegate, itemBtnUndelegate, itemBtnRedelegate, itemBtnReward ;
+            Button      itemBtnDelegate, itemBtnUndelegate, itemBtnRedelegate, itemBtnReward, itemBtnReinvest ;
             TextView    itemAtomTitle, itemPhotonTitle;
             RelativeLayout itemAtomLayer, itemPhotonLayer;
             TextView    itemDailyReturn, itemMonthlyReturn;
@@ -858,6 +918,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemBtnUndelegate       = itemView.findViewById(R.id.validator_btn_undelegate);
                 itemBtnRedelegate       = itemView.findViewById(R.id.validator_btn_redelegate);
                 itemBtnReward           = itemView.findViewById(R.id.validator_btn_claim_reward);
+                itemBtnReinvest         = itemView.findViewById(R.id.validator_btn_reinvest);
                 itemAtomTitle           = itemView.findViewById(R.id.action_atom_title);
                 itemPhotonTitle         = itemView.findViewById(R.id.action_photon_title);
                 itemPhotonLayer         = itemView.findViewById(R.id.validator_photon_reward_layer);
