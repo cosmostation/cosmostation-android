@@ -84,7 +84,7 @@ public class ValidatorAllFragment extends BaseFragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemViewCacheSize(100);
+        mRecyclerView.setItemViewCacheSize(50);
         mRecyclerView.setDrawingCacheEnabled(true);
         mAllValidatorAdapter = new AllValidatorAdapter();
         mRecyclerView.setAdapter(mAllValidatorAdapter);
@@ -134,27 +134,43 @@ public class ValidatorAllFragment extends BaseFragment {
                     getMainActivity().onStartValidatorDetail(validator);
                 }
             });
-//            holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
-            holder.itemAvatar.setTag("imgv" + position);
-            if(!TextUtils.isEmpty(validator.description.identity)) {
-                ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
-                    @Override
-                    public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
-                        if(isAdded() && holder.itemAvatar.getTag().equals("imgv" + position)) {
-                            try {
-                                Picasso.get()
-                                        .load(response.body().getUrl())
-                                        .fit()
-                                        .placeholder(R.drawable.validator_none_img)
-                                        .into(holder.itemAvatar);
-                            }catch (Exception e) {}
 
+            holder.itemAvatar.setTag("imgv" + position);
+            if(validator.keybaseInfo == null) {
+                holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
+                if(!TextUtils.isEmpty(validator.description.identity)) {
+                    ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
+                        @Override
+                        public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
+                            validator.keybaseInfo = response.body();
+                            if(isAdded() && holder.itemAvatar.getTag().equals("imgv" + position)) {
+                                try {
+                                    Picasso.get()
+                                            .load(response.body().getUrl())
+                                            .fit()
+                                            .placeholder(R.drawable.validator_none_img)
+                                            .into(holder.itemAvatar);
+                                }catch (Exception e) {}
+                            }
                         }
-                    }
-                    @Override
-                    public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
-                });
+                        @Override
+                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
+                    });
+                }
+
+            } else {
+                if(isAdded() && holder.itemAvatar.getTag().equals("imgv" + position)) {
+                    try {
+                        Picasso.get()
+                                .load(validator.keybaseInfo.getUrl())
+                                .fit()
+                                .placeholder(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    }catch (Exception e) {}
+                }
+
             }
+
             if(validator.jailed) {
                 holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
                 holder.itemRevoked.setVisibility(View.VISIBLE);

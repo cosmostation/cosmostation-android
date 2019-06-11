@@ -80,7 +80,6 @@ public class MainRewardFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int i) {
-                WLog.w("onPageSelected : " + i);
                 mPageAdapter.mFragments.get(i).onRefreshTab();
                 getMainActivity().invalidateOptionsMenu();
             }

@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
+
 public class Validator implements Parcelable {
 
     public static final int UNBONDED    = 0;
@@ -44,6 +46,8 @@ public class Validator implements Parcelable {
 
     @SerializedName("commission")
     public ValidatorCommission commission;
+
+    public ResKeyBaseUser keybaseInfo;
 
     public Validator() {
     }
