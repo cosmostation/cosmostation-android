@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -83,10 +85,14 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void onDeleteAccount(long id) {
+        try {
+            CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + getBaseDao().onSelectAccount(""+id).uuid);
+        } catch (Exception e) { }
         getBaseDao().onDeleteAccount(""+id);
         getBaseDao().onSelectBalance(id);
         getBaseDao().onDeleteBondingStates(id);
         getBaseDao().onDeleteUnbondingStates(id);
+
         if(getBaseDao().onSelectAccounts().size() > 0) {
             getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
             onStartMainActivity();

@@ -85,6 +85,8 @@ public class ValidatorMyFragment extends BaseFragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setDrawingCacheEnabled(true);
         mMyValidatorAdapter = new MyValidatorAdapter();
         mRecyclerView.setAdapter(mMyValidatorAdapter);
 
@@ -164,7 +166,7 @@ public class ValidatorMyFragment extends BaseFragment {
                         getMainActivity().onStartValidatorDetail(validator);
                     }
                 });
-                holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
+//                holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
                 holder.itemAvatar.setTag("imgv" + position);
                 if(!TextUtils.isEmpty(validator.description.identity)) {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
@@ -174,6 +176,7 @@ public class ValidatorMyFragment extends BaseFragment {
                                 try {
                                     Picasso.get()
                                             .load(response.body().getUrl())
+                                            .fit()
                                             .placeholder(R.drawable.validator_none_img)
                                             .into(holder.itemAvatar);
                                 }catch (Exception e) {}
@@ -183,6 +186,9 @@ public class ValidatorMyFragment extends BaseFragment {
                         public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
                     });
                 }
+
+
+
                 if(validator.jailed) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);

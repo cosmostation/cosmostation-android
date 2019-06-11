@@ -74,6 +74,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         mNextBtn.setOnClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(100);
+        mRecyclerView.setDrawingCacheEnabled(true);
         mToValidatorAdapter = new ToValidatorAdapter();
         mRecyclerView.setAdapter(mToValidatorAdapter);
         return rootView;
@@ -148,7 +150,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                     notifyDataSetChanged();
                 }
             });
-            holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
+//            holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
             holder.itemAvatar.setTag("imgv" + position);
             if(!TextUtils.isEmpty(validator.description.identity)) {
                 ApiClient.getKeybaseService(getBaseActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
@@ -158,6 +160,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                             try {
                                 Picasso.get()
                                         .load(response.body().getUrl())
+                                        .fit()
                                         .placeholder(R.drawable.validator_none_img)
                                         .into(holder.itemAvatar);
                             }catch (Exception e) {}

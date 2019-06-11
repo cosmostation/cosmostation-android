@@ -8,6 +8,7 @@ import android.util.Base64;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.PrivateKey;
 import java.security.Signature;
 
 import javax.crypto.Cipher;
@@ -15,6 +16,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class CryptoHelper {
@@ -36,8 +38,6 @@ public class CryptoHelper {
 
         } catch (Exception e) {
             WLog.w("loadKeyStore Error");
-//            WLog.w("haha : " + e.getMessage());
-//            e.printStackTrace();
             throw e;
         }
     }
@@ -110,7 +110,6 @@ public class CryptoHelper {
             result = Base64.encodeToString(signature, Base64.DEFAULT);
 
         } catch (Exception e) {
-//            e.printStackTrace();
             return result;
         }
         WLog.w("signData : " + result);
@@ -120,26 +119,18 @@ public class CryptoHelper {
     public static boolean verifyData(String input, String signatureStr, String alias) {
         boolean result = false;
         try {
+
             final byte[] data = input.getBytes();
             final KeyStore keyStore = loadKeyStore();
-            KeyStore.Entry entry = keyStore.getEntry(alias, null);
-            if (entry == null) {
-                return false;
-            }
-            if (!(entry instanceof KeyStore.PrivateKeyEntry)) {
-                return false;
-            }
 
             byte[] signature = Base64.decode(signatureStr, Base64.DEFAULT);
             Signature s = Signature.getInstance(SIGNATURE_SHA256withRSA);
 
-            s.initVerify(((KeyStore.PrivateKeyEntry) entry).getCertificate());
+            s.initVerify(keyStore.getCertificate(alias));
             s.update(data);
             result = s.verify(signature);
 
         } catch (Exception e) {
-//            e.printStackTrace();
-//            return result;
             WLog.w("verifyData Error");
 
         }

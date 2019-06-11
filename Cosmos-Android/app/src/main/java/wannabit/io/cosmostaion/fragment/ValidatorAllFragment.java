@@ -84,6 +84,8 @@ public class ValidatorAllFragment extends BaseFragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(100);
+        mRecyclerView.setDrawingCacheEnabled(true);
         mAllValidatorAdapter = new AllValidatorAdapter();
         mRecyclerView.setAdapter(mAllValidatorAdapter);
 
@@ -132,7 +134,7 @@ public class ValidatorAllFragment extends BaseFragment {
                     getMainActivity().onStartValidatorDetail(validator);
                 }
             });
-            holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
+//            holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
             holder.itemAvatar.setTag("imgv" + position);
             if(!TextUtils.isEmpty(validator.description.identity)) {
                 ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
@@ -142,6 +144,7 @@ public class ValidatorAllFragment extends BaseFragment {
                             try {
                                 Picasso.get()
                                         .load(response.body().getUrl())
+                                        .fit()
                                         .placeholder(R.drawable.validator_none_img)
                                         .into(holder.itemAvatar);
                             }catch (Exception e) {}

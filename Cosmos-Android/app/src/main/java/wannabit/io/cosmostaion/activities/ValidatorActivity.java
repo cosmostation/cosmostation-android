@@ -588,6 +588,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                                 try {
                                     Picasso.get()
                                             .load(response.body().getUrl())
+                                            .fit()
                                             .placeholder(R.drawable.validator_none_img)
                                             .into(holder.itemAvatar);
                                 }catch (Exception e){}
