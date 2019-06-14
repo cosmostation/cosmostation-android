@@ -143,7 +143,18 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnAddressDetail.setOnClickListener(this);
         mGuideBtn.setOnClickListener(this);
         mFaqBtn.setOnClickListener(this);
-        onUpdateView();
+//        onUpdateView();
+        mTvAtomTitle.setText(WDp.DpAtom(getContext(), getMainActivity().mAccount.baseChain));
+        mTvPhotonTitle.setText(WDp.DpPoton(getContext(), getMainActivity().mAccount.baseChain));
+
+        mAddress.setText(getMainActivity().mAccount.address);
+
+        if(getMainActivity().mAccount.hasPrivateKey) {
+            mKeyState.setImageDrawable(getResources().getDrawable(R.drawable.key_on));
+        } else {
+            mKeyState.setImageDrawable(getResources().getDrawable(R.drawable.key_off));
+        }
+
         return rootView;
     }
 

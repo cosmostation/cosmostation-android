@@ -370,7 +370,8 @@
                                 android:layout_height="@dimen/space_12"
                                 android:layout_marginTop="@dimen/space_2"
                                 android:layout_marginRight="@dimen/space_2"
-                                android:src="@drawable/ic_price_down"/>
+                                android:src="@drawable/ic_price_down"
+                                android:visibility="gone"/>
                             <TextView
                                 android:id="@+id/dash_atom_price_updown_tx"
                                 android:layout_width="wrap_content"
@@ -378,7 +379,7 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
                                 style="@style/font_ssl_12_white"
-                                android:text="-0.95% (24h)"/>
+                                android:text="-"/>
                         </LinearLayout>
                         <TextView
                             android:layout_width="wrap_content"
