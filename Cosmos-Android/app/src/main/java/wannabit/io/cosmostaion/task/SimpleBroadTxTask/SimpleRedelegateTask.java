@@ -96,13 +96,8 @@ public class SimpleRedelegateTask extends CommonTask {
                     msgs,
                     mFees,
                     mReDelegateMemo);
-            WLog.w("SimpleRedelegateTask tosign : " +  WUtil.getPresentor().toJson(tosign));
-
-            byte[] ToSignByte = tosign.getToSignByte();
-            WLog.w("ToSignByte  " + WUtil.ByteArrayToHexString(ToSignByte));
 
             String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
-            WLog.w("String  " + signatureTx);
 
             // build Signature object
             Signature signature = new Signature();
@@ -116,17 +111,12 @@ public class SimpleRedelegateTask extends CommonTask {
             signatures.add(signature);
 
             StakeStdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mFees, mReDelegateMemo, signatures);
-            signedTx.value.signatures = signatures;
-            WLog.w("SimpleRedelegateTask signedTx : " +  WUtil.getPresentor().toJson(signedTx));
-
             ReqStakeBroadCast reqBroadCast = new ReqStakeBroadCast();
             reqBroadCast.returns = "sync";
             reqBroadCast.tx = signedTx.value;
-            WLog.w("ReqBroadCast : " +  WUtil.getPresentor().toJson(reqBroadCast));
 
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadStakeTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
-                WLog.w("SimpleRedelegateTask success!!");
                 WLog.w("response.body() : " + response.body());
                 if (response.body().txhash != null) {
                     mResult.resultData = response.body().txhash;

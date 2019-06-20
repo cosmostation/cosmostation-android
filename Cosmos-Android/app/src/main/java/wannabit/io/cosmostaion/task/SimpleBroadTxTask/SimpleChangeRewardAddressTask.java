@@ -89,8 +89,6 @@ public class SimpleChangeRewardAddressTask extends CommonTask {
                     msgs,
                     mFees,
                     mMemo);
-            WLog.w("SimpleChangeRewardAddressTask tosign : " +  WUtil.getPresentor().toJson(tosign));
-
             String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
 
             Signature signature = new Signature();
@@ -110,7 +108,6 @@ public class SimpleChangeRewardAddressTask extends CommonTask {
 
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
-                WLog.w("SimpleChangeRewardAddressTask success!!");
                 WLog.w("response.body() hash: " + response.body().txhash);
                 if (response.body().txhash != null) {
                     mResult.resultData = response.body().txhash;

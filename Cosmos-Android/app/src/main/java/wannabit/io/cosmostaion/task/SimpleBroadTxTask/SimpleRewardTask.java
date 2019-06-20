@@ -84,7 +84,6 @@ public class SimpleRewardTask extends CommonTask {
                 Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, val.operator_address, BaseChain.getChain(mAccount.baseChain));
                 msgs.add(singleWithdrawDeleMsg);
             }
-            WLog.w("Msg " + msgs.size());
 
             StdSignMsgWithType tosign = MsgGenerator.genToSignMsgWithType(
                     mAccount.baseChain,
@@ -93,7 +92,6 @@ public class SimpleRewardTask extends CommonTask {
                     msgs,
                     mRewardFees,
                     mRewardMemo);
-            WLog.w("SimpleRewardTask tosign : " +  WUtil.getPresentor().toJson(tosign));
 
             String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
 
@@ -109,8 +107,6 @@ public class SimpleRewardTask extends CommonTask {
             signatures.add(signature);
 
             StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mRewardFees, mRewardMemo, signatures);
-            signedTx.value.signatures = signatures;
-
             ReqBroadCast reqBroadCast = new ReqBroadCast();
             reqBroadCast.returns = "sync";
             reqBroadCast.tx = signedTx.value;
@@ -118,17 +114,10 @@ public class SimpleRewardTask extends CommonTask {
 
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
-                WLog.w("SimpleRewardTask success!!");
                 if (response.body().txhash != null) {
-                    WLog.w("response.txhash()  : " + response.body().txhash);
                     mResult.resultData = response.body().txhash;
                 }
-                if(response.body().raw_log != null) {
-                    WLog.w("response.raw_log()  : " + response.body().raw_log);
-                }
-
                 if(response.body().code != null) {
-                    WLog.w("response.code() : " + response.body().code);
                     mResult.errorCode = response.body().code;
                     mResult.errorMsg = response.body().raw_log;
                     return mResult;
@@ -136,7 +125,6 @@ public class SimpleRewardTask extends CommonTask {
                 mResult.isSuccess = true;
 
             } else {
-                WLog.w("SimpleRewardTask not success!!");
                 mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
             }
 

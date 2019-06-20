@@ -89,9 +89,6 @@ public class ReInvestTask extends CommonTask {
                     msgs,
                     mReInvestFees,
                     mReInvestMemo);
-
-            byte[] ToSignByte = tosign.getToSignByte();
-
             String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
 
             // build Signature object
@@ -106,17 +103,13 @@ public class ReInvestTask extends CommonTask {
             signatures.add(signature);
 
             StakeStdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mReInvestFees, mReInvestMemo, signatures);
-            signedTx.value.signatures = signatures;
-            WLog.w("ReInvestTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
 
             ReqStakeBroadCast reqBroadCast = new ReqStakeBroadCast();
             reqBroadCast.returns = "sync";
             reqBroadCast.tx = signedTx.value;
-            WLog.w("ReqBroadCast : " +  WUtil.getPresentor().toJson(reqBroadCast));
 
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadStakeTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
-                WLog.w("ReInvestTask success!!");
                 WLog.w("response.body() : " + response.body());
                 if (response.body().txhash != null) {
                     mResult.resultData = response.body().txhash;

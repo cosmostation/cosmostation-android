@@ -89,7 +89,6 @@ public class SimpleSendTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
             Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mToSendAmount, BaseChain.getChain(mAccount.baseChain));
-//            WLog.w("SimpleSendTask stdTx : " +  WUtil.getPresentor().toJson(singleSendMsg));
 
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleSendMsg);
@@ -101,12 +100,8 @@ public class SimpleSendTask extends CommonTask {
                     msgs,
                     mToFees,
                     mToSendMemo);
-            WLog.w("SimpleSendTask tosign : " +  WUtil.getPresentor().toJson(tosign));
 
-//            String signatureTx = MsgGenerator.getSignature(orikey, tosign.getToSignByte());
             String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
-//            WLog.w("SimpleSendTask tosign1 : " +  WUtil.getPresentor().toJson(tosign));
-//            WLog.w("SimpleSendTask tosign2 : " +  WUtil.prettyPrinter(tosign));
 
             // build Signature object
             Signature signature = new Signature();
@@ -124,13 +119,10 @@ public class SimpleSendTask extends CommonTask {
             StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mToFees, mToSendMemo, signatures);
             ReqBroadCast reqBroadCast = new ReqBroadCast();
             reqBroadCast.returns = "sync";
-//            reqBroadCast.returns = "block";
             reqBroadCast.tx = signedTx.value;
-            WLog.w("SimpleSendTask signed1 : " +  WUtil.getPresentor().toJson(reqBroadCast));
 
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
-                WLog.w("SimpleSendTask success!!");
                 WLog.w("response.body() hash: " + response.body().txhash);
                 if (response.body().txhash != null) {
                     mResult.resultData = response.body().txhash;
