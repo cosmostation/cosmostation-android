@@ -53,6 +53,7 @@ public class PasswordSetActivity extends BaseActivity implements KeyboardListene
         mPassowrdMsg1   = findViewById(R.id.tv_password_msg1);
         mPassowrdMsg2   = findViewById(R.id.tv_password_msg2);
         mViewPager      = findViewById(R.id.pager_keyboard);
+        mNeedLeaveTime = false;
 
         for(int i = 0; i < mIvCircle.length; i++) {
             mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i , "id", getPackageName()));

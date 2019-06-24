@@ -75,15 +75,6 @@ public class BaseData {
         }
     }
 
-
-    public void setUsingFingerprint(boolean using) {
-        getSharedPreferences().edit().putBoolean(BaseConstant.SET_USE_FINGERPRINT, using).commit();
-    }
-
-    public boolean getUsingFingerprint() {
-        return getSharedPreferences().getBoolean(BaseConstant.SET_USE_FINGERPRINT, false);
-    }
-
     public void setValSorting(int sort) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).commit();
     }
@@ -160,6 +151,37 @@ public class BaseData {
     }
 
 
+    public boolean getUsingAppLock() {
+        return getSharedPreferences().getBoolean(BaseConstant.PRE_USING_APP_LOCK, false);
+    }
+
+    public void setUsingAppLock(boolean using) {
+        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_USING_APP_LOCK, using).commit();
+    }
+
+    public boolean getUsingFingerPrint() {
+        return getSharedPreferences().getBoolean(BaseConstant.PRE_USING_FINGERPRINT, false);
+    }
+
+    public void setUsingFingerPrint(boolean using) {
+        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_USING_FINGERPRINT, using).commit();
+    }
+
+    public int getAppLockTriggerTime() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_APP_LOCK_TIME, 0);
+    }
+
+    public void setAppLockTriggerTime(int trigger) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_APP_LOCK_TIME, trigger).commit();
+    }
+
+    public long getAppLockLeaveTime() {
+        return getSharedPreferences().getLong(BaseConstant.PRE_APP_LOCK_LEAVE_TIME, 0);
+    }
+
+    public void setAppLockLeaveTime() {
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_APP_LOCK_LEAVE_TIME, System.currentTimeMillis()).commit();
+    }
 
 
 

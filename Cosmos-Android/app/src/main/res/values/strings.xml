@@ -136,6 +136,9 @@
     <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>
     <string name="str_alarm">Alarm</string>
+    <string name="str_app_applock">App Lock</string>
+    <string name="str_app_applock_enabled">Enabled</string>
+    <string name="str_app_applock_diabeld">Disabled</string>
     <string name="str_currency">Currency</string>
     <string name="str_base_price">Base Price</string>
     <string name="str_support">Support</string>
@@ -378,7 +381,12 @@
     However, there is a delay in displaying the result.
     Please press the "wait" button below to wait until the result is displayed,
     or press "close" to return to your wallet dashboard and check your TX in the history tab later.]]></string>
-
+    <string name="str_app_unlock_title">Unlock Cosmostation</string>
+    <string name="str_app_unlock_msg1">Please insert password for unlock</string>
+    <string name="str_app_unlock_msg2">Please insert password or using fingerprint for unlock</string>
+    <string name="str_using_applock">Using App Lock</string>
+    <string name="str_using_fingerprints">Unlock with Fingerprint</string>
+    <string name="str_applock_time">App Lock Time</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

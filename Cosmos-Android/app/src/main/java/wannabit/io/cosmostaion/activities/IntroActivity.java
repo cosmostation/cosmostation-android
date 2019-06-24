@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,10 +20,12 @@ import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -45,6 +49,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         btnWatchAddress     = findViewById(R.id.btn_watch_address);
         mImport             = findViewById(R.id.btn_import);
         mCreate             = findViewById(R.id.btn_create);
+        mNeedLeaveTime = false;
 
         mNmemonicLayer = findViewById(R.id.import_mnemonic_layer);
         mWatchLayer = findViewById(R.id.import_watch_layer);
@@ -55,20 +60,20 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         btnImportMnemonic.setOnClickListener(this);
         btnWatchAddress.setOnClickListener(this);
 
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(getBaseDao().onSelectAccounts().size() == 0) {
-                    onInitView();
-                } else {
-                    onStartMainActivity();
-                }
+        Bundle pushBundle = getIntent().getExtras();
+        if(pushBundle != null) {
+            Set<String> keys = pushBundle.keySet();
+            for (String key:keys) {
+                WLog.w("push " + key + " : " + pushBundle.get(key));
             }
-        }, 1500);
+        }
 
         WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
-        WLog.w("FCM token: " + FirebaseInstanceId.getInstance().getInstanceId().toString());
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+            WLog.w("" + ((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE)).isBackgroundRestricted());
+        }
+
+//        WLog.w("FCM token Already : " + FirebaseInstanceId.getInstance().getInstanceId().getResult().getToken());
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -78,10 +83,32 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                         }
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
+                        WLog.w("FCM token new : " + token);
                     }
                 });
 
         onHardCodeHub2();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(getBaseDao().onSelectAccounts().size() == 0) {
+                    onInitView();
+                } else {
+                    if(getBaseApplication().needShowLockScreen()) {
+                        Intent intent = new Intent(IntroActivity.this, AppLockActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                    } else {
+                        onStartMainActivity();
+                    }
+                }
+            }
+        }, 1500);
     }
 
     private void onInitView(){

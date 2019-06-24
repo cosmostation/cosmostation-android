@@ -45,7 +45,7 @@ public class Dialog_UsingBio extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).getBaseDao().setUsingFingerprint(true);
+                ((BaseActivity)getActivity()).getBaseDao().setUsingFingerPrint(true);
                 ((PasswordSetActivity)getActivity()).onNextPage();
                 getDialog().dismiss();
             }

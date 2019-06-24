@@ -89,6 +89,9 @@
     <string name="str_wallet_detail">지갑 상세</string>
     <string name="str_general">일반</string>
     <string name="str_alarm">알람</string>
+    <string name="str_app_applock">앱 잠금</string>
+    <string name="str_app_applock_enabled">사용중</string>
+    <string name="str_app_applock_diabeld">사용안함</string>
     <string name="str_currency">통화</string>
     <string name="str_base_price">가격 정보 출처</string>
     <string name="str_support">지원</string>
@@ -330,6 +333,12 @@
     <string name="str_more_wait_msg"><![CDATA[요청하신 트랜잭션은 블럭체인에 정확히 전달하였습니다.
     하지만 결과값을 보여주는데 시간이 지연되고 있습니다.
     "기다리기" 버튼을 눌러 현재 화면에서 결과값을 확인하거나, "닫기" 버튼을 눌러 잠시 후에 History 탭에서 결과를 확인하세요.]]></string>
+    <string name="str_app_unlock_title">앱 잠금 해제</string>
+    <string name="str_app_unlock_msg1">비밀번호를 입력하여 앱 잠금을 해제하세요</string>
+    <string name="str_app_unlock_msg2">지문 또는 비밀번호를 입력하여 앱 잠금을 해제하세요</string>
+    <string name="str_using_applock">앱락 사용</string>
+    <string name="str_using_fingerprints">지문 사용</string>
+    <string name="str_applock_time">앱락 시간</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

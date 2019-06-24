@@ -9,9 +9,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.AppLockActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
+import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -21,9 +25,26 @@ public class BaseActivity extends AppCompatActivity {
     protected BaseApplication               mApplication;
     protected BaseData                      mData;
     protected Dialog_Wait                   mDialogWait;
-    public    boolean                       mBusy;
-    public    int                           mBusyCnt;
+    protected boolean                       mNeedLeaveTime = true;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity)) {
+            if(getBaseApplication().needShowLockScreen()) {
+                Intent intent = new Intent(BaseActivity.this, AppLockActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mNeedLeaveTime)
+            getBaseDao().setAppLockLeaveTime();
+    }
 
     public BaseApplication getBaseApplication() {
         if (mApplication == null)
@@ -67,12 +88,6 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public void onStartListActivity() {
-//        Intent intent = new Intent(this, WalletListActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(intent);
-//    }
-
     public void onChoiceNet(BaseChain chain) {
     }
 
@@ -105,7 +120,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void onAddMnemonicForAccount() {
-        WLog.w("onAddMnemonicForAccount");
         startActivity(new Intent(BaseActivity.this, RestoreActivity.class));
     }
 }

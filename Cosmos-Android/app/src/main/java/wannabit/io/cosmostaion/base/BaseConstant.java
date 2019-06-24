@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean                 IS_SHOWLOG 					            = false;
+    public final static boolean                 IS_SHOWLOG 					            = true;
     public final static boolean                 IS_TEST 					            = false;
     public final static boolean                 IS_FEE_FREE 					        = false;
     public final static String                  LOG_TAG                                 = "Cosmostation";
@@ -22,16 +22,20 @@ public class BaseConstant {
     public final static String					PRE_ATOM_TIC			                = "PRE_ATOM_TIC";
     public final static String					PRE_ATOM_UP_DOWN_24			            = "PRE_ATOM_UP_DOWN_24";
     public final static String					PRE_CURRENCY			                = "PRE_CURRENCY";
+    public final static String					PRE_USING_APP_LOCK			            = "PRE_USING_APP_LOCK";
+    public final static String					PRE_USING_FINGERPRINT			        = "PRE_USING_FINGERPRINT";
+    public final static String					PRE_APP_LOCK_TIME			            = "PRE_APP_LOCK_TIME";
+    public final static String					PRE_APP_LOCK_LEAVE_TIME			        = "PRE_APP_LOCK_LEAVE_TIME";
 
-    public final static String					SET_USE_FINGERPRINT			            = "SET_USE_FINGERPRINT";
-    public final static String					SET_HISTORY_QUERY			            = "SET_HISTORY_QUERY";
-    public final static String					SET_HISTORY_ORDER			            = "SET_HISTORY_ORDER";
-    public final static int                     SET_HISTORY_QUERY_ALL                   = 0;
-    public final static int                     SET_HISTORY_QUERY_TRANSFER              = 1;
-    public final static int                     SET_HISTORY_QUERY_STAKING               = 2;
-    public final static int                     SET_HISTORY_QUERY_VOTE                  = 3;
-    public final static int					    SET_HISTORY_DEC			                = 0;
-    public final static int					    SET_HISTORY_ASC			                = 1;
+//    public final static String					SET_USE_FINGERPRINT			            = "SET_USE_FINGERPRINT";
+//    public final static String					SET_HISTORY_QUERY			            = "SET_HISTORY_QUERY";
+//    public final static String					SET_HISTORY_ORDER			            = "SET_HISTORY_ORDER";
+//    public final static int                     SET_HISTORY_QUERY_ALL                   = 0;
+//    public final static int                     SET_HISTORY_QUERY_TRANSFER              = 1;
+//    public final static int                     SET_HISTORY_QUERY_STAKING               = 2;
+//    public final static int                     SET_HISTORY_QUERY_VOTE                  = 3;
+//    public final static int					    SET_HISTORY_DEC			                = 0;
+//    public final static int					    SET_HISTORY_ASC			                = 1;
 
 
 
@@ -145,8 +149,6 @@ public class BaseConstant {
     public final static int					    ERROR_CODE_BROADCAST	                = 8004;
 
 
-    public final static String                  COSMOS_MAINNET                          = "COSMOS_MAINNET";
-    public final static String                  COSMOS_GAIA12K                          = "COSMOS_GAIA12K";
     public final static String                  COSMOS_ATOM                             = "uatom";
     public final static String                  COSMOS_MUON                             = "muon";
     public final static String                  COSMOS_PHOTON                           = "photon";
@@ -161,6 +163,8 @@ public class BaseConstant {
 
 
     public final static long					CONSTANT_S			                    = 1000l;
+    public final static long					CONSTANT_10S			                = CONSTANT_S * 10;
+    public final static long					CONSTANT_30S			                = CONSTANT_S * 30;
     public final static long					CONSTANT_M			                    = CONSTANT_S * 60;
     public final static long					CONSTANT_H			                    = CONSTANT_M * 60;
     public final static long					CONSTANT_D			                    = CONSTANT_H * 24;

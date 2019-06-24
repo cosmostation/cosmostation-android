@@ -47,4 +47,8 @@
         <item name="behavior_hideable">true</item>
     </style>
 
+    <style name="ColorSwitchStyles">
+        <item name="colorControlActivated">@color/colorAtom</item>
+    </style>
+
 </resources>

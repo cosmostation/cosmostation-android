@@ -26,6 +26,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
+import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.GuideListActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -39,11 +40,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     public final static int SELECT_CURRENCY = 9034;
 
-    private FrameLayout mBtnWallet, mBtnAlaram, mBtnCurrency, mBtnBasePrice,
+    private FrameLayout mBtnWallet, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
                         mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage,
                         mBtnTerm, mBtnGithub, mBtnVersion;
 
-    private TextView    mTvCurrency, mTvBasePrice, mTvVersion;
+    private TextView    mTvAppLock, mTvCurrency, mTvBasePrice, mTvVersion;
 
     public static MainSettingFragment newInstance(Bundle bundle) {
         MainSettingFragment fragment = new MainSettingFragment();
@@ -79,6 +80,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         View rootView = inflater.inflate(R.layout.fragment_main_setting, container, false);
         mBtnWallet = rootView.findViewById(R.id.card_wallet);
         mBtnAlaram = rootView.findViewById(R.id.card_alaram);
+        mBtnAppLock = rootView.findViewById(R.id.card_applock);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
         mBtnBasePrice = rootView.findViewById(R.id.card_base_price);
         mBtnGuide = rootView.findViewById(R.id.card_guide);
@@ -88,11 +90,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnTerm = rootView.findViewById(R.id.card_term);
         mBtnGithub = rootView.findViewById(R.id.card_github);
         mBtnVersion = rootView.findViewById(R.id.card_version);
+        mTvAppLock = rootView.findViewById(R.id.applock_text);
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvBasePrice = rootView.findViewById(R.id.base_price_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
         mBtnWallet.setOnClickListener(this);
         mBtnAlaram.setOnClickListener(this);
+        mBtnAppLock.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
         mBtnBasePrice.setOnClickListener(this);
         mBtnGuide.setOnClickListener(this);
@@ -105,7 +109,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
 
-//        mBtnGuide.setVisibility(View.GONE);
         mBtnAlaram.setVisibility(View.GONE);
         return rootView;
     }
@@ -115,6 +118,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if(!isAdded()) return;
         mTvCurrency.setText(getBaseDao().getCurrencyString());
+        if(getBaseDao().getUsingAppLock()) {
+            mTvAppLock.setText(R.string.str_app_applock_enabled);
+        } else {
+            mTvAppLock.setText(R.string.str_app_applock_diabeld);
+        }
     }
 
     @Override
@@ -124,6 +132,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
+
+        } else if (v.equals(mBtnAppLock)) {
+            startActivity(new Intent(getBaseActivity(), AppLockSetActivity.class));
 
         } else if (v.equals(mBtnCurrency)) {
             Dialog_Currency_Set cyrrency_dialog = Dialog_Currency_Set.newInstance(null);

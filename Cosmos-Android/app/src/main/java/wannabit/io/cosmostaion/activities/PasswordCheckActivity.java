@@ -48,9 +48,9 @@ import wannabit.io.cosmostaion.widget.StopViewPager;
 
 public class PasswordCheckActivity extends BaseActivity implements KeyboardListener, TaskListener {
 
-    private LinearLayout            mLayerContents;
-    private TextView                mPassowrdTitle, mPassowrdMsg1, mPassowrdMsg2;
-    private ImageView[]             mIvCircle = new ImageView[5];
+    private LinearLayout                mLayerContents;
+    private TextView                    mPassowrdTitle, mPassowrdMsg1, mPassowrdMsg2;
+    private ImageView[]                 mIvCircle = new ImageView[5];
 
     private StopViewPager               mViewPager;
     private KeyboardPagerAdapter        mAdapter;
@@ -89,6 +89,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mPassowrdMsg2   = findViewById(R.id.tv_password_msg2);
         mViewPager      = findViewById(R.id.pager_keyboard);
         mPassowrdMsg2.setVisibility(View.INVISIBLE);
+        mNeedLeaveTime = false;
 
         for(int i = 0; i < mIvCircle.length; i++) {
             mIvCircle[i] = findViewById(getResources().getIdentifier("img_circle" + i , "id", getPackageName()));
