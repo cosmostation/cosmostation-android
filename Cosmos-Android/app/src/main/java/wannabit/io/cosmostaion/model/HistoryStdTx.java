@@ -25,9 +25,9 @@ public class HistoryStdTx {
         @SerializedName("fee")
         public Fee fee;
 
-        @JsonInclude(JsonInclude.Include.ALWAYS)
-        @SerializedName("signatures")
-        public ArrayList<Signature> signatures;
+//        @JsonInclude(JsonInclude.Include.ALWAYS)
+//        @SerializedName("signatures")
+//        public ArrayList<Signature> signatures;
 
         @SerializedName("memo")
         public String memo;
