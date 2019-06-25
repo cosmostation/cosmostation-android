@@ -118,8 +118,6 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
                 @Override
                 public void onAuthenticationError(int errMsgId, CharSequence errString) {
                     super.onAuthenticationError(errMsgId, errString);
-                    mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorRed), android.graphics.PorterDuff.Mode.SRC_IN);
-//                    Toast.makeText(getBaseContext(), errString, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
