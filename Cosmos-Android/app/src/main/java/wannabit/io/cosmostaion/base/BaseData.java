@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -143,7 +144,6 @@ public class BaseData {
         } else {
             return "$";
         }
-
     }
 
     public void setCurrency(int currency) {
@@ -181,6 +181,19 @@ public class BaseData {
 
     public void setAppLockLeaveTime() {
         getSharedPreferences().edit().putLong(BaseConstant.PRE_APP_LOCK_LEAVE_TIME, System.currentTimeMillis()).commit();
+    }
+
+    public String getAppLockLeaveTimeString(Context c) {
+        WLog.w("getAppLockLeaveTime " + getAppLockTriggerTime());
+        if (getAppLockTriggerTime() == 1) {
+            return c.getString(R.string.str_applock_time_10sec);
+        } else if (getAppLockTriggerTime() == 2) {
+            return c.getString(R.string.str_applock_time_30sec);
+        } else if (getAppLockTriggerTime() == 3) {
+            return c.getString(R.string.str_applock_time_60sec);
+        } else {
+            return c.getString(R.string.str_applock_time_immediately);
+        }
     }
 
 

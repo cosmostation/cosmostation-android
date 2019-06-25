@@ -45,9 +45,7 @@ public class BaseApplication extends Application {
                 !getBaseDao().getUsingAppLock() ||
                 (getBaseDao().onSelectAccounts().size() <= 0 )) return false;
 
-        if (getBaseDao().getAppLockTriggerTime() == 4) {
-            return false;
-        } else if (getBaseDao().getAppLockTriggerTime() == 0) {
+        if (getBaseDao().getAppLockTriggerTime() == 0) {
             return true;
         } else if (getBaseDao().getAppLockTriggerTime() == 1) {
             if (getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_10S >= System.currentTimeMillis()) return false;

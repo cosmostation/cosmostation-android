@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/space_64">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lockTime_immediately"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_12"
+                android:layout_marginLeft="@dimen/space_12"
+                android:text="@string/str_applock_time_immediately"
+                style="@style/font_ss_14_gray8"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray10"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lockTime_10sec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_12"
+                android:layout_marginLeft="@dimen/space_12"
+                android:text="@string/str_applock_time_10sec"
+                style="@style/font_ss_14_gray8"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray10"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lockTime_30sec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_12"
+                android:layout_marginLeft="@dimen/space_12"
+                android:text="@string/str_applock_time_30sec"
+                style="@style/font_ss_14_gray8"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray10"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lockTime_60sec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_12"
+                android:layout_marginLeft="@dimen/space_12"
+                android:text="@string/str_applock_time_60sec"
+                style="@style/font_ss_14_gray8"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

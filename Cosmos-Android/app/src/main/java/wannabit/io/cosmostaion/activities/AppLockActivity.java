@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.support.v4.os.CancellationSignal;
 import android.view.View;
@@ -32,7 +33,7 @@ import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
-public class AppLockActivity extends BaseActivity implements KeyboardListener, TaskListener {
+public class AppLockActivity extends BaseActivity implements KeyboardListener, TaskListener{
 
     private LinearLayout            mLayerContents;
     private ImageView               mFingerImage;
@@ -61,6 +62,12 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
         mAdapter = new KeyboardPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
 
+
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
         onInitView();
     }
 
@@ -82,7 +89,6 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     }
 
     private void onUnlock() {
-        setResult(Activity.RESULT_OK, new Intent());
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
     }
@@ -101,18 +107,21 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
                 @Override
                 public void onAuthenticationError(int errMsgId, CharSequence errString) {
                     super.onAuthenticationError(errMsgId, errString);
+                    mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorRed), android.graphics.PorterDuff.Mode.SRC_IN);
                     Toast.makeText(getBaseContext(), errString, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
                     mUnlockMsg.setText(helpString);
+                    mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorRed), android.graphics.PorterDuff.Mode.SRC_IN);
                     super.onAuthenticationHelp(helpMsgId, helpString);
                 }
 
                 @Override
                 public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
                     super.onAuthenticationSucceeded(result);
+                    mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
                     onUnlock();
                 }
 
@@ -201,11 +210,11 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     }
 
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        finish();
-//    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
 
     @Override
     public void onTaskResponse(TaskResult result) {

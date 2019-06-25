@@ -1,14 +1,25 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dialog.Dialog_LockTime;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 
 public class AppLockSetActivity extends BaseActivity implements View.OnClickListener {
 
@@ -37,28 +48,84 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
         mBtnUsingFingerprint.setOnClickListener(this);
         mBtnAppLockTime.setOnClickListener(this);
 
+        onUpdateView();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void onUpdateView() {
+        mSwitchUsingAppLock.setChecked(getBaseDao().getUsingAppLock());
+        mSwitchUsingFingerprint.setChecked(getBaseDao().getUsingFingerPrint());
+        mTvAppLockTime.setText(getBaseDao().getAppLockLeaveTimeString(getBaseContext()));
         if(getBaseDao().getUsingAppLock()) {
-            mBtnUsingFingerprint.setVisibility(View.GONE);
-            mBtnAppLockTime.setVisibility(View.GONE);
+            mBtnAppLockTime.setVisibility(View.VISIBLE);
+            FingerprintManagerCompat mFingerprintManagerCompat = FingerprintManagerCompat.from(this);
+            if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) &&
+                    mFingerprintManagerCompat.isHardwareDetected() &&
+                    mFingerprintManagerCompat.hasEnrolledFingerprints()) {
+                mBtnUsingFingerprint.setVisibility(View.VISIBLE);
+            } else {
+                mBtnUsingFingerprint.setVisibility(View.GONE);
+            }
 
         } else {
-            mBtnUsingFingerprint.setVisibility(View.VISIBLE);
-            mBtnAppLockTime.setVisibility(View.VISIBLE);
-
+            mBtnAppLockTime.setVisibility(View.GONE);
+            mBtnUsingFingerprint.setVisibility(View.GONE);
         }
+
+
+    }
+
+    public void onUpdateLockTime(int time) {
+        getBaseDao().setAppLockTriggerTime(time);
+        onUpdateView();
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnUsingAppLock)) {
+            if(getBaseDao().getUsingAppLock()) {
+                Intent intent = new Intent(AppLockSetActivity.this, PasswordCheckActivity.class);
+                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+
+            } else {
+                if(getBaseDao().onHasPassword()) {
+                    getBaseDao().setUsingAppLock(true);
+                    onUpdateView();
+                } else {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_no_password), Toast.LENGTH_SHORT).show();
+                }
+            }
 
         } else if (v.equals(mBtnUsingFingerprint)) {
+            getBaseDao().setUsingFingerPrint(!getBaseDao().getUsingFingerPrint());
+            onUpdateView();
 
         } else if (v.equals(mBtnAppLockTime)) {
+            Dialog_LockTime timeUpdate = Dialog_LockTime.newInstance();
+            timeUpdate.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(timeUpdate, "dialog").commitNowAllowingStateLoss();
 
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
+            getBaseDao().setUsingAppLock(false);
+        }
+        onUpdateView();
     }
 }

@@ -339,6 +339,10 @@
     <string name="str_using_applock">앱락 사용</string>
     <string name="str_using_fingerprints">지문 사용</string>
     <string name="str_applock_time">앱락 시간</string>
+    <string name="str_applock_time_immediately">즉시 잠금</string>
+    <string name="str_applock_time_10sec">10초 후 잠금</string>
+    <string name="str_applock_time_30sec">30초 후 잠금</string>
+    <string name="str_applock_time_60sec">60초 후 잠금</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -379,7 +383,7 @@
     <string name="error_same_reward_address">이미 등록된 이자 주소와 동일합니다.</string>
     <string name="error_max_account_over">최대 5개의 지갑이 등록 가능합니다.</string>
     <string name="error_reward_address_changed_msg">이자 지급 주소가 변경된 계정입니다. 이자 즉시 위임 기능을 사용하실 수 없습니다.</string>
-
+    <string name="error_no_password">비밀번호가 설정되지 않았습니다.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>
