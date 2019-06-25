@@ -97,24 +97,24 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     private StopViewPager               mContentsPager;
     private TabLayout                   mTabLayer;
-    public  MainViewPageAdapter         mPageAdapter;
     private FrameLayout                 mDimLayer;
+    public  MainViewPageAdapter         mPageAdapter;
     public FloatingActionButton         mFloatBtn;
 
-    public Account                     mAccount;
-    private ArrayList<Account>         mAccounts = new ArrayList<>();
-    public ArrayList<Validator>        mOtherValidators = new ArrayList<>();
-    public ArrayList<Validator>        mTopValidators = new ArrayList<>();
-    public ArrayList<Validator>        mMyValidators = new ArrayList<>();
-    public ArrayList<Validator>        mAllValidators = new ArrayList<>();
-    public ArrayList<Balance>          mBalances = new ArrayList<>();
-    public ArrayList<BondingState>     mBondings = new ArrayList<>();
-    public ArrayList<UnBondingState>   mUnbondings = new ArrayList<>();
-    public ArrayList<Reward>           mRewards = new ArrayList<>();
-    public BigDecimal                  mInflation = BigDecimal.ZERO;
-    public BigDecimal                  mProvisions = BigDecimal.ZERO;
-    public BigDecimal                  mBondedToken = BigDecimal.ZERO;
 
+    private ArrayList<Account>          mAccounts = new ArrayList<>();
+    public Account                      mAccount;
+    public ArrayList<Validator>         mOtherValidators = new ArrayList<>();
+    public ArrayList<Validator>         mTopValidators = new ArrayList<>();
+    public ArrayList<Validator>         mMyValidators = new ArrayList<>();
+    public ArrayList<Validator>         mAllValidators = new ArrayList<>();
+    public ArrayList<Balance>           mBalances = new ArrayList<>();
+    public ArrayList<BondingState>      mBondings = new ArrayList<>();
+    public ArrayList<UnBondingState>    mUnbondings = new ArrayList<>();
+    public ArrayList<Reward>            mRewards = new ArrayList<>();
+    public BigDecimal                   mInflation = BigDecimal.ZERO;
+    public BigDecimal                   mProvisions = BigDecimal.ZERO;
+    public BigDecimal                   mBondedToken = BigDecimal.ZERO;
 
     private int                         mTaskCount;
     private TopSheetBehavior            mTopSheetBehavior;
@@ -133,7 +133,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mContentsPager              = findViewById(R.id.view_pager);
         mTabLayer                   = findViewById(R.id.bottom_tab);
         mDimLayer                   = findViewById(R.id.dim_layer);
-
 
         mRecyclerView               = findViewById(R.id.account_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -258,16 +257,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         }
 
+        onUpdateTitle();
         onFetchAccountInfo();
         mBalances = getBaseDao().onSelectBalance(mAccount.id);
         mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
         mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
         mAccountAdapter.notifyDataSetChanged();
 
-        onUpdateTitle();
-
     }
-
 
     private void onUpdateTitle() {
         if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
@@ -303,7 +300,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         startActivity(new Intent(MainActivity.this, SendActivity.class));
     }
-
 
     public void onStartValidatorDetail(Validator validator) {
         Intent intent = new Intent(MainActivity.this, ValidatorActivity.class);
@@ -397,7 +393,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     }
 
-
     @Override
     public void onShareType() {
         super.onShareType();
@@ -405,7 +400,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         add.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
     }
-
 
     @Override
     public void onShare(boolean isText) {
@@ -582,14 +576,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
             }
             mAllValidators.addAll(mTopValidators);
             mAllValidators.addAll(mOtherValidators);
+            onHideWaitDialog();
             onFetchCurrentPage();
-
-//            WLog.w("mAllValidators " + mAllValidators.size());
-//            WLog.w("mTopValidators " + mTopValidators.size());
-//            WLog.w("mOtherValidators " + mOtherValidators.size());
         }
     }
-
 
     private class MainViewPageAdapter extends FragmentPagerAdapter {
 
@@ -632,7 +622,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
             return mFragments;
         }
     }
-
 
     private class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_ACCOUNT       = 0;
@@ -678,6 +667,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                             return;
                         } else {
                             onHideTopAccountsView();
+                            onShowWaitDialog();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -767,7 +757,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         }
     }
 
-
     public boolean onFetchAccountInfo() {
         if(mTaskCount > 0) return false;
         mTaskCount = 9;
@@ -789,7 +778,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         return true;
     }
 
-
     private void onUpdateReward(Reward reward) {
         if(mRewards == null) mRewards = new ArrayList<>();
         if(mRewards.size() == 0) {
@@ -807,7 +795,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mRewards.add(reward);
         }
     }
-
 
     private void onAtomTic() {
         ApiClient.getCMCClient(getBaseContext()).getAtomTic(3794,getBaseDao().getCurrencyString()).enqueue(new Callback<JsonObject>() {

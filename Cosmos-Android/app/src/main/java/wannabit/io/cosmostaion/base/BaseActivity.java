@@ -88,16 +88,11 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onChoiceNet(BaseChain chain) {
-    }
+    public void onChoiceNet(BaseChain chain) { }
 
-    public void onShare(boolean isText) {
+    public void onShare(boolean isText) { }
 
-    }
-
-    public void onShareType() {
-
-    }
+    public void onShareType() { }
 
     public void onDeleteAccount(long id) {
         try {
