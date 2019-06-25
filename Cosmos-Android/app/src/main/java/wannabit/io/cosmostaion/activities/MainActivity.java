@@ -342,7 +342,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        onSortingByReward(myValidators);
+        WUtil.onSortByReward(myValidators, mRewards);
         if(myValidators.size() < 17) {
             toClaimValidators = myValidators;
         } else {
@@ -820,32 +820,13 @@ public class MainActivity extends BaseActivity implements TaskListener {
                         getBaseDao().setLastAtomTic(mResAtomTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                         getBaseDao().setLastAtomUpDown(mResAtomTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
                     }
-                }catch (Exception e) {}
+                } catch (Exception e) {}
 
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
 
-            }
-        });
-    }
-
-    public void onSortingByReward(final ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                BigDecimal rewardO1 = WDp.getValidatorReward(mRewards, o1.operator_address);
-                BigDecimal rewardO2 = WDp.getValidatorReward(mRewards, o2.operator_address);
-                return rewardO2.compareTo(rewardO1);
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
             }
         });
     }

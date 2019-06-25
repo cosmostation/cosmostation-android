@@ -15,6 +15,8 @@ import java.math.BigInteger;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,12 +31,15 @@ import javax.net.ssl.X509TrustManager;
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Proposal;
+import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
@@ -346,5 +351,129 @@ public class WUtil {
             }
         }
         return bmp;
+    }
+
+
+    /**
+     * Sorts
+     */
+    public static void onSortByValidatorName(ArrayList<Validator> validators) {
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                return o1.description.moniker.compareTo(o2.description.moniker);
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+    public static void onSortByValidatorPower(ArrayList<Validator> validators) {
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if(o1.description.moniker.equals("Cosmostation")) return -1;
+                if(o2.description.moniker.equals("Cosmostation")) return 1;
+
+                if (Long.parseLong(o1.tokens) > Long.parseLong(o2.tokens)) return -1;
+                else if (Long.parseLong(o1.tokens) < Long.parseLong(o2.tokens)) return 1;
+                else return 0;
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+    public static void onSortByDelegate(final long userId, ArrayList<Validator> validators, final BaseData dao) {
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                BigDecimal bondingO1 = BigDecimal.ZERO;
+                BigDecimal bondingO2 = BigDecimal.ZERO;
+                if(dao.onSelectBondingState(userId, o1.operator_address) != null &&
+                        dao.onSelectBondingState(userId, o1.operator_address).getBondingAtom(o1) != null) {
+                    bondingO1  = dao.onSelectBondingState(userId, o1.operator_address).getBondingAtom(o1) ;
+                }
+                if(dao.onSelectBondingState(userId, o2.operator_address) != null &&
+                        dao.onSelectBondingState(userId, o2.operator_address).getBondingAtom(o2)  != null) {
+                    bondingO2  = dao.onSelectBondingState(userId, o2.operator_address).getBondingAtom(o2) ;
+                }
+                return bondingO2.compareTo(bondingO1);
+
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+    public static void onSortByReward(ArrayList<Validator> validators, final ArrayList<Reward> rewards) {
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                BigDecimal rewardO1 = WDp.getValidatorReward(rewards, o1.operator_address);
+                BigDecimal rewardO2 = WDp.getValidatorReward(rewards, o2.operator_address);
+                return rewardO2.compareTo(rewardO1);
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+    public static void onSortingByCommission(ArrayList<Validator> validators) {
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if(o1.description.moniker.equals("Cosmostation")) return -1;
+                if(o2.description.moniker.equals("Cosmostation")) return 1;
+
+                if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
+                else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
+                else return 0;
+            }
+        });
+        Collections.sort(validators, new Comparator<Validator>() {
+            @Override
+            public int compare(Validator o1, Validator o2) {
+                if (o1.jailed && !o2.jailed) return 1;
+                else if (!o1.jailed && o2.jailed) return -1;
+                else return 0;
+            }
+        });
+    }
+
+    public static void onSortingProposal(ArrayList<Proposal> proposals) {
+        Collections.sort(proposals, new Comparator<Proposal>() {
+            @Override
+            public int compare(Proposal o1, Proposal o2) {
+                if (Integer.parseInt(o1.proposal_id) < Integer.parseInt(o2.proposal_id)) return 1;
+                else if (Integer.parseInt(o1.proposal_id) > Integer.parseInt(o2.proposal_id)) return -1;
+                else return 0;
+
+            }
+        });
     }
 }

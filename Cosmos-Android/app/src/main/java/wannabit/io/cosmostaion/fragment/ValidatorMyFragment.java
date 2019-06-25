@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorMyFragment extends BaseFragment {
 
@@ -292,79 +293,12 @@ public class ValidatorMyFragment extends BaseFragment {
 
     public void onSortValidator() {
         if(getBaseDao().getMyValSorting() == 2){
-            onSortingByReward(mMyValidators);
+            WUtil.onSortByReward(mMyValidators, mRewards);
         } else if (getBaseDao().getMyValSorting() == 0){
-            onSortByName(mMyValidators);
+            WUtil.onSortByValidatorName(mMyValidators);
         } else {
-            onSortingByDelegate(mMyValidators);
+            WUtil.onSortByDelegate(getMainActivity().mAccount.id, mMyValidators, getBaseDao());
         }
-    }
-
-
-    public void onSortByName(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                return o1.description.moniker.compareTo(o2.description.moniker);
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
-
-    public void onSortingByDelegate(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                BigDecimal bondingO1 = BigDecimal.ZERO;
-                BigDecimal bondingO2 = BigDecimal.ZERO;
-                if(getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address) != null &&
-                        getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address).getBondingAtom(o1) != null) {
-                    bondingO1  = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o1.operator_address).getBondingAtom(o1) ;
-                }
-                if(getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address) != null &&
-                        getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address).getBondingAtom(o2)  != null) {
-                    bondingO2  = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, o2.operator_address).getBondingAtom(o2) ;
-                }
-                return bondingO2.compareTo(bondingO1);
-
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
-
-    public void onSortingByReward(final ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                BigDecimal rewardO1 = WDp.getValidatorReward(mRewards, o1.operator_address);
-                BigDecimal rewardO2 = WDp.getValidatorReward(mRewards, o2.operator_address);
-                return rewardO2.compareTo(rewardO1);
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
     }
 
     public void onShowMyValidatorSort() {

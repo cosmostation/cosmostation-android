@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
@@ -205,7 +206,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
                         mToValidators.add(val);
                     }
                 }
-                onSortingByAmount(mToValidators);
+                WUtil.onSortByValidatorPower(mToValidators);
             }
             if(!result.isSuccess) { Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show(); }
         }
@@ -257,27 +258,5 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
             return mFragments;
         }
 
-    }
-
-    public void onSortingByAmount(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
-
-                if (Long.parseLong(o1.tokens) > Long.parseLong(o2.tokens)) return -1;
-                else if (Long.parseLong(o1.tokens) < Long.parseLong(o2.tokens)) return 1;
-                else return 0;
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
     }
 }

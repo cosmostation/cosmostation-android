@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorOtherFragment extends BaseFragment {
 
@@ -89,7 +90,7 @@ public class ValidatorOtherFragment extends BaseFragment {
         if(!isAdded()) return;
         mOtherValidators    = getMainActivity().mOtherValidators;
         mMyValidators       = getMainActivity().mMyValidators;
-        onSortingByAmount(mOtherValidators);
+        WUtil.onSortByValidatorPower(mOtherValidators);
         mOtherValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -213,27 +214,5 @@ public class ValidatorOtherFragment extends BaseFragment {
                 itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
             }
         }
-    }
-
-    public void onSortingByAmount(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
-
-                if (Long.parseLong(o1.tokens) > Long.parseLong(o2.tokens)) return -1;
-                else if (Long.parseLong(o1.tokens) < Long.parseLong(o2.tokens)) return 1;
-                else return 0;
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
     }
 }

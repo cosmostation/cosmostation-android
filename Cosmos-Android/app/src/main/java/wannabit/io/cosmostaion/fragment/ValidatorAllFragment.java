@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorAllFragment extends BaseFragment {
 
@@ -226,75 +227,12 @@ public class ValidatorAllFragment extends BaseFragment {
 
     public void onSortValidator() {
         if(getBaseDao().getValSorting() == 2){
-            onSortingByCommission(mTopValidators);
+            WUtil.onSortingByCommission(mTopValidators);
         } else if (getBaseDao().getValSorting() == 0){
-            onSortByName(mTopValidators);
+            WUtil.onSortByValidatorName(mTopValidators);
         } else {
-            onSortingByAmount(mTopValidators);
+            WUtil.onSortByValidatorPower(mTopValidators);
         }
-    }
-
-    public void onSortByName(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
-                return o1.description.moniker.compareTo(o2.description.moniker);
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
-    public void onSortingByAmount(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
-
-                if (Long.parseLong(o1.tokens) > Long.parseLong(o2.tokens)) return -1;
-                else if (Long.parseLong(o1.tokens) < Long.parseLong(o2.tokens)) return 1;
-                else return 0;
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
-    public void onSortingByCommission(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equals("Cosmostation")) return -1;
-                if(o2.description.moniker.equals("Cosmostation")) return 1;
-
-                if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
-                else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
-                else return 0;
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
     }
 
     public void onShowAllValidatorSort() {
