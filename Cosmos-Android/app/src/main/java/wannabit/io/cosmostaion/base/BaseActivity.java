@@ -42,8 +42,10 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if(mNeedLeaveTime)
+        if(mNeedLeaveTime) {
             getBaseDao().setAppLockLeaveTime();
+        }
+
     }
 
     public BaseApplication getBaseApplication() {

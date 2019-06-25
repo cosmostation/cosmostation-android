@@ -44,6 +44,9 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     private KeyboardPagerAdapter    mAdapter;
     private String                  mUserInput = "";
 
+    private FingerprintManagerCompat    mFingerprintManagerCompat;
+    private CancellationSignal          mCancellationSignal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,12 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorWhite), android.graphics.PorterDuff.Mode.SRC_IN);
+    }
+
+    @Override
     protected void onPostResume() {
         super.onPostResume();
         onInitView();
@@ -82,20 +91,22 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        startActivity(intent);
+        if(mCancellationSignal != null)
+            mCancellationSignal.cancel();
+        moveTaskToBack(true);
     }
 
     private void onUnlock() {
+        if(mCancellationSignal != null)
+            mCancellationSignal.cancel();
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
     private void onCheckFingerPrint() {
-        FingerprintManagerCompat mFingerprintManagerCompat = FingerprintManagerCompat.from(this);
+        mFingerprintManagerCompat = FingerprintManagerCompat.from(this);
+        mCancellationSignal = new CancellationSignal();
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) &&
                 mFingerprintManagerCompat.isHardwareDetected() &&
                 mFingerprintManagerCompat.hasEnrolledFingerprints() &&
@@ -103,12 +114,12 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
             mFingerImage.setVisibility(View.VISIBLE);
             mUnlockMsg.setText(R.string.str_app_unlock_msg2);
 
-            mFingerprintManagerCompat.authenticate(null, 0, new CancellationSignal(), new FingerprintManagerCompat.AuthenticationCallback() {
+            mFingerprintManagerCompat.authenticate(null, 0, mCancellationSignal, new FingerprintManagerCompat.AuthenticationCallback() {
                 @Override
                 public void onAuthenticationError(int errMsgId, CharSequence errString) {
                     super.onAuthenticationError(errMsgId, errString);
                     mFingerImage.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorRed), android.graphics.PorterDuff.Mode.SRC_IN);
-                    Toast.makeText(getBaseContext(), errString, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getBaseContext(), errString, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -129,6 +140,8 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
                 public void onAuthenticationFailed() {
                     super.onAuthenticationFailed();
                 }
+
+
             }, null);
 
         } else {
@@ -213,7 +226,8 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
     @Override
     protected void onStop() {
         super.onStop();
-        finish();
+        if(mCancellationSignal != null)
+            mCancellationSignal.cancel();
     }
 
     @Override
