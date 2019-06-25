@@ -12,12 +12,16 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.utils.WKey;
 
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
@@ -177,19 +181,6 @@ public class MsgGenerator {
         return result;
     }
 
-    public static StdSignMsg genStakeToSignMsgWithType(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
-        StdSignMsg result = new StdSignMsg();
-        result.chain_id = chainId;
-        result.account_number = accountNumber;
-        result.sequence = SequenceNumber;
-        result.msgs = msgs;
-        result.fee = fee;
-        result.memo = memo;
-
-        return result;
-    }
-
-
     public static String getSignature(DeterministicKey key, byte[] toSignByte) {
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] toSignHash = digest.digest(toSignByte);
@@ -199,6 +190,35 @@ public class MsgGenerator {
         System.arraycopy(integerToBytes(Signature.s, 32), 0, sigData, 32, 32);
         String base64 = Base64.encodeToString(sigData, Base64.DEFAULT).replace("\n", "");
         return base64;
+    }
+
+    public static ReqBroadCast getBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
+        StdSignMsg tosign = genToSignMsgWithType(
+                account.baseChain,
+                ""+account.accountNumber,
+                ""+account.sequenceNumber,
+                msgs,
+                fee,
+                memo);
+
+        String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
+
+        Signature signature = new Signature();
+        Pub_key pubKey = new Pub_key();
+        pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+        pubKey.value = WKey.getPubKeyValue(key);
+        signature.pub_key = pubKey;
+        signature.signature = signatureTx;
+
+        ArrayList<Signature> signatures = new ArrayList<>();
+        signatures.add(signature);
+
+        StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
+        ReqBroadCast reqBroadCast = new ReqBroadCast();
+        reqBroadCast.returns = "sync";
+        reqBroadCast.tx = signedTx.value;
+
+        return reqBroadCast;
     }
 
 }

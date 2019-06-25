@@ -14,7 +14,6 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
-import wannabit.io.cosmostaion.network.req.ReqStakeBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBlockInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
@@ -103,6 +102,6 @@ public interface WannabitChain {
     @POST("/txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
-    @POST("/txs")
-    Call<ResBroadTx> broadStakeTx(@Body ReqStakeBroadCast data);
+//    @POST("/txs")
+//    Call<ResBroadTx> broadStakeTx(@Body ReqStakeBroadCast data);
 }

@@ -13,15 +13,11 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
-import wannabit.io.cosmostaion.model.StdSignMsg;
-import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.model.type.Pub_key;
-import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.req.ReqStakeBroadCast;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -71,44 +67,14 @@ public class ReInvestTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-
             Msg withdrawMsg = MsgGenerator.genWithdrawMsgReInvest(mAccount.address, mValidatorAddress, BaseChain.getChain(mAccount.baseChain));
-
             Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mValidatorAddress, mReInvestAmount);
-
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(withdrawMsg);
             msgs.add(singleDelegateMsg);
 
-
-
-            StdSignMsg tosign = MsgGenerator.genStakeToSignMsgWithType(
-                    mAccount.baseChain,
-                    ""+mAccount.accountNumber,
-                    ""+mAccount.sequenceNumber,
-                    msgs,
-                    mReInvestFees,
-                    mReInvestMemo);
-            String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
-
-            // build Signature object
-            Signature signature = new Signature();
-            Pub_key pubKey = new Pub_key();
-            pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
-            pubKey.value = WKey.getPubKeyValue(deterministicKey);
-            signature.pub_key = pubKey;
-            signature.signature = signatureTx;
-
-            ArrayList<Signature> signatures = new ArrayList<>();
-            signatures.add(signature);
-
-            StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mReInvestFees, mReInvestMemo, signatures);
-
-            ReqStakeBroadCast reqBroadCast = new ReqStakeBroadCast();
-            reqBroadCast.returns = "sync";
-            reqBroadCast.tx = signedTx.value;
-
-            Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadStakeTx(reqBroadCast).execute();
+            ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mReInvestFees, mReInvestMemo, deterministicKey);
+            Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
                 WLog.w("response.body() : " + response.body());
                 if (response.body().txhash != null) {

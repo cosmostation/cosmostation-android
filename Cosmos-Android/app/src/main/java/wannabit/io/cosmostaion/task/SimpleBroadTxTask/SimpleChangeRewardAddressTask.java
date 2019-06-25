@@ -13,12 +13,8 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
-import wannabit.io.cosmostaion.model.StdSignMsg;
-import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.model.type.Pub_key;
-import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
@@ -78,34 +74,10 @@ public class SimpleChangeRewardAddressTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
             Msg singleSendMsg = MsgGenerator.genRewardAddressChange(mAccount.address, mToRewardAddress, BaseChain.getChain(mAccount.baseChain));
-
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleSendMsg);
 
-            StdSignMsg tosign = MsgGenerator.genToSignMsgWithType(
-                    mAccount.baseChain,
-                    ""+mAccount.accountNumber,
-                    ""+mAccount.sequenceNumber,
-                    msgs,
-                    mFees,
-                    mMemo);
-            String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
-
-            Signature signature = new Signature();
-            Pub_key pubKey = new Pub_key();
-            pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
-            pubKey.value = WKey.getPubKeyValue(deterministicKey);
-            signature.pub_key = pubKey;
-            signature.signature = signatureTx;
-
-            ArrayList<Signature> signatures = new ArrayList<>();
-            signatures.add(signature);
-
-            StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mFees, mMemo, signatures);
-            ReqBroadCast reqBroadCast = new ReqBroadCast();
-            reqBroadCast.returns = "sync";
-            reqBroadCast.tx = signedTx.value;
-
+            ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
                 WLog.w("response.body() hash: " + response.body().txhash);

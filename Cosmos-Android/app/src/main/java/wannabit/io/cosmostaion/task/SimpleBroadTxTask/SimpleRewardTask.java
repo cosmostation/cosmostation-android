@@ -82,33 +82,7 @@ public class SimpleRewardTask extends CommonTask {
                 msgs.add(singleWithdrawDeleMsg);
             }
 
-            StdSignMsg tosign = MsgGenerator.genToSignMsgWithType(
-                    mAccount.baseChain,
-                    ""+mAccount.accountNumber,
-                    ""+mAccount.sequenceNumber,
-                    msgs,
-                    mRewardFees,
-                    mRewardMemo);
-
-            String signatureTx = MsgGenerator.getSignature(deterministicKey, tosign.getToSignByte());
-
-            // build Signature object
-            Signature signature = new Signature();
-            Pub_key pubKey = new Pub_key();
-            pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
-            pubKey.value = WKey.getPubKeyValue(deterministicKey);
-            signature.pub_key = pubKey;
-            signature.signature = signatureTx;
-
-            ArrayList<Signature> signatures = new ArrayList<>();
-            signatures.add(signature);
-
-            StdTx signedTx = MsgGenerator.genSignedTransferTx(msgs, mRewardFees, mRewardMemo, signatures);
-            ReqBroadCast reqBroadCast = new ReqBroadCast();
-            reqBroadCast.returns = "sync";
-            reqBroadCast.tx = signedTx.value;
-
-
+            ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mRewardFees, mRewardMemo, deterministicKey);
             Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
                 if (response.body().txhash != null) {
