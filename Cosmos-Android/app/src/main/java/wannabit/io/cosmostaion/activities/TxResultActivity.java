@@ -229,7 +229,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
             mTxBlockHeight.setText(mResTxInfo.height);
 
-            for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.amount) {
+            for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.getCoins()) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mSendAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                 }
@@ -258,7 +258,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResStakeTxInfo.timestamp));
             mTxBlockHeight.setText(mResStakeTxInfo.height);
 
-            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.amount.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+//            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.amount.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
             for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mDelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
@@ -281,7 +282,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResStakeTxInfo.timestamp));
             mTxBlockHeight.setText(mResStakeTxInfo.height);
 
-            mUndelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.amount.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            mUndelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
             for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mUndelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
@@ -333,7 +334,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResStakeTxInfo.timestamp));
             mTxBlockHeight.setText(mResStakeTxInfo.height);
 
-            mRedelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.amount.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            mRedelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
             for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mRedelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
@@ -377,7 +378,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResStakeTxInfo.timestamp));
             mTxBlockHeight.setText(mResStakeTxInfo.height);
 
-            mReinvestAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(1).value.amount.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            mReinvestAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(1).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
             for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mReinvestFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));

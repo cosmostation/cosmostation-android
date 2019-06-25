@@ -13,13 +13,13 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
-import wannabit.io.cosmostaion.model.StakeStdSignMsgWithType;
-import wannabit.io.cosmostaion.model.StakeStdTx;
+import wannabit.io.cosmostaion.model.StdSignMsgWithType;
+import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
-import wannabit.io.cosmostaion.model.type.StakeMsg;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqStakeBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
@@ -72,17 +72,17 @@ public class ReInvestTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
 
-            StakeMsg withdrawMsg = MsgGenerator.genWithdrawMsgReInvest(mAccount.address, mValidatorAddress, BaseChain.getChain(mAccount.baseChain));
+            Msg withdrawMsg = MsgGenerator.genWithdrawMsgReInvest(mAccount.address, mValidatorAddress, BaseChain.getChain(mAccount.baseChain));
 
-            StakeMsg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mValidatorAddress, mReInvestAmount);
+            Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mValidatorAddress, mReInvestAmount);
 
-            ArrayList<StakeMsg> msgs= new ArrayList<>();
+            ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(withdrawMsg);
             msgs.add(singleDelegateMsg);
 
 
 
-            StakeStdSignMsgWithType tosign = MsgGenerator.genStakeToSignMsgWithType(
+            StdSignMsgWithType tosign = MsgGenerator.genStakeToSignMsgWithType(
                     mAccount.baseChain,
                     ""+mAccount.accountNumber,
                     ""+mAccount.sequenceNumber,
@@ -102,7 +102,7 @@ public class ReInvestTask extends CommonTask {
             ArrayList<Signature> signatures = new ArrayList<>();
             signatures.add(signature);
 
-            StakeStdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mReInvestFees, mReInvestMemo, signatures);
+            StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mReInvestFees, mReInvestMemo, signatures);
 
             ReqStakeBroadCast reqBroadCast = new ReqStakeBroadCast();
             reqBroadCast.returns = "sync";

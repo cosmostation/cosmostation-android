@@ -1,9 +1,12 @@
 package wannabit.io.cosmostaion.model.type;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Msg {
 
@@ -48,12 +51,11 @@ public class Msg {
         @SerializedName("shares_amount")
         public String shares_amount;
 
+        //From 0.33.0 version changed
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("amount")
-        public ArrayList<Coin> amount;
+        public Object amount;
 
-
-        //From 0.33.0 version changed
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("delegator_address")
         public String delegator_address;
@@ -65,6 +67,29 @@ public class Msg {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("withdraw_address")
         public String withdraw_address;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("validator_src_address")
+        public String validator_src_address;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("validator_dst_address")
+        public String validator_dst_address;
+
+
+        public ArrayList<Coin> getCoins() {
+            ArrayList<Coin> result = new ArrayList<>();
+            try {
+                Coin temp = new Gson().fromJson(new Gson().toJson(amount), Coin.class);
+                result.add(temp);
+
+            } catch (Exception e) {}
+
+            try {
+                result = new Gson().fromJson(new Gson().toJson(amount), new TypeToken<List<Coin>>(){}.getType());
+            } catch (Exception e) { }
+            return result;
+        }
 
     }
 

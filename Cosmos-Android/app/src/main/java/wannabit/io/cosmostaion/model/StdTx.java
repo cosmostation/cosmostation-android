@@ -25,7 +25,7 @@ public class StdTx {
         @SerializedName("fee")
         public Fee fee;
 
-        @JsonInclude(JsonInclude.Include.ALWAYS)
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("signatures")
         public ArrayList<Signature> signatures;
 

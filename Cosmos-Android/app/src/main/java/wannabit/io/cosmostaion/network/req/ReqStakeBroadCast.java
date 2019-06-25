@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.network.req;
 
 import com.google.gson.annotations.SerializedName;
 
-import wannabit.io.cosmostaion.model.StakeStdTx;
+import wannabit.io.cosmostaion.model.StdTx;
 
 public class ReqStakeBroadCast {
 
@@ -10,5 +10,5 @@ public class ReqStakeBroadCast {
     public String returns;
 
     @SerializedName("tx")
-    public StakeStdTx.Value tx;
+    public StdTx.Value tx;
 }

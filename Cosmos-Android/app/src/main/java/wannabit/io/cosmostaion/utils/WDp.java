@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -26,7 +25,6 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.TotalReward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.HistoryMsg;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Validator;
 
@@ -453,7 +451,7 @@ public class WDp {
 
 
 
-    public static int getHistoryDpType(ArrayList<HistoryMsg> msgs, String address) {
+    public static int getHistoryDpType(ArrayList<Msg> msgs, String address) {
         int result = BaseConstant.TX_TYPE_UNKNOWN;
         if(msgs == null || msgs.size() <= 0)
             return result;
@@ -465,7 +463,7 @@ public class WDp {
             }
         }
 
-        HistoryMsg msg = msgs.get(0);
+        Msg msg = msgs.get(0);
         if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) || msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2)) {
             if (msg.value.from_address != null && msg.value.from_address.equals(address)) {
                 result = BaseConstant.TX_TYPE_SEND;

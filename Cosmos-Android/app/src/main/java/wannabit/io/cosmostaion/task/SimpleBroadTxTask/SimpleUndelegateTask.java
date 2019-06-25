@@ -1,13 +1,7 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
-import android.text.TextUtils;
-
-import com.google.gson.JsonObject;
-
 import org.bitcoinj.crypto.DeterministicKey;
-import org.json.JSONObject;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -19,8 +13,6 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
-import wannabit.io.cosmostaion.model.StakeStdSignMsgWithType;
-import wannabit.io.cosmostaion.model.StakeStdTx;
 import wannabit.io.cosmostaion.model.StdSignMsgWithType;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -28,9 +20,7 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
-import wannabit.io.cosmostaion.model.type.StakeMsg;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.req.ReqStakeBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
@@ -93,13 +83,13 @@ public class SimpleUndelegateTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
 //            WLog.w("amount : " + new BigDecimal(mUndelegateAmount).setScale(18).toPlainString());
-            StakeMsg singleUnbondMsg = MsgGenerator.genUnbondMsg(mAccount.address, mFromValidatorAddress, mUndelegateAmount);
+            Msg singleUnbondMsg = MsgGenerator.genUnbondMsg(mAccount.address, mFromValidatorAddress, mUndelegateAmount);
 
 
-            ArrayList<StakeMsg> msgs= new ArrayList<>();
+            ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleUnbondMsg);
 
-            StakeStdSignMsgWithType tosign = MsgGenerator.genStakeToSignMsgWithType(
+            StdSignMsgWithType tosign = MsgGenerator.genStakeToSignMsgWithType(
                     mAccount.baseChain,
                     ""+mAccount.accountNumber,
                     ""+mAccount.sequenceNumber,
@@ -120,7 +110,7 @@ public class SimpleUndelegateTask extends CommonTask {
             ArrayList<Signature> signatures = new ArrayList<>();
             signatures.add(signature);
 
-            StakeStdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mUnFees, mUnDelegateMemo, signatures);
+            StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mUnFees, mUnDelegateMemo, signatures);
             ReqStakeBroadCast reqBroadCast = new ReqStakeBroadCast();
             reqBroadCast.returns = "sync";
             reqBroadCast.tx = signedTx.value;

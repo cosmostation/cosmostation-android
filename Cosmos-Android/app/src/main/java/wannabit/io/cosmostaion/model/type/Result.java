@@ -26,20 +26,6 @@ public class Result {
     @Expose
     public Object log;
 
-//    @SerializedName("log")
-//    @Expose
-//    public Log log;
-//
-//
-//    @SerializedName("log")
-//    @Expose
-//    public ArrayList<Log> logs;
-
-
-//    public List<Log> getValueModel() {
-//        return Collections.singletonList(log);
-//    }
-
     public boolean isSuccess() {
         boolean result = true;
         try {

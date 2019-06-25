@@ -1,11 +1,7 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
-import android.text.TextUtils;
-
 import org.bitcoinj.crypto.DeterministicKey;
-import org.json.JSONObject;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -17,8 +13,6 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
-import wannabit.io.cosmostaion.model.StakeStdSignMsgWithType;
-import wannabit.io.cosmostaion.model.StakeStdTx;
 import wannabit.io.cosmostaion.model.StdSignMsgWithType;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -26,9 +20,7 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
-import wannabit.io.cosmostaion.model.type.StakeMsg;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.req.ReqStakeBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
@@ -90,12 +82,12 @@ public class SimpleDelegateTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-            StakeMsg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mToValidatorAddress, mToDelegateAmount);
+            Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mToValidatorAddress, mToDelegateAmount);
 
-            ArrayList<StakeMsg> msgs= new ArrayList<>();
+            ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleDelegateMsg);
 
-            StakeStdSignMsgWithType tosign = MsgGenerator.genStakeToSignMsgWithType(
+            StdSignMsgWithType tosign = MsgGenerator.genStakeToSignMsgWithType(
                     mAccount.baseChain,
                     ""+mAccount.accountNumber,
                     ""+mAccount.sequenceNumber,
@@ -115,7 +107,7 @@ public class SimpleDelegateTask extends CommonTask {
             ArrayList<Signature> signatures = new ArrayList<>();
             signatures.add(signature);
 
-            StakeStdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mToFees, mToDelegateMemo, signatures);
+            StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, mToFees, mToDelegateMemo, signatures);
             ReqStakeBroadCast reqBroadCast = new ReqStakeBroadCast();
             reqBroadCast.returns = "sync";
             reqBroadCast.tx = signedTx.value;

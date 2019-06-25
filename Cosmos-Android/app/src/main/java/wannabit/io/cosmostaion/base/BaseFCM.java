@@ -19,6 +19,8 @@ public class BaseFCM extends FirebaseMessagingService {
 //        sendRegistrationToServer(token);
     }
 
+
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // ...
@@ -43,10 +45,15 @@ public class BaseFCM extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            WLog.w("Message Notification Body: " + remoteMessage.getNotification().getBody());
+            if(remoteMessage.getNotification().getTitle() != null)
+                WLog.w("Message Notification title: " + remoteMessage.getNotification().getTitle());
+            if(remoteMessage.getNotification().getBody() != null)
+                WLog.w("Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
+
+
 }
