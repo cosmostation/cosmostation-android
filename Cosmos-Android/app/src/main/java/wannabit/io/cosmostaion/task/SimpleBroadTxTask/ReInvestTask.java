@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
-import wannabit.io.cosmostaion.model.StdSignMsgWithType;
+import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -82,7 +82,7 @@ public class ReInvestTask extends CommonTask {
 
 
 
-            StdSignMsgWithType tosign = MsgGenerator.genStakeToSignMsgWithType(
+            StdSignMsg tosign = MsgGenerator.genStakeToSignMsgWithType(
                     mAccount.baseChain,
                     ""+mAccount.accountNumber,
                     ""+mAccount.sequenceNumber,

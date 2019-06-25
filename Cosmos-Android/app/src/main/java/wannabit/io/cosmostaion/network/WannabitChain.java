@@ -15,14 +15,12 @@ import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.req.ReqStakeBroadCast;
-import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.network.res.ResBlockInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
-import wannabit.io.cosmostaion.network.res.ResStakeTxInfo;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
@@ -37,8 +35,8 @@ public interface WannabitChain {
     @GET("/txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
-    @GET("/txs/{hash}")
-    Call<ResStakeTxInfo> getStakeSearchTx(@Path("hash") String hash);
+//    @GET("/txs/{hash}")
+//    Call<ResStakeTxInfo> getStakeSearchTx(@Path("hash") String hash);
 
     @GET("/blocks/{height}")
     Call<ResBlockInfo> getSearchBlock(@Path("height") String height);

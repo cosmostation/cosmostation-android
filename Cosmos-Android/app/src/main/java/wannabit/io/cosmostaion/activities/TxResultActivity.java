@@ -24,17 +24,12 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
-import wannabit.io.cosmostaion.dialog.Dialog_Not_Top_100;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResBlockInfo;
-import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResStakeTxInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 
@@ -48,7 +43,6 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private String                      mTxHash;
 
     private ResTxInfo                   mResTxInfo;
-    private ResStakeTxInfo              mResStakeTxInfo;
 
 
     private TextView                    mToolbarTitle;
@@ -187,14 +181,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         }
 
         if(mIsSuccess) {
-            if(mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_REINVEST) {
-                onStakeFetchTx(mTxHash);
-            } else {
-                onFetchTx(mTxHash);
-            }
+            onFetchTx(mTxHash);
             mToolbarTitle.setText(getString(R.string.str_tx_success));
 
         } else {
@@ -248,48 +235,47 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 
 
-        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE && mResStakeTxInfo != null){
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE && mResTxInfo != null){
             mLoading.setVisibility(View.GONE);
             mScrollLayer.setVisibility(View.VISIBLE);
             mDelegateLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_delegate);
-            mTvTxHash.setText(mResStakeTxInfo.txhash);
-            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResStakeTxInfo.timestamp));
-            mTxBlockHeight.setText(mResStakeTxInfo.height);
+            mTvTxHash.setText(mResTxInfo.txhash);
+            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+            mTxBlockHeight.setText(mResTxInfo.height);
 
-//            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.amount.amount), 6, BaseChain.getChain(mAccount.baseChain)));
-            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
-            for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
+            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mDelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                 }
             }
-            mDelegateValidator.setText(mResStakeTxInfo.tx.value.msg.get(0).value.validator_address);
-            mDelegateMemo.setText(mResStakeTxInfo.tx.value.memo);
+            mDelegateValidator.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
+            mDelegateMemo.setText(mResTxInfo.tx.value.memo);
 
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 
 
-        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE && mResStakeTxInfo != null) {
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE && mResTxInfo != null) {
             mLoading.setVisibility(View.GONE);
             mScrollLayer.setVisibility(View.VISIBLE);
             mUndelegateLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_undelegate);
-            mTvTxHash.setText(mResStakeTxInfo.txhash);
-            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResStakeTxInfo.timestamp));
-            mTxBlockHeight.setText(mResStakeTxInfo.height);
+            mTvTxHash.setText(mResTxInfo.txhash);
+            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+            mTxBlockHeight.setText(mResTxInfo.height);
 
-            mUndelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
-            for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
+            mUndelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mUndelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                 }
             }
-            mUndelegateFrom.setText(mResStakeTxInfo.tx.value.msg.get(0).value.validator_address);
-            mUndelegateMemo.setText(mResStakeTxInfo.tx.value.memo);
+            mUndelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
+            mUndelegateMemo.setText(mResTxInfo.tx.value.memo);
 
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
@@ -324,25 +310,25 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 
-        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE && mResStakeTxInfo != null){
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE && mResTxInfo != null){
             mLoading.setVisibility(View.GONE);
             mScrollLayer.setVisibility(View.VISIBLE);
             mRedelegateLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_redelegate);
-            mTvTxHash.setText(mResStakeTxInfo.txhash);
-            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResStakeTxInfo.timestamp));
-            mTxBlockHeight.setText(mResStakeTxInfo.height);
+            mTvTxHash.setText(mResTxInfo.txhash);
+            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+            mTxBlockHeight.setText(mResTxInfo.height);
 
-            mRedelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
-            for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
+            mRedelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mRedelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                 }
             }
-            mRedelegateFrom.setText(mResStakeTxInfo.tx.value.msg.get(0).value.validator_src_address);
-            mRedelegateTo.setText(mResStakeTxInfo.tx.value.msg.get(0).value.validator_dst_address);
-            mRedelegateMemo.setText(mResStakeTxInfo.tx.value.memo);
+            mRedelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_src_address);
+            mRedelegateTo.setText(mResTxInfo.tx.value.msg.get(0).value.validator_dst_address);
+            mRedelegateMemo.setText(mResTxInfo.tx.value.memo);
 
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
@@ -368,24 +354,24 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 
-        } else if (mTxType == BaseConstant.TASK_GEN_TX_REINVEST && mResStakeTxInfo != null) {
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_REINVEST && mResTxInfo != null) {
             mLoading.setVisibility(View.GONE);
             mScrollLayer.setVisibility(View.VISIBLE);
             mReinvestLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_reinvest);
-            mTvTxHash.setText(mResStakeTxInfo.txhash);
-            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResStakeTxInfo.timestamp));
-            mTxBlockHeight.setText(mResStakeTxInfo.height);
+            mTvTxHash.setText(mResTxInfo.txhash);
+            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+            mTxBlockHeight.setText(mResTxInfo.height);
 
-            mReinvestAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResStakeTxInfo.tx.value.msg.get(1).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
-            for(Coin coin: mResStakeTxInfo.tx.value.fee.amount) {
+            mReinvestAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(1).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mReinvestFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                 }
             }
-            mReinvestAddress.setText(mResStakeTxInfo.tx.value.msg.get(0).value.validator_address);
-            mReinvestMemo.setText(mResStakeTxInfo.tx.value.memo);
+            mReinvestAddress.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
+            mReinvestMemo.setText(mResTxInfo.tx.value.memo);
 
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
@@ -401,14 +387,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     public void onWaitMore() {
         FetchCnt = 0;
-        if(mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
-                mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
-                mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
-                mTxType == BaseConstant.TASK_GEN_TX_REINVEST) {
-            onStakeFetchTx(mTxHash);
-        } else {
-            onFetchTx(mTxHash);
-        }
+        onFetchTx(mTxHash);
     }
 
 
@@ -448,87 +427,29 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
-    private void onStakeFetchTx(String hash) {
-        ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mAccount.baseChain)).getStakeSearchTx(hash).enqueue(new Callback<ResStakeTxInfo>() {
-            @Override
-            public void onResponse(Call<ResStakeTxInfo> call, Response<ResStakeTxInfo> response) {
-                if(isFinishing()) return;
-                WLog.w("onStakeFetchTx " + response.toString());
-                if(response.isSuccessful() && response.body() != null) {
-                    mResStakeTxInfo = response.body();
-                    onUpdateView();
-
-                } else {
-                    if(mIsSuccess && FetchCnt < 10) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                FetchCnt++;
-                                onStakeFetchTx(mTxHash);
-                            }
-                        }, 6000);
-                    } else {
-                        onShowMoreWait();
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResStakeTxInfo> call, Throwable t) {
-                WLog.w("onFailure " + t.getMessage());
-                t.printStackTrace();
-                if(isFinishing()) return;
-            }
-        });
-    }
-
-
     @Override
     public void onClick(View v) {
         if (v.equals(mToolbarClose) || v.equals(mBtnOk) || v.equals(mBtnDismiss)) {
             onBackPressed();
 
         } else if (v.equals(mBtnScan)) {
-            if(mResStakeTxInfo == null && mResTxInfo == null) {
+            if(mResTxInfo == null) {
                 return;
             }
-
-            if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_REINVEST){
-                Intent webintent = new Intent(this, WebActivity.class);
-                webintent.putExtra("txid", mResStakeTxInfo.txhash);
-                webintent.putExtra("goMain", true);
-                startActivity(webintent);
-            } else {
-                Intent webintent = new Intent(this, WebActivity.class);
-                webintent.putExtra("txid", mResTxInfo.txhash);
-                webintent.putExtra("goMain", true);
-                startActivity(webintent);
-            }
+            Intent webintent = new Intent(this, WebActivity.class);
+            webintent.putExtra("txid", mResTxInfo.txhash);
+            webintent.putExtra("goMain", true);
+            startActivity(webintent);
 
         } else if (v.equals(mBtnShare)) {
-            if(mResStakeTxInfo == null && mResTxInfo == null) {
+            if(mResTxInfo == null) {
                 return;
             }
-            if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_UNDELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
-                    mTxType == BaseConstant.TASK_GEN_TX_REINVEST){
-                Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResStakeTxInfo.txhash);
-                shareIntent.setType("text/plain");
-                startActivity(Intent.createChooser(shareIntent, "send"));
-            } else {
-                Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
-                shareIntent.setType("text/plain");
-                startActivity(Intent.createChooser(shareIntent, "send"));
-            }
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
+            shareIntent.setType("text/plain");
+            startActivity(Intent.createChooser(shareIntent, "send"));
         }
     }
 

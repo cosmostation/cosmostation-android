@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 
-public class StdSignMsgWithType {
+public class StdSignMsg {
 
     @SerializedName("chain_id")
     public String chain_id;

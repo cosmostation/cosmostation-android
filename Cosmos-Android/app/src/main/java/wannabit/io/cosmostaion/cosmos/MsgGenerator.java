@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
-import wannabit.io.cosmostaion.model.StdSignMsgWithType;
+import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -165,8 +165,8 @@ public class MsgGenerator {
         return result;
     }
 
-    public static StdSignMsgWithType genToSignMsgWithType(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
-        StdSignMsgWithType result = new StdSignMsgWithType();
+    public static StdSignMsg genToSignMsgWithType(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
+        StdSignMsg result = new StdSignMsg();
         result.chain_id = chainId;
         result.account_number = accountNumber;
         result.sequence = SequenceNumber;
@@ -177,8 +177,8 @@ public class MsgGenerator {
         return result;
     }
 
-    public static StdSignMsgWithType genStakeToSignMsgWithType(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
-        StdSignMsgWithType result = new StdSignMsgWithType();
+    public static StdSignMsg genStakeToSignMsgWithType(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
+        StdSignMsg result = new StdSignMsg();
         result.chain_id = chainId;
         result.account_number = accountNumber;
         result.sequence = SequenceNumber;

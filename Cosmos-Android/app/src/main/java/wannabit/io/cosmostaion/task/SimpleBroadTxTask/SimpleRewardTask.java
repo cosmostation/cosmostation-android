@@ -1,9 +1,6 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
-import android.text.TextUtils;
-
 import org.bitcoinj.crypto.DeterministicKey;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -16,7 +13,7 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
-import wannabit.io.cosmostaion.model.StdSignMsgWithType;
+import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -85,7 +82,7 @@ public class SimpleRewardTask extends CommonTask {
                 msgs.add(singleWithdrawDeleMsg);
             }
 
-            StdSignMsgWithType tosign = MsgGenerator.genToSignMsgWithType(
+            StdSignMsg tosign = MsgGenerator.genToSignMsgWithType(
                     mAccount.baseChain,
                     ""+mAccount.accountNumber,
                     ""+mAccount.sequenceNumber,
