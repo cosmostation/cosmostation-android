@@ -97,36 +97,32 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     
     func onFetchHistory(_ address:String, _ from:String, _ size:String) {
-        let query = "{\"from\": \"" + from + "\",\"size\": \"" + size + "\",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.input.address\", \"tx.value.msg.value.output.address\"]}},\"sort\": [{\"height\": {\"order\": \"desc\"}}]}"
-        
+        let query = "{\"from\": " + from + ",\"size\": " + size + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.input.address\", \"tx.value.msg.value.output.address\", \"tx.value.msg.value.proposer\"]}}}"        
         let data = query.data(using: .utf8)
         do {
             let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-            let request = Alamofire.request(CSS_ES_URL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
-            request.responseJSON { response in
+            let request = Alamofire.request(CSS_ES_PROXY_COSMOS, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+            request.validate().responseJSON { response in
                 switch response.result {
                 case .success(let res):
-//                    print("res " , res)
                     guard let history = res as? [String : Any] else {
-//                        print("no history!!")
+                        print("no history!!")
                         self.emptyLabel.isHidden = false
                         return;
                     }
                     let rawHistory = History.init(history)
-//                    print("rawHistory " , rawHistory.hits.hits.count)
-                    
+                    print("rawHistory " , rawHistory.hits.hits.count)
+
                     self.mHistories.removeAll()
                     self.mHistories = rawHistory.hits.hits
-                    
+
                     if(self.mHistories.count > 0) {
                         self.historyTableView.reloadData()
                         self.emptyLabel.isHidden = true
                     } else {
                         self.emptyLabel.isHidden = false
                     }
-                    
-                    
-                    
+            
                 case .failure(let error):
                     print("error ", error)
                 }

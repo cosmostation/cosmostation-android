@@ -22,22 +22,8 @@ let KEY_ATOM_TIC_CMC                    = "KEY_ATOM_TIC_CMC"
 let KEY_CURRENCY                        = "KEY_CURRENCY"
 
 
-//let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";
-//let CSS_LCD_URL                         = "https://lcd-dev-internal.cosmostation.io/";
-
-//product URL
-//let CSS_LCD_URL                         = "https://lcd.cosmostation.io/";
 let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
-//let CSS_LCD_URL                         = "https://lcd-mainnet-dev.cosmostation.io/";
-
-
-//free URL
-//let CSS_LCD_URL                         = "https://lcd-dev.cosmostation.io/";
-
-
-//testnet URL
-//let CSS_LCD_URL                         = "https://lcd-gaia.cosmostation.io/";
-
+let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let KEY_BASE_URL                        = "https://keybase.io/";
 
@@ -60,18 +46,11 @@ let CSS_LCD_URL_INFLATION               = CSS_LCD_URL + "minting/inflation";
 let CSS_LCD_URL_PROVISIONS              = CSS_LCD_URL + "minting/annual-provisions";
 let CSS_LCD_URL_MINT                    = CSS_LCD_URL + "minting/parameters";
 let CSS_LCD_URL_STAKING_POOL            = CSS_LCD_URL + "staking/pool";
-
 let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
-
 let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
 
-
-let CSS_ES_URL                          = "https://search-cosmoshub-2-app-7rb6ujvvmemw6holj6cr7em23u.ap-northeast-2.es.amazonaws.com/tx_index/_search/";
-
-
+let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
-
-
 let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.json";
 
 

@@ -463,7 +463,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             case .failure(let error):
                 print("onFetchSignleUnBondingInfo ", error)
             }
-//            print("onFetchSignleUnBondingInfo!!! ")
             self.onFetchFinished()
         }
     }
@@ -494,11 +493,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchHistory(_ account: Account, _ validator: Validator, _ from:String, _ size:String) {
-        let query = "{\"from\": \"" + from + "\",\"size\": \"" + size + "\", \"query\": { \"bool\": { \"must\": [ { \"multi_match\": { \"query\": \"" + account.account_address + "\", \"fields\": [\"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\"] } } ], \"filter\": { \"bool\": { \"should\": [ { \"term\": { \"tx.value.msg.value.validator_addr\": \"" + validator.operator_address + "\" } }, { \"term\": { \"tx.value.msg.value.validator_dst_address\": \"" + validator.operator_address + "\" } },{ \"term\": { \"tx.value.msg.value.validator_src_address\": \"" + validator.operator_address + "\" } }, { \"term\": { \"tx.value.msg.value.validator_dst_addr\": \"" + validator.operator_address + "\" } }, { \"term\": { \"tx.value.msg.value.validator_address\": \"" + validator.operator_address + "\" } } ]  } } }  }, \"sort\": [ { \"height\": { \"order\": \"desc\"  } } ] }"
+        let query = "{\"from\": " + from + ",\"size\": " + size + ", \"query\": { \"bool\": { \"must\": [ { \"multi_match\": { \"query\": \"" + account.account_address + "\", \"fields\": [\"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\"] } } ], \"filter\": { \"bool\": { \"should\": [ { \"term\": { \"tx.value.msg.value.validator_addr\": \"" + validator.operator_address + "\" } }, { \"term\": { \"tx.value.msg.value.validator_dst_address\": \"" + validator.operator_address + "\" } },{ \"term\": { \"tx.value.msg.value.validator_src_address\": \"" + validator.operator_address + "\" } }, { \"term\": { \"tx.value.msg.value.validator_dst_addr\": \"" + validator.operator_address + "\" } }, { \"term\": { \"tx.value.msg.value.validator_address\": \"" + validator.operator_address + "\" } } ]  } } }  }, \"sort\": [ { \"height\": { \"order\": \"desc\"  } } ] }"
         let data = query.data(using: .utf8)
         do {
             let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-            let request = Alamofire.request(CSS_ES_URL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+            let request = Alamofire.request(CSS_ES_PROXY_COSMOS, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
             request.responseJSON { response in
                 switch response.result {
                 case .success(let res):
