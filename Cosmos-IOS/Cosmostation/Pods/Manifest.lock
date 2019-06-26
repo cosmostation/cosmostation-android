@@ -6,7 +6,6 @@ PODS:
   - CryptoSwift (0.14.0)
   - DropDown (2.3.12)
   - Floaty (4.1.0)
-  - MBProgressHUD (1.1.0)
   - PromiseKit/CorePromise (6.8.3)
   - QRCode (2.0)
   - SQLite.swift (0.11.5):
@@ -23,7 +22,6 @@ DEPENDENCIES:
   - CryptoSwift
   - DropDown
   - Floaty (~> 4.1.0)
-  - MBProgressHUD (~> 1.1.0)
   - PromiseKit/CorePromise (~> 6.8)
   - QRCode
   - SQLite.swift (~> 0.11.5)
@@ -39,7 +37,6 @@ SPEC REPOS:
     - CryptoSwift
     - DropDown
     - Floaty
-    - MBProgressHUD
     - PromiseKit
     - QRCode
     - SQLite.swift
@@ -54,7 +51,6 @@ SPEC CHECKSUMS:
   CryptoSwift: 35a10419f4dbf0619c13f8c1c180037e115323fa
   DropDown: 0bcc278799ec11a3d34ce1aac9367fbbaf5423d9
   Floaty: 1a4e213f3512cf3045ef9cb0c1ff456226d1f66a
-  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
@@ -62,6 +58,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
 
-PODFILE CHECKSUM: eb19d409720777a7665e500b113a65cec3f04eac
+PODFILE CHECKSUM: 818b327eef1057b52efde5757ab53683cf13280b
 
 COCOAPODS: 1.5.3

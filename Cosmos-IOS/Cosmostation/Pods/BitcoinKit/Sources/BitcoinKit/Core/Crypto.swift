@@ -59,33 +59,23 @@ public struct Crypto {
     public static func sign(_ data: Data, privateKey: PrivateKey) throws -> Data {
         let ctx = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN))!
         defer { secp256k1_context_destroy(ctx) }
-        
+
         let signature = UnsafeMutablePointer<secp256k1_ecdsa_signature>.allocate(capacity: 1)
         defer { signature.deallocate() }
-        
-        var paddingKey = Data()
-        let value: UInt8 = 0
-        for i in privateKey.raw.count..<32 {
-            paddingKey.append(value)
-        }
-        paddingKey.append(privateKey.raw)
-        
-//        print("paddingKey1 count", paddingKey.count)
-        
         let status = data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
-//            privateKey.raw.withUnsafeBytes { secp256k1_ecdsa_sign(ctx, signature, ptr, $0, nil, nil) }
-            paddingKey.withUnsafeBytes { secp256k1_ecdsa_sign(ctx, signature, ptr, $0, nil, nil) }
+            privateKey.raw.withUnsafeBytes { secp256k1_ecdsa_sign(ctx, signature, ptr, $0, nil, nil) }
         }
         guard status == 1 else { throw CryptoError.signFailed }
-        
+
         let normalizedsig = UnsafeMutablePointer<secp256k1_ecdsa_signature>.allocate(capacity: 1)
         defer { normalizedsig.deallocate() }
         secp256k1_ecdsa_signature_normalize(ctx, normalizedsig, signature)
-        
+
         var length: size_t = 128
         var der = Data(count: length)
         guard der.withUnsafeMutableBytes({ return secp256k1_ecdsa_signature_serialize_der(ctx, $0, &length, normalizedsig) }) == 1 else { throw CryptoError.noEnoughSpace }
         der.count = length
+
         return der
     }
 
@@ -133,16 +123,4 @@ public enum CryptoError: Error {
     case noEnoughSpace
     case signatureParseFailed
     case publicKeyParseFailed
-}
-
-extension Data {
-    struct HexEncodingOptions: OptionSet {
-        let rawValue: Int
-        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
-    }
-    
-    func hexEncodedString(options: HexEncodingOptions = []) -> String {
-        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
-        return map { String(format: format, $0) }.joined()
-    }
 }
