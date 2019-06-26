@@ -36,7 +36,6 @@ class SettingTableViewController: UITableViewController {
             
         } else if (indexPath.section == 1) {
             if(indexPath.row == 0) {
-//                onShowToast(NSLocalizedString("only_USD", comment: ""))
                 self.onShowCurrenyDialog()
                 
             } else if(indexPath.row == 1) {
@@ -102,7 +101,9 @@ class SettingTableViewController: UITableViewController {
                 
                 
             } else if(indexPath.row == 1) {
-                 onShowToast(NSLocalizedString("prepare", comment: ""))
+                guard let url = URL(string: "https://github.com/cosmostation/cosmostation-mobile") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
                 
             } else if(indexPath.row == 2) {
                 onShowToast(self.versionLabel.text!)

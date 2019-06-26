@@ -144,7 +144,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             return;
 
         } else if (v.equals(mBtnBasePrice)) {
-//            Toast.makeText(getBaseActivity(), R.string.str_will_support_with_mainnet, Toast.LENGTH_SHORT).show();
             return;
 
         } else if (v.equals(mBtnGuide)) {
@@ -178,7 +177,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             }
 
         } else if (v.equals(mBtnGithub)) {
-            Toast.makeText(getBaseActivity(), R.string.str_will_support_after_mainnet, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://github.com/cosmostation/cosmostation-mobile"));
+            startActivity(intent);
 
         } else if (v.equals(mBtnVersion)) {
 
