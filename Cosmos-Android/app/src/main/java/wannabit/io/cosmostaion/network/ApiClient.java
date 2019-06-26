@@ -40,28 +40,13 @@ public class ApiClient {
         return service_keybase;
     }
 
-    private static EsService service_es_main = null;
-    public static EsService getEsService(Context c, BaseChain chain) {
-        if (service_es_main == null ) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_esearch))
-                        .client(WUtil.getUnsafeOkHttpClient().build())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_es_main = retrofit.create(EsService.class);
-            }
-        }
-        return service_es_main;
-    }
-
     private static MarketCapService marketCapService = null;
     public static MarketCapService getCMCClient(Context c) {
         if (marketCapService == null) {
             synchronized (ApiClient.class) {
                 if (marketCapService == null)  {
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(c.getString(R.string.coinmarketcap_url))
+                            .baseUrl(c.getString(R.string.url_coinmarketcap))
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     marketCapService = retrofit.create(MarketCapService.class);
@@ -70,4 +55,20 @@ public class ApiClient {
         }
         return marketCapService;
     }
+
+
+    private static EsProxyService service_es_proxy = null;
+    public static EsProxyService getEsProxyService(Context c, BaseChain chain) {
+        if (service_es_proxy == null ) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_es_proxy))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_es_proxy = retrofit.create(EsProxyService.class);
+            }
+        }
+        return service_es_proxy;
+    }
+
 }

@@ -27,8 +27,7 @@ public class HistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResHistory> response = ApiClient.getEsService(mApp, mChain).getTx(mReq).execute();
-            WLog.w("HistoryTask : "+ response.body().toString());
+            Response<ResHistory> response = ApiClient.getEsProxyService(mApp, mChain).getTx(mReq).execute();
             if(response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body().hits.hits;
                 mResult.isSuccess = true;
