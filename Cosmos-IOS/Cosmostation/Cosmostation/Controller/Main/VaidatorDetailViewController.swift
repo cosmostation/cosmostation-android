@@ -417,14 +417,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchSignleBondingInfo(_ account: Account, _ validator: Validator) {
         let url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
-//        print("onFetchSignleBondingInfo url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchSignleBondingInfo ", res)
                 guard let rawData = res as? [String : Any], rawData["error"] == nil else {
-//                    print("no bondinginfo Error!!")
                     self.onFetchFinished()
                     return
                 }
@@ -444,14 +441,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchSignleUnBondingInfo(_ account: Account, _ validator: Validator) {
         let url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
-//        print("onFetchSignleUnBondingInfo url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchSignleUnBondingInfo ", res)
                 guard let rawData = res as? [String : Any], rawData["error"] == nil else {
-//                    print("no unbondinginfo Error!!")
                     self.onFetchFinished()
                     return
                 }
@@ -473,7 +467,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchRewardInfo ", res)
                 guard let rawRewards = res as? Array<NSDictionary> else {
                     self.onFetchFinished()
                     return;
@@ -501,16 +494,14 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { response in
                 switch response.result {
                 case .success(let res):
-//                    print("onFetchHistory ", res)
+                    print("onFetchHistory ", res)
                     guard let history = res as? [String : Any] else {
-//                        print("no history!!")
                         self.onFetchFinished()
                         return;
                     }
                     let rawHistory = History.init(history)
                     self.mHistories.removeAll()
                     self.mHistories = rawHistory.hits.hits
-//                    print("onFetchHistory ", self.mHistories.count)
                 case .failure(let error):
                     print("error ", error)
                 }

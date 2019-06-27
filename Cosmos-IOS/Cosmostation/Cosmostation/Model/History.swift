@@ -28,9 +28,10 @@ public class History {
             self.total = dictionary["total"] as? Int64 ?? -1
             
             self.hits.removeAll()
-            let rawHits = dictionary["hits"] as! Array<NSDictionary>
-            for rawHit in rawHits {
-                self.hits.append(InnerHits(rawHit as! [String : Any]))
+            if let rawHits = dictionary["hits"] as? Array<NSDictionary> {
+                for rawHit in rawHits {
+                    self.hits.append(InnerHits(rawHit as! [String : Any]))
+                }
             }
         }
     }
