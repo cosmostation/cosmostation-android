@@ -258,7 +258,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         }
 
         onUpdateTitle();
-        onShowWaitDialog();
         onFetchAccountInfo();
         mBalances = getBaseDao().onSelectBalance(mAccount.id);
         mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
