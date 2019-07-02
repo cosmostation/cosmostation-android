@@ -140,6 +140,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetValidatorItem(_ cell: MyValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         cell.monikerLabel.text = validator.description.moniker
+        cell.monikerLabel.adjustsFontSizeToFitWidth = true
         
         if(validator.jailed) {
             cell.revokedImg.isHidden = false

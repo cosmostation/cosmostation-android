@@ -58,7 +58,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moniker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhJ-ZR-2BJ">
-                                <rect key="frame" x="80" y="10" width="50" height="16.5"/>
+                                <rect key="frame" x="80" y="10" width="192" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -107,6 +107,7 @@
                             <constraint firstItem="0xe-lt-Tjk" firstAttribute="centerY" secondItem="y30-gD-rHm" secondAttribute="centerY" id="ks8-k9-Vam"/>
                             <constraint firstItem="IbV-87-OeD" firstAttribute="leading" secondItem="Aqh-ZB-FSy" secondAttribute="leading" id="lOD-J2-qni"/>
                             <constraint firstItem="Acd-fX-m6w" firstAttribute="leading" secondItem="Aqh-ZB-FSy" secondAttribute="trailing" constant="12" id="rWX-bB-MVr"/>
+                            <constraint firstAttribute="trailing" secondItem="rhJ-ZR-2BJ" secondAttribute="trailing" constant="24" id="wma-V3-LZA"/>
                             <constraint firstItem="y30-gD-rHm" firstAttribute="top" secondItem="ga1-NR-geb" secondAttribute="bottom" constant="2" id="wrG-d5-hGa"/>
                             <constraint firstItem="y30-gD-rHm" firstAttribute="leading" secondItem="ga1-NR-geb" secondAttribute="leading" id="zB5-Wy-7tS"/>
                             <constraint firstItem="Aqh-ZB-FSy" firstAttribute="centerY" secondItem="nBA-IT-1Hn" secondAttribute="centerY" id="zBd-gP-GE7"/>

@@ -130,6 +130,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             if (indexPath.row == 0 && mMyValidator) {
                 let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
                 cell!.monikerName.text = self.mValidator!.description.moniker
+                cell!.monikerName.adjustsFontSizeToFitWidth = true
                 if(self.mValidator!.jailed) {
                     cell!.jailedImg.isHidden = false
                     cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
@@ -194,6 +195,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             } else if (indexPath.row == 0 && !mMyValidator) {
                 let cell:ValidatorDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailCell") as? ValidatorDetailCell
                 cell!.monikerName.text = self.mValidator!.description.moniker
+                cell!.monikerName.adjustsFontSizeToFitWidth = true
                 if(self.mValidator!.jailed) {
                     cell!.jailedImg.isHidden = false
                     cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
@@ -494,7 +496,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { response in
                 switch response.result {
                 case .success(let res):
-                    print("onFetchHistory ", res)
                     guard let history = res as? [String : Any] else {
                         self.onFetchFinished()
                         return;

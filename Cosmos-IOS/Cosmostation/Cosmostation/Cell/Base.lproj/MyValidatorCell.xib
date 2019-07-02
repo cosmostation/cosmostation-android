@@ -58,7 +58,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moniker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rW-3b-Lm5">
-                                <rect key="frame" x="80" y="10" width="50" height="16.5"/>
+                                <rect key="frame" x="80" y="10" width="192" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -116,6 +116,7 @@
                             <constraint firstItem="Cdf-lL-EcX" firstAttribute="leading" secondItem="5rW-3b-Lm5" secondAttribute="leading" id="F6f-aL-xcV"/>
                             <constraint firstItem="Dnq-wq-Lbs" firstAttribute="top" secondItem="2Fy-88-G4e" secondAttribute="top" constant="12" id="HII-oU-6jW"/>
                             <constraint firstAttribute="trailing" secondItem="pMw-eC-UQW" secondAttribute="trailing" constant="6" id="Ien-TI-cyN"/>
+                            <constraint firstAttribute="trailing" secondItem="5rW-3b-Lm5" secondAttribute="trailing" constant="24" id="KBy-BE-eJN"/>
                             <constraint firstItem="bwg-AL-vPt" firstAttribute="top" secondItem="lCZ-OT-X4w" secondAttribute="bottom" constant="2" id="OSg-vb-WgJ"/>
                             <constraint firstItem="bwg-AL-vPt" firstAttribute="leading" secondItem="Cdf-lL-EcX" secondAttribute="leading" id="Wug-zr-IDm"/>
                             <constraint firstItem="Cdf-lL-EcX" firstAttribute="top" secondItem="5rW-3b-Lm5" secondAttribute="bottom" constant="6" id="aPJ-Rk-o2k"/>

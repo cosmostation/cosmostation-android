@@ -58,7 +58,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moniker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjm-OC-kdP">
-                                <rect key="frame" x="80" y="10" width="50" height="16.5"/>
+                                <rect key="frame" x="80" y="10" width="192" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -92,6 +92,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="O5H-eg-GqK" secondAttribute="trailing" constant="6" id="4DM-Wa-YIb"/>
                             <constraint firstItem="NCK-fO-o03" firstAttribute="top" secondItem="tjm-OC-kdP" secondAttribute="bottom" constant="6" id="E7B-sn-ehA"/>
+                            <constraint firstAttribute="trailing" secondItem="tjm-OC-kdP" secondAttribute="trailing" constant="24" id="Ehd-gi-waS"/>
                             <constraint firstItem="qu3-wc-OAX" firstAttribute="leading" secondItem="NCK-fO-o03" secondAttribute="leading" id="JoU-Nt-7qF"/>
                             <constraint firstItem="NCK-fO-o03" firstAttribute="leading" secondItem="tjm-OC-kdP" secondAttribute="leading" id="M2B-VP-cd5"/>
                             <constraint firstItem="O5H-eg-GqK" firstAttribute="centerY" secondItem="uAB-cB-2gH" secondAttribute="centerY" id="MaY-Fo-541"/>
