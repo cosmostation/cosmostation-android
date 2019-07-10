@@ -29,7 +29,7 @@ public class UnBondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             for(Account account : mAccounts) {
-                Response<ArrayList<ResLcdUnBondings>> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(account.baseChain)).getUnBondingList(account.address).execute();
+                Response<ArrayList<ResLcdUnBondings>> response = ApiClient.getCosmosChain(mApp).getUnBondingList(account.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().size() > 0) {
                         mApp.getBaseDao().onUpdateUnbondingStates(account.id, WUtil.getUnbondingFromLcds(mApp, account.id, response.body()));

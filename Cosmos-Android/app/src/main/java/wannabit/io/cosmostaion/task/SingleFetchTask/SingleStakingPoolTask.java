@@ -23,7 +23,7 @@ public class SingleStakingPoolTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResStakingPool> response = ApiClient.getWannabitChain(mApp, mChain).getStakingPool().execute();
+            Response<ResStakingPool> response = ApiClient.getCosmosChain(mApp).getStakingPool().execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

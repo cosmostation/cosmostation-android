@@ -393,7 +393,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     private int FetchCnt = 0;
     private void onFetchTx(String hash) {
-        ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mAccount.baseChain)).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
+        ApiClient.getCosmosChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
             @Override
             public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
                 if(isFinishing()) return;

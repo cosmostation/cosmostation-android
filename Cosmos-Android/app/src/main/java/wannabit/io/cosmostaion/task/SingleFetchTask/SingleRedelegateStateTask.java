@@ -30,7 +30,7 @@ public class SingleRedelegateStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<ResLcdRedelegate>> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
+            Response<ArrayList<ResLcdRedelegate>> response = ApiClient.getCosmosChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
             if(response.isSuccessful()) {
                 if(response.body() != null) {
                     mResult.resultData = response.body();

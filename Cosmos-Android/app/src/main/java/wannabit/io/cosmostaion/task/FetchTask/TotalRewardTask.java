@@ -31,7 +31,7 @@ public class TotalRewardTask extends CommonTask {
         HashMap<Long, TotalReward>       mTotalRewards = new HashMap<>();
         try {
             for(Account account : mAccounts) {
-                Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(account.baseChain)).getTotalRewards(account.address).execute();
+                Response<ArrayList<Coin>> response = ApiClient.getCosmosChain(mApp).getTotalRewards(account.address).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().size() > 0) {
                     TotalReward totalReward = new TotalReward(account.id, response.body());
                     mTotalRewards.put(account.id, totalReward);

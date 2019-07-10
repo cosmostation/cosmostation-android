@@ -66,7 +66,7 @@ public class SimpleSendTask extends CommonTask {
                 return mResult;
             }
 
-            Response<ResLcdAccountInfo> accountResponse = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getAccountInfo(mAccount.address).execute();
+            Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
             if(!accountResponse.isSuccessful()) {
                 mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 return mResult;
@@ -84,7 +84,7 @@ public class SimpleSendTask extends CommonTask {
             msgs.add(singleSendMsg);
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
-            Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
+            Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
                 WLog.w("response.body() hash: " + response.body().txhash);
                 if (response.body().txhash != null) {

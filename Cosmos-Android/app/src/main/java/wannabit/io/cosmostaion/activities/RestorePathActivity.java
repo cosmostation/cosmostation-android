@@ -15,7 +15,6 @@ import android.widget.Toast;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.crypto.HDKeyDerivation;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -35,7 +34,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
@@ -163,7 +161,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 }
             });
 
-            ApiClient.getWannabitChain(getBaseContext(), BaseChain.getChain(mChain)).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+            ApiClient.getCosmosChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                 @Override
                 public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
                     if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {

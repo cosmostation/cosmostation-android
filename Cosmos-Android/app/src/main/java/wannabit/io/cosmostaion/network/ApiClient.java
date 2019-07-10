@@ -10,20 +10,19 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ApiClient {
 
-    private static WannabitChain service_wannabit_main = null;
-    public static WannabitChain getWannabitChain(Context c, BaseChain chain) {
+    private static CosmosChain service_wannabit_main = null;
+    public static CosmosChain getCosmosChain(Context c) {
         if (service_wannabit_main == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_wannabit_main = retrofit.create(WannabitChain.class);
+                service_wannabit_main = retrofit.create(CosmosChain.class);
             }
         }
         return service_wannabit_main;
     }
-
 
     private static KeyBaseService service_keybase = null;
     public static KeyBaseService getKeybaseService(Context c) {
@@ -56,16 +55,15 @@ public class ApiClient {
         return marketCapService;
     }
 
-
-    private static EsProxyService service_es_proxy = null;
-    public static EsProxyService getEsProxyService(Context c, BaseChain chain) {
+    private static CosmosEsService service_es_proxy = null;
+    public static CosmosEsService getCosmosEs(Context c) {
         if (service_es_proxy == null ) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_es_proxy))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_es_proxy = retrofit.create(EsProxyService.class);
+                service_es_proxy = retrofit.create(CosmosEsService.class);
             }
         }
         return service_es_proxy;

@@ -22,7 +22,7 @@ public class SingleProvisionsTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<String> response = ApiClient.getWannabitChain(mApp, mChain).getProvisions().execute();
+            Response<String> response = ApiClient.getCosmosChain(mApp).getProvisions().execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

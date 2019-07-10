@@ -5,7 +5,6 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -29,7 +28,7 @@ public class SingleBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResLcdBondings> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getBonding(mAccount.address, mValidatorAddr).execute();
+            Response<ResLcdBondings> response = ApiClient.getCosmosChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
             if(response.isSuccessful()) {
                 if(response.body() != null)
                     mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body()));

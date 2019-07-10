@@ -25,7 +25,7 @@ public class UnbondingValidatorInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<Validator>> response = ApiClient.getWannabitChain(mApp, mChain).getUnBondingValidatorDetailList().execute();
+            Response<ArrayList<Validator>> response = ApiClient.getCosmosChain(mApp).getUnBondingValidatorDetailList().execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

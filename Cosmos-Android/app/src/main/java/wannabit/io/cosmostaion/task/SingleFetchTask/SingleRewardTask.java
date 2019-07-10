@@ -30,7 +30,7 @@ public class SingleRewardTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<Coin>> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
+            Response<ArrayList<Coin>> response = ApiClient.getCosmosChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

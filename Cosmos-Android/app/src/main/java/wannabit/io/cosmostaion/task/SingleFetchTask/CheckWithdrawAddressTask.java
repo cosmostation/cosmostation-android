@@ -24,7 +24,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<String> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getWithdrawAddress(mAccount.address).execute();
+            Response<String> response = ApiClient.getCosmosChain(mApp).getWithdrawAddress(mAccount.address).execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

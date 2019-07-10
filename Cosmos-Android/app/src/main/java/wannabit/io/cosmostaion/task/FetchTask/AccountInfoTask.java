@@ -29,7 +29,7 @@ public class AccountInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             for(Account account : mAccounts) {
-                Response<ResLcdAccountInfo> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(account.baseChain)).getAccountInfo(account.address).execute();
+                Response<ResLcdAccountInfo> response = ApiClient.getCosmosChain(mApp).getAccountInfo(account.address).execute();
                 if(response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(account.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(account.id, WUtil.getBalancesFromLcd(account.id, response.body()));

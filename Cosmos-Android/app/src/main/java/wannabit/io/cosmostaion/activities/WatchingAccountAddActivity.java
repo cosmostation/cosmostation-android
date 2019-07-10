@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class WatchingAccountAddActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -103,7 +102,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
     private void onCheckInNodeAddress(final String address, final BaseChain chain) {
         onShowWaitDialog();
-        ApiClient.getWannabitChain(getBaseContext(), chain).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+        ApiClient.getCosmosChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
             @Override
             public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
                 if(response.isSuccessful() && response.body() != null) {

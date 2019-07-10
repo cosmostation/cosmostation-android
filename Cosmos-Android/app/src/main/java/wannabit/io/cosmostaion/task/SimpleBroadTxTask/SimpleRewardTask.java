@@ -13,12 +13,8 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
-import wannabit.io.cosmostaion.model.StdSignMsg;
-import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.model.type.Pub_key;
-import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
@@ -64,7 +60,7 @@ public class SimpleRewardTask extends CommonTask {
                 return mResult;
             }
 
-            Response<ResLcdAccountInfo> accountResponse = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).getAccountInfo(mAccount.address).execute();
+            Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
             if(!accountResponse.isSuccessful()) {
                 mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 return mResult;
@@ -83,7 +79,7 @@ public class SimpleRewardTask extends CommonTask {
             }
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mRewardFees, mRewardMemo, deterministicKey);
-            Response<ResBroadTx> response = ApiClient.getWannabitChain(mApp, BaseChain.getChain(mAccount.baseChain)).broadTx(reqBroadCast).execute();
+            Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
             if(response.isSuccessful() && response.body() != null) {
                 if (response.body().txhash != null) {
                     mResult.resultData = response.body().txhash;

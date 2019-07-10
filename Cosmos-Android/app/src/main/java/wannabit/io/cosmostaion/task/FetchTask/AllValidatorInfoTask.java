@@ -25,7 +25,7 @@ public class AllValidatorInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<Validator>> response = ApiClient.getWannabitChain(mApp, mChain).getValidatorDetailList().execute();
+            Response<ArrayList<Validator>> response = ApiClient.getCosmosChain(mApp).getValidatorDetailList().execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

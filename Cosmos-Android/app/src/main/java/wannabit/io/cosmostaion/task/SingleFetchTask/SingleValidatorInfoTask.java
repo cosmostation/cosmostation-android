@@ -1,9 +1,5 @@
 package wannabit.io.cosmostaion.task.SingleFetchTask;
 
-import com.google.gson.JsonObject;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -30,7 +26,7 @@ public class SingleValidatorInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<Validator> response = ApiClient.getWannabitChain(mApp, mChain).getValidatorDetail(mValidatorAddr).execute();
+            Response<Validator> response = ApiClient.getCosmosChain(mApp).getValidatorDetail(mValidatorAddr).execute();
             if(response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body();
                 mResult.isSuccess = true;

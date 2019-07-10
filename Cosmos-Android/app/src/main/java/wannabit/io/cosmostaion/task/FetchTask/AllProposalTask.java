@@ -26,7 +26,7 @@ public class AllProposalTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<Proposal>> response = ApiClient.getWannabitChain(mApp, mChain).getProposalList().execute();
+            Response<ArrayList<Proposal>> response = ApiClient.getCosmosChain(mApp).getProposalList().execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

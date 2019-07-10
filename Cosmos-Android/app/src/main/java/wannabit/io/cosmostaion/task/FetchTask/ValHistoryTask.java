@@ -27,7 +27,7 @@ public class ValHistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResHistory> response = ApiClient.getEsProxyService(mApp, mChain).getValTx(mReq).execute();
+            Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getValTx(mReq).execute();
             if(response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body().hits.hits;
                 mResult.isSuccess = true;
