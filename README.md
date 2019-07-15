@@ -13,6 +13,47 @@
 
 Cosmostation wallet apps are non-custodial tendermint-based wallet that supports [Cosmos Network](https://https://cosmos.network/). We will add more tendermint-based blockchain projects in the coming updates, such as [IRISnet](https://www.irisnet.org/), [IOV](https://iov.one/), [Kava](https://kava.io/).
 
+
+## Notice
+
+for generate signature with swift you have to midify BicoinKey library after pod intalled.
+please check below code for get correct signature in tendermint
+/Pods/BitcoinKet/Source/Crypro.swift (line ~59)
+
+```swift
+  public static func sign(_ data: Data, privateKey: PrivateKey) throws -> Data {
+      let ctx = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN))!
+      defer { secp256k1_context_destroy(ctx) }
+
+      let signature = UnsafeMutablePointer<secp256k1_ecdsa_signature>.allocate(capacity: 1)
+      defer { signature.deallocate() }
+
+      var paddingKey = Data()
+      let value: UInt8 = 0
+      for i in privateKey.raw.count..<32 {
+          paddingKey.append(value)
+      }
+      paddingKey.append(privateKey.raw)
+
+
+      let status = data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
+          paddingKey.withUnsafeBytes { secp256k1_ecdsa_sign(ctx, signature, ptr, $0, nil, nil) }
+      }
+      guard status == 1 else { throw CryptoError.signFailed }
+
+      let normalizedsig = UnsafeMutablePointer<secp256k1_ecdsa_signature>.allocate(capacity: 1)
+      defer { normalizedsig.deallocate() }
+      secp256k1_ecdsa_signature_normalize(ctx, normalizedsig, signature)
+
+      var length: size_t = 128
+      var der = Data(count: length)
+      guard der.withUnsafeMutableBytes({ return secp256k1_ecdsa_signature_serialize_der(ctx, $0, &length, normalizedsig) }) == 1 else { throw CryptoError.noEnoughSpace }
+      der.count = length
+      return der
+  }
+
+```swift
+
 ## Downloads
 
 * [Android](https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion)
