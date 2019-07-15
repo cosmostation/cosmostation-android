@@ -51,7 +51,6 @@ please check below code for get correct signature in tendermint
       der.count = length
       return der
   }
-
 ```swift
 
 ## Downloads
