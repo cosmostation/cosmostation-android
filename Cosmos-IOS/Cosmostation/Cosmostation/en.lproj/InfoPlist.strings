@@ -8,4 +8,5 @@
 
 "CFBundleDisplayName" = "Cosmostation";
 "NSCameraUsageDescription" = "Request Camera access for QR code scan.";
+"NSFaceIDUsageDescription" = "Request Face ID for unlock app";
 

@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import CryptoSwift
 import SwiftKeychainWrapper
+import LocalAuthentication
 
 class PasswordViewController: BaseViewController {
     
@@ -48,6 +49,14 @@ class PasswordViewController: BaseViewController {
                                                selector: #selector(self.onUserInsert(_:)),
                                                name: Notification.Name("KeyboardClick"),
                                                object: nil)
+        if (mTarget == PASSWORD_ACTION_APP_LOCK) {
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(self.onBioAuth),
+                                                   name: Notification.Name("ForeGround"),
+                                                   object: nil)
+        } else if (mTarget == PASSWORD_ACTION_INTRO_LOCK) {
+            self.onBioAuth()
+        }
         
         self.initView()
     }
@@ -55,6 +64,7 @@ class PasswordViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("KeyboardClick"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("ForeGround"), object: nil)
     }
     
     
@@ -74,6 +84,9 @@ class PasswordViewController: BaseViewController {
             
         } else if (mTarget == PASSWORD_ACTION_CHECK_TX) {
             passwordTitleLable.text = NSLocalizedString("password_tx", comment: "")
+            
+        } else if (mTarget == PASSWORD_ACTION_APP_LOCK || mTarget ==  PASSWORD_ACTION_INTRO_LOCK) {
+            passwordTitleLable.text = NSLocalizedString("password_app_lock", comment: "")
             
         }
         passwordTitleLable.adjustsFontSizeToFitWidth = true
@@ -134,16 +147,51 @@ class PasswordViewController: BaseViewController {
         }
     }
     
+    var cancelbio = false
+    @objc func onBioAuth() {
+        if (self.cancelbio) {return}
+        
+        if(!BaseData.instance.getUsingBioAuth()) {
+            return
+        }
+        let myContext = LAContext()
+        let myLocalizedReasonString = NSLocalizedString("app_locked", comment: "")
+        
+        var authError: NSError?
+        if #available(iOS 8.0, macOS 10.12.1, *) {
+            if myContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
+                myContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: myLocalizedReasonString) { success, evaluateError in
+                    DispatchQueue.main.async {
+                        if success {
+                            self.onUserSuccessUnlock()
+                        } else {
+                            self.cancelbio = true
+                        }
+                    }
+                }
+            } else {
+                self.cancelbio = true
+            }
+        } else {
+            self.cancelbio = true
+        }
+    }
+    
     func sendResultAndPop(_ data: Int) {
-        UIApplication.shared.endIgnoringInteractionEvents()
-        let transition:CATransition = CATransition()
-        transition.duration = 0.3
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.reveal
-        transition.subtype = CATransitionSubtype.fromBottom
-        self.resultDelegate?.passwordResponse(result: data)
-        self.navigationController!.view.layer.add(transition, forKey: kCATransition)
-        self.navigationController?.popViewController(animated: false)
+        if(mTarget != PASSWORD_ACTION_APP_LOCK) {
+            UIApplication.shared.endIgnoringInteractionEvents()
+            let transition:CATransition = CATransition()
+            transition.duration = 0.3
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            transition.type = CATransitionType.reveal
+            transition.subtype = CATransitionSubtype.fromBottom
+            self.resultDelegate?.passwordResponse(result: data)
+            self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+            self.navigationController?.popViewController(animated: false)
+            
+        } else {
+            self.onShowToast(NSLocalizedString("insert_password_app_lock", comment: ""))
+        }
     }
     
     
@@ -180,6 +228,10 @@ class PasswordViewController: BaseViewController {
             
         } else if (mTarget == PASSWORD_ACTION_DELETE_ACCOUNT) {
             self.onStartCheckPasswordForDelete(mUserInsert)
+            
+        } else if (mTarget == PASSWORD_ACTION_APP_LOCK ||
+                    mTarget ==  PASSWORD_ACTION_INTRO_LOCK) {
+            self.onStartCheckAppLock(mUserInsert)
         }
         
     }
@@ -224,6 +276,27 @@ class PasswordViewController: BaseViewController {
         }
     }
     
+    func onStartCheckAppLock(_ input: String) {
+        DispatchQueue.global().async {
+            var result = false
+            if(KeychainWrapper.standard.hasValue(forKey: "password")) {
+                if(KeychainWrapper.standard.string(forKey: "password") == input) {
+                    result = true
+                }
+            }
+            DispatchQueue.main.async(execute: {
+                self.hideWaittingAlert()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                if(result) {
+                    self.onUserSuccessUnlock()
+                } else {
+                    self.onShowToast(NSLocalizedString("error_invalid_password", comment: ""))
+                    self.initView()
+                }
+            });
+        }
+    }
+    
     func onStartCheckPasswordForDelete(_ input: String) {
         DispatchQueue.global().async {
             var result = false
@@ -241,6 +314,14 @@ class PasswordViewController: BaseViewController {
                     self.initView()
                 }
             });
+        }
+    }
+    
+    func onUserSuccessUnlock() {
+        if(mTarget ==  PASSWORD_ACTION_INTRO_LOCK) {
+            self.sendResultAndPop(PASSWORD_RESUKT_OK)
+        } else {
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

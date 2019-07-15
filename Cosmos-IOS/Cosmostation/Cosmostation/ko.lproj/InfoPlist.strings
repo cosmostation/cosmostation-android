@@ -8,3 +8,4 @@
 
 "CFBundleDisplayName" = "Cosmostation";
 "NSCameraUsageDescription" = "QR Code 스캔을 위해 카메라 권한을 요청합니다.";
+"NSFaceIDUsageDescription" = "앱 잠금 해재를 위해 Face ID를 사용합니다.";

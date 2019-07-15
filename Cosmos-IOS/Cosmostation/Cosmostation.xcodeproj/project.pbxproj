@@ -114,7 +114,6 @@
 		E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1861D2D224DB1570027DED1 /* RestorePathCell.swift */; };
 		E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1861D2E224DB1570027DED1 /* RestorePathCell.xib */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
-		E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E29222E7C0600A1436F /* ViewController.swift */; };
 		E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E2B222E7C0600A1436F /* Main.storyboard */; };
 		E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E30222E7C0800A1436F /* LaunchScreen.storyboard */; };
 		E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E3C222E7E2900A1436F /* SegwitAddrCoder.swift */; };
@@ -167,7 +166,6 @@
 		E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */; };
 		E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FEE458225B17970040FAFD /* AmountInputTextField.swift */; };
 		E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FEE45A225B1AEF0040FAFD /* MemoTextView.swift */; };
-		E1FEE45D225B51EE0040FAFD /* cosmostation_loading_wh.gif in Resources */ = {isa = PBXBuildFile; fileRef = E1FEE45C225B51EE0040FAFD /* cosmostation_loading_wh.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -300,7 +298,6 @@
 		E1861D2E224DB1570027DED1 /* RestorePathCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestorePathCell.xib; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1945E27222E7C0600A1436F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E1945E29222E7C0600A1436F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E1945E2C222E7C0600A1436F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E1945E31222E7C0800A1436F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1945E33222E7C0800A1436F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -360,7 +357,6 @@
 		E1F2AE5A227EC5B600C87F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		E1FEE458225B17970040FAFD /* AmountInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountInputTextField.swift; sourceTree = "<group>"; };
 		E1FEE45A225B1AEF0040FAFD /* MemoTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTextView.swift; sourceTree = "<group>"; };
-		E1FEE45C225B51EE0040FAFD /* cosmostation_loading_wh.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cosmostation_loading_wh.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -502,9 +498,7 @@
 				E1945E3B222E7DF600A1436F /* Crypto */,
 				E1945E3A222E7DD800A1436F /* Controller */,
 				E1945E39222E7D8E00A1436F /* Base */,
-				E1945E29222E7C0600A1436F /* ViewController.swift */,
 				E16D9B182248C4880019B7BB /* Assets.xcassets */,
-				E1FEE45C225B51EE0040FAFD /* cosmostation_loading_wh.gif */,
 				E1945E33222E7C0800A1436F /* Info.plist */,
 				E1945E2B222E7C0600A1436F /* Main.storyboard */,
 				E1945E30222E7C0800A1436F /* LaunchScreen.storyboard */,
@@ -756,7 +750,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
-				E1FEE45D225B51EE0040FAFD /* cosmostation_loading_wh.gif in Resources */,
 				E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */,
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
@@ -953,7 +946,6 @@
 				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
 				E1827E252256293900BC0350 /* ValidatorDetailCell.swift in Sources */,
 				E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */,
-				E1945E2A222E7C0600A1436F /* ViewController.swift in Sources */,
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
 				E14F7FB6227ADAA300FDDC75 /* QRScanViewController.swift in Sources */,
 				E19A32232254A61E00A05E41 /* WalletManageViewController.swift in Sources */,

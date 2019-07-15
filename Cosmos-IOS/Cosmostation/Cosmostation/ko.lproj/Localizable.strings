@@ -10,6 +10,7 @@
 "password_check" = "비밀번호를 입력해 주세요.";
 "password_delete" = "비밀번호를 입력해 주세요.";
 "password_tx" = "비밀번호를 입력하시면 진행됩니다.";
+"password_app_lock" = "비밀번호를 입력해 주세요.";
 "password_init_warnning" = "비밀번호는 복구하실 방법이 전혀 없습니다.\n신중히 결정하시고 잊지않도록 주의해주세요.";
 "password_msg1" = "복구 단어 분실은 자산 피해로 이어질 수 있습니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.";
 "password_msg2" = "고객님의 자산 보호를 위해 \n복구 단어를 반드시 종이에 적어 따로 보관해주세요.\n이 단어들을 이용하여 지갑을 복원할 수 있습니다.\n(지갑관리에서 다시 확인하실 수 있습니다.)";
@@ -88,6 +89,8 @@
 "max_spend_msg" = "이 Tx 이후 사용 가능 금액이 0 이 됩니다. 다음 Tx 요청시 사용할 수수료가 남아있지 않아 전송이 불가 할 수 있습니다.";
 "fee_over_title" = "이자 지급 불가";
 "fee_over_msg" = "받을 이자량 보다 Tx 수수료가 높습니다. Tx 수수료를 더 적게 설정하시거나, 나중에 이자가 더 쌓이면 요청해 주세요.";
+"insert_password_app_lock" = "언락을 위해 패스워드를 입력해주세요.";
+"app_locked" = "앱 잠김";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";
@@ -101,6 +104,8 @@
 "warnning" = "경고";
 "continue" = "계속";
 "wait" = "기다리기";
+"touchID" = "Touch ID";
+"faceID" = "Face ID";
 
 "only_USD" = "현재 USD만 지원합니다.";
 "only_cmc" = "현재 CoinMarketCap만 지원합니다.";

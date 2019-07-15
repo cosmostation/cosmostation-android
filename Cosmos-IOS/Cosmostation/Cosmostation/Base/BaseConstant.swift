@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -20,6 +20,8 @@ let KEY_LAST_TAB                        = "KEY_LAST_TAB"
 let KEY_ACCOUNT_REFRESH_ALL             = "KEY_ACCOUNT_REFRESH_ALL"
 let KEY_ATOM_TIC_CMC                    = "KEY_ATOM_TIC_CMC"
 let KEY_CURRENCY                        = "KEY_CURRENCY"
+let KEY_USING_APP_LOCK                  = "KEY_USING_APP_LOCK"
+let KEY_USING_BIO_AUTH                  = "KEY_USING_BIO_AUTH"
 
 
 let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
@@ -154,7 +156,9 @@ let COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
 let PASSWORD_ACTION_DELETE_ACCOUNT          = "ACTION_DELETE_ACCOUNT"
-let PASSWORD_ACTION_CHECK_TX                = "PASSWORD_ACTION_CHECK_TX"
+let PASSWORD_ACTION_CHECK_TX                = "ACTION_CHECK_TX"
+let PASSWORD_ACTION_APP_LOCK                = "ACTION_APP_LOCK"
+let PASSWORD_ACTION_INTRO_LOCK              = "ACTION_INTRO_LOCK"
 
 
 

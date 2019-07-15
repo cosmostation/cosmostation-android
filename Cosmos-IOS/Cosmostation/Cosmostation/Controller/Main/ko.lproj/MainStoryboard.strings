@@ -71,8 +71,14 @@
 /* Class = "UITableViewSection"; headerTitle = "Support"; ObjectID = "Lha-J2-JjS"; */
 "Lha-J2-JjS.headerTitle" = "지원";
 
-/* Class = "UILabel"; text = "Base Price"; ObjectID = "Lme-Ht-n9U"; */
-"Lme-Ht-n9U.text" = "가격 정보 출처";
+/* Class = "UILabel"; text = "Face Id"; ObjectID = "Lme-Ht-n9U"; */
+"Lme-Ht-n9U.text" = "페이스 아이디";
+
+/* Class = "UILabel"; text = "Currency"; ObjectID = "0Oy-DB-g8G"; */
+"0Oy-DB-g8G.text" = "통화";
+
+/* Class = "UILabel"; text = "Base Price"; ObjectID = "7PC-Yw-bid"; */
+"7PC-Yw-bid.text" = "가격 정보 출처";
 
 /* Class = "UILabel"; text = "CoinMarket Cap"; ObjectID = "M47-eO-1CQ"; */
 "M47-eO-1CQ.text" = "CoinMarket Cap";
@@ -132,7 +138,7 @@
 "dDV-sI-rMG.headerTitle" = "일반";
 
 /* Class = "UILabel"; text = "Currency"; ObjectID = "eE5-yJ-glc"; */
-"eE5-yJ-glc.text" = "통화";
+"eE5-yJ-glc.text" = "앱 잠금";
 
 /* Class = "UILabel"; text = "PHOTON"; ObjectID = "f1h-kd-UJK"; */
 "f1h-kd-UJK.text" = "PHOTON";

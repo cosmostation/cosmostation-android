@@ -10,6 +10,7 @@
 "password_check" = "Please type your password";
 "password_delete" = "Insert password for delete";
 "password_tx" = "Insert password for Transaction";
+"password_app_lock" = "Insert password for UnLock";
 "password_init_warnning" = "No way to recover this.\nPlease remember!";
 "password_msg1" = "Losing your mnemonics could lead to loss of your asset.\nWe highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.";
 "password_msg2" = "Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.";
@@ -88,6 +89,8 @@
 "max_spend_msg" = "You will be left with no available balance after this Tx. You will not have any Atom to be used as gas to make another Tx after this.";
 "fee_over_title" = "Unable to claim rewards";
 "fee_over_msg" = "Tx fee is higher than your unclaimed rewards. Set your fee to a lower amount or try again when you have more rewards accumulated.";
+"insert_password_app_lock" = "Please type yout password for unlock";
+"app_locked" = "App Locked";
 
 
 "clear_all" = "Clear All";
@@ -102,6 +105,8 @@
 "warnning" = "Warnning";
 "continue" = "Continue";
 "wait" = "Wait";
+"touchID" = "Touch ID";
+"faceID" = "Face ID";
 
 "only_USD" = "now only support USD";
 "only_cmc" = "now only support CoinMarketCap";

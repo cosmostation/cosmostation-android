@@ -9,11 +9,17 @@
 import UIKit
 import SafariServices
 import Toast_Swift
+import LocalAuthentication
 
-class SettingTableViewController: UITableViewController {
+class SettingTableViewController: UITableViewController, PasswordViewDelegate {
 
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var currecyLabel: UILabel!
+    @IBOutlet weak var appLockSwitch: UISwitch!
+    @IBOutlet weak var bioTypeLabel: UILabel!
+    @IBOutlet weak var bioSwitch: UISwitch!
+//    var titleBioType = ""
+    var hideBio = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +29,35 @@ class SettingTableViewController: UITableViewController {
         }
         self.onUpdateCurrency()
         
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let laContext = LAContext()
+        let biometricsPolicy = LAPolicy.deviceOwnerAuthenticationWithBiometrics
+        var error: NSError?
+        
+        appLockSwitch.setOn(BaseData.instance.getUsingAppLock(), animated: false)
+        bioSwitch.setOn(BaseData.instance.getUsingBioAuth(), animated: false)
+        
+        if (laContext.canEvaluatePolicy(biometricsPolicy, error: &error)) {
+            if error != nil { return }
+            if #available(iOS 11.0, *) {
+                switch laContext.biometryType {
+                case .faceID:
+                    bioTypeLabel.text = NSLocalizedString("faceID", comment: "")
+                case .touchID:
+                    bioTypeLabel.text = NSLocalizedString("touchID", comment: "")
+                case .none:
+                    bioTypeLabel.text = ""
+                    break
+                }
+            }
+        }
+        self.checkBioAuth()
+        print("bioTypeLabel ", bioTypeLabel.text)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -35,10 +70,10 @@ class SettingTableViewController: UITableViewController {
             }
             
         } else if (indexPath.section == 1) {
-            if(indexPath.row == 0) {
+            if(indexPath.row == 2) {
                 self.onShowCurrenyDialog()
                 
-            } else if(indexPath.row == 1) {
+            } else if(indexPath.row == 3) {
                 onShowToast(NSLocalizedString("only_cmc", comment: ""))
             }
             
@@ -111,6 +146,17 @@ class SettingTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if(indexPath.section == 1 && indexPath.row == 1) {
+            if hideBio {
+                return 0
+            } else {
+                return 44
+            }
+        }
+        return super.tableView(tableView, heightForRowAt: indexPath)
+    }
+    
     func onUpdateCurrency() {
         currecyLabel.text = BaseData.instance.getCurrencyString()
     }
@@ -176,7 +222,52 @@ class SettingTableViewController: UITableViewController {
         
     }
     
+    @IBAction func appLockToggle(_ sender: UISwitch) {
+        print("appLockToggle ", sender.isOn)
+        if(sender.isOn) {
+            BaseData.instance.setUsingAppLock(sender.isOn)
+            self.checkBioAuth()
+        } else {
+            //TODO request password check!!!
+            
+            let transition:CATransition = CATransition()
+            transition.duration = 0.3
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            transition.type = CATransitionType.moveIn
+            transition.subtype = CATransitionSubtype.fromTop
+            
+            let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+            self.navigationItem.title = ""
+            self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+            passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
+            passwordVC.resultDelegate = self
+            passwordVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(passwordVC, animated: false)
+        }
+        
+    }
+    
+    @IBAction func bioToggle(_ sender: UISwitch) {
+        print("bioToggle ", sender.isOn)
+        BaseData.instance.setUsingBioAuth(sender.isOn)
+    }
+    
+    func checkBioAuth() {
+        if(bioTypeLabel.text!.count > 0 && BaseData.instance.getUsingAppLock()) {
+            self.hideBio = false
+        } else {
+            self.hideBio = true
+        }
+        self.tableView.reloadData()
+    }
+    
     @objc func dismissAlertController(){
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func passwordResponse(result: Int) {
+        if (result == PASSWORD_RESUKT_OK) {
+            BaseData.instance.setUsingAppLock(false)
+        }
     }
 }

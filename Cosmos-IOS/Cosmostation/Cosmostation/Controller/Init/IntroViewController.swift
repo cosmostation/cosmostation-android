@@ -9,7 +9,7 @@
 import UIKit
 import BitcoinKit
 
-class IntroViewController: BaseViewController {
+class IntroViewController: BaseViewController, PasswordViewDelegate {
 
     @IBOutlet weak var bottomLogoView: UIView!
     @IBOutlet weak var bottomControlView: UIView!
@@ -20,26 +20,14 @@ class IntroViewController: BaseViewController {
     @IBOutlet weak var importAddressMsg: UIStackView!
     @IBOutlet weak var importAddressBtn: UIButton!
     
+    var accounts:Array<Account>?
+    var lockPasses = false;
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let accouts = BaseData.instance.selectAllAccounts()
-        if(accouts.count <= 0) {
-            UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseOut, animations: {
-                self.bottomLogoView.alpha = 0.0
-            }, completion: { (finished) -> Void in
-                UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
-                    self.bottomControlView.alpha = 1.0
-                }, completion: nil)
-
-            })
-
-        } else {
-            self.onStartMainTab()
-
-        }
-
+        self.lockPasses = false;
+        accounts = BaseData.instance.selectAllAccounts()
         importMnemonicBtn.addTarget(self, action: #selector(startHighlight), for: .touchDown)
         importMnemonicBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpInside)
         importMnemonicBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpOutside)
@@ -56,6 +44,45 @@ class IntroViewController: BaseViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if(BaseData.instance.getUsingAppLock() == true && !lockPasses) {
+            let transition:CATransition = CATransition()
+            transition.duration = 0.3
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            transition.type = CATransitionType.moveIn
+            transition.subtype = CATransitionSubtype.fromTop
+            
+            let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+            self.navigationItem.title = ""
+            self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+            passwordVC.mTarget = PASSWORD_ACTION_INTRO_LOCK
+            passwordVC.resultDelegate = self
+            self.navigationController?.pushViewController(passwordVC, animated: false)
+            
+        } else {
+            self.onStartinitJob()
+        }
+    }
+    
+    
+    func onStartinitJob() {
+        if(accounts!.count <= 0) {
+            UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseOut, animations: {
+                self.bottomLogoView.alpha = 0.0
+            }, completion: { (finished) -> Void in
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
+                    self.bottomControlView.alpha = 1.0
+                }, completion: nil)
+                
+            })
+            
+        } else {
+            self.onStartMainTab()
+        }
+    }
+    
     
     @IBAction func onClickCreate(_ sender: Any) {
         self.onStartCreate()
@@ -91,6 +118,12 @@ class IntroViewController: BaseViewController {
     }
     @objc func stopHighlight(sender: UIButton) {
         sender.layer.borderColor = UIColor.white.cgColor
+    }
+    
+    func passwordResponse(result: Int) {
+        if (result == PASSWORD_RESUKT_OK) {
+            self.lockPasses = true
+        }
     }
     
 }

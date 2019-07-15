@@ -135,6 +135,22 @@ final class BaseData : NSObject{
         
     }
     
+    func setUsingAppLock(_ using : Bool) {
+        UserDefaults.standard.set(using, forKey: KEY_USING_APP_LOCK)
+    }
+    
+    func getUsingAppLock() -> Bool {
+        return UserDefaults.standard.bool(forKey: KEY_USING_APP_LOCK)
+    }
+    
+    func setUsingBioAuth(_ using : Bool) {
+        UserDefaults.standard.set(using, forKey: KEY_USING_BIO_AUTH)
+    }
+    
+    func getUsingBioAuth() -> Bool {
+        return UserDefaults.standard.bool(forKey: KEY_USING_BIO_AUTH)
+    }
+    
     
     func initdb() {
         do {
