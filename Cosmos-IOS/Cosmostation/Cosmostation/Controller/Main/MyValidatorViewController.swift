@@ -182,10 +182,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 case .success(let res):
                     guard let keybaseInfo = res as? NSDictionary,
                         let thems = keybaseInfo.value(forKey: "them") as? Array<NSDictionary>,
+                        thems.count > 0,
                         let url = thems[0].value(forKeyPath: "pictures.primary.url") as? String else {
                         return
                     }
-                    
+
                     Alamofire.request(url, method: .get).responseImage { response  in
                         guard let image = response.result.value else {
                             return
@@ -194,7 +195,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                             cell.validatorImg.image = image
                         }
                     }
-                
+
                 case .failure(let error):
                     print("onSetValidatorItem error : ", error)
                 }

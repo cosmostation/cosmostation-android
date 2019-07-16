@@ -18,7 +18,6 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
     @IBOutlet weak var appLockSwitch: UISwitch!
     @IBOutlet weak var bioTypeLabel: UILabel!
     @IBOutlet weak var bioSwitch: UISwitch!
-//    var titleBioType = ""
     var hideBio = false
     
     override func viewDidLoad() {
@@ -57,7 +56,6 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
             }
         }
         self.checkBioAuth()
-        print("bioTypeLabel ", bioTypeLabel.text)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -223,13 +221,10 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
     }
     
     @IBAction func appLockToggle(_ sender: UISwitch) {
-        print("appLockToggle ", sender.isOn)
         if(sender.isOn) {
             BaseData.instance.setUsingAppLock(sender.isOn)
             self.checkBioAuth()
         } else {
-            //TODO request password check!!!
-            
             let transition:CATransition = CATransition()
             transition.duration = 0.3
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -248,7 +243,6 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
     }
     
     @IBAction func bioToggle(_ sender: UISwitch) {
-        print("bioToggle ", sender.isOn)
         BaseData.instance.setUsingBioAuth(sender.isOn)
     }
     
