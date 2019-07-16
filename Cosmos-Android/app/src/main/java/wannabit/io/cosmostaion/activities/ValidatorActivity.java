@@ -629,7 +629,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
                 holder.itemPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
                 if(mValidator.status == Validator.BONDED) {
-                    if(mBondingState != null && mBondingState.getBondingAtom(mValidator) != null) {
+                    if (mBondingState != null && mBondingState.getBondingAtom(mValidator) != null) {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
                         holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
                         holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
@@ -640,7 +640,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         holder.itemMonthlyReturn.setText("-");
                     }
                 } else {
-                    holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
+                    if (mBondingState != null && mBondingState.getBondingAtom(mValidator) != null) {
+                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
+                    } else {
+                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
                     holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
                     holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
                     holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
