@@ -10,4 +10,7 @@ import retrofit2.http.Query;
 public interface MarketCapService {
     @GET("v2/ticker/{id}/")
     Call<JsonObject> getAtomTic(@Path("id") int id, @Query("convert") String currency);
+
+    @GET("v2/ticker/{id}/")
+    Call<JsonObject> getPriceTic(@Path("id") int id, @Query("convert") String currency);
 }

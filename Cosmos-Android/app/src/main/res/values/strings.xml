@@ -113,7 +113,7 @@
     <string name="str_deprecated">Deprecated...</string>
     <string name="str_select_wallet_path_c">SELECT WALLET TO RESTORE</string>
     <string name="str_watch_address_path_c">WATCH ADDRESS</string>
-    <string name="str_address_pubkey">Insert address or public key.</string>
+    <string name="str_address_pubkey">Insert address.</string>
     <string name="str_watch_msg">With watch mode, you can check the status of your account. \nTo enable transactions, add your mnemonics later.</string>
     <string name="str_submit_time">Submit Time</string>
     <string name="str_voting_start_time">Voting Start Time</string>
@@ -168,7 +168,8 @@
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
-    <string name="str_cosmos_hub">(Cosmos Hub)</string>
+    <string name="str_cosmos_hub" translatable="false">(Cosmos Hub)</string>
+    <string name="str_iris_net" translatable="false">(Iris Hub)</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -428,6 +429,7 @@
     <string name="s_photon">PHOTON</string>
     <string name="s_muon">MUON</string>
     <string name="s_photino">PHOTINO</string>
+    <string name="s_iris">IRIS</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

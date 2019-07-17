@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 
@@ -27,6 +28,8 @@ import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 
@@ -35,12 +38,19 @@ public class WDp {
     public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
-        if(chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
             amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            amount = amount.divide(new BigDecimal("1000000000000000000"), 6, BigDecimal.ROUND_DOWN);
+            result = new SpannableString(getDecimalFormat(c, point).format(amount));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+
         } else {
             result = new SpannableString(getDecimalFormat(c, 0).format(amount));
+
         }
         return result;
     }
@@ -71,7 +81,9 @@ public class WDp {
         return getDpAmount(c, sum, 6, chain);
     }
 
-
+    public static SpannableString getDpAllIrisRewardAmount(Context c, ResLcdIrisReward rewards, BaseChain chain) {
+        return getDpAmount(c, rewards.getSimpleIrisReward(), 6, chain);
+    }
 
     public static SpannableString getValidatorReward(Context c, ArrayList<Reward> rewards, String valOpAddress, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
@@ -82,6 +94,10 @@ public class WDp {
             }
         }
         return getDpAmount(c, result, 6, chain);
+    }
+
+    public static SpannableString getIrisValidatorReward(Context c, ResLcdIrisReward reward, String valOpAddress, BaseChain chain) {
+        return getDpAmount(c, reward.getPerValReward(valOpAddress), 6, chain);
     }
 
     public static BigDecimal getValidatorReward(ArrayList<Reward> rewards, String valOpAddress) {
@@ -110,6 +126,17 @@ public class WDp {
             result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).divide(bonded, 2, RoundingMode.HALF_UP);
 
         }catch (Exception e) {}
+        return getPercentDp(result);
+    }
+
+    public static SpannableString getIrisYieldString(ResLcdIrisPool pool, BigDecimal commission) {
+        BigDecimal result = BigDecimal.ZERO;
+        if(pool != null) {
+            try {
+                result = pool.geTotal().multiply(new BigDecimal(0.04)).multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).divide(pool.getBonded(), 2, RoundingMode.HALF_UP);
+
+            }catch (Exception e) {}
+        }
         return getPercentDp(result);
     }
 
@@ -158,22 +185,48 @@ public class WDp {
     }
 
 
-    public static SpannableString getDpAtomBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {
+    public static SpannableString getDpBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
-                sum = balance.balance;
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            for(Balance balance : balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
+                    sum = balance.balance;
+                }
             }
+            return getDpAmount(c, sum, 6, chain);
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            for(Balance balance : balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                    sum = balance.balance;
+                }
+            }
+            return getDpAmount(c, sum, 6, chain);
+
+        } else {
+            return getDpAmount(c, sum, 6, chain);
+
         }
-        return getDpAmount(c, sum, 6, chain);
     }
 
     public static SpannableString getDpAllDelegatedAmount(Context c, ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAtom(selectValidator(validators, bonding.validatorAddress)));
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.getBondingAtom(selectValidator(validators, bonding.validatorAddress)));
+            }
+            return getDpAmount(c, sum, 6, chain);
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.shares);
+            }
+            return getDpAmount(c, sum, 6, chain);
+        } else {
+            return getDpAmount(c, sum, 6, chain);
+
         }
-        return getDpAmount(c, sum, 6, chain);
+
     }
 
     public static Validator selectValidator(ArrayList<Validator> validators, String opAddress) {
@@ -261,7 +314,46 @@ public class WDp {
         return getDpAmount(c, sum, 6, chain);
     }
 
+    public static SpannableString getDpAllIris(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, BaseChain chain) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                sum = sum.add(balance.balance);
+            }
+        }
 
+        for(BondingState bonding : bondings) {
+            sum = sum.add(bonding.shares);
+        }
+
+        for(UnBondingState unbonding : unbondings) {
+            sum = sum.add(unbonding.balance);
+        }
+
+        if(reward != null) {
+            sum = sum.add(reward.getSimpleIrisReward());
+        }
+        return getDpAmount(c, sum, 6, chain);
+    }
+
+    public static BigDecimal getAllIris(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                sum = sum.add(balance.balance);
+            }
+        }
+        for(BondingState bonding : bondings) {
+            sum = sum.add(bonding.shares);
+        }
+        for(UnBondingState unbonding : unbondings) {
+            sum = sum.add(unbonding.balance);
+        }
+        if(reward != null) {
+            sum = sum.add(reward.getSimpleIrisReward());
+        }
+        return sum;
+    }
 
 
 
@@ -737,17 +829,42 @@ public class WDp {
         return "(" + result + " " + c.getString(R.string.str_ago) +")";
     }
 
-    public static String DpAtom(Context c, String chain) {
+    public static String DpAtom(Context c) {
         String result = c.getString(R.string.s_atom);
-//        if(chain.equals(BaseChain.GAIA_12K.getChain()) || chain.equals(BaseChain.GAIA_13K.getChain()))
-//            result = c.getString(R.string.s_muon);
         return result;
     }
 
-    public static String DpPoton(Context c, String chain) {
+    public static String DpPoton(Context c) {
         String result = c.getString(R.string.s_photon);
-//        if(chain.equals(BaseChain.GAIA_12K.getChain()) || chain.equals(BaseChain.GAIA_13K.getChain()))
-//            result = c.getString(R.string.s_photino);
         return result;
+    }
+
+    public static String DpIris(Context c) {
+        String result = c.getString(R.string.s_iris);
+        return result;
+    }
+
+    public static int getChainColor(Context c, String chain) {
+        if(chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            return c.getResources().getColor(R.color.colorAtom);
+        } else {
+            return c.getResources().getColor(R.color.colorIris);
+        }
+    }
+
+    public static ColorStateList getTabColor(Context c, String chain) {
+        if(chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
+        } else {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iris);
+        }
+    }
+
+    public static ColorStateList getChainTintColor(Context c, String chain) {
+        if(chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            return c.getResources().getColorStateList(R.color.colorAtom);
+        } else {
+            return c.getResources().getColorStateList(R.color.colorIris);
+        }
     }
 }

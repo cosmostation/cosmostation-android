@@ -17,31 +17,36 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class AccountInfoTask extends CommonTask {
 
-    private ArrayList<Account> mAccounts;
+    private Account mAccount;
 
-    public AccountInfoTask(BaseApplication app, TaskListener listener, ArrayList<Account> accounts) {
+    public AccountInfoTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);
-        this.mAccounts          = accounts;
+        this.mAccount          = account;
         this.mResult.taskType   = BaseConstant.TASK_FETCH_ACCOUNT;
-}
+    }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            for(Account account : mAccounts) {
-                Response<ResLcdAccountInfo> response = ApiClient.getCosmosChain(mApp).getAccountInfo(account.address).execute();
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Response<ResLcdAccountInfo> response = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(account.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(account.id, WUtil.getBalancesFromLcd(account.id, response.body()));
+                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
+                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
+                }
+
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
+                if(response.isSuccessful()) {
+                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
+                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
                 }
             }
             mResult.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("AccountInfoTask Error " + e.getMessage());
-            for(Account account : mAccounts) {
-                mApp.getBaseDao().onDeleteBalance(""+account.id);
-            }
+            mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
 
         }
         return mResult;

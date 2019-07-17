@@ -17,11 +17,11 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BondingStateTask extends CommonTask {
 
-    private ArrayList<Account> mAccounts;
+    private Account mAccount;
 
-    public BondingStateTask(BaseApplication app, TaskListener listener, ArrayList<Account> accounts) {
+    public BondingStateTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);
-        this.mAccounts          = accounts;
+        this.mAccount           = account;
         this.mResult.taskType   = BaseConstant.TASK_FETCH_BONDING_STATE;
     }
 
@@ -29,13 +29,23 @@ public class BondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            for(Account account : mAccounts) {
-                Response<ArrayList<ResLcdBondings>> response = ApiClient.getCosmosChain(mApp).getBondingList(account.address).execute();
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Response<ArrayList<ResLcdBondings>> response = ApiClient.getCosmosChain(mApp).getBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().size() > 0) {
-                        mApp.getBaseDao().onUpdateBondingStates(account.id, WUtil.getBondingFromLcds(account.id, response.body()));
+                        mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body(), BaseChain.COSMOS_MAIN));
                     } else {
-                        mApp.getBaseDao().onDeleteBondingStates(account.id);
+                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                    }
+                }
+
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Response<ArrayList<ResLcdBondings>> response = ApiClient.getIrisChain(mApp).getBondingList(mAccount.address).execute();
+                if(response.isSuccessful()) {
+                    if (response.body() != null && response.body().size() > 0) {
+                        mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body(), BaseChain.IRIS_MAIN));
+                    } else {
+                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
                     }
                 }
             }

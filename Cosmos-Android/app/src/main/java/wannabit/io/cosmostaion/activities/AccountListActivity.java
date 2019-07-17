@@ -164,7 +164,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
                 else holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
 
-                holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext(), account.baseChain));
+                holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext()));
 
                 holder.wallet_card.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -194,7 +194,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
                 else holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
 
-                holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext(), account.baseChain));
+                holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext()));
 
                 holder.wallet_card.setOnClickListener(new View.OnClickListener() {
                     @Override

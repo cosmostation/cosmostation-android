@@ -30,6 +30,7 @@ import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Account;
@@ -38,6 +39,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
@@ -49,7 +51,8 @@ public class WUtil {
     public static Account getAccountFromLcd(long id, ResLcdAccountInfo lcd) {
         Account result = new Account();
         result.id = id;
-        if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
+        if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+                lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
             result.address = lcd.value.address;
             result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
             result.accountNumber = Integer.parseInt(lcd.value.account_number);
@@ -65,7 +68,8 @@ public class WUtil {
     public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
-        if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
+        if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+                lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
             for(Coin coin : lcd.value.coins) {
                 Balance temp = new Balance();
                 temp.accountId = accountId;
@@ -89,21 +93,34 @@ public class WUtil {
 
     }
 
-    public static ArrayList<BondingState> getBondingFromLcds(long accountId, ArrayList<ResLcdBondings> list) {
+    public static ArrayList<BondingState> getBondingFromLcds(long accountId, ArrayList<ResLcdBondings> list, BaseChain chain) {
         long time = System.currentTimeMillis();
         ArrayList<BondingState> result = new ArrayList<>();
-        for(ResLcdBondings val : list) {
-            String valAddress = "";
-            if(!TextUtils.isEmpty(val.validator_addr))
-                valAddress = val.validator_addr;
-            if(!TextUtils.isEmpty(val.validator_address))
-                valAddress = val.validator_address;
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            for(ResLcdBondings val : list) {
+                String valAddress = "";
+                if(!TextUtils.isEmpty(val.validator_addr))
+                    valAddress = val.validator_addr;
+                if(!TextUtils.isEmpty(val.validator_address))
+                    valAddress = val.validator_address;
 
+                BondingState temp = new BondingState(accountId, valAddress, new BigDecimal(val.shares), time);
+                result.add(temp);
+            }
 
-//            BondingState temp = new BondingState(accountId, val.validator_addr, new BigDecimal(val.shares), time);
-            BondingState temp = new BondingState(accountId, valAddress, new BigDecimal(val.shares), time);
-            result.add(temp);
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            for(ResLcdBondings val : list) {
+                String valAddress = "";
+                if(!TextUtils.isEmpty(val.validator_addr))
+                    valAddress = val.validator_addr;
+                if(!TextUtils.isEmpty(val.validator_address))
+                    valAddress = val.validator_address;
+
+                BondingState temp = new BondingState(accountId, valAddress, new BigDecimal(val.shares).movePointRight(18), time);
+                result.add(temp);
+            }
         }
+
         return result;
     }
 
@@ -113,28 +130,49 @@ public class WUtil {
             valAddress = lcd.validator_addr;
         if(!TextUtils.isEmpty(lcd.validator_address))
             valAddress = lcd.validator_address;
-//        return new BondingState(accountId, lcd.validator_addr, new BigDecimal(lcd.shares), System.currentTimeMillis());
         return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
     }
 
-    public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, long accountId, ArrayList<ResLcdUnBondings> list) {
+    public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, BaseChain chain, long accountId, ArrayList<ResLcdUnBondings> list) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
-        for(ResLcdUnBondings val : list) {
-            String valAddress = "";
-            if(!TextUtils.isEmpty(val.validator_addr))
-                valAddress = val.validator_addr;
-            if(!TextUtils.isEmpty(val.validator_address))
-                valAddress = val.validator_address;
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            for(ResLcdUnBondings val : list) {
+                String valAddress = "";
+                if(!TextUtils.isEmpty(val.validator_addr))
+                    valAddress = val.validator_addr;
+                if(!TextUtils.isEmpty(val.validator_address))
+                    valAddress = val.validator_address;
 
-            for(ResLcdUnBondings.Entry entry:val.entries) {
+                for(ResLcdUnBondings.Entry entry:val.entries) {
+                    UnBondingState temp = new UnBondingState(
+                            accountId,
+                            valAddress,
+                            entry.creation_height,
+                            WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
+                            new BigDecimal(entry.getinitial_balance()),
+                            new BigDecimal(entry.getbalance()),
+                            time
+                    );
+                    result.add(temp);
+                }
+            }
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            for(ResLcdUnBondings val : list) {
+                String valAddress = "";
+                if(!TextUtils.isEmpty(val.validator_addr))
+                    valAddress = val.validator_addr;
+                if(!TextUtils.isEmpty(val.validator_address))
+                    valAddress = val.validator_address;
+
                 UnBondingState temp = new UnBondingState(
                         accountId,
                         valAddress,
-                        entry.creation_height,
-                        WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
-                        new BigDecimal(entry.getinitial_balance()),
-                        new BigDecimal(entry.getbalance()),
+                        val.creation_height,
+                        WUtil.cosmosTimetoLocalLong(c, val.min_time),
+                        new BigDecimal(val.initial_balance.replace("iris","")).movePointRight(18),
+                        new BigDecimal(val.balance.replace("iris","")).movePointRight(18),
                         time
                 );
                 result.add(temp);
@@ -144,6 +182,7 @@ public class WUtil {
     }
 
     //TODO check multi unbonding with one validator
+    //TOOD check Chain Type need??
     public static ArrayList<UnBondingState> getUnbondingFromLcd(Context c, long accountId, ResLcdUnBondings lcd) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
@@ -361,6 +400,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
+                if(o1.description.moniker.equals("Cosmostation")) return -1;
+                if(o2.description.moniker.equals("Cosmostation")) return 1;
                 return o1.description.moniker.compareTo(o2.description.moniker);
             }
         });
@@ -381,8 +422,8 @@ public class WUtil {
                 if(o1.description.moniker.equals("Cosmostation")) return -1;
                 if(o2.description.moniker.equals("Cosmostation")) return 1;
 
-                if (Long.parseLong(o1.tokens) > Long.parseLong(o2.tokens)) return -1;
-                else if (Long.parseLong(o1.tokens) < Long.parseLong(o2.tokens)) return 1;
+                if (Double.parseDouble(o1.tokens) > Double.parseDouble(o2.tokens)) return -1;
+                else if (Double.parseDouble(o1.tokens) < Double.parseDouble(o2.tokens)) return 1;
                 else return 0;
             }
         });
@@ -400,6 +441,9 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
+                if(o1.description.moniker.equals("Cosmostation")) return -1;
+                if(o2.description.moniker.equals("Cosmostation")) return 1;
+
                 BigDecimal bondingO1 = BigDecimal.ZERO;
                 BigDecimal bondingO2 = BigDecimal.ZERO;
                 if(dao.onSelectBondingState(userId, o1.operator_address) != null &&
@@ -428,6 +472,9 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
+                if(o1.description.moniker.equals("Cosmostation")) return -1;
+                if(o2.description.moniker.equals("Cosmostation")) return 1;
+
                 BigDecimal rewardO1 = WDp.getValidatorReward(rewards, o1.operator_address);
                 BigDecimal rewardO2 = WDp.getValidatorReward(rewards, o2.operator_address);
                 return rewardO2.compareTo(rewardO1);
@@ -475,5 +522,53 @@ public class WUtil {
 
             }
         });
+    }
+
+    public static void onSortingIrisProposal(ArrayList<IrisProposal> proposals) {
+        Collections.sort(proposals, new Comparator<IrisProposal>() {
+            @Override
+            public int compare(IrisProposal o1, IrisProposal o2) {
+                if (Integer.parseInt(o1.value.BasicProposal.proposal_id) < Integer.parseInt(o2.value.BasicProposal.proposal_id)) return 1;
+                else if (Integer.parseInt(o1.value.BasicProposal.proposal_id) > Integer.parseInt(o2.value.BasicProposal.proposal_id)) return -1;
+                else return 0;
+
+            }
+        });
+    }
+
+
+
+
+
+    public static ArrayList<Validator> getIrisTops(ArrayList<Validator> allValidators) {
+        ArrayList<Validator> result = new ArrayList<>();
+        for(Validator v:allValidators) {
+            if(v.status == Validator.BONDED) {
+                result.add(v);
+            }
+        }
+        return result;
+
+    }
+
+    public static ArrayList<Validator> getIrisOthers(ArrayList<Validator> allValidators) {
+        ArrayList<Validator> result = new ArrayList<>();
+        for(Validator v:allValidators) {
+            if(v.status != Validator.BONDED) {
+                result.add(v);
+            }
+        }
+        return result;
+    }
+
+
+    public static int getCMCId(BaseChain chain) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            return BaseConstant.CMC_ATOM;
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            return BaseConstant.CMC_IRIS;
+        }
+        return BaseConstant.CMC_ATOM;
     }
 }

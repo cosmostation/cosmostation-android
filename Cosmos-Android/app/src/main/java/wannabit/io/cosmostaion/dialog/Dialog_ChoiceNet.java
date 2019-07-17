@@ -46,7 +46,6 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getContext(), getString(R.string.str_preparing), Toast.LENGTH_SHORT).show();
                 ((BaseActivity)getActivity()).onChoiceNet(BaseChain.COSMOS_MAIN);
                 getDialog().dismiss();
             }
@@ -55,24 +54,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mIris.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), getString(R.string.str_preparing), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), getString(R.string.str_preparing), Toast.LENGTH_SHORT).show();
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IRIS_MAIN);
+                getDialog().dismiss();
             }
         });
-
-//        mTest12k.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(), getString(R.string.str_deprecated), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        mTest13k.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.GAIA_13K);
-//                getDialog().dismiss();
-//            }
-//        });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);

@@ -105,7 +105,8 @@
                     app:cardCornerRadius="@dimen/space_6"
                     app:cardElevation="1.5dp"
                     app:cardBackgroundColor="@color/colorTransBg2"
-                    app:cardUseCompatPadding="true" >
+                    app:cardUseCompatPadding="true"
+                    android:visibility="gone" >
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -120,7 +121,6 @@
                                 android:layout_height="@dimen/space_20"
                                 android:src="@drawable/atom_ic"/>
                             <TextView
-                                android:id="@+id/dash_atom_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/dash_atom_icon"
@@ -141,7 +141,7 @@
                                     android:text="-"
                                     style="@style/font_ssm_17_white"/>
                                 <TextView
-                                    android:id="@+id/dash_atom_price"
+                                    android:id="@+id/dash_atom_value"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="right"
@@ -263,7 +263,6 @@
                                 android:layout_centerVertical="true"
                                 android:src="@drawable/photon_ic"/>
                             <TextView
-                                android:id="@+id/dash_photon_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/dash_photon_icon"
@@ -325,6 +324,147 @@
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_iris"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_12"
+                    android:layout_marginTop="@dimen/space_2"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardCornerRadius="@dimen/space_6"
+                    app:cardElevation="1.5dp"
+                    app:cardBackgroundColor="@color/colorTransBg4"
+                    app:cardUseCompatPadding="true"
+                    android:visibility="gone">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_16">
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/dash_iris_icon"
+                                android:layout_width="@dimen/space_20"
+                                android:layout_height="@dimen/space_20"
+                                android:src="@drawable/iris_toket_img"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@+id/dash_iris_icon"
+                                android:layout_marginLeft="@dimen/space_8"
+                                android:text="IRIS"
+                                style="@style/font_ss_14_iris"/>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:orientation="vertical"
+                                android:gravity="right">
+                                <TextView
+                                    android:id="@+id/dash_iris_amount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right"
+                                    android:text="-"
+                                    style="@style/font_ssm_17_white"/>
+                                <TextView
+                                    android:id="@+id/dash_iris_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right"
+                                    style="@style/font_ss_14_gray1"
+                                    android:text="-"/>
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/space_12"
+                            android:background="@color/colorGray3"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_12">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/str_available"
+                                style="@style/font_ss_12_gray1"/>
+                            <TextView
+                                android:id="@+id/dash_iris_undelegate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="right"
+                                android:text="-"
+                                style="@style/font_ssl_12_white"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_8">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/str_delegated"
+                                style="@style/font_ss_12_gray1"/>
+                            <TextView
+                                android:id="@+id/dash_iris_delegate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="right"
+                                android:text="-"
+                                style="@style/font_ssl_12_white"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_8">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/str_unbonding"
+                                style="@style/font_ss_12_gray1"/>
+                            <TextView
+                                android:id="@+id/dash_iris_unbonding"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="right"
+                                android:text="-"
+                                style="@style/font_ssl_12_white"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_8">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/str_reward"
+                                style="@style/font_ss_12_gray1"/>
+                            <TextView
+                                android:id="@+id/dash_iris_reward"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="right"
+                                android:text="-"
+                                style="@style/font_ssl_12_white"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/card_price"
@@ -348,7 +488,7 @@
                             android:text="@string/str_price"
                             style="@style/font_ss_12_gray1"/>
                         <TextView
-                            android:id="@+id/dash_atom_per_price"
+                            android:id="@+id/dash_per_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -356,11 +496,11 @@
                             style="@style/font_ssl_14_white"
                             android:text="-"/>
                         <LinearLayout
-                            android:id="@+id/dash_atom_per_change"
+                            android:id="@+id/dash_per_change"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:layout_below="@+id/dash_atom_per_price"
+                            android:layout_below="@+id/dash_per_price"
                             android:layout_marginTop="@dimen/space_2"
                             android:orientation="horizontal"
                             android:gravity="center_vertical">
@@ -373,7 +513,7 @@
                                 android:src="@drawable/ic_price_down"
                                 android:visibility="gone"/>
                             <TextView
-                                android:id="@+id/dash_atom_price_updown_tx"
+                                android:id="@+id/dash_price_updown_tx"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -419,7 +559,7 @@
                                 android:text="@string/str_inflation"
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
-                                android:id="@+id/dash_atom_inflation"
+                                android:id="@+id/dash_inflation"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -450,7 +590,7 @@
                                 android:text="@string/str_average_yield"
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
-                                android:id="@+id/dash_atom_yield"
+                                android:id="@+id/dash_yield"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"

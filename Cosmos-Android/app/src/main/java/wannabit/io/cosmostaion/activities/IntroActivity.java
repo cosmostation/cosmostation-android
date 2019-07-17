@@ -68,11 +68,10 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             }
         }
 
-        WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-            WLog.w("" + ((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE)).isBackgroundRestricted());
-        }
-
+//        WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+//            WLog.w("" + ((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE)).isBackgroundRestricted());
+//        }
 //        WLog.w("FCM token Already : " + FirebaseInstanceId.getInstance().getInstanceId().getResult().getToken());
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -87,7 +86,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                     }
                 });
 
-        onHardCodeHub2();
+//        onHardCodeHub2();
     }
 
     @Override

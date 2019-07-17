@@ -55,19 +55,19 @@ public class GenerateAccountTask extends CommonTask {
 
 
     private Account onGenAccount(String entropy, String path, String chainType, String msize) {
-        Account             newAccount  = Account.getNewInstance();
-        DeterministicKey    dKey        = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(path));
-        EncResult encR                  = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
-        newAccount.address          = WKey.getCosmosUserDpAddress(dKey.getPublicKeyAsHex());
-        newAccount.baseChain        = chainType;
-        newAccount.hasPrivateKey    = true;
-        newAccount.resource         = encR.getEncDataString();
-        newAccount.spec             = encR.getIvDataString();
-        newAccount.fromMnemonic     = true;
-        newAccount.path             = path;
-        newAccount.msize            = Integer.parseInt(msize);
-        newAccount.importTime       = System.currentTimeMillis();
-
+        Account             newAccount      = Account.getNewInstance();
+        DeterministicKey    dKey            = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(path));
+        EncResult           encR            = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
+//        newAccount.address                  = WKey.getCosmosUserDpAddress(dKey.getPublicKeyAsHex());
+        newAccount.address                  = WKey.getDpAddress(chainType, dKey.getPublicKeyAsHex());
+        newAccount.baseChain                = chainType;
+        newAccount.hasPrivateKey            = true;
+        newAccount.resource                 = encR.getEncDataString();
+        newAccount.spec                     = encR.getIvDataString();
+        newAccount.fromMnemonic             = true;
+        newAccount.path                     = path;
+        newAccount.msize                    = Integer.parseInt(msize);
+        newAccount.importTime               = System.currentTimeMillis();
         return newAccount;
     }
 

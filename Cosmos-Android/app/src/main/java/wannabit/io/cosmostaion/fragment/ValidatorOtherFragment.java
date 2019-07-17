@@ -103,7 +103,6 @@ public class ValidatorOtherFragment extends BaseFragment {
 
     private class OtherValidatorAdapter extends RecyclerView.Adapter<OtherValidatorAdapter.OtherValidatorHolder> {
 
-
         @NonNull
         @Override
         public OtherValidatorHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -111,16 +110,21 @@ public class ValidatorOtherFragment extends BaseFragment {
 
         }
 
-
         @Override
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
             final Validator validator  = mOtherValidators.get(position);
-            holder.itemTvMoniker.setText(validator.description.moniker);
-            holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-            if(getMainActivity().mBondedToken != null && getMainActivity().mProvisions != null) {
-                holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.rate)));
+
+            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                holder.itemTvCommission.setText(WDp.getPercentDp(new BigDecimal(validator.commission.rate)));
+
+            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
             }
 
+            holder.itemTvMoniker.setText(validator.description.moniker);
+            holder.itemTvSubtitle.setText(R.string.str_commission);
             holder.itemFree.setVisibility(View.GONE);
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -173,7 +177,11 @@ public class ValidatorOtherFragment extends BaseFragment {
             }
 
             if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                }
             } else {
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             }
@@ -201,6 +209,7 @@ public class ValidatorOtherFragment extends BaseFragment {
             ImageView       itemFree;
             TextView        itemTvMoniker;
             TextView        itemTvVotingPower;
+            TextView        itemTvSubtitle;
             TextView        itemTvCommission;
 
             public OtherValidatorHolder(@NonNull View itemView) {
@@ -210,7 +219,8 @@ public class ValidatorOtherFragment extends BaseFragment {
                 itemRevoked         = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemFree            = itemView.findViewById(R.id.avatar_validator_free);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
-                itemTvVotingPower = itemView.findViewById(R.id.delegate_power_validator);
+                itemTvVotingPower   = itemView.findViewById(R.id.delegate_power_validator);
+                itemTvSubtitle      = itemView.findViewById(R.id.subTitle2);
                 itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
             }
         }

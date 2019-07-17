@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -124,7 +125,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull final NewWalletHolder holder, final int position) {
-            String address = WKey.getDpAddressWithPath(mMasterKey, position);
+            String address = WKey.getDpAddressWithPath(mMasterKey, mChain, position);
             holder.new_path.setText(BaseConstant.KEY_PATH + position);
             holder.new_address.setText(address);
             final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
@@ -161,22 +162,47 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 }
             });
 
-            ApiClient.getCosmosChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
-                @Override
-                public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                    if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
-                        ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-                        if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                            holder.atom_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
-                    } else {
+            if (mChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                holder.atomLayer.setVisibility(View.VISIBLE);
+                ApiClient.getCosmosChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                        if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
+                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
+                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
+                                holder.atom_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
+                        } else {
+                            holder.atom_amount.setText("0");
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {
                         holder.atom_amount.setText("0");
                     }
-                }
-                @Override
-                public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {
-                    holder.atom_amount.setText("0");
-                }
-            });
+                });
+
+            } else if (mChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                holder.irisLayer.setVisibility(View.VISIBLE);
+                ApiClient.getIrisChain(getBaseContext()).getBankInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                        if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
+                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
+                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
+                                holder.iris_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
+                        } else {
+                            holder.iris_amount.setText("0");
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {
+                        holder.iris_amount.setText("0");
+                    }
+                });
+            }
+
+
+
 
 
         }
@@ -188,7 +214,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         public class NewWalletHolder extends RecyclerView.ViewHolder {
             CardView card_new_wallet;
-            TextView new_path, new_state, new_address, atom_title, atom_amount, photon_title, photon_amount;
+            RelativeLayout atomLayer, photonLayer, irisLayer;
+            TextView new_path, new_state, new_address, atom_amount, photon_amount, iris_amount;
 
             public NewWalletHolder(View v) {
                 super(v);
@@ -196,10 +223,12 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 new_path        = itemView.findViewById(R.id.new_path);
                 new_state       = itemView.findViewById(R.id.new_state);
                 new_address     = itemView.findViewById(R.id.new_address);
-                atom_title      = itemView.findViewById(R.id.atom_title);
+                atomLayer       = itemView.findViewById(R.id.atom_layer);
                 atom_amount     = itemView.findViewById(R.id.atom_amount);
-                photon_title    = itemView.findViewById(R.id.photon_title);
+                photonLayer     = itemView.findViewById(R.id.photon_layer);
                 photon_amount   = itemView.findViewById(R.id.photon_amount);
+                irisLayer       = itemView.findViewById(R.id.iris_layer);
+                iris_amount     = itemView.findViewById(R.id.iris_amount);
             }
         }
     }

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
 
@@ -166,6 +167,35 @@ public class WKey {
         return result;
     }
 
+    public static String getDpAddress(String chainType, String pubHex) {
+        String result       = null;
+        MessageDigest digest = Sha256.getSha256Digest();
+        byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
+
+        RIPEMD160Digest digest2 = new RIPEMD160Digest();
+        digest2.update(hash, 0, hash.length);
+
+        byte[] hash3 = new byte[digest2.getDigestSize()];
+        digest2.doFinal(hash3, 0);
+
+        try {
+            byte[] converted = convertBits(hash3, 8,5,true);
+            if (chainType.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                result = bech32Encode("cosmos".getBytes(), converted);
+            } else if (chainType.equals(BaseChain.IRIS_MAIN.getChain())){
+                result = bech32Encode("iaa".getBytes(), converted);
+            }
+
+        } catch (Exception e) {
+            WLog.w("genDPAddress Error");
+        }
+
+        return result;
+    }
+
+
+
+
     public static String getCosmosUserDpPubKey(String pubHex) {
         String result       = null;
         String sumHex       = COSMOS_PRE_PUB_KEY + pubHex;
@@ -211,9 +241,9 @@ public class WKey {
 
 
     //TODO check with "getKeyWithPath"
-    public static String getDpAddressWithPath(DeterministicKey masterKey , int path){
+    public static String getDpAddressWithPath(DeterministicKey masterKey, String chainType, int path){
         DeterministicKey childKey   = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(), true, true,  new ChildNumber(path));
-        return getCosmosUserDpAddress(childKey.getPublicKeyAsHex());
+        return getDpAddress(chainType, childKey.getPublicKeyAsHex());
     }
 
 

@@ -21,6 +21,8 @@ public class BaseConstant {
     public final static String					PRE_MY_VALIDATOR_SORTING			    = "PRE_MY_VALIDATOR_SORTING";
     public final static String					PRE_ATOM_TIC			                = "PRE_ATOM_TIC";
     public final static String					PRE_ATOM_UP_DOWN_24			            = "PRE_ATOM_UP_DOWN_24";
+    public final static String					PRE_IRIS_TIC			                = "PRE_IRIS_TIC";
+    public final static String					PRE_IRIS_UP_DOWN_24			            = "PRE_IRIS_UP_DOWN_24";
     public final static String					PRE_CURRENCY			                = "PRE_CURRENCY";
     public final static String					PRE_USING_APP_LOCK			            = "PRE_USING_APP_LOCK";
     public final static String					PRE_USING_FINGERPRINT			        = "PRE_USING_FINGERPRINT";
@@ -75,6 +77,9 @@ public class BaseConstant {
     public final static int					    TASK_FETCH_PROVISIONS		            = 2034;
     public final static int					    TASK_FETCH_STAKING_POOL		            = 2035;
     public final static int					    TASK_GEN_TX_REINVEST	                = 2036;
+    public final static int					    TASK_IRIS_REWARD	                    = 2037;
+    public final static int					    TASK_IRIS_POOL	                        = 2038;
+    public final static int					    TASK_IRIS_PROPOSAL		                = 2039;
 
 //    public final static int					    TASK_INSERT_RAW_KEY		                = 2004;
 //    public final static int					    TASK_INSERT_GENERATE_WITH_MNEMONIC	    = 2005;
@@ -99,6 +104,8 @@ public class BaseConstant {
     public final static String                  COSMOS_MSG_TYPE_DEPOSIT                 = "cosmos-sdk/MsgDeposit";
     public final static String                  COSMOS_MSG_TYPE_CREATE_VALIDATOR        = "cosmos-sdk/MsgCreateValidator";
     public final static String                  COSMOS_MSG_TYPE_EDIT_VALIDATOR          = "cosmos-sdk/MsgEditValidator";
+
+    public final static String                  IRIS_BANK_TYPE_ACCOUNT                  = "irishub/bank/Account";
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
@@ -153,6 +160,7 @@ public class BaseConstant {
     public final static String                  COSMOS_MUON                             = "muon";
     public final static String                  COSMOS_PHOTON                           = "photon";
     public final static String                  COSMOS_PHOTINO                          = "photino";
+    public final static String                  COSMOS_IRIS_ATTO                        = "iris-atto";
     //TODO HardCoding!!
     public final static long                    COSMOS_UNBONDING_TIME                   = 1814400000;
     public final static long                    COSMOS_UNBONDING_DAY                    = 3;
@@ -178,4 +186,9 @@ public class BaseConstant {
     public final static String                  FEE_GAS_AMOUNT_AVERAGE                  = "200000";
     public final static String                  FEE_GAS_AMOUNT_REDELEGATE               = "240000";
     public final static String                  FEE_GAS_AMOUNT_REINVEST                 = "220000";
+
+
+
+    public final static int                  CMC_ATOM                                   = 3794;
+    public final static int                  CMC_IRIS                                   = 3874;
 }

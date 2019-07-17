@@ -29,7 +29,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
     private Toolbar mToolbar;
     private EditText mInput;
     private Button mCancel, mNext;
-    private String mUserInputAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +66,29 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
         } else if (v.equals(mNext)) {
             String userInput = mInput.getText().toString().trim();
-            if (!TextUtils.isEmpty(userInput) && userInput.startsWith("cosmosvaloper") ) {
-                Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                return;
+            if (userInput.startsWith("cosmos")) {
+                if(userInput.startsWith("cosmosvaloper")) {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                    return;
 
-            } else if (!TextUtils.isEmpty(userInput) && WKey.isValidBech32(userInput)) {
-                mUserInputAddress = userInput;
-                onShowNetDialog();
-            } else if (!TextUtils.isEmpty(userInput) && WKey.getCosmosDpPubToDpAddress(userInput) != null) {
-                mUserInputAddress = WKey.getCosmosDpPubToDpAddress(userInput);
-                onShowNetDialog();
+                } else if (WKey.isValidBech32(userInput)) {
+                    onGenNewAccount(BaseChain.COSMOS_MAIN, userInput);
+                    return;
+
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            } else if (userInput.startsWith("iaa")) {
+                if (WKey.isValidBech32(userInput)) {
+                    onGenNewAccount(BaseChain.IRIS_MAIN, userInput);
+                    return;
+
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
@@ -86,39 +98,10 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
     }
 
-    private void onShowNetDialog() {
-        Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-    }
-
-    @Override
-    public void onChoiceNet(BaseChain chain) {
-        super.onChoiceNet(chain);
+    public void onGenNewAccount(BaseChain chain, String address) {
         onShowWaitDialog();
-        new GenerateEmptyAccountTask(getBaseApplication(), WatchingAccountAddActivity.this).execute(chain.getChain(), mUserInputAddress);
+        new GenerateEmptyAccountTask(getBaseApplication(), WatchingAccountAddActivity.this).execute(chain.getChain(), address);
 
-    }
-
-    private void onCheckInNodeAddress(final String address, final BaseChain chain) {
-        onShowWaitDialog();
-        ApiClient.getCosmosChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
-            @Override
-            public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                if(response.isSuccessful() && response.body() != null) {
-                    new GenerateEmptyAccountTask(getBaseApplication(), WatchingAccountAddActivity.this).execute(chain.getChain(), address);
-                } else {
-                    onHideWaitDialog();
-                    Toast.makeText(getBaseContext(), getString(R.string.error_address_not_in_node), Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {
-                onHideWaitDialog();
-                Toast.makeText(getBaseContext(), getString(R.string.error_network), Toast.LENGTH_SHORT).show();
-
-            }
-        });
     }
 
     @Override

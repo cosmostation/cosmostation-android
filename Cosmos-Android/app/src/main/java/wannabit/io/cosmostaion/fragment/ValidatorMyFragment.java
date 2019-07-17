@@ -11,9 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,8 +21,6 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -42,8 +37,8 @@ import wannabit.io.cosmostaion.dialog.Dialog_My_ValidatorSorting;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorMyFragment extends BaseFragment {
@@ -56,6 +51,7 @@ public class ValidatorMyFragment extends BaseFragment {
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Reward>           mRewards = new ArrayList<>();
+    private ResLcdIrisReward            mIrisRewards;
 
     public static ValidatorMyFragment newInstance(Bundle bundle) {
         ValidatorMyFragment fragment = new ValidatorMyFragment();
@@ -99,6 +95,7 @@ public class ValidatorMyFragment extends BaseFragment {
         if(!isAdded()) return;
         mMyValidators   = getMainActivity().mMyValidators;
         mRewards        = getMainActivity().mRewards;
+        mIrisRewards   = getMainActivity().mIrisReward;
         onSortValidator();
 
         mMyValidatorAdapter.notifyDataSetChanged();
@@ -136,8 +133,18 @@ public class ValidatorMyFragment extends BaseFragment {
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
                 final RewardWithdrawHolder holder = (RewardWithdrawHolder)viewHolder;
-                holder.itemTvAllRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvAtom.setText(WDp.DpAtom(getContext(), getMainActivity().mAccount.baseChain));
+
+                holder.itemTvDenom.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mAccount.baseChain));
+                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.itemTvDenom.setText(WDp.DpAtom(getContext()));
+                    holder.itemTvAllRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+
+
+                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.itemTvDenom.setText(WDp.DpIris(getContext()));
+                    holder.itemTvAllRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), mIrisRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                }
+
                 holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -145,12 +152,10 @@ public class ValidatorMyFragment extends BaseFragment {
                     }
                 });
 
+
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder    = (RewardMyValidatorHolder)viewHolder;
                 final Validator validator               = mMyValidators.get(position);
-                holder.itemTvMoniker.setText(validator.description.moniker);
-
-                holder.itemFree.setVisibility(View.GONE);
 
                 BondingState bonding = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, validator.operator_address);
                 if(bonding != null && bonding.getBondingAtom(validator) != null) {
@@ -158,7 +163,18 @@ public class ValidatorMyFragment extends BaseFragment {
                 } else {
                     holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 }
-                holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+
+                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+
+                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                    holder.itemTvReward.setText(WDp.getIrisValidatorReward(getContext(), mIrisRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                }
+
+                holder.itemTvMoniker.setText(validator.description.moniker);
+                holder.itemFree.setVisibility(View.GONE);
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -278,13 +294,13 @@ public class ValidatorMyFragment extends BaseFragment {
         }
 
         public class RewardWithdrawHolder extends RecyclerView.ViewHolder {
-            TextView itemTvAllRewards, itemTvAtom;
+            TextView itemTvAllRewards, itemTvDenom;
             Button itemBtnWithdrawAll;
 
             public RewardWithdrawHolder(@NonNull View itemView) {
                 super(itemView);
                 itemTvAllRewards        = itemView.findViewById(R.id.tx_all_rewards);
-                itemTvAtom              = itemView.findViewById(R.id.tx_all_atom);
+                itemTvDenom             = itemView.findViewById(R.id.tx_demon);
                 itemBtnWithdrawAll      = itemView.findViewById(R.id.btn_withdraw_all);
             }
         }
@@ -294,8 +310,10 @@ public class ValidatorMyFragment extends BaseFragment {
     public void onSortValidator() {
         if(getBaseDao().getMyValSorting() == 2){
             WUtil.onSortByReward(mMyValidators, mRewards);
+
         } else if (getBaseDao().getMyValSorting() == 0){
             WUtil.onSortByValidatorName(mMyValidators);
+
         } else {
             WUtil.onSortByDelegate(getMainActivity().mAccount.id, mMyValidators, getBaseDao());
         }

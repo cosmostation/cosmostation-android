@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,24 +18,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Locale;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.GuideListActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-import wannabit.io.cosmostaion.test.TestAdapter;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 
 public class MainSendFragment extends BaseFragment implements View.OnClickListener {
@@ -48,19 +41,19 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private ImageView           mBtnWebDetail, mBtnAddressDetail;
     private ImageView           mKeyState;
     private TextView            mAddress;
-    private TextView            mTvAtomTotal, mTvAtomUndelegated,
+
+    private CardView            mAtomCard, mPhotonCard, mIrisCard, mPriceCard;
+
+    private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomUndelegated,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
     private TextView            mTvPhotonTotal, mTvPhotonBalance, mTvPhotonRewards;
-    private TextView            mTvAtomTitle, mTvPhotonTitle;
+    private TextView            mTvIrisTotal, mTvIrisValue, mTvIrisUndelegated,
+                                mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
 
-    private TextView            mAtomPrice;
+    private TextView            mPerPrice, mUpDownPrice;
+    private ImageView           mUpDownImg;
 
-    private CardView            mAtomCard, mPhotonCard, mPriceCard;
-
-    private TextView            mAtomPerPrice, mAtomUpDownPrice;
-    private ImageView           matomUpDownImg;
-
-    private TextView            mAtomInflation, mAtomYield;
+    private TextView            mInflation, mYield;
 
     private Button              mGuideBtn, mFaqBtn;
 
@@ -87,27 +80,35 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnAddressDetail       = rootView.findViewById(R.id.address_detail);
         mKeyState               = rootView.findViewById(R.id.img_account);
         mAddress                = rootView.findViewById(R.id.account_Address);
+
+        mAtomCard               = rootView.findViewById(R.id.card_atom);
         mTvAtomTotal            = rootView.findViewById(R.id.dash_atom_amount);
+        mTvAtomValue            = rootView.findViewById(R.id.dash_atom_value);
         mTvAtomUndelegated      = rootView.findViewById(R.id.dash_atom_undelegate);
         mTvAtomDelegated        = rootView.findViewById(R.id.dash_atom_delegate);
         mTvAtomUnBonding        = rootView.findViewById(R.id.dash_atom_unbonding);
         mTvAtomRewards          = rootView.findViewById(R.id.dash_atom_reward);
+
+        mPhotonCard             = rootView.findViewById(R.id.card_photon);
         mTvPhotonTotal          = rootView.findViewById(R.id.dash_photon_amount);
         mTvPhotonBalance        = rootView.findViewById(R.id.dash_photon_balance);
         mTvPhotonRewards        = rootView.findViewById(R.id.dash_photon_reward);
-        mTvAtomTitle            = rootView.findViewById(R.id.dash_atom_title);
-        mTvPhotonTitle          = rootView.findViewById(R.id.dash_photon_title);
-        mAtomCard               = rootView.findViewById(R.id.card_atom);
-        mPhotonCard             = rootView.findViewById(R.id.card_photon);
-        mAtomPrice              = rootView.findViewById(R.id.dash_atom_price);
+
+        mIrisCard               = rootView.findViewById(R.id.card_iris);
+        mTvIrisTotal            = rootView.findViewById(R.id.dash_iris_amount);
+        mTvIrisValue            = rootView.findViewById(R.id.dash_iris_value);
+        mTvIrisUndelegated      = rootView.findViewById(R.id.dash_iris_undelegate);
+        mTvIrisDelegated        = rootView.findViewById(R.id.dash_iris_delegate);
+        mTvIrisUnBonding        = rootView.findViewById(R.id.dash_iris_unbonding);
+        mTvIrisRewards          = rootView.findViewById(R.id.dash_iris_reward);
 
         mPriceCard              = rootView.findViewById(R.id.card_price);
-        mAtomPerPrice           = rootView.findViewById(R.id.dash_atom_per_price);
-        mAtomUpDownPrice        = rootView.findViewById(R.id.dash_atom_price_updown_tx);
-        matomUpDownImg          = rootView.findViewById(R.id.ic_price_updown);
-        mAtomInflation          = rootView.findViewById(R.id.dash_atom_inflation);
-        mAtomYield              = rootView.findViewById(R.id.dash_atom_yield);
+        mPerPrice               = rootView.findViewById(R.id.dash_per_price);
+        mUpDownPrice            = rootView.findViewById(R.id.dash_price_updown_tx);
+        mUpDownImg              = rootView.findViewById(R.id.ic_price_updown);
 
+        mInflation              = rootView.findViewById(R.id.dash_inflation);
+        mYield                  = rootView.findViewById(R.id.dash_yield);
 
         mGuideBtn               = rootView.findViewById(R.id.btn_guide);
         mFaqBtn                 = rootView.findViewById(R.id.btn_faq);
@@ -148,6 +149,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        onUpdateView();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.main_menu, menu);
@@ -165,7 +172,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onRefreshTab() {
-        WLog.w("MainSendFragment onRefreshTab");
         if(!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
         onUpdateView();
@@ -174,63 +180,117 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private void onUpdateView() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
 
-
-        mTvAtomTitle.setText(WDp.DpAtom(getContext(), getMainActivity().mAccount.baseChain));
-        mTvPhotonTitle.setText(WDp.DpPoton(getContext(), getMainActivity().mAccount.baseChain));
-
         mAddress.setText(getMainActivity().mAccount.address);
+        mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        if(getMainActivity().mAccount.hasPrivateKey) {
-            mKeyState.setImageDrawable(getResources().getDrawable(R.drawable.key_on));
-        } else {
-            mKeyState.setImageDrawable(getResources().getDrawable(R.drawable.key_off));
+        if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mAtomCard.setVisibility(View.VISIBLE);
+            mIrisCard.setVisibility(View.GONE);
+            if (getMainActivity().mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mAtomCard.setVisibility(View.GONE);
+            mIrisCard.setVisibility(View.VISIBLE);
+            if (getMainActivity().mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
         }
 
-        mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-        mTvAtomUndelegated.setText(WDp.getDpAtomBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-        mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-        mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-        mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
 
-        mTvPhotonTotal.setText(WDp.getDpAllPhoton(getContext(), getMainActivity().mBalances, getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-        mTvPhotonBalance.setText(WDp.getDpPhotonBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-        mTvPhotonRewards.setText(WDp.getDpAllPhotonRewardAmount(getContext(), getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+//        WLog.w("mBalances " + getMainActivity().mBalances.size());
+//        WLog.w("mBondings " + getMainActivity().mBondings.size());
+//        WLog.w("mUnbondings " + getMainActivity().mUnbondings.size());
 
-        mPhotonCard.setVisibility(View.GONE);
-        mAtomPrice.setVisibility(View.VISIBLE);
-        mPriceCard.setVisibility(View.VISIBLE);
 
-        try {
-            BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
-            BigDecimal totalPrice = BigDecimal.ZERO;
-            if(getBaseDao().getCurrency() != 5) {
-                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000")).setScale(2, RoundingMode.DOWN);
-            } else {
-                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000")).setScale(8, RoundingMode.DOWN);
+        if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            mTvAtomUndelegated.setText(WDp.getDpBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+
+            mTvPhotonTotal.setText(WDp.getDpAllPhoton(getContext(), getMainActivity().mBalances, getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            mTvPhotonBalance.setText(WDp.getDpPhotonBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            mTvPhotonRewards.setText(WDp.getDpAllPhotonRewardAmount(getContext(), getMainActivity().mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+
+            try {
+                BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+                BigDecimal totalPrice = BigDecimal.ZERO;
+                if(getBaseDao().getCurrency() != 5) {
+                    totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+                } else {
+                    totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+                }
+                mTvAtomValue.setText(WDp.getPriceDp(getContext(), totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastAtomTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+                mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastAtomUpDown())));
+                if(getBaseDao().getLastAtomUpDown() > 0) {
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                } else if (getBaseDao().getLastAtomUpDown() < 0){
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                } else {
+                    mUpDownImg.setVisibility(View.GONE);
+                }
+
+                mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
+                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+
+
+            } catch (Exception e) {
+                mTvAtomValue.setText("???");
+                mPerPrice.setText("???");
+                mUpDownPrice.setText("???");
+                mUpDownImg.setVisibility(View.GONE);
             }
-            mAtomPrice.setText(WDp.getPriceDp(getContext(), totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-            mAtomPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastAtomTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-            mAtomUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastAtomUpDown())));
-            if(getBaseDao().getLastAtomUpDown() > 0) {
-                matomUpDownImg.setVisibility(View.VISIBLE);
-                matomUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
-            } else if (getBaseDao().getLastAtomUpDown() < 0){
-                matomUpDownImg.setVisibility(View.VISIBLE);
-                matomUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mTvIrisTotal.setText(WDp.getDpAllIris(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            mTvIrisUndelegated.setText(WDp.getDpBalance(getContext(), getMainActivity().mBalances, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            mTvIrisDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            mTvIrisUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            if(getMainActivity().mIrisReward != null) {
+                mTvIrisRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), getMainActivity().mIrisReward, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
             } else {
-                matomUpDownImg.setVisibility(View.GONE);
+                mTvIrisRewards.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
             }
 
-            mAtomInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
-            mAtomYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
+            try {
+                BigDecimal totalAmount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward);
+                BigDecimal totalPrice = BigDecimal.ZERO;
+                if(getBaseDao().getCurrency() != 5) {
+                    totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
+                } else {
+                    totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
+                }
+                mTvIrisValue.setText(WDp.getPriceDp(getContext(), totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastIrisTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+                mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastIrisUpDown())));
+                if(getBaseDao().getLastIrisUpDown() > 0) {
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                } else if (getBaseDao().getLastIrisUpDown() < 0){
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                } else {
+                    mUpDownImg.setVisibility(View.GONE);
+                }
+
+                mInflation.setText(WDp.getPercentDp(new BigDecimal("4")));
+                mYield.setText(WDp.getIrisYieldString(getMainActivity().mIrisPool, BigDecimal.ZERO));
 
 
-        } catch (Exception e) {
-            mAtomPrice.setText("???");
-            mAtomPerPrice.setText("???");
-            mAtomUpDownPrice.setText("???");
-            matomUpDownImg.setVisibility(View.GONE);
+            } catch (Exception e) {
+                mTvIrisValue.setText("???");
+                mPerPrice.setText("???");
+                mUpDownPrice.setText("???");
+                mUpDownImg.setVisibility(View.GONE);
+            }
         }
     }
 

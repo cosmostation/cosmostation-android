@@ -111,7 +111,6 @@ public class ValidatorAllFragment extends BaseFragment {
 
     private class AllValidatorAdapter extends RecyclerView.Adapter<AllValidatorAdapter.AllValidatorHolder> {
 
-
         @NonNull
         @Override
         public AllValidatorHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -122,12 +121,19 @@ public class ValidatorAllFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
             final Validator validator  = mTopValidators.get(position);
-            holder.itemTvMoniker.setText(validator.description.moniker);
-            holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-            if(getMainActivity().mBondedToken != null && getMainActivity().mProvisions != null) {
-                holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.rate)));
+
+            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                if(getMainActivity().mBondedToken != null && getMainActivity().mProvisions != null) {
+                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.rate)));
+                }
+
+            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                holder.itemTvCommission.setText(WDp.getIrisYieldString(getMainActivity().mIrisPool, new BigDecimal(validator.commission.rate)));
             }
 
+            holder.itemTvMoniker.setText(validator.description.moniker);
             holder.itemFree.setVisibility(View.GONE);
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -181,7 +187,11 @@ public class ValidatorAllFragment extends BaseFragment {
             }
 
             if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                }
             } else {
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             }

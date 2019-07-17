@@ -18,7 +18,10 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class MainRewardFragment extends BaseFragment {
@@ -55,18 +58,12 @@ public class MainRewardFragment extends BaseFragment {
         mValidatorTapLayer.setTabRippleColor(null);
 
         View tab0 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText0  = tab0.findViewById(R.id.tabItemText);
-        tabItemText0.setText(getString(R.string.str_my_validators) + "(" + getMainActivity().mMyValidators.size() + ")");
         mValidatorTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_myvalidator, null);
-        TextView            tabItemText1  = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setText(getString(R.string.str_top_100_validators)+ "(" + getMainActivity().mTopValidators.size() + ")");
         mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_myvalidator, null);
-        TextView            tabItemText2  = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setText(getString(R.string.str_other_validators)+ "(" + getMainActivity().mOtherValidators.size() + ")");
         mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
         mValidatorPager.setOffscreenPageLimit(3);
         mValidatorPager.setCurrentItem(0, false);
@@ -87,7 +84,6 @@ public class MainRewardFragment extends BaseFragment {
 
         return rootView;
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -129,17 +125,23 @@ public class MainRewardFragment extends BaseFragment {
         TabLayout.Tab tab0 = mValidatorTapLayer.getTabAt(0);
         View view0 = tab0.getCustomView();
         TextView tabItemText0 = view0.findViewById(R.id.tabItemText);
+        tabItemText0.setTextColor(WDp.getTabColor(getMainActivity(), getMainActivity().mAccount.baseChain));
         tabItemText0.setText(getString(R.string.str_my_validators) + " (" + getMainActivity().mMyValidators.size() + ")");
 
         TabLayout.Tab tab1 = mValidatorTapLayer.getTabAt(1);
         View view1 = tab1.getCustomView();
         TextView tabItemText1 = view1.findViewById(R.id.tabItemText);
+        tabItemText1.setTextColor(WDp.getTabColor(getMainActivity(), getMainActivity().mAccount.baseChain));
         tabItemText1.setText(getString(R.string.str_top_100_validators)+ " (" + getMainActivity().mTopValidators.size() + ")");
 
         TabLayout.Tab tab2 = mValidatorTapLayer.getTabAt(2);
         View view2 = tab2.getCustomView();
         TextView tabItemText2 = view2.findViewById(R.id.tabItemText);
+        tabItemText2.setTextColor(WDp.getTabColor(getMainActivity(), getMainActivity().mAccount.baseChain));
         tabItemText2.setText(getString(R.string.str_other_validators)+ " (" + getMainActivity().mOtherValidators.size() + ")");
+
+        mValidatorTapLayer.setTabIconTint(WDp.getChainTintColor(getMainActivity(), getMainActivity().mAccount.baseChain));
+        mValidatorTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(getMainActivity(), getMainActivity().mAccount.baseChain));
 
     }
 

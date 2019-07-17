@@ -626,8 +626,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             } else if (getItemViewType(position) == TYPE_ACTION) {
                 final MyActionHolder holder = (MyActionHolder)viewHolder;
-                holder.itemAtomTitle.setText(WDp.DpAtom(getBaseContext(), mAccount.baseChain));
-                holder.itemPhotonTitle.setText(WDp.DpPoton(getBaseContext(), mAccount.baseChain));
+                holder.itemAtomTitle.setText(WDp.DpAtom(getBaseContext()));
+                holder.itemPhotonTitle.setText(WDp.DpPoton(getBaseContext()));
                 if(mValidator.status == Validator.BONDED) {
                     if (mBondingState != null && mBondingState.getBondingAtom(mValidator) != null) {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));

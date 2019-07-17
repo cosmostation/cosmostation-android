@@ -17,24 +17,33 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class UnBondingStateTask extends CommonTask {
 
-    private ArrayList<Account> mAccounts;
+    private Account mAccount;
 
-    public UnBondingStateTask(BaseApplication app, TaskListener listener, ArrayList<Account> accounts) {
+    public UnBondingStateTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);
-        this.mAccounts          = accounts;
+        this.mAccount           = account;
         this.mResult.taskType   = BaseConstant.TASK_FETCH_UNBONDING_STATE;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            for(Account account : mAccounts) {
-                Response<ArrayList<ResLcdUnBondings>> response = ApiClient.getCosmosChain(mApp).getUnBondingList(account.address).execute();
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Response<ArrayList<ResLcdUnBondings>> response = ApiClient.getCosmosChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(account.id, WUtil.getUnbondingFromLcds(mApp, account.id, response.body()));
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.COSMOS_MAIN, mAccount.id, response.body()));
                     } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(account.id);
+                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
+                    }
+                }
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Response<ArrayList<ResLcdUnBondings>> response = ApiClient.getIrisChain(mApp).getUnBondingList(mAccount.address).execute();
+                if(response.isSuccessful()) {
+                    if (response.body() != null && response.body().size() > 0) {
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.IRIS_MAIN, mAccount.id, response.body()));
+                    } else {
+                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }
                 }
             }

@@ -5,24 +5,64 @@ import android.content.Context;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ApiClient {
 
-    private static CosmosChain service_wannabit_main = null;
+    //Services for Cosmos main net
+    private static CosmosChain service_cosmos = null;
     public static CosmosChain getCosmosChain(Context c) {
-        if (service_wannabit_main == null) {
+        if (service_cosmos == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_wannabit_main = retrofit.create(CosmosChain.class);
+                service_cosmos = retrofit.create(CosmosChain.class);
             }
         }
-        return service_wannabit_main;
+        return service_cosmos;
     }
+
+    private static CosmosEsService service_cosmos_es = null;
+    public static CosmosEsService getCosmosEs(Context c) {
+        if (service_cosmos_es == null ) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_es_proxy))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_cosmos_es = retrofit.create(CosmosEsService.class);
+            }
+        }
+        return service_cosmos_es;
+    }
+
+
+
+    //Services for Iris main net
+    private static IrisChain service_iris = null;
+    public static IrisChain getIrisChain(Context c) {
+        if (service_iris == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_main_iris))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_iris = retrofit.create(IrisChain.class);
+            }
+        }
+        return service_iris;
+    }
+
+
+
+
+
+
+
+
+
 
     private static KeyBaseService service_keybase = null;
     public static KeyBaseService getKeybaseService(Context c) {
@@ -53,20 +93,6 @@ public class ApiClient {
             }
         }
         return marketCapService;
-    }
-
-    private static CosmosEsService service_es_proxy = null;
-    public static CosmosEsService getCosmosEs(Context c) {
-        if (service_es_proxy == null ) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_es_proxy))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_es_proxy = retrofit.create(CosmosEsService.class);
-            }
-        }
-        return service_es_proxy;
     }
 
 }

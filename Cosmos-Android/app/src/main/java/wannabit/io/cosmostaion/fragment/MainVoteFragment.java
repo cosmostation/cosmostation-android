@@ -19,8 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -28,22 +26,24 @@ import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
-import wannabit.io.cosmostaion.task.FetchTask.AllProposalTask;
+import wannabit.io.cosmostaion.task.FetchTask.IrisProposalTask;
+import wannabit.io.cosmostaion.task.FetchTask.ProposalTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainVoteFragment extends BaseFragment implements TaskListener {
 
-    private SwipeRefreshLayout      mSwipeRefreshLayout;
-    private RecyclerView            mRecyclerView;
-    private TextView                mEmptyProposal;
-    private VoteAdapter             mVoteAdapter;
+    private SwipeRefreshLayout          mSwipeRefreshLayout;
+    private RecyclerView                mRecyclerView;
+    private TextView                    mEmptyProposal;
+    private VoteAdapter                 mVoteAdapter;
+    private IrisVoteAdapter             mIrisVoteAdapter;
 
-    private ArrayList<Proposal>     mProposals = new ArrayList<>();
+    private ArrayList<Proposal>         mProposals = new ArrayList<>();
+    private ArrayList<IrisProposal>     mIrisProposals = new ArrayList<>();
 
     public static MainVoteFragment newInstance(Bundle bundle) {
         MainVoteFragment fragment = new MainVoteFragment();
@@ -74,8 +74,14 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mVoteAdapter = new VoteAdapter();
-        mRecyclerView.setAdapter(mVoteAdapter);
+
+        if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mVoteAdapter = new VoteAdapter();
+            mRecyclerView.setAdapter(mVoteAdapter);
+        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mIrisVoteAdapter = new IrisVoteAdapter();
+            mRecyclerView.setAdapter(mIrisVoteAdapter);
+        }
         onFetchProposals();
         return rootView;
     }
@@ -104,7 +110,14 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
 
     private void onFetchProposals() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-        new AllProposalTask(getBaseApplication(), this, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            new ProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            new IrisProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+
+
     }
 
     @Override
@@ -123,6 +136,25 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
                     mEmptyProposal.setVisibility(View.VISIBLE);
                     mRecyclerView.setVisibility(View.GONE);
                 }
+            } else {
+                mEmptyProposal.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+            }
+
+        } else if (result.taskType == BaseConstant.TASK_IRIS_PROPOSAL) {
+            if(result.isSuccess) {
+                ArrayList<IrisProposal> temp = (ArrayList<IrisProposal>)result.resultData;
+                if(temp != null && temp.size() > 0) {
+                    mIrisProposals = temp;
+                    WUtil.onSortingIrisProposal(mIrisProposals);
+                    mIrisVoteAdapter.notifyDataSetChanged();
+                    mEmptyProposal.setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    mEmptyProposal.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.GONE);
+                }
+
             } else {
                 mEmptyProposal.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
@@ -191,6 +223,70 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
             }
         }
     }
+
+    private class IrisVoteAdapter extends RecyclerView.Adapter<IrisVoteAdapter.VoteHolder> {
+
+        @NonNull
+        @Override
+        public IrisVoteAdapter.VoteHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new IrisVoteAdapter.VoteHolder(getLayoutInflater().inflate(R.layout.item_proposal, viewGroup, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull IrisVoteAdapter.VoteHolder voteHolder, int position) {
+            final IrisProposal proposal = mIrisProposals.get(position);
+            voteHolder.proposal_id.setText("# " + proposal.value.BasicProposal.proposal_id);
+            voteHolder.proposal_status.setText(proposal.value.BasicProposal.proposal_status);
+            voteHolder.proposal_title.setText(proposal.value.BasicProposal.title);
+            voteHolder.proposal_details.setText(proposal.value.BasicProposal.description);
+            if (proposal.value.BasicProposal.proposal_status.equals("DepositPeriod")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+            } else if (proposal.value.BasicProposal.proposal_status.equals("VotingPeriod")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+            } else if (proposal.value.BasicProposal.proposal_status.equals("Rejected")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+            } else if (proposal.value.BasicProposal.proposal_status.equals("Passed")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
+            } else {
+                voteHolder.proposal_status_img.setVisibility(View.GONE);
+            }
+
+            voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO add link with mintscan
+//                    Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+//                    webintent.putExtra("voteId", proposal.proposal_id);
+//                    startActivity(webintent);
+                }
+            });
+        }
+
+
+        @Override
+        public int getItemCount() {
+            return mIrisProposals.size();
+        }
+
+        public class VoteHolder extends RecyclerView.ViewHolder {
+            private CardView card_proposal;
+            private TextView proposal_id, proposal_status, proposal_title, proposal_details;
+            private ImageView proposal_status_img;
+
+            public VoteHolder(@NonNull View itemView) {
+                super(itemView);
+                card_proposal               = itemView.findViewById(R.id.card_proposal);
+                proposal_id                 = itemView.findViewById(R.id.proposal_id);
+                proposal_status             = itemView.findViewById(R.id.proposal_status);
+                proposal_title              = itemView.findViewById(R.id.proposal_title);
+                proposal_details            = itemView.findViewById(R.id.proposal_details);
+                proposal_status_img         = itemView.findViewById(R.id.proposal_status_img);
+
+            }
+        }
+    }
+
+
 
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();

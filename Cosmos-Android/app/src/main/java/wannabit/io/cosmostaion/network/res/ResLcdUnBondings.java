@@ -29,14 +29,6 @@ public class ResLcdUnBondings {
         @SerializedName("completion_time")
         public String completion_time;
 
-//        @SerializedName("initial_balance")
-//        public Coin initial_balance;
-//
-//        @SerializedName("balance")
-//        public Coin balance;
-
-
-
         @SerializedName("initial_balance")
         @Expose
         private Object initial_balance;
@@ -90,4 +82,18 @@ public class ResLcdUnBondings {
 
     @SerializedName("validator_address")
     public String validator_address;
+
+    //iris
+    @SerializedName("creation_height")
+    public String creation_height;
+
+    @SerializedName("min_time")
+    public String min_time;
+
+    @SerializedName("initial_balance")
+    public String initial_balance;
+
+    @SerializedName("balance")
+    public String balance;
+
 }

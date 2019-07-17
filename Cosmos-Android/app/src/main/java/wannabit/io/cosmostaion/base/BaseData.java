@@ -50,6 +50,8 @@ public class BaseData {
         return mSQLiteDatabase;
     }
 
+
+
     public void setLastAtomTic(Double price) {
         getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+price).commit();
     }
@@ -75,6 +77,35 @@ public class BaseData {
             return Double.parseDouble("0");
         }
     }
+
+    public void setLastIrisTic(Double price) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_TIC, ""+price).commit();
+    }
+
+    public double getLastIrisTic() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_IRIS_TIC, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastIrisUpDown(Double price) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_UP_DOWN_24, ""+price).commit();
+    }
+
+    public double getLastIrisUpDown() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_IRIS_UP_DOWN_24, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+
+
 
     public void setValSorting(int sort) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).commit();

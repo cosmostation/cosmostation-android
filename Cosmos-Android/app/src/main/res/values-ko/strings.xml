@@ -32,7 +32,7 @@
     <string name="str_paste">붙여넣기</string>
     <string name="str_send_c">전송 하기</string>
     <string name="str_change_reward_address_c">이자 주소 변경</string>
-    <string name="str_delegate_c">위임 변경하기</string>
+    <string name="str_delegate_c">위임 하기</string>
     <string name="str_undelegate_c">위임 철회 하기</string>
     <string name="str_redelegate_c">재위임 하기</string>
     <string name="str_reinvest_c">이자 즉시 위임</string>
@@ -74,7 +74,7 @@
     <string name="str_deprecated">Deprecated...</string>
     <string name="str_select_wallet_path_c">복구 지갑 선택</string>
     <string name="str_watch_address_path_c">주소 관찰</string>
-    <string name="str_address_pubkey">주소 또는 공개키 입력.</string>
+    <string name="str_address_pubkey">주소 입력.</string>
     <string name="str_watch_msg">관찰 모드로 복구 단어 입력 없이 지갑의 상태를 확인할 수 있습니다.\n추후 설정에서 복구 단어를 입력하면 전송 등의 활동이 가능합니다.</string>
     <string name="str_submit_time">의제 제출 시간</string>
     <string name="str_voting_start_time">투표 시작 시간</string>
@@ -129,7 +129,6 @@
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
-    <string name="str_cosmos_hub">(Cosmos Hub)</string>
     <string name="str_mintscan">익스플로러에서 확인</string>
     <string name="str_tx_success">Transaction 성공</string>
     <string name="str_tx_failed">Transaction 실패</string>
@@ -389,6 +388,7 @@
     <string name="s_photon">PHOTON</string>
     <string name="s_muon">MUON</string>
     <string name="s_photino">PHOTINO</string>
+    <string name="s_iris">IRIS</string>
 
     <string name="tx_send">출금</string>
     <string name="tx_receive">입금</string>

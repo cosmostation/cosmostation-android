@@ -23,14 +23,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/font_ssl_11_white"
-                android:text="34,644,764.737900"/>
+                android:text="-"/>
             <TextView
-                android:id="@+id/tx_all_atom"
+                android:id="@+id/tx_demon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_2"
                 style="@style/font_ss_11_atom"
-                android:text="atom"/>
+                android:text="-"/>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"

@@ -108,7 +108,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
         mNextBtn.setOnClickListener(this);
         mSpeedLayer.setOnClickListener(this);
 
-        mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
+        mTvGasType.setText(WDp.DpAtom(getContext()));
         Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
         mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
         mSeekBarGas.getProgressDrawable().setBounds(bounds);

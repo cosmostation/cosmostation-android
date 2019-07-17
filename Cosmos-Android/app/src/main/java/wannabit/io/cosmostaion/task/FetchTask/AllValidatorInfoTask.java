@@ -25,16 +25,45 @@ public class AllValidatorInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<Validator>> response = ApiClient.getCosmosChain(mApp).getValidatorDetailList().execute();
-            if(!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                return mResult;
-            }
+            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+                Response<ArrayList<Validator>> response = ApiClient.getCosmosChain(mApp).getValidatorDetailList().execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
 
-            if(response.body() != null && response.body().size() > 0) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
+                if (response.body() != null && response.body().size() > 0) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                int page = 0;
+                boolean needMore = true;
+                ArrayList<Validator> allResult = new ArrayList<>();
+                do {
+                    page ++;
+                    Response<ArrayList<Validator>> response = ApiClient.getIrisChain(mApp).getValidatorList(""+page, "100").execute();
+                    if (!response.isSuccessful()) {
+                        mResult.isSuccess = false;
+                        mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                        needMore = false;
+                    }
+
+                    if (response.body() != null && response.body().size() > 0) {
+                        if(response.body().size() == 100) {
+                            allResult.addAll(response.body());
+
+                        } else {
+                            allResult.addAll(response.body());
+                            mResult.isSuccess = true;
+                            needMore = false;
+                        }
+                    }
+
+                } while (needMore);
+                mResult.resultData = allResult;
             }
 
 

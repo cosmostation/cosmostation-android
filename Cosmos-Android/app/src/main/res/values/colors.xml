@@ -12,6 +12,7 @@
     <color name="colorTransBg">#662E2E2E</color>
     <color name="colorTransBg2">#249c6cff</color>
     <color name="colorTransBg3">#CC000000</color>
+    <color name="colorTransBg4">#240080ff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -33,6 +34,12 @@
     <color name="colorAtom3">#6d4bb2</color>
 
     <color name="colorPhoton">#05D2DD</color>
+
+    <color name="colorIris">#00A8FF</color>
+
+
+
+
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>
     <color name="colorRipple2">#99FFFFFF</color>
