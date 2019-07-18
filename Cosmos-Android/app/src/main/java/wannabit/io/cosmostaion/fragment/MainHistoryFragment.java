@@ -104,9 +104,16 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     private void onFetchHistory() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-        ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
-//        WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
-        new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
+//            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
+            new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            ReqTx req = new ReqTx(0, 1, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
+//            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
+            new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        }
     }
 
     @Override
@@ -130,7 +137,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
 
     private class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryHolder> {
-
 
         @NonNull
         @Override

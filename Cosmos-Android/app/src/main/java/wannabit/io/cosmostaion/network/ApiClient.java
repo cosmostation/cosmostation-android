@@ -24,22 +24,6 @@ public class ApiClient {
         return service_cosmos;
     }
 
-    private static CosmosEsService service_cosmos_es = null;
-    public static CosmosEsService getCosmosEs(Context c) {
-        if (service_cosmos_es == null ) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_es_proxy))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_cosmos_es = retrofit.create(CosmosEsService.class);
-            }
-        }
-        return service_cosmos_es;
-    }
-
-
-
     //Services for Iris main net
     private static IrisChain service_iris = null;
     public static IrisChain getIrisChain(Context c) {
@@ -55,9 +39,19 @@ public class ApiClient {
         return service_iris;
     }
 
-
-
-
+    private static CosmosEsService service_cosmos_es = null;
+    public static CosmosEsService getCosmosEs(Context c) {
+        if (service_cosmos_es == null ) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_es_proxy))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_cosmos_es = retrofit.create(CosmosEsService.class);
+            }
+        }
+        return service_cosmos_es;
+    }
 
 
 

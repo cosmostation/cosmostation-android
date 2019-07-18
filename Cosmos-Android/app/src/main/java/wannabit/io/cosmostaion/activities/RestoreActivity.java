@@ -289,7 +289,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         super.onChoiceNet(chain);
         Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
         intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));
-        intent.putExtra("entorpy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
+        intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
         intent.putExtra("size", mWords.size());
         intent.putExtra("chain", chain.getChain());
         startActivity(intent);

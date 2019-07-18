@@ -26,7 +26,9 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.TotalReward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -556,24 +558,47 @@ public class WDp {
         }
 
         Msg msg = msgs.get(0);
-        if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) || msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2)) {
+        if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) ||
+                msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2) ||
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_TRANSFER) ) {
             if (msg.value.from_address != null && msg.value.from_address.equals(address)) {
                 result = BaseConstant.TX_TYPE_SEND;
             } else if (msg.value.to_address != null && msg.value.to_address.equals(address)) {
                 result = BaseConstant.TX_TYPE_RECEIVE;
             } else {
+                if (msg.value.inputs != null && msg.value.inputs.size() > 0) {
+                    for (Input input:msg.value.inputs) {
+                        if(input.address.equals(address)) {
+                            return BaseConstant.TX_TYPE_SEND;
+                        }
+                    }
+                }
+                if (msg.value.outputs != null && msg.value.outputs.size() > 0) {
+                    for (Output output:msg.value.outputs) {
+                        if(output.address.equals(address)) {
+                            return BaseConstant.TX_TYPE_RECEIVE;
+                        }
+                    }
+
+                }
                 result = BaseConstant.TX_TYPE_TRANSFER;
             }
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE) ||
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_DELEGATE)) {
             result = BaseConstant.TX_TYPE_DELEGATE;
 
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE) || msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE) ||
+                msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2) ||
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_UNDELEGATE)) {
             result = BaseConstant.TX_TYPE_UNDELEGATE;
 
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE) || msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE) ||
+                msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2) ||
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_REDELEGATE)) {
             result = BaseConstant.TX_TYPE_REDELEGATE;
 
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL) ||
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL)) {
             result = BaseConstant.TX_TYPE_GET_REWARD;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
@@ -582,16 +607,20 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY)) {
             result = BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS;
 
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_VOTE)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_VOTE) ||
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_VOTE)) {
             result = BaseConstant.TX_TYPE_VOTE;
 
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_SUBMIT_PROPOSAL)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_SUBMIT_PROPOSAL) ||
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_SUBMIT_PROPOSAL)) {
             result = BaseConstant.TX_TYPE_SUBMIT_PROPOSAL;
 
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DEPOSIT)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DEPOSIT) ||
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_DEPOSIT)) {
             result = BaseConstant.TX_TYPE_DEPOSIT;
 
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_CREATE_VALIDATOR)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_CREATE_VALIDATOR) ||
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_CREATE_VALIDATOR)) {
             result = BaseConstant.TX_TYPE_CREATE_VALIDATOR;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_EDIT_VALIDATOR)) {

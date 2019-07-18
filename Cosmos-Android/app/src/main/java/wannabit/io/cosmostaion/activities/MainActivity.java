@@ -484,7 +484,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-//        WLog.w("onTaskResponse " + result.taskType);
+        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
         mTaskCount--;
         if(isFinishing()) return;
 

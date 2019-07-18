@@ -8,7 +8,7 @@
     <string name="url_es_proxy" translatable="false">https://app-es.cosmostation.io/</string>
 
     <string name="url_lcd_main_iris" translatable="false">https://lcd-iris.cosmostation.io/</string>
-
+    <string name="url_es_proxy_iris" translatable="false">https://app-es.cosmostation.io/</string>
 
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>

@@ -27,13 +27,25 @@ public class HistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getTx(mReq).execute();
-            if(response.isSuccessful() && response.body() != null) {
-                mResult.resultData = response.body().hits.hits;
-                mResult.isSuccess = true;
-            } else {
-                WLog.w("HistoryTask : NOk");
+            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+                Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getTx(mReq).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().hits.hits;
+                    mResult.isSuccess = true;
 
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getIrisTx(mReq).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().hits.hits;
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
             }
 
         } catch (Exception e) {

@@ -41,7 +41,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
 
     private String              mHdSeed;
-    private String              mEntorpy;
+    private String              mEntropy;
     private int                 mWordSize;
     private String              mChain;
     private DeterministicKey    mMasterKey;
@@ -68,7 +68,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         mRecyclerView.setAdapter(mNewWalletAdapter);
 
         mHdSeed = getIntent().getStringExtra("HDseed");
-        mEntorpy =  getIntent().getStringExtra("entorpy");
+        mEntropy =  getIntent().getStringExtra("entropy");
         mChain = getIntent().getStringExtra("chain");
         mWordSize = getIntent().getIntExtra("size", 24);
         mMasterKey = HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(mHdSeed));
@@ -90,11 +90,11 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), this).execute(mChain, ""+path, mEntorpy, ""+mWordSize);
+        new GenerateAccountTask(getBaseApplication(), this).execute(mChain, ""+path, mEntropy, ""+mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
-        new OverrideAccountTask(getBaseApplication(), this, account).execute(""+path, mEntorpy, ""+mWordSize);
+        new OverrideAccountTask(getBaseApplication(), this, account).execute(""+path, mEntropy, ""+mWordSize);
     }
 
     @Override
@@ -126,34 +126,34 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull final NewWalletHolder holder, final int position) {
             String address = WKey.getDpAddressWithPath(mMasterKey, mChain, position);
-            holder.new_path.setText(BaseConstant.KEY_PATH + position);
-            holder.new_address.setText(address);
+            holder.newPath.setText(BaseConstant.KEY_PATH + position);
+            holder.newAddress.setText(address);
             final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
             if(temp == null) {
-                holder.new_state.setText(getString(R.string.str_ready));
-                holder.new_state.setTextColor(getResources().getColor(R.color.colorWhite));
-                holder.card_new_wallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                holder.newState.setText(getString(R.string.str_ready));
+                holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
+                holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             } else  {
                 if(temp.hasPrivateKey) {
-                    holder.new_state.setText(getString(R.string.str_imported));
-                    holder.new_state.setTextColor(getResources().getColor(R.color.colorGray1));
-                    holder.card_new_wallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                    holder.newState.setText(getString(R.string.str_imported));
+                    holder.newState.setTextColor(getResources().getColor(R.color.colorGray1));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 } else {
-                    holder.new_state.setText(getString(R.string.str_override));
-                    holder.new_state.setTextColor(getResources().getColor(R.color.colorWhite));
-                    holder.card_new_wallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                    holder.newState.setText(getString(R.string.str_override));
+                    holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                 }
             }
-            holder.card_new_wallet.setOnClickListener(new View.OnClickListener() {
+            holder.cardNewWallet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(holder.new_state.getText().toString().equals(getString(R.string.str_ready))) {
+                    if(holder.newState.getText().toString().equals(getString(R.string.str_ready))) {
                         if(getBaseDao().onSelectAccounts().size() >= 5) {
                             Toast.makeText(getBaseContext(), getString(R.string.error_max_account_over), Toast.LENGTH_SHORT).show();
                             return;
                         }
                         onGenAccount(position);
-                    } else if (holder.new_state.getText().toString().equals(getString(R.string.str_imported))) {
+                    } else if (holder.newState.getText().toString().equals(getString(R.string.str_imported))) {
                         Toast.makeText(getBaseContext(), getString(R.string.str_already_imported_key), Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -170,14 +170,14 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.atom_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
+                                holder.atomAmount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
                         } else {
-                            holder.atom_amount.setText("0");
+                            holder.atomAmount.setText("0");
                         }
                     }
                     @Override
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {
-                        holder.atom_amount.setText("0");
+                        holder.atomAmount.setText("0");
                     }
                 });
 
@@ -189,14 +189,14 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.iris_amount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
+                                holder.irisAmount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
                         } else {
-                            holder.iris_amount.setText("0");
+                            holder.irisAmount.setText("0");
                         }
                     }
                     @Override
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {
-                        holder.iris_amount.setText("0");
+                        holder.irisAmount.setText("0");
                     }
                 });
             }
@@ -213,22 +213,22 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         }
 
         public class NewWalletHolder extends RecyclerView.ViewHolder {
-            CardView card_new_wallet;
+            CardView cardNewWallet;
             RelativeLayout atomLayer, photonLayer, irisLayer;
-            TextView new_path, new_state, new_address, atom_amount, photon_amount, iris_amount;
+            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount;
 
             public NewWalletHolder(View v) {
                 super(v);
-                card_new_wallet = itemView.findViewById(R.id.card_new_wallet);
-                new_path        = itemView.findViewById(R.id.new_path);
-                new_state       = itemView.findViewById(R.id.new_state);
-                new_address     = itemView.findViewById(R.id.new_address);
-                atomLayer       = itemView.findViewById(R.id.atom_layer);
-                atom_amount     = itemView.findViewById(R.id.atom_amount);
-                photonLayer     = itemView.findViewById(R.id.photon_layer);
-                photon_amount   = itemView.findViewById(R.id.photon_amount);
-                irisLayer       = itemView.findViewById(R.id.iris_layer);
-                iris_amount     = itemView.findViewById(R.id.iris_amount);
+                cardNewWallet       = itemView.findViewById(R.id.card_new_wallet);
+                newPath             = itemView.findViewById(R.id.new_path);
+                newState            = itemView.findViewById(R.id.new_state);
+                newAddress          = itemView.findViewById(R.id.new_address);
+                atomLayer           = itemView.findViewById(R.id.atom_layer);
+                atomAmount          = itemView.findViewById(R.id.atom_amount);
+                photonLayer         = itemView.findViewById(R.id.photon_layer);
+                photonAmount        = itemView.findViewById(R.id.photon_amount);
+                irisLayer           = itemView.findViewById(R.id.iris_layer);
+                irisAmount          = itemView.findViewById(R.id.iris_amount);
             }
         }
     }
