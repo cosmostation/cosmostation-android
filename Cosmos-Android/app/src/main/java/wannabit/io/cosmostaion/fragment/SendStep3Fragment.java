@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Fee_Description;
@@ -48,10 +49,11 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
     private TextView        mGasFeeAmount;
     private TextView        mGasFeePrice;
 
+    private LinearLayout    mFeeLayer3;
     private SeekBar         mSeekBarGas;
 
     private LinearLayout    mSpeedLayer;
-    private ImageView mSpeedImg;
+    private ImageView       mSpeedImg;
     private TextView        mSpeedMsg;
 
     private Button          mBeforeBtn, mNextBtn;
@@ -88,49 +90,74 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
         mGasFeeAmount   = rootView.findViewById(R.id.gas_fee);
         mGasFeePrice    = rootView.findViewById(R.id.gas_fee_price);
 
+        mFeeLayer3      = rootView.findViewById(R.id.fee_dp_layer3);
         mSeekBarGas     = rootView.findViewById(R.id.gas_price_seekbar);
 
         mSpeedLayer     = rootView.findViewById(R.id.speed_layer);
         mSpeedImg       = rootView.findViewById(R.id.speed_img);
         mSpeedMsg       = rootView.findViewById(R.id.speed_txt);
 
-        mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
-        mBtnGasType.setOnClickListener(this);
+        mBeforeBtn      = rootView.findViewById(R.id.btn_before);
+        mNextBtn        = rootView.findViewById(R.id.btn_next);
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
-        mSpeedLayer.setOnClickListener(this);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvGasType);
 
-        mTvGasType.setText(WDp.DpAtom(getContext()));
-        Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
-        mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
-        mSeekBarGas.getProgressDrawable().setBounds(bounds);
-        mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mBtnGasType.setOnClickListener(this);
+            mSpeedLayer.setOnClickListener(this);
+            Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
+            mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
+            mSeekBarGas.getProgressDrawable().setBounds(bounds);
 
-        mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(fromUser) {
-                    onUpdateFeeLayer();
+            mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    if(fromUser) {
+                        onUpdateFeeLayer();
+                    }
                 }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) { }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) { }
+            });
+            mSeekBarGas.setProgress(0);
+
+        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.rocket_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
+
+            mGasAmount.setText(BaseConstant.FEE_IRIS_GAS_AMOUNT_AVERAGE);
+            mGasRate.setText(WDp.getDpString(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE, 6));
+            mFeeAmount = new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_AVERAGE).multiply(new BigDecimal(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(8, RoundingMode.DOWN);
             }
+            mGasFeeAmount.setText(WDp.getDpString(WDp.attoToIris(mFeeAmount).setScale(1).toPlainString(), 2));
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
-        });
-        mSeekBarGas.setProgress(0);
+        }
         return rootView;
     }
 
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        mAvailable  = getSActivity().mAccount.getAtomBalance();
-        mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
-        onUpdateFeeLayer();
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mAvailable  = getSActivity().mAccount.getAtomBalance();
+            mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
+            onUpdateFeeLayer();
+        }
+
     }
 
     @Override
@@ -139,17 +166,29 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            Fee fee = new Fee();
-            Coin gasCoin = new Coin();
-            gasCoin.denom = BaseConstant.COSMOS_ATOM;
-            gasCoin.amount = mFeeAmount.toPlainString();
-            ArrayList<Coin> amount = new ArrayList<>();
-            amount.add(gasCoin);
-            fee.amount = amount;
-            fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
-            getSActivity().mTargetFee = fee;
-            getSActivity().onNextStep();
+            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = BaseConstant.COSMOS_ATOM;
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
+                getSActivity().mTargetFee = fee;
 
+            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = BaseConstant.COSMOS_IRIS_ATTO;
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = BaseConstant.FEE_IRIS_GAS_AMOUNT_AVERAGE;
+                getSActivity().mTargetFee = fee;
+            }
+            getSActivity().onNextStep();
 
         } else if (v.equals(mBtnGasType)) {
             Toast.makeText(getContext(), getString(R.string.error_only_atom_for_fee), Toast.LENGTH_SHORT).show();
@@ -198,6 +237,10 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             }
             mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+            WLog.w("mFeeAmount " + mFeeAmount);
+            WLog.w("mFeePrice " + mFeePrice);
+            WLog.w("WDp.uAtomToAtom(mFeeAmount) " + WDp.uAtomToAtom(mFeeAmount));
 
 
         } else if (mSeekBarGas.getProgress() == 2) {
@@ -252,139 +295,3 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
     }
 
 }
-/*
-public class SendStep3Fragment extends BaseFragment implements View.OnClickListener {
-
-    public final static int SELECT_GAS_DIALOG = 6001;
-
-    private RelativeLayout  mBtnGasType;
-    private TextView        mTvGasType;
-    private TextView        mTvGasAmount;
-    private TextView        mTvGasPrice;
-    private SeekBar         mSeekBarGas;
-    private Button          mBeforeBtn, mNextBtn;
-
-
-    private ArrayList<String>   mAtomFees = new ArrayList<>();
-
-    private BigDecimal      mAvailable      = BigDecimal.ZERO;
-    private BigDecimal      mToSend         = BigDecimal.ZERO;
-    private BigDecimal      mFeeAmount      = BigDecimal.ZERO;
-
-    public static SendStep3Fragment newInstance(Bundle bundle) {
-        SendStep3Fragment fragment = new SendStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mAtomFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.atom_fee)));
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_send_step3, container, false);
-        mBtnGasType     = rootView.findViewById(R.id.btn_gas_type);
-        mTvGasType      = rootView.findViewById(R.id.gas_type);
-        mTvGasAmount    = rootView.findViewById(R.id.fee_amount);
-        mTvGasPrice     = rootView.findViewById(R.id.fee_price);
-        mSeekBarGas     = rootView.findViewById(R.id.gas_price_seekbar);
-
-        mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
-        mBtnGasType.setOnClickListener(this);
-        mBeforeBtn.setOnClickListener(this);
-        mNextBtn.setOnClickListener(this);
-
-        mTvGasType.setText(WDp.DpAtom(getContext(), getSActivity().mAccount.baseChain));
-        Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
-        mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
-        mSeekBarGas.getProgressDrawable().setBounds(bounds);
-        mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
-
-        mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(fromUser) {
-                    onUpdateGasAmountDp();
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
-        });
-        mSeekBarGas.setProgress(0);
-        return rootView;
-    }
-
-    @Override
-    public void onRefreshTab() {
-        super.onRefreshTab();
-        mAvailable  = getSActivity().mAccount.getAtomBalance();
-        mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
-        onUpdateGasAmountDp();
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
-            getSActivity().onBeforeStep();
-
-        } else if (v.equals(mNextBtn)) {
-            Fee fee = new Fee();
-            ArrayList<Coin> amount = new ArrayList<>();
-            Coin gasCoin = new Coin();
-            gasCoin.amount = new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).multiply(new BigDecimal("1000000")).setScale(0).toPlainString();
-            gasCoin.denom = BaseConstant.COSMOS_ATOM;
-            amount.add(gasCoin);
-            fee.amount = amount;
-            fee.gas = "200000";
-            getSActivity().mTargetFee = fee;
-            getSActivity().onNextStep();
-
-        } else if (v.equals(mBtnGasType)) {
-            Toast.makeText(getContext(), getString(R.string.error_only_atom_for_fee), Toast.LENGTH_SHORT).show();
-//            if(getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-//                return;
-//            }
-//            Bundle bundle = new Bundle();
-//            bundle.putString("chain", getSActivity().mAccount.baseChain);
-//            Dialog_GasType dialog = Dialog_GasType.newInstance(bundle);
-//            dialog.setCancelable(true);
-//            dialog.setTargetFragment(this, SELECT_GAS_DIALOG);
-//            dialog.show(getFragmentManager().beginTransaction(), "dialog");
-        }
-    }
-
-    private void onUpdateGasAmountDp() {
-        mFeeAmount = new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).multiply(new BigDecimal("1000000")).setScale(0);
-        if(mToSend.add(mFeeAmount).compareTo(mAvailable) > 0) {
-            Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-            mSeekBarGas.setProgress(mSeekBarGas.getProgress() - 1);
-            onUpdateGasAmountDp();
-        }
-        mTvGasAmount.setText(new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).setScale(6).toPlainString());
-//        BigDecimal total = new BigDecimal(""+mTvGasAmount.getText().toString().trim()).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
-        BigDecimal total = new BigDecimal(mAtomFees.get(mSeekBarGas.getProgress())).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).setScale(2, RoundingMode.DOWN);
-        mTvGasPrice.setText(getString(R.string.str_approximately)+ " $" +  WDp.getDolor(getContext(), total));
-    }
-
-
-    private SendActivity getSActivity() {
-        return (SendActivity)getBaseActivity();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        WLog.w("onActivityResult : " + requestCode + " " + resultCode);
-//        if(requestCode == SELECT_GAS_DIALOG && resultCode == Activity.RESULT_OK) {
-//            onUpdateGasType(data.getStringExtra("coin"));
-//        }
-    }
-}
-*/

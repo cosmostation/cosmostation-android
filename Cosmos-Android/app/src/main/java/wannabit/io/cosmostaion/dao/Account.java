@@ -101,6 +101,21 @@ public class Account {
         return result;
     }
 
+    public BigDecimal getIrisBalance() {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
+                result = balance.balance;
+                break;
+            }
+        }
+        return result;
+    }
+
+
 //    public DeterministicKey getDeterministicKey() {
 //        return deterministicKey;
 //    }

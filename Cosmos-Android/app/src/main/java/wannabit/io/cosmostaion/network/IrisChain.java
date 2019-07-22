@@ -3,17 +3,22 @@ package wannabit.io.cosmostaion.network;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
+import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface IrisChain {
 
@@ -25,7 +30,6 @@ public interface IrisChain {
     @GET("/bank/accounts/{address}")
     Call<ResLcdAccountInfo> getBankInfo(@Path("address") String address);
 
-
     @GET("/stake/delegators/{address}/delegations")
     Call<ArrayList<ResLcdBondings>> getBondingList(@Path("address") String address);
 
@@ -35,8 +39,13 @@ public interface IrisChain {
     @GET("/distribution/{address}/rewards")
     Call<ResLcdIrisReward> getRewardsInfo(@Path("address") String address);
 
+    @GET("/txs/{hash}")
+    Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
 
+    //Broadcast Tx
+    @POST("/tx/broadcast")
+    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
 
 

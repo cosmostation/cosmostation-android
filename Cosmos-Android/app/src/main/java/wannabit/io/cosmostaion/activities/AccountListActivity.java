@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -155,17 +156,26 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 final AccountListHolder holder = (AccountListHolder)viewHolder;
                 final Account account= mFullAccounts.get(position - 1);
 
+                if (TextUtils.isEmpty(account.nickName)) {
+                    holder.wallet_name.setText(getString(R.string.str_my_wallet) + account.id);
+                } else {
+                    holder.wallet_name.setText(account.nickName);
+                }
+
+                if (getBaseDao().onSelectBalance(account.id).size() > 0) {
+                    holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
+                } else {
+                    holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
+                }
+
+                if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+                } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
+                }
+
                 holder.wallet_address.setText(account.address);
-
-                if(TextUtils.isEmpty(account.nickName)) holder.wallet_name.setText(getString(R.string.str_my_wallet) + account.id);
-                else holder.wallet_name.setText(account.nickName);
-
-
-                if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
-                else holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
-
                 holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext()));
-
                 holder.wallet_card.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -180,20 +190,32 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 final AccountListHolder holder = (AccountListHolder)viewHolder;
                 final Account account;
 
-                WLog.w("position : " + position);
                 if(mFullAccounts.size() == 0) {
                     account = mAddressAccounts.get(position - 1);
                 } else {
                     account = mAddressAccounts.get(position  - 2 - mFullAccounts.size());
                 }
+
+                if (TextUtils.isEmpty(account.nickName)){
+                    holder.wallet_name.setText(getString(R.string.str_my_wallet) + account.id);
+                } else  {
+                    holder.wallet_name.setText(account.nickName);
+                }
+
+                if (getBaseDao().onSelectBalance(account.id).size() > 0) {
+                    holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
+                } else {
+                    holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
+                }
+
+                if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+                } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
+                }
+
+
                 holder.wallet_address.setText(account.address);
-
-                if(TextUtils.isEmpty(account.nickName)) holder.wallet_name.setText(getString(R.string.str_my_wallet) + account.id);
-                else holder.wallet_name.setText(account.nickName);
-
-                if(getBaseDao().onSelectBalance(account.id).size() > 0) holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
-                else holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
-
                 holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext()));
 
                 holder.wallet_card.setOnClickListener(new View.OnClickListener() {

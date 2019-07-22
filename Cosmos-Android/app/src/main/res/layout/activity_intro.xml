@@ -2,14 +2,26 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_02">
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/intro_bg_gr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_intro_gr"/>
+    <ImageView
+        android:id="@+id/intro_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_intro"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/space_80">
+        android:paddingBottom="@dimen/space_240">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -17,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/cosmos_logo"
+                android:src="@drawable/cosmostaion"
                 android:scaleType="fitXY"/>
             <com.romainpiel.shimmer.ShimmerTextView
                 android:id="@+id/logo_title"
@@ -58,12 +70,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/cosmostation_logo"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_4"
-            android:text="@string/str_copy_right"
-            style="@style/font_ss_9_gray1"/>
     </LinearLayout>
 
 

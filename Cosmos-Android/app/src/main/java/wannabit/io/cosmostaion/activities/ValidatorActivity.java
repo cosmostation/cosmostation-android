@@ -133,7 +133,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             onBackPressed();
         }
 
-
         mBondingState       = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
         mUnBondingStates    = getBaseDao().onSelectUnbondingStates(mAccount.id, mValidator.operator_address);
 
@@ -176,7 +175,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
-
 
     private void onCheckDelegate() {
         if(mAccount == null || mValidator == null) return;
@@ -277,7 +275,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         reDelegate.putExtra("provisions", mProvisions.toPlainString());
         startActivity(reDelegate);
     }
-
 
     private void onStartUndelegate() {
         if(mAccount == null || mValidator == null) return;
@@ -482,7 +479,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         private static final int TYPE_HISTORY_HEADER        = 3;
         private static final int TYPE_HISTORY               = 4;
         private static final int TYPE_HISTORY_EMPTY         = 5;
-
 
         @NonNull
         @Override
@@ -833,7 +829,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return TYPE_HISTORY_EMPTY;
         }
 
-
         @Override
         public int getItemCount() {
             if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
@@ -850,8 +845,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
             }
         }
-
-
 
         public class ValidatorHolder extends RecyclerView.ViewHolder {
             CircleImageView itemAvatar;

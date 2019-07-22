@@ -23,6 +23,16 @@ public class ResBroadTx {
     @SerializedName("raw_log")
     public String raw_log;
 
+    @SerializedName("hash")
+    public String hash;
+
+    @SerializedName("check_tx")
+    public CheckTx check_tx;
+
+    public class CheckTx {
+        @SerializedName("code")
+        public Integer code;
+    }
 
     /*
 

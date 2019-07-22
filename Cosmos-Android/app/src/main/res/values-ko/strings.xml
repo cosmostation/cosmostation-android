@@ -205,6 +205,7 @@
     <string name="str_fee_speed_title_0">소수의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_1">일부의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_2">대부분의 검증인들이 처리해 줄 것입니다.</string>
+    <string name="str_fee_speed_title_iris">현재 아이리스는 고정 Tx 수수료를 지원합니다.</string>
     <string name="str_fee_description_title_0">Tx 수수료 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx 수수료 비율 0.0025</string>
     <string name="str_fee_description_title_2">Tx 수수료 비율 0.025</string>
@@ -383,6 +384,8 @@
     <string name="error_max_account_over">최대 5개의 지갑이 등록 가능합니다.</string>
     <string name="error_reward_address_changed_msg">이자 지급 주소가 변경된 계정입니다. 이자 즉시 위임 기능을 사용하실 수 없습니다.</string>
     <string name="error_no_password">비밀번호가 설정되지 않았습니다.</string>
+    <string name="error_invalid_cosmos_address">유효한 코스모스 주소가 아닙니다.</string>
+    <string name="error_invalid_iris_address">유효한 아이리스 주소가 아닙니다.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

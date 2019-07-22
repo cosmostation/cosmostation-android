@@ -132,16 +132,12 @@ public class ValidatorMyFragment extends BaseFragment {
             if (getItemViewType(position) == TYPE_PROMOTION) {
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
-                final RewardWithdrawHolder holder = (RewardWithdrawHolder)viewHolder;
-
-                holder.itemTvDenom.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mAccount.baseChain));
+                final RewardWithdrawHolder holder       = (RewardWithdrawHolder)viewHolder;
+                WDp.DpMainDenom(getContext(), getMainActivity().mAccount.baseChain, holder.itemTvDenom);
                 if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                    holder.itemTvDenom.setText(WDp.DpAtom(getContext()));
                     holder.itemTvAllRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
 
-
                 } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-                    holder.itemTvDenom.setText(WDp.DpIris(getContext()));
                     holder.itemTvAllRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), mIrisRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 }
 

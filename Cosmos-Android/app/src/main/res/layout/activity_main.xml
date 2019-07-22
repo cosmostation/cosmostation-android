@@ -6,10 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
+        android:id="@+id/chain_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_01"/>
+        android:src="@drawable/bg_cosmos"/>
 
     <FrameLayout
         android:id="@+id/top_sheet"

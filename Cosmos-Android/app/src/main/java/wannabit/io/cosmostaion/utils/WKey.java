@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.utils;
 import android.util.Base64;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.ChildNumber;
@@ -14,6 +16,7 @@ import org.bitcoinj.crypto.MnemonicException;
 import org.spongycastle.crypto.digests.RIPEMD160Digest;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -23,6 +26,9 @@ import java.util.List;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
+import wannabit.io.cosmostaion.model.IrisStdSignMsg;
+import wannabit.io.cosmostaion.model.StdSignMsg;
+import wannabit.io.cosmostaion.model.type.Msg;
 
 public class WKey {
 
@@ -447,5 +453,21 @@ public class WKey {
                 return false;
             return true;
         }
+    }
+
+
+    public static byte[] getStdSignMsgToSignByte(StdSignMsg stdSignMsg) {
+        Gson Presenter = new GsonBuilder().create();
+        return Presenter.toJson(stdSignMsg).getBytes(Charset.forName("UTF-8"));
+    }
+
+//    public static byte[] getMsgToSignByte(Msg msg) {
+//        Gson Presenter = new GsonBuilder().create();
+//        return Presenter.toJson(msg).getBytes(Charset.forName("UTF-8"));
+//    }
+
+    public static byte[] getIrisStdSignMsgToSignByte(IrisStdSignMsg msg) {
+        Gson Presenter = new GsonBuilder().create();
+        return Presenter.toJson(msg).getBytes(Charset.forName("UTF-8"));
     }
 }

@@ -66,14 +66,26 @@ public class SimpleSendTask extends CommonTask {
                 return mResult;
             }
 
-            Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
-            if(!accountResponse.isSuccessful()) {
-                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                return mResult;
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
+                if(!accountResponse.isSuccessful()) {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
+                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
             }
-            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-            mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
-            mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -84,27 +96,51 @@ public class SimpleSendTask extends CommonTask {
             msgs.add(singleSendMsg);
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
-            Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
-            if(response.isSuccessful() && response.body() != null) {
-                WLog.w("response.body() hash: " + response.body().txhash);
-                if (response.body().txhash != null) {
-                    mResult.resultData = response.body().txhash;
+
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    WLog.w("response.body() hash: " + response.body().txhash);
+                    if (response.body().txhash != null) {
+                        mResult.resultData = response.body().txhash;
+                    }
+
+                    if(response.body().code != null) {
+                        WLog.w("response.code() : " + response.body().code);
+                        mResult.errorCode = response.body().code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("Cosmos SimpleSendTask not success!!");
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
 
-                if(response.body().code != null) {
-                    WLog.w("response.code() : " + response.body().code);
-                    mResult.errorCode = response.body().code;
-                    mResult.errorMsg = response.body().raw_log;
-                    return mResult;
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    WLog.w("response.body() hash: " + response.body().hash);
+                    if (response.body().hash != null) {
+                        mResult.resultData = response.body().hash;
+                    }
+
+                    if(response.body().check_tx.code != null) {
+                        WLog.w("response.code() : " + response.body().code);
+                        mResult.errorCode = response.body().code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("Iris SimpleSendTask not success!!");
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
-                mResult.isSuccess = true;
-
-
-
-            } else {
-                WLog.w("SimpleSendTask not success!!");
-                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
             }
+
+
 
 
             /*

@@ -92,6 +92,7 @@ import wannabit.io.cosmostaion.widget.TintableImageView;
 
 public class MainActivity extends BaseActivity implements TaskListener {
 
+    private ImageView                   mChainBg;
     private Toolbar                     mToolbar;
     private ImageView                   mToolbarChainImg;
     private TextView                    mToolbarTitle;
@@ -130,6 +131,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mChainBg                    = findViewById(R.id.chain_bg);
         mToolbar                    = findViewById(R.id.tool_bar);
         mToolbarTitle               = findViewById(R.id.toolbar_title);
         mToolbarChainImg            = findViewById(R.id.toolbar_net_image);
@@ -252,12 +254,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
             return;
         }
         if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));
             mToolbarChainName.setVisibility(View.VISIBLE);
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
 
         } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
             mToolbarChainName.setText(getString(R.string.str_iris_net));
             mToolbarChainName.setVisibility(View.VISIBLE);
@@ -290,17 +294,20 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
-        for (Balance balance:balances) {
-            if(BaseConstant.IS_TEST) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            for (Balance balance:balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("2"))) > 0)) {
                     hasbalance  = true;
                 }
-            } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("500"))) > 0)) {
+            }
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            for (Balance balance:balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) > 0)) {
                     hasbalance  = true;
                 }
             }
         }
+
         if(!hasbalance){
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
@@ -484,7 +491,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
+//        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
         mTaskCount--;
         if(isFinishing()) return;
 

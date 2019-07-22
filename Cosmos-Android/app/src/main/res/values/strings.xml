@@ -244,6 +244,7 @@
     <string name="str_fee_speed_title_0">Only a handful of validators will process this Tx.</string>
     <string name="str_fee_speed_title_1">A few validators include \"Cosmostation\" will process this Tx.</string>
     <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
+    <string name="str_fee_speed_title_iris">Spend fixed amount fee for Iris.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>
@@ -424,6 +425,8 @@
     <string name="error_max_account_over">Max account is 5.</string>
     <string name="error_reward_address_changed_msg">This account has changed its reward address.\nYou can user re-invest feature after reset your reward address to self.</string>
     <string name="error_no_password">Password not set</string>
+    <string name="error_invalid_cosmos_address">Invalid Cosmos Address.</string>
+    <string name="error_invalid_iris_address">Invalid Iris Address.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

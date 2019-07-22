@@ -2,9 +2,11 @@ package wannabit.io.cosmostaion.model.type;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +79,7 @@ public class Msg {
         public String validator_dst_address;
 
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         public ArrayList<Coin> getCoins() {
             ArrayList<Coin> result = new ArrayList<>();
             try {
@@ -92,5 +95,11 @@ public class Msg {
         }
 
     }
+
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    public byte[] getToSignByte() {
+//        Gson Presenter = new GsonBuilder().create();
+//        return Presenter.toJson(this).getBytes(Charset.forName("UTF-8"));
+//    }
 
 }

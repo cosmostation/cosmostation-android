@@ -20,6 +20,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -65,18 +66,25 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.equals(mNextBtn)) {
-            String targetAddress = mAddressInput.getText().toString();
-            if(getSActivity().mAccount.address.equals(targetAddress)) {
+            String targetAddress = mAddressInput.getText().toString().trim();
+            if (getSActivity().mAccount.address.equals(targetAddress)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
                 return;
-
-            } else if(!TextUtils.isEmpty(targetAddress) && WKey.isValidBech32(targetAddress)) {
-                getSActivity().mTagetAddress = targetAddress;
-                getSActivity().onNextStep();
-                return;
-            }else {
-                Toast.makeText(getContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                return;
+            }
+            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (targetAddress.startsWith("cosmos") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mTagetAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_cosmos_address, Toast.LENGTH_SHORT).show();
+                }
+            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                if (targetAddress.startsWith("iaa") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mTagetAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_iris_address, Toast.LENGTH_SHORT).show();
+                }
             }
 
         } else if (v.equals(mCancel)) {
@@ -104,7 +112,6 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
 
         } else if (v.equals(mBtnHistory)) {
-            WLog.w("mBtnHistory");
             Toast.makeText(getSActivity(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
 
         }

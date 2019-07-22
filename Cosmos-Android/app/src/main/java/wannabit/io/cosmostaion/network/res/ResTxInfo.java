@@ -52,4 +52,25 @@ public class ResTxInfo {
         @SerializedName("value")
         public String value;
     }
+
+
+
+
+    //Field for Iris
+    @SerializedName("hash")
+    public String hash;
+
+    @SerializedName("result")
+    public Result result;
+
+    public class Result {
+        @SerializedName("GasWanted")
+        public String GasWanted;
+
+        @SerializedName("GasUsed")
+        public String GasUsed;
+
+        @SerializedName("tags")
+        public ArrayList<Tag> tags;
+    }
 }

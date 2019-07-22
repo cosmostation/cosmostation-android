@@ -9,4 +9,10 @@ public class Signature {
 
     @SerializedName("signature")
     public String signature;
+
+    @SerializedName("account_number")
+    public String account_number;
+
+    @SerializedName("sequence")
+    public String sequence;
 }

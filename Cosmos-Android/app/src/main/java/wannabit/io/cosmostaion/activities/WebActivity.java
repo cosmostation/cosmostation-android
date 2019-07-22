@@ -16,7 +16,7 @@ public class WebActivity extends BaseActivity {
 
     private WebView     mWebview;
     private String      mTxid, mVoteId, mAddress;
-    private boolean         mGoMain;
+    private boolean     mGoMain;
     private FloatingActionButton mShare;
 
     @Override

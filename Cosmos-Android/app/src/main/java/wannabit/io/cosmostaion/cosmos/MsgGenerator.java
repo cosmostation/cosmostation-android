@@ -13,29 +13,51 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.model.IrisStdSignMsg;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class MsgGenerator {
 
     public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        value.from_address = fromAddr;
-        value.to_address = toAddr;
-        value.amount = coins;
+        Msg         result      = new Msg();
+        Msg.Value   value       = new Msg.Value();
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            value.from_address = fromAddr;
+            value.to_address = toAddr;
+            value.amount = coins;
 
-        result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
-        result.value = value;
+            result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
+            result.value = value;
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            ArrayList<Input> inputs     = new ArrayList<>();
+            ArrayList<Output> outputs   = new ArrayList<>();
+            Input input = new Input(fromAddr, coins);
+            Output output = new Output(toAddr, coins);
+            inputs.add(input);
+            outputs.add(output);
+
+            value.inputs = inputs;
+            value.outputs = outputs;
+
+            result.type = BaseConstant.IRIS_MSG_TYPE_TRANSFER;
+            result.value = value;
+
+        }
         return result;
     }
 
@@ -169,12 +191,33 @@ public class MsgGenerator {
         return result;
     }
 
-    public static StdSignMsg genToSignMsgWithType(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
+    public static StdSignMsg genToSignMsg(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
         StdSignMsg result = new StdSignMsg();
         result.chain_id = chainId;
         result.account_number = accountNumber;
         result.sequence = SequenceNumber;
         result.msgs = msgs;
+        result.fee = fee;
+        result.memo = memo;
+
+        return result;
+    }
+
+    public static IrisStdSignMsg genIrisToSignMsg(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
+        IrisStdSignMsg result = new IrisStdSignMsg();
+        result.chain_id = chainId;
+        result.account_number = accountNumber;
+        result.sequence = SequenceNumber;
+//        ArrayList<Msg.Value> tempMsgs = new ArrayList<>();
+//        for (Msg msg:msgs) {
+//            tempMsgs.add(msg.value);
+//        }
+//        result.msgs = tempMsgs;
+
+        ArrayList<Msg.Value> tempMsgs = new ArrayList<>();
+        tempMsgs.add(msgs.get(0).value);
+        result.msgs = tempMsgs;
+
         result.fee = fee;
         result.memo = memo;
 
@@ -193,15 +236,31 @@ public class MsgGenerator {
     }
 
     public static ReqBroadCast getBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
-        StdSignMsg tosign = genToSignMsgWithType(
-                account.baseChain,
-                ""+account.accountNumber,
-                ""+account.sequenceNumber,
-                msgs,
-                fee,
-                memo);
+        String signatureTx = "";
+        if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain()))  {
+            StdSignMsg tosign = genToSignMsg(
+                    account.baseChain,
+                    ""+account.accountNumber,
+                    ""+account.sequenceNumber,
+                    msgs,
+                    fee,
+                    memo);
 
-        String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
+            signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
+//            signatureTx = MsgGenerator.getSignature(key, WKey.getStdSignMsgToSignByte(tosign));
+
+        } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain()))  {
+            IrisStdSignMsg tosign = genIrisToSignMsg(
+                    account.baseChain,
+                    ""+account.accountNumber,
+                    ""+account.sequenceNumber,
+                    msgs,
+                    fee,
+                    memo);
+            signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
+//            signatureTx = MsgGenerator.getSignature(key, WKey.getIrisStdSignMsgToSignByte(tosign));
+        }
+        WLog.w("signatureTx " + signatureTx);
 
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();
@@ -209,6 +268,8 @@ public class MsgGenerator {
         pubKey.value = WKey.getPubKeyValue(key);
         signature.pub_key = pubKey;
         signature.signature = signatureTx;
+        signature.account_number = ""+account.accountNumber;
+        signature.sequence = ""+account.sequenceNumber;
 
         ArrayList<Signature> signatures = new ArrayList<>();
         signatures.add(signature);

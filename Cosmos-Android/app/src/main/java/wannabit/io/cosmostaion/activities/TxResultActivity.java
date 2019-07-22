@@ -44,6 +44,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     private ResTxInfo                   mResTxInfo;
 
+    private ImageView                   mChainBg;
 
     private TextView                    mToolbarTitle;
     private ImageView                   mToolbarClose;
@@ -82,74 +83,92 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     private RelativeLayout              mLoading;
 
+    private TextView                    mDenomSendAmount, mDenomSendFee, mDenomDelegateAmount, mDenomDelegateFee,
+                                        mDenomRedelegateAmount, mDenomRedelegateFee, mDenomUndelegateAmount, mDenomUndelegateFee,
+                                        mDenomRewardFee, mDenomAddressChangeFee, mDenomReinvestAmount, mDenomReinvestFee;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tx_result);
+        mChainBg                        = findViewById(R.id.chain_bg);
 
-        mToolbarTitle           = findViewById(R.id.toolbar_title);
-        mToolbarClose           = findViewById(R.id.toolbar_close);
+        mToolbarTitle                   = findViewById(R.id.toolbar_title);
+        mToolbarClose                   = findViewById(R.id.toolbar_close);
 
-        mBtnDismiss             = findViewById(R.id.btn_dismiss);
-        mBottomAfterLayer       = findViewById(R.id.control_after);
-        mBtnScan                = findViewById(R.id.btn_scan);
-        mBtnShare               = findViewById(R.id.btn_share);
-        mBtnOk                  = findViewById(R.id.btn_ok);
+        mBtnDismiss                     = findViewById(R.id.btn_dismiss);
+        mBottomAfterLayer               = findViewById(R.id.control_after);
+        mBtnScan                        = findViewById(R.id.btn_scan);
+        mBtnShare                       = findViewById(R.id.btn_share);
+        mBtnOk                          = findViewById(R.id.btn_ok);
 
-        mScrollLayer            = findViewById(R.id.scroll_layer);
+        mScrollLayer                    = findViewById(R.id.scroll_layer);
 
-        mTvtxType               = findViewById(R.id.tx_type);
-        mTvTxHash               = findViewById(R.id.tx_hash);
-        mTxTime                 = findViewById(R.id.tx_time);
-        mTxBlockHeight          = findViewById(R.id.tx_block_height);
+        mTvtxType                       = findViewById(R.id.tx_type);
+        mTvTxHash                       = findViewById(R.id.tx_hash);
+        mTxTime                         = findViewById(R.id.tx_time);
+        mTxBlockHeight                  = findViewById(R.id.tx_block_height);
 
-        mSendLayer              = findViewById(R.id.send_layer);
-        mSendAtom               = findViewById(R.id.send_atom);
-        mSendAtomFee            = findViewById(R.id.send_fees);
-        mRecipientAddress       = findViewById(R.id.send_recipient_address);
-        mSendMemo               = findViewById(R.id.send_memo);
+        mSendLayer                      = findViewById(R.id.send_layer);
+        mSendAtom                       = findViewById(R.id.send_atom);
+        mSendAtomFee                    = findViewById(R.id.send_fees);
+        mRecipientAddress               = findViewById(R.id.send_recipient_address);
+        mSendMemo                       = findViewById(R.id.send_memo);
 
-        mDelegateLayer          = findViewById(R.id.delegate_layer);
-        mDelegateAtom           = findViewById(R.id.delegate_atom);
-        mDelegateFee            = findViewById(R.id.delegate_fees);
-        mDelegateValidator      = findViewById(R.id.to_delegate_moniker);
-        mDelegateMemo           = findViewById(R.id.delegate_memo);
+        mDelegateLayer                  = findViewById(R.id.delegate_layer);
+        mDelegateAtom                   = findViewById(R.id.delegate_atom);
+        mDelegateFee                    = findViewById(R.id.delegate_fees);
+        mDelegateValidator              = findViewById(R.id.to_delegate_moniker);
+        mDelegateMemo                   = findViewById(R.id.delegate_memo);
 
-        mUndelegateLayer        = findViewById(R.id.undelegate_layer);
-        mUndelegateAtom         = findViewById(R.id.undelegate_atom);
-        mUndelegateFee          = findViewById(R.id.undelegate_fees);
-        mUndelegateFrom         = findViewById(R.id.undelegate_moniker);
-        mExpectedDate           = findViewById(R.id.undelegate_time);
-        mUndelegateMemo         = findViewById(R.id.undelegate_memo);
+        mUndelegateLayer                = findViewById(R.id.undelegate_layer);
+        mUndelegateAtom                 = findViewById(R.id.undelegate_atom);
+        mUndelegateFee                  = findViewById(R.id.undelegate_fees);
+        mUndelegateFrom                 = findViewById(R.id.undelegate_moniker);
+        mExpectedDate                   = findViewById(R.id.undelegate_time);
+        mUndelegateMemo                 = findViewById(R.id.undelegate_memo);
 
-        mRewardLayer            = findViewById(R.id.reward_layer);
-        mRewardFee              = findViewById(R.id.reward_fees);
-        mRewardFrom             = findViewById(R.id.reward_moniker);
-        mRewardMemo             = findViewById(R.id.reward_memo);
+        mRewardLayer                    = findViewById(R.id.reward_layer);
+        mRewardFee                      = findViewById(R.id.reward_fees);
+        mRewardFrom                     = findViewById(R.id.reward_moniker);
+        mRewardMemo                     = findViewById(R.id.reward_memo);
 
-        mRedelegateLayer        = findViewById(R.id.redelegate_layer);
-        mRedelegateAtom         = findViewById(R.id.redelegate_atom);
-        mRedelegateFee          = findViewById(R.id.redelegate_fees);
-        mRedelegateFrom         = findViewById(R.id.from_redelegate_moniker);
-        mRedelegateTo           = findViewById(R.id.to_redelegate_moniker);
-        mRedelegateMemo         = findViewById(R.id.redelegate_memo);
+        mRedelegateLayer                = findViewById(R.id.redelegate_layer);
+        mRedelegateAtom                 = findViewById(R.id.redelegate_atom);
+        mRedelegateFee                  = findViewById(R.id.redelegate_fees);
+        mRedelegateFrom                 = findViewById(R.id.from_redelegate_moniker);
+        mRedelegateTo                   = findViewById(R.id.to_redelegate_moniker);
+        mRedelegateMemo                 = findViewById(R.id.redelegate_memo);
 
-        mRewardAddressChangeLayer   = findViewById(R.id.reward_address_change_layer);
-        mRewardAddressChangeFee     = findViewById(R.id.reward_address_change_fees);
-        mNewRewardAddress           = findViewById(R.id.new_reward_address);
-        mRewardAddressChangeMemo    = findViewById(R.id.reward_address_change_memo);
+        mRewardAddressChangeLayer       = findViewById(R.id.reward_address_change_layer);
+        mRewardAddressChangeFee         = findViewById(R.id.reward_address_change_fees);
+        mNewRewardAddress               = findViewById(R.id.new_reward_address);
+        mRewardAddressChangeMemo        = findViewById(R.id.reward_address_change_memo);
 
-        mReinvestLayer          = findViewById(R.id.reinvest_layer);
-        mReinvestAmount         = findViewById(R.id.reinvest_atom);
-        mReinvestFee            = findViewById(R.id.reinvest_fees);
-        mReinvestAddress        = findViewById(R.id.reinvest_moniker);
-        mReinvestMemo           = findViewById(R.id.reinvest_memo);
+        mReinvestLayer                  = findViewById(R.id.reinvest_layer);
+        mReinvestAmount                 = findViewById(R.id.reinvest_atom);
+        mReinvestFee                    = findViewById(R.id.reinvest_fees);
+        mReinvestAddress                = findViewById(R.id.reinvest_moniker);
+        mReinvestMemo                   = findViewById(R.id.reinvest_memo);
 
-        mErrorCard              = findViewById(R.id.error_Card);
-        mErrorDetails           = findViewById(R.id.error_details);
+        mErrorCard                      = findViewById(R.id.error_Card);
+        mErrorDetails                   = findViewById(R.id.error_details);
 
-        mLoading                = findViewById(R.id.loading_layer);
+        mLoading                        = findViewById(R.id.loading_layer);
+
+        mDenomSendAmount                = findViewById(R.id.send_amount_title);
+        mDenomSendFee                   = findViewById(R.id.send_fee_title);
+        mDenomDelegateAmount            = findViewById(R.id.delegate_amount_title);
+        mDenomDelegateFee               = findViewById(R.id.delegate_fee_title);
+        mDenomRedelegateAmount          = findViewById(R.id.redelegate_amount_title);
+        mDenomRedelegateFee             = findViewById(R.id.redelegate_fee_title);
+        mDenomUndelegateAmount          = findViewById(R.id.undelegate_amount_title);
+        mDenomUndelegateFee             = findViewById(R.id.undelegate_fee_title);
+        mDenomRewardFee                 = findViewById(R.id.reward_fees_title);
+        mDenomAddressChangeFee          = findViewById(R.id.reward_address_change_fee_title);
+        mDenomReinvestAmount            = findViewById(R.id.reinvest_amount_title);
+        mDenomReinvestFee               = findViewById(R.id.reinvest_fee_title);
 
         mToolbarClose.setOnClickListener(this);
         mBtnDismiss.setOnClickListener(this);
@@ -173,9 +192,17 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         WLog.w("mIsSuccess : " + mIsSuccess);
         WLog.w("mErrorCode : " + mErrorCode);
 
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+
+        }
+
 
         if(TextUtils.isEmpty(mTxHash)) {
-            WLog.w("Empty TXHash error");
+            WLog.w("Empty hash error");
             onBackPressed();
             return;
         }
@@ -195,13 +222,25 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mToolbarTitle.setText(getString(R.string.str_tx_failed));
         }
 
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomSendAmount);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomSendFee);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomDelegateAmount);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomDelegateFee);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomRedelegateAmount);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomRedelegateFee);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomUndelegateAmount);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomUndelegateFee);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomRewardFee);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomAddressChangeFee);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomReinvestAmount);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomReinvestFee);
+
     }
 
     @Override
     public void onBackPressed() {
         onStartMainActivity();
     }
-
 
     private void onUpdateView() {
         WLog.w("onUpdateTx");
@@ -212,27 +251,52 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mSendLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_send);
-            mTvTxHash.setText(mResTxInfo.txhash);
-            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
-            mTxBlockHeight.setText(mResTxInfo.height);
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.txhash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
 
-            for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.getCoins()) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                    mSendAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.getCoins()) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                        mSendAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
                 }
-            }
 
-            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                    mSendAtomFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                        mSendAtomFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
                 }
+
+                mRecipientAddress.setText(mResTxInfo.tx.value.msg.get(0).value.to_address);
+                mSendMemo.setText(mResTxInfo.tx.value.memo);
+
+                mBtnDismiss.setVisibility(View.GONE);
+                mBottomAfterLayer.setVisibility(View.VISIBLE);
+
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.hash);
+                mTxTime.setText("-");
+                mTxBlockHeight.setText(mResTxInfo.height);
+
+                for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.inputs.get(0).coins) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                        mSendAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                        mSendAtomFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+
+                mRecipientAddress.setText(mResTxInfo.tx.value.msg.get(0).value.outputs.get(0).address);
+                mSendMemo.setText(mResTxInfo.tx.value.memo);
+
+                mBtnDismiss.setVisibility(View.GONE);
+                mBottomAfterLayer.setVisibility(View.VISIBLE);
             }
-
-            mRecipientAddress.setText(mResTxInfo.tx.value.msg.get(0).value.to_address);
-            mSendMemo.setText(mResTxInfo.tx.value.memo);
-
-            mBtnDismiss.setVisibility(View.GONE);
-            mBottomAfterLayer.setVisibility(View.VISIBLE);
 
 
         } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE && mResTxInfo != null){
@@ -393,38 +457,77 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     private int FetchCnt = 0;
     private void onFetchTx(String hash) {
-        ApiClient.getCosmosChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
-            @Override
-            public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                if(isFinishing()) return;
-                WLog.w("onFetchTx " + response.toString());
-                if(response.isSuccessful() && response.body() != null) {
-                    mResTxInfo = response.body();
-                    onUpdateView();
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            ApiClient.getCosmosChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
+                @Override
+                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
+                    if(isFinishing()) return;
+                    WLog.w("onFetchTx " + response.toString());
+                    if(response.isSuccessful() && response.body() != null) {
+                        mResTxInfo = response.body();
+                        onUpdateView();
 
-                } else {
-                    if(mIsSuccess && FetchCnt < 10) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                FetchCnt++;
-                                onFetchTx(mTxHash);
-                            }
-                        }, 6000);
                     } else {
-                        onShowMoreWait();
+                        if(mIsSuccess && FetchCnt < 10) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FetchCnt++;
+                                    onFetchTx(mTxHash);
+                                }
+                            }, 6000);
+                        } else {
+                            onShowMoreWait();
+                        }
+
                     }
-
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                WLog.w("onFailure " + t.getMessage());
-                t.printStackTrace();
-                if(isFinishing()) return;
-            }
-        });
+                @Override
+                public void onFailure(Call<ResTxInfo> call, Throwable t) {
+                    WLog.w("onFailure " + t.getMessage());
+                    t.printStackTrace();
+                    if(isFinishing()) return;
+                }
+            });
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            ApiClient.getIrisChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
+                @Override
+                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
+                    if(isFinishing()) return;
+                    WLog.w("onFetchTx " + response.toString());
+                    if(response.isSuccessful() && response.body() != null) {
+                        mResTxInfo = response.body();
+                        onUpdateView();
+
+                    } else {
+                        if(mIsSuccess && FetchCnt < 10) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FetchCnt++;
+                                    onFetchTx(mTxHash);
+                                }
+                            }, 6000);
+                        } else {
+                            onShowMoreWait();
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResTxInfo> call, Throwable t) {
+                    WLog.w("onFailure " + t.getMessage());
+                    t.printStackTrace();
+                    if(isFinishing()) return;
+                }
+            });
+        }
+
+
+
     }
 
     @Override

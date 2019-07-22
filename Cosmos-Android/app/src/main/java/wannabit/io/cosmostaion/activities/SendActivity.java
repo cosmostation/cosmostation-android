@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -31,6 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class SendActivity extends BaseActivity {
 
+    private ImageView               mChainBg;
     private Toolbar                 mToolbar;
     private TextView                mTitle;
     private ImageView               mIvStep;
@@ -49,6 +51,7 @@ public class SendActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        mChainBg            = findViewById(R.id.chain_bg);
         mToolbar            = findViewById(R.id.tool_bar);
         mTitle              = findViewById(R.id.toolbar_title);
         mIvStep             = findViewById(R.id.send_step);
@@ -105,6 +108,13 @@ public class SendActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if(mAccount == null) finish();
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+
+        }
     }
 
     @Override

@@ -75,13 +75,6 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
 
-        if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mVoteAdapter = new VoteAdapter();
-            mRecyclerView.setAdapter(mVoteAdapter);
-        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mIrisVoteAdapter = new IrisVoteAdapter();
-            mRecyclerView.setAdapter(mIrisVoteAdapter);
-        }
         onFetchProposals();
         return rootView;
     }
@@ -110,13 +103,17 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
 
     private void onFetchProposals() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
+
         if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mVoteAdapter = new VoteAdapter();
+            mRecyclerView.setAdapter(mVoteAdapter);
             new ProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mIrisVoteAdapter = new IrisVoteAdapter();
+            mRecyclerView.setAdapter(mIrisVoteAdapter);
             new IrisProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
-
 
     }
 

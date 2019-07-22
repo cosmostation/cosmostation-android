@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
+import wannabit.io.cosmostaion.model.StdTx;
+
 public class BaseConstant {
     public final static boolean                 IS_SHOWLOG                                      = true;
     public final static boolean                 IS_TEST                                         = false;
@@ -93,6 +95,9 @@ public class BaseConstant {
 
 
 
+
+    public final static String                  COSMOS_BANK_TYPE_STDTX                          = "irishub/bank/StdTx";
+
     public final static String                  IRIS_BANK_TYPE_ACCOUNT                          = "irishub/bank/Account";
 
     public final static String                  IRIS_MSG_TYPE_TRANSFER                          = "irishub/bank/Send";
@@ -181,6 +186,10 @@ public class BaseConstant {
     public final static String                  FEE_GAS_AMOUNT_REDELEGATE                       = "240000";
     public final static String                  FEE_GAS_AMOUNT_REINVEST                         = "220000";
 
+
+    public final static String                  FEE_IRIS_GAS_RATE_AVERAGE                       = "0.000008";
+
+    public final static String                  FEE_IRIS_GAS_AMOUNT_AVERAGE                     = "50000";
 
 
     public final static int                  CMC_ATOM                                           = 3794;

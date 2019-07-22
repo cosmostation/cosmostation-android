@@ -17,7 +17,8 @@
         android:layout_height="@dimen/space_20"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/key_on"/>
+        android:src="@drawable/key_on"
+        android:visibility="gone"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

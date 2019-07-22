@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
+        android:id="@+id/chain_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_01"/>
+        android:src="@drawable/bg_cosmos"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -251,7 +252,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
-                                        android:id="@+id/send_atom_title"
+                                        android:id="@+id/send_amount_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -282,6 +283,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
+                                        android:id="@+id/send_fee_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -345,13 +347,13 @@
                                     android:orientation="horizontal"
                                     android:gravity="center">
                                     <TextView
-                                        android:id="@+id/delegate_atom"
+                                        android:id="@+id/delegate_amount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
-                                        android:id="@+id/delegate_atom_title"
+                                        android:id="@+id/delegate_amount_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -382,6 +384,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
+                                        android:id="@+id/delegate_fee_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -447,7 +450,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
-                                        android:id="@+id/redelegate_atom_title"
+                                        android:id="@+id/redelegate_amount_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -478,6 +481,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
+                                        android:id="@+id/redelegate_fee_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -556,7 +560,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
-                                        android:id="@+id/undelegate_atom_title"
+                                        android:id="@+id/undelegate_amount_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -587,7 +591,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
-                                        android:id="@+id/undelegate_fees_type"
+                                        android:id="@+id/undelegate_fee_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -669,7 +673,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
-                                        android:id="@+id/reward_fees_type"
+                                        android:id="@+id/reward_fees_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -736,7 +740,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
-                                        android:id="@+id/reward_address_change_fees_type"
+                                        android:id="@+id/reward_address_change_fee_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -802,6 +806,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
+                                        android:id="@+id/reinvest_amount_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
@@ -832,6 +837,7 @@
                                         android:text="-"
                                         style="@style/font_ssl_12_white"/>
                                     <TextView
+                                        android:id="@+id/reinvest_fee_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"

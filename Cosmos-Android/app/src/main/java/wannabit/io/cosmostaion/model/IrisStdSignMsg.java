@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 
-public class StdSignMsg {
+public class IrisStdSignMsg {
 
     @SerializedName("chain_id")
     public String chain_id;
@@ -26,12 +26,12 @@ public class StdSignMsg {
     public Fee fee;
 
     @SerializedName("msgs")
-    public ArrayList<Msg> msgs;
+    public ArrayList<Msg.Value> msgs;
 
     @SerializedName("memo")
     public String memo;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
     public byte[] getToSignByte() {
         Gson Presenter = new GsonBuilder().disableHtmlEscaping().create();
         return Presenter.toJson(this).getBytes(Charset.forName("UTF-8"));

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +33,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
+    private ImageView       bgImg, bgImgGr;
     private ShimmerTextView logoTitle;
     private LinearLayout    bottomLayer1, bottomLayer2, bottomDetail, btnImportMnemonic, btnWatchAddress;
     private Button          mCreate, mImport;
@@ -41,6 +43,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+        bgImg               = findViewById(R.id.intro_bg);
+        bgImgGr             = findViewById(R.id.intro_bg_gr);
         logoTitle           = findViewById(R.id.logo_title);
         bottomLayer1        = findViewById(R.id.bottom_layer1);
         bottomLayer2        = findViewById(R.id.bottom_layer2);
@@ -107,10 +111,17 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                     }
                 }
             }
-        }, 1500);
+        }, 2500);
     }
 
     private void onInitView(){
+//        onChangeImageWithFadeInAndOut(this, bgImg, R.drawable.bg_intro_gr);
+
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in5 );
+        Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out5 );
+        bgImgGr.startAnimation(fadeInAnimation);
+        bgImg.startAnimation(fadeOutAnimation);
+
         final Animation mFadeInAni = AnimationUtils.loadAnimation(this, R.anim.fade_in2);
         Animation mFadeOutAni = AnimationUtils.loadAnimation(this, R.anim.fade_out2);
         mFadeOutAni.setAnimationListener(new Animation.AnimationListener() {
@@ -128,12 +139,12 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         bottomLayer1.startAnimation(mFadeOutAni);
 
 
-        logoTitle.setVisibility(View.VISIBLE);
-        Shimmer shimmer = new Shimmer();
-        shimmer.setDuration(1500)
-                .setStartDelay(600)
-                .setDirection(Shimmer.ANIMATION_DIRECTION_LTR);
-        shimmer.start(logoTitle);
+//        logoTitle.setVisibility(View.VISIBLE);
+//        Shimmer shimmer = new Shimmer();
+//        shimmer.setDuration(1500)
+//                .setStartDelay(600)
+//                .setDirection(Shimmer.ANIMATION_DIRECTION_LTR);
+//        shimmer.start(logoTitle);
     }
 
     @Override
@@ -156,6 +167,30 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         } else if (v.equals(btnWatchAddress)) {
             startActivity(new Intent(IntroActivity.this, WatchingAccountAddActivity.class));
         }
+
+    }
+
+
+    private void onChangeImageWithFadeInAndOut( Context context, final ImageView imageView, final int resID ){
+
+        final Animation fadeInAnimation = AnimationUtils.loadAnimation( context, R.anim.fade_in );
+        Animation fadeOutAnimation = AnimationUtils.loadAnimation( context, R.anim.fade_out );
+        fadeOutAnimation.setAnimationListener( new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) { }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) { }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                imageView.setImageResource( resID );
+                imageView.startAnimation( fadeInAnimation );
+            }
+        });
+
+        imageView.startAnimation( fadeOutAnimation );
 
     }
 

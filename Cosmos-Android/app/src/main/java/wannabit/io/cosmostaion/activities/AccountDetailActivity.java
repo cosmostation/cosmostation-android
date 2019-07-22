@@ -179,6 +179,12 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mAccountName.setText(mAccount.nickName);
         }
 
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
+        }
+
         mAccountAddress.setText(mAccount.address);
         mAccountGenTime.setText(WDp.getDpTime(getBaseContext(), mAccount.importTime));
         mAccountChain.setText(mAccount.baseChain);

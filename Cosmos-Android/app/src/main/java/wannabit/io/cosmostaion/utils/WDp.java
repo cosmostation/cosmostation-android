@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -541,6 +542,10 @@ public class WDp {
         return atom.multiply(new BigDecimal("1000000"));
     }
 
+    public static BigDecimal attoToIris(BigDecimal atto) {
+        return atto.divide(new BigDecimal("1000000000000000000"), 18, RoundingMode.DOWN);
+    }
+
 
 
 
@@ -894,6 +899,17 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorAtom);
         } else {
             return c.getResources().getColorStateList(R.color.colorIris);
+        }
+    }
+
+    public static void DpMainDenom(Context c, String chain, TextView textview) {
+        if (chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorAtom));
+            textview.setText(c.getString(R.string.s_atom));
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorIris));
+            textview.setText(c.getString(R.string.s_iris));
         }
     }
 }
