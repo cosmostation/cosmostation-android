@@ -47,7 +47,10 @@ import wannabit.io.cosmostaion.network.req.ReqTxVal;
 import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
+import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleAllRedelegateState;
@@ -66,34 +69,39 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
 
-    private Toolbar                     mToolbar;
-    private TextView                    mToolbarNickName;
-    private TextView                    mToolbarAddress;
-    private SwipeRefreshLayout          mSwipeRefreshLayout;
-    private RecyclerView                mRecyclerView;
+    private ImageView                       mChainBg;
+    private Toolbar                         mToolbar;
+    private TextView                        mToolbarNickName;
+    private TextView                        mToolbarAddress;
+    private SwipeRefreshLayout              mSwipeRefreshLayout;
+    private RecyclerView                    mRecyclerView;
 
-    private ValidatorAdapter            mValidatorAdapter;
+    private ValidatorAdapter                mValidatorAdapter;
 
-    private Account                     mAccount;
-    private Validator                   mValidator;
-    private BondingState                mBondingState;
-    private ArrayList<UnBondingState>   mUnBondingStates;
-    private Reward                      mReward;
+    private Account                         mAccount;
+    private Validator                       mValidator;
+    private BondingState                    mBondingState;
+    private ArrayList<UnBondingState>       mUnBondingStates;
+    private Reward                          mReward;
     private ArrayList<ResHistory.InnerHits> mTx = new ArrayList<>();
 
-    private SpannableString             mSelfBondingRate;
+    private SpannableString                 mSelfBondingRate;
 
-    private int                         mTaskCount;
-    private TaskResult                  mRedelegateResultThisVal;
+    private int                             mTaskCount;
+    private TaskResult                      mRedelegateResultThisVal;
 
 
-    public BigDecimal                   mBondedToken = BigDecimal.ZERO;
-    public BigDecimal                   mProvisions = BigDecimal.ZERO;
+    public BigDecimal                       mBondedToken = BigDecimal.ZERO;
+    public BigDecimal                       mProvisions = BigDecimal.ZERO;
+
+    public ResLcdIrisReward                 mIrisReward;
+    public ResLcdIrisPool                   mIrisPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator);
+        mChainBg                    = findViewById(R.id.chain_bg);
         mToolbar                    = findViewById(R.id.tool_bar);
         mToolbarNickName            = findViewById(R.id.toolbar_nickName);
         mToolbarAddress             = findViewById(R.id.toolbar_Address);
@@ -102,6 +110,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         mBondedToken = new BigDecimal(getIntent().getStringExtra("bondedToken"));
         mProvisions = new BigDecimal(getIntent().getStringExtra("provisions"));
+
+        if(getIntent().getParcelableExtra("irispool") != null) {
+            mIrisPool = getIntent().getParcelableExtra("irispool");
+        }
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -125,6 +137,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mValidator      = getIntent().getParcelableExtra("validator");
+
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+        }
+
         if(mAccount == null) {
             onBackPressed();
         }
@@ -164,16 +183,29 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onInitFetch() {
         if(mTaskCount > 0) return;
-        mTaskCount = 5;
-        new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        if(mBondingState != null) {
-            mTaskCount = mTaskCount + 1;
-            new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mTaskCount = 5;
+            new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            if(mBondingState != null) {
+                mTaskCount = mTaskCount + 1;
+                new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mTaskCount = 5;
+            new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
+
+
     }
 
     private void onCheckDelegate() {
@@ -420,14 +452,24 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
     private void onFetchValHistory() {
-        mTaskCount++;
-        ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
-//        WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
-        new ValHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mTaskCount++;
+            ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
+//            WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
+            new ValHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            ReqTxVal req = new ReqTxVal(0, 1, true, mAccount.address, mValidator.operator_address);
+//            WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
+            new ValHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        }
+
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
+//        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
         mTaskCount--;
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_VALIDATOR) {
@@ -437,8 +479,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_BONDING) {
-            mBondingState   = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
-            if(mBondingState != null && mValidator != null) {
+            mBondingState = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
+            if(mBondingState != null && mValidator != null && mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                 mTaskCount = mTaskCount + 1;
                 new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
@@ -451,17 +493,20 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if(temp != null)
                 mSelfBondingRate = WDp.getSelfBondRate(mValidator.tokens, temp.shares);
 
-
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
-            mReward         = (Reward)result.resultData;
+            mReward = (Reward)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_VAL_HISTORY) {
+            WLog.w("TASK_FETCH_VAL_HISTORY");
             ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
             if(hits != null && hits.size() > 0) {
                 mTx = hits;
             }
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REDELEGATE) {
             mRedelegateResultThisVal = result;
+
+        } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
+            mIrisReward = (ResLcdIrisReward)result.resultData;
 
         }
 
@@ -505,12 +550,20 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 final ValidatorHolder holder = (ValidatorHolder)viewHolder;
                 holder.itemTvMoniker.setText(mValidator.description.moniker);
                 holder.itemTvAddress.setText(mValidator.operator_address);
-                if(!TextUtils.isEmpty(mValidator.description.website)) holder.itemTvWebsite.setText(mValidator.description.website);
-                else holder.itemTvWebsite.setVisibility(View.GONE);
-                if(!TextUtils.isEmpty(mValidator.description.details)) holder.itemTvDescription.setText(mValidator.description.details);
-                else holder.itemTvDescription.setVisibility(View.GONE);
-
                 holder.itemImgFree.setVisibility(View.GONE);
+                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
+
+                if (!TextUtils.isEmpty(mValidator.description.website)) {
+                    holder.itemTvWebsite.setText(mValidator.description.website);
+                } else {
+                    holder.itemTvWebsite.setVisibility(View.GONE);
+                }
+
+                if (!TextUtils.isEmpty(mValidator.description.details)) {
+                    holder.itemTvDescription.setText(mValidator.description.details);
+                } else {
+                    holder.itemTvDescription.setVisibility(View.GONE);
+                }
 
                 if(!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
@@ -531,22 +584,36 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     });
                 }
 
-                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
-                if(mValidator.status == Validator.BONDED) {
-                    if(mBondedToken != null && mProvisions != null) {
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate)));
+                if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
+                    if(mValidator.status == Validator.BONDED) {
+                        if(mBondedToken != null && mProvisions != null) {
+                            holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate)));
+                        }
+                    } else {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                        holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                     }
-                } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+
+                } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens).movePointRight(18), 18, BaseChain.getChain(mAccount.baseChain)));
+                    if(mValidator.status == Validator.BONDED) {
+                        if(mIrisPool != null) {
+                            holder.itemTvYieldRate.setText(WDp.getIrisYieldString(mIrisPool, new BigDecimal(mValidator.commission.rate)));
+                        }
+                    } else {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                        holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                    }
+
                 }
 
-                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
-                if(!TextUtils.isEmpty(mSelfBondingRate)) {
+                if(!TextUtils.isEmpty(mSelfBondingRate)){
                     holder.itemTvSelfBondRate.setText(mSelfBondingRate);
-                } else {
+                } else{
                     holder.itemTvSelfBondRate.setText(WDp.getPercentDp(BigDecimal.ZERO));
                 }
+
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -568,26 +635,33 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 final MyValidatorHolder holder = (MyValidatorHolder)viewHolder;
                 holder.itemTvMoniker.setText(mValidator.description.moniker);
                 holder.itemTvAddress.setText(mValidator.operator_address);
-                if(!TextUtils.isEmpty(mValidator.description.website)) holder.itemTvWebsite.setText(mValidator.description.website);
-                else holder.itemTvWebsite.setVisibility(View.GONE);
-                if(!TextUtils.isEmpty(mValidator.description.details)) holder.itemTvDescription.setText(mValidator.description.details);
-                else holder.itemTvDescription.setVisibility(View.GONE);
-
                 holder.itemImgFree.setVisibility(View.GONE);
+                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
 
+                if (!TextUtils.isEmpty(mValidator.description.website)) {
+                    holder.itemTvWebsite.setText(mValidator.description.website);
+                } else {
+                    holder.itemTvWebsite.setVisibility(View.GONE);
+                }
 
-                if(!TextUtils.isEmpty(mValidator.description.identity)) {
+                if (!TextUtils.isEmpty(mValidator.description.details))  {
+                    holder.itemTvDescription.setText(mValidator.description.details);
+                } else {
+                    holder.itemTvDescription.setVisibility(View.GONE);
+                }
+
+                if (!TextUtils.isEmpty(mValidator.description.identity)) {
                     ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
                         @Override
                         public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
-                            if(!isFinishing()) {
+                            if (!isFinishing()) {
                                 try {
                                     Picasso.get()
                                             .load(response.body().getUrl())
                                             .fit()
                                             .placeholder(R.drawable.validator_none_img)
                                             .into(holder.itemAvatar);
-                                }catch (Exception e){}
+                                } catch (Exception e){}
 
                             }
                         }
@@ -596,23 +670,39 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     });
                 }
 
-                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
-                if(mValidator.status == Validator.BONDED) {
-                    if(mBondedToken != null && mProvisions != null) {
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate)));
+                if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                    holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
+                    if(mValidator.status == Validator.BONDED) {
+                        if(mBondedToken != null && mProvisions != null) {
+                            holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate)));
+                        }
+                    } else {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                        holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                     }
-                } else {
-                    holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+
+                } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                    holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens).movePointRight(18), 18, BaseChain.getChain(mAccount.baseChain)));
+                    if(mValidator.status == Validator.BONDED) {
+                        if(mIrisPool != null) {
+                            holder.itemTvYieldRate.setText(WDp.getIrisYieldString(mIrisPool, new BigDecimal(mValidator.commission.rate)));
+                        }
+                    } else {
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                        holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                    }
+
                 }
-                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
-                if(!TextUtils.isEmpty(mSelfBondingRate)){
+
+                if (!TextUtils.isEmpty(mSelfBondingRate)){
                     holder.itemTvSelfBondRate.setText(mSelfBondingRate);
                 } else{
                     holder.itemTvSelfBondRate.setText(WDp.getPercentDp(BigDecimal.ZERO));
                 }
 
-                if(mValidator.jailed) {
+                if (mValidator.jailed) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
                     holder.itemImgRevoked.setVisibility(View.VISIBLE);
                 } else {
@@ -622,24 +712,30 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             } else if (getItemViewType(position) == TYPE_ACTION) {
                 final MyActionHolder holder = (MyActionHolder)viewHolder;
-                holder.itemAtomTitle.setText(WDp.DpAtom(getBaseContext()));
-                holder.itemPhotonTitle.setText(WDp.DpPoton(getBaseContext()));
-                if(mValidator.status == Validator.BONDED) {
+                if (mValidator.status == Validator.BONDED) {
                     if (mBondingState != null && mBondingState.getBondingAtom(mValidator) != null) {
-                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
-                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
-                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
+                        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                            holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
+                            holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
+                            holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
 
+                        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                            holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 18, BaseChain.getChain(mAccount.baseChain)));
+                            holder.itemDailyReturn.setText(WDp.getIrisDailyReturn(getBaseContext(), mIrisPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
+                            holder.itemMonthlyReturn.setText(WDp.getIrisMonthlyReturn(getBaseContext(), mIrisPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAtom(mValidator)));
+
+                        }
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                         holder.itemDailyReturn.setText("-");
                         holder.itemMonthlyReturn.setText("-");
                     }
+
                 } else {
                     if (mBondingState != null && mBondingState.getBondingAtom(mValidator) != null) {
-                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
+                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAtom(mValidator), 18, BaseChain.getChain(mAccount.baseChain)));
                     } else {
-                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 18, BaseChain.getChain(mAccount.baseChain)));
                     }
                     holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
                     holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
@@ -648,35 +744,47 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
                 }
 
-
-                if(mUnBondingStates != null && mUnBondingStates.size() > 0 ) {
+                if (mUnBondingStates != null && mUnBondingStates.size() > 0 ) {
                     BigDecimal sum = BigDecimal.ZERO;
                     for(UnBondingState unbond:mUnBondingStates) {
                         sum = sum.add(unbond.balance);
                     }
-                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6, BaseChain.getChain(mAccount.baseChain)));
+                    if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                        holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6, BaseChain.getChain(mAccount.baseChain)));
+                    } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                        holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 18, BaseChain.getChain(mAccount.baseChain)));
+                    }
                 } else {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
-                if(mReward != null) {
-                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getAtomAmount(), 6, BaseChain.getChain(mAccount.baseChain)));
-                } else {
-                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
-                }
 
+                if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                    if (mReward != null) {
+                        holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getAtomAmount(), 6, BaseChain.getChain(mAccount.baseChain)));
+                    } else {
+                        holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
+
+                } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                    if (mIrisReward != null && mIrisReward.getPerValReward(mValidator.operator_address) != BigDecimal.ZERO) {
+                        holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mIrisReward.getPerValReward(mValidator.operator_address), 18, BaseChain.getChain(mAccount.baseChain)));
+                    } else {
+                        holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 18, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
 
                 holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         onCheckDelegate();
-
                     }
                 });
                 holder.itemBtnUndelegate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         onStartUndelegate();
-
                     }
                 });
 
@@ -684,7 +792,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         onCheckRedelegate();
-
                     }
                 });
                 holder.itemBtnReward.setOnClickListener(new View.OnClickListener() {
@@ -878,20 +985,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         public class MyValidatorHolder extends RecyclerView.ViewHolder {
-            CircleImageView  itemAvatar;
-            ImageView    itemImgRevoked;
-            ImageView    itemImgFree;
-            TextView    itemTvMoniker;
-            TextView    itemTvAddress;
-            TextView    itemTvWebsite;
-            TextView    itemTvDescription;
-            TextView    itemTvTotalBondAmount;
-            TextView    itemTvYieldRate;
-            TextView    itemTvSelfBondRate;
-            TextView    itemTvCommissionRate;
+            CardView            itemRoot;
+            CircleImageView     itemAvatar;
+            ImageView           itemImgRevoked;
+            ImageView           itemImgFree;
+            TextView            itemTvMoniker, itemTvAddress, itemTvWebsite, itemTvDescription, itemTvTotalBondAmount,
+                                itemTvYieldRate, itemTvSelfBondRate, itemTvCommissionRate;
 
             public MyValidatorHolder(View v) {
                 super(v);
+                itemRoot                = itemView.findViewById(R.id.root);
                 itemAvatar              = itemView.findViewById(R.id.validator_avatar);
                 itemImgRevoked          = itemView.findViewById(R.id.avatar_validator_revoke);
                 itemImgFree             = itemView.findViewById(R.id.avatar_validator_free);
@@ -907,14 +1010,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         public class MyActionHolder extends RecyclerView.ViewHolder {
-            TextView    itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvAtomReward, itemTvPhotonReward, itemTvSimpleReward;
-            Button      itemBtnDelegate, itemBtnUndelegate, itemBtnRedelegate, itemBtnReward, itemBtnReinvest ;
-            TextView    itemAtomTitle, itemPhotonTitle;
-            RelativeLayout itemAtomLayer, itemPhotonLayer;
-            TextView    itemDailyReturn, itemMonthlyReturn;
+            CardView            itemRoot;
+            TextView            itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvAtomReward, itemTvPhotonReward, itemTvSimpleReward;
+            Button              itemBtnDelegate, itemBtnUndelegate, itemBtnRedelegate, itemBtnReward, itemBtnReinvest ;
+            TextView            itemAtomTitle, itemPhotonTitle;
+            RelativeLayout      itemAtomLayer, itemPhotonLayer;
+            TextView            itemDailyReturn, itemMonthlyReturn;
 
             public MyActionHolder(View v) {
                 super(v);
+                itemRoot                = itemView.findViewById(R.id.root);
                 itemTvDelegatedAmount   = itemView.findViewById(R.id.validator_delegated);
                 itemTvUnbondingAmount   = itemView.findViewById(R.id.validator_unbonding);
                 itemTvAtomReward        = itemView.findViewById(R.id.validator_atom_reward);
@@ -940,7 +1045,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 super(v);
             }
         }
-
 
         public class HistoryHolder extends RecyclerView.ViewHolder {
             private CardView historyRoot;

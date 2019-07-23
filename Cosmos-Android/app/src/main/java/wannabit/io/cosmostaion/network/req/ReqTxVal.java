@@ -31,9 +31,6 @@ public class ReqTxVal {
         @SerializedName("must")
         public ArrayList<MUST> must;
 
-        @SerializedName("filter")
-        public Filter filter;
-
     }
 
     public static class MUST {
@@ -49,37 +46,6 @@ public class ReqTxVal {
         @SerializedName("fields")
         public ArrayList<String> fields;
     }
-
-
-    public static class Filter {
-        @SerializedName("bool")
-        public Bool bool;
-    }
-
-    public static class Bool {
-        @SerializedName("should")
-        public ArrayList<Should> should;
-    }
-
-    public static class Should {
-        @SerializedName("term")
-        public Term term;
-    }
-
-    public static class Term {
-        @SerializedName("tx.value.msg.value.validator_addr")
-        public String validator_addr;
-
-        @SerializedName("tx.value.msg.value.validator_src_address")
-        public String validator_src_address;
-
-        @SerializedName("tx.value.msg.value.validator_dst_address")
-        public String validator_dst_address;
-
-        @SerializedName("tx.value.msg.value.validator_address")
-        public String validator_address;
-    }
-
 
     public static class Sort {
         @SerializedName("height")
@@ -112,56 +78,40 @@ public class ReqTxVal {
 
         ArrayList<MUST> musts = new ArrayList<>();
 
-        MultiMatch multiMatch = new MultiMatch();
-        multiMatch.query = address;
-        ArrayList<String> fields = new ArrayList<>();
-        if(searchType == 0) {
-            fields.add(delegator_addr);
-            fields.add(delegator_address);
-            fields.add(validator_src_address);
-            fields.add(validator_dst_address);
+        MultiMatch multiMatch1 = new MultiMatch();
+        multiMatch1.query = address;
+        ArrayList<String> fields1 = new ArrayList<>();
+        fields1.add(delegator_addr);
+        fields1.add(delegator_address);
+        multiMatch1.fields = fields1;
+
+
+        MultiMatch multiMatch2 = new MultiMatch();
+        multiMatch2.query = opAddress;
+        ArrayList<String> fields2 = new ArrayList<>();
+        if (searchType == 0) {
+            fields2.add(validator_address);
+            fields2.add(validator_dst_address);
+            fields2.add(validator_src_address);
+        } else if (searchType == 1) {
+            fields2.add(validator_addr);
+            fields2.add(validator_address);
+            fields2.add(validator_op_addr);
+            fields2.add(validator_dst_add);
+            fields2.add(validator_src_add);
         }
-        multiMatch.fields = fields;
+        multiMatch2.fields = fields2;
 
-        MUST must = new MUST();
-        must.multi_match = multiMatch;
-        musts.add(must);
+        MUST must1 = new MUST();
+        must1.multi_match = multiMatch1;
+
+        MUST must2 = new MUST();
+        must2.multi_match = multiMatch2;
+
+
+        musts.add(must1);
+        musts.add(must2);
         bool2.must = musts;
-
-
-        Should should1 = new Should();
-        Should should2 = new Should();
-        Should should3 = new Should();
-        Should should4 = new Should();
-
-        Term term1 = new Term();
-        term1.validator_addr = opAddress;
-        Term term2 = new Term();
-        term2.validator_src_address = opAddress;
-        Term term3 = new Term();
-        term3.validator_address = opAddress;
-        Term term4 = new Term();
-        term4.validator_dst_address = opAddress;
-
-        should1.term = term1;
-        should2.term = term2;
-        should3.term = term3;
-        should4.term = term4;
-
-        ArrayList<Should> shoulds = new ArrayList<>();
-        shoulds.add(should1);
-        shoulds.add(should2);
-        shoulds.add(should3);
-        shoulds.add(should4);
-
-        Bool bool = new Bool();
-        bool.should = shoulds;
-
-        Filter filter = new Filter();
-        filter.bool = bool;
-
-        bool2.filter = filter;
-
         query.bool = bool2;
 
         this.query = query;
@@ -171,6 +121,13 @@ public class ReqTxVal {
 
     public static final String delegator_addr = "tx.value.msg.value.delegator_addr";
     public static final String delegator_address = "tx.value.msg.value.delegator_address";
+
+    public static final String validator_address = "tx.value.msg.value.validator_address";
     public static final String validator_dst_address = "tx.value.msg.value.validator_dst_address";
     public static final String validator_src_address = "tx.value.msg.value.validator_src_address";
+
+    public static final String validator_addr = "tx.value.msg.value.validator_addr";
+    public static final String validator_op_addr = "tx.value.msg.value.val_operator_addr";
+    public static final String validator_dst_add = "tx.value.msg.value.validator_dst_addr";
+    public static final String validator_src_add = "tx.value.msg.value.validator_src_addr";
 }

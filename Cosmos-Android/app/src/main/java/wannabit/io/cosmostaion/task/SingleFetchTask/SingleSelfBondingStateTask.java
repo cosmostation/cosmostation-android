@@ -28,12 +28,22 @@ public class SingleSelfBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResLcdBondings> response = ApiClient.getCosmosChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-            if(response.isSuccessful() && response.body() != null) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
-            }
+            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+                Response<ResLcdBondings> response = ApiClient.getCosmosChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
 
+            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                WLog.w("mDelegateAddr " +mDelegateAddr);
+                WLog.w("mValidatorAddr " +mValidatorAddr);
+                Response<ResLcdBondings> response = ApiClient.getIrisChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+            }
 
         } catch (Exception e) {
             WLog.w("SingleBondingStateTask Error " + e.getMessage());

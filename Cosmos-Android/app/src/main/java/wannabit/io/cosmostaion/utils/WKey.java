@@ -234,8 +234,15 @@ public class WKey {
         return bech32Encode("cosmosvaloper".getBytes(), bech32Decode(dpAddress).data);
     }
 
-    public static String convertDpOpAddressToDpAddress(String dpOpAddress) {
-        return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
+    public static String convertDpOpAddressToDpAddress(String dpOpAddress, BaseChain chain) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            return bech32Encode("iaa".getBytes(), bech32Decode(dpOpAddress).data);
+        } else {
+            return "";
+        }
+
     }
 
     public static String getDpAddressFromEntropy(byte[] entropy){

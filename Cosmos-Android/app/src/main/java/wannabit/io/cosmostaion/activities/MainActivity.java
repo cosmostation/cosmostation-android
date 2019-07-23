@@ -321,6 +321,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         intent.putExtra("validator", validator);
         intent.putExtra("bondedToken", mBondedToken.toPlainString());
         intent.putExtra("provisions", mProvisions.toPlainString());
+        intent.putExtra("irispool", mIrisPool);
         startActivity(intent);
     }
 

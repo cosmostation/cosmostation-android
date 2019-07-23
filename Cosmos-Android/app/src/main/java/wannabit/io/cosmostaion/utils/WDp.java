@@ -47,7 +47,7 @@ public class WDp {
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-            amount = amount.divide(new BigDecimal("1000000000000000000"), 6, BigDecimal.ROUND_DOWN);
+            amount = amount.divide(new BigDecimal("1000000000000000000"), 18, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -187,6 +187,30 @@ public class WDp {
         return result;
     }
 
+    public static SpannableString getIrisDailyReturn(Context c, ResLcdIrisPool pool, BigDecimal commission, BigDecimal delegated) {
+        BigDecimal value = BigDecimal.ZERO;
+        try {
+            value = pool.geTotal().multiply(new BigDecimal(0.04)).multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(pool.getBonded().multiply(new BigDecimal("365000000000000000000")), 18, RoundingMode.HALF_UP);
+
+        }catch (Exception e) {}
+
+        SpannableString result;
+        result = new SpannableString(getDecimalFormat(c, 18).format(value));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 18, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+    }
+
+    public static SpannableString getIrisMonthlyReturn(Context c, ResLcdIrisPool pool, BigDecimal commission, BigDecimal delegated) {
+        BigDecimal value = BigDecimal.ZERO;
+        try {
+            value = pool.geTotal().multiply(new BigDecimal(0.04)).multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(pool.getBonded().multiply(new BigDecimal("12000000000000000000")), 18, RoundingMode.HALF_UP);
+
+        }catch (Exception e) {}
+        SpannableString result;
+        result = new SpannableString(getDecimalFormat(c, 18).format(value));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 18, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+    }
 
     public static SpannableString getDpBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
@@ -842,7 +866,7 @@ public class WDp {
             long differenceDays = difference / (24 * 60 * 60 * 1000);
 
             if(differenceDays > 1) {
-                result = ""+differenceDays+c.getString(R.string.str_day);
+                result = ""+differenceDays+ " " + c.getString(R.string.str_day);
             } else if (differenceDays == 1){
                 result = ""+differenceDays + c.getString(R.string.str_d) + " " + differenceHours + c.getString(R.string.str_h);
             } else {

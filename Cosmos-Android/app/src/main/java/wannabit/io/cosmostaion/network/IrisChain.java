@@ -55,4 +55,14 @@ public interface IrisChain {
 
     @GET("/gov/proposals")
     Call<ArrayList<IrisProposal>> getProposalList();
+
+    //Validator details
+    @GET("/stake/validators/{validatorAddr}")
+    Call<Validator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
+
+    @GET("/stake/delegators/{address}/delegations/{validatorAddr}")
+    Call<ResLcdBondings> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+    @GET("/stake/delegators/{address}/unbonding-delegations/{validatorAddr}")
+    Call<ResLcdUnBondings> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 }

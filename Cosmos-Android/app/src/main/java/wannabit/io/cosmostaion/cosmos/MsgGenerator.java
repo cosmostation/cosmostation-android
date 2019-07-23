@@ -208,16 +208,11 @@ public class MsgGenerator {
         result.chain_id = chainId;
         result.account_number = accountNumber;
         result.sequence = SequenceNumber;
-//        ArrayList<Msg.Value> tempMsgs = new ArrayList<>();
-//        for (Msg msg:msgs) {
-//            tempMsgs.add(msg.value);
-//        }
-//        result.msgs = tempMsgs;
-
         ArrayList<Msg.Value> tempMsgs = new ArrayList<>();
-        tempMsgs.add(msgs.get(0).value);
+        for (Msg msg:msgs) {
+            tempMsgs.add(msg.value);
+        }
         result.msgs = tempMsgs;
-
         result.fee = fee;
         result.memo = memo;
 
@@ -247,7 +242,6 @@ public class MsgGenerator {
                     memo);
 
             signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-//            signatureTx = MsgGenerator.getSignature(key, WKey.getStdSignMsgToSignByte(tosign));
 
         } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain()))  {
             IrisStdSignMsg tosign = genIrisToSignMsg(
@@ -258,9 +252,8 @@ public class MsgGenerator {
                     fee,
                     memo);
             signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-//            signatureTx = MsgGenerator.getSignature(key, WKey.getIrisStdSignMsgToSignByte(tosign));
         }
-        WLog.w("signatureTx " + signatureTx);
+//        WLog.w("signatureTx " + signatureTx);
 
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();

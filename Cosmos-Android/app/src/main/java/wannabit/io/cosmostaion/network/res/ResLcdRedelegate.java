@@ -24,7 +24,6 @@ public class ResLcdRedelegate {
         @SerializedName("creation_height")
         public String creation_height;
 
-
         @SerializedName("completion_time")
         public String completion_time;
 

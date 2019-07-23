@@ -130,6 +130,14 @@ public class ValidatorMyFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
             if (getItemViewType(position) == TYPE_PROMOTION) {
+                RewardPromotionHolder holder = (RewardPromotionHolder)viewHolder;
+                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+
+                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                }
+
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
                 final RewardWithdrawHolder holder       = (RewardWithdrawHolder)viewHolder;
@@ -258,7 +266,7 @@ public class ValidatorMyFragment extends BaseFragment {
 
 
         public class RewardMyValidatorHolder extends RecyclerView.ViewHolder {
-            CardView itemRoot;
+            CardView        itemRoot;
             CircleImageView itemAvatar;
             ImageView       itemFree;
             ImageView       itemRevoked;
@@ -281,10 +289,12 @@ public class ValidatorMyFragment extends BaseFragment {
         }
 
         public class RewardPromotionHolder extends RecyclerView.ViewHolder {
+            CardView    itemRoot;
             Button      itemBtnDelegateStart;
 
             public RewardPromotionHolder(@NonNull View itemView) {
                 super(itemView);
+                itemRoot                = itemView.findViewById(R.id.card_validator);
                 itemBtnDelegateStart    = itemView.findViewById(R.id.btn_start_delegate);
             }
         }

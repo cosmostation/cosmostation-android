@@ -19,4 +19,7 @@ public interface CosmosEsService {
 
     @POST("iris/v1/getTxsByAddr")
     Call<ResHistory> getIrisTx(@Body ReqTx data);
+
+    @POST("iris/v1/getTxsByAddr")
+    Call<ResHistory> getIrisValTx(@Body ReqTxVal data);
 }

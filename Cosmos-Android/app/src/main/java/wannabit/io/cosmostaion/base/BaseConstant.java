@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.base;
 
-import wannabit.io.cosmostaion.model.StdTx;
-
 public class BaseConstant {
     public final static boolean                 IS_SHOWLOG                                      = true;
     public final static boolean                 IS_TEST                                         = false;

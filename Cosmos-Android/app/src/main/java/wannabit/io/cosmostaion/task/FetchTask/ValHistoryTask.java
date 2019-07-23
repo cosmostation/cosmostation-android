@@ -27,13 +27,26 @@ public class ValHistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getValTx(mReq).execute();
-            if(response.isSuccessful() && response.body() != null) {
-                mResult.resultData = response.body().hits.hits;
-                mResult.isSuccess = true;
-            } else {
-                WLog.w("ValHistoryTask : NOk");
+            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+                Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getValTx(mReq).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().hits.hits;
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ValHistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getIrisValTx(mReq).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().hits.hits;
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
             }
+
 
         } catch (Exception e) {
             WLog.w("ValHistoryTask Error " + e.getMessage());
