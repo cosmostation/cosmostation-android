@@ -108,7 +108,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             BigDecimal currentAvai  = getSActivity().mAccount.getIrisBalance();
-            WLog.w("currentAvai " + currentAvai);
+//            WLog.w("currentAvai " + currentAvai);
             mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
             mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));

@@ -109,7 +109,6 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
             mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
             mSeekBarGas.getProgressDrawable().setBounds(bounds);
-
             mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

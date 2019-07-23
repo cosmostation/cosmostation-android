@@ -61,17 +61,26 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout) {
+    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            value.delegator_address = fromAddr;
+            value.validator_address = toValAddr;
+            value.amount = toDeleagteAmout;
 
-        value.delegator_address = fromAddr;
-        value.validator_address = toValAddr;
-        value.amount = toDeleagteAmout;
+            result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
+            result.value = value;
 
-        result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
-        result.value = value;
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            value.delegator_addr = fromAddr;
+            value.validator_addr = toValAddr;
+            value.delegation = toDeleagteAmout;
 
+            result.type = BaseConstant.IRIS_MSG_TYPE_DELEGATE;
+            result.value = value;
+
+        }
         return result;
     }
 
@@ -231,28 +240,15 @@ public class MsgGenerator {
     }
 
     public static ReqBroadCast getBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
-        String signatureTx = "";
-        if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain()))  {
-            StdSignMsg tosign = genToSignMsg(
-                    account.baseChain,
-                    ""+account.accountNumber,
-                    ""+account.sequenceNumber,
-                    msgs,
-                    fee,
-                    memo);
+        StdSignMsg tosign = genToSignMsg(
+                account.baseChain,
+                ""+account.accountNumber,
+                ""+account.sequenceNumber,
+                msgs,
+                fee,
+                memo);
 
-            signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-
-        } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain()))  {
-            IrisStdSignMsg tosign = genIrisToSignMsg(
-                    account.baseChain,
-                    ""+account.accountNumber,
-                    ""+account.sequenceNumber,
-                    msgs,
-                    fee,
-                    memo);
-            signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-        }
+        String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
 //        WLog.w("signatureTx " + signatureTx);
 
         Signature signature = new Signature();
@@ -268,11 +264,52 @@ public class MsgGenerator {
         signatures.add(signature);
 
         StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
+//        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+
         ReqBroadCast reqBroadCast = new ReqBroadCast();
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
+//        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+
+
         return reqBroadCast;
     }
 
+
+    public static ReqBroadCast getIrisSendBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
+        IrisStdSignMsg tosign = genIrisToSignMsg(
+                account.baseChain,
+                ""+account.accountNumber,
+                ""+account.sequenceNumber,
+                msgs,
+                fee,
+                memo);
+        String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
+//        WLog.w("Iris Send signatureTx " + signatureTx);
+
+        Signature signature = new Signature();
+        Pub_key pubKey = new Pub_key();
+        pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+        pubKey.value = WKey.getPubKeyValue(key);
+        signature.pub_key = pubKey;
+        signature.signature = signatureTx;
+        signature.account_number = ""+account.accountNumber;
+        signature.sequence = ""+account.sequenceNumber;
+
+        ArrayList<Signature> signatures = new ArrayList<>();
+        signatures.add(signature);
+
+        StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
+//        WLog.w("Iris Send signedTx : " +  WUtil.prettyPrinter(signedTx));
+
+        ReqBroadCast reqBroadCast = new ReqBroadCast();
+        reqBroadCast.returns = "sync";
+        reqBroadCast.tx = signedTx.value;
+
+//        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+
+
+        return reqBroadCast;
+    }
 }

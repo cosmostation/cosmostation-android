@@ -246,7 +246,7 @@
                                     android:orientation="horizontal"
                                     android:gravity="center">
                                     <TextView
-                                        android:id="@+id/send_atom"
+                                        android:id="@+id/send_amount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="-"
@@ -399,7 +399,7 @@
                                 android:text="@string/str_to_delegate_validator"
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
-                                android:id="@+id/to_delegate_moniker"
+                                android:id="@+id/delegate_moniker"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/space_8"
@@ -554,7 +554,7 @@
                                     android:orientation="horizontal"
                                     android:gravity="center">
                                     <TextView
-                                        android:id="@+id/undelegate_atom"
+                                        android:id="@+id/undelegate_amount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="-"

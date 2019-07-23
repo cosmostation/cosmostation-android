@@ -501,6 +501,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_ALL_VALIDATOR) {
+            if (!result.isSuccess) {
+                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
             if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                 if(temp != null) {
@@ -511,7 +515,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 mOtherValidators = WUtil.getIrisOthers(temp);
             }
 
-            if(!result.isSuccess) { Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show(); }
+
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_VALIDATOR ||
                 result.taskType == BaseConstant.TASK_FETCH_UNBONDED_VALIDATOR) {

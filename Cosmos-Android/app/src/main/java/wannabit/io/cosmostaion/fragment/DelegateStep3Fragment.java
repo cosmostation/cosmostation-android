@@ -31,10 +31,10 @@ import wannabit.io.cosmostaion.utils.WLog;
 public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView        mDelegateAmount;
-    private TextView        mFeeAmount, mFeeType;
+    private TextView        mFeeAmount;
     private TextView        mValidatorName, mMemo;
     private Button          mBeforeBtn, mConfirmBtn;
-    private TextView        mDelegateAtomTitle;
+    private TextView        mDenomDelegateAmount, mDenomFeeType;
 
 
     public static DelegateStep3Fragment newInstance(Bundle bundle) {
@@ -52,13 +52,17 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_delegate_step3, container, false);
         mDelegateAmount         = rootView.findViewById(R.id.delegate_atom);
+        mDenomDelegateAmount    = rootView.findViewById(R.id.delegate_amount_title);
         mFeeAmount              = rootView.findViewById(R.id.delegate_fees);
-        mFeeType                = rootView.findViewById(R.id.delegate_fees_type);
+        mDenomFeeType           = rootView.findViewById(R.id.delegate_fees_type);
         mValidatorName          = rootView.findViewById(R.id.to_delegate_moniker);
         mMemo                   = rootView.findViewById(R.id.memo);
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
-        mDelegateAtomTitle      = rootView.findViewById(R.id.delegate_atom_title);
+
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomDelegateAmount);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
+
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -66,11 +70,17 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toDeleagteAtom = new BigDecimal(getSActivity().mToDelegateAmount.amount);
-        BigDecimal feeAtom = new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount);
+        BigDecimal toDeleagteAmount = new BigDecimal(getSActivity().mToDelegateAmount.amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount);
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
-        mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+
+        }
         mValidatorName.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mToDelegateMemo);
     }

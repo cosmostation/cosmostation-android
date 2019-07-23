@@ -35,7 +35,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     private Button      mCancel, mNextBtn;
     private EditText    mAmountInput;
     private TextView    mAvailableAmount;
-    private TextView    mAtomTitle;
+    private TextView    mDenomTitle;
     private ImageView   mClearAll;
     private Button      mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
     private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
@@ -58,7 +58,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
-        mAtomTitle = rootView.findViewById(R.id.tv_symbol_coin);
+        mDenomTitle = rootView.findViewById(R.id.tv_symbol_coin);
         mClearAll = rootView.findViewById(R.id.clearAll);
         mAdd01 = rootView.findViewById(R.id.btn_add_01);
         mAdd1 = rootView.findViewById(R.id.btn_add_1);
@@ -97,32 +97,65 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                     mAmountInput.setText("0");
                     mAmountInput.setSelection(1);
-                } else if(es.equals("0.000000")) {
-                    mAmountInput.setText("0.00000");
-                    mAmountInput.setSelection(7);
-                } else {
-                    try {
-                        final BigDecimal inputAmount = new BigDecimal(es);
-                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                            return;
-                        }
-                        BigDecimal checkPosition = inputAmount.movePointRight(6);
+                }
+
+                if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    if(es.equals("0.000000")) {
+                        mAmountInput.setText("0.00000");
+                        mAmountInput.setSelection(7);
+                    } else {
                         try {
-                            Long.parseLong(checkPosition.toPlainString());
-                        } catch (Exception e) {
-                            String recover = es.substring(0, es.length() - 1);
-                            mAmountInput.setText(recover);
-                            mAmountInput.setSelection(recover.length());
-                            return;
-                        }
-                        if(inputAmount.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) {
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                        } else {
-                            mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-                        }
-                        mAmountInput.setSelection(mAmountInput.getText().length());
-                    } catch (Exception e) { }
+                            final BigDecimal inputAmount = new BigDecimal(es);
+                            if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                return;
+                            }
+                            BigDecimal checkPosition = inputAmount.movePointRight(6);
+                            try {
+                                Long.parseLong(checkPosition.toPlainString());
+                            } catch (Exception e) {
+                                String recover = es.substring(0, es.length() - 1);
+                                mAmountInput.setText(recover);
+                                mAmountInput.setSelection(recover.length());
+                                return;
+                            }
+                            if(inputAmount.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) {
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            } else {
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            }
+                            mAmountInput.setSelection(mAmountInput.getText().length());
+                        } catch (Exception e) { }
+                    }
+
+                } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    if(es.equals("0.000000000000000000")) {
+                        mAmountInput.setText("0.00000000000000000");
+                        mAmountInput.setSelection(19);
+                    } else {
+                        try {
+                            final BigDecimal inputAmount = new BigDecimal(es);
+                            if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                return;
+                            }
+                            BigDecimal checkPosition = inputAmount.movePointRight(18);
+                            try {
+                                Double.parseDouble(checkPosition.toPlainString());
+                            } catch (Exception e) {
+                                String recover = es.substring(0, es.length() - 1);
+                                mAmountInput.setText(recover);
+                                mAmountInput.setSelection(recover.length());
+                                return;
+                            }
+                            if(inputAmount.compareTo(mMaxAvailable.movePointLeft(18).setScale(18, RoundingMode.CEILING)) > 0) {
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            } else {
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            }
+                            mAmountInput.setSelection(mAmountInput.getText().length());
+                        } catch (Exception e) { }
+                    }
                 }
             }
         });
@@ -133,10 +166,15 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
     public void onResume() {
         super.onResume();
         if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
-        mAtomTitle.setText(WDp.DpAtom(getContext()));
-//        mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(new BigDecimal("500"));
-        mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(BigDecimal.ONE);
-        mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(BigDecimal.ONE);
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+
+        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mMaxAvailable = getSActivity().mAccount.getIrisBalance().subtract(new BigDecimal("400000000000000000"));
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        }
 
     }
 
@@ -185,10 +223,18 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
+            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
+            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
+            }
 
         } else if (v.equals(mAddMax)) {
-            mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
+            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
+            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
+            }
             Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
             dialog.setCancelable(true);
             dialog.show(getFragmentManager().beginTransaction(), "dialog");
@@ -202,18 +248,26 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
     private boolean isValidateDelegateAmount() {
         try {
-            BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-            if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if(atomTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-            Coin atom;
-            if(BaseConstant.IS_TEST) {
-                atom = new Coin(BaseConstant.COSMOS_MUON, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
-            } else {
-                atom = new Coin(BaseConstant.COSMOS_ATOM, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
+                Coin coin = new Coin(BaseConstant.COSMOS_ATOM, amountTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                getSActivity().mToDelegateAmount = coin;
+                return true;
+
+            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if(amountTemp.compareTo(mMaxAvailable.movePointLeft(18).setScale(18, RoundingMode.CEILING)) > 0) return false;
+                Coin coin = new Coin(BaseConstant.COSMOS_IRIS_ATTO, amountTemp.multiply(new BigDecimal("1000000000000000000")).setScale(0).toPlainString());
+                getSActivity().mToDelegateAmount = coin;
+                return true;
             }
-            getSActivity().mToDelegateAmount = atom;
-            return true;
+            return false;
+
         } catch (Exception e) {
+            getSActivity().mToDelegateAmount = null;
             return false;
         }
     }

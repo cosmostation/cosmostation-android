@@ -58,13 +58,13 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private TextView                    mTvtxType, mTvTxHash, mTxTime, mTxBlockHeight;
 
     private LinearLayout                mSendLayer;
-    private TextView                    mSendAtom, mSendAtomFee, mRecipientAddress, mSendMemo;
+    private TextView                    mSendAmount, mSendFee, mRecipientAddress, mSendMemo;
 
     private LinearLayout                mDelegateLayer;
-    private TextView                    mDelegateAtom, mDelegateFee, mDelegateValidator, mDelegateMemo;
+    private TextView                    mDelegateAmount, mDelegateFee, mDelegateValidator, mDelegateMemo;
 
     private LinearLayout                mUndelegateLayer;
-    private TextView                    mUndelegateAtom, mUndelegateFee, mUndelegateFrom, mExpectedDate, mUndelegateMemo;
+    private TextView                    mUndelegateAmount, mUndelegateFee, mUndelegateFrom, mExpectedDate, mUndelegateMemo;
 
     private LinearLayout                mRewardLayer;
     private TextView                    mRewardFee, mRewardFrom, mRewardMemo;
@@ -111,19 +111,19 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mTxBlockHeight                  = findViewById(R.id.tx_block_height);
 
         mSendLayer                      = findViewById(R.id.send_layer);
-        mSendAtom                       = findViewById(R.id.send_atom);
-        mSendAtomFee                    = findViewById(R.id.send_fees);
+        mSendAmount                     = findViewById(R.id.send_amount);
+        mSendFee                        = findViewById(R.id.send_fees);
         mRecipientAddress               = findViewById(R.id.send_recipient_address);
         mSendMemo                       = findViewById(R.id.send_memo);
 
         mDelegateLayer                  = findViewById(R.id.delegate_layer);
-        mDelegateAtom                   = findViewById(R.id.delegate_atom);
+        mDelegateAmount                 = findViewById(R.id.delegate_amount);
         mDelegateFee                    = findViewById(R.id.delegate_fees);
-        mDelegateValidator              = findViewById(R.id.to_delegate_moniker);
+        mDelegateValidator              = findViewById(R.id.delegate_moniker);
         mDelegateMemo                   = findViewById(R.id.delegate_memo);
 
         mUndelegateLayer                = findViewById(R.id.undelegate_layer);
-        mUndelegateAtom                 = findViewById(R.id.undelegate_atom);
+        mUndelegateAmount               = findViewById(R.id.undelegate_amount);
         mUndelegateFee                  = findViewById(R.id.undelegate_fees);
         mUndelegateFrom                 = findViewById(R.id.undelegate_moniker);
         mExpectedDate                   = findViewById(R.id.undelegate_time);
@@ -258,21 +258,18 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
                 for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.getCoins()) {
                     if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                        mSendAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                        mSendAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                     }
                 }
 
                 for(Coin coin: mResTxInfo.tx.value.fee.amount) {
                     if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                        mSendAtomFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                        mSendFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                     }
                 }
 
                 mRecipientAddress.setText(mResTxInfo.tx.value.msg.get(0).value.to_address);
-                mSendMemo.setText(mResTxInfo.tx.value.memo);
 
-                mBtnDismiss.setVisibility(View.GONE);
-                mBottomAfterLayer.setVisibility(View.VISIBLE);
 
             } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                 mTvTxHash.setText(mResTxInfo.hash);
@@ -281,22 +278,21 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
                 for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.inputs.get(0).coins) {
                     if(coin.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
-                        mSendAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                        mSendAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
                     }
                 }
 
                 for(Coin coin: mResTxInfo.tx.value.fee.amount) {
                     if(coin.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
-                        mSendAtomFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                        mSendFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
                     }
                 }
 
                 mRecipientAddress.setText(mResTxInfo.tx.value.msg.get(0).value.outputs.get(0).address);
-                mSendMemo.setText(mResTxInfo.tx.value.memo);
-
-                mBtnDismiss.setVisibility(View.GONE);
-                mBottomAfterLayer.setVisibility(View.VISIBLE);
             }
+            mSendMemo.setText(mResTxInfo.tx.value.memo);
+            mBtnDismiss.setVisibility(View.GONE);
+            mBottomAfterLayer.setVisibility(View.VISIBLE);
 
 
         } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE && mResTxInfo != null){
@@ -305,19 +301,32 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mDelegateLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_delegate);
-            mTvTxHash.setText(mResTxInfo.txhash);
-            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
-            mTxBlockHeight.setText(mResTxInfo.height);
-
-            mDelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
-            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                    mDelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.txhash);
+                mTxTime.setText("-");
+                mTxBlockHeight.setText(mResTxInfo.height);
+                mDelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                        mDelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
                 }
-            }
-            mDelegateValidator.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
-            mDelegateMemo.setText(mResTxInfo.tx.value.memo);
+                mDelegateValidator.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
 
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.hash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
+                mDelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.delegation.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                        mDelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+                mDelegateValidator.setText(mResTxInfo.tx.value.msg.get(0).value.validator_addr);
+
+            }
+            mDelegateMemo.setText(mResTxInfo.tx.value.memo);
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 
@@ -332,7 +341,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
             mTxBlockHeight.setText(mResTxInfo.height);
 
-            mUndelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            mUndelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
             for(Coin coin: mResTxInfo.tx.value.fee.amount) {
                 if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                     mUndelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));

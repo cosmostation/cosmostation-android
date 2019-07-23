@@ -94,6 +94,10 @@ public class Msg {
             return result;
         }
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("delegation")
+        public Coin delegation;
+
     }
 
 //    @JsonInclude(JsonInclude.Include.NON_NULL)

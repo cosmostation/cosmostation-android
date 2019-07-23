@@ -42,11 +42,11 @@ public class DelegateActivity extends BaseActivity {
     private ViewPager                   mViewPager;
     private DelegatePageAdapter         mPageAdapter;
 
-    public Account      mAccount;
-    public Validator    mValidator;
-    public Coin         mToDelegateAmount;
-    public String       mToDelegateMemo;
-    public Fee          mToDelegateFee;
+    public Account                      mAccount;
+    public Validator                    mValidator;
+    public Coin                         mToDelegateAmount;
+    public String                       mToDelegateMemo;
+    public Fee                          mToDelegateFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class DelegateActivity extends BaseActivity {
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_delegate_c));
+
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -95,9 +95,10 @@ public class SimpleSendTask extends CommonTask {
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleSendMsg);
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+
 
             if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     WLog.w("response.body() hash: " + response.body().txhash);
@@ -119,6 +120,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getIrisSendBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     WLog.w("response.body() hash: " + response.body().hash);
@@ -139,36 +141,6 @@ public class SimpleSendTask extends CommonTask {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
             }
-
-
-
-
-            /*
-            signedTx.value.signatures = signatures;
-            WLog.w("SimpleSendTask signed1 : " +  WUtil.getPresentor().toJson(signedTx));
-//            WLog.w("SimpleSendTask signed2 : " +  WUtil.prettyPrinter(signedTx));
-
-            String gentx = WUtil.str2Hex(WUtil.getPresentor().toJson(signedTx));
-            WLog.w("SimpleSendTask gentx : " +  gentx);
-            Response<ResBroadTx> response = ApiClient.getCSService(mApp, BaseChain.getChain(mAccount.baseChain)).broadcastTx(gentx).execute();
-            if(response.isSuccessful() && response.body() != null) {
-                WLog.w("SimpleSendTask result: " + response.body().hash + " " + response.body().isAllSuccess());
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
-//                ResBroadTx result = response.body();
-////                WLog.w("SimpleSendTask result errorMsg : " + result.errorMsg);
-////                WLog.w("SimpleSendTask result errorCode : " + result.errorCode);
-////                WLog.w("SimpleSendTask result hash : " + result.hash);
-////                if(!TextUtils.isEmpty(result.hash) && result.errorCode == 0) {
-////                    mResult.resultData = result.hash;
-////                    mResult.isSuccess = true;
-////                }
-//                WLog.w("SimpleSendTask result hash : " + result.hash);
-//                WLog.w("SimpleSendTask result height : " + response.body());
-//                WLog.w("SimpleSendTask result height : " + response.body().toString());
-            }
-            */
-
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());

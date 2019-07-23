@@ -36,8 +36,6 @@ public class SingleSelfBondingStateTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
-                WLog.w("mDelegateAddr " +mDelegateAddr);
-                WLog.w("mValidatorAddr " +mValidatorAddr);
                 Response<ResLcdBondings> response = ApiClient.getIrisChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();

@@ -68,7 +68,7 @@ public class ReInvestTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
             Msg withdrawMsg = MsgGenerator.genWithdrawMsgReInvest(mAccount.address, mValidatorAddress, BaseChain.getChain(mAccount.baseChain));
-            Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mValidatorAddress, mReInvestAmount);
+            Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mValidatorAddress, mReInvestAmount, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(withdrawMsg);
             msgs.add(singleDelegateMsg);
