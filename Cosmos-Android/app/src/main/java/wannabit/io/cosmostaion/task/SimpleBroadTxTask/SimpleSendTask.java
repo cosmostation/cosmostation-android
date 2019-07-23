@@ -120,7 +120,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getIrisSendBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getIrisBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     WLog.w("response.body() hash: " + response.body().hash);

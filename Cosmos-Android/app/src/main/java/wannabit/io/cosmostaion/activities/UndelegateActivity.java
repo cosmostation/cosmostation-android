@@ -34,6 +34,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class UndelegateActivity extends BaseActivity {
 
+    private ImageView                   mChainBg;
     private Toolbar                     mToolbar;
     private TextView                    mTitle;
     private ImageView                   mIvStep;
@@ -52,20 +53,28 @@ public class UndelegateActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        mChainBg            = findViewById(R.id.chain_bg);
         mToolbar            = findViewById(R.id.tool_bar);
         mTitle              = findViewById(R.id.toolbar_title);
         mIvStep             = findViewById(R.id.send_step);
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_undelegate_c));
+
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_undelegate_step_1));
 
-
         mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        if(mAccount == null) finish();
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+        }
         mValidator      = getIntent().getParcelableExtra("validator");
         mBondingState   = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
 

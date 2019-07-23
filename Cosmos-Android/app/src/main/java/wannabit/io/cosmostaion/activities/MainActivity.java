@@ -296,7 +296,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         boolean hasbalance = false;
         if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("2"))) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
                     hasbalance  = true;
                 }
             }

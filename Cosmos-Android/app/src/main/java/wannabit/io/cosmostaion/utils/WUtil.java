@@ -447,12 +447,12 @@ public class WUtil {
                 BigDecimal bondingO1 = BigDecimal.ZERO;
                 BigDecimal bondingO2 = BigDecimal.ZERO;
                 if(dao.onSelectBondingState(userId, o1.operator_address) != null &&
-                        dao.onSelectBondingState(userId, o1.operator_address).getBondingAtom(o1) != null) {
-                    bondingO1  = dao.onSelectBondingState(userId, o1.operator_address).getBondingAtom(o1) ;
+                        dao.onSelectBondingState(userId, o1.operator_address).getBondingAmount(o1) != null) {
+                    bondingO1  = dao.onSelectBondingState(userId, o1.operator_address).getBondingAmount(o1) ;
                 }
                 if(dao.onSelectBondingState(userId, o2.operator_address) != null &&
-                        dao.onSelectBondingState(userId, o2.operator_address).getBondingAtom(o2)  != null) {
-                    bondingO2  = dao.onSelectBondingState(userId, o2.operator_address).getBondingAtom(o2) ;
+                        dao.onSelectBondingState(userId, o2.operator_address).getBondingAmount(o2)  != null) {
+                    bondingO2  = dao.onSelectBondingState(userId, o2.operator_address).getBondingAmount(o2) ;
                 }
                 return bondingO2.compareTo(bondingO1);
 

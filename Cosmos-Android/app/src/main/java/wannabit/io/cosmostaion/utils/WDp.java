@@ -240,7 +240,7 @@ public class WDp {
         BigDecimal sum = BigDecimal.ZERO;
         if (chain.equals(BaseChain.COSMOS_MAIN)) {
             for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAtom(selectValidator(validators, bonding.validatorAddress)));
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
             return getDpAmount(c, sum, 6, chain);
 
@@ -283,7 +283,7 @@ public class WDp {
             }
         }
         for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAtom(selectValidator(validators, bonding.validatorAddress)));
+            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
         }
         for(UnBondingState unbonding : unbondings) {
             sum = sum.add(unbonding.balance);
@@ -302,7 +302,7 @@ public class WDp {
             }
         }
         for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAtom(selectValidator(validators, bonding.validatorAddress)));
+            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
         }
         for(UnBondingState unbonding : unbondings) {
             sum = sum.add(unbonding.balance);
@@ -323,7 +323,7 @@ public class WDp {
             }
         }
         for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAtom(selectValidator(validators, bonding.validatorAddress)));
+            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
         }
         if(unbondings != null) {
             for(UnBondingState unbonding : unbondings) {
@@ -756,7 +756,7 @@ public class WDp {
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
-            if(chain.equals(BaseChain.COSMOS_MAIN)) {
+            if(chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.IRIS_MAIN)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 21);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));

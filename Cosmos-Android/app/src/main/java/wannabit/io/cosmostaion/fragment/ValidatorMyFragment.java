@@ -162,8 +162,8 @@ public class ValidatorMyFragment extends BaseFragment {
                 final Validator validator               = mMyValidators.get(position);
 
                 BondingState bonding = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, validator.operator_address);
-                if(bonding != null && bonding.getBondingAtom(validator) != null) {
-                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAtom(validator), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                if(bonding != null && bonding.getBondingAmount(validator) != null) {
+                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(validator), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 } else {
                     holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 }

@@ -337,19 +337,31 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mUndelegateLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_undelegate);
-            mTvTxHash.setText(mResTxInfo.txhash);
-            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
-            mTxBlockHeight.setText(mResTxInfo.height);
-
-            mUndelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
-            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                    mUndelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.txhash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
+                mUndelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                        mUndelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
                 }
-            }
-            mUndelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
-            mUndelegateMemo.setText(mResTxInfo.tx.value.memo);
+                mUndelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
 
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.hash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
+                mUndelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.shares_amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                        mUndelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+                mUndelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_addr);
+            }
+            mUndelegateMemo.setText(mResTxInfo.tx.value.memo);
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 

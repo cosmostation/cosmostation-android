@@ -35,6 +35,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 public class DelegateActivity extends BaseActivity {
 
     private RelativeLayout              mRootView;
+    private ImageView                   mChainBg;
     private Toolbar                     mToolbar;
     private TextView                    mTitle;
     private ImageView                   mIvStep;
@@ -53,6 +54,7 @@ public class DelegateActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
         mRootView           = findViewById(R.id.root_view);
+        mChainBg            = findViewById(R.id.chain_bg);
         mToolbar            = findViewById(R.id.tool_bar);
         mTitle              = findViewById(R.id.toolbar_title);
         mIvStep             = findViewById(R.id.send_step);
@@ -68,6 +70,12 @@ public class DelegateActivity extends BaseActivity {
         mTvStep.setText(getString(R.string.str_delegate_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        if(mAccount == null) finish();
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+        }
         mValidator = getIntent().getParcelableExtra("validator");
 
         mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager());

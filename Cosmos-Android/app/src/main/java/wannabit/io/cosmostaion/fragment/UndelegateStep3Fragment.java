@@ -31,11 +31,11 @@ import wannabit.io.cosmostaion.utils.WLog;
 public class UndelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView        mTvUndelegateAmount;
-    private TextView        mFeeAmount, mFeeType;
+    private TextView        mFeeAmount;
     private TextView        mValidatorName, mMemo, mTime;
-    private TextView        mUnDelegateAtomTitle;
-
+    private TextView        mDenomUndelegateAmount, mDenomFeeType;
     private Button          mBeforeBtn, mConfirmBtn;
+
     public static UndelegateStep3Fragment newInstance(Bundle bundle) {
         UndelegateStep3Fragment fragment = new UndelegateStep3Fragment();
         fragment.setArguments(bundle);
@@ -50,15 +50,19 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_undelegate_step3, container, false);
-        mTvUndelegateAmount     = rootView.findViewById(R.id.undelegate_atom);
-        mUnDelegateAtomTitle    = rootView.findViewById(R.id.undelegate_atom_title);
+        mTvUndelegateAmount     = rootView.findViewById(R.id.undelegate_amount);
+        mDenomUndelegateAmount  = rootView.findViewById(R.id.undelegate_amount_title);
         mFeeAmount              = rootView.findViewById(R.id.undelegate_fees);
-        mFeeType                = rootView.findViewById(R.id.undelegate_fees_type);
+        mDenomFeeType           = rootView.findViewById(R.id.undelegate_fees_type);
         mValidatorName          = rootView.findViewById(R.id.undelegate_moniker);
         mMemo                   = rootView.findViewById(R.id.memo);
         mTime                   = rootView.findViewById(R.id.undelegate_time);
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomUndelegateAmount);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
+
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -66,12 +70,18 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toUnDeleagteAtom = new BigDecimal(getSActivity().mUnDelegateAmount.amount);
-        BigDecimal feeAtom = new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount);
+        BigDecimal toUnDeleagteAmount = new BigDecimal(getSActivity().mUnDelegateAmount.amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount);
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
-        mTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        mTime.setText(WDp.getUnbondTime(getContext(), BaseChain.COSMOS_MAIN));
+        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+
+        }
+        mTime.setText(WDp.getUnbondTime(getContext(), BaseChain.getChain(getSActivity().mAccount.baseChain)));
         mValidatorName.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mUnDelegateMemo);
 

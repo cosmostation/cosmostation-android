@@ -131,7 +131,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
         super.onResume();
         if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
         mAtomTitle.setText(WDp.DpAtom(getContext()));
-        mMaxAvailable = getSActivity().mBondingState.getBondingAtom(getSActivity().mFromValidator);
+        mMaxAvailable = getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator);
         mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
         if(getSActivity().mToValidators != null && getSActivity().mToValidators.size() > 0) {
@@ -203,7 +203,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
         try {
             BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
             if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAtom(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
+            if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
             Coin atom;
             if(BaseConstant.IS_TEST) {
                 atom = new Coin(BaseConstant.COSMOS_MUON, atomTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());

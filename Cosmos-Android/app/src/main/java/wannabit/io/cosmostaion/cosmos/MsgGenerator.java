@@ -84,18 +84,27 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genUnbondMsg(String requestAddr, String fromValAddr, Coin amount) {
+    public static Msg genUnbondMsg(String requestAddr, String fromValAddr, Coin amount, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            value.delegator_address = requestAddr;
+            value.validator_address = fromValAddr;
+            value.amount = amount;
 
-        value.delegator_address = requestAddr;
-        value.validator_address = fromValAddr;
-        value.amount = amount;
+            result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
+            result.value = value;
 
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            value.delegator_addr = requestAddr;
+            value.validator_addr = fromValAddr;
+            //TODO need cal bal to shares.
+            value.shares_amount = amount.amount + ".0000000000";
 
-        result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
-        result.value = value;
+            result.type = BaseConstant.IRIS_MSG_TYPE_UNDELEGATE;
+            result.value = value;
 
+        }
         return result;
     }
 
@@ -249,7 +258,7 @@ public class MsgGenerator {
                 memo);
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-//        WLog.w("signatureTx " + signatureTx);
+        WLog.w("signatureTx " + signatureTx);
 
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();
@@ -270,14 +279,14 @@ public class MsgGenerator {
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-//        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;
     }
 
 
-    public static ReqBroadCast getIrisSendBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
+    public static ReqBroadCast getIrisBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
         IrisStdSignMsg tosign = genIrisToSignMsg(
                 account.baseChain,
                 ""+account.accountNumber,
@@ -307,7 +316,7 @@ public class MsgGenerator {
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-//        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;

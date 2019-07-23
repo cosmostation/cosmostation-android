@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.activities.ReInvestActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
-import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -63,10 +62,10 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
         mMemo.setText(getSActivity().mReinvestMemo);
 
         BondingState bonding = getBaseDao().onSelectBondingState(getSActivity().mAccount.id, getSActivity().mValidator.operator_address);
-        if(bonding != null && bonding.getBondingAtom(getSActivity().mValidator) != null) {
-            mCurrentAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAtom(getSActivity().mValidator), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
+            mCurrentAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
-            BigDecimal expected = bonding.getBondingAtom(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
+            BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
             mExpectedAmount.setText(WDp.getDpAmount(getContext(), expected, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         }
     }

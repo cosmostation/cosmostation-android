@@ -39,6 +39,7 @@ public class SimpleUndelegateTask extends CommonTask {
                                 String fromValidatorAddress, Coin undelegateAmount,
                                 String unDelegateMemo, Fee unFees) {
         super(app, listener);
+        WLog.w("SimpleDelegateTask");
         this.mAccount = account;
         this.mFromValidatorAddress = fromValidatorAddress;
         this.mUndelegateAmount = undelegateAmount;
@@ -66,48 +67,78 @@ public class SimpleUndelegateTask extends CommonTask {
                 return mResult;
             }
 
-            Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
-            if(!accountResponse.isSuccessful()) {
-                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                return mResult;
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
+                if(!accountResponse.isSuccessful()) {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
+                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
             }
-            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-            mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
-            mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-            Msg singleUnbondMsg = MsgGenerator.genUnbondMsg(mAccount.address, mFromValidatorAddress, mUndelegateAmount);
+            Msg singleUnbondMsg = MsgGenerator.genUnbondMsg(mAccount.address, mFromValidatorAddress, mUndelegateAmount, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs = new ArrayList<>();
             msgs.add(singleUnbondMsg);
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mUnFees, mUnDelegateMemo, deterministicKey);
-            Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
-            if(response.isSuccessful() && response.body() != null) {
-                WLog.w("response.body() : " + response.body());
-                if (response.body().txhash != null) {
-                    mResult.resultData = response.body().txhash;
-                }
+            ReqBroadCast reqBroadCast = MsgGenerator.getIrisBraodcaseReq(mAccount, msgs, mUnFees, mUnDelegateMemo, deterministicKey);
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    WLog.w("response.body() : " + response.body());
+                    if (response.body().txhash != null) {
+                        mResult.resultData = response.body().txhash;
+                    }
 
-                if(response.body().code != null) {
-                    WLog.w("response.code() : " + response.body().code);
-                    mResult.errorCode = response.body().code;
-                    mResult.errorMsg = response.body().raw_log;
-                    return mResult;
-                }
-                mResult.isSuccess = true;
+                    if(response.body().code != null) {
+                        WLog.w("response.code() : " + response.body().code);
+                        mResult.errorCode = response.body().code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
 
-            } else {
-                WLog.w("SimpleUndelegateTask not success!!");
-                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-//                try {
-//                    JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                    WLog.w("jObjError1 : " + jObjError.toString());
-//                } catch (Exception e) {
-//                    WLog.w("jObjError3 : " + e.getMessage());
-//                }
+                } else {
+                    WLog.w("SimpleUndelegateTask not success!!");
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                }
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    WLog.w("response.body() hash: " + response.body().hash);
+                    if (response.body().hash != null) {
+                        mResult.resultData = response.body().hash;
+                    }
+
+                    if(response.body().check_tx.code != null) {
+                        WLog.w("response.code() : " + response.body().check_tx.code);
+                        mResult.errorCode = response.body().check_tx.code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("SimpleUndelegateTask not success!!");
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                }
             }
+
+
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());
