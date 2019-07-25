@@ -102,6 +102,7 @@ public class BaseConstant {
     public final static String                  IRIS_MSG_TYPE_DELEGATE                          = "irishub/stake/MsgDelegate";
     public final static String                  IRIS_MSG_TYPE_UNDELEGATE                        = "irishub/stake/BeginUnbonding";
     public final static String                  IRIS_MSG_TYPE_REDELEGATE                        = "irishub/stake/BeginRedelegate";
+    public final static String                  IRIS_MSG_TYPE_WITHDRAW                          = "irishub/distr/MsgWithdrawDelegationReward";
     public final static String                  IRIS_MSG_TYPE_WITHDRAW_ALL                      = "irishub/distr/MsgWithdrawDelegationRewardsAll";
     public final static String                  IRIS_MSG_TYPE_VOTE                              = "irishub/gov/MsgVote";
     public final static String                  IRIS_MSG_TYPE_DEPOSIT                           = "irishub/gov/MsgDeposit";
@@ -188,7 +189,8 @@ public class BaseConstant {
     public final static String                  FEE_IRIS_GAS_RATE_AVERAGE                       = "0.000008";
 
     public final static String                  FEE_IRIS_GAS_AMOUNT_AVERAGE                     = "50000";
-
+    public final static String                  FEE_IRIS_GAS_AMOUNT_REWARD_BASE                 = "10000";
+    public final static String                  FEE_IRIS_GAS_AMOUNT_REWARD_MUX                  = "5000";
 
     public final static int                  CMC_ATOM                                           = 3794;
     public final static int                  CMC_IRIS                                           = 3874;

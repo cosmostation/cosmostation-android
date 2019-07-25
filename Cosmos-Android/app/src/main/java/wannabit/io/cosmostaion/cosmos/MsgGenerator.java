@@ -103,7 +103,6 @@ public class MsgGenerator {
 
             result.type = BaseConstant.IRIS_MSG_TYPE_UNDELEGATE;
             result.value = value;
-
         }
         return result;
     }
@@ -112,14 +111,30 @@ public class MsgGenerator {
     public static Msg genWithdrawDeleMsg(String requestAddr, String fromValAddr, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            value.delegator_address = requestAddr;
+            value.validator_address = fromValAddr;
 
-        value.delegator_address = requestAddr;
-        value.validator_address = fromValAddr;
+            result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
+            result.value = value;
 
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            value.delegator_addr = requestAddr;
+            value.validator_addr = fromValAddr;
 
-        result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
+            result.type = BaseConstant.IRIS_MSG_TYPE_WITHDRAW;
+            result.value = value;
+        }
+        return result;
+    }
+
+    public static Msg genWithdrawDeleAllMsg(String requestAddr, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.delegator_addr = requestAddr;
+
+        result.type = BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL;
         result.value = value;
-
         return result;
     }
 

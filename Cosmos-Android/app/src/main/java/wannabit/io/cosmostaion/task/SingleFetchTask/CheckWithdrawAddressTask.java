@@ -24,17 +24,34 @@ public class CheckWithdrawAddressTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<String> response = ApiClient.getCosmosChain(mApp).getWithdrawAddress(mAccount.address).execute();
-            if(!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                return mResult;
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Response<String> response = ApiClient.getCosmosChain(mApp).getWithdrawAddress(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Response<String> response = ApiClient.getIrisChain(mApp).getWithdrawAddress(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
             }
 
-            if(response.body() != null) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
-            }
 
 
         } catch (Exception e) {

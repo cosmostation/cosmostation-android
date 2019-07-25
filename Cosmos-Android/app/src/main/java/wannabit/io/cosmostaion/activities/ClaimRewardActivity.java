@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,6 +34,9 @@ import wannabit.io.cosmostaion.fragment.RewardStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
+import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -44,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
+    private ImageView                   mChainBg;
     private Toolbar                     mToolbar;
     private TextView                    mTitle;
     private ImageView                   mIvStep;
@@ -58,6 +63,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
     public ArrayList<Validator>         mValidators = new ArrayList<>();
     public ArrayList<Reward>            mRewards = new ArrayList<>();
+    public ResLcdIrisReward             mIrisReward;
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 
@@ -67,20 +73,22 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        mChainBg            = findViewById(R.id.chain_bg);
         mToolbar            = findViewById(R.id.tool_bar);
         mTitle              = findViewById(R.id.toolbar_title);
         mIvStep             = findViewById(R.id.send_step);
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_reward_c));
+
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_reward_step_1));
 
-
-        mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mPageAdapter = new RewardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
@@ -122,6 +130,18 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         onFetchReward();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mAccount == null) finish();
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -162,12 +182,20 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
     private void onFetchReward() {
         if(mTaskCount > 0) return;
-        mTaskCount = mValidators.size() + 1;
-        mRewards.clear();
-        for(Validator val:mValidators) {
-            new SingleRewardTask(getBaseApplication(), this, mAccount, val.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mTaskCount = mValidators.size() + 1;
+            mRewards.clear();
+            for(Validator val:mValidators) {
+                new SingleRewardTask(getBaseApplication(), this, mAccount, val.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+            new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mTaskCount = 2;
+            new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
-        new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
     }
 
 
@@ -195,6 +223,10 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS) {
             mWithdrawAddress = (String)result.resultData;
+
+        } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
+            mIrisReward = (ResLcdIrisReward)result.resultData;
+
         }
 
         if(mTaskCount == 0) {
@@ -218,6 +250,18 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
             }
             mRewards.add(reward);
         }
+    }
+
+    public BigDecimal getIrisRewardSum() {
+        BigDecimal rewardSum = BigDecimal.ZERO;
+        for (ResLcdIrisReward.Delegations delegation:mIrisReward.delegations) {
+            for (Validator validator : mValidators) {
+                if (delegation.validator.equals(validator.operator_address)) {
+                    rewardSum = rewardSum.add(new BigDecimal(delegation.reward.get(0).amount));
+                }
+            }
+        }
+        return rewardSum;
     }
 
 

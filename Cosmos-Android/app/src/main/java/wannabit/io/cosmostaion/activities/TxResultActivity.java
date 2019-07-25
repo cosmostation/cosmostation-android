@@ -303,7 +303,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mTvtxType.setText(R.string.tx_delegate);
             if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                 mTvTxHash.setText(mResTxInfo.txhash);
-                mTxTime.setText("-");
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 mTxBlockHeight.setText(mResTxInfo.height);
                 mDelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
                 for(Coin coin: mResTxInfo.tx.value.fee.amount) {
@@ -315,7 +315,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
             } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                 mTvTxHash.setText(mResTxInfo.hash);
-                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxTime.setText("-");
                 mTxBlockHeight.setText(mResTxInfo.height);
                 mDelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.delegation.amount), 18, BaseChain.getChain(mAccount.baseChain)));
                 for(Coin coin: mResTxInfo.tx.value.fee.amount) {
@@ -351,7 +351,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
             } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                 mTvTxHash.setText(mResTxInfo.hash);
-                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxTime.setText("-");
                 mTxBlockHeight.setText(mResTxInfo.height);
                 mUndelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.shares_amount), 18, BaseChain.getChain(mAccount.baseChain)));
                 for(Coin coin: mResTxInfo.tx.value.fee.amount) {
@@ -372,26 +372,43 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mRewardLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_get_reward);
-            mTvTxHash.setText(mResTxInfo.txhash);
-            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
-            mTxBlockHeight.setText(mResTxInfo.height);
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.txhash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                        mRewardFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+                String from = "";
+                for(Msg msg: mResTxInfo.tx.value.msg) {
+                    if(TextUtils.isEmpty(from)) {
+                        from = msg.value.validator_address;
+                    } else {
+                        from = from + "\n" + msg.value.validator_address;
+                    }
+                }
+                mRewardFrom.setText(from);
 
-            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                    mRewardFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.hash);
+                mTxTime.setText("-");
+                mTxBlockHeight.setText(mResTxInfo.height);
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                        mRewardFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+
+                if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL)) {
+                    mTvtxType.setText(R.string.tx_get_reward_all);
+                    mRewardFrom.setText(R.string.str_from_all_my_val);
+                } else if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW)) {
+                    mRewardFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_addr);
                 }
             }
-            String from = "";
-            for(Msg msg: mResTxInfo.tx.value.msg) {
-                if(TextUtils.isEmpty(from)) {
-                    from = msg.value.validator_address;
-                } else {
-                    from = from + "\n" + msg.value.validator_address;
-                }
-            }
-            mRewardFrom.setText(from);
             mRewardMemo.setText(mResTxInfo.tx.value.memo);
-
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 

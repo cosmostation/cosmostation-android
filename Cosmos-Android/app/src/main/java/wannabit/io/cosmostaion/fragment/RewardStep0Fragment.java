@@ -27,7 +27,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 public class RewardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private CardView        mCardReward;
-    private TextView        mTvAtomReward, mTvAtomTitle;
+    private TextView        mTvRewardAmount, mTvDenomTitle;
     private TextView        mTvFromValidators;
 
     private LinearLayout    mReceiveLayer;
@@ -52,8 +52,8 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reward_step0, container, false);
         mCardReward             = rootView.findViewById(R.id.reward_card);
-        mTvAtomReward           = rootView.findViewById(R.id.reward_atom);
-        mTvAtomTitle            = rootView.findViewById(R.id.reward_atom_title);
+        mTvRewardAmount         = rootView.findViewById(R.id.reward_amount);
+        mTvDenomTitle           = rootView.findViewById(R.id.reward_denom_title);
         mTvFromValidators       = rootView.findViewById(R.id.reward_moniker);
         mReceiveLayer           = rootView.findViewById(R.id.reward_receive_address_layer);
         mTvReceiveAddress       = rootView.findViewById(R.id.reward_receive_address);
@@ -68,12 +68,22 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvDenomTitle);
+    }
+
+    @Override
     public void onRefreshTab() {
-        BigDecimal rewardSum = BigDecimal.ZERO;
-        for (Reward reward:getSActivity().mRewards) {
-            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            BigDecimal rewardSum = BigDecimal.ZERO;
+            for (Reward reward:getSActivity().mRewards) {
+                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+            }
+            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), getSActivity().getIrisRewardSum(), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
         }
-        mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
         String monikers = "";
         for (Validator validator:getSActivity().mValidators) {

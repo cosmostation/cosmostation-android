@@ -293,7 +293,7 @@
     <string name="str_unbonding_3days_after"><![CDATA[(3 days after)]]></string>
     <string name="str_unbonding_21days_after"><![CDATA[(21 days after)]]></string>
     <string name="str_reward_step_1">Check reward detail</string>
-    <string name="str_reward_step_2">Insert memo. (optional)</string>
+    <string name="str_reward_step_2">Insert memo (optional)</string>
     <string name="str_reward_step_3">Select transaction fee</string>
     <string name="str_reward_step_4">Check claim reward detail</string>
     <string name="str_redelegate_step_0">Enter redelegation amount</string>
@@ -385,10 +385,11 @@
     <string name="str_applock_time_10sec">Lock 10 Second After</string>
     <string name="str_applock_time_30sec">Lock 30 Second After</string>
     <string name="str_applock_time_60sec">Lock 60 Second After</string>
+    <string name="str_from_all_my_val">From all my validators</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
-    <string name="error_invalid_address_pubkey">Invalid Address or Public Key, please check again.</string>
+    <string name="error_invalid_address_pubkey">Invalid Address, please check again.</string>
     <string name="error_already_exist_account">This address is already imported</string>
     <string name="error_invalid_password">Invalid Password</string>
     <string name="error_clipboard_no_data">No text from clipboard.</string>
@@ -402,7 +403,7 @@
     <string name="error_no_redelegate">Nothing to redelegate.</string>
     <string name="error_permission">You rejected permission. Please enable permission.</string>
     <string name="error_already_imported_address">This address is already imported.</string>
-    <string name="error_import_errer">Cannot add this address/public key.</string>
+    <string name="error_import_errer">Cannot add this address.</string>
     <string name="error_not_enough_atom">Not enough balance to delegate</string>
     <string name="error_not_enough_budget">Insufficient available balance.\nUnder minimum tx fee.</string>
     <string name="error_not_enough_reward_all">Insufficient available balance.\nUnder minimum tx fee.</string>
@@ -441,6 +442,7 @@
     <string name="tx_undelegate">Undelegate</string>
     <string name="tx_redelegate">Redelegate</string>
     <string name="tx_get_reward">Get Rewards</string>
+    <string name="tx_get_reward_all">Get Reward All</string>
     <string name="tx_get_commission">Get Commission</string>
     <string name="tx_change_reward_address">Edit Address</string>
     <string name="tx_vote">Vote</string>
@@ -565,6 +567,25 @@
 
 
 
+
+    <!--<string-array name="multi_reward_gas_amount_iris" translatable="false">-->
+        <!--<item>15000</item>-->
+        <!--<item>19000</item>-->
+        <!--<item>24000</item>-->
+        <!--&lt;!&ndash;<item>280000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>360000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>420000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>480000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>540000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>500000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>660000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>720000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>780000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>840000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>900000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>960000</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item>1020000</item>&ndash;&gt;-->
+    <!--</string-array>-->
 
 
     <!--<string-array name="free_event" translatable="false">-->

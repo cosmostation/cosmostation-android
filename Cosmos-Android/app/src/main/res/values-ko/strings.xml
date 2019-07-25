@@ -343,11 +343,12 @@
     <string name="str_applock_time_10sec">10초 후 잠금</string>
     <string name="str_applock_time_30sec">30초 후 잠금</string>
     <string name="str_applock_time_60sec">60초 후 잠금</string>
+    <string name="str_from_all_my_val">내 모든 검증인으로 부터</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 비밀번호가 다릅니다. \n다시 입력해 주세요.</string>
-    <string name="error_invalid_address_pubkey">부정확한 주소 또는 공개키 입니다. 정확한 문자를 입력해 주세요.</string>
+    <string name="error_invalid_address_pubkey">부정확한 주소 입니다. 정확한 문자를 입력해 주세요.</string>
     <string name="error_already_exist_account">이미 존재하는 주소 입니다.</string>
     <string name="error_invalid_password">비밀번호가 틀렸습니다.</string>
     <string name="error_clipboard_no_data">클립보드에 아무것도 없습니다.</string>
@@ -400,6 +401,7 @@
     <string name="tx_undelegate">위임 철회</string>
     <string name="tx_redelegate">재위임</string>
     <string name="tx_get_reward">이자 청구</string>
+    <string name="tx_get_reward_all">이자 모두 청구</string>
     <string name="tx_get_commission">수수료 청구</string>
     <string name="tx_change_reward_address">이자주소 변경</string>
     <string name="tx_vote">투표</string>

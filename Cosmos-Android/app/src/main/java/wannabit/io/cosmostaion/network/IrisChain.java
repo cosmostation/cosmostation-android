@@ -39,6 +39,9 @@ public interface IrisChain {
     @GET("/distribution/{address}/rewards")
     Call<ResLcdIrisReward> getRewardsInfo(@Path("address") String address);
 
+    @GET("/distribution/{address}/withdraw-address")
+    Call<String> getWithdrawAddress(@Path("address") String address);
+
     @GET("/txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 

@@ -28,14 +28,15 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class RewardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mTvAtomReward;
-    private TextView        mFeeAmount, mFeeType;
+    private TextView        mTvRewardAmount;
+    private TextView        mFeeAmount;
     private TextView        mTvFromValidators;
     private LinearLayout    mTvGoalLayer;
     private TextView        mTvGoalAddress, mMemo;
     private LinearLayout    mExpectedLayer;
     private TextView        mExpectedAmount, mExpectedPrice;
     private Button          mBeforeBtn, mConfirmBtn;
+    private TextView        mDenomRewardAmount, mDenomFeeType, mDenomResultAmount;
 
     public static RewardStep3Fragment newInstance(Bundle bundle) {
         RewardStep3Fragment fragment = new RewardStep3Fragment();
@@ -51,18 +52,24 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reward_step3, container, false);
-        mTvAtomReward       = rootView.findViewById(R.id.reward_atom);
+        mTvRewardAmount     = rootView.findViewById(R.id.reward_amount);
         mFeeAmount          = rootView.findViewById(R.id.reward_fees);
-        mFeeType            = rootView.findViewById(R.id.reward_fees_type);
         mTvFromValidators   = rootView.findViewById(R.id.reward_moniker);
         mTvGoalLayer        = rootView.findViewById(R.id.reward_receive_layer);
         mTvGoalAddress      = rootView.findViewById(R.id.reward_receive_address);
         mMemo               = rootView.findViewById(R.id.memo);
         mExpectedLayer      = rootView.findViewById(R.id.expected_Layer);
-        mExpectedAmount     = rootView.findViewById(R.id.expected_atom);
+        mExpectedAmount     = rootView.findViewById(R.id.expected_amount);
         mExpectedPrice      = rootView.findViewById(R.id.expected_price);
         mBeforeBtn          = rootView.findViewById(R.id.btn_before);
         mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
+        mDenomRewardAmount  = rootView.findViewById(R.id.reward_amount_title);
+        mDenomFeeType       = rootView.findViewById(R.id.reward_fees_type);
+        mDenomResultAmount  = rootView.findViewById(R.id.expected_amount_title);
+
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomRewardAmount);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomResultAmount);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -73,13 +80,43 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         BigDecimal rewardSum    = BigDecimal.ZERO;
-        BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
+        BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            for (Reward reward:getSActivity().mRewards) {
+                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+            }
+            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                mTvGoalLayer.setVisibility(View.GONE);
+                mExpectedLayer.setVisibility(View.VISIBLE);
 
-        for (Reward reward:getSActivity().mRewards) {
-            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                BigDecimal currentAtom      = getSActivity().mAccount.getAtomBalance();
+                BigDecimal expectedAtom     = currentAtom.add(rewardSum).subtract(feeAmount);
+                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expectedAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                BigDecimal expectedPrice = BigDecimal.ZERO;
+                if(getBaseDao().getCurrency() != 5) {
+                    expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                } else {
+                    expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                }
+                mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+            } else {
+                mTvGoalLayer.setVisibility(View.VISIBLE);
+                mExpectedLayer.setVisibility(View.GONE);
+            }
+
+        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), getSActivity().getIrisRewardSum(), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                mTvGoalLayer.setVisibility(View.GONE);
+            } else {
+                mTvGoalLayer.setVisibility(View.VISIBLE);
+            }
+            mExpectedLayer.setVisibility(View.GONE);
         }
-        mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
 
         String monikers = "";
         for (Validator validator:getSActivity().mValidators) {
@@ -90,28 +127,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             }
         }
         mTvFromValidators.setText(monikers);
-
         mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
-        if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-            mTvGoalLayer.setVisibility(View.GONE);
-            mExpectedLayer.setVisibility(View.VISIBLE);
-
-            BigDecimal currentAtom      = getSActivity().mAccount.getAtomBalance();
-            BigDecimal expectedAtom     = currentAtom.add(rewardSum).subtract(feeAtom);
-            mExpectedAmount.setText(WDp.getDpAmount(getContext(), expectedAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            BigDecimal expectedPrice = BigDecimal.ZERO;
-            if(getBaseDao().getCurrency() != 5) {
-                expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
-            } else {
-                expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
-            }
-            mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
-        } else {
-            mTvGoalLayer.setVisibility(View.VISIBLE);
-            mExpectedLayer.setVisibility(View.GONE);
-        }
-
         mMemo.setText(getSActivity().mRewardMemo);
     }
 
@@ -129,18 +145,24 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 dialog.setCancelable(true);
                 dialog.show(getFragmentManager().beginTransaction(), "dialog");
             }
-
         }
-
     }
 
     private boolean onCheckValidateRewardAndFee() {
-        BigDecimal rewardSum    = BigDecimal.ZERO;
-        BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
-        for (Reward reward:getSActivity().mRewards) {
-            rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            BigDecimal rewardSum    = BigDecimal.ZERO;
+            BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
+            for (Reward reward:getSActivity().mRewards) {
+                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+            }
+            return feeAtom.compareTo(rewardSum) < 0;
+
+        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            BigDecimal rewardSum    = getSActivity().getIrisRewardSum();
+            BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
+            return feeAtom.compareTo(rewardSum) < 0;
         }
-        return feeAtom.compareTo(rewardSum) < 0;
+        return false;
     }
 
 

@@ -58,7 +58,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         mRemainingPrice     = rootView.findViewById(R.id.remaining_price);
         mRecipientAddress   = rootView.findViewById(R.id.recipient_address);
         mMemo               = rootView.findViewById(R.id.memo);
-
+        mBeforeBtn          = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
         mDenomSendAmount    = rootView.findViewById(R.id.send_amount_title);
         mDenomFeeType       = rootView.findViewById(R.id.send_fees_type);
         mDenomTotalSpend    = rootView.findViewById(R.id.spend_total_type);
@@ -71,8 +72,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomCurrentAmount);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomRemainAmount);
 
-        mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;

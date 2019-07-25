@@ -112,7 +112,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if(fromUser) {
+                    if (fromUser) {
                         onUpdateFeeLayer();
                     }
                 }

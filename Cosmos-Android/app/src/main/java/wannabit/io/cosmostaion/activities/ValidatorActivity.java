@@ -227,7 +227,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
             }
         }
-
         if(!hasbalance) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
@@ -339,7 +338,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
             }
         }
-
         if(!hasbalance) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
@@ -351,6 +349,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onGetReward() {
+        if(mAccount == null || mValidator == null) return;
         if(!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -358,36 +357,46 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("1")) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasAtom = false;
-        for (Balance balance:balances) {
-            if(BaseConstant.IS_TEST) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
-                    hasAtom  = true;
-                }
-            } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) >= 0)) {
-                    hasAtom  = true;
+        boolean hasbalance = false;
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("1")) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            for (Balance balance:balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
+                    hasbalance  = true;
                 }
             }
 
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            if (mIrisReward == null || mIrisReward.getPerValReward(mValidator.operator_address) == BigDecimal.ZERO) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+//            if (mIrisReward.getPerValReward(mValidator.operator_address).compareTo(new BigDecimal("400000000000000000")) <= 0) {
+//                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+
+            for (Balance balance:balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
+                    hasbalance  = true;
+                }
+            }
         }
-        if(!hasAtom) {
+        if(!hasbalance) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
-
 
         ArrayList<Validator> val = new ArrayList<>();
         val.add(mValidator);
@@ -448,7 +457,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
-
 
 
     private void onFetchValHistory() {

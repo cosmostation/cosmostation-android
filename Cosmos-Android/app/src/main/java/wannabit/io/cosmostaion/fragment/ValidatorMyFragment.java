@@ -315,7 +315,12 @@ public class ValidatorMyFragment extends BaseFragment {
 
     public void onSortValidator() {
         if(getBaseDao().getMyValSorting() == 2){
-            WUtil.onSortByReward(mMyValidators, mRewards);
+            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                WUtil.onSortByReward(mMyValidators, mRewards);
+            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                WUtil.onSortIrisByReward(mMyValidators, mIrisRewards);
+            }
+
 
         } else if (getBaseDao().getMyValSorting() == 0){
             WUtil.onSortByValidatorName(mMyValidators);

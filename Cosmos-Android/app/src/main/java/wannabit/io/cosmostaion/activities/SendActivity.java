@@ -63,13 +63,12 @@ public class SendActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mTvStep.setText(getString(R.string.str_send_step_0));
 
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
-
-        mTvStep.setText(getString(R.string.str_send_step_0));
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
