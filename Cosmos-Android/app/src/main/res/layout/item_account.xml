@@ -74,7 +74,7 @@
                         android:layout_alignBaseline="@+id/img_name"
                         android:layout_marginLeft="@dimen/space_2"
                         style="@style/font_ss_9_gray1"
-                        android:text="(gaia 12k)"/>
+                        android:text="-"/>
                 </RelativeLayout>
                 <TextView
                     android:id="@+id/img_address"
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     style="@style/font_ss_9_gray1"
-                    android:text="cosmosfsdfdsfdsfsdfdsf"/>
+                    android:text="-"/>
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>

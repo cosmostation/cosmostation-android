@@ -627,7 +627,7 @@ public class WDp {
             result = BaseConstant.TX_TYPE_REDELEGATE;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL)) {
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW)) {
             result = BaseConstant.TX_TYPE_GET_REWARD;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
@@ -654,6 +654,9 @@ public class WDp {
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_EDIT_VALIDATOR)) {
             result = BaseConstant.TX_TYPE_EDIT_VALIDATOR;
+
+        } else if (msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL)) {
+            result = BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL;
 
         }
         return result;

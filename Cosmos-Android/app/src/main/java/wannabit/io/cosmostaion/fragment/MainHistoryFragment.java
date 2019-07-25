@@ -209,6 +209,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historyType.setText(getString(R.string.tx_reinvest));
                     break;
 
+                case BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL:
+                    viewHolder.historyType.setText(getString(R.string.tx_get_reward_all));
+                    break;
+
                 case BaseConstant.TX_TYPE_UNKNOWN:
                     viewHolder.historyType.setText(getString(R.string.tx_known));
                     break;

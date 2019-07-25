@@ -258,14 +258,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));
-            mToolbarChainName.setVisibility(View.VISIBLE);
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAtom));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
 
         } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
             mToolbarChainName.setText(getString(R.string.str_iris_net));
-            mToolbarChainName.setVisibility(View.VISIBLE);
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIris));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIris));
 
         }
@@ -755,11 +755,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 });
 
                 holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-
                 if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                     holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
                     holder.tv_chain.setText(getString(R.string.str_cosmos_hub));
-                    holder.tv_chain.setVisibility(View.VISIBLE);
+                    holder.tv_chain.setTextColor(getResources().getColor(R.color.colorAtom));
                     if (account.hasPrivateKey) {
                         holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
                     }
@@ -767,7 +766,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                     holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
                     holder.tv_chain.setText(getString(R.string.str_iris_net));
-                    holder.tv_chain.setVisibility(View.VISIBLE);
+                    holder.tv_chain.setTextColor(getResources().getColor(R.color.colorIris));
                     if (account.hasPrivateKey) {
                         holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
                     }

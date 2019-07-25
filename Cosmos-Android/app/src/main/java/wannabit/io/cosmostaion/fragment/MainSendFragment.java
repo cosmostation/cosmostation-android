@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -55,6 +56,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     private TextView            mInflation, mYield;
 
+    private ImageView           mGuideImg;
+    private TextView            mGuideTitle, mGuideMsg;
+    private LinearLayout        mGuideAction;
     private Button              mGuideBtn, mFaqBtn;
 
 
@@ -110,6 +114,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mInflation              = rootView.findViewById(R.id.dash_inflation);
         mYield                  = rootView.findViewById(R.id.dash_yield);
 
+        mGuideImg               = rootView.findViewById(R.id.img_guide);
+        mGuideTitle             = rootView.findViewById(R.id.title_guide);
+        mGuideMsg               = rootView.findViewById(R.id.msg_guide);
+        mGuideAction            = rootView.findViewById(R.id.action_guide);
         mGuideBtn               = rootView.findViewById(R.id.btn_guide);
         mFaqBtn                 = rootView.findViewById(R.id.btn_faq);
 
@@ -189,6 +197,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
             }
+            mGuideImg.setImageDrawable(getResources().getDrawable(R.drawable.guide_img));
+            mGuideTitle.setText(R.string.str_front_guide_title);
+            mGuideMsg.setText(R.string.str_front_guide_msg);
+            mGuideAction.setVisibility(View.VISIBLE);
 
         } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             mAtomCard.setVisibility(View.GONE);
@@ -196,6 +208,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
             }
+            mGuideImg.setImageDrawable(getResources().getDrawable(R.drawable.irisnet_img));
+            mGuideTitle.setText(R.string.str_front_guide_title_iris);
+            mGuideMsg.setText(R.string.str_front_guide_msg_iris);
+            mGuideAction.setVisibility(View.GONE);
         }
 
 

@@ -232,7 +232,9 @@
     <string name="str_tx_error_description">Transaction request failed. \nPlease check the error code and message.</string>
     <string name="str_success_loading">Transaction request submitted successfully. \nAfter a few moments, the full results will be displayed.</string>
     <string name="str_front_guide_title"><![CDATA[Cosmos Guide]]></string>
+    <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
     <string name="str_front_guide_msg">Cosmos and Cosmostation Wallet FAQ\nLearn more about us in the links below</string>
+    <string name="str_front_guide_msg_iris">Integration of business services offered by heterogeneous systems,including public <![CDATA[&]]> consortium chains as well as legacy systems</string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -442,7 +444,7 @@
     <string name="tx_undelegate">Undelegate</string>
     <string name="tx_redelegate">Redelegate</string>
     <string name="tx_get_reward">Get Rewards</string>
-    <string name="tx_get_reward_all">Get Reward All</string>
+    <string name="tx_get_reward_all">Get Rewards All</string>
     <string name="tx_get_commission">Get Commission</string>
     <string name="tx_change_reward_address">Edit Address</string>
     <string name="tx_vote">Vote</string>

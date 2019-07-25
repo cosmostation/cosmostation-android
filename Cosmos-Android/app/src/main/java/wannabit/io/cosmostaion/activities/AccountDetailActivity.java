@@ -59,16 +59,18 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private Toolbar         mToolbar;
     private Button          mBtnCheck, mBtnDelete;
 
+    private CardView        mCardName;
     private ImageView       mChainImg, mNameEditImg;
     private TextView        mAccountName;
 
+    private CardView        mCardBody;
     private ImageView       mBtnQr;
     private TextView        mAccountAddress, mAccountGenTime;
     private TextView        mAccountChain, mAccountState, mAccountPath, mImportMsg;
     private RelativeLayout  mPathLayer;
 
 
-    private CardView        mRewardCard;
+    private CardView        mCardRewardAddress;
     private ImageView       mBtnRewardAddressChange;
     private TextView        mRewardAddress;
 
@@ -81,9 +83,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mToolbar                = findViewById(R.id.tool_bar);
         mBtnCheck               = findViewById(R.id.btn_check);
         mBtnDelete              = findViewById(R.id.btn_delete);
+        mCardName               = findViewById(R.id.card_name);
         mChainImg               = findViewById(R.id.chain_img);
         mNameEditImg            = findViewById(R.id.account_edit);
         mAccountName            = findViewById(R.id.account_name);
+        mCardBody               = findViewById(R.id.card_body);
         mBtnQr                  = findViewById(R.id.account_qr);
         mAccountAddress         = findViewById(R.id.account_address);
         mAccountChain           = findViewById(R.id.account_chain);
@@ -92,7 +96,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mAccountPath            = findViewById(R.id.account_path);
         mImportMsg              = findViewById(R.id.import_msg);
         mPathLayer              = findViewById(R.id.account_path_layer);
-        mRewardCard             = findViewById(R.id.reward_card);
+        mCardRewardAddress      = findViewById(R.id.card_reward_address);
         mBtnRewardAddressChange = findViewById(R.id.reward_change_btn);
         mRewardAddress          = findViewById(R.id.reward_address);
 
@@ -123,6 +127,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
+
         onInitView();
     }
 
@@ -170,6 +175,19 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         }
         mAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("id"));
         if(mAccount == null)  onBackPressed();
+
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            mBtnRewardAddressChange.setVisibility(View.INVISIBLE);
+
+        }
 
         new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 

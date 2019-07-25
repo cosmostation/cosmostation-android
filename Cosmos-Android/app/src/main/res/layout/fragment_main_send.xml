@@ -626,7 +626,8 @@
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/space_16"
                             android:paddingRight="@dimen/space_16"
-                            android:paddingTop="@dimen/space_16">
+                            android:paddingTop="@dimen/space_16"
+                            android:paddingBottom="@dimen/space_16">
                             <ImageView
                                 android:id="@+id/img_guide"
                                 android:layout_width="wrap_content"
@@ -641,50 +642,57 @@
                                 android:layout_marginLeft="@dimen/space_16"
                                 android:layout_toRightOf="@+id/img_guide">
                                 <TextView
+                                    android:id="@+id/title_guide"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     style="@style/font_ssm_14_white"
                                     android:text="@string/str_front_guide_title"/>
                                 <TextView
+                                    android:id="@+id/msg_guide"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     style="@style/font_ss_12_gray1"
                                     android:text="@string/str_front_guide_msg"/>
                             </LinearLayout>
                         </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="@dimen/space_12"
-                            android:layout_marginLeft="@dimen/space_16"
-                            android:layout_marginRight="@dimen/space_16"
-                            android:background="@color/colorGray3"/>
                         <LinearLayout
+                            android:id="@+id/action_guide"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="@dimen/space_4"
-                            android:layout_marginBottom="@dimen/space_4"
-                            android:layout_marginLeft="@dimen/space_16"
-                            android:layout_marginRight="@dimen/space_16">
-                            <Button
-                                android:id="@+id/btn_guide"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
+                            android:orientation="vertical">
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginLeft="@dimen/space_16"
+                                android:layout_marginRight="@dimen/space_16"
+                                android:background="@color/colorGray3"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:minHeight="@dimen/space_44"
-                                android:background="?android:attr/selectableItemBackground"
-                                style="@style/font_ss_14_photon"
-                                android:text="@string/str_guide"/>
-                            <Button
-                                android:id="@+id/btn_faq"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:minHeight="@dimen/space_44"
-                                android:background="?android:attr/selectableItemBackground"
-                                style="@style/font_ss_14_photon"
-                                android:text="@string/str_faq"/>
+                                android:orientation="horizontal"
+                                android:layout_marginTop="@dimen/space_4"
+                                android:layout_marginBottom="@dimen/space_4"
+                                android:layout_marginLeft="@dimen/space_16"
+                                android:layout_marginRight="@dimen/space_16">
+                                <Button
+                                    android:id="@+id/btn_guide"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="@dimen/space_44"
+                                    android:background="?android:attr/selectableItemBackground"
+                                    style="@style/font_ss_14_photon"
+                                    android:text="@string/str_guide"/>
+                                <Button
+                                    android:id="@+id/btn_faq"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="@dimen/space_44"
+                                    android:background="?android:attr/selectableItemBackground"
+                                    style="@style/font_ss_14_photon"
+                                    android:text="@string/str_faq"/>
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>

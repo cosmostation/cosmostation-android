@@ -58,7 +58,7 @@
                         android:text="this is wallet"/>
 
                     <TextView
-                        android:id="@+id/wallet_atom_title"
+                        android:id="@+id/wallet_denom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -67,14 +67,14 @@
                         android:text="ATOM"/>
 
                     <TextView
-                        android:id="@+id/wallet_atom_amount"
+                        android:id="@+id/wallet_balance_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/wallet_atom_title"
+                        android:layout_toLeftOf="@+id/wallet_denom"
                         android:layout_marginRight="@dimen/space_4"
                         android:layout_alignBaseline="@+id/wallet_name"
                         style="@style/font_ss_10_gray1"
-                        android:text="234324,234,324.000000"/>
+                        android:text="-"/>
                 </RelativeLayout>
                 <TextView
                     android:id="@+id/wallet_address"
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     style="@style/font_ss_9_gray1"
-                    android:text="cosmosfsdfdsfdsfsdfdsf"/>
+                    android:text="-"/>
             </LinearLayout>
 
 

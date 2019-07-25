@@ -163,19 +163,23 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 if (getBaseDao().onSelectBalance(account.id).size() > 0) {
-                    holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
+                    holder.wallet_balance.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
                 } else {
-                    holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
+                    holder.wallet_balance.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
                 }
 
+                WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.wallet_denom);
                 if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+                    holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+
                 } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
+                    holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+
                 }
 
                 holder.wallet_address.setText(account.address);
-                holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext()));
                 holder.wallet_card.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -203,20 +207,22 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 if (getBaseDao().onSelectBalance(account.id).size() > 0) {
-                    holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
+                    holder.wallet_balance.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().onSelectBalance(account.id).get(0).balance, 6, BaseChain.getChain(account.baseChain)));
                 } else {
-                    holder.wallet_atom_amount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
+                    holder.wallet_balance.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(account.baseChain)));
                 }
 
+                WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.wallet_denom);
                 if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+                    holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                 } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
+                    holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                 }
 
 
                 holder.wallet_address.setText(account.address);
-                holder.wallet_atom_title.setText(WDp.DpAtom(getBaseContext()));
 
                 holder.wallet_card.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -289,14 +295,14 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         public class AccountListHolder extends RecyclerView.ViewHolder {
             CardView wallet_card;
             ImageView  wallet_chain_img;
-            TextView wallet_name, wallet_atom_amount, wallet_atom_title, wallet_address;
+            TextView wallet_name, wallet_balance, wallet_denom, wallet_address;
             public AccountListHolder(@NonNull View itemView) {
                 super(itemView);
                 wallet_card         = itemView.findViewById(R.id.wallet_card);
                 wallet_chain_img    = itemView.findViewById(R.id.account_chain_img);
                 wallet_name         = itemView.findViewById(R.id.wallet_name);
-                wallet_atom_amount  = itemView.findViewById(R.id.wallet_atom_amount);
-                wallet_atom_title   = itemView.findViewById(R.id.wallet_atom_title);
+                wallet_balance      = itemView.findViewById(R.id.wallet_balance_amount);
+                wallet_denom        = itemView.findViewById(R.id.wallet_denom);
                 wallet_address      = itemView.findViewById(R.id.wallet_address);
             }
         }
