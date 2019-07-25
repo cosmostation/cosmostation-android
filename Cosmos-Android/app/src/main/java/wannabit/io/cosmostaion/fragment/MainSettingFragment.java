@@ -159,8 +159,14 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mBtnExplore)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.mintscan.io/"));
-            startActivity(intent);
+            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.mintscan.io/"));
+                startActivity(intent);
+            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://irishub.mintscan.io/"));
+                startActivity(intent);
+            }
+
 
         } else if (v.equals(mBtnHomepage)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));

@@ -237,6 +237,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
                     webintent.putExtra("txid", source.hash);
+                    webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
                     startActivity(webintent);
                 }
             });

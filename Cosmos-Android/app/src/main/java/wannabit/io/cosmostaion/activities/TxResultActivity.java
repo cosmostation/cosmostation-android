@@ -578,7 +578,12 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 return;
             }
             Intent webintent = new Intent(this, WebActivity.class);
-            webintent.putExtra("txid", mResTxInfo.txhash);
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                webintent.putExtra("txid", mResTxInfo.txhash);
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                webintent.putExtra("txid", mResTxInfo.hash);
+            }
+            webintent.putExtra("chain", mAccount.baseChain);
             webintent.putExtra("goMain", true);
             startActivity(webintent);
 
@@ -588,7 +593,11 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             }
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://irishub.mintscan.io/txs/" + mResTxInfo.hash);
+            }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
         }

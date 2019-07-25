@@ -193,6 +193,7 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
                     webintent.putExtra("voteId", proposal.proposal_id);
+                    webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
                     startActivity(webintent);
                 }
             });
@@ -251,10 +252,10 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO add link with mintscan
-//                    Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-//                    webintent.putExtra("voteId", proposal.proposal_id);
-//                    startActivity(webintent);
+                    Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                    webintent.putExtra("voteId", proposal.value.BasicProposal.proposal_id);
+                    webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
+                    startActivity(webintent);
                 }
             });
         }

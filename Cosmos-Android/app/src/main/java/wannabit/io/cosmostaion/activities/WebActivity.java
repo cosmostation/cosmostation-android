@@ -11,12 +11,14 @@ import android.webkit.WebViewClient;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 
 public class WebActivity extends BaseActivity {
 
     private WebView     mWebview;
     private String      mTxid, mVoteId, mAddress;
     private boolean     mGoMain;
+    private BaseChain   mBasechain;
     private FloatingActionButton mShare;
 
     @Override
@@ -27,6 +29,7 @@ public class WebActivity extends BaseActivity {
         mWebview = findViewById(R.id.webView);
         mWebview.getSettings().setJavaScriptEnabled(true);
         mWebview.getSettings().setDomStorageEnabled(true);
+        mShare = findViewById(R.id.btn_floating);
 
         mWebview.setWebViewClient(new WebViewClient() {
             @Override
@@ -40,19 +43,35 @@ public class WebActivity extends BaseActivity {
         mVoteId = getIntent().getStringExtra("voteId");
         mAddress = getIntent().getStringExtra("address");
         mGoMain = getIntent().getBooleanExtra("goMain", false);
-
-        if (!TextUtils.isEmpty(mTxid))
-            mWebview.loadUrl("https://www.mintscan.io/txs/"+mTxid);
-        else if (!TextUtils.isEmpty(mVoteId))
-            mWebview.loadUrl("https://www.mintscan.io/proposals/"+mVoteId);
-        else if (!TextUtils.isEmpty(mAddress))
-            mWebview.loadUrl("https://www.mintscan.io/account/"+mAddress);
-        else
-            mWebview.loadUrl("https://www.mintscan.io");
+        mBasechain = BaseChain.getChain(getIntent().getStringExtra("chain"));
 
 
 
-        mShare = findViewById(R.id.btn_floating);
+
+
+        if (mBasechain.equals(BaseChain.COSMOS_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl("https://www.mintscan.io/txs/"+mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl("https://www.mintscan.io/proposals/"+mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl("https://www.mintscan.io/account/"+mAddress);
+            else
+                mWebview.loadUrl("https://www.mintscan.io");
+
+        } else if (mBasechain.equals(BaseChain.IRIS_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorIris));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl("https://irishub.mintscan.io/txs/"+mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl("https://irishub.mintscan.io/proposals/"+mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl("https://irishub.mintscan.io/account/"+mAddress);
+            else
+                mWebview.loadUrl("https://irishub.mintscan.io");
+        }
+
         mShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

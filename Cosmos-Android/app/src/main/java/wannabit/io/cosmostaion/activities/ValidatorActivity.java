@@ -926,6 +926,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     public void onClick(View v) {
                         Intent webintent = new Intent(getBaseContext(), WebActivity.class);
                         webintent.putExtra("txid", source.hash);
+                        webintent.putExtra("chain", mAccount.baseChain);
                         startActivity(webintent);
                     }
                 });

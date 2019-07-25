@@ -31,7 +31,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 
 public class MainSendFragment extends BaseFragment implements View.OnClickListener {
@@ -328,6 +327,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnWebDetail)) {
             Intent webintent = new Intent(getMainActivity(), WebActivity.class);
             webintent.putExtra("address", getMainActivity().mAccount.address);
+            webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
             webintent.putExtra("goMain", false);
             startActivity(webintent);
 
