@@ -131,7 +131,11 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             if(temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));
                 holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                if (mChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                } else if (mChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                }
             } else  {
                 if(temp.hasPrivateKey) {
                     holder.newState.setText(getString(R.string.str_imported));
@@ -140,7 +144,11 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 } else {
                     holder.newState.setText(getString(R.string.str_override));
                     holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                    if (mChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+                    } else if (mChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                    }
                 }
             }
             holder.cardNewWallet.setOnClickListener(new View.OnClickListener() {

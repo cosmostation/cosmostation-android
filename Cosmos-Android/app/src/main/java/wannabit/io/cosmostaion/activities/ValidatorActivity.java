@@ -319,10 +319,18 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if(mUnBondingStates != null && mUnBondingStates.size() >= 7){
-            Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
-            return;
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if(mUnBondingStates != null && mUnBondingStates.size() >= 7){
+                Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            if(mUnBondingStates != null && mUnBondingStates.size() >= 1){
+                Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over_iris, Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
+
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
@@ -920,10 +928,18 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.historyType.setText(type);
                 }
 
-                if(!source.result.isSuccess()) {
-                    holder.historySuccess.setVisibility(View.VISIBLE);
-                } else {
-                    holder.historySuccess.setVisibility(View.GONE);
+                if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    if(!source.result.isSuccess()) {
+                        holder.historySuccess.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.historySuccess.setVisibility(View.GONE);
+                    }
+                } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    if(source.result.Code > 0) {
+                        holder.historySuccess.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.historySuccess.setVisibility(View.GONE);
+                    }
                 }
 
 

@@ -424,6 +424,7 @@
     <string name="error_only_atom_for_fee">Currently only supports ATOM as Tx fee.</string>
     <string name="error_disabled_jailed">Delegation to jailed validator is not supported.</string>
     <string name="error_unbond_cnt_over">Exceeded maximum undelegation count.</string>
+    <string name="error_unbond_cnt_over_iris">Please wait 21 days until your unbonding is processed. You will be able to undelegate again once unbonding is completed.</string>
     <string name="error_redelegate_cnt_over">Exceeded maximum redelegation count.\nSelect another validator.</string>
     <string name="error_no_to_validator">Please select validator to redelegate.</string>
     <string name="error_same_reward_address">This address is already registered as your claim reward address.</string>

@@ -15,6 +15,9 @@ import java.util.List;
 
 public class Result {
 
+    @SerializedName("Code")
+    public int Code;
+
     @SerializedName("gas_wanted")
     public String gas_wanted;
 

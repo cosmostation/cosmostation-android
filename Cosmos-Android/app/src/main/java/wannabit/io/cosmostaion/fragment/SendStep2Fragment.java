@@ -56,14 +56,23 @@ public class SendStep2Fragment extends BaseFragment implements View.OnClickListe
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 mMemoCnt.setText("" + memoSize + "/255");
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+                int memoSize = mMemo.getText().toString().trim().length();
+                if(memoSize <= 255) {
+                    mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
+                } else {
+                    mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+                mMemoCnt.setText("" + memoSize + "/255");
+            }
         });
         return rootView;
     }

@@ -19,7 +19,7 @@
             android:maxHeight="@dimen/space_120"
             android:hint="@string/str_memo"
             android:textCursorDrawable="@drawable/white_cursor"
-            android:maxLength="256"
+            android:maxLength="255"
             android:textColorHint="@color/colorGray4"
             android:background="@drawable/edittext_box"
             android:paddingEnd="@dimen/space_12"
@@ -35,7 +35,7 @@
             android:layout_below="@+id/et_memo"
             android:layout_alignParentRight="true"
             style="@style/font_ss_11_gray1"
-            android:text="0/256"/>
+            android:text="0/255"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

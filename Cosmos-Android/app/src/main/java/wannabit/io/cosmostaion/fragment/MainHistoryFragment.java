@@ -224,11 +224,21 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 viewHolder.historyType.setText(type);
             }
 
-            if(!source.result.isSuccess()) {
-                viewHolder.historySuccess.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.historySuccess.setVisibility(View.GONE);
+
+            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if(!source.result.isSuccess()) {
+                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder.historySuccess.setVisibility(View.GONE);
+                }
+            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                if(source.result.Code > 0) {
+                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder.historySuccess.setVisibility(View.GONE);
+                }
             }
+
             viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.time));
             viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.time));
             viewHolder.history_block.setText(source.height + " block");
