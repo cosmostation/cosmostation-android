@@ -616,4 +616,15 @@ public class WUtil {
         }
         return BaseConstant.CMC_ATOM;
     }
+
+    public static String getCGCId(BaseChain chain) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            return BaseConstant.CGC_ATOM;
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            return BaseConstant.CGC_IRIS;
+        }
+        return BaseConstant.CGC_ATOM;
+
+    }
 }

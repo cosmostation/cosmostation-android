@@ -50,6 +50,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mTvIrisTotal, mTvIrisValue, mTvIrisUndelegated,
                                 mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
 
+    private TextView            mMarket;
     private TextView            mPerPrice, mUpDownPrice;
     private ImageView           mUpDownImg;
 
@@ -106,6 +107,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvIrisRewards          = rootView.findViewById(R.id.dash_iris_reward);
 
         mPriceCard              = rootView.findViewById(R.id.card_price);
+        mMarket                 = rootView.findViewById(R.id.dash_price_market);
         mPerPrice               = rootView.findViewById(R.id.dash_per_price);
         mUpDownPrice            = rootView.findViewById(R.id.dash_price_updown_tx);
         mUpDownImg              = rootView.findViewById(R.id.ic_price_updown);
@@ -151,6 +153,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnAddressDetail.setOnClickListener(this);
         mGuideBtn.setOnClickListener(this);
         mFaqBtn.setOnClickListener(this);
+        mPriceCard.setOnClickListener(this);
 
         return rootView;
     }
@@ -217,6 +220,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 //        WLog.w("mBalances " + getMainActivity().mBalances.size());
 //        WLog.w("mBondings " + getMainActivity().mBondings.size());
 //        WLog.w("mUnbondings " + getMainActivity().mUnbondings.size());
+
+        mMarket.setText("("+getBaseDao().getMarketString(getContext())+")");
 
 
         if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
@@ -333,10 +338,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mGuideBtn)) {
             if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/guide_KO.pdf"));
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_ko.pdf"));
                 startActivity(guideIntent);
             } else {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/guide_EN.pdf"));
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_en.pdf"));
                 startActivity(guideIntent);
             }
 
@@ -347,6 +352,27 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             } else {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
                 startActivity(guideIntent);
+            }
+        } else if (v.equals(mPriceCard)) {
+            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getBaseDao().getMarket() == 0) {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/cosmos"));
+                    startActivity(guideIntent);
+                } else {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://coinmarketcap.com/currencies/cosmos/"));
+                    startActivity(guideIntent);
+                }
+
+            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                if (getBaseDao().getMarket() == 0) {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/irisnet"));
+                    startActivity(guideIntent);
+
+                } else {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://coinmarketcap.com/currencies/irisnet"));
+                    startActivity(guideIntent);
+
+                }
             }
         }
 

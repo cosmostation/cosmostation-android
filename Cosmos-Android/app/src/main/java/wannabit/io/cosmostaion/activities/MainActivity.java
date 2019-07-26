@@ -66,6 +66,7 @@ import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainVoteFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -899,25 +900,29 @@ public class MainActivity extends BaseActivity implements TaskListener {
         }
     }
 
-    private void onPriceTic(final BaseChain chain) {
-        ApiClient.getCMCClient(getBaseContext()).getPriceTic(WUtil.getCMCId(chain), getBaseDao().getCurrencyString()).enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if(isFinishing()) return;
-                try {
-                    if(response.isSuccessful() && chain.equals(BaseChain.COSMOS_MAIN)) {
-                        ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                        getBaseDao().setLastAtomTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                        getBaseDao().setLastAtomUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
+    public void onPriceTic(final BaseChain chain) {
+        if (getBaseDao().getMarket() == 0) {
+            ApiClient.getCGCClient(getBaseContext()).getPriceTic(WUtil.getCGCId(chain)).enqueue(new Callback<ResCgcTic>() {
+                @Override
+                public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
+                    if(isFinishing()) return;
+                    WLog.w("coingekoTic");
+                    try {
+                        getBaseDao().setLastPriceTic(chain, response.body());
+                    } catch (Exception e) {
+                        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                            getBaseDao().setLastAtomTic(0d);
+                            getBaseDao().setLastAtomUpDown(0d);
 
-                    } else if (response.isSuccessful() && chain.equals(BaseChain.IRIS_MAIN)) {
-                        ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                        getBaseDao().setLastIrisTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                        getBaseDao().setLastIrisUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
-
+                        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                            getBaseDao().setLastIrisTic(0d);
+                            getBaseDao().setLastIrisUpDown(0d);
+                        }
                     }
+                }
 
-                } catch (Exception e) {
+                @Override
+                public void onFailure(Call<ResCgcTic> call, Throwable t) {
                     if (chain.equals(BaseChain.COSMOS_MAIN)) {
                         getBaseDao().setLastAtomTic(0d);
                         getBaseDao().setLastAtomUpDown(0d);
@@ -925,24 +930,55 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                         getBaseDao().setLastIrisTic(0d);
                         getBaseDao().setLastIrisUpDown(0d);
-
                     }
                 }
-            }
+            });
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                    getBaseDao().setLastAtomTic(0d);
-                    getBaseDao().setLastAtomUpDown(0d);
+        } else if (getBaseDao().getMarket() == 1) {
+            ApiClient.getCMCClient(getBaseContext()).getPriceTic(WUtil.getCMCId(chain), getBaseDao().getCurrencyString()).enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    if(isFinishing()) return;
+                    WLog.w("coinmarkettic");
+                    try {
+                        if(response.isSuccessful() && chain.equals(BaseChain.COSMOS_MAIN)) {
+                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
+                            getBaseDao().setLastAtomTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
+                            getBaseDao().setLastAtomUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
 
-                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                    getBaseDao().setLastIrisTic(0d);
-                    getBaseDao().setLastIrisUpDown(0d);
+                        } else if (response.isSuccessful() && chain.equals(BaseChain.IRIS_MAIN)) {
+                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
+                            getBaseDao().setLastIrisTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
+                            getBaseDao().setLastIrisUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
 
+                        }
+
+                    } catch (Exception e) {
+                        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                            getBaseDao().setLastAtomTic(0d);
+                            getBaseDao().setLastAtomUpDown(0d);
+
+                        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                            getBaseDao().setLastIrisTic(0d);
+                            getBaseDao().setLastIrisUpDown(0d);
+
+                        }
+                    }
                 }
 
-            }
-        });
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                        getBaseDao().setLastAtomTic(0d);
+                        getBaseDao().setLastAtomUpDown(0d);
+
+                    } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                        getBaseDao().setLastIrisTic(0d);
+                        getBaseDao().setLastIrisUpDown(0d);
+                    }
+
+                }
+            });
+        }
     }
 }

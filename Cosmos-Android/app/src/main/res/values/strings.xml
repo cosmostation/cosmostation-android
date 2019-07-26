@@ -3,6 +3,7 @@
     <string name="db_password" translatable="false">wannabit</string>
 
     <string name="url_coinmarketcap" translatable="false">https://api.coinmarketcap.com/</string>
+    <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>
     <string name="url_keybase" translatable="false">https://keybase.io/</string>
     <string name="url_lcd_main" translatable="false">https://lcd-app.cosmostation.io/</string>
     <string name="url_es_proxy" translatable="false">https://app-es.cosmostation.io/</string>
@@ -45,6 +46,8 @@
     <string name="str_cosmos_test_net_13k">COSMOS Testnet (GAIA 13k)</string>
     <string name="str_iris_main_net">IRIS Mainnet</string>
 
+    <string name="str_coingecko" translatable="false">CoinGecko</string>
+    <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
 
     <string name="str_ok">OK</string>
     <string name="str_no">No</string>
@@ -246,7 +249,7 @@
     <string name="str_fee_speed_title_0">Only a handful of validators will process this Tx.</string>
     <string name="str_fee_speed_title_1">A few validators include \"Cosmostation\" will process this Tx.</string>
     <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
-    <string name="str_fee_speed_title_iris">Spend fixed amount fee for Iris.</string>
+    <string name="str_fee_speed_title_iris">Support fixed amount fee for Iris.\nIris Hub will refund the remaining gas fee after use.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>

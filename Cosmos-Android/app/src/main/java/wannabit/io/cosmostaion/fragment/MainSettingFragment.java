@@ -31,13 +31,16 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
+import wannabit.io.cosmostaion.dialog.Dialog_Market;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
     public final static int SELECT_CURRENCY = 9034;
+    public final static int SELECT_MARKET = 9035;
 
     private FrameLayout mBtnWallet, mBtnAlaram, mBtnAppLock, mBtnCurrency, mBtnBasePrice,
                         mBtnGuide, mBtnTelegram, mBtnExplore, mBtnHomepage,
@@ -117,6 +120,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if(!isAdded()) return;
         mTvCurrency.setText(getBaseDao().getCurrencyString());
+        mTvBasePrice.setText(getBaseDao().getMarketString(getMainActivity()));
         if(getBaseDao().getUsingAppLock()) {
             mTvAppLock.setText(R.string.str_app_applock_enabled);
         } else {
@@ -136,13 +140,17 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getBaseActivity(), AppLockSetActivity.class));
 
         } else if (v.equals(mBtnCurrency)) {
-            Dialog_Currency_Set cyrrency_dialog = Dialog_Currency_Set.newInstance(null);
-            cyrrency_dialog.setCancelable(true);
-            cyrrency_dialog.setTargetFragment(this, SELECT_CURRENCY);
-            getFragmentManager().beginTransaction().add(cyrrency_dialog, "dialog").commitNowAllowingStateLoss();
+            Dialog_Currency_Set currency_dialog = Dialog_Currency_Set.newInstance(null);
+            currency_dialog.setCancelable(true);
+            currency_dialog.setTargetFragment(this, SELECT_CURRENCY);
+            getFragmentManager().beginTransaction().add(currency_dialog, "dialog").commitNowAllowingStateLoss();
             return;
 
         } else if (v.equals(mBtnBasePrice)) {
+            Dialog_Market market = Dialog_Market.newInstance(null);
+            market.setCancelable(true);
+            market.setTargetFragment(this, SELECT_MARKET);
+            getFragmentManager().beginTransaction().add(market, "dialog").commitNowAllowingStateLoss();
             return;
 
         } else if (v.equals(mBtnGuide)) {
@@ -200,54 +208,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if(requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
             getBaseDao().setCurrency(data.getIntExtra("currency", 0));
             mTvCurrency.setText(getBaseDao().getCurrencyString());
-            onPriceTic(BaseChain.getChain(getMainActivity().mAccount.baseChain));
+        } else if (requestCode == SELECT_MARKET && resultCode == Activity.RESULT_OK) {
+            getBaseDao().setMarket(data.getIntExtra("market", 0));
+            mTvBasePrice.setText(getBaseDao().getMarketString(getMainActivity()));
         }
-    }
-
-    private void onPriceTic(final BaseChain chain) {
-        ApiClient.getCMCClient(getMainActivity()).getPriceTic(WUtil.getCMCId(chain), getBaseDao().getCurrencyString()).enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if(!isAdded()) return;
-                try {
-                    if(response.isSuccessful() && chain.equals(BaseChain.COSMOS_MAIN)) {
-                        ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                        getBaseDao().setLastAtomTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                        getBaseDao().setLastAtomUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
-
-                    } else if (response.isSuccessful() && chain.equals(BaseChain.IRIS_MAIN)) {
-                        ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                        getBaseDao().setLastIrisTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                        getBaseDao().setLastIrisUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
-
-                    }
-
-                } catch (Exception e) {
-                    if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                        getBaseDao().setLastAtomTic(0d);
-                        getBaseDao().setLastAtomUpDown(0d);
-
-                    } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                        getBaseDao().setLastIrisTic(0d);
-                        getBaseDao().setLastIrisUpDown(0d);
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                    getBaseDao().setLastAtomTic(0d);
-                    getBaseDao().setLastAtomUpDown(0d);
-
-                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                    getBaseDao().setLastIrisTic(0d);
-                    getBaseDao().setLastIrisUpDown(0d);
-
-                }
-
-            }
-        });
+        getMainActivity().onPriceTic(BaseChain.getChain(getMainActivity().mAccount.baseChain));
     }
 }

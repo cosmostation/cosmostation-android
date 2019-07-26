@@ -23,6 +23,7 @@ public class BaseConstant {
     public final static String                  PRE_IRIS_TIC			                        = "PRE_IRIS_TIC";
     public final static String                  PRE_IRIS_UP_DOWN_24			                    = "PRE_IRIS_UP_DOWN_24";
     public final static String                  PRE_CURRENCY			                        = "PRE_CURRENCY";
+    public final static String                  PRE_MARKET  			                        = "PRE_MARKET";
     public final static String                  PRE_USING_APP_LOCK			                    = "PRE_USING_APP_LOCK";
     public final static String                  PRE_USING_FINGERPRINT			                = "PRE_USING_FINGERPRINT";
     public final static String                  PRE_APP_LOCK_TIME			                    = "PRE_APP_LOCK_TIME";
@@ -194,6 +195,9 @@ public class BaseConstant {
     public final static String                  FEE_IRIS_GAS_AMOUNT_REWARD_BASE                 = "10000";
     public final static String                  FEE_IRIS_GAS_AMOUNT_REWARD_MUX                  = "5000";
 
-    public final static int                  CMC_ATOM                                           = 3794;
-    public final static int                  CMC_IRIS                                           = 3874;
+
+    public final static String                  CGC_ATOM                                        = "cosmos";
+    public final static String                  CGC_IRIS                                        = "iris-network";
+    public final static int                     CMC_ATOM                                        = 3794;
+    public final static int                     CMC_IRIS                                        = 3874;
 }

@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
+import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class BaseData {
@@ -51,10 +52,58 @@ public class BaseData {
     }
 
 
+    public void setLastPriceTic(BaseChain chain, ResCgcTic tic) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getCurrency() == 0) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+tic.market_data.current_price.usd).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
+            } else if (getCurrency() == 1) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+tic.market_data.current_price.eur).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
+            } else if (getCurrency() == 2) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+tic.market_data.current_price.krw).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
+            } else if (getCurrency() == 3) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+tic.market_data.current_price.jpy).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
+            } else if (getCurrency() == 4) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+tic.market_data.current_price.cny).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
+            } else if (getCurrency() == 5) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+tic.market_data.current_price.btc).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
+            }
+
+        }  else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            if (getCurrency() == 0) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_TIC, ""+tic.market_data.current_price.usd).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
+            } else if (getCurrency() == 1) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_TIC, ""+tic.market_data.current_price.eur).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
+            } else if (getCurrency() == 2) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_TIC, ""+tic.market_data.current_price.krw).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
+            } else if (getCurrency() == 3) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_TIC, ""+tic.market_data.current_price.jpy).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
+            } else if (getCurrency() == 4) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_TIC, ""+tic.market_data.current_price.cny).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
+            } else if (getCurrency() == 5) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_TIC, ""+tic.market_data.current_price.btc).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
+            }
+
+        }
+
+    }
 
     public void setLastAtomTic(Double price) {
         getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+price).commit();
     }
+
+
 
     public double getLastAtomTic() {
         String priceS = getSharedPreferences().getString(BaseConstant.PRE_ATOM_TIC, "0");
@@ -179,6 +228,22 @@ public class BaseData {
 
     public void setCurrency(int currency) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_CURRENCY, currency).commit();
+    }
+
+    public int getMarket() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_MARKET, 0);
+    }
+
+    public String getMarketString(Context c) {
+        if (getMarket() == 0) {
+            return c.getString(R.string.str_coingecko);
+        } else {
+            return c.getString(R.string.str_coinmarketcap);
+        }
+    }
+
+    public void setMarket(int market) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_MARKET, market).commit();
     }
 
 

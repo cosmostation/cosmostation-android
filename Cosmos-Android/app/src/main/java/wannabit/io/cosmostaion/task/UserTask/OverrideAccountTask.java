@@ -54,13 +54,14 @@ public class OverrideAccountTask extends CommonTask {
     private Account onModAccount(Account account, String entropy, String path, String msize) {
         DeterministicKey dKey       = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(path));
         EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ account.uuid, entropy, false);
-        account.address             = WKey.getCosmosUserDpAddress(dKey.getPublicKeyAsHex());
-        account.hasPrivateKey    = true;
-        account.resource         = encR.getEncDataString();
-        account.spec             = encR.getIvDataString();
-        account.fromMnemonic     = true;
-        account.path             = path;
-        account.msize            = Integer.parseInt(msize);
+//        account.address             = WKey.getCosmosUserDpAddress(dKey.getPublicKeyAsHex());
+        account.address             = WKey.getDpAddress(account.baseChain, dKey.getPublicKeyAsHex());
+        account.hasPrivateKey       = true;
+        account.resource            = encR.getEncDataString();
+        account.spec                = encR.getIvDataString();
+        account.fromMnemonic        = true;
+        account.path                = path;
+        account.msize               = Integer.parseInt(msize);
         return account;
     }
 }
