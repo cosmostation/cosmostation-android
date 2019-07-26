@@ -245,11 +245,11 @@ public class WKey {
 
     }
 
-    public static String getDpAddressFromEntropy(byte[] entropy){
+    public static String getDpAddressFromEntropy(BaseChain chain, byte[] entropy){
         byte[] HDseed               = getHDSeed(entropy);
         DeterministicKey masterKey  = HDKeyDerivation.createMasterPrivateKey(HDseed);
         DeterministicKey childKey   = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(), true, true,  new ChildNumber(0));
-        return getCosmosUserDpAddress(childKey.getPublicKeyAsHex());
+        return getDpAddress(chain.getChain(), childKey.getPublicKeyAsHex());
     }
 
 

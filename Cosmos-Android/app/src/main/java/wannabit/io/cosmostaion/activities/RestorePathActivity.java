@@ -116,7 +116,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private class NewWalletAdapter extends RecyclerView.Adapter<NewWalletAdapter.NewWalletHolder> {
 
-
         @NonNull
         @Override
         public NewWalletHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

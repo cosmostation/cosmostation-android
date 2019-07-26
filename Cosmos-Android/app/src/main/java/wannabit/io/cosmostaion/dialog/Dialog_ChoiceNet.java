@@ -54,7 +54,6 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mIris.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getContext(), getString(R.string.str_preparing), Toast.LENGTH_SHORT).show();
                 ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IRIS_MAIN);
                 getDialog().dismiss();
             }

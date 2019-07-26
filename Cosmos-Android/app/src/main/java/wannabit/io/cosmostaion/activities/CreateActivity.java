@@ -3,12 +3,14 @@ package wannabit.io.cosmostaion.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,12 +31,16 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class CreateActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar             mToolbar;
+    private CardView            mCardAddress, mCardMnemonics;
+    private LinearLayout        mWarnLayer;
+
     private TextView            mAddress;
     private TextView[]          mTvWords = new TextView[24];
-    private ImageView           mImgMsg;
-    private TextView            mTvMsg1, mTvMsg2;
+
+    private TextView            mTvWarnMsg;
     private Button              mBtnNext;
 
+    private BaseChain           mChain;
     private ArrayList<String>   mWords = new ArrayList<>();
     private byte[]              mEntropy;
     private boolean             mCheckPassword;
@@ -45,10 +51,11 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_create);
         mToolbar        = findViewById(R.id.tool_bar);
+        mCardAddress    = findViewById(R.id.card_address_layer);
         mAddress        = findViewById(R.id.create_address);
-        mImgMsg         = findViewById(R.id.create_img);
-        mTvMsg1         = findViewById(R.id.create_msg1);
-        mTvMsg2         = findViewById(R.id.create_msg2);
+        mCardMnemonics  = findViewById(R.id.card_mnemonic_layer);
+        mWarnLayer      = findViewById(R.id.warn_layer);
+        mTvWarnMsg      = findViewById(R.id.warn_msg);
         mBtnNext        = findViewById(R.id.btn_next);
         mBtnNext.setOnClickListener(this);
 
@@ -60,14 +67,17 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i , "id", this.getPackageName()));
         }
         mCheckPassword = false;
-        onGenWords();
     }
 
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        onUpdateView();
+    protected void onPostResume() {
+        super.onPostResume();
+        if (mChain == null) {
+            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
+            dialog.setCancelable(false);
+            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        }
     }
 
     @Override
@@ -87,12 +97,23 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void onGenWords() {
-        mEntropy   = WKey.getEntropy();
-        mWords  = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
-        mAddress.setText(WKey.getDpAddressFromEntropy(mEntropy));
+        mEntropy = WKey.getEntropy();
+        mWords = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
+        mAddress.setText(WKey.getDpAddressFromEntropy(mChain, mEntropy));
     }
 
+
     private void onUpdateView() {
+        onHideWaitDialog();
+        if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+        } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+        }
+        mCardAddress.setVisibility(View.VISIBLE);
+        mCardMnemonics.setVisibility(View.VISIBLE);
+        mWarnLayer.setVisibility(View.VISIBLE);
+        mBtnNext.setVisibility(View.VISIBLE);
         if(getBaseDao().onHasPassword() && mCheckPassword) {
             for(int i = 0; i < mTvWords.length; i++) {
                 mTvWords[i].setText(mWords.get(i));
@@ -105,10 +126,10 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
 
         if(mCheckPassword) {
             mBtnNext.setText(getString(R.string.str_create_wallet));
-            mTvMsg2.setText(getString(R.string.str_create_warn1));
+            mTvWarnMsg.setText(getString(R.string.str_create_warn1));
         } else {
             mBtnNext.setText(getString(R.string.str_show_mnemonic));
-            mTvMsg2.setText(getString(R.string.str_create_warn0));
+            mTvWarnMsg.setText(getString(R.string.str_create_warn0));
         }
 
     }
@@ -128,9 +149,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
             } else {
-                Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
-                dialog.setCancelable(false);
-                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                onShowWaitDialog();
+                new GenerateAccountTask(getBaseApplication(), this).execute(mChain.getChain(), "0", WUtil.ByteArrayToHexString(mEntropy), "24");
             }
         }
 
@@ -140,7 +160,10 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     public void onChoiceNet(BaseChain chain) {
         super.onChoiceNet(chain);
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), this).execute(chain.getChain(), "0", WUtil.ByteArrayToHexString(mEntropy), "24");
+
+        mChain = chain;
+        onGenWords();
+        onUpdateView();
     }
 
 
@@ -157,6 +180,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
+        onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if(result.isSuccess) {
                 onStartMainActivity();

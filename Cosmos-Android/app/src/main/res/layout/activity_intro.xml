@@ -126,7 +126,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="-3dp"
-                            style="@style/font_ss_9_gray1"
+                            style="@style/font_ss_9_photon"
                             android:text="@string/str_import2"/>
                         <TextView
                             android:layout_width="wrap_content"
@@ -157,7 +157,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="-3dp"
-                            style="@style/font_ss_9_gray1"
+                            style="@style/font_ss_9_photon"
                             android:text="@string/str_watch"/>
                         <TextView
                             android:layout_width="wrap_content"

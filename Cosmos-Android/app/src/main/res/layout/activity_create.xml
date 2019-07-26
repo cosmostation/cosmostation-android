@@ -5,6 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/chain_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_intro_gr"/>
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
@@ -20,7 +27,7 @@
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/card_total_layer"
+        android:id="@+id/card_address_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tool_bar"
@@ -30,7 +37,8 @@
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorGray7"
-        app:cardUseCompatPadding="true" >
+        app:cardUseCompatPadding="true"
+        android:visibility="invisible" >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_44">
@@ -44,7 +52,8 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:layout_below="@+id/card_total_layer"
+        android:id="@+id/card_mnemonic_layer"
+        android:layout_below="@+id/card_address_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
@@ -54,7 +63,8 @@
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg2"
-        app:cardUseCompatPadding="true" >
+        app:cardUseCompatPadding="true"
+        android:visibility="invisible">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -328,19 +338,19 @@
 
 
     <LinearLayout
+        android:id="@+id/warn_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_next"
         android:orientation="vertical"
         android:padding="@dimen/space_40"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:visibility="invisible">
         <ImageView
-            android:id="@+id/create_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/warning_ic"/>
         <TextView
-            android:id="@+id/create_msg1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_6"
@@ -348,7 +358,7 @@
             style="@style/font_ssm_17_white"
             android:text="@string/str_warning"/>
         <TextView
-            android:id="@+id/create_msg2"
+            android:id="@+id/warn_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_6"
@@ -356,6 +366,7 @@
             style="@style/font_ss_12_gray1"
             android:text="@string/str_create_warn0"/>
     </LinearLayout>
+
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
@@ -368,7 +379,8 @@
         android:background="@drawable/btn_trans_with_border"
         style="@style/font_ss_14_photon"
         android:textAllCaps="false"
-        android:text="@string/str_show_mnemonic"/>
+        android:text="@string/str_show_mnemonic"
+        android:visibility="invisible"/>
 </RelativeLayout>
 
 <!--<RelativeLayout-->
