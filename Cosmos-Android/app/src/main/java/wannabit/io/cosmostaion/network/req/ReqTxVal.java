@@ -99,6 +99,7 @@ public class ReqTxVal {
             fields2.add(validator_op_addr);
             fields2.add(validator_dst_add);
             fields2.add(validator_src_add);
+            fields2.add(result_tag_key);
         }
         multiMatch2.fields = fields2;
 
@@ -130,4 +131,5 @@ public class ReqTxVal {
     public static final String validator_op_addr = "tx.value.msg.value.val_operator_addr";
     public static final String validator_dst_add = "tx.value.msg.value.validator_dst_addr";
     public static final String validator_src_add = "tx.value.msg.value.validator_src_addr";
+    public static final String result_tag_key = "result.tags.key";
 }

@@ -62,6 +62,8 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
 
@@ -898,6 +900,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
                     case BaseConstant.TX_TYPE_REINVEST:
                         holder.historyType.setText(getString(R.string.tx_reinvest));
+                        holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
+                        break;
+
+                    case BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL:
+                        holder.historyType.setText(getString(R.string.tx_get_reward_all));
                         holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                         break;
 
