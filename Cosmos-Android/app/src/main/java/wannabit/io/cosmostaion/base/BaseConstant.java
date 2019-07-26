@@ -179,6 +179,9 @@ public class BaseConstant {
     public final static long					CONSTANT_D			                            = CONSTANT_H * 24;
 
 
+    public final static int                     MEMO_ATOM                                        = 255;
+    public final static int                     MEMO_IRIS                                        = 100;
+
     public final static String                  FEE_GAS_RATE_LOW                                = "0.0025";
     public final static String                  FEE_GAS_RATE_AVERAGE                            = "0.025";
 

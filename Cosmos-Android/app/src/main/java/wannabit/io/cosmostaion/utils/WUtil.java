@@ -625,6 +625,25 @@ public class WUtil {
             return BaseConstant.CGC_IRIS;
         }
         return BaseConstant.CGC_ATOM;
-
     }
+
+    public static int getMaxMemoSize(BaseChain chain) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            return BaseConstant.MEMO_ATOM;
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            return BaseConstant.MEMO_IRIS;
+        }
+        return BaseConstant.MEMO_IRIS;
+    }
+
+    public static int getCharSize(String memo) {
+        int result = 1000;
+        try {
+            result = memo.trim().getBytes("UTF-8").length;
+        } catch (Exception e) { }
+
+        return result;
+    }
+
 }

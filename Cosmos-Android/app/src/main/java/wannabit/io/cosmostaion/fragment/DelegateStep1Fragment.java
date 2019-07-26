@@ -14,15 +14,17 @@ import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class DelegateStep1Fragment extends BaseFragment implements View.OnClickListener {
 
-    private EditText mMemo;
-    private TextView mMemoCnt;
+    private EditText    mMemo;
+    private TextView    mMemoCnt;
 
-    private Button mBeforeBtn, mNextBtn;
+    private Button      mBeforeBtn, mNextBtn;
 
     public static DelegateStep1Fragment newInstance(Bundle bundle) {
         DelegateStep1Fragment fragment = new DelegateStep1Fragment();
@@ -45,18 +47,20 @@ public class DelegateStep1Fragment extends BaseFragment implements View.OnClickL
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
+        mMemoCnt.setText("0" + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
+
         mMemo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                int memoSize = mMemo.getText().toString().trim().length();
-                if(memoSize <= 255) {
+                String memo = mMemo.getText().toString().trim();
+                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
                 }
-                mMemoCnt.setText("" + memoSize + "/255");
+                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
 
             }
 
@@ -65,15 +69,15 @@ public class DelegateStep1Fragment extends BaseFragment implements View.OnClickL
 
             @Override
             public void afterTextChanged(Editable s) {
-                int memoSize = mMemo.getText().toString().trim().length();
-                if(memoSize <= 255) {
+                String memo = mMemo.getText().toString().trim();
+                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
                 }
-                mMemoCnt.setText("" + memoSize + "/255");
+                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
             }
         });
         return rootView;
@@ -85,15 +89,13 @@ public class DelegateStep1Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(mMemo.getText().toString().trim().length() <= 255) {
+            String memo = mMemo.getText().toString().trim();
+            if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
                 getSActivity().mToDelegateMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
-
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_memo, Toast.LENGTH_SHORT).show();
             }
-
-
         }
 
     }
