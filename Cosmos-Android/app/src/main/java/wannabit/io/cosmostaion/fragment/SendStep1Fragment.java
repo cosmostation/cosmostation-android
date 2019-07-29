@@ -139,15 +139,16 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                                 return;
                             }
+
                             BigDecimal checkPosition = inputAmount.movePointRight(18);
-                            try {
-                                Double.parseDouble(checkPosition.toPlainString());
-                            } catch (Exception e) {
+                            BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
+                            if (checkPosition.compareTo(checkMax) != 0) {
                                 String recover = es.substring(0, es.length() - 1);
                                 mAmountInput.setText(recover);
                                 mAmountInput.setSelection(recover.length());
                                 return;
                             }
+
                             if(inputAmount.compareTo(mMaxAvailable.movePointLeft(18).setScale(18, RoundingMode.CEILING)) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             } else {
