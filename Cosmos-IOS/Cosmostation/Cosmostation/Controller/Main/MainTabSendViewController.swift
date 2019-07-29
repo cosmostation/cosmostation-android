@@ -79,7 +79,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         if(mainTabVC.mAccount.account_has_private) { keyTypeImg.image = UIImage(named: "key_on")
         } else { keyTypeImg.image = UIImage(named: "key_off") }
         
-        if(mainTabVC.mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
+        if(mainTabVC.mAccount.account_base_chain == ChainType.CHAIN_COSMOS.rawValue) {
             titleChainName.text = "(Cosmos Hub)"
         } else {
             titleChainName.text = ""

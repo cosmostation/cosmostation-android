@@ -246,33 +246,16 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
                 onShowChainType()
                 
             } else {
+                let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+                self.navigationItem.title = ""
+                self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+                passwordVC.resultDelegate = self
                 if(!BaseData.instance.hasPassword()) {
-                    let transition:CATransition = CATransition()
-                    transition.duration = 0.3
-                    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-                    transition.type = CATransitionType.moveIn
-                    transition.subtype = CATransitionSubtype.fromTop
-                    
-                    let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-                    self.navigationItem.title = ""
-                    self.navigationController!.view.layer.add(transition, forKey: kCATransition)
                     passwordVC.mTarget = PASSWORD_ACTION_INIT
-                    passwordVC.resultDelegate = self
-                    self.navigationController?.pushViewController(passwordVC, animated: false)
                 } else  {
-                    let transition:CATransition = CATransition()
-                    transition.duration = 0.3
-                    transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-                    transition.type = CATransitionType.moveIn
-                    transition.subtype = CATransitionSubtype.fromTop
-                    
-                    let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-                    self.navigationItem.title = ""
-                    self.navigationController!.view.layer.add(transition, forKey: kCATransition)
                     passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
-                    passwordVC.resultDelegate = self
-                    self.navigationController?.pushViewController(passwordVC, animated: false)
                 }
+                self.navigationController?.pushViewController(passwordVC, animated: false)
             }
         }
     }
@@ -285,20 +268,26 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             let restorePathVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestorePathViewController") as! RestorePathViewController
             self.navigationItem.title = ""
             restorePathVC.userInputWords = self.userInputWords
-            restorePathVC.userChain = ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue
+            restorePathVC.userChain = ChainType.CHAIN_COSMOS
             self.navigationController?.pushViewController(restorePathVC, animated: true)
             
         })
         cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
         cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-        let irisAction = UIAlertAction(title: NSLocalizedString("IRIS", comment: ""), style: .default)
-        irisAction.setValue(UIColor.gray, forKey: "titleTextColor")
+        let irisAction = UIAlertAction(title: NSLocalizedString("IRIS", comment: ""), style: .default, handler: { _ in
+            let restorePathVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestorePathViewController") as! RestorePathViewController
+            self.navigationItem.title = ""
+            restorePathVC.userInputWords = self.userInputWords
+            restorePathVC.userChain = ChainType.CHAIN_IRIS
+            self.navigationController?.pushViewController(restorePathVC, animated: true)
+            
+        })
+        irisAction.setValue(UIColor.black, forKey: "titleTextColor")
         irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
-        showAlert.actions[1].isEnabled = false
         self.present(showAlert, animated: true, completion: nil)
     }
     

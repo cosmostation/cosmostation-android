@@ -47,7 +47,7 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if(BaseData.instance.getUsingAppLock() == true && !lockPasses) {
+        if (BaseData.instance.getUsingAppLock() == true && !lockPasses) {
             let transition:CATransition = CATransition()
             transition.duration = 0.3
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
@@ -62,24 +62,25 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
             self.navigationController?.pushViewController(passwordVC, animated: false)
             
         } else {
-            self.onStartinitJob()
+            self.onStartInitJob()
         }
     }
     
     
-    func onStartinitJob() {
-        if(accounts!.count <= 0) {
+    func onStartInitJob() {
+        if (accounts!.count <= 0) {
             UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseOut, animations: {
                 self.bottomLogoView.alpha = 0.0
             }, completion: { (finished) -> Void in
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
                     self.bottomControlView.alpha = 1.0
                 }, completion: nil)
-                
             })
             
         } else {
-            self.onStartMainTab()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.onStartMainTab()
+            }
         }
     }
     

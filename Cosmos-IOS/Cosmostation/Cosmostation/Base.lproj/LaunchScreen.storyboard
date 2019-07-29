@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_5" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,61 +15,29 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_02" translatesAutoresizingMaskIntoConstraints="NO" id="CpL-84-w9F">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_intro" translatesAutoresizingMaskIntoConstraints="NO" id="CpL-84-w9F">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mtf-1k-Fmr">
-                                <rect key="frame" x="-50" y="343" width="514" height="220"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosLogo" translatesAutoresizingMaskIntoConstraints="NO" id="GPe-QH-ejp">
-                                        <rect key="frame" x="185" y="0.0" width="144" height="149"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7SM-fZ-4v5">
-                                        <rect key="frame" x="128.33333333333329" y="157" width="257.66666666666674" height="41.666666666666657"/>
-                                        <string key="text">Decentralized crypto currency wallet
-For Tendermint based blockchains.
-Support Cosmos Hub MainNet and Gaia testnet.</string>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="7SM-fZ-4v5" firstAttribute="top" secondItem="GPe-QH-ejp" secondAttribute="bottom" constant="8" id="H7u-xb-Y6T"/>
-                                    <constraint firstItem="7SM-fZ-4v5" firstAttribute="centerX" secondItem="Mtf-1k-Fmr" secondAttribute="centerX" id="T5A-4N-ygl"/>
-                                    <constraint firstItem="GPe-QH-ejp" firstAttribute="top" secondItem="Mtf-1k-Fmr" secondAttribute="top" id="a4y-HI-Iu8"/>
-                                    <constraint firstItem="GPe-QH-ejp" firstAttribute="centerX" secondItem="Mtf-1k-Fmr" secondAttribute="centerX" id="erz-sA-edN"/>
-                                    <constraint firstAttribute="height" constant="220" id="m0L-49-fl9"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COSMOS Wallet by Cosmostation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qld-cd-c5x">
-                                <rect key="frame" x="123" y="833" width="168" height="13"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
-                                <color key="textColor" red="0.47843137254901957" green="0.49803921568627452" blue="0.53333333333333333" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmostaion" translatesAutoresizingMaskIntoConstraints="NO" id="GPe-QH-ejp">
+                                <rect key="frame" x="69.666666666666686" y="254" width="236" height="41"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmostationLogo" translatesAutoresizingMaskIntoConstraints="NO" id="TkH-JF-SCg">
-                                <rect key="frame" x="142.66666666666666" y="769" width="128.99999999999997" height="56"/>
+                                <rect key="frame" x="123" y="716" width="129" height="46"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="qld-cd-c5x" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="31q-KO-9l0"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="Mtf-1k-Fmr" secondAttribute="leading" constant="50" id="3Oo-h8-dG1"/>
                             <constraint firstItem="CpL-84-w9F" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="Hqj-2S-3C3"/>
-                            <constraint firstItem="Mtf-1k-Fmr" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="L3t-CL-U2g"/>
                             <constraint firstItem="CpL-84-w9F" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QXp-8I-xJk"/>
+                            <constraint firstItem="GPe-QH-ejp" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="R2D-3h-mFm"/>
                             <constraint firstAttribute="top" secondItem="CpL-84-w9F" secondAttribute="top" id="Sq3-RG-SJe"/>
-                            <constraint firstItem="qld-cd-c5x" firstAttribute="top" secondItem="TkH-JF-SCg" secondAttribute="bottom" constant="8" id="WUP-Z7-ush"/>
                             <constraint firstItem="CpL-84-w9F" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="YF5-Na-XUM"/>
-                            <constraint firstItem="Mtf-1k-Fmr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="50" id="cjm-Ot-sCx"/>
                             <constraint firstItem="TkH-JF-SCg" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="cnU-2U-Jga"/>
-                            <constraint firstItem="Mtf-1k-Fmr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="hra-B9-TEE"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qld-cd-c5x" secondAttribute="bottom" constant="16" id="wJQ-4u-UsJ"/>
+                            <constraint firstItem="GPe-QH-ejp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="210" id="dhL-44-XYM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TkH-JF-SCg" secondAttribute="bottom" constant="16" id="pMY-yP-sC1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -80,8 +48,8 @@ Support Cosmos Hub MainNet and Gaia testnet.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="bg_02" width="360" height="740"/>
-        <image name="cosmosLogo" width="144" height="149.66667175292969"/>
-        <image name="cosmostationLogo" width="129" height="56"/>
+        <image name="bg_intro" width="360" height="740"/>
+        <image name="cosmostaion" width="236" height="41"/>
+        <image name="cosmostationLogo" width="129" height="46"/>
     </resources>
 </document>

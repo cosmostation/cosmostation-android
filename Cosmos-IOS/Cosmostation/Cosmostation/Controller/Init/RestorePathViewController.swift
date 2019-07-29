@@ -13,7 +13,7 @@ import SwiftKeychainWrapper
 
 class RestorePathViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var userChain: String?
+    var userChain: ChainType?
     var userInputWords: [String]?
     var maskerKey: HDPrivateKey?
     @IBOutlet weak var restoreTableView: UITableView!
@@ -22,7 +22,6 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         
         maskerKey = WKey.getMasterKeyFromWords(mnemonic: userInputWords!)
-//        print("RestorePathViewController userInputWords ", userInputWords)
         
         self.restoreTableView.delegate = self
         self.restoreTableView.dataSource = self
@@ -50,53 +49,58 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         if(maskerKey == nil) {
             return cell!
         }
-        let address = WKey.getCosmosDpAddressWithPath(maskerKey!, indexPath.row)
+        let address = WKey.getHDKeyDpAddressWithPath(maskerKey!, path: indexPath.row, chain: userChain!)
         cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         cell?.addressLabel.text = address
+        cell?.denomTitle.text = WUtils.getMainDenom(userChain!)
+        cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
         
-        let tempAccount = BaseData.instance.selectExistAccount(address: address, chain: userChain!)
+        let tempAccount = BaseData.instance.selectExistAccount(address: address, chain: userChain!.rawValue)
         if(tempAccount == nil) {
             cell?.stateLabel.text = NSLocalizedString("ready", comment: "")
             cell?.stateLabel.textColor = UIColor.white
-            cell?.rootCardView.backgroundColor = UIColor.init(hexString: "9c6cff", alpha: 0.15)
+            cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
         } else {
-            if(tempAccount?.account_has_private ?? false) {
+            if(tempAccount!.account_has_private) {
                 cell?.stateLabel.text = NSLocalizedString("imported", comment: "")
                 cell?.stateLabel.textColor = UIColor.init(hexString: "7A7f88")
                 cell?.rootCardView.backgroundColor = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
             } else {
                 cell?.stateLabel.text = NSLocalizedString("override", comment: "")
                 cell?.stateLabel.textColor = UIColor.white
-                cell?.rootCardView.backgroundColor = UIColor.init(hexString: "9c6cff", alpha: 0.15)
+                cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
             }
-            
+
         }
         
-        let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + address,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
-        request.responseJSON { (response) in
+        var request: DataRequest?
+        if (userChain == ChainType.CHAIN_COSMOS) {
+            request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        } else if (userChain == ChainType.CHAIN_IRIS) {
+            request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        }
+        
+        print("url   " , IRIS_LCD_URL_ACCOUNT_INFO + address)
+
+        request?.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
-                print(res)
                 guard let info = res as? [String : Any] else {
-                    cell?.atomAmount.attributedText = WUtils.displayAmout("0", cell!.atomAmount.font!, 6)
+                    cell?.denomAmount.attributedText = WUtils.displayAmout("0", cell!.denomAmount.font!, 6)
                     return
                 }
                 let accountInfo = AccountInfo.init(info)
-                if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
-                    cell?.atomAmount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, cell!.atomAmount.font!, 6)
+                if((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
+                    cell?.denomAmount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6)
                 } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
-                    cell?.atomAmount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.atomAmount.font!, 6)
+                    cell?.denomAmount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6)
                 } else {
-                    cell?.atomAmount.attributedText = WUtils.displayAmout(NSDecimalNumber.zero.stringValue, cell!.atomAmount.font!, 6)
+                    cell?.denomAmount.attributedText = WUtils.displayAmout(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6)
                 }
-                
+
                 case .failure(let error):
                 print(error)
-                
+
             }
         }
         return cell!
@@ -107,7 +111,6 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         if (cell?.stateLabel.text == NSLocalizedString("imported", comment: "")) {
             return
         } else if (cell?.stateLabel.text == NSLocalizedString("ready", comment: "")) {
-            //Add new Account
             if(BaseData.instance.selectAllAccounts().count >= 5) {
                 self.onShowToast(NSLocalizedString("error_max_account_over", comment: ""))
                 return
@@ -116,9 +119,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             self.onGenAccount(WKey.getCosmosDpAddressWithPath(maskerKey!, indexPath.row),
                               self.userChain!,
                               String(indexPath.row))
-            
+
         } else {
-            //Update Account with key
             BaseData.instance.setLastTab(0)
             self.onOverrideAccount(WKey.getCosmosDpAddressWithPath(maskerKey!, indexPath.row),
                                    self.userChain!,
@@ -130,31 +132,26 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         return 86;
     }
     
-    func onGenAccount(_ address:String, _ chain:String, _ path:String) {
-//        print("onGenAccount ", address, " ", chain, " ", path)
+    func onGenAccount(_ address:String, _ chain:ChainType, _ path:String) {
         self.showWaittingAlert()
         DispatchQueue.global().async {
             var resource: String = ""
             for word in self.userInputWords! {
                 resource = resource + " " + word
             }
-//            print("resource ", resource)
             
             let newAccount = Account.init(isNew: true)
             let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
-//            print("keyResult ", keyResult)
             var insertResult :Int64 = -1
             if(keyResult) {
                 newAccount.account_address = address
-                newAccount.account_base_chain = chain
+                newAccount.account_base_chain = chain.rawValue
                 newAccount.account_has_private = true
                 newAccount.account_from_mnemonic = true
                 newAccount.account_path = path
                 newAccount.account_m_size = Int64(self.userInputWords!.count)
                 newAccount.account_import_time = Date().millisecondsSince1970
-                
                 insertResult = BaseData.instance.insertAccount(newAccount)
-//                print("insertResult ", insertResult)
                 
                 if(insertResult < 0) {
                     KeychainWrapper.standard.removeObject(forKey: newAccount.account_uuid.sha1())
@@ -163,14 +160,10 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
-//                print("keyResult ", keyResult)
-//                print("insertResult ", insertResult)
                 if(keyResult && insertResult > 0) {
-//                    print("OKOKOK")
                     BaseData.instance.setRecentAccountId(insertResult)
                     self.onStartMainTab()
                 } else {
-//                    print("NONONO")
                     //TODO Error control
                 }
             });
@@ -178,17 +171,15 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     
-    func onOverrideAccount(_ address:String, _ inchain:String, _ path:String) {
-//        print("onOverrideAccount")
+    func onOverrideAccount(_ address:String, _ chain:ChainType, _ path:String) {
         self.showWaittingAlert()
         DispatchQueue.global().async {
             var resource: String = ""
             for word in self.userInputWords! {
                 resource = resource + " " + word
             }
-//            print("resource ", resource)
             
-            let existedAccount = BaseData.instance.selectExistAccount(address: address, chain: inchain)
+            let existedAccount = BaseData.instance.selectExistAccount(address: address, chain: chain.rawValue)
             let keyResult = KeychainWrapper.standard.set(resource, forKey: existedAccount!.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var updateResult :Int64 = -1
             if(keyResult) {
@@ -196,26 +187,19 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 existedAccount!.account_from_mnemonic = true
                 existedAccount!.account_path = path
                 existedAccount!.account_m_size = Int64(self.userInputWords!.count)
-                
                 updateResult = BaseData.instance.overrideAccount(existedAccount!)
-//                print("updateResult ", updateResult)
                 
                 if(updateResult < 0) {
                     KeychainWrapper.standard.removeObject(forKey: existedAccount!.account_uuid.sha1())
                 }
             }
             
-            
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
-//                print("keyResult ", keyResult)
-//                print("updateResult ", updateResult)
                 if(keyResult && updateResult > 0) {
-//                    print("OKOKOK")
                     BaseData.instance.setRecentAccountId(updateResult)
                     self.onStartMainTab()
                 } else {
-//                    print("NONONO")
                     //TODO Error control
                 }
             });

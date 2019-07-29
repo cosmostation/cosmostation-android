@@ -82,7 +82,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             do {
-                let pKey = WKey.getCosmosKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
+                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
     
 //                print("pKey address ", WKey.getCosmosDpAddress(key: pKey))
                 

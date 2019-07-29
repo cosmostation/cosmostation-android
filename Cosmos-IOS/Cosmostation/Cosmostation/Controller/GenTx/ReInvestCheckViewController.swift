@@ -117,7 +117,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             }
             
             do {
-                let pKey = WKey.getCosmosKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
+                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 
                 let rewardMsg = MsgGenerator.genGetRewardMsgReInvest(self.pageHolderVC.mAccount!.account_address,
                                                                      self.pageHolderVC.mTargetValidator!.operator_address)

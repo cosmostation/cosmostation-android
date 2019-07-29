@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -60,23 +60,6 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="UD7-fA-QTM">
-                                        <rect key="frame" x="0.0" y="13" width="280" height="0.0"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHOTON" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkX-Wy-fLm">
-                                                <rect key="frame" x="0.0" y="0.0" width="246" height="0.0"/>
-                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
-                                                <color key="textColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEd-X7-7Wt">
-                                                <rect key="frame" x="246" y="0.0" width="34" height="0.0"/>
-                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="11"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -124,13 +107,10 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addressLabel" destination="sw9-BT-TWK" id="bSb-8W-4Gf"/>
-                <outlet property="atomAmount" destination="iY1-aS-urc" id="PLA-sN-fFn"/>
-                <outlet property="atomLayer" destination="L6V-F1-j67" id="RLS-7L-8AX"/>
-                <outlet property="atomTitle" destination="snk-Qg-Wcj" id="zyU-SE-uFP"/>
+                <outlet property="denomAmount" destination="iY1-aS-urc" id="8Oc-dN-jld"/>
+                <outlet property="denomLayer" destination="L6V-F1-j67" id="RLS-7L-8AX"/>
+                <outlet property="denomTitle" destination="snk-Qg-Wcj" id="zyU-SE-uFP"/>
                 <outlet property="pathLabel" destination="5Hf-Kd-HBW" id="7YU-Ny-MVY"/>
-                <outlet property="photonAmount" destination="yEd-X7-7Wt" id="9l2-xE-HU7"/>
-                <outlet property="photonLayer" destination="UD7-fA-QTM" id="72L-Pn-cpw"/>
-                <outlet property="photonTitle" destination="GkX-Wy-fLm" id="B6o-sT-dGQ"/>
                 <outlet property="rootCardView" destination="SDf-Hp-sU4" id="0FL-Ml-5i3"/>
                 <outlet property="stateLabel" destination="DQy-H8-2BA" id="ghy-lO-2E6"/>
             </connections>

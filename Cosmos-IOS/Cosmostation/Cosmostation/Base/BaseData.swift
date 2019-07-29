@@ -315,12 +315,10 @@ final class BaseData : NSObject{
     
     public func updateAccount(_ account: Account) -> Int64 {
         let target = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account.account_id)
-        //TODO hardcode for while
-        
         do {
             return try Int64(database.run(target.update(DB_ACCOUNT_NICKNAME <- account.account_nick_name,
                                                         DB_ACCOUNT_FAVO <- account.account_favo,
-                                                        DB_ACCOUNT_BASECHAIN <- ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue,
+                                                        DB_ACCOUNT_BASECHAIN <- account.account_base_chain,
                                                         DB_ACCOUNT_SEQUENCE_NUMBER <- account.account_sequence_number,
                                                         DB_ACCOUNT_ACCOUNT_NUMBER <- account.account_account_numner,
                                                         DB_ACCOUNT_RESOURCE <- account.account_resource,

@@ -164,7 +164,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             do {
-                let pKey = WKey.getCosmosKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
+                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 
                 
                 var msgList = Array<Msg>()

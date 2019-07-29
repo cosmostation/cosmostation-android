@@ -17,9 +17,29 @@ class WKey {
         return HDPrivateKey(seed: Mnemonic.seed(mnemonic: m), network: .testnet)
     }
     
-    static func getCosmosKeyFromWords(mnemonic m: [String], path p:UInt32) -> HDPrivateKey {
+    static func getHDKeyFromWords(mnemonic m: [String], path p:UInt32) -> HDPrivateKey {
         let masterKey = getMasterKeyFromWords(mnemonic: m)
          return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
+    }
+    
+    static func getHDKeyDpAddress(key hdKey:HDPrivateKey, chain:ChainType) -> String {
+        let sha256 = Crypto.sha256(hdKey.privateKey().publicKey().raw)
+        let ripemd160 = Crypto.ripemd160(sha256)
+        if (chain == ChainType.CHAIN_COSMOS) {
+            return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
+        } else if (chain == ChainType.CHAIN_IRIS) {
+            return try! SegwitAddrCoder.shared.encode2(hrp: "iaa", program: ripemd160)
+        }
+        return "";
+    }
+    
+    static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType) -> String {
+        do {
+            let childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+            return getHDKeyDpAddress(key: childKey, chain: chain)
+        } catch {
+            return ""
+        }
     }
     
     static func getCosmosDpAddress(key hdKey:HDPrivateKey) -> String {

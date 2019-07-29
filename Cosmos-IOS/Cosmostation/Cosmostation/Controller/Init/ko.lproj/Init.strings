@@ -108,7 +108,7 @@
 "WHl-rB-L40.normalTitle" = "i";
 
 /* Class = "UITextField"; placeholder = "Insert address or public key."; ObjectID = "WW3-aL-nwf"; */
-"WW3-aL-nwf.placeholder" = "Insert address or public key.";
+"WW3-aL-nwf.placeholder" = "주소를 입력하세요.";
 
 /* Class = "UILabel"; text = "bembino"; ObjectID = "Y0j-mA-yFz"; */
 "Y0j-mA-yFz.text" = "bembino";

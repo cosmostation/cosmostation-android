@@ -10,6 +10,7 @@ import UIKit
 import Toast_Swift
 
 class BaseViewController: UIViewController {
+    var waitAlert: UIAlertController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,17 +36,36 @@ class BaseViewController: UIViewController {
 
     
     public func showWaittingAlert() {
-//        let loadingNotification = MBProgressHUD.showAdded(to: self.view, animated: true)
-//        loadingNotification.bezelView.color = UIColor(hexString: "#6D6D6D")
-//        loadingNotification.bezelView.style = .blur
-//        loadingNotification.contentColor = UIColor(hexString: "#2359B8")
-//        loadingNotification.mode = MBProgressHUDMode.indeterminate
-//        loadingNotification.label.text = "Loading"
+        waitAlert = UIAlertController(title: "", message: "\n\n\n\n", preferredStyle: .alert)
+        let image = LoadingImageView(frame: CGRect(x: 0, y: 0, width: 72, height: 72))
+        waitAlert!.view.addSubview(image)
+        image.translatesAutoresizingMaskIntoConstraints = false
+        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerX, relatedBy: .equal, toItem: waitAlert!.view, attribute: .centerX, multiplier: 1, constant: 0))
+        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: waitAlert!.view, attribute: .centerY, multiplier: 1, constant: 0))
+        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 72.0))
+        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 72.0))
+        self.clearBackgroundColor(of: waitAlert!.view)
+        self.present(waitAlert!, animated: true, completion: nil)
+        image.onStartAnimation()
         
     }
     
     public func hideWaittingAlert() {
-//        MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+        if (waitAlert != nil) {
+            waitAlert?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func clearBackgroundColor(of view: UIView) {
+        if let effectsView = view as? UIVisualEffectView {
+            effectsView.removeFromSuperview()
+            return
+        }
+        
+        view.backgroundColor = .clear
+        view.subviews.forEach { (subview) in
+            self.clearBackgroundColor(of: subview)
+        }
     }
     
     

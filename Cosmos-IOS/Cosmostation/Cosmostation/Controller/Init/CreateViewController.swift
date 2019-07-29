@@ -15,6 +15,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var warningMsgLabel: UILabel!
     
+    @IBOutlet weak var addressView: CardView!
     @IBOutlet weak var addressLabel: UILabel!
     
     @IBOutlet weak var mnemonicView: CardView!
@@ -46,10 +47,13 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     @IBOutlet weak var mnemonic22: UILabel!
     @IBOutlet weak var mnemonic23: UILabel!
     
+    @IBOutlet weak var warningView: UIView!
+    
     var mnemonicLabels: [UILabel] = [UILabel]()
     var mnemonicWords: [String]?
     var createdKey: HDPrivateKey?
     var checkedPassword: Bool = false
+    var chain: ChainType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +64,10 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                           self.mnemonic16, self.mnemonic17, self.mnemonic18, self.mnemonic19,
                           self.mnemonic20, self.mnemonic21, self.mnemonic22, self.mnemonic23]
     
-        self.onGenNewKey()
+        self.addressView.isHidden = true
+        self.mnemonicView.isHidden = true
+        self.warningView.isHidden = true
+        self.nextBtn.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +76,31 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_create", comment: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        if (chain == nil) {
+            self.onShowChainType()
+        }
+    }
+    
+    func onShowChainType() {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let cosmosAction = UIAlertAction(title: NSLocalizedString("COSMOS", comment: ""), style: .default, handler: { _ in
+            self.chain = ChainType.CHAIN_COSMOS
+            self.onGenNewKey()
+        })
+        cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
+        cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        let irisAction = UIAlertAction(title: NSLocalizedString("IRIS", comment: ""), style: .default, handler: {_ in
+            self.chain = ChainType.CHAIN_IRIS
+            self.onGenNewKey()
+        })
+        irisAction.setValue(UIColor.black, forKey: "titleTextColor")
+        irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        showAlert.addAction(cosmosAction)
+        showAlert.addAction(irisAction)
+        self.present(showAlert, animated: true, completion: nil)
     }
     
     
@@ -77,13 +109,18 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             return
         }
         mnemonicWords = words
-        createdKey = WKey.getCosmosKeyFromWords(mnemonic: mnemonicWords!, path: 0)
+        createdKey = WKey.getHDKeyFromWords(mnemonic: mnemonicWords!, path: 0)
         onUpdateView()
     }
     
     func onUpdateView() {
-//        print("onUpdateView ", mnemonicWords)
-        self.addressLabel.text = WKey.getCosmosDpAddress(key: createdKey!)
+        self.addressLabel.text = WKey.getHDKeyDpAddress(key: createdKey!, chain: chain!)
+        self.mnemonicView.backgroundColor = WUtils.getChainBg(chain!)
+        self.addressView.isHidden = false
+        self.mnemonicView.isHidden = false
+        self.warningView.isHidden = false
+        self.nextBtn.isHidden = false
+        
         for i in 0 ... mnemonicWords!.count - 1{
             if(checkedPassword) {
                 self.mnemonicLabels[i].text = mnemonicWords?[i]
@@ -91,6 +128,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                 self.mnemonicLabels[i].text = mnemonicWords?[i].replacingOccurrences(of: "\\S", with: "?", options: .regularExpression)
             }
         }
+        
         if(checkedPassword) {
             self.warningMsgLabel.text = NSLocalizedString("password_msg2", comment: "")
             self.nextBtn.setTitle(NSLocalizedString("create_wallet", comment: ""), for: .normal)
@@ -102,36 +140,19 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     
     @IBAction func onClickNext(_ sender: Any) {
         if(checkedPassword) {
-            onShowChainType()
+            onGenAccount(chain!)
 
         } else {
+            let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+            self.navigationItem.title = ""
+            self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+            passwordVC.resultDelegate = self
             if(!BaseData.instance.hasPassword()) {
-                let transition:CATransition = CATransition()
-                transition.duration = 0.3
-                transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-                transition.type = CATransitionType.moveIn
-                transition.subtype = CATransitionSubtype.fromTop
-
-                let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-                self.navigationItem.title = ""
-                self.navigationController!.view.layer.add(transition, forKey: kCATransition)
                 passwordVC.mTarget = PASSWORD_ACTION_INIT
-                passwordVC.resultDelegate = self
-                self.navigationController?.pushViewController(passwordVC, animated: false)
             } else  {
-                let transition:CATransition = CATransition()
-                transition.duration = 0.3
-                transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-                transition.type = CATransitionType.moveIn
-                transition.subtype = CATransitionSubtype.fromTop
-
-                let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-                self.navigationItem.title = ""
-                self.navigationController!.view.layer.add(transition, forKey: kCATransition)
                 passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
-                passwordVC.resultDelegate = self
-                self.navigationController?.pushViewController(passwordVC, animated: false)
             }
+            self.navigationController?.pushViewController(passwordVC, animated: false)
         }
     }
     
@@ -143,34 +164,30 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         } else if (result == PASSWORD_RESUKT_CANCEL) {
             
         } else if (result == PASSWORD_RESUKT_FAIL) {
+            
         }
     }
     
-    func onGenAccount(_ chain:String) {
-//        print("onGenAccount")
+    func onGenAccount(_ chain:ChainType) {
         self.showWaittingAlert()
         DispatchQueue.global().async {
             var resource: String = ""
             for word in self.mnemonicWords! {
                 resource = resource + " " + word
             }
-//            print("resource ", resource)
             
             let newAccount = Account.init(isNew: true)
             let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
-//            print("keyResult ", keyResult)
             var insertResult :Int64 = -1
             if(keyResult) {
-                newAccount.account_address = WKey.getCosmosDpAddress(key: self.createdKey!)
-                newAccount.account_base_chain = chain
+                newAccount.account_address = WKey.getHDKeyDpAddress(key: self.createdKey!, chain: chain)
+                newAccount.account_base_chain = chain.rawValue
                 newAccount.account_has_private = true
                 newAccount.account_from_mnemonic = true
                 newAccount.account_path = "0"
                 newAccount.account_m_size = 24
                 newAccount.account_import_time = Date().millisecondsSince1970
-                
                 insertResult = BaseData.instance.insertAccount(newAccount)
-//                print("insertResult ", insertResult)
                 
                 if(insertResult < 0) {
                     KeychainWrapper.standard.removeObject(forKey: newAccount.account_uuid.sha1())
@@ -179,39 +196,14 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
-//                print("keyResult ", keyResult)
-//                print("insertResult ", insertResult)
                 if(keyResult && insertResult > 0) {
-//                    print("OKOKOK")
-//                    self.sendResultAndPop(PASSWORD_RESUKT_OK)
                     BaseData.instance.setRecentAccountId(insertResult)
                     self.onStartMainTab()
                 } else {
-//                    print("NONONO")
                     //TODO Error control
-//                    self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
                 }
             });
         }
     }
-    
-    
-    func onShowChainType() {
-        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        
-        let cosmosAction = UIAlertAction(title: NSLocalizedString("COSMOS", comment: ""), style: .default, handler: { _ in
-            self.onGenAccount(ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue)
-        })
-        cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
-        cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
-        
-        let irisAction = UIAlertAction(title: NSLocalizedString("IRIS", comment: ""), style: .default)
-        irisAction.setValue(UIColor.gray, forKey: "titleTextColor")
-        irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
-        
-        showAlert.addAction(cosmosAction)
-        showAlert.addAction(irisAction)
-        showAlert.actions[1].isEnabled = false
-        self.present(showAlert, animated: true, completion: nil)
-    }
+
 }

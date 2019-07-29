@@ -555,6 +555,36 @@ class WUtils {
     }
     
     
+    static func getChainBg(_ chain:ChainType) -> UIColor{
+        if (chain == ChainType.CHAIN_COSMOS) {
+            return TRANS_BG_COLOR_COSMOS
+        } else if (chain == ChainType.CHAIN_IRIS) {
+            return TRANS_BG_COLOR_IRIS
+        }
+        return TRANS_BG_COLOR_COSMOS
+    }
+    
+    static func getMainDenom(_ chain:ChainType) -> String {
+        if (chain == ChainType.CHAIN_COSMOS) {
+            return "ATOM"
+        } else if (chain == ChainType.CHAIN_IRIS) {
+            return "IRIS"
+        }
+        return ""
+    }
+    
+    
+    
+    static func getPasswordAni() -> CAAnimation{
+        let transition:CATransition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.moveIn
+        transition.subtype = CATransitionSubtype.fromTop
+        return transition
+    }
+    
+    
     
     static func getAtomFees() -> Array<NSDecimalNumber> {
         var atomFees = Array<NSDecimalNumber>()
@@ -675,14 +705,13 @@ class WUtils {
     
     
     static func getChainName(_ type:String) -> String {
-        if (type == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
+        if (type == ChainType.CHAIN_COSMOS.rawValue) {
             return "cosmoshub-2"
-        } else if (type == ChainType.SUPPORT_CHAIN_IRSI_MAIN.rawValue) {
+        } else if (type == ChainType.CHAIN_IRIS.rawValue) {
             return "irishub"
         }
         return "cosmoshub-2"
     }
-    
 }
 
 extension Date {

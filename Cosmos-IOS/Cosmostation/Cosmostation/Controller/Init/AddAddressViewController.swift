@@ -13,11 +13,8 @@ class AddAddressViewController: BaseViewController {
     @IBOutlet weak var addAddressMsgLabel: UILabel!
     @IBOutlet weak var addAddressInputText: AddressInputTextField!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
     }
@@ -30,7 +27,6 @@ class AddAddressViewController: BaseViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
-    
     
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
@@ -48,37 +44,49 @@ class AddAddressViewController: BaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    
     @IBAction func onClickNext(_ sender: Any) {
-        let userInput = self.addAddressInputText.text ?? ""
-        var address = "";
-        //TODO check iris or cosmos or else
-        if (WKey.isValidateAddressOrPubKey(userInput)) {
-            if(userInput.starts(with: "cosmospub")) {
-                address = WKey.getCosmosAddressFromPubKey(userInput)
+        let userInput = self.addAddressInputText.text?.trimmingCharacters(in: .whitespaces) ?? ""
+        if (userInput.starts(with: "cosmos")) {
+            if (userInput.starts(with: "cosmosvaloper")) {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                self.addAddressInputText.text = ""
+                return;
+            } else if (WKey.isValidateAddressOrPubKey(userInput)) {
+                self.onGenWatchAccount(ChainType.CHAIN_COSMOS, userInput)
+                return;
             } else {
-                address = userInput
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                self.addAddressInputText.text = ""
+                return;
             }
-            self.onGenWatchAccount(ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue, address)
+            
+        } else if (userInput.starts(with: "iaa")) {
+            if (WKey.isValidateAddressOrPubKey(userInput)) {
+                self.onGenWatchAccount(ChainType.CHAIN_IRIS, userInput)
+                return;
+            } else {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                self.addAddressInputText.text = ""
+                return;
+            }
             
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
             self.addAddressInputText.text = ""
+            return;
+            
         }
-        
     }
     
-    func onGenWatchAccount(_ chain:String, _ address: String) {
-//        print("onGenWatchAccount")
+    func onGenWatchAccount(_ chain:ChainType, _ address: String) {
         self.showWaittingAlert()
         DispatchQueue.global().async {
             let newAccount = Account.init(isNew: true)
             newAccount.account_address = address
-            newAccount.account_base_chain = chain
+            newAccount.account_base_chain = chain.rawValue
             newAccount.account_has_private = false
             newAccount.account_from_mnemonic = false
             newAccount.account_import_time = Date().millisecondsSince1970
-            
             let insertResult = BaseData.instance.insertAccount(newAccount)
             
             DispatchQueue.main.async(execute: {
@@ -87,12 +95,9 @@ class AddAddressViewController: BaseViewController {
                     BaseData.instance.setLastTab(0)
                     BaseData.instance.setRecentAccountId(insertResult)
                     self.onStartMainTab()
-                    
                 } else {
-//                    print("NONONO")
                     //TODO Error control
                 }
-                
             });
         }
     }

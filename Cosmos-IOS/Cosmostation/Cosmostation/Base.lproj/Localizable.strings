@@ -15,7 +15,7 @@
 "password_msg1" = "Losing your mnemonics could lead to loss of your asset.\nWe highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.";
 "password_msg2" = "Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.";
 "add_address_msg" = "With watch mode, you can check the status of your account. \nTo make transaction can add private information with later.";
-"add_address_hint" = "Insert address or public key.";
+"add_address_hint" = "Insert address.";
 
 "create_wallet" = "Create Wallet";
 "show_mnemonics" = "Show Mnemonics";
@@ -130,7 +130,7 @@
 
 "error_password_fail" = "Password is not same. Please init password again!";
 "error_no_clipboard" = "No text from clipboard.";
-"error_invalid_address_or_pubkey" = "Invalid Address or PubKey, please check again.";
+"error_invalid_address_or_pubkey" = "Invalid Address, please check again.";
 "error_recover_mnemonic" = "Please insert validate mnemonics.";
 "error_amount" = "Please enter valid amount.";
 "error_memo" = "Please enter valid memo.";

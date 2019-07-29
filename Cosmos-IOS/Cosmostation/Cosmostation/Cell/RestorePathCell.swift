@@ -23,11 +23,8 @@ class RestorePathCell: UITableViewCell {
     @IBOutlet weak var pathLabel: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var atomLayer: UIStackView!
-    @IBOutlet weak var atomTitle: UILabel!
-    @IBOutlet weak var atomAmount: UILabel!
-    @IBOutlet weak var photonLayer: UIStackView!
-    @IBOutlet weak var photonTitle: UILabel!
-    @IBOutlet weak var photonAmount: UILabel!
+    @IBOutlet weak var denomLayer: UIStackView!
+    @IBOutlet weak var denomTitle: UILabel!
+    @IBOutlet weak var denomAmount: UILabel!
     
 }

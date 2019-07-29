@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -25,6 +25,7 @@ let KEY_USING_BIO_AUTH                  = "KEY_USING_BIO_AUTH"
 
 
 let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
+let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let KEY_BASE_URL                        = "https://keybase.io/";
@@ -50,6 +51,10 @@ let CSS_LCD_URL_MINT                    = CSS_LCD_URL + "minting/parameters";
 let CSS_LCD_URL_STAKING_POOL            = CSS_LCD_URL + "staking/pool";
 let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
 let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
+
+let IRIS_LCD_URL_ACCOUNT_INFO           = IRIS_LCD_URL + "bank/accounts/";
+
+
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
@@ -149,7 +154,7 @@ let COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
 
 
 
-
+let IRIS_BANK_TYPE_ACCOUNT                  = "irishub/bank/Account";
 
 
 
@@ -166,13 +171,6 @@ let PASSWORD_RESUKT_OK                      = 0
 let PASSWORD_RESUKT_CANCEL                  = 1
 let PASSWORD_RESUKT_FAIL                    = 2
 let PASSWORD_RESUKT_OK_FOR_DELETE           = 3
-
-
-
-
-//let SUPPORT_CHAIN_COSMOS_MAIN               = "cosmoshub"
-//let SUPPORT_CHAIN_IRSI_MAIN                 = "irishub"
-
 
 
 let BASE_PATH                               = "44'/118'/0'/0/"
@@ -209,9 +207,14 @@ let FEE_REWARD_GAS_15                       = "960000";
 let FEE_REWARD_GAS_16                       = "1020000";
 
 
+let TRANS_BG_COLOR_COSMOS                   = UIColor.init(hexString: "9C6CFF", alpha: 0.15)
+let COLOR_ATOM                              = UIColor.init(hexString: "9C6CFF")
+
+let TRANS_BG_COLOR_IRIS                     = UIColor.init(hexString: "0080ff", alpha: 0.15)
+let COLOR_IRIS                              = UIColor.init(hexString: "00A8FF")
 
 enum ChainType: String {
-    case SUPPORT_CHAIN_COSMOS_MAIN
-    case SUPPORT_CHAIN_IRSI_MAIN
+    case CHAIN_COSMOS
+    case CHAIN_IRIS
     
 }
