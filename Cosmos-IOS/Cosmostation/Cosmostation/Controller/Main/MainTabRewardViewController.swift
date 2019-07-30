@@ -23,6 +23,7 @@ class MainTabRewardViewController: BaseViewController {
     @IBOutlet weak var otherValidatorView: UIView!
     
     var mainTabVC: MainTabViewController!
+    var userChain: ChainType?
     
     @IBAction func switchView(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -51,30 +52,38 @@ class MainTabRewardViewController: BaseViewController {
         otherValidatorView.alpha = 0
         
         mainTabVC = (self.parent)?.parent as? MainTabViewController
-        
+        userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
+        self.updateTitle()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
-        self.updateTitle()
+        
     }
     
     func updateTitle() {
-        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
-        } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
-        
-        if(mainTabVC.mAccount.account_base_chain == ChainType.CHAIN_COSMOS.rawValue) {
-            titleChainName.text = "(Cosmos Hub)"
+        if (mainTabVC.mAccount.account_nick_name == "") {
+            titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else {
-            titleChainName.text = ""
+            titleWalletName.text = mainTabVC.mAccount.account_nick_name
+        }
+        
+        titleChainName.textColor = WUtils.getChainColor(userChain!)
+        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            titleChainImg.image = UIImage(named: "cosmosWhMain")
+            titleChainName.text = "(Cosmos Hub)"
+            validatorSegment.tintColor = COLOR_ATOM
+        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+            titleChainImg.image = UIImage(named: "irisWh")
+            titleChainName.text = "(Iris Hub)"
+            validatorSegment.tintColor = COLOR_IRIS
         }
     }
     
     @IBAction func onSortClick(_ sender: Any) {
         if (myValidatorView.alpha == 1) {
-//            print("my val sort show")
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil))
             alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_name", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in

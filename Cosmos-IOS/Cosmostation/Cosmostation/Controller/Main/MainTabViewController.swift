@@ -251,24 +251,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                print("mAllValidator Cnt " , mAllValidator.count)
 //                print("Reward Cnt " , mRewardList.count)
                 
-                for validator in mAllValidator {
-                    var mine = false;
-                    for bonding in mBondingList {
-                        if(bonding.bonding_v_address == validator.operator_address) {
-                            mine = true;
-                            break;
-                        }
-                    }
-                    for unbonding in mUnbondingList {
-                        if(unbonding.unbonding_v_address == validator.operator_address) {
-                            mine = true;
-                            break;
-                        }
-                    }
-                    if(mine) {
-                        self.mMyValidators.append(validator)
-                    }
-                }
                 
                 
             } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
@@ -283,6 +265,36 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                print("mIrisRewards : ", mIrisRewards?.delegations.count, "  ", mIrisRewards?.total[0].denom, " ", mIrisRewards?.total[0].amount)
 //                print("mAllValidator : ", mAllValidator.count)
                 
+                mTopValidators.removeAll()
+                mOtherValidators.removeAll()
+                for validator in mAllValidator {
+                    if (validator.status == validator.BONDED) {
+                        mTopValidators.append(validator)
+                    } else {
+                        mOtherValidators.append(validator)
+                    }
+                }
+                print("mTopValidators : ", mTopValidators.count)
+                print("mOtherValidators : ", mOtherValidators.count)
+                
+            }
+            for validator in mAllValidator {
+                var mine = false;
+                for bonding in mBondingList {
+                    if(bonding.bonding_v_address == validator.operator_address) {
+                        mine = true;
+                        break;
+                    }
+                }
+                for unbonding in mUnbondingList {
+                    if(unbonding.unbonding_v_address == validator.operator_address) {
+                        mine = true;
+                        break;
+                    }
+                }
+                if(mine) {
+                    self.mMyValidators.append(validator)
+                }
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
         }

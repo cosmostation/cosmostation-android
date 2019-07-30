@@ -9,9 +9,14 @@
 import Foundation
 
 public class Validator {
+    let UNBONDED = 0;
+    let UNBONDING = 1;
+    let BONDED = 2;
+
     var operator_address: String = ""
     var consensus_pubkey: String = ""
     var jailed: Bool = false
+    var status: Int = -1;
     var tokens: String = "";
     var delegator_shares: String = "";
     var bond_height: String = "";
@@ -24,6 +29,7 @@ public class Validator {
         self.operator_address = dictionary["operator_address"] as? String ?? ""
         self.consensus_pubkey = dictionary["operator_address"] as? String ?? ""
         self.jailed = dictionary["jailed"] as? Bool ?? false
+        self.status = dictionary["status"] as? Int ?? -1
         self.tokens = dictionary["tokens"] as? String ?? ""
         self.delegator_shares = dictionary["delegator_shares"] as? String ?? ""
         self.bond_height = dictionary["bond_height"] as? String ?? ""
