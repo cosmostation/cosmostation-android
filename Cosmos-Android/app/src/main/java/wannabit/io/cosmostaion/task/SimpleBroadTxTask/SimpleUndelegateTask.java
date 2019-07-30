@@ -95,8 +95,8 @@ public class SimpleUndelegateTask extends CommonTask {
             ArrayList<Msg> msgs = new ArrayList<>();
             msgs.add(singleUnbondMsg);
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getIrisBraodcaseReq(mAccount, msgs, mUnFees, mUnDelegateMemo, deterministicKey);
             if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mUnFees, mUnDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     WLog.w("response.body() : " + response.body());
@@ -117,6 +117,7 @@ public class SimpleUndelegateTask extends CommonTask {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
             } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getIrisBraodcaseReq(mAccount, msgs, mUnFees, mUnDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     WLog.w("response.body() hash: " + response.body().hash);
