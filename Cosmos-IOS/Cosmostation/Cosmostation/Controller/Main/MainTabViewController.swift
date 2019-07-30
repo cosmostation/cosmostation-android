@@ -23,14 +23,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
     var mRewardList = Array<Reward>()
+    var mIrisRewards: IrisRewards?
     var mAtomTic: NSDictionary?
     var mFetchCnt = 0
     
     var mInflation: String?
     var mProvision: String?
     var mStakingPool: NSDictionary?
-    
-    
     
     var dimView: UIView?
     let window = UIApplication.shared.keyWindow!
@@ -88,7 +87,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 cell.accountView.isHidden = true
                 cell.newAccount.isHidden = true
                 
-//            } else if (self.dropDown.dataSource.count == 6 || index == self.dropDown.dataSource.count - 1) {
             } else if (self.mAccounts.count != 5 && (index == 6 || index == self.dropDown.dataSource.count - 1)) {
                 cell.topPadding.isHidden = true
                 cell.accountView.isHidden = true
@@ -108,11 +106,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     cell.cardview.borderColor = UIColor.init(hexString: "#222426")
                 }
                 
-                if (tempAccount.account_nick_name == "") { cell.name.text = NSLocalizedString("wallet_dash", comment: "") + String(tempAccount.account_id)
-                } else { cell.name.text = tempAccount.account_nick_name }
+                if (tempAccount.account_nick_name == "") {
+                    cell.name.text = NSLocalizedString("wallet_dash", comment: "") + String(tempAccount.account_id)
+                } else {
+                    cell.name.text = tempAccount.account_nick_name
+                }
                 
-                if(tempAccount.account_has_private) { cell.keystate.image = UIImage(named: "key_on")
-                } else { cell.keystate.image = UIImage(named: "key_off") }
+                if(tempAccount.account_has_private) {
+                    cell.keystate.image = UIImage(named: "key_on")
+                } else {
+                    cell.keystate.image = UIImage(named: "key_off")
+                }
                 
             }
         }
@@ -127,7 +131,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.dimView?.removeFromSuperview()
-//            print("selectionAction ", item)
             if(item == "top") {
                 
             } else if (item == "bottom") {
@@ -180,7 +183,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if(mAccount == nil) {
             print("NO ACCOUNT ERROR!!!!")
         }
-//        print("mAccount ", mAccount.account_base_chain)
     }
     
     
@@ -193,57 +195,83 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         self.mMyValidators.removeAll()
         self.mRewardList.removeAll()
         
-        self.mFetchCnt = 10
-        onFetchTopValidatorsInfo()
-        onFetchUnbondedValidatorsInfo()
-        onFetchUnbondingValidatorsInfo()
-        onFetchAccountInfo(mAccount)
-        onFetchBondingInfo(mAccount)
-        onFetchUnbondingInfo(mAccount)
-        onFetchInflation()
-        onFetchProvision()
-//        onFetchMintInfo()
-        onFetchStakingPool()
-        onFetchAtomTic(true)
+        if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            self.mFetchCnt = 10
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            onFetchAtomTic(true)
+            
+        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
+            self.mFetchCnt = 5
+            self.mAllValidator.removeAll()
+            self.irisValidatorPage = 1
+            onFetchIrisValidatorsInfo(irisValidatorPage)
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            onFetchIrisReward(mAccount)
+        }
+        
         return true
     }
     
     func onFetchFinished() {
+//        print("onFetchFinished")
         self.mFetchCnt = self.mFetchCnt - 1
         if(mFetchCnt <= 0) {
-//            print("onFetchFinished")
-            
-            mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
-            mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-            mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
-            mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
-            
-            mAllValidator.removeAll()
-            mAllValidator.append(contentsOf: mTopValidators)
-            mAllValidator.append(contentsOf: mOtherValidators)
-//            print("mTopValidators Cnt " , mTopValidators.count)
-//            print("mOtherValidators Cnt " , mOtherValidators.count)
-//            print("mAllValidator Cnt " , mAllValidator.count)
-//            print("Reward Cnt " , mRewardList.count)
-            
-            
-            for validator in mAllValidator {
-                var mine = false;
-                for bonding in mBondingList {
-                    if(bonding.bonding_v_address == validator.operator_address) {
-                        mine = true;
-                        break;
+            if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
+                mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
+                mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+                mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
+                mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
+                
+                mAllValidator.removeAll()
+                mAllValidator.append(contentsOf: mTopValidators)
+                mAllValidator.append(contentsOf: mOtherValidators)
+                print("mTopValidators Cnt " , mTopValidators.count)
+                print("mOtherValidators Cnt " , mOtherValidators.count)
+                print("mAllValidator Cnt " , mAllValidator.count)
+                print("Reward Cnt " , mRewardList.count)
+                
+                for validator in mAllValidator {
+                    var mine = false;
+                    for bonding in mBondingList {
+                        if(bonding.bonding_v_address == validator.operator_address) {
+                            mine = true;
+                            break;
+                        }
+                    }
+                    for unbonding in mUnbondingList {
+                        if(unbonding.unbonding_v_address == validator.operator_address) {
+                            mine = true;
+                            break;
+                        }
+                    }
+                    if(mine) {
+                        self.mMyValidators.append(validator)
                     }
                 }
-                for unbonding in mUnbondingList {
-                    if(unbonding.unbonding_v_address == validator.operator_address) {
-                        mine = true;
-                        break;
-                    }
-                }
-                if(mine) {
-                    self.mMyValidators.append(validator)
-                }
+                
+                
+            } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
+                mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
+                mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+                mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
+                mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
+                print("mAccount : ", mAccount.account_sequence_number, "  ", mAccount.account_account_numner)
+                print("mBalances : ", mBalances.count, "   ", mBalances[0].balance_denom, "  ", mBalances[0].balance_amount)
+                print("mBondingList : ", mBondingList.count, "  ", mBondingList[0].bonding_shares)
+                print("mUnbondingList : ", mUnbondingList.count, "  ", mUnbondingList[0].unbonding_balance)
+                print("mIrisRewards : ", mIrisRewards?.delegations.count, "  ", mIrisRewards?.total[0].denom, " ", mIrisRewards?.total[0].amount)
+                print("mAllValidator : ", mAllValidator.count)
+                
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
         }
@@ -252,7 +280,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     
     func onFetchTopValidatorsInfo() {
-//        print("onFetchTopValidatorsInfo")
         let request = Alamofire.request(CSS_LCD_URL_VALIDATORS, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -265,7 +292,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for validator in validators {
                     self.mTopValidators.append(Validator(validator as! [String : Any]))
                 }
-//                print("size : ", self.mTopValidators.count)
                 
             case .failure(let error):
                 print("onFetchTopValidatorsInfo ", error)
@@ -275,7 +301,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchUnbondedValidatorsInfo() {
-//        print("onFetchUnbondedValidatorsInfo")
         let request = Alamofire.request(CSS_LCD_URL_VALIDATORS, method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -296,7 +321,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchUnbondingValidatorsInfo() {
-//        print("onFetchUnbondingValidatorsInfo")
         let request = Alamofire.request(CSS_LCD_URL_VALIDATORS, method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -317,22 +341,57 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     
+    var irisValidatorPage = 1;
+    func onFetchIrisValidatorsInfo(_ page:Int){
+        let request = Alamofire.request(IRIS_LCD_URL_VALIDATORS, method: .get, parameters: ["size":"100", "page":String(page)], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let validators = res as? Array<NSDictionary> else {
+                    return
+                }
+                
+                for validator in validators {
+                    self.mAllValidator.append(Validator(validator as! [String : Any]))
+                }
+                
+                if (validators.count == 100) {
+                    self.irisValidatorPage = self.irisValidatorPage + 1
+                    self.onFetchIrisValidatorsInfo(self.irisValidatorPage)
+                    
+                } else {
+                    self.onFetchFinished()
+                }
+                
+            case .failure(let error):
+                self.onFetchFinished()
+            }
+        }
+        
+        
+    }
+    
+    
     
     func onFetchAccountInfo(_ account: Account) {
 //        print("onFetchAccountInfo")
-        let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
+        var request: DataRequest?
+        if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
+            request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        }
+        request?.responseJSON { (response) in
             switch response.result {
             case .success(let res):
 //                print("onFetchAccountInfo ", res)
                 guard let info = res as? [String : Any] else {
-//                    print("no account!!")
-                    BaseData.instance.deleteBalance(account: account)
+                    _ = BaseData.instance.deleteBalance(account: account)
                     self.onFetchFinished()
                     return
                 }
                 let accountInfo = AccountInfo.init(info)
-                BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
                 BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                 
             case .failure(let error):
@@ -343,8 +402,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchBondingInfo(_ account: Account) {
-//        print("onFetchBondingInfo")
-        let url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL
+        var url = ""
+        if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL
+        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
+            url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL
+        }
+        print("onFetchBondingInfo ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.validate()
         request.responseJSON { (response) in
@@ -357,13 +421,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return;
                 }
 //                print("bondinginfos", bondinginfos)
-                let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos)
+                let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos, WUtils.getChainType(self.mAccount.account_base_chain))
                 BaseData.instance.updateBondings(mTempBondings)
-                self.mFetchCnt = self.mFetchCnt + mTempBondings.count
-                for bondig in mTempBondings {
-                    self.onFetchEachReward(account.account_address, bondig.bonding_v_address)
+                if (self.mAccount.account_base_chain == ChainType.CHAIN_COSMOS.rawValue) {
+                    self.mFetchCnt = self.mFetchCnt + mTempBondings.count
+                    for bondig in mTempBondings {
+                        self.onFetchEachReward(account.account_address, bondig.bonding_v_address)
+                    }
                 }
-                
             case .failure(let error):
                 print("onFetchBondingInfo ", error)
             }
@@ -372,26 +437,52 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchUnbondingInfo(_ account: Account) {
-//        print("onFetchUnbondingInfo")
-        let url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL
+        var url = ""
+        if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL
+        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
+            url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL
+        }
+        print("onFetchUnbondingInfo ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 guard let unbondinginfos = res as? Array<NSDictionary> else {
-//                    print("no unbonding!!")
                     BaseData.instance.deleteUnbonding(account: account)
                     self.onFetchFinished()
                     return
                 }
 //                print("unbondinginfos ", unbondinginfos)
-                BaseData.instance.updateUnbondings(WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos))
+                BaseData.instance.updateUnbondings(WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, WUtils.getChainType(self.mAccount.account_base_chain)))
                 
             case .failure(let error):
                 print("onFetchUnbondingInfo ", error)
             }
             self.onFetchFinished()
         }
+    }
+    
+    func onFetchIrisReward(_ account: Account) {
+        let url = IRIS_LCD_URL_REWARD + account.account_address + IRIS_LCD_URL_REWARD_TAIL
+        print("onFetchIrisReward ", url)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let irisRewards = res as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+//                print("irisRewards ", irisRewards)
+                self.mIrisRewards = IrisRewards(irisRewards as! [String : Any])
+                
+            case .failure(let error):
+                print("onFetchIrisReward ", error)
+            }
+            self.onFetchFinished()
+        }
+        
     }
     
     func onFetchEachReward(_ accountAddr: String, _ validatorAddr:String) {

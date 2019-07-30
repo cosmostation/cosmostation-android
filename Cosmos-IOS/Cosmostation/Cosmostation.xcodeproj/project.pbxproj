@@ -46,6 +46,7 @@
 		E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC722608ABA00D9440C /* StepUndelegateCheckViewController.swift */; };
 		E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC92260A0FD00D9440C /* StepRewardViewController.swift */; };
 		E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FCB2260A11300D9440C /* StepRewardCheckViewController.swift */; };
+		E148A38F22F01DEF00A56A3F /* IrisRewards.swift in Sources */ = {isa = PBXBuildFile; fileRef = E148A38E22F01DEF00A56A3F /* IrisRewards.swift */; };
 		E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */; };
 		E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */; };
 		E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */; };
@@ -222,6 +223,7 @@
 		E1406FC722608ABA00D9440C /* StepUndelegateCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepUndelegateCheckViewController.swift; sourceTree = "<group>"; };
 		E1406FC92260A0FD00D9440C /* StepRewardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRewardViewController.swift; sourceTree = "<group>"; };
 		E1406FCB2260A11300D9440C /* StepRewardCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRewardCheckViewController.swift; sourceTree = "<group>"; };
+		E148A38E22F01DEF00A56A3F /* IrisRewards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrisRewards.swift; sourceTree = "<group>"; };
 		E14BDFF9224CCFE20007DD7D /* MnemonicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicCell.swift; sourceTree = "<group>"; };
 		E14BDFFA224CCFE20007DD7D /* MnemonicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MnemonicCell.xib; sourceTree = "<group>"; };
 		E14BDFFD224CF0250007DD7D /* RestorePathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathViewController.swift; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 				E1A82DD6224223EC0097CAEE /* Bonding.swift */,
 				E1A82DD8224224420097CAEE /* Unbonding.swift */,
 				E1ED75AA2251B37C002CFE85 /* Reward.swift */,
+				E148A38E22F01DEF00A56A3F /* IrisRewards.swift */,
 			);
 			path = Dao;
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
+				E148A38F22F01DEF00A56A3F /* IrisRewards.swift in Sources */,
 				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,
 				E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */,

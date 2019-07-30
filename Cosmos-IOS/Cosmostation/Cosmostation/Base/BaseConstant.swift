@@ -53,8 +53,13 @@ let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
 let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
 
 let IRIS_LCD_URL_ACCOUNT_INFO           = IRIS_LCD_URL + "bank/accounts/";
-
-
+let IRIS_LCD_URL_VALIDATORS             = IRIS_LCD_URL + "stake/validators";
+let IRIS_LCD_URL_BONDING                = IRIS_LCD_URL + "stake/delegators/";
+let IRIS_LCD_URL_BONDING_TAIL           = "/delegations";
+let IRIS_LCD_URL_UNBONDING              = IRIS_LCD_URL + "stake/delegators/";
+let IRIS_LCD_URL_UNBONDING_TAIL         = "/unbonding-delegations";
+let IRIS_LCD_URL_REWARD                 = IRIS_LCD_URL + "distribution/";
+let IRIS_LCD_URL_REWARD_TAIL            = "/rewards";
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
@@ -218,3 +223,5 @@ enum ChainType: String {
     case CHAIN_IRIS
     
 }
+let CHAIN_COSMOS_S = "CHAIN_COSMOS"
+let CHAIN_IRIS_S = "CHAIN_IRIS"

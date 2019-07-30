@@ -52,8 +52,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         let address = WKey.getHDKeyDpAddressWithPath(maskerKey!, path: indexPath.row, chain: userChain!)
         cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         cell?.addressLabel.text = address
-        cell?.denomTitle.text = WUtils.getMainDenom(userChain!)
         cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
+        WUtils.setDenomTitle(userChain!, cell!.denomTitle)
         
         let tempAccount = BaseData.instance.selectExistAccount(address: address, chain: userChain!.rawValue)
         if(tempAccount == nil) {
@@ -75,27 +75,25 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         
         var request: DataRequest?
         if (userChain == ChainType.CHAIN_COSMOS) {
-            request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         } else if (userChain == ChainType.CHAIN_IRIS) {
-            request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         }
-        
-        print("url   " , IRIS_LCD_URL_ACCOUNT_INFO + address)
 
         request?.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
                 guard let info = res as? [String : Any] else {
-                    cell?.denomAmount.attributedText = WUtils.displayAmout("0", cell!.denomAmount.font!, 6)
+                    cell?.denomAmount.attributedText = WUtils.displayAmout(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
                     return
                 }
                 let accountInfo = AccountInfo.init(info)
                 if((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6)
+                    cell?.denomAmount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
                 } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6)
+                    cell?.denomAmount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
                 } else {
-                    cell?.denomAmount.attributedText = WUtils.displayAmout(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6)
+                    cell?.denomAmount.attributedText = WUtils.displayAmout(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
                 }
 
                 case .failure(let error):

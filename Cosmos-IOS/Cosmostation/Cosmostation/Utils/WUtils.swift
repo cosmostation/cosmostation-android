@@ -28,7 +28,7 @@ class WUtils {
     
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
         let result = account
-        if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+        if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) {
             result.account_address = accountInfo.value.address
             result.account_sequence_number = Int64(accountInfo.value.sequence) ?? 0
             result.account_account_numner = Int64(accountInfo.value.account_number) ?? 0
@@ -43,7 +43,7 @@ class WUtils {
     
     static func getBalancesWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Array<Balance> {
         var result = Array<Balance>()
-        if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+        if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) {
             for coin in accountInfo.value.coins {
                 result.append(Balance.init( account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
             }
@@ -56,42 +56,61 @@ class WUtils {
         return result
     }
     
-    static func getBondingwithBondingInfo(_ account: Account, _ bondinginfos: Array<BondingInfo>) -> Array<Bonding> {
+//    static func getBondingwithBondingInfo(_ account: Account, _ bondinginfos: Array<BondingInfo>) -> Array<Bonding> {
+//        var result = Array<Bonding>()
+//        for bondinginfo in bondinginfos {
+//            result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
+//        }
+//        return result
+//    }
+    
+    static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
-        for bondinginfo in bondinginfos {
-            result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
-        }
-        return result
-    }
-    
-    static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>) -> Array<Bonding> {
-        var result = Array<Bonding>()
-        for raw in rawbondinginfos{
-            let bondinginfo = BondingInfo(raw as! [String : Any])
-            result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
-        }
-        return result
-    }
-    
-    
-    static func getUnbondingwithUnbondingInfo(_ account: Account, _ unbondinginfos: Array<UnbondingInfo>) -> Array<Unbonding> {
-        var result = Array<Unbonding>()
-        for unbondinginfo in unbondinginfos {
-            for entry in unbondinginfo.entries {
-                result.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
+        if (chain == ChainType.CHAIN_COSMOS) {
+            for raw in rawbondinginfos{
+                let bondinginfo = BondingInfo(raw as! [String : Any])
+                result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
+            }
+        } else if (chain == ChainType.CHAIN_IRIS) {
+            for raw in rawbondinginfos{
+                let bondinginfo = BondingInfo(raw as! [String : Any])
+                let shareAmount = stringToDecimal(bondinginfo.shares).multiplying(byPowerOf10: 18)
+                result.append(Bonding(account.account_id, bondinginfo.validator_addr, shareAmount.stringValue, Date().millisecondsSince1970))
             }
         }
+        
         return result
     }
     
-    static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>) -> Array<Unbonding> {
+    
+//    static func getUnbondingwithUnbondingInfo(_ account: Account, _ unbondinginfos: Array<UnbondingInfo>) -> Array<Unbonding> {
+//        var result = Array<Unbonding>()
+//        for unbondinginfo in unbondinginfos {
+//            for entry in unbondinginfo.entries {
+//                result.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
+//            }
+//        }
+//        return result
+//    }
+    
+    static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
-        for raw in rawunbondinginfos {
-            let unbondinginfo = UnbondingInfo(raw as! [String : Any])
-            for entry in unbondinginfo.entries {
-                result.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
+        if (chain == ChainType.CHAIN_COSMOS) {
+            for raw in rawunbondinginfos {
+                let unbondinginfo = UnbondingInfo(raw as! [String : Any])
+                for entry in unbondinginfo.entries {
+                    result.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
+                }
+            }
+        } else if (chain == ChainType.CHAIN_IRIS) {
+            for raw in rawunbondinginfos {
+                let unbondinginfo = UnbondingInfo(raw as! [String : Any])
+                let unbondingBalance = stringToDecimal(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
+                let initialBalance = stringToDecimal(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
+                result.append(Unbonding(account.account_id, unbondinginfo.validator_addr, unbondinginfo.creation_height, nodeTimeToInt64(input: unbondinginfo.min_time).millisecondsSince1970, initialBalance.stringValue, unbondingBalance.stringValue, Date().millisecondsSince1970))
             }
         }
+        
         return result
     }
     
@@ -294,6 +313,42 @@ class WUtils {
         attributedString1.append(attributedString2)
         return attributedString1
     }
+    
+    static func displayAmout(_ amount: String, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = deciaml
+        nf.maximumFractionDigits = deciaml
+        nf.numberStyle = .decimal
+        
+        let amount = stringToDecimal(amount)
+        var formatted: String?
+        if (amount == NSDecimalNumber.zero) {
+            formatted = nf.string(from: NSDecimalNumber.zero)
+        } else if (chain == ChainType.CHAIN_COSMOS) {
+            formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler6))
+        } else if (chain == ChainType.CHAIN_IRIS) {
+            formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler18))
+        }
+        
+        let added       = formatted
+        let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
+        
+        let preString   = added![..<endIndex]
+        let postString  = added![endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
+    
+    
+    
     
     static func displayPrice(_ amount: NSDecimalNumber, _ currency:Int, _ symbol:String, font:UIFont) -> NSMutableAttributedString {
         let nf = NumberFormatter()
@@ -555,6 +610,15 @@ class WUtils {
     }
     
     
+    static func getChainColor(_ chain:ChainType) -> UIColor{
+        if (chain == ChainType.CHAIN_COSMOS) {
+            return COLOR_ATOM
+        } else if (chain == ChainType.CHAIN_IRIS) {
+            return COLOR_IRIS
+        }
+        return COLOR_ATOM
+    }
+    
     static func getChainBg(_ chain:ChainType) -> UIColor{
         if (chain == ChainType.CHAIN_COSMOS) {
             return TRANS_BG_COLOR_COSMOS
@@ -571,6 +635,25 @@ class WUtils {
             return "IRIS"
         }
         return ""
+    }
+    
+    static func setDenomTitle(_ chain:ChainType, _ label:UILabel) {
+        if (chain == ChainType.CHAIN_COSMOS) {
+            label.text = "ATOM"
+            label.textColor = COLOR_ATOM
+        } else if (chain == ChainType.CHAIN_IRIS) {
+            label.text = "IRIS"
+            label.textColor = COLOR_IRIS
+        }
+    }
+    
+    static func getChainType(_ chainS:String) -> ChainType {
+        if (chainS == CHAIN_COSMOS_S ) {
+            return ChainType.CHAIN_COSMOS
+        } else if (chainS == CHAIN_IRIS_S) {
+            return ChainType.CHAIN_IRIS
+        }
+        return ChainType.CHAIN_COSMOS
     }
     
     

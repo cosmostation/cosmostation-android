@@ -48,15 +48,9 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if (BaseData.instance.getUsingAppLock() == true && !lockPasses) {
-            let transition:CATransition = CATransition()
-            transition.duration = 0.3
-            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-            transition.type = CATransitionType.moveIn
-            transition.subtype = CATransitionSubtype.fromTop
-            
             let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
             self.navigationItem.title = ""
-            self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+            self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
             passwordVC.mTarget = PASSWORD_ACTION_INTRO_LOCK
             passwordVC.resultDelegate = self
             self.navigationController?.pushViewController(passwordVC, animated: false)
