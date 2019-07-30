@@ -12,16 +12,8 @@ import DropDown
 class AccountPopupCell: DropDownCell {
     
     @IBOutlet weak var topPadding: UIView!
-//    @IBOutlet weak var selectedAccount: UIView!
     @IBOutlet weak var accountView: UIView!
     @IBOutlet weak var newAccount: UIView!
-    
-    
-//    @IBOutlet weak var selectedChainImg: UIImageView!
-//    @IBOutlet weak var slectedKeystate: UIImageView!
-//    @IBOutlet weak var selectedName: UILabel!
-//    @IBOutlet weak var selectedChainName: UILabel!
-//    @IBOutlet weak var selectedAddress: UILabel!
     
     @IBOutlet weak var cardview: CardView!
     @IBOutlet weak var chainImg: UIImageView!
@@ -37,7 +29,7 @@ class AccountPopupCell: DropDownCell {
         self.selectionStyle = .none
         
         addImg.image = addImg.image?.withRenderingMode(.alwaysTemplate)
-        addImg.tintColor = UIColor.init(hexString: "#05D2DD")
+        addImg.tintColor = COLOR_PHOTON
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

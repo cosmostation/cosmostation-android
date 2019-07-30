@@ -154,7 +154,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         
         let bonding = BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, validator.operator_address)
         if(bonding != nil) {
-            cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmout(bonding!.getBondingAtom(validator).stringValue, cell.myDelegatedAmoutLabel.font, 6)
+            cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmout(bonding!.getBondingAmount(validator).stringValue, cell.myDelegatedAmoutLabel.font, 6)
         } else {
             cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmout("0", cell.myDelegatedAmoutLabel.font, 6)
         }
@@ -304,10 +304,10 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             var bonding0:Double = 0
             var bonding1:Double = 0
             if(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address) != nil) {
-                bonding0 = Double(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address)!.getBondingAtom($0)) as! Double
+                bonding0 = Double(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address)!.getBondingAmount($0)) as! Double
             }
             if(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address) != nil) {
-                bonding1 = Double(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address)!.getBondingAtom($1)) as! Double
+                bonding1 = Double(BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $1.operator_address)!.getBondingAmount($1)) as! Double
             }
             return bonding0 > bonding1
         }

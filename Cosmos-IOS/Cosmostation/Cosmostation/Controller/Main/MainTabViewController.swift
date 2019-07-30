@@ -112,12 +112,23 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     cell.name.text = tempAccount.account_nick_name
                 }
                 
-                if(tempAccount.account_has_private) {
-                    cell.keystate.image = UIImage(named: "key_on")
-                } else {
-                    cell.keystate.image = UIImage(named: "key_off")
+                cell.chainName.textColor = WUtils.getChainColor(WUtils.getChainType(tempAccount.account_base_chain))
+                if (tempAccount.account_base_chain == CHAIN_COSMOS_S) {
+                    cell.chainImg.image = UIImage(named: "cosmosWhMain")
+                    cell.chainName.text = "(Cosmos Hub)"
+                    if (tempAccount.account_has_private) {
+                        cell.keystate.image = cell.keystate.image?.withRenderingMode(.alwaysTemplate)
+                        cell.keystate.tintColor = COLOR_ATOM
+                    }
+                    
+                } else if (tempAccount.account_base_chain == CHAIN_IRIS_S) {
+                    cell.chainImg.image = UIImage(named: "irisWh")
+                    cell.chainName.text = "(Iris Hub)"
+                    if (tempAccount.account_has_private) {
+                        cell.keystate.image = cell.keystate.image?.withRenderingMode(.alwaysTemplate)
+                        cell.keystate.tintColor = COLOR_IRIS
+                    }
                 }
-                
             }
         }
         
@@ -235,10 +246,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 mAllValidator.removeAll()
                 mAllValidator.append(contentsOf: mTopValidators)
                 mAllValidator.append(contentsOf: mOtherValidators)
-                print("mTopValidators Cnt " , mTopValidators.count)
-                print("mOtherValidators Cnt " , mOtherValidators.count)
-                print("mAllValidator Cnt " , mAllValidator.count)
-                print("Reward Cnt " , mRewardList.count)
+//                print("mTopValidators Cnt " , mTopValidators.count)
+//                print("mOtherValidators Cnt " , mOtherValidators.count)
+//                print("mAllValidator Cnt " , mAllValidator.count)
+//                print("Reward Cnt " , mRewardList.count)
                 
                 for validator in mAllValidator {
                     var mine = false;
@@ -265,12 +276,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
                 mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
-                print("mAccount : ", mAccount.account_sequence_number, "  ", mAccount.account_account_numner)
-                print("mBalances : ", mBalances.count, "   ", mBalances[0].balance_denom, "  ", mBalances[0].balance_amount)
-                print("mBondingList : ", mBondingList.count, "  ", mBondingList[0].bonding_shares)
-                print("mUnbondingList : ", mUnbondingList.count, "  ", mUnbondingList[0].unbonding_balance)
-                print("mIrisRewards : ", mIrisRewards?.delegations.count, "  ", mIrisRewards?.total[0].denom, " ", mIrisRewards?.total[0].amount)
-                print("mAllValidator : ", mAllValidator.count)
+//                print("mAccount : ", mAccount.account_sequence_number, "  ", mAccount.account_account_numner)
+//                print("mBalances : ", mBalances.count, "   ", mBalances[0].balance_denom, "  ", mBalances[0].balance_amount)
+//                print("mBondingList : ", mBondingList.count, "  ", mBondingList[0].bonding_shares)
+//                print("mUnbondingList : ", mUnbondingList.count, "  ", mUnbondingList[0].unbonding_balance)
+//                print("mIrisRewards : ", mIrisRewards?.delegations.count, "  ", mIrisRewards?.total[0].denom, " ", mIrisRewards?.total[0].amount)
+//                print("mAllValidator : ", mAllValidator.count)
                 
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
@@ -408,7 +419,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
             url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL
         }
-        print("onFetchBondingInfo ", url)
+//        print("onFetchBondingInfo ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.validate()
         request.responseJSON { (response) in
@@ -443,7 +454,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
             url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL
         }
-        print("onFetchUnbondingInfo ", url)
+//        print("onFetchUnbondingInfo ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {

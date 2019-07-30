@@ -37,6 +37,32 @@ public class IrisRewards {
             }
         }
     }
+    
+    func getSimpleIrisReward() -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        for delegation in delegations {
+            for coin in delegation.reward {
+                if (coin.denom == IRIS_MAIN_DENOM) {
+                    result = result.adding(NSDecimalNumber.init(string: coin.amount))
+                }
+            }
+        }
+        return result;
+    }
+    
+    func getPerValReward(valOp:String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        for delegation in delegations {
+            if (delegation.validator == valOp) {
+                for coin in delegation.reward {
+                    if (coin.denom == IRIS_MAIN_DENOM) {
+                        result = result.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                }
+            }
+        }
+        return result;
+    }
 }
 
 public class IrisDelegations {

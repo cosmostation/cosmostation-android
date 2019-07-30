@@ -84,16 +84,16 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             switch response.result {
                 case .success(let res):
                 guard let info = res as? [String : Any] else {
-                    cell?.denomAmount.attributedText = WUtils.displayAmout(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
+                    cell?.denomAmount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
                     return
                 }
                 let accountInfo = AccountInfo.init(info)
                 if((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
+                    cell?.denomAmount.attributedText = WUtils.displayAmount(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
                 } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
+                    cell?.denomAmount.attributedText = WUtils.displayAmount(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
                 } else {
-                    cell?.denomAmount.attributedText = WUtils.displayAmout(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
+                    cell?.denomAmount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
                 }
 
                 case .failure(let error):
@@ -114,13 +114,13 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             BaseData.instance.setLastTab(0)
-            self.onGenAccount(WKey.getCosmosDpAddressWithPath(maskerKey!, indexPath.row),
+            self.onGenAccount(WKey.getHDKeyDpAddressWithPath(maskerKey!, path:indexPath.row, chain: self.userChain!),
                               self.userChain!,
                               String(indexPath.row))
 
         } else {
             BaseData.instance.setLastTab(0)
-            self.onOverrideAccount(WKey.getCosmosDpAddressWithPath(maskerKey!, indexPath.row),
+            self.onOverrideAccount(WKey.getHDKeyDpAddressWithPath(maskerKey!, path:indexPath.row, chain: self.userChain!),
                                    self.userChain!,
                                    String(indexPath.row))
         }

@@ -314,7 +314,7 @@ class WUtils {
         return attributedString1
     }
     
-    static func displayAmout(_ amount: String, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
+    static func displayAmount(_ amount: String, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = deciaml
         nf.maximumFractionDigits = deciaml
@@ -598,13 +598,32 @@ class WUtils {
             sum = stringToDecimal(balance[0].balance_amount)
         }
         for bonding in bondings {
-            sum = sum.adding(bonding.getBondingAtom(validators))
+            sum = sum.adding(bonding.getBondingAmount(validators))
         }
         for unbonding in unbonding {
             sum = sum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
         }
         for reward in rewards {
             sum = sum.adding(stringToDecimal(reward.reward_amount[0].amount).rounding(accordingToBehavior: handlerdown0))
+        }
+        return sum
+    }
+    
+    static func getAllIris(_ balance:Array<Balance>, _ bondings:Array<Bonding>,
+                           _ unbonding:Array<Unbonding>,_ rewards:IrisRewards?,
+                           _ validators:Array<Validator>) ->  NSDecimalNumber {
+        var sum = NSDecimalNumber.zero
+        if(balance.count > 0) {
+            sum = stringToDecimal(balance[0].balance_amount)
+        }
+        for bonding in bondings {
+            sum = sum.adding(bonding.getBondingAmount(validators))
+        }
+        for unbonding in unbonding {
+            sum = sum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+        }
+        if (rewards != nil) {
+            sum = sum.adding(rewards!.getSimpleIrisReward())
         }
         return sum
     }

@@ -27,13 +27,15 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     @IBOutlet weak var keyAddressLabel: UILabel!
     @IBOutlet weak var keyQrcodeBtn: UIButton!
     
-    @IBOutlet weak var AtomCard: CardView!
-    @IBOutlet weak var atomTotalLabel: UILabel!
-    @IBOutlet weak var atomPriceLabel: UILabel!
-    @IBOutlet weak var atomAvailableAmount: UILabel!
-    @IBOutlet weak var atomDelegatedAmount: UILabel!
-    @IBOutlet weak var atomUnbondingAmount: UILabel!
-    @IBOutlet weak var atomRewardAmount: UILabel!
+    @IBOutlet weak var denomCard: CardView!
+    @IBOutlet weak var denomImg: UIImageView!
+    @IBOutlet weak var denomTitleLabel: UILabel!
+    @IBOutlet weak var denomTotalAmountLabel: UILabel!
+    @IBOutlet weak var denomtotalPriceLabel: UILabel!
+    @IBOutlet weak var denomAvailableAmountLabel: UILabel!
+    @IBOutlet weak var denomDelegatedAmountLabel: UILabel!
+    @IBOutlet weak var denomUnbondingAmountLabel: UILabel!
+    @IBOutlet weak var denomRewardAmountLabel: UILabel!
     
     @IBOutlet weak var priceCard: CardView!
     @IBOutlet weak var pricePerAtom: UILabel!
@@ -47,63 +49,105 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
+    var userChain: ChainType?
     
     @IBOutlet weak var addPopupView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         mainTabVC = (self.parent)?.parent as? MainTabViewController
-        self.updateTitle()
+        userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         refresher.tintColor = UIColor.white
         mainScrollView.addSubview(refresher)
         
-        let floaty = Floaty()
-        floaty.buttonColor = UIColor.init(hexString: "9C6CFF")
-        floaty.buttonImage = UIImage.init(named: "sendImg")
-        floaty.fabDelegate = self
-        self.view.addSubview(floaty)
-        
+        self.updateTitle()
+        self.updateFloaty()
         self.updateView()
     }
     
+    func updateFloaty() {
+        let floaty = Floaty()
+        floaty.buttonImage = UIImage.init(named: "sendImg")
+        if (userChain! == ChainType.CHAIN_COSMOS) {
+            floaty.buttonColor = COLOR_ATOM
+        } else if (userChain! == ChainType.CHAIN_IRIS) {
+            floaty.buttonColor = COLOR_IRIS
+        }
+        floaty.fabDelegate = self
+        self.view.addSubview(floaty)
+    }
     
     func updateTitle() {
-        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
-        } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
-        
-        if(mainTabVC.mAccount.account_has_private) { keyTypeImg.image = UIImage(named: "key_on")
-        } else { keyTypeImg.image = UIImage(named: "key_off") }
-        
-        if(mainTabVC.mAccount.account_base_chain == ChainType.CHAIN_COSMOS.rawValue) {
-            titleChainName.text = "(Cosmos Hub)"
+        if (mainTabVC.mAccount.account_nick_name == "") {
+            titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else {
-            titleChainName.text = ""
+            titleWalletName.text = mainTabVC.mAccount.account_nick_name
+        }
+        
+        titleChainName.textColor = WUtils.getChainColor(userChain!)
+        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            titleChainImg.image = UIImage(named: "cosmosWhMain")
+            titleChainName.text = "(Cosmos Hub)"
+        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+            titleChainImg.image = UIImage(named: "irisWh")
+            titleChainName.text = "(Iris Hub)"
         }
     }
     
     func updateView() {
+        if(mainTabVC.mAccount.account_has_private) {
+            if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+                keyTypeImg.image = keyTypeImg.image?.withRenderingMode(.alwaysTemplate)
+                keyTypeImg.tintColor = COLOR_ATOM
+            } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+                keyTypeImg.image = keyTypeImg.image?.withRenderingMode(.alwaysTemplate)
+                keyTypeImg.tintColor = COLOR_IRIS
+            }
+        }
         keyAddressLabel.text = mainTabVC.mAccount.account_address
         
+        denomCard.backgroundColor = WUtils.getChainBg(userChain!)
+        WUtils.setDenomTitle(userChain!, denomTitleLabel)
+        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            denomImg.image = UIImage(named: "atom_ic")
+            if (mainTabVC.mRewardList.count > 0) {
+                denomRewardAmountLabel.attributedText = WUtils.displayAllAtomReward(mainTabVC.mRewardList, denomRewardAmountLabel.font, 6)
+            } else {
+                denomRewardAmountLabel.attributedText = WUtils.displayAmount("0", denomRewardAmountLabel.font, 6, userChain!)
+            }
+            let totalSum = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            denomTotalAmountLabel.attributedText = WUtils.displayAmount(totalSum.stringValue, denomTotalAmountLabel.font, 6, userChain!)
+            
+        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+            denomImg.image = UIImage(named: "irisTokenImg")
+            if (mainTabVC.mIrisRewards != nil && (mainTabVC.mIrisRewards?.delegations.count)! > 0) {
+                denomRewardAmountLabel.attributedText = WUtils.displayAmount((mainTabVC.mIrisRewards?.getSimpleIrisReward().stringValue)!, denomRewardAmountLabel.font, 6, userChain!)
+            } else {
+                denomRewardAmountLabel.attributedText = WUtils.displayAmount("0", denomRewardAmountLabel.font, 6, userChain!)
+            }
+            let totalSum = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
+            denomTotalAmountLabel.attributedText = WUtils.displayAmount(totalSum.stringValue, denomTotalAmountLabel.font, 6, userChain!)
+
+        }
+        
         if(mainTabVC.mBalances.count > 0) {
-            atomAvailableAmount.attributedText = WUtils.displayAmout(mainTabVC.mBalances[0].balance_amount, atomDelegatedAmount.font, 6)
+            denomAvailableAmountLabel.attributedText = WUtils.displayAmount(mainTabVC.mBalances[0].balance_amount, denomAvailableAmountLabel.font, 6, userChain!)
         } else {
-            atomAvailableAmount.attributedText = WUtils.displayAmout("0", atomDelegatedAmount.font, 6)
+            denomAvailableAmountLabel.attributedText = WUtils.displayAmount("0", denomDelegatedAmountLabel.font, 6, userChain!)
         }
         
         if(mainTabVC.mBondingList.count > 0) {
             var sum = NSDecimalNumber.zero
             for bonding in mainTabVC.mBondingList {
-                sum = sum.adding(bonding.getBondingAtom(mainTabVC.mAllValidator))
+                sum = sum.adding(bonding.getBondingAmount(mainTabVC.mAllValidator))
             }
-            atomDelegatedAmount.attributedText = WUtils.displayAmout(sum.stringValue, atomDelegatedAmount.font, 6)
+            denomDelegatedAmountLabel.attributedText = WUtils.displayAmount(sum.stringValue, denomDelegatedAmountLabel.font, 6, userChain!)
             
         } else {
-            atomDelegatedAmount.attributedText = WUtils.displayAmout("0", atomDelegatedAmount.font, 6)
+            denomDelegatedAmountLabel.attributedText = WUtils.displayAmount("0", denomDelegatedAmountLabel.font, 6, userChain!)
         }
         
         if(mainTabVC.mUnbondingList.count > 0) {
@@ -111,20 +155,17 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             for unbonding in mainTabVC.mUnbondingList {
                 sum = sum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
             }
-            atomUnbondingAmount.attributedText = WUtils.displayAmout(sum.stringValue, atomUnbondingAmount.font, 6)
+            denomUnbondingAmountLabel.attributedText = WUtils.displayAmount(sum.stringValue, denomUnbondingAmountLabel.font, 6, userChain!)
             
         } else {
-            atomUnbondingAmount.attributedText = WUtils.displayAmout("0", atomUnbondingAmount.font, 6)
+            denomUnbondingAmountLabel.attributedText = WUtils.displayAmount("0", denomUnbondingAmountLabel.font, 6, userChain!)
         }
         
-        if(mainTabVC.mRewardList.count > 0) {
-            atomRewardAmount.attributedText = WUtils.displayAllAtomReward(mainTabVC.mRewardList, atomRewardAmount.font, 6)
-        } else {
-            atomRewardAmount.attributedText = WUtils.displayAmout("0", atomRewardAmount.font, 6)
-        }
         
-        let totalSum = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-        atomTotalLabel.attributedText = WUtils.displayAmout(totalSum.stringValue, atomTotalLabel.font, 6)
+        
+        
+        
+        
         
         self.updatePrice()
         
@@ -157,7 +198,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
                 dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: totalSum, withBehavior: WUtils.handler2)
             }
             
-            atomPriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: atomPriceLabel.font)
+            denomtotalPriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: denomtotalPriceLabel.font)
             pricePerAtom.attributedText = WUtils.displayPrice(priceValue, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: pricePerAtom.font)
             
             if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {

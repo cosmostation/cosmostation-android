@@ -37,9 +37,9 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
         memoLabel.text = pageHolderVC.mMemo
         
         if let bonding = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address) {
-            currentDelegateAmount.attributedText = WUtils.displayAmout(bonding.getBondingAtom(pageHolderVC.mTargetValidator!).stringValue, currentDelegateAmount.font, 6)
+            currentDelegateAmount.attributedText = WUtils.displayAmout(bonding.getBondingAmount(pageHolderVC.mTargetValidator!).stringValue, currentDelegateAmount.font, 6)
             
-            let expected = (NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount)).adding(bonding.getBondingAtom(pageHolderVC.mTargetValidator!))
+            let expected = (NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount)).adding(bonding.getBondingAmount(pageHolderVC.mTargetValidator!))
             expectedDelegateAmount.attributedText = WUtils.displayAmout(expected.stringValue, expectedDelegateAmount.font, 6)
         }
         

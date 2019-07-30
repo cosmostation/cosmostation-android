@@ -211,9 +211,11 @@ let FEE_REWARD_GAS_14                       = "900000";
 let FEE_REWARD_GAS_15                       = "960000";
 let FEE_REWARD_GAS_16                       = "1020000";
 
+let COLOR_DARK_GRAY                         = UIColor.init(hexString: "36393C")
 
 let TRANS_BG_COLOR_COSMOS                   = UIColor.init(hexString: "9C6CFF", alpha: 0.15)
 let COLOR_ATOM                              = UIColor.init(hexString: "9C6CFF")
+let COLOR_PHOTON                            = UIColor.init(hexString: "05D2DD")
 
 let TRANS_BG_COLOR_IRIS                     = UIColor.init(hexString: "0080ff", alpha: 0.15)
 let COLOR_IRIS                              = UIColor.init(hexString: "00A8FF")
@@ -225,3 +227,6 @@ enum ChainType: String {
 }
 let CHAIN_COSMOS_S = "CHAIN_COSMOS"
 let CHAIN_IRIS_S = "CHAIN_IRIS"
+
+let COSMOS_MAIN_DENOM = "uatom"
+let IRIS_MAIN_DENOM = "iris-atto"

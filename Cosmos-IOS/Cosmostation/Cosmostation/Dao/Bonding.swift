@@ -53,11 +53,11 @@ public class Bonding {
         self.bonding_fetch_time = fetch_time;
     }
 
-    public func getBondingAtom(_ validator:Validator) -> NSDecimalNumber {
+    public func getBondingAmount(_ validator:Validator) -> NSDecimalNumber {
         return (WUtils.stringToDecimal(validator.tokens)).dividing(by: WUtils.stringToDecimal(validator.delegator_shares)).multiplying(by: WUtils.stringToDecimal(bonding_shares)).rounding(accordingToBehavior: WUtils.handler0)
     }
 
-    public func getBondingAtom(_ validators:Array<Validator>) -> NSDecimalNumber {
+    public func getBondingAmount(_ validators:Array<Validator>) -> NSDecimalNumber {
         for v in validators {
             if(v.operator_address ==  bonding_v_address) {
                 return (WUtils.stringToDecimal(v.tokens)).dividing(by: WUtils.stringToDecimal(v.delegator_shares)).multiplying(by: WUtils.stringToDecimal(bonding_shares)).rounding(accordingToBehavior: WUtils.handler0)
