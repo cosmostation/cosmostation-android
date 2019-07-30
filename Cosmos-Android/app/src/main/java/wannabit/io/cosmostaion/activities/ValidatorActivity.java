@@ -470,8 +470,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
     private void onFetchValHistory() {
+        mTaskCount++;
         if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mTaskCount++;
             ReqTxVal req = new ReqTxVal(0, 0, true, mAccount.address, mValidator.operator_address);
 //            WLog.w("onFetchValHistory : " +  WUtil.prettyPrinter(req));
             new ValHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
