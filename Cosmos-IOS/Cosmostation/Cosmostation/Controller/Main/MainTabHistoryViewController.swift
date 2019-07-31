@@ -21,12 +21,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
+    var userChain: ChainType?
     var mHistories = Array<History.InnerHits>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         mainTabVC = (self.parent)?.parent as? MainTabViewController
+        userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         self.updateTitle()
         
         self.historyTableView.delegate = self
@@ -46,17 +47,23 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
-        self.updateTitle()
+        
     }
     
     func updateTitle() {
-        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
-        } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
-        
-        if(mainTabVC.mAccount.account_base_chain == ChainType.CHAIN_COSMOS.rawValue) {
-            titleChainName.text = "(Cosmos Hub)"
+        if (mainTabVC.mAccount.account_nick_name == "") {
+            titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else {
-            titleChainName.text = ""
+            titleWalletName.text = mainTabVC.mAccount.account_nick_name
+        }
+        
+        titleChainName.textColor = WUtils.getChainColor(userChain!)
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            titleChainImg.image = UIImage(named: "cosmosWhMain")
+            titleChainName.text = "(Cosmos Hub)"
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            titleChainImg.image = UIImage(named: "irisWh")
+            titleChainName.text = "(Iris Hub)"
         }
     }
     
@@ -90,18 +97,32 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let history = mHistories[indexPath.row]
-        guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
-        let safariViewController = SFSafariViewController(url: url)
-        present(safariViewController, animated: true, completion: nil)
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            guard let url = URL(string: "https://irishub.mintscan.io/txs/" + history._source.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
     }
     
     
     func onFetchHistory(_ address:String, _ from:String, _ size:String) {
-        let query = "{\"from\": " + from + ",\"size\": " + size + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.input.address\", \"tx.value.msg.value.output.address\", \"tx.value.msg.value.proposer\"]}}}"        
+        var query = ""
+        var url = ""
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            query = "{\"from\": " + from + ",\"size\": " + size + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.input.address\", \"tx.value.msg.value.output.address\", \"tx.value.msg.value.proposer\"]}}}"
+            url = CSS_ES_PROXY_COSMOS
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            query = "{\"from\": " + from + ",\"size\": " + size + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.address\", \"tx.value.msg.value.owner\", \"tx.value.msg.value.banker\", \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.proposer\", \"tx.value.msg.value.dest_address\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.author\", \"tx.value.msg.value.consumer\", \"tx.value.msg.value.trustee\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\"]}}}"
+            url = IRIS_ES_PROXY_IRIS
+        }
         let data = query.data(using: .utf8)
         do {
             let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-            let request = Alamofire.request(CSS_ES_PROXY_COSMOS, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+            let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
             request.validate().responseJSON { response in
                 switch response.result {
                 case .success(let res):
@@ -122,12 +143,12 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                     } else {
                         self.emptyLabel.isHidden = false
                     }
-            
+
                 case .failure(let error):
                     print("error ", error)
                 }
             }
-            
+
         } catch {
             print(error)
         }

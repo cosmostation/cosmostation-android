@@ -74,9 +74,9 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
         var request: DataRequest?
-        if (userChain == ChainType.CHAIN_COSMOS) {
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        } else if (userChain == ChainType.CHAIN_IRIS) {
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         }
 

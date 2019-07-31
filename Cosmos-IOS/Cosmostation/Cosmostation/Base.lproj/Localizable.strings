@@ -195,6 +195,7 @@
 "tx_create_validator" = "Create Val";
 "tx_edit_validator" = "Edit Val";
 "tx_reinvest" = "Re-Invest";
+"tx_get_reward_all" = "Get Rewards All";
 "tx_known" = "Known";
 
 

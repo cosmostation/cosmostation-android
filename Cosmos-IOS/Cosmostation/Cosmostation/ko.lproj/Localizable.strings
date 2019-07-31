@@ -194,6 +194,7 @@
 "tx_create_validator" = "검증인 생성";
 "tx_edit_validator" = "검증인 편집";
 "tx_reinvest" = "이자 즉시 위임";
+"tx_get_reward_all" = "이자 모두 청구";
 "tx_known" = "알수없음";
 
 

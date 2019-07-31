@@ -60,8 +60,10 @@ let IRIS_LCD_URL_UNBONDING              = IRIS_LCD_URL + "stake/delegators/";
 let IRIS_LCD_URL_UNBONDING_TAIL         = "/unbonding-delegations";
 let IRIS_LCD_URL_REWARD                 = IRIS_LCD_URL + "distribution/";
 let IRIS_LCD_URL_REWARD_TAIL            = "/rewards";
+let IRIS_LCD_URL_STAKING_POOL           = IRIS_LCD_URL + "stake/pool";
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
+let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.json";
 
@@ -160,7 +162,16 @@ let COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
 
 
 let IRIS_BANK_TYPE_ACCOUNT                  = "irishub/bank/Account";
-
+let IRIS_MSG_TYPE_TRANSFER                  = "irishub/bank/Send";
+let IRIS_MSG_TYPE_DELEGATE                  = "irishub/stake/MsgDelegate";
+let IRIS_MSG_TYPE_UNDELEGATE                = "irishub/stake/BeginUnbonding";
+let IRIS_MSG_TYPE_REDELEGATE                = "irishub/stake/BeginRedelegate";
+let IRIS_MSG_TYPE_WITHDRAW                  = "irishub/distr/MsgWithdrawDelegationReward";
+let IRIS_MSG_TYPE_WITHDRAW_ALL              = "irishub/distr/MsgWithdrawDelegationRewardsAll";
+let IRIS_MSG_TYPE_VOTE                      = "irishub/gov/MsgVote";
+let IRIS_MSG_TYPE_DEPOSIT                   = "irishub/gov/MsgDeposit";
+let IRIS_MSG_TYPE_SUBMIT_PROPOSAL           = "irishub/gov/MsgSubmitProposal";
+let IRIS_MSG_TYPE_CREATE_VALIDATOR          = "irishub/stake/MsgCreateValidator";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
@@ -221,12 +232,12 @@ let TRANS_BG_COLOR_IRIS                     = UIColor.init(hexString: "0080ff", 
 let COLOR_IRIS                              = UIColor.init(hexString: "00A8FF")
 
 enum ChainType: String {
-    case CHAIN_COSMOS
-    case CHAIN_IRIS
+    case SUPPORT_CHAIN_COSMOS_MAIN
+    case SUPPORT_CHAIN_IRIS_MAIN
     
 }
-let CHAIN_COSMOS_S = "CHAIN_COSMOS"
-let CHAIN_IRIS_S = "CHAIN_IRIS"
+let CHAIN_COSMOS_S = "SUPPORT_CHAIN_COSMOS_MAIN"
+let CHAIN_IRIS_S = "SUPPORT_CHAIN_IRIS_MAIN"
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "iris-atto"

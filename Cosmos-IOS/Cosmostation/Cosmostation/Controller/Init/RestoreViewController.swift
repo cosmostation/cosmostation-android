@@ -268,7 +268,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             let restorePathVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestorePathViewController") as! RestorePathViewController
             self.navigationItem.title = ""
             restorePathVC.userInputWords = self.userInputWords
-            restorePathVC.userChain = ChainType.CHAIN_COSMOS
+            restorePathVC.userChain = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
             self.navigationController?.pushViewController(restorePathVC, animated: true)
             
         })
@@ -279,7 +279,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             let restorePathVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestorePathViewController") as! RestorePathViewController
             self.navigationItem.title = ""
             restorePathVC.userInputWords = self.userInputWords
-            restorePathVC.userChain = ChainType.CHAIN_IRIS
+            restorePathVC.userChain = ChainType.SUPPORT_CHAIN_IRIS_MAIN
             self.navigationController?.pushViewController(restorePathVC, animated: true)
             
         })

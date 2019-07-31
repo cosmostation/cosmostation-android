@@ -85,14 +85,14 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     func onShowChainType() {
         let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         let cosmosAction = UIAlertAction(title: NSLocalizedString("COSMOS", comment: ""), style: .default, handler: { _ in
-            self.chain = ChainType.CHAIN_COSMOS
+            self.chain = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
             self.onGenNewKey()
         })
         cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
         cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let irisAction = UIAlertAction(title: NSLocalizedString("IRIS", comment: ""), style: .default, handler: {_ in
-            self.chain = ChainType.CHAIN_IRIS
+            self.chain = ChainType.SUPPORT_CHAIN_IRIS_MAIN
             self.onGenNewKey()
         })
         irisAction.setValue(UIColor.black, forKey: "titleTextColor")

@@ -66,12 +66,12 @@ class WUtils {
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
-        if (chain == ChainType.CHAIN_COSMOS) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
             }
-        } else if (chain == ChainType.CHAIN_IRIS) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 let shareAmount = stringToDecimal(bondinginfo.shares).multiplying(byPowerOf10: 18)
@@ -95,14 +95,14 @@ class WUtils {
     
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
-        if (chain == ChainType.CHAIN_COSMOS) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 for entry in unbondinginfo.entries {
                     result.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
                 }
             }
-        } else if (chain == ChainType.CHAIN_IRIS) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 let unbondingBalance = stringToDecimal(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
@@ -199,25 +199,26 @@ class WUtils {
             }
         }
         
-        if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2) {
+        if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2 || msgs[0].type == IRIS_MSG_TYPE_TRANSFER) {
             if (msgs[0].value.from_address != nil && msgs[0].value.from_address == myaddress) {
                 resultMsg = NSLocalizedString("tx_send", comment: "")
             } else if (msgs[0].value.to_address != nil && msgs[0].value.to_address == myaddress) {
                 resultMsg = NSLocalizedString("tx_receive", comment: "")
             } else {
+                
                 resultMsg = NSLocalizedString("tx_transfer", comment: "")
             }
             
-        } else if (msgs[0].type == COSMOS_MSG_TYPE_DELEGATE) {
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_DELEGATE || msgs[0].type == IRIS_MSG_TYPE_DELEGATE ) {
             resultMsg = NSLocalizedString("tx_delegate", comment: "")
             
-        } else if (msgs[0].type == COSMOS_MSG_TYPE_UNDELEGATE || msgs[0].type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_UNDELEGATE || msgs[0].type == COSMOS_MSG_TYPE_UNDELEGATE2 || msgs[0].type == IRIS_MSG_TYPE_UNDELEGATE) {
             resultMsg = NSLocalizedString("tx_undelegate", comment: "")
             
-        } else if (msgs[0].type == COSMOS_MSG_TYPE_REDELEGATE || msgs[0].type == COSMOS_MSG_TYPE_REDELEGATE2) {
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_REDELEGATE || msgs[0].type == COSMOS_MSG_TYPE_REDELEGATE2 || msgs[0].type == IRIS_MSG_TYPE_REDELEGATE) {
             resultMsg = NSLocalizedString("tx_redelegate", comment: "")
             
-        } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_DEL || msgs[0].type == IRIS_MSG_TYPE_WITHDRAW) {
             resultMsg = NSLocalizedString("tx_get_reward", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_VAL) {
@@ -226,21 +227,23 @@ class WUtils {
         } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
             resultMsg = NSLocalizedString("tx_change_reward_address", comment: "")
             
-        } else if (msgs[0].type == COSMOS_MSG_TYPE_VOTE) {
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_VOTE || msgs[0].type == IRIS_MSG_TYPE_VOTE) {
             resultMsg = NSLocalizedString("tx_vote", comment: "")
             
-        } else if (msgs[0].type == COSMOS_MSG_TYPE_SUBMIT_PROPOSAL) {
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_SUBMIT_PROPOSAL || msgs[0].type == IRIS_MSG_TYPE_SUBMIT_PROPOSAL) {
             resultMsg = NSLocalizedString("tx_submit_proposal", comment: "")
             
-        } else if (msgs[0].type == COSMOS_MSG_TYPE_DEPOSIT) {
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_DEPOSIT || msgs[0].type == IRIS_MSG_TYPE_DEPOSIT) {
             resultMsg = NSLocalizedString("tx_deposit", comment: "")
             
-        } else if (msgs[0].type == COSMOS_MSG_TYPE_CREATE_VALIDATOR) {
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_CREATE_VALIDATOR || msgs[0].type == IRIS_MSG_TYPE_CREATE_VALIDATOR) {
             resultMsg = NSLocalizedString("tx_create_validator", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_EDIT_VALIDATOR) {
             resultMsg = NSLocalizedString("tx_edit_validator", comment: "")
             
+        } else if (msgs[0].type == IRIS_MSG_TYPE_WITHDRAW_ALL) {
+            resultMsg = NSLocalizedString("tx_get_reward_all", comment: "")
         }
         
         if(msgs.count > 1) {
@@ -324,9 +327,9 @@ class WUtils {
         var formatted: String?
         if (amount == NSDecimalNumber.zero) {
             formatted = nf.string(from: NSDecimalNumber.zero)
-        } else if (chain == ChainType.CHAIN_COSMOS) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler6))
-        } else if (chain == ChainType.CHAIN_IRIS) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler18))
         }
         
@@ -630,37 +633,37 @@ class WUtils {
     
     
     static func getChainColor(_ chain:ChainType) -> UIColor{
-        if (chain == ChainType.CHAIN_COSMOS) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             return COLOR_ATOM
-        } else if (chain == ChainType.CHAIN_IRIS) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return COLOR_IRIS
         }
         return COLOR_ATOM
     }
     
     static func getChainBg(_ chain:ChainType) -> UIColor{
-        if (chain == ChainType.CHAIN_COSMOS) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             return TRANS_BG_COLOR_COSMOS
-        } else if (chain == ChainType.CHAIN_IRIS) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return TRANS_BG_COLOR_IRIS
         }
         return TRANS_BG_COLOR_COSMOS
     }
     
     static func getMainDenom(_ chain:ChainType) -> String {
-        if (chain == ChainType.CHAIN_COSMOS) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             return "ATOM"
-        } else if (chain == ChainType.CHAIN_IRIS) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return "IRIS"
         }
         return ""
     }
     
     static func setDenomTitle(_ chain:ChainType, _ label:UILabel) {
-        if (chain == ChainType.CHAIN_COSMOS) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             label.text = "ATOM"
             label.textColor = COLOR_ATOM
-        } else if (chain == ChainType.CHAIN_IRIS) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             label.text = "IRIS"
             label.textColor = COLOR_IRIS
         }
@@ -668,11 +671,11 @@ class WUtils {
     
     static func getChainType(_ chainS:String) -> ChainType {
         if (chainS == CHAIN_COSMOS_S ) {
-            return ChainType.CHAIN_COSMOS
+            return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
         } else if (chainS == CHAIN_IRIS_S) {
-            return ChainType.CHAIN_IRIS
+            return ChainType.SUPPORT_CHAIN_IRIS_MAIN
         }
-        return ChainType.CHAIN_COSMOS
+        return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
     }
     
     
@@ -807,9 +810,9 @@ class WUtils {
     
     
     static func getChainName(_ type:String) -> String {
-        if (type == ChainType.CHAIN_COSMOS.rawValue) {
+        if (type == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
             return "cosmoshub-2"
-        } else if (type == ChainType.CHAIN_IRIS.rawValue) {
+        } else if (type == ChainType.SUPPORT_CHAIN_IRIS_MAIN.rawValue) {
             return "irishub"
         }
         return "cosmoshub-2"

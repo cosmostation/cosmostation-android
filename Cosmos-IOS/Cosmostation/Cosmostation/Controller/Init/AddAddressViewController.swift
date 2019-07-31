@@ -52,7 +52,7 @@ class AddAddressViewController: BaseViewController {
                 self.addAddressInputText.text = ""
                 return;
             } else if (WKey.isValidateAddressOrPubKey(userInput)) {
-                self.onGenWatchAccount(ChainType.CHAIN_COSMOS, userInput)
+                self.onGenWatchAccount(ChainType.SUPPORT_CHAIN_COSMOS_MAIN, userInput)
                 return;
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
@@ -62,7 +62,7 @@ class AddAddressViewController: BaseViewController {
             
         } else if (userInput.starts(with: "iaa")) {
             if (WKey.isValidateAddressOrPubKey(userInput)) {
-                self.onGenWatchAccount(ChainType.CHAIN_IRIS, userInput)
+                self.onGenWatchAccount(ChainType.SUPPORT_CHAIN_IRIS_MAIN, userInput)
                 return;
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))

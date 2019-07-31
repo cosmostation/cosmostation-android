@@ -30,6 +30,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mInflation: String?
     var mProvision: String?
     var mStakingPool: NSDictionary?
+    var mIrisStakePool: NSDictionary?
     
     var dimView: UIView?
     let window = UIApplication.shared.keyWindow!
@@ -220,7 +221,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchAtomTic(true)
             
         } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
-            self.mFetchCnt = 5
+            self.mFetchCnt = 6
             self.mAllValidator.removeAll()
             self.irisValidatorPage = 1
             onFetchIrisValidatorsInfo(irisValidatorPage)
@@ -228,6 +229,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
             onFetchIrisReward(mAccount)
+            onFetchIrisPool()
         }
         
         return true
@@ -446,7 +448,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                print("bondinginfos", bondinginfos)
                 let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos, WUtils.getChainType(self.mAccount.account_base_chain))
                 BaseData.instance.updateBondings(mTempBondings)
-                if (self.mAccount.account_base_chain == ChainType.CHAIN_COSMOS.rawValue) {
+                if (self.mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
                     self.mFetchCnt = self.mFetchCnt + mTempBondings.count
                     for bondig in mTempBondings {
                         self.onFetchEachReward(account.account_address, bondig.bonding_v_address)
@@ -655,6 +657,23 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             self.onFetchFinished()
         }
+    }
+    
+    func onFetchIrisPool() {
+        let url = IRIS_LCD_URL_STAKING_POOL
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let irisStakePool = res as? NSDictionary {
+                    self.mIrisStakePool = irisStakePool
+                }
+            case .failure(let error):
+                print("irisStakePool ", error)
+            }
+            self.onFetchFinished()
+        }
+    
     }
     
     

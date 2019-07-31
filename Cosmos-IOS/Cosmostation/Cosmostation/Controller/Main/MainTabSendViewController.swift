@@ -71,9 +71,9 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     func updateFloaty() {
         let floaty = Floaty()
         floaty.buttonImage = UIImage.init(named: "sendImg")
-        if (userChain! == ChainType.CHAIN_COSMOS) {
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             floaty.buttonColor = COLOR_ATOM
-        } else if (userChain! == ChainType.CHAIN_IRIS) {
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             floaty.buttonColor = COLOR_IRIS
         }
         floaty.fabDelegate = self
@@ -166,23 +166,38 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         
         
         
-        
+        self.updatePool()
         self.updatePrice()
         
+        
+        self.refresher.endRefreshing()
+    }
+    
+    func updatePool() {
         var provisions = NSDecimalNumber.zero
         var inflation = NSDecimalNumber.zero
         var bonded_tokens = NSDecimalNumber.zero
-        
-        if(mainTabVC!.mInflation != nil) {
-            inflation = NSDecimalNumber.init(string: mainTabVC.mInflation)
+        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            if (mainTabVC!.mInflation != nil) {
+                inflation = NSDecimalNumber.init(string: mainTabVC.mInflation)
+                inflationLabel.attributedText = WUtils.displayInflation(inflation, font: inflationLabel.font)
+            }
+            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
+                provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
+                bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                yieldLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.zero, font: yieldLabel.font)
+            }
+            
+        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+            inflation = NSDecimalNumber.init(string: "0.04")
             inflationLabel.attributedText = WUtils.displayInflation(inflation, font: inflationLabel.font)
+            if (mainTabVC!.mIrisStakePool != nil) {
+                provisions = NSDecimalNumber.init(string: mainTabVC.mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: inflation)
+                bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
+                yieldLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.zero, font: yieldLabel.font)
+            }
         }
-        if(mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
-            provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
-            bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-            yieldLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.zero, font: inflationLabel.font)
-        }
-        self.refresher.endRefreshing()
+            
     }
     
     func updatePrice() {

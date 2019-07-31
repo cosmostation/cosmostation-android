@@ -561,9 +561,11 @@ final class BaseData : NSObject{
     }
     
     public func updateBondings(_ newBondings: Array<Bonding>) {
-        _ = deleteBondingById(accountId: newBondings[0].bonding_account_id)
-        for bonding in newBondings {
-            _ = self.insertBonding(bonding: bonding)
+        if (newBondings.count > 0) {
+            _ = deleteBondingById(accountId: newBondings[0].bonding_account_id)
+            for bonding in newBondings {
+                _ = self.insertBonding(bonding: bonding)
+            }
         }
     }
     
@@ -656,9 +658,11 @@ final class BaseData : NSObject{
     }
     
     public func updateUnbondings(_ newUnbondings: Array<Unbonding>) {
-        _ = deleteUnbondingById(accountId: newUnbondings[0].unbonding_account_id)
-        for unbonding in newUnbondings {
-            _ = self.insertUnbonding(unbonding: unbonding)
+        if (newUnbondings.count > 0) {
+            _ = deleteUnbondingById(accountId: newUnbondings[0].unbonding_account_id)
+            for unbonding in newUnbondings {
+                _ = self.insertUnbonding(unbonding: unbonding)
+            }
         }
     }
     
