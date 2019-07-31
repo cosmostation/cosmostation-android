@@ -12,16 +12,20 @@ public class Proposal {
     var proposal_id: String = ""
     var proposal_status: String = ""
     var proposal_content: ProposalContent?
+    var value: IrisValue?
     
     init() {}
     
     init(_ dictionary: [String: Any]) {
         self.proposal_id = dictionary["proposal_id"] as? String ?? ""
         self.proposal_status = dictionary["proposal_status"] as? String ?? ""
-        
         if let pc = dictionary["proposal_content"] as? [String : Any] {
             self.proposal_content = ProposalContent.init(pc)
         }
+        if let irisValue = dictionary["value"] as? [String : Any] {
+            self.value = IrisValue.init(irisValue)
+        }
+        
     }
     
     public class ProposalContent {
@@ -48,7 +52,30 @@ public class Proposal {
             self.title = dictionary["title"] as? String ?? ""
             self.description = dictionary["description"] as? String ?? ""
         }
+    }
+    
+    public class IrisValue {
+        var basicProposal: BasicProposal?
         
+        init(_ dictionary: [String: Any]) {
+            if let value = dictionary["BasicProposal"] as? [String : Any] {
+                self.basicProposal = BasicProposal.init(value)
+            }
+        }
+    }
+    
+    public class BasicProposal {
+        var proposal_id: String = ""
+        var title: String = ""
+        var description: String = ""
+        var proposal_status: String = ""
+        
+        init(_ dictionary: [String: Any]) {
+            self.proposal_id = dictionary["proposal_id"] as? String ?? ""
+            self.title = dictionary["title"] as? String ?? ""
+            self.description = dictionary["description"] as? String ?? ""
+            self.proposal_status = dictionary["proposal_status"] as? String ?? ""
+        }
     }
     
 }

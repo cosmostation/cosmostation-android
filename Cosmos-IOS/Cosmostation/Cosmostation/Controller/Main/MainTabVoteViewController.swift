@@ -23,12 +23,12 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     var mProposals = Array<Proposal>()
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
+    var userChain: ChainType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        mainTabVC = (self.parent)?.parent as? MainTabViewController
-        self.updateTitle()
+        self.mainTabVC = (self.parent)?.parent as? MainTabViewController
+        self.userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         
         self.voteTableView.delegate = self
         self.voteTableView.dataSource = self
@@ -40,6 +40,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         self.refresher.tintColor = UIColor.white
         self.voteTableView.addSubview(refresher)
         
+        self.updateTitle()
         self.onFetchProposals()
     }
     
@@ -47,17 +48,22 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
-        self.updateTitle()
     }
     
     func updateTitle() {
-        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
-        } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
-        
-        if(mainTabVC.mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
-            titleChainName.text = "(Cosmos Hub)"
+        if (mainTabVC.mAccount.account_nick_name == "") {
+            titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else {
-            titleChainName.text = ""
+            titleWalletName.text = mainTabVC.mAccount.account_nick_name
+        }
+        
+        titleChainName.textColor = WUtils.getChainColor(userChain!)
+        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            titleChainImg.image = UIImage(named: "cosmosWhMain")
+            titleChainName.text = "(Cosmos Hub)"
+        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+            titleChainImg.image = UIImage(named: "irisWh")
+            titleChainName.text = "(Iris Hub)"
         }
     }
     
@@ -80,38 +86,40 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
         let proposal = mProposals[indexPath.row]
-//        cell?.proposalIdLabel.text = "# ".appending(proposal.value.proposal_id)
-//        cell?.proposalTitleLabel.text = proposal.value.title
-//        cell?.proposalMsgLabel.text = proposal.value.description
-//        cell?.proposalStateLabel.text = proposal.value.proposal_status
-//        if (proposal.value.proposal_status == "DepositPeriod") {
-//            cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
-//        } else if (proposal.value.proposal_status == "VotingPeriod") {
-//            cell?.proposalStateImg.image = UIImage.init(named: "votingImg")
-//        } else if (proposal.value.proposal_status == "Rejected") {
-//            cell?.proposalStateImg.image = UIImage.init(named: "rejectedImg")
-//        } else if (proposal.value.proposal_status == "Passed") {
-//            cell?.proposalStateImg.image = UIImage.init(named: "passedImg")
-//        } else {
-//            cell?.proposalStateImg.image = nil
-//        }
-        
-        cell?.proposalIdLabel.text = "# ".appending(proposal.proposal_id)
-        cell?.proposalTitleLabel.text = proposal.proposal_content?.value.title
-        cell?.proposalMsgLabel.text = proposal.proposal_content?.value.description
-        cell?.proposalStateLabel.text = proposal.proposal_status
-        if (proposal.proposal_status == "DepositPeriod") {
-            cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
-        } else if (proposal.proposal_status == "VotingPeriod") {
-            cell?.proposalStateImg.image = UIImage.init(named: "votingImg")
-        } else if (proposal.proposal_status == "Rejected") {
-            cell?.proposalStateImg.image = UIImage.init(named: "rejectedImg")
-        } else if (proposal.proposal_status == "Passed") {
-            cell?.proposalStateImg.image = UIImage.init(named: "passedImg")
-        } else {
-            cell?.proposalStateImg.image = nil
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            cell?.proposalIdLabel.text = "# ".appending(proposal.proposal_id)
+            cell?.proposalTitleLabel.text = proposal.proposal_content?.value.title
+            cell?.proposalMsgLabel.text = proposal.proposal_content?.value.description
+            cell?.proposalStateLabel.text = proposal.proposal_status
+            if (proposal.proposal_status == "DepositPeriod") {
+                cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
+            } else if (proposal.proposal_status == "VotingPeriod") {
+                cell?.proposalStateImg.image = UIImage.init(named: "votingImg")
+            } else if (proposal.proposal_status == "Rejected") {
+                cell?.proposalStateImg.image = UIImage.init(named: "rejectedImg")
+            } else if (proposal.proposal_status == "Passed") {
+                cell?.proposalStateImg.image = UIImage.init(named: "passedImg")
+            } else {
+                cell?.proposalStateImg.image = nil
+            }
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.proposalIdLabel.text = "# ".appending(proposal.value!.basicProposal!.proposal_id)
+            cell?.proposalTitleLabel.text = proposal.value?.basicProposal?.title
+            cell?.proposalMsgLabel.text = proposal.value?.basicProposal?.description
+            cell?.proposalStateLabel.text = proposal.value?.basicProposal?.proposal_status
+            if (proposal.value?.basicProposal?.proposal_status == "DepositPeriod") {
+                cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
+            } else if (proposal.value?.basicProposal?.proposal_status == "VotingPeriod") {
+                cell?.proposalStateImg.image = UIImage.init(named: "votingImg")
+            } else if (proposal.value?.basicProposal?.proposal_status == "Rejected") {
+                cell?.proposalStateImg.image = UIImage.init(named: "rejectedImg")
+            } else if (proposal.value?.basicProposal?.proposal_status == "Passed") {
+                cell?.proposalStateImg.image = UIImage.init(named: "passedImg")
+            } else {
+                cell?.proposalStateImg.image = nil
+            }
         }
-
         return cell!
     }
     
@@ -121,19 +129,30 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let proposal = mProposals[indexPath.row]
-//        guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.value.proposal_id) else { return }
-         guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.proposal_id) else { return }
-        let safariViewController = SFSafariViewController(url: url)
-        present(safariViewController, animated: true, completion: nil)
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.proposal_id) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            guard let url = URL(string: "https://irishub.mintscan.io/proposals/" + (proposal.value?.basicProposal?.proposal_id)!) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        }
     }
     
     @objc func onFetchProposals() {
-//        print("onFetchProposals")
-        let request = Alamofire.request(CSS_LCD_URL_PROPOSALS, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        var url = ""
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_PROPOSALS;
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_PROPOSALS;
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchProposals ", res)
                 guard let proposals = res as? Array<NSDictionary> else {
                     self.onUpdateViews()
                     return
@@ -156,9 +175,15 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func sortProposals() {
-        self.mProposals.sort{
-//            return Int($0.value.proposal_id)! < Int($1.value.proposal_id)! ? false : true
-            return Int($0.proposal_id)! < Int($1.proposal_id)! ? false : true
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            self.mProposals.sort{
+                return Int($0.proposal_id)! < Int($1.proposal_id)! ? false : true
+            }
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            self.mProposals.sort{
+                return Int($0.value!.basicProposal!.proposal_id)! < Int($1.value!.basicProposal!.proposal_id)! ? false : true
+            }
         }
     }
 
