@@ -162,10 +162,6 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         }
         
         
-        
-        
-        
-        
         self.updatePool()
         self.updatePrice()
         

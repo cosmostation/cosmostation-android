@@ -222,6 +222,7 @@ let FEE_REWARD_GAS_14                       = "900000";
 let FEE_REWARD_GAS_15                       = "960000";
 let FEE_REWARD_GAS_16                       = "1020000";
 
+let COLOR_BG_GRAY                           = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
 let COLOR_DARK_GRAY                         = UIColor.init(hexString: "36393C")
 
 let TRANS_BG_COLOR_COSMOS                   = UIColor.init(hexString: "9C6CFF", alpha: 0.15)

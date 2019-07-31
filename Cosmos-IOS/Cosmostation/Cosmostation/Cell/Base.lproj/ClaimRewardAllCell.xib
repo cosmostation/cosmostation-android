@@ -76,6 +76,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="claimAllBtn" destination="oxN-Dn-clr" id="XdD-Zf-2GS"/>
+                <outlet property="denomLabel" destination="guL-u8-8x9" id="sWY-Eo-0od"/>
                 <outlet property="totalRewardLabel" destination="wNn-gq-MZA" id="sG3-1E-WFQ"/>
             </connections>
             <point key="canvasLocation" x="52.799999999999997" y="48.575712143928037"/>

@@ -10,6 +10,8 @@ import UIKit
 
 class PromotionCell: UITableViewCell {
 
+    @IBOutlet weak var cardView: CardView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

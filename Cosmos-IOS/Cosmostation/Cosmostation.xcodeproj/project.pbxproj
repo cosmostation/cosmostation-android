@@ -54,7 +54,6 @@
 		E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */; };
 		E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */; };
 		E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B634224533F90026B8C0 /* PromotionCell.swift */; };
-		E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B635224533F90026B8C0 /* PromotionCell.xib */; };
 		E151B639224626990026B8C0 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B638224626990026B8C0 /* BorderButton.swift */; };
 		E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B63A22467E520026B8C0 /* HistoryCell.swift */; };
 		E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B63B22467E520026B8C0 /* HistoryCell.xib */; };
@@ -71,6 +70,7 @@
 		E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B65222486C300026B8C0 /* ProposalCell.swift */; };
 		E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E151B65322486C300026B8C0 /* ProposalCell.xib */; };
 		E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B657224873640026B8C0 /* SettingTableViewController.swift */; };
+		E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E15DA48322F1738C000557FC /* PromotionCell.xib */; };
 		E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16B70DF229F9A78001D6B9C /* RedelegateCell.xib */; };
 		E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B1422489B030019B7BB /* IntroViewController.swift */; };
 		E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B162248BD990019B7BB /* CreateViewController.swift */; };
@@ -231,7 +231,6 @@
 		E151B62C2245248C0026B8C0 /* MyValidatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyValidatorCell.swift; sourceTree = "<group>"; };
 		E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRewardAllCell.swift; sourceTree = "<group>"; };
 		E151B634224533F90026B8C0 /* PromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionCell.swift; sourceTree = "<group>"; };
-		E151B635224533F90026B8C0 /* PromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromotionCell.xib; sourceTree = "<group>"; };
 		E151B638224626990026B8C0 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		E151B63A22467E520026B8C0 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		E151B63B22467E520026B8C0 /* HistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
@@ -248,6 +247,8 @@
 		E151B65222486C300026B8C0 /* ProposalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalCell.swift; sourceTree = "<group>"; };
 		E151B65322486C300026B8C0 /* ProposalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalCell.xib; sourceTree = "<group>"; };
 		E151B657224873640026B8C0 /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		E15DA48222F1738C000557FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PromotionCell.xib; sourceTree = "<group>"; };
+		E15DA48522F1738F000557FC /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/PromotionCell.strings; sourceTree = "<group>"; };
 		E16B70DC229E619A001D6B9C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/GenTx.strings; sourceTree = "<group>"; };
 		E16B70DE229F9A78001D6B9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RedelegateCell.xib; sourceTree = "<group>"; };
 		E16B70E3229F9FAD001D6B9C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/RedelegateCell.strings; sourceTree = "<group>"; };
@@ -657,7 +658,7 @@
 				E151B630224533DC0026B8C0 /* ClaimRewardAllCell.swift */,
 				E17748F722842628003D8CD1 /* ClaimRewardAllCell.xib */,
 				E151B634224533F90026B8C0 /* PromotionCell.swift */,
-				E151B635224533F90026B8C0 /* PromotionCell.xib */,
+				E15DA48322F1738C000557FC /* PromotionCell.xib */,
 				E151B63A22467E520026B8C0 /* HistoryCell.swift */,
 				E151B63B22467E520026B8C0 /* HistoryCell.xib */,
 				E151B65222486C300026B8C0 /* ProposalCell.swift */,
@@ -763,7 +764,7 @@
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
-				E151B637224533F90026B8C0 /* PromotionCell.xib in Resources */,
+				E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */,
 				E103DACE22813248006C2146 /* WalletDetailViewController.xib in Resources */,
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
 				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
@@ -1093,6 +1094,15 @@
 				E1F2AE4B227E865D00C87F3F /* ko */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		E15DA48322F1738C000557FC /* PromotionCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E15DA48222F1738C000557FC /* Base */,
+				E15DA48522F1738F000557FC /* ko */,
+			);
+			name = PromotionCell.xib;
 			sourceTree = "<group>";
 		};
 		E16B70DF229F9A78001D6B9C /* RedelegateCell.xib */ = {

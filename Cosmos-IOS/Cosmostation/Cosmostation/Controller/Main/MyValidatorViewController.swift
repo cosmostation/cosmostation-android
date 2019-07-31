@@ -12,11 +12,11 @@ import AlamofireImage
 
 class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, ClaimRewardAllDelegate {
     
-    
     @IBOutlet weak var myValidatorTableView: UITableView!
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
+    var userChain: ChainType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +36,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
+        self.userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         self.onSortingMy()
     }
     
@@ -86,6 +87,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (mainTabVC.mMyValidators.count < 1) {
             let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
+            if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                cell?.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
+            } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                cell?.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
+            }
             return cell!
             
         } else if (mainTabVC.mMyValidators.count == 1) {
@@ -141,6 +147,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     func onSetValidatorItem(_ cell: MyValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         cell.monikerLabel.text = validator.description.moniker
         cell.monikerLabel.adjustsFontSizeToFitWidth = true
+        cell.freeEventImg.isHidden = true
         
         if(validator.jailed) {
             cell.revokedImg.isHidden = false
@@ -150,13 +157,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
         
-        cell.freeEventImg.isHidden = true
-        
         let bonding = BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, validator.operator_address)
         if(bonding != nil) {
-            cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmout(bonding!.getBondingAmount(validator).stringValue, cell.myDelegatedAmoutLabel.font, 6)
+            cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount(bonding!.getBondingAmount(validator).stringValue, cell.myDelegatedAmoutLabel.font, 6, userChain!)
         } else {
-            cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmout("0", cell.myDelegatedAmoutLabel.font, 6)
+            cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.myDelegatedAmoutLabel.font, 6, userChain!)
         }
         
         let unbonding = BaseData.instance.selectUnBondingWithValAdd(mainTabVC.mAccount.account_id, validator.operator_address)
@@ -164,9 +169,20 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         for unbond in unbonding {
             unbondSum = unbondSum.adding(WUtils.stringToDecimal(unbond.unbonding_balance))
         }
-        cell.myUndelegatingAmountLabel.attributedText =  WUtils.displayAmout(unbondSum.stringValue, cell.myUndelegatingAmountLabel.font, 6)
+        cell.myUndelegatingAmountLabel.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell.myUndelegatingAmountLabel.font, 6, userChain!)
         
-        cell.rewardAmoutLabel.attributedText = WUtils.displayAmout(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6)
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
+            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, userChain!)
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
+            if (mainTabVC.mIrisRewards != nil) {
+                cell.rewardAmoutLabel.attributedText = WUtils.displayAmount((mainTabVC.mIrisRewards?.getPerValReward(valOp: validator.operator_address).stringValue)!, cell.rewardAmoutLabel.font, 6, userChain!)
+            } else {
+                cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.rewardAmoutLabel.font, 6, userChain!)
+            }
+        }
         
         cell.validatorImg.tag = indexPath.row
         cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
@@ -204,18 +220,27 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {
-        if(mainTabVC.mRewardList.count > 0) {
-            cell.totalRewardLabel.attributedText = WUtils.displayAllAtomReward(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6)
-        } else {
-            cell.totalRewardLabel.attributedText = WUtils.displayAmout("0", cell.totalRewardLabel.font, 6)
+        WUtils.setDenomTitle(userChain!, cell.denomLabel)
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(mainTabVC.mRewardList.count > 0) {
+                cell.totalRewardLabel.attributedText = WUtils.displayAllAtomReward(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6)
+            } else {
+                cell.totalRewardLabel.attributedText = WUtils.displayAmount("0", cell.totalRewardLabel.font, 6, userChain!)
+            }
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (mainTabVC.mIrisRewards != nil) {
+                cell.totalRewardLabel.attributedText = WUtils.displayAmount((mainTabVC.mIrisRewards?.getSimpleIrisReward().stringValue)!, cell.totalRewardLabel.font, 6, userChain!)
+            } else {
+                cell.totalRewardLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.totalRewardLabel.font, 6, userChain!)
+            }
         }
-        
         cell.delegate = self
+        
     }
     
     
     func didTapClaimAll(_ sender: UIButton) {
-        print("didTapClaimAll")
         if(!self.mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
             return
@@ -224,7 +249,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
             return
         }
-        
         
         var myBondedValidator = Array<Validator>()
         var toClaimValidator = Array<Validator>()
@@ -283,6 +307,12 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func sortByName() {
         mainTabVC.mMyValidators.sort{
+            if ($0.description.moniker == "Cosmostation") {
+                return true
+            }
+            if ($1.description.moniker == "Cosmostation"){
+                return false
+            }
             if ($0.jailed && !$1.jailed) {
                 return false
             }
@@ -314,22 +344,33 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func sortByReward() {
-        mainTabVC.mMyValidators.sort{
-            if ($0.jailed && !$1.jailed) {
-                return false
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            mainTabVC.mMyValidators.sort{
+                if ($0.jailed && !$1.jailed) {
+                    return false
+                }
+                if (!$0.jailed && $1.jailed) {
+                    return true
+                }
+                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                return reward0.compare(reward1).rawValue > 0 ? true : false
             }
-            if (!$0.jailed && $1.jailed) {
-                return true
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            mainTabVC.mMyValidators.sort{
+                if ($0.jailed && !$1.jailed) {
+                    return false
+                }
+                if (!$0.jailed && $1.jailed) {
+                    return true
+                }
+                let reward0 = mainTabVC.mIrisRewards?.getPerValReward(valOp: $0.operator_address)
+                let reward1 = mainTabVC.mIrisRewards?.getPerValReward(valOp: $1.operator_address)
+                return reward0!.compare(reward1!).rawValue > 0 ? true : false
             }
-            
-            let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-            let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
-            return reward0.compare(reward1).rawValue > 0 ? true : false
         }
+        
     }
-    
-    
-    
     
     func onShowAddMenomicDialog() {
         let alert = UIAlertController(title: NSLocalizedString("alert_title_no_private_key", comment: ""), message: NSLocalizedString("alert_msg_no_private_key", comment: ""), preferredStyle: .alert)

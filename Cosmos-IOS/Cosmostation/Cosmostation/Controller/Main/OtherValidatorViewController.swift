@@ -12,11 +12,11 @@ import AlamofireImage
 
 class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
-
     @IBOutlet weak var otherValidatorTableView: UITableView!
+    
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
+    var userChain: ChainType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,7 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
+        self.userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         self.onSorting()
     }
     
@@ -100,8 +101,15 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
     
     
     func onSetValidatorItem(_ cell: OtherValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, userChain!)
+        }
         cell.monikerLabel.text = validator.description.moniker
         cell.monikerLabel.adjustsFontSizeToFitWidth = true
+        cell.freeEventImg.isHidden = true
+        cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
         
         if(validator.jailed) {
             cell.revokedImg.isHidden = false
@@ -110,9 +118,16 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
             cell.revokedImg.isHidden = true
             cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
-        cell.freeEventImg.isHidden = true
-        cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
-        cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
+        
+        if mainTabVC.mMyValidators.first(where: {$0.operator_address == validator.operator_address}) != nil {
+            if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
+            } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
+            }
+        } else {
+            cell.cardView.backgroundColor = COLOR_BG_GRAY
+        }
         
         cell.validatorImg.tag = indexPath.row
         cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
@@ -145,12 +160,6 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
                     print("onSetValidatorItem error : ", error)
                 }
             }
-        }
-        
-        if let isMyVal =  mainTabVC.mMyValidators.first(where: {$0.operator_address == validator.operator_address}) {
-            cell.cardView.backgroundColor = UIColor.init(hexString: "9c6cff", alpha: 0.15)
-        } else {
-            cell.cardView.backgroundColor = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
         }
     }
     

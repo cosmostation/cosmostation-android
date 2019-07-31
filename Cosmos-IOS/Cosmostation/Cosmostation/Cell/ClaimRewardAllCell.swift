@@ -12,6 +12,7 @@ class ClaimRewardAllCell: UITableViewCell {
     
     @IBOutlet weak var claimAllBtn: UIButton!
     @IBOutlet weak var totalRewardLabel: UILabel!
+    @IBOutlet weak var denomLabel: UILabel!
     
     weak var delegate: ClaimRewardAllDelegate?
     
