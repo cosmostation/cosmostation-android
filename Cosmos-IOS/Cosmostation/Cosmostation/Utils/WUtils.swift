@@ -476,16 +476,25 @@ class WUtils {
         
     }
     
-    static func displayDailyReturns(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, _ delegated:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
+    static func displayDailyReturns(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, _ delegated:NSDecimalNumber, font:UIFont, baseChain:ChainType) -> NSMutableAttributedString {
         let nf = NumberFormatter()
-        nf.minimumFractionDigits = 12
-        nf.maximumFractionDigits = 12
         nf.numberStyle = .decimal
-        let formatted   = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000")))
-        let endIndex    = formatted!.index(formatted!.endIndex, offsetBy: -12)
+        var formatted = ""
+        var endIndex: String.Index?
+        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            nf.minimumFractionDigits = 12
+            nf.maximumFractionDigits = 12
+            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"))) ?? "0"
+            endIndex = formatted.index(formatted.endIndex, offsetBy: -12)
+        } else if (baseChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            nf.minimumFractionDigits = 18
+            nf.maximumFractionDigits = 18
+            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000000000000000"))) ?? "0"
+            endIndex = formatted.index(formatted.endIndex, offsetBy: -18)
+        }
         
-        let preString   = formatted![..<endIndex]
-        let postString  = formatted![endIndex...]
+        let preString   = formatted[..<endIndex!]
+        let postString  = formatted[endIndex!...]
         
         let preAttrs = [NSAttributedString.Key.font : font]
         let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
@@ -497,16 +506,25 @@ class WUtils {
         return attributedString1
     }
     
-    static func displayMonthlyReturns(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, _ delegated:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
+    static func displayMonthlyReturns(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, _ delegated:NSDecimalNumber, font:UIFont, baseChain:ChainType) -> NSMutableAttributedString {
         let nf = NumberFormatter()
-        nf.minimumFractionDigits = 12
-        nf.maximumFractionDigits = 12
         nf.numberStyle = .decimal
-        let formatted   = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000")))
-        let endIndex    = formatted!.index(formatted!.endIndex, offsetBy: -12)
+        var formatted = ""
+        var endIndex: String.Index?
+        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            nf.minimumFractionDigits = 12
+            nf.maximumFractionDigits = 12
+            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"))) ?? "0"
+            endIndex = formatted.index(formatted.endIndex, offsetBy: -12)
+        } else if (baseChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            nf.minimumFractionDigits = 18
+            nf.maximumFractionDigits = 18
+            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000000000000000"))) ?? "0"
+            endIndex = formatted.index(formatted.endIndex, offsetBy: -18)
+        }
         
-        let preString   = formatted![..<endIndex]
-        let postString  = formatted![endIndex...]
+        let preString   = formatted[..<endIndex!]
+        let postString  = formatted[endIndex!...]
         
         let preAttrs = [NSAttributedString.Key.font : font]
         let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]

@@ -589,6 +589,7 @@ Learn more about us in the links below</string>
                     </view>
                     <navigationItem key="navigationItem" id="l1I-Ac-eWK"/>
                     <connections>
+                        <outlet property="chainBg" destination="Lgj-up-xSa" id="3LA-OF-JUA"/>
                         <outlet property="denomAvailableAmountLabel" destination="jbe-cJ-v9G" id="T32-sc-MEB"/>
                         <outlet property="denomCard" destination="AwB-tc-gYY" id="kDb-fD-vid"/>
                         <outlet property="denomDelegatedAmountLabel" destination="a9j-9l-RZQ" id="dbE-al-e5Y"/>
@@ -752,6 +753,7 @@ Learn more about us in the links below</string>
                     <navigationItem key="navigationItem" id="42X-K1-Bet"/>
                     <connections>
                         <outlet property="allValidatorView" destination="LKN-bl-aNw" id="hJa-n6-lxj"/>
+                        <outlet property="chainBg" destination="OVh-y6-LOK" id="FI1-TA-sPk"/>
                         <outlet property="myValidatorView" destination="SA3-XZ-w7Y" id="tJE-zd-JUV"/>
                         <outlet property="otherValidatorView" destination="553-02-5Bz" id="p3q-EQ-hoF"/>
                         <outlet property="titleAccountBtn" destination="wAN-OI-ZR7" id="O61-BK-tAO"/>
@@ -856,6 +858,7 @@ Learn more about us in the links below</string>
                     </view>
                     <navigationItem key="navigationItem" id="zKv-T3-ZiW"/>
                     <connections>
+                        <outlet property="chainBg" destination="lR6-M3-g2M" id="0CO-W2-aIb"/>
                         <outlet property="emptyLabel" destination="TLK-Ns-Awb" id="WEt-to-cJP"/>
                         <outlet property="historyTableView" destination="clr-UP-CWo" id="pah-B7-2Pd"/>
                         <outlet property="titleChainImg" destination="MeZ-yr-C1Y" id="0AT-rU-YD7"/>
@@ -956,6 +959,7 @@ Learn more about us in the links below</string>
                     </view>
                     <navigationItem key="navigationItem" id="E0Q-yY-xu0"/>
                     <connections>
+                        <outlet property="chainBg" destination="PEW-5B-acc" id="V0J-4f-xsP"/>
                         <outlet property="emptyLabel" destination="a3x-sr-rPq" id="mph-OM-gFY"/>
                         <outlet property="titleChainImg" destination="xPv-Dk-Md5" id="mZS-TU-XWa"/>
                         <outlet property="titleChainName" destination="Fbt-1W-jma" id="LWk-jE-H4s"/>
@@ -1051,6 +1055,7 @@ Learn more about us in the links below</string>
                     </view>
                     <navigationItem key="navigationItem" id="tiQ-UA-kjU"/>
                     <connections>
+                        <outlet property="chainBg" destination="4Ql-ge-Go2" id="qba-ne-14V"/>
                         <outlet property="titleChainImg" destination="rUb-xK-flr" id="0Hr-IV-GLO"/>
                         <outlet property="titleChainName" destination="TB1-BC-2Oc" id="j2D-ey-0QK"/>
                         <outlet property="titleWalletName" destination="imU-di-2sz" id="blD-aa-sI3"/>
@@ -1303,6 +1308,7 @@ Learn more about us in the links below</string>
                         <viewLayoutGuide key="safeArea" id="MZu-nE-yCY"/>
                     </view>
                     <connections>
+                        <outlet property="chainBg" destination="O36-pQ-ghZ" id="ZH6-zL-Hha"/>
                         <outlet property="loadingImg" destination="6U4-Wr-uE6" id="1yG-5u-2rm"/>
                         <outlet property="validatorDetailTableView" destination="4Mm-R4-ygv" id="hhh-2k-txL"/>
                     </connections>

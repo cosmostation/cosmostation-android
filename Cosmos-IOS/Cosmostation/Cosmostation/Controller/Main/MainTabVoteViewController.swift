@@ -12,7 +12,7 @@ import SafariServices
 
 class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
+    @IBOutlet weak var chainBg: UIImageView!
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
     @IBOutlet weak var titleChainName: UILabel!
@@ -59,9 +59,11 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         
         titleChainName.textColor = WUtils.getChainColor(userChain!)
         if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            chainBg.image = UIImage(named: "bg_cosmos")
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
         } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+            chainBg.image = UIImage(named: "bg_iris")
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
         }

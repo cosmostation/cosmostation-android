@@ -10,16 +10,18 @@ import UIKit
 
 class MainTabSettingViewController: BaseViewController {
     
+    @IBOutlet weak var chainBg: UIImageView!
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
     @IBOutlet weak var titleChainName: UILabel!
     
     var mainTabVC: MainTabViewController!
+    var userChain: ChainType?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         mainTabVC = (self.parent)?.parent as? MainTabViewController
+        self.userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         self.updateTitle()
     }
     
@@ -46,13 +48,21 @@ class MainTabSettingViewController: BaseViewController {
     }
     
     func updateTitle() {
-        if (mainTabVC.mAccount.account_nick_name == "") { titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
-        } else { titleWalletName.text = mainTabVC.mAccount.account_nick_name }
-        
-        if(mainTabVC.mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
-            titleChainName.text = "(Cosmos Hub)"
+        if (mainTabVC.mAccount.account_nick_name == "") {
+            titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else {
-            titleChainName.text = ""
+            titleWalletName.text = mainTabVC.mAccount.account_nick_name
+        }
+        
+        titleChainName.textColor = WUtils.getChainColor(userChain!)
+        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            chainBg.image = UIImage(named: "bg_cosmos")
+            titleChainImg.image = UIImage(named: "cosmosWhMain")
+            titleChainName.text = "(Cosmos Hub)"
+        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+            chainBg.image = UIImage(named: "bg_iris")
+            titleChainImg.image = UIImage(named: "irisWh")
+            titleChainName.text = "(Iris Hub)"
         }
     }
     

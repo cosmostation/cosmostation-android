@@ -10,20 +10,18 @@ import UIKit
 
 class ValidatorDetailMyActionCell: UITableViewCell {
 
+    @IBOutlet weak var cardView: CardView!
     @IBOutlet weak var myDelegateAmount: UILabel!
     @IBOutlet weak var myUndelegateAmount: UILabel!
     @IBOutlet weak var myRewardAmount: UILabel!
     @IBOutlet weak var myDailyReturns: UILabel!
     @IBOutlet weak var myMonthlyReturns: UILabel!
     
-    
     @IBOutlet weak var delegateBtn: UIButton!
     @IBOutlet weak var undelegateBtn: UIButton!
     @IBOutlet weak var redelegateBtn: UIButton!
     @IBOutlet weak var claimRewardBtn: UIButton!
     @IBOutlet weak var reInvestBtn: UIButton!
-    
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

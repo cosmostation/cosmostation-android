@@ -135,6 +135,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 validatorDetailVC.mInflation = mainTabVC.mInflation
                 validatorDetailVC.mProvision = mainTabVC.mProvision
                 validatorDetailVC.mStakingPool = mainTabVC.mStakingPool
+                validatorDetailVC.mIrisStakePool = mainTabVC.mIrisStakePool
                 validatorDetailVC.mIsTop100 = mainTabVC.mTopValidators.contains(where: {$0.operator_address == validator.operator_address})
                 validatorDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""

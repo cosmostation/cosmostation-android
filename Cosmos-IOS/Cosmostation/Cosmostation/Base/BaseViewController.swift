@@ -37,13 +37,13 @@ class BaseViewController: UIViewController {
     
     public func showWaittingAlert() {
         waitAlert = UIAlertController(title: "", message: "\n\n\n\n", preferredStyle: .alert)
-        let image = LoadingImageView(frame: CGRect(x: 0, y: 0, width: 72, height: 72))
+        let image = LoadingImageView(frame: CGRect(x: 0, y: 0, width: 58, height: 58))
         waitAlert!.view.addSubview(image)
         image.translatesAutoresizingMaskIntoConstraints = false
         waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerX, relatedBy: .equal, toItem: waitAlert!.view, attribute: .centerX, multiplier: 1, constant: 0))
         waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: waitAlert!.view, attribute: .centerY, multiplier: 1, constant: 0))
-        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 72.0))
-        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 72.0))
+        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 58.0))
+        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 58.0))
         self.clearBackgroundColor(of: waitAlert!.view)
         self.present(waitAlert!, animated: true, completion: nil)
         image.onStartAnimation()

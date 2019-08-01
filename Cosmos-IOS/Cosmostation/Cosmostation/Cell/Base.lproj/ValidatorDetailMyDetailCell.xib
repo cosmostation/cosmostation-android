@@ -190,6 +190,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="avergaeYield" destination="MLi-H4-EiM" id="FaO-Wh-OC7"/>
+                <outlet property="cardView" destination="BY9-QD-zwX" id="B3g-jS-z7y"/>
                 <outlet property="commissionRate" destination="uzD-c2-knb" id="qQn-et-WNf"/>
                 <outlet property="descriptionMsg" destination="9ll-al-VsK" id="r7d-IJ-gAi"/>
                 <outlet property="freeEventImg" destination="Go0-oH-K2Z" id="tE2-m3-u6l"/>

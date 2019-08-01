@@ -287,6 +287,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="cardView" destination="IM2-sP-s3L" id="OgQ-d0-M1y"/>
                 <outlet property="claimRewardBtn" destination="Uax-LB-HdT" id="CU2-To-Zbn"/>
                 <outlet property="delegateBtn" destination="IWh-8K-Tdg" id="UAa-cd-A4j"/>
                 <outlet property="myDailyReturns" destination="wPR-SC-6DM" id="WaQ-6p-Mbu"/>

@@ -100,13 +100,27 @@ class WKey {
     }
     
     
-    static func getCosmosAddressFromOpAddress(_ opAddress:String) -> String{
+//    static func getCosmosAddressFromOpAddress(_ opAddress:String) -> String{
+//        var result = ""
+//        let bech32 = Bech32()
+//        guard let (_, data) = try? bech32.decode(opAddress) else {
+//            return result
+//        }
+//        result = bech32.encode("cosmos", values: data)
+//        return result
+//    }
+    
+    static func getAddressFromOpAddress(_ opAddress:String, _ chain:ChainType) -> String{
         var result = ""
         let bech32 = Bech32()
         guard let (_, data) = try? bech32.decode(opAddress) else {
             return result
         }
-        result = bech32.encode("cosmos", values: data)
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            result = bech32.encode("cosmos", values: data)
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            result = bech32.encode("iaa", values: data)
+        }
         return result
     }
     

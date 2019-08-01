@@ -12,6 +12,7 @@ import SafariServices
 
 class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var chainBg: UIImageView!
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
     @IBOutlet weak var titleChainName: UILabel!
@@ -59,9 +60,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         
         titleChainName.textColor = WUtils.getChainColor(userChain!)
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            chainBg.image = UIImage(named: "bg_cosmos")
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            chainBg.image = UIImage(named: "bg_iris")
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
         }

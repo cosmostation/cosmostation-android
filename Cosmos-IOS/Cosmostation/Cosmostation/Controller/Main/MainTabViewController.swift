@@ -392,8 +392,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.onFetchFinished()
             }
         }
-        
-        
     }
     
     

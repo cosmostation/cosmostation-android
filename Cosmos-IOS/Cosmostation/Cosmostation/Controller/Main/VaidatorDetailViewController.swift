@@ -12,14 +12,17 @@ import SafariServices
 
 class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var chainBg: UIImageView!
     @IBOutlet weak var validatorDetailTableView: UITableView!
     @IBOutlet weak var loadingImg: LoadingImageView!
     
     var mAccount: Account?
+    var userChain: ChainType?
     var mValidator: Validator?
     var mBonding: Bonding?
     var mUnbondings = Array<Unbonding>()
     var mRewards = Array<Reward>()
+    var mIrisRewards: IrisRewards?
     var mHistories = Array<History.InnerHits>()
     var mSelfBondingShare: String?
     var mFetchCnt = 0
@@ -29,13 +32,17 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     var mInflation: String?
     var mProvision: String?
     var mStakingPool: NSDictionary?
+    var mIrisStakePool: NSDictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("mValidator ", mValidator?.description.moniker)
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
-        if(mAccount == nil) {
-            print("NO ACCOUNT ERROR!!!!")
+        userChain = WUtils.getChainType(mAccount!.account_base_chain)
+        
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            chainBg.image = UIImage(named: "bg_cosmos")
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            chainBg.image = UIImage(named: "bg_iris")
         }
         
         self.validatorDetailTableView.delegate = self
@@ -63,14 +70,26 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFech(){
-        mUnbondings.removeAll()
-        mRewards.removeAll()
-        mFetchCnt = 5
-        onFetchValidatorInfo(mValidator!)
-        onFetchSignleBondingInfo(mAccount!, mValidator!)
-        onFetchSignleUnBondingInfo(mAccount!, mValidator!)
-        onFetchSelfBondRate(WKey.getCosmosAddressFromOpAddress(mValidator!.operator_address), mValidator!.operator_address)
-        onFetchHistory(mAccount!, mValidator!, "0", "100");
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            mUnbondings.removeAll()
+            mRewards.removeAll()
+            mFetchCnt = 5
+            onFetchValidatorInfo(mValidator!)
+            onFetchSignleBondingInfo(mAccount!, mValidator!)
+            onFetchSignleUnBondingInfo(mAccount!, mValidator!)
+            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, userChain!), mValidator!.operator_address)
+            onFetchHistory(mAccount!, mValidator!, "0", "100");
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            mUnbondings.removeAll()
+            mFetchCnt = 6
+            onFetchValidatorInfo(mValidator!)
+            onFetchSignleBondingInfo(mAccount!, mValidator!)
+            onFetchSignleUnBondingInfo(mAccount!, mValidator!)
+            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, userChain!), mValidator!.operator_address)
+            onFetchIrisReward(mAccount!)
+            onFetchHistory(mAccount!, mValidator!, "0", "100");
+        }
+        
     }
     
     func onFetchFinished() {
@@ -78,7 +97,9 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
 //        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
 //            print("onFetchFinished mBonding ", mBonding)
-//            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAtom(mValidator!))
+//            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
+//            print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
+//            print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
 //            print("onFetchFinished mUnbondings ", mUnbondings.count)
 //            print("onFetchFinished mRewards ", mRewards.count)
 //            print("onFetchFinished mHistories ", mHistories.count)
@@ -129,8 +150,9 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         if(indexPath.section == 0) {
             if (indexPath.row == 0 && mMyValidator) {
                 let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
-                cell!.monikerName.text = self.mValidator!.description.moniker
-                cell!.monikerName.adjustsFontSizeToFitWidth = true
+                cell?.cardView.backgroundColor = WUtils.getChainBg(userChain!)
+                cell?.monikerName.text = self.mValidator!.description.moniker
+                cell?.monikerName.adjustsFontSizeToFitWidth = true
                 if(self.mValidator!.jailed) {
                     cell!.jailedImg.isHidden = false
                     cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
@@ -138,20 +160,34 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     cell!.jailedImg.isHidden = true
                     cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
                 }
-                cell!.freeEventImg.isHidden = true
-                cell!.website.text = mValidator!.description.website
-                cell!.descriptionMsg.text = mValidator!.description.details
-                cell!.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
-                if(mSelfBondingShare != nil) {
+                cell?.freeEventImg.isHidden = true
+                cell?.website.text = mValidator!.description.website
+                cell?.descriptionMsg.text = mValidator!.description.details
+                
+                if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+                } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    cell?.totalBondedAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: mValidator!.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell!.totalBondedAmount.font, 18, userChain!)
+                }
+                
+                if (mSelfBondingShare != nil) {
                     cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
                 } else {
                     cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
                 }
                 
-                if(mIsTop100) {
+                if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     if(mStakingPool != nil && mProvision != nil) {
                         let provisions = NSDecimalNumber.init(string: mProvision)
-                        let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                        let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                    } else {
+                        cell!.avergaeYield.text = "?? %"
+                    }
+                } else if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    if (mIrisStakePool != nil) {
+                        let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
+                        let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
                         cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
                     } else {
                         cell!.avergaeYield.text = "?? %"
@@ -194,29 +230,43 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 
             } else if (indexPath.row == 0 && !mMyValidator) {
                 let cell:ValidatorDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailCell") as? ValidatorDetailCell
-                cell!.monikerName.text = self.mValidator!.description.moniker
-                cell!.monikerName.adjustsFontSizeToFitWidth = true
+                cell?.monikerName.text = self.mValidator!.description.moniker
+                cell?.monikerName.adjustsFontSizeToFitWidth = true
                 if(self.mValidator!.jailed) {
-                    cell!.jailedImg.isHidden = false
-                    cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+                    cell?.jailedImg.isHidden = false
+                    cell?.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
                 } else {
-                    cell!.jailedImg.isHidden = true
-                    cell!.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
+                    cell?.jailedImg.isHidden = true
+                    cell?.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
                 }
-                cell!.freeEventImg.isHidden = true
-                cell!.website.text = mValidator!.description.website
-                cell!.descriptionMsg.text = mValidator!.description.details
-                cell!.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
-                if(mSelfBondingShare != nil) {
+                cell?.freeEventImg.isHidden = true
+                cell?.website.text = mValidator!.description.website
+                cell?.descriptionMsg.text = mValidator!.description.details
+                
+                if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+                } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    cell?.totalBondedAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: mValidator!.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell!.totalBondedAmount.font, 18, userChain!)
+                }
+                
+                if (mSelfBondingShare != nil) {
                     cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
                 } else {
                     cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
                 }
                 
-                if(mIsTop100) {
+                if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     if(mStakingPool != nil && mProvision != nil) {
                         let provisions = NSDecimalNumber.init(string: mProvision)
-                        let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                        let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                    } else {
+                        cell!.avergaeYield.text = "?? %"
+                    }
+                } else if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    if (mIrisStakePool != nil) {
+                        let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
+                        let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
                         cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
                     } else {
                         cell!.avergaeYield.text = "?? %"
@@ -266,10 +316,12 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 return cell!
             } else {
                 let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
+                cell?.cardView.backgroundColor = WUtils.getChainBg(userChain!)
+                
                 if(mBonding != nil) {
-                    cell!.myDelegateAmount.attributedText =  WUtils.displayAmout((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6)
+                    cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, userChain!)
                 } else {
-                    cell!.myDelegateAmount.attributedText =  WUtils.displayAmout("0", cell!.myDelegateAmount.font, 6)
+                    cell!.myDelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 18, userChain!)
                 }
                 
                 if(mUnbondings.count > 0) {
@@ -277,38 +329,56 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     for unbonding in mUnbondings {
                         unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
                     }
-                    cell!.myUndelegateAmount.attributedText =  WUtils.displayAmout(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6)
+                    cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, userChain!)
                 } else {
-                    cell!.myUndelegateAmount.attributedText =  WUtils.displayAmout("0", cell!.myUndelegateAmount.font, 6)
+                    cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 18, userChain!)
                 }
                 
+                if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    if (mRewards.count > 0) {
+                        let rewardSum = WUtils.getAllAtomReward(mRewards)
+                        cell!.myRewardAmount.attributedText =  WUtils.displayAmount(rewardSum.stringValue, cell!.myRewardAmount.font, 6, userChain!)
+                    } else {
+                        cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, userChain!)
+                    }
+                    
+                } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    if (mIrisRewards != nil) {
+                        cell!.myRewardAmount.attributedText = WUtils.displayAmount((mIrisRewards?.getPerValReward(valOp: mValidator!.operator_address).stringValue)!, cell!.myRewardAmount.font, 18, userChain!)
+                    } else {
+                        cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 18, userChain!)
+                    }
+                    //temp hide for next version
+                    cell?.redelegateBtn.isHidden = true
+                    cell?.reInvestBtn.isHidden = true
+                }
                 
-                if(mIsTop100) {
-                    if(mStakingPool != nil && mProvision != nil && mBonding != nil) {
+                if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
                         let provisions = NSDecimalNumber.init(string: mProvision)
-                        let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                        cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font)
-                        cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font)
+                        let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                        cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: userChain!)
+                        cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: userChain!)
+                    } else {
+                        cell!.myDailyReturns.text = "-"
+                        cell!.myMonthlyReturns.text = "-"
+                    }
+                } else if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    if (mIrisStakePool != nil) {
+                        let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
+                        let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
+                        cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: userChain!)
+                        cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: userChain!)
                     } else {
                         cell!.myDailyReturns.text = "-"
                         cell!.myMonthlyReturns.text = "-"
                     }
                 } else {
-                    cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, font: cell!.myDailyReturns.font)
-                    cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, font: cell!.myMonthlyReturns.font)
+                    cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, font: cell!.myDailyReturns.font, baseChain: userChain!)
+                    cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, NSDecimalNumber.one, font: cell!.myMonthlyReturns.font, baseChain: userChain!)
                     cell!.myDailyReturns.textColor = UIColor.init(hexString: "f31963")
                     cell!.myMonthlyReturns.textColor = UIColor.init(hexString: "f31963")
                 }
-                
-                
-                
-                if(mRewards.count > 0) {
-                    let rewardSum = WUtils.getAllAtomReward(mRewards)
-                    cell!.myRewardAmount.attributedText =  WUtils.displayAmout(rewardSum.stringValue, cell!.myRewardAmount.font, 6)
-                } else {
-                    cell!.myRewardAmount.attributedText =  WUtils.displayAmout("0", cell!.myRewardAmount.font, 6)
-                }
-                
                 
                 cell?.actionDelegate = {
                     if(self.mValidator!.jailed) {
@@ -345,7 +415,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 cell?.txBlockLabel.text = String(history._source.height) + " block"
                 cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
                 cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mAccount!.account_address)
-                if(history._source.result.allResult) {
+                if (history._source.result.allResult) {
                     cell?.txResultLabel.isHidden = true
                 } else {
                     cell?.txResultLabel.isHidden = false
@@ -361,12 +431,19 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.section == 1 && mHistories.count > 0) {
             let history = mHistories[indexPath.row]
-            guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
+            if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+                
+            } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                guard let url = URL(string: "https://irishub.mintscan.io/txs/" + history._source.hash) else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+                
+            }
         }
     }
-    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if(indexPath.section == 0) {
@@ -397,7 +474,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchValidatorInfo(_ validator: Validator) {
-        let request = Alamofire.request(CSS_LCD_URL_VALIDATORS + "/" + validator.operator_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        var url = ""
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_VALIDATORS + "/" + validator.operator_address
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_VALIDATORS + "/" + validator.operator_address
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -418,20 +501,31 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchSignleBondingInfo(_ account: Account, _ validator: Validator) {
-        let url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
+        var url = ""
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
+        }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let rawData = res as? [String : Any], rawData["error"] == nil else {
+                print("res : ", res)
+                guard let rawData = res as? [String : Any], rawData["error"] == nil, rawData["shares"] != nil else {
                     self.onFetchFinished()
                     return
                 }
                 let bondinginfo = BondingInfo(rawData)
-                self.mBonding = Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970)
-                if(self.mBonding != nil && self.mBonding!.getBondingAmount(self.mValidator!) != NSDecimalNumber.zero) {
-                    self.mFetchCnt = self.mFetchCnt + 1
-                    self.onFetchRewardInfo(account, validator)
+                if (self.userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    self.mBonding = Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970)
+                    if(self.mBonding != nil && self.mBonding!.getBondingAmount(self.mValidator!) != NSDecimalNumber.zero) {
+                        self.mFetchCnt = self.mFetchCnt + 1
+                        self.onFetchRewardInfo(account, validator)
+                    }
+                } else if (self.userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    let shareAmount = WUtils.stringToDecimal(bondinginfo.shares).multiplying(byPowerOf10: 18)
+                    self.mBonding = Bonding(account.account_id, bondinginfo.validator_addr, shareAmount.stringValue, Date().millisecondsSince1970)
                 }
                 
             case .failure(let error):
@@ -442,18 +536,30 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchSignleUnBondingInfo(_ account: Account, _ validator: Validator) {
-        let url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
+        var url = ""
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
+        }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let rawData = res as? [String : Any], rawData["error"] == nil else {
+                guard let rawData = res as? [String : Any], rawData["error"] == nil, rawData["balance"] != nil else {
                     self.onFetchFinished()
                     return
                 }
                 let unbondinginfo = UnbondingInfo(rawData)
-                for entry in unbondinginfo.entries {
-                    self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, WUtils.nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
+                if (self.userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    for entry in unbondinginfo.entries {
+                        self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, WUtils.nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
+                    }
+
+                } else if (self.userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    let unbondingBalance = WUtils.stringToDecimal(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
+                    let initialBalance = WUtils.stringToDecimal(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
+                    self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_addr, unbondinginfo.creation_height, WUtils.nodeTimeToInt64(input: unbondinginfo.min_time).millisecondsSince1970, initialBalance.stringValue, unbondingBalance.stringValue, Date().millisecondsSince1970))
                 }
                 
             case .failure(let error):
@@ -487,12 +593,42 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         }
     }
     
+    func onFetchIrisReward(_ account: Account) {
+        let url = IRIS_LCD_URL_REWARD + account.account_address + IRIS_LCD_URL_REWARD_TAIL
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let irisRewards = res as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                self.mIrisRewards = IrisRewards(irisRewards as! [String : Any])
+                
+            case .failure(let error):
+                print("onFetchIrisReward ", error)
+            }
+            self.onFetchFinished()
+        }
+        
+    }
+    
     func onFetchHistory(_ account: Account, _ validator: Validator, _ from:String, _ size:String) {
-        let query = "{\"from\": " + from + ",\"size\": " + size + ", \"query\": { \"bool\": { \"must\": [ { \"multi_match\": { \"query\": \"" + account.account_address + "\", \"fields\": [\"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\"] } } ], \"filter\": { \"bool\": { \"should\": [ { \"term\": { \"tx.value.msg.value.validator_addr\": \"" + validator.operator_address + "\" } }, { \"term\": { \"tx.value.msg.value.validator_dst_address\": \"" + validator.operator_address + "\" } },{ \"term\": { \"tx.value.msg.value.validator_src_address\": \"" + validator.operator_address + "\" } }, { \"term\": { \"tx.value.msg.value.validator_dst_addr\": \"" + validator.operator_address + "\" } }, { \"term\": { \"tx.value.msg.value.validator_address\": \"" + validator.operator_address + "\" } } ]  } } }  }, \"sort\": [ { \"height\": { \"order\": \"desc\"  } } ] }"
+        var query = ""
+        var url = ""
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            query = "{\"from\" : " + from + ",\"query\" : { \"bool\" : { \"must\" : [ { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\" ], \"query\" : \"" + account.account_address + "\" } }, { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.validator_address\", \"tx.value.msg.value.validator_dst_address\", \"tx.value.msg.value.validator_src_address\" ], \"query\" : \"" + validator.operator_address + "\"} } ] }  }, \"size\": " + size + ",\"sort\" : [ {  \"height\" : {  \"order\" : \"desc\" } } ] }"
+            
+            url = CSS_ES_PROXY_COSMOS
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            query = "{\"from\" : " + from + ",\"query\" : { \"bool\" : { \"must\" : [ { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\" ], \"query\" : \"" + account.account_address + "\" } }, {  \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.validator_addr\", \"tx.value.msg.value.validator_address\", \"tx.value.msg.value.val_operator_addr\", \"tx.value.msg.value.validator_dst_addr\", \"tx.value.msg.value.validator_src_addr\", \"result.tags.key\" ], \"query\" : \"" + validator.operator_address + "\"  } } ]  } },  \"size\": " + size + ",\"sort\" : [ { \"height\" : {  \"order\" : \"desc\" } } ] }"
+            url = IRIS_ES_PROXY_IRIS
+        }
+        print("query ", query)
         let data = query.data(using: .utf8)
         do {
             let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-            let request = Alamofire.request(CSS_ES_PROXY_COSMOS, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+            let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
             request.responseJSON { response in
                 switch response.result {
                 case .success(let res):
@@ -516,8 +652,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchSelfBondRate(_ address: String, _ vAddress: String) {
-        let url = CSS_LCD_URL_BONDING + address + CSS_LCD_URL_BONDING_TAIL + "/" + vAddress
-//        print("onFetchSelfBondRate url ", url)
+        var url = ""
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_BONDING + address + CSS_LCD_URL_BONDING_TAIL + "/" + vAddress
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_BONDING + address + IRIS_LCD_URL_BONDING_TAIL + "/" + vAddress
+        }
+        print("onFetchSelfBondRate url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {

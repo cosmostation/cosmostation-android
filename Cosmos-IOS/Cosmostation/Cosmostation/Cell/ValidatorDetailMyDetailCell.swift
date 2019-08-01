@@ -10,6 +10,7 @@ import UIKit
 
 class ValidatorDetailMyDetailCell: UITableViewCell {
     
+    @IBOutlet weak var cardView: CardView!
     @IBOutlet weak var validatorImg: UIImageView!
     @IBOutlet weak var freeEventImg: UIImageView!
     @IBOutlet weak var jailedImg: UIImageView!

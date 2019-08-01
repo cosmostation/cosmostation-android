@@ -11,6 +11,7 @@ import Alamofire
 
 class MainTabRewardViewController: BaseViewController {
     
+    @IBOutlet weak var chainBg: UIImageView!
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
@@ -72,10 +73,12 @@ class MainTabRewardViewController: BaseViewController {
         
         titleChainName.textColor = WUtils.getChainColor(userChain!)
         if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            chainBg.image = UIImage(named: "bg_cosmos")
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
             validatorSegment.tintColor = COLOR_ATOM
         } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+            chainBg.image = UIImage(named: "bg_iris")
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
             validatorSegment.tintColor = COLOR_IRIS
