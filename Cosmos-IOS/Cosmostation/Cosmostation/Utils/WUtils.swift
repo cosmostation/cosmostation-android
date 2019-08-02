@@ -185,7 +185,7 @@ class WUtils {
     
     
     
-    static func historyTitle(_ msgs:Array<HistoryMsg>, _ myaddress:String) -> String {
+    static func historyTitle(_ msgs:Array<Msg>, _ myaddress:String) -> String {
         var resultMsg = NSLocalizedString("tx_known", comment: "")
         
         if(msgs == nil || msgs.count <= 0) {
@@ -269,6 +269,21 @@ class WUtils {
         nf.groupingSeparator = ""
         return nf.string(from: input)!
     }
+    
+    static func DecimalToLocalString(_ input: NSDecimalNumber, _ chain:ChainType) -> String {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = 0
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            nf.maximumFractionDigits = 6
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            nf.maximumFractionDigits = 18
+        }
+        nf.numberStyle = .decimal
+        nf.locale = Locale.current
+        nf.groupingSeparator = ""
+        return nf.string(from: input)!
+    }
+    
     
     static func stringToDecimal(_ input: String) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero

@@ -43,15 +43,9 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     
     @IBAction func onClickConfirm(_ sender: Any) {
-        let transition:CATransition = CATransition()
-        transition.duration = 0.3
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromTop
-        
         let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
         self.navigationItem.title = ""
-        self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
         passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
         passwordVC.resultDelegate = self
         self.navigationController?.pushViewController(passwordVC, animated: false)
@@ -87,17 +81,9 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
         mToAddressLabel.adjustsFontSizeToFitWidth = true
-        
+
         mMemoLabel.text = pageHolderVC.mMemo
         
-//        guard let tic = BaseData.instance.getAtomTicCmc() else {
-//            return
-//        }
-//        if let price = tic.value(forKeyPath: "data.quotes.USD.price") as? Double {
-//            let priceValue = NSDecimalNumber(value: price)
-//            mTotalSpendPrice.attributedText = WUtils.displayUSD((feeAmout.adding(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: mTotalSpendPrice.font)
-//            mReminaingPrice.attributedText = WUtils.displayUSD((currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2), font: mReminaingPrice.font)
-//        }
         if let tic = BaseData.instance.getAtomTicCmc(),  let price = tic.value(forKeyPath: getPricePath()) as? Double {
             let priceValue = NSDecimalNumber(value: price)
             var totalSpendDpPrice = NSDecimalNumber.zero
@@ -133,7 +119,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 
                 let msg = MsgGenerator.genGetSendMsg(self.pageHolderVC.mAccount!.account_address,
                                                      self.pageHolderVC.mToSendRecipientAddress!,
-                                                     self.pageHolderVC.mToSendAmount)
+                                                     self.pageHolderVC.mToSendAmount,
+                                                     self.pageHolderVC.userChain!)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
@@ -170,7 +157,6 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                                                  self.pageHolderVC.mMemo!,
                                                  signatures)
                 
-                
             } catch {
                 if(SHOW_LOG) {
                     print(error)
@@ -182,15 +168,15 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(postTx)
-                
+
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+                    print("params ", params)
                     let request = Alamofire.request(CSS_LCD_URL_BORAD_TX, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            print("send ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
@@ -198,14 +184,16 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                             if(SHOW_LOG) {
                                 print("send error ", error)
                             }
-                            //
                         }
-                        self.hideWaittingAlert()
-                        txResult["type"] = COSMOS_MSG_TYPE_TRANSFER2
-                        self.onStartTxResult(txResult)
+                        if (self.waitAlert != nil) {
+                            self.waitAlert?.dismiss(animated: true, completion: {
+                                txResult["type"] = COSMOS_MSG_TYPE_TRANSFER2
+                                self.onStartTxResult(txResult)
+                            })
+                        }
                     }
-                    
-                    
+
+
                 }catch {
                     print(error)
                 }

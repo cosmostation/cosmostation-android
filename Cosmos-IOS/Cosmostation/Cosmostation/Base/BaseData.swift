@@ -78,6 +78,24 @@ final class BaseData : NSObject{
     }
     
     
+    
+    func setMarket(_ currency : Int) {
+        UserDefaults.standard.set(currency, forKey: KEY_MARKET)
+    }
+    
+    func getMarket() -> Int {
+        return UserDefaults.standard.integer(forKey: KEY_MARKET)
+    }
+    
+    func getMarketString() -> String {
+        if (getMarket() == 0) {
+            return "CoinGecko"
+        } else {
+            return "CoinMarket Cap"
+        }
+    }
+    
+    
     func setCurrency(_ currency : Int) {
         UserDefaults.standard.set(currency, forKey: KEY_CURRENCY)
     }

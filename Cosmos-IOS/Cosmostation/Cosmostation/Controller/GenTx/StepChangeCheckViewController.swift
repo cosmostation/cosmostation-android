@@ -68,15 +68,9 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onShowPasswordCheck() {
-        let transition:CATransition = CATransition()
-        transition.duration = 0.3
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromTop
-        
         let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
         self.navigationItem.title = ""
-        self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
         passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
         passwordVC.resultDelegate = self
         self.navigationController?.pushViewController(passwordVC, animated: false)

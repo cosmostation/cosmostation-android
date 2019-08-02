@@ -26,17 +26,11 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
     }
     
     @IBAction func onClickQrCode(_ sender: Any) {
-        let transition:CATransition = CATransition()
-        transition.duration = 0.3
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromTop
-        
         let qrScanVC = QRScanViewController(nibName: "QRScanViewController", bundle: nil)
         qrScanVC.hidesBottomBarWhenPushed = true
         qrScanVC.resultDelegate = self
         self.navigationItem.title = ""
-        self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
         self.navigationController?.pushViewController(qrScanVC, animated: false)
         
     }

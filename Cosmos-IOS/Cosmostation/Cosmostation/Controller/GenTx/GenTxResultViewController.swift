@@ -100,8 +100,6 @@ class GenTxResultViewController: BaseViewController {
     var mTxHash: String?
     
     var mTxInfo: TxInfo?
-    var mStakTxInfo: StakeTxInfo?
-//    var mBlockInfo: BlockInfo?
 //
     
     
@@ -142,15 +140,15 @@ class GenTxResultViewController: BaseViewController {
             self.loadingView.isHidden = true
             
             delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
-            delegateResultHash.text = mStakTxInfo?.txhash
-            delegateResultBlock.text = mStakTxInfo?.height
-            delegateResultTime.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
+            delegateResultHash.text = mTxInfo?.txhash
+            delegateResultBlock.text = mTxInfo?.height
+            delegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             
-            delegateResultAmount.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, delegateResultAmount.font, 6)
-            delegateResultFee.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 6)
-            delegateResultValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
+//            delegateResultAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount?.amount)!, delegateResultAmount.font, 6)
+            delegateResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 6)
+            delegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
             delegateResultValAddress.adjustsFontSizeToFitWidth = true
-            delegateResultMemo.text = mStakTxInfo?.tx.value.memo
+            delegateResultMemo.text = mTxInfo?.tx.value.memo
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
@@ -158,15 +156,15 @@ class GenTxResultViewController: BaseViewController {
             self.loadingView.isHidden = true
             
             undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
-            undelegateResultHash.text = mStakTxInfo?.txhash
-            undelegateResultBlock.text = mStakTxInfo?.height
-            undelegateResultTime.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
+            undelegateResultHash.text = mTxInfo?.txhash
+            undelegateResultBlock.text = mTxInfo?.height
+            undelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             
-            undelegateResultAmount.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, undelegateResultAmount.font, 6)
-            undelegateResultFee.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, undelegateResultFee.font, 6)
-            undelegateResultValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
+//            undelegateResultAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount?.amount)!, undelegateResultAmount.font, 6)
+            undelegateResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, undelegateResultFee.font, 6)
+            undelegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
             undelegateResultValAddress.adjustsFontSizeToFitWidth = true
-            undelegateResultMemo.text = mStakTxInfo?.tx.value.memo
+            undelegateResultMemo.text = mTxInfo?.tx.value.memo
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
@@ -174,17 +172,17 @@ class GenTxResultViewController: BaseViewController {
             self.loadingView.isHidden = true
             
             redelegateResultType.text = NSLocalizedString("tx_redelegate", comment: "")
-            redelegateResultHash.text = mStakTxInfo?.txhash
-            redelegateResultBlock.text = mStakTxInfo?.height
-            redelegateResultTime.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
+            redelegateResultHash.text = mTxInfo?.txhash
+            redelegateResultBlock.text = mTxInfo?.height
+            redelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             
-            redelegateResultAmount.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[0].value.amount?.amount)!, redelegateResultAmount.font, 6)
-            redelegateResultFee.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, redelegateResultFee.font, 6)
-            redelegateResultFromValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_src_address
+//            redelegateResultAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount?.amount)!, redelegateResultAmount.font, 6)
+            redelegateResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, redelegateResultFee.font, 6)
+            redelegateResultFromValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_src_address
             redelegateResultFromValAddress.adjustsFontSizeToFitWidth = true
-            redelegateResultToValAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_dst_address
+            redelegateResultToValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_dst_address
             redelegateResultToValAddress.adjustsFontSizeToFitWidth = true
-            redelegateResultMemo.text = mStakTxInfo?.tx.value.memo
+            redelegateResultMemo.text = mTxInfo?.tx.value.memo
             
         } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2) {
             self.sendResultView.isHidden = false
@@ -195,7 +193,8 @@ class GenTxResultViewController: BaseViewController {
             sendResultBlock.text = mTxInfo?.height
             sendResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             
-            sendResultAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount![0].amount)!, sendResultAmount.font, 6)
+            //yongjoo
+//            sendResultAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amountCoins![0].amount)!, sendResultAmount.font, 6)
             sendResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, sendResultFee.font, 6)
             sendResultToAddress.text = mTxInfo?.tx.value.msg[0].value.to_address
             sendResultToAddress.adjustsFontSizeToFitWidth = true
@@ -242,15 +241,15 @@ class GenTxResultViewController: BaseViewController {
             self.loadingView.isHidden = true
             
             reInvestResultType.text = NSLocalizedString("tx_reinvest", comment: "")
-            reInvestResultHash.text = mStakTxInfo?.txhash
-            reInvestResultTime.text = mStakTxInfo?.height
-            reInvestResultBlock.text = WUtils.txTimetoString(input: (mStakTxInfo?.txTime)!)
+            reInvestResultHash.text = mTxInfo?.txhash
+            reInvestResultTime.text = mTxInfo?.height
+            reInvestResultBlock.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             
-            reInvestResultDelegateAmount.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.msg[1].value.amount?.amount)!, reInvestResultDelegateAmount.font, 6)
-            reInvestResultFee.attributedText = WUtils.displayAmout((mStakTxInfo?.tx.value.fee.amount[0].amount)!, reInvestResultFee.font, 6)
-            reInvestValidatorAddress.text = mStakTxInfo?.tx.value.msg[0].value.validator_address
+//            reInvestResultDelegateAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[1].value.amount?.amount)!, reInvestResultDelegateAmount.font, 6)
+            reInvestResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, reInvestResultFee.font, 6)
+            reInvestValidatorAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
             reInvestValidatorAddress.adjustsFontSizeToFitWidth = true
-            reInvestResultMemo.text = mStakTxInfo?.tx.value.memo
+            reInvestResultMemo.text = mTxInfo?.tx.value.memo
         }
 
         self.actionLayer.isHidden = false
@@ -264,40 +263,17 @@ class GenTxResultViewController: BaseViewController {
     }
     
     @IBAction func onClickExplorer(_ sender: UIButton) {
-        if (mTxType == COSMOS_MSG_TYPE_DELEGATE ||
-                mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 ||
-                mTxType == COSMOS_MSG_TYPE_REDELEGATE2 ||
-                mTxType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-            guard let url = URL(string: "https://www.mintscan.io/txs/" + mStakTxInfo!.txhash) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-
-        } else {
-            guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-
-        }
+        guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true, completion: nil)
     }
     
     @IBAction func onClickShare(_ sender: UIButton) {
-        if (mTxType == COSMOS_MSG_TYPE_DELEGATE ||
-                mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 ||
-                mTxType == COSMOS_MSG_TYPE_REDELEGATE2 ||
-                mTxType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-            let text = "https://www.mintscan.io/txs/" + mStakTxInfo!.txhash
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-        } else {
-            let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        }
+        let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
+        let textToShare = [ text ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     @IBAction func onClickOK(_ sender: UIButton) {
@@ -344,14 +320,7 @@ class GenTxResultViewController: BaseViewController {
                     }
                     return
                 }
-                if (self.mTxType == COSMOS_MSG_TYPE_DELEGATE ||
-                        self.mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 ||
-                        self.mTxType == COSMOS_MSG_TYPE_REDELEGATE2 ||
-                        self.mTxType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-                    self.mStakTxInfo = StakeTxInfo.init(info)
-                } else {
-                    self.mTxInfo = TxInfo.init(info)
-                }
+                self.mTxInfo = TxInfo.init(info)
                 
             case .failure(let error):
                 if(SHOW_LOG) {

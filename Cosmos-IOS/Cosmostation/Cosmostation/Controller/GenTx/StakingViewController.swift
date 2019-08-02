@@ -10,12 +10,15 @@ import UIKit
 
 class StakingViewController: UIViewController {
 
+    @IBOutlet weak var chainBg: UIImageView!
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var stepView: UIView!
     @IBOutlet weak var stepImg: UIImageView!
     @IBOutlet weak var stepDescription: UILabel!
     
+    var mAccount: Account?
+    var userChain: ChainType?
     var mTargetValidator: Validator?
     var mType: String?
     var mRewardTargetValidators = Array<Validator>()
@@ -28,8 +31,15 @@ class StakingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //         print("StakingViewController")
+        mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        userChain = WUtils.getChainType(mAccount!.account_base_chain)
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            chainBg.image = UIImage(named: "bg_cosmos")
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            chainBg.image = UIImage(named: "bg_iris")
+        }
         
-        if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+        if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_delegate", comment: "")
@@ -105,7 +115,7 @@ class StakingViewController: UIViewController {
     @objc func stepChanged(_ notification: NSNotification) {
         if let step = notification.userInfo?["step"] as? Int {
             if (step == 0) {
-                if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+                if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
                     

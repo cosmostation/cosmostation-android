@@ -12,6 +12,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
 
     @IBOutlet weak var toDelegateAmountInput: AmountInputTextField!
     @IBOutlet weak var availableAmountLabel: UILabel!
+    @IBOutlet weak var denomTitleLabel: UILabel!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var btn01: UIButton!
@@ -22,19 +23,26 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(pageHolderVC.userChain!, denomTitleLabel)
+        
         userBalance = NSDecimalNumber.zero
-        for balance in pageHolderVC.mBalances {
-            if(TESTNET) {
-                if(balance.balance_denom == "muon") {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
-                }
-            } else {
-                if(balance.balance_denom == "uatom") {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "1"))
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            for balance in pageHolderVC.mBalances {
+                if (balance.balance_denom == COSMOS_MAIN_DENOM) {
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber.one)
                 }
             }
+            availableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, availableAmountLabel.font, 6, pageHolderVC.userChain!)
+            
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            for balance in pageHolderVC.mBalances {
+                if (balance.balance_denom == IRIS_MAIN_DENOM) {
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "400000000000000000"))
+                }
+            }
+            availableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, availableAmountLabel.font, 18, pageHolderVC.userChain!)
         }
-        availableAmountLabel.attributedText = WUtils.displayAmout(userBalance.stringValue, availableAmountLabel.font, 6)
+        print("userBalance ", userBalance)
         toDelegateAmountInput.delegate = self
         toDelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
@@ -50,19 +58,35 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             
             if (text.count == 0 && string.starts(with: ".")) { return false }
             
-            if let index = text.range(of: ".")?.upperBound {
-                if(text.substring(from: index).count > 5 && range.length == 0) {
-                    return false
-                }
-            }
-            
             if (text.contains(",") && string.contains(",") && range.length == 0) { return false }
             
             if (text.count == 0 && string.starts(with: ",")) { return false }
             
-            if let index = text.range(of: ",")?.upperBound {
-                if(text.substring(from: index).count > 5 && range.length == 0) {
-                    return false
+            
+            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if let index = text.range(of: ".")?.upperBound {
+                    if(text.substring(from: index).count > 5 && range.length == 0) {
+                        return false
+                    }
+                }
+                
+                if let index = text.range(of: ",")?.upperBound {
+                    if(text.substring(from: index).count > 5 && range.length == 0) {
+                        return false
+                    }
+                }
+                
+            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                if let index = text.range(of: ".")?.upperBound {
+                    if(text.substring(from: index).count > 17 && range.length == 0) {
+                        return false
+                    }
+                }
+                
+                if let index = text.range(of: ",")?.upperBound {
+                    if(text.substring(from: index).count > 17 && range.length == 0) {
+                        return false
+                    }
                 }
             }
             
@@ -93,9 +117,18 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
         }
-        if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
-            self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-            return
+        
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
+                self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
+            
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (userInput.multiplying(by: 1000000000000000000).compare(userBalance).rawValue > 0) {
+                self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
         }
         self.toDelegateAmountInput.layer.borderColor = UIColor.white.cgColor
     }
@@ -105,7 +138,15 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) { return false}
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
+                return false
+            }
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (userInput.multiplying(by: 1000000000000000000).compare(userBalance).rawValue > 0) {
+                return false
+            }
+        }
         return true
     }
     
@@ -114,15 +155,14 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         pageHolderVC.onBeforePage()
     }
     
-    
     @IBAction func onClickNext(_ sender: UIButton) {
         if(isValiadAmount()) {
             let userInput = WUtils.stringToDecimal((toDelegateAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
-            var coin:Coin
-            if(TESTNET) {
-                coin = Coin.init("muon", userInput.multiplying(by: 1000000).stringValue)
-            } else {
-                coin = Coin.init("uatom", userInput.multiplying(by: 1000000).stringValue)
+            var coin:Coin?
+            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
+            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                coin = Coin.init(IRIS_MAIN_DENOM, userInput.multiplying(by: 1000000000000000000).stringValue)
             }
             pageHolderVC.mToDelegateAmount = coin
             
@@ -181,13 +221,23 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
-        let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
-        toDelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
+            toDelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.userChain!)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
+            toDelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.userChain!)
+        }
         self.onUIupdate()
     }
     @IBAction func onClickMax(_ sender: UIButton) {
-        let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
-        toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
+            toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.userChain!)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
+            toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.userChain!)
+        }
         self.onUIupdate()
         self.showMaxWarnning()
     }

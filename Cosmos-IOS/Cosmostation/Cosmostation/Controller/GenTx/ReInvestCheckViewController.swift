@@ -80,15 +80,9 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             return
         }
         
-        let transition:CATransition = CATransition()
-        transition.duration = 0.3
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromTop
-        
         let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
         self.navigationItem.title = ""
-        self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
         passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
         passwordVC.resultDelegate = self
         self.navigationController?.pushViewController(passwordVC, animated: false)
@@ -111,7 +105,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
         print("onGenReinvest")
         
         DispatchQueue.global().async {
-            var stakeStdTx:StakeStdTx!
+            var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
@@ -119,14 +113,16 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             do {
                 let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 
-                let rewardMsg = MsgGenerator.genGetRewardMsgReInvest(self.pageHolderVC.mAccount!.account_address,
-                                                                     self.pageHolderVC.mTargetValidator!.operator_address)
+                let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
+                                                             self.pageHolderVC.mTargetValidator!.operator_address,
+                                                             self.pageHolderVC.userChain!)
                 
                 let delegatemsg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
                                                       self.pageHolderVC.mTargetValidator!.operator_address,
-                                                      self.pageHolderVC.mReinvestReward!)
+                                                      self.pageHolderVC.mReinvestReward!,
+                                                      self.pageHolderVC.userChain!)
                 
-                var msgList = Array<StakeMsg>()
+                var msgList = Array<Msg>()
                 msgList.append(rewardMsg)
                 msgList.append(delegatemsg)
                 if(FEE_FREE) {
@@ -154,15 +150,17 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
                 genedSignature.pub_key = genPubkey
                 genedSignature.signature = WKey.convertSignature(signedData!)
+                genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
                 
                 var signatures: Array<Signature> = Array<Signature>()
                 signatures.append(genedSignature)
                 
-                stakeStdTx = MsgGenerator.genSignedTx(msgList,
+                stdTx = MsgGenerator.genSignedTx(msgList,
                                                       self.pageHolderVC.mFee!,
                                                       self.pageHolderVC.mMemo!,
                                                       signatures)
-                print("stakeStdTx", stakeStdTx)
+                print("stdTx", stdTx)
             } catch {
                 print(error)
                 
@@ -170,7 +168,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             
             
             DispatchQueue.main.async(execute: {
-                let postTx = StakePostTx.init("sync", stakeStdTx.value)
+                let postTx = PostTx.init("sync", stdTx.value)
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(postTx)
@@ -178,7 +176,13 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     print("params ", params)
-                    let request = Alamofire.request(CSS_LCD_URL_BORAD_TX, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    var url = "";
+                    if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                        url = CSS_LCD_URL_BORAD_TX
+                    } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                        url = IRIS_LCD_URL_BORAD_TX
+                    }
+                    let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {

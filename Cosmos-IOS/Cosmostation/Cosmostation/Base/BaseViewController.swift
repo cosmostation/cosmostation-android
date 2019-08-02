@@ -50,7 +50,7 @@ class BaseViewController: UIViewController {
         
     }
     
-    public func hideWaittingAlert() {
+    public func hideWaittingAlert(){
         if (waitAlert != nil) {
             waitAlert?.dismiss(animated: true, completion: nil)
         }
@@ -103,7 +103,7 @@ class BaseViewController: UIViewController {
     }
     
     func onStartTxResult(_ response:[String:Any]) {
-//        print("onStartCreate")
+        print("onStartTxResult")
         let resultVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "GenTxResultViewController") as! GenTxResultViewController
         resultVC.response = response
         self.navigationItem.title = ""

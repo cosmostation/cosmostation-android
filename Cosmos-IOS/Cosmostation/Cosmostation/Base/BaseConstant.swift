@@ -20,6 +20,7 @@ let KEY_LAST_TAB                        = "KEY_LAST_TAB"
 let KEY_ACCOUNT_REFRESH_ALL             = "KEY_ACCOUNT_REFRESH_ALL"
 let KEY_ATOM_TIC_CMC                    = "KEY_ATOM_TIC_CMC"
 let KEY_CURRENCY                        = "KEY_CURRENCY"
+let KEY_MARKET                          = "KEY_MARKET"
 let KEY_USING_APP_LOCK                  = "KEY_USING_APP_LOCK"
 let KEY_USING_BIO_AUTH                  = "KEY_USING_BIO_AUTH"
 
@@ -49,7 +50,7 @@ let CSS_LCD_URL_INFLATION               = CSS_LCD_URL + "minting/inflation";
 let CSS_LCD_URL_PROVISIONS              = CSS_LCD_URL + "minting/annual-provisions";
 let CSS_LCD_URL_MINT                    = CSS_LCD_URL + "minting/parameters";
 let CSS_LCD_URL_STAKING_POOL            = CSS_LCD_URL + "staking/pool";
-let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "/gov/proposals";
+let CSS_LCD_URL_PROPOSALS               = CSS_LCD_URL + "gov/proposals";
 let CSS_LCD_URL_BORAD_TX                = CSS_LCD_URL + "txs";
 
 let IRIS_LCD_URL_ACCOUNT_INFO           = IRIS_LCD_URL + "bank/accounts/";
@@ -61,7 +62,8 @@ let IRIS_LCD_URL_UNBONDING_TAIL         = "/unbonding-delegations";
 let IRIS_LCD_URL_REWARD                 = IRIS_LCD_URL + "distribution/";
 let IRIS_LCD_URL_REWARD_TAIL            = "/rewards";
 let IRIS_LCD_URL_STAKING_POOL           = IRIS_LCD_URL + "stake/pool";
-let IRIS_LCD_URL_PROPOSALS              = IRIS_LCD_URL + "/gov/proposals";
+let IRIS_LCD_URL_PROPOSALS              = IRIS_LCD_URL + "gov/proposals";
+let IRIS_LCD_URL_BORAD_TX               = IRIS_LCD_URL + "tx/broadcast";
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";
@@ -147,7 +149,7 @@ let COSMOS_MSG_TYPE_WITHDRAW_DEL            = "cosmos-sdk/MsgWithdrawDelegationR
 let COSMOS_MSG_TYPE_WITHDRAW_VAL            = "cosmos-sdk/MsgWithdrawValidatorCommission";
 let COSMOS_MSG_TYPE_WITHDRAW_MIDIFY         = "cosmos-sdk/MsgModifyWithdrawAddress";
 
-let COSMOS_MULTI_MSG_TYPE_REINVEST          = "multi-ReInvest";
+let COSMOS_MULTI_MSG_TYPE_REINVEST          = "cosmos-multi-ReInvest";
 
 
 let COSMOS_MSG_TYPE_VOTE                    = "cosmos-sdk/MsgVote";
@@ -223,6 +225,15 @@ let FEE_REWARD_GAS_14                       = "900000";
 let FEE_REWARD_GAS_15                       = "960000";
 let FEE_REWARD_GAS_16                       = "1020000";
 
+
+
+let GAS_FEE_RATE_IRIS_AVERAGE               = "0.000008"
+
+let GAS_FEE_AMOUNT_IRIS_MID                 = "50000"
+let GAS_FEE_AMOUNT_IRIS_REWARD_BASE         = "10000"
+let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
+
+
 let COLOR_BG_GRAY                           = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
 let COLOR_DARK_GRAY                         = UIColor.init(hexString: "36393C")
 
@@ -236,8 +247,8 @@ let COLOR_IRIS                              = UIColor.init(hexString: "00A8FF")
 enum ChainType: String {
     case SUPPORT_CHAIN_COSMOS_MAIN
     case SUPPORT_CHAIN_IRIS_MAIN
-    
 }
+
 let CHAIN_COSMOS_S = "SUPPORT_CHAIN_COSMOS_MAIN"
 let CHAIN_IRIS_S = "SUPPORT_CHAIN_IRIS_MAIN"
 

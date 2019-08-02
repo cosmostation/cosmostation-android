@@ -8,6 +8,36 @@
 
 import Foundation
 
+
+enum AmountType: Codable {
+    case coin(Coin)
+    case coins(Array<Coin>)
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let x = try? container.decode(Coin.self) {
+            self = .coin(x)
+            return
+        }
+        if let x = try? container.decode(Array<Coin>.self) {
+            self = .coins(x)
+            return
+        }
+        throw DecodingError.typeMismatch(AmountType.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for AmountType"))
+
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .coin(let x):
+            try container.encode(x)
+        case .coins(let x):
+            try container.encode(x)
+        }
+    }
+}
+
 public struct Msg: Codable {
     var type: String = ""
     var value: Value = Value.init()
@@ -19,8 +49,6 @@ public struct Msg: Codable {
         self.value = Value.init(dictionary["value"] as! [String : Any])
     }
     
-    
-    
     public struct Value: Codable {
         var inputs: Array<InOutPut>?
         var outputs: Array<InOutPut>?
@@ -30,8 +58,53 @@ public struct Msg: Codable {
         var validator_address: String?
         var value: Coin?
         var shares_amount: String?
-        var amount: Array<Coin>?
+        var amount: AmountType?
         var withdraw_address: String?
+        var validator_src_address: String?
+        var validator_dst_address: String?
+        var delegation: Coin?
+        var delegator_addr: String?
+        var validator_addr: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case inputs
+            case outputs
+            case from_address
+            case to_address
+            case delegator_address
+            case validator_address
+            case value
+            case shares_amount
+            case amount
+            case withdraw_address
+            case validator_src_address
+            case validator_dst_address
+            case delegation
+            case delegator_addr
+            case validator_addr
+        }
+        
+        public func getAmount() -> Coin? {
+            var result:Coin?
+            let data = try? JSONEncoder().encode(amount)
+            do {
+                result = try JSONDecoder().decode(Coin.self, from:data!)
+            } catch {
+                print(error)
+            }
+            return result;
+        }
+        
+        public func getAmouts() -> Array<Coin>? {
+            var result =  Array<Coin>()
+            let data = try? JSONEncoder().encode(amount)
+            do {
+                result = try JSONDecoder().decode(Array<Coin>.self, from:data!)
+            } catch {
+                print(error)
+            }
+            return result
+        }
         
         init() {}
         
@@ -75,14 +148,50 @@ public struct Msg: Codable {
             }
             
             if let rawAmounts = dictionary["amount"] as? Array<NSDictionary> {
-                self.amount =  Array<Coin>()
+                var tempAmounts =  Array<Coin>()
                 for rawAmount in rawAmounts {
-                    self.amount?.append(Coin(rawAmount as! [String : Any]))
+                    tempAmounts.append(Coin(rawAmount as! [String : Any]))
+                }
+                let data = try? JSONEncoder().encode(tempAmounts)
+                do {
+                    self.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+                } catch {
+                    print(error)
+                }
+            }
+
+            if let rawAmount = dictionary["amount"] as? [String : Any] {
+                let tempAmount =  Coin(rawAmount)
+                let data = try? JSONEncoder().encode(tempAmount)
+                do {
+                    self.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+                } catch {
+                    print(error)
                 }
             }
             
             if let vaddress =  dictionary["withdraw_address"] as? String {
                 self.withdraw_address = vaddress
+            }
+            
+            if let vaddress =  dictionary["validator_src_address"] as? String {
+                self.validator_src_address = vaddress
+            }
+            
+            if let vaddress =  dictionary["validator_dst_address"] as? String {
+                self.validator_dst_address = vaddress
+            }
+            
+            if let rawValue = dictionary["delegation"] as? [String : Any] {
+                self.value = Coin(rawValue)
+            }
+            
+            if let address = dictionary["delegator_addr"] as? String {
+                self.delegator_addr = address
+            }
+            
+            if let address = dictionary["validator_addr"] as? String {
+                self.validator_addr = address
             }
         }
         

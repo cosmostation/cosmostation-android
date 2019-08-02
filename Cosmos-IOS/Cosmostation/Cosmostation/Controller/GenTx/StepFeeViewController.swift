@@ -11,6 +11,7 @@ import UIKit
 class StepFeeViewController: BaseViewController {
 
     @IBOutlet weak var feeTypeCardView: CardView!
+    @IBOutlet weak var feeTypeDenomLabel: UILabel!
     @IBOutlet weak var minFeeCardView: CardView!
     @IBOutlet weak var minFeeAmountLabel: UILabel!
     @IBOutlet weak var minFeePriceLabel: UILabel!
@@ -20,6 +21,7 @@ class StepFeeViewController: BaseViewController {
     @IBOutlet weak var rateFeeAmountLabel: UILabel!
     @IBOutlet weak var rateFeePriceLabel: UILabel!
     @IBOutlet weak var feeSlider: UISlider!
+    @IBOutlet weak var feesLabels: UIStackView!
     @IBOutlet weak var speedImg: UIImageView!
     @IBOutlet weak var speedMsg: UILabel!
     
@@ -35,20 +37,43 @@ class StepFeeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        rewardAllGasAmounts = WUtils.getGasAmountForRewards()
+        WUtils.setDenomTitle(pageHolderVC.userChain!, feeTypeDenomLabel)
         
-        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapFeeType(sender:)))
-        self.feeTypeCardView.addGestureRecognizer(gesture)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            rewardAllGasAmounts = WUtils.getGasAmountForRewards()
+            
+            let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapFeeType(sender:)))
+            self.feeTypeCardView.addGestureRecognizer(gesture)
+            
+            _ = updateView(0)
+            self.speedImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.imageTap (_:))))
+            self.speedImg.isUserInteractionEnabled = true
+            
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            self.minFeeCardView.isHidden = true
+            self.rateFeeCardView.isHidden = false
+            
+            self.feeSlider.isHidden = true
+            self.feesLabels.isHidden = true
+            
+            self.speedImg.image = UIImage.init(named: "feeImg")
+            self.speedMsg.text = NSLocalizedString("fee_speed_iris_title", comment: "")
+            
+            if (pageHolderVC.mType != IRIS_MSG_TYPE_WITHDRAW_ALL) {
+                let gasAmount = getEstimateGasAmount()
+                let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_IRIS_AVERAGE)
+                self.rateFeeGasAmountLabel.text = gasAmount.stringValue
+                self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 6)
+                feeAmount = gasAmount.multiplying(byPowerOf10: 18).multiplying(by: gasRate, withBehavior: WUtils.handler0)
+                self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 1, pageHolderVC.userChain!)
+            }
+            //TODO show market Price!!
+        }
         
-        _ = updateView(0)
-        self.speedImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.imageTap (_:))))
-        self.speedImg.isUserInteractionEnabled = true
+        
     }
     
     @objc func imageTap (_ sender: UITapGestureRecognizer) {
-//        self.view.endEditing(true)
-        print("imageTap")
-        
         var titleGas = ""
         var msgGas = ""
         if(feeSlider.value == 0) {
@@ -63,7 +88,6 @@ class StepFeeViewController: BaseViewController {
             msgGas = NSLocalizedString("fee_description_msg_2", comment: "")
             
         }
-        
         
         let noticeAlert = UIAlertController(title: titleGas, message: msgGas, preferredStyle: .alert)
         let paragraphStyle = NSMutableParagraphStyle()
@@ -189,11 +213,29 @@ class StepFeeViewController: BaseViewController {
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-        if(NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
-        if(self.updateView(Int(feeSlider!.value))) {
-            if(TESTNET) { feeCoin = Coin.init("muon", feeAmount.stringValue) }
-            else { feeCoin = Coin.init("uatom", feeAmount.stringValue) }
+        print("feeAmount ", feeAmount);
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
+            if(self.updateView(Int(feeSlider!.value))) {
+                feeCoin = Coin.init(COSMOS_MAIN_DENOM, feeAmount.stringValue)
+                var fee = Fee.init()
+                let estGas = getEstimateGasAmount().stringValue
+                fee.gas = estGas
+                
+                var estAmount: Array<Coin> = Array<Coin>()
+                estAmount.append(feeCoin)
+                fee.amount = estAmount
+                
+                pageHolderVC.mFee = fee
+                
+                self.beforeBtn.isUserInteractionEnabled = false
+                self.nextBtn.isUserInteractionEnabled = false
+                pageHolderVC.onNextPage()
+            }
             
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if(NSDecimalNumber.init(string: "1000000000000000000").compare(feeAmount).rawValue < 0) {return}
+            feeCoin = Coin.init(IRIS_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
             let estGas = getEstimateGasAmount().stringValue
             fee.gas = estGas
@@ -207,7 +249,6 @@ class StepFeeViewController: BaseViewController {
             self.beforeBtn.isUserInteractionEnabled = false
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
-            
         }
     }
     
@@ -219,29 +260,39 @@ class StepFeeViewController: BaseViewController {
     
     
     func getEstimateGasAmount() -> NSDecimalNumber {
-        var result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-        
-        if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
+        var result = NSDecimalNumber.zero
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
+                
+            } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                
+            } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
+                
+            } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+                
+            } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+                
+            } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1]
+                
+            } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
+                
+            }
             
-        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-            
-        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
-            
-        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-            
-        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-            
-        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-            result = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1]
-            
-        } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
+            if (pageHolderVC.mType == IRIS_MSG_TYPE_DELEGATE) {
+                
+            } else {
+                
+            }
             
         }
-//        print("getEstimateGasAmount ", result.stringValue)
         return result
     }
     

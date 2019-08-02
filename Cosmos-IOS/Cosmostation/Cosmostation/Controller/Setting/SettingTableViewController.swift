@@ -225,15 +225,9 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
             BaseData.instance.setUsingAppLock(sender.isOn)
             self.checkBioAuth()
         } else {
-            let transition:CATransition = CATransition()
-            transition.duration = 0.3
-            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-            transition.type = CATransitionType.moveIn
-            transition.subtype = CATransitionSubtype.fromTop
-            
             let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
             self.navigationItem.title = ""
-            self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+            self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
             passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
             passwordVC.resultDelegate = self
             passwordVC.hidesBottomBarWhenPushed = true

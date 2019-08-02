@@ -89,6 +89,7 @@
                         <viewLayoutGuide key="safeArea" id="cW2-AF-V7S"/>
                     </view>
                     <connections>
+                        <outlet property="chainBg" destination="FKZ-MV-ecj" id="rrk-79-FPL"/>
                         <outlet property="stepDescription" destination="bUG-5q-kHF" id="Eie-MY-EAC"/>
                         <outlet property="stepImg" destination="3xJ-ty-n1M" id="9rF-px-gew"/>
                         <outlet property="stepView" destination="77D-pi-oaJ" id="oCx-et-meh"/>
@@ -362,6 +363,7 @@
                         <outlet property="availableAmountLabel" destination="I73-y3-k1r" id="voA-QF-XYq"/>
                         <outlet property="btn01" destination="e1b-Kv-uy4" id="02N-zB-2rt"/>
                         <outlet property="cancelBtn" destination="Wrm-Ux-zPh" id="A5Y-VC-5jN"/>
+                        <outlet property="denomTitleLabel" destination="EDE-9a-njG" id="rsS-HY-r4G"/>
                         <outlet property="nextBtn" destination="vZf-sd-tql" id="R0T-rG-ble"/>
                         <outlet property="toDelegateAmountInput" destination="W87-fN-DZa" id="49V-ys-uzP"/>
                     </connections>
@@ -2382,7 +2384,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bycicle" translatesAutoresizingMaskIntoConstraints="NO" id="Dh7-r8-QZm">
                                 <rect key="frame" x="142.5" y="290.5" width="90" height="62"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only a handful of validators will process this Tx" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riU-g3-Hyc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only a handful of validators will process this Tx" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riU-g3-Hyc">
                                 <rect key="frame" x="73.5" y="360.5" width="228.5" height="13"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
@@ -2422,6 +2424,8 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         <outlet property="beforeBtn" destination="zLR-h7-KgV" id="GoQ-p9-qmn"/>
                         <outlet property="feeSlider" destination="9GT-er-bsr" id="iiF-kW-fUB"/>
                         <outlet property="feeTypeCardView" destination="J9U-SD-d2s" id="BO8-du-Dt3"/>
+                        <outlet property="feeTypeDenomLabel" destination="UfZ-dh-qrz" id="nzB-hv-gAN"/>
+                        <outlet property="feesLabels" destination="jzs-Uo-eUe" id="xyH-fH-imh"/>
                         <outlet property="minFeeAmountLabel" destination="ESo-yy-jkx" id="sKQ-rY-72h"/>
                         <outlet property="minFeeCardView" destination="c8C-KH-SPF" id="1lf-Oy-BF3"/>
                         <outlet property="minFeePriceLabel" destination="Mj4-GV-Og7" id="NfH-W4-gep"/>
@@ -2640,10 +2644,12 @@ The actual amount of rewards you receive may be equal to or greater than what is
                     <connections>
                         <outlet property="beforeBtn" destination="2XG-Zs-0o8" id="Eic-n1-eIb"/>
                         <outlet property="confirmBtn" destination="0Wc-Bz-kyT" id="5wa-3i-f71"/>
+                        <outlet property="feeAmountDenom" destination="hEJ-Gw-Dx6" id="YFJ-zb-JNC"/>
                         <outlet property="feeAmountLabel" destination="tFc-rs-Vhb" id="ucd-DB-4VC"/>
                         <outlet property="memoLabel" destination="bTQ-5m-tOV" id="ycy-gC-S7n"/>
                         <outlet property="targetValidatorLabel" destination="wGh-fn-1xE" id="Pfi-yc-6Nx"/>
-                        <outlet property="toDelegateAmoutLaebl" destination="zFS-bl-Ntw" id="gbE-16-ILd"/>
+                        <outlet property="toDelegateAmountDenom" destination="kun-C4-glw" id="RB0-Ll-cvf"/>
+                        <outlet property="toDelegateAmountLabel" destination="zFS-bl-Ntw" id="gbE-16-ILd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="29U-2d-9fW" userLabel="First Responder" sceneMemberID="firstResponder"/>

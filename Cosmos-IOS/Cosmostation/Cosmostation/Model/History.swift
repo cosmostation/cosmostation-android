@@ -50,7 +50,7 @@ public class History {
         var hash: String = ""
         var height: Int64 = -1
         var time: String = ""
-        var tx: HistoryStdTx = HistoryStdTx.init()
+        var tx: StdTx = StdTx.init()
         var result: Result = Result.init()
         
         init() {}
@@ -59,7 +59,7 @@ public class History {
             self.hash = dictionary["hash"] as? String ?? ""
             self.height = dictionary["height"] as? Int64 ?? -1
             self.time = dictionary["time"] as? String ?? ""
-            self.tx = HistoryStdTx.init(dictionary["tx"] as! [String : Any])
+            self.tx = StdTx.init(dictionary["tx"] as! [String : Any])
             self.result = Result.init(dictionary["result"] as! [String : Any])
             
         }

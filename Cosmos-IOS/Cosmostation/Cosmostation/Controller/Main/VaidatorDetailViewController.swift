@@ -96,13 +96,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
-//            print("onFetchFinished mBonding ", mBonding)
-//            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
-//            print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
-//            print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
-//            print("onFetchFinished mUnbondings ", mUnbondings.count)
-//            print("onFetchFinished mRewards ", mRewards.count)
-//            print("onFetchFinished mHistories ", mHistories.count)
+            print("onFetchFinished mBonding ", mBonding)
+            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
+            print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
+            print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
+            print("onFetchFinished mUnbondings ", mUnbondings.count)
+            print("onFetchFinished mRewards ", mRewards.count)
+            print("onFetchFinished mHistories ", mHistories.count)
 
             if((mBonding != nil && mBonding?.getBondingAmount(mValidator!) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
                 mMyValidator = true
@@ -546,7 +546,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let rawData = res as? [String : Any], rawData["error"] == nil, rawData["balance"] != nil else {
+                guard let rawData = res as? [String : Any], rawData["error"] == nil, rawData["code"] == nil else {
                     self.onFetchFinished()
                     return
                 }
@@ -624,7 +624,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             query = "{\"from\" : " + from + ",\"query\" : { \"bool\" : { \"must\" : [ { \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.delegator_address\" ], \"query\" : \"" + account.account_address + "\" } }, {  \"multi_match\" : { \"fields\" : [ \"tx.value.msg.value.validator_addr\", \"tx.value.msg.value.validator_address\", \"tx.value.msg.value.val_operator_addr\", \"tx.value.msg.value.validator_dst_addr\", \"tx.value.msg.value.validator_src_addr\", \"result.tags.key\" ], \"query\" : \"" + validator.operator_address + "\"  } } ]  } },  \"size\": " + size + ",\"sort\" : [ { \"height\" : {  \"order\" : \"desc\" } } ] }"
             url = IRIS_ES_PROXY_IRIS
         }
-        print("query ", query)
+//        print("query ", query)
         let data = query.data(using: .utf8)
         do {
             let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
@@ -712,17 +712,28 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         }
         
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue <= 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-            return
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
         
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         stakingVC.mTargetValidator = mValidator
-        stakingVC.mType = COSMOS_MSG_TYPE_DELEGATE
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            stakingVC.mType = COSMOS_MSG_TYPE_DELEGATE
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            stakingVC.mType = IRIS_MSG_TYPE_DELEGATE
+        }
+        IRIS_MSG_TYPE_TRANSFER
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
-        
         
     }
     

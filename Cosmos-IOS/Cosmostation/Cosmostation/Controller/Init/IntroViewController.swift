@@ -57,6 +57,29 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
             
         } else {
             self.onStartInitJob()
+            
+//            let encoder = JSONEncoder()
+//            encoder.outputFormatting = .sortedKeys
+//
+//
+//            print("hihi")
+//            var amino: Amino?
+//            amino = Amino.init()
+//            amino?.name = "yong"
+//            amino?.id = 45
+//            let data = try? encoder.encode(amino)
+//            let rawResult = String(data:data!, encoding:.utf8)
+//            print("rawResult ", rawResult)
+//
+//            do {
+//                let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+//                print("params ", params)
+//             } catch {
+//                print(error)
+//            }
+//
+//
+//            print("hoho")
         }
     }
     

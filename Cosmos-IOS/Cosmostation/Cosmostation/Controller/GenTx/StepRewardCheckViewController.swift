@@ -51,15 +51,10 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             return
         }
-        let transition:CATransition = CATransition()
-        transition.duration = 0.3
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromTop
 
         let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
         self.navigationItem.title = ""
-        self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
         passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
         passwordVC.resultDelegate = self
         self.navigationController?.pushViewController(passwordVC, animated: false)
@@ -170,7 +165,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 var msgList = Array<Msg>()
                 for val in self.pageHolderVC.mRewardTargetValidators {
                     let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
-                                                           val.operator_address)
+                                                           val.operator_address,
+                                                           self.pageHolderVC.userChain!)
                     msgList.append(msg)
                 }
                 if(FEE_FREE) {

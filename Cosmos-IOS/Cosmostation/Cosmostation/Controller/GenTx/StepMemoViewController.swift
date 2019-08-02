@@ -27,6 +27,12 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
         
         (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().backgroundColor = UIColor.white
         (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().setTitleColor(UIColor.black, for: .normal)
+        
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            memoCntLabel.text = "0/255 byte"
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            memoCntLabel.text = "0/100 byte"
+        }
     }
 
     @IBAction func onClickBack(_ sender: Any) {
@@ -37,9 +43,9 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-        if(isValiadAmount()) {
+        if(isValiadMemoSize()) {
             if(memoInputTextView.text != nil && memoInputTextView.text.count > 0) {
-                pageHolderVC.mMemo = memoInputTextView.text
+                pageHolderVC.mMemo = memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             } else {
                 pageHolderVC.mMemo = ""
             }
@@ -58,19 +64,36 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-//        print("textViewDidChange ", textView.text)
-        let byteArray = [UInt8](textView.text.utf8)
-        memoCntLabel.text = String(byteArray.count) + "/255"
-        if (byteArray.count > 255) {
-            self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-        } else {
-            self.memoInputTextView.layer.borderColor = UIColor.white.cgColor
+        let byteArray = [UInt8](textView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            memoCntLabel.text = String(byteArray.count) + "/255 byte"
+            if (byteArray.count > 255) {
+                self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            } else {
+                self.memoInputTextView.layer.borderColor = UIColor.white.cgColor
+            }
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            memoCntLabel.text = String(byteArray.count) + "/100 byte"
+            if (byteArray.count > 100) {
+                self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            } else {
+                self.memoInputTextView.layer.borderColor = UIColor.white.cgColor
+            }
         }
     }
     
-    func isValiadAmount() -> Bool {
-        let byteArray = [UInt8](memoInputTextView.text.utf8)
-        if (byteArray.count > 255) { return false }
+    func isValiadMemoSize() -> Bool {
+        let byteArray = [UInt8](memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (byteArray.count > 255) {
+                return false
+            }
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (byteArray.count > 100) {
+                return false
+            }
+        }
+        
         return true
     }
 }

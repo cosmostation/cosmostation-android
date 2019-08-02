@@ -58,15 +58,10 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
     @IBAction func onClickConfirm(_ sender: UIButton) {
         self.btnBefore.isUserInteractionEnabled = false
         self.btnConfirm.isUserInteractionEnabled = false
-        let transition:CATransition = CATransition()
-        transition.duration = 0.3
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromTop
         
         let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
         self.navigationItem.title = ""
-        self.navigationController!.view.layer.add(transition, forKey: kCATransition)
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
         passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
         passwordVC.resultDelegate = self
         self.navigationController?.pushViewController(passwordVC, animated: false)
@@ -84,7 +79,7 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
         print("onGenRedelegateTx")
         self.showWaittingAlert()
         DispatchQueue.global().async {
-            var stakeStdTx:StakeStdTx!
+            var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
@@ -92,15 +87,13 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
             do {
                 let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 let msg = MsgGenerator.genGetRedelegateMsg(self.pageHolderVC.mAccount!.account_address,
-                                                        self.pageHolderVC.mTargetValidator!.operator_address,
-                                                        self.pageHolderVC.mToReDelegateValidator!.operator_address,
-                                                        self.pageHolderVC.mToReDelegateAmount!)
+                                                           self.pageHolderVC.mTargetValidator!.operator_address,
+                                                           self.pageHolderVC.mToReDelegateValidator!.operator_address,
+                                                           self.pageHolderVC.mToReDelegateAmount!,
+                                                           self.pageHolderVC.userChain!)
                 
-                var msgList = Array<StakeMsg>()
+                var msgList = Array<Msg>()
                 msgList.append(msg)
-                if(FEE_FREE) {
-                    self.pageHolderVC.mFee?.amount[0].amount = "1"
-                }
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
                                                        String(self.pageHolderVC.mAccount!.account_sequence_number),
@@ -126,25 +119,29 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 var signatures: Array<Signature> = Array<Signature>()
                 signatures.append(genedSignature)
                 
-                stakeStdTx = MsgGenerator.genSignedTx(msgList,
-                                                      self.pageHolderVC.mFee!,
-                                                      self.pageHolderVC.mMemo!,
-                                                      signatures)
+                stdTx = MsgGenerator.genSignedTx(msgList,
+                                                 self.pageHolderVC.mFee!,
+                                                 self.pageHolderVC.mMemo!,
+                                                 signatures)
                 
             } catch {
                 if (SHOW_LOG) { print(error) }
-                
             }
             
             DispatchQueue.main.async(execute: {
-                let postTx = StakePostTx.init("sync", stakeStdTx.value)
+                let postTx = PostTx.init("sync", stdTx.value)
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(postTx)
-                
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(CSS_LCD_URL_BORAD_TX, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    var url = "";
+                    if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                        url = CSS_LCD_URL_BORAD_TX
+                    } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                        url = IRIS_LCD_URL_BORAD_TX
+                    }
+                    let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {

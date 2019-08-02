@@ -18,6 +18,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mType: String?
     
     var mAccount: Account?
+    var userChain: ChainType?
     var mBalances = Array<Balance>()
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
@@ -49,7 +50,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mStakingPool: NSDictionary?
     
     lazy var orderedViewControllers: [UIViewController] = {
-        if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+        if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             return [self.newVc(viewController: "StepDelegateAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
@@ -107,6 +108,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         mBalances       = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
         mBondingList    = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
         mUnbondingList  = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
+        userChain       = WUtils.getChainType(mAccount!.account_base_chain)
         
         if(mType == COSMOS_MSG_TYPE_REDELEGATE2) {
             onFetchTopValidatorsInfo()
