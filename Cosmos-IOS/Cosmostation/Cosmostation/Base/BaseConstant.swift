@@ -64,6 +64,7 @@ let IRIS_LCD_URL_REWARD_TAIL            = "/rewards";
 let IRIS_LCD_URL_STAKING_POOL           = IRIS_LCD_URL + "stake/pool";
 let IRIS_LCD_URL_PROPOSALS              = IRIS_LCD_URL + "gov/proposals";
 let IRIS_LCD_URL_BORAD_TX               = IRIS_LCD_URL + "tx/broadcast";
+let IRIS_LCD_URL_TX                     = IRIS_LCD_URL + "txs/";
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";

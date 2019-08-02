@@ -165,9 +165,9 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
                                 if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                                    txResult["type"] = COSMOS_MSG_TYPE_TRANSFER2
+                                    txResult["type"] = COSMOS_MSG_TYPE_DELEGATE
                                 } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                                    txResult["type"] = IRIS_MSG_TYPE_TRANSFER
+                                    txResult["type"] = IRIS_MSG_TYPE_DELEGATE
                                 }
                                 self.onStartTxResult(txResult)
                             })

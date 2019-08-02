@@ -183,7 +183,7 @@ public struct Msg: Codable {
             }
             
             if let rawValue = dictionary["delegation"] as? [String : Any] {
-                self.value = Coin(rawValue)
+                self.delegation = Coin(rawValue)
             }
             
             if let address = dictionary["delegator_addr"] as? String {

@@ -11,6 +11,9 @@ import Alamofire
 import SafariServices
 
 class GenTxResultViewController: BaseViewController {
+    
+    @IBOutlet weak var chainBg: UIImageView!
+    
     @IBOutlet weak var sendResultView: CardView!
     @IBOutlet weak var sendResultType: UILabel!
     @IBOutlet weak var sendResultHash: UILabel!
@@ -81,9 +84,6 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var reInvestValidatorAddress: UILabel!
     @IBOutlet weak var reInvestResultMemo: UILabel!
     
-    
-    
-    
     var response:[String:Any]?
 
     @IBOutlet weak var txResultTitleLabel: UILabel!
@@ -96,28 +96,44 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var loadingImgs: LoadingImageView!
     
+    var mChain: ChainType?
     var mTxType: String?
     var mTxHash: String?
-    
     var mTxInfo: TxInfo?
-//
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let txType = response?["type"] as? String, let txHash = response?["txhash"] as? String  else {
-            self.onStartMainTab()
-            return
+        mChain = WUtils.getChainType(BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())!.account_base_chain)
+        
+        if (mChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            chainBg.image = UIImage(named: "bg_cosmos")
+            guard let txType = response?["type"] as? String, let txHash = response?["txhash"] as? String  else {
+                self.onStartMainTab()
+                return
+            }
+            mTxType = txType
+            mTxHash = txHash
+            
+            if let code = response?["code"] as? Int {
+                onShowErrorView(code)
+                return
+            }
+            
+        } else if (mChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            chainBg.image = UIImage(named: "bg_iris")
+            guard let txType = response?["type"] as? String, let txHash = response?["hash"] as? String  else {
+                self.onStartMainTab()
+                return
+            }
+            mTxType = txType
+            mTxHash = txHash
+            
+            if let check_tx = response?["check_tx"] as? [String:Any], let code = check_tx["code"] as? Int{
+                onShowErrorView(code)
+                return
+            }
         }
-        mTxType = txType
-        mTxHash = txHash
-
-        if let code = response?["code"] as? Int {
-//            print("code " , code)
-            onShowErrorView(code)
-            return
-        }
-
+    
         self.loadingImgs.onStartAnimation()
         self.onFetchTx(mTxHash!)
         
@@ -135,21 +151,42 @@ class GenTxResultViewController: BaseViewController {
     
     func onTxDetailView() {
 //        print("onTxDetailView")
-        if (mTxType == COSMOS_MSG_TYPE_DELEGATE) {
+        if (mTxType == COSMOS_MSG_TYPE_DELEGATE || mTxType == IRIS_MSG_TYPE_DELEGATE) {
             self.delegateResultView.isHidden = false
             self.loadingView.isHidden = true
             
-            delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
-            delegateResultHash.text = mTxInfo?.txhash
-            delegateResultBlock.text = mTxInfo?.height
-            delegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
-            
-//            delegateResultAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount?.amount)!, delegateResultAmount.font, 6)
-            delegateResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 6)
-            delegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
-            delegateResultValAddress.adjustsFontSizeToFitWidth = true
-            delegateResultMemo.text = mTxInfo?.tx.value.memo
-            
+            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
+                delegateResultHash.text = mTxInfo?.txhash
+                delegateResultBlock.text = mTxInfo?.height
+                delegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+                
+                delegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmount()?.amount)!, delegateResultAmount.font, 6, self.mChain!)
+                delegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 6, self.mChain!)
+                delegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
+                delegateResultValAddress.adjustsFontSizeToFitWidth = true
+                delegateResultMemo.text = mTxInfo?.tx.value.memo
+                
+            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
+                delegateResultHash.text = mTxInfo?.hash
+                delegateResultBlock.text = mTxInfo?.height
+                delegateResultTime.text = "-"
+                
+                print("11 ", mTxInfo)
+                print("22 ", mTxInfo?.tx)
+                print("33 ", mTxInfo?.tx.value)
+                print("44 ", mTxInfo?.tx.value.msg[0])
+                print("55 ", mTxInfo?.tx.value.msg[0].value)
+                print("66 ", mTxInfo?.tx.value.msg[0].value.delegation)
+                print("77 ", mTxInfo?.tx.value.msg[0].value.delegation?.amount)
+                
+                delegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.delegation?.amount)!, delegateResultAmount.font, 18, self.mChain!)
+                delegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.mChain!)
+                delegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_addr
+                delegateResultValAddress.adjustsFontSizeToFitWidth = true
+                delegateResultMemo.text = mTxInfo?.tx.value.memo
+            }
             
         } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             self.undelegateResultView.isHidden = false
@@ -263,17 +300,34 @@ class GenTxResultViewController: BaseViewController {
     }
     
     @IBAction func onClickExplorer(_ sender: UIButton) {
-        guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
-        let safariViewController = SFSafariViewController(url: url)
-        present(safariViewController, animated: true, completion: nil)
+        if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            guard let url = URL(string: "https://irishub.mintscan.io/txs/" + mTxInfo!.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
     }
     
     @IBAction func onClickShare(_ sender: UIButton) {
-        let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
-        let textToShare = [ text ]
-        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        self.present(activityViewController, animated: true, completion: nil)
+        if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let text = "https://irishub.mintscan.io/txs/" + mTxInfo!.hash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+        
     }
     
     @IBAction func onClickOK(_ sender: UIButton) {
@@ -282,11 +336,11 @@ class GenTxResultViewController: BaseViewController {
     
     func onShowMoreWait() {
         let noticeAlert = UIAlertController(title: NSLocalizedString("more_wait_title", comment: ""), message: NSLocalizedString("more_wait_msg", comment: ""), preferredStyle: .alert)
-        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
             self.onStartMainTab()
         }))
-        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("wait", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("wait", comment: ""), style: .default, handler: { _ in
             self.fetchCnt = 10
             self.onFetchTx(self.mTxHash!)
         }))
@@ -300,10 +354,16 @@ class GenTxResultViewController: BaseViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
     var fetchCnt = 10
     func onFetchTx(_ txHash: String) {
-        let url = CSS_LCD_URL_TX + txHash
+        var url = ""
+        if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_TX + txHash
+            
+        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_TX + txHash
+        }
+        print("url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
@@ -320,12 +380,24 @@ class GenTxResultViewController: BaseViewController {
                     }
                     return
                 }
+                print("here")
                 self.mTxInfo = TxInfo.init(info)
                 
             case .failure(let error):
                 if(SHOW_LOG) {
                     print("onFetchTx ", error)
                 }
+                if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    self.fetchCnt = self.fetchCnt - 1
+                    if(self.fetchCnt > 0) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
+                            self.onFetchTx(txHash)
+                        })
+                    } else {
+                        self.onShowMoreWait()
+                    }
+                }
+                return
             }
             self.onTxDetailView()
         }

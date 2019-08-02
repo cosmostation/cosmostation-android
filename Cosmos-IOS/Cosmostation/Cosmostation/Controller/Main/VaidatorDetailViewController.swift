@@ -318,23 +318,23 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
                 cell?.cardView.backgroundColor = WUtils.getChainBg(userChain!)
                 
-                if(mBonding != nil) {
-                    cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, userChain!)
-                } else {
-                    cell!.myDelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 18, userChain!)
-                }
-                
-                if(mUnbondings.count > 0) {
-                    var unbondSum = NSDecimalNumber.zero
-                    for unbonding in mUnbondings {
-                        unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
-                    }
-                    cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, userChain!)
-                } else {
-                    cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 18, userChain!)
-                }
-                
                 if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    if(mBonding != nil) {
+                        cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, userChain!)
+                    } else {
+                        cell!.myDelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, userChain!)
+                    }
+                    
+                    if (mUnbondings.count > 0) {
+                        var unbondSum = NSDecimalNumber.zero
+                        for unbonding in mUnbondings {
+                            unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+                        }
+                        cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, userChain!)
+                    } else {
+                        cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, userChain!)
+                    }
+                    
                     if (mRewards.count > 0) {
                         let rewardSum = WUtils.getAllAtomReward(mRewards)
                         cell!.myRewardAmount.attributedText =  WUtils.displayAmount(rewardSum.stringValue, cell!.myRewardAmount.font, 6, userChain!)
@@ -343,6 +343,22 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     }
                     
                 } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    if(mBonding != nil) {
+                        cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 18, userChain!)
+                    } else {
+                        cell!.myDelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 18, userChain!)
+                    }
+                    
+                    if (mUnbondings.count > 0) {
+                        var unbondSum = NSDecimalNumber.zero
+                        for unbonding in mUnbondings {
+                            unbondSum  = unbondSum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
+                        }
+                        cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 18, userChain!)
+                    } else {
+                        cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 18, userChain!)
+                    }
+                    
                     if (mIrisRewards != nil) {
                         cell!.myRewardAmount.attributedText = WUtils.displayAmount((mIrisRewards?.getPerValReward(valOp: mValidator!.operator_address).stringValue)!, cell!.myRewardAmount.font, 18, userChain!)
                     } else {

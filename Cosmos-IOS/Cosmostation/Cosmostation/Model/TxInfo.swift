@@ -12,6 +12,7 @@ import Foundation
 public struct TxInfo {
     var height: String = ""
     var txhash: String = ""
+    var hash: String = ""
     var txTime: String = ""
     var tx: StdTx = StdTx.init()
     
@@ -20,6 +21,7 @@ public struct TxInfo {
     init(_ dictionary: [String: Any]) {
         self.height = dictionary["height"] as? String ?? ""
         self.txhash = dictionary["txhash"] as? String ?? ""
+        self.hash = dictionary["hash"] as? String ?? ""
         self.txTime = dictionary["timestamp"] as? String ?? ""
         self.tx = StdTx.init(dictionary["tx"] as! [String : Any])
         

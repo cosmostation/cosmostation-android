@@ -5666,6 +5666,7 @@ After a few moments, the full results will be displayed.</string>
                         <outlet property="addressChangeResultTime" destination="TeC-Sq-38L" id="KLs-Oz-Jp3"/>
                         <outlet property="addressChangeResultType" destination="PAF-Yy-HyU" id="SnO-Tu-qAD"/>
                         <outlet property="addressChangeResultView" destination="rt5-9O-YOY" id="54s-eS-X4k"/>
+                        <outlet property="chainBg" destination="Ut1-DN-UcI" id="Zvx-hJ-ZXN"/>
                         <outlet property="delegateResultAmount" destination="CFW-ji-gdt" id="2rT-mg-ARm"/>
                         <outlet property="delegateResultBlock" destination="gr9-zQ-D2j" id="EWe-bP-Mir"/>
                         <outlet property="delegateResultFee" destination="tPh-B5-1fI" id="hq9-UC-jx8"/>
