@@ -130,6 +130,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
                 return
             }
         }
+        
         self.toDelegateAmountInput.layer.borderColor = UIColor.white.cgColor
     }
     
@@ -244,7 +245,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     
     func showMaxWarnning() {
         let noticeAlert = UIAlertController(title: NSLocalizedString("max_spend_title", comment: ""), message: NSLocalizedString("max_spend_msg", comment: ""), preferredStyle: .alert)
-        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(noticeAlert, animated: true) {

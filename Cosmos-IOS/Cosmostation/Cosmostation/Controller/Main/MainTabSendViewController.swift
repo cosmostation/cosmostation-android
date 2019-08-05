@@ -39,9 +39,10 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     @IBOutlet weak var denomRewardAmountLabel: UILabel!
     
     @IBOutlet weak var priceCard: CardView!
-    @IBOutlet weak var pricePerAtom: UILabel!
+    @IBOutlet weak var pricePerUnit: UILabel!
     @IBOutlet weak var priceUpDownLabel: UILabel!
     @IBOutlet weak var priceUpDownImg: UIImageView!
+    @IBOutlet weak var priceMarket: UILabel!
     
     @IBOutlet weak var inflationLabel: UILabel!
     @IBOutlet weak var yieldLabel: UILabel!
@@ -89,11 +90,11 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         }
         
         titleChainName.textColor = WUtils.getChainColor(userChain!)
-        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             chainBg.image = UIImage(named: "bg_cosmos")
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
-        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainBg.image = UIImage(named: "bg_iris")
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
@@ -102,10 +103,10 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
     func updateView() {
         if(mainTabVC.mAccount.account_has_private) {
-            if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 keyTypeImg.image = keyTypeImg.image?.withRenderingMode(.alwaysTemplate)
                 keyTypeImg.tintColor = COLOR_ATOM
-            } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+            } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 keyTypeImg.image = keyTypeImg.image?.withRenderingMode(.alwaysTemplate)
                 keyTypeImg.tintColor = COLOR_IRIS
             }
@@ -114,7 +115,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         
         denomCard.backgroundColor = WUtils.getChainBg(userChain!)
         WUtils.setDenomTitle(userChain!, denomTitleLabel)
-        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             denomImg.image = UIImage(named: "atom_ic")
             if (mainTabVC.mRewardList.count > 0) {
                 denomRewardAmountLabel.attributedText = WUtils.displayAllAtomReward(mainTabVC.mRewardList, denomRewardAmountLabel.font, 6)
@@ -124,7 +125,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             let totalSum = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             denomTotalAmountLabel.attributedText = WUtils.displayAmount(totalSum.stringValue, denomTotalAmountLabel.font, 6, userChain!)
             
-        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             denomImg.image = UIImage(named: "irisTokenImg")
             if (mainTabVC.mIrisRewards != nil && (mainTabVC.mIrisRewards?.delegations.count)! > 0) {
                 denomRewardAmountLabel.attributedText = WUtils.displayAmount((mainTabVC.mIrisRewards?.getSimpleIrisReward().stringValue)!, denomRewardAmountLabel.font, 6, userChain!)
@@ -167,8 +168,6 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         
         self.updatePool()
         self.updatePrice()
-        
-        
         self.refresher.endRefreshing()
     }
     
@@ -176,7 +175,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
         var provisions = NSDecimalNumber.zero
         var inflation = NSDecimalNumber.zero
         var bonded_tokens = NSDecimalNumber.zero
-        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (mainTabVC!.mInflation != nil) {
                 inflation = NSDecimalNumber.init(string: mainTabVC.mInflation)
                 inflationLabel.attributedText = WUtils.displayInflation(inflation, font: inflationLabel.font)
@@ -187,7 +186,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
                 yieldLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.zero, font: yieldLabel.font)
             }
             
-        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             inflation = NSDecimalNumber.init(string: "0.04")
             inflationLabel.attributedText = WUtils.displayInflation(inflation, font: inflationLabel.font)
             if (mainTabVC!.mIrisStakePool != nil) {
@@ -200,30 +199,61 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     func updatePrice() {
-        let totalSum = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-        if let change = mainTabVC.mAtomTic?.value(forKeyPath: getPrice24hPath()) as? Double,
-            let price = mainTabVC.mAtomTic?.value(forKeyPath: getPricePath()) as? Double {
-            let changeValue = NSDecimalNumber(value: change)
-            let priceValue = NSDecimalNumber(value: price)
-            var dpPrice = NSDecimalNumber.zero
-            if(BaseData.instance.getCurrency() == 5) {
-                dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: totalSum, withBehavior: WUtils.handler8)
-            } else {
-                dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: totalSum, withBehavior: WUtils.handler2)
+        self.priceMarket.text = "("+BaseData.instance.getMarketString()+")"
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let totalSum = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            if let change = mainTabVC.mPriceTic?.value(forKeyPath: getPrice24hPath()) as? Double,
+                let price = mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double {
+                let changeValue = NSDecimalNumber(value: change)
+                let priceValue = NSDecimalNumber(value: price)
+                var dpPrice = NSDecimalNumber.zero
+                if(BaseData.instance.getCurrency() == 5) {
+                    dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: totalSum, withBehavior: WUtils.handler8)
+                } else {
+                    dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: totalSum, withBehavior: WUtils.handler2)
+                }
+                
+                denomtotalPriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: denomtotalPriceLabel.font)
+                pricePerUnit.attributedText = WUtils.displayPrice(priceValue, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: pricePerUnit.font)
+                
+                if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                    priceUpDownImg.image = UIImage(named: "priceUp")
+                    priceUpDownLabel.attributedText = WUtils.displayPriceUPdown(changeValue, font: priceUpDownLabel.font)
+                } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                    priceUpDownImg.image = UIImage(named: "priceDown")
+                    priceUpDownLabel.attributedText = WUtils.displayPriceUPdown(changeValue, font: priceUpDownLabel.font)
+                } else {
+                    priceUpDownImg.image = nil
+                    priceUpDownLabel.text = ""
+                }
             }
             
-            denomtotalPriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: denomtotalPriceLabel.font)
-            pricePerAtom.attributedText = WUtils.displayPrice(priceValue, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: pricePerAtom.font)
-            
-            if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                priceUpDownImg.image = UIImage(named: "priceUp")
-                priceUpDownLabel.attributedText = WUtils.displayPriceUPdown(changeValue, font: priceUpDownLabel.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                priceUpDownImg.image = UIImage(named: "priceDown")
-                priceUpDownLabel.attributedText = WUtils.displayPriceUPdown(changeValue, font: priceUpDownLabel.font)
-            } else {
-                priceUpDownImg.image = nil
-                priceUpDownLabel.text = ""
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let totalSum = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
+            if let change = mainTabVC.mPriceTic?.value(forKeyPath: getPrice24hPath()) as? Double,
+                let price = mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double {
+                let changeValue = NSDecimalNumber(value: change)
+                let priceValue = NSDecimalNumber(value: price)
+                var dpPrice = NSDecimalNumber.zero
+                if(BaseData.instance.getCurrency() == 5) {
+                    dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: totalSum, withBehavior: WUtils.handler8)
+                } else {
+                    dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: totalSum, withBehavior: WUtils.handler2)
+                }
+                
+                denomtotalPriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: denomtotalPriceLabel.font)
+                pricePerUnit.attributedText = WUtils.displayPrice(priceValue, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: pricePerUnit.font)
+                
+                if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                    priceUpDownImg.image = UIImage(named: "priceUp")
+                    priceUpDownLabel.attributedText = WUtils.displayPriceUPdown(changeValue, font: priceUpDownLabel.font)
+                } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                    priceUpDownImg.image = UIImage(named: "priceDown")
+                    priceUpDownLabel.attributedText = WUtils.displayPriceUPdown(changeValue, font: priceUpDownLabel.font)
+                } else {
+                    priceUpDownImg.image = nil
+                    priceUpDownLabel.text = ""
+                }
             }
         }
     }
@@ -234,13 +264,21 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             return
         }
         
-        if(self.mainTabVC.mBalances.count <= 0 || WUtils.stringToDecimal(self.mainTabVC.mBalances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue <= 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-            return
-        }
-        
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-        stakingVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(self.mainTabVC.mBalances.count <= 0 || WUtils.stringToDecimal(self.mainTabVC.mBalances[0].balance_amount).compare(NSDecimalNumber.one).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            stakingVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+            
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if(self.mainTabVC.mBalances.count <= 0 || WUtils.stringToDecimal(self.mainTabVC.mBalances[0].balance_amount).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            stakingVC.mType = IRIS_MSG_TYPE_TRANSFER
+        }
         stakingVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)

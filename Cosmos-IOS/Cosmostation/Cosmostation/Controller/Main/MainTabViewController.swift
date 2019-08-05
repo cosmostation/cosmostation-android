@@ -25,6 +25,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mRewardList = Array<Reward>()
     var mIrisRewards: IrisRewards?
     var mAtomTic: NSDictionary?
+    var mPriceTic: NSDictionary?
     var mFetchCnt = 0
     
     var mInflation: String?
@@ -218,10 +219,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchInflation()
             onFetchProvision()
             onFetchStakingPool()
-            onFetchAtomTic(true)
+            onFetchPriceTic(true)
             
         } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
-            self.mFetchCnt = 6
+            self.mFetchCnt = 7
             self.mAllValidator.removeAll()
             self.irisValidatorPage = 1
             onFetchIrisValidatorsInfo(irisValidatorPage)
@@ -230,14 +231,15 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchUnbondingInfo(mAccount)
             onFetchIrisReward(mAccount)
             onFetchIrisPool()
+            onFetchPriceTic(true)
         }
         
         return true
     }
     
     func onFetchFinished() {
-//        print("onFetchFinished")
         self.mFetchCnt = self.mFetchCnt - 1
+//        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
             if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -276,8 +278,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         mOtherValidators.append(validator)
                     }
                 }
-                print("mTopValidators : ", mTopValidators.count)
-                print("mOtherValidators : ", mOtherValidators.count)
+//                print("mTopValidators : ", mTopValidators.count)
+//                print("mOtherValidators : ", mOtherValidators.count)
                 
             }
             for validator in mAllValidator {
@@ -309,6 +311,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchTopValidatorsInfo ", res)
                 guard let validators = res as? Array<NSDictionary> else {
                     print("no validators!!")
                     return
@@ -538,35 +541,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchAtomTic(_ callback:Bool) {
-        let request = Alamofire
-            .request(CMC_PRICE_TIC+"3794",
-                     method: .get,
-                     parameters: ["convert":BaseData.instance.getCurrencyString()],
-                     encoding: URLEncoding.default,
-                     headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                self.mAtomTic = res as? NSDictionary
-                if(self.mAtomTic != nil){
-                    BaseData.instance.setAtomTicCmc(self.mAtomTic!)
-                    if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_success", comment: "")) }
-                } else  {
-                    if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
-                }
-                
-            case .failure(let error):
-                if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
-                print(error)
-            }
-            if(callback) {
-                self.onFetchFinished()
-            }
-        }
-    }
-    
-    
     func onFetchInflation() {
         let url = CSS_LCD_URL_INFLATION
         let request = Alamofire.request(url,
@@ -674,6 +648,78 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     }
     
+    func onFetchAtomTic(_ callback:Bool) {
+        let request = Alamofire
+            .request(CMC_PRICE_TIC+"3794",
+                     method: .get,
+                     parameters: ["convert":BaseData.instance.getCurrencyString()],
+                     encoding: URLEncoding.default,
+                     headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                self.mAtomTic = res as? NSDictionary
+                if(self.mAtomTic != nil){
+                    BaseData.instance.setAtomTicCmc(self.mAtomTic!)
+                    if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_success", comment: "")) }
+                } else  {
+                    if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
+                }
+                
+            case .failure(let error):
+                if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
+                print(error)
+            }
+            if(callback) {
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchPriceTic(_ callback:Bool) {
+        var url = ""
+        var parameters: Parameters?
+        if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            if (BaseData.instance.getMarket() == 0) {
+                url = CGC_PRICE_TIC + "cosmos"
+                parameters = [:]
+            } else {
+                url = CMC_PRICE_TIC + "3794"
+                parameters = ["convert":BaseData.instance.getCurrencyString()]
+            }
+        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
+            if (BaseData.instance.getMarket() == 0) {
+                url = CGC_PRICE_TIC + "iris-network"
+                parameters = [:]
+            } else {
+                url = CMC_PRICE_TIC + "3874"
+                parameters = ["convert":BaseData.instance.getCurrencyString()]
+            }
+        }
+        let request = Alamofire.request(url, method: .get,  parameters: parameters, encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("res : ", res)
+                if let priceTic = res as? NSDictionary {
+                    if (BaseData.instance.getMarket() == 0) {
+                        BaseData.instance.setPriceTicCgc(priceTic)
+                    } else {
+                        BaseData.instance.setPriceTicCmc(priceTic)
+                    }
+                    self.mPriceTic = priceTic
+                    if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_success", comment: "")) }
+                }
+                
+            case .failure(let error):
+                if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
+                print(error)
+            }
+            if(callback) {
+                self.onFetchFinished()
+            }
+        }
+    }
     
     func onShowToast(_ text:String) {
         var style = ToastStyle()

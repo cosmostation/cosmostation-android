@@ -92,6 +92,8 @@
 "fee_over_msg" = "받을 이자량 보다 Tx 수수료가 높습니다. Tx 수수료를 더 적게 설정하시거나, 나중에 이자가 더 쌓이면 요청해 주세요.";
 "insert_password_app_lock" = "언락을 위해 패스워드를 입력해주세요.";
 "app_locked" = "앱 잠김";
+"coingecko" = "CoinGecko";
+"coinmarketcap" = "CoinMarket Cap";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";

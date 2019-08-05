@@ -92,7 +92,19 @@ class MsgGenerator {
             msg.value = value
             
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let input = InOutPut.init(fromAddress, amount)
+            var inputs: Array<InOutPut> = Array<InOutPut>()
+            inputs.append(input)
             
+            let output = InOutPut.init(toAddress, amount)
+            var outputs: Array<InOutPut> = Array<InOutPut>()
+            outputs.append(output)
+            
+            value.inputs = inputs
+            value.outputs = outputs
+            
+            msg.type = IRIS_MSG_TYPE_TRANSFER
+            msg.value = value
         }
         return msg
     }
@@ -148,13 +160,30 @@ class MsgGenerator {
         return stdTx
     }
     
-    static func getToSignMsg(_ chain: String, _ accountNum: String, _ sequenceNum: String, _ msgs: Array<Msg>, _ fee: Fee, _ memo: String) -> StdSignedMsg {
-        var stdSignedMsg = StdSignedMsg.init()
+    static func getToSignMsg(_ chain: String, _ accountNum: String, _ sequenceNum: String, _ msgs: Array<Msg>, _ fee: Fee, _ memo: String) -> StdSignMsg {
+        var stdSignedMsg = StdSignMsg.init()
         
         stdSignedMsg.chain_id = chain
         stdSignedMsg.account_number = accountNum
         stdSignedMsg.sequence = sequenceNum
         stdSignedMsg.msgs = msgs
+        stdSignedMsg.fee = fee
+        stdSignedMsg.memo = memo
+        
+        return stdSignedMsg
+    }
+    
+    static func getIrisToSignMsg(_ chain: String, _ accountNum: String, _ sequenceNum: String, _ msgs: Array<Msg>, _ fee: Fee, _ memo: String) -> IrisStdSignMsg {
+        var stdSignedMsg = IrisStdSignMsg.init()
+        
+        stdSignedMsg.chain_id = chain
+        stdSignedMsg.account_number = accountNum
+        stdSignedMsg.sequence = sequenceNum
+        var msgValues: Array<Msg.Value> = Array<Msg.Value>()
+        for msg in msgs {
+            msgValues.append(msg.value)
+        }
+        stdSignedMsg.msgs = msgValues
         stdSignedMsg.fee = fee
         stdSignedMsg.memo = memo
         

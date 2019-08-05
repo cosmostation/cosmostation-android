@@ -24,4 +24,9 @@ public struct InOutPut: Codable {
             self.coins.append(Coin(coin as! [String : Any]))
         }
     }
+    
+    init(_ address:String, _ coins:Array<Coin>) {
+        self.address = address
+        self.coins = coins
+    }
 }

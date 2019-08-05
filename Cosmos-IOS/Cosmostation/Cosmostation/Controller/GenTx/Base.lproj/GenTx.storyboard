@@ -1815,6 +1815,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                     <connections>
                         <outlet property="backBtn" destination="q4U-Jx-Gjp" id="GZN-ro-sXk"/>
                         <outlet property="btn01" destination="0fi-72-KPs" id="8Gz-Yj-i3f"/>
+                        <outlet property="denomTitleLabel" destination="tCV-bA-Hz1" id="7lL-Bp-Obu"/>
                         <outlet property="mAvailableAmountLabel" destination="tjA-fe-Yfb" id="mmE-To-xEN"/>
                         <outlet property="mTargetAmountTextField" destination="hT7-iN-uYF" id="sS6-gv-rKx"/>
                         <outlet property="nextBtn" destination="jzT-Qn-Dpv" id="uhe-C7-uAe"/>
@@ -3413,12 +3414,17 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         <outlet property="backBtn" destination="koC-1t-Q0E" id="sKd-pr-R9I"/>
                         <outlet property="confirmBtn" destination="TZa-Y3-lIX" id="Z55-J6-bcI"/>
                         <outlet property="mCurrentAvailable" destination="lQh-Mg-QiO" id="925-sZ-46N"/>
+                        <outlet property="mCurrentBalanceDenomTitle" destination="WCe-JE-8f3" id="4ck-1h-uQm"/>
                         <outlet property="mFeeAmountLabel" destination="hNu-Zl-4j8" id="SYX-BQ-E2b"/>
+                        <outlet property="mFeeDenomTitle" destination="ln1-Dk-jKF" id="9MN-cI-Fjh"/>
                         <outlet property="mMemoLabel" destination="dsK-Nh-HsL" id="cff-Dd-Ick"/>
+                        <outlet property="mRemainBalanceTitle" destination="WYk-ag-3LV" id="djH-QX-aoJ"/>
                         <outlet property="mReminaingAvailable" destination="iT5-ku-aJw" id="ncL-BC-W1X"/>
                         <outlet property="mReminaingPrice" destination="8mD-Fz-fbx" id="hu6-rd-sYA"/>
                         <outlet property="mToAddressLabel" destination="6c2-ev-eh9" id="UhU-kW-oc0"/>
                         <outlet property="mToSendAmountLabel" destination="165-Bz-bOt" id="vgb-Yc-Vr3"/>
+                        <outlet property="mToSendDenomLabel" destination="Xjw-ph-Lfs" id="e44-NA-5Yr"/>
+                        <outlet property="mToSpendDenomTitle" destination="SND-Hn-2SF" id="uXf-J6-DOb"/>
                         <outlet property="mTotalSpendLabel" destination="KIB-9Q-ntd" id="6OK-s1-48P"/>
                         <outlet property="mTotalSpendPrice" destination="ufC-VN-wuz" id="HpT-W6-lG0"/>
                     </connections>
@@ -5658,6 +5664,7 @@ After a few moments, the full results will be displayed.</string>
                     </view>
                     <connections>
                         <outlet property="actionLayer" destination="xic-Dy-ZCh" id="fti-Hy-ehp"/>
+                        <outlet property="addressChangeDenomFee" destination="oF5-bq-g1E" id="LHY-1U-IIg"/>
                         <outlet property="addressChangeResultAddress" destination="W1O-Dk-h1K" id="QJq-8b-wae"/>
                         <outlet property="addressChangeResultBlock" destination="eGl-lI-bNW" id="mno-Yp-M1g"/>
                         <outlet property="addressChangeResultFee" destination="czM-QT-X6B" id="Mbs-yZ-jsI"/>
@@ -5667,6 +5674,8 @@ After a few moments, the full results will be displayed.</string>
                         <outlet property="addressChangeResultType" destination="PAF-Yy-HyU" id="SnO-Tu-qAD"/>
                         <outlet property="addressChangeResultView" destination="rt5-9O-YOY" id="54s-eS-X4k"/>
                         <outlet property="chainBg" destination="Ut1-DN-UcI" id="Zvx-hJ-ZXN"/>
+                        <outlet property="delegateDenomAmount" destination="zZz-fi-Nw8" id="gmQ-U4-r1B"/>
+                        <outlet property="delegateDenomFee" destination="P5j-CD-wqL" id="Js8-Jx-kXv"/>
                         <outlet property="delegateResultAmount" destination="CFW-ji-gdt" id="2rT-mg-ARm"/>
                         <outlet property="delegateResultBlock" destination="gr9-zQ-D2j" id="EWe-bP-Mir"/>
                         <outlet property="delegateResultFee" destination="tPh-B5-1fI" id="hq9-UC-jx8"/>
@@ -5681,6 +5690,8 @@ After a few moments, the full results will be displayed.</string>
                         <outlet property="errorCode" destination="Hfp-Lj-mpz" id="rac-GS-Qzx"/>
                         <outlet property="loadingImgs" destination="dcS-mU-muJ" id="YqN-XF-jL6"/>
                         <outlet property="loadingView" destination="qZ8-Nl-6oA" id="TKf-F4-bbM"/>
+                        <outlet property="reInvestDenomDelegate" destination="P34-XL-y7a" id="MYd-v7-Ahm"/>
+                        <outlet property="reInvestDenomFee" destination="ihg-FP-s9l" id="4tr-RS-AOX"/>
                         <outlet property="reInvestResultBlock" destination="8Tg-d6-lC4" id="UhH-NR-RuR"/>
                         <outlet property="reInvestResultDelegateAmount" destination="ync-qt-z5H" id="qzw-NG-DHK"/>
                         <outlet property="reInvestResultFee" destination="zzX-O3-Bur" id="sgm-5h-ggf"/>
@@ -5691,6 +5702,8 @@ After a few moments, the full results will be displayed.</string>
                         <outlet property="reInvestResultType" destination="hcF-9g-ZGg" id="2VQ-sl-90s"/>
                         <outlet property="reInvestResultView" destination="tPI-WC-fxG" id="hul-wO-h9f"/>
                         <outlet property="reInvestValidatorAddress" destination="5wX-j2-lJM" id="C7H-CR-FyG"/>
+                        <outlet property="redelegateDenomAmount" destination="CPx-sl-RpP" id="ueq-Lk-CZP"/>
+                        <outlet property="redelegateDenomFee" destination="uPh-Qz-NYh" id="P0G-fM-vGe"/>
                         <outlet property="redelegateResultAmount" destination="5GJ-gX-oKR" id="kSj-1F-X5i"/>
                         <outlet property="redelegateResultBlock" destination="V2o-IW-sTh" id="NdC-Mj-a1F"/>
                         <outlet property="redelegateResultFee" destination="fds-WD-uA0" id="7li-Jo-2da"/>
@@ -5701,6 +5714,7 @@ After a few moments, the full results will be displayed.</string>
                         <outlet property="redelegateResultToValAddress" destination="cFh-yC-IBA" id="Ke1-Y2-L7E"/>
                         <outlet property="redelegateResultType" destination="d4I-CR-BEn" id="s6D-Wc-tJE"/>
                         <outlet property="redelegateResultView" destination="i4c-dL-ebk" id="qir-YS-ViF"/>
+                        <outlet property="rewardDenomFee" destination="FOw-0j-6Gq" id="4GI-AR-2UV"/>
                         <outlet property="rewardResultBlock" destination="4qE-v0-eIv" id="fJA-nb-tJm"/>
                         <outlet property="rewardResultFee" destination="zYG-un-cBW" id="V4C-Xm-wiI"/>
                         <outlet property="rewardResultFromValAddress" destination="OSU-Kc-vpe" id="RYt-Lt-mya"/>
@@ -5709,6 +5723,8 @@ After a few moments, the full results will be displayed.</string>
                         <outlet property="rewardResultTime" destination="3xM-Xf-vRS" id="7VJ-Dk-AuV"/>
                         <outlet property="rewardResultType" destination="AlB-IH-0c1" id="aA9-Yi-GaX"/>
                         <outlet property="rewardResultView" destination="4DE-hW-f7c" id="n00-bu-8Jo"/>
+                        <outlet property="sendDenomAmount" destination="iXX-jE-r3T" id="HLW-Pw-isv"/>
+                        <outlet property="sendDenomFee" destination="QN7-mN-1gX" id="Sxk-ZL-cgd"/>
                         <outlet property="sendResultAmount" destination="Hrd-9f-M4u" id="6Bp-ez-VNv"/>
                         <outlet property="sendResultBlock" destination="R0V-PD-YpM" id="tvc-MR-Xni"/>
                         <outlet property="sendResultFee" destination="55a-vm-qSv" id="eyP-RF-8AW"/>
@@ -5719,6 +5735,8 @@ After a few moments, the full results will be displayed.</string>
                         <outlet property="sendResultType" destination="EaG-53-ucb" id="P7k-W8-fcd"/>
                         <outlet property="sendResultView" destination="Lea-xc-Cvo" id="aza-2U-yGR"/>
                         <outlet property="txResultTitleLabel" destination="UPJ-xu-d6V" id="P14-uE-AEY"/>
+                        <outlet property="undelegateDenomAmount" destination="QOR-tP-DIm" id="zAY-h5-zBJ"/>
+                        <outlet property="undelegateDenomFee" destination="Yzw-cC-823" id="wWp-5e-yBc"/>
                         <outlet property="undelegateResultAmount" destination="Wmu-wX-Kr3" id="WEQ-Wq-QYe"/>
                         <outlet property="undelegateResultBlock" destination="uF1-bR-lpY" id="IlD-cC-2nC"/>
                         <outlet property="undelegateResultFee" destination="cxU-ck-MjT" id="mm5-S0-Egx"/>

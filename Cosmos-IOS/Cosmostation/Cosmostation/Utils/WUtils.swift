@@ -205,7 +205,22 @@ class WUtils {
             } else if (msgs[0].value.to_address != nil && msgs[0].value.to_address == myaddress) {
                 resultMsg = NSLocalizedString("tx_receive", comment: "")
             } else {
-                
+                if (msgs[0].value.inputs != nil && msgs[0].value.inputs!.count > 0) {
+                    for input in msgs[0].value.inputs! {
+                        if (input.address == myaddress) {
+                            resultMsg = NSLocalizedString("tx_send", comment: "")
+                            return resultMsg
+                        }
+                    }
+                }
+                if (msgs[0].value.outputs != nil && msgs[0].value.outputs!.count > 0) {
+                    for input in msgs[0].value.outputs! {
+                        if (input.address == myaddress) {
+                            resultMsg = NSLocalizedString("tx_receive", comment: "")
+                            return resultMsg
+                        }
+                    }
+                }
                 resultMsg = NSLocalizedString("tx_transfer", comment: "")
             }
             

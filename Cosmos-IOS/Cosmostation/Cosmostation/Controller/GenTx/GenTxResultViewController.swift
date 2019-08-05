@@ -23,6 +23,9 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var sendResultFee: UILabel!
     @IBOutlet weak var sendResultToAddress: UILabel!
     @IBOutlet weak var sendResultMemo: UILabel!
+    @IBOutlet weak var sendDenomAmount: UILabel!
+    @IBOutlet weak var sendDenomFee: UILabel!
+    
     
     @IBOutlet weak var delegateResultView: CardView!
     @IBOutlet weak var delegateResultType: UILabel!
@@ -33,6 +36,9 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var delegateResultFee: UILabel!
     @IBOutlet weak var delegateResultValAddress: UILabel!
     @IBOutlet weak var delegateResultMemo: UILabel!
+    @IBOutlet weak var delegateDenomAmount: UILabel!
+    @IBOutlet weak var delegateDenomFee: UILabel!
+    
     
     @IBOutlet weak var undelegateResultView: CardView!
     @IBOutlet weak var undelegateResultType: UILabel!
@@ -43,6 +49,9 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var undelegateResultFee: UILabel!
     @IBOutlet weak var undelegateResultValAddress: UILabel!
     @IBOutlet weak var undelegateResultMemo: UILabel!
+    @IBOutlet weak var undelegateDenomAmount: UILabel!
+    @IBOutlet weak var undelegateDenomFee: UILabel!
+    
     
     @IBOutlet weak var redelegateResultView: CardView!
     @IBOutlet weak var redelegateResultType: UILabel!
@@ -54,6 +63,9 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var redelegateResultFromValAddress: UILabel!
     @IBOutlet weak var redelegateResultToValAddress: UILabel!
     @IBOutlet weak var redelegateResultMemo: UILabel!
+    @IBOutlet weak var redelegateDenomAmount: UILabel!
+    @IBOutlet weak var redelegateDenomFee: UILabel!
+    
     
     @IBOutlet weak var rewardResultView: CardView!
     @IBOutlet weak var rewardResultType: UILabel!
@@ -63,6 +75,8 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var rewardResultFee: UILabel!
     @IBOutlet weak var rewardResultFromValAddress: UILabel!
     @IBOutlet weak var rewardResultMemo: UILabel!
+    @IBOutlet weak var rewardDenomFee: UILabel!
+    
     
     @IBOutlet weak var addressChangeResultView: CardView!
     @IBOutlet weak var addressChangeResultType: UILabel!
@@ -72,6 +86,8 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var addressChangeResultFee: UILabel!
     @IBOutlet weak var addressChangeResultAddress: UILabel!
     @IBOutlet weak var addressChangeResultMemo: UILabel!
+    @IBOutlet weak var addressChangeDenomFee: UILabel!
+    
     
     @IBOutlet weak var reInvestResultView: CardView!
     @IBOutlet weak var reInvestResultType: UILabel!
@@ -83,6 +99,8 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var reInvestResultFee: UILabel!
     @IBOutlet weak var reInvestValidatorAddress: UILabel!
     @IBOutlet weak var reInvestResultMemo: UILabel!
+    @IBOutlet weak var reInvestDenomDelegate: UILabel!
+    @IBOutlet weak var reInvestDenomFee: UILabel!
     
     var response:[String:Any]?
 
@@ -101,9 +119,23 @@ class GenTxResultViewController: BaseViewController {
     var mTxHash: String?
     var mTxInfo: TxInfo?
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mChain = WUtils.getChainType(BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())!.account_base_chain)
+        WUtils.setDenomTitle(mChain!, sendDenomAmount)
+        WUtils.setDenomTitle(mChain!, sendDenomFee)
+        WUtils.setDenomTitle(mChain!, delegateDenomAmount)
+        WUtils.setDenomTitle(mChain!, delegateDenomFee)
+        WUtils.setDenomTitle(mChain!, undelegateDenomAmount)
+        WUtils.setDenomTitle(mChain!, undelegateDenomFee)
+        WUtils.setDenomTitle(mChain!, redelegateDenomAmount)
+        WUtils.setDenomTitle(mChain!, redelegateDenomFee)
+        WUtils.setDenomTitle(mChain!, rewardDenomFee)
+        WUtils.setDenomTitle(mChain!, addressChangeDenomFee)
+        WUtils.setDenomTitle(mChain!, reInvestDenomDelegate)
+        WUtils.setDenomTitle(mChain!, reInvestDenomFee)
         
         if (mChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             chainBg.image = UIImage(named: "bg_cosmos")
@@ -173,14 +205,6 @@ class GenTxResultViewController: BaseViewController {
                 delegateResultBlock.text = mTxInfo?.height
                 delegateResultTime.text = "-"
                 
-                print("11 ", mTxInfo)
-                print("22 ", mTxInfo?.tx)
-                print("33 ", mTxInfo?.tx.value)
-                print("44 ", mTxInfo?.tx.value.msg[0])
-                print("55 ", mTxInfo?.tx.value.msg[0].value)
-                print("66 ", mTxInfo?.tx.value.msg[0].value.delegation)
-                print("77 ", mTxInfo?.tx.value.msg[0].value.delegation?.amount)
-                
                 delegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.delegation?.amount)!, delegateResultAmount.font, 18, self.mChain!)
                 delegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.mChain!)
                 delegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_addr
@@ -221,21 +245,35 @@ class GenTxResultViewController: BaseViewController {
             redelegateResultToValAddress.adjustsFontSizeToFitWidth = true
             redelegateResultMemo.text = mTxInfo?.tx.value.memo
             
-        } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2) {
+        } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2 || mTxType == IRIS_MSG_TYPE_TRANSFER) {
             self.sendResultView.isHidden = false
             self.loadingView.isHidden = true
             
-            sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
-            sendResultHash.text = mTxInfo?.txhash
-            sendResultBlock.text = mTxInfo?.height
-            sendResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
+                sendResultHash.text = mTxInfo?.txhash
+                sendResultBlock.text = mTxInfo?.height
+                sendResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+                
+                sendResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmounts()![0].amount)!, sendResultAmount.font, 6, self.mChain!)
+                sendResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, sendResultFee.font, 6, self.mChain!)
+                sendResultToAddress.text = mTxInfo?.tx.value.msg[0].value.to_address
+                sendResultToAddress.adjustsFontSizeToFitWidth = true
+                sendResultMemo.text = mTxInfo?.tx.value.memo
+                
+            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
+                sendResultHash.text = mTxInfo?.hash
+                sendResultBlock.text = mTxInfo?.height
+                sendResultTime.text = "-"
+                
+                sendResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.inputs![0].coins[0].amount)!, sendResultAmount.font, 18, self.mChain!)
+                sendResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.mChain!)
+                sendResultToAddress.text = mTxInfo?.tx.value.msg[0].value.outputs![0].address
+                sendResultToAddress.adjustsFontSizeToFitWidth = true
+                sendResultMemo.text = mTxInfo?.tx.value.memo
+            }
             
-            //yongjoo
-//            sendResultAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amountCoins![0].amount)!, sendResultAmount.font, 6)
-            sendResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, sendResultFee.font, 6)
-            sendResultToAddress.text = mTxInfo?.tx.value.msg[0].value.to_address
-            sendResultToAddress.adjustsFontSizeToFitWidth = true
-            sendResultMemo.text = mTxInfo?.tx.value.memo
             
             
         } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {

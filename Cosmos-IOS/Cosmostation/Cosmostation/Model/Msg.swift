@@ -95,7 +95,7 @@ public struct Msg: Codable {
             return result;
         }
         
-        public func getAmouts() -> Array<Coin>? {
+        public func getAmounts() -> Array<Coin>? {
             var result =  Array<Coin>()
             let data = try? JSONEncoder().encode(amount)
             do {

@@ -72,12 +72,12 @@ class MainTabRewardViewController: BaseViewController {
         }
         
         titleChainName.textColor = WUtils.getChainColor(userChain!)
-        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             chainBg.image = UIImage(named: "bg_cosmos")
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
             validatorSegment.tintColor = COLOR_ATOM
-        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainBg.image = UIImage(named: "bg_iris")
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"

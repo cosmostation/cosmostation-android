@@ -73,7 +73,7 @@ class WKey {
         return true
     }
     
-    static func isValidateAddressOrPubKey(_ address:String) -> Bool {
+    static func isValidateBech32(_ address:String) -> Bool {
         let bech32 = Bech32()
         guard let _ = try? bech32.decode(address) else {
             return false

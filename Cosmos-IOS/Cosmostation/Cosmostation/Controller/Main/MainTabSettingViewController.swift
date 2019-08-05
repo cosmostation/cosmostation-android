@@ -37,14 +37,14 @@ class MainTabSettingViewController: BaseViewController {
             self.updateTitle()
         }
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.onRefreshCurrency(_:)),
-                                               name: Notification.Name("refreshCurrency"),
+                                               selector: #selector(self.onRefreshPrice(_:)),
+                                               name: Notification.Name("refreshPrice"),
                                                object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("refreshCurrency"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("refreshPrice"), object: nil)
     }
     
     func updateTitle() {
@@ -55,11 +55,11 @@ class MainTabSettingViewController: BaseViewController {
         }
         
         titleChainName.textColor = WUtils.getChainColor(userChain!)
-        if (mainTabVC.mAccount.account_base_chain == CHAIN_COSMOS_S) {
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             chainBg.image = UIImage(named: "bg_cosmos")
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
-        } else if (mainTabVC.mAccount.account_base_chain == CHAIN_IRIS_S) {
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainBg.image = UIImage(named: "bg_iris")
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
@@ -70,7 +70,7 @@ class MainTabSettingViewController: BaseViewController {
         self.mainTabVC.dropDown.show()
     }
     
-    @objc func onRefreshCurrency(_ notification: NSNotification) {
-        mainTabVC.onFetchAtomTic(false)
+    @objc func onRefreshPrice(_ notification: NSNotification) {
+        mainTabVC.onFetchPriceTic(false)
     }
 }

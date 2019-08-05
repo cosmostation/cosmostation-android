@@ -15,6 +15,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
 
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var currecyLabel: UILabel!
+    @IBOutlet weak var marketLabel: UILabel!
     @IBOutlet weak var appLockSwitch: UISwitch!
     @IBOutlet weak var bioTypeLabel: UILabel!
     @IBOutlet weak var bioSwitch: UISwitch!
@@ -27,6 +28,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
             self.versionLabel.text = "v " + appVersion
         }
         self.onUpdateCurrency()
+        self.onUpdateMarket()
         
     }
     
@@ -72,7 +74,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 self.onShowCurrenyDialog()
                 
             } else if(indexPath.row == 3) {
-                onShowToast(NSLocalizedString("only_cmc", comment: ""))
+                self.onShowMarketDialog()
             }
             
         } else if (indexPath.section == 2) {
@@ -159,6 +161,10 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
         currecyLabel.text = BaseData.instance.getCurrencyString()
     }
     
+    func onUpdateMarket() {
+        marketLabel.text = BaseData.instance.getMarketString()
+    }
+    
     
     func onShowToast(_ text:String) {
         var style = ToastStyle()
@@ -215,9 +221,8 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
         if(BaseData.instance.getCurrency() != value) {
             BaseData.instance.setCurrency(value)
             self.onUpdateCurrency()
-            NotificationCenter.default.post(name: Notification.Name("refreshCurrency"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name("refreshPrice"), object: nil, userInfo: nil)
         }
-        
     }
     
     @IBAction func appLockToggle(_ sender: UISwitch) {
@@ -256,6 +261,36 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             BaseData.instance.setUsingAppLock(false)
+        }
+    }
+    
+    func onShowMarketDialog() {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let geckoAction = UIAlertAction(title: NSLocalizedString("coingecko", comment: ""), style: .default, handler: { _ in
+            self.onSetMarket(0)
+        })
+        geckoAction.setValue(UIColor.black, forKey: "titleTextColor")
+        geckoAction.setValue(UIImage(named: "coingeckoImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        let marketcapAction = UIAlertAction(title: NSLocalizedString("coinmarketcap", comment: ""), style: .default, handler: {_ in
+            self.onSetMarket(1)
+        })
+        marketcapAction.setValue(UIColor.black, forKey: "titleTextColor")
+        marketcapAction.setValue(UIImage(named: "coinmarketcapImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        showAlert.addAction(geckoAction)
+        showAlert.addAction(marketcapAction)
+        self.present(showAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            showAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func onSetMarket(_ value:Int) {
+        if(BaseData.instance.getMarket() != value) {
+            BaseData.instance.setMarket(value)
+            self.onUpdateMarket()
+            NotificationCenter.default.post(name: Notification.Name("refreshPrice"), object: nil, userInfo: nil)
         }
     }
 }

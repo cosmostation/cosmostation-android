@@ -23,11 +23,14 @@ let KEY_CURRENCY                        = "KEY_CURRENCY"
 let KEY_MARKET                          = "KEY_MARKET"
 let KEY_USING_APP_LOCK                  = "KEY_USING_APP_LOCK"
 let KEY_USING_BIO_AUTH                  = "KEY_USING_BIO_AUTH"
+let KEY_PRICE_TIC_CGC                    = "KEY_PRICE_TIC_CGC"
+let KEY_PRICE_TIC_CMC                    = "KEY_PRICE_TIC_CMC"
 
 
 let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
+let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let KEY_BASE_URL                        = "https://keybase.io/";
 
@@ -69,6 +72,7 @@ let IRIS_LCD_URL_TX                     = IRIS_LCD_URL + "txs/";
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
+let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.json";
 
 

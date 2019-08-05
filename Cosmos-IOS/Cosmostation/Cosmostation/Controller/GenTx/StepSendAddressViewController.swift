@@ -60,16 +60,26 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
             self.onShowToast(NSLocalizedString("error_self_send", comment: ""))
             return;
             
-        } else if(WKey.isValidateAddress(userInput!)) {
-            self.CancelBtn.isUserInteractionEnabled = false
-            self.NextBtn.isUserInteractionEnabled = false
-            pageHolderVC.mToSendRecipientAddress = userInput
-            pageHolderVC.onNextPage()
-            
-        } else {
-            self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
-            return;
         }
+            
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (!userInput!.starts(with: "cosmos") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (!userInput!.starts(with: "iaa") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+        }
+        
+        self.CancelBtn.isUserInteractionEnabled = false
+        self.NextBtn.isUserInteractionEnabled = false
+        pageHolderVC.mToSendRecipientAddress = userInput
+        pageHolderVC.onNextPage()
+        
     }
     
     override func enableUserInteraction() {

@@ -292,8 +292,8 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(CoinMarketCap)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6TF-Qv-8do">
-                                                        <rect key="frame" x="12" y="36.333333333333314" width="76.333333333333329" height="11.666666666666664"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(CoinGecko)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6TF-Qv-8do">
+                                                        <rect key="frame" x="12.000000000000004" y="36.333333333333314" width="56.333333333333343" height="11.666666666666664"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
                                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -606,7 +606,8 @@ Learn more about us in the links below</string>
                         <outlet property="keyTypeImg" destination="3YD-Ky-lU0" id="0Pw-Eh-8Ed"/>
                         <outlet property="mainScrollView" destination="p34-7z-HgK" id="dwn-rW-Fsk"/>
                         <outlet property="priceCard" destination="0aA-Bl-KJL" id="awu-wZ-tNi"/>
-                        <outlet property="pricePerAtom" destination="GY0-NF-Fzj" id="IRc-bF-I9J"/>
+                        <outlet property="priceMarket" destination="6TF-Qv-8do" id="bnq-wM-scw"/>
+                        <outlet property="pricePerUnit" destination="GY0-NF-Fzj" id="IRc-bF-I9J"/>
                         <outlet property="priceUpDownImg" destination="d3y-e5-wLG" id="fWP-Lb-5pv"/>
                         <outlet property="priceUpDownLabel" destination="FBI-Ug-rT3" id="xUx-xS-18W"/>
                         <outlet property="rewardCard" destination="iEB-3M-FxV" id="40F-cT-97i"/>
@@ -2275,6 +2276,7 @@ Learn more about us in the links below</string>
                         <outlet property="bioSwitch" destination="FjT-LV-erL" id="eRg-2R-IzD"/>
                         <outlet property="bioTypeLabel" destination="Lme-Ht-n9U" id="noc-XE-gEh"/>
                         <outlet property="currecyLabel" destination="NJX-wz-eL3" id="rgJ-8F-gXp"/>
+                        <outlet property="marketLabel" destination="Nuz-xq-Fds" id="EVZ-bA-y8B"/>
                         <outlet property="versionLabel" destination="IGV-pj-L9Y" id="rFa-mM-o0f"/>
                     </connections>
                 </tableViewController>

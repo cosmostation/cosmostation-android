@@ -59,15 +59,13 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
         if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             toDelegateAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mToDelegateAmount?.amount)!, toDelegateAmountLabel.font, 6, pageHolderVC.userChain!)
             feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.userChain!)
-            targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
-            memoLabel.text = pageHolderVC.mMemo
             
         } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             toDelegateAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mToDelegateAmount?.amount)!, toDelegateAmountLabel.font, 18, pageHolderVC.userChain!)
             feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 18, pageHolderVC.userChain!)
-            targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
-            memoLabel.text = pageHolderVC.mMemo
         }
+        targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
+        memoLabel.text = pageHolderVC.mMemo
     }
     
     func passwordResponse(result: Int) {

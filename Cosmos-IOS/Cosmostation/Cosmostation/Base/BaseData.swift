@@ -77,10 +77,36 @@ final class BaseData : NSObject{
         return nil
     }
     
+    func setPriceTicCgc(_ tic :NSDictionary) {
+        let encodedData = NSKeyedArchiver.archivedData(withRootObject: tic)
+        UserDefaults.standard.setValue(encodedData, forKey: KEY_PRICE_TIC_CGC)
+    }
+    
+    func getPriceTicCgc() -> NSDictionary? {
+        if let value = UserDefaults.standard.object(forKey: KEY_PRICE_TIC_CGC) {
+            let decoded = value as! Data
+            return NSKeyedUnarchiver.unarchiveObject(with: decoded) as? NSDictionary
+        }
+        return nil
+    }
+    
+    func setPriceTicCmc(_ tic :NSDictionary) {
+        let encodedData = NSKeyedArchiver.archivedData(withRootObject: tic)
+        UserDefaults.standard.setValue(encodedData, forKey: KEY_PRICE_TIC_CMC)
+    }
+    
+    func getPriceTicCmc() -> NSDictionary? {
+        if let value = UserDefaults.standard.object(forKey: KEY_PRICE_TIC_CMC) {
+            let decoded = value as! Data
+            return NSKeyedUnarchiver.unarchiveObject(with: decoded) as? NSDictionary
+        }
+        return nil
+    }
     
     
-    func setMarket(_ currency : Int) {
-        UserDefaults.standard.set(currency, forKey: KEY_MARKET)
+    
+    func setMarket(_ market : Int) {
+        UserDefaults.standard.set(market, forKey: KEY_MARKET)
     }
     
     func getMarket() -> Int {

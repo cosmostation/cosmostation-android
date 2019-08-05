@@ -67,7 +67,24 @@ class StepFeeViewController: BaseViewController {
                 feeAmount = gasAmount.multiplying(byPowerOf10: 18).multiplying(by: gasRate, withBehavior: WUtils.handler0)
                 self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 1, pageHolderVC.userChain!)
             }
-            //TODO show market Price!!
+            
+            var priceTic:NSDictionary?
+            if (BaseData.instance.getMarket() == 0) {
+                priceTic = BaseData.instance.getPriceTicCgc()
+            } else {
+                priceTic = BaseData.instance.getPriceTicCmc()
+            }
+            
+            if let price = priceTic?.value(forKeyPath: getPricePath()) as? Double {
+                let priceValue = NSDecimalNumber(value: price)
+                var dpPrice = NSDecimalNumber.zero
+                if(BaseData.instance.getCurrency() == 5) {
+                    dpPrice = feeAmount.dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler8)
+                } else {
+                    dpPrice = feeAmount.dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
+                }
+                self.rateFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: minFeePriceLabel.font)
+            }
         }
         
         
@@ -191,7 +208,14 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, rateFeeAmountLabel.font, 6)
         }
         
-        if let tic = BaseData.instance.getAtomTicCmc(),  let price = tic.value(forKeyPath: getPricePath()) as? Double {
+        var priceTic:NSDictionary?
+        if (BaseData.instance.getMarket() == 0) {
+            priceTic = BaseData.instance.getPriceTicCgc()
+        } else {
+            priceTic = BaseData.instance.getPriceTicCmc()
+        }
+        
+        if let price = priceTic?.value(forKeyPath: getPricePath()) as? Double {
             let priceValue = NSDecimalNumber(value: price)
             var dpPrice = NSDecimalNumber.zero
             if(BaseData.instance.getCurrency() == 5) {
@@ -203,7 +227,6 @@ class StepFeeViewController: BaseViewController {
             self.rateFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: minFeePriceLabel.font)
         }
         
-        
         toSpend = getSpendAmount()
         if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
@@ -213,7 +236,6 @@ class StepFeeViewController: BaseViewController {
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-        print("feeAmount ", feeAmount);
         if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if(NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
             if(self.updateView(Int(feeSlider!.value))) {
@@ -303,7 +325,7 @@ class StepFeeViewController: BaseViewController {
             
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             
-        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
+        } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == IRIS_MSG_TYPE_TRANSFER) {
             result = WUtils.stringToDecimal(pageHolderVC.mToSendAmount[0].amount)
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {

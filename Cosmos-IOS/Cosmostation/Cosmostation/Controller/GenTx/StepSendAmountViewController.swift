@@ -12,6 +12,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
 
     @IBOutlet weak var mTargetAmountTextField: AmountInputTextField!
     @IBOutlet weak var mAvailableAmountLabel: UILabel!
+    @IBOutlet weak var denomTitleLabel: UILabel!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var btn01: UIButton!
@@ -22,19 +23,26 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(pageHolderVC.userChain!, denomTitleLabel)
+        
         userBalance = NSDecimalNumber.zero
-        for balance in pageHolderVC.mBalances {
-            if(TESTNET) {
-                if(balance.balance_denom == "muon") {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
-                }
-            } else {
-                if(balance.balance_denom == "uatom") {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "1"))
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            for balance in pageHolderVC.mBalances {
+                if (balance.balance_denom == COSMOS_MAIN_DENOM) {
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber.one)
                 }
             }
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, mAvailableAmountLabel.font, 6, pageHolderVC.userChain!)
+            
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            for balance in pageHolderVC.mBalances {
+                if (balance.balance_denom == IRIS_MAIN_DENOM) {
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "400000000000000000"))
+                }
+            }
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, mAvailableAmountLabel.font, 18, pageHolderVC.userChain!)
         }
-        mAvailableAmountLabel.attributedText = WUtils.displayAmout(userBalance.stringValue, mAvailableAmountLabel.font, 6)
+        
         mTargetAmountTextField.delegate = self
         mTargetAmountTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
@@ -49,19 +57,35 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             
             if (text.count == 0 && string.starts(with: ".")) { return false }
             
-            if let index = text.range(of: ".")?.upperBound {
-                if(text.substring(from: index).count > 5 && range.length == 0) {
-                    return false
-                }
-            }
-            
             if (text.contains(",") && string.contains(",") && range.length == 0) { return false }
             
             if (text.count == 0 && string.starts(with: ",")) { return false }
             
-            if let index = text.range(of: ",")?.upperBound {
-                if(text.substring(from: index).count > 5 && range.length == 0) {
-                    return false
+            
+            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if let index = text.range(of: ".")?.upperBound {
+                    if(text.substring(from: index).count > 5 && range.length == 0) {
+                        return false
+                    }
+                }
+                
+                if let index = text.range(of: ",")?.upperBound {
+                    if(text.substring(from: index).count > 5 && range.length == 0) {
+                        return false
+                    }
+                }
+                
+            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                if let index = text.range(of: ".")?.upperBound {
+                    if(text.substring(from: index).count > 17 && range.length == 0) {
+                        return false
+                    }
+                }
+                
+                if let index = text.range(of: ",")?.upperBound {
+                    if(text.substring(from: index).count > 17 && range.length == 0) {
+                        return false
+                    }
                 }
             }
             
@@ -93,30 +117,36 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
         }
-        if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
-            self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-            return
+        
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
+                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
+            
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (userInput.multiplying(by: 1000000000000000000).compare(userBalance).rawValue > 0) {
+                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
         }
+        
         self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
     }
     
     func isValiadAmount() -> Bool {
         let text = mTargetAmountTextField.text?.trimmingCharacters(in: .whitespaces)
-        if (text == nil || text!.count == 0) {
-            self.onShowToast(NSLocalizedString("error_amount", comment: ""))
-            return false
-            
-        }
+        if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
-        if (userInput == NSDecimalNumber.zero) {
-            self.onShowToast(NSLocalizedString("error_amount", comment: ""))
-            return false
-            
-        }
-        if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
-            self.onShowToast(NSLocalizedString("error_amount", comment: ""))
-            return false
-            
+        if (userInput == NSDecimalNumber.zero) { return false }
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
+                return false
+            }
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (userInput.multiplying(by: 1000000000000000000).compare(userBalance).rawValue > 0) {
+                return false
+            }
         }
         return true
     }
@@ -130,21 +160,23 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     @IBAction func onClickNext(_ sender: Any) {
         if(isValiadAmount()) {
             let userInput = WUtils.stringToDecimal((mTargetAmountTextField.text?.trimmingCharacters(in: .whitespaces))!)
-            var coin:Coin
-            if(TESTNET) {
-                coin = Coin.init("muon", userInput.multiplying(by: 1000000).stringValue)
-            } else {
-                coin = Coin.init("uatom", userInput.multiplying(by: 1000000).stringValue)
+            var coin:Coin?
+            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
+            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                coin = Coin.init(IRIS_MAIN_DENOM, userInput.multiplying(by: 1000000000000000000).stringValue)
             }
             
             var tempList = Array<Coin>()
-            tempList.append(coin)
+            tempList.append(coin!)
             self.pageHolderVC.mToSendAmount = tempList
             
             self.backBtn.isUserInteractionEnabled = false
             self.nextBtn.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
 
+        } else {
+            self.onShowToast(NSLocalizedString("error_amount", comment: ""))
         }
     }
     
@@ -197,13 +229,23 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
-        let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
-        mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.userChain!)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.userChain!)
+        }
         self.onUIupdate()
     }
     @IBAction func onClickMax(_ sender: UIButton) {
-        let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
-        mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.userChain!)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.userChain!)
+        }
         self.onUIupdate()
         self.showMaxWarnning()
     }
@@ -211,7 +253,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     
     func showMaxWarnning() {
         let noticeAlert = UIAlertController(title: NSLocalizedString("max_spend_title", comment: ""), message: NSLocalizedString("max_spend_msg", comment: ""), preferredStyle: .alert)
-        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("close", comment: ""), style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(noticeAlert, animated: true) {
