@@ -14,7 +14,9 @@ import SwiftKeychainWrapper
 class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     
     @IBOutlet weak var rewardAmoutLaebl: UILabel!
+    @IBOutlet weak var rewardDenomLabel: UILabel!
     @IBOutlet weak var feeAmountLabel: UILabel!
+    @IBOutlet weak var feeDenomLabel: UILabel!
     
     @IBOutlet weak var fromValidatorLabel: UILabel!
     @IBOutlet weak var recipientTitleLabel: UILabel!
@@ -24,8 +26,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     @IBOutlet weak var expectedSeparator: UIView!
     @IBOutlet weak var expectedAmountTitle: UILabel!
     @IBOutlet weak var expectedAmountLabel: UILabel!
-    @IBOutlet weak var expectedAmountAtom: UILabel!
-    
+    @IBOutlet weak var expectedDenomLabel: UILabel!
     
     @IBOutlet weak var beforeBtn: UIButton!
     @IBOutlet weak var confirmBtn: UIButton!
@@ -35,6 +36,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(pageHolderVC.userChain!, rewardDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.userChain!, feeDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.userChain!, expectedDenomLabel)
         
     }
     
@@ -75,17 +79,65 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
 
     
     func checkIsWasteFee() -> Bool {
-        let rewardSum = WUtils.getAllAtomReward(pageHolderVC.mRewardList)
-        if(NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
-            return true
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let rewardSum = WUtils.getAllAtomReward(pageHolderVC.mRewardList)
+            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
+                return true
+            }
+            
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            var rewardSum = NSDecimalNumber.zero
+            for delegation in pageHolderVC.mIrisRewards!.delegations {
+                for validator in pageHolderVC.mRewardTargetValidators {
+                    if (validator.operator_address == delegation.validator && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
+                        rewardSum = rewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+                    }
+                }
+            }
+            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
+                return true
+            }
         }
         return false
     }
     
     func onUpdateView() {
-        let rewardSum = WUtils.getAllAtomReward(pageHolderVC.mRewardList)
-        rewardAmoutLaebl.attributedText = WUtils.displayAmout(rewardSum.stringValue, rewardAmoutLaebl.font, 6)
-        feeAmountLabel.attributedText = WUtils.displayAmout((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let rewardSum = WUtils.getAllAtomReward(pageHolderVC.mRewardList)
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.userChain!)
+            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.userChain!)
+            
+            var userBalance = NSDecimalNumber.zero
+            for balance in pageHolderVC.mBalances {
+                if(balance.balance_denom == COSMOS_MAIN_DENOM) {
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                }
+            }
+            
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.userChain!)
+            
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            var rewardSum = NSDecimalNumber.zero
+            for delegation in pageHolderVC.mIrisRewards!.delegations {
+                for validator in pageHolderVC.mRewardTargetValidators {
+                    if (validator.operator_address == delegation.validator && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
+                        rewardSum = rewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+                    }
+                }
+            }
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.userChain!)
+            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 18, pageHolderVC.userChain!)
+            
+            var userBalance = NSDecimalNumber.zero
+            for balance in pageHolderVC.mBalances {
+                if(balance.balance_denom == IRIS_MAIN_DENOM) {
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
+                }
+            }
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.userChain!)
+        }
         
         var monikers = ""
         for validator in pageHolderVC.mRewardTargetValidators {
@@ -100,34 +152,15 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         
         recipientLabel.text = pageHolderVC.mRewardAddress
         recipientLabel.adjustsFontSizeToFitWidth = true
+        
         if (pageHolderVC.mAccount?.account_address == pageHolderVC.mRewardAddress) {
             recipientTitleLabel.isHidden = true
             recipientLabel.isHidden = true
-            
-            var userBalance = NSDecimalNumber.zero
-            for balance in pageHolderVC.mBalances {
-                if(TESTNET) {
-                    if(balance.balance_denom == "muon") {
-                        userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
-                    }
-                } else {
-                    if(balance.balance_denom == "uatom") {
-                        userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount))
-                    }
-                }
-            }
-            
-//            print("userBalance ", userBalance)
-//            print("rewardSum ", rewardSum)
-//            print("fee ", WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmout(expectedAmount.stringValue, rewardAmoutLaebl.font, 6)
-            
+    
             expectedSeparator.isHidden = false
             expectedAmountTitle.isHidden = false
             expectedAmountLabel.isHidden = false
-            expectedAmountAtom.isHidden = false
+            expectedDenomLabel.isHidden = false
             
         } else {
             recipientTitleLabel.isHidden = false
@@ -136,10 +169,16 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             expectedSeparator.isHidden = true
             expectedAmountTitle.isHidden = true
             expectedAmountLabel.isHidden = true
-            expectedAmountAtom.isHidden = true
+            expectedDenomLabel.isHidden = true
         }
         
-        
+        //Hide expected amount with iris
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            expectedSeparator.isHidden = true
+            expectedAmountTitle.isHidden = true
+            expectedAmountLabel.isHidden = true
+            expectedDenomLabel.isHidden = true
+        }
     }
     
     func passwordResponse(result: Int) {
@@ -149,50 +188,51 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onGenGetRewardTx() {
-//        print("onGenGetRewardTx")
         self.showWaittingAlert()
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
-//                print("ERROR words")
                 return
             }
             
             do {
                 let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 
-                
                 var msgList = Array<Msg>()
-                for val in self.pageHolderVC.mRewardTargetValidators {
-                    let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
-                                                           val.operator_address,
-                                                           self.pageHolderVC.userChain!)
-                    msgList.append(msg)
+                var stdMsg: StdSignMsg!
+                if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    for val in self.pageHolderVC.mRewardTargetValidators {
+                        let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, val.operator_address, self.pageHolderVC.userChain!)
+                        msgList.append(msg)
+                    }
+            
+                } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    var msg: Msg!
+                    if (self.pageHolderVC.mRewardTargetValidators.count > 1) {
+                        msg = MsgGenerator.genIrisGetAllRewardMsg(self.pageHolderVC.mAccount!.account_address)
+                        msgList.append(msg)
+                        
+                    } else {
+                        msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mRewardTargetValidators[0].operator_address, self.pageHolderVC.userChain!)
+                        msgList.append(msg)
+                    }
                 }
-                if(FEE_FREE) {
-                    self.pageHolderVC.mFee?.amount[0].amount = "1"
-                }
-                let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
+                
+                stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
                                                        String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                        msgList,
                                                        self.pageHolderVC.mFee!,
                                                        self.pageHolderVC.mMemo!)
                 
-//                print("stdMsg ", stdMsg)
-                
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(stdMsg)
                 let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-//                print("rawResult ", rawResult)
                 let rawData: Data? = rawResult!.data(using: .utf8)
-//                print("rawData ", rawData?.toHexString())
                 let hash = Crypto.sha256(rawData!)
-//                print("hash ", hash.hexEncodedString())
                 
                 let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-//                print("signature ", WKey.convertSignature(signedData!))
                 
                 var genedSignature = Signature.init()
                 var genPubkey =  PublicKey.init()
@@ -200,18 +240,16 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
                 genedSignature.pub_key = genPubkey
                 genedSignature.signature = WKey.convertSignature(signedData!)
+                genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
                 
                 var signatures: Array<Signature> = Array<Signature>()
                 signatures.append(genedSignature)
                 
-                stdTx = MsgGenerator.genSignedTx(msgList,
-                                                 self.pageHolderVC.mFee!,
-                                                 self.pageHolderVC.mMemo!,
-                                                 signatures)
-//                print("stdTx ", stdTx)
+                stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
                 
             } catch {
-                print(error)
+                if (SHOW_LOG) { print(error) }
                 
             }
             
@@ -221,32 +259,44 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(postTx)
-                
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(CSS_LCD_URL_BORAD_TX, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    var url = "";
+                    if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                        url = CSS_LCD_URL_BORAD_TX
+                    } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                        url = IRIS_LCD_URL_BORAD_TX
+                    }
+                    let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-//                            print("get reward ", res)
+                            if(SHOW_LOG) { print("getReward ", res) }
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
                             if(SHOW_LOG) {
-//                                print("et reward error ", error)
+                                print("getRewarderror ", error)
                             }
-//
                         }
-                        self.hideWaittingAlert()
-                        txResult["type"] = COSMOS_MSG_TYPE_WITHDRAW_DEL
-                        self.onStartTxResult(txResult)
+                        
+                        if (self.waitAlert != nil) {
+                            self.waitAlert?.dismiss(animated: true, completion: {
+                                if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                                    txResult["type"] = COSMOS_MSG_TYPE_WITHDRAW_DEL
+                                } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                                    txResult["type"] = IRIS_MSG_TYPE_WITHDRAW
+                                }
+                                self.onStartTxResult(txResult)
+                            })
+                        }
                     }
                     
                     
                 }catch {
-                    print(error)
+                    if (SHOW_LOG) { print(error) }
                 }
             });
         }

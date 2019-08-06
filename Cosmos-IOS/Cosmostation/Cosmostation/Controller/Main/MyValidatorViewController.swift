@@ -246,63 +246,114 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             self.onShowAddMenomicDialog()
             return
         }
-        if(WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(NSDecimalNumber.zero).rawValue <= 0 ){
-            self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
-            return
-        }
-        
-        var myBondedValidator = Array<Validator>()
         var toClaimValidator = Array<Validator>()
         
-        for validator in self.mainTabVC.mAllValidator {
-            for bonding in self.mainTabVC.mBondingList {
-                if(bonding.bonding_v_address == validator.operator_address &&
-                    WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber(string: "1")).rawValue > 0) {
-                    myBondedValidator.append(validator)
-                    break;
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(NSDecimalNumber.zero).rawValue <= 0 ){
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            
+            var myBondedValidator = Array<Validator>()
+            for validator in self.mainTabVC.mAllValidator {
+                for bonding in self.mainTabVC.mBondingList {
+                    if(bonding.bonding_v_address == validator.operator_address &&
+                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber(string: "1")).rawValue > 0) {
+                        myBondedValidator.append(validator)
+                        break;
+                    }
                 }
             }
-        }
-        
-        myBondedValidator.sort{
-            let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-            let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
-            return reward0.compare(reward1).rawValue > 0 ? true : false
-        }
-        
-        if(myBondedValidator.count > 16) {
-            toClaimValidator = Array(myBondedValidator[0..<16])
-        } else {
-            toClaimValidator = myBondedValidator
-        }
-        
-        var available = NSDecimalNumber.zero
-        for balance in self.mainTabVC.mBalances {
-            if(TESTNET) {
-                if(balance.balance_denom == "muon") {
-                    available = available.adding(WUtils.stringToDecimal(balance.balance_amount))
-                }
+            
+            myBondedValidator.sort {
+                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                return reward0.compare(reward1).rawValue > 0 ? true : false
+            }
+            
+            if (myBondedValidator.count > 16) {
+                toClaimValidator = Array(myBondedValidator[0..<16])
             } else {
-                if(balance.balance_denom == "uatom") {
+                toClaimValidator = myBondedValidator
+            }
+            
+            var available = NSDecimalNumber.zero
+            for balance in self.mainTabVC.mBalances {
+                if (balance.balance_denom == COSMOS_MAIN_DENOM) {
                     available = available.adding(WUtils.stringToDecimal(balance.balance_amount))
                 }
             }
-        }
-        if(available.compare(NSDecimalNumber(string: "1")).rawValue < 0 ) {
-            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-            return
-        }
-        if(WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(NSDecimalNumber(string: "1")).rawValue <= 0) {
-            self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
-            return
+            
+            if (available.compare(NSDecimalNumber(string: "1")).rawValue < 0 ) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+            if (WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(NSDecimalNumber.one).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            
+            let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+            stakingVC.mRewardTargetValidators = toClaimValidator
+            stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+            stakingVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(stakingVC, animated: true)
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (self.mainTabVC.mIrisRewards != nil && (self.mainTabVC.mIrisRewards?.delegations.count)! > 0) {
+                for validator in self.mainTabVC.mAllValidator {
+                    for delegation in self.mainTabVC.mIrisRewards!.delegations {
+                        if (validator.operator_address == delegation.validator) {
+                            toClaimValidator.append(validator)
+                        }
+                    }
+                }
+            }
+            print("toClaimValidator ", toClaimValidator.count)
+            if (toClaimValidator.count <= 0 ) {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            let estimatedGasAmount = (NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_MUX).multiplying(by: NSDecimalNumber.init(value: toClaimValidator.count))).adding(NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
+            let estimatedFeeAmount = estimatedGasAmount.multiplying(byPowerOf10: 18).multiplying(by: NSDecimalNumber.init(string: GAS_FEE_RATE_IRIS_AVERAGE), withBehavior: WUtils.handler0)
+            print("estimatedGasAmount ", estimatedGasAmount)
+            print("estimatedFeeAmount ", estimatedFeeAmount)
+            
+            var balances = BaseData.instance.selectBalanceById(accountId: mainTabVC.mAccount!.account_id)
+            if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(estimatedFeeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+            if ((mainTabVC.mIrisRewards?.getSimpleIrisReward().compare(estimatedFeeAmount).rawValue)! <= 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            
+            if (toClaimValidator.count > 1 ) {
+                let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+                stakingVC.mRewardTargetValidators = toClaimValidator
+                stakingVC.mType = IRIS_MSG_TYPE_WITHDRAW
+                stakingVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(stakingVC, animated: true)
+            } else {
+                let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+                stakingVC.mRewardTargetValidators = toClaimValidator
+                stakingVC.mType = IRIS_MSG_TYPE_WITHDRAW_ALL
+                stakingVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(stakingVC, animated: true)
+            }
+            
+            
         }
         
-        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-        stakingVC.mRewardTargetValidators = toClaimValidator
-        stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
-        stakingVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(stakingVC, animated: true)
+        
+        
+        
     }
     
     

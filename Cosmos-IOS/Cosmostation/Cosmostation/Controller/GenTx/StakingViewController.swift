@@ -59,7 +59,7 @@ class StakingViewController: UIViewController {
             stepImg.image = UIImage.init(named: "step1Img")
             self.titleLabel.text =  NSLocalizedString("title_send", comment: "")
             
-        } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+        } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL || mType == IRIS_MSG_TYPE_WITHDRAW || mType == IRIS_MSG_TYPE_WITHDRAW_ALL) {
             stepDescription.text = NSLocalizedString("withdraw_single_step_1", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_reward", comment: "")
@@ -131,7 +131,7 @@ class StakingViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step1Img")
                     stepDescription.text = NSLocalizedString("send_step_1", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL || mType == IRIS_MSG_TYPE_WITHDRAW || mType == IRIS_MSG_TYPE_WITHDRAW_ALL) {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("withdraw_single_step_1", comment: "")
                     
@@ -162,7 +162,7 @@ class StakingViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step2Img")
                     stepDescription.text = NSLocalizedString("send_step_2", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL || mType == IRIS_MSG_TYPE_WITHDRAW || mType == IRIS_MSG_TYPE_WITHDRAW_ALL) {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("delegate_step_2", comment: "")
                     
@@ -194,7 +194,7 @@ class StakingViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step3Img")
                     stepDescription.text = NSLocalizedString("send_step_3", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL || mType == IRIS_MSG_TYPE_WITHDRAW || mType == IRIS_MSG_TYPE_WITHDRAW_ALL) {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("delegate_step_3", comment: "")
                     
@@ -226,7 +226,7 @@ class StakingViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step4Img")
                     stepDescription.text = NSLocalizedString("send_step_4", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                } else if (mType == COSMOS_MSG_TYPE_WITHDRAW_DEL || mType == IRIS_MSG_TYPE_WITHDRAW || mType == IRIS_MSG_TYPE_WITHDRAW_ALL) {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("withdraw_single_step_4", comment: "")
                     

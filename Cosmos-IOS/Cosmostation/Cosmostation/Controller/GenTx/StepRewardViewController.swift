@@ -19,12 +19,11 @@ class StepRewardViewController: BaseViewController {
     
     @IBOutlet weak var cardView: CardView!
     @IBOutlet weak var rewardAmountLabel: UILabel!
+    @IBOutlet weak var rewardDenomLabel: UILabel!
     @IBOutlet weak var rewardFromLabel: UILabel!
-    
     
     @IBOutlet weak var rewardToAddressTitle: UILabel!
     @IBOutlet weak var rewardToAddressLabel: UILabel!
-    
     
     var pageHolderVC: StepGenTxViewController!
     var mFetchCnt = 0
@@ -32,6 +31,7 @@ class StepRewardViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(pageHolderVC.userChain!, rewardDenomLabel)
         
         if(pageHolderVC.mRewardTargetValidators.count == 16) {
             self.onShowToast(NSLocalizedString("reward_claim_top_16", comment: ""))
@@ -45,10 +45,15 @@ class StepRewardViewController: BaseViewController {
         if(self.mFetchCnt > 0)  {
             return
         }
-        pageHolderVC.mRewardList.removeAll()
-        mFetchCnt = 1 + pageHolderVC.mRewardTargetValidators.count;
-        for val in pageHolderVC.mRewardTargetValidators {
-            self.onFetchEachReward(pageHolderVC.mAccount!.account_address, val.operator_address)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            pageHolderVC.mRewardList.removeAll()
+            mFetchCnt = 1 + pageHolderVC.mRewardTargetValidators.count;
+            for val in pageHolderVC.mRewardTargetValidators {
+                self.onFetchEachReward(pageHolderVC.mAccount!.account_address, val.operator_address)
+            }
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            mFetchCnt = 2
+            self.onFetchIrisReward(pageHolderVC.mAccount!)
         }
         self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
     }
@@ -61,7 +66,20 @@ class StepRewardViewController: BaseViewController {
     }
     
     func updateView() {
-        rewardAmountLabel.attributedText = WUtils.displayAllAtomReward(pageHolderVC.mRewardList, rewardAmountLabel.font, 6)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            rewardAmountLabel.attributedText = WUtils.displayAllAtomReward(pageHolderVC.mRewardList, rewardAmountLabel.font, 6)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            var selectedRewardSum = NSDecimalNumber.zero
+            for delegation in pageHolderVC.mIrisRewards!.delegations {
+                for validator in pageHolderVC.mRewardTargetValidators {
+                    if (validator.operator_address == delegation.validator && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
+                        selectedRewardSum = selectedRewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
+                    }
+                }
+            }
+            print("selectedRewardSum ", selectedRewardSum)
+            rewardAmountLabel.attributedText = WUtils.displayAmount(selectedRewardSum.stringValue, rewardAmountLabel.font, 18, pageHolderVC.userChain!)
+        }
         
         var monikers = ""
         for validator in pageHolderVC.mRewardTargetValidators {
@@ -89,7 +107,6 @@ class StepRewardViewController: BaseViewController {
         
     }
     
-    
     @IBAction func onClickCancel(_ sender: UIButton) {
         sender.isUserInteractionEnabled = false
         pageHolderVC.onBeforePage()
@@ -107,22 +124,13 @@ class StepRewardViewController: BaseViewController {
         self.nextBtn.isUserInteractionEnabled = true
     }
     
-    
-    
     func onFetchEachReward(_ accountAddr: String, _ validatorAddr:String) {
-//        print("onFetchEachReward")
         let url = CSS_LCD_URL_REWARD_FROM_VAL + accountAddr + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validatorAddr
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchEachReward ", res)
                 guard let rawRewards = res as? Array<NSDictionary> else {
-//                    print("error no reward")
                     self.onFetchFinished()
                     return;
                 }
@@ -142,14 +150,36 @@ class StepRewardViewController: BaseViewController {
         }
     }
     
+    func onFetchIrisReward(_ account: Account) {
+        let url = IRIS_LCD_URL_REWARD + account.account_address + IRIS_LCD_URL_REWARD_TAIL
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let irisRewards = res as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                self.pageHolderVC.mIrisRewards = IrisRewards(irisRewards as! [String : Any])
+                
+            case .failure(let error):
+                if(SHOW_LOG) {
+                    print("onFetchIrisReward ", error)
+                }
+            }
+            self.onFetchFinished()
+        }
+        
+    }
+    
     func onFetchRewardAddress(_ accountAddr: String) {
-//        print("onFetchRewardAddress")
-        let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
+        var url = ""
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseString { (response) in
             switch response.result {
             case .success(let res):

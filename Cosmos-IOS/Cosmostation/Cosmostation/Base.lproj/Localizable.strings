@@ -94,6 +94,7 @@
 "app_locked" = "App Locked";
 "coingecko" = "CoinGecko";
 "coinmarketcap" = "CoinMarket Cap";
+"from_all_my_val" = "From all my validators";
 
 
 "clear_all" = "Clear All";

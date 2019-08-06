@@ -289,26 +289,44 @@ class GenTxResultViewController: BaseViewController {
             
             
             
-        } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+        } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_DEL || mTxType == IRIS_MSG_TYPE_WITHDRAW) {
             self.rewardResultView.isHidden = false
             self.loadingView.isHidden = true
             
-            rewardResultType.text = NSLocalizedString("tx_get_reward", comment: "")
-            rewardResultHash.text = mTxInfo?.txhash
-            rewardResultBlock.text = mTxInfo?.height
-            rewardResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
-            
-            rewardResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, rewardResultFee.font, 6)
-            var rewardValAddress = ""
-            if((mTxInfo?.tx.value.msg.count)! > 1) {
-                rewardValAddress = (mTxInfo?.tx.value.msg[0].value.validator_address)! + " \n + " + String((mTxInfo?.tx.value.msg.count)! - 1)
-            } else {
-                rewardValAddress = (mTxInfo?.tx.value.msg[0].value.validator_address)!
+            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                rewardResultType.text = NSLocalizedString("tx_get_reward", comment: "")
+                rewardResultHash.text = mTxInfo?.txhash
+                rewardResultBlock.text = mTxInfo?.height
+                rewardResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+                
+                rewardResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, rewardResultFee.font, 6)
+                var rewardValAddress = ""
+                if((mTxInfo?.tx.value.msg.count)! > 1) {
+                    rewardValAddress = (mTxInfo?.tx.value.msg[0].value.validator_address)! + " \n + " + String((mTxInfo?.tx.value.msg.count)! - 1)
+                } else {
+                    rewardValAddress = (mTxInfo?.tx.value.msg[0].value.validator_address)!
+                }
+                rewardResultFromValAddress.text = rewardValAddress
+                rewardResultFromValAddress.adjustsFontSizeToFitWidth = true
+                rewardResultMemo.text = mTxInfo?.tx.value.memo
+                
+            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                rewardResultHash.text = mTxInfo?.hash
+                rewardResultBlock.text = mTxInfo?.height
+                rewardResultTime.text = "-"
+                
+                rewardResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, rewardResultFee.font, 18, self.mChain!)
+                if (mTxInfo?.tx.value.msg[0].type == IRIS_MSG_TYPE_WITHDRAW_ALL) {
+                    rewardResultType.text = NSLocalizedString("tx_get_reward_all", comment: "")
+                    rewardResultFromValAddress.text = NSLocalizedString("from_all_my_val", comment: "")
+                    
+                } else if (mTxInfo?.tx.value.msg[0].type == IRIS_MSG_TYPE_WITHDRAW) {
+                    rewardResultType.text = NSLocalizedString("tx_get_reward", comment: "")
+                    rewardResultFromValAddress.text = (mTxInfo?.tx.value.msg[0].value.validator_addr)!
+                }
+                rewardResultFromValAddress.adjustsFontSizeToFitWidth = true
+                rewardResultMemo.text = mTxInfo?.tx.value.memo
             }
-            rewardResultFromValAddress.text = rewardValAddress
-            rewardResultFromValAddress.adjustsFontSizeToFitWidth = true
-            rewardResultMemo.text = mTxInfo?.tx.value.memo
-            
             
         } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
             self.addressChangeResultView.isHidden = false

@@ -721,8 +721,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     
     func onStartDelegate() {
-//        print("onStartDelegate")
-        if(!mAccount!.account_has_private) {
+        if (!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
         }
@@ -753,34 +752,33 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onStartUndelegate() {
-//        print("onStartUndelegate")
-        if(!mAccount!.account_has_private) {
+        if (!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
         }
         
-        if(mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
+        if (mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
             self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
             return
         }
         
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            if(mUnbondings.count >= 7) {
+            if (mUnbondings.count >= 7) {
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
             }
             var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-            if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
+            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            if(mUnbondings.count >= 1) {
+            if (mUnbondings.count >= 1) {
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
             }
             var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-            if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
+            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -801,11 +799,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onCheckRedelegate() {
 //        print("onStartRedelegate")
-        if(!mAccount!.account_has_private) {
+        if (!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
         }
-        if(mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
+        if (mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
             self.onShowToast(NSLocalizedString("error_not_redelegate", comment: ""))
             return
         }
@@ -829,44 +827,71 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.navigationController?.pushViewController(stakingVC, animated: true)
     }
     
-    
-    
     func onStartGetSingleReward() {
 //        print("onStartGetSingleReward")
-        if(!mAccount!.account_has_private) {
+        if (!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
         }
-        if(mRewards.count > 0) {
-            let rewardSum = WUtils.getAllAtomReward(mRewards)
-            if(rewardSum == NSDecimalNumber.zero) {
+        
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllAtomReward(mRewards)
+                if(rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if(rewardSum.compare(NSDecimalNumber(string: "1")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if(rewardSum.compare(NSDecimalNumber(string: "1")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+            
+            var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             
-        } else {
-            self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
-            return
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (mIrisRewards != nil) {
+                let rewardSum = mIrisRewards?.getPerValReward(valOp: mValidator!.operator_address)
+                if(rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if(rewardSum!.compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            
+            var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
-        
-        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-            return
-        }
-        
         
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         var validators = Array<Validator>()
         validators.append(mValidator!)
         stakingVC.mRewardTargetValidators = validators
-        stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            stakingVC.mType = IRIS_MSG_TYPE_WITHDRAW
+        }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
+        
         
     }
     

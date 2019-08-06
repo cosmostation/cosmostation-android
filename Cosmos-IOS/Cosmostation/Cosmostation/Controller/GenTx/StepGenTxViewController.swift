@@ -24,6 +24,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mUnbondingList = Array<Unbonding>()
     
     var mRewardList = Array<Reward>()
+    var mIrisRewards: IrisRewards?
     var mRewardAddress: String?
     
     var mTargetValidator: Validator?

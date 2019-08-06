@@ -2017,6 +2017,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         <outlet property="loadingImg" destination="mDC-qx-uiX" id="qIS-kq-6fx"/>
                         <outlet property="nextBtn" destination="gZw-z1-0l3" id="mmX-et-pDG"/>
                         <outlet property="rewardAmountLabel" destination="WAC-zm-EDp" id="Uns-EQ-dmy"/>
+                        <outlet property="rewardDenomLabel" destination="myt-1d-ac3" id="kfk-EI-H7x"/>
                         <outlet property="rewardFromLabel" destination="sNc-sK-vcI" id="uJK-oe-mZy"/>
                         <outlet property="rewardToAddressLabel" destination="MLr-AV-Cs3" id="gd1-iU-Ljl"/>
                         <outlet property="rewardToAddressTitle" destination="Qwe-1G-kEd" id="T4q-tM-Hif"/>
@@ -2984,20 +2985,20 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                             <constraint firstAttribute="height" constant="0.5" id="VnP-29-l28"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expected Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ti-nr-hEI">
-                                        <rect key="frame" x="16" y="282.5" width="118.5" height="16.5"/>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expected Available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ti-nr-hEI">
+                                        <rect key="frame" x="16" y="282.5" width="110" height="15"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9m-C3-Kqd">
-                                        <rect key="frame" x="293" y="284.5" width="34" height="14"/>
+                                        <rect key="frame" x="293" y="283.5" width="34" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ym4-5H-0AT">
-                                        <rect key="frame" x="284" y="282.5" width="5" height="16.5"/>
+                                        <rect key="frame" x="284" y="281.5" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -3026,6 +3027,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstItem="acl-iM-CuU" firstAttribute="firstBaseline" secondItem="BxN-19-h60" secondAttribute="firstBaseline" id="RhE-Yc-ygV"/>
                                     <constraint firstItem="Ym4-5H-0AT" firstAttribute="firstBaseline" secondItem="7ti-nr-hEI" secondAttribute="firstBaseline" id="SmI-Cq-3yz"/>
                                     <constraint firstItem="BxN-19-h60" firstAttribute="leading" secondItem="hs2-Cp-sIV" secondAttribute="leading" constant="16" id="U7S-SA-pVw"/>
+                                    <constraint firstItem="Ym4-5H-0AT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7ti-nr-hEI" secondAttribute="trailing" constant="8" symbolic="YES" id="X2D-wj-9Hv"/>
                                     <constraint firstItem="oUF-9B-3Wj" firstAttribute="leading" secondItem="hs2-Cp-sIV" secondAttribute="leading" constant="16" id="XfU-eY-AUx"/>
                                     <constraint firstItem="qrU-if-jGX" firstAttribute="top" secondItem="Mjn-tU-bDU" secondAttribute="bottom" constant="8" id="Ye3-b8-gsd"/>
                                     <constraint firstItem="V77-qx-hi9" firstAttribute="leading" secondItem="6qP-FZ-PaU" secondAttribute="trailing" constant="4" id="Yhd-Or-rgT"/>
@@ -3120,16 +3122,18 @@ The actual amount of rewards you receive may be equal to or greater than what is
                     <connections>
                         <outlet property="beforeBtn" destination="eYG-f0-HLx" id="oNq-tz-U0h"/>
                         <outlet property="confirmBtn" destination="FNK-rn-Q6z" id="hT9-0i-mu4"/>
-                        <outlet property="expectedAmountAtom" destination="M9m-C3-Kqd" id="hUh-om-yYZ"/>
                         <outlet property="expectedAmountLabel" destination="Ym4-5H-0AT" id="cAc-Ec-rYB"/>
                         <outlet property="expectedAmountTitle" destination="7ti-nr-hEI" id="5YS-Nc-cxh"/>
+                        <outlet property="expectedDenomLabel" destination="M9m-C3-Kqd" id="hUh-om-yYZ"/>
                         <outlet property="expectedSeparator" destination="PZB-nq-LLp" id="ibD-D8-ZZq"/>
                         <outlet property="feeAmountLabel" destination="I3D-DX-Pnj" id="eIY-Uw-wYh"/>
+                        <outlet property="feeDenomLabel" destination="acl-iM-CuU" id="isb-oX-K6o"/>
                         <outlet property="fromValidatorLabel" destination="oUF-9B-3Wj" id="5iv-RQ-mc3"/>
                         <outlet property="memoLabel" destination="jJH-82-FMf" id="ntM-cP-Sxo"/>
                         <outlet property="recipientLabel" destination="qrU-if-jGX" id="wwy-rp-Fgf"/>
                         <outlet property="recipientTitleLabel" destination="Mjn-tU-bDU" id="r1p-qQ-B8y"/>
                         <outlet property="rewardAmoutLaebl" destination="6qP-FZ-PaU" id="kKb-lr-Zfu"/>
+                        <outlet property="rewardDenomLabel" destination="V77-qx-hi9" id="RGi-w5-Dyc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BW9-x9-Yge" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -59,14 +59,12 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "feeImg")
             self.speedMsg.text = NSLocalizedString("fee_speed_iris_title", comment: "")
             
-            if (pageHolderVC.mType != IRIS_MSG_TYPE_WITHDRAW_ALL) {
-                let gasAmount = getEstimateGasAmount()
-                let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_IRIS_AVERAGE)
-                self.rateFeeGasAmountLabel.text = gasAmount.stringValue
-                self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 6)
-                feeAmount = gasAmount.multiplying(byPowerOf10: 18).multiplying(by: gasRate, withBehavior: WUtils.handler0)
-                self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 1, pageHolderVC.userChain!)
-            }
+            let gasAmount = getEstimateGasAmount()
+            let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_IRIS_AVERAGE)
+            self.rateFeeGasAmountLabel.text = gasAmount.stringValue
+            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 6)
+            feeAmount = gasAmount.multiplying(byPowerOf10: 18).multiplying(by: gasRate, withBehavior: WUtils.handler0)
+            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 3, pageHolderVC.userChain!)
             
             var priceTic:NSDictionary?
             if (BaseData.instance.getMarket() == 0) {
@@ -287,18 +285,18 @@ class StepFeeViewController: BaseViewController {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
                 
-            } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
                 
-            } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
                 
-            } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
                 
-            } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
                 
-            } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
                 result = rewardAllGasAmounts[pageHolderVC.mRewardTargetValidators.count-1]
                 
             } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
@@ -309,6 +307,9 @@ class StepFeeViewController: BaseViewController {
         } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
             if (pageHolderVC.mType == IRIS_MSG_TYPE_DELEGATE) {
+                
+            } else if (pageHolderVC.mType == IRIS_MSG_TYPE_WITHDRAW || pageHolderVC.mType == IRIS_MSG_TYPE_WITHDRAW_ALL) {
+                result = (NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_MUX).multiplying(by: NSDecimalNumber.init(value: pageHolderVC.mRewardTargetValidators.count))).adding(NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
                 
             } else {
                 

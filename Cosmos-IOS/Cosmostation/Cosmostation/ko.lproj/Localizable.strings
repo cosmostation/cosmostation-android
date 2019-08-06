@@ -94,6 +94,7 @@
 "app_locked" = "앱 잠김";
 "coingecko" = "CoinGecko";
 "coinmarketcap" = "CoinMarket Cap";
+"from_all_my_val" = "내 모든 검증인으로 부터";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";

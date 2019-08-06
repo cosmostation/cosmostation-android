@@ -76,8 +76,23 @@ class MsgGenerator {
             msg.value = value
             
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            value.delegator_addr = fromAddress
+            value.validator_addr = toValAddress
             
+            msg.type = IRIS_MSG_TYPE_WITHDRAW
+            msg.value = value
         }
+        return msg
+    }
+    
+    static func genIrisGetAllRewardMsg(_ fromAddress: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        
+        value.delegator_addr = fromAddress
+        msg.type = IRIS_MSG_TYPE_WITHDRAW_ALL
+        msg.value = value
+        
         return msg
     }
     

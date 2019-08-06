@@ -122,10 +122,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                 var signatures: Array<Signature> = Array<Signature>()
                 signatures.append(genedSignature)
                 
-                stdTx = MsgGenerator.genSignedTx(msgList,
-                                                 self.pageHolderVC.mFee!,
-                                                 self.pageHolderVC.mMemo!,
-                                                 signatures)
+                stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
                 
             } catch {
                 if (SHOW_LOG) { print(error) }
@@ -172,7 +169,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
                     }
                     
                 } catch {
-                    print(error)
+                    if (SHOW_LOG) { print(error) }
                 }
             });
         }
