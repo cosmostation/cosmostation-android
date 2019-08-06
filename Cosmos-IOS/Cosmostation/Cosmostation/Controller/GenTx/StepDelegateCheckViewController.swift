@@ -38,7 +38,6 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
         passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
         passwordVC.resultDelegate = self
         self.navigationController?.pushViewController(passwordVC, animated: false)
-        
     }
     
     

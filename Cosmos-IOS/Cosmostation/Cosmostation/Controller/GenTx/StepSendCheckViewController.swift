@@ -230,9 +230,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 
                 
             } catch {
-                if(SHOW_LOG) {
-                    print(error)
-                }
+                if(SHOW_LOG) { print(error) }
             }
             
             DispatchQueue.main.async(execute: {
@@ -275,9 +273,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         }
                     }
 
-
                 } catch {
-                    print(error)
+                    if(SHOW_LOG) { print(error) }
                 }
             });
         }

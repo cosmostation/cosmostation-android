@@ -44,10 +44,10 @@
                                 <rect key="frame" x="0.0" y="70" width="375" height="60"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="4StepImg1" translatesAutoresizingMaskIntoConstraints="NO" id="3xJ-ty-n1M">
-                                        <rect key="frame" x="122.5" y="8" width="130" height="18"/>
+                                        <rect key="frame" x="179.5" y="8" width="16" height="16"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description for Transaction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUG-5q-kHF">
-                                        <rect key="frame" x="104" y="38" width="167" height="17"/>
+                                        <rect key="frame" x="104" y="36" width="167" height="17"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -634,6 +634,7 @@
                         <outlet property="availableAmountLabel" destination="zVi-Do-p21" id="iow-cF-yMX"/>
                         <outlet property="btn01" destination="QEJ-qm-9j4" id="glO-L1-16X"/>
                         <outlet property="cancelBtn" destination="Rhf-lF-k9m" id="zwp-2L-5KT"/>
+                        <outlet property="denomTitleLabel" destination="ftb-kO-B70" id="tGu-dM-6zb"/>
                         <outlet property="nextBtn" destination="hrT-jx-lIm" id="5zV-Qn-lJQ"/>
                         <outlet property="toUndelegateAmountInput" destination="86d-1d-w9t" id="VhA-PG-LiR"/>
                     </connections>
@@ -2875,9 +2876,11 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         <outlet property="confirmBtn" destination="FaM-ng-nuA" id="sSr-oV-0A2"/>
                         <outlet property="expectedDateLabel" destination="M3x-EA-AuW" id="3GN-W5-xYZ"/>
                         <outlet property="feeAmountLabel" destination="l6o-dV-tyt" id="ohI-dq-y6g"/>
+                        <outlet property="feeDenomLabel" destination="NtY-Ye-cGf" id="LX9-FX-UcX"/>
                         <outlet property="memoLabel" destination="8Dc-Kp-Vws" id="tYY-nf-ubD"/>
                         <outlet property="targetValidatorLabel" destination="rDT-J4-fp8" id="DL5-Ot-X1h"/>
                         <outlet property="toUnDelegateAmoutLaebl" destination="KcI-v9-dWn" id="520-e8-q0g"/>
+                        <outlet property="toUndelegateDenomLabel" destination="4bd-6d-3iY" id="apK-Qb-AKF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s14-fr-beb" userLabel="First Responder" sceneMemberID="firstResponder"/>

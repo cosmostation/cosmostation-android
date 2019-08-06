@@ -747,7 +747,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             stakingVC.mType = IRIS_MSG_TYPE_DELEGATE
         }
-        IRIS_MSG_TYPE_TRANSFER
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
         
@@ -765,20 +764,35 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             return
         }
         
-        if(mUnbondings.count >= 7) {
-            self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
-            return
-        }
-        
-        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-            return
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(mUnbondings.count >= 7) {
+                self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
+                return
+            }
+            var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if(mUnbondings.count >= 1) {
+                self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
+                return
+            }
+            var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
         
         let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
         stakingVC.mTargetValidator = mValidator
-        stakingVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            stakingVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            stakingVC.mType = IRIS_MSG_TYPE_UNDELEGATE
+        }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
         

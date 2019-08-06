@@ -56,7 +56,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepDelegateCheckViewController")]
             
-        } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+        } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2 || mType == IRIS_MSG_TYPE_UNDELEGATE) {
             return [self.newVc(viewController: "StepUndelegateAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),

@@ -212,21 +212,34 @@ class GenTxResultViewController: BaseViewController {
                 delegateResultMemo.text = mTxInfo?.tx.value.memo
             }
             
-        } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+        } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 || mTxType == IRIS_MSG_TYPE_UNDELEGATE) {
             self.undelegateResultView.isHidden = false
             self.loadingView.isHidden = true
             
-            undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
-            undelegateResultHash.text = mTxInfo?.txhash
-            undelegateResultBlock.text = mTxInfo?.height
-            undelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
-            
-//            undelegateResultAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount?.amount)!, undelegateResultAmount.font, 6)
-            undelegateResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, undelegateResultFee.font, 6)
-            undelegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
-            undelegateResultValAddress.adjustsFontSizeToFitWidth = true
-            undelegateResultMemo.text = mTxInfo?.tx.value.memo
-            
+            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
+                undelegateResultHash.text = mTxInfo?.txhash
+                undelegateResultBlock.text = mTxInfo?.height
+                undelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+                
+                undelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmount()?.amount)!, undelegateResultAmount.font, 6, self.mChain!)
+                undelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, undelegateResultFee.font, 6, self.mChain!)
+                undelegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
+                undelegateResultValAddress.adjustsFontSizeToFitWidth = true
+                undelegateResultMemo.text = mTxInfo?.tx.value.memo
+                
+            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
+                undelegateResultHash.text = mTxInfo?.hash
+                undelegateResultBlock.text = mTxInfo?.height
+                undelegateResultTime.text = "-"
+                
+                undelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.shares_amount)!, undelegateResultAmount.font, 18, self.mChain!)
+                undelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, undelegateResultFee.font, 18, self.mChain!)
+                undelegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_addr
+                undelegateResultValAddress.adjustsFontSizeToFitWidth = true
+                undelegateResultMemo.text = mTxInfo?.tx.value.memo
+            }
             
         } else if (mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
             self.redelegateResultView.isHidden = false

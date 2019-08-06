@@ -30,7 +30,7 @@ class StakingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//         print("StakingViewController")
+         print("StakingViewController ", mType)
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         userChain = WUtils.getChainType(mAccount!.account_base_chain)
         if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
@@ -44,7 +44,7 @@ class StakingViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_delegate", comment: "")
             
-        } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+        } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2 || mType == IRIS_MSG_TYPE_UNDELEGATE) {
             stepDescription.text = NSLocalizedString("undelegate_step_1", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_undelegate", comment: "")
@@ -119,7 +119,7 @@ class StakingViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2 || mType == IRIS_MSG_TYPE_UNDELEGATE) {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("undelegate_step_1", comment: "")
                     
@@ -146,11 +146,11 @@ class StakingViewController: UIViewController {
                 
                 
             } else if (step == 1) {
-                if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+                if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("delegate_step_2", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2 || mType == IRIS_MSG_TYPE_UNDELEGATE) {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("delegate_step_2", comment: "")
                     
@@ -178,11 +178,11 @@ class StakingViewController: UIViewController {
                 
                 
             } else if (step == 2) {
-                if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+                if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("delegate_step_3", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2 || mType == IRIS_MSG_TYPE_UNDELEGATE) {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("delegate_step_3", comment: "")
                     
@@ -210,11 +210,11 @@ class StakingViewController: UIViewController {
                 
                 
             } else if (step == 3) {
-                if (mType == COSMOS_MSG_TYPE_DELEGATE) {
+                if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("delegate_step_4", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2 || mType == IRIS_MSG_TYPE_UNDELEGATE) {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("undelegate_step_4", comment: "")
                     

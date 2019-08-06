@@ -12,6 +12,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
     
     @IBOutlet weak var toUndelegateAmountInput: AmountInputTextField!
     @IBOutlet weak var availableAmountLabel: UILabel!
+    @IBOutlet weak var denomTitleLabel: UILabel!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var btn01: UIButton!
@@ -22,8 +23,15 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(pageHolderVC.userChain!, denomTitleLabel)
+        
         userDelegated = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address)!.getBondingAmount(pageHolderVC.mTargetValidator!)
-        availableAmountLabel.attributedText = WUtils.displayAmout(userDelegated.stringValue, availableAmountLabel.font, 6)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            availableAmountLabel.attributedText = WUtils.displayAmount(userDelegated.stringValue, availableAmountLabel.font, 6, pageHolderVC.userChain!)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            availableAmountLabel.attributedText = WUtils.displayAmount(userDelegated.stringValue, availableAmountLabel.font, 18, pageHolderVC.userChain!)
+        }
+        
         toUndelegateAmountInput.delegate = self
         toUndelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
@@ -38,22 +46,37 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             
             if (text.count == 0 && string.starts(with: ".")) { return false }
             
-            if let index = text.range(of: ".")?.upperBound {
-                if(text.substring(from: index).count > 5 && range.length == 0) {
-                    return false
-                }
-            }
-            
             if (text.contains(",") && string.contains(",") && range.length == 0) { return false }
             
             if (text.count == 0 && string.starts(with: ",")) { return false }
             
-            if let index = text.range(of: ",")?.upperBound {
-                if(text.substring(from: index).count > 5 && range.length == 0) {
-                    return false
+            
+            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if let index = text.range(of: ".")?.upperBound {
+                    if(text.substring(from: index).count > 5 && range.length == 0) {
+                        return false
+                    }
+                }
+                
+                if let index = text.range(of: ",")?.upperBound {
+                    if(text.substring(from: index).count > 5 && range.length == 0) {
+                        return false
+                    }
+                }
+                
+            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                if let index = text.range(of: ".")?.upperBound {
+                    if(text.substring(from: index).count > 17 && range.length == 0) {
+                        return false
+                    }
+                }
+                
+                if let index = text.range(of: ",")?.upperBound {
+                    if(text.substring(from: index).count > 17 && range.length == 0) {
+                        return false
+                    }
                 }
             }
-            
         }
         return true
     }
@@ -82,9 +105,17 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
         }
-        if (userInput.multiplying(by: 1000000).compare(userDelegated).rawValue > 0) {
-            self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-            return
+        
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (userInput.multiplying(by: 1000000).compare(userDelegated).rawValue > 0) {
+                self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (userInput.multiplying(by: 1000000000000000000).compare(userDelegated).rawValue > 0) {
+                self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
         }
         self.toUndelegateAmountInput.layer.borderColor = UIColor.white.cgColor
     }
@@ -95,7 +126,15 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (userInput.multiplying(by: 1000000).compare(userDelegated).rawValue > 0) { return false}
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (userInput.multiplying(by: 1000000).compare(userDelegated).rawValue > 0) {
+                return false
+            }
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (userInput.multiplying(by: 1000000000000000000).compare(userDelegated).rawValue > 0) {
+                return false
+            }
+        }
         return true
     }
     
@@ -109,15 +148,13 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
     @IBAction func onClickNext(_ sender: UIButton) {
         if(isValiadAmount()) {
             let userInput = WUtils.stringToDecimal((toUndelegateAmountInput.text?.trimmingCharacters(in: .whitespaces))!)
-            var coin:Coin
-            if(TESTNET) {
-                coin = Coin.init("muon", userInput.multiplying(by: 1000000).stringValue)
-            } else {
-                coin = Coin.init("uatom", userInput.multiplying(by: 1000000).stringValue)
-                
+            var coin:Coin?
+            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
+            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                coin = Coin.init(IRIS_MAIN_DENOM, userInput.multiplying(by: 1000000000000000000).stringValue)
             }
             pageHolderVC.mToUndelegateAmount = coin
-            
             sender.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
             
@@ -176,13 +213,23 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
-        let halfValue = userDelegated.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
-        toUndelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let halfValue = userDelegated.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
+            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.userChain!)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let halfValue = userDelegated.dividing(by: NSDecimalNumber(string: "2000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
+            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.userChain!)
+        }
         self.onUIupdate()
     }
     @IBAction func onClickMax(_ sender: UIButton) {
-        let maxValue = userDelegated.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
-        toUndelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let maxValue = userDelegated.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
+            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.userChain!)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let maxValue = userDelegated.dividing(by: NSDecimalNumber(string: "1000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
+            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.userChain!)
+        }
         self.onUIupdate()
     }
 }

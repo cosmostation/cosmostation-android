@@ -14,7 +14,9 @@ import SwiftKeychainWrapper
 class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegate{
     
     @IBOutlet weak var toUnDelegateAmoutLaebl: UILabel!
+    @IBOutlet weak var toUndelegateDenomLabel: UILabel!
     @IBOutlet weak var feeAmountLabel: UILabel!
+    @IBOutlet weak var feeDenomLabel: UILabel!
     @IBOutlet weak var targetValidatorLabel: UILabel!
     @IBOutlet weak var expectedDateLabel: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
@@ -26,6 +28,8 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(pageHolderVC.userChain!, toUndelegateDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.userChain!, feeDenomLabel)
     }
     
     
@@ -55,8 +59,13 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
-        toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmout((pageHolderVC.mToUndelegateAmount?.amount)!, toUnDelegateAmoutLaebl.font, 6)
-        feeAmountLabel.attributedText = WUtils.displayAmout((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount((pageHolderVC.mToUndelegateAmount?.amount)!, toUnDelegateAmoutLaebl.font, 6, pageHolderVC.userChain!)
+            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.userChain!)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount((pageHolderVC.mToUndelegateAmount?.amount)!, toUnDelegateAmoutLaebl.font, 18, pageHolderVC.userChain!)
+            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 18, pageHolderVC.userChain!)
+        }
         targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
         memoLabel.text = pageHolderVC.mMemo
         expectedDateLabel.text = WUtils.unbondingDateFromNow() + " (21days after)"
@@ -70,7 +79,6 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     
     
     func onGenUnDelegateTx() {
-//        print("onGenUnDelegateTx")
         self.showWaittingAlert()
         DispatchQueue.global().async {
             var stdTx:StdTx!
@@ -88,43 +96,71 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 
                 var msgList = Array<Msg>()
                 msgList.append(msg)
-                let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
-                                                       String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                       String(self.pageHolderVC.mAccount!.account_sequence_number),
-                                                       msgList,
-                                                       self.pageHolderVC.mFee!,
-                                                       self.pageHolderVC.mMemo!)
                 
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = .sortedKeys
-                let data = try? encoder.encode(stdMsg)
-                let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                let rawData: Data? = rawResult!.data(using: .utf8)
-                let hash = Crypto.sha256(rawData!)
-                
-                let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-                
-                var genedSignature = Signature.init()
-                var genPubkey =  PublicKey.init()
-                genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
-                genedSignature.pub_key = genPubkey
-                genedSignature.signature = WKey.convertSignature(signedData!)
-                genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
-                genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-                
-                var signatures: Array<Signature> = Array<Signature>()
-                signatures.append(genedSignature)
-                
-                stdTx = MsgGenerator.genSignedTx(msgList,
-                                                 self.pageHolderVC.mFee!,
-                                                 self.pageHolderVC.mMemo!,
-                                                 signatures)
-//                print("stdTx ", stdTx)
+                if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
+                                                           String(self.pageHolderVC.mAccount!.account_account_numner),
+                                                           String(self.pageHolderVC.mAccount!.account_sequence_number),
+                                                           msgList,
+                                                           self.pageHolderVC.mFee!,
+                                                           self.pageHolderVC.mMemo!)
+                    
+                    let encoder = JSONEncoder()
+                    encoder.outputFormatting = .sortedKeys
+                    let data = try? encoder.encode(stdMsg)
+                    let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
+                    let rawData: Data? = rawResult!.data(using: .utf8)
+                    let hash = Crypto.sha256(rawData!)
+                    
+                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                    
+                    var genedSignature = Signature.init()
+                    var genPubkey =  PublicKey.init()
+                    genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
+                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                    genedSignature.pub_key = genPubkey
+                    genedSignature.signature = WKey.convertSignature(signedData!)
+                    genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                    genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
+                    
+                    var signatures: Array<Signature> = Array<Signature>()
+                    signatures.append(genedSignature)
+                    
+                    stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
+                    
+                } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    let irisStdMsg = MsgGenerator.getIrisToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
+                                                                   String(self.pageHolderVC.mAccount!.account_account_numner),
+                                                                   String(self.pageHolderVC.mAccount!.account_sequence_number),
+                                                                   msgList,
+                                                                   self.pageHolderVC.mFee!,
+                                                                   self.pageHolderVC.mMemo!)
+                    
+                    let encoder = JSONEncoder()
+                    encoder.outputFormatting = .sortedKeys
+                    let data = try? encoder.encode(irisStdMsg)
+                    let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
+                    let rawData: Data? = rawResult!.data(using: .utf8)
+                    let hash = Crypto.sha256(rawData!)
+                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                    
+                    var genedSignature = Signature.init()
+                    var genPubkey =  PublicKey.init()
+                    genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
+                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                    genedSignature.pub_key = genPubkey
+                    genedSignature.signature = WKey.convertSignature(signedData!)
+                    genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                    genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
+                    
+                    var signatures: Array<Signature> = Array<Signature>()
+                    signatures.append(genedSignature)
+                    
+                    stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
+                }
                 
             } catch {
-                print(error)
-                
+                if(SHOW_LOG) { print(error) }
             }
             
             DispatchQueue.main.async(execute: {
@@ -155,16 +191,21 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                             }
                             
                         }
-                        self.hideWaittingAlert()
-                        txResult["type"] = COSMOS_MSG_TYPE_UNDELEGATE2
-                        self.onStartTxResult(txResult)
+                        if (self.waitAlert != nil) {
+                            self.waitAlert?.dismiss(animated: true, completion: {
+                                if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                                    txResult["type"] = COSMOS_MSG_TYPE_UNDELEGATE2
+                                } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                                    txResult["type"] = IRIS_MSG_TYPE_UNDELEGATE
+                                }
+                                self.onStartTxResult(txResult)
+                            })
+                        }
                     }
 
-                    
-                }catch {
-                    print(error)
+                } catch {
+                    if(SHOW_LOG) { print(error) }
                 }
-                
             });
         }
     }

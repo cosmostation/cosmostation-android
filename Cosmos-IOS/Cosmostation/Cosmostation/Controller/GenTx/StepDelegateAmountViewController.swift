@@ -89,7 +89,6 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
                     }
                 }
             }
-            
         }
         return true
     }
@@ -130,7 +129,6 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
                 return
             }
         }
-        
         self.toDelegateAmountInput.layer.borderColor = UIColor.white.cgColor
     }
     
@@ -166,9 +164,9 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
                 coin = Coin.init(IRIS_MAIN_DENOM, userInput.multiplying(by: 1000000000000000000).stringValue)
             }
             pageHolderVC.mToDelegateAmount = coin
-            
             sender.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
+            
         } else {
             self.onShowToast(NSLocalizedString("error_amount", comment: ""))
         }

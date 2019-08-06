@@ -54,7 +54,13 @@ class MsgGenerator {
             msg.value = value
             
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            value.delegator_addr = fromAddress
+            value.validator_addr = toValAddress
             
+            //TODO need cal bal to shares.
+            value.shares_amount = amount.amount + ".0000000000"
+            msg.type = IRIS_MSG_TYPE_UNDELEGATE;
+            msg.value = value;
         }
         return msg
     }
