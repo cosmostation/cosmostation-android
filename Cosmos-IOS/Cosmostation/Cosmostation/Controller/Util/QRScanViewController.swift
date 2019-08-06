@@ -54,6 +54,25 @@ class QRScanViewController: UIViewController {
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             captureMetadataOutput.metadataObjectTypes = supportedCodeTypes
             
+            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            videoPreviewLayer?.frame = view.layer.bounds
+            view.layer.addSublayer(videoPreviewLayer!)
+            
+            captureSession.startRunning()
+            
+            view.bringSubviewToFront(scanGuide)
+            view.bringSubviewToFront(BtnCancel)
+            
+            qrCodeFrameView = UIView()
+            
+            if let qrCodeFrameView = qrCodeFrameView {
+                qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
+                qrCodeFrameView.layer.borderWidth = 2
+                view.addSubview(qrCodeFrameView)
+                view.bringSubviewToFront(qrCodeFrameView)
+            }
+            
         } catch {
             print(error)
             let permissionAlert = UIAlertController(title: NSLocalizedString("error_access_camera_title", comment: ""), message: NSLocalizedString("error_access_camera_msg", comment: ""), preferredStyle: .alert)
@@ -71,24 +90,7 @@ class QRScanViewController: UIViewController {
             return
         }
         
-        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        videoPreviewLayer?.frame = view.layer.bounds
-        view.layer.addSublayer(videoPreviewLayer!)
         
-        captureSession.startRunning()
-        
-        view.bringSubviewToFront(scanGuide)
-        view.bringSubviewToFront(BtnCancel)
-        
-        qrCodeFrameView = UIView()
-        
-        if let qrCodeFrameView = qrCodeFrameView {
-            qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
-            qrCodeFrameView.layer.borderWidth = 2
-            view.addSubview(qrCodeFrameView)
-            view.bringSubviewToFront(qrCodeFrameView)
-        }
         
     }
     

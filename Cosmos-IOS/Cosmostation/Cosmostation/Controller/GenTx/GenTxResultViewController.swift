@@ -175,7 +175,14 @@ class GenTxResultViewController: BaseViewController {
 //        print("onShowErrorView")
         self.txResultTitleLabel.text = "Transaction Failed"
         self.txResultTitleLabel.textColor = UIColor.init(hexString: "f31963")
-        self.errorCode.text =  "error code : " + String(code) + "\n" + ((response?["raw_log"] as? String)!)
+        var logMsg = ""
+        if let errorMsg = response?["raw_log"] as? String {
+            logMsg = errorMsg;
+        }
+        if let errorMsg = response?["log"] as? String {
+            logMsg = errorMsg;
+        }
+        self.errorCode.text =  "error code : " + String(code) + "\n" + logMsg
         self.loadingView.isHidden = true
         self.errorCardView.isHidden = false
     }
