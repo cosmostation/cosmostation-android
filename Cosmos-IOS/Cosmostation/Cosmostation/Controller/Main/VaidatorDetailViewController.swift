@@ -380,7 +380,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                         cell!.myMonthlyReturns.text = "-"
                     }
                 } else if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                    if (mIrisStakePool != nil) {
+                    if (mIrisStakePool != nil && mBonding != nil) {
                         let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
                         let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
                         cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: userChain!)

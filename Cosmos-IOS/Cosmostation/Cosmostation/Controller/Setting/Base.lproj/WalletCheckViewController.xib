@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WalletCheckViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
+                <outlet property="cardView" destination="WXL-Kh-yRS" id="11q-qs-gcH"/>
                 <outlet property="mnemonic0" destination="cFO-Wb-TG7" id="Rir-2L-GEO"/>
                 <outlet property="mnemonic1" destination="Izo-IU-iIW" id="jhv-dK-SFJ"/>
                 <outlet property="mnemonic10" destination="qmf-a1-vy7" id="MUi-hc-ave"/>
@@ -44,7 +45,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="YPl-Ol-HYJ">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_intro_gr" translatesAutoresizingMaskIntoConstraints="NO" id="YPl-Ol-HYJ">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXL-Kh-yRS" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
@@ -703,7 +704,7 @@ You can recover your wallet using your mnemonics</string>
         </view>
     </objects>
     <resources>
-        <image name="bg_01" width="807" height="1500"/>
+        <image name="bg_intro_gr" width="360" height="740"/>
         <image name="warning_ic" width="38" height="38"/>
     </resources>
 </document>

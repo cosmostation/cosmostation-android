@@ -11,15 +11,17 @@ import QRCode
 import Alamofire
 
 class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
-    
-    
+
     var accountId: Int64?
     var mAccount: Account!
+    var userChain: ChainType?
     
+    @IBOutlet weak var cardAddress: CardView!
     @IBOutlet weak var chainImg: UIImageView!
     @IBOutlet weak var walletName: UILabel!
     @IBOutlet weak var walletAddress: UILabel!
     
+    @IBOutlet weak var cardInfo: CardView!
     @IBOutlet weak var chainName: UILabel!
     @IBOutlet weak var importDate: UILabel!
     @IBOutlet weak var importState: UILabel!
@@ -27,6 +29,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     @IBOutlet weak var keyPath: UILabel!
     @IBOutlet weak var noKeyMsg: UILabel!
     
+    @IBOutlet weak var cardReward: CardView!
     @IBOutlet weak var rewardCard: CardView!
     @IBOutlet weak var rewardAddress: UILabel!
     
@@ -40,22 +43,26 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     func updateView() {
         mAccount = BaseData.instance.selectAccountById(id: accountId!)
-        if(mAccount == nil) {
-            return
-        }
+        userChain = WUtils.getChainType(mAccount!.account_base_chain)
         
         self.onFetchRewardAddress(mAccount.account_address)
         
-        if (mAccount.account_nick_name == "") { walletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mAccount.account_id)
-        } else { walletName.text = mAccount.account_nick_name }
+        if (mAccount.account_nick_name == "") {
+            walletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mAccount.account_id)
+        } else {
+            walletName.text = mAccount.account_nick_name
+        }
         
         walletAddress.text = mAccount.account_address
         walletAddress.adjustsFontSizeToFitWidth = true
         
-        if(mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
+        cardAddress.backgroundColor = WUtils.getChainBg(userChain!)
+        cardInfo.backgroundColor = WUtils.getChainBg(userChain!)
+        cardReward.backgroundColor = WUtils.getChainBg(userChain!)
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             chainName.text = "Cosmos Hub"
-        } else {
-            chainName.text = ""
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            chainName.text = "Iris Hub"
         }
         
         importDate.text = WUtils.longTimetoString(input:mAccount.account_import_time)
@@ -126,10 +133,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         
     }
     
-//    @IBAction func onClickCopy(_ sender: Any) {
-//        UIPasteboard.general.string = self.mAccount.account_address
-//        onShowToast(NSLocalizedString("address_copied", comment: ""))
-//    }
     
     @IBAction func onClickQrCode(_ sender: Any) {
         var qrCode = QRCode(self.mAccount.account_address)
@@ -187,8 +190,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     }
     
     @IBAction func onClickRewardAddressChange(_ sender: UIButton) {
-        if(!mAccount!.account_has_private) {
+        if (!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
+            return
+        }
+        
+        if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            self.onShowToast(NSLocalizedString("prepare", comment: ""))
             return
         }
         
@@ -261,7 +269,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
-    
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(310), execute: {
@@ -281,12 +288,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onFetchRewardAddress(_ accountAddr: String) {
-        let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
+        var url = ""
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseString { (response) in
             switch response.result {
             case .success(let res):

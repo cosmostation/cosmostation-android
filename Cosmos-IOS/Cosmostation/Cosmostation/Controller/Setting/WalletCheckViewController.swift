@@ -14,7 +14,9 @@ class WalletCheckViewController: BaseViewController {
 
     var accountId: Int64?
     var mAccount: Account!
+    var userChain: ChainType?
     
+    @IBOutlet weak var cardView: CardView!
     @IBOutlet weak var mnemonic0: UILabel!
     @IBOutlet weak var mnemonic1: UILabel!
     @IBOutlet weak var mnemonic2: UILabel!
@@ -58,10 +60,9 @@ class WalletCheckViewController: BaseViewController {
                                self.mnemonic20, self.mnemonic21, self.mnemonic22, self.mnemonic23]
         
         mAccount = BaseData.instance.selectAccountById(id: accountId!)
-        if(mAccount == nil) {
-//            print("WalletDetailViewController no that accout Error")
-            return
-        }
+        userChain = WUtils.getChainType(mAccount!.account_base_chain)
+        
+        cardView.backgroundColor = WUtils.getChainBg(userChain!)
         onRetriveKey()
     }
     
@@ -94,14 +95,12 @@ class WalletCheckViewController: BaseViewController {
     }
     
     func onRetriveKey() {
-        self.showWaittingAlert()
         DispatchQueue.global().async {
             if let words: String = KeychainWrapper.standard.string(forKey: self.mAccount.account_uuid.sha1()) {
                 self.mnemonicWords = words.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
             }
             
             DispatchQueue.main.async(execute: {
-                self.hideWaittingAlert()
                 self.updateView()
             });
         }

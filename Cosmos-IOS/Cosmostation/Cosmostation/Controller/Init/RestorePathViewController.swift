@@ -56,7 +56,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         WUtils.setDenomTitle(userChain!, cell!.denomTitle)
         
         let tempAccount = BaseData.instance.selectExistAccount(address: address, chain: userChain!.rawValue)
-        if(tempAccount == nil) {
+        if (tempAccount == nil) {
             cell?.stateLabel.text = NSLocalizedString("ready", comment: "")
             cell?.stateLabel.textColor = UIColor.white
             cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
@@ -88,7 +88,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     return
                 }
                 let accountInfo = AccountInfo.init(info)
-                if((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
+                if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
                 } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)

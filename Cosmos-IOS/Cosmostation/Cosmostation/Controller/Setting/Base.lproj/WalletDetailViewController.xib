@@ -13,6 +13,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WalletDetailViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
                 <outlet property="actionBtn" destination="7YT-6H-gLA" id="IrO-WP-8e2"/>
+                <outlet property="cardAddress" destination="byL-PX-1ub" id="L3G-FC-EVS"/>
+                <outlet property="cardInfo" destination="R7D-Sl-Ids" id="rou-g2-WpS"/>
+                <outlet property="cardReward" destination="C1f-W5-wv9" id="uNC-cG-dfh"/>
                 <outlet property="chainImg" destination="8Ci-E4-KXf" id="c6L-zk-zjw"/>
                 <outlet property="chainName" destination="Op6-9y-J50" id="2xu-2G-o6z"/>
                 <outlet property="importDate" destination="gsg-Id-mWi" id="ucS-jE-i6H"/>
@@ -32,7 +35,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="gTP-Kl-Gz9">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_intro_gr" translatesAutoresizingMaskIntoConstraints="NO" id="gTP-Kl-Gz9">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byL-PX-1ub" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
@@ -383,7 +386,7 @@ All services are available after mnemonics integration</string>
         </view>
     </objects>
     <resources>
-        <image name="bg_01" width="807" height="1500"/>
+        <image name="bg_intro_gr" width="360" height="740"/>
         <image name="cosmosWhMain" width="42" height="42"/>
         <image name="editBtn" width="24" height="24"/>
         <image name="key_on" width="20" height="20"/>

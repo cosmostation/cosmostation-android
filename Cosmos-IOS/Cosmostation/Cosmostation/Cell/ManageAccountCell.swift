@@ -19,10 +19,12 @@ class ManageAccountCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    @IBOutlet weak var cardView: CardView!
     @IBOutlet weak var chainImg: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var chainName: UILabel!
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var amount: UILabel!
+    @IBOutlet weak var amountDenom: UILabel!
     
 }

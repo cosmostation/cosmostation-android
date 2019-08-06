@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_01" translatesAutoresizingMaskIntoConstraints="NO" id="3A5-s1-uRf">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_intro_gr" translatesAutoresizingMaskIntoConstraints="NO" id="3A5-s1-uRf">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scanImg" translatesAutoresizingMaskIntoConstraints="NO" id="S3w-ig-01u">
@@ -74,7 +74,7 @@
         </view>
     </objects>
     <resources>
-        <image name="bg_01" width="807" height="1500"/>
+        <image name="bg_intro_gr" width="360" height="740"/>
         <image name="scanImg" width="222" height="225"/>
     </resources>
 </document>

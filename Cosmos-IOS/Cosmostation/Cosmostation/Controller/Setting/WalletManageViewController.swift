@@ -107,41 +107,49 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         }
         cell?.address.adjustsFontSizeToFitWidth = true
         
-        if (account!.account_nick_name == "") { cell?.nameLabel.text = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
-        } else { cell?.nameLabel.text = account!.account_nick_name }
+        if (account!.account_nick_name == "") {
+            cell?.nameLabel.text = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
+        } else {
+            cell?.nameLabel.text = account!.account_nick_name
+        }
         
-        let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account!.account_address,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
-        request.responseJSON { (response) in
+        let userChain = WUtils.getChainType(account!.account_base_chain)
+        cell?.cardView.backgroundColor = WUtils.getChainBg(userChain)
+        WUtils.setDenomTitle(userChain, cell!.amountDenom)
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            cell?.chainImg.image = UIImage(named: "cosmosWhMain")
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.chainImg.image = UIImage(named: "irisWh")
+            
+        }
+        
+        var request: DataRequest?
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account!.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account!.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        }
+        
+        request?.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 guard let info = res as? [String : Any] else {
-                    cell?.amount.attributedText = WUtils.displayAmout("0", cell!.amount.font!, 6)
+                    cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
                     return
                 }
                 let accountInfo = AccountInfo.init(info)
-                if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                    if(accountInfo.value.coins.count == 0) {
-                        cell?.amount.attributedText = WUtils.displayAmout("0", cell!.amount.font!, 6)
-                    } else {
-                        cell?.amount.attributedText = WUtils.displayAmout(accountInfo.value.coins[0].amount, cell!.amount.font!, 6)
-                    }
-                    
+                if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
+                    cell?.amount.attributedText = WUtils.displayAmount(accountInfo.value.coins[0].amount, cell!.amount.font!, 6, userChain)
+                } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
+                    cell?.amount.attributedText = WUtils.displayAmount(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.amount.font!, 6, userChain)
                 } else {
-                    if(accountInfo.value.BaseVestingAccount.BaseAccount.coins.count == 0) {
-                        cell?.amount.attributedText = WUtils.displayAmout("0", cell!.amount.font!, 6)
-                    } else {
-                        cell?.amount.attributedText = WUtils.displayAmout(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.amount.font!, 6)
-                    }
-                    
+                    cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
                 }
-                
+
             case .failure(let error):
                 print(error)
-                
+
             }
         }
         return cell!
@@ -164,7 +172,6 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             account = mWatchAccounts[indexPath.row]
         }
-//        print("didSelectRowAt ", account?.account_id)
         let walletDetailVC = WalletDetailViewController(nibName: "WalletDetailViewController", bundle: nil)
         walletDetailVC.hidesBottomBarWhenPushed = true
         walletDetailVC.accountId = account?.account_id
@@ -175,13 +182,11 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     
     
     @IBAction func onClickCreate(_ sender: Any) {
-//        print("onClickCreate");
         self.onStartCreate()
         
     }
     
     @IBAction func onClickImport(_ sender: Any) {
-//        print("onClickImport");
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
             self.importBtn.alpha = 0.0
         }, completion: { (finished) -> Void in
@@ -199,12 +204,10 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
 
     
     @IBAction func onClickImportMnemonic(_ sender: Any) {
-//        print("onClickImportMnemonic");
         self.onStartImportMnemonic()
     }
     
     @IBAction func onClickImportAddress(_ sender: Any) {
-//        print("onClickImportAddress");
         self.onStartImportAddress()
         
     }
