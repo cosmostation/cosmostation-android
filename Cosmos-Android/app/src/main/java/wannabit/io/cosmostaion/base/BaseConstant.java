@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean                 IS_SHOWLOG                                      = false;
+    public final static boolean                 IS_SHOWLOG                                      = true;
     public final static boolean                 IS_TEST                                         = false;
     public final static boolean                 IS_FEE_FREE 					                = false;
     public final static String                  LOG_TAG                                         = "Cosmostation";
@@ -109,6 +109,7 @@ public class BaseConstant {
     public final static String                  IRIS_MSG_TYPE_DEPOSIT                           = "irishub/gov/MsgDeposit";
     public final static String                  IRIS_MSG_TYPE_SUBMIT_PROPOSAL                   = "irishub/gov/MsgSubmitProposal";
     public final static String                  IRIS_MSG_TYPE_CREATE_VALIDATOR                  = "irishub/stake/MsgCreateValidator";
+    public final static String                  IRIS_MSG_TYPE_WITHDRAW_MIDIFY                   = "irishub/distr/MsgModifyWithdrawAddress";
 
 
 

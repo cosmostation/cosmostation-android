@@ -441,18 +441,30 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mRewardAddressChangeLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_change_reward_address);
-            mTvTxHash.setText(mResTxInfo.txhash);
-            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
-            mTxBlockHeight.setText(mResTxInfo.height);
-
-            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                    mRewardAddressChangeFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.txhash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                        mRewardAddressChangeFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
                 }
-            }
-            mNewRewardAddress.setText(mResTxInfo.tx.value.msg.get(0).value.withdraw_address);
-            mRewardAddressChangeMemo.setText(mResTxInfo.tx.value.memo);
+                mNewRewardAddress.setText(mResTxInfo.tx.value.msg.get(0).value.withdraw_address);
 
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.hash);
+                mTxTime.setText("-");
+                mTxBlockHeight.setText(mResTxInfo.height);
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                        mRewardAddressChangeFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+                mNewRewardAddress.setText(mResTxInfo.tx.value.msg.get(0).value.withdraw_addr);
+
+            }
+            mRewardAddressChangeMemo.setText(mResTxInfo.tx.value.memo);
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 

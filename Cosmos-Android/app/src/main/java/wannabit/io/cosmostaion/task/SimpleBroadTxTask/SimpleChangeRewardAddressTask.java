@@ -61,44 +61,74 @@ public class SimpleChangeRewardAddressTask extends CommonTask {
                 return mResult;
             }
 
-            Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
-            if(!accountResponse.isSuccessful()) {
-                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                return mResult;
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
+                if(!accountResponse.isSuccessful()) {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
+                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
             }
-            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-            mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
-            mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-            Msg singleSendMsg = MsgGenerator.genRewardAddressChange(mAccount.address, mToRewardAddress, BaseChain.getChain(mAccount.baseChain));
+            Msg addressChangeMsg = MsgGenerator.genRewardAddressChange(mAccount.address, mToRewardAddress, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
-            msgs.add(singleSendMsg);
+            msgs.add(addressChangeMsg);
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
-            Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
-            if(response.isSuccessful() && response.body() != null) {
-                WLog.w("response.body() hash: " + response.body().txhash);
-                if (response.body().txhash != null) {
-                    mResult.resultData = response.body().txhash;
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    if (response.body().txhash != null) {
+                        mResult.resultData = response.body().txhash;
+                    }
+
+                    if(response.body().code != null) {
+                        WLog.w("response.code() : " + response.body().code);
+                        mResult.errorCode = response.body().code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+
+                } else {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
 
-                if(response.body().code != null) {
-                    WLog.w("response.code() : " + response.body().code);
-                    mResult.errorCode = response.body().code;
-                    mResult.errorMsg = response.body().raw_log;
-                    return mResult;
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    WLog.w("response.body() hash: " + response.body().hash);
+                    if (response.body().hash != null) {
+                        mResult.resultData = response.body().hash;
+                    }
+
+                    if(response.body().check_tx.code != null) {
+                        mResult.errorCode = response.body().check_tx.code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+
+                } else {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
-                mResult.isSuccess = true;
-
-
-
-            } else {
-                WLog.w("SimpleChangeRewardAddressTask not success!!");
-                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
             }
+
 
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());

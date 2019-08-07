@@ -170,6 +170,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
+        if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             Reward reward = (Reward)result.resultData;
             if(reward != null && reward.amount.size() > 0) {

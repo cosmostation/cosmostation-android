@@ -144,25 +144,36 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onStartChangeRewardAddress() {
-        getBaseDao().setLastUser(mAccount.id);
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
-        for (Balance balance:balances) {
-            if(BaseConstant.IS_TEST) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
                     hasbalance  = true;
                 }
-            } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) >= 0)) {
+            }
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
                     hasbalance  = true;
                 }
             }
         }
+
         if(!hasbalance){
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
 
+        getBaseDao().setLastUser(mAccount.id);
         Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
         changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
         startActivity(changeAddress);
@@ -185,7 +196,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-            mBtnRewardAddressChange.setVisibility(View.INVISIBLE);
 
         }
 

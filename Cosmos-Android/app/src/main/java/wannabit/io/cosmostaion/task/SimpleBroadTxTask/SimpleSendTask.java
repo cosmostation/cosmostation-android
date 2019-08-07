@@ -87,7 +87,6 @@ public class SimpleSendTask extends CommonTask {
                 mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
             }
 
-
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 

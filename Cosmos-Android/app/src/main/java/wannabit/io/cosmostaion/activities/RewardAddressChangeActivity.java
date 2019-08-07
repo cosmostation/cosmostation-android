@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -31,6 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class RewardAddressChangeActivity extends BaseActivity {
 
+    private ImageView               mChainBg;
     private RelativeLayout          mRootView;
     private Toolbar                 mToolbar;
     private TextView                mTitle;
@@ -38,17 +40,19 @@ public class RewardAddressChangeActivity extends BaseActivity {
     private TextView                mTvStep;
     private ViewPager               mViewPager;
 
+    public Account                  mAccount;
+    public String                   mCurrentRewardAddress;
+    public String                   mNewRewardAddress;
+    public String                   mMemo;
+    public Fee                      mFee;
 
-    private RewardAddressChangePageAdapter          mPageAdapter;
-    public Account                                  mAccount;
-    public String                                   mCurrentRewardAddress;
-    public String                                   mNewRewardAddress;
-    public String                                   mMemo;
-    public Fee                                      mFee;
+    private RewardAddressChangePageAdapter mPageAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        mChainBg            = findViewById(R.id.chain_bg);
         mRootView           = findViewById(R.id.root_view);
         mToolbar            = findViewById(R.id.tool_bar);
         mTitle              = findViewById(R.id.toolbar_title);
@@ -56,6 +60,7 @@ public class RewardAddressChangeActivity extends BaseActivity {
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_change_reward_address_c));
+
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -107,6 +112,19 @@ public class RewardAddressChangeActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(mAccount == null) finish();
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -144,7 +162,6 @@ public class RewardAddressChangeActivity extends BaseActivity {
     }
 
     public void onStartRewardAddressChange() {
-        WLog.w("onStartRewardAddressChange");
         Intent intent = new Intent(RewardAddressChangeActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS);
         intent.putExtra("newRewardAddress", mNewRewardAddress);

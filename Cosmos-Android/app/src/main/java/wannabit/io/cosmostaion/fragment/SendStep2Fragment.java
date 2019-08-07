@@ -22,8 +22,7 @@ public class SendStep2Fragment extends BaseFragment implements View.OnClickListe
 
     private EditText    mMemo;
     private TextView    mMemoCnt;
-
-    private Button mBeforeBtn, mNextBtn;
+    private Button      mBeforeBtn, mNextBtn;
 
     public static SendStep2Fragment newInstance(Bundle bundle) {
         SendStep2Fragment fragment = new SendStep2Fragment();
@@ -38,11 +37,11 @@ public class SendStep2Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tx_step_memo, container, false);
-        mMemo       = rootView.findViewById(R.id.et_memo);
-        mMemoCnt    = rootView.findViewById(R.id.tv_memoCnt);
-        mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        View rootView   = inflater.inflate(R.layout.fragment_tx_step_memo, container, false);
+        mMemo           = rootView.findViewById(R.id.et_memo);
+        mMemoCnt        = rootView.findViewById(R.id.tv_memoCnt);
+        mBeforeBtn      = rootView.findViewById(R.id.btn_before);
+        mNextBtn        = rootView.findViewById(R.id.btn_next);
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 

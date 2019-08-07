@@ -16,13 +16,14 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RewardAddressChangeStep1Fragment extends BaseFragment implements View.OnClickListener {
 
-    private EditText mMemo;
-    private TextView mMemoCnt;
-    private Button mBeforeBtn, mNextBtn;
+    private EditText    mMemo;
+    private TextView    mMemoCnt;
+    private Button      mBeforeBtn, mNextBtn;
 
     public static RewardAddressChangeStep1Fragment newInstance(Bundle bundle) {
         RewardAddressChangeStep1Fragment fragment = new RewardAddressChangeStep1Fragment();
@@ -37,11 +38,11 @@ public class RewardAddressChangeStep1Fragment extends BaseFragment implements Vi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tx_step_memo, container, false);
-        mMemo       = rootView.findViewById(R.id.et_memo);
-        mMemoCnt    = rootView.findViewById(R.id.tv_memoCnt);
-        mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
+        View rootView   = inflater.inflate(R.layout.fragment_tx_step_memo, container, false);
+        mMemo           = rootView.findViewById(R.id.et_memo);
+        mMemoCnt        = rootView.findViewById(R.id.tv_memoCnt);
+        mBeforeBtn      = rootView.findViewById(R.id.btn_before);
+        mNextBtn        = rootView.findViewById(R.id.btn_next);
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 

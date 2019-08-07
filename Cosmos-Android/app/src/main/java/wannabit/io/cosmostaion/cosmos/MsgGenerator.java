@@ -171,12 +171,20 @@ public class MsgGenerator {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
 
-        value.delegator_address = requestAddr;
-        value.withdraw_address = newRewardAddr;
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            value.delegator_address = requestAddr;
+            value.withdraw_address = newRewardAddr;
 
-        result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
-        result.value = value;
+            result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
+            result.value = value;
 
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            value.delegator_addr = requestAddr;
+            value.withdraw_addr = newRewardAddr;
+
+            result.type = BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY;
+            result.value = value;
+        }
         return result;
     }
 

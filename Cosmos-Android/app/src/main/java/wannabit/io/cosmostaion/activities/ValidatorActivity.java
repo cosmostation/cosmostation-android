@@ -336,14 +336,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         boolean hasbalance = false;
         if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
                     hasbalance  = true;
                 }
             }
 
         } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
                     hasbalance  = true;
                 }
             }

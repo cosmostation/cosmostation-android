@@ -49,6 +49,9 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
         mMemo                   = rootView.findViewById(R.id.memo);
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeType);
+
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -56,8 +59,12 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
 
     @Override
     public void onRefreshTab() {
-        BigDecimal feeAtom = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        }  else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        }
         mCurrentAddress.setText(getSActivity().mCurrentRewardAddress);
         mNewAddress.setText(getSActivity().mNewRewardAddress);
         mMemo.setText(getSActivity().mMemo);

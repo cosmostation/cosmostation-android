@@ -20,6 +20,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RewardAddressChangeActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WKey;
 
@@ -69,11 +70,23 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 Toast.makeText(getContext(), R.string.error_same_reward_address, Toast.LENGTH_SHORT).show();
                 return;
 
-            } else if(!TextUtils.isEmpty(targetAddress) && WKey.isValidBech32(targetAddress)) {
-                getSActivity().mNewRewardAddress = targetAddress;
-                getSActivity().onNextStep();
-                return;
-            }else {
+            }
+
+            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (targetAddress.startsWith("cosmos") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mNewRewardAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_cosmos_address, Toast.LENGTH_SHORT).show();
+                }
+            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                if (targetAddress.startsWith("iaa") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mNewRewardAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_iris_address, Toast.LENGTH_SHORT).show();
+                }
+            } else {
                 Toast.makeText(getContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 return;
             }

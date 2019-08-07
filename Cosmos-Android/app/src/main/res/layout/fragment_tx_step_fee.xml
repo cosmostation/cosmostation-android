@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     style="@style/font_ss_9_gray1"
                     android:text="-"/>
-            </LinearLayout>-
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

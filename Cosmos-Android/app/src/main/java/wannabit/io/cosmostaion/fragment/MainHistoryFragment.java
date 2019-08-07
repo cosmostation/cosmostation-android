@@ -106,11 +106,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
-//            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
+            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
             new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             ReqTx req = new ReqTx(0, 1, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
-//            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
+            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
             new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
