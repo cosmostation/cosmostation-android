@@ -144,12 +144,41 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            self.onGenSendTx()
+            self.onFetchAccountInfo(pageHolderVC.mAccount!)
+        }
+    }
+    
+    
+    func onFetchAccountInfo(_ account: Account) {
+        self.showWaittingAlert()
+        var request: DataRequest?
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        }
+        request?.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    _ = BaseData.instance.deleteBalance(account: account)
+                    self.hideWaittingAlert()
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+                let accountInfo = AccountInfo.init(info)
+                _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                self.onGenSendTx()
+                
+            case .failure(let _):
+                self.hideWaittingAlert()
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            }
         }
     }
     
     func onGenSendTx() {
-        self.showWaittingAlert()
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
@@ -259,6 +288,9 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         case .failure(let error):
                             if(SHOW_LOG) {
                                 print("send error ", error)
+                            }
+                            if (response.response?.statusCode == 500) {
+                                txResult["net_error"] = 500
                             }
                         }
                         if (self.waitAlert != nil) {

@@ -186,7 +186,7 @@
 "EaG-53-ucb.text" = "-";
 
 /* Class = "UILabel"; text = "Soory, but your transaction request are failed"; ObjectID = "Eey-cC-EjY"; */
-"Eey-cC-EjY.text" = "죄송합니다. 요청하신 전송이 실패하였습니다. 아래에 보여지는 에러 코드와 메시지를 확인해 주세요.";
+"Eey-cC-EjY.text" = "죄송합니다. \n요청하신 전송이 실패하였습니다. \n아래에 보여지는 에러 코드와 메시지를 확인해 주세요.";
 
 /* Class = "UILabel"; text = "Block Height"; ObjectID = "Eq1-8f-dgZ"; */
 "Eq1-8f-dgZ.text" = "블럭 높이";

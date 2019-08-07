@@ -153,6 +153,11 @@ class GenTxResultViewController: BaseViewController {
             
         } else if (mChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainBg.image = UIImage(named: "bg_iris")
+            if let net_error = response?["net_error"] as? Int {
+                onShowErrorView(net_error)
+                return
+            }
+            
             guard let txType = response?["type"] as? String, let txHash = response?["hash"] as? String  else {
                 self.onStartMainTab()
                 return
@@ -179,7 +184,7 @@ class GenTxResultViewController: BaseViewController {
         if let errorMsg = response?["raw_log"] as? String {
             logMsg = errorMsg;
         }
-        if let errorMsg = response?["log"] as? String {
+        if let check_tx = response?["check_tx"] as? [String : Any], let errorMsg = check_tx["log"] as? String {
             logMsg = errorMsg;
         }
         self.errorCode.text =  "error code : " + String(code) + "\n" + logMsg
@@ -456,7 +461,6 @@ class GenTxResultViewController: BaseViewController {
                     }
                     return
                 }
-                print("here")
                 self.mTxInfo = TxInfo.init(info)
                 
             case .failure(let error):
