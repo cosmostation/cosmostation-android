@@ -450,13 +450,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cosmos Guide" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6S-5r-Y3d">
-                                                        <rect key="frame" x="104" y="24" width="112.66666666666669" height="19.666666666666671"/>
+                                                        <rect key="frame" x="110" y="24" width="112.66666666666669" height="19.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvs-rA-ORq">
-                                                        <rect key="frame" x="103.99999999999999" y="47.666666666666629" width="207.66666666666663" height="27.666666666666671"/>
+                                                        <rect key="frame" x="109.99999999999999" y="47.666666666666629" width="207.66666666666663" height="27.666666666666671"/>
                                                         <string key="text">Cosmos and Cosmostation Wallet FAQ
 Learn more about us in the links below</string>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
@@ -508,7 +508,7 @@ Learn more about us in the links below</string>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.1803921568627451" alpha="0.3965913955" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstItem="P6S-5r-Y3d" firstAttribute="leading" secondItem="PjK-ZS-Fdi" secondAttribute="trailing" constant="4" id="4d4-Fh-fwn"/>
+                                                    <constraint firstItem="P6S-5r-Y3d" firstAttribute="leading" secondItem="PjK-ZS-Fdi" secondAttribute="trailing" constant="10" id="4d4-Fh-fwn"/>
                                                     <constraint firstItem="lvs-rA-ORq" firstAttribute="top" secondItem="P6S-5r-Y3d" secondAttribute="bottom" constant="4" id="5sA-nI-nnu"/>
                                                     <constraint firstItem="P6S-5r-Y3d" firstAttribute="top" secondItem="iEB-3M-FxV" secondAttribute="top" constant="24" id="GHK-F0-6pc"/>
                                                     <constraint firstItem="Xe6-gj-Mdp" firstAttribute="leading" secondItem="iEB-3M-FxV" secondAttribute="leading" constant="12" id="KRs-Ik-hM8"/>
@@ -520,7 +520,7 @@ Learn more about us in the links below</string>
                                                     <constraint firstItem="MZK-5y-ltN" firstAttribute="leading" secondItem="iEB-3M-FxV" secondAttribute="leading" constant="12" id="ffc-VH-TfG"/>
                                                     <constraint firstItem="PjK-ZS-Fdi" firstAttribute="top" secondItem="iEB-3M-FxV" secondAttribute="top" constant="16" id="hvS-zT-5yj"/>
                                                     <constraint firstItem="PjK-ZS-Fdi" firstAttribute="leading" secondItem="iEB-3M-FxV" secondAttribute="leading" constant="16" id="rQI-N7-jG5"/>
-                                                    <constraint firstItem="lvs-rA-ORq" firstAttribute="leading" secondItem="PjK-ZS-Fdi" secondAttribute="trailing" constant="4" id="xQA-6s-I8P"/>
+                                                    <constraint firstItem="lvs-rA-ORq" firstAttribute="leading" secondItem="PjK-ZS-Fdi" secondAttribute="trailing" constant="10" id="xQA-6s-I8P"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -599,6 +599,11 @@ Learn more about us in the links below</string>
                         <outlet property="denomTotalAmountLabel" destination="flY-eb-6Ss" id="F8A-R1-nsY"/>
                         <outlet property="denomUnbondingAmountLabel" destination="gDe-0h-ItV" id="ahn-6F-3n9"/>
                         <outlet property="denomtotalPriceLabel" destination="4aW-UC-eKD" id="p2I-LC-dUY"/>
+                        <outlet property="guideBtn1" destination="BBB-cM-nZX" id="kWl-ha-z7L"/>
+                        <outlet property="guideBtn2" destination="JTl-DR-e0d" id="AFw-KX-Izb"/>
+                        <outlet property="guideImg" destination="PjK-ZS-Fdi" id="tMq-lZ-kzD"/>
+                        <outlet property="guideMsg" destination="lvs-rA-ORq" id="bpU-Ia-VNb"/>
+                        <outlet property="guideTitle" destination="P6S-5r-Y3d" id="ZMc-fJ-1dj"/>
                         <outlet property="inflationLabel" destination="Lno-d2-SZV" id="nGf-TA-s3X"/>
                         <outlet property="keyAddressLabel" destination="TQi-w4-Lb5" id="UmV-li-YiI"/>
                         <outlet property="keyCard" destination="gyy-Eq-HbO" id="T8c-bH-2EO"/>

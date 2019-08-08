@@ -49,6 +49,13 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
     @IBOutlet weak var rewardCard: CardView!
     
+    @IBOutlet weak var guideImg: UIImageView!
+    @IBOutlet weak var guideTitle: UILabel!
+    @IBOutlet weak var guideMsg: UILabel!
+    @IBOutlet weak var guideBtn1: UIButton!
+    @IBOutlet weak var guideBtn2: UIButton!
+    
+    
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     var userChain: ChainType?
@@ -94,10 +101,21 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             chainBg.image = UIImage(named: "bg_cosmos")
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
+            guideImg.image = UIImage(named: "guideImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_cosmos", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_cosmos", comment: "")
+            guideBtn1.setTitle(NSLocalizedString("send_guide_btn1_cosmos", comment: ""), for: .normal)
+            guideBtn2.setTitle(NSLocalizedString("send_guide_btn2_cosmos", comment: ""), for: .normal)
+            
         } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainBg.image = UIImage(named: "bg_iris")
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
+            guideImg.image = UIImage(named: "irisnetImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_iris", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_iris", comment: "")
+            guideBtn1.setTitle(NSLocalizedString("send_guide_btn1_iris", comment: ""), for: .normal)
+            guideBtn2.setTitle(NSLocalizedString("send_guide_btn2_iris", comment: ""), for: .normal)
         }
     }
     
@@ -392,26 +410,42 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     
     
     @IBAction func onClickGuide(_ sender: UIButton) {
-        if(Locale.current.languageCode == "ko") {
-            guard let url = URL(string: "https://www.cosmostation.io/files/guide_KO.pdf") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        } else {
-            guard let url = URL(string: "https://www.cosmostation.io/files/guide_EN.pdf") else { return }
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(Locale.current.languageCode == "ko") {
+                guard let url = URL(string: "https://www.cosmostation.io/files/guide_KO.pdf") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            } else {
+                guard let url = URL(string: "https://www.cosmostation.io/files/guide_EN.pdf") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+            
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            guard let url = URL(string: "https://www.irisnet.org") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
+        
     }
     
     @IBAction func onClickFaq(_ sender: UIButton) {
-        if(Locale.current.languageCode == "ko") {
-            guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_ko.html") else { return }
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(Locale.current.languageCode == "ko") {
+                guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_ko.html") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            } else {
+                guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_en.html") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+            
+        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            guard let url = URL(string: "https://medium.com/irisnet-blog") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
-        } else {
-            guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_en.html") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
+            
         }
     }
 }
