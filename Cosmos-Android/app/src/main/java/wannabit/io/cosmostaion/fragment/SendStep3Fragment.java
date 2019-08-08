@@ -156,7 +156,6 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
             onUpdateFeeLayer();
         }
-
     }
 
     @Override

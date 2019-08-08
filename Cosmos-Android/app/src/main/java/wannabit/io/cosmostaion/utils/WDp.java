@@ -576,12 +576,17 @@ public class WDp {
 
     public static int getHistoryDpType(ArrayList<Msg> msgs, String address) {
         int result = BaseConstant.TX_TYPE_UNKNOWN;
-        if(msgs == null || msgs.size() <= 0)
+        if (msgs == null || msgs.size() <= 0)
             return result;
 
-        if(msgs != null && msgs.size() == 2) {
-            if(msgs.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL) &&
+        if (msgs != null && msgs.size() == 2) {
+            if (msgs.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL) &&
                     msgs.get(1).type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE)) {
+                return BaseConstant.TX_TYPE_REINVEST;
+            }
+
+            if (msgs.get(0).type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW) &&
+                    msgs.get(1).type.equals(BaseConstant.IRIS_MSG_TYPE_DELEGATE)) {
                 return BaseConstant.TX_TYPE_REINVEST;
             }
         }

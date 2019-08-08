@@ -59,6 +59,17 @@ public class ResLcdIrisReward {
             }
         }
         return sum;
+    }
 
+    public Coin getPerValRewardCoin(String valOpAddress) {
+        Coin result = null;
+        if(delegations != null && delegations.size() > 0) {
+            for (Delegations delegation:delegations) {
+                if (delegation.validator.equals(valOpAddress)) {
+                    result = delegation.reward.get(0);
+                }
+            }
+        }
+        return result;
     }
 }

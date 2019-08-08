@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -30,6 +31,8 @@ import wannabit.io.cosmostaion.fragment.ReInvestStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
+import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -39,6 +42,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class ReInvestActivity extends BaseActivity implements TaskListener {
 
+    private ImageView               mChainBg;
     private RelativeLayout          mRootView;
     private Toolbar                 mToolbar;
     private TextView                mTitle;
@@ -57,6 +61,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        mChainBg            = findViewById(R.id.chain_bg);
         mRootView       = findViewById(R.id.root_view);
         mToolbar        = findViewById(R.id.tool_bar);
         mTitle          = findViewById(R.id.toolbar_title);
@@ -113,8 +118,26 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
                 onHideKeyboard();
             }
         });
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mAccount == null) finish();
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+
+        }
     }
 
     @Override
@@ -173,8 +196,16 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             Reward reward = (Reward)result.resultData;
-            if(reward != null && reward.amount.size() > 0) {
+            if (reward != null && reward.amount.size() > 0) {
                 mReinvestCoin = reward.amount.get(0);
+                mPageAdapter.mCurrentFragment.onRefreshTab();
+            } else {
+                onBackPressed();
+            }
+        } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
+            ResLcdIrisReward mIrisReward = (ResLcdIrisReward)result.resultData;
+            if (mIrisReward != null && mIrisReward.getPerValRewardCoin(mValidator.operator_address) != null) {
+                mReinvestCoin = mIrisReward.getPerValRewardCoin(mValidator.operator_address);
                 mPageAdapter.mCurrentFragment.onRefreshTab();
             } else {
                 onBackPressed();

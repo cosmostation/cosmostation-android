@@ -21,7 +21,9 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView    mRewardAmount, mFeeAmount;
+    private TextView    mRewardDenom, mFeeDenom;
     private TextView    mValidator, mMemo, mCurrentAmount, mExpectedAmount;
+    private TextView    mCurrentDenom, mExpectedDenom;
     private Button      mBeforeBtn, mConfirmBtn;
 
 
@@ -39,14 +41,24 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reinvest_step3, container, false);
-        mRewardAmount       = rootView.findViewById(R.id.reward_atom);
+        mRewardAmount       = rootView.findViewById(R.id.reward_amount);
+        mRewardDenom        = rootView.findViewById(R.id.reward_amount_title);
         mFeeAmount          = rootView.findViewById(R.id.reward_fees);
+        mFeeDenom           = rootView.findViewById(R.id.reward_fees_type);
         mValidator          = rootView.findViewById(R.id.reward_moniker);
         mMemo               = rootView.findViewById(R.id.memo);
         mCurrentAmount      = rootView.findViewById(R.id.current_delegation);
+        mCurrentDenom       = rootView.findViewById(R.id.current_delegation_title);
         mExpectedAmount     = rootView.findViewById(R.id.expected_delegation);
+        mExpectedDenom      = rootView.findViewById(R.id.expected_delegation_title);
+
         mBeforeBtn          = rootView.findViewById(R.id.btn_before);
         mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
+
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mRewardDenom);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mCurrentDenom);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mExpectedDenom);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -56,18 +68,27 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        mRewardAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        BondingState bonding = getBaseDao().onSelectBondingState(getSActivity().mAccount.id, getSActivity().mValidator.operator_address);
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mRewardAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
+                mCurrentAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
+                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expected, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            }
+
+        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mRewardAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
+                mCurrentAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
+                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expected, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            }
+        }
         mValidator.setText(getSActivity().mValidator.description.moniker);
         mMemo.setText(getSActivity().mReinvestMemo);
-
-        BondingState bonding = getBaseDao().onSelectBondingState(getSActivity().mAccount.id, getSActivity().mValidator.operator_address);
-        if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
-            mCurrentAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-
-            BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
-            mExpectedAmount.setText(WDp.getDpAmount(getContext(), expected, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        }
     }
 
     @Override

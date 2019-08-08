@@ -21,7 +21,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private CardView        mCardReward;
-    private TextView        mTvAtomReward, mTvAtomTitle;
+    private TextView        mTvRewardAmount, mTvRewardDenom;
     private TextView        mTvFromValidators;
 
     private RelativeLayout  mProgressBar;
@@ -42,12 +42,14 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reinvest_step0, container, false);
         mCardReward             = rootView.findViewById(R.id.reward_card);
-        mTvAtomReward           = rootView.findViewById(R.id.reward_atom);
-        mTvAtomTitle            = rootView.findViewById(R.id.reward_atom_title);
+        mTvRewardAmount         = rootView.findViewById(R.id.reward_amount);
+        mTvRewardDenom          = rootView.findViewById(R.id.reward_amount_title);
         mTvFromValidators       = rootView.findViewById(R.id.reward_moniker);
         mProgressBar            = rootView.findViewById(R.id.reward_progress);
         mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                = rootView.findViewById(R.id.btn_next);
+
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvRewardDenom);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -59,7 +61,11 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         if(getSActivity().mReinvestCoin != null) {
             BigDecimal rewardSum = new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN);
-            mTvAtomReward.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            }
             mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
 
             mProgressBar.setVisibility(View.GONE);

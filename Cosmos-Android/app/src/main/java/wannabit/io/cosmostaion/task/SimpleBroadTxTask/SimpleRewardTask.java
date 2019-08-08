@@ -60,10 +60,11 @@ public class SimpleRewardTask extends CommonTask {
                 return mResult;
             }
 
+
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
 
-            ArrayList<Msg> msgs= new ArrayList<>();
+            ArrayList<Msg> msgs = new ArrayList<>();
             if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!accountResponse.isSuccessful()) {

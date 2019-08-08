@@ -320,17 +320,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            if(mUnBondingStates != null && mUnBondingStates.size() >= 7){
+            if (mUnBondingStates != null && mUnBondingStates.size() >= 7){
                 Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
                 return;
             }
         } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            if(mUnBondingStates != null && mUnBondingStates.size() >= 1){
+            if (mUnBondingStates != null && mUnBondingStates.size() >= 1){
                 Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over_iris, Toast.LENGTH_SHORT).show();
                 return;
             }
         }
-
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
@@ -392,10 +391,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-//            if (mIrisReward.getPerValReward(mValidator.operator_address).compareTo(new BigDecimal("400000000000000000")) <= 0) {
-//                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-//                return;
-//            }
+            if (mIrisReward.getPerValReward(mValidator.operator_address).compareTo(new BigDecimal("400000000000000000")) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             for (Balance balance:balances) {
                 if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
@@ -423,31 +422,44 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("1")) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasAtom = false;
-        for (Balance balance:balances) {
-            if(BaseConstant.IS_TEST) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
-                    hasAtom  = true;
-                }
-            } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) >= 0)) {
-                    hasAtom  = true;
+        boolean hasbalance = false;
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(BigDecimal.ONE) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            for (Balance balance:balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
+                    hasbalance  = true;
                 }
             }
 
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            if (mIrisReward == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (mIrisReward.getPerValReward(mValidator.operator_address).compareTo(new BigDecimal("400000000000000000")) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            for (Balance balance:balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
+                    hasbalance  = true;
+                }
+            }
         }
-        if(!hasAtom) {
+
+        if(!hasbalance) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -456,7 +468,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             @Override
             public void onTaskResponse(TaskResult result) {
                 String rewardAddress = (String)result.resultData;
-                if(rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
+                if (rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
                     Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
                 } else {
                     Intent reinvest = new Intent(ValidatorActivity.this, ReInvestActivity.class);
@@ -770,9 +782,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
                 } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-                    //TODO temp hide
-                    holder.itemBtnRedelegate.setVisibility(View.GONE);
-                    holder.itemBtnReinvest.setVisibility(View.GONE);
                     if (mValidator.status == Validator.BONDED) {
                         if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
                             holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 18, BaseChain.getChain(mAccount.baseChain)));

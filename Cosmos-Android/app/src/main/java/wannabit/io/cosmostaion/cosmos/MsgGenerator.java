@@ -138,20 +138,6 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genWithdrawMsgReInvest(String requestAddr, String fromValAddr, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-
-        value.delegator_address = requestAddr;
-        value.validator_address = fromValAddr;
-
-
-        result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
-        result.value = value;
-
-        return result;
-    }
-
     public static Msg genReDelegateMsg(String accountAddr, String fromValAddr, String toValAddr, Coin amount) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();

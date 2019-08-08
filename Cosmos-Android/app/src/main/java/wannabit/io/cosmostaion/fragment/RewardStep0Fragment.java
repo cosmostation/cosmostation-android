@@ -61,16 +61,12 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
         mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                = rootView.findViewById(R.id.btn_next);
 
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvDenomTitle);
+
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         mNextBtn.setClickable(false);
         return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvDenomTitle);
     }
 
     @Override

@@ -42,13 +42,13 @@
                         android:orientation="horizontal"
                         android:gravity="center">
                         <TextView
-                            android:id="@+id/reward_atom"
+                            android:id="@+id/reward_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
                             style="@style/font_ssl_12_white"/>
                         <TextView
-                            android:id="@+id/reward_atom_title"
+                            android:id="@+id/reward_amount_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -168,6 +168,7 @@
                             android:text="-"
                             style="@style/font_ssl_12_white"/>
                         <TextView
+                            android:id="@+id/current_delegation_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -199,6 +200,7 @@
                             android:text="-"
                             style="@style/font_ssl_12_white"/>
                         <TextView
+                            android:id="@+id/expected_delegation_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
