@@ -97,6 +97,8 @@
     <string name="str_support">지원</string>
     <string name="str_faq">도움말</string>
     <string name="str_guide">가이드</string>
+    <string name="str_faq_iris">Home Page</string>
+    <string name="str_guide_iris">Medium</string>
     <string name="str_telegram">텔레그램</string>
     <string name="str_explore">민트스캔 익스플로러</string>
     <string name="str_homepage">코스모스테이션</string>

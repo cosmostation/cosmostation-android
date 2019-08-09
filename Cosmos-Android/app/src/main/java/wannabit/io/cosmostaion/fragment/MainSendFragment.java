@@ -202,7 +202,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideImg.setImageDrawable(getResources().getDrawable(R.drawable.guide_img));
             mGuideTitle.setText(R.string.str_front_guide_title);
             mGuideMsg.setText(R.string.str_front_guide_msg);
-            mGuideAction.setVisibility(View.VISIBLE);
+            mGuideBtn.setText(R.string.str_guide);
+            mFaqBtn.setText(R.string.str_faq);
 
         } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             mAtomCard.setVisibility(View.GONE);
@@ -213,7 +214,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideImg.setImageDrawable(getResources().getDrawable(R.drawable.irisnet_img));
             mGuideTitle.setText(R.string.str_front_guide_title_iris);
             mGuideMsg.setText(R.string.str_front_guide_msg_iris);
-            mGuideAction.setVisibility(View.GONE);
+            mGuideBtn.setText(R.string.str_faq_iris);
+            mFaqBtn.setText(R.string.str_guide_iris);
         }
 
 
@@ -337,20 +339,29 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             startActivity(webintent);
 
         } else if (v.equals(mGuideBtn)) {
-            if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_ko.pdf"));
-                startActivity(guideIntent);
-            } else {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_en.pdf"));
+            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_ko.pdf"));
+                    startActivity(guideIntent);
+                } else {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_en.pdf"));
+                    startActivity(guideIntent);
+                }
+            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.irisnet.org/"));
                 startActivity(guideIntent);
             }
-
         } else if (v.equals(mFaqBtn)) {
-            if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
-                startActivity(guideIntent);
-            } else {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
+            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
+                    startActivity(guideIntent);
+                } else {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
+                    startActivity(guideIntent);
+                }
+            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/irisnet-blog"));
                 startActivity(guideIntent);
             }
         } else if (v.equals(mPriceCard)) {
