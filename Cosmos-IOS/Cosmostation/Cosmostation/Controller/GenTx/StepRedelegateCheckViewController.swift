@@ -56,9 +56,6 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     @IBAction func onClickConfirm(_ sender: UIButton) {
-        self.btnBefore.isUserInteractionEnabled = false
-        self.btnConfirm.isUserInteractionEnabled = false
-        
         let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
         self.navigationItem.title = ""
         self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
