@@ -13,6 +13,9 @@ import LocalAuthentication
 
 class SettingTableViewController: UITableViewController, PasswordViewDelegate {
 
+    var mAccount: Account!
+    var userChain: ChainType?
+    
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var currecyLabel: UILabel!
     @IBOutlet weak var marketLabel: UILabel!
@@ -23,6 +26,8 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        userChain = WUtils.getChainType(mAccount.account_base_chain)
         
         if let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String {
             self.versionLabel.text = "v " + appVersion
@@ -112,9 +117,15 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 }
                 
             } else if(indexPath.row == 2) {
-                guard let url = URL(string: "https://www.mintscan.io") else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                present(safariViewController, animated: true, completion: nil)
+                if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    guard let url = URL(string: "https://www.mintscan.io") else { return }
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true, completion: nil)
+                } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    guard let url = URL(string: "https://irishub.mintscan.io") else { return }
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true, completion: nil)
+                }
                 
             } else if(indexPath.row == 3) {
                 guard let url = URL(string: "https://www.cosmostation.io") else { return }
