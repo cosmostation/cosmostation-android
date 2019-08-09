@@ -450,13 +450,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cosmos Guide" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6S-5r-Y3d">
-                                                        <rect key="frame" x="110" y="24" width="112.66666666666669" height="19.666666666666671"/>
-                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                                        <rect key="frame" x="110" y="22" width="99.333333333333314" height="17.333333333333329"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvs-rA-ORq">
-                                                        <rect key="frame" x="109.99999999999999" y="47.666666666666629" width="207.66666666666663" height="27.666666666666671"/>
+                                                        <rect key="frame" x="109.99999999999999" y="45.333333333333371" width="207.66666666666663" height="27.666666666666671"/>
                                                         <string key="text">Cosmos and Cosmostation Wallet FAQ
 Learn more about us in the links below</string>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
@@ -509,8 +509,8 @@ Learn more about us in the links below</string>
                                                 <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.1803921568627451" alpha="0.3965913955" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="P6S-5r-Y3d" firstAttribute="leading" secondItem="PjK-ZS-Fdi" secondAttribute="trailing" constant="10" id="4d4-Fh-fwn"/>
-                                                    <constraint firstItem="lvs-rA-ORq" firstAttribute="top" secondItem="P6S-5r-Y3d" secondAttribute="bottom" constant="4" id="5sA-nI-nnu"/>
-                                                    <constraint firstItem="P6S-5r-Y3d" firstAttribute="top" secondItem="iEB-3M-FxV" secondAttribute="top" constant="24" id="GHK-F0-6pc"/>
+                                                    <constraint firstItem="lvs-rA-ORq" firstAttribute="top" secondItem="P6S-5r-Y3d" secondAttribute="bottom" constant="6" id="5sA-nI-nnu"/>
+                                                    <constraint firstItem="P6S-5r-Y3d" firstAttribute="top" secondItem="iEB-3M-FxV" secondAttribute="top" constant="22" id="GHK-F0-6pc"/>
                                                     <constraint firstItem="Xe6-gj-Mdp" firstAttribute="leading" secondItem="iEB-3M-FxV" secondAttribute="leading" constant="12" id="KRs-Ik-hM8"/>
                                                     <constraint firstItem="MZK-5y-ltN" firstAttribute="top" secondItem="PjK-ZS-Fdi" secondAttribute="bottom" constant="12" id="PFG-IQ-Stk"/>
                                                     <constraint firstAttribute="height" constant="145" id="Wua-Hf-2Bu"/>

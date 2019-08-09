@@ -60,8 +60,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         cardInfo.backgroundColor = WUtils.getChainBg(userChain!)
         cardReward.backgroundColor = WUtils.getChainBg(userChain!)
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            chainImg.image = UIImage(named: "cosmosWhMain")
             chainName.text = "Cosmos Hub"
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            chainImg.image = UIImage(named: "irisWh")
             chainName.text = "Iris Hub"
         }
         
