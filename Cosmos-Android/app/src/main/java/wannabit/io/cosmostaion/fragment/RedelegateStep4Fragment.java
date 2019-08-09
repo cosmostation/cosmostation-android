@@ -25,8 +25,8 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
     public final static int REDELEGATE_CONFIRM_DIALOG = 6016;
 
-    private TextView        mTvRedelegateAmount;
-    private TextView        mFeeAmount, mFeeType;
+    private TextView        mTvRedelegateAmount, mTvRedelegateDenom;
+    private TextView        mFeeAmount, mFeeDenom;
     private TextView        mFromValidatorName, mToValidatorName, mMemo;
 
     private Button          mBeforeBtn, mConfirmBtn;
@@ -45,14 +45,19 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_redelegate_step4, container, false);
-        mTvRedelegateAmount     = rootView.findViewById(R.id.redelegate_atom);
+        mTvRedelegateAmount     = rootView.findViewById(R.id.redelegate_amount);
+        mTvRedelegateDenom      = rootView.findViewById(R.id.redelegate_amount_title);
         mFeeAmount              = rootView.findViewById(R.id.redelegate_fees);
-        mFeeType                = rootView.findViewById(R.id.redelegate_fees_type);
+        mFeeDenom               = rootView.findViewById(R.id.redelegate_fees_type);
         mFromValidatorName      = rootView.findViewById(R.id.redelegate_from_moniker);
         mToValidatorName        = rootView.findViewById(R.id.redelegate_to_moniker);
         mMemo                   = rootView.findViewById(R.id.memo);
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvRedelegateDenom);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
+
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
@@ -60,17 +65,18 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toReDeleagteAtom = new BigDecimal(getSActivity().mReDelegateAmount.amount);
-        BigDecimal feeAtom = new BigDecimal(getSActivity().mReDelegateFee.amount.get(0).amount);
-
-        mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-
+        BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mReDelegateAmount.amount);
+        BigDecimal feeAmount= new BigDecimal(getSActivity().mReDelegateFee.amount.get(0).amount);
+        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        }
         mFromValidatorName.setText(getSActivity().mFromValidator.description.moniker);
         mToValidatorName.setText(getSActivity().mToValidator.description.moniker);
-
         mMemo.setText(getSActivity().mReDelegateMemo);
-
     }
 
 
@@ -84,8 +90,6 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-//            getSActivity().onStartUndelegate();
-            //TODO confirm dialog!!!
             Dialog_RedelegateConfirm dialog = Dialog_RedelegateConfirm.newInstance();
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, REDELEGATE_CONFIRM_DIALOG);

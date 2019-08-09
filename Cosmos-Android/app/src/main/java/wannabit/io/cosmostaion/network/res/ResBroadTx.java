@@ -32,6 +32,9 @@ public class ResBroadTx {
     public class CheckTx {
         @SerializedName("code")
         public Integer code;
+
+        @SerializedName("log")
+        public String log;
     }
 
     /*

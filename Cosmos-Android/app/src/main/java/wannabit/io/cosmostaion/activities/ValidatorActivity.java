@@ -48,7 +48,9 @@ import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
+import wannabit.io.cosmostaion.task.FetchTask.IrisRedelegateStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
@@ -93,6 +95,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     public ResLcdIrisReward                 mIrisReward;
     public ResLcdIrisPool                   mIrisPool;
+    public ArrayList<ResLcdIrisRedelegate>  mIrisRedelegateState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,13 +196,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mTaskCount = 5;
+            mTaskCount = 6;
             new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+            new IrisRedelegateStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
 
@@ -256,30 +259,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     public void onCheckRedelegate() {
-        if(mAccount == null || mValidator == null) return;
         if(!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasAtom = false;
-        for (Balance balance:balances) {
-            if(BaseConstant.IS_TEST) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ZERO)) > 0)) {
-                    hasAtom  = true;
-                }
-            } else {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) >= 0)) {
-                    hasAtom  = true;
-                }
-            }
-
-        }
-        if(!hasAtom) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -288,13 +271,42 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if(!(mRedelegateResultThisVal != null && mRedelegateResultThisVal.isSuccess && mRedelegateResultThisVal.resultData == null)) {
-            Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasbalance = false;
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            for (Balance balance:balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) > 0)) {
+                    hasbalance  = true;
+                }
+            }
+            if(!(mRedelegateResultThisVal != null && mRedelegateResultThisVal.isSuccess && mRedelegateResultThisVal.resultData == null)) {
+                Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            for (Balance balance:balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("520000000000000000"))) > 0)) {
+                    hasbalance  = true;
+                }
+            }
+            if (mIrisRedelegateState != null && mIrisRedelegateState.size() > 0) {
+                for (ResLcdIrisRedelegate state:mIrisRedelegateState) {
+                    if (state.validator_dst_addr.equals(mValidator.operator_address)) {
+                        Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+                        add.setCancelable(true);
+                        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                        return;
+                    }
+                }
+            }
         }
 
+        if(!hasbalance) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
         onStartRedelegate();
     }
 
@@ -303,6 +315,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         reDelegate.putExtra("validator", mValidator);
         reDelegate.putExtra("bondedToken", mBondedToken.toPlainString());
         reDelegate.putExtra("provisions", mProvisions.toPlainString());
+        reDelegate.putExtra("irispool", mIrisPool);
+        reDelegate.putExtra("irisReState", mIrisRedelegateState);
         startActivity(reDelegate);
     }
 
@@ -537,6 +551,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
             mIrisReward = (ResLcdIrisReward)result.resultData;
 
+        } else if (result.taskType == BaseConstant.TASK_IRIS_REDELEGATE) {
+            mIrisRedelegateState = (ArrayList<ResLcdIrisRedelegate>)result.resultData;
         }
 
         if(mTaskCount == 0) {

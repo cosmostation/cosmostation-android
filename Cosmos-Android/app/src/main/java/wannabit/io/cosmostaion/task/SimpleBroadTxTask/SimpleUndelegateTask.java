@@ -139,8 +139,6 @@ public class SimpleUndelegateTask extends CommonTask {
                 }
             }
 
-
-
         } catch (Exception e) {
             WLog.w("e : " + e.getMessage());
             if(BaseConstant.IS_SHOWLOG) e.printStackTrace();

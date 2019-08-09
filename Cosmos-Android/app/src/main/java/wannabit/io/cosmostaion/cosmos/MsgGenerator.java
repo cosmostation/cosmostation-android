@@ -138,17 +138,29 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genReDelegateMsg(String accountAddr, String fromValAddr, String toValAddr, Coin amount) {
+    public static Msg genReDelegateMsg(String accountAddr, String fromValAddr, String toValAddr, Coin amount, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            value.delegator_address = accountAddr;
+            value.validator_src_address = fromValAddr;
+            value.validator_dst_address = toValAddr;
+            value.amount = amount;
 
-        value.delegator_address = accountAddr;
-        value.validator_src_address = fromValAddr;
-        value.validator_dst_address = toValAddr;
-        value.amount = amount;
+            result.type = BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
+            result.value = value;
 
-        result.type = BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
-        result.value = value;
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            value.delegator_addr = accountAddr;
+            value.validator_src_addr = fromValAddr;
+            value.validator_dst_addr = toValAddr;
+            //TODO need cal bal to shares.
+//            value.shares = amount.amount + ".0000000000";
+            value.shares_amount = amount.amount + ".0000000000";
+
+            result.type = BaseConstant.IRIS_MSG_TYPE_REDELEGATE;
+            result.value = value;
+        }
 
         return result;
     }
@@ -326,8 +338,51 @@ public class MsgGenerator {
         reqBroadCast.tx = signedTx.value;
 
         WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+        return reqBroadCast;
+    }
 
 
+    public static ReqBroadCast getIrisBraodcaseReq2(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
+        Msg tempMsg  = new Msg();
+        Msg.Value tempValue = new Msg.Value();
+        tempValue.delegator_addr = msgs.get(0).value.delegator_addr;
+        tempValue.validator_src_addr = msgs.get(0).value.validator_src_addr;
+        tempValue.validator_dst_addr = msgs.get(0).value.validator_dst_addr;
+        tempValue.shares = msgs.get(0).value.shares_amount;
+        tempMsg.type = BaseConstant.IRIS_MSG_TYPE_REDELEGATE;
+        tempMsg.value = tempValue;
+
+        ArrayList<Msg> tempMsgs= new ArrayList<>();
+        tempMsgs.add(tempMsg);
+
+        IrisStdSignMsg tosign = genIrisToSignMsg(
+                account.baseChain,
+                ""+account.accountNumber,
+                ""+account.sequenceNumber,
+                tempMsgs,
+                fee,
+                memo);
+        String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
+
+        Signature signature = new Signature();
+        Pub_key pubKey = new Pub_key();
+        pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+        pubKey.value = WKey.getPubKeyValue(key);
+        signature.pub_key = pubKey;
+        signature.signature = signatureTx;
+        signature.account_number = ""+account.accountNumber;
+        signature.sequence = ""+account.sequenceNumber;
+
+        ArrayList<Signature> signatures = new ArrayList<>();
+        signatures.add(signature);
+
+        StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
+
+        ReqBroadCast reqBroadCast = new ReqBroadCast();
+        reqBroadCast.returns = "sync";
+        reqBroadCast.tx = signedTx.value;
+
+        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
         return reqBroadCast;
     }
 }

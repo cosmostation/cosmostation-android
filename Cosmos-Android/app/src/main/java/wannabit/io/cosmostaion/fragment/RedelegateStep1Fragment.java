@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +37,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_RedelegationLimited;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleAllRedelegateState;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -95,9 +97,24 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             if(mCheckedValidator == null) {
                 Toast.makeText(getContext(), R.string.error_no_to_validator, Toast.LENGTH_SHORT).show();
             } else {
-                new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
-                        getSActivity().mFromValidator.operator_address,
-                        mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
+                            getSActivity().mFromValidator.operator_address,
+                            mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+                } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    if (getSActivity().mIrisRedelegateState != null && getSActivity().mIrisRedelegateState.size() > 0) {
+                        for (ResLcdIrisRedelegate state:getSActivity().mIrisRedelegateState) {
+                            if (mCheckedValidator.operator_address.equals(state.validator_dst_addr) &&
+                                getSActivity().mFromValidator.operator_address.equals(state.validator_src_addr)) {
+                                Toast.makeText(getContext(), R.string.error_redelegate_cnt_over, Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                    }
+                    getSActivity().mToValidator = mCheckedValidator;
+                    getSActivity().onNextStep();
+                }
             }
         }
     }
@@ -135,42 +152,62 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         @Override
         public void onBindViewHolder(@NonNull final ToValidatorHolder holder, final int position) {
             final Validator validator  = mToValidators.get(position);
-            holder.itemTvMoniker.setText(validator.description.moniker);
-            holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            if(getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
-                holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.rate)));
-            }
+            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                if(getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
+                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.rate)));
+                }
 
+            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                holder.itemTvCommission.setText(WDp.getIrisYieldString(getSActivity().mIrisPool, new BigDecimal(validator.commission.rate)));
+            }
+            holder.itemTvMoniker.setText(validator.description.moniker);
             holder.itemFree.setVisibility(View.GONE);
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    WLog.w("Click");
                     mCheckedValidator = validator;
                     notifyDataSetChanged();
                 }
             });
-//            holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
-            holder.itemAvatar.setTag("imgv" + position);
-            if(!TextUtils.isEmpty(validator.description.identity)) {
-                ApiClient.getKeybaseService(getBaseActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
-                    @Override
-                    public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
-                        if(isAdded() && holder.itemAvatar.getTag().equals("imgv" + position)) {
-                            try {
-                                Picasso.get()
-                                        .load(response.body().getUrl())
-                                        .fit()
-                                        .placeholder(R.drawable.validator_none_img)
-                                        .into(holder.itemAvatar);
-                            }catch (Exception e) {}
 
+            holder.itemAvatar.setTag("imgv" + position);
+            if (validator.keybaseInfo == null) {
+                holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
+                if(!TextUtils.isEmpty(validator.description.identity)) {
+                    ApiClient.getKeybaseService(getSActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
+                        @Override
+                        public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
+                            validator.keybaseInfo = response.body();
+                            if(isAdded() && holder.itemAvatar.getTag().equals("imgv" + position)) {
+                                try {
+                                    Picasso.get()
+                                            .load(response.body().getUrl())
+                                            .fit()
+                                            .placeholder(R.drawable.validator_none_img)
+                                            .into(holder.itemAvatar);
+                                }catch (Exception e) {}
+                            }
                         }
-                    }
-                    @Override
-                    public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
-                });
+                        @Override
+                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
+                    });
+                }
+
+            } else {
+                if(isAdded() && holder.itemAvatar.getTag().equals("imgv" + position)) {
+                    try {
+                        Picasso.get()
+                                .load(validator.keybaseInfo.getUrl())
+                                .fit()
+                                .placeholder(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    }catch (Exception e) {}
+                }
+
             }
+
             if(validator.jailed) {
                 holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
                 holder.itemRevoked.setVisibility(View.VISIBLE);
@@ -179,12 +216,16 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemRevoked.setVisibility(View.GONE);
             }
 
-            if(mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_on));
+            holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain()) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain()) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else {
-                holder.itemChecked.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_off));
                 holder.itemCheckedBorder.setVisibility(View.GONE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             }

@@ -638,7 +638,8 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
             result = BaseConstant.TX_TYPE_GET_CPMMISSION;
 
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY)) {
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) ||
+                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY)) {
             result = BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_VOTE) ||

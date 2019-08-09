@@ -304,7 +304,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             }
         } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) > 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("200000000000000000"))) > 0)) {
                     hasbalance  = true;
                 }
             }
@@ -906,7 +906,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 @Override
                 public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
                     if(isFinishing()) return;
-                    WLog.w("coingekoTic");
                     try {
                         getBaseDao().setLastPriceTic(chain, response.body());
                     } catch (Exception e) {
@@ -939,7 +938,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     if(isFinishing()) return;
-                    WLog.w("coinmarkettic");
                     try {
                         if(response.isSuccessful() && chain.equals(BaseChain.COSMOS_MAIN)) {
                             ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);

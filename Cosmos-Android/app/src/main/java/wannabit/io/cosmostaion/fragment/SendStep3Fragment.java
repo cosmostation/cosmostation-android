@@ -133,9 +133,9 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
 
-            mGasAmount.setText(BaseConstant.FEE_IRIS_GAS_AMOUNT_AVERAGE);
+            mGasAmount.setText(BaseConstant.FEE_IRIS_GAS_AMOUNT_SEND);
             mGasRate.setText(WDp.getDpString(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE, 6));
-            mFeeAmount = new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_AVERAGE).multiply(new BigDecimal(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
+            mFeeAmount = new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_SEND).multiply(new BigDecimal(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -183,7 +183,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_IRIS_GAS_AMOUNT_AVERAGE;
+                fee.gas = BaseConstant.FEE_IRIS_GAS_AMOUNT_SEND;
                 getSActivity().mTargetFee = fee;
             }
             getSActivity().onNextStep();

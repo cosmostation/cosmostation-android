@@ -70,7 +70,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private TextView                    mRewardFee, mRewardFrom, mRewardMemo;
 
     private LinearLayout                mRedelegateLayer;
-    private TextView                    mRedelegateAtom, mRedelegateFee, mRedelegateFrom, mRedelegateTo, mRedelegateMemo;
+    private TextView                    mRedelegateAmount, mRedelegateFee, mRedelegateFrom, mRedelegateTo, mRedelegateMemo;
 
     private LinearLayout                mRewardAddressChangeLayer;
     private TextView                    mRewardAddressChangeFee, mNewRewardAddress, mRewardAddressChangeMemo;
@@ -135,7 +135,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mRewardMemo                     = findViewById(R.id.reward_memo);
 
         mRedelegateLayer                = findViewById(R.id.redelegate_layer);
-        mRedelegateAtom                 = findViewById(R.id.redelegate_atom);
+        mRedelegateAmount               = findViewById(R.id.redelegate_amount);
         mRedelegateFee                  = findViewById(R.id.redelegate_fees);
         mRedelegateFrom                 = findViewById(R.id.from_redelegate_moniker);
         mRedelegateTo                   = findViewById(R.id.to_redelegate_moniker);
@@ -400,7 +400,6 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                         mRewardFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
                     }
                 }
-
                 if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL)) {
                     mTvtxType.setText(R.string.tx_get_reward_all);
                     mRewardFrom.setText(R.string.str_from_all_my_val);
@@ -412,28 +411,43 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 
+
         } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE && mResTxInfo != null){
             mLoading.setVisibility(View.GONE);
             mScrollLayer.setVisibility(View.VISIBLE);
             mRedelegateLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_redelegate);
-            mTvTxHash.setText(mResTxInfo.txhash);
-            mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
-            mTxBlockHeight.setText(mResTxInfo.height);
-
-            mRedelegateAtom.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
-            for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
-                    mRedelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.txhash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
+                mRedelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                        mRedelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
                 }
-            }
-            mRedelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_src_address);
-            mRedelegateTo.setText(mResTxInfo.tx.value.msg.get(0).value.validator_dst_address);
-            mRedelegateMemo.setText(mResTxInfo.tx.value.memo);
+                mRedelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_src_address);
+                mRedelegateTo.setText(mResTxInfo.tx.value.msg.get(0).value.validator_dst_address);
 
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                mTvTxHash.setText(mResTxInfo.hash);
+                mTxTime.setText("-");
+                mTxBlockHeight.setText(mResTxInfo.height);
+                mRedelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.shares_amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                        mRedelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+                mRedelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_src_addr);
+                mRedelegateTo.setText(mResTxInfo.tx.value.msg.get(0).value.validator_dst_addr);
+            }
+            mRedelegateMemo.setText(mResTxInfo.tx.value.memo);
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
+
 
         } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE && mResTxInfo != null) {
             mLoading.setVisibility(View.GONE);
@@ -467,6 +481,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mRewardAddressChangeMemo.setText(mResTxInfo.tx.value.memo);
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
+
 
         } else if (mTxType == BaseConstant.TASK_GEN_TX_REINVEST && mResTxInfo != null) {
             mLoading.setVisibility(View.GONE);

@@ -143,7 +143,7 @@ public class ValidatorAllFragment extends BaseFragment {
             });
 
             holder.itemAvatar.setTag("imgv" + position);
-            if(validator.keybaseInfo == null) {
+            if (validator.keybaseInfo == null) {
                 holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
                 if(!TextUtils.isEmpty(validator.description.identity)) {
                     ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {

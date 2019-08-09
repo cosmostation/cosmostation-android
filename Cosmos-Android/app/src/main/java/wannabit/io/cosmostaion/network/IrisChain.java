@@ -16,7 +16,9 @@ import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
+import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
@@ -68,4 +70,7 @@ public interface IrisChain {
 
     @GET("/stake/delegators/{address}/unbonding-delegations/{validatorAddr}")
     Call<ResLcdUnBondings> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+    @GET("/stake/delegators/{delegatorAddr}/redelegations")
+    Call<ArrayList<ResLcdIrisRedelegate>> getRedelegateState(@Path("delegatorAddr") String delegatorAddr);
 }

@@ -69,6 +69,7 @@ public class BaseConstant {
     public final static int 				    TASK_IRIS_REWARD	                            = 2037;
     public final static int 				    TASK_IRIS_POOL	                                = 2038;
     public final static int 				    TASK_IRIS_PROPOSAL		                        = 2039;
+    public final static int 				    TASK_IRIS_REDELEGATE        		            = 2040;
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";
@@ -195,7 +196,9 @@ public class BaseConstant {
 
     public final static String                  FEE_IRIS_GAS_RATE_AVERAGE                       = "0.000008";
 
+    public final static String                  FEE_IRIS_GAS_AMOUNT_SEND                        = "25000";
     public final static String                  FEE_IRIS_GAS_AMOUNT_AVERAGE                     = "50000";
+    public final static String                  FEE_IRIS_GAS_AMOUNT_REDELEGATE                  = "65000";
     public final static String                  FEE_IRIS_GAS_AMOUNT_REWARD_BASE                 = "10000";
     public final static String                  FEE_IRIS_GAS_AMOUNT_REWARD_MUX                  = "5000";
 

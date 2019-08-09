@@ -33,42 +33,48 @@ import wannabit.io.cosmostaion.fragment.RedelegateStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
+import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class RedelegateActivity extends BaseActivity implements TaskListener {
 
-    private Toolbar                     mToolbar;
-    private TextView                    mTitle;
-    private ImageView                   mIvStep;
-    private TextView                    mTvStep;
-    private ViewPager                   mViewPager;
-    private RedelegatePageAdapter       mPageAdapter;
+    private ImageView                       mChainBg;
+    private Toolbar                         mToolbar;
+    private TextView                        mTitle;
+    private ImageView                       mIvStep;
+    private TextView                        mTvStep;
+    private ViewPager                       mViewPager;
+    private RedelegatePageAdapter           mPageAdapter;
 
 
-    public ArrayList<Validator>         mToValidators = new ArrayList<>();
-    public Account                      mAccount;
-    public BondingState                 mBondingState;
-    public Validator                    mFromValidator;
-    public Validator                    mToValidator;
-    public Coin                         mReDelegateAmount;
-    public String                       mReDelegateMemo;
-    public Fee                          mReDelegateFee;
+    public ArrayList<Validator>             mToValidators = new ArrayList<>();
+    public Account                          mAccount;
+    public BondingState                     mBondingState;
+    public Validator                        mFromValidator;
+    public Validator                        mToValidator;
+    public Coin                             mReDelegateAmount;
+    public String                           mReDelegateMemo;
+    public Fee                              mReDelegateFee;
 
+    public BigDecimal                       mProvisions = BigDecimal.ZERO;
+    public BigDecimal                       mBondedToken = BigDecimal.ZERO;
+    public ResLcdIrisPool                   mIrisPool;
+    public ArrayList<ResLcdIrisRedelegate>  mIrisRedelegateState;
 
-    public BigDecimal                   mProvisions = BigDecimal.ZERO;
-    public BigDecimal                   mBondedToken = BigDecimal.ZERO;
-
-    private int                         mTaskCount;
+    private int                             mTaskCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
+        mChainBg            = findViewById(R.id.chain_bg);
         mToolbar            = findViewById(R.id.tool_bar);
         mTitle              = findViewById(R.id.toolbar_title);
         mIvStep             = findViewById(R.id.send_step);
@@ -81,11 +87,19 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_1_img));
         mTvStep.setText(getString(R.string.str_redelegate_step_0));
 
-        mAccount            = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mFromValidator      = getIntent().getParcelableExtra("validator");
-        mBondedToken        = new BigDecimal(getIntent().getStringExtra("bondedToken"));
-        mProvisions         = new BigDecimal(getIntent().getStringExtra("provisions"));
+        mAccount                = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mFromValidator          = getIntent().getParcelableExtra("validator");
+        mBondedToken            = new BigDecimal(getIntent().getStringExtra("bondedToken"));
+        mProvisions             = new BigDecimal(getIntent().getStringExtra("provisions"));
+        mIrisPool               = getIntent().getParcelableExtra("irispool");
+        mIrisRedelegateState    = getIntent().getParcelableArrayListExtra("irisReState");
+
         mBondingState       = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
+        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+        }
 
         mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);

@@ -253,7 +253,6 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             }
             return false;
 
-
         } catch (Exception e) {
             getSActivity().mUnDelegateAmount = null;
             return false;

@@ -82,6 +82,18 @@ public class Msg {
         @SerializedName("validator_dst_address")
         public String validator_dst_address;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("validator_src_addr")
+        public String validator_src_addr;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("validator_dst_addr")
+        public String validator_dst_addr;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("shares")
+        public String shares;
+
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         public ArrayList<Coin> getCoins() {
