@@ -153,16 +153,23 @@ class MsgGenerator {
         return msg
     }
     
-    static func genGetModifyRewardAddressMsg(_ requestAddress: String, _ newRewardAddress: String) -> Msg {
+    static func genGetModifyRewardAddressMsg(_ requestAddress: String, _ newRewardAddress: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
-        
         var value = Msg.Value.init()
-        value.delegator_address = requestAddress
-        value.withdraw_address = newRewardAddress
-        
-        msg.type = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
-        msg.value = value
-        
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            value.delegator_address = requestAddress
+            value.withdraw_address = newRewardAddress
+            
+            msg.type = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
+            msg.value = value
+            
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            value.delegator_addr = requestAddress
+            value.withdraw_addr = newRewardAddress
+            
+            msg.type = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
+            msg.value = value
+        }
         return msg
     }
     

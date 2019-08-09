@@ -3865,6 +3865,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         <outlet property="currentRewardAddress" destination="rCi-gy-HMe" id="Ojc-SS-pRI"/>
                         <outlet property="memoLabel" destination="AH4-iV-fa6" id="adn-hl-tlS"/>
                         <outlet property="newRewardAddress" destination="xmz-Yi-G6S" id="YKe-LG-b3d"/>
+                        <outlet property="rewardAddressChangeDenom" destination="P5u-Vw-dfy" id="UHT-9b-uI7"/>
                         <outlet property="rewardAddressChangeFee" destination="KPj-iy-gIb" id="5aL-xZ-NRc"/>
                     </connections>
                 </viewController>

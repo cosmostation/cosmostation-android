@@ -46,7 +46,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         userChain = WUtils.getChainType(mAccount!.account_base_chain)
         
         self.onFetchRewardAddress(mAccount.account_address)
-        
         if (mAccount.account_nick_name == "") {
             walletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mAccount.account_id)
         } else {
@@ -55,7 +54,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         
         walletAddress.text = mAccount.account_address
         walletAddress.adjustsFontSizeToFitWidth = true
-        
         cardAddress.backgroundColor = WUtils.getChainBg(userChain!)
         cardInfo.backgroundColor = WUtils.getChainBg(userChain!)
         cardReward.backgroundColor = WUtils.getChainBg(userChain!)
@@ -66,14 +64,12 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             chainImg.image = UIImage(named: "irisWh")
             chainName.text = "Iris Hub"
         }
-        
         importDate.text = WUtils.longTimetoString(input:mAccount.account_import_time)
         
         if(mAccount.account_has_private)  {
             actionBtn.setTitle(NSLocalizedString("check_mnemonic", comment: ""), for: .normal)
             importState.text = NSLocalizedString("with_mnemonic", comment: "")
             keyPath.text = BASE_PATH.appending(mAccount.account_path)
-            
             pathTitle.isHidden = false
             keyPath.isHidden = false
             noKeyMsg.isHidden = true
@@ -84,7 +80,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             pathTitle.isHidden = true
             keyPath.isHidden = true
             noKeyMsg.isHidden = false
-            
         }
     }
     
@@ -104,9 +99,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     }
 
     
-    
-    
-    
     @IBAction func onClickNameChange(_ sender: Any) {
         let nameAlert = UIAlertController(title: NSLocalizedString("change_wallet_name", comment: ""), message: nil, preferredStyle: .alert)
         
@@ -114,7 +106,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             textField.placeholder = NSLocalizedString("wallet_name", comment: "")
         }
         
-        nameAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: { [weak nameAlert] (_) in
+        nameAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: { _ in
             self.dismiss(animated: true, completion: nil)
         }))
         
@@ -197,25 +189,31 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             return
         }
         
-        if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            self.onShowToast(NSLocalizedString("prepare", comment: ""))
-            return
-        }
-        
         var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-            return
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
         
         let noticeAlert = UIAlertController(title: NSLocalizedString("reward_address_notice_title", comment: ""), message: NSLocalizedString("reward_address_notice_msg", comment: ""), preferredStyle: .alert)
-        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { [weak noticeAlert] (_) in
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { _ in
             let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-            stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
+            if (self.userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
+            } else if (self.userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                stakingVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
+            }
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(stakingVC, animated: true)
         }))
-        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(noticeAlert, animated: true) {

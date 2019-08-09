@@ -17,21 +17,26 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet weak var rewardAddressChangeFee: UILabel!
+    @IBOutlet weak var rewardAddressChangeDenom: UILabel!
     @IBOutlet weak var currentRewardAddress: UILabel!
     @IBOutlet weak var newRewardAddress: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
     
-     var pageHolderVC: StepGenTxViewController!
+    var pageHolderVC: StepGenTxViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(pageHolderVC.userChain!, rewardAddressChangeDenom)
     }
     
     func onUpdateView() {
         let feeAmout = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
-        
-        rewardAddressChangeFee.attributedText = WUtils.displayAmout(feeAmout.stringValue, rewardAddressChangeFee.font, 6)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            rewardAddressChangeFee.attributedText = WUtils.displayAmount(feeAmout.stringValue, rewardAddressChangeFee.font, 6, pageHolderVC.userChain!)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            rewardAddressChangeFee.attributedText = WUtils.displayAmount(feeAmout.stringValue, rewardAddressChangeFee.font, 18, pageHolderVC.userChain!)
+        }
         currentRewardAddress.text = pageHolderVC.mCurrentRewardAddress
         newRewardAddress.text = pageHolderVC.mToChangeRewardAddress
         currentRewardAddress.adjustsFontSizeToFitWidth = true
@@ -49,22 +54,20 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
         self.btnBack.isUserInteractionEnabled = false
         self.btnConfirm.isUserInteractionEnabled = false
         pageHolderVC.onBeforePage()
-        
     }
     
     @IBAction func onClickConfirm(_ sender: UIButton) {
         let noticeAlert = UIAlertController(title: NSLocalizedString("reward_address_warnning_title", comment: ""), message: NSLocalizedString("reward_address_notice_msg", comment: ""), preferredStyle: .alert)
-        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { [weak noticeAlert] (_) in
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { _ in
             self.onShowPasswordCheck()
         }))
-        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { [weak noticeAlert] (_) in
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(noticeAlert, animated: true) {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
-        
     }
     
     func onShowPasswordCheck() {
@@ -74,7 +77,6 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
         passwordVC.mTarget = PASSWORD_ACTION_CHECK_TX
         passwordVC.resultDelegate = self
         self.navigationController?.pushViewController(passwordVC, animated: false)
-        
     }
     
     @objc func dismissAlertController(){
@@ -84,14 +86,41 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            self.onGenModifyRewardAddressTx()
+            self.onFetchAccountInfo(pageHolderVC.mAccount!)
+        }
+    }
+    
+    func onFetchAccountInfo(_ account: Account) {
+        self.showWaittingAlert()
+        var request: DataRequest?
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        }
+        request?.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    _ = BaseData.instance.deleteBalance(account: account)
+                    self.hideWaittingAlert()
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+                let accountInfo = AccountInfo.init(info)
+                _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                self.onGenModifyRewardAddressTx()
+                
+            case .failure(let _):
+                self.hideWaittingAlert()
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            }
         }
     }
     
     func onGenModifyRewardAddressTx() {
         print("onGenModifyRewardAddressTx")
-        self.showWaittingAlert()
-        
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
@@ -102,13 +131,12 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                 let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 
                 let msg = MsgGenerator.genGetModifyRewardAddressMsg(self.pageHolderVC.mAccount!.account_address,
-                                                                    self.pageHolderVC.mToChangeRewardAddress!)
+                                                                    self.pageHolderVC.mToChangeRewardAddress!,
+                                                                    self.pageHolderVC.userChain!)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                if(FEE_FREE) {
-                    self.pageHolderVC.mFee?.amount[0].amount = "1"
-                }
+                
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
                                                        String(self.pageHolderVC.mAccount!.account_sequence_number),
@@ -130,20 +158,16 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                 genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
                 genedSignature.pub_key = genPubkey
                 genedSignature.signature = WKey.convertSignature(signedData!)
+                genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
                 
                 var signatures: Array<Signature> = Array<Signature>()
                 signatures.append(genedSignature)
                 
-                stdTx = MsgGenerator.genSignedTx(msgList,
-                                                 self.pageHolderVC.mFee!,
-                                                 self.pageHolderVC.mMemo!,
-                                                 signatures)
-                
+                stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
                 
             } catch {
-                if(SHOW_LOG) {
-                    print(error)
-                }
+                if(SHOW_LOG) { print(error) }
             }
             
             DispatchQueue.main.async(execute: {
@@ -154,24 +178,41 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                 
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(CSS_LCD_URL_BORAD_TX, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    var url = "";
+                    if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                        url = CSS_LCD_URL_BORAD_TX
+                    } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                        url = IRIS_LCD_URL_BORAD_TX
+                    }
+                    let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            //                            print("send ", res)
+                            if(SHOW_LOG) { print("AddressChange ", res) }
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
                             if(SHOW_LOG) {
-                                print("send error ", error)
+                                print("AddressChange error ", error)
                             }
-                            //
+                            if (response.response?.statusCode == 500) {
+                                txResult["net_error"] = 500
+                            }
                         }
-                        self.hideWaittingAlert()
-                        txResult["type"] = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
-                        self.onStartTxResult(txResult)
+                        
+                        if (self.waitAlert != nil) {
+                            self.waitAlert?.dismiss(animated: true, completion: {
+                                if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                                    txResult["type"] = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
+                                } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                                    txResult["type"] = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
+                                }
+                                print("txResult ", txResult)
+                                self.onStartTxResult(txResult)
+                            })
+                        }
                     }
                     
                     

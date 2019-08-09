@@ -314,7 +314,7 @@ All services are available after mnemonics integration</string>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwM-A2-KH6">
-                            <rect key="frame" x="16" y="30" width="277" height="17"/>
+                            <rect key="frame" x="16" y="30" width="281" height="17"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -338,7 +338,7 @@ All services are available after mnemonics integration</string>
                         <constraint firstItem="YwM-A2-KH6" firstAttribute="leading" secondItem="C1f-W5-wv9" secondAttribute="leading" constant="16" id="0Yd-aC-HTr"/>
                         <constraint firstAttribute="trailing" secondItem="ZBT-u0-6pd" secondAttribute="trailing" constant="8" id="49V-9s-giI"/>
                         <constraint firstItem="YwM-A2-KH6" firstAttribute="top" secondItem="LQ4-c4-4FH" secondAttribute="bottom" constant="4" id="6OH-m6-kGc"/>
-                        <constraint firstItem="ZBT-u0-6pd" firstAttribute="leading" secondItem="YwM-A2-KH6" secondAttribute="trailing" constant="12" id="A7W-yy-cWm"/>
+                        <constraint firstItem="ZBT-u0-6pd" firstAttribute="leading" secondItem="YwM-A2-KH6" secondAttribute="trailing" constant="8" id="A7W-yy-cWm"/>
                         <constraint firstItem="LQ4-c4-4FH" firstAttribute="leading" secondItem="C1f-W5-wv9" secondAttribute="leading" constant="16" id="TeZ-a0-Q6X"/>
                         <constraint firstItem="LQ4-c4-4FH" firstAttribute="top" secondItem="C1f-W5-wv9" secondAttribute="top" constant="12" id="jNe-qP-NHh"/>
                         <constraint firstAttribute="height" constant="60" id="qhA-BD-I6O"/>

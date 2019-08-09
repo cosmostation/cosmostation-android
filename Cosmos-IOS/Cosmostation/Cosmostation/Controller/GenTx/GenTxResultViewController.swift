@@ -340,19 +340,31 @@ class GenTxResultViewController: BaseViewController {
                 rewardResultMemo.text = mTxInfo?.tx.value.memo
             }
             
-        } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+        } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY || mTxType == IRIS_MSG_TYPE_WITHDRAW_MIDIFY) {
             self.addressChangeResultView.isHidden = false
             self.loadingView.isHidden = true
-            
             addressChangeResultType.text = NSLocalizedString("tx_change_reward_address", comment: "")
-            addressChangeResultHash.text = mTxInfo?.txhash
-            addressChangeResultBlock.text = mTxInfo?.height
-            addressChangeResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                addressChangeResultHash.text = mTxInfo?.txhash
+                addressChangeResultBlock.text = mTxInfo?.height
+                addressChangeResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+                
+                addressChangeResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, addressChangeResultFee.font, 6, self.mChain!)
+                addressChangeResultAddress.text = mTxInfo?.tx.value.msg[0].value.withdraw_address
+                addressChangeResultAddress.adjustsFontSizeToFitWidth = true
+                addressChangeResultMemo.text = mTxInfo?.tx.value.memo
+                
+            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                addressChangeResultHash.text = mTxInfo?.hash
+                addressChangeResultBlock.text = mTxInfo?.height
+                addressChangeResultTime.text = "-"
+                
+                addressChangeResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, addressChangeResultFee.font, 18, self.mChain!)
+                addressChangeResultAddress.text = mTxInfo?.tx.value.msg[0].value.withdraw_addr
+                addressChangeResultAddress.adjustsFontSizeToFitWidth = true
+                addressChangeResultMemo.text = mTxInfo?.tx.value.memo
+            }
             
-            addressChangeResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, addressChangeResultFee.font, 6)
-            addressChangeResultAddress.text = mTxInfo?.tx.value.msg[0].value.withdraw_address
-            addressChangeResultAddress.adjustsFontSizeToFitWidth = true
-            addressChangeResultMemo.text = mTxInfo?.tx.value.memo
             
         }  else if (mTxType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
             self.reInvestResultView.isHidden = false

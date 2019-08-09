@@ -182,6 +182,7 @@ let IRIS_MSG_TYPE_VOTE                      = "irishub/gov/MsgVote";
 let IRIS_MSG_TYPE_DEPOSIT                   = "irishub/gov/MsgDeposit";
 let IRIS_MSG_TYPE_SUBMIT_PROPOSAL           = "irishub/gov/MsgSubmitProposal";
 let IRIS_MSG_TYPE_CREATE_VALIDATOR          = "irishub/stake/MsgCreateValidator";
+let IRIS_MSG_TYPE_WITHDRAW_MIDIFY           = "irishub/distr/MsgModifyWithdrawAddress";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"

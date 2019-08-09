@@ -12,7 +12,6 @@ import Alamofire
 
 class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
     
-
     @IBOutlet weak var newRewardAddressInput: AddressInputTextField!
     @IBOutlet weak var currentRewardAddressLabel: UILabel!
     @IBOutlet weak var btnCancel: UIButton!
@@ -68,27 +67,37 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
         if (currentRewardAddressLabel.text == userInput) {
             self.onShowToast(NSLocalizedString("error_same_reward_address", comment: ""))
             return;
-            
-        } else if(WKey.isValidateAddress(userInput!)) {
-            self.btnCancel.isUserInteractionEnabled = false
-            self.btnNext.isUserInteractionEnabled = false
-            pageHolderVC.mToChangeRewardAddress = userInput
-            pageHolderVC.onNextPage()
-            
+        }
+        
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (!userInput!.starts(with: "cosmos") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (!userInput!.starts(with: "iaa") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
             return;
         }
+        self.btnCancel.isUserInteractionEnabled = false
+        self.btnNext.isUserInteractionEnabled = false
+        pageHolderVC.mToChangeRewardAddress = userInput
+        pageHolderVC.onNextPage()
         
     }
     
     func onFetchRewardAddress(_ accountAddr: String) {
-        let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
+        var url = ""
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseString { (response) in
             switch response.result {
             case .success(let res):
@@ -112,7 +121,6 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
         }
         
     }
-    
     
     func scannedAddress(result: String) {
         newRewardAddressInput.text = result.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
