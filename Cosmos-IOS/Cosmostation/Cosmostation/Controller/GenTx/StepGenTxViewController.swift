@@ -50,6 +50,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mProvision: String?
     var mStakingPool: NSDictionary?
     
+    var mIrisStakePool: NSDictionary?
+    var mirisRedelegate: Array<NSDictionary>?
+    
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             return [self.newVc(viewController: "StepDelegateAmountViewController"),
@@ -70,7 +73,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepSendCheckViewController")]
             
-        } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+        } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE) {
             return [self.newVc(viewController: "StepRedelegateAmountViewController"),
                     self.newVc(viewController: "StepRedelegateToViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
@@ -111,8 +114,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         mUnbondingList  = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
         userChain       = WUtils.getChainType(mAccount!.account_base_chain)
         
-        if(mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+        if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
             onFetchTopValidatorsInfo()
+        } else if (mType == IRIS_MSG_TYPE_REDELEGATE) {
+            self.irisValidatorPage = 1;
+            self.onFetchIrisValidatorsInfo(irisValidatorPage)
         }
             
         self.dataSource = self
@@ -159,7 +165,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func onNextPage() {
         disableBounce = false
-        if((currentIndex <= 3 && (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_TRANSFER)) || currentIndex <= 2) {
+        if((currentIndex <= 3 && (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == IRIS_MSG_TYPE_REDELEGATE)) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]
@@ -221,7 +227,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     }
                 }
                 self.sortByPower()
-//                print("mToReDelegateValidators cnt " , self.mToReDelegateValidators.count)
                 
             case .failure(let error):
                 print("onFetchTopValidatorsInfo ", error)
@@ -229,6 +234,35 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         }
     }
     
+    var irisValidatorPage = 1;
+    func onFetchIrisValidatorsInfo(_ page:Int){
+        let request = Alamofire.request(IRIS_LCD_URL_VALIDATORS, method: .get, parameters: ["size":"100", "page":String(page)], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let validators = res as? Array<NSDictionary> else {
+                    return
+                }
+                
+                for validator in validators {
+                    let val = Validator(validator as! [String : Any])
+                    if (val.status == val.BONDED && val.operator_address != self.mTargetValidator?.operator_address) {
+                        self.mToReDelegateValidators.append(val)
+                    }
+                }
+                
+                if (validators.count == 100) {
+                    self.irisValidatorPage = self.irisValidatorPage + 1
+                    self.onFetchIrisValidatorsInfo(self.irisValidatorPage)
+                } else {
+                    self.sortByPower()
+                }
+                
+            case .failure(let error):
+                print("onFetchIrisValidatorsInfo ", error)
+            }
+        }
+    }
     
     
     func sortByPower() {

@@ -27,6 +27,8 @@ class StakingViewController: UIViewController {
     var mProvision: String?
     var mStakingPool: NSDictionary?
     
+    var mIrisStakePool: NSDictionary?
+    var mirisRedelegate: Array<NSDictionary>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +51,7 @@ class StakingViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_undelegate", comment: "")
             
-        } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+        } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE) {
             stepDescription.text = NSLocalizedString("redelegate_step_1", comment: "")
             stepImg.image = UIImage.init(named: "step1Img")
             self.titleLabel.text =  NSLocalizedString("title_redelegate", comment: "")
@@ -108,6 +110,9 @@ class StakingViewController: UIViewController {
             StepVc.mRewardTargetValidators = self.mRewardTargetValidators
             StepVc.mProvision = self.mProvision
             StepVc.mStakingPool = self.mStakingPool
+            StepVc.mIrisStakePool = self.mIrisStakePool
+            StepVc.mirisRedelegate = self.mirisRedelegate
+            
         }
     }
     
@@ -123,7 +128,7 @@ class StakingViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("undelegate_step_1", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE) {
                     stepImg.image = UIImage.init(named: "step1Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_1", comment: "")
                     
@@ -154,7 +159,7 @@ class StakingViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("delegate_step_2", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE) {
                     stepImg.image = UIImage.init(named: "step2Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_2", comment: "")
                     
@@ -186,7 +191,7 @@ class StakingViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("delegate_step_3", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE) {
                     stepImg.image = UIImage.init(named: "step3Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_3", comment: "")
                     
@@ -218,7 +223,7 @@ class StakingViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("undelegate_step_4", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE) {
                     stepImg.image = UIImage.init(named: "step4Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_4", comment: "")
                     
@@ -244,7 +249,7 @@ class StakingViewController: UIViewController {
                 if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step5Img")
                     stepDescription.text = NSLocalizedString("send_step_5", comment: "")
-                } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE) {
                     stepImg.image = UIImage.init(named: "step5Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_5", comment: "")
                 }

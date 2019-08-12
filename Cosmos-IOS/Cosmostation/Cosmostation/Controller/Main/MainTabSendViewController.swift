@@ -291,7 +291,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
             stakingVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            if(self.mainTabVC.mBalances.count <= 0 || WUtils.stringToDecimal(self.mainTabVC.mBalances[0].balance_amount).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue <= 0) {
+            if(self.mainTabVC.mBalances.count <= 0 || WUtils.stringToDecimal(self.mainTabVC.mBalances[0].balance_amount).compare(NSDecimalNumber.init(string: "200000000000000000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }

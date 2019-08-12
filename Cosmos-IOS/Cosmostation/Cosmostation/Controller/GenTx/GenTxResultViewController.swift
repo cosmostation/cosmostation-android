@@ -198,9 +198,9 @@ class GenTxResultViewController: BaseViewController {
         if (mTxType == COSMOS_MSG_TYPE_DELEGATE || mTxType == IRIS_MSG_TYPE_DELEGATE) {
             self.delegateResultView.isHidden = false
             self.loadingView.isHidden = true
+            delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
             
             if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
                 delegateResultHash.text = mTxInfo?.txhash
                 delegateResultBlock.text = mTxInfo?.height
                 delegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
@@ -212,7 +212,6 @@ class GenTxResultViewController: BaseViewController {
                 delegateResultMemo.text = mTxInfo?.tx.value.memo
                 
             } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
                 delegateResultHash.text = mTxInfo?.hash
                 delegateResultBlock.text = mTxInfo?.height
                 delegateResultTime.text = "-"
@@ -227,9 +226,9 @@ class GenTxResultViewController: BaseViewController {
         } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 || mTxType == IRIS_MSG_TYPE_UNDELEGATE) {
             self.undelegateResultView.isHidden = false
             self.loadingView.isHidden = true
+            undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
             
             if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
                 undelegateResultHash.text = mTxInfo?.txhash
                 undelegateResultBlock.text = mTxInfo?.height
                 undelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
@@ -241,7 +240,6 @@ class GenTxResultViewController: BaseViewController {
                 undelegateResultMemo.text = mTxInfo?.tx.value.memo
                 
             } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
                 undelegateResultHash.text = mTxInfo?.hash
                 undelegateResultBlock.text = mTxInfo?.height
                 undelegateResultTime.text = "-"
@@ -253,29 +251,45 @@ class GenTxResultViewController: BaseViewController {
                 undelegateResultMemo.text = mTxInfo?.tx.value.memo
             }
             
-        } else if (mTxType == COSMOS_MSG_TYPE_REDELEGATE2) {
+        } else if (mTxType == COSMOS_MSG_TYPE_REDELEGATE2 || mTxType == IRIS_MSG_TYPE_REDELEGATE) {
             self.redelegateResultView.isHidden = false
             self.loadingView.isHidden = true
-            
             redelegateResultType.text = NSLocalizedString("tx_redelegate", comment: "")
-            redelegateResultHash.text = mTxInfo?.txhash
-            redelegateResultBlock.text = mTxInfo?.height
-            redelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
             
-//            redelegateResultAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[0].value.amount?.amount)!, redelegateResultAmount.font, 6)
-            redelegateResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, redelegateResultFee.font, 6)
-            redelegateResultFromValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_src_address
-            redelegateResultFromValAddress.adjustsFontSizeToFitWidth = true
-            redelegateResultToValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_dst_address
-            redelegateResultToValAddress.adjustsFontSizeToFitWidth = true
-            redelegateResultMemo.text = mTxInfo?.tx.value.memo
+            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                redelegateResultHash.text = mTxInfo?.txhash
+                redelegateResultBlock.text = mTxInfo?.height
+                redelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+                
+                redelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmounts()![0].amount)!, redelegateResultAmount.font, 6, self.mChain!)
+                redelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, redelegateResultFee.font, 6, self.mChain!)
+                redelegateResultFromValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_src_address
+                redelegateResultFromValAddress.adjustsFontSizeToFitWidth = true
+                redelegateResultToValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_dst_address
+                redelegateResultToValAddress.adjustsFontSizeToFitWidth = true
+                redelegateResultMemo.text = mTxInfo?.tx.value.memo
+                
+            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                redelegateResultHash.text = mTxInfo?.hash
+                redelegateResultBlock.text = mTxInfo?.height
+                redelegateResultTime.text = "-"
+                
+                redelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.shares_amount)!, redelegateResultAmount.font, 18, self.mChain!)
+                redelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.mChain!)
+                redelegateResultFromValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_src_addr
+                redelegateResultFromValAddress.adjustsFontSizeToFitWidth = true
+                redelegateResultToValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_dst_addr
+                redelegateResultToValAddress.adjustsFontSizeToFitWidth = true
+                redelegateResultMemo.text = mTxInfo?.tx.value.memo
+            }
+            
             
         } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2 || mTxType == IRIS_MSG_TYPE_TRANSFER) {
             self.sendResultView.isHidden = false
             self.loadingView.isHidden = true
+            sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
             
             if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
                 sendResultHash.text = mTxInfo?.txhash
                 sendResultBlock.text = mTxInfo?.height
                 sendResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
@@ -287,7 +301,6 @@ class GenTxResultViewController: BaseViewController {
                 sendResultMemo.text = mTxInfo?.tx.value.memo
                 
             } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
                 sendResultHash.text = mTxInfo?.hash
                 sendResultBlock.text = mTxInfo?.height
                 sendResultTime.text = "-"

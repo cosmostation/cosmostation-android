@@ -51,7 +51,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moniker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raZ-Ow-t7L">
-                                <rect key="frame" x="80" y="10" width="50" height="16.5"/>
+                                <rect key="frame" x="80" y="10" width="178" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -100,6 +100,7 @@
                             <constraint firstItem="raZ-Ow-t7L" firstAttribute="top" secondItem="QIG-7w-Xb9" secondAttribute="top" constant="10" id="mE1-QX-EkI"/>
                             <constraint firstItem="ksq-zb-taK" firstAttribute="top" secondItem="raZ-Ow-t7L" secondAttribute="bottom" constant="6" id="rs5-gU-hUH"/>
                             <constraint firstItem="f62-fr-pdO" firstAttribute="leading" secondItem="LlR-iL-3fp" secondAttribute="leading" id="sl8-Rv-dgM"/>
+                            <constraint firstAttribute="trailing" secondItem="raZ-Ow-t7L" secondAttribute="trailing" constant="38" id="t15-Dm-6GP"/>
                             <constraint firstAttribute="trailing" secondItem="Fgd-4g-jgX" secondAttribute="trailing" constant="10" id="vo7-Oq-p1g"/>
                             <constraint firstItem="xlU-qV-3tk" firstAttribute="leading" secondItem="LlR-iL-3fp" secondAttribute="trailing" constant="12" id="wLH-Dk-x9Y"/>
                         </constraints>

@@ -33,6 +33,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     var mProvision: String?
     var mStakingPool: NSDictionary?
     var mIrisStakePool: NSDictionary?
+    var mIrisRedelegate: Array<NSDictionary>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,13 +97,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
-            print("onFetchFinished mBonding ", mBonding)
-            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
-            print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
-            print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
-            print("onFetchFinished mUnbondings ", mUnbondings.count)
-            print("onFetchFinished mRewards ", mRewards.count)
-            print("onFetchFinished mHistories ", mHistories.count)
+//            print("onFetchFinished mBonding ", mBonding)
+//            print("onFetchFinished mBonding Amount ", mBonding?.getBondingAmount(mValidator!))
+//            print("onFetchFinished mBonding Amount stringValue", mBonding?.getBondingAmount(mValidator!).stringValue)
+//            print("onFetchFinished mBonding Share ", mBonding?.bonding_shares)
+//            print("onFetchFinished mUnbondings ", mUnbondings.count)
+//            print("onFetchFinished mRewards ", mRewards.count)
+//            print("onFetchFinished mHistories ", mHistories.count)
 
             if((mBonding != nil && mBonding?.getBondingAmount(mValidator!) != NSDecimalNumber.zero) || mUnbondings.count > 0) {
                 mMyValidator = true
@@ -632,7 +633,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             }
             self.onFetchFinished()
         }
-        
     }
     
     func onFetchHistory(_ account: Account, _ validator: Validator, _ from:String, _ size:String) {
@@ -680,7 +680,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             url = IRIS_LCD_URL_BONDING + address + IRIS_LCD_URL_BONDING_TAIL + "/" + vAddress
         }
-        print("onFetchSelfBondRate url ", url)
+//        print("onFetchSelfBondRate url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
@@ -696,17 +696,16 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             case .failure(let error):
                 print("onFetchSelfBondRate ", error)
             }
-//            print("onFetchSelfBondRate!!! ")
             self.onFetchFinished()
         }
     }
     
     func onFetchRedelegatedState(_ address: String, _ to: String) {
+        print("onFetchRedelegatedState")
         let request = Alamofire.request(CSS_LCD_URL_REDELEGATION, method: .get, parameters: ["delegator":address, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchRedelegatedState ", res)
                 if let redelegateHistories = res as? Array<NSDictionary>, let entries = redelegateHistories[0]["entries"] as? Array<NSDictionary> {
                     if(entries.count >= 0) {
                         self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
@@ -721,6 +720,31 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             case .failure(let error):
                 print("onFetchRedelegatedState ", error)
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            }
+        }
+    }
+    
+    func onFetchIrisRedelegateState(_ account:Account) {
+//        print("onFetchIrisRedelegateState")
+        let request = Alamofire.request(IRIS_LCD_URL_REDELEGATION + account.account_address + IRIS_LCD_URL_REDELEGATION_TAIL, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchIrisRedelegateState ", res)
+                guard let irisRedelegateState = res as? Array<NSDictionary> else {
+                    return
+                }
+                self.mIrisRedelegate = irisRedelegateState
+                for irisRedelegate in self.mIrisRedelegate! {
+                    if let dstAddress = irisRedelegate.value(forKey: "validator_dst_addr") as? String, dstAddress == self.mValidator?.operator_address {
+                        self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
+                        return
+                    }
+                }
+                self.onStartRedelegate()
+                
+            case .failure(let error):
+                print("onFetchIrisRedelegateState ", error)
             }
         }
     }
@@ -804,7 +828,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     
     
     func onCheckRedelegate() {
-//        print("onStartRedelegate")
         if (!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
@@ -813,13 +836,23 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             self.onShowToast(NSLocalizedString("error_not_redelegate", comment: ""))
             return
         }
-        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-            return
-        }
         
-        self.onFetchRedelegatedState(mAccount!.account_address, mValidator!.operator_address)
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            self.onFetchRedelegatedState(mAccount!.account_address, mValidator!.operator_address)
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "520000000000000000")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            self.onFetchIrisRedelegateState(mAccount!)
+        }
     }
     
     func onStartRedelegate() {
@@ -828,13 +861,18 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         stakingVC.mInflation = mInflation
         stakingVC.mProvision = mProvision
         stakingVC.mStakingPool = mStakingPool
-        stakingVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            stakingVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            stakingVC.mIrisStakePool = mIrisStakePool
+            stakingVC.mirisRedelegate = mIrisRedelegate
+            stakingVC.mType = IRIS_MSG_TYPE_REDELEGATE
+        }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
     }
     
     func onStartGetSingleReward() {
-//        print("onStartGetSingleReward")
         if (!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
@@ -902,12 +940,10 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onCheckReinvest() {
-        print("onStartReinvest")
         if(!mAccount!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
         }
-        
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (mRewards.count > 0) {
                 let rewardSum = WUtils.getAllAtomReward(mRewards)

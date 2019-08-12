@@ -70,6 +70,8 @@ let IRIS_LCD_URL_BORAD_TX               = IRIS_LCD_URL + "tx/broadcast";
 let IRIS_LCD_URL_TX                     = IRIS_LCD_URL + "txs/";
 let IRIS_LCD_URL_REWARD_ADDRESS         = IRIS_LCD_URL + "distribution/";
 let IRIS_LCD_URL_REWARD_ADDRESS_TAIL    = "/withdraw-address";
+let IRIS_LCD_URL_REDELEGATION           = IRIS_LCD_URL + "stake/delegators/";
+let IRIS_LCD_URL_REDELEGATION_TAIL      = "/redelegations";
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";
@@ -237,7 +239,9 @@ let FEE_REWARD_GAS_16                       = "1020000";
 
 let GAS_FEE_RATE_IRIS_AVERAGE               = "0.000008"
 
+let GAS_FEE_AMOUNT_IRIS_SEND                = "25000"
 let GAS_FEE_AMOUNT_IRIS_MID                 = "50000"
+let GAS_FEE_AMOUNT_IRIS_REDELEGATE          = "65000"
 let GAS_FEE_AMOUNT_IRIS_REWARD_BASE         = "10000"
 let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
 

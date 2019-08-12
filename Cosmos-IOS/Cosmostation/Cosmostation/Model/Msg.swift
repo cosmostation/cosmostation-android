@@ -66,6 +66,9 @@ public struct Msg: Codable {
         var delegator_addr: String?
         var validator_addr: String?
         var withdraw_addr: String?
+        var validator_src_addr: String?
+        var validator_dst_addr: String?
+        var shares: String?
         
         
         enum CodingKeys: String, CodingKey {
@@ -85,6 +88,9 @@ public struct Msg: Codable {
             case delegator_addr
             case validator_addr
             case withdraw_addr
+            case validator_src_addr
+            case validator_dst_addr
+            case shares
         }
         
         public func getAmount() -> Coin? {
@@ -200,6 +206,20 @@ public struct Msg: Codable {
             if let address = dictionary["withdraw_addr"] as? String {
                 self.withdraw_addr = address
             }
+            
+            if let address = dictionary["validator_src_addr"] as? String {
+                self.validator_src_addr = address
+            }
+            
+            if let address = dictionary["validator_dst_addr"] as? String {
+                self.validator_dst_addr = address
+            }
+            
+            if let shares = dictionary["shares"] as? String {
+                self.shares = shares
+            }
+            
+            
         }
         
     }

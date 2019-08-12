@@ -1078,6 +1078,7 @@
                     </view>
                     <connections>
                         <outlet property="availableAmountLabel" destination="7Ib-6U-oC4" id="ai8-OU-hEj"/>
+                        <outlet property="availableDenomLabel" destination="IEH-6H-UvW" id="aFd-AX-KjN"/>
                         <outlet property="btnAdd01" destination="hIG-nS-UZT" id="IHo-83-TXg"/>
                         <outlet property="btnCancel" destination="SnL-Y2-x2q" id="72z-AF-kg9"/>
                         <outlet property="btnNext" destination="Tmr-hH-xoh" id="ShG-HW-SFu"/>
@@ -3658,7 +3659,9 @@ The actual amount of rewards you receive may be equal to or greater than what is
                     <connections>
                         <outlet property="btnBefore" destination="Qhr-2R-zIS" id="oAi-oG-08F"/>
                         <outlet property="btnConfirm" destination="nDm-R6-4fp" id="MlP-BJ-Aqu"/>
+                        <outlet property="redelegateAmountDenom" destination="Vkf-Tr-7mE" id="dj2-h9-m0B"/>
                         <outlet property="redelegateAmountLabel" destination="i4b-yH-dL0" id="K7a-Je-noH"/>
+                        <outlet property="redelegateFeeDenom" destination="nTF-bU-ech" id="7ZZ-4X-Q1u"/>
                         <outlet property="redelegateFeeLabel" destination="l8K-xe-2vm" id="d4c-Ym-Rt9"/>
                         <outlet property="redelegateFromValLabel" destination="bDP-a8-F01" id="3M2-i8-CBF"/>
                         <outlet property="redelegateMemoLabel" destination="zcu-OB-o6V" id="qU1-3P-SCU"/>

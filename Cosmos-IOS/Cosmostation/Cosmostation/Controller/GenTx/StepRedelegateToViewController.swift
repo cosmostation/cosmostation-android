@@ -46,14 +46,26 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 cell?.valjailedImg.isHidden = true
                 cell?.valjailedImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
             }
-            cell?.valPowerLabel.attributedText  =  WUtils.displayAmout(validator.tokens, cell!.valPowerLabel.font, 6)
-//            cell?.valCommissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell!.valCommissionLabel.font)
-            if(self.pageHolderVC.mStakingPool != nil && self.pageHolderVC.mProvision != nil) {
-                let provisions = NSDecimalNumber.init(string: self.pageHolderVC.mProvision)
-                let bonded_tokens = NSDecimalNumber.init(string: self.pageHolderVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.rate), font: cell!.valCommissionLabel.font)
-            } else {
-                cell?.valCommissionLabel.text = "?? %"
+            
+            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                cell?.valPowerLabel.attributedText  =  WUtils.displayAmount(validator.tokens, cell!.valPowerLabel.font, 6, pageHolderVC.userChain!)
+                if (self.pageHolderVC.mStakingPool != nil && self.pageHolderVC.mProvision != nil) {
+                    let provisions = NSDecimalNumber.init(string: self.pageHolderVC.mProvision)
+                    let bonded_tokens = NSDecimalNumber.init(string: self.pageHolderVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.rate), font: cell!.valCommissionLabel.font)
+                } else {
+                    cell?.valCommissionLabel.text = "?? %"
+                }
+                
+            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                cell?.valPowerLabel.attributedText  =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell!.valPowerLabel.font, 6, pageHolderVC.userChain!)
+                if (self.pageHolderVC.mIrisStakePool != nil) {
+                    let provisions = NSDecimalNumber.init(string: self.pageHolderVC.mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
+                    let bonded_tokens = NSDecimalNumber.init(string: self.pageHolderVC.mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
+                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.rate), font: (cell?.valCommissionLabel.font)!)
+                } else {
+                    cell?.valCommissionLabel.text = "-"
+                }
             }
 
             cell?.valImg.tag = indexPath.row
@@ -91,13 +103,22 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             }
 
             cell?.rootCard.needBorderUpdate = false
-            if(validator.operator_address == checkedValidator?.operator_address) {
-                cell?.valCheckedImg.image = UIImage.init(named: "checkOn")
+            if (validator.operator_address == checkedValidator?.operator_address && pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                cell?.valCheckedImg.image = cell?.valCheckedImg.image?.withRenderingMode(.alwaysTemplate)
+                cell?.valCheckedImg.tintColor = COLOR_ATOM
                 cell?.rootCard.backgroundColor = UIColor.clear
                 cell?.rootCard.layer.borderWidth = 1
                 cell?.rootCard.layer.borderColor = UIColor(hexString: "#7A8388").cgColor
                 cell?.rootCard.clipsToBounds = true
 
+            } else if (validator.operator_address == checkedValidator?.operator_address && pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                cell?.valCheckedImg.image = cell?.valCheckedImg.image?.withRenderingMode(.alwaysTemplate)
+                cell?.valCheckedImg.tintColor = COLOR_IRIS
+                cell?.rootCard.backgroundColor = UIColor.clear
+                cell?.rootCard.layer.borderWidth = 1
+                cell?.rootCard.layer.borderColor = UIColor(hexString: "#7A8388").cgColor
+                cell?.rootCard.clipsToBounds = true
+                
             } else {
                 cell?.valCheckedImg.image = UIImage.init(named: "checkOff")
                 cell?.rootCard.backgroundColor = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
@@ -119,7 +140,13 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             self.checkedPosition = indexPath
             let cell:RedelegateCell? = tableView.cellForRow(at: indexPath) as? RedelegateCell
             cell?.rootCard.needBorderUpdate = false
-            cell?.valCheckedImg.image = UIImage.init(named: "checkOn")
+            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                cell?.valCheckedImg.image = cell?.valCheckedImg.image?.withRenderingMode(.alwaysTemplate)
+                cell?.valCheckedImg.tintColor = COLOR_ATOM
+            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                cell?.valCheckedImg.image = cell?.valCheckedImg.image?.withRenderingMode(.alwaysTemplate)
+                cell?.valCheckedImg.tintColor = COLOR_IRIS
+            }
             cell?.rootCard.backgroundColor = UIColor.clear
             cell?.rootCard.layer.borderWidth = 1
             cell?.rootCard.layer.borderColor = UIColor(hexString: "#7A8388").cgColor
@@ -152,7 +179,24 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     @IBAction func onClickNext(_ sender: UIButton) {
         if(self.checkedValidator != nil && self.checkedValidator?.operator_address != nil) {
-            self.onFetchRedelegateState(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address, self.checkedValidator!.operator_address)
+            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                self.onFetchRedelegateState(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address, self.checkedValidator!.operator_address)
+                
+            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                if (self.pageHolderVC.mirisRedelegate != nil) {
+                    for irisRedelegate in (self.pageHolderVC?.mirisRedelegate)! {
+                        if let fromAdd = irisRedelegate.value(forKey: "validator_src_addr") as? String,
+                            let toAdd = irisRedelegate.value(forKey: "validator_dst_addr") as? String,
+                            fromAdd == self.pageHolderVC.mTargetValidator?.operator_address,
+                            toAdd == self.checkedValidator?.operator_address {
+                            self.onShowToast(NSLocalizedString("error_redelegate_cnt_over", comment: ""))
+                            return
+                        }
+                    }
+                }
+                self.goNextPage()
+                
+            }
         } else {
             self.onShowToast(NSLocalizedString("error_redelegate_no_to_address", comment: ""))
         }

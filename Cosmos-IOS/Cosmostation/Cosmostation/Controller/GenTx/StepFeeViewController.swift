@@ -308,11 +308,18 @@ class StepFeeViewController: BaseViewController {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
             if (pageHolderVC.mType == IRIS_MSG_TYPE_DELEGATE) {
                 
+            } else if (pageHolderVC.mType == IRIS_MSG_TYPE_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_SEND))
+                
             } else if (pageHolderVC.mType == IRIS_MSG_TYPE_WITHDRAW || pageHolderVC.mType == IRIS_MSG_TYPE_WITHDRAW_ALL) {
                 result = (NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_MUX).multiplying(by: NSDecimalNumber.init(value: pageHolderVC.mRewardTargetValidators.count))).adding(NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
                 
             } else if (pageHolderVC.mType == IRIS_MSG_TYPE_WITHDRAW_MIDIFY) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
+                
+            } else if (pageHolderVC.mType == IRIS_MSG_TYPE_REDELEGATE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
+                
             } else {
                 
             }

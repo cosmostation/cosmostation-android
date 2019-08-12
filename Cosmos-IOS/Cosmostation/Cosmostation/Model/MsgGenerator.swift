@@ -148,10 +148,30 @@ class MsgGenerator {
             msg.value = value
             
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            value.delegator_addr = address
+            value.validator_src_addr = fromValAddress
+            value.validator_dst_addr = toValAddress
+            value.shares_amount = amount.amount + ".0000000000"
             
+            msg.type = IRIS_MSG_TYPE_REDELEGATE;
+            msg.value = value;
         }
         return msg
     }
+    
+    static func genIrisToSignRedeleMsg(_ address: String, _ fromValAddress: String, _ toValAddress: String, _ amount: Coin) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.delegator_addr = address
+        value.validator_src_addr = fromValAddress
+        value.validator_dst_addr = toValAddress
+        value.shares = amount.amount + ".0000000000"
+        msg.type = IRIS_MSG_TYPE_REDELEGATE;
+        msg.value = value;
+        return msg
+    }
+    
+    
     
     static func genGetModifyRewardAddressMsg(_ requestAddress: String, _ newRewardAddress: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
