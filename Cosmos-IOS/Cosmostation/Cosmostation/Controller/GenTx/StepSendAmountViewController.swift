@@ -37,7 +37,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             for balance in pageHolderVC.mBalances {
                 if (balance.balance_denom == IRIS_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "400000000000000000"))
+                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "200000000000000000"))
                 }
             }
             mAvailableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, mAvailableAmountLabel.font, 18, pageHolderVC.userChain!)
