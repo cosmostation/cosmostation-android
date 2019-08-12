@@ -13,6 +13,7 @@ class ReInvestAmountViewController: BaseViewController {
 
     @IBOutlet weak var cardView: CardView!
     @IBOutlet weak var rewardAmountLabel: UILabel!
+    @IBOutlet weak var rewardDenomLabel: UILabel!
     @IBOutlet weak var validatorLabel: UILabel!
     @IBOutlet weak var loadingImg: LoadingImageView!
     
@@ -25,11 +26,15 @@ class ReInvestAmountViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(pageHolderVC.userChain!, rewardDenomLabel)
         
         self.loadingImg.onStartAnimation()
-        self.onFetchReward(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            self.onFetchReward(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address)
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            self.onFetchIrisReward(pageHolderVC.mAccount!)
+        }
     }
-    
     
     @IBAction func onClickCancel(_ sender: Any) {
         cancelBtn.isUserInteractionEnabled = false
@@ -49,28 +54,28 @@ class ReInvestAmountViewController: BaseViewController {
     }
     
     func updateView() {
-        print("updateView")
-        if(self.pageHolderVC.mReinvestReward != nil) {
-            rewardAmountLabel.attributedText = WUtils.displayAmout(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN && self.pageHolderVC.mReinvestReward != nil) {
+            rewardAmountLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, pageHolderVC.userChain!)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             
             self.loadingImg.isHidden = true
             self.controlLayer.isHidden = false
             self.cardView.isHidden = false
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            rewardAmountLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 18, pageHolderVC.userChain!)
+            validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             
+            self.loadingImg.isHidden = true
+            self.controlLayer.isHidden = false
+            self.cardView.isHidden = false
         } else {
             pageHolderVC.onBeforePage()
         }
-        
     }
 
     func onFetchReward(_ accountAddr: String, _ validatorAddr:String) {
         let url = CSS_LCD_URL_REWARD_FROM_VAL + accountAddr + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validatorAddr
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -87,9 +92,28 @@ class ReInvestAmountViewController: BaseViewController {
                 }
                 
             case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchEachReward ", error)
+                if(SHOW_LOG) { print("onFetchEachReward ", error) }
+            }
+            self.updateView()
+        }
+    }
+    
+    func onFetchIrisReward(_ account: Account) {
+        let url = IRIS_LCD_URL_REWARD + account.account_address + IRIS_LCD_URL_REWARD_TAIL
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                print("res ", res)
+                guard let irisRewards = res as? NSDictionary else {
+                    self.updateView()
+                    return
                 }
+                let rewards = IrisRewards(irisRewards as! [String : Any])
+                self.pageHolderVC.mReinvestReward = rewards.getPerValRewardCoin(valOp: self.pageHolderVC.mTargetValidator!.operator_address)
+                
+            case .failure(let error):
+                if(SHOW_LOG) { print("onFetchIrisReward ", error) }
             }
             self.updateView()
         }

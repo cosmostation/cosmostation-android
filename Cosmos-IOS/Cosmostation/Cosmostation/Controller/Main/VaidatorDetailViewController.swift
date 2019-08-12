@@ -314,6 +314,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     }
                 }
                 return cell!
+                
             } else {
                 let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
                 cell?.cardView.backgroundColor = WUtils.getChainBg(userChain!)
@@ -364,9 +365,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     } else {
                         cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 18, userChain!)
                     }
-                    //temp hide for next version
-                    cell?.redelegateBtn.isHidden = true
-                    cell?.reInvestBtn.isHidden = true
                 }
                 
                 if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
@@ -431,10 +429,18 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 cell?.txBlockLabel.text = String(history._source.height) + " block"
                 cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
                 cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mAccount!.account_address)
-                if (history._source.result.allResult) {
-                    cell?.txResultLabel.isHidden = true
-                } else {
-                    cell?.txResultLabel.isHidden = false
+                if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    if(history._source.result.allResult) {
+                        cell?.txResultLabel.isHidden = true
+                    } else {
+                        cell?.txResultLabel.isHidden = false
+                    }
+                } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    if(history._source.result.code > 0) {
+                        cell?.txResultLabel.isHidden = false
+                    } else {
+                        cell?.txResultLabel.isHidden = true
+                    }
                 }
                 return cell!
             } else {
@@ -902,28 +908,51 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             return
         }
         
-        if(mRewards.count > 0) {
-            let rewardSum = WUtils.getAllAtomReward(mRewards)
-            if(rewardSum == NSDecimalNumber.zero) {
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllAtomReward(mRewards)
+                if(rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if(rewardSum.compare(NSDecimalNumber.one).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
-            if(rewardSum.compare(NSDecimalNumber(string: "1")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+            
+            var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             
-        } else {
-            self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
-            return
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (mIrisRewards != nil) {
+                let rewardSum = mIrisRewards?.getPerValReward(valOp: mValidator!.operator_address)
+                if(rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if(rewardSum!.compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            
+            var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
-        
-        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-            return
-        }
-        
         self.onFetchRewardAddress(mAccount!.account_address)
     }
     
@@ -935,16 +964,14 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.navigationController?.pushViewController(stakingVC, animated: true)
     }
     
-    
-    
-    
     func onFetchRewardAddress(_ accountAddr: String) {
-        let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
+        var url = ""
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseString { (response) in
             switch response.result {
             case .success(let res):

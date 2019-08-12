@@ -227,7 +227,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 
                 var msgList = Array<Msg>()
-                var stdMsg: StdSignMsg!
+//                var stdMsg: StdSignMsg!
                 if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     for val in self.pageHolderVC.mRewardTargetValidators {
                         let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, val.operator_address, self.pageHolderVC.userChain!)
@@ -246,7 +246,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                     }
                 }
                 
-                stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
+                let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
                                                        String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                        msgList,

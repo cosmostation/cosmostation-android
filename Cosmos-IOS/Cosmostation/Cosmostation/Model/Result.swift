@@ -9,6 +9,7 @@
 import Foundation
 
 public struct Result {
+    var code: Int = 0
     var gas_wanted: String = ""
     var gas_used: String = ""
     var log: Data?
@@ -17,6 +18,7 @@ public struct Result {
     init() {}
     
     init(_ dictionary: [String: Any]) {
+        self.code = dictionary["Code"] as? Int ?? -1
         self.gas_wanted = dictionary["gas_wanted"] as? String ?? ""
         self.gas_used = dictionary["gas_used"] as? String ?? ""
         if let logs = dictionary["log"] as? Array<NSDictionary> {

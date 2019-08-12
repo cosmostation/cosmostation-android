@@ -86,11 +86,20 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
         cell?.txBlockLabel.text = String(history._source.height) + " block"
         cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mainTabVC.mAccount.account_address)
-        if(history._source.result.allResult) {
-            cell?.txResultLabel.isHidden = true
-        } else {
-            cell?.txResultLabel.isHidden = false
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(history._source.result.allResult) {
+                cell?.txResultLabel.isHidden = true
+            } else {
+                cell?.txResultLabel.isHidden = false
+            }
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if(history._source.result.code > 0) {
+                cell?.txResultLabel.isHidden = false
+            } else {
+                cell?.txResultLabel.isHidden = true
+            }
         }
+        
         return cell!
     }
     

@@ -1548,6 +1548,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         <outlet property="loadingImg" destination="84b-D8-AgE" id="MHJ-ie-YID"/>
                         <outlet property="nextBtn" destination="j6a-Q0-Vyk" id="Y4I-cm-1AD"/>
                         <outlet property="rewardAmountLabel" destination="u0j-lg-8TA" id="xkI-4e-Ti3"/>
+                        <outlet property="rewardDenomLabel" destination="zPc-4q-u1r" id="TWf-Am-P46"/>
                         <outlet property="validatorLabel" destination="664-vV-Y3R" id="d6V-4m-00D"/>
                     </connections>
                 </viewController>
@@ -3965,31 +3966,31 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpY-XX-SZo">
-                                        <rect key="frame" x="293" y="227.5" width="34" height="14"/>
+                                        <rect key="frame" x="293" y="243.5" width="34" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4S-Zw-4sX">
-                                        <rect key="frame" x="284" y="225.5" width="5" height="16.5"/>
+                                        <rect key="frame" x="284" y="241.5" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expected Delegation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfe-CU-rml">
-                                        <rect key="frame" x="16" y="258" width="129.5" height="16.5"/>
+                                        <rect key="frame" x="16" y="272" width="129.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57b-0Q-RYH">
-                                        <rect key="frame" x="293" y="260" width="34" height="14"/>
+                                        <rect key="frame" x="293" y="290" width="34" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITI-T2-Cht">
-                                        <rect key="frame" x="284" y="258" width="5" height="16.5"/>
+                                        <rect key="frame" x="284" y="288" width="5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4002,13 +4003,13 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstItem="Olh-rs-wcV" firstAttribute="leading" secondItem="fED-iu-eeY" secondAttribute="trailing" constant="4" id="4Xd-kW-x4Z"/>
                                     <constraint firstItem="Olh-rs-wcV" firstAttribute="firstBaseline" secondItem="oo2-7G-0I5" secondAttribute="firstBaseline" id="5ke-4F-np4"/>
                                     <constraint firstAttribute="trailing" secondItem="Olh-rs-wcV" secondAttribute="trailing" constant="16" id="75q-D8-F1o"/>
-                                    <constraint firstItem="Yfe-CU-rml" firstAttribute="top" secondItem="bWt-gf-J0u" secondAttribute="bottom" constant="16" id="A22-ya-fOd"/>
+                                    <constraint firstItem="Yfe-CU-rml" firstAttribute="top" secondItem="bWt-gf-J0u" secondAttribute="bottom" constant="30" id="A22-ya-fOd"/>
                                     <constraint firstItem="vPl-eJ-3ca" firstAttribute="top" secondItem="oo2-7G-0I5" secondAttribute="bottom" constant="16" id="AQV-bb-OXI"/>
                                     <constraint firstItem="fED-iu-eeY" firstAttribute="bottom" secondItem="oo2-7G-0I5" secondAttribute="bottom" id="ArE-3N-UDd"/>
                                     <constraint firstItem="cjv-Rx-ceG" firstAttribute="firstBaseline" secondItem="vPl-eJ-3ca" secondAttribute="firstBaseline" id="BOJ-kj-MsB"/>
                                     <constraint firstItem="Yqg-Rq-REb" firstAttribute="leading" secondItem="y3g-GW-Z7m" secondAttribute="leading" constant="16" id="BfX-lK-syi"/>
                                     <constraint firstItem="1rs-xK-krp" firstAttribute="top" secondItem="d39-1W-64d" secondAttribute="bottom" constant="16" id="C5e-0C-ZqW"/>
-                                    <constraint firstItem="57b-0Q-RYH" firstAttribute="firstBaseline" secondItem="Yfe-CU-rml" secondAttribute="firstBaseline" id="El5-DA-WhU"/>
+                                    <constraint firstItem="57b-0Q-RYH" firstAttribute="firstBaseline" secondItem="Yfe-CU-rml" secondAttribute="firstBaseline" constant="16" id="El5-DA-WhU"/>
                                     <constraint firstItem="bWt-gf-J0u" firstAttribute="leading" secondItem="y3g-GW-Z7m" secondAttribute="leading" constant="16" id="Fcp-GV-2hK"/>
                                     <constraint firstItem="vpY-XX-SZo" firstAttribute="leading" secondItem="O4S-Zw-4sX" secondAttribute="trailing" constant="4" id="GRD-qn-20v"/>
                                     <constraint firstItem="oo2-7G-0I5" firstAttribute="leading" secondItem="y3g-GW-Z7m" secondAttribute="leading" constant="16" id="Hgu-h6-r0B"/>
@@ -4018,7 +4019,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstItem="Yfe-CU-rml" firstAttribute="leading" secondItem="y3g-GW-Z7m" secondAttribute="leading" constant="16" id="PaO-Q3-Pqo"/>
                                     <constraint firstItem="bWt-gf-J0u" firstAttribute="top" secondItem="aHo-V5-N6M" secondAttribute="bottom" constant="16" id="QpW-kd-NT3"/>
                                     <constraint firstItem="4Ht-vx-C8c" firstAttribute="top" secondItem="1rs-xK-krp" secondAttribute="bottom" constant="8" id="Rhk-LD-mg8"/>
-                                    <constraint firstItem="ITI-T2-Cht" firstAttribute="firstBaseline" secondItem="Yfe-CU-rml" secondAttribute="firstBaseline" id="UHF-Bm-one"/>
+                                    <constraint firstItem="ITI-T2-Cht" firstAttribute="firstBaseline" secondItem="Yfe-CU-rml" secondAttribute="firstBaseline" constant="16" id="UHF-Bm-one"/>
                                     <constraint firstItem="Yqg-Rq-REb" firstAttribute="top" secondItem="vPl-eJ-3ca" secondAttribute="bottom" constant="16" id="URP-x7-5ag"/>
                                     <constraint firstItem="4Ht-vx-C8c" firstAttribute="leading" secondItem="y3g-GW-Z7m" secondAttribute="leading" constant="16" id="Xsh-lN-HXX"/>
                                     <constraint firstItem="eUK-dj-Ce1" firstAttribute="leading" secondItem="y3g-GW-Z7m" secondAttribute="leading" constant="16" id="YeN-TM-ok0"/>
@@ -4029,13 +4030,13 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                     <constraint firstItem="vPl-eJ-3ca" firstAttribute="leading" secondItem="y3g-GW-Z7m" secondAttribute="leading" constant="16" id="hdf-mM-LEk"/>
                                     <constraint firstAttribute="trailing" secondItem="W6K-ly-5DQ" secondAttribute="trailing" constant="16" id="huZ-oD-Zlk"/>
                                     <constraint firstItem="57b-0Q-RYH" firstAttribute="leading" secondItem="ITI-T2-Cht" secondAttribute="trailing" constant="4" id="jfS-5V-5iK"/>
-                                    <constraint firstItem="O4S-Zw-4sX" firstAttribute="firstBaseline" secondItem="bWt-gf-J0u" secondAttribute="firstBaseline" id="nYO-yb-cCb"/>
+                                    <constraint firstItem="O4S-Zw-4sX" firstAttribute="firstBaseline" secondItem="bWt-gf-J0u" secondAttribute="firstBaseline" constant="16" id="nYO-yb-cCb"/>
                                     <constraint firstAttribute="trailing" secondItem="Yqg-Rq-REb" secondAttribute="trailing" constant="16" id="nfp-ph-S72"/>
                                     <constraint firstAttribute="trailing" secondItem="57b-0Q-RYH" secondAttribute="trailing" constant="16" id="ofp-fJ-vez"/>
                                     <constraint firstAttribute="trailing" secondItem="4Ht-vx-C8c" secondAttribute="trailing" constant="16" id="qU7-zv-FBh"/>
                                     <constraint firstItem="eUK-dj-Ce1" firstAttribute="top" secondItem="Yqg-Rq-REb" secondAttribute="bottom" constant="16" id="r72-Us-goM"/>
                                     <constraint firstItem="W6K-ly-5DQ" firstAttribute="firstBaseline" secondItem="vPl-eJ-3ca" secondAttribute="firstBaseline" id="txb-ST-SgM"/>
-                                    <constraint firstItem="vpY-XX-SZo" firstAttribute="firstBaseline" secondItem="bWt-gf-J0u" secondAttribute="firstBaseline" id="xOV-QB-AxZ"/>
+                                    <constraint firstItem="vpY-XX-SZo" firstAttribute="firstBaseline" secondItem="bWt-gf-J0u" secondAttribute="firstBaseline" constant="16" id="xOV-QB-AxZ"/>
                                     <constraint firstAttribute="trailing" secondItem="d39-1W-64d" secondAttribute="trailing" constant="16" id="zAG-cy-iF2"/>
                                     <constraint firstAttribute="trailing" secondItem="aHo-V5-N6M" secondAttribute="trailing" constant="16" id="zbO-M6-T1p"/>
                                 </constraints>
@@ -4114,9 +4115,13 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         <outlet property="backBtn" destination="H86-EF-dHn" id="ip3-fF-F9t"/>
                         <outlet property="confirmBtn" destination="DSf-kh-3jv" id="6H4-bM-tYI"/>
                         <outlet property="currentDelegateAmount" destination="O4S-Zw-4sX" id="6C4-NX-RqN"/>
+                        <outlet property="currentDenom" destination="vpY-XX-SZo" id="wNm-dt-tAk"/>
                         <outlet property="expectedDelegateAmount" destination="ITI-T2-Cht" id="aWc-o5-Twh"/>
+                        <outlet property="expectedDenom" destination="57b-0Q-RYH" id="xC5-yW-3ht"/>
+                        <outlet property="feeDenomLabel" destination="W6K-ly-5DQ" id="hON-li-gD4"/>
                         <outlet property="feeLabel" destination="cjv-Rx-ceG" id="fVw-Vz-YDI"/>
                         <outlet property="memoLabel" destination="4Ht-vx-C8c" id="GQl-ed-ZNB"/>
+                        <outlet property="rewardDenomLabel" destination="Olh-rs-wcV" id="Ej4-WA-8aG"/>
                         <outlet property="rewardLabel" destination="fED-iu-eeY" id="SPB-wJ-LLg"/>
                         <outlet property="validatorLabel" destination="d39-1W-64d" id="h4J-TL-mJ7"/>
                     </connections>

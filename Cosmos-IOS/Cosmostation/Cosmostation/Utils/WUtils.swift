@@ -188,12 +188,16 @@ class WUtils {
     static func historyTitle(_ msgs:Array<Msg>, _ myaddress:String) -> String {
         var resultMsg = NSLocalizedString("tx_known", comment: "")
         
-        if(msgs == nil || msgs.count <= 0) {
+        if (msgs == nil || msgs.count <= 0) {
             return resultMsg
         }
         
         if(msgs.count == 2) {
-            if(msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_DEL && msgs[1].type == COSMOS_MSG_TYPE_DELEGATE) {
+            if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_DEL && msgs[1].type == COSMOS_MSG_TYPE_DELEGATE) {
+                resultMsg = NSLocalizedString("tx_reinvest", comment: "")
+                return resultMsg
+            }
+            if (msgs[0].type == IRIS_MSG_TYPE_WITHDRAW && msgs[1].type == IRIS_MSG_TYPE_DELEGATE) {
                 resultMsg = NSLocalizedString("tx_reinvest", comment: "")
                 return resultMsg
             }
@@ -239,7 +243,7 @@ class WUtils {
         } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_VAL) {
             resultMsg = NSLocalizedString("tx_get_commission", comment: "")
             
-        } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY || msgs[0].type == IRIS_MSG_TYPE_WITHDRAW_MIDIFY) {
             resultMsg = NSLocalizedString("tx_change_reward_address", comment: "")
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_VOTE || msgs[0].type == IRIS_MSG_TYPE_VOTE) {

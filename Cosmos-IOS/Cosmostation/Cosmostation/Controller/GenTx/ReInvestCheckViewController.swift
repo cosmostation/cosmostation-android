@@ -13,13 +13,16 @@ import SwiftKeychainWrapper
 
 class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     
-    
     @IBOutlet weak var rewardLabel: UILabel!
+    @IBOutlet weak var rewardDenomLabel: UILabel!
     @IBOutlet weak var feeLabel: UILabel!
+    @IBOutlet weak var feeDenomLabel: UILabel!
     @IBOutlet weak var validatorLabel: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
     @IBOutlet weak var currentDelegateAmount: UILabel!
+    @IBOutlet weak var currentDenom: UILabel!
     @IBOutlet weak var expectedDelegateAmount: UILabel!
+    @IBOutlet weak var expectedDenom: UILabel!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var confirmBtn: UIButton!
     
@@ -28,21 +31,35 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(pageHolderVC.userChain!, rewardDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.userChain!, feeDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.userChain!, currentDenom)
+        WUtils.setDenomTitle(pageHolderVC.userChain!, expectedDenom)
     }
     
     func onUpdateView() {
-        rewardLabel.attributedText = WUtils.displayAmout(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 6)
-        feeLabel.attributedText = WUtils.displayAmout((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 6)
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            rewardLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 6, pageHolderVC.userChain!)
+            feeLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 6, pageHolderVC.userChain!)
+            
+            if let bonding = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address) {
+                currentDelegateAmount.attributedText = WUtils.displayAmount(bonding.getBondingAmount(pageHolderVC.mTargetValidator!).stringValue, currentDelegateAmount.font, 6, pageHolderVC.userChain!)
+                let expected = (NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount)).adding(bonding.getBondingAmount(pageHolderVC.mTargetValidator!))
+                expectedDelegateAmount.attributedText = WUtils.displayAmount(expected.stringValue, expectedDelegateAmount.font, 6, pageHolderVC.userChain!)
+            }
+            
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            rewardLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 18, pageHolderVC.userChain!)
+            feeLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 18, pageHolderVC.userChain!)
+            
+            if let bonding = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address) {
+                currentDelegateAmount.attributedText = WUtils.displayAmount(bonding.getBondingAmount(pageHolderVC.mTargetValidator!).stringValue, currentDelegateAmount.font, 18, pageHolderVC.userChain!)
+                let expected = (NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount)).adding(bonding.getBondingAmount(pageHolderVC.mTargetValidator!))
+                expectedDelegateAmount.attributedText = WUtils.displayAmount(expected.stringValue, expectedDelegateAmount.font, 18, pageHolderVC.userChain!)
+            }
+        }
         validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
         memoLabel.text = pageHolderVC.mMemo
-        
-        if let bonding = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address) {
-            currentDelegateAmount.attributedText = WUtils.displayAmout(bonding.getBondingAmount(pageHolderVC.mTargetValidator!).stringValue, currentDelegateAmount.font, 6)
-            
-            let expected = (NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount)).adding(bonding.getBondingAmount(pageHolderVC.mTargetValidator!))
-            expectedDelegateAmount.attributedText = WUtils.displayAmout(expected.stringValue, expectedDelegateAmount.font, 6)
-        }
-        
     }
     
     override func enableUserInteraction() {
@@ -50,7 +67,6 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
         self.backBtn.isUserInteractionEnabled = true
         self.confirmBtn.isUserInteractionEnabled = true
     }
-    
 
     @IBAction func onClickBack(_ sender: UIButton) {
         self.backBtn.isUserInteractionEnabled = false
@@ -96,14 +112,41 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            self.onGenReinvest()
+            self.onFetchAccountInfo(pageHolderVC.mAccount!)
+        }
+    }
+    
+    func onFetchAccountInfo(_ account: Account) {
+        self.showWaittingAlert()
+        var request: DataRequest?
+        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        }
+        request?.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    _ = BaseData.instance.deleteBalance(account: account)
+                    self.hideWaittingAlert()
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+                let accountInfo = AccountInfo.init(info)
+                _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                self.onGenReinvest()
+                
+            case .failure(let _):
+                self.hideWaittingAlert()
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            }
         }
     }
     
     
     func onGenReinvest() {
-        print("onGenReinvest")
-        
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
@@ -113,21 +156,34 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             do {
                 let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
                 
-                let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
-                                                             self.pageHolderVC.mTargetValidator!.operator_address,
-                                                             self.pageHolderVC.userChain!)
-                
-                let delegatemsg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
-                                                      self.pageHolderVC.mTargetValidator!.operator_address,
-                                                      self.pageHolderVC.mReinvestReward!,
-                                                      self.pageHolderVC.userChain!)
-                
                 var msgList = Array<Msg>()
-                msgList.append(rewardMsg)
-                msgList.append(delegatemsg)
-                if(FEE_FREE) {
-                    self.pageHolderVC.mFee?.amount[0].amount = "1"
+                if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
+                                                                 self.pageHolderVC.mTargetValidator!.operator_address,
+                                                                 self.pageHolderVC.userChain!)
+                    
+                    let delegatemsg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
+                                                                  self.pageHolderVC.mTargetValidator!.operator_address,
+                                                                  self.pageHolderVC.mReinvestReward!,
+                                                                  self.pageHolderVC.userChain!)
+                    msgList.append(rewardMsg)
+                    msgList.append(delegatemsg)
+                    
+                } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
+                                                                 self.pageHolderVC.mTargetValidator!.operator_address,
+                                                                 self.pageHolderVC.userChain!)
+                    
+                    let delegatemsg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
+                                                                  self.pageHolderVC.mTargetValidator!.operator_address,
+                                                                  self.pageHolderVC.mReinvestReward!,
+                                                                  self.pageHolderVC.userChain!)
+                    msgList.append(rewardMsg)
+                    msgList.append(delegatemsg)
                 }
+                
+                
+                
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
                                                        String(self.pageHolderVC.mAccount!.account_sequence_number),
@@ -138,7 +194,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
                 let data = try? encoder.encode(stdMsg)
-                var rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
+                let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
                 let rawData: Data? = rawResult!.data(using: .utf8)
                 let hash = Crypto.sha256(rawData!)
                 
@@ -156,10 +212,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 var signatures: Array<Signature> = Array<Signature>()
                 signatures.append(genedSignature)
                 
-                stdTx = MsgGenerator.genSignedTx(msgList,
-                                                      self.pageHolderVC.mFee!,
-                                                      self.pageHolderVC.mMemo!,
-                                                      signatures)
+                stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
                 print("stdTx", stdTx)
             } catch {
                 print(error)
@@ -183,6 +236,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                         url = IRIS_LCD_URL_BORAD_TX
                     }
                     let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    request.validate()
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -195,10 +249,17 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                             if(SHOW_LOG) {
                                 print("ReInvest error ", error)
                             }
+                            if (response.response?.statusCode == 500) {
+                                txResult["net_error"] = 500
+                            }
                         }
-                        self.hideWaittingAlert()
-                        txResult["type"] = COSMOS_MULTI_MSG_TYPE_REINVEST
-                        self.onStartTxResult(txResult)
+                        
+                        if (self.waitAlert != nil) {
+                            self.waitAlert?.dismiss(animated: true, completion: {
+                                txResult["type"] = COSMOS_MULTI_MSG_TYPE_REINVEST
+                                self.onStartTxResult(txResult)
+                            })
+                        }
                     }
                     
                 }catch {

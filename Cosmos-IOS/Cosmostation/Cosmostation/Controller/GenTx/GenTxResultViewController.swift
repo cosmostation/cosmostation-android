@@ -369,17 +369,30 @@ class GenTxResultViewController: BaseViewController {
         }  else if (mTxType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
             self.reInvestResultView.isHidden = false
             self.loadingView.isHidden = true
-            
             reInvestResultType.text = NSLocalizedString("tx_reinvest", comment: "")
-            reInvestResultHash.text = mTxInfo?.txhash
-            reInvestResultTime.text = mTxInfo?.height
-            reInvestResultBlock.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
-            
-//            reInvestResultDelegateAmount.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.msg[1].value.amount?.amount)!, reInvestResultDelegateAmount.font, 6)
-            reInvestResultFee.attributedText = WUtils.displayAmout((mTxInfo?.tx.value.fee.amount[0].amount)!, reInvestResultFee.font, 6)
-            reInvestValidatorAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
-            reInvestValidatorAddress.adjustsFontSizeToFitWidth = true
-            reInvestResultMemo.text = mTxInfo?.tx.value.memo
+            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                reInvestResultHash.text = mTxInfo?.txhash
+                reInvestResultTime.text = mTxInfo?.height
+                reInvestResultBlock.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
+                
+                
+                reInvestResultDelegateAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[1].value.getAmount()?.amount)!, reInvestResultDelegateAmount.font, 6, self.mChain!)
+                reInvestResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, reInvestResultFee.font, 6, self.mChain!)
+                reInvestValidatorAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
+                reInvestValidatorAddress.adjustsFontSizeToFitWidth = true
+                reInvestResultMemo.text = mTxInfo?.tx.value.memo
+                
+            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                reInvestResultHash.text = mTxInfo?.hash
+                reInvestResultTime.text = mTxInfo?.height
+                reInvestResultBlock.text = "-"
+                
+                reInvestResultDelegateAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[1].value.delegation?.amount)!, reInvestResultDelegateAmount.font, 18, self.mChain!)
+                reInvestResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, reInvestResultFee.font, 18, self.mChain!)
+                reInvestValidatorAddress.text = mTxInfo?.tx.value.msg[0].value.validator_addr
+                reInvestValidatorAddress.adjustsFontSizeToFitWidth = true
+                reInvestResultMemo.text = mTxInfo?.tx.value.memo
+            }
         }
 
         self.actionLayer.isHidden = false

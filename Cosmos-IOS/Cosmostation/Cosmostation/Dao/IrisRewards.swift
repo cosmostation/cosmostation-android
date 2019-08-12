@@ -63,6 +63,16 @@ public class IrisRewards {
         }
         return result;
     }
+    
+    func getPerValRewardCoin(valOp:String) -> Coin? {
+        var result: Coin?
+        for delegation in delegations {
+            if (delegation.validator == valOp) {
+                result = delegation.reward[0]
+            }
+        }
+        return result
+    }
 }
 
 public class IrisDelegations {
