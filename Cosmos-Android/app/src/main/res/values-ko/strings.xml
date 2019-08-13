@@ -232,16 +232,16 @@
     <string name="str_main_set">SETTING</string>
     <string name="str_password">Password</string>
     <string name="str_set_password">Set Password</string>
-    <string name="str_init_password">비밀번호를 입력해 주세요.</string>
+    <string name="str_init_password">PIN 번호를 입력해 주세요.</string>
     <string name="str_init_again">다시한번 입력해주세요.</string>
     <string name="str_using_fingerprint">Using Fingerprint</string>
     <string name="str_ask_using_fingerprint">Do you want to enable fingerprint authentication?</string>
     <string name="str_mnemonic_copied">클립보드에 복사하였습니다.</string>
     <string name="str_enter_address">Enter Address or Public-Key</string>
     <string name="str_copy_right">COSMOS Wallet by Cosmostation</string>
-    <string name="str_password_init">사용하실 비밀번호를 입력하세요.</string>
+    <string name="str_password_init">사용하실 PIN 번호를 입력하세요.</string>
     <string name="str_password_msg1">다시한번 입력해 주세요.</string>
-    <string name="str_password_msg2">비밀번호는 복구하실 방법이 전혀 없습니다.\n신중히 결정하시고 잊지않도록 주의해주세요.</string>
+    <string name="str_password_msg2">PIN 번호는 복구하실 방법이 전혀 없습니다.\n신중히 결정하시고 잊지않도록 주의해주세요.</string>
     <string name="str_send_step_0">받을 지갑 주소를 입력하세요</string>
     <string name="str_send_step_1">전송하실 토큰과 수량을 입력하세요</string>
     <string name="str_send_step_2">메모를 입력하세요 (선택사항)</string>
@@ -338,8 +338,8 @@
     하지만 결과값을 보여주는데 시간이 지연되고 있습니다.
     "기다리기" 버튼을 눌러 현재 화면에서 결과값을 확인하거나, "닫기" 버튼을 눌러 잠시 후에 History 탭에서 결과를 확인하세요.]]></string>
     <string name="str_app_unlock_title">앱 잠금 해제</string>
-    <string name="str_app_unlock_msg1">비밀번호를 입력하여 앱 잠금을 해제하세요</string>
-    <string name="str_app_unlock_msg2">지문 또는 비밀번호를 입력하여 앱 잠금을 해제하세요</string>
+    <string name="str_app_unlock_msg1">PIN 번호를 입력하여 앱 잠금을 해제하세요</string>
+    <string name="str_app_unlock_msg2">지문 또는 PIN 번호를 입력하여 앱 잠금을 해제하세요</string>
     <string name="str_using_applock">앱락 사용</string>
     <string name="str_using_fingerprints">지문 사용</string>
     <string name="str_applock_time">앱락 시간</string>
@@ -351,10 +351,10 @@
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
-    <string name="error_msg_password_not_same">입력하신 비밀번호가 다릅니다. \n다시 입력해 주세요.</string>
+    <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
     <string name="error_invalid_address_pubkey">부정확한 주소 입니다. 정확한 문자를 입력해 주세요.</string>
     <string name="error_already_exist_account">이미 존재하는 주소 입니다.</string>
-    <string name="error_invalid_password">비밀번호가 틀렸습니다.</string>
+    <string name="error_invalid_password">PIN 번호가 틀렸습니다.</string>
     <string name="error_clipboard_no_data">클립보드에 아무것도 없습니다.</string>
     <string name="error_invalid_address">부정확한 주소입니다.</string>
     <string name="error_self_sending">자기 자신에게는 전송할 수 없습니다.</string>
@@ -389,7 +389,7 @@
     <string name="error_same_reward_address">이미 등록된 이자 주소와 동일합니다.</string>
     <string name="error_max_account_over">최대 5개의 지갑이 등록 가능합니다.</string>
     <string name="error_reward_address_changed_msg">이자 지급 주소가 변경된 계정입니다. 이자 즉시 위임 기능을 사용하실 수 없습니다.</string>
-    <string name="error_no_password">비밀번호가 설정되지 않았습니다.</string>
+    <string name="error_no_password">PIN 번호가 설정되지 않았습니다.</string>
     <string name="error_invalid_cosmos_address">유효한 코스모스 주소가 아닙니다.</string>
     <string name="error_invalid_iris_address">유효한 아이리스 주소가 아닙니다.</string>
 

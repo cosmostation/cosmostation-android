@@ -280,7 +280,7 @@
     <string name="str_mnemonic_copied">Mnemonic copied to clipboard.</string>
     <string name="str_enter_address">Enter Address or Public-Key</string>
     <string name="str_copy_right">COSMOS Wallet by Cosmostation</string>
-    <string name="str_password_init">Init your password.</string>
+    <string name="str_password_init">Init your PIN number.</string>
     <string name="str_password_msg1">Insert again for confirm.</string>
     <string name="str_password_msg2">No way to recover this. please remember!</string>
     <string name="str_send_step_0">Insert recipient address</string>
@@ -382,8 +382,8 @@
     Please press the "wait" button below to wait until the result is displayed,
     or press "close" to return to your wallet dashboard and check your TX in the history tab later.]]></string>
     <string name="str_app_unlock_title">Unlock Cosmostation</string>
-    <string name="str_app_unlock_msg1">Please insert password for unlock</string>
-    <string name="str_app_unlock_msg2">Please insert password or using fingerprint for unlock</string>
+    <string name="str_app_unlock_msg1">Please insert PIN number for unlock</string>
+    <string name="str_app_unlock_msg2">Please insert PIN number or using fingerprint for unlock</string>
     <string name="str_using_applock">Using App Lock</string>
     <string name="str_using_fingerprints">Unlock with Fingerprint</string>
     <string name="str_applock_time">App Lock Time</string>
@@ -397,7 +397,7 @@
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
     <string name="error_invalid_address_pubkey">Invalid Address, please check again.</string>
     <string name="error_already_exist_account">This address is already imported</string>
-    <string name="error_invalid_password">Invalid Password</string>
+    <string name="error_invalid_password">Invalid PIN number</string>
     <string name="error_clipboard_no_data">No text from clipboard.</string>
     <string name="error_invalid_address">Invalid Address.</string>
     <string name="error_self_sending">Cannot send to your own address</string>
@@ -432,7 +432,7 @@
     <string name="error_same_reward_address">This address is already registered as your claim reward address.</string>
     <string name="error_max_account_over">Max account is 5.</string>
     <string name="error_reward_address_changed_msg">This account has changed its reward address.\nYou can user re-invest feature after reset your reward address to self.</string>
-    <string name="error_no_password">Password not set</string>
+    <string name="error_no_password">PIN number not set</string>
     <string name="error_invalid_cosmos_address">Invalid Cosmos Address.</string>
     <string name="error_invalid_iris_address">Invalid Iris Address.</string>
 
