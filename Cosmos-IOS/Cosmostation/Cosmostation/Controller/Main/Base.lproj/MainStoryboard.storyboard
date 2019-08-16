@@ -557,6 +557,7 @@ Learn more about us in the links below</string>
                                             <constraint firstItem="0aA-Bl-KJL" firstAttribute="leading" secondItem="gyy-Eq-HbO" secondAttribute="leading" id="iM6-0n-MLU"/>
                                             <constraint firstItem="gyy-Eq-HbO" firstAttribute="top" secondItem="RmO-Xk-P6u" secondAttribute="top" constant="12" id="iUR-0N-14O"/>
                                             <constraint firstAttribute="trailing" secondItem="Hjj-8Q-Jmu" secondAttribute="trailing" constant="12" id="kda-Kq-9XX"/>
+                                            <constraint firstAttribute="bottom" secondItem="iEB-3M-FxV" secondAttribute="bottom" constant="62" id="khu-Sh-hTc"/>
                                             <constraint firstAttribute="trailing" secondItem="AwB-tc-gYY" secondAttribute="trailing" constant="12" id="smA-ns-gCX"/>
                                         </constraints>
                                     </view>
