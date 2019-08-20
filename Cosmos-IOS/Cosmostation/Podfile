@@ -15,11 +15,11 @@ target 'Cosmostation' do
   pod 'CryptoSwift'
   pod 'SwiftKeychainWrapper'
   pod 'Toast-Swift', '~> 4.0.0'
-#  pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Floaty', '~> 4.1.0'
   pod 'DropDown'
   pod 'QRCode'
-#  pod 'Toaster', '~> 2.1.1'
-
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  
 end
 

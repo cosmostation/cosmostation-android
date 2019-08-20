@@ -72,7 +72,7 @@
                                 <rect key="frame" x="0.0" y="50" width="375" height="591"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RmO-Xk-P6u">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="703"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gyy-Eq-HbO" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                                 <rect key="frame" x="12" y="12" width="351" height="70"/>
@@ -557,7 +557,6 @@ Learn more about us in the links below</string>
                                             <constraint firstItem="0aA-Bl-KJL" firstAttribute="leading" secondItem="gyy-Eq-HbO" secondAttribute="leading" id="iM6-0n-MLU"/>
                                             <constraint firstItem="gyy-Eq-HbO" firstAttribute="top" secondItem="RmO-Xk-P6u" secondAttribute="top" constant="12" id="iUR-0N-14O"/>
                                             <constraint firstAttribute="trailing" secondItem="Hjj-8Q-Jmu" secondAttribute="trailing" constant="12" id="kda-Kq-9XX"/>
-                                            <constraint firstAttribute="bottom" secondItem="iEB-3M-FxV" secondAttribute="bottom" constant="62" id="khu-Sh-hTc"/>
                                             <constraint firstAttribute="trailing" secondItem="AwB-tc-gYY" secondAttribute="trailing" constant="12" id="smA-ns-gCX"/>
                                         </constraints>
                                     </view>
@@ -578,7 +577,7 @@ Learn more about us in the links below</string>
                             <constraint firstAttribute="bottom" secondItem="Lgj-up-xSa" secondAttribute="bottom" id="UFa-Ry-dTH"/>
                             <constraint firstItem="p34-7z-HgK" firstAttribute="leading" secondItem="RKe-Xn-as2" secondAttribute="leading" id="WtH-Jb-wCq"/>
                             <constraint firstItem="p34-7z-HgK" firstAttribute="top" secondItem="kLI-Xf-j6R" secondAttribute="bottom" id="Zc0-Mn-XIw"/>
-                            <constraint firstItem="RmO-Xk-P6u" firstAttribute="height" secondItem="5KG-xW-pwp" secondAttribute="height" id="cMi-RD-BLl"/>
+                            <constraint firstItem="RmO-Xk-P6u" firstAttribute="height" secondItem="5KG-xW-pwp" secondAttribute="height" constant="62" id="cMi-RD-BLl"/>
                             <constraint firstItem="RKe-Xn-as2" firstAttribute="bottom" secondItem="p34-7z-HgK" secondAttribute="bottom" id="dJa-Id-CEy"/>
                             <constraint firstItem="kLI-Xf-j6R" firstAttribute="top" secondItem="RKe-Xn-as2" secondAttribute="top" id="gIK-xZ-w42"/>
                             <constraint firstItem="Lgj-up-xSa" firstAttribute="leading" secondItem="RKe-Xn-as2" secondAttribute="leading" id="iG7-6Y-Rn5"/>
@@ -835,7 +834,7 @@ Learn more about us in the links below</string>
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLK-Ns-Awb">
-                                <rect key="frame" x="147.66666666666666" y="310.66666666666669" width="79.666666666666657" height="19.666666666666686"/>
+                                <rect key="frame" x="147.66666666666666" y="310.66666666666669" width="80" height="20"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -936,7 +935,7 @@ Learn more about us in the links below</string>
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Proposal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3x-sr-rPq">
-                                <rect key="frame" x="140.66666666666666" y="310.66666666666669" width="93.666666666666657" height="19.666666666666686"/>
+                                <rect key="frame" x="140.66666666666666" y="310.66666666666669" width="94" height="20"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1518,10 +1517,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZU1-l1-LYY" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="1" width="351" height="44"/>
+                                                    <rect key="frame" x="12" y="1" width="296" height="44"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="hh0-Jr-BKS">
-                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="264" y="10" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="IRu-u5-Sa4"/>
                                                                 <constraint firstAttribute="height" constant="24" id="L0y-BR-9bN"/>
@@ -1582,7 +1581,7 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8xY-BL-yig" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App Lock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eE5-yJ-glc">
                                                             <rect key="frame" x="11.999999999999996" y="13.666666666666664" width="58.666666666666657" height="17"/>
@@ -1591,7 +1590,7 @@ Learn more about us in the links below</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="noe-kn-ePd">
-                                                            <rect key="frame" x="290" y="6.6666666666666679" width="51" height="31.000000000000004"/>
+                                                            <rect key="frame" x="235" y="6.6666666666666679" width="51" height="31.000000000000004"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="noe-kn-ePd" secondAttribute="height" multiplier="49:31" id="fD6-xc-IBb"/>
                                                             </constraints>
@@ -1645,7 +1644,7 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9yw-zH-1di" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lme-Ht-n9U">
                                                             <rect key="frame" x="12" y="22" width="0.0" height="0.0"/>
@@ -1654,7 +1653,7 @@ Learn more about us in the links below</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FjT-LV-erL">
-                                                            <rect key="frame" x="290" y="6.6666666666666679" width="51" height="31.000000000000004"/>
+                                                            <rect key="frame" x="235" y="6.6666666666666679" width="51" height="31.000000000000004"/>
                                                             <color key="onTintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                                             <connections>
                                                                 <action selector="bioToggle:" destination="k2t-NI-3vK" eventType="valueChanged" id="u86-iz-3YL"/>
@@ -1705,10 +1704,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gTa-jj-oJg" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="tXi-oe-GPa">
-                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="264" y="10" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="Ag7-jB-UIW"/>
                                                                 <constraint firstAttribute="width" constant="24" id="ujn-5D-Xb4"/>
@@ -1721,7 +1720,7 @@ Learn more about us in the links below</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJX-wz-eL3">
-                                                            <rect key="frame" x="311" y="22" width="0.0" height="0.0"/>
+                                                            <rect key="frame" x="256" y="22" width="0.0" height="0.0"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1773,10 +1772,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxP-aq-gRo" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="h0v-WD-4ua">
-                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="264" y="10" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="88e-Ey-Adu"/>
                                                                 <constraint firstAttribute="width" constant="24" id="VxO-Rf-AdW"/>
@@ -1789,7 +1788,7 @@ Learn more about us in the links below</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CoinMarket Cap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nuz-xq-Fds">
-                                                            <rect key="frame" x="224" y="15" width="87" height="14"/>
+                                                            <rect key="frame" x="169" y="15" width="87" height="14"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1845,17 +1844,17 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CHW-JQ-DNC" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="exP-B6-nAO">
-                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="OAo-ax-v9P"/>
                                                                 <constraint firstAttribute="width" constant="24" id="wiX-tL-1VP"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIr-lJ-P4Q">
-                                                            <rect key="frame" x="11.999999999999998" y="13.666666666666664" width="28.333333333333329" height="17"/>
+                                                            <rect key="frame" x="11.999999999999998" y="13.666666666666668" width="28.333333333333329" height="17"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1905,17 +1904,17 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBe-Sr-q1S" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="eYn-K2-HSV">
-                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="gIV-UI-Ehj"/>
                                                                 <constraint firstAttribute="height" constant="24" id="z1b-x1-a9T"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Telegram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCh-Gs-kbA">
-                                                            <rect key="frame" x="11.999999999999996" y="13.666666666666664" width="57.666666666666657" height="17"/>
+                                                            <rect key="frame" x="11.999999999999996" y="13.666666666666668" width="57.666666666666657" height="17"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1965,17 +1964,17 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T5R-Kw-G1u" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="9Fo-29-D8N">
-                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="agG-Ef-8xp"/>
                                                                 <constraint firstAttribute="height" constant="24" id="khQ-sU-q6P"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explorer Mintscan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j4V-kv-pau">
-                                                            <rect key="frame" x="12" y="13.666666666666664" width="113" height="17"/>
+                                                            <rect key="frame" x="12" y="13.666666666666668" width="113" height="17"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -2025,17 +2024,17 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P7H-lj-K34" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="trp-tw-eou">
-                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="7wY-qq-tuf"/>
                                                                 <constraint firstAttribute="width" constant="24" id="OlD-75-fu0"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cosmostation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkk-Df-UXk">
-                                                            <rect key="frame" x="12" y="13.666666666666664" width="86" height="17"/>
+                                                            <rect key="frame" x="12" y="13.666666666666668" width="86" height="17"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -2089,10 +2088,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3I-Ah-x01" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44.333333333333336"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="oM8-9l-uFp">
-                                                            <rect key="frame" x="319" y="10.333333333333336" width="24" height="24"/>
+                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="JbN-cL-7a2"/>
                                                                 <constraint firstAttribute="width" constant="24" id="dIY-Vh-CVW"/>
@@ -2149,10 +2148,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDH-gK-oNp" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44.333333333333336"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-N7-kva">
-                                                            <rect key="frame" x="319" y="10.333333333333336" width="24" height="24"/>
+                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="NgU-KH-xRT"/>
                                                                 <constraint firstAttribute="height" constant="24" id="Rp7-n2-dg8"/>
@@ -2209,10 +2208,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6s-so-uCp" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="351" height="44.333333333333336"/>
+                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="fvN-8M-vfZ">
-                                                            <rect key="frame" x="319" y="10.333333333333336" width="24" height="24"/>
+                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="68D-uO-Vbp"/>
                                                                 <constraint firstAttribute="height" constant="24" id="vVl-iV-jiN"/>
@@ -2225,7 +2224,7 @@ Learn more about us in the links below</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v 1.0.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGV-pj-L9Y">
-                                                            <rect key="frame" x="274" y="15.333333333333336" width="37" height="14"/>
+                                                            <rect key="frame" x="219" y="15.333333333333336" width="37" height="14"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>

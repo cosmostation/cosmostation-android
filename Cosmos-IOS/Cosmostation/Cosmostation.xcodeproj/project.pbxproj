@@ -34,6 +34,7 @@
 		E1317142225F352A00EE5AD0 /* PostTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1317141225F352A00EE5AD0 /* PostTx.swift */; };
 		E13171442260215E00EE5AD0 /* GenTxResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */; };
 		E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */; };
+		E136D8A42303C581001BEBB8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E136D8A32303C581001BEBB8 /* GoogleService-Info.plist */; };
 		E1406FC02260643200D9440C /* BlockInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FBF2260643200D9440C /* BlockInfo.swift */; };
 		E1406FC22260654F00D9440C /* TxInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC12260654F00D9440C /* TxInfo.swift */; };
 		E1406FC422607B8500D9440C /* LoadingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1406FC322607B8500D9440C /* LoadingImageView.swift */; };
@@ -204,6 +205,8 @@
 		E13171432260215E00EE5AD0 /* GenTxResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenTxResultViewController.swift; sourceTree = "<group>"; };
 		E13696572292492800F3D5E2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherValidatorViewController.swift; sourceTree = "<group>"; };
+		E136D8A223039493001BEBB8 /* Cosmostation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cosmostation.entitlements; sourceTree = "<group>"; };
+		E136D8A32303C581001BEBB8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1406FBF2260643200D9440C /* BlockInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInfo.swift; sourceTree = "<group>"; };
 		E1406FC12260654F00D9440C /* TxInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxInfo.swift; sourceTree = "<group>"; };
 		E1406FC322607B8500D9440C /* LoadingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingImageView.swift; sourceTree = "<group>"; };
@@ -479,6 +482,7 @@
 		E1945E26222E7C0600A1436F /* Cosmostation */ = {
 			isa = PBXGroup;
 			children = (
+				E136D8A223039493001BEBB8 /* Cosmostation.entitlements */,
 				E1A82DF12244EC1C0097CAEE /* Cell */,
 				E1A82DE622448E800097CAEE /* Utils */,
 				E1A82DDD224478150097CAEE /* Model */,
@@ -489,6 +493,7 @@
 				E1945E39222E7D8E00A1436F /* Base */,
 				E16D9B182248C4880019B7BB /* Assets.xcassets */,
 				E1945E33222E7C0800A1436F /* Info.plist */,
+				E136D8A32303C581001BEBB8 /* GoogleService-Info.plist */,
 				E1945E2B222E7C0600A1436F /* Main.storyboard */,
 				E1945E30222E7C0800A1436F /* LaunchScreen.storyboard */,
 				E1271B02224B17230083AF17 /* Localizable.strings */,
@@ -705,6 +710,14 @@
 					E1945E23222E7C0600A1436F = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -759,6 +772,7 @@
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
+				E136D8A42303C581001BEBB8 /* GoogleService-Info.plist in Resources */,
 				E103DAAF22812773006C2146 /* ValidatorDetailHistoryEmpty.xib in Resources */,
 				E103DAD3228143D0006C2146 /* WalletCheckViewController.xib in Resources */,
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
@@ -803,12 +817,15 @@
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -818,12 +835,15 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1287,6 +1307,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Cosmostation/Cosmostation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
@@ -1309,6 +1330,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Cosmostation/Cosmostation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;

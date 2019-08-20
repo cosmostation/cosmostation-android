@@ -28,6 +28,10 @@
 	<string> $(PRODUCT_NAME) camera use</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string> $(PRODUCT_NAME) face id</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

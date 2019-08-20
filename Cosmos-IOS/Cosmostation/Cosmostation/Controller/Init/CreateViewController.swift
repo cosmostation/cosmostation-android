@@ -201,6 +201,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                     self.onStartMainTab()
                 } else {
                     //TODO Error control
+                    print("ERROR!!")
                 }
             });
         }
