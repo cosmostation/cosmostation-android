@@ -116,7 +116,7 @@ public class ValidatorOtherFragment extends BaseFragment {
 
             if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getPercentDp(new BigDecimal(validator.commission.rate)));
+                holder.itemTvCommission.setText(WDp.getPercentDp(new BigDecimal(validator.commission.commission_rates.rate)));
 
             } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));

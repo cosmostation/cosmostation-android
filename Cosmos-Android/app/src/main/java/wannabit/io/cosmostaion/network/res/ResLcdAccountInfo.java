@@ -15,7 +15,6 @@ public class ResLcdAccountInfo {
     public Value value;
 
 
-
     public class Value {
         @SerializedName("address")
         public String address;
@@ -55,7 +54,6 @@ public class ResLcdAccountInfo {
         public String EndTime;
     }
 
-
     public class BaseAccount {
         @SerializedName("address")
         public String address;
@@ -72,4 +70,20 @@ public class ResLcdAccountInfo {
         @SerializedName("sequence")
         public String sequence;
     }
+
+    //support cosmos version v36
+    @SerializedName("height")
+    public String height;
+
+    @SerializedName("result")
+    public Result result;
+
+    public class Result {
+        @SerializedName("type")
+        public String type;
+
+        @SerializedName("value")
+        public Value value;
+    }
+
 }

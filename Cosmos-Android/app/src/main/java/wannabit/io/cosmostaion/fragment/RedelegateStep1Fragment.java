@@ -155,7 +155,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
                 if(getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.rate)));
+                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
 
             } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {

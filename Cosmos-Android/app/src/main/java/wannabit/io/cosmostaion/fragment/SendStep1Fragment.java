@@ -28,6 +28,8 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+
 
 public class SendStep1Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -255,8 +257,13 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(sendTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin atom = new Coin(BaseConstant.COSMOS_ATOM, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
-                mToSendCoins.add(atom);
+                if(IS_TEST) {
+                    Coin muon = new Coin(BaseConstant.COSMOS_MUON, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                    mToSendCoins.add(muon);
+                } else {
+                    Coin atom = new Coin(BaseConstant.COSMOS_ATOM, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                    mToSendCoins.add(atom);
+                }
                 return true;
             } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());

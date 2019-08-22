@@ -6,6 +6,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -27,9 +28,9 @@ public class SingleValidatorInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-                Response<Validator> response = ApiClient.getCosmosChain(mApp).getValidatorDetail(mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
+                Response<ResLcdSingleValidator> response = ApiClient.getCosmosChain(mApp).getValidatorDetail(mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 

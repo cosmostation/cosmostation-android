@@ -256,14 +256,14 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 mTxBlockHeight.setText(mResTxInfo.height);
 
-                for(Coin coin: mResTxInfo.tx.value.msg.get(0).value.getCoins()) {
-                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                for (Coin coin: mResTxInfo.tx.value.msg.get(0).value.getCoins()) {
+                    if (coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                         mSendAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                     }
                 }
 
                 for(Coin coin: mResTxInfo.tx.value.fee.amount) {
-                    if(coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
+                    if (coin.denom.equals(BaseConstant.COSMOS_ATOM)) {
                         mSendFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                     }
                 }

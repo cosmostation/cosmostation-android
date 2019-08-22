@@ -6,6 +6,10 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 public class ValidatorCommission implements Parcelable {
+
+    @SerializedName("commission_rates")
+    public ValidatorCommissionRate commission_rates;
+
     @SerializedName("rate")
     public String rate;
 
@@ -21,7 +25,8 @@ public class ValidatorCommission implements Parcelable {
     public ValidatorCommission() {
     }
 
-    public ValidatorCommission(String rate, String max_rate, String max_change_rate, String update_time) {
+    public ValidatorCommission(ValidatorCommissionRate commission_rates, String rate, String max_rate, String max_change_rate, String update_time) {
+        this.commission_rates = commission_rates;
         this.rate = rate;
         this.max_rate = max_rate;
         this.max_change_rate = max_change_rate;
@@ -33,10 +38,11 @@ public class ValidatorCommission implements Parcelable {
     }
 
     public void readFromParcel(Parcel in) {
+        commission_rates = in.readParcelable(ValidatorCommissionRate.class.getClassLoader());
+        update_time = in.readString();
         rate = in.readString();
         max_rate = in.readString();
         max_change_rate = in.readString();
-        update_time = in.readString();
     }
 
     @Override
@@ -46,10 +52,11 @@ public class ValidatorCommission implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(commission_rates, flags);
+        dest.writeString(update_time);
         dest.writeString(rate);
         dest.writeString(max_rate);
         dest.writeString(max_change_rate);
-        dest.writeString(update_time);
     }
 
     public static final Creator<ValidatorCommission> CREATOR = new Creator<ValidatorCommission>() {

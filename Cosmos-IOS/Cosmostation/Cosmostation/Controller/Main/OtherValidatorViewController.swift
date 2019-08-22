@@ -104,15 +104,17 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
     func onSetValidatorItem(_ cell: OtherValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
+            cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, userChain!)
+            cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
         }
         cell.monikerLabel.text = validator.description.moniker
         cell.monikerLabel.adjustsFontSizeToFitWidth = true
         cell.freeEventImg.isHidden = true
-        cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
         
-        if(validator.jailed) {
+        
+        if (validator.jailed) {
             cell.revokedImg.isHidden = false
             cell.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
         } else {

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -40,7 +41,6 @@ import com.gun0912.tedpermission.TedPermission;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -92,8 +92,11 @@ import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+
 public class MainActivity extends BaseActivity implements TaskListener {
 
+    private CoordinatorLayout           mRoot;
     private ImageView                   mChainBg;
     private Toolbar                     mToolbar;
     private ImageView                   mToolbarChainImg;
@@ -109,6 +112,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     private ArrayList<Account>          mAccounts = new ArrayList<>();
     public Account                      mAccount;
+    public BaseChain                    mBaseChain;
     public ArrayList<Validator>         mOtherValidators = new ArrayList<>();
     public ArrayList<Validator>         mTopValidators = new ArrayList<>();
     public ArrayList<Validator>         mMyValidators = new ArrayList<>();
@@ -133,6 +137,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mRoot                       = findViewById(R.id.root);
         mChainBg                    = findViewById(R.id.chain_bg);
         mToolbar                    = findViewById(R.id.tool_bar);
         mToolbarTitle               = findViewById(R.id.toolbar_title);
@@ -252,6 +257,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         super.onResume();
         mAccounts = getBaseDao().onSelectAccounts();
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
         if(mAccount == null) {
             return;
         }
@@ -294,25 +300,27 @@ public class MainActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasbalance = false;
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
-                    hasbalance  = true;
+        if(!IS_TEST) {
+            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+            boolean hasbalance = false;
+            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                for (Balance balance:balances) {
+                    if (balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
+                        hasbalance  = true;
+                    }
+                }
+            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                for (Balance balance:balances) {
+                    if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("200000000000000000"))) > 0)) {
+                        hasbalance  = true;
+                    }
                 }
             }
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("200000000000000000"))) > 0)) {
-                    hasbalance  = true;
-                }
-            }
-        }
 
-        if(!hasbalance){
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-            return;
+            if(!hasbalance){
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         startActivity(new Intent(MainActivity.this, SendActivity.class));
@@ -565,8 +573,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 mOtherValidators = WUtil.getIrisOthers(temp);
             }
 
-
-
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_VALIDATOR ||
                 result.taskType == BaseConstant.TASK_FETCH_UNBONDED_VALIDATOR) {
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
@@ -604,7 +610,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
             try {
-                mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).bonded_tokens);
+                mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
             } catch (Exception e) {}
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {

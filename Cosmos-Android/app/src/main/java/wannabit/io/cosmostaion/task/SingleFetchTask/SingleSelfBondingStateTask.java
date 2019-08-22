@@ -5,7 +5,8 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleBonding;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -29,14 +30,14 @@ public class SingleSelfBondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-                Response<ResLcdBondings> response = ApiClient.getCosmosChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
+                Response<ResLcdSingleBonding> response = ApiClient.getCosmosChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 
             } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
-                Response<ResLcdBondings> response = ApiClient.getIrisChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
+                Response<ResLcdBonding> response = ApiClient.getIrisChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

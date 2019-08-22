@@ -43,16 +43,30 @@ import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
-import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 
 public class WUtil {
 
     public static Account getAccountFromLcd(long id, ResLcdAccountInfo lcd) {
         Account result = new Account();
         result.id = id;
-        if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+        if (lcd.result != null && lcd.height != null) {
+            if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+                    lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
+                result.address = lcd.result.value.address;
+                result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
+                result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
+                return result;
+            } else {
+                result.address = lcd.result.value.BaseVestingAccount.BaseAccount.address;
+                result.sequenceNumber = Integer.parseInt(lcd.result.value.BaseVestingAccount.BaseAccount.sequence);
+                result.accountNumber = Integer.parseInt(lcd.result.value.BaseVestingAccount.BaseAccount.account_number);
+                return result;
+            }
+        }
+        if (lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
                 lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
             result.address = lcd.value.address;
             result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
@@ -69,6 +83,30 @@ public class WUtil {
     public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
+        if (lcd.result != null && lcd.height != null) {
+            if(lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+                    lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
+                for(Coin coin : lcd.result.value.coins) {
+                    Balance temp = new Balance();
+                    temp.accountId = accountId;
+                    temp.symbol = coin.denom;
+                    temp.balance = new BigDecimal(coin.amount);
+                    temp.fetchTime = time;
+                    result.add(temp);
+                }
+                return result;
+            } else {
+                for(Coin coin : lcd.result.value.BaseVestingAccount.BaseAccount.coins) {
+                    Balance temp = new Balance();
+                    temp.accountId = accountId;
+                    temp.symbol = coin.denom;
+                    temp.balance = new BigDecimal(coin.amount);
+                    temp.fetchTime = time;
+                    result.add(temp);
+                }
+                return result;
+            }
+        }
         if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
                 lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
             for(Coin coin : lcd.value.coins) {
@@ -94,11 +132,11 @@ public class WUtil {
 
     }
 
-    public static ArrayList<BondingState> getBondingFromLcds(long accountId, ArrayList<ResLcdBondings> list, BaseChain chain) {
+    public static ArrayList<BondingState> getBondingFromLcds(long accountId, ArrayList<ResLcdBonding> list, BaseChain chain) {
         long time = System.currentTimeMillis();
         ArrayList<BondingState> result = new ArrayList<>();
         if (chain.equals(BaseChain.COSMOS_MAIN)) {
-            for(ResLcdBondings val : list) {
+            for(ResLcdBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
                     valAddress = val.validator_addr;
@@ -110,7 +148,7 @@ public class WUtil {
             }
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-            for(ResLcdBondings val : list) {
+            for(ResLcdBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
                     valAddress = val.validator_addr;
@@ -125,7 +163,7 @@ public class WUtil {
         return result;
     }
 
-    public static BondingState getBondingFromLcd(long accountId, ResLcdBondings lcd) {
+    public static BondingState getBondingFromLcd(long accountId, ResLcdBonding lcd) {
         String valAddress = "";
         if(!TextUtils.isEmpty(lcd.validator_addr))
             valAddress = lcd.validator_addr;
@@ -134,18 +172,18 @@ public class WUtil {
         return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
     }
 
-    public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, BaseChain chain, long accountId, ArrayList<ResLcdUnBondings> list) {
+    public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, BaseChain chain, long accountId, ArrayList<ResLcdUnBonding> list) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
         if (chain.equals(BaseChain.COSMOS_MAIN)) {
-            for(ResLcdUnBondings val : list) {
+            for(ResLcdUnBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
                     valAddress = val.validator_addr;
                 if(!TextUtils.isEmpty(val.validator_address))
                     valAddress = val.validator_address;
 
-                for(ResLcdUnBondings.Entry entry:val.entries) {
+                for(ResLcdUnBonding.Entry entry:val.entries) {
                     UnBondingState temp = new UnBondingState(
                             accountId,
                             valAddress,
@@ -160,7 +198,7 @@ public class WUtil {
             }
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-            for(ResLcdUnBondings val : list) {
+            for(ResLcdUnBonding val : list) {
                 String valAddress = "";
                 if(!TextUtils.isEmpty(val.validator_addr))
                     valAddress = val.validator_addr;
@@ -184,10 +222,10 @@ public class WUtil {
 
     //TODO check multi unbonding with one validator
     //TOOD check Chain Type need??
-    public static ArrayList<UnBondingState> getUnbondingFromLcd(Context c, long accountId, ResLcdUnBondings lcd) {
+    public static ArrayList<UnBondingState> getUnbondingFromLcd(Context c, long accountId, ResLcdUnBonding lcd) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
-        for(ResLcdUnBondings.Entry entry:lcd.entries) {
+        for(ResLcdUnBonding.Entry entry:lcd.entries) {
             String valAddress = "";
             if(!TextUtils.isEmpty(lcd.validator_addr))
                 valAddress = lcd.validator_addr;
@@ -502,16 +540,22 @@ public class WUtil {
         });
     }
 
-    public static void onSortingByCommission(ArrayList<Validator> validators) {
+    public static void onSortingByCommission(ArrayList<Validator> validators, final BaseChain chain) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
                 if(o1.description.moniker.equals("Cosmostation")) return -1;
                 if(o2.description.moniker.equals("Cosmostation")) return 1;
 
-                if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
-                else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
-                else return 0;
+                if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                    if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
+                    else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
+                    else return 0;
+                } else {
+                    if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
+                    else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
+                    else return 0;
+                }
             }
         });
         Collections.sort(validators, new Comparator<Validator>() {
@@ -528,8 +572,8 @@ public class WUtil {
         Collections.sort(proposals, new Comparator<Proposal>() {
             @Override
             public int compare(Proposal o1, Proposal o2) {
-                if (Integer.parseInt(o1.proposal_id) < Integer.parseInt(o2.proposal_id)) return 1;
-                else if (Integer.parseInt(o1.proposal_id) > Integer.parseInt(o2.proposal_id)) return -1;
+                if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
+                else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
                 else return 0;
 
             }

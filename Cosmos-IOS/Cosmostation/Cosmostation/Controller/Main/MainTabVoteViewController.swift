@@ -89,9 +89,9 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
         let proposal = mProposals[indexPath.row]
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            cell?.proposalIdLabel.text = "# ".appending(proposal.proposal_id)
-            cell?.proposalTitleLabel.text = proposal.proposal_content?.value.title
-            cell?.proposalMsgLabel.text = proposal.proposal_content?.value.description
+            cell?.proposalIdLabel.text = "# ".appending(proposal.id)
+            cell?.proposalTitleLabel.text = proposal.content?.value.title
+            cell?.proposalMsgLabel.text = proposal.content?.value.description
             cell?.proposalStateLabel.text = proposal.proposal_status
             if (proposal.proposal_status == "DepositPeriod") {
                 cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
@@ -145,30 +145,46 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onFetchProposals() {
-        var url = ""
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            url = CSS_LCD_URL_PROPOSALS;
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            url = IRIS_LCD_URL_PROPOSALS;
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let proposals = res as? Array<NSDictionary> else {
-                    self.onUpdateViews()
-                    return
+            let url = CSS_LCD_URL_PROPOSALS;
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                            self.onUpdateViews()
+                            return
+                    }
+                    self.mProposals.removeAll()
+                    for proposal in proposals {
+                        self.mProposals.append(Proposal(proposal as! [String : Any]))
+                    }
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchProposals ", error) }
                 }
-                self.mProposals.removeAll()
-                for proposal in proposals {
-                    self.mProposals.append(Proposal(proposal as! [String : Any]))
-                }
-//                print("mProposals size : ", self.mProposals.count)
-                
-            case .failure(let error):
-                print(error)
+                self.onUpdateViews()
             }
-            self.onUpdateViews()
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let url = IRIS_LCD_URL_PROPOSALS;
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let proposals = res as? Array<NSDictionary> else {
+                        self.onUpdateViews()
+                        return
+                    }
+                    self.mProposals.removeAll()
+                    for proposal in proposals {
+                        self.mProposals.append(Proposal(proposal as! [String : Any]))
+                    }
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchProposals ", error) }
+                }
+                self.onUpdateViews()
+            }
         }
     }
     
@@ -179,7 +195,7 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     func sortProposals() {
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             self.mProposals.sort{
-                return Int($0.proposal_id)! < Int($1.proposal_id)! ? false : true
+                return Int($0.id)! < Int($1.id)! ? false : true
             }
             
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {

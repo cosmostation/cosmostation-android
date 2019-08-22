@@ -34,6 +34,8 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     var mStakingPool: NSDictionary?
     var mIrisStakePool: NSDictionary?
     var mIrisRedelegate: Array<NSDictionary>?
+    
+    var refresher: UIRefreshControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailHistoryEmpty", bundle: nil), forCellReuseIdentifier: "ValidatorDetailHistoryEmpty")
         self.validatorDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
+        refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(onFech), for: .valueChanged)
+        refresher.tintColor = UIColor.white
+        validatorDetailTableView.addSubview(refresher)
+        
         self.loadingImg.onStartAnimation()
         self.onFech()
         
@@ -70,7 +77,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         
     }
     
-    func onFech(){
+    @objc func onFech(){
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             mUnbondings.removeAll()
             mRewards.removeAll()
@@ -117,6 +124,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             self.loadingImg.onStopAnimation()
             self.loadingImg.isHidden = true
             self.validatorDetailTableView.isHidden = false
+            self.refresher.endRefreshing()
             
         }
     }
@@ -178,14 +186,16 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 
                 if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
                     if(mStakingPool != nil && mProvision != nil) {
                         let provisions = NSDecimalNumber.init(string: mProvision)
                         let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
                     } else {
                         cell!.avergaeYield.text = "?? %"
                     }
                 } else if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
                     if (mIrisStakePool != nil) {
                         let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
                         let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
@@ -198,7 +208,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
                 }
                 
-                cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
+                
                 if (mValidator!.description.identity != "") {
                     let parameters: Parameters = ["fields": "pictures", "key_suffix": mValidator!.description.identity]
                     let request = Alamofire.request(KEY_BASE_URL_USER_INFO,
@@ -257,14 +267,16 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 
                 if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
                     if(mStakingPool != nil && mProvision != nil) {
                         let provisions = NSDecimalNumber.init(string: mProvision)
                         let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
                     } else {
                         cell!.avergaeYield.text = "?? %"
                     }
                 } else if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
                     if (mIrisStakePool != nil) {
                         let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
                         let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
@@ -277,7 +289,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
                 }
                 
-                cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
+                
                 if (mValidator!.description.identity != "") {
                     let parameters: Parameters = ["fields": "pictures", "key_suffix": mValidator!.description.identity]
                     let request = Alamofire.request(KEY_BASE_URL_USER_INFO,
@@ -372,8 +384,8 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
                         let provisions = NSDecimalNumber.init(string: mProvision)
                         let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                        cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: userChain!)
-                        cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: userChain!)
+                        cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: userChain!)
+                        cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: userChain!)
                     } else {
                         cell!.myDailyReturns.text = "-"
                         cell!.myMonthlyReturns.text = "-"
@@ -497,99 +509,131 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchValidatorInfo(_ validator: Validator) {
-        var url = ""
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            url = CSS_LCD_URL_VALIDATORS + "/" + validator.operator_address
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            url = IRIS_LCD_URL_VALIDATORS + "/" + validator.operator_address
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchValidatorInfo ", res)
-                guard let validator = res as? NSDictionary else {
-//                    print("no validator Error!!")
-                    self.onFetchFinished()
-                    return
+            let url = CSS_LCD_URL_VALIDATORS + "/" + validator.operator_address
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let validator = responseData.object(forKey: "result") as? NSDictionary else {
+                            self.onFetchFinished()
+                            return
+                    }
+                    self.mValidator = Validator(validator as! [String : Any])
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchValidatorInfo ", error) }
                 }
-                self.mValidator = Validator(validator as! [String : Any])
-                
-            case .failure(let error):
-                print("onFetchValidatorInfo ", error)
+                self.onFetchFinished()
             }
-//            print("onFetchValidatorInfo!!! ")
-            self.onFetchFinished()
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let url = IRIS_LCD_URL_VALIDATORS + "/" + validator.operator_address
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let validator = res as? NSDictionary else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    self.mValidator = Validator(validator as! [String : Any])
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchValidatorInfo ", error) }
+                }
+                self.onFetchFinished()
+            }
         }
     }
     
     func onFetchSignleBondingInfo(_ account: Account, _ validator: Validator) {
-        var url = ""
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                print("res : ", res)
-                guard let rawData = res as? [String : Any], rawData["error"] == nil, rawData["shares"] != nil else {
-                    self.onFetchFinished()
-                    return
-                }
-                let bondinginfo = BondingInfo(rawData)
-                if (self.userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                            self.onFetchFinished()
+                            return
+                    }
+                    let bondinginfo = BondingInfo(rawData)
                     self.mBonding = Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970)
                     if(self.mBonding != nil && self.mBonding!.getBondingAmount(self.mValidator!) != NSDecimalNumber.zero) {
                         self.mFetchCnt = self.mFetchCnt + 1
                         self.onFetchRewardInfo(account, validator)
                     }
-                } else if (self.userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchSignleBondingInfo ", error) }
+                }
+                self.onFetchFinished()
+            }
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let rawData = res as? [String : Any], rawData["error"] == nil, rawData["shares"] != nil else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    let bondinginfo = BondingInfo(rawData)
                     let shareAmount = WUtils.stringToDecimal(bondinginfo.shares).multiplying(byPowerOf10: 18)
                     self.mBonding = Bonding(account.account_id, bondinginfo.validator_addr, shareAmount.stringValue, Date().millisecondsSince1970)
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchSignleBondingInfo ", error) }
                 }
-                
-            case .failure(let error):
-                print("onFetchSignleBondingInfo ", error)
+                self.onFetchFinished()
             }
-            self.onFetchFinished()
         }
     }
     
     func onFetchSignleUnBondingInfo(_ account: Account, _ validator: Validator) {
-        var url = ""
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let rawData = res as? [String : Any], rawData["error"] == nil, rawData["code"] == nil else {
-                    self.onFetchFinished()
-                    return
-                }
-                let unbondinginfo = UnbondingInfo(rawData)
-                if (self.userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                            self.onFetchFinished()
+                            return
+                    }
+                    let unbondinginfo = UnbondingInfo(rawData)
                     for entry in unbondinginfo.entries {
                         self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, WUtils.nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
                     }
-
-                } else if (self.userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchSignleUnBondingInfo ", error) }
+                }
+                self.onFetchFinished()
+            }
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let rawData = res as? [String : Any], rawData["error"] == nil, rawData["code"] == nil else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    let unbondinginfo = UnbondingInfo(rawData)
                     let unbondingBalance = WUtils.stringToDecimal(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
                     let initialBalance = WUtils.stringToDecimal(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
                     self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_addr, unbondinginfo.creation_height, WUtils.nodeTimeToInt64(input: unbondinginfo.min_time).millisecondsSince1970, initialBalance.stringValue, unbondingBalance.stringValue, Date().millisecondsSince1970))
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchSignleUnBondingInfo ", error) }
                 }
-                
-            case .failure(let error):
-                print("onFetchSignleUnBondingInfo ", error)
+                self.onFetchFinished()
             }
-            self.onFetchFinished()
         }
+        
     }
     
     func onFetchRewardInfo(_ account: Account, _ validator: Validator) {
@@ -598,9 +642,10 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let rawRewards = res as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return;
+                guard let responseData = res as? NSDictionary,
+                    let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return;
                 }
                 let reward = Reward.init()
                 reward.reward_v_address = validator.operator_address
@@ -608,9 +653,8 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     reward.reward_amount.append(Coin(rawReward as! [String : Any]))
                 }
                 self.mRewards.append(reward)
-                
             case .failure(let error):
-                print("onFetchEachReward ", error)
+                if (SHOW_LOG) { print("onFetchEachReward ", error) }
             }
             self.onFetchFinished()
         }
@@ -627,9 +671,8 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     return
                 }
                 self.mIrisRewards = IrisRewards(irisRewards as! [String : Any])
-                
             case .failure(let error):
-                print("onFetchIrisReward ", error)
+                if (SHOW_LOG) { print("onFetchIrisReward ", error) }
             }
             self.onFetchFinished()
         }
@@ -662,7 +705,7 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     self.mHistories.removeAll()
                     self.mHistories = rawHistory.hits.hits
                 case .failure(let error):
-                    print("error ", error)
+                    if (SHOW_LOG) { print("onFetchHistory ", error) }
                 }
                 self.onFetchFinished()
             }
@@ -674,34 +717,44 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchSelfBondRate(_ address: String, _ vAddress: String) {
-        var url = ""
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            url = CSS_LCD_URL_BONDING + address + CSS_LCD_URL_BONDING_TAIL + "/" + vAddress
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            url = IRIS_LCD_URL_BONDING + address + IRIS_LCD_URL_BONDING_TAIL + "/" + vAddress
-        }
-//        print("onFetchSelfBondRate url ", url)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchSelfBondRate ", res)
-                guard let rawData = res as? [String : Any], rawData["error"] == nil else {
-//                    print("no self bondinginfo Error!!")
-                    self.onFetchFinished()
-                    return
+            let url = CSS_LCD_URL_BONDING + address + CSS_LCD_URL_BONDING_TAIL + "/" + vAddress
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                            self.onFetchFinished()
+                            return;
+                    }
+                    self.mSelfBondingShare = BondingInfo(rawData).shares
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchSelfBondRate ", error) }
                 }
-                self.mSelfBondingShare = BondingInfo(rawData).shares
-                
-            case .failure(let error):
-                print("onFetchSelfBondRate ", error)
+                self.onFetchFinished()
             }
-            self.onFetchFinished()
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let url = IRIS_LCD_URL_BONDING + address + IRIS_LCD_URL_BONDING_TAIL + "/" + vAddress
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let rawData = res as? [String : Any], rawData["error"] == nil else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    self.mSelfBondingShare = BondingInfo(rawData).shares
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchSelfBondRate ", error) }
+                }
+                self.onFetchFinished()
+            }
         }
     }
     
     func onFetchRedelegatedState(_ address: String, _ to: String) {
-        print("onFetchRedelegatedState")
         let request = Alamofire.request(CSS_LCD_URL_REDELEGATION, method: .get, parameters: ["delegator":address, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -716,7 +769,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     self.onStartRedelegate()
                     
                 }
-                
             case .failure(let error):
                 print("onFetchRedelegatedState ", error)
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
@@ -725,12 +777,10 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchIrisRedelegateState(_ account:Account) {
-//        print("onFetchIrisRedelegateState")
         let request = Alamofire.request(IRIS_LCD_URL_REDELEGATION + account.account_address + IRIS_LCD_URL_REDELEGATION_TAIL, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchIrisRedelegateState ", res)
                 guard let irisRedelegateState = res as? Array<NSDictionary> else {
                     return
                 }
@@ -742,9 +792,54 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     }
                 }
                 self.onStartRedelegate()
-                
             case .failure(let error):
                 print("onFetchIrisRedelegateState ", error)
+            }
+        }
+    }
+    
+    func onFetchRewardAddress(_ accountAddr: String) {
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let address = responseData.object(forKey: "result") as? String else {
+                            self.onShowReInvsetFailDialog()
+                            return;
+                    }
+                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                    if(trimAddress == accountAddr) {
+                        self.onStartReInvest()
+                    } else {
+                        self.onShowReInvsetFailDialog()
+                    }
+                case .failure(let error):
+                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                }
+            }
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseString { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let address = res as? String else {
+                        self.onShowReInvsetFailDialog()
+                        return;
+                    }
+                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                    if(trimAddress == accountAddr) {
+                        self.onStartReInvest()
+                    } else {
+                        self.onShowReInvsetFailDialog()
+                    }
+                case .failure(let error):
+                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                }
             }
         }
     }
@@ -998,37 +1093,6 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         stakingVC.mType = COSMOS_MULTI_MSG_TYPE_REINVEST
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(stakingVC, animated: true)
-    }
-    
-    func onFetchRewardAddress(_ accountAddr: String) {
-        var url = ""
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseString { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let address = res as? String else {
-                    self.onShowReInvsetFailDialog()
-                    return;
-                }
-                let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                if(trimAddress == accountAddr) {
-                    self.onStartReInvest()
-                } else {
-                    self.onShowReInvsetFailDialog()
-                }
-                
-            case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchRewardAddress ", error)
-                }
-            }
-        }
-        
     }
     
     func onShowAddMenomicDialog() {

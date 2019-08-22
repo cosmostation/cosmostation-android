@@ -6,7 +6,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleBonding;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -29,17 +30,17 @@ public class SingleBondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                Response<ResLcdBondings> response = ApiClient.getCosmosChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
+                Response<ResLcdSingleBonding> response = ApiClient.getCosmosChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful()) {
-                    if(response.body() != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body()));
+                    if(response.body() != null && response.body().result != null)
+                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result));
                     else
                         mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
                 }
                 mResult.isSuccess = true;
 
             } else if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                Response<ResLcdBondings> response = ApiClient.getIrisChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
+                Response<ResLcdBonding> response = ApiClient.getIrisChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null)
                         mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body()));

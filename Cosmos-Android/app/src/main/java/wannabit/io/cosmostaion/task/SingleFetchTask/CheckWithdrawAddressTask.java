@@ -6,6 +6,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -25,15 +26,15 @@ public class CheckWithdrawAddressTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                Response<String> response = ApiClient.getCosmosChain(mApp).getWithdrawAddress(mAccount.address).execute();
+                Response<ResLcdWithDrawAddress> response = ApiClient.getCosmosChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
 
-                if(response.body() != null) {
-                    mResult.resultData = response.body();
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 

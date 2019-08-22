@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResLcdRewardFromVal;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -30,15 +31,15 @@ public class SingleRewardTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<Coin>> response = ApiClient.getCosmosChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
+            Response<ResLcdRewardFromVal> response = ApiClient.getCosmosChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                 return mResult;
             }
 
-            if(response.body() != null && response.body().size() > 0) {
-                ArrayList<Coin> amounts = response.body();
+            if(response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                ArrayList<Coin> amounts = response.body().result;
                 long time = System.currentTimeMillis();
                 Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
                 mResult.resultData = temp;

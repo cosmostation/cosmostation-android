@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Proposal {
-    @SerializedName("proposal_id")
-    public String proposal_id;
+    @SerializedName("id")
+    public String id;
 
     @SerializedName("proposal_status")
     public String proposal_status;
 
-    @SerializedName("proposal_content")
-    public ProposalContent proposal_content;
+    @SerializedName("content")
+    public Content content;
 
 
-    public class ProposalContent {
+    public class Content {
         @SerializedName("type")
         public String type;
 

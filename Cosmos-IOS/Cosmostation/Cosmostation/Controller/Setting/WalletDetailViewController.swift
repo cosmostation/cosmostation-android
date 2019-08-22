@@ -288,34 +288,49 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onFetchRewardAddress(_ accountAddr: String) {
-        var url = ""
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+            let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let address = responseData.object(forKey: "result") as? String else {
+                            return;
+                    }
+                    self.rewardCard.isHidden = false
+                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                    self.rewardAddress.text = trimAddress
+                    if(trimAddress != accountAddr) {
+                        self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
+                    }
+                    self.rewardAddress.adjustsFontSizeToFitWidth = true
+                case .failure(let error):
+                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                }
+            }
+            
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseString { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let address = res as? String else {
-                    return;
-                }
-                self.rewardCard.isHidden = false
-                let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                self.rewardAddress.text = trimAddress
-                if(trimAddress != accountAddr) {
-                    self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
-                }
-                self.rewardAddress.adjustsFontSizeToFitWidth = true
-                
-            case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchRewardAddress ", error)
+            let url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseString { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let address = res as? String else {
+                        return;
+                    }
+                    self.rewardCard.isHidden = false
+                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                    self.rewardAddress.text = trimAddress
+                    if(trimAddress != accountAddr) {
+                        self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
+                    }
+                    self.rewardAddress.adjustsFontSizeToFitWidth = true
+                case .failure(let error):
+                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
         }
-        
     }
     
     

@@ -9,8 +9,8 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
-let TESTNET                             = false;
+let SHOW_LOG                            = true;
+let TESTNET                             = true;
 let FEE_FREE                            = false;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -27,7 +27,8 @@ let KEY_PRICE_TIC_CGC                    = "KEY_PRICE_TIC_CGC"
 let KEY_PRICE_TIC_CMC                    = "KEY_PRICE_TIC_CMC"
 
 
-let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
+//let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
+let CSS_LCD_URL                         = "https://lcd-cosmos-testnet.cosmostation.io/";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -144,8 +145,8 @@ let DB_UNBONDING_FETCH_TIME         = Expression<Int64>("fetchTime")
 
 
 
-let COSMOS_AUTH_TYPE_DELAYEDACCOUNT         = "auth/DelayedVestingAccount";
-let COSMOS_AUTH_TYPE_ACCOUNT                = "auth/Account";
+let COSMOS_AUTH_TYPE_DELAYEDACCOUNT         = "cosmos-sdk/DelayedVestingAccount";
+let COSMOS_AUTH_TYPE_ACCOUNT                = "cosmos-sdk/Account";
 
 let COSMOS_MSG_TYPE_TRANSFER                = "cosmos-sdk/Send";
 let COSMOS_MSG_TYPE_TRANSFER2               = "cosmos-sdk/MsgSend";

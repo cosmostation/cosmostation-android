@@ -271,7 +271,7 @@ public class MsgGenerator {
 
     public static ReqBroadCast getBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
         StdSignMsg tosign = genToSignMsg(
-                account.baseChain,
+                BaseChain.getDpChain(account.baseChain),
                 ""+account.accountNumber,
                 ""+account.sequenceNumber,
                 msgs,
@@ -309,7 +309,7 @@ public class MsgGenerator {
 
     public static ReqBroadCast getIrisBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
         IrisStdSignMsg tosign = genIrisToSignMsg(
-                account.baseChain,
+                BaseChain.getDpChain(account.baseChain),
                 ""+account.accountNumber,
                 ""+account.sequenceNumber,
                 msgs,
@@ -356,7 +356,7 @@ public class MsgGenerator {
         tempMsgs.add(tempMsg);
 
         IrisStdSignMsg tosign = genIrisToSignMsg(
-                account.baseChain,
+                BaseChain.getDpChain(account.baseChain),
                 ""+account.accountNumber,
                 ""+account.sequenceNumber,
                 tempMsgs,

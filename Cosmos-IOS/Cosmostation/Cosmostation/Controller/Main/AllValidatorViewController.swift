@@ -115,11 +115,11 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.rate), font: cell.commissionLabel.font)
+                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
             } else {
                 cell.commissionLabel.text = "-"
             }
-            
+
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, userChain!)
             if (mainTabVC!.mIrisStakePool != nil) {
@@ -141,7 +141,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             cell.revokedImg.isHidden = true
             cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
-        
+
         if mainTabVC.mMyValidators.first(where: {$0.operator_address == validator.operator_address}) != nil {
             if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
@@ -151,7 +151,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY
         }
-        
+
         cell.validatorImg.tag = indexPath.row
         cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
         if (validator.description.identity != "") {
@@ -238,7 +238,13 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             if (!$0.jailed && $1.jailed) {
                 return true
             }
-            return Double($0.commission.rate)! < Double($1.commission.rate)!
+            
+            if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
+            } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                return Double($0.commission.rate)! < Double($1.commission.rate)!
+            }
+            return false
         }
     }
 

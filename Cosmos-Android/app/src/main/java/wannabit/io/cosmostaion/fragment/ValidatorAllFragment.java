@@ -122,13 +122,13 @@ public class ValidatorAllFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
             final Validator validator  = mTopValidators.get(position);
 
-            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 if(getMainActivity().mBondedToken != null && getMainActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.rate)));
+                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
 
-            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getIrisYieldString(getMainActivity().mIrisPool, new BigDecimal(validator.commission.rate)));
             }
@@ -237,7 +237,7 @@ public class ValidatorAllFragment extends BaseFragment {
 
     public void onSortValidator() {
         if(getBaseDao().getValSorting() == 2){
-            WUtil.onSortingByCommission(mTopValidators);
+            WUtil.onSortingByCommission(mTopValidators, getMainActivity().mBaseChain);
         } else if (getBaseDao().getValSorting() == 0){
             WUtil.onSortByValidatorName(mTopValidators);
         } else {

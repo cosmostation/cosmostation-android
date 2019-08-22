@@ -73,32 +73,51 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
 
         }
         
-        var request: DataRequest?
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        }
-
-        request?.responseJSON { (response) in
-            switch response.result {
+            let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
                 case .success(let res):
-                guard let info = res as? [String : Any] else {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
-                    return
-                }
-                let accountInfo = AccountInfo.init(info)
-                if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
-                } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
-                } else {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
-                }
-
+                    guard let responseData = res as? NSDictionary,
+                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+                            cell?.denomAmount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
+                            return
+                    }
+                    let accountInfo = AccountInfo.init(info)
+                    if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
+                        cell?.denomAmount.attributedText = WUtils.displayAmount(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
+                    } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
+                        cell?.denomAmount.attributedText = WUtils.displayAmount(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
+                    } else {
+                        cell?.denomAmount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
+                    }
                 case .failure(let error):
-                print(error)
-
+                    if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                    
+                }
+            }
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let info = res as? [String : Any] else {
+                        cell?.denomAmount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
+                        return
+                    }
+                    let accountInfo = AccountInfo.init(info)
+                    if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
+                        cell?.denomAmount.attributedText = WUtils.displayAmount(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
+                    } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
+                        cell?.denomAmount.attributedText = WUtils.displayAmount(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6, self.userChain!)
+                    } else {
+                        cell?.denomAmount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
+                    }
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                    
+                }
             }
         }
         return cell!

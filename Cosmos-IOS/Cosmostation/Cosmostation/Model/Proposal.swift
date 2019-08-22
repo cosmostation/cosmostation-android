@@ -9,26 +9,27 @@
 import Foundation
 
 public class Proposal {
+    var id: String = ""
     var proposal_id: String = ""
     var proposal_status: String = ""
-    var proposal_content: ProposalContent?
+    var content: Content?
     var value: IrisValue?
     
     init() {}
     
     init(_ dictionary: [String: Any]) {
+        self.id = dictionary["id"] as? String ?? ""
         self.proposal_id = dictionary["proposal_id"] as? String ?? ""
         self.proposal_status = dictionary["proposal_status"] as? String ?? ""
-        if let pc = dictionary["proposal_content"] as? [String : Any] {
-            self.proposal_content = ProposalContent.init(pc)
+        if let content = dictionary["content"] as? [String : Any] {
+            self.content = Content.init(content)
         }
         if let irisValue = dictionary["value"] as? [String : Any] {
             self.value = IrisValue.init(irisValue)
         }
-        
     }
     
-    public class ProposalContent {
+    public class Content {
         var type: String = ""
         var value: Value = Value.init()
         

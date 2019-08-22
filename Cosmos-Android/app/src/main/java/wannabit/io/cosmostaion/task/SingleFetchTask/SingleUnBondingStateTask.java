@@ -6,7 +6,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleUnBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -29,14 +30,14 @@ public class SingleUnBondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                Response<ResLcdUnBondings> response = ApiClient.getCosmosChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body()));
+                Response<ResLcdSingleUnBonding> response = ApiClient.getCosmosChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body().result));
                     mResult.isSuccess = true;
                 }
 
             } else if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                Response<ResLcdUnBondings> response = ApiClient.getIrisChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
+                Response<ResLcdUnBonding> response = ApiClient.getIrisChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body()));
                     mResult.isSuccess = true;

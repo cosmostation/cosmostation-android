@@ -311,9 +311,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchTopValidatorsInfo ", res)
-                guard let validators = res as? Array<NSDictionary> else {
-                    print("no validators!!")
+                guard let responseData = res as? NSDictionary,
+                    let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                     return
                 }
                 self.mTopValidators.removeAll()
@@ -322,7 +321,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
-                print("onFetchTopValidatorsInfo ", error)
+                if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
             }
             self.onFetchFinished()
         }
@@ -333,16 +332,16 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let validators = res as? Array<NSDictionary> else {
-                    print("no Unbonded!!")
-                    return
+                guard let responseData = res as? NSDictionary,
+                    let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        return
                 }
                 for validator in validators {
                     self.mOtherValidators.append(Validator(validator as! [String : Any]))
                 }
                 
             case .failure(let error):
-                print("onFetchUnbondedValidatorsInfo ", error)
+                if (SHOW_LOG) { print("onFetchUnbondedValidatorsInfo ", error) }
             }
             self.onFetchFinished()
         }
@@ -353,16 +352,16 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let validators = res as? Array<NSDictionary> else {
-                    print("no Unbonding!!")
-                    return
+                guard let responseData = res as? NSDictionary,
+                    let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        print("no Unbonding validators!!")
+                        return
                 }
                 for validator in validators {
                     self.mOtherValidators.append(Validator(validator as! [String : Any]))
                 }
-                
             case .failure(let error):
-                print("onFetchUnbondingValidatorsInfo ", error)
+                if (SHOW_LOG) { print("onFetchUnbondingValidatorsInfo ", error) }
             }
             self.onFetchFinished()
         }
@@ -392,6 +391,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
+                if (SHOW_LOG) { print("onFetchIrisValidatorsInfo ", error) }
                 self.onFetchFinished()
             }
         }
@@ -400,98 +400,140 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     
     func onFetchAccountInfo(_ account: Account) {
-//        print("onFetchAccountInfo")
-        var request: DataRequest?
         if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
-            request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
-            request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        }
-        request?.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchAccountInfo ", res)
-                guard let info = res as? [String : Any] else {
-                    _ = BaseData.instance.deleteBalance(account: account)
-                    self.onFetchFinished()
-                    return
+            let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.onFetchFinished()
+                        return
+                    }
+                    let accountInfo = AccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                    
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                 }
-                let accountInfo = AccountInfo.init(info)
-                _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                
-            case .failure(let error):
-                print("onFetchAccountInfo ", error)
+                self.onFetchFinished()
             }
-            self.onFetchFinished()
+            
+        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
+            let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let info = res as? [String : Any] else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.onFetchFinished()
+                        return
+                    }
+                    let accountInfo = AccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
+                    
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                }
+                self.onFetchFinished()
+            }
         }
     }
     
     func onFetchBondingInfo(_ account: Account) {
-        var url = ""
         if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
-            url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL
-        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
-            url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL
-        }
-//        print("onFetchBondingInfo ", url)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.validate()
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let bondinginfos = res as? Array<NSDictionary> else {
-//                    print("no bonding!!")
-                    BaseData.instance.deleteBonding(account: account)
-                    self.onFetchFinished()
-                    return;
-                }
-//                print("bondinginfos", bondinginfos)
-                let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos, WUtils.getChainType(self.mAccount.account_base_chain))
-                BaseData.instance.updateBondings(mTempBondings)
-                if (self.mAccount.account_base_chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
+            let url = CSS_LCD_URL_BONDING + account.account_address + CSS_LCD_URL_BONDING_TAIL
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.validate()
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                            _ = BaseData.instance.deleteBonding(account: account)
+                            self.onFetchFinished()
+                            return;
+                    }
+                    let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos, WUtils.getChainType(self.mAccount.account_base_chain))
+                    BaseData.instance.updateBondings(mTempBondings)
                     self.mFetchCnt = self.mFetchCnt + mTempBondings.count
                     for bondig in mTempBondings {
                         self.onFetchEachReward(account.account_address, bondig.bonding_v_address)
                     }
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchBondingInfo ", error) }
                 }
-            case .failure(let error):
-                print("onFetchBondingInfo ", error)
+                self.onFetchFinished()
             }
-            self.onFetchFinished()
+            
+        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
+            let url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.validate()
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let bondinginfos = res as? Array<NSDictionary> else {
+                        _ = BaseData.instance.deleteBonding(account: account)
+                        self.onFetchFinished()
+                        return;
+                    }
+                    let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos, WUtils.getChainType(self.mAccount.account_base_chain))
+                    BaseData.instance.updateBondings(mTempBondings)
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchBondingInfo ", error) }
+                }
+                self.onFetchFinished()
+            }
         }
+        
     }
     
     func onFetchUnbondingInfo(_ account: Account) {
-        var url = ""
         if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
-            url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL
-        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
-            url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL
-        }
-//        print("onFetchUnbondingInfo ", url)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let unbondinginfos = res as? Array<NSDictionary> else {
-                    BaseData.instance.deleteUnbonding(account: account)
-                    self.onFetchFinished()
-                    return
+            let url = CSS_LCD_URL_UNBONDING + account.account_address + CSS_LCD_URL_UNBONDING_TAIL
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                            _ = BaseData.instance.deleteUnbonding(account: account)
+                            self.onFetchFinished()
+                            return
+                    }
+                    BaseData.instance.updateUnbondings(WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, WUtils.getChainType(self.mAccount.account_base_chain)))
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchUnbondingInfo ", error) }
                 }
-//                print("unbondinginfos ", unbondinginfos)
-                BaseData.instance.updateUnbondings(WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, WUtils.getChainType(self.mAccount.account_base_chain)))
-                
-            case .failure(let error):
-                print("onFetchUnbondingInfo ", error)
+                self.onFetchFinished()
             }
-            self.onFetchFinished()
+            
+        } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
+            let url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let unbondinginfos = res as? Array<NSDictionary> else {
+                        _ = BaseData.instance.deleteUnbonding(account: account)
+                        self.onFetchFinished()
+                        return
+                    }
+                    BaseData.instance.updateUnbondings(WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, WUtils.getChainType(self.mAccount.account_base_chain)))
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchUnbondingInfo ", error) }
+                }
+                self.onFetchFinished()
+            }
         }
     }
     
     func onFetchIrisReward(_ account: Account) {
         let url = IRIS_LCD_URL_REWARD + account.account_address + IRIS_LCD_URL_REWARD_TAIL
-        print("onFetchIrisReward ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -500,32 +542,25 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchFinished()
                     return
                 }
-//                print("irisRewards ", irisRewards)
                 self.mIrisRewards = IrisRewards(irisRewards as! [String : Any])
                 
             case .failure(let error):
-                print("onFetchIrisReward ", error)
+                if (SHOW_LOG) { print("onFetchIrisReward ", error) }
             }
             self.onFetchFinished()
         }
-        
     }
     
     func onFetchEachReward(_ accountAddr: String, _ validatorAddr:String) {
-//        print("onFetchEachReward")
         let url = CSS_LCD_URL_REWARD_FROM_VAL + accountAddr + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validatorAddr
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
-//            print("onFetchEachReward ", validatorAddr)
             switch response.result {
             case .success(let res):
-                guard let rawRewards = res as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return;
+                guard let responseData = res as? NSDictionary,
+                    let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return;
                 }
                 let reward = Reward.init()
                 reward.reward_v_address = validatorAddr
@@ -535,7 +570,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.mRewardList.append(reward)
                 
             case .failure(let error):
-                print("onFetchEachReward ", error)
+                if (SHOW_LOG) { print("onFetchEachReward ", error) }
             }
             self.onFetchFinished()
         }
@@ -543,47 +578,37 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchInflation() {
         let url = CSS_LCD_URL_INFLATION
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
-        request.responseString { (response) in
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if let inflation = res as? String {
-//                    print("onFetchInflation ", inflation)
-                    self.mInflation = inflation.replacingOccurrences(of: "\"", with: "")
+                guard let responseData = res as? NSDictionary,
+                    let inflation = responseData.object(forKey: "result") as? String else {
+                        self.onFetchFinished()
+                        return;
                 }
+                self.mInflation = inflation.replacingOccurrences(of: "\"", with: "")
             case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchInflation ", error)
-                }
+                if (SHOW_LOG) { print("onFetchInflation ", error) }
             }
             self.onFetchFinished()
         }
-        
     }
     
     func onFetchProvision() {
         let url = CSS_LCD_URL_PROVISIONS
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
-        request.responseString { (response) in
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if let provisions = res as? String {
-//                    print("onFetchProvision ", provisions)
-                    self.mProvision = provisions.replacingOccurrences(of: "\"", with: "")
-                    
+                guard let responseData = res as? NSDictionary,
+                    let provisions = responseData.object(forKey: "result") as? String else {
+                        self.onFetchFinished()
+                        return;
                 }
+                self.mProvision = provisions.replacingOccurrences(of: "\"", with: "")
             case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchProvision ", error)
-                }
+                if (SHOW_LOG) { print("onFetchProvision ", error) }
             }
             self.onFetchFinished()
         }
@@ -592,20 +617,18 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchStakingPool() {
         let url = CSS_LCD_URL_STAKING_POOL
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if let stakingPool = res as? NSDictionary {
-//                    print("onFetchStakingPool ", stakingPool)
-                    self.mStakingPool = stakingPool
+                guard let responseData = res as? NSDictionary,
+                    let stakingPool = responseData.object(forKey: "result") as? NSDictionary else {
+                        self.onFetchFinished()
+                        return;
                 }
+                self.mStakingPool = stakingPool
             case .failure(let error):
-                print("onFetchStakingPool ", error)
+                if (SHOW_LOG) { print("onFetchStakingPool ", error) }
             }
             self.onFetchFinished()
         }
@@ -613,17 +636,16 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchMintInfo() {
         let url = CSS_LCD_URL_MINT
-        let request = Alamofire.request(url,
-                                        method: .get,
-                                        parameters: [:],
-                                        encoding: URLEncoding.default,
-                                        headers: [:]);
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if let mintInfo = res as? NSDictionary {
-                    print("onFetchMintInfo ", mintInfo)
+                guard let responseData = res as? NSDictionary,
+                    let mintInfo = responseData.object(forKey: "result") as? NSDictionary else {
+                        self.onFetchFinished()
+                        return;
                 }
+                print("onFetchMintInfo ", mintInfo)
             case .failure(let error):
                 print("onFetchMintInfo ", error)
             }
@@ -650,11 +672,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchAtomTic(_ callback:Bool) {
         let request = Alamofire
-            .request(CMC_PRICE_TIC+"3794",
-                     method: .get,
-                     parameters: ["convert":BaseData.instance.getCurrencyString()],
-                     encoding: URLEncoding.default,
-                     headers: [:]);
+            .request(CMC_PRICE_TIC+"3794", method: .get, parameters: ["convert":BaseData.instance.getCurrencyString()], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

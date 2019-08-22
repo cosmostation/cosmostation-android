@@ -31,6 +31,8 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+
 public class SendStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     public final static int SELECT_GAS_DIALOG = 6001;
@@ -165,15 +167,27 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mNextBtn)) {
             if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                Fee fee = new Fee();
-                Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.COSMOS_ATOM;
-                gasCoin.amount = mFeeAmount.toPlainString();
-                ArrayList<Coin> amount = new ArrayList<>();
-                amount.add(gasCoin);
-                fee.amount = amount;
-                fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
-                getSActivity().mTargetFee = fee;
+                if(IS_TEST) {
+                    Fee fee = new Fee();
+                    Coin gasCoin = new Coin();
+                    gasCoin.denom = BaseConstant.COSMOS_MUON;
+                    gasCoin.amount = mFeeAmount.toPlainString();
+                    ArrayList<Coin> amount = new ArrayList<>();
+                    amount.add(gasCoin);
+                    fee.amount = amount;
+                    fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
+                    getSActivity().mTargetFee = fee;
+                } else {
+                    Fee fee = new Fee();
+                    Coin gasCoin = new Coin();
+                    gasCoin.denom = BaseConstant.COSMOS_ATOM;
+                    gasCoin.amount = mFeeAmount.toPlainString();
+                    ArrayList<Coin> amount = new ArrayList<>();
+                    amount.add(gasCoin);
+                    fee.amount = amount;
+                    fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
+                    getSActivity().mTargetFee = fee;
+                }
 
             } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                 Fee fee = new Fee();

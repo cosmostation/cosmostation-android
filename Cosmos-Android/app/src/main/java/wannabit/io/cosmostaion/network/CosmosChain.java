@@ -18,10 +18,19 @@ import wannabit.io.cosmostaion.network.res.ResBlockInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdInflation;
+import wannabit.io.cosmostaion.network.res.ResLcdProposals;
 import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
+import wannabit.io.cosmostaion.network.res.ResLcdRewardFromVal;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleUnBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
+import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdValidators;
 
 public interface CosmosChain {
 
@@ -41,38 +50,38 @@ public interface CosmosChain {
     Call<ResBlockInfo> getSearchBlock(@Path("height") String height);
 
     @GET("/staking/validators?status=bonded")
-    Call<ArrayList<Validator>> getValidatorDetailList();
+    Call<ResLcdValidators> getValidatorDetailList();
 
     @GET("/staking/validators?status=unbonding")
-    Call<ArrayList<Validator>> getUnBondingValidatorDetailList();
+    Call<ResLcdValidators> getUnBondingValidatorDetailList();
 
     @GET("/staking/validators?status=unbonded")
-    Call<ArrayList<Validator>> getUnBondedValidatorDetailList();
+    Call<ResLcdValidators> getUnBondedValidatorDetailList();
 
     @GET("/staking/delegators/{address}/delegations")
-    Call<ArrayList<ResLcdBondings>> getBondingList(@Path("address") String address);
+    Call<ResLcdBondings> getBondingList(@Path("address") String address);
 
     @GET("/staking/delegators/{address}/unbonding_delegations")
-    Call<ArrayList<ResLcdUnBondings>> getUnBondingList(@Path("address") String address);
+    Call<ResLcdUnBondings> getUnBondingList(@Path("address") String address);
 
     @GET("/distribution/delegators/{address}/rewards")
     Call<ArrayList<Coin>> getTotalRewards(@Path("address") String address);
 
     @GET("/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
-    Call<ArrayList<Coin>> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
+    Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
 
     @GET("/distribution/delegators/{address}/withdraw_address")
-    Call<String> getWithdrawAddress(@Path("address") String address);
+    Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
 
     //Validator details
     @GET("/staking/validators/{validatorAddr}")
-    Call<Validator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
+    Call<ResLcdSingleValidator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
 
     @GET("/staking/delegators/{address}/delegations/{validatorAddr}")
-    Call<ResLcdBondings> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+    Call<ResLcdSingleBonding> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
     @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
-    Call<ResLcdUnBondings> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+    Call<ResLcdSingleUnBonding> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
 
     //ReDelegate History
@@ -85,17 +94,17 @@ public interface CosmosChain {
 
 
     @GET("/minting/inflation")
-    Call<String> getInflation();
+    Call<ResLcdInflation> getInflation();
 
     @GET("/minting/annual-provisions")
-    Call<String> getProvisions();
+    Call<ResProvisions> getProvisions();
 
     @GET("/staking/pool")
     Call<ResStakingPool> getStakingPool();
 
     //Proposals
     @GET("/gov/proposals")
-    Call<ArrayList<Proposal>> getProposalList();
+    Call<ResLcdProposals> getProposalList();
 
 
     //Broadcast Tx

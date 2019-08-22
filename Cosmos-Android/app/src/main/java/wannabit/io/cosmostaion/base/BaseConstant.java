@@ -1,8 +1,8 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean                 IS_SHOWLOG                                      = false;
-    public final static boolean                 IS_TEST                                         = false;
+    public final static boolean                 IS_SHOWLOG                                      = true;
+    public final static boolean                 IS_TEST                                         = true;
     public final static boolean                 IS_FEE_FREE 					                = false;
     public final static String                  LOG_TAG                                         = "Cosmostation";
 
@@ -74,8 +74,8 @@ public class BaseConstant {
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";
 
-    public final static String                  COSMOS_AUTH_TYPE_DELAYEDACCOUNT                 = "auth/DelayedVestingAccount";
-    public final static String                  COSMOS_AUTH_TYPE_ACCOUNT                        = "auth/Account";
+    public final static String                  COSMOS_AUTH_TYPE_DELAYEDACCOUNT                 = "cosmos-sdk/DelayedVestingAccount";
+    public final static String                  COSMOS_AUTH_TYPE_ACCOUNT                        = "cosmos-sdk/Account";
 
     public final static String                  COSMOS_MSG_TYPE_TRANSFER                        = "cosmos-sdk/Send";
     public final static String                  COSMOS_MSG_TYPE_TRANSFER2                       = "cosmos-sdk/MsgSend";

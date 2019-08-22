@@ -172,10 +172,10 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull VoteHolder voteHolder, int position) {
             final Proposal proposal = mProposals.get(position);
-            voteHolder.proposal_id.setText("# " + proposal.proposal_id);
+            voteHolder.proposal_id.setText("# " + proposal.id);
             voteHolder.proposal_status.setText(proposal.proposal_status);
-            voteHolder.proposal_title.setText(proposal.proposal_content.value.title);
-            voteHolder.proposal_details.setText(proposal.proposal_content.value.description);
+            voteHolder.proposal_title.setText(proposal.content.value.title);
+            voteHolder.proposal_details.setText(proposal.content.value.description);
             if (proposal.proposal_status.equals("DepositPeriod")) {
                 voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
             } else if (proposal.proposal_status.equals("VotingPeriod")) {
@@ -192,7 +192,7 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
                 @Override
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                    webintent.putExtra("voteId", proposal.proposal_id);
+                    webintent.putExtra("voteId", proposal.id);
                     webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
                     startActivity(webintent);
                 }

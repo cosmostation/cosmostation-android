@@ -294,7 +294,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             checkedPassword = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(310), execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(610), execute: {
                 self.onShowChainType()
             })
         }
