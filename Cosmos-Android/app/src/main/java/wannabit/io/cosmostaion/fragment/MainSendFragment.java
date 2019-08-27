@@ -29,10 +29,14 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
@@ -47,18 +51,19 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private ImageView           mKeyState;
     private TextView            mAddress;
 
-    private CardView            mAtomCard, mPhotonCard, mIrisCard, mPriceCard;
+    private CardView            mAtomCard, mPhotonCard, mIrisCard, mBnbCard, mPriceCard;
 
     private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomUndelegated,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
-    private TextView            mTvPhotonTotal, mTvPhotonBalance, mTvPhotonRewards;
     private TextView            mTvIrisTotal, mTvIrisValue, mTvIrisUndelegated,
                                 mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
+    private TextView            mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
 
     private TextView            mMarket;
     private TextView            mPerPrice, mUpDownPrice;
     private ImageView           mUpDownImg;
 
+    private LinearLayout        mMintCards;
     private TextView            mInflation, mYield;
 
     private ImageView           mGuideImg;
@@ -98,11 +103,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvAtomUnBonding        = rootView.findViewById(R.id.dash_atom_unbonding);
         mTvAtomRewards          = rootView.findViewById(R.id.dash_atom_reward);
 
-        mPhotonCard             = rootView.findViewById(R.id.card_photon);
-        mTvPhotonTotal          = rootView.findViewById(R.id.dash_photon_amount);
-        mTvPhotonBalance        = rootView.findViewById(R.id.dash_photon_balance);
-        mTvPhotonRewards        = rootView.findViewById(R.id.dash_photon_reward);
-
         mIrisCard               = rootView.findViewById(R.id.card_iris);
         mTvIrisTotal            = rootView.findViewById(R.id.dash_iris_amount);
         mTvIrisValue            = rootView.findViewById(R.id.dash_iris_value);
@@ -111,12 +111,19 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvIrisUnBonding        = rootView.findViewById(R.id.dash_iris_unbonding);
         mTvIrisRewards          = rootView.findViewById(R.id.dash_iris_reward);
 
+        mBnbCard                = rootView.findViewById(R.id.card_bnb);
+        mTvBnbTotal             = rootView.findViewById(R.id.dash_bnb_amount);
+        mTvBnbValue             = rootView.findViewById(R.id.dash_bnb_value);
+        mTvBnbBalance           = rootView.findViewById(R.id.dash_bnb_balance);
+        mTvBnbLocked            = rootView.findViewById(R.id.dash_bnb_locked);
+
         mPriceCard              = rootView.findViewById(R.id.card_price);
         mMarket                 = rootView.findViewById(R.id.dash_price_market);
         mPerPrice               = rootView.findViewById(R.id.dash_per_price);
         mUpDownPrice            = rootView.findViewById(R.id.dash_price_updown_tx);
         mUpDownImg              = rootView.findViewById(R.id.ic_price_updown);
 
+        mMintCards              = rootView.findViewById(R.id.cards_mint);
         mInflation              = rootView.findViewById(R.id.dash_inflation);
         mYield                  = rootView.findViewById(R.id.dash_yield);
 
@@ -201,6 +208,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             mAtomCard.setVisibility(View.VISIBLE);
             mIrisCard.setVisibility(View.GONE);
+            mBnbCard.setVisibility(View.GONE);
+            mMintCards.setVisibility(View.VISIBLE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -213,6 +222,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.VISIBLE);
+            mBnbCard.setVisibility(View.GONE);
+            mMintCards.setVisibility(View.VISIBLE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -221,8 +232,21 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideMsg.setText(R.string.str_front_guide_msg_iris);
             mGuideBtn.setText(R.string.str_faq_iris);
             mFaqBtn.setText(R.string.str_guide_iris);
-        }
 
+        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+            mAtomCard.setVisibility(View.GONE);
+            mIrisCard.setVisibility(View.GONE);
+            mBnbCard.setVisibility(View.VISIBLE);
+            mMintCards.setVisibility(View.GONE);
+            if (getMainActivity().mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+            mGuideImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_img));
+            mGuideTitle.setText(R.string.str_front_guide_title_binance);
+            mGuideMsg.setText(R.string.str_front_guide_msg_bnb);
+            mGuideBtn.setText(R.string.str_faq_bnb);
+            mFaqBtn.setText(R.string.str_guide_bnb);
+        }
 
 //        WLog.w("mBalances " + getMainActivity().mBalances.size());
 //        WLog.w("mBondings " + getMainActivity().mBondings.size());
@@ -241,10 +265,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain));
-
-//            mTvPhotonTotal.setText(WDp.getDpAllPhoton(getContext(), getMainActivity().mBalances, getMainActivity().mRewards, getMainActivity().mBaseChain));
-//            mTvPhotonBalance.setText(WDp.getDpPhotonBalance(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain));
-//            mTvPhotonRewards.setText(WDp.getDpAllPhotonRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain));
 
             try {
                 BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
@@ -318,6 +338,52 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
             } catch (Exception e) {
                 mTvIrisValue.setText("???");
+                mPerPrice.setText("???");
+                mUpDownPrice.setText("???");
+                mUpDownImg.setVisibility(View.GONE);
+            }
+
+        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+            if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB) != null) {
+                Balance bnbToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB);
+                mTvBnbBalance.setText(WDp.getDpAmount(getContext(), bnbToken.balance, 6, getMainActivity().mBaseChain));
+                mTvBnbLocked.setText(WDp.getDpAmount(getContext(), bnbToken.locked, 6, getMainActivity().mBaseChain));
+                mTvBnbTotal.setText(WDp.getDpAmount(getContext(), bnbToken.locked.add(bnbToken.balance), 6, getMainActivity().mBaseChain));
+
+                try {
+                    BigDecimal totalAmount = bnbToken.locked.add(bnbToken.balance);
+                    BigDecimal totalPrice = BigDecimal.ZERO;
+                    if(getBaseDao().getCurrency() != 5) {
+                        totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(2, RoundingMode.DOWN);
+                    } else {
+                        totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(8, RoundingMode.DOWN);
+                    }
+                    mTvBnbValue.setText(WDp.getPriceDp(getContext(), totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                    mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastBnbTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+                    mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastBnbUpDown())));
+                    if(getBaseDao().getLastBnbUpDown() > 0) {
+                        mUpDownImg.setVisibility(View.VISIBLE);
+                        mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                    } else if (getBaseDao().getLastBnbUpDown() < 0){
+                        mUpDownImg.setVisibility(View.VISIBLE);
+                        mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                    } else {
+                        mUpDownImg.setVisibility(View.GONE);
+                    }
+
+                } catch (Exception e) {
+                    mTvBnbValue.setText("???");
+                    mPerPrice.setText("???");
+                    mUpDownPrice.setText("???");
+                    mUpDownImg.setVisibility(View.GONE);
+                }
+            } else {
+                mTvBnbBalance.setText("-");
+                mTvBnbLocked.setText("-");
+                mTvBnbTotal.setText("-");
+                mTvBnbValue.setText("-");
+
                 mPerPrice.setText("???");
                 mUpDownPrice.setText("???");
                 mUpDownImg.setVisibility(View.GONE);

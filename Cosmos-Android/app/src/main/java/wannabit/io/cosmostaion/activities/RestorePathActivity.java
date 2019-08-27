@@ -16,6 +16,7 @@ import android.widget.Toast;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.crypto.HDKeyDerivation;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -28,13 +29,15 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
-import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
@@ -43,7 +46,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
     private String              mHdSeed;
     private String              mEntropy;
     private int                 mWordSize;
-    private String              mChain;
+//    private String              mChainType;
+    private BaseChain           mChain;
     private DeterministicKey    mMasterKey;
 
     private Toolbar                 mToolbar;
@@ -69,7 +73,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         mHdSeed = getIntent().getStringExtra("HDseed");
         mEntropy =  getIntent().getStringExtra("entropy");
-        mChain = getIntent().getStringExtra("chain");
+//        mChainType = getIntent().getStringExtra("chain");
+        mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         mWordSize = getIntent().getIntExtra("size", 24);
         mMasterKey = HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(mHdSeed));
 
@@ -90,7 +95,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), this).execute(mChain, ""+path, mEntropy, ""+mWordSize);
+        new GenerateAccountTask(getBaseApplication(), this).execute(mChain.getChain(), ""+path, mEntropy, ""+mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
@@ -125,16 +130,18 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull final NewWalletHolder holder, final int position) {
             String address = WKey.getDpAddressWithPath(mMasterKey, mChain, position);
-            holder.newPath.setText(BaseConstant.KEY_PATH + position);
+            holder.newPath.setText(WDp.getPath(mChain));
             holder.newAddress.setText(address);
-            final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
+            final Account temp = getBaseDao().onSelectExistAccount(address);
             if(temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));
                 holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                if (mChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (mChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (mChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                } else if (mChain.equals(BaseChain.BNB_MAIN)) {
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
                 }
             } else  {
                 if(temp.hasPrivateKey) {
@@ -144,10 +151,12 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 } else {
                     holder.newState.setText(getString(R.string.str_override));
                     holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                    if (mChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    if (mChain.equals(BaseChain.COSMOS_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                    } else if (mChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                    } else if (mChain.equals(BaseChain.BNB_MAIN)) {
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
                     }
                 }
             }
@@ -169,7 +178,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 }
             });
 
-            if (mChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
                 holder.atomLayer.setVisibility(View.VISIBLE);
                 ApiClient.getCosmosChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
@@ -177,7 +186,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.atomAmount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
+                                holder.atomAmount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, mChain));
                         } else {
                             holder.atomAmount.setText("0");
                         }
@@ -188,7 +197,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     }
                 });
 
-            } else if (mChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
                 holder.irisLayer.setVisibility(View.VISIBLE);
                 ApiClient.getIrisChain(getBaseContext()).getBankInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
@@ -196,7 +205,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.irisAmount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, BaseChain.getChain(mChain)));
+                                holder.irisAmount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, mChain));
                         } else {
                             holder.irisAmount.setText("0");
                         }
@@ -206,6 +215,29 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         holder.irisAmount.setText("0");
                     }
                 });
+
+            } else if (mChain.equals(BaseChain.BNB_MAIN)) {
+                holder.bnbLayer.setVisibility(View.VISIBLE);
+                ApiClient.getBnbChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResBnbAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
+                        if(response.isSuccessful() && response.body() != null && response.body().balances != null) {
+                            for (ResBnbAccountInfo.BnbBalance balance:response.body().balances) {
+                                if (balance.symbol.equals(BaseConstant.COSMOS_BNB)) {
+                                    holder.bnbAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(balance.free), 6, mChain));
+                                    break;
+                                }
+                            }
+                        } else {
+                            holder.bnbAmount.setText("0");
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) {
+                        holder.bnbAmount.setText("0");
+                    }
+                });
+
             }
 
 
@@ -221,8 +253,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         public class NewWalletHolder extends RecyclerView.ViewHolder {
             CardView cardNewWallet;
-            RelativeLayout atomLayer, photonLayer, irisLayer;
-            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount;
+            RelativeLayout atomLayer, photonLayer, irisLayer, bnbLayer;
+            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount, bnbAmount;
 
             public NewWalletHolder(View v) {
                 super(v);
@@ -236,6 +268,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 photonAmount        = itemView.findViewById(R.id.photon_amount);
                 irisLayer           = itemView.findViewById(R.id.iris_layer);
                 irisAmount          = itemView.findViewById(R.id.iris_amount);
+                bnbLayer            = itemView.findViewById(R.id.bnb_layer);
+                bnbAmount           = itemView.findViewById(R.id.bnb_amount);
             }
         }
     }

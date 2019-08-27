@@ -26,7 +26,6 @@ public interface IrisChain {
     Call<ArrayList<Validator>> getValidatorList(@Query("page") String page, @Query("size") String size);
 
 
-
     @GET("/bank/accounts/{address}")
     Call<ResLcdAccountInfo> getBankInfo(@Path("address") String address);
 

@@ -52,6 +52,10 @@ public class WDp {
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            result = new SpannableString(getDecimalFormat(c, point).format(amount));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+
         } else {
             result = new SpannableString(getDecimalFormat(c, 0).format(amount));
 
@@ -686,6 +690,15 @@ public class WDp {
             result = result + " + " + (msgs.size() - 1);
         }
         return result;
+    }
+
+    public static String getPath(BaseChain chain) {
+        if (chain.equals(BaseChain.BNB_MAIN)) {
+            return BaseConstant.KEY_BNB_PATH;
+        } else {
+            return BaseConstant.KEY_PATH;
+
+        }
     }
 
 

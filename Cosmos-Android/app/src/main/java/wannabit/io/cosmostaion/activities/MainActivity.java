@@ -66,6 +66,7 @@ import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainVoteFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
@@ -274,6 +275,13 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mToolbarChainName.setText(getString(R.string.str_iris_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIris));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIris));
+
+        } else if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
+            mToolbarChainName.setText(getString(R.string.str_binance_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
 
         }
 
@@ -534,7 +542,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         if(!isFinishing()) {
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
-
     }
 
     public void onShowTopAccountsView() {
@@ -557,6 +564,9 @@ public class MainActivity extends BaseActivity implements TaskListener {
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
+//            if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+//                mBnbTokens = (ArrayList<ResBnbAccountInfo.BnbBalance>)result.resultData;
+//            }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_ALL_VALIDATOR) {
             if (!result.isSuccess) {
@@ -736,8 +746,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     holder.card_account.setBackground(getResources().getDrawable(R.drawable.box_accout_unselected));
                 }
 
-                if(TextUtils.isEmpty(account.nickName)) holder.img_name.setText(getString(R.string.str_my_wallet) + account.id);
-                else holder.img_name.setText(account.nickName);
+                if (TextUtils.isEmpty(account.nickName)){
+                    holder.img_name.setText(getString(R.string.str_my_wallet) + account.id);
+                } else {
+                    holder.img_name.setText(account.nickName);
+                }
 
                 holder.img_address.setText(account.address);
                 holder.card_account.setOnClickListener(new View.OnClickListener() {
@@ -776,6 +789,14 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     holder.tv_chain.setTextColor(getResources().getColor(R.color.colorIris));
                     if (account.hasPrivateKey) {
                         holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
+                    }
+
+                } else if (account.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+                    holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
+                    holder.tv_chain.setText(getString(R.string.str_binance_net));
+                    holder.tv_chain.setTextColor(getResources().getColor(R.color.colorBnb));
+                    if (account.hasPrivateKey) {
+                        holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
                     }
 
                 }
@@ -829,7 +850,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
             public AccountHolder(View v) {
                 super(v);
                 card_account        = itemView.findViewById(R.id.card_account);
-                img_chain  = itemView.findViewById(R.id.btn_account_chain_img);
+                img_chain           = itemView.findViewById(R.id.btn_account_chain_img);
                 img_account         = itemView.findViewById(R.id.img_account);
                 img_name            = itemView.findViewById(R.id.img_name);
                 img_address         = itemView.findViewById(R.id.img_address);
@@ -883,6 +904,12 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
             new IrisPoolTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        } else if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+            mTaskCount = 1;
+
+            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
         }
         onPriceTic(BaseChain.getChain(mAccount.baseChain));
         return true;
@@ -922,6 +949,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
                         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                             getBaseDao().setLastIrisTic(0d);
                             getBaseDao().setLastIrisUpDown(0d);
+
+                        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                            getBaseDao().setLastBnbTic(0d);
+                            getBaseDao().setLastBnbUpDown(0d);
+
                         }
                     }
                 }
@@ -935,6 +967,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                         getBaseDao().setLastIrisTic(0d);
                         getBaseDao().setLastIrisUpDown(0d);
+
+                    } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                        getBaseDao().setLastBnbTic(0d);
+                        getBaseDao().setLastBnbUpDown(0d);
+
                     }
                 }
             });
@@ -955,6 +992,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
                             getBaseDao().setLastIrisTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastIrisUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
 
+                        } else if (response.isSuccessful() && chain.equals(BaseChain.BNB_MAIN)) {
+                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
+                            getBaseDao().setLastBnbTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
+                            getBaseDao().setLastBnbUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
+
                         }
 
                     } catch (Exception e) {
@@ -965,6 +1007,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
                         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                             getBaseDao().setLastIrisTic(0d);
                             getBaseDao().setLastIrisUpDown(0d);
+
+                        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                            getBaseDao().setLastBnbTic(0d);
+                            getBaseDao().setLastBnbUpDown(0d);
 
                         }
                     }
@@ -979,6 +1025,11 @@ public class MainActivity extends BaseActivity implements TaskListener {
                     } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                         getBaseDao().setLastIrisTic(0d);
                         getBaseDao().setLastIrisUpDown(0d);
+
+                    } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                        getBaseDao().setLastBnbTic(0d);
+                        getBaseDao().setLastBnbUpDown(0d);
+
                     }
 
                 }

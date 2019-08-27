@@ -39,6 +39,21 @@ public class ApiClient {
         return service_iris;
     }
 
+    //Services for Binance net
+    private static BinanceChain service_binance = null;
+    public static BinanceChain getBnbChain(Context c) {
+        if (service_binance == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_main_bnb))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_binance = retrofit.create(BinanceChain.class);
+            }
+        }
+        return service_binance;
+    }
+
     private static CosmosEsService service_cosmos_es = null;
     public static CosmosEsService getCosmosEs(Context c) {
         if (service_cosmos_es == null ) {

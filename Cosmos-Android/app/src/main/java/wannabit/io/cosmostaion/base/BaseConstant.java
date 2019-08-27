@@ -7,7 +7,7 @@ public class BaseConstant {
     public final static String                  LOG_TAG                                         = "Cosmostation";
 
     public final static String                  DB_NAME			                                = "WannaBit";
-    public final static int                     DB_VERSION			                            = 1;
+    public final static int                     DB_VERSION			                            = 2;
     public final static String                  DB_TABLE_PASSWORD			                    = "paswd";
     public final static String                  DB_TABLE_ACCOUNT			                    = "accnt";
     public final static String                  DB_TABLE_BALANCE			                    = "balan";
@@ -22,6 +22,8 @@ public class BaseConstant {
     public final static String                  PRE_ATOM_UP_DOWN_24			                    = "PRE_ATOM_UP_DOWN_24";
     public final static String                  PRE_IRIS_TIC			                        = "PRE_IRIS_TIC";
     public final static String                  PRE_IRIS_UP_DOWN_24			                    = "PRE_IRIS_UP_DOWN_24";
+    public final static String                  PRE_BNB_TIC                                     = "PRE_BNB_TIC";
+    public final static String                  PRE_BNB_UP_DOWN_24			                    = "PRE_BNB_UP_DOWN_24";
     public final static String                  PRE_CURRENCY			                        = "PRE_CURRENCY";
     public final static String                  PRE_MARKET  			                        = "PRE_MARKET";
     public final static String                  PRE_USING_APP_LOCK			                    = "PRE_USING_APP_LOCK";
@@ -164,12 +166,16 @@ public class BaseConstant {
     public final static String                  COSMOS_PHOTON                                   = "photon";
     public final static String                  COSMOS_PHOTINO                                  = "photino";
     public final static String                  COSMOS_IRIS_ATTO                                = "iris-atto";
+    public final static String                  COSMOS_BNB                                      = "BNB";
+
+
     //TODO HardCoding!!
     public final static long                    COSMOS_UNBONDING_TIME                           = 1814400000;
     public final static long                    COSMOS_UNBONDING_DAY                            = 3;
 
 
     public final static String                  KEY_PATH		                                = "44'/118'/0'/0/";
+    public final static String                  KEY_BNB_PATH		                            = "44'/714'/0'/0/";
     public final static String                  characterFilter                                 = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -205,6 +211,8 @@ public class BaseConstant {
 
     public final static String                  CGC_ATOM                                        = "cosmos";
     public final static String                  CGC_IRIS                                        = "iris-network";
+    public final static String                  CGC_BNB                                         = "binancecoin";
     public final static int                     CMC_ATOM                                        = 3794;
     public final static int                     CMC_IRIS                                        = 3874;
+    public final static int                     CMC_BNB                                         = 1839;
 }

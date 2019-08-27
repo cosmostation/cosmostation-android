@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class Dialog_ChoiceNet extends DialogFragment {
 
-    private LinearLayout mMain, mIris, mTest12k, mTest13k;
+    private LinearLayout mMain, mIris, mBinance, mTest12k, mTest13k;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -40,6 +40,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
         mMain = view.findViewById(R.id.main_net);
         mIris = view.findViewById(R.id.iris_net);
+        mBinance = view.findViewById(R.id.binance_net);
         mTest12k = view.findViewById(R.id.gaia_12k);
         mTest13k = view.findViewById(R.id.gaia_13k);
 
@@ -55,6 +56,14 @@ public class Dialog_ChoiceNet extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IRIS_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
+        mBinance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BNB_MAIN);
                 getDialog().dismiss();
             }
         });

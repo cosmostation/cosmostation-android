@@ -4,6 +4,7 @@ import org.bitcoinj.crypto.DeterministicKey;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
@@ -56,10 +57,9 @@ public class GenerateAccountTask extends CommonTask {
 
     private Account onGenAccount(String entropy, String path, String chainType, String msize) {
         Account             newAccount      = Account.getNewInstance();
-        DeterministicKey    dKey            = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(path));
+        DeterministicKey    dKey            = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(chainType), entropy, Integer.parseInt(path));
         EncResult           encR            = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
-//        newAccount.address                  = WKey.getCosmosUserDpAddress(dKey.getPublicKeyAsHex());
-        newAccount.address                  = WKey.getDpAddress(chainType, dKey.getPublicKeyAsHex());
+        newAccount.address                  = WKey.getDpAddress(BaseChain.getChain(chainType), dKey.getPublicKeyAsHex());
         newAccount.baseChain                = chainType;
         newAccount.hasPrivateKey            = true;
         newAccount.resource                 = encR.getEncDataString();

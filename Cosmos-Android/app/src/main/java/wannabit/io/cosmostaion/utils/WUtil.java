@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -78,6 +79,15 @@ public class WUtil {
             result.accountNumber = Integer.parseInt(lcd.value.BaseVestingAccount.BaseAccount.account_number);
             return result;
         }
+    }
+
+    public static Account getAccountFromBnbLcd(long id, ResBnbAccountInfo lcd) {
+        Account result = new Account();
+        result.id = id;
+        result.address = lcd.address;
+        result.sequenceNumber = Integer.parseInt(lcd.sequence);
+        result.accountNumber = Integer.parseInt(lcd.account_number);
+        return result;
     }
 
     public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
@@ -131,6 +141,34 @@ public class WUtil {
         }
 
     }
+
+    public static ArrayList<Balance> getBalancesFromBnbLcd(long accountId, ResBnbAccountInfo lcd) {
+        long time = System.currentTimeMillis();
+        ArrayList<Balance> result = new ArrayList<>();
+        if (lcd.balances != null && lcd.balances.size() > 0) {
+            for(ResBnbAccountInfo.BnbBalance coin : lcd.balances) {
+                Balance temp = new Balance();
+                temp.accountId = accountId;
+                temp.symbol = coin.symbol;
+                temp.balance = new BigDecimal(coin.free);
+                temp.locked = new BigDecimal(coin.locked);
+                temp.frozen = new BigDecimal(coin.frozen);
+                temp.fetchTime = time;
+                result.add(temp);
+            }
+        }
+        return result;
+    }
+
+    public static Balance getTokenBalance(ArrayList<Balance> list, String symbol) {
+        for (Balance balance:list) {
+            if (balance.symbol.equals(symbol)) {
+                return balance;
+            }
+        }
+        return null;
+    }
+
 
     public static ArrayList<BondingState> getBondingFromLcds(long accountId, ArrayList<ResLcdBonding> list, BaseChain chain) {
         long time = System.currentTimeMillis();
@@ -657,6 +695,9 @@ public class WUtil {
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.CMC_IRIS;
+
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            return BaseConstant.CMC_BNB;
         }
         return BaseConstant.CMC_ATOM;
     }
@@ -667,6 +708,9 @@ public class WUtil {
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.CGC_IRIS;
+
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            return BaseConstant.CGC_BNB;
         }
         return BaseConstant.CGC_ATOM;
     }

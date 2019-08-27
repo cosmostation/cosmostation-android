@@ -5,6 +5,8 @@ import android.content.Context;
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
+import wannabit.io.cosmostaion.utils.WLog;
+
 public class BaseDB extends SQLiteOpenHelper {
 
     private static BaseDB instance;
@@ -36,7 +38,7 @@ public class BaseDB extends SQLiteOpenHelper {
                 "[isValidator] INTEGER DEFAULT 0, [sequenceNumber] INTEGER, [accountNumber] INTEGER, [fetchTime] INTEGER, [msize] INTEGER, [importTime] INTEGER)");
 
         sqLiteDatabase.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_BALANCE +
-                "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [accountId] INTEGER, [symbol] TEXT, [balance] TEXT, [fetchTime] INTEGER)");
+                "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [accountId] INTEGER, [symbol] TEXT, [balance] TEXT, [fetchTime] INTEGER, [frozen] TEXT, [locked] TEXT)");
 
         sqLiteDatabase.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_BONDING +
                 "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [accountId] INTEGER, [validatorAddress] TEXT, [shares] TEXT, [fetchTime] INTEGER)");
@@ -48,6 +50,19 @@ public class BaseDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        switch (oldVersion) {
+            case 1 :
+                try {
+                    db.beginTransaction();
+                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_BALANCE + " ADD COLUMN " + "frozen" + " TEXT");
+                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_BALANCE + " ADD COLUMN " + "locked" + " TEXT");
+                    db.setTransactionSuccessful();
+                } catch (IllegalStateException e) {
+                    WLog.e("upgrade error" + e.getMessage());
+                } finally {
+                    db.endTransaction();
+                };
+                break;
+        }
     }
 }

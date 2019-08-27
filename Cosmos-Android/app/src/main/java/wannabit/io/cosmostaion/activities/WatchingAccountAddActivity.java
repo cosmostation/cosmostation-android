@@ -2,23 +2,16 @@ package wannabit.io.cosmostaion.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
-import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
@@ -83,6 +76,17 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
             } else if (userInput.startsWith("iaa")) {
                 if (WKey.isValidBech32(userInput)) {
                     onGenNewAccount(BaseChain.IRIS_MAIN, userInput);
+                    return;
+
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+//            } else if (userInput.startsWith("bnb")) {
+            } else if (userInput.startsWith("tbnb")) {
+                if (WKey.isValidBech32(userInput)) {
+                    onGenNewAccount(BaseChain.BNB_MAIN, userInput);
                     return;
 
                 } else {

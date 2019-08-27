@@ -30,6 +30,10 @@ import wannabit.io.cosmostaion.model.IrisStdSignMsg;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.type.Msg;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+
 public class WKey {
 
     public static byte[] getEntropy() {
@@ -94,14 +98,19 @@ public class WKey {
     }
 
 
-    public static List<ChildNumber> getParentPath() {
+    public static List<ChildNumber> getParentPath(BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+        } else if (chain.equals(BNB_MAIN)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+        }
         return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
 
 
-    public static DeterministicKey getKeyWithPathfromEntropy(String entropy, int path) {
+    public static DeterministicKey getKeyWithPathfromEntropy(BaseChain chain, String entropy, int path) {
         DeterministicKey masterKey      = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
-        return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(), true, true,  new ChildNumber(path));
+        return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(path));
     }
 
     public static boolean isMnemonicWord(String word) {
@@ -173,7 +182,7 @@ public class WKey {
         return result;
     }
 
-    public static String getDpAddress(String chainType, String pubHex) {
+    public static String getDpAddress(BaseChain chain, String pubHex) {
         String result       = null;
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
@@ -186,10 +195,13 @@ public class WKey {
 
         try {
             byte[] converted = convertBits(hash3, 8,5,true);
-            if (chainType.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (chain.equals(COSMOS_MAIN)) {
                 result = bech32Encode("cosmos".getBytes(), converted);
-            } else if (chainType.equals(BaseChain.IRIS_MAIN.getChain())){
+            } else if (chain.equals(IRIS_MAIN)){
                 result = bech32Encode("iaa".getBytes(), converted);
+            } else if (chain.equals(BNB_MAIN)){
+//                result = bech32Encode("bnb".getBytes(), converted);
+                result = bech32Encode("tbnb".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -235,9 +247,9 @@ public class WKey {
     }
 
     public static String convertDpOpAddressToDpAddress(String dpOpAddress, BaseChain chain) {
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN)) {
             return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(IRIS_MAIN)) {
             return bech32Encode("iaa".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
@@ -248,15 +260,15 @@ public class WKey {
     public static String getDpAddressFromEntropy(BaseChain chain, byte[] entropy){
         byte[] HDseed               = getHDSeed(entropy);
         DeterministicKey masterKey  = HDKeyDerivation.createMasterPrivateKey(HDseed);
-        DeterministicKey childKey   = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(), true, true,  new ChildNumber(0));
-        return getDpAddress(chain.getChain(), childKey.getPublicKeyAsHex());
+        DeterministicKey childKey   = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(0));
+        return getDpAddress(chain, childKey.getPublicKeyAsHex());
     }
 
 
     //TODO check with "getKeyWithPath"
-    public static String getDpAddressWithPath(DeterministicKey masterKey, String chainType, int path){
-        DeterministicKey childKey   = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(), true, true,  new ChildNumber(path));
-        return getDpAddress(chainType, childKey.getPublicKeyAsHex());
+    public static String getDpAddressWithPath(DeterministicKey masterKey, BaseChain chain, int path){
+        DeterministicKey childKey   = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(path));
+        return getDpAddress(chain, childKey.getPublicKeyAsHex());
     }
 
 
