@@ -968,6 +968,11 @@ public class WDp {
         } else if (chain.equals(BaseChain.IRIS_MAIN.getChain())) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_iris));
+
+        } else if (chain.equals(BaseChain.BNB_MAIN.getChain())) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorBnb));
+            textview.setText(c.getString(R.string.s_bnb));
+
         }
     }
 }

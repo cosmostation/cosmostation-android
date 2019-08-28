@@ -172,11 +172,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-
                 } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-
+                } else if (account.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+                    holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
+                    holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
                 }
 
                 holder.wallet_address.setText(account.address);
@@ -186,7 +187,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                         Intent intent = new Intent(AccountListActivity.this, AccountDetailActivity.class);
                         intent.putExtra("id", ""+account.id);
                         startActivity(intent);
-
                     }
                 });
 
@@ -219,6 +219,9 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                } else if (account.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+                    holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
+                    holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
                 }
 
 

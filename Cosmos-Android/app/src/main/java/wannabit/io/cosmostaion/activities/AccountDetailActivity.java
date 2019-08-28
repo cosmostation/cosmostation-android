@@ -191,12 +191,17 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
         } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
+        } else if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            mCardRewardAddress.setVisibility(View.GONE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
         }
 
         new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -207,19 +212,13 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mAccountName.setText(mAccount.nickName);
         }
 
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
-        }
-
         mAccountAddress.setText(mAccount.address);
         mAccountGenTime.setText(WDp.getDpTime(getBaseContext(), mAccount.importTime));
         mAccountChain.setText(mAccount.baseChain);
 
         if(mAccount.hasPrivateKey) {
             mAccountState.setText(getString(R.string.str_with_mnemonic));
-            mAccountPath.setText(BaseConstant.KEY_PATH + mAccount.path);
+            mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain)) + mAccount.path);
             mPathLayer.setVisibility(View.VISIBLE);
             mImportMsg.setVisibility(View.GONE);
             mBtnCheck.setText(getString(R.string.str_check_mnemonic));

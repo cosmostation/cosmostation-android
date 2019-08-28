@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,12 +17,15 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicCheckActivity extends BaseActivity {
 
     private Toolbar             mToolbar;
+    private CardView            mMnemonicLayer;
     private TextView[]          mTvWords = new TextView[24];
     private Button              mCopy;
 
@@ -33,8 +37,9 @@ public class MnemonicCheckActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_mnemonic_check);
-        mToolbar    = findViewById(R.id.tool_bar);
-        mCopy       = findViewById(R.id.btn_copy);
+        mToolbar        = findViewById(R.id.tool_bar);
+        mMnemonicLayer  = findViewById(R.id.card_mnemonic_layer);
+        mCopy           = findViewById(R.id.btn_copy);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -45,7 +50,14 @@ public class MnemonicCheckActivity extends BaseActivity {
         }
 
         mEntropy = getIntent().getStringExtra("entropy");
-        long id = getIntent().getLongExtra("checkid", -1);
+        Account toCheck = getBaseDao().onSelectAccount(""+getIntent().getLongExtra("checkid", -1));
+        if (toCheck.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+        } else if (toCheck.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+        } else if (toCheck.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+        }
         final ArrayList<String> mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
 
         for(int i = 0; i < mTvWords.length; i++) {

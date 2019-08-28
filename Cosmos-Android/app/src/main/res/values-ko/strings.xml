@@ -405,6 +405,7 @@
     <string name="s_muon">MUON</string>
     <string name="s_photino">PHOTINO</string>
     <string name="s_iris">IRIS</string>
+    <string name="s_bnb">BNB</string>
 
     <string name="tx_send">출금</string>
     <string name="tx_receive">입금</string>
