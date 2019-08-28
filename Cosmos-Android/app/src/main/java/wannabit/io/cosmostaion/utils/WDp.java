@@ -921,6 +921,18 @@ public class WDp {
         return "(" + result + " " + c.getString(R.string.str_ago) +")";
     }
 
+
+    public static String cTimeString() {
+        Calendar c = Calendar.getInstance();
+        return ""+c.getTimeInMillis();
+    }
+
+    public static String threeMonthAgoTimeString() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, - 3);
+        return ""+c.getTimeInMillis();
+    }
+
     public static String DpAtom(Context c) {
         String result = c.getString(R.string.s_atom);
         return result;

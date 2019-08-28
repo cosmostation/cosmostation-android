@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.req.ReqTx;
 import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.task.FetchTask.HistoryTask;
@@ -44,6 +45,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private HistoryAdapter                  mHistoryAdapter;
 
     private ArrayList<ResHistory.InnerHits> mHistory = new ArrayList<>();
+    private ArrayList<BnbHistory>           mBnbHistory = new ArrayList<>();
 
     public static MainHistoryFragment newInstance(Bundle bundle) {
         MainHistoryFragment fragment = new MainHistoryFragment();
@@ -104,14 +106,19 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     private void onFetchHistory() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-        if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
 //            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
             new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             ReqTx req = new ReqTx(0, 1, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
 //            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
             new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            WLog.w("currentTimeMillis " + System.currentTimeMillis());
+            new HistoryTask(getBaseApplication(), this, null, BaseChain.getChain(getMainActivity().mAccount.baseChain))
+                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
         }
     }
@@ -121,8 +128,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if(!isAdded()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_HISTORY) {
             ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
-            if(hits != null && hits.size() > 0) {
-//                WLog.w("hit size " + hits.size());
+            if (hits != null && hits.size() > 0) {
+                WLog.w("hit size " + hits.size());
                 mHistory = hits;
                 mHistoryAdapter.notifyDataSetChanged();
                 mEmptyHistory.setVisibility(View.GONE);
@@ -131,8 +138,22 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 mEmptyHistory.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
             }
-            mSwipeRefreshLayout.setRefreshing(false);
+        } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_HISTORY) {
+            ArrayList<BnbHistory> hits = (ArrayList<BnbHistory>)result.resultData;
+            if (hits != null && hits.size() > 0) {
+                WLog.w("hit size " + hits.size());
+                mBnbHistory = hits;
+                mHistoryAdapter.notifyDataSetChanged();
+                mEmptyHistory.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+
+            } else {
+                mEmptyHistory.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+
+            }
         }
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 
@@ -146,117 +167,133 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
-            final ResHistory.Source source = mHistory.get(position)._source;
-            int dpType = WDp.getHistoryDpType(source.tx.value.msg, getMainActivity().mAccount.address);
-            switch (dpType) {
-                case BaseConstant.TX_TYPE_SEND:
-                    viewHolder.historyType.setText(getString(R.string.tx_send));
-                    break;
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final ResHistory.Source source = mHistory.get(position)._source;
+                int dpType = WDp.getHistoryDpType(source.tx.value.msg, getMainActivity().mAccount.address);
+                switch (dpType) {
+                    case BaseConstant.TX_TYPE_SEND:
+                        viewHolder.historyType.setText(getString(R.string.tx_send));
+                        break;
 
-                case BaseConstant.TX_TYPE_RECEIVE:
-                    viewHolder.historyType.setText(getString(R.string.tx_receive));
-                    break;
+                    case BaseConstant.TX_TYPE_RECEIVE:
+                        viewHolder.historyType.setText(getString(R.string.tx_receive));
+                        break;
 
-                case BaseConstant.TX_TYPE_TRANSFER:
-                    viewHolder.historyType.setText(getString(R.string.tx_transfer));
-                    break;
+                    case BaseConstant.TX_TYPE_TRANSFER:
+                        viewHolder.historyType.setText(getString(R.string.tx_transfer));
+                        break;
 
-                case BaseConstant.TX_TYPE_DELEGATE:
-                    viewHolder.historyType.setText(getString(R.string.tx_delegate));
-                    break;
+                    case BaseConstant.TX_TYPE_DELEGATE:
+                        viewHolder.historyType.setText(getString(R.string.tx_delegate));
+                        break;
 
-                case BaseConstant.TX_TYPE_UNDELEGATE:
-                    viewHolder.historyType.setText(getString(R.string.tx_undelegate));
-                    break;
+                    case BaseConstant.TX_TYPE_UNDELEGATE:
+                        viewHolder.historyType.setText(getString(R.string.tx_undelegate));
+                        break;
 
-                case BaseConstant.TX_TYPE_REDELEGATE:
-                    viewHolder.historyType.setText(getString(R.string.tx_redelegate));
-                    break;
+                    case BaseConstant.TX_TYPE_REDELEGATE:
+                        viewHolder.historyType.setText(getString(R.string.tx_redelegate));
+                        break;
 
-                case BaseConstant.TX_TYPE_GET_REWARD:
-                    viewHolder.historyType.setText(getString(R.string.tx_get_reward));
-                    break;
+                    case BaseConstant.TX_TYPE_GET_REWARD:
+                        viewHolder.historyType.setText(getString(R.string.tx_get_reward));
+                        break;
 
-                case BaseConstant.TX_TYPE_GET_CPMMISSION:
-                    viewHolder.historyType.setText(getString(R.string.tx_get_commission));
-                    break;
+                    case BaseConstant.TX_TYPE_GET_CPMMISSION:
+                        viewHolder.historyType.setText(getString(R.string.tx_get_commission));
+                        break;
 
-                case BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS:
-                    viewHolder.historyType.setText(getString(R.string.tx_change_reward_address));
-                    break;
+                    case BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS:
+                        viewHolder.historyType.setText(getString(R.string.tx_change_reward_address));
+                        break;
 
-                case BaseConstant.TX_TYPE_VOTE:
-                    viewHolder.historyType.setText(getString(R.string.tx_vote));
-                    break;
+                    case BaseConstant.TX_TYPE_VOTE:
+                        viewHolder.historyType.setText(getString(R.string.tx_vote));
+                        break;
 
-                case BaseConstant.TX_TYPE_SUBMIT_PROPOSAL:
-                    viewHolder.historyType.setText(getString(R.string.tx_submit_proposal));
-                    break;
+                    case BaseConstant.TX_TYPE_SUBMIT_PROPOSAL:
+                        viewHolder.historyType.setText(getString(R.string.tx_submit_proposal));
+                        break;
 
-                case BaseConstant.TX_TYPE_DEPOSIT:
-                    viewHolder.historyType.setText(getString(R.string.tx_deposit));
-                    break;
+                    case BaseConstant.TX_TYPE_DEPOSIT:
+                        viewHolder.historyType.setText(getString(R.string.tx_deposit));
+                        break;
 
-                case BaseConstant.TX_TYPE_CREATE_VALIDATOR:
-                    viewHolder.historyType.setText(getString(R.string.tx_create_validator));
-                    break;
+                    case BaseConstant.TX_TYPE_CREATE_VALIDATOR:
+                        viewHolder.historyType.setText(getString(R.string.tx_create_validator));
+                        break;
 
-                case BaseConstant.TX_TYPE_EDIT_VALIDATOR:
-                    viewHolder.historyType.setText(getString(R.string.tx_edit_validator));
-                    break;
+                    case BaseConstant.TX_TYPE_EDIT_VALIDATOR:
+                        viewHolder.historyType.setText(getString(R.string.tx_edit_validator));
+                        break;
 
-                case BaseConstant.TX_TYPE_REINVEST:
-                    viewHolder.historyType.setText(getString(R.string.tx_reinvest));
-                    break;
+                    case BaseConstant.TX_TYPE_REINVEST:
+                        viewHolder.historyType.setText(getString(R.string.tx_reinvest));
+                        break;
 
-                case BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL:
-                    viewHolder.historyType.setText(getString(R.string.tx_get_reward_all));
-                    break;
+                    case BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL:
+                        viewHolder.historyType.setText(getString(R.string.tx_get_reward_all));
+                        break;
 
-                case BaseConstant.TX_TYPE_UNKNOWN:
-                    viewHolder.historyType.setText(getString(R.string.tx_known));
-                    break;
+                    case BaseConstant.TX_TYPE_UNKNOWN:
+                        viewHolder.historyType.setText(getString(R.string.tx_known));
+                        break;
 
+                }
+
+                if(dpType != BaseConstant.TX_TYPE_REINVEST && source.tx.value.msg.size() > 1) {
+                    String type = viewHolder.historyType.getText().toString() + "\n+ " + (source.tx.value.msg.size() - 1);
+                    viewHolder.historyType.setText(type);
+                }
+
+
+                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                    if(!source.result.isSuccess()) {
+                        viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                    } else {
+                        viewHolder.historySuccess.setVisibility(View.GONE);
+                    }
+                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                    if(source.result.Code > 0) {
+                        viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                    } else {
+                        viewHolder.historySuccess.setVisibility(View.GONE);
+                    }
+                }
+
+                viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.time));
+                viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.time));
+                viewHolder.history_block.setText(source.height + " block");
+                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                        webintent.putExtra("txid", source.hash);
+                        webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
+                        startActivity(webintent);
+                    }
+                });
+
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                final BnbHistory history = mBnbHistory.get(position);
+                viewHolder.historyType.setText(history.txType);
+                viewHolder.history_time.setText(WDp.getTimeformat(getContext(), history.timeStamp));
+                viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), history.timeStamp));
+                viewHolder.history_block.setText(history.blockHeight + " block");
+                viewHolder.historySuccess.setVisibility(View.GONE);
             }
 
-            if(dpType != BaseConstant.TX_TYPE_REINVEST && source.tx.value.msg.size() > 1) {
-                String type = viewHolder.historyType.getText().toString() + "\n+ " + (source.tx.value.msg.size() - 1);
-                viewHolder.historyType.setText(type);
-            }
-
-
-            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                if(!source.result.isSuccess()) {
-                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                } else {
-                    viewHolder.historySuccess.setVisibility(View.GONE);
-                }
-            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-                if(source.result.Code > 0) {
-                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                } else {
-                    viewHolder.historySuccess.setVisibility(View.GONE);
-                }
-            }
-
-            viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.time));
-            viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.time));
-            viewHolder.history_block.setText(source.height + " block");
-            viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                    webintent.putExtra("txid", source.hash);
-                    webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
-                    startActivity(webintent);
-                }
-            });
 
         }
 
         @Override
         public int getItemCount() {
-            return mHistory.size();
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                return mHistory.size();
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                return mBnbHistory.size();
+            }
+            return 0;
         }
 
         public class HistoryHolder extends RecyclerView.ViewHolder {
