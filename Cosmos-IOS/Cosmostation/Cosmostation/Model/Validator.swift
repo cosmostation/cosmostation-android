@@ -72,7 +72,9 @@ public class Validator {
             self.max_rate = dictionary["max_rate"] as? String ?? ""
             self.max_change_rate = dictionary["max_change_rate"] as? String ?? ""
             self.update_time = dictionary["update_time"] as? String ?? ""
-            self.commission_rates = CommissionRate.init(dictionary["commission_rates"] as! [String : Any])
+            if let commission_rates = dictionary["commission_rates"] as? [String : Any] {
+                self.commission_rates = CommissionRate.init(commission_rates)
+            }
         }
     }
     

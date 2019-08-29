@@ -505,7 +505,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                             self.onFetchFinished()
                             return
                     }
-                    BaseData.instance.updateUnbondings(WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, WUtils.getChainType(self.mAccount.account_base_chain)))
+                    BaseData.instance.updateUnbondings(self.mAccount.account_id, WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, WUtils.getChainType(self.mAccount.account_base_chain)))
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchUnbondingInfo ", error) }
                 }
@@ -518,12 +518,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
+                    print("res ", res)
                     guard let unbondinginfos = res as? Array<NSDictionary> else {
                         _ = BaseData.instance.deleteUnbonding(account: account)
                         self.onFetchFinished()
                         return
                     }
-                    BaseData.instance.updateUnbondings(WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, WUtils.getChainType(self.mAccount.account_base_chain)))
+                    BaseData.instance.updateUnbondings(self.mAccount.account_id, WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, WUtils.getChainType(self.mAccount.account_base_chain)))
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchUnbondingInfo ", error) }
                 }
