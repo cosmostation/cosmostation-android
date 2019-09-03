@@ -13,27 +13,35 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WDp;
 
-public class MainCoinsFragment extends BaseFragment {
+public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
-    private LinearLayout        mEmptyAsset;
-    private AssetsAdapter       mAssetsAdapter;
+    private LinearLayout        mEmptyToken;
 
+    private CardView            mCardTotal;
+    private TextView            mTotalValue, mTotalDenom, mDenomTitle;
+    private TextView            mTokenSize, mTokenSortType;
+    private LinearLayout        mBtnSort;
+
+    private TokensAdapter       mTokensAdapter;
     private ArrayList<Balance>  mBalances = new ArrayList<>();
 
-    public static MainCoinsFragment newInstance(Bundle bundle) {
-        MainCoinsFragment fragment = new MainCoinsFragment();
+    public static MainTokensFragment newInstance(Bundle bundle) {
+        MainTokensFragment fragment = new MainTokensFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -46,11 +54,18 @@ public class MainCoinsFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main_coins, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main_tokens, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mEmptyAsset             = rootView.findViewById(R.id.empty_coin);
-
+        mEmptyToken             = rootView.findViewById(R.id.empty_token);
+        mCardTotal              = rootView.findViewById(R.id.card_total);
+        mTotalValue             = rootView.findViewById(R.id.total_value);
+        mTotalDenom             = rootView.findViewById(R.id.total_denom_value);
+        mDenomTitle             = rootView.findViewById(R.id.total_denom_title);
+        mTokenSize              = rootView.findViewById(R.id.token_cnt);
+        mTokenSortType          = rootView.findViewById(R.id.token_sort_type);
+        mBtnSort                = rootView.findViewById(R.id.btn_token_sort);
+        mBtnSort.setOnClickListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -61,8 +76,8 @@ public class MainCoinsFragment extends BaseFragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mAssetsAdapter = new AssetsAdapter();
-        mRecyclerView.setAdapter(mAssetsAdapter);
+        mTokensAdapter = new TokensAdapter();
+        mRecyclerView.setAdapter(mTokensAdapter);
 
         return rootView;
     }
@@ -104,28 +119,44 @@ public class MainCoinsFragment extends BaseFragment {
 
     private void onUpdateView() {
         mBalances = getMainActivity().mBalances;
-        WLog.w("mBalances " + mBalances.size());
+        WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
+        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+
+        }
         if (mBalances != null && mBalances.size() > 0) {
-            mAssetsAdapter.notifyDataSetChanged();
-            mEmptyAsset.setVisibility(View.GONE);
+            mTokensAdapter.notifyDataSetChanged();
+            mEmptyToken.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
 
         } else {
-            mEmptyAsset.setVisibility(View.VISIBLE);
+            mEmptyToken.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.GONE);
 
         }
 
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mBtnSort)) {
+
+        }
+    }
 
 
-    private class AssetsAdapter extends RecyclerView.Adapter<AssetsAdapter.AssetHolder> {
+    private class TokensAdapter extends RecyclerView.Adapter<TokensAdapter.AssetHolder> {
 
         @NonNull
         @Override
         public AssetHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new AssetHolder(getLayoutInflater().inflate(R.layout.item_asset, viewGroup, false));
+            return new AssetHolder(getLayoutInflater().inflate(R.layout.item_token, viewGroup, false));
         }
 
         @Override
@@ -138,11 +169,18 @@ public class MainCoinsFragment extends BaseFragment {
         }
 
         public class AssetHolder extends RecyclerView.ViewHolder {
-            private CardView assetRoot;
+            private CardView    itemRoot;
+            private ImageView   itemImg;
+            private TextView    itemSymbol, itemFullName, itemBalance, itemValue;
 
             public AssetHolder(View v) {
                 super(v);
-                assetRoot    = itemView.findViewById(R.id.card_asset);
+                itemRoot        = itemView.findViewById(R.id.token_card);
+                itemImg         = itemView.findViewById(R.id.token_img);
+                itemSymbol      = itemView.findViewById(R.id.token_symbol);
+                itemFullName    = itemView.findViewById(R.id.token_fullname);
+                itemBalance     = itemView.findViewById(R.id.token_balance);
+                itemValue       = itemView.findViewById(R.id.token_value);
             }
         }
     }

@@ -46,7 +46,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
-import wannabit.io.cosmostaion.fragment.MainCoinsFragment;
+import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
@@ -338,7 +338,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFragments.clear();
             mFragments.add(MainSendFragment.newInstance(null));
 //            mFragments.add(MainRewardFragment.newInstance(null));
-            mFragments.add(MainCoinsFragment.newInstance(null));
+            mFragments.add(MainTokensFragment.newInstance(null));
             mFragments.add(MainHistoryFragment.newInstance(null));
 //            mFragments.add(MainVoteFragment.newInstance(null));
             mFragments.add(MainSettingFragment.newInstance(null));

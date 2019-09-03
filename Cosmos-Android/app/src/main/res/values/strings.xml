@@ -279,6 +279,7 @@
     <string name="str_expected_delegation">Expected Delegation</string>
     <string name="str_wallet_connect">Wallet Connect</string>
 
+
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
     <string name="str_main_tokens">TOKENS</string>
