@@ -28,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
@@ -39,6 +40,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorMyFragment extends BaseFragment {
@@ -74,9 +76,7 @@ public class ValidatorMyFragment extends BaseFragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(!getMainActivity().onFetchAccountInfo()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
+                getMainActivity().onFetchAllData();
             }
         });
 
@@ -86,7 +86,7 @@ public class ValidatorMyFragment extends BaseFragment {
         mRecyclerView.setDrawingCacheEnabled(true);
         mMyValidatorAdapter = new MyValidatorAdapter();
         mRecyclerView.setAdapter(mMyValidatorAdapter);
-
+        onRefreshTab();
         return rootView;
     }
 
@@ -95,16 +95,21 @@ public class ValidatorMyFragment extends BaseFragment {
         if(!isAdded()) return;
         mMyValidators   = getMainActivity().mMyValidators;
         mRewards        = getMainActivity().mRewards;
-        mIrisRewards   = getMainActivity().mIrisReward;
+        mIrisRewards    = getMainActivity().mIrisReward;
         onSortValidator();
 
         mMyValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
+    @Override
+    public void onBusyFetch() {
+        if(!isAdded()) return;
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
 
-    public MainActivity getMainActivity() {
-        return (MainActivity)getBaseActivity();
+    public ValidatorListActivity getMainActivity() {
+        return (ValidatorListActivity)getBaseActivity();
     }
 
 

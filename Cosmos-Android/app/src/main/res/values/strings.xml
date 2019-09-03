@@ -125,12 +125,16 @@
     <string name="str_voting_start_time">Voting Start Time</string>
     <string name="str_voting_end_time">Voting End Time</string>
     <string name="str_no_history">No History</string>
+    <string name="str_no_coin">No Assets</string>
     <string name="str_no_proposal">No Proposals</string>
     <string name="str_accounts">accounts</string>
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_manage">Wallet Manage</string>
+    <string name="str_validators_list"><![CDATA[Validators & Reward]]></string>
+    <string name="str_validator_detail">Validator Detail</string>
+    <string name="str_proposal_list">Proposal List</string>
     <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>
     <string name="str_alarm">Alarm</string>
@@ -277,6 +281,7 @@
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
+    <string name="str_main_tokens">TOKENS</string>
     <string name="str_main_reward">REWARD</string>
     <string name="str_main_history">HISTORY</string>
     <string name="str_main_vote">VOTE</string>
@@ -350,6 +355,8 @@
     <string name="str_delegated">Delegated</string>
     <string name="str_unbonding">Unbonding</string>
     <string name="str_reward">Reward</string>
+    <string name="str_get_reward">Reward</string>
+    <string name="str_vote_to">Vote</string>
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>
     <string name="str_tiny">Min</string>

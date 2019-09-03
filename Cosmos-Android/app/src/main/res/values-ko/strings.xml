@@ -81,12 +81,16 @@
     <string name="str_voting_start_time">투표 시작 시간</string>
     <string name="str_voting_end_time">투표 종료 시간</string>
     <string name="str_no_history">거래 내역이 없습니다.</string>
+    <string name="str_no_coin">자산이 없습니다.</string>
     <string name="str_no_proposal">의제가 없습니다.</string>
     <string name="str_accounts">accounts</string>
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">지갑</string>
     <string name="str_wallet_manage">지갑 관리</string>
+    <string name="str_validators_list"><![CDATA[검증인 & 이자]]></string>
+    <string name="str_validator_detail">검증인 상세</string>
+    <string name="str_proposal_list">투표 목록</string>
     <string name="str_wallet_detail">지갑 상세</string>
     <string name="str_general">일반</string>
     <string name="str_alarm">알람</string>
@@ -232,6 +236,7 @@
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
+    <string name="str_main_tokens">TOKENS</string>
     <string name="str_main_reward">REWARD</string>
     <string name="str_main_history">HISTORY</string>
     <string name="str_main_vote">VOTE</string>
@@ -305,6 +310,8 @@
     <string name="str_delegated">위임된 수량</string>
     <string name="str_unbonding">위임 철회중인 수량</string>
     <string name="str_reward">이자</string>
+    <string name="str_get_reward">이자 받기</string>
+    <string name="str_vote_to">투표 하기</string>
     <string name="str_commission">검증인 수수료</string>
     <string name="str_voting_power">전체 위임량</string>
     <string name="str_tiny">최소</string>

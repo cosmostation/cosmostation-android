@@ -5,13 +5,11 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -30,8 +28,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -39,63 +35,29 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.dao.BondingState;
-import wannabit.io.cosmostaion.dao.Reward;
-import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
+import wannabit.io.cosmostaion.fragment.MainCoinsFragment;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
-import wannabit.io.cosmostaion.fragment.MainRewardFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
-import wannabit.io.cosmostaion.fragment.MainVoteFragment;
-import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResCgcTic;
-import wannabit.io.cosmostaion.network.res.ResCmcTic;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
-import wannabit.io.cosmostaion.network.res.ResStakingPool;
-import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
-import wannabit.io.cosmostaion.task.FetchTask.IrisPoolTask;
-import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
-import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
-import wannabit.io.cosmostaion.task.FetchTask.UnbondedValidatorInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.UnbondingValidatorInfoTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleInflationTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleProvisionsTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleStakingPoolTask;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
-
-public class MainActivity extends BaseActivity implements TaskListener {
+public class MainActivity extends BaseActivity implements FetchCallBack {
 
     private CoordinatorLayout           mRoot;
     private ImageView                   mChainBg;
@@ -108,27 +70,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
     private TabLayout                   mTabLayer;
     private FrameLayout                 mDimLayer;
     public  MainViewPageAdapter         mPageAdapter;
-    public FloatingActionButton         mFloatBtn;
-
 
     private ArrayList<Account>          mAccounts = new ArrayList<>();
-    public Account                      mAccount;
-    public BaseChain                    mBaseChain;
-    public ArrayList<Validator>         mOtherValidators = new ArrayList<>();
-    public ArrayList<Validator>         mTopValidators = new ArrayList<>();
-    public ArrayList<Validator>         mMyValidators = new ArrayList<>();
-    public ArrayList<Validator>         mAllValidators = new ArrayList<>();
-    public ArrayList<Balance>           mBalances = new ArrayList<>();
-    public ArrayList<BondingState>      mBondings = new ArrayList<>();
-    public ArrayList<UnBondingState>    mUnbondings = new ArrayList<>();
-    public ArrayList<Reward>            mRewards = new ArrayList<>();
-    public BigDecimal                   mInflation = BigDecimal.ZERO;
-    public BigDecimal                   mProvisions = BigDecimal.ZERO;
-    public BigDecimal                   mBondedToken = BigDecimal.ZERO;
-    public ResLcdIrisReward             mIrisReward;
-    public ResLcdIrisPool               mIrisPool;
-
-    private int                         mTaskCount;
     private TopSheetBehavior            mTopSheetBehavior;
 
     private RecyclerView                mRecyclerView;
@@ -148,7 +91,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mTabLayer                   = findViewById(R.id.bottom_tab);
         mDimLayer                   = findViewById(R.id.dim_layer);
 
-
         mRecyclerView               = findViewById(R.id.account_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -161,14 +103,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED)
                     mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
                 mDimLayer.setVisibility(View.GONE);
-            }
-        });
-
-        mFloatBtn                   = findViewById(R.id.btn_floating);
-        mFloatBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onStartSendActivity();
             }
         });
 
@@ -192,8 +126,8 @@ public class MainActivity extends BaseActivity implements TaskListener {
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
         TintableImageView   tabItemIcon1  = tab1.findViewById(R.id.tabItemIcon);
         TextView            tabItemText1  = tab1.findViewById(R.id.tabItemText);
-        tabItemIcon1.setImageResource(R.drawable.reward_ic);
-        tabItemText1.setText(R.string.str_main_reward);
+        tabItemIcon1.setImageResource(R.drawable.tokens_ic);
+        tabItemText1.setText(R.string.str_main_tokens);
         mTabLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
@@ -206,16 +140,9 @@ public class MainActivity extends BaseActivity implements TaskListener {
         View tab3 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
         TintableImageView   tabItemIcon3  = tab3.findViewById(R.id.tabItemIcon);
         TextView            tabItemText3  = tab3.findViewById(R.id.tabItemText);
-        tabItemIcon3.setImageResource(R.drawable.vote_ic);
-        tabItemText3.setText(R.string.str_main_vote);
+        tabItemIcon3.setImageResource(R.drawable.setting_ic);
+        tabItemText3.setText(R.string.str_main_set);
         mTabLayer.getTabAt(3).setCustomView(tab3);
-
-        View tab4 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView   tabItemIcon4  = tab4.findViewById(R.id.tabItemIcon);
-        TextView            tabItemText4  = tab4.findViewById(R.id.tabItemText);
-        tabItemIcon4.setImageResource(R.drawable.setting_ic);
-        tabItemText4.setText(R.string.str_main_set);
-        mTabLayer.getTabAt(4).setCustomView(tab4);
 
         mContentsPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -228,8 +155,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
             public void onPageSelected(int position) {
                 if(mPageAdapter != null && mPageAdapter.mCurrentFragment != null) {
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-                    if(position != 0) mFloatBtn.hide();
-                    else if (!mFloatBtn.isShown()) mFloatBtn.show();
                 }
             }
         });
@@ -267,29 +192,23 @@ public class MainActivity extends BaseActivity implements TaskListener {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAtom));
-            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
 
         } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
             mToolbarChainName.setText(getString(R.string.str_iris_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIris));
-            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIris));
 
         } else if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
             mToolbarChainName.setText(getString(R.string.str_binance_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
-            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
 
         }
 
         onUpdateTitle();
-        onFetchAccountInfo();
-        mBalances = getBaseDao().onSelectBalance(mAccount.id);
-        mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
-        mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
+        onFetchAllData();
         mAccountAdapter.notifyDataSetChanged();
 
     }
@@ -299,170 +218,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         else mToolbarTitle.setText(mAccount.nickName);
     }
 
-    public void onStartSendActivity() {
-        if(mAccount == null) return;
-        if(!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
 
-        if(!IS_TEST) {
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-            boolean hasbalance = false;
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                for (Balance balance:balances) {
-                    if (balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
-                        hasbalance  = true;
-                    }
-                }
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-                for (Balance balance:balances) {
-                    if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("200000000000000000"))) > 0)) {
-                        hasbalance  = true;
-                    }
-                }
-            }
-
-            if(!hasbalance){
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
-
-        startActivity(new Intent(MainActivity.this, SendActivity.class));
-    }
-
-    public void onStartValidatorDetail(Validator validator) {
-        Intent intent = new Intent(MainActivity.this, ValidatorActivity.class);
-        intent.putExtra("validator", validator);
-        intent.putExtra("bondedToken", mBondedToken.toPlainString());
-        intent.putExtra("provisions", mProvisions.toPlainString());
-        intent.putExtra("irispool", mIrisPool);
-        startActivity(intent);
-    }
-
-    public void onStartRewardAll() {
-        if(!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-
-        ArrayList<Validator> myValidators = new ArrayList<>();
-        ArrayList<Validator> toClaimValidators = new ArrayList<>();
-
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            if (mRewards == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for(Validator validator:mAllValidators) {
-                for(BondingState bond:mBondings) {
-                    if(bond.validatorAddress.equals(validator.operator_address) &&
-                            WDp.getValidatorReward(mRewards, validator.operator_address).compareTo(new BigDecimal("1")) >= 0) {
-                        myValidators.add(validator);
-                        break;
-                    }
-                }
-            }
-            if(myValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(myValidators, mRewards);
-            if(myValidators.size() < 17) {
-                toClaimValidators = myValidators;
-            } else {
-                toClaimValidators = new ArrayList<>(myValidators.subList(0,16));
-            }
-
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-            boolean hasbalance = false;
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
-                    hasbalance  = true;
-                }
-            }
-            if(!hasbalance){
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward_all, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (Reward reward:mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
-            }
-            if (rewardSum.compareTo(new BigDecimal("1")) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if(myValidators.size() > 16) {
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            BigDecimal estimateReward = BigDecimal.ZERO;
-
-            if (mIrisReward == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for(Validator validator:mAllValidators) {
-                if (mIrisReward.getPerValReward(validator.operator_address).compareTo(BigDecimal.ONE) >= 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if(toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortIrisOnlyByReward(myValidators, mIrisReward);
-
-            for (Validator validator:toClaimValidators) {
-                estimateReward = estimateReward.add(mIrisReward.getPerValReward(validator.operator_address));
-            }
-
-            BigDecimal estimateGasAmount = (new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_REWARD_MUX).multiply(new BigDecimal(""+toClaimValidators.size()))).add(new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_REWARD_BASE));
-            BigDecimal estimateFee = estimateGasAmount.multiply(new BigDecimal(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
-
-
-            WLog.w("estimateReward " + estimateReward);
-            WLog.w("estimateGasAmount " + estimateGasAmount);
-            WLog.w("estimateFee " + estimateFee);
-
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-            boolean hasbalance = false;
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(estimateFee)) > 0)) {
-                    hasbalance  = true;
-                }
-            }
-            if(!hasbalance){
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward_all, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (estimateReward.compareTo(estimateFee) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        }
-
-        Intent claimReward = new Intent(MainActivity.this, ClaimRewardActivity.class);
-        claimReward.putExtra("opAddresses", toClaimValidators);
-        startActivity(claimReward);
-    }
 
     @Override
     public void onBackPressed() {
@@ -538,11 +294,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
 
     }
 
-    private void onFetchCurrentPage() {
-        if(!isFinishing()) {
-            mPageAdapter.mCurrentFragment.onRefreshTab();
-        }
-    }
 
     public void onShowTopAccountsView() {
         mDimLayer.setVisibility(View.VISIBLE);
@@ -555,124 +306,25 @@ public class MainActivity extends BaseActivity implements TaskListener {
         mDimLayer.setVisibility(View.GONE);
     }
 
+    public void onFetchAllData() {
+        onFetchAccountInfo(this);
+    }
+
     @Override
-    public void onTaskResponse(TaskResult result) {
-//        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
-        mTaskCount--;
-        if(isFinishing()) return;
-
-        if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
-            mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-            mBalances = getBaseDao().onSelectBalance(mAccount.id);
-//            if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
-//                mBnbTokens = (ArrayList<ResBnbAccountInfo.BnbBalance>)result.resultData;
-//            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_ALL_VALIDATOR) {
-            if (!result.isSuccess) {
-                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                if(temp != null) {
-                    mTopValidators = temp;
-                }
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-                mTopValidators = WUtil.getIrisTops(temp);
-                mOtherValidators = WUtil.getIrisOthers(temp);
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_VALIDATOR ||
-                result.taskType == BaseConstant.TASK_FETCH_UNBONDED_VALIDATOR) {
-            ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if(temp != null) {
-                mOtherValidators.addAll(temp);
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
-            mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                mTaskCount = mTaskCount + mBondings.size();
-                mRewards.clear();
-                for(BondingState bonding:mBondings) {
-                    new SingleRewardTask(getBaseApplication(), this, mAccount, bonding.validatorAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                }
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_STATE) {
-            mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
-            Reward reward = (Reward)result.resultData;
-            if(reward != null)
-                onUpdateReward(reward);
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_INFLATION) {
-            try {
-                mInflation = new BigDecimal((String)result.resultData);
-            } catch (Exception e) {}
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_PROVISIONS) {
-            try {
-                mProvisions = new BigDecimal((String)result.resultData);
-            } catch (Exception e) {}
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
-            try {
-                mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
-            } catch (Exception e) {}
-
-        } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
-            mIrisReward = (ResLcdIrisReward)result.resultData;
-
-        } else if (result.taskType == BaseConstant.TASK_IRIS_POOL) {
-            mIrisPool = (ResLcdIrisPool)result.resultData;
-        }
-
-
-
-        if(mTaskCount == 0) {
-            mMyValidators.clear();
-            for(Validator top:mTopValidators) {
-                boolean already = false;
-                for(BondingState bond:mBondings) {
-                    if(bond.validatorAddress.equals(top.operator_address)) {
-                        already = true;
-                        break;
-                    }
-                }
-                for(UnBondingState unbond:mUnbondings) {
-                    if(unbond.validatorAddress.equals(top.operator_address) && !already) {
-                        already = true;
-                        break;
-                    }
-                }
-
-                if(already) mMyValidators.add(top);
-            }
-
-            for(Validator other:mOtherValidators) {
-                boolean already = false;
-                for(BondingState bond:mBondings) {
-                    if(bond.validatorAddress.equals(other.operator_address)) {
-                        already = true;
-                        break;
-                    }
-                }
-                for(UnBondingState unbond:mUnbondings) {
-                    if(unbond.validatorAddress.equals(other.operator_address) && !already) {
-                        already = true;
-                        break;
-                    }
-                }
-
-                if(already) mMyValidators.add(other);
-            }
-            mAllValidators.addAll(mTopValidators);
-            mAllValidators.addAll(mOtherValidators);
+    public void fetchFinished() {
+        WLog.w("Main fetchFinished");
+        if(!isFinishing()) {
             onHideWaitDialog();
-            onFetchCurrentPage();
+            mPageAdapter.mCurrentFragment.onRefreshTab();
+        }
+    }
+
+    @Override
+    public void fetchBusy() {
+        WLog.w("Main fetchBusy");
+        if(!isFinishing()) {
+            onHideWaitDialog();
+            mPageAdapter.mCurrentFragment.onBusyFetch();
         }
     }
 
@@ -685,9 +337,10 @@ public class MainActivity extends BaseActivity implements TaskListener {
             super(fm);
             mFragments.clear();
             mFragments.add(MainSendFragment.newInstance(null));
-            mFragments.add(MainRewardFragment.newInstance(null));
+//            mFragments.add(MainRewardFragment.newInstance(null));
+            mFragments.add(MainCoinsFragment.newInstance(null));
             mFragments.add(MainHistoryFragment.newInstance(null));
-            mFragments.add(MainVoteFragment.newInstance(null));
+//            mFragments.add(MainVoteFragment.newInstance(null));
             mFragments.add(MainSettingFragment.newInstance(null));
         }
 
@@ -864,176 +517,6 @@ public class MainActivity extends BaseActivity implements TaskListener {
                 super(itemView);
                 btn_account_add    = itemView.findViewById(R.id.btn_account_add);
             }
-        }
-    }
-
-    public boolean onFetchAccountInfo() {
-        if(mTaskCount > 0) return false;
-
-        ArrayList<Account> accounts = new ArrayList<Account>();
-        accounts.add(mAccount);
-        mOtherValidators.clear();
-        mAllValidators.clear();
-
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mTaskCount = 9;
-
-            new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-
-
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mTaskCount = 6;
-
-            new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new IrisPoolTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
-            mTaskCount = 1;
-
-            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-
-        }
-        onPriceTic(BaseChain.getChain(mAccount.baseChain));
-        return true;
-    }
-
-    private void onUpdateReward(Reward reward) {
-        if(mRewards == null) mRewards = new ArrayList<>();
-        if(mRewards.size() == 0) {
-            mRewards.add(reward);
-        } else {
-            int match = -1;
-            for(int i = 0; i < mRewards.size(); i++) {
-                if(mRewards.get(i).validatorAddress.equals(reward.validatorAddress)) {
-                    match = i; break;
-                }
-            }
-            if(match > 0) {
-                mRewards.remove(match);
-            }
-            mRewards.add(reward);
-        }
-    }
-
-    public void onPriceTic(final BaseChain chain) {
-        if (getBaseDao().getMarket() == 0) {
-            ApiClient.getCGCClient(getBaseContext()).getPriceTic(WUtil.getCGCId(chain)).enqueue(new Callback<ResCgcTic>() {
-                @Override
-                public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
-                    if(isFinishing()) return;
-                    try {
-                        getBaseDao().setLastPriceTic(chain, response.body());
-                    } catch (Exception e) {
-                        if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                            getBaseDao().setLastAtomTic(0d);
-                            getBaseDao().setLastAtomUpDown(0d);
-
-                        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                            getBaseDao().setLastIrisTic(0d);
-                            getBaseDao().setLastIrisUpDown(0d);
-
-                        } else if (chain.equals(BaseChain.BNB_MAIN)) {
-                            getBaseDao().setLastBnbTic(0d);
-                            getBaseDao().setLastBnbUpDown(0d);
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResCgcTic> call, Throwable t) {
-                    if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                        getBaseDao().setLastAtomTic(0d);
-                        getBaseDao().setLastAtomUpDown(0d);
-
-                    } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                        getBaseDao().setLastIrisTic(0d);
-                        getBaseDao().setLastIrisUpDown(0d);
-
-                    } else if (chain.equals(BaseChain.BNB_MAIN)) {
-                        getBaseDao().setLastBnbTic(0d);
-                        getBaseDao().setLastBnbUpDown(0d);
-
-                    }
-                }
-            });
-
-        } else if (getBaseDao().getMarket() == 1) {
-            ApiClient.getCMCClient(getBaseContext()).getPriceTic(WUtil.getCMCId(chain), getBaseDao().getCurrencyString()).enqueue(new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    if(isFinishing()) return;
-                    try {
-                        if(response.isSuccessful() && chain.equals(BaseChain.COSMOS_MAIN)) {
-                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                            getBaseDao().setLastAtomTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                            getBaseDao().setLastAtomUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
-
-                        } else if (response.isSuccessful() && chain.equals(BaseChain.IRIS_MAIN)) {
-                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                            getBaseDao().setLastIrisTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                            getBaseDao().setLastIrisUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
-
-                        } else if (response.isSuccessful() && chain.equals(BaseChain.BNB_MAIN)) {
-                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                            getBaseDao().setLastBnbTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                            getBaseDao().setLastBnbUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
-
-                        }
-
-                    } catch (Exception e) {
-                        if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                            getBaseDao().setLastAtomTic(0d);
-                            getBaseDao().setLastAtomUpDown(0d);
-
-                        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                            getBaseDao().setLastIrisTic(0d);
-                            getBaseDao().setLastIrisUpDown(0d);
-
-                        } else if (chain.equals(BaseChain.BNB_MAIN)) {
-                            getBaseDao().setLastBnbTic(0d);
-                            getBaseDao().setLastBnbUpDown(0d);
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
-                    if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                        getBaseDao().setLastAtomTic(0d);
-                        getBaseDao().setLastAtomUpDown(0d);
-
-                    } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                        getBaseDao().setLastIrisTic(0d);
-                        getBaseDao().setLastIrisUpDown(0d);
-
-                    } else if (chain.equals(BaseChain.BNB_MAIN)) {
-                        getBaseDao().setLastBnbTic(0d);
-                        getBaseDao().setLastBnbUpDown(0d);
-
-                    }
-
-                }
-            });
         }
     }
 }

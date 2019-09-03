@@ -35,6 +35,11 @@ android {
         exclude 'lib/x86_64/freebsd/libscrypt.so'
         exclude 'lib/x86_64/linux/libscrypt.so'
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -45,7 +50,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
     //bitcoin
-    implementation 'org.bitcoinj:bitcoinj-core:0.14.7'
+//    implementation 'org.bitcoinj:bitcoinj-core:0.14.7'
+    implementation 'org.bitcoinj:bitcoinj-core:0.15.2'
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -81,6 +87,8 @@ dependencies {
 
     //for qr code
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+
+    implementation 'org.apache.commons:commons-lang3:3.6'
 
 
     implementation files('libs/httpclient-4.5.3.jar')

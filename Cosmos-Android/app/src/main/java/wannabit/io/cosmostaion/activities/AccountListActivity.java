@@ -36,7 +36,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     private Button                      mCreate, mImport;
     private LinearLayout                bottomLayer, bottomDetail, btnImportMnemonic, btnWatchAddress, mNmemonicLayer, mWatchLayer;
 
-
     private ArrayList<Account>          mFullAccounts = new ArrayList<>();
     private ArrayList<Account>          mAddressAccounts = new ArrayList<>();
     private AccountListAdapter          mAccountListAdapter;

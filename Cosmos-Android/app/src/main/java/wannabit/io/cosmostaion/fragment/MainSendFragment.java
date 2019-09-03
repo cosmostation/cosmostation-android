@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -26,11 +27,15 @@ import java.util.Locale;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.ValidatorListActivity;
+import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -55,9 +60,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomUndelegated,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
+    private RelativeLayout      mBtnAtomReward, mBtnAtomVote;
     private TextView            mTvIrisTotal, mTvIrisValue, mTvIrisUndelegated,
                                 mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
+    private RelativeLayout      mBtnIrisReward, mBtnIrisVote;
     private TextView            mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
+    private RelativeLayout      mBtnBnbConnect;
 
     private TextView            mMarket;
     private TextView            mPerPrice, mUpDownPrice;
@@ -102,6 +110,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvAtomDelegated        = rootView.findViewById(R.id.dash_atom_delegate);
         mTvAtomUnBonding        = rootView.findViewById(R.id.dash_atom_unbonding);
         mTvAtomRewards          = rootView.findViewById(R.id.dash_atom_reward);
+        mBtnAtomReward          = rootView.findViewById(R.id.btn_cosmos_reward);
+        mBtnAtomVote            = rootView.findViewById(R.id.btn_cosmos_vote);
 
         mIrisCard               = rootView.findViewById(R.id.card_iris);
         mTvIrisTotal            = rootView.findViewById(R.id.dash_iris_amount);
@@ -110,12 +120,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvIrisDelegated        = rootView.findViewById(R.id.dash_iris_delegate);
         mTvIrisUnBonding        = rootView.findViewById(R.id.dash_iris_unbonding);
         mTvIrisRewards          = rootView.findViewById(R.id.dash_iris_reward);
+        mBtnIrisReward          = rootView.findViewById(R.id.btn_iris_reward);
+        mBtnIrisVote            = rootView.findViewById(R.id.btn_iris_vote);
 
         mBnbCard                = rootView.findViewById(R.id.card_bnb);
         mTvBnbTotal             = rootView.findViewById(R.id.dash_bnb_amount);
         mTvBnbValue             = rootView.findViewById(R.id.dash_bnb_value);
         mTvBnbBalance           = rootView.findViewById(R.id.dash_bnb_balance);
         mTvBnbLocked            = rootView.findViewById(R.id.dash_bnb_locked);
+        mBtnBnbConnect          = rootView.findViewById(R.id.btn_wallet_connect);
 
         mPriceCard              = rootView.findViewById(R.id.card_price);
         mMarket                 = rootView.findViewById(R.id.dash_price_market);
@@ -139,25 +152,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(!getMainActivity().onFetchAccountInfo()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }
-        });
-
-        mNestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > oldScrollY) {
-                    if (getMainActivity().mFloatBtn.isShown()) {
-                        getMainActivity().mFloatBtn.hide();
-                    }
-                }
-                if (scrollY < oldScrollY) {
-                    if (!getMainActivity().mFloatBtn.isShown()) {
-                        getMainActivity().mFloatBtn.show();
-                    }
-                }
+                getMainActivity().onFetchAllData();
             }
         });
 
@@ -166,6 +161,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mGuideBtn.setOnClickListener(this);
         mFaqBtn.setOnClickListener(this);
         mPriceCard.setOnClickListener(this);
+        mBtnAtomReward.setOnClickListener(this);
+        mBtnAtomVote.setOnClickListener(this);
+        mBtnIrisReward.setOnClickListener(this);
+        mBtnIrisVote.setOnClickListener(this);
+        mBtnBnbConnect.setOnClickListener(this);
 
         return rootView;
     }
@@ -197,6 +197,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         if(!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
         onUpdateView();
+    }
+
+    @Override
+    public void onBusyFetch() {
+        if(!isAdded()) return;
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     private void onUpdateView() {
@@ -460,6 +466,24 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
                 }
             }
+        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward)) {
+            Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
+            validators.putExtra("myValidators", getMainActivity().mMyValidators);
+            validators.putExtra("topValidators", getMainActivity().mTopValidators);
+            validators.putExtra("otherValidators", getMainActivity().mOtherValidators);
+            validators.putExtra("bondedToken", getMainActivity().mBondedToken.toPlainString());
+            validators.putExtra("provisions", getMainActivity().mProvisions.toPlainString());
+            validators.putExtra("rewards", getMainActivity().mRewards);
+            validators.putExtra("irispool", getMainActivity().mIrisPool);
+            validators.putExtra("irisreward", getMainActivity().mIrisReward);
+            startActivity(validators);
+
+        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote)) {
+            Intent proposals = new Intent(getMainActivity(), VoteListActivity.class);
+            startActivity(proposals);
+
+        } else if (v.equals(mBtnBnbConnect)) {
+
         }
 
     }

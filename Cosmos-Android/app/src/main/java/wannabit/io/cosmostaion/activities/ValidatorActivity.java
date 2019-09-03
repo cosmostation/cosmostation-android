@@ -70,8 +70,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private ImageView                       mChainBg;
     private Toolbar                         mToolbar;
-    private TextView                        mToolbarNickName;
-    private TextView                        mToolbarAddress;
     private SwipeRefreshLayout              mSwipeRefreshLayout;
     private RecyclerView                    mRecyclerView;
 
@@ -102,8 +100,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         setContentView(R.layout.activity_validator);
         mChainBg                    = findViewById(R.id.chain_bg);
         mToolbar                    = findViewById(R.id.tool_bar);
-        mToolbarNickName            = findViewById(R.id.toolbar_nickName);
-        mToolbarAddress             = findViewById(R.id.toolbar_Address);
         mSwipeRefreshLayout         = findViewById(R.id.layer_refresher);
         mRecyclerView               = findViewById(R.id.recycler);
 
@@ -153,13 +149,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         mBondingState       = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
         mUnBondingStates    = getBaseDao().onSelectUnbondingStates(mAccount.id, mValidator.operator_address);
-
-        if(TextUtils.isEmpty(mAccount.nickName)) {
-            mToolbarNickName.setText(getString(R.string.str_my_wallet) + mAccount.id);
-        } else {
-            mToolbarNickName.setText(mAccount.nickName);
-        }
-        mToolbarAddress.setText(mAccount.address);
 
         mValidatorAdapter = new ValidatorAdapter();
         mRecyclerView.setAdapter(mValidatorAdapter);

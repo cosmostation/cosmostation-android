@@ -32,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -69,9 +70,7 @@ public class ValidatorOtherFragment extends BaseFragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(!getMainActivity().onFetchAccountInfo()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
+                getMainActivity().onFetchAllData();
             }
         });
 
@@ -95,11 +94,15 @@ public class ValidatorOtherFragment extends BaseFragment {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    public MainActivity getMainActivity() {
-        return (MainActivity)getBaseActivity();
+    @Override
+    public void onBusyFetch() {
+        if(!isAdded()) return;
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
-
+    public ValidatorListActivity getMainActivity() {
+        return (ValidatorListActivity)getBaseActivity();
+    }
 
     private class OtherValidatorAdapter extends RecyclerView.Adapter<OtherValidatorAdapter.OtherValidatorHolder> {
 
