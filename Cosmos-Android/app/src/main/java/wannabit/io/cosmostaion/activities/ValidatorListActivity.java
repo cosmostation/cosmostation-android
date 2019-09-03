@@ -22,7 +22,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
@@ -55,6 +54,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mAllValidators = getIntent().getParcelableArrayListExtra("allValidators");
         mMyValidators = getIntent().getParcelableArrayListExtra("myValidators");
         mTopValidators = getIntent().getParcelableArrayListExtra("topValidators");
         mOtherValidators = getIntent().getParcelableArrayListExtra("otherValidators");

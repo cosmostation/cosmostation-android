@@ -705,7 +705,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
                 if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                     holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                     holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                     if(mValidator.status == Validator.BONDED) {
@@ -718,7 +717,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     }
 
                 } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                     holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
                     holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens).movePointRight(18), 18, BaseChain.getChain(mAccount.baseChain)));
                     if(mValidator.status == Validator.BONDED) {

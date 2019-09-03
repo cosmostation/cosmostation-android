@@ -130,7 +130,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         private static final int TYPE_FULL_HEADER               = 2;
         private static final int TYPE_ADDRESS_HEADER            = 3;
 
-
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
