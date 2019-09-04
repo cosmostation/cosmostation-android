@@ -192,9 +192,9 @@ public class ValidatorAllFragment extends BaseFragment {
             }
 
             if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
-                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                 }
             } else {

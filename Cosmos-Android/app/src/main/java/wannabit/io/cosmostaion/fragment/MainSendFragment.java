@@ -211,7 +211,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mAddress.setText(getMainActivity().mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mAtomCard.setVisibility(View.VISIBLE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
@@ -225,7 +225,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_guide);
             mFaqBtn.setText(R.string.str_faq);
 
-        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.VISIBLE);
             mBnbCard.setVisibility(View.GONE);
@@ -239,7 +239,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_faq_iris);
             mFaqBtn.setText(R.string.str_guide_iris);
 
-        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.VISIBLE);
@@ -261,7 +261,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mMarket.setText("("+getBaseDao().getMarketString(getContext())+")");
 
 
-        if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
             if(IS_TEST) {
                 mTvAtomUndelegated.setText(WDp.getDpBalanceCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_MUON));
@@ -305,7 +305,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mTvIrisTotal.setText(WDp.getDpAllIris(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getMainActivity().mBaseChain));
             mTvIrisUndelegated.setText(WDp.getDpBalanceCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_IRIS_ATTO));
             mTvIrisDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
@@ -349,7 +349,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB) != null) {
                 Balance bnbToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB);
                 mTvBnbBalance.setText(WDp.getDpAmount(getContext(), bnbToken.balance, 6, getMainActivity().mBaseChain));
@@ -420,7 +420,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             startActivity(webintent);
 
         } else if (v.equals(mGuideBtn)) {
-            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_ko.pdf"));
                     startActivity(guideIntent);
@@ -428,12 +428,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_en.pdf"));
                     startActivity(guideIntent);
                 }
-            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.irisnet.org/"));
                 startActivity(guideIntent);
             }
         } else if (v.equals(mFaqBtn)) {
-            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
                     startActivity(guideIntent);
@@ -441,12 +441,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
                     startActivity(guideIntent);
                 }
-            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/irisnet-blog"));
                 startActivity(guideIntent);
             }
         } else if (v.equals(mPriceCard)) {
-            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 if (getBaseDao().getMarket() == 0) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/cosmos"));
                     startActivity(guideIntent);
@@ -455,7 +455,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     startActivity(guideIntent);
                 }
 
-            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 if (getBaseDao().getMarket() == 0) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/irisnet"));
                     startActivity(guideIntent);

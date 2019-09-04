@@ -136,10 +136,10 @@ public class ValidatorMyFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
             if (getItemViewType(position) == TYPE_PROMOTION) {
                 RewardPromotionHolder holder = (RewardPromotionHolder)viewHolder;
-                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
 
-                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                 }
 
@@ -147,10 +147,10 @@ public class ValidatorMyFragment extends BaseFragment {
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
                 final RewardWithdrawHolder holder       = (RewardWithdrawHolder)viewHolder;
                 WDp.DpMainDenom(getContext(), getMainActivity().mAccount.baseChain, holder.itemTvDenom);
-                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemTvAllRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
 
-                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemTvAllRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), mIrisRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 }
 
@@ -173,11 +173,11 @@ public class ValidatorMyFragment extends BaseFragment {
                     holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 }
 
-                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain)));
 
-                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                     holder.itemTvReward.setText(WDp.getIrisValidatorReward(getContext(), mIrisRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 }
@@ -320,9 +320,9 @@ public class ValidatorMyFragment extends BaseFragment {
 
     public void onSortValidator() {
         if(getBaseDao().getMyValSorting() == 2){
-            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 WUtil.onSortByReward(mMyValidators, mRewards);
-            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 WUtil.onSortIrisByReward(mMyValidators, mIrisRewards);
             }
 

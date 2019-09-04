@@ -117,11 +117,11 @@ public class ValidatorOtherFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
             final Validator validator  = mOtherValidators.get(position);
 
-            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getPercentDp(new BigDecimal(validator.commission.commission_rates.rate)));
 
-            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
             }
@@ -180,9 +180,9 @@ public class ValidatorOtherFragment extends BaseFragment {
             }
 
             if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
-                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                 }
             } else {

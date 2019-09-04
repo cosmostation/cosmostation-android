@@ -187,19 +187,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         if(mAccount == null) {
             return;
         }
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAtom));
 
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
             mToolbarChainName.setText(getString(R.string.str_iris_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIris));
 
-        } else if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
             mToolbarChainName.setText(getString(R.string.str_binance_net));

@@ -247,13 +247,13 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 }
 
 
-                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     if(!source.result.isSuccess()) {
                         viewHolder.historySuccess.setVisibility(View.VISIBLE);
                     } else {
                         viewHolder.historySuccess.setVisibility(View.GONE);
                     }
-                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     if(source.result.Code > 0) {
                         viewHolder.historySuccess.setVisibility(View.VISIBLE);
                     } else {
