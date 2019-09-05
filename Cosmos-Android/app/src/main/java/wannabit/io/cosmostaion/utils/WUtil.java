@@ -50,7 +50,9 @@ import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 
 public class WUtil {
 
@@ -669,7 +671,33 @@ public class WUtil {
         });
     }
 
+    public static void onSortingTokenByAmount(ArrayList<Balance> balances, final BaseChain chain) {
+        Collections.sort(balances, new Comparator<Balance>() {
+            @Override
+            public int compare(Balance o1, Balance o2) {
+                if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_ATOM)) return -1;
+                    if(o1.symbol.equals(COSMOS_ATOM)) return 1;
 
+                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
+                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+
+                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_BNB)) return -1;
+                    if(o1.symbol.equals(COSMOS_BNB)) return 1;
+                }
+
+                if (o1.balance.compareTo(o2.balance) > 0) {
+                    return 1;
+                } else if (o1.balance.compareTo(o2.balance) > 0) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
 
     public static ArrayList<Validator> getIrisTops(ArrayList<Validator> allValidators) {
         ArrayList<Validator> result = new ArrayList<>();

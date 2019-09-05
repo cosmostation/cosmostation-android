@@ -47,6 +47,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 
 public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
 
+    private final static int ORDER_AMOUNT = 0;
+    private final static int ORDER_NAME = 1;
+    private final static int ORDER_VALUE = 2;
+
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
     private LinearLayout        mEmptyToken;
@@ -59,6 +63,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private TokensAdapter       mTokensAdapter;
     private ArrayList<Balance>  mBalances = new ArrayList<>();
     private HashMap<String, ResBnbTic>  mBnbTics = new HashMap<>();
+    private int                 mOrder = 0;
 
     public static MainTokensFragment newInstance(Bundle bundle) {
         MainTokensFragment fragment = new MainTokensFragment();
@@ -139,6 +144,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onUpdateView() {
         mBalances = getMainActivity().mBalances;
+        WUtil.onSortingTokenByAmount(mBalances, getMainActivity().mBaseChain);
         WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));

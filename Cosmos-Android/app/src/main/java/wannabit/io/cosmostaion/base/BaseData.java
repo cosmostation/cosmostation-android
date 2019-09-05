@@ -339,6 +339,18 @@ public class BaseData {
         }
     }
 
+    public void setTokenSorting(int sort) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_TOKEN_SORTING, sort).commit();
+    }
+
+    public int getTokenSorting() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_TOKEN_SORTING, 1);
+    }
+
+
+
+
+
 
 
     public Password onSelectPassword() {

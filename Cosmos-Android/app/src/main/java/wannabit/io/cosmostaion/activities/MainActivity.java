@@ -312,7 +312,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     public void fetchFinished() {
-        WLog.w("Main fetchFinished");
         if(!isFinishing()) {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
@@ -321,7 +320,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     public void fetchBusy() {
-        WLog.w("Main fetchBusy");
         if(!isFinishing()) {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onBusyFetch();
@@ -337,10 +335,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             super(fm);
             mFragments.clear();
             mFragments.add(MainSendFragment.newInstance(null));
-//            mFragments.add(MainRewardFragment.newInstance(null));
             mFragments.add(MainTokensFragment.newInstance(null));
             mFragments.add(MainHistoryFragment.newInstance(null));
-//            mFragments.add(MainVoteFragment.newInstance(null));
             mFragments.add(MainSettingFragment.newInstance(null));
         }
 

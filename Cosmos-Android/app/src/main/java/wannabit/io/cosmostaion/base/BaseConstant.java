@@ -30,6 +30,7 @@ public class BaseConstant {
     public final static String                  PRE_USING_FINGERPRINT			                = "PRE_USING_FINGERPRINT";
     public final static String                  PRE_APP_LOCK_TIME			                    = "PRE_APP_LOCK_TIME";
     public final static String                  PRE_APP_LOCK_LEAVE_TIME			                = "PRE_APP_LOCK_LEAVE_TIME";
+    public final static String                  PRE_TOKEN_SORTING                               = "PRE_TOKEN_SORTING";
 
 
 
