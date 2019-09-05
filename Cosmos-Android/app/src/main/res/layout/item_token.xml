@@ -65,7 +65,7 @@
                             style="@style/font_ss_14_white"
                             android:text="-"/>
                         <TextView
-                            android:id="@+id/token_bnb_symbol"
+                            android:id="@+id/token_inner_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"

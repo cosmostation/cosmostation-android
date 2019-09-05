@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -740,6 +741,15 @@ public class WUtil {
     public static BnbToken getBnbToken(ArrayList<BnbToken> all, Balance balance) {
         for (BnbToken token:all) {
             if (token.symbol.equals(balance.symbol)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
+    public static IrisToken getIrisToken(ArrayList<IrisToken> all, Balance balance) {
+        for (IrisToken token:all) {
+            if (token.base_token.min_unit_alias.equals(balance.symbol)) {
                 return token;
             }
         }

@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
@@ -41,6 +42,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 
 public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
@@ -143,10 +145,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            onFetchIrisTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
-            onFetchBnbPrice();
+            onFetchBnbTokenPrice();
         }
         mTokenSize.setText(""+mBalances.size());
         if (mBalances != null && mBalances.size() > 0) {
@@ -166,6 +169,22 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            BigDecimal totalValue, totalIrisAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(COSMOS_IRIS_ATTO)) {
+                    totalIrisAmount = totalIrisAmount.add(WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward));
+                } else {
+
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount(getContext(), totalIrisAmount, 8, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+            if(getBaseDao().getCurrency() != 5) {
+                totalValue = totalIrisAmount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
+            } else {
+                totalValue = totalIrisAmount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
+            }
+            mTotalValue.setText(WDp.getPriceDp(getContext(), totalValue, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             BigDecimal totalValue, totalBnbAmount = BigDecimal.ZERO;
@@ -225,14 +244,14 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         public class AssetHolder extends RecyclerView.ViewHolder {
             private CardView    itemRoot;
             private ImageView   itemImg;
-            private TextView    itemSymbol, itemBnbSymbol, itemFullName, itemBalance, itemValue;
+            private TextView    itemSymbol, itemInnerSymbol, itemFullName, itemBalance, itemValue;
 
             public AssetHolder(View v) {
                 super(v);
                 itemRoot        = itemView.findViewById(R.id.token_card);
                 itemImg         = itemView.findViewById(R.id.token_img);
                 itemSymbol      = itemView.findViewById(R.id.token_symbol);
-                itemBnbSymbol   = itemView.findViewById(R.id.token_bnb_symbol);
+                itemInnerSymbol = itemView.findViewById(R.id.token_inner_symbol);
                 itemFullName    = itemView.findViewById(R.id.token_fullname);
                 itemBalance     = itemView.findViewById(R.id.token_balance);
                 itemValue       = itemView.findViewById(R.id.token_value);
@@ -246,6 +265,29 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindIrisItem(TokensAdapter.AssetHolder holder, final int position) {
+        Balance balance = mBalances.get(position);
+        IrisToken token = WUtil.getIrisToken(getMainActivity().mIrisTokens, balance);
+        if (token != null) {
+            holder.itemSymbol.setText(token.base_token.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + token.base_token.id + ")");
+            holder.itemFullName.setText(token.base_token.name);
+            BigDecimal price, amount = BigDecimal.ZERO;
+            if (balance.symbol.equals(COSMOS_IRIS_ATTO)) {
+                amount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward);
+                holder.itemBalance.setText(WDp.getDpAmount(getContext(), amount, 8, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
+            } else {
+                //todo please check tokens balance and reward
+                holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.balance, token.base_token.decimal, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+
+            }
+            if(getBaseDao().getCurrency() != 5) {
+                price = amount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
+            } else {
+                price = amount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
+            }
+            holder.itemValue.setText(WDp.getPriceDp(getContext(), price, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+        }
 
     }
 
@@ -255,7 +297,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         if (token != null) {
             holder.itemSymbol.setText(token.original_symbol);
-            holder.itemBnbSymbol.setText("(" + token.symbol + ")");
+            holder.itemInnerSymbol.setText("(" + token.symbol + ")");
             holder.itemFullName.setText(token.name);
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.getAllBnbBalance(), 8, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
 
@@ -281,14 +323,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 price = amount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(8, RoundingMode.DOWN);
             }
             holder.itemValue.setText(WDp.getPriceDp(getContext(), price, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
         }
     }
 
 
-
-
-    private void onFetchBnbPrice() {
+    private void onFetchBnbTokenPrice() {
         mBnbTics.clear();
         for (int i = 0; i < mBalances.size(); i ++) {
             final int position = i;
@@ -318,6 +357,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
         }
     }
+
+    private void onFetchIrisTokenPrice() {
+        onUpdateTotalCard();
+    }
+
 
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();

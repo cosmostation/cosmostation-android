@@ -74,6 +74,7 @@ public class BaseConstant {
     public final static int 				    TASK_IRIS_REDELEGATE        		            = 2040;
     public final static int                     TASK_FETCH_BNB_HISTORY	                        = 2041;
     public final static int                     TASK_FETCH_BNB_TOKENS	                        = 2042;
+    public final static int                     TASK_FETCH_IRIS_TOKENS	                        = 2043;
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";
