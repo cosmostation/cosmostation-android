@@ -24,8 +24,8 @@
             android:layout_height="@dimen/space_72">
             <ImageView
                 android:id="@+id/token_img"
-                android:layout_width="@dimen/space_24"
-                android:layout_height="@dimen/space_24"
+                android:layout_width="@dimen/space_28"
+                android:layout_height="@dimen/space_28"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_centerVertical="true"
                 android:scaleType="fitXY"
@@ -36,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/arrow_next_gr"
+                android:adjustViewBounds="true"
                 android:layout_marginRight="@dimen/space_8"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
@@ -53,19 +54,31 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_centerVertical="true">
-                    <TextView
-                        android:id="@+id/token_symbol"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_14_white"
-                        android:text="IRIS"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/token_symbol"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/font_ss_14_white"
+                            android:text="-"/>
+                        <TextView
+                            android:id="@+id/token_bnb_symbol"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_4"
+                            style="@style/font_ss_12_gray1"
+                            android:text="-"/>
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/token_fullname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
-                        style="@style/font_ss_10_gray1"
-                        android:text="IRIS Network"/>
+                        style="@style/font_ss_12_gray1"
+                        android:text="-"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -78,15 +91,15 @@
                         android:id="@+id/token_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="234,342,432.234243"
+                        android:text="-"
                         style="@style/font_ssl_14_white"/>
                     <TextView
                         android:id="@+id/token_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
-                        style="@style/font_ss_10_gray1"
-                        android:text="$ 122,231,234"/>
+                        style="@style/font_ss_12_gray1"
+                        android:text="-"/>
 
                 </LinearLayout>
                 <!--<LinearLayout-->

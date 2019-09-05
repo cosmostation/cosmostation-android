@@ -73,6 +73,7 @@ public class BaseConstant {
     public final static int 				    TASK_IRIS_PROPOSAL		                        = 2039;
     public final static int 				    TASK_IRIS_REDELEGATE        		            = 2040;
     public final static int                     TASK_FETCH_BNB_HISTORY	                        = 2041;
+    public final static int                     TASK_FETCH_BNB_TOKENS	                        = 2042;
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";
@@ -216,4 +217,8 @@ public class BaseConstant {
     public final static int                     CMC_ATOM                                        = 3794;
     public final static int                     CMC_IRIS                                        = 3874;
     public final static int                     CMC_BNB                                         = 1839;
+
+
+
+    public final static String                  TOKEN_IMG_URL                                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
 }

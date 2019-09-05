@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
@@ -47,6 +48,8 @@ import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 
 public class WUtil {
 
@@ -733,5 +736,47 @@ public class WUtil {
 
         return result;
     }
+
+    public static BnbToken getBnbToken(ArrayList<BnbToken> all, Balance balance) {
+        for (BnbToken token:all) {
+            if (token.symbol.equals(balance.symbol)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
+    public static boolean isBnbBaseMarketToken(String symbol) {
+        switch (symbol) {
+            case "USDT.B-B7C":
+                return true;
+            case "ETH.B-261":
+                return true;
+            case "BTC.B-918":
+                return true;
+
+
+            case "USDSB-1AC":
+                return true;
+            case "THKDB-888":
+                return true;
+            case "TUSDB-888":
+                return true;
+            case "BTCB-1DE":
+                return true;
+
+        }
+        return false;
+    }
+
+    public static String getBnbTicSymbol(String symbol) {
+        if (isBnbBaseMarketToken(symbol)) {
+            return COSMOS_BNB + "_" + symbol;
+
+        } else {
+            return symbol + "_"+COSMOS_BNB;
+        }
+    }
+
 
 }

@@ -162,6 +162,8 @@ public class ValidatorAllFragment extends BaseFragment {
                                             .fit()
                                             .placeholder(R.drawable.validator_none_img)
                                             .into(holder.itemAvatar);
+
+
                                 }catch (Exception e) {}
                             }
                         }

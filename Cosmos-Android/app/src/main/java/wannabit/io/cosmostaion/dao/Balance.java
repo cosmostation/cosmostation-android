@@ -6,8 +6,11 @@ import com.google.android.gms.common.util.NumberUtils;
 import com.google.zxing.common.StringUtils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
+import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Balance {
     public Long         accountId;
@@ -19,23 +22,6 @@ public class Balance {
 
     public Balance() {
     }
-
-//    public Balance(Long accountId, String symbol, BigDecimal balance, Long fetchTime) {
-//        this.accountId = accountId;
-//        this.symbol = symbol;
-//        this.balance = balance;
-//        this.fetchTime = fetchTime;
-//    }
-
-
-//    public Balance(Long accountId, String symbol, BigDecimal balance, Long fetchTime, BigDecimal frozen, BigDecimal locked) {
-//        this.accountId = accountId;
-//        this.symbol = symbol;
-//        this.balance = balance;
-//        this.fetchTime = fetchTime;
-//        this.frozen = frozen;
-//        this.locked = locked;
-//    }
 
     public Balance(Long accountId, String symbol, String balance, Long fetchTime, String frozen, String locked) {
         this.accountId = accountId;
@@ -55,6 +41,18 @@ public class Balance {
             this.locked = new BigDecimal(locked);
         } else {
             this.locked = BigDecimal.ZERO;
+        }
+    }
+
+    public BigDecimal getAllBnbBalance() {
+        return balance.add(locked);
+    }
+
+    public BigDecimal exchangeToBnbAmount(ResBnbTic tic) {
+        if (WUtil.isBnbBaseMarketToken(symbol)) {
+            return getAllBnbBalance().divide(new BigDecimal(tic.lastPrice), 8, RoundingMode.DOWN);
+        } else {
+            return getAllBnbBalance().multiply(new BigDecimal(tic.lastPrice)).setScale(8);
         }
     }
 }

@@ -34,28 +34,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4"
-                style="@style/font_ss_17_white"
-                android:text="$ 102,231,432.00"/>
-            <LinearLayout
+                style="@style/font_ss_26_white"
+                android:text="-"/>
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_6"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:layout_marginTop="@dimen/space_6">
                 <TextView
-                    android:id="@+id/total_denom_value"
+                    android:id="@+id/total_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="445,232,945.728492"
+                    android:text="-"
                     style="@style/font_ssl_14_white"/>
                 <TextView
                     android:id="@+id/total_denom_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/total_amount"
+                    android:layout_alignBaseline="@+id/total_amount"
                     android:layout_marginLeft="@dimen/space_2"
                     android:text="@string/str_atom_c"
-                    style="@style/font_ss_14_atom"/>
-            </LinearLayout>
+                    style="@style/font_ss_11_atom"/>
+            </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
-                android:text="3"
+                android:text="0"
                 style="@style/font_ss_12_white"/>
         </LinearLayout>
         <LinearLayout

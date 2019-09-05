@@ -63,6 +63,7 @@
     <dimen name="text_size_17">17sp</dimen>
     <dimen name="text_size_19">19sp</dimen>
     <dimen name="text_size_21">21sp</dimen>
+    <dimen name="text_size_26">26sp</dimen>
     <dimen name="text_size_33">33sp</dimen>
 
     <dimen name="design_fab_image_size" tools:override="true">40dp</dimen>

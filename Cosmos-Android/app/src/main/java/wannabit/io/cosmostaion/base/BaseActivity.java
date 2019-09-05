@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
@@ -43,6 +44,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
+import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisPoolTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
@@ -79,8 +81,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public BigDecimal                       mInflation = BigDecimal.ZERO;
     public BigDecimal                       mProvisions = BigDecimal.ZERO;
     public BigDecimal                       mBondedToken = BigDecimal.ZERO;
+
     public ResLcdIrisReward                 mIrisReward;
     public ResLcdIrisPool                   mIrisPool;
+
+    public ArrayList<BnbToken>              mBnbTokens = new ArrayList<>();
+
 
     private int                             mTaskCount;
     private FetchCallBack                   mFetchCallback;
@@ -222,9 +228,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new IrisPoolTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
-            mTaskCount = 1;
+            mTaskCount = 2;
 
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BnbTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         }
@@ -302,6 +309,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_POOL) {
             mIrisPool = (ResLcdIrisPool)result.resultData;
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_TOKENS) {
+            mBnbTokens = (ArrayList<BnbToken>)result.resultData;
+            WLog.w("mBnbTokens " + mBnbTokens.size());
         }
 
 
