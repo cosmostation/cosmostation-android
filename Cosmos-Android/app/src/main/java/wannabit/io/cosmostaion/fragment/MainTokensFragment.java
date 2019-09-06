@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,6 +36,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
+import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
+import wannabit.io.cosmostaion.dialog.Dialog_ValidatorSorting;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
@@ -47,9 +51,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 
 public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
 
-    private final static int ORDER_AMOUNT = 0;
-    private final static int ORDER_NAME = 1;
-    private final static int ORDER_VALUE = 2;
+    public final static int SELECT_TOKEN_SORTING = 6004;
+    public final static int ORDER_NAME = 0;
+    public final static int ORDER_AMOUNT = 1;
+    public final static int ORDER_VALUE = 2;
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
@@ -63,7 +68,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private TokensAdapter       mTokensAdapter;
     private ArrayList<Balance>  mBalances = new ArrayList<>();
     private HashMap<String, ResBnbTic>  mBnbTics = new HashMap<>();
-    private int                 mOrder = 0;
+    private int                 mOrder;
 
     public static MainTokensFragment newInstance(Bundle bundle) {
         MainTokensFragment fragment = new MainTokensFragment();
@@ -133,6 +138,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     public void onRefreshTab() {
         if(!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
+        mOrder = ORDER_NAME;
         onUpdateView();
     }
 
@@ -144,7 +150,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onUpdateView() {
         mBalances = getMainActivity().mBalances;
-        WUtil.onSortingTokenByAmount(mBalances, getMainActivity().mBaseChain);
+        if (mOrder == ORDER_NAME) {
+            mTokenSortType.setText(R.string.str_name);
+            WUtil.onSortingTokenByName(mBalances, getMainActivity().mBaseChain);
+        } else if (mOrder == ORDER_AMOUNT) {
+            mTokenSortType.setText(R.string.str_amount);
+            WUtil.onSortingTokenByAmount(mBalances, getMainActivity().mBaseChain);
+        } else if (mOrder == ORDER_VALUE) {
+            mTokenSortType.setText(R.string.str_value);
+            WUtil.onSortingTokenByValue(mBalances, getMainActivity().mBaseChain, mBnbTics);
+        }
         WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
@@ -218,6 +233,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnSort)) {
+            Dialog_TokenSorting bottomSheetDialog = Dialog_TokenSorting.getInstance();
+            bottomSheetDialog.setArguments(null);
+            bottomSheetDialog.setTargetFragment(MainTokensFragment.this, SELECT_TOKEN_SORTING);
+            bottomSheetDialog.show(getFragmentManager(), "dialog");
 
         }
     }
@@ -371,5 +390,13 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == SELECT_TOKEN_SORTING && resultCode == Activity.RESULT_OK) {
+            mOrder = data.getIntExtra("sorting", ORDER_NAME);
+            onUpdateView();
+        }
     }
 }

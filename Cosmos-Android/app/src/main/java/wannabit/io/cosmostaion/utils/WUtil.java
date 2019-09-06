@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,6 +46,7 @@ import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -692,6 +694,57 @@ public class WUtil {
                     return 1;
                 } else if (o1.balance.compareTo(o2.balance) > 0) {
                     return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
+
+    public static void onSortingTokenByName(ArrayList<Balance> balances, final BaseChain chain) {
+        Collections.sort(balances, new Comparator<Balance>() {
+            @Override
+            public int compare(Balance o1, Balance o2) {
+                if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_ATOM)) return -1;
+                    if(o1.symbol.equals(COSMOS_ATOM)) return 1;
+
+                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
+                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+
+                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_BNB)) return -1;
+                    if(o1.symbol.equals(COSMOS_BNB)) return 1;
+                }
+                return o1.symbol.compareTo(o2.symbol);
+            }
+        });
+    }
+
+    public static void onSortingTokenByValue(ArrayList<Balance> balances, final BaseChain chain, HashMap<String, ResBnbTic> tics) {
+        Collections.sort(balances, new Comparator<Balance>() {
+            @Override
+            public int compare(Balance o1, Balance o2) {
+                if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_ATOM)) return -1;
+                    if(o1.symbol.equals(COSMOS_ATOM)) return 1;
+
+                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
+                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+
+                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_BNB)) return -1;
+                    if(o1.symbol.equals(COSMOS_BNB)) return 1;
+                }
+
+                ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
+                ResBnbTic tic2 = tics.get(WUtil.getBnbTicSymbol(o2.symbol));
+                if (tic1 != null && tic2 != null) {
+                    BigDecimal o1Amount = o1.exchangeToBnbAmount(tic1);
+                    BigDecimal o2Amount = o1.exchangeToBnbAmount(tic2);
+                    return o1Amount.compareTo(o2Amount);
                 } else {
                     return 0;
                 }

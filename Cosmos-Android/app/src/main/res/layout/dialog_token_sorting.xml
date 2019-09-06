@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/space_16">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_12"
+            android:text="@string/str_sorting_s"
+            style="@style/font_ss_17_black"/>
+
+        <Button
+            android:id="@+id/btn_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginTop="@dimen/space_12"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_12"
+            android:layout_marginRight="@dimen/space_12"
+            android:background="@drawable/btn_bottom_select_dialog"
+            style="@style/font_ss_14_white"
+            android:text="@string/str_sorting_by_name"
+            android:textColor="@color/color_bottom_dialog_btn_text"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/btn_amount"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginTop="@dimen/space_12"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_12"
+            android:layout_marginRight="@dimen/space_12"
+            android:background="@drawable/btn_bottom_select_dialog"
+            style="@style/font_ss_14_white"
+            android:text="@string/str_sorting_by_amount"
+            android:textColor="@color/color_bottom_dialog_btn_text"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/btn_value"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginTop="@dimen/space_12"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_12"
+            android:layout_marginRight="@dimen/space_12"
+            android:background="@drawable/btn_bottom_select_dialog"
+            style="@style/font_ss_14_white"
+            android:text="@string/str_sorting_by_value"
+            android:textColor="@color/color_bottom_dialog_btn_text"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+</LinearLayout>

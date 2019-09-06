@@ -374,6 +374,8 @@
     <string name="str_sorting_by_yield">By Yield</string>
     <string name="str_sorting_by_my_delegated">By My Delegations</string>
     <string name="str_sorting_by_reward">By Reward</string>
+    <string name="str_sorting_by_amount">By Amount</string>
+    <string name="str_sorting_by_value">By Value</string>
     <string name="str_qr_code">QR code</string>
     <string name="str_recent">Recent</string>
     <string name="str_fee_free_title">Fee Free Event</string>
@@ -411,6 +413,9 @@
     <string name="str_applock_time_30sec">Lock 30 Second After</string>
     <string name="str_applock_time_60sec">Lock 60 Second After</string>
     <string name="str_from_all_my_val">From all my validators</string>
+    <string name="str_name">Name</string>
+    <string name="str_amount">Amount</string>
+    <string name="str_value">Value</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
