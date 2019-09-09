@@ -272,13 +272,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
             try {
                 BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
-                BigDecimal totalPrice = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
-                } else {
-                    totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
-                }
-                mTvAtomValue.setText(WDp.getPriceDp(getContext(), totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mTvAtomValue.setText(WDp.getTotalValueAtom(getContext(), getBaseDao(), totalAmount));
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastAtomTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
                 mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastAtomUpDown())));

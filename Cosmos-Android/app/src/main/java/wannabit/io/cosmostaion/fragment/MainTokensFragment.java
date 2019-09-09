@@ -209,12 +209,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount(getContext(), totalAtomAmount, 6, getMainActivity().mBaseChain));
-            if(getBaseDao().getCurrency() != 5) {
-                totalValue = totalAtomAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
-            } else {
-                totalValue = totalAtomAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
-            }
-            mTotalValue.setText(WDp.getPriceDp(getContext(), totalValue, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mTotalValue.setText(WDp.getTotalValueAtom(getContext(), getBaseDao(), totalAtomAmount));
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal totalValue, totalIrisAmount = BigDecimal.ZERO;
@@ -232,6 +227,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 totalValue = totalIrisAmount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
             }
             mTotalValue.setText(WDp.getPriceDp(getContext(), totalValue, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
 
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
@@ -321,14 +317,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
 
             BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
-            BigDecimal totalPrice = BigDecimal.ZERO;
-            if(getBaseDao().getCurrency() != 5) {
-                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
-            } else {
-                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
-            }
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
-            holder.itemValue.setText(WDp.getPriceDp(getContext(), totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            holder.itemValue.setText(WDp.getTotalValueAtom(getContext(), getBaseDao(), totalAmount));
         } else {
             // TODO no this case yet!
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));

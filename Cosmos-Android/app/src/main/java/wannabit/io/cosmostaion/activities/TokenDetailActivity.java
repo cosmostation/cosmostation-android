@@ -160,13 +160,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(this, mRewards, mBaseChain));
 
             BigDecimal totalAmount = WDp.getAllAtom(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
-            BigDecimal totalPrice = BigDecimal.ZERO;
-            if(getBaseDao().getCurrency() != 5) {
-                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
-            } else {
-                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
-            }
-            mTvAtomValue.setText(WDp.getPriceDp(this, totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mTvAtomValue.setText(WDp.getTotalValueAtom(this, getBaseDao(), totalAmount));
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mBalance.symbol.equals(COSMOS_IRIS_ATTO)) {
             mIrisCard.setVisibility(View.VISIBLE);

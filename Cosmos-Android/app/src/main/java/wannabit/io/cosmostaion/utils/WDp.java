@@ -21,6 +21,7 @@ import java.util.TimeZone;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
@@ -329,15 +330,22 @@ public class WDp {
                 sum = sum.add(balance.balance);
             }
         }
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+        if(bondings != null) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+            }
         }
-        for(UnBondingState unbonding : unbondings) {
-            sum = sum.add(unbonding.balance);
+        if (unbondings != null) {
+            for(UnBondingState unbonding : unbondings) {
+                sum = sum.add(unbonding.balance);
+            }
         }
-        for(Reward reward : rewards) {
-            sum = sum.add(reward.getAtomAmount());
+        if (rewards != null) {
+            for(Reward reward : rewards) {
+                sum = sum.add(reward.getAtomAmount());
+            }
         }
+
         return sum;
     }
 
@@ -531,6 +539,24 @@ public class WDp {
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
+        }
+    }
+
+    public static SpannableString getTotalValueAtom(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
         }
     }
 
