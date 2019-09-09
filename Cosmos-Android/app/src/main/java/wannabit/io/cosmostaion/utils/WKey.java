@@ -200,8 +200,8 @@ public class WKey {
             } else if (chain.equals(IRIS_MAIN)){
                 result = bech32Encode("iaa".getBytes(), converted);
             } else if (chain.equals(BNB_MAIN)){
-//                result = bech32Encode("bnb".getBytes(), converted);
-                result = bech32Encode("tbnb".getBytes(), converted);
+                result = bech32Encode("bnb".getBytes(), converted);
+//                result = bech32Encode("tbnb".getBytes(), converted);
             }
 
         } catch (Exception e) {

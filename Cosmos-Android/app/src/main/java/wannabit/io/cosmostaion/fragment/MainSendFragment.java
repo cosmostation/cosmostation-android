@@ -350,13 +350,13 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB) != null) {
-                Balance bnbToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB);
-                mTvBnbBalance.setText(WDp.getDpAmount(getContext(), bnbToken.balance, 6, getMainActivity().mBaseChain));
-                mTvBnbLocked.setText(WDp.getDpAmount(getContext(), bnbToken.locked, 6, getMainActivity().mBaseChain));
-                mTvBnbTotal.setText(WDp.getDpAmount(getContext(), bnbToken.locked.add(bnbToken.balance), 6, getMainActivity().mBaseChain));
+            try {
+                if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB) != null) {
+                    Balance bnbToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_BNB);
+                    mTvBnbBalance.setText(WDp.getDpAmount(getContext(), bnbToken.balance, 6, getMainActivity().mBaseChain));
+                    mTvBnbLocked.setText(WDp.getDpAmount(getContext(), bnbToken.locked, 6, getMainActivity().mBaseChain));
+                    mTvBnbTotal.setText(WDp.getDpAmount(getContext(), bnbToken.locked.add(bnbToken.balance), 6, getMainActivity().mBaseChain));
 
-                try {
                     BigDecimal totalAmount = bnbToken.locked.add(bnbToken.balance);
                     BigDecimal totalPrice = BigDecimal.ZERO;
                     if(getBaseDao().getCurrency() != 5) {
@@ -365,35 +365,34 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                         totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(8, RoundingMode.DOWN);
                     }
                     mTvBnbValue.setText(WDp.getPriceDp(getContext(), totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-                    mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastBnbTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-                    mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastBnbUpDown())));
-                    if(getBaseDao().getLastBnbUpDown() > 0) {
-                        mUpDownImg.setVisibility(View.VISIBLE);
-                        mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
-                    } else if (getBaseDao().getLastBnbUpDown() < 0){
-                        mUpDownImg.setVisibility(View.VISIBLE);
-                        mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
-                    } else {
-                        mUpDownImg.setVisibility(View.GONE);
-                    }
+                } else {
+                    mTvBnbBalance.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+                    mTvBnbLocked.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+                    mTvBnbTotal.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+                    mTvBnbValue.setText(WDp.getPriceDp(getContext(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                }
 
-                } catch (Exception e) {
-                    mTvBnbValue.setText("???");
-                    mPerPrice.setText("???");
-                    mUpDownPrice.setText("???");
+                mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastBnbTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastBnbUpDown())));
+                if(getBaseDao().getLastBnbUpDown() > 0) {
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                } else if (getBaseDao().getLastBnbUpDown() < 0){
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                } else {
                     mUpDownImg.setVisibility(View.GONE);
                 }
-            } else {
-                mTvBnbBalance.setText("-");
-                mTvBnbLocked.setText("-");
-                mTvBnbTotal.setText("-");
-                mTvBnbValue.setText("-");
 
+            } catch (Exception e) {
+                mTvIrisValue.setText("???");
                 mPerPrice.setText("???");
                 mUpDownPrice.setText("???");
                 mUpDownImg.setVisibility(View.GONE);
             }
+
+
         }
     }
 

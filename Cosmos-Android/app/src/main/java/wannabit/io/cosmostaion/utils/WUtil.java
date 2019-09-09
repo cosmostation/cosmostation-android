@@ -679,24 +679,17 @@ public class WUtil {
             public int compare(Balance o1, Balance o2) {
                 if (chain.equals(BaseChain.COSMOS_MAIN)) {
                     if(o1.symbol.equals(COSMOS_ATOM)) return -1;
-                    if(o1.symbol.equals(COSMOS_ATOM)) return 1;
+                    if(o2.symbol.equals(COSMOS_ATOM)) return 1;
 
                 } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                     if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
-                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+                    if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
 
                 } else if (chain.equals(BaseChain.BNB_MAIN)) {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
-                    if(o1.symbol.equals(COSMOS_BNB)) return 1;
+                    if(o2.symbol.equals(COSMOS_BNB)) return 1;
                 }
-
-                if (o1.balance.compareTo(o2.balance) > 0) {
-                    return 1;
-                } else if (o1.balance.compareTo(o2.balance) > 0) {
-                    return -1;
-                } else {
-                    return 0;
-                }
+                return o2.balance.compareTo(o1.balance);
             }
         });
     }
@@ -707,15 +700,15 @@ public class WUtil {
             public int compare(Balance o1, Balance o2) {
                 if (chain.equals(BaseChain.COSMOS_MAIN)) {
                     if(o1.symbol.equals(COSMOS_ATOM)) return -1;
-                    if(o1.symbol.equals(COSMOS_ATOM)) return 1;
+                    if(o2.symbol.equals(COSMOS_ATOM)) return 1;
 
                 } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                     if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
-                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+                    if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
 
                 } else if (chain.equals(BaseChain.BNB_MAIN)) {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
-                    if(o1.symbol.equals(COSMOS_BNB)) return 1;
+                    if(o2.symbol.equals(COSMOS_BNB)) return 1;
                 }
                 return o1.symbol.compareTo(o2.symbol);
             }
@@ -728,23 +721,23 @@ public class WUtil {
             public int compare(Balance o1, Balance o2) {
                 if (chain.equals(BaseChain.COSMOS_MAIN)) {
                     if(o1.symbol.equals(COSMOS_ATOM)) return -1;
-                    if(o1.symbol.equals(COSMOS_ATOM)) return 1;
+                    if(o2.symbol.equals(COSMOS_ATOM)) return 1;
 
                 } else if (chain.equals(BaseChain.IRIS_MAIN)) {
                     if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
-                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+                    if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
 
                 } else if (chain.equals(BaseChain.BNB_MAIN)) {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
-                    if(o1.symbol.equals(COSMOS_BNB)) return 1;
+                    if(o2.symbol.equals(COSMOS_BNB)) return 1;
                 }
 
                 ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
                 ResBnbTic tic2 = tics.get(WUtil.getBnbTicSymbol(o2.symbol));
                 if (tic1 != null && tic2 != null) {
                     BigDecimal o1Amount = o1.exchangeToBnbAmount(tic1);
-                    BigDecimal o2Amount = o1.exchangeToBnbAmount(tic2);
-                    return o1Amount.compareTo(o2Amount);
+                    BigDecimal o2Amount = o2.exchangeToBnbAmount(tic2);
+                    return o2Amount.compareTo(o1Amount);
                 } else {
                     return 0;
                 }

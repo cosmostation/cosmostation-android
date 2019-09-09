@@ -9,8 +9,8 @@
     <!--<string name="url_lcd_main" translatable="false">https://lcd-app.cosmostation.io/</string>-->
     <string name="url_lcd_main" translatable="false">https://lcd-cosmos-testnet.cosmostation.io/</string>
     <string name="url_lcd_main_iris" translatable="false">https://lcd-iris.cosmostation.io/</string>
-    <!--<string name="url_main_bnb" translatable="false">http://dex.binance.org/api/v1/</string>-->
-    <string name="url_main_bnb" translatable="false">https://testnet-dex.binance.org/</string>
+    <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
+    <!--<string name="url_main_bnb" translatable="false">https://testnet-dex.binance.org/</string>-->
     <string name="url_es_proxy" translatable="false">https://app-es.cosmostation.io/</string>
 
 

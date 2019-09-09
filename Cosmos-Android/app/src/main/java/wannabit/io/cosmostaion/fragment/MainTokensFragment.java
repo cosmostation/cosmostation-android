@@ -138,7 +138,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     public void onRefreshTab() {
         if(!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
-        mOrder = ORDER_NAME;
+        if (mBnbTics == null || mBnbTics.size() < 0) {
+            mOrder = ORDER_NAME;
+        }
         onUpdateView();
     }
 
@@ -166,10 +168,12 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            onUpdateTotalCard();
             onFetchIrisTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            onUpdateTotalCard();
             onFetchBnbTokenPrice();
         }
         mTokenSize.setText(""+mBalances.size());
