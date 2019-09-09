@@ -35,6 +35,8 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 public class WDp {
@@ -247,9 +249,15 @@ public class WDp {
 
     public static SpannableString getDpBalanceCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(denom)) {
-                sum = balance.balance;
+        for (Balance balance : balances) {
+            if (denom.equals(COSMOS_ATOM) && IS_TEST) {
+                if (balance.symbol.equals(COSMOS_MUON)) {
+                    sum = balance.balance;
+                }
+            } else {
+                if (balance.symbol.equals(denom)) {
+                    sum = balance.balance;
+                }
             }
         }
         return getDpAmount(c, sum, 6, chain);
@@ -495,15 +503,6 @@ public class WDp {
 
 
 
-//    public static String getDolor(Context c, BigDecimal input) {
-//        DecimalFormat df = getDecimalFormat(c, 2);
-//        return df.format(input);
-//    }
-//
-//    public static SpannableString getDolorDp(BigDecimal input) {
-//        return getDpString("$ " + input.setScale(2, RoundingMode.DOWN).toPlainString(), 2);
-//    }
-
     public static SpannableString getPriceDp(Context c, BigDecimal input, String symbol, int currency) {
         if (currency == 5) {
             SpannableString result;
@@ -516,7 +515,6 @@ public class WDp {
             result = new SpannableString(symbol + " " +getDecimalFormat(c, 2).format(input));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
-
         }
     }
 
@@ -957,6 +955,18 @@ public class WDp {
             return c.getResources().getColor(R.color.colorAtom);
         } else {
             return c.getResources().getColor(R.color.colorIris);
+        }
+    }
+
+    public static int getChainColor(Context c, BaseChain chain) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            return c.getResources().getColor(R.color.colorAtom);
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            return c.getResources().getColor(R.color.colorIris);
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            return c.getResources().getColor(R.color.colorBnb);
+        } else {
+            return c.getResources().getColor(R.color.colorAtom);
         }
     }
 

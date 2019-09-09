@@ -183,7 +183,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 ApiClient.getCosmosChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
+                        if(response.isSuccessful() && response.body() != null) {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
                                 holder.atomAmount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, mChain));

@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +27,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 public class TokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -61,6 +64,10 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.activity_token_detail);
         mChainBg                = findViewById(R.id.chain_bg);
         mToolbar                = findViewById(R.id.tool_bar);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAtomCard               = findViewById(R.id.card_atom);
         mTvAtomTotal            = mAtomCard.findViewById(R.id.dash_atom_amount);
@@ -111,9 +118,21 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         mAllValidators = getIntent().getParcelableArrayListExtra("allValidators");
         mIrisReward = getIntent().getParcelableExtra("irisreward");
+        mRewards = getIntent().getParcelableArrayListExtra("rewards");
 
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -123,10 +142,31 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) && mBalance.symbol.equals(COSMOS_ATOM)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) && mBalance.symbol.equals(COSMOS_ATOM) ||
+                mBaseChain.equals(BaseChain.COSMOS_MAIN) && (IS_TEST && mBalance.symbol.equals(COSMOS_MUON))) {
             mAtomCard.setVisibility(View.VISIBLE);
             mAtomAction.setVisibility(View.GONE);
             mBtnSendAtom.setVisibility(View.VISIBLE);
+            mBtnSendAtom.setOnClickListener(this);
+
+            mBalances = getBaseDao().onSelectBalance(mAccount.id);
+            mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
+            mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
+
+            mTvAtomTotal.setText(WDp.getDpAllAtom(this, mBalances, mBondings, mUnbondings, mRewards, mAllValidators, mBaseChain));
+            mTvAtomUndelegated.setText(WDp.getDpBalanceCoin(this, mBalances, mBaseChain, COSMOS_ATOM));
+            mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));
+            mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
+            mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(this, mRewards, mBaseChain));
+
+            BigDecimal totalAmount = WDp.getAllAtom(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
+            BigDecimal totalPrice = BigDecimal.ZERO;
+            if(getBaseDao().getCurrency() != 5) {
+                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            } else {
+                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+            }
+            mTvAtomValue.setText(WDp.getPriceDp(this, totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mBalance.symbol.equals(COSMOS_IRIS_ATTO)) {
             mIrisCard.setVisibility(View.VISIBLE);
