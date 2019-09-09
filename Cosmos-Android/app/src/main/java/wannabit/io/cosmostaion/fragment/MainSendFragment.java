@@ -104,31 +104,31 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mAddress                = rootView.findViewById(R.id.account_Address);
 
         mAtomCard               = rootView.findViewById(R.id.card_atom);
-        mTvAtomTotal            = rootView.findViewById(R.id.dash_atom_amount);
-        mTvAtomValue            = rootView.findViewById(R.id.dash_atom_value);
-        mTvAtomUndelegated      = rootView.findViewById(R.id.dash_atom_undelegate);
-        mTvAtomDelegated        = rootView.findViewById(R.id.dash_atom_delegate);
-        mTvAtomUnBonding        = rootView.findViewById(R.id.dash_atom_unbonding);
-        mTvAtomRewards          = rootView.findViewById(R.id.dash_atom_reward);
-        mBtnAtomReward          = rootView.findViewById(R.id.btn_cosmos_reward);
-        mBtnAtomVote            = rootView.findViewById(R.id.btn_cosmos_vote);
+        mTvAtomTotal            = mAtomCard.findViewById(R.id.dash_atom_amount);
+        mTvAtomValue            = mAtomCard.findViewById(R.id.dash_atom_value);
+        mTvAtomUndelegated      = mAtomCard.findViewById(R.id.dash_atom_undelegate);
+        mTvAtomDelegated        = mAtomCard.findViewById(R.id.dash_atom_delegate);
+        mTvAtomUnBonding        = mAtomCard.findViewById(R.id.dash_atom_unbonding);
+        mTvAtomRewards          = mAtomCard.findViewById(R.id.dash_atom_reward);
+        mBtnAtomReward          = mAtomCard.findViewById(R.id.btn_cosmos_reward);
+        mBtnAtomVote            = mAtomCard.findViewById(R.id.btn_cosmos_vote);
 
         mIrisCard               = rootView.findViewById(R.id.card_iris);
-        mTvIrisTotal            = rootView.findViewById(R.id.dash_iris_amount);
-        mTvIrisValue            = rootView.findViewById(R.id.dash_iris_value);
-        mTvIrisUndelegated      = rootView.findViewById(R.id.dash_iris_undelegate);
-        mTvIrisDelegated        = rootView.findViewById(R.id.dash_iris_delegate);
-        mTvIrisUnBonding        = rootView.findViewById(R.id.dash_iris_unbonding);
-        mTvIrisRewards          = rootView.findViewById(R.id.dash_iris_reward);
-        mBtnIrisReward          = rootView.findViewById(R.id.btn_iris_reward);
-        mBtnIrisVote            = rootView.findViewById(R.id.btn_iris_vote);
+        mTvIrisTotal            = mIrisCard.findViewById(R.id.dash_iris_amount);
+        mTvIrisValue            = mIrisCard.findViewById(R.id.dash_iris_value);
+        mTvIrisUndelegated      = mIrisCard.findViewById(R.id.dash_iris_undelegate);
+        mTvIrisDelegated        = mIrisCard.findViewById(R.id.dash_iris_delegate);
+        mTvIrisUnBonding        = mIrisCard.findViewById(R.id.dash_iris_unbonding);
+        mTvIrisRewards          = mIrisCard.findViewById(R.id.dash_iris_reward);
+        mBtnIrisReward          = mIrisCard.findViewById(R.id.btn_iris_reward);
+        mBtnIrisVote            = mIrisCard.findViewById(R.id.btn_iris_vote);
 
         mBnbCard                = rootView.findViewById(R.id.card_bnb);
-        mTvBnbTotal             = rootView.findViewById(R.id.dash_bnb_amount);
-        mTvBnbValue             = rootView.findViewById(R.id.dash_bnb_value);
-        mTvBnbBalance           = rootView.findViewById(R.id.dash_bnb_balance);
-        mTvBnbLocked            = rootView.findViewById(R.id.dash_bnb_locked);
-        mBtnBnbConnect          = rootView.findViewById(R.id.btn_wallet_connect);
+        mTvBnbTotal             = mBnbCard.findViewById(R.id.dash_bnb_amount);
+        mTvBnbValue             = mBnbCard.findViewById(R.id.dash_bnb_value);
+        mTvBnbBalance           = mBnbCard.findViewById(R.id.dash_bnb_balance);
+        mTvBnbLocked            = mBnbCard.findViewById(R.id.dash_bnb_locked);
+        mBtnBnbConnect          = mBnbCard.findViewById(R.id.btn_wallet_connect);
 
         mPriceCard              = rootView.findViewById(R.id.card_price);
         mMarket                 = rootView.findViewById(R.id.dash_price_market);
@@ -146,6 +146,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mGuideAction            = rootView.findViewById(R.id.action_guide);
         mGuideBtn               = rootView.findViewById(R.id.btn_guide);
         mFaqBtn                 = rootView.findViewById(R.id.btn_faq);
+
+
 
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
