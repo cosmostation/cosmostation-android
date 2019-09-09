@@ -31,6 +31,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.ReInvestActivity;
+import wannabit.io.cosmostaion.activities.TokenDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -294,8 +297,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindIrisItem(TokensAdapter.AssetHolder holder, final int position) {
-        Balance balance = mBalances.get(position);
-        IrisToken token = WUtil.getIrisToken(getMainActivity().mIrisTokens, balance);
+        final Balance balance = mBalances.get(position);
+        final IrisToken token = WUtil.getIrisToken(getMainActivity().mIrisTokens, balance);
         if (token != null) {
             holder.itemSymbol.setText(token.base_token.symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + token.base_token.id + ")");
@@ -317,6 +320,18 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
             holder.itemValue.setText(WDp.getPriceDp(getContext(), price, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
         }
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WLog.w("Click iris " + position);
+                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
+                intent.putExtra("balance", balance);
+                intent.putExtra("irisToken", token);
+                intent.putExtra("irisreward", getMainActivity().mIrisReward);
+                intent.putExtra("allValidators", getMainActivity().mAllValidators);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -352,6 +367,17 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 price = amount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(8, RoundingMode.DOWN);
             }
             holder.itemValue.setText(WDp.getPriceDp(getContext(), price, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    WLog.w("Click bnb " + position);
+                    Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
+                    intent.putExtra("balance", balance);
+                    intent.putExtra("bnbToken", token);
+                    startActivity(intent);
+
+                }
+            });
         }
     }
 

@@ -90,7 +90,11 @@ public class WDp {
     }
 
     public static SpannableString getDpAllIrisRewardAmount(Context c, ResLcdIrisReward rewards, BaseChain chain) {
-        return getDpAmount(c, rewards.getSimpleIrisReward(), 6, chain);
+        if (rewards != null) {
+            return getDpAmount(c, rewards.getSimpleIrisReward(), 6, chain);
+        } else {
+            return getDpAmount(c, BigDecimal.ZERO, 6, chain);
+        }
     }
 
     public static SpannableString getValidatorReward(Context c, ArrayList<Reward> rewards, String valOpAddress, BaseChain chain) {

@@ -134,6 +134,7 @@
     <string name="str_wallet_manage">Wallet Manage</string>
     <string name="str_validators_list"><![CDATA[Validators & Reward]]></string>
     <string name="str_validator_detail">Validator Detail</string>
+    <string name="str_token_detail">Token Detail</string>
     <string name="str_proposal_list">Proposal List</string>
     <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>
@@ -226,6 +227,7 @@
     <string name="str_claim_reward">Claim Reward</string>
     <string name="str_reinvest">Re-Invest</string>
     <string name="str_history_validator">History with this validator</string>
+    <string name="str_history_token">History with this token</string>
     <string name="str_price">Current Price</string>
     <string name="str_ago">ago</string>
     <string name="str_day">days</string>
@@ -416,6 +418,7 @@
     <string name="str_name">Name</string>
     <string name="str_amount">Amount</string>
     <string name="str_value">Value</string>
+    <string name="str_full_name">Full Name(Denom)</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

@@ -90,6 +90,7 @@
     <string name="str_wallet_manage">지갑 관리</string>
     <string name="str_validators_list"><![CDATA[검증인 & 이자]]></string>
     <string name="str_validator_detail">검증인 상세</string>
+    <string name="str_token_detail">토큰 상세</string>
     <string name="str_proposal_list">투표 목록</string>
     <string name="str_wallet_detail">지갑 상세</string>
     <string name="str_general">일반</string>
@@ -179,6 +180,7 @@
     <string name="str_claim_reward">이자 받기</string>
     <string name="str_reinvest">이자 즉시 위임</string>
     <string name="str_history_validator">이 검증인과의 거래내역</string>
+    <string name="str_history_token">이 토큰 거래내역</string>
     <string name="str_price">현재 가격</string>
     <string name="str_ago">전</string>
     <string name="str_day">일</string>
@@ -367,6 +369,7 @@
     <string name="str_name">이름</string>
     <string name="str_amount">수량</string>
     <string name="str_value">금액</string>
+    <string name="str_full_name">원본 이름(Denom)</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
