@@ -393,6 +393,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                     Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
                     intent.putExtra("balance", balance);
                     intent.putExtra("bnbToken", token);
+                    intent.putExtra("bnbTics", mBnbTics);
                     startActivity(intent);
 
                 }

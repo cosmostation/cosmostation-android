@@ -248,7 +248,7 @@ public class WDp {
         }
     }
 
-    public static SpannableString getDpBalanceCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
+    public static SpannableString getDpAvailableCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
             if (denom.equals(COSMOS_ATOM) && IS_TEST) {

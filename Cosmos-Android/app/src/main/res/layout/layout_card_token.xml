@@ -18,19 +18,33 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/dash_token_icon"
-                android:layout_width="@dimen/space_20"
-                android:layout_height="@dimen/space_20"
-                android:src="@drawable/token_ic"/>
-            <TextView
-                android:id="@+id/dash_token_symbol"
+            <LinearLayout
+                android:id="@+id/btn_token_web"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/dash_token_icon"
-                android:layout_marginLeft="@dimen/space_8"
-                android:text="Token"
-                style="@style/font_ss_14_white"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:clickable="true">
+                <ImageView
+                    android:id="@+id/dash_token_icon"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"/>
+                <TextView
+                    android:id="@+id/dash_token_symbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:text="Token"
+                    style="@style/font_ss_14_white"/>
+                <ImageView
+                    android:id="@+id/dash_token_link"
+                    android:layout_width="@dimen/space_18"
+                    android:layout_height="@dimen/space_18"
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:layout_toRightOf="@+id/dash_token_symbol"
+                    android:src="@drawable/wallet_detail_btn"
+                    android:visibility="gone"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -58,10 +58,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     private CardView            mAtomCard, mPhotonCard, mIrisCard, mBnbCard, mPriceCard;
 
-    private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomUndelegated,
+    private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomAvailable,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
     private RelativeLayout      mBtnAtomReward, mBtnAtomVote;
-    private TextView            mTvIrisTotal, mTvIrisValue, mTvIrisUndelegated,
+    private TextView            mTvIrisTotal, mTvIrisValue, mTvIrisAvailable,
                                 mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
     private RelativeLayout      mBtnIrisReward, mBtnIrisVote;
     private TextView            mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
@@ -106,7 +106,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mAtomCard               = rootView.findViewById(R.id.card_atom);
         mTvAtomTotal            = mAtomCard.findViewById(R.id.dash_atom_amount);
         mTvAtomValue            = mAtomCard.findViewById(R.id.dash_atom_value);
-        mTvAtomUndelegated      = mAtomCard.findViewById(R.id.dash_atom_undelegate);
+        mTvAtomAvailable        = mAtomCard.findViewById(R.id.dash_atom_undelegate);
         mTvAtomDelegated        = mAtomCard.findViewById(R.id.dash_atom_delegate);
         mTvAtomUnBonding        = mAtomCard.findViewById(R.id.dash_atom_unbonding);
         mTvAtomRewards          = mAtomCard.findViewById(R.id.dash_atom_reward);
@@ -116,7 +116,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mIrisCard               = rootView.findViewById(R.id.card_iris);
         mTvIrisTotal            = mIrisCard.findViewById(R.id.dash_iris_amount);
         mTvIrisValue            = mIrisCard.findViewById(R.id.dash_iris_value);
-        mTvIrisUndelegated      = mIrisCard.findViewById(R.id.dash_iris_undelegate);
+        mTvIrisAvailable        = mIrisCard.findViewById(R.id.dash_iris_undelegate);
         mTvIrisDelegated        = mIrisCard.findViewById(R.id.dash_iris_delegate);
         mTvIrisUnBonding        = mIrisCard.findViewById(R.id.dash_iris_unbonding);
         mTvIrisRewards          = mIrisCard.findViewById(R.id.dash_iris_reward);
@@ -266,7 +266,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
-            mTvAtomUndelegated.setText(WDp.getDpBalanceCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_MUON));
+            mTvAtomAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_MUON));
             mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain));
@@ -298,7 +298,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal totalAmount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward);
             mTvIrisTotal.setText(WDp.getDpAllIris(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward, getMainActivity().mBaseChain));
-            mTvIrisUndelegated.setText(WDp.getDpBalanceCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_IRIS_ATTO));
+            mTvIrisAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_IRIS_ATTO));
             mTvIrisDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvIrisUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvIrisRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), getMainActivity().mIrisReward, getMainActivity().mBaseChain));
