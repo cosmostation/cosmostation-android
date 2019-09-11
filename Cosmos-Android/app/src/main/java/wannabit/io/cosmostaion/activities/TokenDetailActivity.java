@@ -179,13 +179,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mTvIrisRewards.setText(WDp.getDpAllIrisRewardAmount(this, mIrisReward, mBaseChain));
 
             BigDecimal totalAmount = WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward);
-            BigDecimal totalPrice = BigDecimal.ZERO;
-            if(getBaseDao().getCurrency() != 5) {
-                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
-            } else {
-                totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
-            }
-            mTvIrisValue.setText(WDp.getPriceDp(this, totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mTvIrisValue.setText(WDp.getTotalValueIris(this, getBaseDao(), totalAmount));
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN) && mBalance.symbol.equals(COSMOS_BNB)) {
             mBnbCard.setVisibility(View.VISIBLE);
@@ -200,13 +194,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvBnbLocked.setText(WDp.getDpAmount(this, bnbToken.locked, 6, mBaseChain));
                 mTvBnbTotal.setText(WDp.getDpAmount(this, bnbToken.locked.add(bnbToken.balance), 6, mBaseChain));
                 BigDecimal totalAmount = bnbToken.locked.add(bnbToken.balance);
-                BigDecimal totalPrice = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(2, RoundingMode.DOWN);
-                } else {
-                    totalPrice = totalAmount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(8, RoundingMode.DOWN);
-                }
-                mTvBnbValue.setText(WDp.getPriceDp(this, totalPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mTvBnbValue.setText(WDp.getTotalValueBnb(this, getBaseDao(), totalAmount));
 
             } else {
                 mTvBnbBalance.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 6, mBaseChain));

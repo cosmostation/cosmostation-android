@@ -560,6 +560,42 @@ public class WDp {
         }
     }
 
+    public static SpannableString getTotalValueIris(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        }
+    }
+
+    public static SpannableString getTotalValueBnb(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        }
+    }
+
 
     public static SpannableString getPriceUpDown(BigDecimal input) {
         return getDpString(input.setScale(2, RoundingMode.DOWN).toPlainString() + "% (24h)", 9);

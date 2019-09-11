@@ -221,17 +221,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount(getContext(), totalIrisAmount, 8, getMainActivity().mBaseChain));
-            if(getBaseDao().getCurrency() != 5) {
-                totalValue = totalIrisAmount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
-            } else {
-                totalValue = totalIrisAmount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
-            }
-            mTotalValue.setText(WDp.getPriceDp(getContext(), totalValue, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
-
+            mTotalValue.setText(WDp.getTotalValueIris(getContext(), getBaseDao(), totalIrisAmount));
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            BigDecimal totalValue, totalBnbAmount = BigDecimal.ZERO;
+            BigDecimal totalBnbAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(COSMOS_BNB)) {
                     totalBnbAmount = totalBnbAmount.add(balance.getAllBnbBalance());
@@ -243,12 +236,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount(getContext(), totalBnbAmount, 8, getMainActivity().mBaseChain));
-            if(getBaseDao().getCurrency() != 5) {
-                totalValue = totalBnbAmount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(2, RoundingMode.DOWN);
-            } else {
-                totalValue = totalBnbAmount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(8, RoundingMode.DOWN);
-            }
-            mTotalValue.setText(WDp.getPriceDp(getContext(), totalValue, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mTotalValue.setText(WDp.getTotalValueBnb(getContext(), getBaseDao(), totalBnbAmount));
         }
 
     }
@@ -343,23 +331,19 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(token.base_token.symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + token.base_token.id + ")");
             holder.itemFullName.setText(token.base_token.name);
-            BigDecimal price, amount = BigDecimal.ZERO;
+            BigDecimal amount = BigDecimal.ZERO;
             if (balance.symbol.equals(COSMOS_IRIS_ATTO)) {
                 amount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward);
                 holder.itemBalance.setText(WDp.getDpAmount(getContext(), amount, 8, getMainActivity().mBaseChain));
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IRIS_MAIN));
+                holder.itemValue.setText(WDp.getTotalValueIris(getContext(), getBaseDao(), amount));
             } else {
-                //todo please check tokens balance and reward
+                //todo please check tokens balance and reward and price
                 holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.balance, token.base_token.decimal, getMainActivity().mBaseChain));
                 holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             }
-            if(getBaseDao().getCurrency() != 5) {
-                price = amount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
-            } else {
-                price = amount.multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
-            }
-            holder.itemValue.setText(WDp.getPriceDp(getContext(), price, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
         }
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -384,7 +368,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemFullName.setText(token.name);
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.getAllBnbBalance(), 8, getMainActivity().mBaseChain));
 
-            BigDecimal price, amount = BigDecimal.ZERO;
+            BigDecimal amount = BigDecimal.ZERO;
             if (balance.symbol.equals(COSMOS_BNB)) {
                 amount = balance.getAllBnbBalance();
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
@@ -402,12 +386,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                             .into(holder.itemImg);
                 }catch (Exception e) {}
             }
-            if(getBaseDao().getCurrency() != 5) {
-                price = amount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(2, RoundingMode.DOWN);
-            } else {
-                price = amount.multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(8, RoundingMode.DOWN);
-            }
-            holder.itemValue.setText(WDp.getPriceDp(getContext(), price, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            holder.itemValue.setText(WDp.getTotalValueBnb(getContext(), getBaseDao(), amount));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
