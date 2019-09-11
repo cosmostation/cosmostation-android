@@ -180,7 +180,7 @@
     <string name="str_claim_reward">이자 받기</string>
     <string name="str_reinvest">이자 즉시 위임</string>
     <string name="str_history_validator">이 검증인과의 거래내역</string>
-    <string name="str_history_token">이 토큰 거래내역</string>
+    <string name="str_history_token">입출금 내역</string>
     <string name="str_price">현재 가격</string>
     <string name="str_ago">전</string>
     <string name="str_day">일</string>

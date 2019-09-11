@@ -204,8 +204,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 viewHolder.history_block.setText(history.blockHeight + " block");
                 viewHolder.historySuccess.setVisibility(View.GONE);
             }
-
-
         }
 
         @Override

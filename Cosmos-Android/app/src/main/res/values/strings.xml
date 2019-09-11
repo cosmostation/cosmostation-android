@@ -227,7 +227,7 @@
     <string name="str_claim_reward">Claim Reward</string>
     <string name="str_reinvest">Re-Invest</string>
     <string name="str_history_validator">History with this validator</string>
-    <string name="str_history_token">History with this token</string>
+    <string name="str_history_token">Transfer history</string>
     <string name="str_price">Current Price</string>
     <string name="str_ago">ago</string>
     <string name="str_day">days</string>

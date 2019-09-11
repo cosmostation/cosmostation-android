@@ -1,12 +1,17 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -15,15 +20,26 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
+import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
+import wannabit.io.cosmostaion.model.type.BnbHistory;
+import wannabit.io.cosmostaion.network.req.ReqTxToken;
+import wannabit.io.cosmostaion.network.req.ReqTxVal;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
+import wannabit.io.cosmostaion.network.res.ResHistory;
+import wannabit.io.cosmostaion.task.FetchTask.TokenHistoryTask;
+import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -35,7 +51,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 
-public class TokenDetailActivity extends BaseActivity implements View.OnClickListener {
+public class TokenDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private ImageView               mChainBg;
     private Toolbar                 mToolbar;
@@ -61,6 +77,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     private IrisToken               mIrisToken;
     private BnbToken                mBnbToken;
     private HashMap<String, ResBnbTic>  mBnbTics = new HashMap<>();
+
+    private TokenHistoryAdapter             mTokenHistoryAdapter;
+    private ArrayList<ResHistory.InnerHits> mTx = new ArrayList<>();
 
 
     @Override
@@ -114,10 +133,21 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         mBtnSendToken           = TokenCard.findViewById(R.id.btn_token_send);
         mBtnTokenDetail         = TokenCard.findViewById(R.id.btn_token_web);
 
-        mHistoryCnt             = TokenCard.findViewById(R.id.token_cnt);
+        mHistoryCnt             = findViewById(R.id.token_cnt);
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
         mRecyclerView           = findViewById(R.id.recycler);
         mEmptyHistory           = findViewById(R.id.empty_history);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onFetchTokenHistory();
+            }
+        });
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
+        mTokenHistoryAdapter = new TokenHistoryAdapter();
+        mRecyclerView.setAdapter(mTokenHistoryAdapter);
 
         mBalance = getIntent().getParcelableExtra("balance");
         mIrisToken = getIntent().getParcelableExtra("irisToken");
@@ -127,8 +157,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         mAllValidators = getIntent().getParcelableArrayListExtra("allValidators");
         mIrisReward = getIntent().getParcelableExtra("irisreward");
         mRewards = getIntent().getParcelableArrayListExtra("rewards");
-
-
 
     }
 
@@ -245,9 +273,45 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             } else {
                 onBackPressed();
             }
+        }
+
+        onFetchTokenHistory();
+    }
+
+    private void onFetchTokenHistory() {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            ReqTxToken req = new ReqTxToken(0, 1, true, mAccount.address, mBalance.symbol);
+            new TokenHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
 
         }
     }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if(isFinishing()) return;
+        if (result.taskType == BaseConstant.TASK_FETCH_TOKEN_HISTORY) {
+            ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
+            if(hits != null && hits.size() > 0) {
+                mTx = hits;
+                mHistoryCnt.setText(""+mTx.size());
+                mTokenHistoryAdapter.notifyDataSetChanged();
+                mEmptyHistory.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+            } else {
+                mHistoryCnt.setText("0");
+                mEmptyHistory.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+            }
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+
 
     @Override
     public void onClick(View v) {
@@ -263,5 +327,70 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         }
 
+    }
+
+    private class TokenHistoryAdapter extends RecyclerView.Adapter<TokenHistoryAdapter.HistoryHolder> {
+
+        @NonNull
+        @Override
+        public HistoryHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final ResHistory.Source source = mTx.get(position)._source;
+                if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                    if(!source.result.isSuccess()) {
+                        viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                    } else {
+                        viewHolder.historySuccess.setVisibility(View.GONE);
+                    }
+                } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                    if(source.result.Code > 0) {
+                        viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                    } else {
+                        viewHolder.historySuccess.setVisibility(View.GONE);
+                    }
+                }
+                viewHolder.historyType.setText(WDp.DpTxType(getBaseContext(), source.tx.value.msg, mAccount.address));
+                viewHolder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
+                viewHolder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.time));
+                viewHolder.history_block.setText(source.height + " block");
+                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent webintent = new Intent(TokenDetailActivity.this, WebActivity.class);
+                        webintent.putExtra("txid", source.hash);
+                        webintent.putExtra("chain", mBaseChain.getChain());
+                        startActivity(webintent);
+                    }
+                });
+
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return mTx.size();
+        }
+
+
+        public class HistoryHolder extends RecyclerView.ViewHolder {
+            private CardView historyRoot;
+            private TextView historyType, historySuccess, history_time, history_block, history_time_gap;
+
+            public HistoryHolder(View v) {
+                super(v);
+                historyRoot         = itemView.findViewById(R.id.card_history);
+                historyType         = itemView.findViewById(R.id.history_type);
+                historySuccess      = itemView.findViewById(R.id.history_success);
+                history_time        = itemView.findViewById(R.id.history_time);
+                history_block       = itemView.findViewById(R.id.history_block_height);
+                history_time_gap    = itemView.findViewById(R.id.history_time_gap);
+            }
+        }
     }
 }
