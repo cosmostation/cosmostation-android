@@ -716,7 +716,7 @@ public class WDp {
             result = BaseConstant.TX_TYPE_GET_REWARD;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
-            result = BaseConstant.TX_TYPE_GET_CPMMISSION;
+            result = BaseConstant.TX_TYPE_GET_COMMISSION;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) ||
                 msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY)) {
@@ -744,6 +744,87 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL)) {
             result = BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL;
 
+        }
+        return result;
+    }
+
+
+
+    public static String DpTxType(Context c, ArrayList<Msg> msgs, String address) {
+        String result = "";
+        int dpType = getHistoryDpType(msgs, address);
+        switch (dpType) {
+            case BaseConstant.TX_TYPE_SEND:
+                result = c.getString(R.string.tx_send);
+                break;
+
+            case BaseConstant.TX_TYPE_RECEIVE:
+                result = c.getString(R.string.tx_receive);
+                break;
+
+            case BaseConstant.TX_TYPE_TRANSFER:
+                result = c.getString(R.string.tx_transfer);
+                break;
+
+            case BaseConstant.TX_TYPE_DELEGATE:
+                result = c.getString(R.string.tx_delegate);
+                break;
+
+            case BaseConstant.TX_TYPE_UNDELEGATE:
+                result = c.getString(R.string.tx_undelegate);
+                break;
+
+            case BaseConstant.TX_TYPE_REDELEGATE:
+                result = c.getString(R.string.tx_redelegate);
+                break;
+
+            case BaseConstant.TX_TYPE_GET_REWARD:
+                result = c.getString(R.string.tx_get_reward);
+                break;
+
+            case BaseConstant.TX_TYPE_GET_COMMISSION:
+                result = c.getString(R.string.tx_get_commission);
+                break;
+
+            case BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS:
+                result = c.getString(R.string.tx_change_reward_address);
+                break;
+
+            case BaseConstant.TX_TYPE_VOTE:
+                result = c.getString(R.string.tx_vote);
+                break;
+
+            case BaseConstant.TX_TYPE_SUBMIT_PROPOSAL:
+                result = c.getString(R.string.tx_submit_proposal);
+                break;
+
+            case BaseConstant.TX_TYPE_DEPOSIT:
+                result = c.getString(R.string.tx_deposit);
+                break;
+
+            case BaseConstant.TX_TYPE_CREATE_VALIDATOR:
+                result = c.getString(R.string.tx_create_validator);
+                break;
+
+            case BaseConstant.TX_TYPE_EDIT_VALIDATOR:
+                result = c.getString(R.string.tx_edit_validator);
+                break;
+
+            case BaseConstant.TX_TYPE_REINVEST:
+                result = c.getString(R.string.tx_reinvest);
+                break;
+
+            case BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL:
+                result = c.getString(R.string.tx_get_reward_all);
+                break;
+
+            case BaseConstant.TX_TYPE_UNKNOWN:
+                result = c.getString(R.string.tx_known);
+                break;
+
+        }
+        if (dpType != BaseConstant.TX_TYPE_REINVEST && msgs.size() > 1) {
+            result = result + "\n+ " + (msgs.size() - 1);
         }
         return result;
     }
@@ -924,11 +1005,23 @@ public class WDp {
         return result;
     }
 
+    public static String getDateformat(Context c, String rawValue) {
+        String result = "??";
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_date_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            result = myFormat.format(blockDateFormat.parse(rawValue));
+        } catch (Exception e) {};
+
+        return result;
+    }
+
     public static String getTimeformat(Context c, String rawValue) {
         String result = "??";
         try {
             SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
-            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
+            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format3));
             blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             result = myFormat.format(blockDateFormat.parse(rawValue));
         } catch (Exception e) {};
@@ -984,6 +1077,8 @@ public class WDp {
 
         return "(" + result + " " + c.getString(R.string.str_ago) +")";
     }
+
+
 
 
     public static String cTimeString() {

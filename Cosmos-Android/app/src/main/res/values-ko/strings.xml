@@ -70,7 +70,7 @@
     <string name="str_reward_to">이자 지급 주소</string>
     <string name="str_expected_balance">예상 사용 가능 수량</string>
     <string name="str_success">성공</string>
-    <string name="str_failed">실패</string>
+    <string name="str_failed">(실패)</string>
     <string name="str_preparing">Preparing...</string>
     <string name="str_deprecated">Deprecated...</string>
     <string name="str_select_wallet_path_c">복구 지갑 선택</string>
@@ -442,5 +442,7 @@
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>
+    <string name="str_dp_time_format3" >HH:mm:ss</string>
+    <string name="str_dp_date_format" >yyyy-MM-dd</string>
 
 </resources>

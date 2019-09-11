@@ -114,7 +114,7 @@
     <string name="str_reward_to">Reward Recipient Address</string>
     <string name="str_expected_balance">Expected Available</string>
     <string name="str_success">success</string>
-    <string name="str_failed">failed</string>
+    <string name="str_failed">(failed)</string>
     <string name="str_preparing">Preparing...</string>
     <string name="str_deprecated">Deprecated...</string>
     <string name="str_select_wallet_path_c">SELECT WALLET TO RESTORE</string>
@@ -491,6 +491,8 @@
 
     <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2" >MMM d, yyyy HH:mm</string>
+    <string name="str_dp_time_format3" >HH:mm:ss</string>
+    <string name="str_dp_date_format" >MMM d, yyyy</string>
 
 
 

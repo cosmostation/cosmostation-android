@@ -146,7 +146,7 @@ public class BaseConstant {
     public final static int                     TX_TYPE_UNDELEGATE		                        = 3004;
     public final static int                     TX_TYPE_REDELEGATE		                        = 3005;
     public final static int                     TX_TYPE_GET_REWARD		                        = 3006;
-    public final static int                     TX_TYPE_GET_CPMMISSION		                    = 3007;
+    public final static int                     TX_TYPE_GET_COMMISSION		                    = 3007;
     public final static int                     TX_TYPE_CHAGE_REWARD_ADDRESS		            = 3008;
     public final static int                     TX_TYPE_TRANSFER		                        = 3009;
     public final static int                     TX_TYPE_VOTE		                            = 3010;

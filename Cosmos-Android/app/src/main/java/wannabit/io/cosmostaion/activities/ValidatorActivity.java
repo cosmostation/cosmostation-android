@@ -910,7 +910,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                         break;
 
-                    case BaseConstant.TX_TYPE_GET_CPMMISSION:
+                    case BaseConstant.TX_TYPE_GET_COMMISSION:
                         holder.historyType.setText(getString(R.string.tx_get_commission));
                         holder.historyType.setTextColor(getResources().getColor(R.color.colorWhite));
                         break;
