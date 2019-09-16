@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.network.req.ReqTxToken;
 import wannabit.io.cosmostaion.network.req.ReqTxVal;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResHistory;
+import wannabit.io.cosmostaion.task.FetchTask.HistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.TokenHistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -79,7 +80,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     private HashMap<String, ResBnbTic>  mBnbTics = new HashMap<>();
 
     private TokenHistoryAdapter             mTokenHistoryAdapter;
-    private ArrayList<ResHistory.InnerHits> mTx = new ArrayList<>();
+
+    private ArrayList<ResHistory.InnerHits> mHistory = new ArrayList<>();
+    private ArrayList<BnbHistory>           mBnbHistory = new ArrayList<>();
 
 
     @Override
@@ -280,13 +283,16 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void onFetchTokenHistory() {
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            ReqTxToken req = new ReqTxToken(0, 0, true, mAccount.address, mBalance.symbol);
+            new TokenHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             ReqTxToken req = new ReqTxToken(0, 1, true, mAccount.address, mBalance.symbol);
             new TokenHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            new HistoryTask(getBaseApplication(), this, null, mBaseChain)
+                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString(), mBnbToken.symbol);
 
         }
     }
@@ -297,8 +303,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         if (result.taskType == BaseConstant.TASK_FETCH_TOKEN_HISTORY) {
             ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
             if(hits != null && hits.size() > 0) {
-                mTx = hits;
-                mHistoryCnt.setText(""+mTx.size());
+                mHistory = hits;
+                mHistoryCnt.setText(""+mHistory.size());
                 mTokenHistoryAdapter.notifyDataSetChanged();
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
@@ -307,8 +313,23 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mEmptyHistory.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
             }
-            mSwipeRefreshLayout.setRefreshing(false);
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_HISTORY) {
+            ArrayList<BnbHistory> hits = (ArrayList<BnbHistory>)result.resultData;
+            if (hits != null && hits.size() > 0) {
+                mBnbHistory = hits;
+                mHistoryCnt.setText(""+mBnbHistory.size());
+                mTokenHistoryAdapter.notifyDataSetChanged();
+                mEmptyHistory.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+
+            } else {
+                mHistoryCnt.setText("0");
+                mEmptyHistory.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+            }
         }
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 
@@ -340,7 +361,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                final ResHistory.Source source = mTx.get(position)._source;
+                final ResHistory.Source source = mHistory.get(position)._source;
                 if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     if(!source.result.isSuccess()) {
                         viewHolder.historySuccess.setVisibility(View.VISIBLE);
@@ -369,12 +390,23 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 });
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                final BnbHistory history = mBnbHistory.get(position);
+                viewHolder.historyType.setText(history.txType);
+                viewHolder.history_time.setText(WDp.getTimeformat(getBaseContext(), history.timeStamp));
+                viewHolder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), history.timeStamp));
+                viewHolder.history_block.setText(history.blockHeight + " block");
+                viewHolder.historySuccess.setVisibility(View.GONE);
             }
         }
 
         @Override
         public int getItemCount() {
-            return mTx.size();
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                return mHistory.size();
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                return mBnbHistory.size();
+            }
+            return 0;
         }
 
 

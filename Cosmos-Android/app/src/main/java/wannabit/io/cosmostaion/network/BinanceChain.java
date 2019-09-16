@@ -20,9 +20,14 @@ public interface BinanceChain {
     @GET("/api/v1/transactions")
     Call<ResBnbHistories> getHistory(@Query("address") String address, @Query("startTime") String startTime, @Query("endTime") String endTime);
 
+    @GET("/api/v1/transactions")
+    Call<ResBnbHistories> getHistoryAsset(@Query("address") String address, @Query("startTime") String startTime, @Query("endTime") String endTime, @Query("txAsset") String txAsset);
+
     @GET("/api/v1/tokens")
     Call<ArrayList<BnbToken>> getTokens(@Query("limit") String limit);
 
     @GET("/api/v1/ticker/24hr")
     Call<ArrayList<ResBnbTic>> getTic(@Query("symbol") String symbol);
+
+
 }

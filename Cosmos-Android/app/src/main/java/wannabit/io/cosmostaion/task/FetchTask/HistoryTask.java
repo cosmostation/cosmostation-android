@@ -49,8 +49,13 @@ public class HistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.BNB_MAIN)) {
-                Response<ResBnbHistories> response = ApiClient.getBnbChain(mApp).getHistory(strings[0], strings[1], strings[2]).execute();
-//                Response<ResBnbHistories> response = ApiClient.getBnbChain(mApp).getHistory(strings[0]).execute();
+                Response<ResBnbHistories> response = null;
+                if (strings.length == 3) {
+                    response = ApiClient.getBnbChain(mApp).getHistory(strings[0], strings[1], strings[2]).execute();
+                } else {
+                    response = ApiClient.getBnbChain(mApp).getHistoryAsset(strings[0], strings[1], strings[2], strings[3]).execute();
+                }
+
                 if(response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body().tx;
                     mResult.isSuccess = true;
@@ -61,6 +66,7 @@ public class HistoryTask extends CommonTask {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             WLog.w("HistoryTask Error " + e.getMessage());
         }
         return mResult;

@@ -116,7 +116,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            WLog.w("currentTimeMillis " + System.currentTimeMillis());
             new HistoryTask(getBaseApplication(), this, null, BaseChain.getChain(getMainActivity().mAccount.baseChain))
                     .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
