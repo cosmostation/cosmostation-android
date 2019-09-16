@@ -20,13 +20,11 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
@@ -40,7 +38,6 @@ public class RewardAddressChangeActivity extends BaseActivity {
     private TextView                mTvStep;
     private ViewPager               mViewPager;
 
-    public Account                  mAccount;
     public String                   mCurrentRewardAddress;
     public String                   mNewRewardAddress;
     public String                   mMemo;
@@ -69,6 +66,12 @@ public class RewardAddressChangeActivity extends BaseActivity {
         mTvStep.setText(getString(R.string.str_change_reward_address_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+        }
         mCurrentRewardAddress = getIntent().getStringExtra("currentAddresses");
 
         mPageAdapter = new RewardAddressChangePageAdapter(getSupportFragmentManager());
@@ -115,13 +118,6 @@ public class RewardAddressChangeActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if(mAccount == null) finish();
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
-
-        }
     }
 
     @Override

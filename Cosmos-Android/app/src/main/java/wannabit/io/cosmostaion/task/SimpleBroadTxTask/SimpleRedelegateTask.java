@@ -69,7 +69,7 @@ public class SimpleRedelegateTask extends CommonTask {
                 return mResult;
             }
 
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!accountResponse.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
@@ -79,7 +79,7 @@ public class SimpleRedelegateTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
                 mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
@@ -97,17 +97,14 @@ public class SimpleRedelegateTask extends CommonTask {
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleRedeleMsg);
 
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mReDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
-                    WLog.w("response.body() : " + response.body());
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;
                     }
-
                     if(response.body().code != null) {
-                        WLog.w("response.code() : " + response.body().code);
                         mResult.errorCode = response.body().code;
                         mResult.errorMsg = response.body().raw_log;
                         return mResult;
@@ -115,7 +112,6 @@ public class SimpleRedelegateTask extends CommonTask {
                     mResult.isSuccess = true;
 
                 } else {
-                    WLog.w("SimpleUndelegateTask not success!!");
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
 //                    try {
 //                        JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -125,18 +121,14 @@ public class SimpleRedelegateTask extends CommonTask {
 //                    }
                 }
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getIrisBraodcaseReq2(mAccount, msgs, mFees, mReDelegateMemo, deterministicKey);
                 Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
-                    WLog.w("response.body() hash: " + response.body().hash);
                     if (response.body().hash != null) {
                         mResult.resultData = response.body().hash;
                     }
-
                     if(response.body().check_tx.code != null) {
-                        WLog.w("response.code() : " + response.body().check_tx.code);
-                        WLog.w("response.check_tx.log : " + response.body().check_tx.log);
                         mResult.errorCode = response.body().check_tx.code;
                         mResult.errorMsg = response.body().raw_log;
                         return mResult;
@@ -144,7 +136,6 @@ public class SimpleRedelegateTask extends CommonTask {
                     mResult.isSuccess = true;
 
                 } else {
-                    WLog.w("SimpleUndelegateTask not success!!");
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
             }

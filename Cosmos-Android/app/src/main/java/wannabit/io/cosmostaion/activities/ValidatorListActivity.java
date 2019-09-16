@@ -155,7 +155,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         ArrayList<Validator> myValidators = new ArrayList<>();
         ArrayList<Validator> toClaimValidators = new ArrayList<>();
 
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             if (mRewards == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
@@ -208,7 +208,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
 
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal estimateReward = BigDecimal.ZERO;
 
             if (mIrisReward == null) {

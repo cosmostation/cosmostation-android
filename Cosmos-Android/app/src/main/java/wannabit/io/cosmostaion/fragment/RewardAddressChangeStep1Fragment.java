@@ -14,9 +14,7 @@ import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RewardAddressChangeActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RewardAddressChangeStep1Fragment extends BaseFragment implements View.OnClickListener {
@@ -46,20 +44,20 @@ public class RewardAddressChangeStep1Fragment extends BaseFragment implements Vi
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
-        mMemoCnt.setText("0" + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
+        mMemoCnt.setText("0" + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
 
         mMemo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String memo = mMemo.getText().toString().trim();
-                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
+                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
                 }
-                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
+                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
 
             }
 
@@ -69,14 +67,14 @@ public class RewardAddressChangeStep1Fragment extends BaseFragment implements Vi
             @Override
             public void afterTextChanged(Editable s) {
                 String memo = mMemo.getText().toString().trim();
-                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
+                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
                 }
-                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
+                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
             }
         });
         return rootView;
@@ -89,7 +87,7 @@ public class RewardAddressChangeStep1Fragment extends BaseFragment implements Vi
 
         } else if (v.equals(mNextBtn)) {
             String memo = mMemo.getText().toString().trim();
-            if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
+            if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                 getSActivity().mMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
             } else {

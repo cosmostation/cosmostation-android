@@ -107,16 +107,16 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private void onFetchHistory() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
+            ReqTx req = new ReqTx(0, 0, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
 //            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
-            new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new HistoryTask(getBaseApplication(), this, req, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            ReqTx req = new ReqTx(0, 1, true, getMainActivity().mAccount.address, BaseChain.getChain(getMainActivity().mAccount.baseChain));
+            ReqTx req = new ReqTx(0, 1, true, getMainActivity().mAccount.address, getMainActivity().mBaseChain);
 //            WLog.w("onFetchHistory : " +  WUtil.prettyPrinter(req));
-            new HistoryTask(getBaseApplication(), this, req, BaseChain.getChain(getMainActivity().mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new HistoryTask(getBaseApplication(), this, req, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            new HistoryTask(getBaseApplication(), this, null, BaseChain.getChain(getMainActivity().mAccount.baseChain))
+            new HistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain)
                     .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
         }

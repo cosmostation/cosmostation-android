@@ -7,8 +7,7 @@ public enum BaseChain {
     COSMOS_LEGACY2("cosmoshub-2"),
     COSMOS_MAIN("cosmoshub-3"),
     IRIS_MAIN("irishub"),
-//    BNB_MAIN("Binance-Chain-Tigris");
-    BNB_MAIN("Binance-Chain-Nile");
+    BNB_MAIN("Binance-Chain-Tigris");
 
     private final String chainName;
 

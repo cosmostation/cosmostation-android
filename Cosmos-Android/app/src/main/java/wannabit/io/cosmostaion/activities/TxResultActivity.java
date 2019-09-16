@@ -22,7 +22,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -35,7 +34,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 
 public class TxResultActivity extends BaseActivity implements View.OnClickListener {
 
-    private Account                     mAccount;
     private int                         mTxType;
     private boolean                     mIsSuccess;
     private int                         mErrorCode;
@@ -182,6 +180,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     protected void onResume() {
         super.onResume();
         mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain  = BaseChain.getChain(mAccount.baseChain);
         mTxType     = getIntent().getIntExtra("txType", BaseConstant.TASK_GEN_TX_SIMPLE_SEND);
         mIsSuccess  = getIntent().getBooleanExtra("isSuccess", false);
         mErrorCode  = getIntent().getIntExtra("errorCode", BaseConstant.ERROR_CODE_UNKNOWN);
@@ -192,10 +191,10 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         WLog.w("mIsSuccess : " + mIsSuccess);
         WLog.w("mErrorCode : " + mErrorCode);
 
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
 
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
 
         }
@@ -251,7 +250,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mSendLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_send);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.txhash);
                 mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -271,7 +270,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 mRecipientAddress.setText(mResTxInfo.tx.value.msg.get(0).value.to_address);
 
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.hash);
                 mTxTime.setText("-");
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -301,7 +300,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mDelegateLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_delegate);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.txhash);
                 mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -313,7 +312,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
                 mDelegateValidator.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.hash);
                 mTxTime.setText("-");
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -337,7 +336,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mUndelegateLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_undelegate);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.txhash);
                 mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -349,7 +348,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
                 mUndelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.hash);
                 mTxTime.setText("-");
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -372,7 +371,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mRewardLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_get_reward);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.txhash);
                 mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -391,7 +390,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
                 mRewardFrom.setText(from);
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.hash);
                 mTxTime.setText("-");
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -418,7 +417,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mRedelegateLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_redelegate);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.txhash);
                 mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -431,7 +430,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 mRedelegateFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_src_address);
                 mRedelegateTo.setText(mResTxInfo.tx.value.msg.get(0).value.validator_dst_address);
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.hash);
                 mTxTime.setText("-");
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -455,7 +454,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mRewardAddressChangeLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_change_reward_address);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.txhash);
                 mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -466,7 +465,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
                 mNewRewardAddress.setText(mResTxInfo.tx.value.msg.get(0).value.withdraw_address);
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.hash);
                 mTxTime.setText("-");
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -489,7 +488,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mReinvestLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_reinvest);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.txhash);
                 mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -501,7 +500,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
                 mReinvestAddress.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.hash);
                 mTxTime.setText("-");
                 mTxBlockHeight.setText(mResTxInfo.height);
@@ -536,7 +535,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     private int FetchCnt = 0;
     private void onFetchTx(String hash) {
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             ApiClient.getCosmosChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
@@ -564,13 +563,12 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    WLog.w("onFailure " + t.getMessage());
-                    t.printStackTrace();
+                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
                     if(isFinishing()) return;
                 }
             });
 
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             ApiClient.getIrisChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
@@ -598,8 +596,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    WLog.w("onFailure " + t.getMessage());
-                    t.printStackTrace();
+                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
                     if(isFinishing()) return;
                 }
             });
@@ -619,9 +616,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 return;
             }
             Intent webintent = new Intent(this, WebActivity.class);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 webintent.putExtra("txid", mResTxInfo.txhash);
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 webintent.putExtra("txid", mResTxInfo.hash);
             }
             webintent.putExtra("chain", mAccount.baseChain);
@@ -634,9 +631,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             }
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://irishub.mintscan.io/txs/" + mResTxInfo.hash);
             }
             shareIntent.setType("text/plain");

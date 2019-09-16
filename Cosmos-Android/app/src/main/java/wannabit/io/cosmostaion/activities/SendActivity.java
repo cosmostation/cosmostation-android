@@ -40,7 +40,6 @@ public class SendActivity extends BaseActivity {
     private ViewPager               mViewPager;
     private SendPageAdapter         mPageAdapter;
 
-    public Account                  mAccount;
     public String                   mTagetAddress;
     public ArrayList<Coin>          mTargetCoins;
     public String                   mTargetMemo;
@@ -66,6 +65,15 @@ public class SendActivity extends BaseActivity {
         mTvStep.setText(getString(R.string.str_send_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+
+        }
+
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
@@ -107,14 +115,8 @@ public class SendActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if(mAccount == null) finish();
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
-
-        }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

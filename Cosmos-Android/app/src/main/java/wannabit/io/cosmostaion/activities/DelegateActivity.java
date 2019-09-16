@@ -43,7 +43,6 @@ public class DelegateActivity extends BaseActivity {
     private ViewPager                   mViewPager;
     private DelegatePageAdapter         mPageAdapter;
 
-    public Account                      mAccount;
     public Validator                    mValidator;
     public Coin                         mToDelegateAmount;
     public String                       mToDelegateMemo;
@@ -70,10 +69,10 @@ public class DelegateActivity extends BaseActivity {
         mTvStep.setText(getString(R.string.str_delegate_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        if(mAccount == null) finish();
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
         }
         mValidator = getIntent().getParcelableExtra("validator");
@@ -117,6 +116,12 @@ public class DelegateActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mAccount == null) finish();
     }
 
 

@@ -193,7 +193,7 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
                     webintent.putExtra("voteId", proposal.id);
-                    webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
+                    webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
                     startActivity(webintent);
                 }
             });
@@ -254,7 +254,7 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
                     webintent.putExtra("voteId", proposal.value.BasicProposal.proposal_id);
-                    webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
+                    webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
                     startActivity(webintent);
                 }
             });

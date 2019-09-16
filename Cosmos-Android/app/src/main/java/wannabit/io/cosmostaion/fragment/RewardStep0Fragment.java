@@ -34,7 +34,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     private TextView        mTvReceiveAddress;
     private RelativeLayout  mProgressBar;
 
-    private Button      mCancelBtn, mNextBtn;
+    private Button          mCancelBtn, mNextBtn;
 
 
     public static RewardStep0Fragment newInstance(Bundle bundle) {
@@ -71,14 +71,14 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
             }
-            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), getSActivity().getIrisRewardSum(), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, getSActivity().mBaseChain));
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), getSActivity().getIrisRewardSum(), 18, getSActivity().mBaseChain));
         }
 
         String monikers = "";

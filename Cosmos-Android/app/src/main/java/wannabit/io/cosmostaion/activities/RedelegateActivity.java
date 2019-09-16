@@ -55,7 +55,6 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
 
 
     public ArrayList<Validator>             mToValidators = new ArrayList<>();
-    public Account                          mAccount;
     public BondingState                     mBondingState;
     public Validator                        mFromValidator;
     public Validator                        mToValidator;
@@ -81,25 +80,28 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_redelegate_c));
+
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_1_img));
         mTvStep.setText(getString(R.string.str_redelegate_step_0));
 
-        mAccount                = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+        }
+
         mFromValidator          = getIntent().getParcelableExtra("validator");
         mBondedToken            = new BigDecimal(getIntent().getStringExtra("bondedToken"));
         mProvisions             = new BigDecimal(getIntent().getStringExtra("provisions"));
         mIrisPool               = getIntent().getParcelableExtra("irispool");
         mIrisRedelegateState    = getIntent().getParcelableArrayListExtra("irisReState");
-
-        mBondingState       = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
-        }
+        mBondingState           = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
 
         mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -160,7 +162,6 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     public void onBackPressed() {
         onHideKeyboard();
         if(mViewPager.getCurrentItem() > 0) {
-
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();
@@ -203,7 +204,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     private void onFetchReward() {
         if(mTaskCount > 0) return;
         mTaskCount = 1;
-        new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new AllValidatorInfoTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
 

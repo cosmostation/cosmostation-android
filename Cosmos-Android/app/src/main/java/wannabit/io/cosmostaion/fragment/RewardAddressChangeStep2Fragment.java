@@ -29,7 +29,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_Fee_Description;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class RewardAddressChangeStep2Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -103,7 +102,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
         mNextBtn.setOnClickListener(this);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvGasType);
 
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mBtnGasType.setOnClickListener(this);
             mSpeedLayer.setOnClickListener(this);
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
@@ -127,7 +126,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             });
             mSeekBarGas.setProgress(0);
 
-        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -154,7 +153,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mAvailable  = getSActivity().mAccount.getAtomBalance();
             onUpdateFeeLayer();
         }
@@ -166,7 +165,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = BaseConstant.COSMOS_ATOM;
@@ -177,7 +176,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
                 getSActivity().mFee = fee;
 
-            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = BaseConstant.COSMOS_IRIS_ATTO;

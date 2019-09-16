@@ -83,11 +83,11 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
     public void onRefreshTab() {
         BigDecimal toSendAmount   = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
         BigDecimal feeAmount      = new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount);
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             BigDecimal currentAvai  = getSActivity().mAccount.getAtomBalance();
-            mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 6, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+            mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 6, getSActivity().mBaseChain));
             BigDecimal spendTotal = BigDecimal.ZERO;
             if(getBaseDao().getCurrency() != 5) {
                 spendTotal = feeAmount.add(toSendAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
@@ -96,8 +96,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             }
             mTotalPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), spendTotal, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-            mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 6, getSActivity().mBaseChain));
+            mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, getSActivity().mBaseChain));
             BigDecimal remainTotal = BigDecimal.ZERO;
             if(getBaseDao().getCurrency() != 5) {
                 remainTotal = currentAvai.subtract(toSendAmount).subtract(feeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
@@ -106,12 +106,12 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             }
             mRemainingPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), remainTotal, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal currentAvai  = getSActivity().mAccount.getIrisBalance();
 //            WLog.w("currentAvai " + currentAvai);
-            mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 18, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
+            mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 18, getSActivity().mBaseChain));
             BigDecimal spendTotal = BigDecimal.ZERO;
             if(getBaseDao().getCurrency() != 5) {
                 spendTotal = feeAmount.add(toSendAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).divide(new BigDecimal("1000000000000000000"), 2, RoundingMode.DOWN);
@@ -120,8 +120,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             }
             mTotalPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), spendTotal, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-            mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 18, getSActivity().mBaseChain));
+            mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 18, getSActivity().mBaseChain));
 
             BigDecimal remainTotal = BigDecimal.ZERO;
             if(getBaseDao().getCurrency() != 5) {

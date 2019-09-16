@@ -42,7 +42,6 @@ public class UndelegateActivity extends BaseActivity {
     private ViewPager                   mViewPager;
     private UndelegatePageAdapter       mPageAdapter;
 
-    public Account                      mAccount;
     public Validator                    mValidator;
     public BondingState                 mBondingState;
     public Coin                         mUnDelegateAmount;
@@ -68,15 +67,16 @@ public class UndelegateActivity extends BaseActivity {
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_undelegate_step_1));
 
-        mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        if(mAccount == null) finish();
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
         }
-        mValidator      = getIntent().getParcelableExtra("validator");
-        mBondingState   = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
+
+        mValidator = getIntent().getParcelableExtra("validator");
+        mBondingState = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
 
         mPageAdapter = new UndelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -114,6 +114,12 @@ public class UndelegateActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(mAccount == null) finish();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -128,7 +134,6 @@ public class UndelegateActivity extends BaseActivity {
     public void onBackPressed() {
         onHideKeyboard();
         if(mViewPager.getCurrentItem() > 0) {
-
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             super.onBackPressed();

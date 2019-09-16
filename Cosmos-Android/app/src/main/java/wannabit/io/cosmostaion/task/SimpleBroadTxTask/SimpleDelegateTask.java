@@ -40,7 +40,6 @@ public class SimpleDelegateTask extends CommonTask {
                               Coin toDelegateAmount,
                               String toDelegateMemo, Fee toFees) {
         super(app, listener);
-        WLog.w("SimpleDelegateTask");
         this.mAccount = account;
         this.mToValidatorAddress = toValidatorAddress;
         this.mToDelegateAmount = toDelegateAmount;
@@ -67,7 +66,7 @@ public class SimpleDelegateTask extends CommonTask {
                 return mResult;
             }
 
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!accountResponse.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
@@ -77,7 +76,7 @@ public class SimpleDelegateTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
                 mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
@@ -96,16 +95,13 @@ public class SimpleDelegateTask extends CommonTask {
             msgs.add(singleDelegateMsg);
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToDelegateMemo, deterministicKey);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
-                    WLog.w("response.body() hash: " + response.body().txhash);
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;
                     }
-
                     if(response.body().code != null) {
-                        WLog.w("response.code() : " + response.body().code);
                         mResult.errorCode = response.body().code;
                         mResult.errorMsg = response.body().raw_log;
                         return mResult;
@@ -113,20 +109,16 @@ public class SimpleDelegateTask extends CommonTask {
                     mResult.isSuccess = true;
 
                 } else {
-                    WLog.w("Cosmos SimpleSendTask not success!!");
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
-                    WLog.w("response.body() hash: " + response.body().hash);
                     if (response.body().hash != null) {
                         mResult.resultData = response.body().hash;
                     }
-
                     if(response.body().check_tx.code != null) {
-                        WLog.w("response.code() : " + response.body().check_tx.code);
                         mResult.errorCode = response.body().check_tx.code;
                         mResult.errorMsg = response.body().raw_log;
                         return mResult;
@@ -134,13 +126,11 @@ public class SimpleDelegateTask extends CommonTask {
                     mResult.isSuccess = true;
 
                 } else {
-                    WLog.w("Iris SimpleSendTask not success!!");
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
             }
 
         } catch (Exception e) {
-            WLog.w("e : " + e.getMessage());
             if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
         }
         return mResult;

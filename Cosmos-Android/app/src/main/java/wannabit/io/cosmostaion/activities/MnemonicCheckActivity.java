@@ -51,11 +51,11 @@ public class MnemonicCheckActivity extends BaseActivity {
 
         mEntropy = getIntent().getStringExtra("entropy");
         Account toCheck = getBaseDao().onSelectAccount(""+getIntent().getLongExtra("checkid", -1));
-        if (toCheck.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.COSMOS_MAIN)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-        } else if (toCheck.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.IRIS_MAIN)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-        } else if (toCheck.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+        } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.BNB_MAIN)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
         }
         final ArrayList<String> mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));

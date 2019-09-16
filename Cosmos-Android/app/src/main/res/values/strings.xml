@@ -430,7 +430,7 @@
     <string name="error_invalid_address">Invalid Address.</string>
     <string name="error_self_sending">Cannot send to your own address</string>
     <string name="error_invalid_amount">Invalid amount, please insert correct amount to send.</string>
-    <string name="error_invalid_memo">Invalid memo, please type under 255 characters.</string>
+    <string name="error_invalid_memo">Invalid memo.</string>
     <string name="error_network">Network Error.</string>
     <string name="error_address_not_in_node">Address or Public key is valid format but no data in block chain.</string>
     <string name="error_no_delegate">Nothing to undelegate.</string>
@@ -463,6 +463,7 @@
     <string name="error_no_password">PIN number not set</string>
     <string name="error_invalid_cosmos_address">Invalid Cosmos Address.</string>
     <string name="error_invalid_iris_address">Invalid Iris Address.</string>
+    <string name="error_invalid_bnb_address">Invalid Binance Address.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

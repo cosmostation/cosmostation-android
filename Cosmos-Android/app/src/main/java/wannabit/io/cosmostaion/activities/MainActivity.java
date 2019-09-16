@@ -424,7 +424,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 });
 
                 holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-                if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (BaseChain.getChain(account.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                     holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
                     holder.tv_chain.setText(getString(R.string.str_cosmos_hub));
                     holder.tv_chain.setTextColor(getResources().getColor(R.color.colorAtom));
@@ -432,7 +432,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                         holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
                     }
 
-                } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.IRIS_MAIN)) {
                     holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
                     holder.tv_chain.setText(getString(R.string.str_iris_net));
                     holder.tv_chain.setTextColor(getResources().getColor(R.color.colorIris));
@@ -440,7 +440,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                         holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
                     }
 
-                } else if (account.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.BNB_MAIN)) {
                     holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
                     holder.tv_chain.setText(getString(R.string.str_binance_net));
                     holder.tv_chain.setTextColor(getResources().getColor(R.color.colorBnb));

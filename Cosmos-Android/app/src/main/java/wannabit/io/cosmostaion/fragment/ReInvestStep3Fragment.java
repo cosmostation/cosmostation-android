@@ -69,22 +69,22 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         BondingState bonding = getBaseDao().onSelectBondingState(getSActivity().mAccount.id, getSActivity().mValidator.operator_address);
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mRewardAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mRewardAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 6, getSActivity().mBaseChain));
             if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
-                mCurrentAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                mCurrentAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 6, getSActivity().mBaseChain));
                 BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
-                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expected, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expected, 6, getSActivity().mBaseChain));
             }
 
-        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mRewardAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mRewardAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 18, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 18, getSActivity().mBaseChain));
             if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
-                mCurrentAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                mCurrentAmount.setText(WDp.getDpAmount(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 18, getSActivity().mBaseChain));
                 BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
-                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expected, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expected, 18, getSActivity().mBaseChain));
             }
         }
         mValidator.setText(getSActivity().mValidator.description.moniker);

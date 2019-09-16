@@ -201,7 +201,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         mOtherValidators.clear();
         mAllValidators.clear();
 
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mTaskCount = 9;
 
             new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -218,7 +218,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
 
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mTaskCount = 7;
 
             new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -231,7 +231,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new IrisTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new IrisPoolTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mTaskCount = 2;
 
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -259,11 +259,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 return;
             }
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 if(temp != null) {
                     mTopValidators = temp;
                 }
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTopValidators = WUtil.getIrisTops(temp);
                 mOtherValidators = WUtil.getIrisOthers(temp);
             }
@@ -277,7 +277,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mTaskCount = mTaskCount + mBondings.size();
                 mRewards.clear();
                 for(BondingState bonding:mBondings) {

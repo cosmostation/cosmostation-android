@@ -74,8 +74,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private ImageView       mBtnRewardAddressChange;
     private TextView        mRewardAddress;
 
-    private Account         mAccount;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,7 +142,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onStartChangeRewardAddress() {
-        if(!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
@@ -153,14 +151,14 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             for (Balance balance:balances) {
                 if (balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
                     hasbalance  = true;
                 }
             }
 
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             for (Balance balance:balances) {
                 if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
                     hasbalance  = true;
@@ -186,18 +184,19 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         }
         mAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("id"));
         if(mAccount == null)  onBackPressed();
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
-        } else if (mAccount.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             mCardRewardAddress.setVisibility(View.GONE);

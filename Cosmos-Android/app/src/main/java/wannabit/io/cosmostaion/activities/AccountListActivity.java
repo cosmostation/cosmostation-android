@@ -167,13 +167,13 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.wallet_denom);
-                if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (BaseChain.getChain(account.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.IRIS_MAIN)) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-                } else if (account.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.BNB_MAIN)) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
                 }
@@ -211,13 +211,13 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.wallet_denom);
-                if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (BaseChain.getChain(account.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.IRIS_MAIN)) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-                } else if (account.baseChain.equals(BaseChain.BNB_MAIN.getChain())) {
+                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.BNB_MAIN)) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
                 }

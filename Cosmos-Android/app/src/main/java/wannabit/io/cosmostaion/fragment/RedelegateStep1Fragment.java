@@ -17,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.FluentIterable;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -33,7 +31,6 @@ import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_RedelegationLimited;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
@@ -43,7 +40,6 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.SingleAllRedelegateState;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class RedelegateStep1Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -97,12 +93,12 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             if(mCheckedValidator == null) {
                 Toast.makeText(getContext(), R.string.error_no_to_validator, Toast.LENGTH_SHORT).show();
             } else {
-                if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
                             getSActivity().mFromValidator.operator_address,
                             mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-                } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     if (getSActivity().mIrisRedelegateState != null && getSActivity().mIrisRedelegateState.size() > 0) {
                         for (ResLcdIrisRedelegate state:getSActivity().mIrisRedelegateState) {
                             if (mCheckedValidator.operator_address.equals(state.validator_dst_addr) &&
@@ -152,14 +148,14 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         @Override
         public void onBindViewHolder(@NonNull final ToValidatorHolder holder, final int position) {
             final Validator validator  = mToValidators.get(position);
-            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
                 if(getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
                     holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
 
-            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getSActivity().mBaseChain));
                 holder.itemTvCommission.setText(WDp.getIrisYieldString(getSActivity().mIrisPool, new BigDecimal(validator.commission.rate)));
             }
             holder.itemTvMoniker.setText(validator.description.moniker);
@@ -217,11 +213,11 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             }
 
             holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain()) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain()) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));

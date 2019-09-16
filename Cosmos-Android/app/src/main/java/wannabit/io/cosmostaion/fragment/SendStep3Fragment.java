@@ -105,7 +105,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
         mNextBtn.setOnClickListener(this);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvGasType);
 
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mBtnGasType.setOnClickListener(this);
             mSpeedLayer.setOnClickListener(this);
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
@@ -127,7 +127,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             });
             mSeekBarGas.setProgress(0);
 
-        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -153,7 +153,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mAvailable  = getSActivity().mAccount.getAtomBalance();
             mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
             onUpdateFeeLayer();
@@ -166,7 +166,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 if(IS_TEST) {
                     Fee fee = new Fee();
                     Coin gasCoin = new Coin();
@@ -189,7 +189,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTargetFee = fee;
                 }
 
-            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = BaseConstant.COSMOS_IRIS_ATTO;
@@ -250,9 +250,9 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-            WLog.w("mFeeAmount " + mFeeAmount);
-            WLog.w("mFeePrice " + mFeePrice);
-            WLog.w("WDp.uAtomToAtom(mFeeAmount) " + WDp.uAtomToAtom(mFeeAmount));
+//            WLog.w("mFeeAmount " + mFeeAmount);
+//            WLog.w("mFeePrice " + mFeePrice);
+//            WLog.w("WDp.uAtomToAtom(mFeeAmount) " + WDp.uAtomToAtom(mFeeAmount));
 
 
         } else if (mSeekBarGas.getProgress() == 2) {
