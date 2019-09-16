@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.common.base.Predicate;
@@ -46,6 +47,7 @@ public class ValidatorOtherFragment extends BaseFragment {
     private SwipeRefreshLayout          mSwipeRefreshLayout;
     private RecyclerView                mRecyclerView;
     private OtherValidatorAdapter       mOtherValidatorAdapter;
+    private TextView                    mValidatorSize;
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Validator>        mOtherValidators = new ArrayList<>();
@@ -66,6 +68,8 @@ public class ValidatorOtherFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_validator_other, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mValidatorSize          = rootView.findViewById(R.id.validator_cnt);
+
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -89,7 +93,9 @@ public class ValidatorOtherFragment extends BaseFragment {
         if(!isAdded()) return;
         mOtherValidators    = getMainActivity().mOtherValidators;
         mMyValidators       = getMainActivity().mMyValidators;
+        mValidatorSize.setText(""+mOtherValidators.size());
         WUtil.onSortByValidatorPower(mOtherValidators);
+
         mOtherValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }

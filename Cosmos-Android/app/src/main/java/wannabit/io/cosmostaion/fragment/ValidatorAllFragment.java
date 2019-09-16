@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.common.base.Predicate;
@@ -46,14 +47,15 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class ValidatorAllFragment extends BaseFragment {
+public class ValidatorAllFragment extends BaseFragment implements View.OnClickListener {
 
     public final static int SELECT_All_VALIDATOR_SORTING = 6002;
-
 
     private SwipeRefreshLayout      mSwipeRefreshLayout;
     private RecyclerView            mRecyclerView;
     private AllValidatorAdapter     mAllValidatorAdapter;
+    private TextView                mValidatorSize, mSortType;
+    private LinearLayout            mBtnSort;
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Validator>        mTopValidators = new ArrayList<>();
@@ -74,6 +76,9 @@ public class ValidatorAllFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_validator_all, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mValidatorSize          = rootView.findViewById(R.id.validator_cnt);
+        mSortType               = rootView.findViewById(R.id.token_sort_type);
+        mBtnSort                = rootView.findViewById(R.id.btn_validator_sort);
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -88,6 +93,7 @@ public class ValidatorAllFragment extends BaseFragment {
         mRecyclerView.setDrawingCacheEnabled(true);
         mAllValidatorAdapter = new AllValidatorAdapter();
         mRecyclerView.setAdapter(mAllValidatorAdapter);
+        mBtnSort.setOnClickListener(this);
 
         return rootView;
     }
@@ -97,6 +103,7 @@ public class ValidatorAllFragment extends BaseFragment {
         if(!isAdded()) return;
         mTopValidators  = getMainActivity().mTopValidators;
         mMyValidators   = getMainActivity().mMyValidators;
+        mValidatorSize.setText(""+mTopValidators.size());
         onSortValidator();
 
         mAllValidatorAdapter.notifyDataSetChanged();
@@ -111,6 +118,13 @@ public class ValidatorAllFragment extends BaseFragment {
 
     public ValidatorListActivity getMainActivity() {
         return (ValidatorListActivity)getBaseActivity();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mBtnSort)) {
+            onShowAllValidatorSort();
+        }
     }
 
 
@@ -245,10 +259,13 @@ public class ValidatorAllFragment extends BaseFragment {
     public void onSortValidator() {
         if(getBaseDao().getValSorting() == 2){
             WUtil.onSortingByCommission(mTopValidators, getMainActivity().mBaseChain);
+            mSortType.setText(getString(R.string.str_sorting_by_yield));
         } else if (getBaseDao().getValSorting() == 0){
             WUtil.onSortByValidatorName(mTopValidators);
+            mSortType.setText(getString(R.string.str_sorting_by_name));
         } else {
             WUtil.onSortByValidatorPower(mTopValidators);
+            mSortType.setText(getString(R.string.str_sorting_by_power));
         }
     }
 

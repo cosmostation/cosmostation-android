@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
 import org.bitcoinj.crypto.DeterministicKey;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 

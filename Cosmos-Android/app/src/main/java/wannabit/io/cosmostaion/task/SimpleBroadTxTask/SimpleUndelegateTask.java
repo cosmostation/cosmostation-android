@@ -31,7 +31,7 @@ public class SimpleUndelegateTask extends CommonTask {
 
     private Account     mAccount;
     private String      mFromValidatorAddress;
-    private Coin mUndelegateAmount;
+    private Coin        mUndelegateAmount;
     private String      mUnDelegateMemo;
     private Fee         mUnFees;
 
