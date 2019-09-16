@@ -190,7 +190,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     public void onClick(View v) {
                         Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
                         webintent.putExtra("txid", source.hash);
-                        webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
+                        webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
                         startActivity(webintent);
                     }
                 });
@@ -202,6 +202,15 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), history.timeStamp));
                 viewHolder.history_block.setText(history.blockHeight + " block");
                 viewHolder.historySuccess.setVisibility(View.GONE);
+                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                        webintent.putExtra("txid", history.txHash);
+                        webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+                        startActivity(webintent);
+                    }
+                });
             }
         }
 

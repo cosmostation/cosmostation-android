@@ -109,6 +109,7 @@
     <string name="str_guide_bnb">Blog</string>
     <string name="str_telegram">텔레그램</string>
     <string name="str_explore">민트스캔 익스플로러</string>
+    <string name="str_explore_bnb">바이낸스 익스플로러</string>
     <string name="str_homepage">코스모스테이션</string>
     <string name="str_app_info">앱 정보</string>
     <string name="str_term">약관</string>

@@ -385,7 +385,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnWebDetail)) {
             Intent webintent = new Intent(getMainActivity(), WebActivity.class);
             webintent.putExtra("address", getMainActivity().mAccount.address);
-            webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
+            webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
             webintent.putExtra("goMain", false);
             startActivity(webintent);
 
@@ -398,10 +398,17 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cosmostation.io/files/cosmostation_guide_app_en.pdf"));
                     startActivity(guideIntent);
                 }
+
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.irisnet.org/"));
                 startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.binance.org"));
+                startActivity(guideIntent);
+
             }
+
         } else if (v.equals(mFaqBtn)) {
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 if(Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
@@ -411,10 +418,17 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
                     startActivity(guideIntent);
                 }
+
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/irisnet-blog"));
                 startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@binance"));
+                startActivity(guideIntent);
+
             }
+
         } else if (v.equals(mPriceCard)) {
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 if (getBaseDao().getMarket() == 0) {
@@ -429,13 +443,21 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 if (getBaseDao().getMarket() == 0) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/irisnet"));
                     startActivity(guideIntent);
-
                 } else {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://coinmarketcap.com/currencies/irisnet"));
                     startActivity(guideIntent);
+                }
 
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                if (getBaseDao().getMarket() == 0) {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/binancecoin"));
+                    startActivity(guideIntent);
+                } else {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://coinmarketcap.com/currencies/binance-coin"));
+                    startActivity(guideIntent);
                 }
             }
+
         } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward)) {
             Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
             validators.putExtra("allValidators", getMainActivity().mAllValidators);

@@ -345,7 +345,10 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         } else if (v.equals(mBtnSendToken)) {
 
         } else if (v.equals(mBtnTokenDetail)) {
-
+            Intent webintent = new Intent(this, WebActivity.class);
+            webintent.putExtra("asset", mBnbToken.symbol);
+            webintent.putExtra("chain", mBaseChain.getChain());
+            startActivity(webintent);
         }
 
     }
