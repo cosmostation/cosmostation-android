@@ -91,7 +91,7 @@ public class Balance implements Parcelable {
         if (WUtil.isBnbBaseMarketToken(symbol)) {
             return getAllBnbBalance().divide(new BigDecimal(tic.lastPrice), 8, RoundingMode.DOWN);
         } else {
-            return getAllBnbBalance().multiply(new BigDecimal(tic.lastPrice)).setScale(8);
+            return getAllBnbBalance().multiply(new BigDecimal(tic.lastPrice)).setScale(8, RoundingMode.DOWN);
         }
     }
 }

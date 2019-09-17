@@ -257,7 +257,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/space_2"
                                         android:text="@string/str_atom_c"
-                                        style="@style/font_ss_12_atom"/>
+                                        style="@style/font_ss_12_white"/>
                                 </LinearLayout>
                             </RelativeLayout>
                             <RelativeLayout

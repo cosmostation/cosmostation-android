@@ -11,6 +11,8 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbHistories;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
+import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
+import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface BinanceChain {
 
@@ -29,5 +31,6 @@ public interface BinanceChain {
     @GET("/api/v1/ticker/24hr")
     Call<ArrayList<ResBnbTic>> getTic(@Query("symbol") String symbol);
 
-
+    @GET("/api/v1/tx/{hash}")
+    Call<ResBnbTxInfo> getSearchTx(@Path("hash") String hash, @Query("format") String format);
 }

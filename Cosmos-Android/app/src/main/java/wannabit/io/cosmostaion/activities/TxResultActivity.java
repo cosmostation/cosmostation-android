@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,11 +27,14 @@ import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 
 public class TxResultActivity extends BaseActivity implements View.OnClickListener {
 
@@ -41,6 +45,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private String                      mTxHash;
 
     private ResTxInfo                   mResTxInfo;
+    private ResBnbTxInfo                mResBnbTxInfo;
 
     private ImageView                   mChainBg;
 
@@ -197,6 +202,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
 
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+
         }
 
 
@@ -221,7 +228,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mToolbarTitle.setText(getString(R.string.str_tx_failed));
         }
 
-        WDp.DpMainDenom(this, mAccount.baseChain, mDenomSendAmount);
+//        WDp.DpMainDenom(this, mAccount.baseChain, mDenomSendAmount);
         WDp.DpMainDenom(this, mAccount.baseChain, mDenomSendFee);
         WDp.DpMainDenom(this, mAccount.baseChain, mDenomDelegateAmount);
         WDp.DpMainDenom(this, mAccount.baseChain, mDenomDelegateFee);
@@ -250,6 +257,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mSendLayer.setVisibility(View.VISIBLE);
 
             mTvtxType.setText(R.string.tx_send);
+            WDp.DpMainDenom(this, mAccount.baseChain, mDenomSendAmount);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.txhash);
                 mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
@@ -268,7 +276,6 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
 
                 mRecipientAddress.setText(mResTxInfo.tx.value.msg.get(0).value.to_address);
-
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mTvTxHash.setText(mResTxInfo.hash);
@@ -294,7 +301,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 
 
-        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE && mResTxInfo != null){
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_DELEGATE && mResTxInfo != null) {
             mLoading.setVisibility(View.GONE);
             mScrollLayer.setVisibility(View.VISIBLE);
             mDelegateLayer.setVisibility(View.VISIBLE);
@@ -516,6 +523,28 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
 
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_BNB_SIMPLE_SEND && mResBnbTxInfo != null) {
+            mLoading.setVisibility(View.GONE);
+            mScrollLayer.setVisibility(View.VISIBLE);
+            mSendLayer.setVisibility(View.VISIBLE);
+
+            mTvtxType.setText(R.string.tx_send);
+            mTvTxHash.setText(mResBnbTxInfo.hash);
+            mTxTime.setText("-");
+            mTxBlockHeight.setText(mResBnbTxInfo.height);
+
+            Coin sendToken = mResBnbTxInfo.tx.value.msg.get(0).value.inputs.get(0).coins.get(0);
+            mDenomSendAmount.setText(sendToken.denom.toUpperCase());
+            if (sendToken.denom.equals(COSMOS_BNB)) {
+                mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorBnb));
+            }
+            mSendAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(sendToken.amount).divide(new BigDecimal("100000000"), 8, RoundingMode.DOWN), 8, BaseChain.getChain(mAccount.baseChain)));
+            mSendFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(FEE_BNB_SEND), 8, BaseChain.getChain(mAccount.baseChain)));
+
+            mRecipientAddress.setText(mResBnbTxInfo.tx.value.msg.get(0).value.outputs.get(0).address);
+            mSendMemo.setText(mResBnbTxInfo.tx.value.memo);
+            mBtnDismiss.setVisibility(View.GONE);
+            mBottomAfterLayer.setVisibility(View.VISIBLE);
         }
 
     }
@@ -600,6 +629,39 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                     if(isFinishing()) return;
                 }
             });
+
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            ApiClient.getBnbChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
+                @Override
+                public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
+                    if(isFinishing()) return;
+                    WLog.w("onFetchTx " + response.toString());
+                    if(response.isSuccessful() && response.body() != null) {
+                        mResBnbTxInfo = response.body();
+                        onUpdateView();
+
+                    } else {
+                        if(mIsSuccess && FetchCnt < 10) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FetchCnt++;
+                                    onFetchTx(mTxHash);
+                                }
+                            }, 6000);
+                        } else {
+                            onShowMoreWait();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
+                    WLog.w("BNB onFailure");
+                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if(isFinishing()) return;
+                }
+            });
         }
 
 
@@ -612,32 +674,32 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             onBackPressed();
 
         } else if (v.equals(mBtnScan)) {
-            if(mResTxInfo == null) {
-                return;
-            }
             Intent webintent = new Intent(this, WebActivity.class);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 webintent.putExtra("txid", mResTxInfo.txhash);
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 webintent.putExtra("txid", mResTxInfo.hash);
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                webintent.putExtra("txid", mResBnbTxInfo.hash);
             }
-            webintent.putExtra("chain", mAccount.baseChain);
+            webintent.putExtra("chain", mBaseChain.getChain());
             webintent.putExtra("goMain", true);
             startActivity(webintent);
 
+
         } else if (v.equals(mBtnShare)) {
-            if(mResTxInfo == null) {
-                return;
-            }
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://irishub.mintscan.io/txs/" + mResTxInfo.hash);
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://irishub.mintscan.io/txs/" + mResBnbTxInfo.hash);
             }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
+
         }
     }
 
