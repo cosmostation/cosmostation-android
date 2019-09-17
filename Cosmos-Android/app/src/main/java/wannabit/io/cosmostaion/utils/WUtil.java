@@ -799,6 +799,9 @@ public class WUtil {
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.MEMO_IRIS;
+
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            return BaseConstant.MEMO_BNB;
         }
         return BaseConstant.MEMO_IRIS;
     }

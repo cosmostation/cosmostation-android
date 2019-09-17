@@ -267,6 +267,7 @@
     <string name="str_fee_speed_title_1">A few validators include \"Cosmostation\" will process this Tx.</string>
     <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
     <string name="str_fee_speed_title_iris">Support fixed amount fee for Iris.\nIris Hub will refund the remaining gas fee after use.</string>
+    <string name="str_fee_speed_title_bnb">Support fixed transfer fee for Bianace dex.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>
@@ -601,5 +602,8 @@
     <string name="photino_fee_l" translatable="false">60</string>
     <string name="photino_fee_m" translatable="false">120</string>
     <string name="photino_fee_h" translatable="false">240</string>
+
+
+
 
 </resources>

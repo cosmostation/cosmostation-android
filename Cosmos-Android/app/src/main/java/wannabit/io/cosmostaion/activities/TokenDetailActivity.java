@@ -386,34 +386,35 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean hasbalance = false;
+        boolean result = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
-                    hasbalance  = true;
+                if (!IS_TEST && balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
+                    result  = true;
+                } else if (IS_TEST && balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
+                    result  = true;
                 }
             }
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             for (Balance balance:balances) {
                 if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("200000000000000000"))) > 0)) {
-                    hasbalance  = true;
+                    result  = true;
                 }
             }
             WLog.w("mIrisToken " + mIrisToken.base_token.symbol);
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             for (Balance balance:balances) {
                 if (balance.symbol.equals(BaseConstant.COSMOS_BNB) && ((balance.balance.compareTo(new BigDecimal("0.000375"))) > 0)) {
-                    hasbalance  = true;
+                    result  = true;
                 }
             }
             WLog.w("mBnbToken " + mBnbToken.symbol);
         }
 
-        if(!hasbalance){
+        if(!result){
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-            return false;
         }
-        return true;
+        return result;
     }
 
     private class TokenHistoryAdapter extends RecyclerView.Adapter<TokenHistoryAdapter.HistoryHolder> {

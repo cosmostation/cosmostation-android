@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 public class SendStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -146,6 +147,22 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mGasFeeAmount.setText(WDp.getDpString(WDp.attoToIris(mFeeAmount).setScale(1).toPlainString(), 2));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
+        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            mFeeLayer1.setVisibility(View.VISIBLE);
+            mFeeLayer2.setVisibility(View.GONE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_bnb));
+
+            mMinFeeAmount.setText(WDp.getDpString(FEE_BNB_SEND, 8));
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = new BigDecimal(FEE_BNB_SEND).multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = new BigDecimal(FEE_BNB_SEND).multiply(new BigDecimal(""+getBaseDao().getLastBnbTic())).setScale(8, RoundingMode.DOWN);
+            }
+            mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
         }
         return rootView;
     }
@@ -198,6 +215,18 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = BaseConstant.FEE_IRIS_GAS_AMOUNT_SEND;
+                getSActivity().mTargetFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                //TODO no need Fee set!!;
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = BaseConstant.COSMOS_BNB;
+                gasCoin.amount = FEE_BNB_SEND;
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
                 getSActivity().mTargetFee = fee;
             }
             getSActivity().onNextStep();
