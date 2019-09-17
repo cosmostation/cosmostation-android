@@ -50,13 +50,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 public class MainSendFragment extends BaseFragment implements View.OnClickListener {
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private NestedScrollView    mNestedScrollView;
-
     private ImageView           mBtnWebDetail, mBtnAddressDetail;
     private ImageView           mKeyState;
     private TextView            mAddress;
 
-    private CardView            mAtomCard, mPhotonCard, mIrisCard, mBnbCard, mPriceCard;
+    private CardView            mAtomCard, mIrisCard, mBnbCard, mPriceCard;
 
     private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomAvailable,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
@@ -97,7 +95,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_send, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mNestedScrollView       = rootView.findViewById(R.id.layer_scrollview);
         mBtnWebDetail           = rootView.findViewById(R.id.web_detail);
         mBtnAddressDetail       = rootView.findViewById(R.id.address_detail);
         mKeyState               = rootView.findViewById(R.id.img_account);

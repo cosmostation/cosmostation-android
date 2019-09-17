@@ -200,7 +200,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onUpdateTotalCard() {
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            BigDecimal totalValue, totalAtomAmount = BigDecimal.ZERO;
+            BigDecimal totalAtomAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(COSMOS_ATOM) || (IS_TEST && balance.symbol.equals(COSMOS_MUON))) {
                     totalAtomAmount = totalAtomAmount.add(WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
@@ -212,7 +212,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalValue.setText(WDp.getTotalValueAtom(getContext(), getBaseDao(), totalAtomAmount));
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            BigDecimal totalValue, totalIrisAmount = BigDecimal.ZERO;
+            BigDecimal totalIrisAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(COSMOS_IRIS_ATTO)) {
                     totalIrisAmount = totalIrisAmount.add(WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward));
@@ -220,7 +220,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
                 }
             }
-            mTotalAmount.setText(WDp.getDpAmount(getContext(), totalIrisAmount, 8, getMainActivity().mBaseChain));
+            mTotalAmount.setText(WDp.getDpAmount(getContext(), totalIrisAmount, 6, getMainActivity().mBaseChain));
             mTotalValue.setText(WDp.getTotalValueIris(getContext(), getBaseDao(), totalIrisAmount));
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
@@ -235,7 +235,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                     }
                 }
             }
-            mTotalAmount.setText(WDp.getDpAmount(getContext(), totalBnbAmount, 8, getMainActivity().mBaseChain));
+            mTotalAmount.setText(WDp.getDpAmount(getContext(), totalBnbAmount, 6, getMainActivity().mBaseChain));
             mTotalValue.setText(WDp.getTotalValueBnb(getContext(), getBaseDao(), totalBnbAmount));
         }
 
@@ -334,7 +334,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal amount = BigDecimal.ZERO;
             if (balance.symbol.equals(COSMOS_IRIS_ATTO)) {
                 amount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward);
-                holder.itemBalance.setText(WDp.getDpAmount(getContext(), amount, 8, getMainActivity().mBaseChain));
+                holder.itemBalance.setText(WDp.getDpAmount(getContext(), amount, 6, getMainActivity().mBaseChain));
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IRIS_MAIN));
                 holder.itemValue.setText(WDp.getTotalValueIris(getContext(), getBaseDao(), amount));
@@ -366,7 +366,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(token.original_symbol);
             holder.itemInnerSymbol.setText("(" + token.symbol + ")");
             holder.itemFullName.setText(token.name);
-            holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.getAllBnbBalance(), 8, getMainActivity().mBaseChain));
+            holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.getAllBnbBalance(), 6, getMainActivity().mBaseChain));
 
             BigDecimal amount = BigDecimal.ZERO;
             if (balance.symbol.equals(COSMOS_BNB)) {

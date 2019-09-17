@@ -28,6 +28,8 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 
@@ -170,15 +172,32 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
-        if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
+        if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null) {
+            getSActivity().onBackPressed();
+        }
+
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
         if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(BigDecimal.ONE);
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mMaxAvailable = getSActivity().mAccount.getIrisBalance().subtract(new BigDecimal("200000000000000000"));
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            if (getSActivity().mIrisToken.base_token.equals(COSMOS_IRIS)) {
+                // ready to send iris
+                mMaxAvailable = getSActivity().mAccount.getIrisBalance().subtract(new BigDecimal("200000000000000000"));
+                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, getSActivity().mBaseChain));
+            } else {
+                // ready to send 3rd token
+
+            }
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            if (getSActivity().mBnbToken.symbol.equals(COSMOS_BNB)) {
+                mMaxAvailable = getSActivity().mAccount.getBnbBalance().subtract(new BigDecimal("0.000375"));
+                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
+            } else {
+
+            }
         }
 
     }

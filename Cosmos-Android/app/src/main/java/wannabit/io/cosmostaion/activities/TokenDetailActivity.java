@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -30,6 +31,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.req.ReqTxToken;
@@ -211,11 +213,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
             mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
 
-            mTvIrisTotal.setText(WDp.getDpAllIris(this, mBalances, mBondings, mUnbondings, mIrisReward, mBaseChain));
-            mTvIrisAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_IRIS_ATTO));
-            mTvIrisDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));
-            mTvIrisUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
-            mTvIrisRewards.setText(WDp.getDpAllIrisRewardAmount(this, mIrisReward, mBaseChain));
+            mTvIrisTotal.setText(WDp.getDpAmount(this, WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward), 18, mBaseChain));
+            mTvIrisAvailable.setText(WDp.getDpAmount(this, WDp.getAvailableCoin(mBalances, COSMOS_IRIS_ATTO), 18, mBaseChain));
+            mTvIrisDelegated.setText(WDp.getDpAmount(this, WDp.getAllDeleagtedAmount(mBondings, mAllValidators, mBaseChain), 18, mBaseChain));
+            mTvIrisUnBonding.setText(WDp.getDpAmount(this, WDp.getUnbondingAmount(mUnbondings, mAllValidators), 18, mBaseChain));
+            mTvIrisRewards.setText(WDp.getDpAmount(this, mIrisReward.getSimpleIrisReward(), 18, mBaseChain));
 
             BigDecimal totalAmount = WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward);
             mTvIrisValue.setText(WDp.getTotalValueIris(this, getBaseDao(), totalAmount));
@@ -228,31 +230,33 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
             if (mBnbToken != null) {
                 BigDecimal totalAmount = mBalance.locked.add(mBalance.balance);
-                mTvBnbBalance.setText(WDp.getDpAmount(this, mBalance.balance, 6, mBaseChain));
-                mTvBnbLocked.setText(WDp.getDpAmount(this, mBalance.locked, 6, mBaseChain));
-                mTvBnbTotal.setText(WDp.getDpAmount(this, mBalance.locked.add(mBalance.balance), 6, mBaseChain));
+                mTvBnbBalance.setText(WDp.getDpAmount(this, mBalance.balance, 8, mBaseChain));
+                mTvBnbLocked.setText(WDp.getDpAmount(this, mBalance.locked, 8, mBaseChain));
+                mTvBnbTotal.setText(WDp.getDpAmount(this, mBalance.locked.add(mBalance.balance), 8, mBaseChain));
                 mTvBnbValue.setText(WDp.getTotalValueBnb(this, getBaseDao(), totalAmount));
 
             } else {
-                mTvBnbBalance.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 6, mBaseChain));
-                mTvBnbLocked.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 6, mBaseChain));
-                mTvBnbTotal.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 6, mBaseChain));
+                mTvBnbBalance.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 8, mBaseChain));
+                mTvBnbLocked.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 8, mBaseChain));
+                mTvBnbTotal.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 8, mBaseChain));
                 mTvBnbValue.setText(WDp.getTotalValueBnb(this, getBaseDao(), BigDecimal.ZERO));
             }
 
         } else {
             TokenCard.setVisibility(View.VISIBLE);
             mBtnSendToken.setVisibility(View.VISIBLE);
-
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
 
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mIrisToken != null) {
+                mTokenLink.setVisibility(View.GONE);
+                mBtnSendToken.setOnClickListener(this);
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN) && mBnbToken != null) {
                 mTokenLink.setVisibility(View.VISIBLE);
                 mBtnTokenDetail.setOnClickListener(this);
+                mBtnSendToken.setOnClickListener(this);
                 mTvTokenSymbol.setText(mBnbToken.original_symbol);
                 mTvTokenTotal.setText(WDp.getDpAmount(this, mBalance.getAllBnbBalance(), 8, mBaseChain));
 
@@ -337,12 +341,32 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnSendAtom)) {
+            if (onCheckSendable()) {
+                startActivity(new Intent(TokenDetailActivity.this, SendActivity.class));
+            }
 
         } else if (v.equals(mBtnSendIris)) {
+            if (onCheckSendable()) {
+                Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
+                intent.putExtra("irisToken", mIrisToken);
+                startActivity(intent);
+            }
 
         } else if (v.equals(mBtnSendBnb)) {
+            if (onCheckSendable()) {
+                Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
+                intent.putExtra("bnbToken", mBnbToken);
+                startActivity(intent);
+            }
 
         } else if (v.equals(mBtnSendToken)) {
+            if (onCheckSendable()) {
+                Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
+                intent.putExtra("irisToken", mIrisToken);
+                intent.putExtra("bnbToken", mBnbToken);
+                intent.putExtra("bnbTics", mBnbTics);
+                startActivity(intent);
+            }
 
         } else if (v.equals(mBtnTokenDetail)) {
             Intent webintent = new Intent(this, WebActivity.class);
@@ -350,7 +374,46 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             webintent.putExtra("chain", mBaseChain.getChain());
             startActivity(webintent);
         }
+    }
 
+    public boolean onCheckSendable() {
+        if (mAccount == null) return false;
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return false;
+        }
+
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean hasbalance = false;
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
+                    hasbalance  = true;
+                }
+            }
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("200000000000000000"))) > 0)) {
+                    hasbalance  = true;
+                }
+            }
+            WLog.w("mIrisToken " + mIrisToken.base_token.symbol);
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_BNB) && ((balance.balance.compareTo(new BigDecimal("0.000375"))) > 0)) {
+                    hasbalance  = true;
+                }
+            }
+            WLog.w("mBnbToken " + mBnbToken.symbol);
+        }
+
+        if(!hasbalance){
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private class TokenHistoryAdapter extends RecyclerView.Adapter<TokenHistoryAdapter.HistoryHolder> {

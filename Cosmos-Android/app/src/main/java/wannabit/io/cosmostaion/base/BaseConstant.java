@@ -170,6 +170,7 @@ public class BaseConstant {
     public final static String                  COSMOS_MUON                                     = "muon";
     public final static String                  COSMOS_PHOTON                                   = "photon";
     public final static String                  COSMOS_PHOTINO                                  = "photino";
+    public final static String                  COSMOS_IRIS                                     = "iris";
     public final static String                  COSMOS_IRIS_ATTO                                = "iris-atto";
     public final static String                  COSMOS_BNB                                      = "BNB";
 

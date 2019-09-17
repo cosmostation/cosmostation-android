@@ -248,7 +248,7 @@ public class WDp {
         }
     }
 
-    public static SpannableString getDpAvailableCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
+    public static BigDecimal getAvailableCoin(ArrayList<Balance> balances, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
             if (denom.equals(COSMOS_ATOM) && IS_TEST) {
@@ -261,26 +261,30 @@ public class WDp {
                 }
             }
         }
-        return getDpAmount(c, sum, 6, chain);
+        return sum;
+    }
+
+    public static SpannableString getDpAvailableCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
+        return getDpAmount(c, getAvailableCoin(balances, denom), 6, chain);
     }
 
     public static SpannableString getDpAllDelegatedAmount(Context c, ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
+        return getDpAmount(c, getAllDeleagtedAmount(bondings, validators, chain), 6, chain);
+    }
+
+    public static BigDecimal getAllDeleagtedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
+        if (bondings == null || bondings.size() == 0) return sum;
         if (chain.equals(BaseChain.COSMOS_MAIN)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
-            return getDpAmount(c, sum, 6, chain);
-
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.shares);
             }
-            return getDpAmount(c, sum, 6, chain);
-        } else {
-            return getDpAmount(c, sum, 6, chain);
-
         }
+        return sum;
     }
 
     public static Validator selectValidator(ArrayList<Validator> validators, String opAddress) {
@@ -295,32 +299,20 @@ public class WDp {
     }
 
     public static SpannableString getDpAllUnbondingAmount(Context c, ArrayList<UnBondingState> unbondings, ArrayList<Validator> validators, BaseChain chain) {
+        return getDpAmount(c, getUnbondingAmount(unbondings, validators), 6, chain);
+    }
+
+    public static BigDecimal getUnbondingAmount(ArrayList<UnBondingState> unbondings, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
+        if (unbondings == null || unbondings.size() == 0) return sum;
         for(UnBondingState unbonding : unbondings) {
             sum = sum.add(unbonding.balance);
         }
-        return getDpAmount(c, sum, 6, chain);
+        return sum;
     }
 
     public static SpannableString getDpAllAtom(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators, BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if (IS_TEST || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
-                sum = sum.add(balance.balance);
-            } else if (!IS_TEST || balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-        }
-        for(UnBondingState unbonding : unbondings) {
-            sum = sum.add(unbonding.balance);
-        }
-        for(Reward reward : rewards) {
-            sum = sum.add(reward.getAtomAmount());
-        }
-        return getDpAmount(c, sum, 6, chain);
+        return getDpAmount(c, getAllAtom(balances, bondings,unbondings,rewards,validators), 6, chain);
     }
 
     public static BigDecimal getAllAtom(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
@@ -378,25 +370,7 @@ public class WDp {
     }
 
     public static SpannableString getDpAllIris(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.shares);
-        }
-
-        for(UnBondingState unbonding : unbondings) {
-            sum = sum.add(unbonding.balance);
-        }
-
-        if(reward != null) {
-            sum = sum.add(reward.getSimpleIrisReward());
-        }
-        return getDpAmount(c, sum, 6, chain);
+        return getDpAmount(c, getAllIris(balances, bondings, unbondings, reward), 6, chain);
     }
 
     public static BigDecimal getAllIris(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward) {
@@ -417,8 +391,6 @@ public class WDp {
         }
         return sum;
     }
-
-
 
 
     public static SpannableString getDpPhotonBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {

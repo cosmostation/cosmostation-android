@@ -218,8 +218,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         else mToolbarTitle.setText(mAccount.nickName);
     }
 
-
-
     @Override
     public void onBackPressed() {
         if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED) {
