@@ -29,7 +29,7 @@ public class UnBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getCosmosChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
@@ -38,7 +38,7 @@ public class UnBondingStateTask extends CommonTask {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }
                 }
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<ArrayList<ResLcdUnBonding>> response = ApiClient.getIrisChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().size() > 0) {

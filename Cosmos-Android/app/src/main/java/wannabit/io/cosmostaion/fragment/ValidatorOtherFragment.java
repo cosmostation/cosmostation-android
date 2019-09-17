@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.common.base.Predicate;
@@ -32,6 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -45,6 +47,7 @@ public class ValidatorOtherFragment extends BaseFragment {
     private SwipeRefreshLayout          mSwipeRefreshLayout;
     private RecyclerView                mRecyclerView;
     private OtherValidatorAdapter       mOtherValidatorAdapter;
+    private TextView                    mValidatorSize;
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Validator>        mOtherValidators = new ArrayList<>();
@@ -65,13 +68,13 @@ public class ValidatorOtherFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_validator_other, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mValidatorSize          = rootView.findViewById(R.id.validator_cnt);
+
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(!getMainActivity().onFetchAccountInfo()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
+                getMainActivity().onFetchAllData();
             }
         });
 
@@ -90,16 +93,22 @@ public class ValidatorOtherFragment extends BaseFragment {
         if(!isAdded()) return;
         mOtherValidators    = getMainActivity().mOtherValidators;
         mMyValidators       = getMainActivity().mMyValidators;
+        mValidatorSize.setText(""+mOtherValidators.size());
         WUtil.onSortByValidatorPower(mOtherValidators);
+
         mOtherValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    public MainActivity getMainActivity() {
-        return (MainActivity)getBaseActivity();
+    @Override
+    public void onBusyFetch() {
+        if(!isAdded()) return;
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
-
+    public ValidatorListActivity getMainActivity() {
+        return (ValidatorListActivity)getBaseActivity();
+    }
 
     private class OtherValidatorAdapter extends RecyclerView.Adapter<OtherValidatorAdapter.OtherValidatorHolder> {
 
@@ -114,11 +123,11 @@ public class ValidatorOtherFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
             final Validator validator  = mOtherValidators.get(position);
 
-            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getPercentDp(new BigDecimal(validator.commission.commission_rates.rate)));
 
-            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
                 holder.itemTvCommission.setText(WDp.getCommissionRate(validator.commission.rate));
             }
@@ -177,9 +186,9 @@ public class ValidatorOtherFragment extends BaseFragment {
             }
 
             if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
-                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                 }
             } else {

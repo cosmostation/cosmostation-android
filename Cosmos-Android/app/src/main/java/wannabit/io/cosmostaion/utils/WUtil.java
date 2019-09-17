@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,17 +36,25 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 
 public class WUtil {
 
@@ -78,6 +87,15 @@ public class WUtil {
             result.accountNumber = Integer.parseInt(lcd.value.BaseVestingAccount.BaseAccount.account_number);
             return result;
         }
+    }
+
+    public static Account getAccountFromBnbLcd(long id, ResBnbAccountInfo lcd) {
+        Account result = new Account();
+        result.id = id;
+        result.address = lcd.address;
+        result.sequenceNumber = Integer.parseInt(lcd.sequence);
+        result.accountNumber = Integer.parseInt(lcd.account_number);
+        return result;
     }
 
     public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
@@ -131,6 +149,34 @@ public class WUtil {
         }
 
     }
+
+    public static ArrayList<Balance> getBalancesFromBnbLcd(long accountId, ResBnbAccountInfo lcd) {
+        long time = System.currentTimeMillis();
+        ArrayList<Balance> result = new ArrayList<>();
+        if (lcd.balances != null && lcd.balances.size() > 0) {
+            for(ResBnbAccountInfo.BnbBalance coin : lcd.balances) {
+                Balance temp = new Balance();
+                temp.accountId = accountId;
+                temp.symbol = coin.symbol;
+                temp.balance = new BigDecimal(coin.free);
+                temp.locked = new BigDecimal(coin.locked);
+                temp.frozen = new BigDecimal(coin.frozen);
+                temp.fetchTime = time;
+                result.add(temp);
+            }
+        }
+        return result;
+    }
+
+    public static Balance getTokenBalance(ArrayList<Balance> list, String symbol) {
+        for (Balance balance:list) {
+            if (balance.symbol.equals(symbol)) {
+                return balance;
+            }
+        }
+        return null;
+    }
+
 
     public static ArrayList<BondingState> getBondingFromLcds(long accountId, ArrayList<ResLcdBonding> list, BaseChain chain) {
         long time = System.currentTimeMillis();
@@ -627,7 +673,77 @@ public class WUtil {
         });
     }
 
+    public static void onSortingTokenByAmount(ArrayList<Balance> balances, final BaseChain chain) {
+        Collections.sort(balances, new Comparator<Balance>() {
+            @Override
+            public int compare(Balance o1, Balance o2) {
+                if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_ATOM)) return -1;
+                    if(o2.symbol.equals(COSMOS_ATOM)) return 1;
 
+                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
+                    if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+
+                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_BNB)) return -1;
+                    if(o2.symbol.equals(COSMOS_BNB)) return 1;
+                }
+                return o2.balance.compareTo(o1.balance);
+            }
+        });
+    }
+
+    public static void onSortingTokenByName(ArrayList<Balance> balances, final BaseChain chain) {
+        Collections.sort(balances, new Comparator<Balance>() {
+            @Override
+            public int compare(Balance o1, Balance o2) {
+                if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_ATOM)) return -1;
+                    if(o2.symbol.equals(COSMOS_ATOM)) return 1;
+
+                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
+                    if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+
+                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_BNB)) return -1;
+                    if(o2.symbol.equals(COSMOS_BNB)) return 1;
+                }
+                return o1.symbol.compareTo(o2.symbol);
+            }
+        });
+    }
+
+    public static void onSortingTokenByValue(ArrayList<Balance> balances, final BaseChain chain, HashMap<String, ResBnbTic> tics) {
+        Collections.sort(balances, new Comparator<Balance>() {
+            @Override
+            public int compare(Balance o1, Balance o2) {
+                if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_ATOM)) return -1;
+                    if(o2.symbol.equals(COSMOS_ATOM)) return 1;
+
+                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
+                    if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
+
+                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_BNB)) return -1;
+                    if(o2.symbol.equals(COSMOS_BNB)) return 1;
+                }
+
+                ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
+                ResBnbTic tic2 = tics.get(WUtil.getBnbTicSymbol(o2.symbol));
+                if (tic1 != null && tic2 != null) {
+                    BigDecimal o1Amount = o1.exchangeToBnbAmount(tic1);
+                    BigDecimal o2Amount = o2.exchangeToBnbAmount(tic2);
+                    return o2Amount.compareTo(o1Amount);
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
 
     public static ArrayList<Validator> getIrisTops(ArrayList<Validator> allValidators) {
         ArrayList<Validator> result = new ArrayList<>();
@@ -657,6 +773,9 @@ public class WUtil {
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.CMC_IRIS;
+
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            return BaseConstant.CMC_BNB;
         }
         return BaseConstant.CMC_ATOM;
     }
@@ -667,6 +786,9 @@ public class WUtil {
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.CGC_IRIS;
+
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            return BaseConstant.CGC_BNB;
         }
         return BaseConstant.CGC_ATOM;
     }
@@ -677,6 +799,9 @@ public class WUtil {
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return BaseConstant.MEMO_IRIS;
+
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            return BaseConstant.MEMO_BNB;
         }
         return BaseConstant.MEMO_IRIS;
     }
@@ -689,5 +814,56 @@ public class WUtil {
 
         return result;
     }
+
+    public static BnbToken getBnbToken(ArrayList<BnbToken> all, Balance balance) {
+        for (BnbToken token:all) {
+            if (token.symbol.equals(balance.symbol)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
+    public static IrisToken getIrisToken(ArrayList<IrisToken> all, Balance balance) {
+        for (IrisToken token:all) {
+            if (token.base_token.min_unit_alias.equals(balance.symbol)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
+    public static boolean isBnbBaseMarketToken(String symbol) {
+        switch (symbol) {
+            case "USDT.B-B7C":
+                return true;
+            case "ETH.B-261":
+                return true;
+            case "BTC.B-918":
+                return true;
+
+
+            case "USDSB-1AC":
+                return true;
+            case "THKDB-888":
+                return true;
+            case "TUSDB-888":
+                return true;
+            case "BTCB-1DE":
+                return true;
+
+        }
+        return false;
+    }
+
+    public static String getBnbTicSymbol(String symbol) {
+        if (isBnbBaseMarketToken(symbol)) {
+            return COSMOS_BNB + "_" + symbol;
+
+        } else {
+            return symbol + "_"+COSMOS_BNB;
+        }
+    }
+
 
 }

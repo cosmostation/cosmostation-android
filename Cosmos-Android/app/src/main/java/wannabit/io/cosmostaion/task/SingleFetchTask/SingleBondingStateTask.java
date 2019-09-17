@@ -29,7 +29,7 @@ public class SingleBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getCosmosChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null)
@@ -39,7 +39,7 @@ public class SingleBondingStateTask extends CommonTask {
                 }
                 mResult.isSuccess = true;
 
-            } else if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<ResLcdBonding> response = ApiClient.getIrisChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null)

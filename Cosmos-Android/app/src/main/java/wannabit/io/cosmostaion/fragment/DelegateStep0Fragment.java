@@ -100,7 +100,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                     mAmountInput.setSelection(1);
                 }
 
-                if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     if(es.equals("0.000000")) {
                         mAmountInput.setText("0.00000");
                         mAmountInput.setSelection(7);
@@ -129,7 +129,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                         } catch (Exception e) { }
                     }
 
-                } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     if(es.equals("0.000000000000000000")) {
                         mAmountInput.setText("0.00000000000000000");
                         mAmountInput.setSelection(19);
@@ -169,13 +169,13 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         super.onResume();
         if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(BigDecimal.ONE);
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
 
-        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mMaxAvailable = getSActivity().mAccount.getIrisBalance().subtract(new BigDecimal("400000000000000000"));
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, getSActivity().mBaseChain));
         }
 
     }
@@ -225,16 +225,16 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
-            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
             }
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
-            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
             }
             Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
@@ -250,7 +250,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
     private boolean isValidateDelegateAmount() {
         try {
-            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
@@ -258,7 +258,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 
-            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(18).setScale(18, RoundingMode.CEILING)) > 0) return false;

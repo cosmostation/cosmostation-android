@@ -89,8 +89,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                         WLog.w("FCM token new : " + token);
                     }
                 });
-
-//        onHardCodeHub2();
     }
 
     @Override
@@ -192,14 +190,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
         imageView.startAnimation( fadeOutAnimation );
 
-    }
-
-    public void onHardCodeHub2() {
-        ArrayList<Account> accounts = getBaseDao().onSelectAccounts();
-        for(Account account:accounts) {
-            account.baseChain = BaseChain.COSMOS_MAIN.getChain();
-            getBaseDao().onUpdateAccount(account);
-        }
     }
 }
 

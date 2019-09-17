@@ -107,7 +107,7 @@ public class Account {
             return result;
         }
         for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
                 result = balance.balance;
                 break;
             }
@@ -115,6 +115,33 @@ public class Account {
         return result;
     }
 
+    public BigDecimal getBnbBalance() {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_BNB)) {
+                result = balance.balance;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal getTokenBalance(String symbol) {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equals(symbol)) {
+                result = balance.balance;
+                break;
+            }
+        }
+        return result;
+    }
 
 //    public DeterministicKey getDeterministicKey() {
 //        return deterministicKey;

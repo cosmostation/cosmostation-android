@@ -48,8 +48,6 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     private ViewPager                   mViewPager;
     private RewardPageAdapter           mPageAdapter;
 
-
-    public Account                      mAccount;
     public String                       mRewardMemo;
     public Fee                          mRewardFee;
 
@@ -81,6 +79,13 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         mTvStep.setText(getString(R.string.str_reward_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+        }
+
         mPageAdapter = new RewardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
@@ -125,14 +130,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if(mAccount == null) finish();
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
-
-        }
+        if (mAccount == null) finish();
     }
 
     @Override
@@ -174,7 +172,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
     private void onFetchReward() {
         if(mTaskCount > 0) return;
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mTaskCount = mValidators.size() + 1;
             mRewards.clear();
             for(Validator val:mValidators) {
@@ -182,7 +180,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
             }
             new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mTaskCount = 2;
             new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

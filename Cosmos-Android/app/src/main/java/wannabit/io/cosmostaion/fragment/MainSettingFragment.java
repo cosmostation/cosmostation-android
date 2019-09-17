@@ -47,6 +47,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                         mBtnTerm, mBtnGithub, mBtnVersion;
 
     private TextView    mTvAppLock, mTvCurrency, mTvBasePrice, mTvVersion;
+    private TextView    mTvTitleExplore;
 
     public static MainSettingFragment newInstance(Bundle bundle) {
         MainSettingFragment fragment = new MainSettingFragment();
@@ -96,6 +97,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvBasePrice = rootView.findViewById(R.id.base_price_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
+        mTvTitleExplore = rootView.findViewById(R.id.title_explore);
         mBtnWallet.setOnClickListener(this);
         mBtnAlaram.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);
@@ -125,6 +127,15 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             mTvAppLock.setText(R.string.str_app_applock_enabled);
         } else {
             mTvAppLock.setText(R.string.str_app_applock_diabeld);
+        }
+
+        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) ||
+                getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mTvTitleExplore.setText(R.string.str_explore);
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            mTvTitleExplore.setText(R.string.str_explore_bnb);
+
         }
     }
 
@@ -167,11 +178,14 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mBtnExplore)) {
-            if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.mintscan.io/"));
                 startActivity(intent);
-            } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://irishub.mintscan.io/"));
+                startActivity(intent);
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://explorer.binance.org"));
                 startActivity(intent);
             }
 

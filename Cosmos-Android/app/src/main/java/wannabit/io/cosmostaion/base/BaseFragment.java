@@ -35,4 +35,8 @@ public class BaseFragment extends Fragment {
 
     public void onRefreshTab() { }
 
+    public void onBusyFetch() {
+
+    }
+
 }

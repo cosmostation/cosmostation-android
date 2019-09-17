@@ -15,10 +15,8 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_RedelegateConfirm;
-import wannabit.io.cosmostaion.dialog.Dialog_SendType;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RedelegateStep4Fragment extends BaseFragment implements View.OnClickListener {
@@ -67,12 +65,12 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
     public void onRefreshTab() {
         BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mReDelegateAmount.amount);
         BigDecimal feeAmount= new BigDecimal(getSActivity().mReDelegateFee.amount.get(0).amount);
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 6, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 18, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
         }
         mFromValidatorName.setText(getSActivity().mFromValidator.description.moniker);
         mToValidatorName.setText(getSActivity().mToValidator.description.moniker);

@@ -30,7 +30,7 @@ public class BondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResLcdBondings> response = ApiClient.getCosmosChain(mApp).getBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
@@ -40,7 +40,7 @@ public class BondingStateTask extends CommonTask {
                     }
                 }
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<ArrayList<ResLcdBonding>> response = ApiClient.getIrisChain(mApp).getBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().size() > 0) {

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
@@ -30,6 +31,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
@@ -188,13 +190,24 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_SEND) {
             onShowWaitDialog();
-            new SimpleSendTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mTargetAddress,
-                    mTargetCoins,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN)) {
+                new SimpleBnbSendTask(getBaseApplication(),
+                        this,
+                        mAccount,
+                        mTargetAddress,
+                        mTargetCoins,
+                        mTargetMemo,
+                        mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            } else {
+                new SimpleSendTask(getBaseApplication(),
+                        this,
+                        mAccount,
+                        mTargetAddress,
+                        mTargetCoins,
+                        mTargetMemo,
+                        mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            }
+
 
         } else if (mPurpose == BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE) {
             onShowWaitDialog();
@@ -319,7 +332,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REDELEGATE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_REINVEST) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_REINVEST ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_BNB_SIMPLE_SEND) {
             if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;

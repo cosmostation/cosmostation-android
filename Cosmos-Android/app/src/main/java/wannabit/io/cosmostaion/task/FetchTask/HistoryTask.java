@@ -6,6 +6,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqTx;
+import wannabit.io.cosmostaion.network.res.ResBnbHistories;
 import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -46,9 +47,26 @@ public class HistoryTask extends CommonTask {
                 } else {
                     WLog.w("HistoryTask : NOk");
                 }
+
+            } else if (mChain.equals(BaseChain.BNB_MAIN)) {
+                Response<ResBnbHistories> response = null;
+                if (strings.length == 3) {
+                    response = ApiClient.getBnbChain(mApp).getHistory(strings[0], strings[1], strings[2]).execute();
+                } else {
+                    response = ApiClient.getBnbChain(mApp).getHistoryAsset(strings[0], strings[1], strings[2], strings[3]).execute();
+                }
+
+                if(response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().tx;
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+                mResult.taskType = BaseConstant.TASK_FETCH_BNB_HISTORY;
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             WLog.w("HistoryTask Error " + e.getMessage());
         }
         return mResult;

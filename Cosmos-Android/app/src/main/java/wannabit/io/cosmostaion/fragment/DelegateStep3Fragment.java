@@ -72,13 +72,13 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         BigDecimal toDeleagteAmount = new BigDecimal(getSActivity().mToDelegateAmount.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mToDelegateFee.amount.get(0).amount);
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAmount, 6, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
 
-        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mDelegateAmount.setText(WDp.getDpAmount(getContext(), toDeleagteAmount, 18, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
 
         }
         mValidatorName.setText(getSActivity().mValidator.description.moniker);

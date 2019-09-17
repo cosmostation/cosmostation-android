@@ -25,7 +25,7 @@ public class BaseApplication extends Application {
 
         Picasso.Builder builder = new Picasso.Builder(this);
         Picasso built = builder.build();
-        built.setIndicatorsEnabled(true);
+        built.setIndicatorsEnabled(false);
         Picasso.setSingletonInstance(built);
     }
 

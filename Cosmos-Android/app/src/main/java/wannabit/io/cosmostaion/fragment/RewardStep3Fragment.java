@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -17,14 +16,11 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Reward;
-import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class RewardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -81,19 +77,19 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         BigDecimal rewardSum    = BigDecimal.ZERO;
         BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
             }
-            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
             if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
                 mTvGoalLayer.setVisibility(View.GONE);
                 mExpectedLayer.setVisibility(View.VISIBLE);
 
                 BigDecimal currentAtom      = getSActivity().mAccount.getAtomBalance();
                 BigDecimal expectedAtom     = currentAtom.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expectedAtom, 6, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+                mExpectedAmount.setText(WDp.getDpAmount(getContext(), expectedAtom, 6, getSActivity().mBaseChain));
                 BigDecimal expectedPrice = BigDecimal.ZERO;
                 if(getBaseDao().getCurrency() != 5) {
                     expectedPrice = expectedAtom.multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
@@ -107,9 +103,9 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 mExpectedLayer.setVisibility(View.GONE);
             }
 
-        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), getSActivity().getIrisRewardSum(), 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, BaseChain.getChain(getSActivity().mAccount.baseChain)));
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), getSActivity().getIrisRewardSum(), 18, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
             if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
                 mTvGoalLayer.setVisibility(View.GONE);
             } else {
@@ -149,7 +145,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     }
 
     private boolean onCheckValidateRewardAndFee() {
-        if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             BigDecimal rewardSum    = BigDecimal.ZERO;
             BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
             for (Reward reward:getSActivity().mRewards) {
@@ -157,7 +153,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             }
             return feeAtom.compareTo(rewardSum) < 0;
 
-        } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal rewardSum    = getSActivity().getIrisRewardSum();
             BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
             return feeAtom.compareTo(rewardSum) < 0;

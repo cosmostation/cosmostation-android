@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ReInvestActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -38,27 +37,27 @@ public class ReInvestStep1Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tx_step_memo, container, false);
-        mMemo       = rootView.findViewById(R.id.et_memo);
-        mMemoCnt    = rootView.findViewById(R.id.tv_memoCnt);
+        mMemo = rootView.findViewById(R.id.et_memo);
+        mMemoCnt = rootView.findViewById(R.id.tv_memoCnt);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
-        mMemoCnt.setText("0" + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
+        mMemoCnt.setText("0" + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
 
         mMemo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String memo = mMemo.getText().toString().trim();
-                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
+                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
                 }
-                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
+                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
 
             }
 
@@ -68,14 +67,14 @@ public class ReInvestStep1Fragment extends BaseFragment implements View.OnClickL
             @Override
             public void afterTextChanged(Editable s) {
                 String memo = mMemo.getText().toString().trim();
-                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
+                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
                 }
-                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
+                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
             }
         });
         return rootView;
@@ -88,7 +87,7 @@ public class ReInvestStep1Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mNextBtn)) {
             String memo = mMemo.getText().toString().trim();
-            if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
+            if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                 getSActivity().mReinvestMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
             } else {

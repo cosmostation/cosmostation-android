@@ -116,10 +116,4 @@ public class Msg {
 
     }
 
-//    @JsonInclude(JsonInclude.Include.NON_NULL)
-//    public byte[] getToSignByte() {
-//        Gson Presenter = new GsonBuilder().create();
-//        return Presenter.toJson(this).getBytes(Charset.forName("UTF-8"));
-//    }
-
 }

@@ -71,21 +71,32 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (getSActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 if (targetAddress.startsWith("cosmos") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mTagetAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_cosmos_address, Toast.LENGTH_SHORT).show();
                 }
-            } else if (getSActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 if (targetAddress.startsWith("iaa") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mTagetAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_iris_address, Toast.LENGTH_SHORT).show();
                 }
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                if (targetAddress.startsWith("bnb") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mTagetAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
+                }
             }
+
 
         } else if (v.equals(mCancel)) {
             getSActivity().onBeforeStep();

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.common.base.Predicate;
@@ -35,6 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_ValidatorSorting;
@@ -45,14 +47,15 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class ValidatorAllFragment extends BaseFragment {
+public class ValidatorAllFragment extends BaseFragment implements View.OnClickListener {
 
     public final static int SELECT_All_VALIDATOR_SORTING = 6002;
-
 
     private SwipeRefreshLayout      mSwipeRefreshLayout;
     private RecyclerView            mRecyclerView;
     private AllValidatorAdapter     mAllValidatorAdapter;
+    private TextView                mValidatorSize, mSortType;
+    private LinearLayout            mBtnSort;
 
     private ArrayList<Validator>        mMyValidators = new ArrayList<>();
     private ArrayList<Validator>        mTopValidators = new ArrayList<>();
@@ -73,13 +76,14 @@ public class ValidatorAllFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_validator_all, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mValidatorSize          = rootView.findViewById(R.id.validator_cnt);
+        mSortType               = rootView.findViewById(R.id.token_sort_type);
+        mBtnSort                = rootView.findViewById(R.id.btn_validator_sort);
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(!getMainActivity().onFetchAccountInfo()) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
+                getMainActivity().onFetchAllData();
             }
         });
 
@@ -89,6 +93,7 @@ public class ValidatorAllFragment extends BaseFragment {
         mRecyclerView.setDrawingCacheEnabled(true);
         mAllValidatorAdapter = new AllValidatorAdapter();
         mRecyclerView.setAdapter(mAllValidatorAdapter);
+        mBtnSort.setOnClickListener(this);
 
         return rootView;
     }
@@ -98,14 +103,28 @@ public class ValidatorAllFragment extends BaseFragment {
         if(!isAdded()) return;
         mTopValidators  = getMainActivity().mTopValidators;
         mMyValidators   = getMainActivity().mMyValidators;
+        mValidatorSize.setText(""+mTopValidators.size());
         onSortValidator();
 
         mAllValidatorAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    public MainActivity getMainActivity() {
-        return (MainActivity)getBaseActivity();
+    @Override
+    public void onBusyFetch() {
+        if(!isAdded()) return;
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    public ValidatorListActivity getMainActivity() {
+        return (ValidatorListActivity)getBaseActivity();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mBtnSort)) {
+            onShowAllValidatorSort();
+        }
     }
 
 
@@ -157,6 +176,8 @@ public class ValidatorAllFragment extends BaseFragment {
                                             .fit()
                                             .placeholder(R.drawable.validator_none_img)
                                             .into(holder.itemAvatar);
+
+
                                 }catch (Exception e) {}
                             }
                         }
@@ -187,9 +208,9 @@ public class ValidatorAllFragment extends BaseFragment {
             }
 
             if(checkIsMyValidator(mMyValidators, validator.description.moniker)) {
-                if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                 }
             } else {
@@ -238,10 +259,13 @@ public class ValidatorAllFragment extends BaseFragment {
     public void onSortValidator() {
         if(getBaseDao().getValSorting() == 2){
             WUtil.onSortingByCommission(mTopValidators, getMainActivity().mBaseChain);
+            mSortType.setText(getString(R.string.str_sorting_by_yield));
         } else if (getBaseDao().getValSorting() == 0){
             WUtil.onSortByValidatorName(mTopValidators);
+            mSortType.setText(getString(R.string.str_sorting_by_name));
         } else {
             WUtil.onSortByValidatorPower(mTopValidators);
+            mSortType.setText(getString(R.string.str_sorting_by_power));
         }
     }
 

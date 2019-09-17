@@ -21,6 +21,7 @@ import java.util.TimeZone;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
@@ -35,6 +36,8 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 public class WDp {
@@ -49,6 +52,10 @@ public class WDp {
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             amount = amount.divide(new BigDecimal("1000000000000000000"), 18, BigDecimal.ROUND_DOWN);
+            result = new SpannableString(getDecimalFormat(c, point).format(amount));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -86,7 +93,11 @@ public class WDp {
     }
 
     public static SpannableString getDpAllIrisRewardAmount(Context c, ResLcdIrisReward rewards, BaseChain chain) {
-        return getDpAmount(c, rewards.getSimpleIrisReward(), 6, chain);
+        if (rewards != null) {
+            return getDpAmount(c, rewards.getSimpleIrisReward(), 6, chain);
+        } else {
+            return getDpAmount(c, BigDecimal.ZERO, 6, chain);
+        }
     }
 
     public static SpannableString getValidatorReward(Context c, ArrayList<Reward> rewards, String valOpAddress, BaseChain chain) {
@@ -237,33 +248,43 @@ public class WDp {
         }
     }
 
-    public static SpannableString getDpBalanceCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
+    public static BigDecimal getAvailableCoin(ArrayList<Balance> balances, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(denom)) {
-                sum = balance.balance;
+        for (Balance balance : balances) {
+            if (denom.equals(COSMOS_ATOM) && IS_TEST) {
+                if (balance.symbol.equals(COSMOS_MUON)) {
+                    sum = balance.balance;
+                }
+            } else {
+                if (balance.symbol.equals(denom)) {
+                    sum = balance.balance;
+                }
             }
         }
-        return getDpAmount(c, sum, 6, chain);
+        return sum;
+    }
+
+    public static SpannableString getDpAvailableCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
+        return getDpAmount(c, getAvailableCoin(balances, denom), 6, chain);
     }
 
     public static SpannableString getDpAllDelegatedAmount(Context c, ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
+        return getDpAmount(c, getAllDeleagtedAmount(bondings, validators, chain), 6, chain);
+    }
+
+    public static BigDecimal getAllDeleagtedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
+        if (bondings == null || bondings.size() == 0) return sum;
         if (chain.equals(BaseChain.COSMOS_MAIN)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
-            return getDpAmount(c, sum, 6, chain);
-
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.shares);
             }
-            return getDpAmount(c, sum, 6, chain);
-        } else {
-            return getDpAmount(c, sum, 6, chain);
-
         }
+        return sum;
     }
 
     public static Validator selectValidator(ArrayList<Validator> validators, String opAddress) {
@@ -278,32 +299,20 @@ public class WDp {
     }
 
     public static SpannableString getDpAllUnbondingAmount(Context c, ArrayList<UnBondingState> unbondings, ArrayList<Validator> validators, BaseChain chain) {
+        return getDpAmount(c, getUnbondingAmount(unbondings, validators), 6, chain);
+    }
+
+    public static BigDecimal getUnbondingAmount(ArrayList<UnBondingState> unbondings, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
+        if (unbondings == null || unbondings.size() == 0) return sum;
         for(UnBondingState unbonding : unbondings) {
             sum = sum.add(unbonding.balance);
         }
-        return getDpAmount(c, sum, 6, chain);
+        return sum;
     }
 
     public static SpannableString getDpAllAtom(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators, BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if (IS_TEST || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
-                sum = sum.add(balance.balance);
-            } else if (!IS_TEST || balance.symbol.equals(BaseConstant.COSMOS_ATOM)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-        }
-        for(UnBondingState unbonding : unbondings) {
-            sum = sum.add(unbonding.balance);
-        }
-        for(Reward reward : rewards) {
-            sum = sum.add(reward.getAtomAmount());
-        }
-        return getDpAmount(c, sum, 6, chain);
+        return getDpAmount(c, getAllAtom(balances, bondings,unbondings,rewards,validators), 6, chain);
     }
 
     public static BigDecimal getAllAtom(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
@@ -313,15 +322,22 @@ public class WDp {
                 sum = sum.add(balance.balance);
             }
         }
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+        if(bondings != null) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+            }
         }
-        for(UnBondingState unbonding : unbondings) {
-            sum = sum.add(unbonding.balance);
+        if (unbondings != null) {
+            for(UnBondingState unbonding : unbondings) {
+                sum = sum.add(unbonding.balance);
+            }
         }
-        for(Reward reward : rewards) {
-            sum = sum.add(reward.getAtomAmount());
+        if (rewards != null) {
+            for(Reward reward : rewards) {
+                sum = sum.add(reward.getAtomAmount());
+            }
         }
+
         return sum;
     }
 
@@ -354,25 +370,7 @@ public class WDp {
     }
 
     public static SpannableString getDpAllIris(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.shares);
-        }
-
-        for(UnBondingState unbonding : unbondings) {
-            sum = sum.add(unbonding.balance);
-        }
-
-        if(reward != null) {
-            sum = sum.add(reward.getSimpleIrisReward());
-        }
-        return getDpAmount(c, sum, 6, chain);
+        return getDpAmount(c, getAllIris(balances, bondings, unbondings, reward), 6, chain);
     }
 
     public static BigDecimal getAllIris(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward) {
@@ -393,8 +391,6 @@ public class WDp {
         }
         return sum;
     }
-
-
 
 
     public static SpannableString getDpPhotonBalance(Context c, ArrayList<Balance> balances, BaseChain chain) {
@@ -487,15 +483,6 @@ public class WDp {
 
 
 
-//    public static String getDolor(Context c, BigDecimal input) {
-//        DecimalFormat df = getDecimalFormat(c, 2);
-//        return df.format(input);
-//    }
-//
-//    public static SpannableString getDolorDp(BigDecimal input) {
-//        return getDpString("$ " + input.setScale(2, RoundingMode.DOWN).toPlainString(), 2);
-//    }
-
     public static SpannableString getPriceDp(Context c, BigDecimal input, String symbol, int currency) {
         if (currency == 5) {
             SpannableString result;
@@ -508,7 +495,6 @@ public class WDp {
             result = new SpannableString(symbol + " " +getDecimalFormat(c, 2).format(input));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
-
         }
     }
 
@@ -525,6 +511,60 @@ public class WDp {
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
+        }
+    }
+
+    public static SpannableString getTotalValueAtom(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        }
+    }
+
+    public static SpannableString getTotalValueIris(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        }
+    }
+
+    public static SpannableString getTotalValueBnb(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
         }
     }
 
@@ -648,7 +688,7 @@ public class WDp {
             result = BaseConstant.TX_TYPE_GET_REWARD;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
-            result = BaseConstant.TX_TYPE_GET_CPMMISSION;
+            result = BaseConstant.TX_TYPE_GET_COMMISSION;
 
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) ||
                 msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY)) {
@@ -680,12 +720,102 @@ public class WDp {
         return result;
     }
 
+
+
+    public static String DpTxType(Context c, ArrayList<Msg> msgs, String address) {
+        String result = "";
+        int dpType = getHistoryDpType(msgs, address);
+        switch (dpType) {
+            case BaseConstant.TX_TYPE_SEND:
+                result = c.getString(R.string.tx_send);
+                break;
+
+            case BaseConstant.TX_TYPE_RECEIVE:
+                result = c.getString(R.string.tx_receive);
+                break;
+
+            case BaseConstant.TX_TYPE_TRANSFER:
+                result = c.getString(R.string.tx_transfer);
+                break;
+
+            case BaseConstant.TX_TYPE_DELEGATE:
+                result = c.getString(R.string.tx_delegate);
+                break;
+
+            case BaseConstant.TX_TYPE_UNDELEGATE:
+                result = c.getString(R.string.tx_undelegate);
+                break;
+
+            case BaseConstant.TX_TYPE_REDELEGATE:
+                result = c.getString(R.string.tx_redelegate);
+                break;
+
+            case BaseConstant.TX_TYPE_GET_REWARD:
+                result = c.getString(R.string.tx_get_reward);
+                break;
+
+            case BaseConstant.TX_TYPE_GET_COMMISSION:
+                result = c.getString(R.string.tx_get_commission);
+                break;
+
+            case BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS:
+                result = c.getString(R.string.tx_change_reward_address);
+                break;
+
+            case BaseConstant.TX_TYPE_VOTE:
+                result = c.getString(R.string.tx_vote);
+                break;
+
+            case BaseConstant.TX_TYPE_SUBMIT_PROPOSAL:
+                result = c.getString(R.string.tx_submit_proposal);
+                break;
+
+            case BaseConstant.TX_TYPE_DEPOSIT:
+                result = c.getString(R.string.tx_deposit);
+                break;
+
+            case BaseConstant.TX_TYPE_CREATE_VALIDATOR:
+                result = c.getString(R.string.tx_create_validator);
+                break;
+
+            case BaseConstant.TX_TYPE_EDIT_VALIDATOR:
+                result = c.getString(R.string.tx_edit_validator);
+                break;
+
+            case BaseConstant.TX_TYPE_REINVEST:
+                result = c.getString(R.string.tx_reinvest);
+                break;
+
+            case BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL:
+                result = c.getString(R.string.tx_get_reward_all);
+                break;
+
+            case BaseConstant.TX_TYPE_UNKNOWN:
+                result = c.getString(R.string.tx_known);
+                break;
+
+        }
+        if (dpType != BaseConstant.TX_TYPE_REINVEST && msgs.size() > 1) {
+            result = result + "\n+ " + (msgs.size() - 1);
+        }
+        return result;
+    }
+
     public static String getHistoryDpCnt(ArrayList<Msg> msgs) {
         String result = "";
         if(msgs.size() > 2) {
             result = result + " + " + (msgs.size() - 1);
         }
         return result;
+    }
+
+    public static String getPath(BaseChain chain) {
+        if (chain.equals(BaseChain.BNB_MAIN)) {
+            return BaseConstant.KEY_BNB_PATH;
+        } else {
+            return BaseConstant.KEY_PATH;
+
+        }
     }
 
 
@@ -847,6 +977,18 @@ public class WDp {
         return result;
     }
 
+    public static String getDateformat(Context c, String rawValue) {
+        String result = "??";
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_date_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            result = myFormat.format(blockDateFormat.parse(rawValue));
+        } catch (Exception e) {};
+
+        return result;
+    }
+
     public static String getTimeformat(Context c, String rawValue) {
         String result = "??";
         try {
@@ -908,6 +1050,20 @@ public class WDp {
         return "(" + result + " " + c.getString(R.string.str_ago) +")";
     }
 
+
+
+
+    public static String cTimeString() {
+        Calendar c = Calendar.getInstance();
+        return ""+c.getTimeInMillis();
+    }
+
+    public static String threeMonthAgoTimeString() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, - 3);
+        return ""+c.getTimeInMillis();
+    }
+
     public static String DpAtom(Context c) {
         String result = c.getString(R.string.s_atom);
         return result;
@@ -928,6 +1084,18 @@ public class WDp {
             return c.getResources().getColor(R.color.colorAtom);
         } else {
             return c.getResources().getColor(R.color.colorIris);
+        }
+    }
+
+    public static int getChainColor(Context c, BaseChain chain) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            return c.getResources().getColor(R.color.colorAtom);
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            return c.getResources().getColor(R.color.colorIris);
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            return c.getResources().getColor(R.color.colorBnb);
+        } else {
+            return c.getResources().getColor(R.color.colorAtom);
         }
     }
 
@@ -955,6 +1123,11 @@ public class WDp {
         } else if (chain.equals(BaseChain.IRIS_MAIN.getChain())) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_iris));
+
+        } else if (chain.equals(BaseChain.BNB_MAIN.getChain())) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorBnb));
+            textview.setText(c.getString(R.string.s_bnb));
+
         }
     }
 }

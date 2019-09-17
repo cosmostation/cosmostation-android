@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_01"/>
+        android:src="@drawable/bg_intro_gr"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -21,40 +21,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/font_ssm_17_white"
-            android:text="@string/str_faq"/>
+            android:text="@string/str_validators_list"/>
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tool_bar"
-        android:paddingLeft="@dimen/space_16"
-        android:paddingRight="@dimen/space_16"
-        android:paddingTop="@dimen/space_8"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/guide_title"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/validator_tab"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            style="@style/font_ss_14_white"
-            android:text="What is the difference between Fee and Commission?"/>
-
+            android:layout_height="@dimen/space_40"
+            android:background="@android:color/transparent"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorColor="@color/colorAtom"
+            app:tabIconTint="@color/colorAtom"
+            android:elevation="4dp"/>
         <View
-            android:id="@+id/guide_center_separator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/space_12"
-            android:background="@color/colorGray3"/>
-
-        <TextView
-            android:id="@+id/guide_detail"
+            android:background="@color/colorGray4"
+            android:layout_below="@+id/validator_tab"
+            android:layout_marginTop="-1dp"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/validator_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_12"
-            style="@style/font_ss_14_gray1"
-            android:text=""/>
-    </LinearLayout>
-
+            android:layout_height="match_parent"
+            android:layout_below="@+id/validator_tab"/>
+    </RelativeLayout>
 
 </RelativeLayout>

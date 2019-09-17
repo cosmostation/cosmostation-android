@@ -74,7 +74,7 @@ public class BaseData {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
-        }  else if (chain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             if (getCurrency() == 0) {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_TIC, ""+tic.market_data.current_price.usd).commit();
                 getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
@@ -95,15 +95,35 @@ public class BaseData {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
+        } else if (chain.equals(BaseChain.BNB_MAIN)) {
+            if (getCurrency() == 0) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_TIC, ""+tic.market_data.current_price.usd).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
+            } else if (getCurrency() == 1) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_TIC, ""+tic.market_data.current_price.eur).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
+            } else if (getCurrency() == 2) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_TIC, ""+tic.market_data.current_price.krw).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
+            } else if (getCurrency() == 3) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_TIC, ""+tic.market_data.current_price.jpy).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
+            } else if (getCurrency() == 4) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_TIC, ""+tic.market_data.current_price.cny).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
+            } else if (getCurrency() == 5) {
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_TIC, ""+tic.market_data.current_price.btc).commit();
+                getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
+            }
+
         }
 
     }
 
+
     public void setLastAtomTic(Double price) {
         getSharedPreferences().edit().putString(BaseConstant.PRE_ATOM_TIC, ""+price).commit();
     }
-
-
 
     public double getLastAtomTic() {
         String priceS = getSharedPreferences().getString(BaseConstant.PRE_ATOM_TIC, "0");
@@ -126,6 +146,7 @@ public class BaseData {
             return Double.parseDouble("0");
         }
     }
+
 
     public void setLastIrisTic(Double price) {
         getSharedPreferences().edit().putString(BaseConstant.PRE_IRIS_TIC, ""+price).commit();
@@ -153,6 +174,32 @@ public class BaseData {
         }
     }
 
+
+    public void setLastBnbTic(Double price) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_TIC, ""+price).commit();
+    }
+
+    public double getLastBnbTic() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_BNB_TIC, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastBnbUpDown(Double price) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_UP_DOWN_24, ""+price).commit();
+    }
+
+    public double getLastBnbUpDown() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_BNB_UP_DOWN_24, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
 
 
 
@@ -291,6 +338,18 @@ public class BaseData {
             return c.getString(R.string.str_applock_time_immediately);
         }
     }
+
+    public void setTokenSorting(int sort) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_TOKEN_SORTING, sort).commit();
+    }
+
+    public int getTokenSorting() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_TOKEN_SORTING, 1);
+    }
+
+
+
+
 
 
 
@@ -464,11 +523,11 @@ public class BaseData {
         return result;
     }
 
-    public Account onSelectExistAccount(String address, String chain) {
+    public Account onSelectExistAccount(String address) {
         Account result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime"}, "address == ? AND baseChain == ?", new String[]{address, chain}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime"}, "address == ?", new String[]{address}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -556,13 +615,11 @@ public class BaseData {
 
     public boolean isDupleAccount(String address, String chain) {
         boolean existed = false;
-        WLog.w("isDupleAccount1");
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id"}, "address == ? AND baseChain == ?", new String[]{address, chain}, null, null, null);
         if(cursor != null && cursor.getCount() > 0) {
             existed = true;
         }
         cursor.close();
-        WLog.w("isDupleAccount2 " + existed);
         return existed;
     }
 
@@ -576,14 +633,16 @@ public class BaseData {
 
     public ArrayList<Balance> onSelectBalance(long accountId) {
         ArrayList<Balance> result = new ArrayList<>();
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BALANCE, new String[]{"accountId", "symbol", "balance", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
+        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BALANCE, new String[]{"accountId", "symbol", "balance", "fetchTime", "frozen", "locked"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 Balance balance = new Balance(
                         cursor.getLong(0),
                         cursor.getString(1),
-                        new BigDecimal(cursor.getString(2)),
-                        cursor.getLong(3));
+                        cursor.getString(2),
+                        cursor.getLong(3),
+                        cursor.getString(4),
+                        cursor.getString(5));
                 result.add(balance);
             } while (cursor.moveToNext());
         }
@@ -600,6 +659,10 @@ public class BaseData {
             values.put("symbol",            balance.symbol);
             values.put("balance",           balance.balance.toPlainString());
             values.put("fetchTime",         balance.fetchTime);
+            if (balance.frozen != null)
+                values.put("frozen",        balance.frozen.toPlainString());
+            if (balance.locked != null)
+                values.put("locked",        balance.locked.toPlainString());
             return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_BALANCE, null, values);
         }
     }
@@ -607,15 +670,6 @@ public class BaseData {
     public long onUpdateBalance(Balance balance) {
         onDeleteBalance(""+balance.accountId);
         return onInsertBalance(balance);
-
-//        if(onHasBalance(balance)) {
-//            ContentValues values = new ContentValues();
-//            values.put("balance",           balance.balance.toPlainString());
-//            values.put("fetchTime",         balance.fetchTime);
-//            return getBaseDB().update(BaseConstant.DB_TABLE_BALANCE, values, "accountId == ? AND symbol == ? ", new String[]{""+balance.accountId, balance.symbol} );
-//        } else {
-//            return onInsertBalance(balance);
-//        }
     }
 
     public void onUpdateBalances(long accountId,  ArrayList<Balance> balances) {

@@ -25,7 +25,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getCosmosChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
@@ -38,7 +38,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<String> response = ApiClient.getIrisChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;

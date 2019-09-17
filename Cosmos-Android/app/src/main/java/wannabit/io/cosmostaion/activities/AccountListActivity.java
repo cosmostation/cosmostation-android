@@ -36,7 +36,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     private Button                      mCreate, mImport;
     private LinearLayout                bottomLayer, bottomDetail, btnImportMnemonic, btnWatchAddress, mNmemonicLayer, mWatchLayer;
 
-
     private ArrayList<Account>          mFullAccounts = new ArrayList<>();
     private ArrayList<Account>          mAddressAccounts = new ArrayList<>();
     private AccountListAdapter          mAccountListAdapter;
@@ -131,7 +130,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         private static final int TYPE_FULL_HEADER               = 2;
         private static final int TYPE_ADDRESS_HEADER            = 3;
 
-
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -169,14 +167,15 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.wallet_denom);
-                if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (BaseChain.getChain(account.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-
-                } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.IRIS_MAIN)) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-
+                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.BNB_MAIN)) {
+                    holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
+                    holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
                 }
 
                 holder.wallet_address.setText(account.address);
@@ -186,7 +185,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                         Intent intent = new Intent(AccountListActivity.this, AccountDetailActivity.class);
                         intent.putExtra("id", ""+account.id);
                         startActivity(intent);
-
                     }
                 });
 
@@ -213,12 +211,15 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.wallet_denom);
-                if (account.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+                if (BaseChain.getChain(account.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
-                } else if (account.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.IRIS_MAIN)) {
                     holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
                     holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.BNB_MAIN)) {
+                    holder.wallet_chain_img.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
+                    holder.wallet_card.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
                 }
 
 

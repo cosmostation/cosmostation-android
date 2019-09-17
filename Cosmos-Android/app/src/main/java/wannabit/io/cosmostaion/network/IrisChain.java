@@ -8,6 +8,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
@@ -24,7 +26,6 @@ public interface IrisChain {
 
     @GET("/stake/validators")
     Call<ArrayList<Validator>> getValidatorList(@Query("page") String page, @Query("size") String size);
-
 
 
     @GET("/bank/accounts/{address}")
@@ -71,4 +72,8 @@ public interface IrisChain {
 
     @GET("/stake/delegators/{delegatorAddr}/redelegations")
     Call<ArrayList<ResLcdIrisRedelegate>> getRedelegateState(@Path("delegatorAddr") String delegatorAddr);
+
+
+    @GET("/asset/tokens")
+    Call<ArrayList<IrisToken>> getTokens();
 }

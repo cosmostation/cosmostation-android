@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,10 +19,9 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
-import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
+import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -109,6 +107,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
         } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+        } else if (mChain.equals(BaseChain.BNB_MAIN)) {
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
         }
         mCardAddress.setVisibility(View.VISIBLE);
         mCardMnemonics.setVisibility(View.VISIBLE);

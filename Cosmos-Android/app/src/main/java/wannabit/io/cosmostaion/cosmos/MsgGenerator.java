@@ -261,7 +261,8 @@ public class MsgGenerator {
     public static String getSignature(DeterministicKey key, byte[] toSignByte) {
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] toSignHash = digest.digest(toSignByte);
-        ECKey.ECDSASignature Signature = key.sign(new Sha256Hash(toSignHash));
+//        ECKey.ECDSASignature Signature = key.sign(new Sha256Hash(toSignHash));
+        ECKey.ECDSASignature Signature = key.sign(Sha256Hash.wrap(toSignHash));
         byte[] sigData = new byte[64];
         System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);
         System.arraycopy(integerToBytes(Signature.s, 32), 0, sigData, 32, 32);

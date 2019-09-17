@@ -104,12 +104,12 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
     private void onFetchProposals() {
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
 
-        if (getMainActivity().mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mVoteAdapter = new VoteAdapter();
             mRecyclerView.setAdapter(mVoteAdapter);
             new ProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (getMainActivity().mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mIrisVoteAdapter = new IrisVoteAdapter();
             mRecyclerView.setAdapter(mIrisVoteAdapter);
             new IrisProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -193,7 +193,7 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
                     webintent.putExtra("voteId", proposal.id);
-                    webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
+                    webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
                     startActivity(webintent);
                 }
             });
@@ -254,7 +254,7 @@ public class MainVoteFragment extends BaseFragment implements TaskListener {
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
                     webintent.putExtra("voteId", proposal.value.BasicProposal.proposal_id);
-                    webintent.putExtra("chain", getMainActivity().mAccount.baseChain);
+                    webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
                     startActivity(webintent);
                 }
             });

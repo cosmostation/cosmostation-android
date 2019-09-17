@@ -4,6 +4,7 @@ import org.bitcoinj.crypto.DeterministicKey;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
@@ -52,10 +53,9 @@ public class OverrideAccountTask extends CommonTask {
     }
 
     private Account onModAccount(Account account, String entropy, String path, String msize) {
-        DeterministicKey dKey       = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(path));
+        DeterministicKey dKey       = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(path));
         EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ account.uuid, entropy, false);
-//        account.address             = WKey.getCosmosUserDpAddress(dKey.getPublicKeyAsHex());
-        account.address             = WKey.getDpAddress(account.baseChain, dKey.getPublicKeyAsHex());
+        account.address             = WKey.getDpAddress(BaseChain.getChain(account.baseChain), dKey.getPublicKeyAsHex());
         account.hasPrivateKey       = true;
         account.resource            = encR.getEncDataString();
         account.spec                = encR.getIvDataString();

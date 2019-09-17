@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -19,6 +21,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.fragment.SendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
@@ -26,6 +31,8 @@ import wannabit.io.cosmostaion.fragment.SendStep3Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.network.res.ResBnbTic;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
@@ -40,12 +47,14 @@ public class SendActivity extends BaseActivity {
     private ViewPager               mViewPager;
     private SendPageAdapter         mPageAdapter;
 
-    public Account                  mAccount;
     public String                   mTagetAddress;
     public ArrayList<Coin>          mTargetCoins;
     public String                   mTargetMemo;
     public Fee                      mTargetFee;
 
+    public IrisToken                   mIrisToken;
+    public BnbToken                    mBnbToken;
+    public HashMap<String, ResBnbTic>  mBnbTics = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +72,22 @@ public class SendActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mIrisToken = getIntent().getParcelableExtra("irisToken");
+        mBnbToken = getIntent().getParcelableExtra("bnbToken");
+        mBnbTics = (HashMap<String, ResBnbTic>)getIntent().getSerializableExtra("bnbTics");
+
         mTvStep.setText(getString(R.string.str_send_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+
+        }
+
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
@@ -107,14 +129,8 @@ public class SendActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if(mAccount == null) finish();
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
-
-        }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

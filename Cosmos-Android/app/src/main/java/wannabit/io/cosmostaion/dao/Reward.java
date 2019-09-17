@@ -1,15 +1,20 @@
 package wannabit.io.cosmostaion.dao;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
-public class Reward {
+public class Reward implements Parcelable {
+
     public Long                 accountId;
     public String               validatorAddress;
     public ArrayList<Coin>      amount;
@@ -24,6 +29,43 @@ public class Reward {
         this.amount = amount;
         this.fetchTime = fetchTime;
     }
+
+    protected Reward(Parcel in) {
+        readFromParcel(in);
+    }
+
+    public void readFromParcel(Parcel in) {
+        accountId = in.readLong();
+        validatorAddress = in.readString();
+        amount = new ArrayList<>();
+        in.readTypedList(amount, Coin.CREATOR);
+        fetchTime = in.readLong();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(accountId);
+        dest.writeString(validatorAddress);
+        dest.writeTypedList(amount);
+        dest.writeLong(fetchTime);
+    }
+
+    public static final Creator<Reward> CREATOR = new Creator<Reward>() {
+        @Override
+        public Reward createFromParcel(Parcel in) {
+            return new Reward(in);
+        }
+
+        @Override
+        public Reward[] newArray(int size) {
+            return new Reward[size];
+        }
+    };
 
     public BigDecimal getAtomAmount() {
         BigDecimal result = BigDecimal.ZERO;

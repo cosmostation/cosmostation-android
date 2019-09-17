@@ -62,10 +62,10 @@ public class SimpleRewardTask extends CommonTask {
 
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(entropy, Integer.parseInt(mAccount.path));
+            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path));
 
             ArrayList<Msg> msgs = new ArrayList<>();
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!accountResponse.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
@@ -80,7 +80,7 @@ public class SimpleRewardTask extends CommonTask {
                     msgs.add(singleWithdrawDeleMsg);
                 }
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
@@ -100,7 +100,7 @@ public class SimpleRewardTask extends CommonTask {
             }
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mRewardFees, mRewardMemo, deterministicKey);
 
-            if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -117,16 +117,13 @@ public class SimpleRewardTask extends CommonTask {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
 
-            } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
-                    WLog.w("response.body() hash: " + response.body().hash);
                     if (response.body().hash != null) {
                         mResult.resultData = response.body().hash;
                     }
-
                     if(response.body().check_tx.code != null) {
-                        WLog.w("response.code() : " + response.body().check_tx.code);
                         mResult.errorCode = response.body().check_tx.code;
                         mResult.errorMsg = response.body().raw_log;
                         return mResult;
@@ -134,15 +131,11 @@ public class SimpleRewardTask extends CommonTask {
                     mResult.isSuccess = true;
 
                 } else {
-                    WLog.w("Iris SimpleSendTask not success!!");
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
             }
 
-
-
         } catch (Exception e) {
-            WLog.w("e : " + e.getMessage());
             if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
         }
         return mResult;

@@ -7,7 +7,7 @@ public class BaseConstant {
     public final static String                  LOG_TAG                                         = "Cosmostation";
 
     public final static String                  DB_NAME			                                = "WannaBit";
-    public final static int                     DB_VERSION			                            = 1;
+    public final static int                     DB_VERSION			                            = 2;
     public final static String                  DB_TABLE_PASSWORD			                    = "paswd";
     public final static String                  DB_TABLE_ACCOUNT			                    = "accnt";
     public final static String                  DB_TABLE_BALANCE			                    = "balan";
@@ -22,12 +22,15 @@ public class BaseConstant {
     public final static String                  PRE_ATOM_UP_DOWN_24			                    = "PRE_ATOM_UP_DOWN_24";
     public final static String                  PRE_IRIS_TIC			                        = "PRE_IRIS_TIC";
     public final static String                  PRE_IRIS_UP_DOWN_24			                    = "PRE_IRIS_UP_DOWN_24";
+    public final static String                  PRE_BNB_TIC                                     = "PRE_BNB_TIC";
+    public final static String                  PRE_BNB_UP_DOWN_24			                    = "PRE_BNB_UP_DOWN_24";
     public final static String                  PRE_CURRENCY			                        = "PRE_CURRENCY";
     public final static String                  PRE_MARKET  			                        = "PRE_MARKET";
     public final static String                  PRE_USING_APP_LOCK			                    = "PRE_USING_APP_LOCK";
     public final static String                  PRE_USING_FINGERPRINT			                = "PRE_USING_FINGERPRINT";
     public final static String                  PRE_APP_LOCK_TIME			                    = "PRE_APP_LOCK_TIME";
     public final static String                  PRE_APP_LOCK_LEAVE_TIME			                = "PRE_APP_LOCK_LEAVE_TIME";
+    public final static String                  PRE_TOKEN_SORTING                               = "PRE_TOKEN_SORTING";
 
 
 
@@ -70,6 +73,11 @@ public class BaseConstant {
     public final static int 				    TASK_IRIS_POOL	                                = 2038;
     public final static int 				    TASK_IRIS_PROPOSAL		                        = 2039;
     public final static int 				    TASK_IRIS_REDELEGATE        		            = 2040;
+    public final static int                     TASK_FETCH_BNB_HISTORY	                        = 2041;
+    public final static int                     TASK_FETCH_BNB_TOKENS	                        = 2042;
+    public final static int                     TASK_FETCH_IRIS_TOKENS	                        = 2043;
+    public final static int 				    TASK_FETCH_TOKEN_HISTORY                        = 2044;
+    public final static int                     TASK_GEN_TX_BNB_SIMPLE_SEND                     = 2045;
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";
@@ -140,7 +148,7 @@ public class BaseConstant {
     public final static int                     TX_TYPE_UNDELEGATE		                        = 3004;
     public final static int                     TX_TYPE_REDELEGATE		                        = 3005;
     public final static int                     TX_TYPE_GET_REWARD		                        = 3006;
-    public final static int                     TX_TYPE_GET_CPMMISSION		                    = 3007;
+    public final static int                     TX_TYPE_GET_COMMISSION		                    = 3007;
     public final static int                     TX_TYPE_CHAGE_REWARD_ADDRESS		            = 3008;
     public final static int                     TX_TYPE_TRANSFER		                        = 3009;
     public final static int                     TX_TYPE_VOTE		                            = 3010;
@@ -163,13 +171,18 @@ public class BaseConstant {
     public final static String                  COSMOS_MUON                                     = "muon";
     public final static String                  COSMOS_PHOTON                                   = "photon";
     public final static String                  COSMOS_PHOTINO                                  = "photino";
+    public final static String                  COSMOS_IRIS                                     = "iris";
     public final static String                  COSMOS_IRIS_ATTO                                = "iris-atto";
+    public final static String                  COSMOS_BNB                                      = "BNB";
+
+
     //TODO HardCoding!!
     public final static long                    COSMOS_UNBONDING_TIME                           = 1814400000;
     public final static long                    COSMOS_UNBONDING_DAY                            = 3;
 
 
     public final static String                  KEY_PATH		                                = "44'/118'/0'/0/";
+    public final static String                  KEY_BNB_PATH		                            = "44'/714'/0'/0/";
     public final static String                  characterFilter                                 = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -181,8 +194,9 @@ public class BaseConstant {
     public final static long					CONSTANT_D			                            = CONSTANT_H * 24;
 
 
-    public final static int                     MEMO_ATOM                                        = 255;
-    public final static int                     MEMO_IRIS                                        = 100;
+    public final static int                     MEMO_ATOM                                       = 255;
+    public final static int                     MEMO_IRIS                                       = 100;
+    public final static int                     MEMO_BNB                                        = 100;
 
     public final static String                  FEE_GAS_RATE_LOW                                = "0.0025";
     public final static String                  FEE_GAS_RATE_AVERAGE                            = "0.025";
@@ -202,9 +216,17 @@ public class BaseConstant {
     public final static String                  FEE_IRIS_GAS_AMOUNT_REWARD_BASE                 = "10000";
     public final static String                  FEE_IRIS_GAS_AMOUNT_REWARD_MUX                  = "5000";
 
+    public final static String                  FEE_BNB_SEND                                    = "0.000375";
+
 
     public final static String                  CGC_ATOM                                        = "cosmos";
     public final static String                  CGC_IRIS                                        = "iris-network";
+    public final static String                  CGC_BNB                                         = "binancecoin";
     public final static int                     CMC_ATOM                                        = 3794;
     public final static int                     CMC_IRIS                                        = 3874;
+    public final static int                     CMC_BNB                                         = 1839;
+
+
+
+    public final static String                  TOKEN_IMG_URL                                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
 }

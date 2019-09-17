@@ -51,7 +51,6 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
     private ViewPager               mViewPager;
     private ReInvestPageAdapter     mPageAdapter;
 
-    public Account                  mAccount;
     public Validator                mValidator;
     public Coin                     mReinvestCoin;
     public String                   mReinvestMemo;
@@ -61,7 +60,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg            = findViewById(R.id.chain_bg);
+        mChainBg        = findViewById(R.id.chain_bg);
         mRootView       = findViewById(R.id.root_view);
         mToolbar        = findViewById(R.id.tool_bar);
         mTitle          = findViewById(R.id.toolbar_title);
@@ -78,6 +77,13 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
         mTvStep.setText(getString(R.string.str_reinvest_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+        }
+
         mValidator = getIntent().getParcelableExtra("validator");
 
         mPageAdapter = new ReInvestPageAdapter(getSupportFragmentManager());
@@ -118,10 +124,10 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
                 onHideKeyboard();
             }
         });
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
@@ -131,13 +137,6 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
     protected void onResume() {
         super.onResume();
         if(mAccount == null) finish();
-        if (mAccount.baseChain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-
-        } else if (mAccount.baseChain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
-
-        }
     }
 
     @Override

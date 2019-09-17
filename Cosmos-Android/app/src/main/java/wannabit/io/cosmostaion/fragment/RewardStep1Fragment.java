@@ -45,20 +45,20 @@ public class RewardStep1Fragment extends BaseFragment implements View.OnClickLis
         mBeforeBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
-        mMemoCnt.setText("0" + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
+        mMemoCnt.setText("0" + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
 
         mMemo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String memo = mMemo.getText().toString().trim();
-                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
+                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
                 }
-                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
+                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
 
             }
 
@@ -68,14 +68,14 @@ public class RewardStep1Fragment extends BaseFragment implements View.OnClickLis
             @Override
             public void afterTextChanged(Editable s) {
                 String memo = mMemo.getText().toString().trim();
-                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
+                if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorGray1));
                 } else {
                     mMemo.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mMemoCnt.setTextColor(getResources().getColor(R.color.colorRed));
                 }
-                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain)) + " byte");
+                mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
             }
         });
         return rootView;
@@ -92,7 +92,7 @@ public class RewardStep1Fragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mNextBtn)) {
             String memo = mMemo.getText().toString().trim();
-            if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(BaseChain.getChain(getSActivity().mAccount.baseChain))) {
+            if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                 getSActivity().mRewardMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
             } else {
