@@ -40,6 +40,7 @@
     <string name="str_before">이전</string>
     <string name="str_cancel">취소</string>
     <string name="str_continue">계속</string>
+    <string name="str_connect">연결</string>
     <string name="str_wait">기다리기</string>
     <string name="str_recipient_address">수취인 주소</string>
     <string name="str_dismiss">닫기</string>
@@ -136,7 +137,7 @@
     <string name="str_back">뒤로</string>
     <string name="str_with_qr">QR 코드 공유</string>
     <string name="str_with_text">주소 공유</string>
-    <string name="str_permission_qr">Need permission for SD Card for save your address QR code Image</string>
+    <string name="str_permission_qr">QR코드 이미지 및 지갑연결 로그 저장을 위해 저장소 접근 권한이 필요 합니다.</string>
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
@@ -237,6 +238,7 @@
     <string name="str_current_delegation">현재 위임량</string>
     <string name="str_expected_delegation">예상 위임량</string>
     <string name="str_wallet_connect">지갑 연결</string>
+    <string name="str_wallet_connect_msg">바이낸스 댁스 거래소에 지갑을 연결하시겠습니까?</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

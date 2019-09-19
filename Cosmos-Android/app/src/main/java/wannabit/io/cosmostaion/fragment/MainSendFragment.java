@@ -1,11 +1,13 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
@@ -20,34 +22,51 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+import com.squareup.moshi.Moshi;
+
+import org.jetbrains.annotations.NotNull;
+import org.walletconnect.Session;
+import org.walletconnect.impls.FileWCSessionStore;
+import org.walletconnect.impls.MoshiPayloadAdapter;
+import org.walletconnect.impls.OkHttpTransport;
+import org.walletconnect.impls.WCSession;
+
+import java.io.File;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.utils.FetchCallBack;
+import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 
 public class MainSendFragment extends BaseFragment implements View.OnClickListener {
+    public final static int WALLET_CONNECT = 6013;
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private ImageView           mBtnWebDetail, mBtnAddressDetail;
@@ -473,9 +492,126 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             startActivity(proposals);
 
         } else if (v.equals(mBtnBnbConnect)) {
+            new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+                    IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSendFragment.this);
+                    integrator.setOrientationLocked(true);
+                    integrator.initiateScan();
+                }
+
+                @Override
+                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    Toast.makeText(getContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
+                }
+            })
+            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .setRationaleMessage(getString(R.string.str_permission_qr))
+            .check();
 
         }
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
+            Intent wcIntent = new Intent(getMainActivity(), WalletConnectActivity.class);
+            wcIntent.putExtra("wcUrl", data.getStringExtra("wcUrl"));
+            startActivity(wcIntent);
+
+        } else {
+            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (result != null && result.getContents() != null && result.getContents().trim().contains("wallet-bridge.binance.org")) {
+                Bundle bundle = new Bundle();
+                bundle.putString("wcUrl", result.getContents().trim());
+                Dialog_WalletConnect connect = Dialog_WalletConnect.newInstance(bundle);
+                connect.setCancelable(true);
+                connect.setTargetFragment(MainSendFragment.this, WALLET_CONNECT);
+                connect.show(getFragmentManager(), "dialog");
+
+//                NewRunnable nr = new NewRunnable() ;
+//                Thread t = new Thread(nr) ;
+//                t.start() ;
+            } else {
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+
+    }
+
+    class NewRunnable implements Runnable {
+
+        @Override
+        public void run() {
+//            WLog.w("start run " + testURL);
+
+
+//            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+//            builder.pingInterval(1000, TimeUnit.MILLISECONDS).build();
+
+
+
+            try {
+
+                File fleDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/build/tmp");
+                if(!fleDir.exists()){
+                    fleDir.mkdirs();
+                }
+                WLog.w("fleDir " + fleDir.getAbsolutePath());
+                File file = new File(fleDir, "test_store.json");
+                file.createNewFile();
+
+//                testURL = "wc:4d818033-b9ee-4db4-9e4b-77729667bfa5@1?bridge=https%3A%2F%2Fwallet-bridge.binance.org&key=b2d881e16ca8a254e5386aadef848f88855c61a88f545b65399e99c3f56f3917";
+
+
+//                Session.Config config = Session.Config.Companion.fromWCUri(testURL);
+                Session.Config config = Session.Config.Companion.fromWCUri("");
+                Moshi moshi = new Moshi.Builder().build();
+                MoshiPayloadAdapter adapter = new MoshiPayloadAdapter(moshi);
+                FileWCSessionStore fileStore = new FileWCSessionStore(file, moshi);
+                OkHttpClient client = new OkHttpClient.Builder().pingInterval(1000, TimeUnit.MILLISECONDS).build();
+                OkHttpTransport.Builder transportBuilder = new OkHttpTransport.Builder(client, moshi);
+                Session.PeerMeta peerMeta = new Session.PeerMeta(null, null, null, null);
+//                Session.PeerMeta peerMeta = new Session.PeerMeta(null, "WC Test", null, null);
+
+
+                Session session = new WCSession(config, adapter,fileStore, transportBuilder, peerMeta, null);
+
+                session.addCallback(new Session.Callback() {
+                    @Override
+                    public void onStatus(@NotNull Session.Status status) {
+                        WLog.w("status1 " + status.toString());
+                        WLog.w("status2 " + status);
+                    }
+
+                    @Override
+                    public void onMethodCall(@NotNull Session.MethodCall call) {
+                        WLog.w("onMethodCall " + call.id() + "  " + call.toString());
+
+                    }
+                });
+
+                session.init();
+
+//                session
+//                Thread.sleep(2000);
+//                WLog.w("send approve");
+//                List<String> approv = new ArrayList<>();
+//                approv.add("bnb1kss88tursca2vgdl7a62224zykxs6hz5s06y7d");
+//                session.approve(approv, 4);
+//                Thread.sleep(10000);
+
+            }catch (Exception e) {
+                WLog.w("ee : "  + e.getMessage());
+                e.printStackTrace();
+            }
+
+
+
+
+
+        }
     }
 }
 

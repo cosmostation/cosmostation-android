@@ -361,7 +361,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == SELECT_MY_VALIDATOR_SORTING && resultCode == Activity.RESULT_OK) {
+        if (requestCode == SELECT_MY_VALIDATOR_SORTING && resultCode == Activity.RESULT_OK) {
             getBaseDao().setMyValSorting(data.getIntExtra("sorting", 1));
             onRefreshTab();
         }

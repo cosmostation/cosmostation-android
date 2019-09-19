@@ -84,6 +84,7 @@
     <string name="str_before">Before</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_continue">Continue</string>
+    <string name="str_connect">Connect</string>
     <string name="str_wait">Wait</string>
     <string name="str_recipient_address">Recipient Address</string>
     <string name="str_dismiss">Dismiss</string>
@@ -180,7 +181,7 @@
     <string name="str_back">Back</string>
     <string name="str_with_qr">Share QR Image</string>
     <string name="str_with_text">Share Text</string>
-    <string name="str_permission_qr">Need permission for SD Card for save your address QR code Image</string>
+    <string name="str_permission_qr">Need permission for SD Card for save your address QR code Image or wallet connect</string>
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
@@ -282,6 +283,7 @@
     <string name="str_current_delegation">Current Delegation</string>
     <string name="str_expected_delegation">Expected Delegation</string>
     <string name="str_wallet_connect">Wallet Connect</string>
+    <string name="str_wallet_connect_msg">Would you like to link your wallet to Binance Dax Exchange?</string>
 
 
     <string name="str_main_wallet">WALLET</string>
