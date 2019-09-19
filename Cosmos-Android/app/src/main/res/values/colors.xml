@@ -32,12 +32,14 @@
 
     <color name="colorAtom">#9C6CFF</color>
     <color name="colorAtom2">#372758</color>
-    <color name="colorAtom3">#6d4bb2</color>
 
     <color name="colorPhoton">#05D2DD</color>
 
     <color name="colorIris">#00A8FF</color>
+    <color name="colorIris2">#003870</color>
     <color name="colorBnb">#E9BC00</color>
+    <color name="colorBnb2">#634C04</color>
+
 
 
 

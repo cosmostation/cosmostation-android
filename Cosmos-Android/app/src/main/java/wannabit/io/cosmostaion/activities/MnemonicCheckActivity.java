@@ -61,6 +61,13 @@ public class MnemonicCheckActivity extends BaseActivity {
         final ArrayList<String> mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
 
         for(int i = 0; i < mTvWords.length; i++) {
+            if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.COSMOS_MAIN)) {
+                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_atom));
+            } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.IRIS_MAIN)) {
+                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_iris));
+            } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.BNB_MAIN)) {
+                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_bnb));
+            }
             if(i > mWords.size()) mTvWords[i].setVisibility(View.GONE);
             else mTvWords[i].setVisibility(View.VISIBLE);
         }

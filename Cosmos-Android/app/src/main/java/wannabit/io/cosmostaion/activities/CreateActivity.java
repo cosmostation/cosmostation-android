@@ -110,6 +110,16 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         } else if (mChain.equals(BaseChain.BNB_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
         }
+        for(int i = 0; i < mTvWords.length; i++) {
+            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_atom));
+            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_iris));
+            } else if (mChain.equals(BaseChain.BNB_MAIN)) {
+                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_bnb));
+            }
+        }
+
         mCardAddress.setVisibility(View.VISIBLE);
         mCardMnemonics.setVisibility(View.VISIBLE);
         mWarnLayer.setVisibility(View.VISIBLE);
