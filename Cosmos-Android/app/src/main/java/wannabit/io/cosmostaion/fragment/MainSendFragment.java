@@ -530,88 +530,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 connect.setTargetFragment(MainSendFragment.this, WALLET_CONNECT);
                 connect.show(getFragmentManager(), "dialog");
 
-//                NewRunnable nr = new NewRunnable() ;
-//                Thread t = new Thread(nr) ;
-//                t.start() ;
             } else {
                 super.onActivityResult(requestCode, resultCode, data);
             }
         }
 
-    }
-
-    class NewRunnable implements Runnable {
-
-        @Override
-        public void run() {
-//            WLog.w("start run " + testURL);
-
-
-//            OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//            builder.pingInterval(1000, TimeUnit.MILLISECONDS).build();
-
-
-
-            try {
-
-                File fleDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/build/tmp");
-                if(!fleDir.exists()){
-                    fleDir.mkdirs();
-                }
-                WLog.w("fleDir " + fleDir.getAbsolutePath());
-                File file = new File(fleDir, "test_store.json");
-                file.createNewFile();
-
-//                testURL = "wc:4d818033-b9ee-4db4-9e4b-77729667bfa5@1?bridge=https%3A%2F%2Fwallet-bridge.binance.org&key=b2d881e16ca8a254e5386aadef848f88855c61a88f545b65399e99c3f56f3917";
-
-
-//                Session.Config config = Session.Config.Companion.fromWCUri(testURL);
-                Session.Config config = Session.Config.Companion.fromWCUri("");
-                Moshi moshi = new Moshi.Builder().build();
-                MoshiPayloadAdapter adapter = new MoshiPayloadAdapter(moshi);
-                FileWCSessionStore fileStore = new FileWCSessionStore(file, moshi);
-                OkHttpClient client = new OkHttpClient.Builder().pingInterval(1000, TimeUnit.MILLISECONDS).build();
-                OkHttpTransport.Builder transportBuilder = new OkHttpTransport.Builder(client, moshi);
-                Session.PeerMeta peerMeta = new Session.PeerMeta(null, null, null, null);
-//                Session.PeerMeta peerMeta = new Session.PeerMeta(null, "WC Test", null, null);
-
-
-                Session session = new WCSession(config, adapter,fileStore, transportBuilder, peerMeta, null);
-
-                session.addCallback(new Session.Callback() {
-                    @Override
-                    public void onStatus(@NotNull Session.Status status) {
-                        WLog.w("status1 " + status.toString());
-                        WLog.w("status2 " + status);
-                    }
-
-                    @Override
-                    public void onMethodCall(@NotNull Session.MethodCall call) {
-                        WLog.w("onMethodCall " + call.id() + "  " + call.toString());
-
-                    }
-                });
-
-                session.init();
-
-//                session
-//                Thread.sleep(2000);
-//                WLog.w("send approve");
-//                List<String> approv = new ArrayList<>();
-//                approv.add("bnb1kss88tursca2vgdl7a62224zykxs6hz5s06y7d");
-//                session.approve(approv, 4);
-//                Thread.sleep(10000);
-
-            }catch (Exception e) {
-                WLog.w("ee : "  + e.getMessage());
-                e.printStackTrace();
-            }
-
-
-
-
-
-        }
     }
 }
 

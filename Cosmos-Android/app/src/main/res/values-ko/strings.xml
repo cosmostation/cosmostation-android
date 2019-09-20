@@ -239,6 +239,13 @@
     <string name="str_expected_delegation">예상 위임량</string>
     <string name="str_wallet_connect">지갑 연결</string>
     <string name="str_wallet_connect_msg">바이낸스 댁스 거래소에 지갑을 연결하시겠습니까?</string>
+    <string name="str_disconnect">연결 해제</string>
+    <string name="str_connect_to">연결 대상</string>
+    <string name="str_wc_connected">지갑이 연결되었습니다.</string>
+    <string name="str_wc_disconnected">지갑이 연결이 해제 되었습니다.</string>
+    <string name="str_wc_approved">지갑이 인증 되었습니다.</string>
+    <string name="str_wc_closed">지갑이 닫혔습니다.</string>
+
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
