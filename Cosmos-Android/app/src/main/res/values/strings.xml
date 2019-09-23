@@ -502,6 +502,8 @@
     <string name="tx_create_validator">Create Val</string>
     <string name="tx_edit_validator">Edit Val</string>
     <string name="tx_reinvest">Re-Invest</string>
+    <string name="tx_new_order">New Order</string>
+    <string name="tx_Cancel_order">Cancel Order</string>
     <string name="tx_known">Known</string>
 
 

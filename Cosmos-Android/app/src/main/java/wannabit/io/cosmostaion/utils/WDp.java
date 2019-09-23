@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.utils;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.TotalReward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -799,6 +801,24 @@ public class WDp {
             result = result + "\n+ " + (msgs.size() - 1);
         }
         return result;
+    }
+
+    public static String DpBNBTxType(Context c, BnbHistory history, String address) {
+        String result = c.getString(R.string.tx_known);
+        if (history.txType.equals("NEW_ORDER")) {
+            result = c.getString(R.string.tx_new_order);
+        } else if (history.txType.equals("CANCEL_ORDER")) {
+            result = c.getString(R.string.tx_Cancel_order);
+
+        } else if (history.txType.equals("TRANSFER")) {
+            if (!TextUtils.isEmpty(history.fromAddr) && address.equals(history.fromAddr)) {
+                result = c.getString(R.string.tx_send);
+            } else {
+                result = c.getString(R.string.tx_receive);
+            }
+        }
+        return result;
+
     }
 
     public static String getHistoryDpCnt(ArrayList<Msg> msgs) {
