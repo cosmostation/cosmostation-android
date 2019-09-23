@@ -77,7 +77,7 @@
 "more_wait_title" = "Result Display Delayed";
 "more_wait_msg" = "The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. Please press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.";
 "fee_speed_title_0" = "Only a handful of validators will process this Tx.";
-"fee_speed_title_1" = "A few validators include \"Cosmostaion\" will process this Tx.";
+"fee_speed_title_1" = "A few validators include \"Cosmostation\" will process this Tx.";
 "fee_speed_title_2" = "Most validators will process this Tx.";
 "fee_speed_iris_title" = "Support fixed amount fee for Iris.\nIris Hub will refund the remaining gas fee after use.";
 "fee_description_title_0" = "Tx fee 0.000001 ATOM";
