@@ -75,7 +75,7 @@
 "reward_address_notice_msg" = "You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. Please confirm you have full authority with to change address.";
 "reward_address_warnning_title" = "Double Check!";
 "more_wait_title" = "Result Display Delayed";
-"more_wait_msg" = "The transaction you requested has been successfully broadcasted to the blockchain.However, there is a delay in displaying the result. Please press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.";
+"more_wait_msg" = "The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. Please press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.";
 "fee_speed_title_0" = "Only a handful of validators will process this Tx.";
 "fee_speed_title_1" = "A few validators include \"Cosmostaion\" will process this Tx.";
 "fee_speed_title_2" = "Most validators will process this Tx.";
