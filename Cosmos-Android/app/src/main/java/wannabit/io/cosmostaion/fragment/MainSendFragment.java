@@ -45,6 +45,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -482,6 +483,13 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             startActivity(proposals);
 
         } else if (v.equals(mBtnBnbConnect)) {
+            if (getMainActivity().mAccount == null) return;
+            if (!getMainActivity().mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                add.show(getFragmentManager(), "dialog");
+                return;
+            }
             new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
                 @Override
                 public void onPermissionGranted() {
