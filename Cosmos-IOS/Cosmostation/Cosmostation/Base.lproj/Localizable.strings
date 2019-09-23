@@ -49,7 +49,7 @@
 "reward_claim_top_16" = "We claim rewards from up to max 16 validators in order of reward amount.";
 "add_mnemonic" = "Add Mnemonic";
 "sort_by_name" = "By Name";
-"sort_by_my_delegate" = "By My Deleagted Amount";
+"sort_by_my_delegate" = "By My Delegated Amount";
 "sort_by_reward" = "By Reward Amount";
 "sort_by_power" = "By Voting Power";
 "sort_by_commission" = "By Commission";
