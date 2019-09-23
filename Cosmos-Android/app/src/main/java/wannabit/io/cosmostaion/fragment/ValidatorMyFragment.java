@@ -28,7 +28,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -41,8 +40,10 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 
 public class ValidatorMyFragment extends BaseFragment implements View.OnClickListener {
 
@@ -191,10 +192,20 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                    try {
+                        Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
 
                 } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                     holder.itemTvReward.setText(WDp.getIrisValidatorReward(getContext(), mIrisRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain)));
+                    try {
+                        Picasso.get().load(IRIS_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
                 }
 
                 holder.itemTvMoniker.setText(validator.description.moniker);
@@ -205,42 +216,6 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                         getMainActivity().onStartValidatorDetail(validator);
                     }
                 });
-
-
-                holder.itemAvatar.setTag("imgv" + position);
-                if(validator.keybaseInfo == null) {
-                    holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
-                    if(!TextUtils.isEmpty(validator.description.identity)) {
-                        ApiClient.getKeybaseService(getMainActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
-                            @Override
-                            public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
-                                validator.keybaseInfo = response.body();
-                                if(isAdded() && holder.itemAvatar.getTag().equals("imgv" + position)) {
-                                    try {
-                                        Picasso.get()
-                                                .load(response.body().getUrl())
-                                                .fit()
-                                                .placeholder(R.drawable.validator_none_img)
-                                                .into(holder.itemAvatar);
-                                    }catch (Exception e) {}
-                                }
-                            }
-                            @Override
-                            public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
-                        });
-                    }
-
-                } else {
-                    if(isAdded() && holder.itemAvatar.getTag().equals("imgv" + position)) {
-                        try {
-                            Picasso.get()
-                                    .load(validator.keybaseInfo.getUrl())
-                                    .fit()
-                                    .placeholder(R.drawable.validator_none_img)
-                                    .into(holder.itemAvatar);
-                        }catch (Exception e) {}
-                    }
-                }
 
                 if(validator.jailed) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));

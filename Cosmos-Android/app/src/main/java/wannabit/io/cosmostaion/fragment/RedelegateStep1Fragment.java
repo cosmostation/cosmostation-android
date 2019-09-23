@@ -41,6 +41,9 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
+
 public class RedelegateStep1Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
     private Button                  mBefore, mNextBtn;
@@ -153,10 +156,20 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 if(getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
                     holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
+                try {
+                    Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getSActivity().mBaseChain));
                 holder.itemTvCommission.setText(WDp.getIrisYieldString(getSActivity().mIrisPool, new BigDecimal(validator.commission.rate)));
+                try {
+                    Picasso.get().load(IRIS_VAL_URL+validator.operator_address+".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
             }
             holder.itemTvMoniker.setText(validator.description.moniker);
             holder.itemFree.setVisibility(View.GONE);
@@ -167,42 +180,6 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                     notifyDataSetChanged();
                 }
             });
-
-            holder.itemAvatar.setTag("imgv" + position);
-            if (validator.keybaseInfo == null) {
-                holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
-                if(!TextUtils.isEmpty(validator.description.identity)) {
-                    ApiClient.getKeybaseService(getSActivity()).getUserInfo("pictures", validator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
-                        @Override
-                        public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
-                            validator.keybaseInfo = response.body();
-                            if(isAdded() && holder.itemAvatar.getTag().equals("imgv" + position)) {
-                                try {
-                                    Picasso.get()
-                                            .load(response.body().getUrl())
-                                            .fit()
-                                            .placeholder(R.drawable.validator_none_img)
-                                            .into(holder.itemAvatar);
-                                }catch (Exception e) {}
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
-                    });
-                }
-
-            } else {
-                if(isAdded() && holder.itemAvatar.getTag().equals("imgv" + position)) {
-                    try {
-                        Picasso.get()
-                                .load(validator.keybaseInfo.getUrl())
-                                .fit()
-                                .placeholder(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    }catch (Exception e) {}
-                }
-
-            }
 
             if(validator.jailed) {
                 holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));

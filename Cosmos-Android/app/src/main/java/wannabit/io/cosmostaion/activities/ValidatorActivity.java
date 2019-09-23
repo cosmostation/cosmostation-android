@@ -26,14 +26,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
@@ -42,10 +38,8 @@ import wannabit.io.cosmostaion.dialog.Dialog_Not_Top_100;
 import wannabit.io.cosmostaion.dialog.Dialog_RedelegationLimited;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqTxVal;
 import wannabit.io.cosmostaion.network.res.ResHistory;
-import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
@@ -64,7 +58,9 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
 
@@ -599,25 +595,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvDescription.setVisibility(View.GONE);
                 }
 
-                if(!TextUtils.isEmpty(mValidator.description.identity)) {
-                    ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
-                        @Override
-                        public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
-                            if(!isFinishing()) {
-                                try {
-                                    Picasso.get()
-                                            .load(response.body().getUrl())
-                                            .placeholder(R.drawable.validator_none_img)
-                                            .into(holder.itemAvatar);
-                                }catch (Exception e) {}
-
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
-                    });
-                }
-
                 if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                     holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
@@ -629,6 +606,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
                         holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                     }
+                    try {
+                        Picasso.get().load(COSMOS_VAL_URL+mValidator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
 
                 } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
@@ -641,6 +623,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
                         holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                     }
+                    try {
+                        Picasso.get().load(IRIS_VAL_URL+mValidator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
 
                 }
 
@@ -685,26 +672,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvDescription.setVisibility(View.GONE);
                 }
 
-                if (!TextUtils.isEmpty(mValidator.description.identity)) {
-                    ApiClient.getKeybaseService(getBaseContext()).getUserInfo("pictures", mValidator.description.identity).enqueue(new Callback<ResKeyBaseUser>() {
-                        @Override
-                        public void onResponse(Call<ResKeyBaseUser> call, final Response<ResKeyBaseUser> response) {
-                            if (!isFinishing()) {
-                                try {
-                                    Picasso.get()
-                                            .load(response.body().getUrl())
-                                            .fit()
-                                            .placeholder(R.drawable.validator_none_img)
-                                            .into(holder.itemAvatar);
-                                } catch (Exception e){}
-
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<ResKeyBaseUser> call, Throwable t) {}
-                    });
-                }
-
                 if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                     holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
@@ -716,6 +683,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
                         holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                     }
+                    try {
+                        Picasso.get().load(COSMOS_VAL_URL+mValidator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
 
                 } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
@@ -728,6 +700,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
                         holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                     }
+                    try {
+                        Picasso.get().load(IRIS_VAL_URL+mValidator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
 
                 }
 
