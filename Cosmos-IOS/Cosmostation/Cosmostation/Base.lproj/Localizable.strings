@@ -49,7 +49,7 @@
 "reward_claim_top_16" = "We claim rewards from up to max 16 validators in order of reward amount.";
 "add_mnemonic" = "Add Mnemonic";
 "sort_by_name" = "By Name";
-"sort_by_my_delegate" = "By My Deleagted Amount";
+"sort_by_my_delegate" = "By My Delegated Amount";
 "sort_by_reward" = "By Reward Amount";
 "sort_by_power" = "By Voting Power";
 "sort_by_commission" = "By Commission";
@@ -75,9 +75,9 @@
 "reward_address_notice_msg" = "You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. Please confirm you have full authority with to change address.";
 "reward_address_warnning_title" = "Double Check!";
 "more_wait_title" = "Result Display Delayed";
-"more_wait_msg" = "The transaction you requested has been successfully broadcasted to the blockchain.However, there is a delay in displaying the result. Please press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.";
+"more_wait_msg" = "The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. Please press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.";
 "fee_speed_title_0" = "Only a handful of validators will process this Tx.";
-"fee_speed_title_1" = "A few validators include \"Cosmostaion\" will process this Tx.";
+"fee_speed_title_1" = "A few validators include \"Cosmostation\" will process this Tx.";
 "fee_speed_title_2" = "Most validators will process this Tx.";
 "fee_speed_iris_title" = "Support fixed amount fee for Iris.\nIris Hub will refund the remaining gas fee after use.";
 "fee_description_title_0" = "Tx fee 0.000001 ATOM";
@@ -136,7 +136,7 @@
 "title_send" = "Send";
 "title_redelegate" = "Redelegate";
 "title_validator_detail" = "Validator Details";
-"title_reword_address_change" = "Reward Address Chagne";
+"title_reword_address_change" = "Reward Address Change";
 "title_reinvest" = "Re-Invest";
 "title_guide" = "FAQ";
 
@@ -272,7 +272,7 @@
 "guide_msg_general_1" = "Cosmostation wallet currently supports KRW(\), USD($).\nYou can change the currency in Settings > Currency Settings, and we will continuously add new currencies.";
 "guide_msg_general_2" = "Go to Settings > Manage Wallet to select the wallet you wish to view the mnemonic phrase for. Press [Check mnemonic phrase].\n*This is only available for wallets you have registered a mnemonic phrase for.\n*You cannot view mnemonics for a wallet you have registered as observer mode.";
 "guide_msg_general_3" = "When you back up your mnemonic phrase using [Mnemonic phrase backup] > Copy, your phrase is in your clipboard. Losing your mnemonic phrase could lead to loss of your funds. Please remember to delete your seed phrase saved in your clipboard.";
-"guide_msg_general_4" = "Locking your phone is highly suggested. For iPhone, the keystore technology automatically encryptes your data./ However, locking your phone in highly recommened in order to achieve higher level of security.";
+"guide_msg_general_4" = "Locking your phone is highly suggested. For iPhone, the keystore technology automatically encrypts your data./ However, locking your phone in highly recommended in order to achieve higher level of security.";
 "guide_msg_general_5" = "Yes, you can either create a new wallet or import an existing wallet on a different device.\n\n* Using multiple devices could lead to exposure of your Mnemonics. Make sure not to expose your Mnemonics to anyone else.";
 
 "guide_title_trouble_0" = "Bug report and inquiries";

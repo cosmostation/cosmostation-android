@@ -269,10 +269,10 @@ public class WDp {
     }
 
     public static SpannableString getDpAllDelegatedAmount(Context c, ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
-        return getDpAmount(c, getAllDeleagtedAmount(bondings, validators, chain), 6, chain);
+        return getDpAmount(c, getAllDelegatedAmount(bondings, validators, chain), 6, chain);
     }
 
-    public static BigDecimal getAllDeleagtedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
+    public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         if (bondings == null || bondings.size() == 0) return sum;
         if (chain.equals(BaseChain.COSMOS_MAIN)) {
