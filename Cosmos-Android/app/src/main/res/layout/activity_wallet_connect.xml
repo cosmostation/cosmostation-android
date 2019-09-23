@@ -29,9 +29,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
-        android:keepScreenOn="true"
-        android:visibility="invisible">
+        android:keepScreenOn="true">
         <android.support.v7.widget.CardView
+            android:id="@+id/wc_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardPreventCornerOverlap="true"
@@ -97,6 +97,18 @@
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/wc_card"
+            android:layout_above="@+id/btn_disconnect">
+            <ProgressBar
+                android:layout_width="174dp"
+                android:layout_height="45dp"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/wc_imgs"/>
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btn_disconnect"

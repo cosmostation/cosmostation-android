@@ -317,7 +317,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_PASSWORD_CHECK) {
             if(result.isSuccess) {
-                setResult(Activity.RESULT_OK, new Intent());
+                setResult(Activity.RESULT_OK, getIntent());
                 finish();
                 overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
             } else {

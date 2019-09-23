@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -28,30 +27,21 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.squareup.moshi.Moshi;
 
-import org.jetbrains.annotations.NotNull;
-import org.walletconnect.Session;
-import org.walletconnect.impls.FileWCSessionStore;
-import org.walletconnect.impls.MoshiPayloadAdapter;
-import org.walletconnect.impls.OkHttpTransport;
-import org.walletconnect.impls.WCSession;
-
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
@@ -515,10 +505,17 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
+        if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
             Intent wcIntent = new Intent(getMainActivity(), WalletConnectActivity.class);
             wcIntent.putExtra("wcUrl", data.getStringExtra("wcUrl"));
             startActivity(wcIntent);
+
+        } else  if (requestCode == WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
+            Intent intent = new Intent(getMainActivity(), PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            intent.putExtra("wcUrl", data.getStringExtra("wcUrl"));
+            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            getMainActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);

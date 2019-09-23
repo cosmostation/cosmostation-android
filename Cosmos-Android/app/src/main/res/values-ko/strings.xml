@@ -245,6 +245,11 @@
     <string name="str_wc_disconnected">지갑이 연결이 해제 되었습니다.</string>
     <string name="str_wc_approved">지갑이 인증 되었습니다.</string>
     <string name="str_wc_closed">지갑이 닫혔습니다.</string>
+    <string name="str_wc_sign_title">지갑 사인 요청</string>
+    <string name="str_wc_sign_msg">내용을 확인하시고 결정해 주시기 바랍니다.\n귀하의 자산에 영향을 미치는 내용입니다.</string>
+    <string name="str_wc_sign_result_msg">Tx를 전송하였습니다. \nDex 거래소 화면을 확인해 주세요.</string>
+    <string name="str_wc_new_order">새로운 주문</string>
+    <string name="str_wc_cancel_order">주문 취소</string>
 
 
     <string name="str_main_wallet">WALLET</string>
