@@ -35,7 +35,6 @@ import java.util.Locale;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.activities.WalletConnectActivity;
@@ -47,7 +46,6 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
@@ -382,8 +380,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         if(v.equals(mBtnAddressDetail)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", getMainActivity().mAccount.address);
-            if(TextUtils.isEmpty(getMainActivity().mAccount.nickName)) bundle.putString("title", getString(R.string.str_my_wallet) + getMainActivity().mAccount.id);
-            else bundle.putString("title", getMainActivity().mAccount.nickName);
+            if (TextUtils.isEmpty(getMainActivity().mAccount.nickName))
+                bundle.putString("title", getString(R.string.str_my_wallet) + getMainActivity().mAccount.id);
+            else
+                bundle.putString("title", getMainActivity().mAccount.nickName);
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             show.show(getFragmentManager().beginTransaction(), "dialog");

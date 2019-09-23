@@ -807,6 +807,7 @@ public class WDp {
         String result = c.getString(R.string.tx_known);
         if (history.txType.equals("NEW_ORDER")) {
             result = c.getString(R.string.tx_new_order);
+
         } else if (history.txType.equals("CANCEL_ORDER")) {
             result = c.getString(R.string.tx_Cancel_order);
 

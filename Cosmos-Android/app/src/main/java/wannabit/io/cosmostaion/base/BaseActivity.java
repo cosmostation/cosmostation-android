@@ -1,8 +1,14 @@
 package wannabit.io.cosmostaion.base;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +18,13 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -34,6 +46,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -157,9 +170,66 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onChoiceNet(BaseChain chain) { }
 
-    public void onShare(boolean isText) { }
+    public void onShare(boolean isText, String address) {
+        if(isText) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, address);
+            shareIntent.setType("text/plain");
+            startActivity(Intent.createChooser(shareIntent, "send"));
 
-    public void onShareType() { }
+        } else {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            try {
+                final Bitmap mBitmap = WUtil.toBitmap(qrCodeWriter.encode(address, BarcodeFormat.QR_CODE, 480, 480));
+                new TedPermission(this)
+                        .setPermissionListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted() {
+                                try {
+                                    ContentValues values = new ContentValues();
+                                    values.put(MediaStore.Images.Media.TITLE, address);
+                                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                                    Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                                    OutputStream outstream = getContentResolver().openOutputStream(uri);
+                                    mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                                    outstream.close();
+
+                                    Intent shareIntent = new Intent();
+                                    shareIntent.setAction(Intent.ACTION_SEND);
+                                    shareIntent.putExtra(Intent.EXTRA_TEXT, address);
+                                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                                    shareIntent.setType("image/jpeg");
+                                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    startActivity(Intent.createChooser(shareIntent, "send"));
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                                Toast.makeText(getBaseContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .setRationaleMessage(getString(R.string.str_permission_qr))
+                        .check();
+
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void onShareType(String address) {
+        Bundle bundle = new Bundle();
+        bundle.putString("address", address);
+        Dialog_ShareType add = Dialog_ShareType.newInstance(bundle);
+        add.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+    }
 
     public void onDeleteAccount(long id) {
         try {

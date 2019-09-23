@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,16 +33,14 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
+import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.req.ReqTxToken;
-import wannabit.io.cosmostaion.network.req.ReqTxVal;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResHistory;
 import wannabit.io.cosmostaion.task.FetchTask.HistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.TokenHistoryTask;
-import wannabit.io.cosmostaion.task.FetchTask.ValHistoryTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -58,6 +58,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
     private ImageView               mChainBg;
     private Toolbar                 mToolbar;
+
+
+    private ImageView               mBtnWebDetail, mBtnAddressDetail;
+    private ImageView               mKeyState;
+    private TextView                mAddress;
 
     private CardView                mAtomCard, mIrisCard, mBnbCard, TokenCard;
     private TextView                mTvAtomTotal, mTvAtomValue, mTvAtomAvailable,
@@ -97,6 +102,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        mBtnWebDetail           = findViewById(R.id.web_detail);
+        mBtnAddressDetail       = findViewById(R.id.address_detail);
+        mKeyState               = findViewById(R.id.img_account);
+        mAddress                = findViewById(R.id.account_Address);
 
         mAtomCard               = findViewById(R.id.card_atom);
         mTvAtomTotal            = mAtomCard.findViewById(R.id.dash_atom_amount);
@@ -163,6 +174,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         mIrisReward = getIntent().getParcelableExtra("irisreward");
         mRewards = getIntent().getParcelableArrayListExtra("rewards");
 
+        mBtnWebDetail.setOnClickListener(this);
+        mBtnAddressDetail.setOnClickListener(this);
+
     }
 
     @Override
@@ -182,6 +196,26 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+
+        mAddress.setText(mAccount.address);
+        mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            if (mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            if (mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+        }
+
 
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN) && mBalance.symbol.equals(COSMOS_ATOM) ||
                 mBaseChain.equals(BaseChain.COSMOS_MAIN) && (IS_TEST && mBalance.symbol.equals(COSMOS_MUON))) {
@@ -269,7 +303,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvTokenValue.setText(WDp.getTotalValueBnb(this, getBaseDao(), amount));
                 mTvTokenDenom.setText(mBnbToken.symbol);
                 mTvTokenAvailable.setText(WDp.getDpAmount(this, mBalance.balance, 8, mBaseChain));
-                mTvTokenReward.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 8, mBaseChain));
+//                mTvTokenReward.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 8, mBaseChain));
                 try {
                     Picasso.get().load(TOKEN_IMG_URL+mBnbToken.original_symbol+".png")
                             .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
@@ -281,7 +315,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 onBackPressed();
             }
         }
-
         onFetchTokenHistory();
     }
 
@@ -340,7 +373,25 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnSendAtom)) {
+        if(v.equals(mBtnAddressDetail)) {
+            Bundle bundle = new Bundle();
+            bundle.putString("address", mAccount.address);
+            if (TextUtils.isEmpty(mAccount.nickName))
+                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+            else
+                bundle.putString("title", mAccount.nickName);
+            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            show.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+
+        } else if (v.equals(mBtnWebDetail)) {
+            Intent webintent = new Intent(this, WebActivity.class);
+            webintent.putExtra("address", mAccount.address);
+            webintent.putExtra("chain", mBaseChain.getChain());
+            webintent.putExtra("goMain", false);
+            startActivity(webintent);
+
+        } else if (v.equals(mBtnSendAtom)) {
             if (onCheckSendable()) {
                 startActivity(new Intent(TokenDetailActivity.this, SendActivity.class));
             }

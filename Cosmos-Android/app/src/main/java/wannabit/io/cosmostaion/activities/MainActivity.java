@@ -1,13 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.Manifest;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
@@ -26,32 +20,21 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
-
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
-import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
@@ -227,70 +210,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
 
     }
-
-    @Override
-    public void onShareType() {
-        super.onShareType();
-        Dialog_ShareType add = Dialog_ShareType.newInstance(null);
-        add.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-    }
-
-    @Override
-    public void onShare(boolean isText) {
-        if(isText) {
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, mAccount.address);
-            shareIntent.setType("text/plain");
-            startActivity(Intent.createChooser(shareIntent, "send"));
-
-        } else {
-            QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            try {
-                final Bitmap mBitmap = WUtil.toBitmap(qrCodeWriter.encode(mAccount.address, BarcodeFormat.QR_CODE, 480, 480));
-                new TedPermission(this)
-                        .setPermissionListener(new PermissionListener() {
-                            @Override
-                            public void onPermissionGranted() {
-                                try {
-                                    ContentValues values = new ContentValues();
-                                    values.put(MediaStore.Images.Media.TITLE, mAccount.address);
-                                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                                    Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                                    OutputStream outstream = getContentResolver().openOutputStream(uri);
-                                    mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
-                                    outstream.close();
-
-                                    Intent shareIntent = new Intent();
-                                    shareIntent.setAction(Intent.ACTION_SEND);
-                                    shareIntent.putExtra(Intent.EXTRA_TEXT, mAccount.address);
-                                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                                    shareIntent.setType("image/jpeg");
-                                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    startActivity(Intent.createChooser(shareIntent, "send"));
-
-                                } catch (Exception e) {
-                                    if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                                Toast.makeText(getBaseContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .setRationaleMessage(getString(R.string.str_permission_qr))
-                        .check();
-
-            } catch (WriterException e) {
-                if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
-            }
-        }
-
-    }
-
 
     public void onShowTopAccountsView() {
         mDimLayer.setVisibility(View.VISIBLE);

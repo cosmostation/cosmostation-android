@@ -75,7 +75,7 @@ public class Dialog_AccountShow extends DialogFragment {
         btn_nega.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onShareType();
+                ((BaseActivity)getActivity()).onShareType(getArguments().getString("address"));
                 getDialog().dismiss();
 
             }

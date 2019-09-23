@@ -39,11 +39,7 @@ public class Dialog_ShareType extends DialogFragment {
         mQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("coin", BaseConstant.COSMOS_ATOM);
-//                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-//                getDialog().dismiss();
-                ((BaseActivity)getActivity()).onShare(false);
+                ((BaseActivity)getActivity()).onShare(false, getArguments().getString("address"));
                 getDialog().dismiss();
             }
         });
@@ -51,11 +47,7 @@ public class Dialog_ShareType extends DialogFragment {
         mText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("coin", BaseConstant.COSMOS_PHOTON);
-//                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-//                getDialog().dismiss();
-                ((BaseActivity)getActivity()).onShare(true);
+                ((BaseActivity)getActivity()).onShare(true, getArguments().getString("address"));
                 getDialog().dismiss();
             }
         });
