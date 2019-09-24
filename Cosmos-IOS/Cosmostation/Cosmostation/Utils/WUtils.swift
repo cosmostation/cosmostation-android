@@ -863,11 +863,11 @@ class WUtils {
     
     static func getChainName(_ type:String) -> String {
         if (type == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
-            return "cosmoshub-2"
+            return "cosmoshub-3"
         } else if (type == ChainType.SUPPORT_CHAIN_IRIS_MAIN.rawValue) {
             return "irishub"
         }
-        return "cosmoshub-2"
+        return "cosmoshub-3"
     }
 }
 

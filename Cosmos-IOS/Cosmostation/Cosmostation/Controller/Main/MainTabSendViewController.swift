@@ -129,10 +129,11 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
                 keyTypeImg.tintColor = COLOR_IRIS
             }
         }
-        keyAddressLabel.text = mainTabVC.mAccount.account_address
         
+        keyAddressLabel.text = mainTabVC.mAccount.account_address
         denomCard.backgroundColor = WUtils.getChainBg(userChain!)
         WUtils.setDenomTitle(userChain!, denomTitleLabel)
+        
         if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             denomImg.image = UIImage(named: "atom_ic")
             if (mainTabVC.mRewardList.count > 0) {
@@ -334,9 +335,15 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate{
     }
     
     @IBAction func onClickCheckWeb(_ sender: UIButton) {
-        guard let url = URL(string: "https://www.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
-        let safariViewController = SFSafariViewController(url: url)
-        present(safariViewController, animated: true, completion: nil)
+        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            guard let url = URL(string: "https://www.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }  else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            guard let url = URL(string: "https://irishub.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
     }
     
     @IBAction func onClickMyAddressShare(_ sender: UIButton) {

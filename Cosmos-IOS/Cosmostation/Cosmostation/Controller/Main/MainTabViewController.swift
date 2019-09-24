@@ -239,7 +239,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
-//        print("onFetchFinished ", self.mFetchCnt)
         if(mFetchCnt <= 0) {
             if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -296,9 +295,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         break;
                     }
                 }
-                if(mine) {
+                if (mine) {
                     self.mMyValidators.append(validator)
                 }
+            }
+            if (mAllValidator.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
         }
@@ -313,7 +315,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .success(let res):
                 guard let responseData = res as? NSDictionary,
                     let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                    return
+                        self.onFetchFinished()
+                        return
                 }
                 self.mTopValidators.removeAll()
                 for validator in validators {
@@ -334,6 +337,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .success(let res):
                 guard let responseData = res as? NSDictionary,
                     let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
                         return
                 }
                 for validator in validators {
@@ -354,7 +358,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .success(let res):
                 guard let responseData = res as? NSDictionary,
                     let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                        print("no Unbonding validators!!")
+                        self.onFetchFinished()
                         return
                 }
                 for validator in validators {
@@ -375,6 +379,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 guard let validators = res as? Array<NSDictionary> else {
+                    self.onFetchFinished()
                     return
                 }
                 
@@ -646,9 +651,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         self.onFetchFinished()
                         return;
                 }
-                print("onFetchMintInfo ", mintInfo)
             case .failure(let error):
-                print("onFetchMintInfo ", error)
+                if (SHOW_LOG) { print("onFetchMintInfo ", error) }
             }
             self.onFetchFinished()
         }
@@ -664,35 +668,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.mIrisStakePool = irisStakePool
                 }
             case .failure(let error):
-                print("irisStakePool ", error)
+                if (SHOW_LOG) { print("irisStakePool ", error) }
             }
             self.onFetchFinished()
         }
     
-    }
-    
-    func onFetchAtomTic(_ callback:Bool) {
-        let request = Alamofire
-            .request(CMC_PRICE_TIC+"3794", method: .get, parameters: ["convert":BaseData.instance.getCurrencyString()], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                self.mAtomTic = res as? NSDictionary
-                if(self.mAtomTic != nil){
-                    BaseData.instance.setAtomTicCmc(self.mAtomTic!)
-                    if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_success", comment: "")) }
-                } else  {
-                    if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
-                }
-                
-            case .failure(let error):
-                if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
-                print(error)
-            }
-            if(callback) {
-                self.onFetchFinished()
-            }
-        }
     }
     
     func onFetchPriceTic(_ callback:Bool) {
@@ -719,7 +699,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("res : ", res)
                 if let priceTic = res as? NSDictionary {
                     if (BaseData.instance.getMarket() == 0) {
                         BaseData.instance.setPriceTicCgc(priceTic)
@@ -732,7 +711,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             case .failure(let error):
                 if(!callback) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
-                print(error)
+                if (SHOW_LOG) { print("onFetchPriceTic ", error) }
             }
             if(callback) {
                 self.onFetchFinished()
