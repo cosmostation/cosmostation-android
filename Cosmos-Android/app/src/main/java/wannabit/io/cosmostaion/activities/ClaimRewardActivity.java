@@ -80,11 +80,6 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
-        }
 
         mPageAdapter = new RewardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);

@@ -70,11 +70,6 @@ public class DelegateActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
-        }
         mValidator = getIntent().getParcelableExtra("validator");
 
         mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager());

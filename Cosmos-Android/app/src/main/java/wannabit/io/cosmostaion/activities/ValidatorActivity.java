@@ -102,12 +102,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mBaseChain      = BaseChain.getChain(mAccount.baseChain);
         mValidator      = getIntent().getParcelableExtra("validator");
 
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
-        }
-
         mBondedToken = new BigDecimal(getIntent().getStringExtra("bondedToken"));
         mProvisions = new BigDecimal(getIntent().getStringExtra("provisions"));
 

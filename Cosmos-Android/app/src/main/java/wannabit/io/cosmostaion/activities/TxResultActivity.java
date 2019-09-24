@@ -192,21 +192,6 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mErrorMsg   = getIntent().getStringExtra("errorMsg");
         mTxHash     = getIntent().getStringExtra("txHash");
 
-        WLog.w("mTxType : " + mTxType);
-        WLog.w("mIsSuccess : " + mIsSuccess);
-        WLog.w("mErrorCode : " + mErrorCode);
-
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
-
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
-
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-
-        }
-
-
         if(TextUtils.isEmpty(mTxHash)) {
             WLog.w("Empty hash error");
             onBackPressed();
