@@ -339,11 +339,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IRIS_MAIN));
                 holder.itemValue.setText(WDp.getTotalValueIris(getContext(), getBaseDao(), amount));
             } else {
-                //todo please check tokens balance and reward and price
-                holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.balance, token.base_token.decimal, getMainActivity().mBaseChain));
+                holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.balance, 6, getMainActivity().mBaseChain));
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
                 holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                holder.itemValue.setText("-");
             }
-
         }
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override

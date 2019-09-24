@@ -54,6 +54,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 
 public class WUtil {
@@ -824,9 +825,27 @@ public class WUtil {
         return null;
     }
 
+    public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
+        for (BnbToken token:all) {
+            if (token.original_symbol.equals(COSMOS_BNB)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
     public static IrisToken getIrisToken(ArrayList<IrisToken> all, Balance balance) {
         for (IrisToken token:all) {
-            if (token.base_token.min_unit_alias.equals(balance.symbol)) {
+            if(balance.symbol.split("-")[0].equals(token.base_token.id)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
+    public static IrisToken getIrisMainToken(ArrayList<IrisToken> all) {
+        for (IrisToken token:all) {
+            if (token.base_token.id.equals(COSMOS_IRIS)) {
                 return token;
             }
         }

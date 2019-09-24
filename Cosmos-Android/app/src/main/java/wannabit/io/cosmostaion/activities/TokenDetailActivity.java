@@ -70,6 +70,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     private TextView                mTvIrisTotal, mTvIrisValue, mTvIrisAvailable,
                                     mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
     private TextView                mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
+    private RelativeLayout          mTokenRewardLayer;
     private ImageView               mTokenImg, mTokenLink;
     private TextView                mTvTokenSymbol, mTvTokenTotal, mTvTokenValue, mTvTokenDenom,
                                     mTvTokenAvailable, mTvTokenReward;
@@ -145,6 +146,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         mTvTokenValue           = TokenCard.findViewById(R.id.dash_token_value);
         mTvTokenDenom           = TokenCard.findViewById(R.id.dash_token_denom);
         mTvTokenAvailable       = TokenCard.findViewById(R.id.dash_token_available);
+        mTokenRewardLayer       = TokenCard.findViewById(R.id.token_reward_layer);
         mTvTokenReward          = TokenCard.findViewById(R.id.dash_token_reward);
         mBtnSendToken           = TokenCard.findViewById(R.id.btn_token_send);
         mBtnTokenDetail         = TokenCard.findViewById(R.id.btn_token_web);
@@ -286,12 +288,22 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mIrisToken != null) {
                 mTokenLink.setVisibility(View.GONE);
                 mBtnSendToken.setOnClickListener(this);
+                mTvTokenSymbol.setText(mIrisToken.base_token.symbol.toUpperCase());
+                mTvTokenDenom.setText(mBalance.symbol);
+
+                //TODO check token reward amount!
+                //TODO check token value!
+                mTvTokenTotal.setText(WDp.getDpAmount(this, mBalance.balance, mIrisToken.base_token.decimal, mBaseChain));
+                mTvTokenAvailable.setText(WDp.getDpAmount(this, mBalance.balance, mIrisToken.base_token.decimal, mBaseChain));
+                mTokenRewardLayer.setVisibility(View.GONE);
+                mTokenImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
 
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN) && mBnbToken != null) {
                 mTokenLink.setVisibility(View.VISIBLE);
                 mBtnTokenDetail.setOnClickListener(this);
                 mBtnSendToken.setOnClickListener(this);
                 mTvTokenSymbol.setText(mBnbToken.original_symbol);
+                mTvTokenDenom.setText(mBnbToken.symbol);
                 mTvTokenTotal.setText(WDp.getDpAmount(this, mBalance.getAllBnbBalance(), 8, mBaseChain));
 
                 BigDecimal amount = BigDecimal.ZERO;
@@ -301,15 +313,13 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 mTvTokenValue.setText(WDp.getTotalValueBnb(this, getBaseDao(), amount));
-                mTvTokenDenom.setText(mBnbToken.symbol);
                 mTvTokenAvailable.setText(WDp.getDpAmount(this, mBalance.balance, 8, mBaseChain));
-//                mTvTokenReward.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 8, mBaseChain));
+                mTokenRewardLayer.setVisibility(View.GONE);
                 try {
                     Picasso.get().load(TOKEN_IMG_URL+mBnbToken.original_symbol+".png")
                             .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
                             .into(mTokenImg);
-                }catch (Exception e) {}
-
+                } catch (Exception e) {}
 
             } else {
                 onBackPressed();
@@ -452,14 +462,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     result  = true;
                 }
             }
-            WLog.w("mIrisToken " + mIrisToken.base_token.symbol);
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             for (Balance balance:balances) {
                 if (balance.symbol.equals(BaseConstant.COSMOS_BNB) && ((balance.balance.compareTo(new BigDecimal("0.000375"))) > 0)) {
                     result  = true;
                 }
             }
-            WLog.w("mBnbToken " + mBnbToken.symbol);
         }
 
         if(!result){

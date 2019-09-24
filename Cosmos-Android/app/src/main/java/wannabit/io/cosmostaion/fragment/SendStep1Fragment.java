@@ -206,10 +206,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(BigDecimal.ONE);
             mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
+            mDenomTitle.setTextColor(getResources().getColor(R.color.colorAtom));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mDenomTitle.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
-            if (getSActivity().mIrisToken.base_token.equals(COSMOS_IRIS)) {
+            if (getSActivity().mIrisToken.base_token.id.equals(COSMOS_IRIS)) {
                 mMaxAvailable = getSActivity().mAccount.getIrisBalance().subtract(new BigDecimal("200000000000000000"));
                 mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, getSActivity().mBaseChain));
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorIris));

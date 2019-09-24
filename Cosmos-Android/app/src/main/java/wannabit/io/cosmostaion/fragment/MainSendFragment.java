@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
@@ -58,6 +59,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     public final static int WALLET_CONNECT = 6013;
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
+    private NestedScrollView    mNestedScrollView;
     private ImageView           mBtnWebDetail, mBtnAddressDetail;
     private ImageView           mKeyState;
     private TextView            mAddress;
@@ -103,6 +105,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_send, container, false);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
+        mNestedScrollView       = rootView.findViewById(R.id.layer_scrollview);
         mBtnWebDetail           = rootView.findViewById(R.id.web_detail);
         mBtnAddressDetail       = rootView.findViewById(R.id.address_detail);
         mKeyState               = rootView.findViewById(R.id.img_account);
@@ -152,9 +155,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mGuideBtn               = rootView.findViewById(R.id.btn_guide);
         mFaqBtn                 = rootView.findViewById(R.id.btn_faq);
 
-
-
-
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -162,6 +162,23 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 getMainActivity().onFetchAllData();
             }
         });
+
+        mNestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY) {
+                    if (getMainActivity().mFloatBtn.isShown()) {getMainActivity().mFloatBtn.hide();
+                    }
+                }
+                if (scrollY < oldScrollY) {
+                    if (!getMainActivity().mFloatBtn.isShown()) {
+                        getMainActivity().mFloatBtn.show();
+                    }
+                }
+                getMainActivity().onFetchAllData();
+            }
+        });
+
 
         mBtnWebDetail.setOnClickListener(this);
         mBtnAddressDetail.setOnClickListener(this);
@@ -266,7 +283,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 //        WLog.w("mUnbondings " + getMainActivity().mUnbondings.size());
 
         mMarket.setText("("+getBaseDao().getMarketString(getContext())+")");
-
 
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);

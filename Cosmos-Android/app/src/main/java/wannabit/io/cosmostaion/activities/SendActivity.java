@@ -84,8 +84,9 @@ public class SendActivity extends BaseActivity {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
+            if (mIrisToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-
+            if (mBnbToken == null) onBackPressed();
         }
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
@@ -128,7 +129,7 @@ public class SendActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(mAccount == null) finish();
+        if (mAccount == null) finish();
     }
 
 

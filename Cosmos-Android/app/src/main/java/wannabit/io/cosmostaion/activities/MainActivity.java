@@ -1,9 +1,11 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,24 +22,34 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
 
@@ -52,6 +64,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private TabLayout                   mTabLayer;
     private FrameLayout                 mDimLayer;
     public  MainViewPageAdapter         mPageAdapter;
+    public FloatingActionButton         mFloatBtn;
 
     private ArrayList<Account>          mAccounts = new ArrayList<>();
     private TopSheetBehavior            mTopSheetBehavior;
@@ -72,6 +85,14 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mContentsPager              = findViewById(R.id.view_pager);
         mTabLayer                   = findViewById(R.id.bottom_tab);
         mDimLayer                   = findViewById(R.id.dim_layer);
+        mFloatBtn                   = findViewById(R.id.btn_floating);
+        mFloatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onStartSendActivity();
+            }
+        });
+
 
         mRecyclerView               = findViewById(R.id.account_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -138,6 +159,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 if(mPageAdapter != null && mPageAdapter.mCurrentFragment != null) {
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
+                if(position != 0) mFloatBtn.hide();
+                else if (!mFloatBtn.isShown()) mFloatBtn.show();
+
             }
         });
 
@@ -174,19 +198,22 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAtom));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_iris));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
             mToolbarChainName.setText(getString(R.string.str_iris_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIris));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIris));
+
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mChainBg.setImageDrawable(getResources().getDrawable(R.drawable.bg_cosmos));
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
             mToolbarChainName.setText(getString(R.string.str_binance_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
-
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
         }
 
         onUpdateTitle();
@@ -224,6 +251,50 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onFetchAllData() {
         onFetchAccountInfo(this);
+    }
+
+    public void onStartSendActivity() {
+        if(mAccount == null) return;
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        Intent intent = new Intent(MainActivity.this, SendActivity.class);
+        ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+        boolean result = false;
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            for (Balance balance:balances) {
+                if (!IS_TEST && balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
+                    result  = true;
+                } else if (IS_TEST && balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
+                    result  = true;
+                }
+            }
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("200000000000000000"))) > 0)) {
+                    result  = true;
+                }
+            }
+            intent.putExtra("irisToken", WUtil.getIrisMainToken(mIrisTokens));
+
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_BNB) && ((balance.balance.compareTo(new BigDecimal("0.000375"))) > 0)) {
+                    result  = true;
+                }
+            }
+            intent.putExtra("bnbToken", WUtil.getBnbMainToken(mBnbTokens));
+        }
+
+        if(!result){
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        startActivity(intent);
     }
 
     @Override

@@ -109,6 +109,7 @@
                 style="@style/font_ssl_12_white"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/token_reward_layer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_8"

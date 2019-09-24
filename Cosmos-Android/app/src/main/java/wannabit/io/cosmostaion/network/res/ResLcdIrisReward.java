@@ -134,7 +134,6 @@ public class ResLcdIrisReward implements Parcelable {
         return sum;
     }
 
-
     public BigDecimal getPerValReward(String valOpAddress) {
         BigDecimal sum = BigDecimal.ZERO;
         if(delegations != null && delegations.size() > 0) {
