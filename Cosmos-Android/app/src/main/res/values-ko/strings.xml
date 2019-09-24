@@ -431,6 +431,7 @@
     <string name="error_invalid_cosmos_address">유효한 코스모스 주소가 아닙니다.</string>
     <string name="error_invalid_iris_address">유효한 아이리스 주소가 아닙니다.</string>
     <string name="error_invalid_bnb_address">유효한 바이낸스 주소가 아닙니다.</string>
+    <string name="error_iris_token_not_yet">아이리스 토큰 전송은 조만간 지원하겠습니다.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

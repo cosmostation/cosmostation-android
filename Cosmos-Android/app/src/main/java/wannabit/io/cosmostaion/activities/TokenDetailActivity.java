@@ -44,11 +44,11 @@ import wannabit.io.cosmostaion.task.FetchTask.TokenHistoryTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
@@ -237,7 +237,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(this, mRewards, mBaseChain));
 
             BigDecimal totalAmount = WDp.getAllAtom(mBalances, mBondings, mUnbondings, mRewards, mAllValidators);
-            mTvAtomValue.setText(WDp.getTotalValueAtom(this, getBaseDao(), totalAmount));
+            mTvAtomValue.setText(WDp.getValueOfAtom(this, getBaseDao(), totalAmount));
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mBalance.symbol.equals(COSMOS_IRIS_ATTO)) {
             mIrisCard.setVisibility(View.VISIBLE);
@@ -256,7 +256,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mTvIrisRewards.setText(WDp.getDpAmount(this, mIrisReward.getSimpleIrisReward(), 18, mBaseChain));
 
             BigDecimal totalAmount = WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward);
-            mTvIrisValue.setText(WDp.getTotalValueIris(this, getBaseDao(), totalAmount));
+            mTvIrisValue.setText(WDp.getValueOfIris(this, getBaseDao(), totalAmount));
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN) && mBalance.symbol.equals(COSMOS_BNB)) {
             mBnbCard.setVisibility(View.VISIBLE);
@@ -269,13 +269,13 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvBnbBalance.setText(WDp.getDpAmount(this, mBalance.balance, 8, mBaseChain));
                 mTvBnbLocked.setText(WDp.getDpAmount(this, mBalance.locked, 8, mBaseChain));
                 mTvBnbTotal.setText(WDp.getDpAmount(this, mBalance.locked.add(mBalance.balance), 8, mBaseChain));
-                mTvBnbValue.setText(WDp.getTotalValueBnb(this, getBaseDao(), totalAmount));
+                mTvBnbValue.setText(WDp.getValueOfBnb(this, getBaseDao(), totalAmount));
 
             } else {
                 mTvBnbBalance.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 8, mBaseChain));
                 mTvBnbLocked.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 8, mBaseChain));
                 mTvBnbTotal.setText(WDp.getDpAmount(this, BigDecimal.ZERO, 8, mBaseChain));
-                mTvBnbValue.setText(WDp.getTotalValueBnb(this, getBaseDao(), BigDecimal.ZERO));
+                mTvBnbValue.setText(WDp.getValueOfBnb(this, getBaseDao(), BigDecimal.ZERO));
             }
 
         } else {
@@ -312,7 +312,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     amount = mBalance.exchangeToBnbAmount(tic);
                 }
 
-                mTvTokenValue.setText(WDp.getTotalValueBnb(this, getBaseDao(), amount));
+                mTvTokenValue.setText(WDp.getValueOfBnb(this, getBaseDao(), amount));
                 mTvTokenAvailable.setText(WDp.getDpAmount(this, mBalance.balance, 8, mBaseChain));
                 mTokenRewardLayer.setVisibility(View.GONE);
                 try {
@@ -462,6 +462,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     result  = true;
                 }
             }
+            if (!mIrisToken.base_token.symbol.equals(COSMOS_IRIS)) {
+                Toast.makeText(getBaseContext(), R.string.error_iris_token_not_yet, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             for (Balance balance:balances) {
                 if (balance.symbol.equals(BaseConstant.COSMOS_BNB) && ((balance.balance.compareTo(new BigDecimal("0.000375"))) > 0)) {

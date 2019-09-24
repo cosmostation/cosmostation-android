@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
@@ -43,6 +44,10 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     private BigDecimal          mMaxAvailable = BigDecimal.ZERO;
 
     private ArrayList<Coin>     mToSendCoins = new ArrayList<>();
+
+    private String              mIrisDecimalChecker, mIrisDecimalSetter,
+                                mIrisDecimalDivider2, mIrisDecimalDivider1;
+
 
     public static SendStep1Fragment newInstance(Bundle bundle) {
         SendStep1Fragment fragment = new SendStep1Fragment();
@@ -133,9 +138,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                     }
 
                 } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                    if(es.equals("0.000000000000000000")) {
-                        mAmountInput.setText("0.00000000000000000");
-                        mAmountInput.setSelection(19);
+                    if(es.equals(mIrisDecimalChecker)) {
+                        mAmountInput.setText(mIrisDecimalSetter);
+                        mAmountInput.setSelection(getSActivity().mIrisToken.base_token.decimal + 1);
                     } else {
                         try {
                             final BigDecimal inputAmount = new BigDecimal(es);
@@ -144,7 +149,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                                 return;
                             }
 
-                            BigDecimal checkPosition = inputAmount.movePointRight(18);
+                            BigDecimal checkPosition = inputAmount.movePointRight(getSActivity().mIrisToken.base_token.decimal);
                             BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                             if (checkPosition.compareTo(checkMax) != 0) {
                                 String recover = es.substring(0, es.length() - 1);
@@ -153,7 +158,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                                 return;
                             }
 
-                            if(inputAmount.compareTo(mMaxAvailable.movePointLeft(18).setScale(18, RoundingMode.CEILING)) > 0) {
+                            if(inputAmount.compareTo(mMaxAvailable.movePointLeft(getSActivity().mIrisToken.base_token.decimal).setScale(getSActivity().mIrisToken.base_token.decimal, RoundingMode.CEILING)) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             } else {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -209,14 +214,15 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mDenomTitle.setTextColor(getResources().getColor(R.color.colorAtom));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            setIrisDecimals();
             mDenomTitle.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
             if (getSActivity().mIrisToken.base_token.id.equals(COSMOS_IRIS)) {
                 mMaxAvailable = getSActivity().mAccount.getIrisBalance().subtract(new BigDecimal("200000000000000000"));
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, getSActivity().mBaseChain));
+                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorIris));
             } else {
-                //TODO check with IRIS TOKEN
-
+                mMaxAvailable = getSActivity().mAccount.getIrisTokenBalance(getSActivity().mIrisToken.base_token.symbol);
+                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
             }
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
@@ -226,7 +232,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
             } else {
-                mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mBnbToken.symbol);
+                mMaxAvailable = getSActivity().mAccount.getBnbTokenBalance(getSActivity().mBnbToken.symbol);
                 mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
             }
 
@@ -282,7 +288,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mIrisDecimalDivider2), getSActivity().mIrisToken.base_token.decimal, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2"), 8, RoundingMode.DOWN).toPlainString());
             }
@@ -292,7 +298,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
                 onShowWarnDialog();
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000000000000000"), 18, RoundingMode.DOWN).toPlainString());
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mIrisDecimalDivider1), getSActivity().mIrisToken.base_token.decimal, RoundingMode.DOWN).toPlainString());
                 if (getSActivity().mIrisToken.base_token.equals(COSMOS_IRIS)) {
                     onShowWarnDialog();
                 }
@@ -328,12 +334,21 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(18).setScale(18, RoundingMode.CEILING)) > 0) return false;
-                Coin iris = new Coin(BaseConstant.COSMOS_IRIS_ATTO, sendTemp.multiply(new BigDecimal("1000000000000000000")).setScale(0).toPlainString());
-                mToSendCoins.add(iris);
-                return true;
+                if (getSActivity().mIrisToken.base_token.id.equals(COSMOS_IRIS)) {
+                    BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                    if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                    if (sendTemp.compareTo(mMaxAvailable.movePointLeft(getSActivity().mIrisToken.base_token.decimal).setScale(getSActivity().mIrisToken.base_token.decimal, RoundingMode.CEILING)) > 0) return false;
+                    Coin iris = new Coin(BaseConstant.COSMOS_IRIS_ATTO, sendTemp.multiply(new BigDecimal(mIrisDecimalDivider1)).setScale(0).toPlainString());
+                    mToSendCoins.add(iris);
+                    return true;
+                } else {
+                    BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                    if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                    if (sendTemp.compareTo(mMaxAvailable.movePointLeft(getSActivity().mIrisToken.base_token.decimal).setScale(getSActivity().mIrisToken.base_token.decimal, RoundingMode.CEILING)) > 0) return false;
+                    Coin irisToken = new Coin(getSActivity().mIrisToken.base_token.getTxUnitDenom(), sendTemp.multiply(new BigDecimal(mIrisDecimalDivider1)).setScale(0).toPlainString());
+                    mToSendCoins.add(irisToken);
+                    return true;
+                }
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
@@ -355,6 +370,21 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
         dialog.setCancelable(true);
         dialog.show(getFragmentManager().beginTransaction(), "dialog");
+    }
+
+    private void setIrisDecimals() {
+        mIrisDecimalChecker = "0.";
+        mIrisDecimalSetter = "0.";
+        mIrisDecimalDivider2 = "2";
+        mIrisDecimalDivider1 = "1";
+        for (int i = 0; i < getSActivity().mIrisToken.base_token.decimal; i ++) {
+            mIrisDecimalChecker = mIrisDecimalChecker+"0";
+            mIrisDecimalDivider2 = mIrisDecimalDivider2 + "0";
+            mIrisDecimalDivider1 = mIrisDecimalDivider1 + "0";
+        }
+        for (int i = 0; i < getSActivity().mIrisToken.base_token.decimal-1; i ++) {
+            mIrisDecimalSetter = mIrisDecimalSetter+"0";
+        }
     }
 
     private SendActivity getSActivity() {

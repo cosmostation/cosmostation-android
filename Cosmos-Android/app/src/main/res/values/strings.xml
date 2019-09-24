@@ -478,6 +478,7 @@
     <string name="error_invalid_cosmos_address">Invalid Cosmos Address.</string>
     <string name="error_invalid_iris_address">Invalid Iris Address.</string>
     <string name="error_invalid_bnb_address">Invalid Binance Address.</string>
+    <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

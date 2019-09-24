@@ -516,7 +516,7 @@ public class WDp {
         }
     }
 
-    public static SpannableString getTotalValueAtom(Context c, BaseData dao, BigDecimal totalAmount) {
+    public static SpannableString getValueOfAtom(Context c, BaseData dao, BigDecimal totalAmount) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if(dao.getCurrency() == 5) {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
@@ -534,7 +534,7 @@ public class WDp {
         }
     }
 
-    public static SpannableString getTotalValueIris(Context c, BaseData dao, BigDecimal totalAmount) {
+    public static SpannableString getValueOfIris(Context c, BaseData dao, BigDecimal totalAmount) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if(dao.getCurrency() == 5) {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
@@ -552,7 +552,7 @@ public class WDp {
         }
     }
 
-    public static SpannableString getTotalValueBnb(Context c, BaseData dao, BigDecimal totalAmount) {
+    public static SpannableString getValueOfBnb(Context c, BaseData dao, BigDecimal totalAmount) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if(dao.getCurrency() == 5) {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(2, RoundingMode.DOWN);

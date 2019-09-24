@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +10,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 
 public class SendStep4Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -70,12 +63,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         mDenomCurrentAmount = rootView.findViewById(R.id.current_available_title);
         mDenomRemainAmount  = rootView.findViewById(R.id.remaining_available_title);
 
-//        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomSendAmount);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTotalSpend);
-//        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomCurrentAmount);
-//        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomRemainAmount);
-
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -88,51 +77,46 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         BigDecimal toSendAmount   = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
         BigDecimal feeAmount      = new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount);
         if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            BigDecimal currentAvai  = getSActivity().mAccount.getAtomBalance();
             mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 6, getSActivity().mBaseChain));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
             mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 6, getSActivity().mBaseChain));
-            BigDecimal spendTotal = BigDecimal.ZERO;
-            if(getBaseDao().getCurrency() != 5) {
-                spendTotal = feeAmount.add(toSendAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
-            } else {
-                spendTotal = feeAmount.add(toSendAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
-            }
-            mTotalPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), spendTotal, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mTotalPrice.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
 
+            BigDecimal currentAvai  = getSActivity().mAccount.getAtomBalance();
             mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 6, getSActivity().mBaseChain));
             mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, getSActivity().mBaseChain));
-            BigDecimal remainTotal = BigDecimal.ZERO;
-            if(getBaseDao().getCurrency() != 5) {
-                remainTotal = currentAvai.subtract(toSendAmount).subtract(feeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
-            } else {
-                remainTotal = currentAvai.subtract(toSendAmount).subtract(feeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAtomTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
-            }
-            mRemainingPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), remainTotal, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mRemainingPrice.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            BigDecimal currentAvai  = getSActivity().mAccount.getIrisBalance();
-            mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 18, getSActivity().mBaseChain));
+            mDenomSendAmount.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
+            mDenomCurrentAmount.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
+            mDenomRemainAmount.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
+
+            mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
-            mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 18, getSActivity().mBaseChain));
-            BigDecimal spendTotal = BigDecimal.ZERO;
-            if(getBaseDao().getCurrency() != 5) {
-                spendTotal = feeAmount.add(toSendAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).divide(new BigDecimal("1000000000000000000"), 2, RoundingMode.DOWN);
-            } else {
-                spendTotal = feeAmount.add(toSendAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).divide(new BigDecimal("1000000000000000000"), 8, RoundingMode.DOWN);
-            }
-            mTotalPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), spendTotal, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-            mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 18, getSActivity().mBaseChain));
-            mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 18, getSActivity().mBaseChain));
+            if (getSActivity().mIrisToken.base_token.id.equals(COSMOS_IRIS)) {
+                mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorIris));
+                mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorIris));
+                mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorIris));
 
-            BigDecimal remainTotal = BigDecimal.ZERO;
-            if(getBaseDao().getCurrency() != 5) {
-                remainTotal = currentAvai.subtract(toSendAmount).subtract(feeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).divide(new BigDecimal("1000000000000000000"), 2, RoundingMode.DOWN);
+                mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
+                mTotalPrice.setText(WDp.getValueOfIris(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
+
+                BigDecimal currentAvai  = getSActivity().mAccount.getIrisBalance();
+                mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
+                mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
+                mRemainingPrice.setText(WDp.getValueOfIris(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
+
             } else {
-                remainTotal = currentAvai.subtract(toSendAmount).subtract(feeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).divide(new BigDecimal("1000000000000000000"), 8, RoundingMode.DOWN);
+                mTotalSpendLayer.setVisibility(View.GONE);
+                mTotalPrice.setVisibility(View.GONE);
+                mRemainingPrice.setVisibility(View.GONE);
+
+                BigDecimal currentAvai  = getSActivity().mAccount.getIrisTokenBalance(getSActivity().mIrisToken.base_token.symbol);
+                mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
+                mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount), getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
             }
-            mRemainingPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), remainTotal, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mDenomSendAmount.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
@@ -148,32 +132,19 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorBnb));
 
                 mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 8, getSActivity().mBaseChain));
-                BigDecimal spendTotal = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    spendTotal = feeAmount.add(toSendAmount).multiply(new BigDecimal(""+getBaseDao().getLastBnbTic()));
-                } else {
-                    spendTotal = feeAmount.add(toSendAmount).multiply(new BigDecimal(""+getBaseDao().getLastBnbTic()));
-                }
-                mTotalPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), spendTotal, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mTotalPrice.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
 
                 BigDecimal currentAvai  = getSActivity().mAccount.getBnbBalance();
                 mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 8, getSActivity().mBaseChain));
                 mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 8, getSActivity().mBaseChain));
-
-                BigDecimal remainTotal = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    remainTotal = currentAvai.subtract(toSendAmount).subtract(feeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBnbTic()));
-                } else {
-                    remainTotal = currentAvai.subtract(toSendAmount).subtract(feeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBnbTic()));
-                }
-                mRemainingPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), remainTotal, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mRemainingPrice.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
 
             } else {
                 mTotalSpendLayer.setVisibility(View.GONE);
                 mTotalPrice.setVisibility(View.GONE);
                 mRemainingPrice.setVisibility(View.GONE);
 
-                BigDecimal currentAvai  = getSActivity().mAccount.getTokenBalance(getSActivity().mBnbToken.symbol);
+                BigDecimal currentAvai  = getSActivity().mAccount.getBnbTokenBalance(getSActivity().mBnbToken.symbol);
                 mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 8, getSActivity().mBaseChain));
                 mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount), 8, getSActivity().mBaseChain));
             }

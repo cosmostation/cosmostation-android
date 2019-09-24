@@ -135,6 +135,13 @@ public class IrisToken implements Parcelable {
                 return new BaseToken[size];
             }
         };
+
+        public String getTxUnitDenom() {
+            if (min_unit_alias != null)
+                return min_unit_alias;
+            else
+                return id + "-min";
+        }
     }
 
 

@@ -129,13 +129,27 @@ public class Account {
         return result;
     }
 
-    public BigDecimal getTokenBalance(String symbol) {
+    public BigDecimal getBnbTokenBalance(String symbol) {
         BigDecimal result = BigDecimal.ZERO;
         if(balances == null || balances.size() == 0)  {
             return result;
         }
         for(Balance balance:balances) {
             if(balance.symbol.equals(symbol)) {
+                result = balance.balance;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal getIrisTokenBalance(String symbol) {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.split("-")[0].equals(symbol)) {
                 result = balance.balance;
                 break;
             }
