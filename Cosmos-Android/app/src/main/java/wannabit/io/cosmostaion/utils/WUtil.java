@@ -221,13 +221,20 @@ public class WUtil {
         return result;
     }
 
-    public static BondingState getBondingFromLcd(long accountId, ResLcdBonding lcd) {
+    public static BondingState getBondingFromLcd(long accountId, ResLcdBonding lcd, BaseChain chain) {
         String valAddress = "";
         if(!TextUtils.isEmpty(lcd.validator_addr))
             valAddress = lcd.validator_addr;
         if(!TextUtils.isEmpty(lcd.validator_address))
             valAddress = lcd.validator_address;
-        return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
+
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares).movePointRight(18), System.currentTimeMillis());
+        }
+        return null;
     }
 
     public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, BaseChain chain, long accountId, ArrayList<ResLcdUnBonding> list) {

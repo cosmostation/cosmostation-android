@@ -7,7 +7,6 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
-import wannabit.io.cosmostaion.network.res.ResLcdSingleBonding;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -42,7 +41,7 @@ public class SingleBondingStateTask extends CommonTask {
                 Response<ResLcdBonding> response = ApiClient.getCosmosChain(mApp).getBondingLegacy(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body() != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body()));
+                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body(), BaseChain.COSMOS_MAIN));
                     else
                         mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
                 }
@@ -51,10 +50,12 @@ public class SingleBondingStateTask extends CommonTask {
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<ResLcdBonding> response = ApiClient.getIrisChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful()) {
-                    if(response.body() != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body()));
-                    else
+                    if(response.body() != null){
+                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body(), BaseChain.IRIS_MAIN));
+                    } else {
                         mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                    }
+
                 }
                 mResult.isSuccess = true;
             }
