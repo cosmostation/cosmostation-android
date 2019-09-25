@@ -27,15 +27,27 @@ public class AllValidatorInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-                Response<ResLcdValidators> response = ApiClient.getCosmosChain(mApp).getValidatorDetailList().execute();
+//                Response<ResLcdValidators> response = ApiClient.getCosmosChain(mApp).getValidatorDetailList().execute();
+//                if (!response.isSuccessful()) {
+//                    mResult.isSuccess = false;
+//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+//                    return mResult;
+//                }
+//
+//                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+//                    mResult.resultData = response.body().result;
+//                    mResult.isSuccess = true;
+//                }
+                //TODO rollback cosmos-hub2
+                Response<ArrayList<Validator>> response = ApiClient.getCosmosChain(mApp).getValidatorDetailListLegacy().execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
 
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
+                if (response.body() != null && response.body().size() > 0) {
+                    mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
 

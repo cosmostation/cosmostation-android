@@ -128,7 +128,9 @@ public class ValidatorOtherFragment extends BaseFragment {
 
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-                holder.itemTvCommission.setText(WDp.getPercentDp(new BigDecimal(validator.commission.commission_rates.rate)));
+                //TODO rollback cosmos-hub2
+//                holder.itemTvCommission.setText(WDp.getPercentDp(new BigDecimal(validator.commission.commission_rates.rate)));
+                holder.itemTvCommission.setText(WDp.getPercentDp(new BigDecimal(validator.commission.rate)));
                 try {
                     Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)

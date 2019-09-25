@@ -64,6 +64,7 @@ public class WUtil {
         result.id = id;
         if (lcd.result != null && lcd.height != null) {
             if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+                    lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
                     lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
                 result.address = lcd.result.value.address;
                 result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
@@ -77,6 +78,7 @@ public class WUtil {
             }
         }
         if (lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+                lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
                 lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
             result.address = lcd.value.address;
             result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
@@ -104,51 +106,60 @@ public class WUtil {
         ArrayList<Balance> result = new ArrayList<>();
         if (lcd.result != null && lcd.height != null) {
             if(lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+                    lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
                     lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
-                for(Coin coin : lcd.result.value.coins) {
-                    Balance temp = new Balance();
-                    temp.accountId = accountId;
-                    temp.symbol = coin.denom;
-                    temp.balance = new BigDecimal(coin.amount);
-                    temp.fetchTime = time;
-                    result.add(temp);
+                if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0){
+                    for (Coin coin : lcd.result.value.coins) {
+                        Balance temp = new Balance();
+                        temp.accountId = accountId;
+                        temp.symbol = coin.denom;
+                        temp.balance = new BigDecimal(coin.amount);
+                        temp.fetchTime = time;
+                        result.add(temp);
+                    }
                 }
                 return result;
             } else {
-                for(Coin coin : lcd.result.value.BaseVestingAccount.BaseAccount.coins) {
-                    Balance temp = new Balance();
-                    temp.accountId = accountId;
-                    temp.symbol = coin.denom;
-                    temp.balance = new BigDecimal(coin.amount);
-                    temp.fetchTime = time;
-                    result.add(temp);
+                if (lcd.result.value.BaseVestingAccount.BaseAccount.coins != null && lcd.result.value.BaseVestingAccount.BaseAccount.coins.size() > 0){
+                    for(Coin coin : lcd.result.value.BaseVestingAccount.BaseAccount.coins) {
+                        Balance temp = new Balance();
+                        temp.accountId = accountId;
+                        temp.symbol = coin.denom;
+                        temp.balance = new BigDecimal(coin.amount);
+                        temp.fetchTime = time;
+                        result.add(temp);
+                    }
                 }
                 return result;
             }
         }
         if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+                lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
                 lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT)) {
-            for(Coin coin : lcd.value.coins) {
-                Balance temp = new Balance();
-                temp.accountId = accountId;
-                temp.symbol = coin.denom;
-                temp.balance = new BigDecimal(coin.amount);
-                temp.fetchTime = time;
-                result.add(temp);
+            if (lcd.value.coins != null && lcd.value.coins.size() > 0){
+                for(Coin coin : lcd.value.coins) {
+                    Balance temp = new Balance();
+                    temp.accountId = accountId;
+                    temp.symbol = coin.denom;
+                    temp.balance = new BigDecimal(coin.amount);
+                    temp.fetchTime = time;
+                    result.add(temp);
+                }
             }
             return result;
         } else {
-            for(Coin coin : lcd.value.BaseVestingAccount.BaseAccount.coins) {
-                Balance temp = new Balance();
-                temp.accountId = accountId;
-                temp.symbol = coin.denom;
-                temp.balance = new BigDecimal(coin.amount);
-                temp.fetchTime = time;
-                result.add(temp);
+            if (lcd.value.BaseVestingAccount.BaseAccount.coins != null && lcd.value.BaseVestingAccount.BaseAccount.coins.size() > 0){
+                for(Coin coin : lcd.value.BaseVestingAccount.BaseAccount.coins) {
+                    Balance temp = new Balance();
+                    temp.accountId = accountId;
+                    temp.symbol = coin.denom;
+                    temp.balance = new BigDecimal(coin.amount);
+                    temp.fetchTime = time;
+                    result.add(temp);
+                }
             }
             return result;
         }
-
     }
 
     public static ArrayList<Balance> getBalancesFromBnbLcd(long accountId, ResBnbAccountInfo lcd) {
@@ -594,9 +605,19 @@ public class WUtil {
                 if(o1.description.moniker.equals("Cosmostation")) return -1;
                 if(o2.description.moniker.equals("Cosmostation")) return 1;
 
+//                if (chain.equals(BaseChain.COSMOS_MAIN)) {
+//                    if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
+//                    else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
+//                    else return 0;
+//                } else {
+//                    if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
+//                    else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
+//                    else return 0;
+//                }
+                //TODO rollback cosmos-hub2
                 if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                    if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
-                    else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
+                    if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
+                    else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
                     else return 0;
                 } else {
                     if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
@@ -817,6 +838,7 @@ public class WUtil {
     }
 
     public static BnbToken getBnbToken(ArrayList<BnbToken> all, Balance balance) {
+        if (all == null || balance == null) return null;
         for (BnbToken token:all) {
             if (token.symbol.equals(balance.symbol)) {
                 return token;
@@ -826,6 +848,7 @@ public class WUtil {
     }
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
+        if (all == null) return null;
         for (BnbToken token:all) {
             if (token.original_symbol.equals(COSMOS_BNB)) {
                 return token;
@@ -835,6 +858,7 @@ public class WUtil {
     }
 
     public static IrisToken getIrisToken(ArrayList<IrisToken> all, Balance balance) {
+        if (all == null || balance == null) return null;
         for (IrisToken token:all) {
             if(balance.symbol.split("-")[0].equals(token.base_token.id)) {
                 return token;
@@ -844,6 +868,7 @@ public class WUtil {
     }
 
     public static IrisToken getIrisMainToken(ArrayList<IrisToken> all) {
+        if (all == null) return null;
         for (IrisToken token:all) {
             if (token.base_token.id.equals(COSMOS_IRIS)) {
                 return token;

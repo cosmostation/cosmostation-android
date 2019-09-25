@@ -23,15 +23,27 @@ public class SingleProvisionsTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResProvisions> response = ApiClient.getCosmosChain(mApp).getProvisions().execute();
+//            Response<ResProvisions> response = ApiClient.getCosmosChain(mApp).getProvisions().execute();
+//            if(!response.isSuccessful()) {
+//                mResult.isSuccess = false;
+//                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+//                return mResult;
+//            }
+//
+//            if(response.body() != null && response.body().result != null) {
+//                mResult.resultData = response.body().result;
+//                mResult.isSuccess = true;
+//            }
+            //TODO rollback cosmos-hub2
+            Response<String> response = ApiClient.getCosmosChain(mApp).getProvisionsLegacy().execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                 return mResult;
             }
 
-            if(response.body() != null && response.body().result != null) {
-                mResult.resultData = response.body().result;
+            if(response.body() != null) {
+                mResult.resultData = response.body();
                 mResult.isSuccess = true;
             }
 

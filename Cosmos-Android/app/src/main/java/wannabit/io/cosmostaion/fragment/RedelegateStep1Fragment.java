@@ -154,7 +154,9 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
                 if(getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
-                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
+                    //TODO rollback cosmos-hub2
+//                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
+                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.rate)));
                 }
                 try {
                     Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")

@@ -1,9 +1,12 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
+import java.util.ArrayList;
+
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResLcdValidators;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -23,15 +26,28 @@ public class UnbondedValidatorInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResLcdValidators> response = ApiClient.getCosmosChain(mApp).getUnBondedValidatorDetailList().execute();
+//            Response<ResLcdValidators> response = ApiClient.getCosmosChain(mApp).getUnBondedValidatorDetailList().execute();
+//            if(!response.isSuccessful()) {
+//                mResult.isSuccess = false;
+//                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+//                return mResult;
+//            }
+//
+//            if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+//                mResult.resultData = response.body().result;
+//                mResult.isSuccess = true;
+//            }
+
+            //TODO rollback cosmos-hub2
+            Response<ArrayList<Validator>> response = ApiClient.getCosmosChain(mApp).getUnBondedValidatorDetailListLegacy().execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                 return mResult;
             }
 
-            if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                mResult.resultData = response.body().result;
+            if(response.body() != null && response.body().size() > 0) {
+                mResult.resultData = response.body();
                 mResult.isSuccess = true;
             }
 

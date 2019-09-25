@@ -30,9 +30,15 @@ public class SingleUnBondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-                Response<ResLcdSingleUnBonding> response = ApiClient.getCosmosChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body().result));
+//                Response<ResLcdSingleUnBonding> response = ApiClient.getCosmosChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
+//                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+//                    mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body().result));
+//                    mResult.isSuccess = true;
+//                }
+                //TODO rollback cosmos-hub2
+                Response<ResLcdUnBonding> response = ApiClient.getCosmosChain(mApp).getUnbondingLegacy(mAccount.address, mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body()));
                     mResult.isSuccess = true;
                 }
 
