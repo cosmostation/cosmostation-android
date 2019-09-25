@@ -296,6 +296,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.COSMOS_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(balance.symbol);
+            Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
 
             BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
@@ -325,6 +326,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(token.base_token.symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + token.base_token.id + ")");
             holder.itemFullName.setText(token.base_token.name);
+            Picasso.get().cancelRequest(holder.itemImg);
+
             BigDecimal amount = BigDecimal.ZERO;
             if (balance.symbol.equals(COSMOS_IRIS_ATTO)) {
                 amount = WDp.getAllIris(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mIrisReward);
@@ -361,6 +364,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemInnerSymbol.setText("(" + token.symbol + ")");
             holder.itemFullName.setText(token.name);
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.getAllBnbBalance(), 6, getMainActivity().mBaseChain));
+            Picasso.get().cancelRequest(holder.itemImg);
 
             BigDecimal amount = BigDecimal.ZERO;
             if (balance.symbol.equals(COSMOS_BNB)) {
@@ -378,6 +382,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                     Picasso.get().load(TOKEN_IMG_URL+token.original_symbol+".png")
                             .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
                             .into(holder.itemImg);
+
                 }catch (Exception e) {}
             }
             holder.itemValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), amount));
