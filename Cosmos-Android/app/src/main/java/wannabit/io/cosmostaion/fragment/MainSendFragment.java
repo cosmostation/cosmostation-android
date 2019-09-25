@@ -484,7 +484,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward)) {
             Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
-            validators.putExtra("allValidators", getMainActivity().mAllValidators);
+//            validators.putExtra("allValidators", getMainActivity().mAllValidators);
             validators.putExtra("myValidators", getMainActivity().mMyValidators);
             validators.putExtra("topValidators", getMainActivity().mTopValidators);
             validators.putExtra("otherValidators", getMainActivity().mOtherValidators);

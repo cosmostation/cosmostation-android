@@ -392,8 +392,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         }
 
-
-
         if(mTaskCount == 0) {
             mMyValidators.clear();
             for(Validator top:mTopValidators) {

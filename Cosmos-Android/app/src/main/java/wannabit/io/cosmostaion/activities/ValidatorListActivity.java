@@ -57,7 +57,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mAllValidators = getIntent().getParcelableArrayListExtra("allValidators");
+//        mAllValidators = getIntent().getParcelableArrayListExtra("allValidators");
         mMyValidators = getIntent().getParcelableArrayListExtra("myValidators");
         mTopValidators = getIntent().getParcelableArrayListExtra("topValidators");
         mOtherValidators = getIntent().getParcelableArrayListExtra("otherValidators");
@@ -66,6 +66,13 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         mRewards = getIntent().getParcelableArrayListExtra("rewards");
         mIrisPool = getIntent().getParcelableExtra("irispool");
         mIrisReward = getIntent().getParcelableExtra("irisreward");
+
+        for (Validator v: mMyValidators){
+            mAllValidators.add(v);
+        }
+        for (Validator v: mOtherValidators){
+            mAllValidators.add(v);
+        }
 
         mPageAdapter = new ValidatorPageAdapter(getSupportFragmentManager());
         mValidatorPager.setAdapter(mPageAdapter);
@@ -113,7 +120,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     @Override
     protected void onResume() {
         super.onResume();
-        if(mAccount == null) finish();
+//        if(mAccount == null) finish();
     }
 
     @Override
