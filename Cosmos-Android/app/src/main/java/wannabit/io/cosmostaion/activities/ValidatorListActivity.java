@@ -225,7 +225,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            WUtil.onSortIrisOnlyByReward(mMyValidators, mIrisReward);
+//            WUtil.onSortIrisOnlyByReward(mMyValidators, mIrisReward);
 
             for (Validator validator:toClaimValidators) {
                 estimateReward = estimateReward.add(mIrisReward.getPerValReward(validator.operator_address));
