@@ -30,10 +30,19 @@ public class UnBondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-                Response<ResLcdUnBondings> response = ApiClient.getCosmosChain(mApp).getUnBondingList(mAccount.address).execute();
+//                Response<ResLcdUnBondings> response = ApiClient.getCosmosChain(mApp).getUnBondingList(mAccount.address).execute();
+//                if(response.isSuccessful()) {
+//                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+//                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.COSMOS_MAIN, mAccount.id, response.body().result));
+//                    } else {
+//                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
+//                    }
+//                }
+                //TODO rollback cosmos-hub2
+                Response<ArrayList<ResLcdUnBonding>> response = ApiClient.getCosmosChain(mApp).getUnBondingListLegacy(mAccount.address).execute();
                 if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.COSMOS_MAIN, mAccount.id, response.body().result));
+                    if (response.body() != null && response.body().size() > 0) {
+                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BaseChain.COSMOS_MAIN, mAccount.id, response.body()));
                     } else {
                         mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
                     }

@@ -373,7 +373,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
             try {
-                mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
+//                mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
+                //TODO rollback cosmos-hub2
+                mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).bonded_tokens);
             } catch (Exception e) {}
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
@@ -389,8 +391,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mIrisTokens = (ArrayList<IrisToken>)result.resultData;
 
         }
-
-
 
         if(mTaskCount == 0) {
             mMyValidators.clear();

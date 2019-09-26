@@ -57,7 +57,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mAllValidators = getIntent().getParcelableArrayListExtra("allValidators");
+//        mAllValidators = getIntent().getParcelableArrayListExtra("allValidators");
         mMyValidators = getIntent().getParcelableArrayListExtra("myValidators");
         mTopValidators = getIntent().getParcelableArrayListExtra("topValidators");
         mOtherValidators = getIntent().getParcelableArrayListExtra("otherValidators");
@@ -66,6 +66,13 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         mRewards = getIntent().getParcelableArrayListExtra("rewards");
         mIrisPool = getIntent().getParcelableExtra("irispool");
         mIrisReward = getIntent().getParcelableExtra("irisreward");
+
+        for (Validator v: mMyValidators){
+            mAllValidators.add(v);
+        }
+        for (Validator v: mOtherValidators){
+            mAllValidators.add(v);
+        }
 
         mPageAdapter = new ValidatorPageAdapter(getSupportFragmentManager());
         mValidatorPager.setAdapter(mPageAdapter);
@@ -113,7 +120,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     @Override
     protected void onResume() {
         super.onResume();
-        if(mAccount == null) finish();
+//        if(mAccount == null) finish();
     }
 
     @Override
@@ -144,7 +151,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             return;
         }
 
-        ArrayList<Validator> myValidators = new ArrayList<>();
         ArrayList<Validator> toClaimValidators = new ArrayList<>();
 
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
@@ -157,21 +163,21 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 for(BondingState bond:mBondings) {
                     if(bond.validatorAddress.equals(validator.operator_address) &&
                             WDp.getValidatorReward(mRewards, validator.operator_address).compareTo(new BigDecimal("1")) >= 0) {
-                        myValidators.add(validator);
+                        mMyValidators.add(validator);
                         break;
                     }
                 }
             }
-            if(myValidators.size() == 0) {
+            if (mMyValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            WUtil.onSortByOnlyReward(myValidators, mRewards);
-            if(myValidators.size() < 17) {
-                toClaimValidators = myValidators;
+            WUtil.onSortByOnlyReward(mMyValidators, mRewards);
+            if (mMyValidators.size() < 17) {
+                toClaimValidators = mMyValidators;
             } else {
-                toClaimValidators = new ArrayList<>(myValidators.subList(0,16));
+                toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
             }
 
             ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
@@ -181,7 +187,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                     hasbalance  = true;
                 }
             }
-            if(!hasbalance){
+            if (!hasbalance){
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward_all, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -195,7 +201,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            if(myValidators.size() > 16) {
+            if (mMyValidators.size() > 16) {
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
             }
 
@@ -219,7 +225,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            WUtil.onSortIrisOnlyByReward(myValidators, mIrisReward);
+//            WUtil.onSortIrisOnlyByReward(mMyValidators, mIrisReward);
 
             for (Validator validator:toClaimValidators) {
                 estimateReward = estimateReward.add(mIrisReward.getPerValReward(validator.operator_address));

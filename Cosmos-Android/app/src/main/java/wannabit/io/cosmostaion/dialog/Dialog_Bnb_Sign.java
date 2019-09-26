@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 import wannabit.io.cosmostaion.model.type.BnbParam;
@@ -48,9 +51,12 @@ public class Dialog_Bnb_Sign extends DialogFragment {
                         "Symbol : " + bnbParam.msgs.get(0).symbol + "\n";
 
             } else if (!TextUtils.isEmpty(bnbParam.msgs.get(0).id)) {
+                BigDecimal price = new BigDecimal(bnbParam.msgs.get(0).price).movePointLeft(8).setScale(8, RoundingMode.DOWN);
+                BigDecimal quantity = new BigDecimal(bnbParam.msgs.get(0).quantity).movePointLeft(8).setScale(6, RoundingMode.DOWN);
                 showMsg = "Symbol : " + bnbParam.msgs.get(0).symbol + "\n" +
-                        "Price : " + bnbParam.msgs.get(0).price + " \n" +
-                        "quantity : " + bnbParam.msgs.get(0).quantity;
+                        "Price : " + price.toPlainString() + " \n" +
+                        "quantity : " + quantity.toPlainString();
+
             }
             tv_request.setText(showMsg);
 

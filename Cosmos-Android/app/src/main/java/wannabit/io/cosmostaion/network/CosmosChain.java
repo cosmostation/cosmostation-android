@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBlockInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdProposals;
@@ -25,6 +26,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdRewardFromVal;
 import wannabit.io.cosmostaion.network.res.ResLcdSingleBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdSingleUnBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
+import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
@@ -42,9 +44,6 @@ public interface CosmosChain {
 
     @GET("/txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
-
-//    @GET("/txs/{hash}")
-//    Call<ResStakeTxInfo> getStakeSearchTx(@Path("hash") String hash);
 
     @GET("/blocks/{height}")
     Call<ResBlockInfo> getSearchBlock(@Path("height") String height);
@@ -106,11 +105,50 @@ public interface CosmosChain {
     @GET("/gov/proposals")
     Call<ResLcdProposals> getProposalList();
 
-
     //Broadcast Tx
     @POST("/txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
-//    @POST("/txs")
-//    Call<ResBroadTx> broadStakeTx(@Body ReqStakeBroadCast data);
+
+    //TODO rollback cosmos-hub2
+    @GET("/staking/validators?status=bonded")
+    Call<ArrayList<Validator>> getValidatorDetailListLegacy();
+
+    @GET("/staking/validators?status=unbonding")
+    Call<ArrayList<Validator>> getUnBondingValidatorDetailListLegacy();
+
+    @GET("/staking/validators?status=unbonded")
+    Call<ArrayList<Validator>> getUnBondedValidatorDetailListLegacy();
+
+    @GET("/staking/delegators/{address}/delegations")
+    Call<ArrayList<ResLcdBonding>> getBondingListLegacy(@Path("address") String address);
+
+    @GET("/staking/delegators/{address}/unbonding_delegations")
+    Call<ArrayList<ResLcdUnBonding>> getUnBondingListLegacy(@Path("address") String address);
+
+    @GET("/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
+    Call<ArrayList<Coin>> getRewardFromValidatorLegacy(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
+
+    @GET("/distribution/delegators/{address}/withdraw_address")
+    Call<String> getWithdrawAddressLegacy(@Path("address") String address);
+
+    @GET("/staking/delegators/{address}/delegations/{validatorAddr}")
+    Call<ResLcdBonding> getBondingLegacy(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+    @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
+    Call<ResLcdUnBonding> getUnbondingLegacy(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+
+    @GET("/staking/validators/{validatorAddr}")
+    Call<Validator> getValidatorDetailLegacy(@Path("validatorAddr") String validatorAddr);
+
+    @GET("/minting/inflation")
+    Call<String> getInflationLegacy();
+
+    @GET("/minting/annual-provisions")
+    Call<String> getProvisionsLegacy();
+
+    @GET("/gov/proposals")
+    Call<ArrayList<Proposal>> getProposalListLegacy();
+
 }

@@ -104,7 +104,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         mBtnWebDetail           = findViewById(R.id.web_detail);
         mBtnAddressDetail       = findViewById(R.id.address_detail);
         mKeyState               = findViewById(R.id.img_account);

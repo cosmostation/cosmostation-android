@@ -4,14 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+
+//TODO rollback cosmos-hub2
+
 public class Proposal {
-    @SerializedName("id")
+    //TODO rollback cosmos-hub2
+    @SerializedName("proposal_id")
     public String id;
 
     @SerializedName("proposal_status")
     public String proposal_status;
 
-    @SerializedName("content")
+    @SerializedName("proposal_content")
     public Content content;
 
 

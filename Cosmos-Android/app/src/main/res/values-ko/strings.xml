@@ -406,7 +406,7 @@
     <string name="error_already_imported_address">이미 등록된 주소입니다.</string>
     <string name="error_import_errer">이 주소 또는 공개키는 등록이 불가능 합니다.</string>
     <string name="error_not_enough_atom">위임하기에 사용 가능 수량이 충분하지 않습니다.</string>
-    <string name="error_not_enough_budget">사용 가능 수량이 충분하지 않습니다.\n최소 0.0005 Tx 수수료가 필요합니다.</string>
+    <string name="error_not_enough_budget">사용 가능 수량이 충분하지 않습니다.\n이용 가능 수량이 최소 수수료 이하 입니다.</string>
     <string name="error_not_enough_reward_all">사용 가능 수량이 충분하지 않습니다.\n이용 가능 수량이 최소 수수료 이하 입니다.</string>
     <string name="error_not_enough_reward">요청할 이자가 충분하지 않습니다.</string>
     <string name="error_small_reward">요청할 이자가 Tx 수수료 보다 낮습니다.\n수수료 낭비 입니다.</string>

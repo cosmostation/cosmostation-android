@@ -130,7 +130,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull final NewWalletHolder holder, final int position) {
             String address = WKey.getDpAddressWithPath(mMasterKey, mChain, position);
-            holder.newPath.setText(WDp.getPath(mChain));
+            holder.newPath.setText(WDp.getPath(mChain) + position);
             holder.newAddress.setText(address);
             final Account temp = getBaseDao().onSelectExistAccount(address);
             if(temp == null) {
