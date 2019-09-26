@@ -186,11 +186,15 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 
                 if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                    cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
+                    //TODO rollback cosmos-hub2
+//                    cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
+                    cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
                     if(mStakingPool != nil && mProvision != nil) {
                         let provisions = NSDecimalNumber.init(string: mProvision)
                         let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
+                        //TODO rollback cosmos-hub2
+//                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
+                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
                     } else {
                         cell!.avergaeYield.text = "?? %"
                     }
@@ -267,11 +271,16 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 
                 if (mIsTop100 && userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                    cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
+                    //TODO rollback cosmos-hub2
+//                    cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
+                    cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
                     if(mStakingPool != nil && mProvision != nil) {
                         let provisions = NSDecimalNumber.init(string: mProvision)
                         let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
+                        //TODO rollback cosmos-hub2
+//                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
+                        cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+
                     } else {
                         cell!.avergaeYield.text = "?? %"
                     }
@@ -384,8 +393,11 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
                     if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
                         let provisions = NSDecimalNumber.init(string: mProvision)
                         let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                        cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: userChain!)
-                        cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: userChain!)
+                        //TODO rollback cosmos-hub2
+//                        cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: userChain!)
+//                        cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: userChain!)
+                        cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: userChain!)
+                        cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: userChain!)
                     } else {
                         cell!.myDailyReturns.text = "-"
                         cell!.myMonthlyReturns.text = "-"
@@ -515,8 +527,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let validator = responseData.object(forKey: "result") as? NSDictionary else {
+//                    guard let responseData = res as? NSDictionary,
+//                        let validator = responseData.object(forKey: "result") as? NSDictionary else {
+//                            self.onFetchFinished()
+//                            return
+//                    }
+                    //TODO rollback cosmos-hub2
+                    guard let validator = res as? NSDictionary else {
                             self.onFetchFinished()
                             return
                     }
@@ -553,8 +570,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+//                    guard let responseData = res as? NSDictionary,
+//                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+//                            self.onFetchFinished()
+//                            return
+//                    }
+                    //TODO rollback cosmos-hub2
+                    guard let rawData = res as? [String : Any] else {
                             self.onFetchFinished()
                             return
                     }
@@ -598,8 +620,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+//                    guard let responseData = res as? NSDictionary,
+//                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+//                            self.onFetchFinished()
+//                            return
+//                    }
+                    //TODO rollback cosmos-hub2
+                    guard let rawData = res as? [String : Any] else {
                             self.onFetchFinished()
                             return
                     }
@@ -642,8 +669,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let responseData = res as? NSDictionary,
-                    let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+//                guard let responseData = res as? NSDictionary,
+//                    let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+//                        self.onFetchFinished()
+//                        return;
+//                }
+                //TODO rollback cosmos-hub2
+                guard let rawRewards = res as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return;
                 }
@@ -723,8 +755,13 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+//                    guard let responseData = res as? NSDictionary,
+//                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+//                            self.onFetchFinished()
+//                            return;
+//                    }
+                    //TODO rollback cosmos-hub2
+                    guard let rawData = res as? [String : Any] else {
                             self.onFetchFinished()
                             return;
                     }
@@ -805,11 +842,17 @@ class VaidatorDetailViewController: BaseViewController, UITableViewDelegate, UIT
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let address = responseData.object(forKey: "result") as? String else {
+//                    guard let responseData = res as? NSDictionary,
+//                        let address = responseData.object(forKey: "result") as? String else {
+//                            self.onShowReInvsetFailDialog()
+//                            return;
+//                    }
+                    //TODO rollback cosmos-hub2
+                    guard let address = res as? String else {
                             self.onShowReInvsetFailDialog()
                             return;
                     }
+
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
                     if(trimAddress == accountAddr) {
                         self.onStartReInvest()

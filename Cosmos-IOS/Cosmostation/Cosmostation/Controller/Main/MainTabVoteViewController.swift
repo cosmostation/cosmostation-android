@@ -89,7 +89,9 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
         let proposal = mProposals[indexPath.row]
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            cell?.proposalIdLabel.text = "# ".appending(proposal.id)
+            //TODO rollback cosmos-hub2
+//            cell?.proposalIdLabel.text = "# ".appending(proposal.id)
+            cell?.proposalIdLabel.text = "# ".appending(proposal.proposal_id)
             cell?.proposalTitleLabel.text = proposal.content?.value.title
             cell?.proposalMsgLabel.text = proposal.content?.value.description
             cell?.proposalStateLabel.text = proposal.proposal_status
@@ -151,8 +153,13 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+//                    guard let responseData = res as? NSDictionary,
+//                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+//                            self.onUpdateViews()
+//                            return
+//                    }
+                    //TODO rollback cosmos-hub2
+                    guard let proposals = res as? Array<NSDictionary> else {
                             self.onUpdateViews()
                             return
                     }
@@ -194,8 +201,12 @@ class MainTabVoteViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func sortProposals() {
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+//            self.mProposals.sort{
+//                return Int($0.id)! < Int($1.id)! ? false : true
+//            }
+            //TODO rollback cosmos-hub2
             self.mProposals.sort{
-                return Int($0.id)! < Int($1.id)! ? false : true
+                return Int($0.proposal_id)! < Int($1.proposal_id)! ? false : true
             }
             
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {

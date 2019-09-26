@@ -28,7 +28,9 @@ class WUtils {
     
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
         let result = account
-        if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) {
+        if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT ||
+            accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY ||
+            accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) {
             result.account_address = accountInfo.value.address
             result.account_sequence_number = Int64(accountInfo.value.sequence) ?? 0
             result.account_account_numner = Int64(accountInfo.value.account_number) ?? 0
@@ -43,7 +45,9 @@ class WUtils {
     
     static func getBalancesWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Array<Balance> {
         var result = Array<Balance>()
-        if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) {
+        if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT ||
+            accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY ||
+            accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) {
             for coin in accountInfo.value.coins {
                 result.append(Balance.init( account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
             }
@@ -863,11 +867,11 @@ class WUtils {
     
     static func getChainName(_ type:String) -> String {
         if (type == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
-            return "cosmoshub-3"
+            return "cosmoshub-2"
         } else if (type == ChainType.SUPPORT_CHAIN_IRIS_MAIN.rawValue) {
             return "irishub"
         }
-        return "cosmoshub-3"
+        return "cosmoshub-2"
     }
 }
 

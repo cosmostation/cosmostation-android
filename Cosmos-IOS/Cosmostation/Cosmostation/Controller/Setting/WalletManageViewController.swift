@@ -129,13 +129,19 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+//                    guard let responseData = res as? NSDictionary,
+//                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+//                            cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
+//                            return
+//                    }
+                    //TODO rollback cosmos-hub2
+                    guard let info = res as? [String : Any] else {
                             cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
                             return
                     }
+
                     let accountInfo = AccountInfo.init(info)
-                    if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
+                    if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
                         cell?.amount.attributedText = WUtils.displayAmount(accountInfo.value.coins[0].amount, cell!.amount.font!, 6, userChain)
                     } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
                         cell?.amount.attributedText = WUtils.displayAmount(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.amount.font!, 6, userChain)
@@ -158,7 +164,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                         return
                     }
                     let accountInfo = AccountInfo.init(info)
-                    if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
+                    if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
                         cell?.amount.attributedText = WUtils.displayAmount(accountInfo.value.coins[0].amount, cell!.amount.font!, 6, userChain)
                     } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
                         cell?.amount.attributedText = WUtils.displayAmount(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.amount.font!, 6, userChain)

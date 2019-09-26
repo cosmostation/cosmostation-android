@@ -8,8 +8,9 @@
 
 import Foundation
 
+//TODO rollback cosmos-hub2
 public class Proposal {
-    var id: String = ""
+//    var id: String = ""
     var proposal_id: String = ""
     var proposal_status: String = ""
     var content: Content?
@@ -18,10 +19,13 @@ public class Proposal {
     init() {}
     
     init(_ dictionary: [String: Any]) {
-        self.id = dictionary["id"] as? String ?? ""
+//        self.id = dictionary["id"] as? String ?? ""
         self.proposal_id = dictionary["proposal_id"] as? String ?? ""
         self.proposal_status = dictionary["proposal_status"] as? String ?? ""
-        if let content = dictionary["content"] as? [String : Any] {
+//        if let content = dictionary["content"] as? [String : Any] {
+//            self.content = Content.init(content)
+//        }
+        if let content = dictionary["proposal_content"] as? [String : Any] {
             self.content = Content.init(content)
         }
         if let irisValue = dictionary["value"] as? [String : Any] {
