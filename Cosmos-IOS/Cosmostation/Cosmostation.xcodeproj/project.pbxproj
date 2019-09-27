@@ -24,6 +24,8 @@
 		E1069B1022968E05007517DC /* StepRedelegateCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */; };
 		E1069B12229698BA007517DC /* StepChangeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B11229698BA007517DC /* StepChangeAddressViewController.swift */; };
 		E1069B14229698CB007517DC /* StepChangeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */; };
+		E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */; };
+		E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */; };
 		E1271B04224B17230083AF17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1271B02224B17230083AF17 /* Localizable.strings */; };
 		E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B05224B874A0083AF17 /* AddAddressViewController.swift */; };
 		E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B07224B90230083AF17 /* AddressInputTextField.swift */; };
@@ -192,6 +194,8 @@
 		E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRedelegateCheckViewController.swift; sourceTree = "<group>"; };
 		E1069B11229698BA007517DC /* StepChangeAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepChangeAddressViewController.swift; sourceTree = "<group>"; };
 		E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepChangeCheckViewController.swift; sourceTree = "<group>"; };
+		E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabTokenViewController.swift; sourceTree = "<group>"; };
+		E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbAccountInfo.swift; sourceTree = "<group>"; };
 		E1271B00224B16E20083AF17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E1271B01224B16E20083AF17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E1271B03224B17230083AF17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -541,6 +545,7 @@
 				E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */,
 				E1945E41222E7FC800A1436F /* MainTabViewController.swift */,
 				E1945E45222E819300A1436F /* MainTabSendViewController.swift */,
+				E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */,
 				E1945E47222E81A300A1436F /* MainTabRewardViewController.swift */,
 				E1945E49222E81B300A1436F /* MainTabHistoryViewController.swift */,
 				E1945E4B222E81C200A1436F /* MainTabVoteViewController.swift */,
@@ -593,6 +598,7 @@
 				E151B64E22485B3B0026B8C0 /* Result.swift */,
 				E1A82DDE2244782B0097CAEE /* Validator.swift */,
 				E1A82DE02244818C0097CAEE /* AccountInfo.swift */,
+				E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */,
 				E1A82DE22244821D0097CAEE /* PublicKey.swift */,
 				E1A82DE4224482800097CAEE /* Coin.swift */,
 				E1A82DE92244A20B0097CAEE /* BondingInfo.swift */,
@@ -901,6 +907,7 @@
 				E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
+				E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */,
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
 				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
@@ -922,6 +929,7 @@
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
 				E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */,
 				E171A073225B08CE00C5756C /* StepDelegateCheckViewController.swift in Sources */,
+				E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */,
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
 				E1406FC62260860E00D9440C /* StepUndelegateAmountViewController.swift in Sources */,

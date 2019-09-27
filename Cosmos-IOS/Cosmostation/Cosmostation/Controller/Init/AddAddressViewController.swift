@@ -70,6 +70,16 @@ class AddAddressViewController: BaseViewController {
                 return;
             }
             
+        } else if (userInput.starts(with: "bnb")) {
+            if (WKey.isValidateBech32(userInput)) {
+                self.onGenWatchAccount(ChainType.SUPPORT_CHAIN_BINANCE_MAIN, userInput)
+                return;
+            } else {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                self.addAddressInputText.text = ""
+                return;
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
             self.addAddressInputText.text = ""

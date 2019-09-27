@@ -17,9 +17,15 @@ class WKey {
         return HDPrivateKey(seed: Mnemonic.seed(mnemonic: m), network: .testnet)
     }
     
-    static func getHDKeyFromWords(mnemonic m: [String], path p:UInt32) -> HDPrivateKey {
+    static func getHDKeyFromWords(mnemonic m: [String], path p:UInt32, chain c:ChainType) -> HDPrivateKey {
         let masterKey = getMasterKeyFromWords(mnemonic: m)
-         return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
+        if (c == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || c == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
+        } else if (c == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            return try! masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
+        } else {
+            return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
+        }
     }
     
     static func getHDKeyDpAddress(key hdKey:HDPrivateKey, chain:ChainType) -> String {
@@ -29,14 +35,23 @@ class WKey {
             return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return try! SegwitAddrCoder.shared.encode2(hrp: "iaa", program: ripemd160)
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            return try! SegwitAddrCoder.shared.encode2(hrp: "bnb", program: ripemd160)
         }
         return "";
     }
     
     static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType) -> String {
         do {
-            let childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-            return getHDKeyDpAddress(key: childKey, chain: chain)
+            var childKey:HDPrivateKey?
+            if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+            } else {
+                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+            }
+            return getHDKeyDpAddress(key: childKey!, chain: chain)
         } catch {
             return ""
         }

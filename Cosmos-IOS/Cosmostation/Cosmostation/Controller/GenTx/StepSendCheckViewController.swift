@@ -210,7 +210,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             do {
-                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!)
+                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.userChain!)
                 
                 let msg = MsgGenerator.genGetSendMsg(self.pageHolderVC.mAccount!.account_address,
                                                      self.pageHolderVC.mToSendRecipientAddress!,

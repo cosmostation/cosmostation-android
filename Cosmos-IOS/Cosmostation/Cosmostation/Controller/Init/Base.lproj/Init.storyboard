@@ -22,13 +22,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmostaion" translatesAutoresizingMaskIntoConstraints="NO" id="cbE-1V-uMw">
-                                <rect key="frame" x="89" y="210" width="236" height="41"/>
+                                <rect key="frame" x="199" y="210" width="16" height="16"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x6t-zv-E8m">
                                 <rect key="frame" x="0.0" y="678" width="414" height="80"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmostationLogo" translatesAutoresizingMaskIntoConstraints="NO" id="XjD-1M-Zvz">
-                                        <rect key="frame" x="142.66666666666666" y="34" width="128.99999999999997" height="46"/>
+                                        <rect key="frame" x="199" y="64" width="16" height="16"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1770,6 +1770,10 @@
                         <viewLayoutGuide key="safeArea" id="3nd-GL-pS6"/>
                     </view>
                     <connections>
+                        <outlet property="actionView" destination="1bj-e8-1ms" id="QFV-7h-UBO"/>
+                        <outlet property="cardView" destination="adB-Me-7vQ" id="8m7-j2-cUu"/>
+                        <outlet property="keyboardView" destination="bbg-8J-Tmb" id="CT5-ky-KFb"/>
+                        <outlet property="mNeminicImg" destination="8VE-pp-zSq" id="nzH-RI-WoM"/>
                         <outlet property="mNemonicInput0" destination="6UE-Oe-Apv" id="Mq5-sz-Obv"/>
                         <outlet property="mNemonicInput1" destination="bwD-pu-K2r" id="hds-Ay-vzy"/>
                         <outlet property="mNemonicInput10" destination="PAf-WE-6BE" id="cVR-yI-dqP"/>
@@ -1795,6 +1799,7 @@
                         <outlet property="mNemonicInput8" destination="oLi-EP-hXg" id="M2l-lY-3bS"/>
                         <outlet property="mNemonicInput9" destination="KWJ-Nv-bzd" id="DlR-EL-TMA"/>
                         <outlet property="suggestCollectionView" destination="NpT-4d-5xt" id="iq4-Rh-fhE"/>
+                        <outlet property="topView" destination="YjX-hz-Soc" id="UhS-kI-0tQ"/>
                         <outlet property="wordCntLabel" destination="ssN-7c-XaK" id="laa-bB-Ygx"/>
                     </connections>
                 </viewController>

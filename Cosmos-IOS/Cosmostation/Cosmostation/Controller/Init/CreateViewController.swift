@@ -84,22 +84,30 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     
     func onShowChainType() {
         let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        let cosmosAction = UIAlertAction(title: NSLocalizedString("COSMOS", comment: ""), style: .default, handler: { _ in
+        let cosmosAction = UIAlertAction(title: NSLocalizedString("chain_title_cosmos", comment: ""), style: .default, handler: { _ in
             self.chain = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
             self.onGenNewKey()
         })
         cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
         cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-        let irisAction = UIAlertAction(title: NSLocalizedString("IRIS", comment: ""), style: .default, handler: {_ in
+        let irisAction = UIAlertAction(title: NSLocalizedString("chain_title_iris", comment: ""), style: .default, handler: {_ in
             self.chain = ChainType.SUPPORT_CHAIN_IRIS_MAIN
             self.onGenNewKey()
         })
         irisAction.setValue(UIColor.black, forKey: "titleTextColor")
         irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let bnbAction = UIAlertAction(title: NSLocalizedString("chain_title_bnb", comment: ""), style: .default, handler: {_ in
+            self.chain = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
+            self.onGenNewKey()
+        })
+        bnbAction.setValue(UIColor.black, forKey: "titleTextColor")
+        bnbAction.setValue(UIImage(named: "binanceChImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
+        showAlert.addAction(bnbAction)
         self.present(showAlert, animated: true, completion: nil)
     }
     
@@ -109,13 +117,16 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             return
         }
         mnemonicWords = words
-        createdKey = WKey.getHDKeyFromWords(mnemonic: mnemonicWords!, path: 0)
+        createdKey = WKey.getHDKeyFromWords(mnemonic: mnemonicWords!, path: 0, chain: self.chain!)
         onUpdateView()
     }
     
     func onUpdateView() {
         self.addressLabel.text = WKey.getHDKeyDpAddress(key: createdKey!, chain: chain!)
         self.mnemonicView.backgroundColor = WUtils.getChainBg(chain!)
+        for i in 0 ... mnemonicLabels.count - 1{
+            self.mnemonicLabels[i].borderColor = WUtils.getChainDarkColor(chain!)
+        }
         self.addressView.isHidden = false
         self.mnemonicView.isHidden = false
         self.warningView.isHidden = false

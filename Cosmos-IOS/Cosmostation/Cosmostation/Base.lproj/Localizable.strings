@@ -210,6 +210,9 @@
 "tx_get_reward_all" = "Get Rewards All";
 "tx_known" = "Known";
 
+"chain_title_cosmos" = "COSMOS Hub";
+"chain_title_iris" = "IRSI Hub";
+"chain_title_bnb" = "Binance Chain";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";
 

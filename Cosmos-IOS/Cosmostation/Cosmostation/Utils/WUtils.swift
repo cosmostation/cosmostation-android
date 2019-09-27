@@ -369,6 +369,8 @@ class WUtils {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler6))
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler18))
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            formatted = nf.string(from: amount.rounding(accordingToBehavior: handler6))
         }
         
         let added       = formatted
@@ -688,20 +690,35 @@ class WUtils {
     }
     
     
-    static func getChainColor(_ chain:ChainType) -> UIColor{
+    static func getChainColor(_ chain:ChainType) -> UIColor {
         if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             return COLOR_ATOM
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return COLOR_IRIS
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            return COLOR_BNB
         }
         return COLOR_ATOM
     }
     
-    static func getChainBg(_ chain:ChainType) -> UIColor{
+    static func getChainDarkColor(_ chain:ChainType) -> UIColor {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            return COLOR_ATOM_DARK
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            return COLOR_IRIS_DARK
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            return COLOR_BNB_DARK
+        }
+        return COLOR_ATOM_DARK
+    }
+    
+    static func getChainBg(_ chain:ChainType) -> UIColor {
         if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             return TRANS_BG_COLOR_COSMOS
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return TRANS_BG_COLOR_IRIS
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            return TRANS_BG_COLOR_BNB
         }
         return TRANS_BG_COLOR_COSMOS
     }
@@ -722,6 +739,9 @@ class WUtils {
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             label.text = "IRIS"
             label.textColor = COLOR_IRIS
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            label.text = "BNB"
+            label.textColor = COLOR_BNB
         }
     }
     
@@ -866,10 +886,12 @@ class WUtils {
     
     
     static func getChainName(_ type:String) -> String {
-        if (type == ChainType.SUPPORT_CHAIN_COSMOS_MAIN.rawValue) {
+        if (type == CHAIN_COSMOS_S) {
             return "cosmoshub-2"
-        } else if (type == ChainType.SUPPORT_CHAIN_IRIS_MAIN.rawValue) {
+        } else if (type == CHAIN_IRIS_S) {
             return "irishub"
+        } else if (type == CHAIN_BINANCE_S) {
+            return "Binance-Chain-Tigris"
         }
         return "cosmoshub-2"
     }

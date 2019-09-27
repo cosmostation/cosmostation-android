@@ -633,11 +633,11 @@ Learn more about us in the links below</string>
             <objects>
                 <viewController id="Qvj-GN-yc9" customClass="MainTabRewardViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ilN-v5-iKh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_cosmos" translatesAutoresizingMaskIntoConstraints="NO" id="OVh-y6-LOK">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2dl-Bs-BTe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -712,19 +712,19 @@ Learn more about us in the links below</string>
                                 </connections>
                             </segmentedControl>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SA3-XZ-w7Y">
-                                <rect key="frame" x="0.0" y="94" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="596"/>
                                 <connections>
                                     <segue destination="ktg-GO-6fF" kind="embed" identifier="myValidator" id="ts2-DG-B7v"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKN-bl-aNw">
-                                <rect key="frame" x="0.0" y="94" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="596"/>
                                 <connections>
                                     <segue destination="TPk-7b-ccf" kind="embed" identifier="allValidator" id="3M1-Dc-bvf"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="553-02-5Bz">
-                                <rect key="frame" x="0.0" y="94" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="596"/>
                                 <connections>
                                     <segue destination="QXN-Be-TMt" kind="embed" identifier="otherValidator" id="7Sw-Nw-O0f"/>
                                 </connections>
@@ -773,7 +773,7 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D2n-8S-hMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2868" y="1513.3004926108374"/>
+            <point key="canvasLocation" x="-908" y="3594"/>
         </scene>
         <!--Main Tab History View Controller-->
         <scene sceneID="CBM-nz-DKQ">
@@ -874,18 +874,95 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nTg-5w-Uah" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-488.40579710144931" y="1514.7321428571429"/>
+            <point key="canvasLocation" x="-1482" y="1513"/>
+        </scene>
+        <!--Main Tab Token View Controller-->
+        <scene sceneID="YLi-g5-EU9">
+            <objects>
+                <viewController id="oOd-o8-Sem" customClass="MainTabTokenViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pyz-AK-6Ed">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_cosmos" translatesAutoresizingMaskIntoConstraints="NO" id="rD0-jW-7fv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Al7-NK-Got">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="Dfj-wA-gmt">
+                                        <rect key="frame" x="8" y="4" width="42" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="bXx-re-Uxf"/>
+                                            <constraint firstAttribute="width" constant="42" id="mo5-iT-DTz"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWl-YX-k4d">
+                                        <rect key="frame" x="50.000000000000007" y="14.666666666666671" width="78.666666666666686" height="21"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Cosmos Hub)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Roh-LO-TJo">
+                                        <rect key="frame" x="132.66666666666666" y="20.333333333333329" width="77.333333333333343" height="14"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qin-kp-r78">
+                                        <rect key="frame" x="319" y="9" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="32" id="vsG-Qd-zEk"/>
+                                            <constraint firstAttribute="height" constant="32" id="wUz-wh-P4f"/>
+                                        </constraints>
+                                        <state key="normal" image="accout_btn"/>
+                                        <connections>
+                                            <action selector="onClickSwitchAccount:" destination="t07-dn-E46" eventType="touchUpInside" id="v55-Wz-oDZ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="qWl-YX-k4d" firstAttribute="centerY" secondItem="Al7-NK-Got" secondAttribute="centerY" id="10L-X4-qRq"/>
+                                    <constraint firstAttribute="height" constant="50" id="EOd-bo-sb6"/>
+                                    <constraint firstItem="qin-kp-r78" firstAttribute="centerY" secondItem="Al7-NK-Got" secondAttribute="centerY" id="MIk-Wf-IZQ"/>
+                                    <constraint firstItem="qWl-YX-k4d" firstAttribute="leading" secondItem="Dfj-wA-gmt" secondAttribute="trailing" id="RiQ-ev-IV8"/>
+                                    <constraint firstAttribute="trailing" secondItem="qin-kp-r78" secondAttribute="trailing" constant="24" id="Yyo-4r-5d6"/>
+                                    <constraint firstItem="Roh-LO-TJo" firstAttribute="leading" secondItem="qWl-YX-k4d" secondAttribute="trailing" constant="4" id="iLV-HQ-Aff"/>
+                                    <constraint firstItem="Roh-LO-TJo" firstAttribute="firstBaseline" secondItem="qWl-YX-k4d" secondAttribute="firstBaseline" id="w8d-Ci-xyH"/>
+                                    <constraint firstItem="Dfj-wA-gmt" firstAttribute="centerY" secondItem="Al7-NK-Got" secondAttribute="centerY" id="xuV-if-Yoq"/>
+                                    <constraint firstItem="Dfj-wA-gmt" firstAttribute="leading" secondItem="Al7-NK-Got" secondAttribute="leading" constant="8" id="xz5-Yf-NWe"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Al7-NK-Got" firstAttribute="leading" secondItem="jlb-Fr-uKZ" secondAttribute="leading" id="7e8-G9-bPp"/>
+                            <constraint firstItem="rD0-jW-7fv" firstAttribute="bottom" secondItem="Pyz-AK-6Ed" secondAttribute="bottom" id="PJG-LJ-Onw"/>
+                            <constraint firstAttribute="top" secondItem="rD0-jW-7fv" secondAttribute="top" id="VXC-Hg-v51"/>
+                            <constraint firstItem="Al7-NK-Got" firstAttribute="trailing" secondItem="jlb-Fr-uKZ" secondAttribute="trailing" id="Zgk-HF-diZ"/>
+                            <constraint firstItem="Al7-NK-Got" firstAttribute="top" secondItem="jlb-Fr-uKZ" secondAttribute="top" id="fFf-db-Gdq"/>
+                            <constraint firstItem="rD0-jW-7fv" firstAttribute="leading" secondItem="jlb-Fr-uKZ" secondAttribute="leading" id="qMo-uN-42L"/>
+                            <constraint firstItem="rD0-jW-7fv" firstAttribute="trailing" secondItem="jlb-Fr-uKZ" secondAttribute="trailing" id="xVr-RC-893"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jlb-Fr-uKZ"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="R7R-lj-gXN"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A7k-7D-HXK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2660" y="1513"/>
         </scene>
         <!--Main Tab Vote View Controller-->
         <scene sceneID="M82-6S-tgX">
             <objects>
                 <viewController id="jY2-JE-lP2" customClass="MainTabVoteViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zCR-E0-N9f">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_cosmos" translatesAutoresizingMaskIntoConstraints="NO" id="PEW-5B-acc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8U6-mJ-rme">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -935,13 +1012,13 @@ Learn more about us in the links below</string>
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Proposal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3x-sr-rPq">
-                                <rect key="frame" x="140.66666666666666" y="310.66666666666669" width="94" height="20"/>
+                                <rect key="frame" x="140.66666666666666" y="335" width="94" height="20"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cgw-Hd-L7W">
-                                <rect key="frame" x="0.0" y="50" width="375" height="591"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="640"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -975,7 +1052,7 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmi-gg-Yva" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="508" y="1513"/>
+            <point key="canvasLocation" x="1778" y="3593"/>
         </scene>
         <!--Main Tab Setting View Controller-->
         <scene sceneID="WvL-Uy-fK2">
@@ -1069,7 +1146,7 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Br-GE-e2e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1597.1014492753625" y="1512.7232142857142"/>
+            <point key="canvasLocation" x="14" y="1513"/>
         </scene>
         <!--Main Tab View Controller-->
         <scene sceneID="hEl-hw-B2u">
@@ -1090,9 +1167,8 @@ Learn more about us in the links below</string>
                     </tabBar>
                     <connections>
                         <segue destination="YzK-1l-jEg" kind="relationship" relationship="viewControllers" id="TMA-a8-1fC"/>
-                        <segue destination="59e-Pc-Dtm" kind="relationship" relationship="viewControllers" id="cb8-jk-DCy"/>
+                        <segue destination="jCW-id-z93" kind="relationship" relationship="viewControllers" id="WwU-vZ-eWl"/>
                         <segue destination="6PU-dL-cQj" kind="relationship" relationship="viewControllers" id="Pj6-FH-cDH"/>
-                        <segue destination="tVU-gy-x65" kind="relationship" relationship="viewControllers" id="smp-Ar-KVZ"/>
                         <segue destination="ARn-Yi-ZWd" kind="relationship" relationship="viewControllers" id="A3b-TH-v99"/>
                     </connections>
                 </tabBarController>
@@ -1127,7 +1203,7 @@ Learn more about us in the links below</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qDf-5Z-DVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2868" y="657"/>
+            <point key="canvasLocation" x="-908" y="2897"/>
         </scene>
         <!--WALLET-->
         <scene sceneID="rXu-tB-qbz">
@@ -1185,7 +1261,7 @@ Learn more about us in the links below</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BX1-4r-DmX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-487" y="656"/>
+            <point key="canvasLocation" x="-1482" y="657"/>
         </scene>
         <!--VOTE-->
         <scene sceneID="HEi-Hm-Bsu">
@@ -1214,7 +1290,7 @@ Learn more about us in the links below</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EWy-ob-7sE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="508" y="681"/>
+            <point key="canvasLocation" x="1777" y="2897"/>
         </scene>
         <!--SETTING-->
         <scene sceneID="S0Y-sR-QHR">
@@ -1243,18 +1319,18 @@ Learn more about us in the links below</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZu-9k-6ez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1598" y="681"/>
+            <point key="canvasLocation" x="14" y="671"/>
         </scene>
         <!--My Validator View Controller-->
         <scene sceneID="Gw0-TT-sCx">
             <objects>
                 <viewController id="ktg-GO-6fF" customClass="MyValidatorViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qnt-Rf-GI9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="547"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="596"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eJb-4D-GcQ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="596"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -1273,7 +1349,7 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LnM-g5-zLQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3177" y="2264"/>
+            <point key="canvasLocation" x="-906" y="4220"/>
         </scene>
         <!--Vaidator Detail View Controller-->
         <scene sceneID="14y-Lh-7ZW">
@@ -1321,7 +1397,7 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MnD-0U-qoY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2871.1999999999998" y="3094.5812807881775"/>
+            <point key="canvasLocation" x="-4754" y="3095"/>
         </scene>
         <!--Add View Controller-->
         <scene sceneID="0eE-A4-44w">
@@ -1469,11 +1545,11 @@ Learn more about us in the links below</string>
             <objects>
                 <viewController id="TPk-7b-ccf" customClass="AllValidatorViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JeS-cB-dvk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="547"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="596"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yZa-Fs-rmW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="596"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -1492,7 +1568,7 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gie-wG-xSH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2370" y="2264"/>
+            <point key="canvasLocation" x="-218" y="4220"/>
         </scene>
         <!--Setting Table View Controller-->
         <scene sceneID="7JN-ga-57r">
@@ -1517,10 +1593,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZU1-l1-LYY" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="1" width="296" height="44"/>
+                                                    <rect key="frame" x="12" y="1" width="351" height="44"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="hh0-Jr-BKS">
-                                                            <rect key="frame" x="264" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="IRu-u5-Sa4"/>
                                                                 <constraint firstAttribute="height" constant="24" id="L0y-BR-9bN"/>
@@ -1581,7 +1657,7 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8xY-BL-yig" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App Lock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eE5-yJ-glc">
                                                             <rect key="frame" x="11.999999999999996" y="13.666666666666664" width="58.666666666666657" height="17"/>
@@ -1590,7 +1666,7 @@ Learn more about us in the links below</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="noe-kn-ePd">
-                                                            <rect key="frame" x="235" y="6.6666666666666679" width="51" height="31.000000000000004"/>
+                                                            <rect key="frame" x="290" y="6.6666666666666679" width="51" height="31.000000000000004"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="noe-kn-ePd" secondAttribute="height" multiplier="49:31" id="fD6-xc-IBb"/>
                                                             </constraints>
@@ -1644,7 +1720,7 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9yw-zH-1di" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lme-Ht-n9U">
                                                             <rect key="frame" x="12" y="22" width="0.0" height="0.0"/>
@@ -1653,7 +1729,7 @@ Learn more about us in the links below</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FjT-LV-erL">
-                                                            <rect key="frame" x="235" y="6.6666666666666679" width="51" height="31.000000000000004"/>
+                                                            <rect key="frame" x="290" y="6.6666666666666679" width="51" height="31.000000000000004"/>
                                                             <color key="onTintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                                             <connections>
                                                                 <action selector="bioToggle:" destination="k2t-NI-3vK" eventType="valueChanged" id="u86-iz-3YL"/>
@@ -1704,10 +1780,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gTa-jj-oJg" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="tXi-oe-GPa">
-                                                            <rect key="frame" x="264" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="Ag7-jB-UIW"/>
                                                                 <constraint firstAttribute="width" constant="24" id="ujn-5D-Xb4"/>
@@ -1720,7 +1796,7 @@ Learn more about us in the links below</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJX-wz-eL3">
-                                                            <rect key="frame" x="256" y="22" width="0.0" height="0.0"/>
+                                                            <rect key="frame" x="311" y="22" width="0.0" height="0.0"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1772,10 +1848,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxP-aq-gRo" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="h0v-WD-4ua">
-                                                            <rect key="frame" x="264" y="10" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="88e-Ey-Adu"/>
                                                                 <constraint firstAttribute="width" constant="24" id="VxO-Rf-AdW"/>
@@ -1788,7 +1864,7 @@ Learn more about us in the links below</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CoinMarket Cap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nuz-xq-Fds">
-                                                            <rect key="frame" x="169" y="15" width="87" height="14"/>
+                                                            <rect key="frame" x="224" y="15" width="87" height="14"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1844,17 +1920,17 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CHW-JQ-DNC" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="exP-B6-nAO">
-                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="OAo-ax-v9P"/>
                                                                 <constraint firstAttribute="width" constant="24" id="wiX-tL-1VP"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIr-lJ-P4Q">
-                                                            <rect key="frame" x="11.999999999999998" y="13.666666666666668" width="28.333333333333329" height="17"/>
+                                                            <rect key="frame" x="11.999999999999998" y="13.666666666666664" width="28.333333333333329" height="17"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1904,17 +1980,17 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBe-Sr-q1S" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="eYn-K2-HSV">
-                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="gIV-UI-Ehj"/>
                                                                 <constraint firstAttribute="height" constant="24" id="z1b-x1-a9T"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Telegram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCh-Gs-kbA">
-                                                            <rect key="frame" x="11.999999999999996" y="13.666666666666668" width="57.666666666666657" height="17"/>
+                                                            <rect key="frame" x="11.999999999999996" y="13.666666666666664" width="57.666666666666657" height="17"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1964,17 +2040,17 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T5R-Kw-G1u" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="9Fo-29-D8N">
-                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="agG-Ef-8xp"/>
                                                                 <constraint firstAttribute="height" constant="24" id="khQ-sU-q6P"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explorer Mintscan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j4V-kv-pau">
-                                                            <rect key="frame" x="12" y="13.666666666666668" width="113" height="17"/>
+                                                            <rect key="frame" x="12" y="13.666666666666664" width="113" height="17"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -2024,17 +2100,17 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P7H-lj-K34" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="trp-tw-eou">
-                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="7wY-qq-tuf"/>
                                                                 <constraint firstAttribute="width" constant="24" id="OlD-75-fu0"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cosmostation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkk-Df-UXk">
-                                                            <rect key="frame" x="12" y="13.666666666666668" width="86" height="17"/>
+                                                            <rect key="frame" x="12" y="13.666666666666664" width="86" height="17"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -2088,10 +2164,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3I-Ah-x01" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="oM8-9l-uFp">
-                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="JbN-cL-7a2"/>
                                                                 <constraint firstAttribute="width" constant="24" id="dIY-Vh-CVW"/>
@@ -2148,10 +2224,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDH-gK-oNp" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-N7-kva">
-                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="NgU-KH-xRT"/>
                                                                 <constraint firstAttribute="height" constant="24" id="Rp7-n2-dg8"/>
@@ -2208,10 +2284,10 @@ Learn more about us in the links below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6s-so-uCp" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                    <rect key="frame" x="12" y="3" width="296" height="44.333333333333336"/>
+                                                    <rect key="frame" x="12" y="3" width="351" height="44.333333333333336"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="fvN-8M-vfZ">
-                                                            <rect key="frame" x="264" y="10.333333333333336" width="24" height="24"/>
+                                                            <rect key="frame" x="319" y="10.333333333333336" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="24" id="68D-uO-Vbp"/>
                                                                 <constraint firstAttribute="height" constant="24" id="vVl-iV-jiN"/>
@@ -2224,7 +2300,7 @@ Learn more about us in the links below</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v 1.0.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGV-pj-L9Y">
-                                                            <rect key="frame" x="219" y="15.333333333333336" width="37" height="14"/>
+                                                            <rect key="frame" x="274" y="15.333333333333336" width="37" height="14"/>
                                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -2287,18 +2363,18 @@ Learn more about us in the links below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ul-Xu-TpF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2644" y="1622.2906403940888"/>
+            <point key="canvasLocation" x="1343" y="1463"/>
         </scene>
         <!--Other Validator View Controller-->
         <scene sceneID="qbA-Dc-LBH">
             <objects>
                 <viewController id="QXN-Be-TMt" customClass="OtherValidatorViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tps-Ma-pY6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="547"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="596"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EfH-ca-sl4">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="596"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -2317,7 +2393,36 @@ Learn more about us in the links below</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="url-Dn-BR0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1559.2" y="2263.6699507389162"/>
+            <point key="canvasLocation" x="506" y="4220"/>
+        </scene>
+        <!--TOKENS-->
+        <scene sceneID="wFd-X2-Web">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jCW-id-z93" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="TOKENS" image="tokensDsIc" id="1JO-em-9vw"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="k59-4s-zb9">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="1000" vertical="0.0"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="oOd-o8-Sem" kind="relationship" relationship="rootViewController" id="AoF-Ng-RWV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pg8-Bj-gGr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2660" y="671"/>
         </scene>
     </scenes>
     <resources>
@@ -2333,6 +2438,7 @@ Learn more about us in the links below</string>
         <image name="reward_ic" width="24" height="24"/>
         <image name="setting_ic" width="24" height="24"/>
         <image name="sortingBtn" width="24" height="24"/>
+        <image name="tokensDsIc" width="24" height="24"/>
         <image name="ts_ic" width="24" height="24"/>
         <image name="vote_ic" width="24" height="24"/>
         <image name="walletDetailBtn" width="25" height="24"/>

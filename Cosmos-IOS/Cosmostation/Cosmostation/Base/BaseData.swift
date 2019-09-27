@@ -210,7 +210,7 @@ final class BaseData : NSObject{
             let database = try Connection(fileUrl.path)
             self.database = database
             
-            let createAccountTable = DB_ACCOUNT.create { (table) in
+            let createAccountTable = DB_ACCOUNT.create(ifNotExists: true) { (table) in
                 table.column(DB_ACCOUNT_ID, primaryKey: true)
                 table.column(DB_ACCOUNT_UUID)
                 table.column(DB_ACCOUNT_NICKNAME)
@@ -228,29 +228,46 @@ final class BaseData : NSObject{
                 table.column(DB_ACCOUNT_M_SIZE)
                 table.column(DB_ACCOUNT_IMPORT_TIME)
             }
+            try self.database.run(createAccountTable)
             
 //            let createPasswordTable = DB_PASSWORD.create { (table) in
 //                table.column(DB_PASSWORD_ID, primaryKey: true)
 //                table.column(DB_PASSWORD_RESOURCE)
 //            }
+//            try self.database.run(createPasswordTable)
             
-            let createBalanceTable = DB_BALANCE.create { (table) in
+            let createBalanceTable = DB_BALANCE.create(ifNotExists: true) { (table) in
                 table.column(DB_BALANCE_ID, primaryKey: true)
                 table.column(DB_BALANCE_ACCOUNT_ID)
                 table.column(DB_BALANCE_DENOM)
                 table.column(DB_BALANCE_AMOUNT)
                 table.column(DB_BALANCE_FETCH_TIME)
+                table.column(DB_BALANCE_FROZEN)
+                table.column(DB_BALANCE_LOCKED)
             }
+            try self.database.run(createBalanceTable)
+            do {
+                try self.database.run(DB_BALANCE.addColumn(DB_BALANCE_FROZEN, defaultValue: ""))
+            } catch {
+                if (SHOW_LOG) { print(error) }
+            }
+            do {
+                try self.database.run(DB_BALANCE.addColumn(DB_BALANCE_LOCKED, defaultValue: ""))
+            } catch {
+                if (SHOW_LOG) { print(error) }
+            }
+
             
-            let createBondingTable = DB_BONDING.create { (table) in
+            let createBondingTable = DB_BONDING.create(ifNotExists: true) { (table) in
                 table.column(DB_BONDING_ID, primaryKey: true)
                 table.column(DB_BONDING_ACCOUNT_ID)
                 table.column(DB_BONDING_V_Address)
                 table.column(DB_BONDING_SHARES)
                 table.column(DB_BONDING_FETCH_TIME)
             }
+            try self.database.run(createBondingTable)
             
-            let createUnBondingTable = DB_UNBONDING.create { (table) in
+            let createUnBondingTable = DB_UNBONDING.create(ifNotExists: true) { (table) in
                 table.column(DB_UNBONDING_ID, primaryKey: true)
                 table.column(DB_UNBONDING_ACCOUNT_ID)
                 table.column(DB_UNBONDING_V_Address)
@@ -260,19 +277,10 @@ final class BaseData : NSObject{
                 table.column(DB_UNBONDING_BALANCE)
                 table.column(DB_UNBONDING_FETCH_TIME)
             }
-            
-            do {
-                try self.database.run(createAccountTable)
-//                try self.database.run(createPasswordTable)
-                try self.database.run(createBalanceTable)
-                try self.database.run(createBondingTable)
-                try self.database.run(createUnBondingTable)
-                
-            } catch {
-                if(SHOW_LOG) { print(error) }
-            }
+            try self.database.run(createUnBondingTable)
             
         } catch {
+            print("hahaha")
             if(SHOW_LOG) { print(error) }
         }
     }
@@ -456,7 +464,8 @@ final class BaseData : NSObject{
             for balanceBD in try database.prepare(DB_BALANCE) {
                 let balance = Balance(balanceBD[DB_BALANCE_ID], balanceBD[DB_BALANCE_ACCOUNT_ID],
                                       balanceBD[DB_BALANCE_DENOM], balanceBD[DB_BALANCE_AMOUNT],
-                                      balanceBD[DB_BALANCE_FETCH_TIME])
+                                      balanceBD[DB_BALANCE_FETCH_TIME], balanceBD[DB_BALANCE_FROZEN],
+                                      balanceBD[DB_BALANCE_LOCKED])
                 result.append(balance);
             }
         } catch {
@@ -464,14 +473,15 @@ final class BaseData : NSObject{
         }
         return result;
     }
-    
+
     public func selectBalanceById(accountId: Int64) -> Array<Balance> {
         var result = Array<Balance>()
         do {
             for balanceBD in try database.prepare(DB_BALANCE.filter(DB_BALANCE_ACCOUNT_ID == accountId)) {
                 let balance = Balance(balanceBD[DB_BALANCE_ID], balanceBD[DB_BALANCE_ACCOUNT_ID],
                                       balanceBD[DB_BALANCE_DENOM], balanceBD[DB_BALANCE_AMOUNT],
-                                      balanceBD[DB_BALANCE_FETCH_TIME])
+                                      balanceBD[DB_BALANCE_FETCH_TIME], balanceBD[DB_BALANCE_FROZEN],
+                                      balanceBD[DB_BALANCE_LOCKED])
                 result.append(balance);
             }
         } catch {
@@ -710,4 +720,11 @@ final class BaseData : NSObject{
         }
     }
     
+}
+
+extension Connection {
+    public var userVersion: Int32 {
+        get { return Int32(try! scalar("PRAGMA user_version") as! Int64)}
+        set { try! run("PRAGMA user_version = \(newValue)") }
+    }
 }

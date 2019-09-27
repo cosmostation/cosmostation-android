@@ -37,8 +37,6 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
     }
-
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
@@ -50,7 +48,6 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             return cell!
         }
         let address = WKey.getHDKeyDpAddressWithPath(maskerKey!, path: indexPath.row, chain: userChain!)
-        cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         cell?.addressLabel.text = address
         cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
         WUtils.setDenomTitle(userChain!, cell!.denomTitle)
@@ -74,6 +71,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
             let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             request.responseJSON { (response) in
                 switch response.result {
@@ -99,11 +97,11 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                    
                 }
             }
             
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
             let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             request.responseJSON { (response) in
                 switch response.result {
@@ -122,7 +120,27 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                    
+                }
+            }
+            
+        } else if (userChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            cell?.pathLabel.text = BNB_BASE_PATH.appending(String(indexPath.row))
+            cell?.denomAmount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, self.userChain!)
+            let request = Alamofire.request(BNB_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let info = res as? [String : Any] else {
+                        return
+                    }
+                    let bnbAccountInfo = BnbAccountInfo.init(info)
+                    for bnbBalance in bnbAccountInfo.balances {
+                        if (bnbBalance.symbol == BNB_MAIN_DENOM) {
+                            cell?.denomAmount.attributedText = WUtils.displayAmount(bnbBalance.free, cell!.denomAmount.font!, 6, self.userChain!)
+                        }
+                    }
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                 }
             }
         }

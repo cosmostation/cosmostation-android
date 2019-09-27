@@ -29,6 +29,7 @@ let KEY_PRICE_TIC_CMC                    = "KEY_PRICE_TIC_CMC"
 
 let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
+let BNB_URL                             = "https://dex.binance.org/";
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
@@ -72,6 +73,11 @@ let IRIS_LCD_URL_REWARD_ADDRESS         = IRIS_LCD_URL + "distribution/";
 let IRIS_LCD_URL_REWARD_ADDRESS_TAIL    = "/withdraw-address";
 let IRIS_LCD_URL_REDELEGATION           = IRIS_LCD_URL + "stake/delegators/";
 let IRIS_LCD_URL_REDELEGATION_TAIL      = "/redelegations";
+
+
+let BNB_URL_ACCOUNT_INFO                = BNB_URL + "api/v1/account/";
+
+
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";
@@ -118,6 +124,9 @@ let DB_BALANCE_ACCOUNT_ID           = Expression<Int64>("accountId")
 let DB_BALANCE_DENOM                = Expression<String>("denom")
 let DB_BALANCE_AMOUNT               = Expression<String>("amount")
 let DB_BALANCE_FETCH_TIME           = Expression<Int64>("fetchTime")
+//Support BNB
+let DB_BALANCE_FROZEN               = Expression<String>("frozen")
+let DB_BALANCE_LOCKED               = Expression<String>("locked")
 
 
 //DB for Bonding
@@ -204,6 +213,7 @@ let PASSWORD_RESUKT_OK_FOR_DELETE           = 3
 
 
 let BASE_PATH                               = "44'/118'/0'/0/"
+let BNB_BASE_PATH                           = "44'/714'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
 let FEE_ATOM_MID                            = "2000";
@@ -252,18 +262,27 @@ let COLOR_DARK_GRAY                         = UIColor.init(hexString: "36393C")
 
 let TRANS_BG_COLOR_COSMOS                   = UIColor.init(hexString: "9C6CFF", alpha: 0.15)
 let COLOR_ATOM                              = UIColor.init(hexString: "9C6CFF")
+let COLOR_ATOM_DARK                         = UIColor.init(hexString: "372758")
 let COLOR_PHOTON                            = UIColor.init(hexString: "05D2DD")
 
 let TRANS_BG_COLOR_IRIS                     = UIColor.init(hexString: "0080ff", alpha: 0.15)
 let COLOR_IRIS                              = UIColor.init(hexString: "00A8FF")
+let COLOR_IRIS_DARK                         = UIColor.init(hexString: "003870")
+
+let TRANS_BG_COLOR_BNB                      = UIColor.init(hexString: "f0b90b", alpha: 0.15)
+let COLOR_BNB                               = UIColor.init(hexString: "E9BC00")
+let COLOR_BNB_DARK                          = UIColor.init(hexString: "634C04")
 
 enum ChainType: String {
     case SUPPORT_CHAIN_COSMOS_MAIN
     case SUPPORT_CHAIN_IRIS_MAIN
+    case SUPPORT_CHAIN_BINANCE_MAIN
 }
 
 let CHAIN_COSMOS_S = "SUPPORT_CHAIN_COSMOS_MAIN"
 let CHAIN_IRIS_S = "SUPPORT_CHAIN_IRIS_MAIN"
+let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "iris-atto"
+let BNB_MAIN_DENOM = "BNB"

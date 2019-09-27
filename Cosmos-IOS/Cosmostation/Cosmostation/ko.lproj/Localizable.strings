@@ -209,6 +209,9 @@
 "tx_get_reward_all" = "이자 모두 청구";
 "tx_known" = "알수없음";
 
+"chain_title_cosmos" = "COSMOS Hub";
+"chain_title_iris" = "IRSI Hub";
+"chain_title_bnb" = "Binance Chain";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";
 
