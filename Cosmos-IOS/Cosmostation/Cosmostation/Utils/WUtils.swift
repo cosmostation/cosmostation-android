@@ -362,15 +362,17 @@ class WUtils {
         nf.numberStyle = .decimal
         
         let amount = stringToDecimal(amount)
+        let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(deciaml), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+
         var formatted: String?
         if (amount == NSDecimalNumber.zero) {
             formatted = nf.string(from: NSDecimalNumber.zero)
         } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler6))
+            formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler18))
+            formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            formatted = nf.string(from: amount.rounding(accordingToBehavior: handler6))
+            formatted = nf.string(from: amount.rounding(accordingToBehavior: handler))
         }
         
         let added       = formatted
@@ -389,11 +391,179 @@ class WUtils {
         return attributedString1
     }
     
+//    static func dpAmount(_ amount: NSDecimalNumber, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
+//        let nf = NumberFormatter()
+//        nf.minimumFractionDigits = deciaml
+//        nf.maximumFractionDigits = deciaml
+//        nf.numberStyle = .decimal
+//
+//        let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(deciaml), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+//
+//        var formatted: String?
+//        if (amount == NSDecimalNumber.zero) {
+//            formatted = nf.string(from: NSDecimalNumber.zero)
+//        } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+//            formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
+//        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+//            formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
+//        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+//            formatted = nf.string(from: amount.rounding(accordingToBehavior: handler6))
+//        }
+//
+//        let added       = formatted
+//        let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
+//
+//        let preString   = added![..<endIndex]
+//        let postString  = added![endIndex...]
+//
+//        let preAttrs = [NSAttributedString.Key.font : font]
+//        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+//
+//        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+//        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+//
+//        attributedString1.append(attributedString2)
+//        return attributedString1
+//    }
+    
+    static func dpTokenAvailable(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == symbol) {
+                amount = stringToDecimal(balance.balance_amount)
+            }
+        }
+        return displayAmount(amount.stringValue, font, deciaml, chain);
+    }
+    
+    static func dpDeleagted(_ bondings:Array<Bonding>, _ validators:Array<Validator>,_ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
+        var amount = NSDecimalNumber.zero
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        return displayAmount(amount.stringValue, font, deciaml, chain);
+    }
+    
+    static func dpUnbondings(_ unbondings:Array<Unbonding>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
+        var amount = NSDecimalNumber.zero
+        for unbonding in unbondings {
+            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+        }
+        return displayAmount(amount.stringValue, font, deciaml, chain);
+    }
+    
+    static func dpRewards(_ rewards:Array<Reward>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) ->  NSMutableAttributedString {
+        var amount = NSDecimalNumber.zero
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == symbol) {
+                    amount = amount.adding(stringToDecimal(coin.amount))
+                }
+            }
+        }
+        return displayAmount(amount.stringValue, font, deciaml, chain)
+    }
+    
+    static func dpIrisRewards(_ rewards:IrisRewards?, _ font:UIFont, _ deciaml:Int, _ chain:ChainType ) ->  NSMutableAttributedString {
+        if (rewards != nil && (rewards?.delegations.count)! > 0) {
+            return displayAmount((rewards?.getSimpleIrisReward().stringValue)!, font, deciaml, chain)
+        } else {
+            return displayAmount(NSDecimalNumber.zero.stringValue, font, deciaml, chain)
+        }
+    }
     
     
     
+    static func dpAllAtom(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) ->  NSMutableAttributedString {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == COSMOS_MAIN_DENOM) {
+                amount = stringToDecimal(balance.balance_amount)
+            }
+        }
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        for unbonding in unbondings {
+            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+        }
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == COSMOS_MAIN_DENOM) {
+                    amount = amount.adding(stringToDecimal(coin.amount))
+                }
+            }
+        }
+        return displayAmount(amount.stringValue, font, deciaml, chain)
+    }
     
-    static func displayPrice(_ amount: NSDecimalNumber, _ currency:Int, _ symbol:String, font:UIFont) -> NSMutableAttributedString {
+    static func dpAllIris(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:IrisRewards?, _ validators:Array<Validator>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
+        let totalSum = getAllIris(balances, bondings, unbondings, rewards, validators)
+        return displayAmount(totalSum.stringValue, font, deciaml, chain)
+    }
+    
+    static func dpAllAtomValue(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>, _ price:Double?, _ font:UIFont) ->  NSMutableAttributedString {
+        if (price == nil) {
+            return displayPrice(NSDecimalNumber.zero, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font)
+        }
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == COSMOS_MAIN_DENOM) {
+                amount = stringToDecimal(balance.balance_amount)
+            }
+        }
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        for unbonding in unbondings {
+            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+        }
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == COSMOS_MAIN_DENOM) {
+                    amount = amount.adding(stringToDecimal(coin.amount))
+                }
+            }
+        }
+        if (BaseData.instance.getCurrency() == 5) {
+            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
+        } else {
+            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler2)
+        }
+        return displayPrice(amount, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font)
+    }
+    
+    static func dpAllIrisValue(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:IrisRewards?, _ validators:Array<Validator>, _ price:Double?, _ font:UIFont) -> NSMutableAttributedString {
+        if (price == nil) {
+            return displayPrice(NSDecimalNumber.zero, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font)
+        }
+        var amount = getAllIris(balances, bondings, unbondings, rewards, validators)
+        if (BaseData.instance.getCurrency() == 5) {
+            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
+        } else {
+            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler2)
+        }
+        return displayPrice(amount, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font)
+    }
+    
+    
+    static func dpPricePerUnit(_ price:Double?, _ font:UIFont) -> NSMutableAttributedString {
+        if (price == nil) {
+            return displayPrice(NSDecimalNumber.zero, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font)
+        }
+        return displayPrice(NSDecimalNumber(value: price!), BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font)
+    }
+    
+    static func priceChanges(_ price:Double?) -> NSDecimalNumber {
+        if (price == nil) {
+            return NSDecimalNumber.zero
+        } else {
+            return NSDecimalNumber(value: price!)
+        }
+    }
+    
+    
+    static func displayPrice(_ amount: NSDecimalNumber, _ currency:Int, _ symbol:String, _ font:UIFont) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.numberStyle = .decimal
         

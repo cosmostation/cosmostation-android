@@ -97,6 +97,12 @@
                 <constraint firstItem="njF-e1-oar" firstAttribute="bottom" secondItem="Vlz-Bk-SLX" secondAttribute="bottom" constant="4" id="keP-AB-1ak"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="perPrice" destination="b82-jk-Cbh" id="bn7-Xt-HBt"/>
+                <outlet property="sourceSite" destination="ZtA-um-cQp" id="Nlj-QI-t0U"/>
+                <outlet property="updownImg" destination="qXA-3C-PXK" id="bkI-vW-Ru1"/>
+                <outlet property="updownPercent" destination="rxX-bP-anG" id="cLD-za-Qdf"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

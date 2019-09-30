@@ -164,6 +164,7 @@
 		E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED75AA2251B37C002CFE85 /* Reward.swift */; };
 		E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE50227EC05100C87F3F /* InfoPlist.strings */; };
 		E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */; };
+		E1F7F63223421394000E597F /* IrisToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F7F63123421394000E597F /* IrisToken.swift */; };
 		E1FD2320233E1B8E009327FE /* WalletAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD231E233E1B8E009327FE /* WalletAddressCell.swift */; };
 		E1FD2321233E1B8E009327FE /* WalletAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FD231F233E1B8E009327FE /* WalletAddressCell.xib */; };
 		E1FD2328233E1BC4009327FE /* WalletIrisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD2326233E1BC4009327FE /* WalletIrisCell.swift */; };
@@ -371,6 +372,7 @@
 		E1F2AE4F227EC05100C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E1F2AE51227EC06900C87F3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E1F2AE5A227EC5B600C87F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		E1F7F63123421394000E597F /* IrisToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrisToken.swift; sourceTree = "<group>"; };
 		E1FD231E233E1B8E009327FE /* WalletAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAddressCell.swift; sourceTree = "<group>"; };
 		E1FD231F233E1B8E009327FE /* WalletAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletAddressCell.xib; sourceTree = "<group>"; };
 		E1FD2326233E1BC4009327FE /* WalletIrisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletIrisCell.swift; sourceTree = "<group>"; };
@@ -604,6 +606,7 @@
 				E1A82DD8224224420097CAEE /* Unbonding.swift */,
 				E1ED75AA2251B37C002CFE85 /* Reward.swift */,
 				E148A38E22F01DEF00A56A3F /* IrisRewards.swift */,
+				E1F7F63123421394000E597F /* IrisToken.swift */,
 			);
 			path = Dao;
 			sourceTree = "<group>";
@@ -1042,6 +1045,7 @@
 				E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
+				E1F7F63223421394000E597F /* IrisToken.swift in Sources */,
 				E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
 				E151B651224867D60026B8C0 /* Proposal.swift in Sources */,

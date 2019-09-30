@@ -73,6 +73,7 @@ let IRIS_LCD_URL_REWARD_ADDRESS         = IRIS_LCD_URL + "distribution/";
 let IRIS_LCD_URL_REWARD_ADDRESS_TAIL    = "/withdraw-address";
 let IRIS_LCD_URL_REDELEGATION           = IRIS_LCD_URL + "stake/delegators/";
 let IRIS_LCD_URL_REDELEGATION_TAIL      = "/redelegations";
+let IRIS_LCD_URL_TOKENS                 = IRIS_LCD_URL + "asset/tokens";
 
 
 let BNB_URL_ACCOUNT_INFO                = BNB_URL + "api/v1/account/";
@@ -125,8 +126,8 @@ let DB_BALANCE_DENOM                = Expression<String>("denom")
 let DB_BALANCE_AMOUNT               = Expression<String>("amount")
 let DB_BALANCE_FETCH_TIME           = Expression<Int64>("fetchTime")
 //Support BNB
-let DB_BALANCE_FROZEN               = Expression<String>("frozen")
-let DB_BALANCE_LOCKED               = Expression<String>("locked")
+let DB_BALANCE_FROZEN               = Expression<String?>("frozen")
+let DB_BALANCE_LOCKED               = Expression<String?>("locked")
 
 
 //DB for Bonding

@@ -99,6 +99,9 @@
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onClickWC:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JHx-iT-vS5"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647058823528" green="0.72549019607843135" blue="0.043137254901960784" alpha="0.1524507705" colorSpace="custom" customColorSpace="sRGB"/>
@@ -156,6 +159,12 @@
                 <constraint firstItem="njF-e1-oar" firstAttribute="trailing" secondItem="6D6-Pu-AfM" secondAttribute="trailing" constant="12" id="wYR-ra-mDe"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="availableAmount" destination="tcf-Me-1A3" id="loI-Dw-RtM"/>
+                <outlet property="lockedAmount" destination="fRg-DA-VLt" id="g78-bJ-Acm"/>
+                <outlet property="totalAmount" destination="ejJ-K8-riI" id="bYX-h8-hTE"/>
+                <outlet property="totalValue" destination="df1-c1-OCz" id="3Zm-aW-MQC"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

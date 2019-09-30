@@ -10,6 +10,10 @@ import UIKit
 
 class WalletInflationCell: UITableViewCell {
     
+    @IBOutlet weak var infaltionLabel: UILabel!
+    @IBOutlet weak var yieldLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none

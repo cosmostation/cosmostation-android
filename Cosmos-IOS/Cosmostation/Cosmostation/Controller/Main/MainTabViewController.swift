@@ -11,7 +11,7 @@ import Alamofire
 import DropDown
 import Toast_Swift
 
-class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBCardPopupDelegate{
+class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBCardPopupDelegate {
     
     var mAccount:Account!
     var mAccounts = Array<Account>()
@@ -32,6 +32,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mProvision: String?
     var mStakingPool: NSDictionary?
     var mIrisStakePool: NSDictionary?
+    var mIrisTokenList = Array<IrisToken>()
     
     var dimView: UIView?
     let window = UIApplication.shared.keyWindow!
@@ -222,7 +223,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchPriceTic(true)
             
         } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
-            self.mFetchCnt = 7
+            self.mFetchCnt = 8
             self.mAllValidator.removeAll()
             self.irisValidatorPage = 1
             onFetchIrisValidatorsInfo(irisValidatorPage)
@@ -231,6 +232,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchUnbondingInfo(mAccount)
             onFetchIrisReward(mAccount)
             onFetchIrisPool()
+            onFetchIrisTokens()
             onFetchPriceTic(true)
         }
         
@@ -240,6 +242,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if(mFetchCnt <= 0) {
+            print("mFetchCnt " , mFetchCnt)
             if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
@@ -557,7 +560,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    print("res ", res)
                     guard let unbondinginfos = res as? Array<NSDictionary> else {
                         _ = BaseData.instance.deleteUnbonding(account: account)
                         self.onFetchFinished()
@@ -709,6 +711,26 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchFinished()
         }
     
+    }
+    
+    
+    func onFetchIrisTokens() {
+        let url = IRIS_LCD_URL_TOKENS
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let tokens = res as? Array<NSDictionary> {
+                    self.mIrisTokenList.removeAll()
+                    for token in tokens {
+                        self.mIrisTokenList.append(IrisToken(token as! [String : Any]))
+                    }
+                }
+            case .failure(let error):
+                if (SHOW_LOG) { print("irisStakePool ", error) }
+            }
+            self.onFetchFinished()
+        }
     }
     
     func onFetchPriceTic(_ callback:Bool) {

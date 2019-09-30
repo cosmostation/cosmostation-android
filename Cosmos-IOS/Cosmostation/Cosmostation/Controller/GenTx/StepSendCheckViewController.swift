@@ -102,8 +102,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     totalSpendDpPrice = (feeAmout.adding(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
                     remindDpPrice = (currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
                 }
-                mTotalSpendPrice.attributedText = WUtils.displayPrice(totalSpendDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: mTotalSpendPrice.font);
-                mReminaingPrice.attributedText = WUtils.displayPrice(remindDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: mReminaingPrice.font);
+                mTotalSpendPrice.attributedText = WUtils.displayPrice(totalSpendDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(),  mTotalSpendPrice.font);
+                mReminaingPrice.attributedText = WUtils.displayPrice(remindDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(),  mReminaingPrice.font);
             }
             
         } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -130,8 +130,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     totalSpendDpPrice = (feeAmout.adding(toSendAmount)).dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
                     remindDpPrice = (currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
                 }
-                mTotalSpendPrice.attributedText = WUtils.displayPrice(totalSpendDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: mTotalSpendPrice.font);
-                mReminaingPrice.attributedText = WUtils.displayPrice(remindDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: mReminaingPrice.font);
+                mTotalSpendPrice.attributedText = WUtils.displayPrice(totalSpendDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), mTotalSpendPrice.font);
+                mReminaingPrice.attributedText = WUtils.displayPrice(remindDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), mReminaingPrice.font);
             }
         }
         print("currentAva ", currentAva)

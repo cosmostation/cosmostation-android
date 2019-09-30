@@ -29,8 +29,8 @@
                                     <constraint firstAttribute="width" constant="22" id="EaP-vr-06H"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cro-wQ-ZmM">
-                                <rect key="frame" x="38" y="16" width="78.5" height="17.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cro-wQ-ZmM">
+                                <rect key="frame" x="38" y="16" width="55.5" height="17.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -38,12 +38,18 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1o-9h-aSC">
                                 <rect key="frame" x="282" y="13" width="25" height="24"/>
                                 <state key="normal" image="walletDetailBtn"/>
+                                <connections>
+                                    <action selector="onClickWebLink:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zqu-3z-Mnk"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNY-UN-vfq">
                                 <rect key="frame" x="317" y="13" width="24" height="24"/>
                                 <state key="normal" image="qrcodeIc"/>
+                                <connections>
+                                    <action selector="onClickShare:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pHt-4J-1tP"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cosmos13cc4y0z8d8jyhgsx6gz9hq07p5d2mq56cs35qe" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fk-Va-WgU">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fk-Va-WgU">
                                 <rect key="frame" x="12" y="46" width="327" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -94,6 +100,10 @@
                 <constraint firstItem="njF-e1-oar" firstAttribute="bottom" secondItem="5n3-b4-J2X" secondAttribute="bottom" constant="4" id="xEs-zb-74L"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dpAddress" destination="8fk-Va-WgU" id="RpE-d8-Dmz"/>
+                <outlet property="keyState" destination="b3E-bk-hSi" id="J2U-JE-zyV"/>
+            </connections>
             <point key="canvasLocation" x="134.05797101449275" y="149.33035714285714"/>
         </tableViewCell>
     </objects>

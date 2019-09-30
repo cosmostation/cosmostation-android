@@ -125,6 +125,10 @@
                 <constraint firstItem="njF-e1-oar" firstAttribute="trailing" secondItem="RCJ-gE-Lmm" secondAttribute="trailing" constant="12" id="wDP-9M-7g1"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="infaltionLabel" destination="0h9-FO-Yju" id="8RT-Zo-aZG"/>
+                <outlet property="yieldLabel" destination="3Ms-8F-3ex" id="de9-is-CaS"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

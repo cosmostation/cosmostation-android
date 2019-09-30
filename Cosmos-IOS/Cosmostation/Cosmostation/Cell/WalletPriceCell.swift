@@ -10,6 +10,12 @@ import UIKit
 
 class WalletPriceCell: UITableViewCell {
     
+    @IBOutlet weak var perPrice: UILabel!
+    @IBOutlet weak var sourceSite: UILabel!
+    @IBOutlet weak var updownPercent: UILabel!
+    @IBOutlet weak var updownImg: UIImageView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none

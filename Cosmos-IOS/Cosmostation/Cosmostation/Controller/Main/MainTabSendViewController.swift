@@ -156,7 +156,7 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate {
 
         }
         
-        if(mainTabVC.mBalances.count > 0) {
+        if (mainTabVC.mBalances.count > 0) {
             denomAvailableAmountLabel.attributedText = WUtils.displayAmount(mainTabVC.mBalances[0].balance_amount, denomAvailableAmountLabel.font, 6, userChain!)
         } else {
             denomAvailableAmountLabel.attributedText = WUtils.displayAmount("0", denomDelegatedAmountLabel.font, 6, userChain!)
@@ -232,8 +232,8 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate {
                     dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: totalSum, withBehavior: WUtils.handler2)
                 }
                 
-                denomtotalPriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: denomtotalPriceLabel.font)
-                pricePerUnit.attributedText = WUtils.displayPrice(priceValue, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: pricePerUnit.font)
+                denomtotalPriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(),  denomtotalPriceLabel.font)
+                pricePerUnit.attributedText = WUtils.displayPrice(priceValue, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(),  pricePerUnit.font)
                 
                 if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
                     priceUpDownImg.image = UIImage(named: "priceUp")
@@ -260,8 +260,8 @@ class MainTabSendViewController: BaseViewController , FloatyDelegate {
                     dpPrice = priceValue.dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: totalSum, withBehavior: WUtils.handler2)
                 }
                 
-                denomtotalPriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: denomtotalPriceLabel.font)
-                pricePerUnit.attributedText = WUtils.displayPrice(priceValue, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: pricePerUnit.font)
+                denomtotalPriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(),  denomtotalPriceLabel.font)
+                pricePerUnit.attributedText = WUtils.displayPrice(priceValue, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(),  pricePerUnit.font)
                 
                 if(changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
                     priceUpDownImg.image = UIImage(named: "priceUp")

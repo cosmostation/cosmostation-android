@@ -65,6 +65,9 @@ Learn more about us in the links below</string>
                                                 <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickGuide1:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2CS-zn-upQ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g4k-mK-yTg">
                                         <rect key="frame" x="167.5" y="0.0" width="159.5" height="45"/>
@@ -73,6 +76,9 @@ Learn more about us in the links below</string>
                                         <state key="normal" title="FAQ">
                                             <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onClickGuide2:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="BFY-H9-4fG"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -125,6 +131,13 @@ Learn more about us in the links below</string>
                 <constraint firstItem="8WQ-Vs-Dxz" firstAttribute="top" secondItem="njF-e1-oar" secondAttribute="top" constant="4" id="T2g-WI-tCe"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btn1Label" destination="vlR-Xo-iYZ" id="Q4W-BW-aP4"/>
+                <outlet property="btn2Label" destination="g4k-mK-yTg" id="Xx4-EL-od5"/>
+                <outlet property="guideImg" destination="mAT-Oa-YZG" id="pw4-re-g2J"/>
+                <outlet property="guideMsg" destination="JmV-EO-LJR" id="Rjv-Y6-4aC"/>
+                <outlet property="guideTitle" destination="vFi-9V-3TO" id="8hK-L0-llJ"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

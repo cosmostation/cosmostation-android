@@ -81,7 +81,7 @@ class StepFeeViewController: BaseViewController {
                 } else {
                     dpPrice = feeAmount.dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
                 }
-                self.rateFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: minFeePriceLabel.font)
+                self.rateFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), minFeePriceLabel.font)
             }
         }
         
@@ -221,8 +221,8 @@ class StepFeeViewController: BaseViewController {
             } else {
                 dpPrice = feeAmount.dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
             }
-            self.minFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: minFeePriceLabel.font)
-            self.rateFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), font: minFeePriceLabel.font)
+            self.minFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), minFeePriceLabel.font)
+            self.rateFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), minFeePriceLabel.font)
         }
         
         toSpend = getSpendAmount()

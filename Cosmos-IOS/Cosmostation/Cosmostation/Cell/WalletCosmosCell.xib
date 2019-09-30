@@ -112,7 +112,7 @@
                                             <constraint firstAttribute="height" constant="40" id="zGG-eS-hOp"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="  Stake &amp; Reward" image="rewardIc">
+                                        <state key="normal" title="  Delegate" image="rewardIc">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -126,6 +126,9 @@
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickDelegate:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="RET-oX-1D2"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tCY-6s-HEk">
                                         <rect key="frame" x="167.5" y="0.0" width="159.5" height="40"/>
@@ -148,6 +151,9 @@
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="onClickVote:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ra5-ou-6ap"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -215,6 +221,14 @@
                 <constraint firstItem="2kg-U0-aSr" firstAttribute="top" secondItem="njF-e1-oar" secondAttribute="top" constant="4" id="xx5-rS-Fcm"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="availableAmount" destination="TOL-hl-9Ov" id="MUb-m8-gn3"/>
+                <outlet property="delegatedAmount" destination="7hm-tl-rdP" id="qPO-HT-jaI"/>
+                <outlet property="rewardAmount" destination="cKq-N3-YYY" id="bWY-jb-xoG"/>
+                <outlet property="totalAmount" destination="uvE-lW-F2j" id="UuW-od-r4d"/>
+                <outlet property="totalValue" destination="9e8-4h-du7" id="p7K-mN-flC"/>
+                <outlet property="unbondingAmount" destination="g5v-Oq-pLN" id="Vd3-Wo-To0"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>
