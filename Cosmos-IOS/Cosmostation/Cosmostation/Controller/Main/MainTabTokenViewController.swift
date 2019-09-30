@@ -10,16 +10,23 @@ import UIKit
 
 class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
-    
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
     @IBOutlet weak var titleChainName: UILabel!
+    
+    @IBOutlet weak var totalCard: CardView!
+    @IBOutlet weak var totalValue: UILabel!
+    @IBOutlet weak var totalAmount: UILabel!
+    @IBOutlet weak var totalDenom: UILabel!
+    @IBOutlet weak var tokenCnt: UILabel!
+    @IBOutlet weak var btnSort: UIView!
+    @IBOutlet weak var sortType: UILabel!
     
     @IBOutlet weak var tokenTableView: UITableView!
     var refresher: UIRefreshControl!
     
     var mainTabVC: MainTabViewController!
+    var mBalances = Array<Balance>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +43,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         refresher.tintColor = UIColor.white
         tokenTableView.addSubview(refresher)
         
-        self.updateTitle()
+        self.updateView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,19 +59,26 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
     }
     
-    func updateTitle() {
+    func updateView() {
         titleChainName.textColor = WUtils.getChainColor(chainType!)
+        WUtils.setDenomTitle(chainType!, totalDenom)
         if (mainTabVC.mAccount.account_nick_name == "") {
             titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else {
             titleWalletName.text = mainTabVC.mAccount.account_nick_name
         }
+        onUpdateTotalCard();
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
+            totalCard.backgroundColor = TRANS_BG_COLOR_COSMOS
+            onFetchCosmosTokenPrice();
+            
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
+            totalCard.backgroundColor = TRANS_BG_COLOR_IRIS
+            onFetchIrisTokenPrice();
         }
     }
     
@@ -75,12 +89,31 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
+        self.onUpdateTotalCard()
         self.tokenTableView.reloadData()
         self.refresher.endRefreshing()
     }
+    
+    
+    func onUpdateTotalCard() {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            totalAmount.attributedText = WUtils.displayAmount(allAtom.stringValue, totalAmount.font, 6, chainType!)
+            totalValue.attributedText = WUtils.dpAtomValue(allAtom, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, totalValue.font)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let allIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
+            totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, totalAmount.font, 6, chainType!)
+            totalValue.attributedText = WUtils.dpIrisValue(allIris, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, totalValue.font)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        }
+    }
+    
+    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5;
+        return mainTabVC.mBalances.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,6 +125,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return 80;
     }
     
+    
+    func onFetchCosmosTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    func onFetchIrisTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    func onFetchBnbTokenPrice() {
+        self.onUpdateTotalCard()
+    }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.dropDown.show()

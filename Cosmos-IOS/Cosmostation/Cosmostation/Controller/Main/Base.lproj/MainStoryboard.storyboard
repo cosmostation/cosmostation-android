@@ -1036,23 +1036,23 @@ Learn more about us in the links below</string>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$123,321,231.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oeb-GH-haY">
-                                        <rect key="frame" x="78.000000000000014" y="36.333333333333343" width="195.33333333333337" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oeb-GH-haY">
+                                        <rect key="frame" x="171.33333333333334" y="36.333333333333343" width="8.6666666666666572" height="30"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="26"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="acD-Ar-jva">
-                                        <rect key="frame" x="131.66666666666666" y="72.333333333333343" width="87.666666666666657" height="16.333333333333329"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="acD-Ar-jva">
+                                        <rect key="frame" x="156.66666666666666" y="72.333333333333343" width="37.666666666666657" height="16.333333333333329"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234567" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYb-2o-g1P">
-                                                <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="16.333333333333332"/>
-                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYb-2o-g1P">
+                                                <rect key="frame" x="0.0" y="0.0" width="4.666666666666667" height="16.333333333333332"/>
+                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v3s-Wg-QoY">
-                                                <rect key="frame" x="56.666666666666686" y="0.0" width="31" height="16.333333333333332"/>
+                                                <rect key="frame" x="6.6666666666666856" y="3.6666666666666563" width="31" height="12.666666666666664"/>
                                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                                 <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1171,10 +1171,17 @@ Learn more about us in the links below</string>
                     </view>
                     <navigationItem key="navigationItem" id="R7R-lj-gXN"/>
                     <connections>
+                        <outlet property="btnSort" destination="PKh-vE-8L0" id="JgB-G3-Vih"/>
+                        <outlet property="sortType" destination="EgU-yb-3mw" id="nVL-EM-nqx"/>
                         <outlet property="titleChainImg" destination="Dfj-wA-gmt" id="yfl-VR-PQS"/>
                         <outlet property="titleChainName" destination="Roh-LO-TJo" id="UBw-Em-4Ml"/>
                         <outlet property="titleWalletName" destination="qWl-YX-k4d" id="SEr-G8-QFx"/>
+                        <outlet property="tokenCnt" destination="ohf-ir-FDB" id="cWO-kO-gt5"/>
                         <outlet property="tokenTableView" destination="fWn-k7-DSA" id="O35-yg-Wtz"/>
+                        <outlet property="totalAmount" destination="mYb-2o-g1P" id="J2e-If-BCf"/>
+                        <outlet property="totalCard" destination="gsx-gt-Y38" id="mxA-ny-Etd"/>
+                        <outlet property="totalDenom" destination="v3s-Wg-QoY" id="dux-D7-XDW"/>
+                        <outlet property="totalValue" destination="Oeb-GH-haY" id="2fv-ZI-ek6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7k-7D-HXK" userLabel="First Responder" sceneMemberID="firstResponder"/>
