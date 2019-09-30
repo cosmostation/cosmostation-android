@@ -10,6 +10,13 @@ import UIKit
 
 class TokenCell: UITableViewCell {
     
+    @IBOutlet weak var tokenImg: UIImageView!
+    @IBOutlet weak var tokenSymbol: UILabel!
+    @IBOutlet weak var tokenTitle: UILabel!
+    @IBOutlet weak var tokenDescription: UILabel!
+    @IBOutlet weak var tokenAmount: UILabel!
+    @IBOutlet weak var tokenValue: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none

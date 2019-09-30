@@ -26,7 +26,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     var refresher: UIRefreshControl!
     
     var mainTabVC: MainTabViewController!
-    var mBalances = Array<Balance>()
+//    var mBalances = Array<Balance>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +42,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         refresher.tintColor = UIColor.white
         tokenTableView.addSubview(refresher)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onStartSort))
+        self.btnSort.addGestureRecognizer(tap)
         
         self.updateView()
     }
@@ -94,6 +97,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.refresher.endRefreshing()
     }
     
+    @objc func onStartSort() {
+        print("onStartSort")
+    }
+    
+    
     
     func onUpdateTotalCard() {
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
@@ -117,14 +125,71 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        return cell!
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            return onSetCosmosItems(tableView, indexPath)
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            return onSetIrisItems(tableView, indexPath)
+        } else {
+            return onSetBnbItems(tableView, indexPath)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80;
     }
     
+    func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == COSMOS_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "atom_ic")
+            cell?.tokenSymbol.text = "ATOM"
+            cell?.tokenSymbol.textColor = COLOR_ATOM
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = balance.balance_denom
+            let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount(allAtom.stringValue, cell!.tokenAmount.font, 6, chainType!)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.tokenValue.font)
+
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
+    func onSetIrisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if let irisToken = WUtils.getIrisToken(mainTabVC.mIrisTokenList, balance) {
+            cell?.tokenSymbol.text = irisToken.base_token?.symbol.uppercased()
+            cell?.tokenTitle.text = "(" + irisToken.base_token!.id + ")"
+            cell?.tokenDescription.text = irisToken.base_token?.name
+            if (balance.balance_denom == IRIS_MAIN_DENOM) {
+                cell?.tokenImg.image = UIImage(named: "irisTokenImg")
+                cell?.tokenSymbol.textColor = COLOR_IRIS
+                
+                let allIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
+                cell?.tokenAmount.attributedText = WUtils.displayAmount(allIris.stringValue, cell!.tokenAmount.font, 6, chainType!)
+                cell?.tokenValue.attributedText = WUtils.dpIrisValue(allIris, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.tokenValue.font)
+                
+            } else {
+                cell?.tokenImg.image = UIImage(named: "tokenIc")
+                cell?.tokenSymbol.textColor = UIColor.white
+                
+                cell?.tokenAmount.attributedText = WUtils.displayIrisToken(balance.balance_amount, cell!.tokenAmount.font, 6, irisToken.base_token!.decimal)
+                cell?.tokenValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.tokenValue.font)
+            }
+        }
+        
+        return cell!
+    }
+    
+    func onSetBnbItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        return cell!
+    }
     
     func onFetchCosmosTokenPrice() {
         self.onUpdateTotalCard()

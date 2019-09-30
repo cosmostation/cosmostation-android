@@ -391,41 +391,6 @@ class WUtils {
         return attributedString1
     }
     
-//    static func dpAmount(_ amount: NSDecimalNumber, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
-//        let nf = NumberFormatter()
-//        nf.minimumFractionDigits = deciaml
-//        nf.maximumFractionDigits = deciaml
-//        nf.numberStyle = .decimal
-//
-//        let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(deciaml), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
-//
-//        var formatted: String?
-//        if (amount == NSDecimalNumber.zero) {
-//            formatted = nf.string(from: NSDecimalNumber.zero)
-//        } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//            formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
-//        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-//            formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
-//        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-//            formatted = nf.string(from: amount.rounding(accordingToBehavior: handler6))
-//        }
-//
-//        let added       = formatted
-//        let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
-//
-//        let preString   = added![..<endIndex]
-//        let postString  = added![endIndex...]
-//
-//        let preAttrs = [NSAttributedString.Key.font : font]
-//        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-//
-//        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-//        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-//
-//        attributedString1.append(attributedString2)
-//        return attributedString1
-//    }
-    
     static func dpTokenAvailable(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for balance in balances {
@@ -865,23 +830,74 @@ class WUtils {
         return amount
     }
     
-    static func getAllIris(_ balance:Array<Balance>, _ bondings:Array<Bonding>,
-                           _ unbonding:Array<Unbonding>,_ rewards:IrisRewards?,
-                           _ validators:Array<Validator>) ->  NSDecimalNumber {
+    static func getAllIris(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:IrisRewards?, _ validators:Array<Validator>) ->  NSDecimalNumber {
         var sum = NSDecimalNumber.zero
-        if(balance.count > 0) {
-            sum = stringToDecimal(balance[0].balance_amount)
+        for balance in balances {
+            if (balance.balance_denom == IRIS_MAIN_DENOM) {
+                sum = stringToDecimal(balance.balance_amount)
+            }
         }
+        
         for bonding in bondings {
             sum = sum.adding(bonding.getBondingAmount(validators))
         }
-        for unbonding in unbonding {
+        for unbonding in unbondings {
             sum = sum.adding(WUtils.stringToDecimal(unbonding.unbonding_balance))
         }
         if (rewards != nil) {
             sum = sum.adding(rewards!.getSimpleIrisReward())
         }
         return sum
+    }
+    
+    static func getIrisToken(_ irisTokens:Array<IrisToken>, _ balance:Balance) -> IrisToken? {
+        let split = balance.balance_denom.components(separatedBy: "-")
+        for irisToken in irisTokens {
+            if (split[0] == irisToken.base_token?.id) {
+                return irisToken
+            }
+        }
+        return nil
+    }
+    
+    static func getIrisMainToken(_ irisTokens:Array<IrisToken>) -> IrisToken? {
+        for irisToken in irisTokens {
+            if (irisToken.base_token?.id == "iris") {
+                return irisToken
+            }
+        }
+        return nil
+    }
+    
+    static func displayIrisToken(_ amount: String, _ font:UIFont, _ deciaml:Int, _ deciaml2:Int) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = deciaml
+        nf.maximumFractionDigits = deciaml
+        nf.numberStyle = .decimal
+        
+        let amount = stringToDecimal(amount)
+        let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(deciaml), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+        
+        var formatted: String?
+        if (amount == NSDecimalNumber.zero) {
+            formatted = nf.string(from: NSDecimalNumber.zero)
+        } else {
+            formatted = nf.string(from: amount.dividing(by: NSDecimalNumber(decimal: pow(10,deciaml2))).rounding(accordingToBehavior: handler))
+        }
+        let added       = formatted
+        let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
+        
+        let preString   = added![..<endIndex]
+        let postString  = added![endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
     }
     
     
