@@ -13,7 +13,7 @@ import DropDown
 import QRCode
 import SafariServices
 
-class MainTabSendViewController: BaseViewController , FloatyDelegate{
+class MainTabSendViewController: BaseViewController , FloatyDelegate {
     
     @IBOutlet weak var chainBg: UIImageView!
     @IBOutlet weak var mainScrollView: UIScrollView!

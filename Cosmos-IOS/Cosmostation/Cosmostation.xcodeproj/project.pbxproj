@@ -26,6 +26,7 @@
 		E1069B14229698CB007517DC /* StepChangeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */; };
 		E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */; };
 		E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */; };
+		E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */; };
 		E1271B04224B17230083AF17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1271B02224B17230083AF17 /* Localizable.strings */; };
 		E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B05224B874A0083AF17 /* AddAddressViewController.swift */; };
 		E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1271B07224B90230083AF17 /* AddressInputTextField.swift */; };
@@ -70,6 +71,8 @@
 		E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151B657224873640026B8C0 /* SettingTableViewController.swift */; };
 		E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E15DA48322F1738C000557FC /* PromotionCell.xib */; };
 		E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16B70DF229F9A78001D6B9C /* RedelegateCell.xib */; };
+		E16B89152341C558003E0922 /* TokenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16B89132341C558003E0922 /* TokenCell.swift */; };
+		E16B89162341C558003E0922 /* TokenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16B89142341C558003E0922 /* TokenCell.xib */; };
 		E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B1422489B030019B7BB /* IntroViewController.swift */; };
 		E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B162248BD990019B7BB /* CreateViewController.swift */; };
 		E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E16D9B182248C4880019B7BB /* Assets.xcassets */; };
@@ -161,6 +164,20 @@
 		E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED75AA2251B37C002CFE85 /* Reward.swift */; };
 		E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE50227EC05100C87F3F /* InfoPlist.strings */; };
 		E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */; };
+		E1FD2320233E1B8E009327FE /* WalletAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD231E233E1B8E009327FE /* WalletAddressCell.swift */; };
+		E1FD2321233E1B8E009327FE /* WalletAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FD231F233E1B8E009327FE /* WalletAddressCell.xib */; };
+		E1FD2328233E1BC4009327FE /* WalletIrisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD2326233E1BC4009327FE /* WalletIrisCell.swift */; };
+		E1FD2329233E1BC4009327FE /* WalletIrisCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FD2327233E1BC4009327FE /* WalletIrisCell.xib */; };
+		E1FD232C233E1BDB009327FE /* WalletCosmosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD232A233E1BDB009327FE /* WalletCosmosCell.swift */; };
+		E1FD232D233E1BDB009327FE /* WalletCosmosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FD232B233E1BDB009327FE /* WalletCosmosCell.xib */; };
+		E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD232E233E1BF4009327FE /* WalletBnbCell.swift */; };
+		E1FD2331233E1BF4009327FE /* WalletBnbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FD232F233E1BF4009327FE /* WalletBnbCell.xib */; };
+		E1FD2334233E1C16009327FE /* WalletPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD2332233E1C16009327FE /* WalletPriceCell.swift */; };
+		E1FD2335233E1C16009327FE /* WalletPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FD2333233E1C16009327FE /* WalletPriceCell.xib */; };
+		E1FD2338233E1C30009327FE /* WalletInflationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD2336233E1C30009327FE /* WalletInflationCell.swift */; };
+		E1FD2339233E1C30009327FE /* WalletInflationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FD2337233E1C30009327FE /* WalletInflationCell.xib */; };
+		E1FD233C233E1C44009327FE /* WalletGuideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD233A233E1C44009327FE /* WalletGuideCell.swift */; };
+		E1FD233D233E1C44009327FE /* WalletGuideCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FD233B233E1C44009327FE /* WalletGuideCell.xib */; };
 		E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FEE458225B17970040FAFD /* AmountInputTextField.swift */; };
 		E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FEE45A225B1AEF0040FAFD /* MemoTextView.swift */; };
 /* End PBXBuildFile section */
@@ -196,6 +213,7 @@
 		E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepChangeCheckViewController.swift; sourceTree = "<group>"; };
 		E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabTokenViewController.swift; sourceTree = "<group>"; };
 		E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbAccountInfo.swift; sourceTree = "<group>"; };
+		E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabWalletViewController.swift; sourceTree = "<group>"; };
 		E1271B00224B16E20083AF17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E1271B01224B16E20083AF17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E1271B03224B17230083AF17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -247,6 +265,8 @@
 		E16B70DC229E619A001D6B9C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/GenTx.strings; sourceTree = "<group>"; };
 		E16B70DE229F9A78001D6B9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RedelegateCell.xib; sourceTree = "<group>"; };
 		E16B70E3229F9FAD001D6B9C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/RedelegateCell.strings; sourceTree = "<group>"; };
+		E16B89132341C558003E0922 /* TokenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCell.swift; sourceTree = "<group>"; };
+		E16B89142341C558003E0922 /* TokenCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenCell.xib; sourceTree = "<group>"; };
 		E16D9B1422489B030019B7BB /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E16D9B162248BD990019B7BB /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		E16D9B182248C4880019B7BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -351,6 +371,20 @@
 		E1F2AE4F227EC05100C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E1F2AE51227EC06900C87F3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E1F2AE5A227EC5B600C87F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		E1FD231E233E1B8E009327FE /* WalletAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAddressCell.swift; sourceTree = "<group>"; };
+		E1FD231F233E1B8E009327FE /* WalletAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletAddressCell.xib; sourceTree = "<group>"; };
+		E1FD2326233E1BC4009327FE /* WalletIrisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletIrisCell.swift; sourceTree = "<group>"; };
+		E1FD2327233E1BC4009327FE /* WalletIrisCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletIrisCell.xib; sourceTree = "<group>"; };
+		E1FD232A233E1BDB009327FE /* WalletCosmosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCosmosCell.swift; sourceTree = "<group>"; };
+		E1FD232B233E1BDB009327FE /* WalletCosmosCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletCosmosCell.xib; sourceTree = "<group>"; };
+		E1FD232E233E1BF4009327FE /* WalletBnbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBnbCell.swift; sourceTree = "<group>"; };
+		E1FD232F233E1BF4009327FE /* WalletBnbCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletBnbCell.xib; sourceTree = "<group>"; };
+		E1FD2332233E1C16009327FE /* WalletPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPriceCell.swift; sourceTree = "<group>"; };
+		E1FD2333233E1C16009327FE /* WalletPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletPriceCell.xib; sourceTree = "<group>"; };
+		E1FD2336233E1C30009327FE /* WalletInflationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInflationCell.swift; sourceTree = "<group>"; };
+		E1FD2337233E1C30009327FE /* WalletInflationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletInflationCell.xib; sourceTree = "<group>"; };
+		E1FD233A233E1C44009327FE /* WalletGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletGuideCell.swift; sourceTree = "<group>"; };
+		E1FD233B233E1C44009327FE /* WalletGuideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletGuideCell.xib; sourceTree = "<group>"; };
 		E1FEE458225B17970040FAFD /* AmountInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountInputTextField.swift; sourceTree = "<group>"; };
 		E1FEE45A225B1AEF0040FAFD /* MemoTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -544,17 +578,18 @@
 			children = (
 				E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */,
 				E1945E41222E7FC800A1436F /* MainTabViewController.swift */,
-				E1945E45222E819300A1436F /* MainTabSendViewController.swift */,
+				E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */,
 				E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */,
-				E1945E47222E81A300A1436F /* MainTabRewardViewController.swift */,
 				E1945E49222E81B300A1436F /* MainTabHistoryViewController.swift */,
-				E1945E4B222E81C200A1436F /* MainTabVoteViewController.swift */,
 				E1945E4D222E81D000A1436F /* MainTabSettingViewController.swift */,
 				E1A82DED2244DE680097CAEE /* MyValidatorViewController.swift */,
 				E1A82DEF2244E0BD0097CAEE /* AllValidatorViewController.swift */,
 				E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
 				E1827E17225620D000BC0350 /* VaidatorDetailViewController.swift */,
+				E1945E45222E819300A1436F /* MainTabSendViewController.swift */,
+				E1945E47222E81A300A1436F /* MainTabRewardViewController.swift */,
+				E1945E4B222E81C200A1436F /* MainTabVoteViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -677,6 +712,22 @@
 				E17748EE2284229B003D8CD1 /* GuideListTableViewCell.xib */,
 				E1D279612297B40D00C49B2D /* RedelegateCell.swift */,
 				E16B70DF229F9A78001D6B9C /* RedelegateCell.xib */,
+				E1FD231E233E1B8E009327FE /* WalletAddressCell.swift */,
+				E1FD231F233E1B8E009327FE /* WalletAddressCell.xib */,
+				E1FD232A233E1BDB009327FE /* WalletCosmosCell.swift */,
+				E1FD232B233E1BDB009327FE /* WalletCosmosCell.xib */,
+				E1FD2326233E1BC4009327FE /* WalletIrisCell.swift */,
+				E1FD2327233E1BC4009327FE /* WalletIrisCell.xib */,
+				E1FD232E233E1BF4009327FE /* WalletBnbCell.swift */,
+				E1FD232F233E1BF4009327FE /* WalletBnbCell.xib */,
+				E1FD2332233E1C16009327FE /* WalletPriceCell.swift */,
+				E1FD2333233E1C16009327FE /* WalletPriceCell.xib */,
+				E1FD2336233E1C30009327FE /* WalletInflationCell.swift */,
+				E1FD2337233E1C30009327FE /* WalletInflationCell.xib */,
+				E1FD233A233E1C44009327FE /* WalletGuideCell.swift */,
+				E1FD233B233E1C44009327FE /* WalletGuideCell.xib */,
+				E16B89132341C558003E0922 /* TokenCell.swift */,
+				E16B89142341C558003E0922 /* TokenCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -751,6 +802,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1FD2335233E1C16009327FE /* WalletPriceCell.xib in Resources */,
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
 				E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */,
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
@@ -761,9 +813,12 @@
 				E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */,
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
+				E1FD232D233E1BDB009327FE /* WalletCosmosCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
+				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
 				E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */,
 				E103DACE22813248006C2146 /* WalletDetailViewController.xib in Resources */,
+				E1FD2339233E1C30009327FE /* WalletInflationCell.xib in Resources */,
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
 				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
 				E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */,
@@ -772,9 +827,12 @@
 				E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
+				E1FD2321233E1B8E009327FE /* WalletAddressCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
+				E1FD2331233E1BF4009327FE /* WalletBnbCell.xib in Resources */,
 				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
 				E17748F4228422BE003D8CD1 /* GuideViewController.xib in Resources */,
+				E1FD233D233E1C44009327FE /* WalletGuideCell.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
@@ -782,6 +840,7 @@
 				E103DAAF22812773006C2146 /* ValidatorDetailHistoryEmpty.xib in Resources */,
 				E103DAD3228143D0006C2146 /* WalletCheckViewController.xib in Resources */,
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
+				E1FD2329233E1BC4009327FE /* WalletIrisCell.xib in Resources */,
 				E103DADE22814802006C2146 /* Init.storyboard in Resources */,
 				E103DAE322814DFC006C2146 /* GenTx.storyboard in Resources */,
 				E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */,
@@ -877,6 +936,8 @@
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
 				E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */,
 				E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */,
+				E1FD232C233E1BDB009327FE /* WalletCosmosCell.swift in Sources */,
+				E16B89152341C558003E0922 /* TokenCell.swift in Sources */,
 				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
 				E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
@@ -892,6 +953,7 @@
 				E16D9B24224A083E0019B7BB /* KeyboardViewController.swift in Sources */,
 				E183EF1F22A75DFC003B3580 /* ReInvestAmountViewController.swift in Sources */,
 				E151B63F22484A710026B8C0 /* InOutPut.swift in Sources */,
+				E1FD2320233E1B8E009327FE /* WalletAddressCell.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
@@ -916,6 +978,7 @@
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
 				E1069B1022968E05007517DC /* StepRedelegateCheckViewController.swift in Sources */,
+				E1FD2328233E1BC4009327FE /* WalletIrisCell.swift in Sources */,
 				E151B647224850040026B8C0 /* Msg.swift in Sources */,
 				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
@@ -928,14 +991,17 @@
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
 				E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */,
+				E1FD2338233E1C30009327FE /* WalletInflationCell.swift in Sources */,
 				E171A073225B08CE00C5756C /* StepDelegateCheckViewController.swift in Sources */,
 				E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */,
+				E1FD233C233E1C44009327FE /* WalletGuideCell.swift in Sources */,
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
 				E1406FC62260860E00D9440C /* StepUndelegateAmountViewController.swift in Sources */,
 				E1827E18225620D000BC0350 /* VaidatorDetailViewController.swift in Sources */,
 				E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */,
 				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,
+				E1FD2334233E1C16009327FE /* WalletPriceCell.swift in Sources */,
 				E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,
@@ -962,6 +1028,7 @@
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,
 				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
+				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
 				E148A38F22F01DEF00A56A3F /* IrisRewards.swift in Sources */,
@@ -972,6 +1039,7 @@
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
 				E1945E4C222E81C200A1436F /* MainTabVoteViewController.swift in Sources */,
+				E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
 				E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */,

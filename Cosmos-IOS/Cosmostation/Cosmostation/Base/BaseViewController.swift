@@ -10,6 +10,9 @@ import UIKit
 import Toast_Swift
 
 class BaseViewController: UIViewController {
+    
+    var account:Account?
+    var chainType:ChainType?
     var waitAlert: UIAlertController?
 
     override func viewDidLoad() {
