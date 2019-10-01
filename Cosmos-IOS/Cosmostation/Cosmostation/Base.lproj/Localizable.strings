@@ -217,6 +217,9 @@
 "tx_edit_validator" = "Edit Val";
 "tx_reinvest" = "Re-Invest";
 "tx_get_reward_all" = "Get Rewards All";
+"tx_new_order" = "New Order";
+"tx_cancel_order" = "Cancel Order";
+"tx_issue_token" = "Issue Token";
 "tx_known" = "Known";
 
 "chain_title_cosmos" = "COSMOS Hub";

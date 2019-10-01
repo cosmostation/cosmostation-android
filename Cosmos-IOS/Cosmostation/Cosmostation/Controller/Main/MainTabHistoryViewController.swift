@@ -22,13 +22,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
-    var userChain: ChainType?
     var mHistories = Array<History.InnerHits>()
+    var mBnbHistories = Array<BnbHistory>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mainTabVC = (self.parent)?.parent as? MainTabViewController
-        userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
+        chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         self.updateTitle()
         
         self.historyTableView.delegate = self
@@ -41,7 +41,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.refresher.tintColor = UIColor.white
         self.historyTableView.addSubview(refresher)
         
-        onFetchHistory(mainTabVC.mAccount.account_address, "0", "100");
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            onFetchHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            onFetchBnbHistory(mainTabVC.mAccount.account_address);
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,77 +62,125 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleWalletName.text = mainTabVC.mAccount.account_nick_name
         }
         
-        titleChainName.textColor = WUtils.getChainColor(userChain!)
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        titleChainName.textColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             chainBg.image = UIImage(named: "bg_cosmos")
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainBg.image = UIImage(named: "bg_iris")
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            titleChainImg.image = UIImage(named: "binanceChImg")
+            titleChainName.text = "(Binance Chain)"
         }
     }
     
     @objc func onRequestFetch() {
-        onFetchHistory(mainTabVC.mAccount.account_address, "0", "100");
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            onFetchHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            onFetchBnbHistory(mainTabVC.mAccount.account_address);
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.mHistories.count
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            return self.mHistories.count
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            return self.mBnbHistories.count
+        }
+        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            return onSetCosmosItems(tableView, indexPath);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            return onSetIrisItem(tableView, indexPath);
+        } else {
+            return onSetBnbItem(tableView, indexPath);
+        }
+    }
+    
+    func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
         let history = mHistories[indexPath.row]
-        
         cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.time)
         cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
         cell?.txBlockLabel.text = String(history._source.height) + " block"
         cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mainTabVC.mAccount.account_address)
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            if(history._source.result.allResult) {
-                cell?.txResultLabel.isHidden = true
-            } else {
-                cell?.txResultLabel.isHidden = false
-            }
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            if(history._source.result.code > 0) {
-                cell?.txResultLabel.isHidden = false
-            } else {
-                cell?.txResultLabel.isHidden = true
-            }
+        if(history._source.result.allResult) {
+            cell?.txResultLabel.isHidden = true
+        } else {
+            cell?.txResultLabel.isHidden = false
         }
-        
         return cell!
     }
+    
+    func onSetIrisItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        let history = mHistories[indexPath.row]
+        cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.time)
+        cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
+        cell?.txBlockLabel.text = String(history._source.height) + " block"
+        cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mainTabVC.mAccount.account_address)
+        if(history._source.result.code > 0) {
+            cell?.txResultLabel.isHidden = false
+        } else {
+            cell?.txResultLabel.isHidden = true
+        }
+        return cell!
+    }
+    
+    func onSetBnbItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        let history = mBnbHistories[indexPath.row]
+        cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history.timeStamp)
+        cell?.txTimeGapLabel.text = WUtils.timeGap(input: history.timeStamp)
+        cell?.txBlockLabel.text = String(history.blockHeight) + " block"
+        cell?.txTypeLabel.text = WUtils.bnbHistoryTitle(history, mainTabVC.mAccount.account_address)
+        cell?.txResultLabel.isHidden = true
+        return cell!
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let history = mHistories[indexPath.row]
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let history = mHistories[indexPath.row]
             guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let history = mHistories[indexPath.row]
             guard let url = URL(string: "https://irishub.mintscan.io/txs/" + history._source.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            let bnbHistory = mBnbHistories[indexPath.row]
+            guard let url = URL(string: "https://explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
     }
     
     
-    func onFetchHistory(_ address:String, _ from:String, _ size:String) {
+    func onFetchHistory(_ address:String) {
         var query = ""
         var url = ""
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            query = "{\"from\": " + from + ",\"size\": " + size + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.input.address\", \"tx.value.msg.value.output.address\", \"tx.value.msg.value.proposer\"]}}}"
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.input.address\", \"tx.value.msg.value.output.address\", \"tx.value.msg.value.proposer\"]}}}"
             url = CSS_ES_PROXY_COSMOS
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            query = "{\"from\": " + from + ",\"size\": " + size + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.address\", \"tx.value.msg.value.owner\", \"tx.value.msg.value.banker\", \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.proposer\", \"tx.value.msg.value.dest_address\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.author\", \"tx.value.msg.value.consumer\", \"tx.value.msg.value.trustee\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\"]}}}"
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.address\", \"tx.value.msg.value.owner\", \"tx.value.msg.value.banker\", \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.proposer\", \"tx.value.msg.value.dest_address\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.author\", \"tx.value.msg.value.consumer\", \"tx.value.msg.value.trustee\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\"]}}}"
             url = IRIS_ES_PROXY_IRIS
         }
         let data = query.data(using: .utf8)
@@ -163,6 +215,34 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
 
         } catch {
             print(error)
+        }
+        self.refresher.endRefreshing()
+    }
+    
+    func onFetchBnbHistory(_ address:String) {
+        let request = Alamofire.request(BNB_URL_HISTORY, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { response in
+            switch response.result {
+            case .success(let res):
+                if let data = res as? NSDictionary, let rawHistory = data.object(forKey: "tx") as? Array<NSDictionary> {
+                    self.mBnbHistories.removeAll()
+                    for raw in rawHistory {
+                        self.mBnbHistories.append(BnbHistory.init(raw as! [String : Any]))
+                    }
+                    if(self.mBnbHistories.count > 0) {
+                        self.historyTableView.reloadData()
+                        self.emptyLabel.isHidden = true
+                    } else {
+                        self.emptyLabel.isHidden = false
+                    }
+                    
+                } else {
+                    self.emptyLabel.isHidden = false
+                }
+                
+            case .failure(let error):
+                print("error ", error)
+            }
         }
         self.refresher.endRefreshing()
     }

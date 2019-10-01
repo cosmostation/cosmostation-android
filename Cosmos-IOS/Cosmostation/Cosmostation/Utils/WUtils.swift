@@ -188,7 +188,7 @@ class WUtils {
     
     static func historyTitle(_ msgs:Array<Msg>, _ myaddress:String) -> String {
         var resultMsg = NSLocalizedString("tx_known", comment: "")
-        
+
         if (msgs == nil || msgs.count <= 0) {
             return resultMsg
         }
@@ -264,10 +264,30 @@ class WUtils {
             
         } else if (msgs[0].type == IRIS_MSG_TYPE_WITHDRAW_ALL) {
             resultMsg = NSLocalizedString("tx_get_reward_all", comment: "")
+            
+        } else if (msgs[0].type == IRIS_MSG_TYPE_ISSUE_TOKEN) {
+            resultMsg = NSLocalizedString("tx_issue_token", comment: "")
+            
         }
         
         if(msgs.count > 1) {
             resultMsg = resultMsg +  "\n+ " + String(msgs.count - 1)
+        }
+        return resultMsg
+    }
+    
+    static func bnbHistoryTitle(_ bnbHistory:BnbHistory, _ myaddress:String) -> String {
+        var resultMsg = NSLocalizedString("tx_known", comment: "")
+        if (bnbHistory.txType == "NEW_ORDER") {
+            resultMsg = NSLocalizedString("tx_new_order", comment: "")
+        } else if (bnbHistory.txType == "CANCEL_ORDER") {
+            resultMsg = NSLocalizedString("tx_cancel_order", comment: "")
+        } else if (bnbHistory.txType == "TRANSFER") {
+            if (bnbHistory.fromAddr == myaddress) {
+                resultMsg = NSLocalizedString("tx_send", comment: "")
+            } else {
+                resultMsg = NSLocalizedString("tx_receive", comment: "")
+            }
         }
         return resultMsg
     }
@@ -1200,6 +1220,10 @@ extension Date {
     
     var StringmillisecondsSince1970:String {
         return String((self.timeIntervalSince1970 * 1000.0).rounded())
+    }
+    
+    var Stringmilli3MonthAgo:Int64 {
+        return Int64((self.timeIntervalSince1970 * 1000.0) - TimeInterval(7776000000.0).rounded())
     }
     
     init(milliseconds:Int) {

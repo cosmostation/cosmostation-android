@@ -79,6 +79,7 @@ let IRIS_LCD_URL_TOKENS                 = IRIS_LCD_URL + "asset/tokens";
 let BNB_URL_ACCOUNT_INFO                = BNB_URL + "api/v1/account/";
 let BNB_URL_TOKENS                      = BNB_URL + "api/v1/tokens";
 let BNB_URL_TIC                         = BNB_URL + "api/v1/ticker/24hr";
+let BNB_URL_HISTORY                     = BNB_URL + "api/v1/transactions";
 
 
 
@@ -198,6 +199,7 @@ let IRIS_MSG_TYPE_DEPOSIT                   = "irishub/gov/MsgDeposit";
 let IRIS_MSG_TYPE_SUBMIT_PROPOSAL           = "irishub/gov/MsgSubmitProposal";
 let IRIS_MSG_TYPE_CREATE_VALIDATOR          = "irishub/stake/MsgCreateValidator";
 let IRIS_MSG_TYPE_WITHDRAW_MIDIFY           = "irishub/distr/MsgModifyWithdrawAddress";
+let IRIS_MSG_TYPE_ISSUE_TOKEN               = "irishub/asset/MsgIssueToken";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"

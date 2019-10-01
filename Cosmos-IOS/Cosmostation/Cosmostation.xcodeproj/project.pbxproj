@@ -166,6 +166,7 @@
 		E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */; };
 		E1F7F63223421394000E597F /* IrisToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F7F63123421394000E597F /* IrisToken.swift */; };
 		E1F7F634234311F8000E597F /* BnbToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F7F633234311F8000E597F /* BnbToken.swift */; };
+		E1F7F63623436B71000E597F /* BnbHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F7F63523436B71000E597F /* BnbHistory.swift */; };
 		E1FD2320233E1B8E009327FE /* WalletAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD231E233E1B8E009327FE /* WalletAddressCell.swift */; };
 		E1FD2321233E1B8E009327FE /* WalletAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FD231F233E1B8E009327FE /* WalletAddressCell.xib */; };
 		E1FD2328233E1BC4009327FE /* WalletIrisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD2326233E1BC4009327FE /* WalletIrisCell.swift */; };
@@ -375,6 +376,7 @@
 		E1F2AE5A227EC5B600C87F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		E1F7F63123421394000E597F /* IrisToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrisToken.swift; sourceTree = "<group>"; };
 		E1F7F633234311F8000E597F /* BnbToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbToken.swift; sourceTree = "<group>"; };
+		E1F7F63523436B71000E597F /* BnbHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbHistory.swift; sourceTree = "<group>"; };
 		E1FD231E233E1B8E009327FE /* WalletAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAddressCell.swift; sourceTree = "<group>"; };
 		E1FD231F233E1B8E009327FE /* WalletAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletAddressCell.xib; sourceTree = "<group>"; };
 		E1FD2326233E1BC4009327FE /* WalletIrisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletIrisCell.swift; sourceTree = "<group>"; };
@@ -636,6 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				E151B64C22485AB20026B8C0 /* History.swift */,
+				E1F7F63523436B71000E597F /* BnbHistory.swift */,
 				E151B64E22485B3B0026B8C0 /* Result.swift */,
 				E1A82DDE2244782B0097CAEE /* Validator.swift */,
 				E1A82DE02244818C0097CAEE /* AccountInfo.swift */,
@@ -975,6 +978,7 @@
 				E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
+				E1F7F63623436B71000E597F /* BnbHistory.swift in Sources */,
 				E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */,
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
 				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,

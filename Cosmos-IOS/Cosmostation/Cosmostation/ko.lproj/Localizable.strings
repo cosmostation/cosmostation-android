@@ -216,6 +216,9 @@
 "tx_edit_validator" = "검증인 편집";
 "tx_reinvest" = "이자 즉시 위임";
 "tx_get_reward_all" = "이자 모두 청구";
+"tx_new_order" = "새 주문";
+"tx_cancel_order" = "주문 취소";
+"tx_issue_token" = "토큰 발행";
 "tx_known" = "알수없음";
 
 "chain_title_cosmos" = "COSMOS Hub";
