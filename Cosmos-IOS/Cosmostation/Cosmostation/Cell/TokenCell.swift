@@ -22,4 +22,13 @@ class TokenCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
+    override func prepareForReuse() {
+        self.tokenImg.image = UIImage(named: "tokenIc")
+        self.tokenSymbol.text = "-"
+        self.tokenTitle.text = "-"
+        self.tokenDescription.text = "-"
+        self.tokenAmount.text = "-"
+        self.tokenValue.text = "-"
+    }
+    
 }

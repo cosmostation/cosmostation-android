@@ -34,6 +34,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mIrisStakePool: NSDictionary?
     var mIrisTokenList = Array<IrisToken>()
     
+    var mBnbTokenList = Array<BnbToken>()
+    
+    
     var dimView: UIView?
     let window = UIApplication.shared.keyWindow!
     let dropDown = DropDown()
@@ -130,6 +133,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     if (tempAccount.account_has_private) {
                         cell.keystate.image = cell.keystate.image?.withRenderingMode(.alwaysTemplate)
                         cell.keystate.tintColor = COLOR_IRIS
+                    }
+                } else if (tempAccount.account_base_chain == CHAIN_BINANCE_S) {
+                    cell.chainImg.image = UIImage(named: "binanceChImg")
+                    cell.chainName.text = "(Binance Chain)"
+                    if (tempAccount.account_has_private) {
+                        cell.keystate.image = cell.keystate.image?.withRenderingMode(.alwaysTemplate)
+                        cell.keystate.tintColor = COLOR_BNB
                     }
                 }
             }
@@ -234,6 +244,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchIrisPool()
             onFetchIrisTokens()
             onFetchPriceTic(true)
+        } else if (mAccount.account_base_chain == CHAIN_BINANCE_S) {
+            self.mFetchCnt = 3
+            self.mAllValidator.removeAll()
+            onFetchAccountInfo(mAccount)
+            onFetchBnbTokens()
+            onFetchPriceTic(true)
+            
         }
         
         return true
@@ -242,7 +259,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if(mFetchCnt <= 0) {
-            print("mFetchCnt " , mFetchCnt)
             if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
@@ -283,7 +299,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                print("mTopValidators : ", mTopValidators.count)
 //                print("mOtherValidators : ", mOtherValidators.count)
                 
+            }  else if (mAccount.account_base_chain == CHAIN_BINANCE_S) {
+                mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
+                mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+                NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
+                return
+                
             }
+            
             for validator in mAllValidator {
                 var mine = false;
                 for bonding in mBondingList {
@@ -446,7 +469,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                    if (SHOW_LOG) { print("Cosmos onFetchAccountInfo ", error) }
                 }
                 self.onFetchFinished()
             }
@@ -466,7 +489,26 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                    if (SHOW_LOG) { print("Iris onFetchAccountInfo ", error) }
+                }
+                self.onFetchFinished()
+            }
+            
+        } else if (mAccount.account_base_chain == CHAIN_BINANCE_S) {
+            let request = Alamofire.request(BNB_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let info = res as? [String : Any] else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.onFetchFinished()
+                        return
+                    }
+                    let bnbAccountInfo = BnbAccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithBnbAccountInfo(account, bnbAccountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithBnbAccountInfo(account, bnbAccountInfo))
+                case .failure(let error):
+                    if (SHOW_LOG) { print("Bnb onFetchAccountInfo ", error) }
                 }
                 self.onFetchFinished()
             }
@@ -733,6 +775,25 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
+    func onFetchBnbTokens() {
+        let url = BNB_URL_TOKENS
+        let request = Alamofire.request(url, method: .get, parameters: ["limit":"3000"], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let tokens = res as? Array<NSDictionary> {
+                    self.mBnbTokenList.removeAll()
+                    for token in tokens {
+                        self.mBnbTokenList.append(BnbToken(token as! [String : Any]))
+                    }
+                }
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBnbTokens ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
     func onFetchPriceTic(_ callback:Bool) {
         var url = ""
         var parameters: Parameters?
@@ -750,6 +811,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 parameters = [:]
             } else {
                 url = CMC_PRICE_TIC + "3874"
+                parameters = ["convert":BaseData.instance.getCurrencyString()]
+            }
+        } else if (mAccount.account_base_chain == CHAIN_BINANCE_S) {
+            if (BaseData.instance.getMarket() == 0) {
+                url = CGC_PRICE_TIC + "binancecoin"
+                parameters = [:]
+            } else {
+                url = CMC_PRICE_TIC + "1839"
                 parameters = ["convert":BaseData.instance.getCurrencyString()]
             }
         }

@@ -54,6 +54,8 @@
 "sort_by_power" = "By Voting Power";
 "sort_by_commission" = "By Commission";
 "sort_by_yield" = "By Yield";
+"sort_by_amount" = "By Amount";
+"sort_by_value" = "By Value";
 "with_mnemonics" = "With Mnemonics";
 "only_address" = "Only Address";
 "wallet_dash" = "Wallet ";
@@ -99,10 +101,17 @@
 "send_guide_msg_cosmos" = "Decentralized network of blockchains \npowered by Tendermint BFT and ABCI";
 "send_guide_title_iris" = "IRIS HUB";
 "send_guide_msg_iris" = "Interchain service infrastructure \nfor a distributed business ecosystem";
+"send_guide_title_bnb" = "BINANCE CHAIN";
+"send_guide_msg_bnb" = "Decentralized network of blockchains\npowered by Tendermint BFT and ABCI.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
+"send_guide_btn1_bnb" = "Market";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
+"send_guide_btn2_bnb" = "Blog";
+"name" = "Name";
+"amount" = "Amount";
+"value" = "Value";
 
 
 "clear_all" = "Clear All";

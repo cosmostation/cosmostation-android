@@ -76,6 +76,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            titleChainImg.image = UIImage(named: "binanceChImg")
+            titleChainName.text = "(Binance Chain)"
         }
     }
     
@@ -86,6 +89,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             floaty.buttonColor = COLOR_ATOM
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             floaty.buttonColor = COLOR_IRIS
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            floaty.buttonColor = COLOR_BNB
         }
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
@@ -152,7 +157,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             if (indexPath.row == 0) {
                 return 78;
             } else if (indexPath.row == 1) {
-                return 258;
+                return 208;
             } else if (indexPath.row == 2) {
                 return 68;
             } else if (indexPath.row == 3) {
@@ -320,18 +325,65 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func onSetBnbItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            if (mainTabVC.mAccount.account_has_private) {
+                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
+                cell?.keyState.tintColor = COLOR_BNB
+            }
+            cell?.dpAddress.text = mainTabVC.mAccount.account_address
+            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.actionShare = {
+                print("click action share!")
+            }
+            cell?.actionWebLink = {
+                print("click action link!")
+            }
             return cell!
             
         } else if (indexPath.row == 1) {
             let cell:WalletBnbCell? = tableView.dequeueReusableCell(withIdentifier:"WalletBnbCell") as? WalletBnbCell
+            if let balance = WUtils.getTokenBalace(mainTabVC.mBalances, BNB_MAIN_DENOM) {
+                let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked!))
+                cell?.totalAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.totalAmount.font, 6, chainType!)
+                cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.totalAmount.font)
+                cell?.availableAmount.attributedText = WUtils.displayAmount(balance.balance_amount, cell!.availableAmount.font, 6, chainType!)
+                cell?.lockedAmount.attributedText = WUtils.displayAmount(balance.balance_locked!, cell!.lockedAmount.font, 6, chainType!)
+                cell?.actionWC = {
+                    print("click action WC")
+                }
+            }
             return cell!
             
         } else if (indexPath.row == 2) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(mainTabVC.mPriceTic?.value(forKeyPath: getPrice24hPath()) as? Double)
+            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                cell?.updownImg.image = UIImage(named: "priceUp")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                cell?.updownImg.image = UIImage(named: "priceDown")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else {
+                cell?.updownImg.image = nil
+                cell?.updownPercent.text = ""
+            }
             return cell!
             
         } else {
             let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.guideImg.image = UIImage(named: "binanceImg")
+            
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_bnb", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_bnb", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_bnb", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_bnb", comment: ""), for: .normal)
+            cell?.actionGuide1 = {
+                print("click actionGuide1")
+            }
+            cell?.actionGuide2 = {
+                print("click actionGuide2")
+            }
             return cell!
         }
         

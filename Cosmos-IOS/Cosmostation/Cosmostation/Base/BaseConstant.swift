@@ -77,6 +77,8 @@ let IRIS_LCD_URL_TOKENS                 = IRIS_LCD_URL + "asset/tokens";
 
 
 let BNB_URL_ACCOUNT_INFO                = BNB_URL + "api/v1/account/";
+let BNB_URL_TOKENS                      = BNB_URL + "api/v1/tokens";
+let BNB_URL_TIC                         = BNB_URL + "api/v1/ticker/24hr";
 
 
 
@@ -86,7 +88,7 @@ let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.json";
 
-
+let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 
 //DB for Account
 let DB_ACCOUNT = Table("accnt")

@@ -19,7 +19,7 @@ class WUtils {
     
     static let handler6 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 6, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
-    static let handler2 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    static let handler2 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static let handler0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
@@ -39,8 +39,15 @@ class WUtils {
             result.account_sequence_number = Int64(accountInfo.value.BaseVestingAccount.BaseAccount.sequence) ?? 0
             result.account_account_numner = Int64(accountInfo.value.BaseVestingAccount.BaseAccount.account_number) ?? 0
         }
-        
-        return account
+        return result
+    }
+    
+    static func getAccountWithBnbAccountInfo(_ account: Account, _ accountInfo: BnbAccountInfo) -> Account {
+        let result = account
+        result.account_address = accountInfo.address
+        result.account_sequence_number = Int64(accountInfo.sequence)
+        result.account_account_numner = Int64(accountInfo.account_number)
+        return result
     }
     
     static func getBalancesWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Array<Balance> {
@@ -60,13 +67,14 @@ class WUtils {
         return result
     }
     
-//    static func getBondingwithBondingInfo(_ account: Account, _ bondinginfos: Array<BondingInfo>) -> Array<Bonding> {
-//        var result = Array<Bonding>()
-//        for bondinginfo in bondinginfos {
-//            result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
-//        }
-//        return result
-//    }
+    static func getBalancesWithBnbAccountInfo(_ account: Account, _ accountInfo: BnbAccountInfo) -> Array<Balance> {
+        var result = Array<Balance>()
+        for bnbBalance in accountInfo.balances {
+            result.append(Balance(account.account_id, bnbBalance.symbol, bnbBalance.free, Date().millisecondsSince1970, bnbBalance.frozen, bnbBalance.locked))
+        }
+        return result;
+    }
+    
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
@@ -85,17 +93,6 @@ class WUtils {
         
         return result
     }
-    
-    
-//    static func getUnbondingwithUnbondingInfo(_ account: Account, _ unbondinginfos: Array<UnbondingInfo>) -> Array<Unbonding> {
-//        var result = Array<Unbonding>()
-//        for unbondinginfo in unbondinginfos {
-//            for entry in unbondinginfo.entries {
-//                result.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
-//            }
-//        }
-//        return result
-//    }
     
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
@@ -309,11 +306,12 @@ class WUtils {
     
     
     static func stringToDecimal(_ input: String) -> NSDecimalNumber {
-        var result = NSDecimalNumber.zero
-        do{
-           result = NSDecimalNumber(string: input, locale: Locale.current)
-        } catch { }
-        return result
+        let result = NSDecimalNumber(string: input, locale: Locale.current)
+        if (NSDecimalNumber.notANumber == result) {
+            return NSDecimalNumber.zero
+        } else {
+            return result
+        }
     }
     
     static func unDelegateFormat(_ amount: String) -> String {
@@ -499,6 +497,18 @@ class WUtils {
         return dpValue(result, font)
     }
     
+    static func dpBnbValue(_ amount:NSDecimalNumber, _ price:Double?, _ font:UIFont) ->  NSMutableAttributedString {
+        if (price == nil) {
+            return dpValue(NSDecimalNumber.zero, font)
+        }
+        var result = NSDecimalNumber.zero
+        if (BaseData.instance.getCurrency() == 5) {
+            result = NSDecimalNumber(value: price!).multiplying(by: amount, withBehavior: WUtils.handler8)
+        } else {
+            result = NSDecimalNumber(value: price!).multiplying(by: amount, withBehavior: WUtils.handler2)
+        }
+        return dpValue(result, font)
+    }
     
     static func dpPricePerUnit(_ price:Double?, _ font:UIFont) -> NSMutableAttributedString {
         if (price == nil) {
@@ -780,6 +790,7 @@ class WUtils {
         return attributedString1
     }
     
+    //TODO deprecate
     static func displayAllAtomReward(_ rewards:Array<Reward>, _ font:UIFont, _ deciaml:Int ) ->  NSMutableAttributedString {
         var rewardSum = NSDecimalNumber.zero
         for reward in rewards {
@@ -788,6 +799,7 @@ class WUtils {
         return displayAmout(rewardSum.stringValue, font, deciaml)
     }
     
+    //TODO deprecate
     static func getAllAtomReward(_ rewards:Array<Reward>) ->  NSDecimalNumber {
         var rewardSum = NSDecimalNumber.zero
         for reward in rewards {
@@ -869,6 +881,24 @@ class WUtils {
         return nil
     }
     
+    static func getBnbToken(_ bnbTokens:Array<BnbToken>, _ balance:Balance) -> BnbToken? {
+        for bnbToken in bnbTokens {
+            if (bnbToken.symbol == balance.balance_denom) {
+                return bnbToken
+            }
+        }
+        return nil
+    }
+    
+    static func getBnbMainToken(_ bnbTokens:Array<BnbToken>) -> BnbToken? {
+        for bnbToken in bnbTokens {
+            if (bnbToken.symbol == BNB_MAIN_DENOM) {
+                return bnbToken
+            }
+        }
+        return nil
+    }
+    
     static func displayIrisToken(_ amount: String, _ font:UIFont, _ deciaml:Int, _ deciaml2:Int) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = deciaml
@@ -899,6 +929,57 @@ class WUtils {
         attributedString1.append(attributedString2)
         return attributedString1
     }
+    
+    
+    static func getTokenBalace(_ balances:Array<Balance>, _ symbol:String) -> Balance? {
+        for balance in balances {
+            if (balance.balance_denom == symbol) {
+                return balance
+            }
+        }
+        return nil
+    }
+    
+    static func isBnbMArketToken(_ symbol:String) ->Bool {
+        switch symbol {
+        case "USDT.B-B7C":
+            return true
+        case "ETH.B-261":
+            return true
+        case "BTC.B-918":
+            return true
+            
+        case "USDSB-1AC":
+            return true
+        case "THKDB-888":
+            return true
+        case "TUSDB-888":
+            return true
+        case "BTCB-1DE":
+            return true
+        default:
+            return false
+        }
+    }
+    
+    static func getBnbTicSymbol(_ symbol:String) -> String {
+        if (isBnbMArketToken(symbol)) {
+            return BNB_MAIN_DENOM + "_" + symbol
+        } else {
+            return  "" + symbol + "_" + BNB_MAIN_DENOM
+        }
+    }
+    
+    static func getTicData(_ ticSymbol:String, _ tics:[String : NSMutableDictionary]) ->NSMutableDictionary? {
+        for (title, data) in tics {
+            if (title == ticSymbol) {
+                return data
+            }
+        }
+        return nil
+    }
+    
+    
     
     
     static func getChainColor(_ chain:ChainType) -> UIColor {
@@ -939,6 +1020,8 @@ class WUtils {
             return "ATOM"
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return "IRIS"
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            return "BNB"
         }
         return ""
     }
@@ -961,6 +1044,8 @@ class WUtils {
             return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
         } else if (chainS == CHAIN_IRIS_S) {
             return ChainType.SUPPORT_CHAIN_IRIS_MAIN
+        } else if (chainS == CHAIN_BINANCE_S) {
+            return ChainType.SUPPORT_CHAIN_BINANCE_MAIN
         }
         return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
     }

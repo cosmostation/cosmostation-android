@@ -10,16 +10,16 @@ import Foundation
 
 public class BnbAccountInfo {
     var address: String = ""
-    var account_number: String = ""
-    var sequence: String = ""
+    var account_number: UInt64 = 0
+    var sequence: UInt64 = 0
     var balances: Array<BnbBalance> = Array<BnbBalance>()
     
     init() {}
     
     init(_ dictionary: [String: Any]) {
         self.address = dictionary["address"] as? String ?? ""
-        self.account_number = dictionary["account_number"] as? String ?? ""
-        self.sequence = dictionary["sequence"] as? String ?? ""
+        self.account_number = dictionary["account_number"] as? UInt64 ?? 0
+        self.sequence = dictionary["sequence"] as? UInt64 ?? 0
         self.balances.removeAll()
         if let rawBalances = dictionary["balances"] as? Array<NSDictionary> {
             for balance in rawBalances {

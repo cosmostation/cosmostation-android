@@ -64,19 +64,6 @@ final class BaseData : NSObject{
         return UserDefaults.standard.bool(forKey: KEY_ACCOUNT_REFRESH_ALL)
     }
     
-    func setAtomTicCmc(_ tic :NSDictionary) {
-        let encodedData = NSKeyedArchiver.archivedData(withRootObject: tic)
-        UserDefaults.standard.setValue(encodedData, forKey: KEY_ATOM_TIC_CMC)
-    }
-    
-    func getAtomTicCmc() -> NSDictionary? {
-        if let value = UserDefaults.standard.object(forKey: KEY_ATOM_TIC_CMC) {
-            let decoded = value as! Data
-            return NSKeyedUnarchiver.unarchiveObject(with: decoded) as? NSDictionary
-        }
-        return nil
-    }
-    
     func setPriceTicCgc(_ tic :NSDictionary) {
         let encodedData = NSKeyedArchiver.archivedData(withRootObject: tic)
         UserDefaults.standard.setValue(encodedData, forKey: KEY_PRICE_TIC_CGC)

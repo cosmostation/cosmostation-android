@@ -7,8 +7,14 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    let ORDER_BY_NAME = 0
+    let ORDER_BY_AMOUNT = 1
+    let ORDER_BY_VALUE = 2
     
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
@@ -24,9 +30,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     @IBOutlet weak var tokenTableView: UITableView!
     var refresher: UIRefreshControl!
-    
     var mainTabVC: MainTabViewController!
-//    var mBalances = Array<Balance>()
+    var mBnbTics = [String : NSMutableDictionary]()
+    var mOrder:Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +49,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         refresher.tintColor = UIColor.white
         tokenTableView.addSubview(refresher)
         
+        mOrder = ORDER_BY_NAME
         let tap = UITapGestureRecognizer(target: self, action: #selector(onStartSort))
         self.btnSort.addGestureRecognizer(tap)
         
+        self.updateTitle()
         self.updateView()
     }
     
@@ -62,7 +70,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
     }
     
-    func updateView() {
+    func updateTitle() {
         titleChainName.textColor = WUtils.getChainColor(chainType!)
         WUtils.setDenomTitle(chainType!, totalDenom)
         if (mainTabVC.mAccount.account_nick_name == "") {
@@ -70,18 +78,42 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             titleWalletName.text = mainTabVC.mAccount.account_nick_name
         }
-        onUpdateTotalCard();
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
             totalCard.backgroundColor = TRANS_BG_COLOR_COSMOS
-            onFetchCosmosTokenPrice();
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
             totalCard.backgroundColor = TRANS_BG_COLOR_IRIS
-            onFetchIrisTokenPrice();
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            titleChainImg.image = UIImage(named: "binanceChImg")
+            titleChainName.text = "(Binance Chain)"
+            totalCard.backgroundColor = TRANS_BG_COLOR_BNB
+        }
+    }
+    
+    func updateView() {
+        if (mOrder == ORDER_BY_NAME) {
+            sortByName()
+            self.sortType.text = NSLocalizedString("name", comment: "")
+        } else if (mOrder == ORDER_BY_AMOUNT) {
+            sortByAmount()
+            self.sortType.text = NSLocalizedString("amount", comment: "")
+        } else if (mOrder == ORDER_BY_VALUE) {
+            sortByValue()
+            self.sortType.text = NSLocalizedString("value", comment: "")
+        }
+        self.onUpdateTotalCard();
+        self.tokenTableView.reloadData()
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            onFetchCosmosTokenPrice()
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            onFetchIrisTokenPrice()
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            onFetchBnbTokenPrice()
         }
     }
     
@@ -92,18 +124,30 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        self.onUpdateTotalCard()
-        self.tokenTableView.reloadData()
+        self.updateView()
         self.refresher.endRefreshing()
     }
     
     @objc func onStartSort() {
-        print("onStartSort")
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_name", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
+            self.mOrder = self.ORDER_BY_NAME
+            self.updateView()
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_amount", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
+            self.mOrder = self.ORDER_BY_AMOUNT
+            self.updateView()
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_value", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
+            self.mOrder = self.ORDER_BY_VALUE
+            self.updateView()
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
-    
-    
     func onUpdateTotalCard() {
+        self.tokenCnt.text = String(mainTabVC.mBalances.count)
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.displayAmount(allAtom.stringValue, totalAmount.font, 6, chainType!)
@@ -115,11 +159,19 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalValue.attributedText = WUtils.dpIrisValue(allIris, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, totalValue.font)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            var allBnb = NSDecimalNumber.zero
+            for balance in mainTabVC.mBalances {
+                if (balance.balance_denom == BNB_MAIN_DENOM) {
+                    allBnb = allBnb.adding(WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked!)))
+                } else {
+                    allBnb = allBnb.adding(balance.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol(balance.balance_denom), mBnbTics)))
+                }
+            }
+            totalAmount.attributedText = WUtils.displayAmount(allBnb.stringValue, totalAmount.font, 6, chainType!)
+            totalValue.attributedText = WUtils.dpBnbValue(allBnb, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, totalValue.font)
         }
     }
     
-    
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mainTabVC.mBalances.count;
     }
@@ -136,6 +188,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("select ", indexPath.row)
     }
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
@@ -182,12 +238,39 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.tokenValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.tokenValue.font)
             }
         }
-        
         return cell!
     }
     
     func onSetBnbItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if let bnbToken = WUtils.getBnbToken(mainTabVC.mBnbTokenList, balance) {
+            cell?.tokenSymbol.text = bnbToken.original_symbol.uppercased()
+            cell?.tokenTitle.text = "(" + bnbToken.symbol + ")"
+            cell?.tokenDescription.text = bnbToken.name
+            let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked!))
+    
+            if (balance.balance_denom == BNB_MAIN_DENOM) {
+                cell?.tokenSymbol.textColor = COLOR_BNB
+                cell?.tokenImg.image = UIImage(named: "bnbTokenImg")
+                cell?.tokenAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.tokenAmount.font, 6, chainType!)
+                cell?.tokenValue.attributedText = WUtils.dpBnbValue(totalAmount, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.tokenValue.font)
+                
+            } else {
+                cell?.tokenSymbol.textColor = UIColor.white
+                cell?.tokenAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.tokenAmount.font, 6, chainType!)
+                let convertAmount = balance.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol(balance.balance_denom), mBnbTics))
+                cell?.tokenValue.attributedText = WUtils.dpBnbValue(convertAmount, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.tokenValue.font)
+                
+                let url = TOKEN_IMG_URL + bnbToken.original_symbol + ".png"
+                Alamofire.request(url, method: .get).responseImage { response  in
+                    guard let image = response.result.value else {
+                        return
+                    }
+                    cell?.tokenImg.image = image
+                }
+            }
+        }
         return cell!
     }
     
@@ -200,10 +283,117 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchBnbTokenPrice() {
-        self.onUpdateTotalCard()
+        for i in 0..<mainTabVC.mBalances.count {
+            if (!(mainTabVC.mBalances[i].balance_denom == BNB_MAIN_DENOM)) {
+                let ticSymbol = WUtils.getBnbTicSymbol(mainTabVC.mBalances[i].balance_denom)
+                let request = Alamofire.request(BNB_URL_TIC, method: .get, parameters: ["symbol":ticSymbol], encoding: URLEncoding.default, headers: [:])
+                request.responseJSON { (response) in
+                    switch response.result {
+                    case .success(let res):
+                        if let tics = res as? Array<NSDictionary> {
+                            self.mBnbTics[ticSymbol] = tics[0].mutableCopy() as? NSMutableDictionary
+                            self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .fade)
+                        }
+                        self.onUpdateTotalCard()
+                        
+                    case .failure(let error):
+                        if (SHOW_LOG) { print("onFetchBnbTokenPrice ", ticSymbol, " ", error) }
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.dropDown.show()
+    }
+    
+    func sortByName() {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == COSMOS_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == COSMOS_MAIN_DENOM){
+                    return false
+                }
+                return $0.balance_denom < $1.balance_denom
+            }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == IRIS_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == IRIS_MAIN_DENOM){
+                    return false
+                }
+                return $0.balance_denom < $1.balance_denom
+            }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == BNB_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == BNB_MAIN_DENOM){
+                    return false
+                }
+                return $0.balance_denom < $1.balance_denom
+            }
+        }
+    }
+    
+    func sortByAmount() {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == COSMOS_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == COSMOS_MAIN_DENOM){
+                    return false
+                }
+                return WUtils.stringToDecimal($0.balance_amount).compare(WUtils.stringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
+            }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == IRIS_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == IRIS_MAIN_DENOM){
+                    return false
+                }
+                return WUtils.stringToDecimal($0.balance_amount).compare(WUtils.stringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
+            }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == BNB_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == BNB_MAIN_DENOM){
+                    return false
+                }
+                return $0.getAllAmountBnbToken().compare($1.getAllAmountBnbToken()).rawValue > 0 ? true : false
+            }
+        }
+    }
+    
+    func sortByValue() {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == BNB_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == BNB_MAIN_DENOM){
+                    return false
+                }
+                return $0.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol($0.balance_denom), mBnbTics)).compare($1.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol($1.balance_denom), mBnbTics))).rawValue > 0 ? true : false
+            }
+        }
+        
     }
 }
