@@ -14,7 +14,7 @@ import LocalAuthentication
 class SettingTableViewController: UITableViewController, PasswordViewDelegate {
 
     var mAccount: Account!
-    var userChain: ChainType?
+    var chainType: ChainType!
     
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var currecyLabel: UILabel!
@@ -22,12 +22,13 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
     @IBOutlet weak var appLockSwitch: UISwitch!
     @IBOutlet weak var bioTypeLabel: UILabel!
     @IBOutlet weak var bioSwitch: UISwitch!
+    @IBOutlet weak var explorerLabel: UILabel!
     var hideBio = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
-        userChain = WUtils.getChainType(mAccount.account_base_chain)
+        chainType = WUtils.getChainType(mAccount.account_base_chain)
         
         if let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String {
             self.versionLabel.text = "v " + appVersion
@@ -40,6 +41,12 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            self.explorerLabel.text = NSLocalizedString("mintscan_explorer", comment: "")
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            self.explorerLabel.text = NSLocalizedString("binanace_explorer", comment: "")
+        }
         
         let laContext = LAContext()
         let biometricsPolicy = LAPolicy.deviceOwnerAuthenticationWithBiometrics
@@ -96,11 +103,9 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 
             } else if(indexPath.row == 1) {
                 let url = URL(string: "tg://resolve?domain=cosmostation")
-                if(UIApplication.shared.canOpenURL(url!))
-                {
+                if(UIApplication.shared.canOpenURL(url!)) {
                     UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-                }else
-                {
+                } else {
                     let alert = UIAlertController(title: NSLocalizedString("warnning", comment: ""), message: NSLocalizedString("error_no_telegram", comment: ""), preferredStyle: .alert)
                     let action = UIAlertAction(title: "Download And Install", style: .default, handler: { (UIAlertAction) in
                         let urlAppStore = URL(string: "itms-apps://itunes.apple.com/app/id686449807")
@@ -117,14 +122,21 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 }
                 
             } else if(indexPath.row == 2) {
-                if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     guard let url = URL(string: "https://www.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     present(safariViewController, animated: true, completion: nil)
-                } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    
+                } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     guard let url = URL(string: "https://irishub.mintscan.io") else { return }
                     let safariViewController = SFSafariViewController(url: url)
                     present(safariViewController, animated: true, completion: nil)
+                    
+                } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                    guard let url = URL(string: "https://explorer.binance.org") else { return }
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true, completion: nil)
+                    
                 }
                 
             } else if(indexPath.row == 3) {

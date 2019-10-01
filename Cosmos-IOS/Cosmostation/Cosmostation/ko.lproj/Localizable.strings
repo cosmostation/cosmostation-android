@@ -112,6 +112,8 @@
 "name" = "이름";
 "amount" = "수량";
 "value" = "금액";
+"mintscan_explorer" = "민트스켄 익스플로러";
+"binanace_explorer" = "바이넨스 익스플로러";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";

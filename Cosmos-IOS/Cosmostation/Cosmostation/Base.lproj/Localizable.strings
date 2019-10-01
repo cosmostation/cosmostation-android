@@ -112,6 +112,8 @@
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
+"mintscan_explorer" = "Mintscan Explorer";
+"binanace_explorer" = "Binance Explorer";
 
 
 "clear_all" = "Clear All";

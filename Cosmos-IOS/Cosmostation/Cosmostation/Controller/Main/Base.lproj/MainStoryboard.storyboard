@@ -2592,6 +2592,7 @@ Learn more about us in the links below</string>
                         <outlet property="bioSwitch" destination="FjT-LV-erL" id="eRg-2R-IzD"/>
                         <outlet property="bioTypeLabel" destination="Lme-Ht-n9U" id="noc-XE-gEh"/>
                         <outlet property="currecyLabel" destination="NJX-wz-eL3" id="rgJ-8F-gXp"/>
+                        <outlet property="explorerLabel" destination="j4V-kv-pau" id="hHi-Z9-rcL"/>
                         <outlet property="marketLabel" destination="Nuz-xq-Fds" id="EVZ-bA-y8B"/>
                         <outlet property="versionLabel" destination="IGV-pj-L9Y" id="rFa-mM-o0f"/>
                     </connections>
