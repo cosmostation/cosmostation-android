@@ -251,10 +251,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
-    @objc func dismissAlertController(){
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     func confirmDelete() {
         if(self.mAccount.account_has_private) {
             let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController

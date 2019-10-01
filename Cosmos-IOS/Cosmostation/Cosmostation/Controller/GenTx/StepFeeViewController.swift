@@ -345,8 +345,4 @@ class StepFeeViewController: BaseViewController {
         return result
 
     }
-    
-    @objc func dismissAlertController(){
-        self.dismiss(animated: true, completion: nil)
-    }
 }

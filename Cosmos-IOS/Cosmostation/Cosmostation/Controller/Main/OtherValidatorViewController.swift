@@ -87,7 +87,7 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let validator = self.mainTabVC.mOtherValidators[indexPath.row] as? Validator {
-            let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaidatorDetailViewController") as! VaidatorDetailViewController
+            let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
             validatorDetailVC.mValidator = validator
             validatorDetailVC.mInflation = mainTabVC.mInflation
             validatorDetailVC.mProvision = mainTabVC.mProvision

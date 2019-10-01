@@ -8,6 +8,7 @@
 
 import UIKit
 import Toast_Swift
+import QRCode
 
 class BaseViewController: UIViewController {
     
@@ -158,6 +159,57 @@ class BaseViewController: UIViewController {
         } else {
             return "data.quotes." + BaseData.instance.getCurrencyString() + ".percent_change_24h"
         }
+    }
+    
+    func shareAddress(_ address:String, _ nickName:String) {
+        var qrCode = QRCode(address)
+        qrCode?.backgroundColor = CIColor(rgba: "EEEEEE")
+        qrCode?.size = CGSize(width: 200, height: 200)
+        
+        let alert = UIAlertController(title: nickName, message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+        alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.init(hexString: "EEEEEE")
+        alert.addAction(UIAlertAction(title: NSLocalizedString("share", comment: ""), style: .default, handler:  { [weak alert] (_) in
+            let shareTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_text", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
+                let textToShare = [ address ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                self.present(activityViewController, animated: true, completion: nil)
+            }))
+            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_qr", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
+                let image = qrCode?.image
+                let imageToShare = [ image! ]
+                let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                self.present(activityViewController, animated: true, completion: nil)
+            }))
+            self.present(shareTypeAlert, animated: true) {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                shareTypeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default, handler: { [weak alert] (_) in
+            UIPasteboard.general.string = address
+            self.onShowToast(NSLocalizedString("address_copied", comment: ""))
+        }))
+        
+        let image = UIImageView(image: qrCode?.image)
+        image.contentMode = .scaleAspectFit
+        alert.view.addSubview(image)
+        image.translatesAutoresizingMaskIntoConstraints = false
+        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerX, relatedBy: .equal, toItem: alert.view, attribute: .centerX, multiplier: 1, constant: 0))
+        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: alert.view, attribute: .centerY, multiplier: 1, constant: 0))
+        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
+        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
+        self.present(alert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    @objc func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

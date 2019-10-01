@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Floaty
+import SafariServices
 
 class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate {
     
@@ -177,10 +178,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.dpAddress.text = mainTabVC.mAccount.account_address
             cell?.dpAddress.adjustsFontSizeToFitWidth = true
             cell?.actionShare = {
-                print("click action share!")
+                self.onClickActionShare()
             }
             cell?.actionWebLink = {
-                print("click action link!")
+                self.onClickActionLink()
             }
             return cell!
             
@@ -193,10 +194,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
             cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, COSMOS_MAIN_DENOM, chainType!)
             cell?.actionDelegate = {
-                print("click action delegate")
+                self.onClickValidatorList()
             }
             cell?.actionVote = {
-                print("click action vote")
+                self.onClickVoteList()
             }
             return cell!
             
@@ -254,10 +255,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.dpAddress.text = mainTabVC.mAccount.account_address
             cell?.dpAddress.adjustsFontSizeToFitWidth = true
             cell?.actionShare = {
-                print("click action share!")
+                self.onClickActionShare()
             }
             cell?.actionWebLink = {
-                print("click action link!")
+                self.onClickActionLink()
             }
             return cell!
             
@@ -270,10 +271,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
             cell?.rewardAmount.attributedText = WUtils.dpIrisRewards(mainTabVC.mIrisRewards, cell!.rewardAmount.font, 6, chainType!)
             cell?.actionDelegate = {
-                print("click action delegate")
+                self.onClickValidatorList()
             }
             cell?.actionVote = {
-                print("click action vote")
+                self.onClickVoteList()
             }
             return cell!
             
@@ -332,10 +333,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.dpAddress.text = mainTabVC.mAccount.account_address
             cell?.dpAddress.adjustsFontSizeToFitWidth = true
             cell?.actionShare = {
-                print("click action share!")
+                self.onClickActionShare()
             }
             cell?.actionWebLink = {
-                print("click action link!")
+                self.onClickActionLink()
             }
             return cell!
             
@@ -392,5 +393,80 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.dropDown.show()
     }
+    
+    func onClickActionShare() {
+        var nickName:String?
+        if (mainTabVC.mAccount.account_nick_name == "") {
+            nickName = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
+        } else {
+            nickName = mainTabVC.mAccount.account_nick_name
+        }
+        self.shareAddress(mainTabVC.mAccount.account_address, nickName!)
+    }
+    
+    func onClickActionLink() {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            guard let url = URL(string: "https://www.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            guard let url = URL(string: "https://irishub.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            guard let url = URL(string: "https://explorer.binance.org/address/" + mainTabVC.mAccount.account_address) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func onClickValidatorList() {
+        print("onClickValidatorList")
+        let validatorListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "ValidatorListViewController") as! ValidatorListViewController
+        validatorListVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(validatorListVC, animated: true)
+        
+    }
+    
+    func onClickVoteList() {
+        print("onClickVoteList")
+        let voteListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteListViewController") as! VoteListViewController
+        voteListVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(voteListVC, animated: true)
+        
+    }
+    
+    func onClickWalletConect() {
+        print("onClickWalletConect")
+        
+    }
+    
+    func onClickGuide1() {
+        print("onClickGuide1")
+        
+    }
+    
+    func onClickGuide2() {
+        print("onClickGuide2")
+        
+    }
+    
+    func onClickMainSend() {
+        print("onClickMainSend")
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            
+        }
+        
+    }
+    
+    
     
 }

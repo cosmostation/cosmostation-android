@@ -79,11 +79,6 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
         self.navigationController?.pushViewController(passwordVC, animated: false)
     }
     
-    @objc func dismissAlertController(){
-        self.dismiss(animated: true, completion: nil)
-    }
-
-    
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             self.onFetchAccountInfo(pageHolderVC.mAccount!)

@@ -356,8 +356,4 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             });
         }
     }
-    
-    @objc func dismissAlertController(){
-        self.dismiss(animated: true, completion: nil)
-    }
 }

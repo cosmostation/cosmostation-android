@@ -25,7 +25,6 @@ class MainTabSettingViewController: BaseViewController {
         self.updateTitle()
     }
     
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -63,6 +62,9 @@ class MainTabSettingViewController: BaseViewController {
             chainBg.image = UIImage(named: "bg_iris")
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            titleChainImg.image = UIImage(named: "binanceChImg")
+            titleChainName.text = "(Binance Chain)"
         }
     }
     

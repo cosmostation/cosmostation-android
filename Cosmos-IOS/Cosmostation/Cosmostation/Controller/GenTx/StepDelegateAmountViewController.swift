@@ -251,8 +251,4 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
     }
-    
-    @objc func dismissAlertController(){
-        self.dismiss(animated: true, completion: nil)
-    }
 }

@@ -469,10 +469,6 @@ class GenTxResultViewController: BaseViewController {
         }
     }
     
-    @objc func dismissAlertController(){
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     var fetchCnt = 10
     func onFetchTx(_ txHash: String) {
         var url = ""
