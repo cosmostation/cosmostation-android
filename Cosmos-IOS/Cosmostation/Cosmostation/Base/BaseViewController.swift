@@ -48,7 +48,7 @@ class BaseViewController: UIViewController {
         waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: waitAlert!.view, attribute: .centerY, multiplier: 1, constant: 0))
         waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 58.0))
         waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 58.0))
-        self.clearBackgroundColor(of: waitAlert!.view)
+        WUtils.clearBackgroundColor(of: waitAlert!.view)
         self.present(waitAlert!, animated: true, completion: nil)
         image.onStartAnimation()
         
@@ -59,19 +59,6 @@ class BaseViewController: UIViewController {
             waitAlert?.dismiss(animated: true, completion: nil)
         }
     }
-    
-    func clearBackgroundColor(of view: UIView) {
-        if let effectsView = view as? UIVisualEffectView {
-            effectsView.removeFromSuperview()
-            return
-        }
-        
-        view.backgroundColor = .clear
-        view.subviews.forEach { (subview) in
-            self.clearBackgroundColor(of: subview)
-        }
-    }
-    
     
     func onStartMainTab() {
 //        print("onStartMainTab")

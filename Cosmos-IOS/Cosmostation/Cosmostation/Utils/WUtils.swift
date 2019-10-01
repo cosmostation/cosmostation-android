@@ -1211,6 +1211,17 @@ class WUtils {
         }
         return "cosmoshub-2"
     }
+    
+    static func clearBackgroundColor(of view: UIView) {
+        if let effectsView = view as? UIVisualEffectView {
+            effectsView.removeFromSuperview()
+            return
+        }
+        view.backgroundColor = .clear
+        view.subviews.forEach { (subview) in
+            self.clearBackgroundColor(of: subview)
+        }
+    }
 }
 
 extension Date {

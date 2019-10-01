@@ -40,6 +40,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var dimView: UIView?
     let window = UIApplication.shared.keyWindow!
     let dropDown = DropDown()
+    var waitAlert: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +55,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         self.delegate = self
         self.selectedIndex = BaseData.instance.getLastTab()
-        
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.showWaittingAlert()
+    }
+    
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         BaseData.instance.setLastTab(tabBarController.selectedIndex)
@@ -165,13 +171,18 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             } else {
                 let id = Int64(item)
-                BaseData.instance.setRecentAccountId(id!)
-                BaseData.instance.setLastTab(self.selectedIndex)
-                
-                let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.window?.rootViewController = mainTabVC
-                self.present(mainTabVC, animated: true, completion: nil)
+                if (id == self.mAccount.account_id) {
+                    self.dropDown.hide()
+                    
+                } else {
+                    BaseData.instance.setRecentAccountId(id!)
+                    BaseData.instance.setLastTab(self.selectedIndex)
+                    
+                    let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = mainTabVC
+                    self.present(mainTabVC, animated: true, completion: nil)
+                }
             }
         }
         
@@ -258,7 +269,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
-        if(mFetchCnt <= 0) {
+        if (mFetchCnt <= 0) {
             if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
@@ -302,7 +313,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }  else if (mAccount.account_base_chain == CHAIN_BINANCE_S) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+                if (mBnbTokenList.count <= 0) {
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                }
                 NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
+                self.hideWaittingAlert()
                 return
                 
             }
@@ -329,6 +344,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
+            self.hideWaittingAlert()
         }
     }
     
@@ -850,5 +866,26 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         var style = ToastStyle()
         style.backgroundColor = UIColor.gray
         self.view.makeToast(text, duration: 2.0, position: .bottom, style: style)
+    }
+    
+    public func showWaittingAlert() {
+        waitAlert = UIAlertController(title: "", message: "\n\n\n\n", preferredStyle: .alert)
+        let image = LoadingImageView(frame: CGRect(x: 0, y: 0, width: 58, height: 58))
+        waitAlert!.view.addSubview(image)
+        image.translatesAutoresizingMaskIntoConstraints = false
+        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerX, relatedBy: .equal, toItem: waitAlert!.view, attribute: .centerX, multiplier: 1, constant: 0))
+        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: waitAlert!.view, attribute: .centerY, multiplier: 1, constant: 0))
+        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 58.0))
+        waitAlert!.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 58.0))
+        WUtils.clearBackgroundColor(of: waitAlert!.view)
+        self.present(waitAlert!, animated: true, completion: nil)
+        image.onStartAnimation()
+        
+    }
+    
+    public func hideWaittingAlert(){
+        if (waitAlert != nil) {
+            waitAlert?.dismiss(animated: true, completion: nil)
+        }
     }
 }
