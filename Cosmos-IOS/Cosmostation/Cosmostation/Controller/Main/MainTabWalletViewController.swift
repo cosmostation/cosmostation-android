@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import Floaty
 import SafariServices
+import BinanceChain
 
 class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate {
     
@@ -44,6 +45,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         walletTableView.addSubview(refresher)
         
         self.updateTitle()
+        
+        let binance = BinanceChain()
+        binance.nodeInfo() { (response) in
+            print(response.nodeInfo)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

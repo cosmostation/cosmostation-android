@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import BitcoinKit
 import Alamofire
 import Firebase
 

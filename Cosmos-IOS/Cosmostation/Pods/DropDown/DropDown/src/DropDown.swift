@@ -911,20 +911,20 @@ extension DropDown {
 			return
 		}
 
-        UIView.animate(
-            withDuration: animationduration,
-            delay: 0,
-            options: animationExitOptions,
-            animations: { [weak self] in
-                self?.setHiddentState()
-            },
-            completion: { [weak self] finished in
-                guard let `self` = self else { return }
+		UIView.animate(
+			withDuration: animationduration,
+			delay: 0,
+			options: animationExitOptions,
+			animations: { [weak self] in
+				self?.setHiddentState()
+			},
+			completion: { [weak self] finished in
+				guard let `self` = self else { return }
 
-                self.isHidden = true
-                self.removeFromSuperview()
-                UIAccessibility.post(notification: .screenChanged, argument: nil)
-        })
+				self.isHidden = true
+				self.removeFromSuperview()
+				UIAccessibility.post(notification: .screenChanged, argument: nil)
+		})
 	}
 
 	fileprivate func cancel() {
@@ -933,8 +933,7 @@ extension DropDown {
 	}
 
 	fileprivate func setHiddentState() {
-//        alpha = 0
-        tableViewContainer.transform = CGAffineTransform(translationX: 0, y: -500)
+		alpha = 0
 	}
 
 	fileprivate func setShowedState() {
@@ -992,7 +991,7 @@ extension DropDown {
 			else { return }
         
         // remove from indices
-        if let selectedRowIndex = selectedRowIndices.index(where: { $0 == index  }) {
+        if let selectedRowIndex = selectedRowIndices.firstIndex(where: { $0 == index  }) {
             selectedRowIndices.remove(at: selectedRowIndex)
         }
 

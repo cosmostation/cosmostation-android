@@ -1,0 +1,84 @@
+{
+  "name": "BinanceChain",
+  "version": "1.0.0-beta",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "summary": "BinanceChain",
+  "authors": {
+    "Michael Henderson": "roadkillrabbit@gmail.com"
+  },
+  "homepage": "http://github.com/mh7821/SwiftBinanceChain/",
+  "platforms": {
+    "osx": "10.11",
+    "ios": "11.0",
+    "tvos": "11.0",
+    "watchos": "2.0"
+  },
+  "requires_arc": true,
+  "source": {
+    "path": "BinanceChain"
+  },
+  "pod_target_xcconfig": {
+    "OTHER_SWIFT_FLAGS[config=Debug]": "-D DEBUG"
+  },
+  "swift_versions": "5",
+  "default_subspecs": "Core",
+  "static_framework": true,
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "BinanceChain/Sources/Core/*.swift",
+      "dependencies": {
+        "BinanceChain/Protobuf": [
+
+        ],
+        "BinanceChain/Util": [
+
+        ],
+        "BinanceChain/Libraries": [
+
+        ],
+        "Alamofire": [
+          "~> 4.8"
+        ],
+        "SwiftyJSON": [
+          "~> 4.3"
+        ],
+        "SwiftProtobuf": [
+          "~> 1.4"
+        ],
+        "Starscream": [
+          "~> 3.1"
+        ],
+        "XCGLogger": [
+          "~> 7.0"
+        ],
+        "SwiftDate": [
+          "~> 6.0.1"
+        ],
+        "HDWalletKit": [
+          "~> 0.2.7"
+        ]
+      }
+    },
+    {
+      "name": "Util",
+      "source_files": "BinanceChain/Sources/Util/*.swift"
+    },
+    {
+      "name": "Protobuf",
+      "source_files": "BinanceChain/Sources/Protobuf/*.swift"
+    },
+    {
+      "name": "Test",
+      "source_files": "BinanceChain/Sources/Test/*.swift"
+    },
+    {
+      "name": "Libraries",
+      "source_files": "BinanceChain/Sources/Libraries/*/*.swift"
+    }
+  ],
+  "swift_version": "5"
+}

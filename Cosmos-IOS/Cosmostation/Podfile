@@ -5,12 +5,9 @@ target 'Cosmostation' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Cosmostation
-  pod 'Alamofire', '~> 4.7'
+  pod 'BinanceChain', :git => 'https://github.com/mh7821/SwiftBinanceChain.git'
+  pod 'BitcoinKit', '~> 1.0.2'
   pod 'AlamofireImage', '~> 3.3'
-  pod 'BitcoinKit'
-  pod 'SwiftyJSON', '~> 4.0'
-  pod 'PromiseKit/CorePromise', '~> 6.8'
   pod 'SQLite.swift', '~> 0.11.5'
   pod 'CryptoSwift'
   pod 'SwiftKeychainWrapper'
@@ -20,6 +17,6 @@ target 'Cosmostation' do
   pod 'QRCode'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  
+
 end
 

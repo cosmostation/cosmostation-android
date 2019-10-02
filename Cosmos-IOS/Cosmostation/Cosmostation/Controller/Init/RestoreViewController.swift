@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import BitcoinKit
 
 class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PasswordViewDelegate{
     

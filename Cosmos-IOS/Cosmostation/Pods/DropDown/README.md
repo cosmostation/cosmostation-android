@@ -2,7 +2,7 @@
 
 [![Twitter: @kevinh6113](http://img.shields.io/badge/contact-%40kevinh6113-70a1fb.svg?style=flat)](https://twitter.com/kevinh6113)
 [![License: MIT](http://img.shields.io/badge/license-MIT-70a1fb.svg?style=flat)](https://github.com/AssistoLab/DropDown/blob/master/README.md)
-[![Version](http://img.shields.io/badge/version-2.3.12-green.svg?style=flat)](https://github.com/AssistoLab/DropDown)
+[![Version](http://img.shields.io/badge/version-2.3.13-green.svg?style=flat)](https://github.com/AssistoLab/DropDown)
 [![Cocoapods](http://img.shields.io/badge/Cocoapods-available-green.svg?style=flat)](http://cocoadocs.org/docsets/DropDown/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
@@ -21,6 +21,7 @@ To install [CocoaPods](http://www.cocoapods.org), run `sudo gem install cocoapod
 
 ## Installation 📱
 
+`DropDown` supports Swift 5.0 since version `2.3.13`.
 `DropDown` supports Swift 4.2 since version `2.3.4`.
 
 If you need Swift 4.0, use version 2.3.2:
@@ -156,20 +157,21 @@ dropDown.cellConfiguration = { [unowned self] (index, item) in
 You can also create your own custom cell, from your .xib file. To have something like this for example:
 <br/>[![](Screenshots/3.png)](Screenshots/3.png)
 
+You can check out a concrete example in the Demo inside this project (go to `ViewController.swift`, line 125).
+
 For this you have to:
 
 - Create a [`DropDownCell`](DropDown/src/DropDownCell.swift) subclass (e.g. *MyCell.swift*)
 ```swift
 class MyCell: DropDownCell {
-   @IBOutlet weak var suffixLabel: UILabel!
+   @IBOutlet weak var logoImageView: UIImageView!
 }
 ```
 - Create your custom xib (e.g. *MyCell.xib*) and design your cell view in it
-<br/>![](https://s3.postimg.org/8k3s2ya0z/custom_1.png)
 - Link the cell in your xib to your custom class
-<br/>![](https://s3.postimg.org/wcd3ehc1v/custom_2.png)
 - At least have a label in your xib to link to the [`optionLabel`](DropDown/src/DropDownCell.swift#L14) `IBOutlet` in code (`optionLabel` is a property of `DropDownCell`)
-<br/>![](https://s3.postimg.org/3o05b99vn/custom_3.png)
+<br/>[![](Screenshots/customCells/links.png)](Screenshots/customCells/links.png)
+<br/>[![](Screenshots/customCells/xib.png)](Screenshots/customCells/xib.png)
 - Then, you simply need to do this:
 ```swift
 let dropDown = DropDown()
@@ -187,7 +189,7 @@ dropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDown
    guard let cell = cell as? MyCell else { return }
 
    // Setup your custom UI components
-   cell.suffixLabel.text = "Suffix \(index)"
+   cell.logoImageView.image = UIImage(named: "logo_\(index)")
 }
 /*** END - IMPORTANT PART FOR CUSTOM CELLS ***/
 ```

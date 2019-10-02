@@ -29,7 +29,7 @@ import BitcoinKit.Private
 #else
 import BitcoinKitPrivate
 #endif
-import secp256k1
+import secp256k12
 
 public struct Crypto {
     public static func sha1(_ data: Data) -> Data {

@@ -23,7 +23,7 @@
 //
 
 import Foundation
-import secp256k1
+import secp256k12
 
 public enum ScriptVerification {
     case StrictEncoding // enforce strict conformance to DER and SEC2 for signatures and pubkeys (aka SCRIPT_VERIFY_STRICTENC)

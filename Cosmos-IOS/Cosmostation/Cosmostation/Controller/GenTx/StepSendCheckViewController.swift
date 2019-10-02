@@ -235,7 +235,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     let rawData: Data? = rawResult!.data(using: .utf8)
                     let hash = Crypto.sha256(rawData!)
                     let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-                    
+
                     var genedSignature = Signature.init()
                     var genPubkey =  PublicKey.init()
                     genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
@@ -244,12 +244,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     genedSignature.signature = WKey.convertSignature(signedData!)
                     genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
                     genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-                    
+
                     var signatures: Array<Signature> = Array<Signature>()
                     signatures.append(genedSignature)
-                    
+
                     stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
-                    
+
                 } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     let irisStdMsg = MsgGenerator.getIrisToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
@@ -257,7 +257,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                                                                    msgList,
                                                                    self.pageHolderVC.mFee!,
                                                                    self.pageHolderVC.mMemo!)
-                    
+
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
                     let data = try? encoder.encode(irisStdMsg)

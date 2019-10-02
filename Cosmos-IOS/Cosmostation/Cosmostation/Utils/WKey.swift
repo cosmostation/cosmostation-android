@@ -8,6 +8,7 @@
 
 import Foundation
 import BitcoinKit
+import BinanceChain
 
 class WKey {
     let PRE_COSMOS_PUB_KEY = "eb5ae98721";
@@ -16,7 +17,7 @@ class WKey {
     static func getMasterKeyFromWords(mnemonic m: [String]) -> HDPrivateKey {
         return HDPrivateKey(seed: Mnemonic.seed(mnemonic: m), network: .testnet)
     }
-    
+
     static func getHDKeyFromWords(mnemonic m: [String], path p:UInt32, chain c:ChainType) -> HDPrivateKey {
         let masterKey = getMasterKeyFromWords(mnemonic: m)
         if (c == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || c == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -27,7 +28,7 @@ class WKey {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
         }
     }
-    
+
     static func getHDKeyDpAddress(key hdKey:HDPrivateKey, chain:ChainType) -> String {
         let sha256 = Crypto.sha256(hdKey.privateKey().publicKey().raw)
         let ripemd160 = Crypto.ripemd160(sha256)
@@ -40,7 +41,7 @@ class WKey {
         }
         return "";
     }
-    
+
     static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType) -> String {
         do {
             var childKey:HDPrivateKey?
@@ -56,24 +57,24 @@ class WKey {
             return ""
         }
     }
-    
-//    static func getCosmosDpAddress(key hdKey:HDPrivateKey) -> String {
-//        let sha256 = Crypto.sha256(hdKey.privateKey().publicKey().raw)
-//        let ripemd160 = Crypto.ripemd160(sha256)
-//        return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
-//    }
-//
-//    static func getCosmosDpAddressWithPath(_ masterKey:HDPrivateKey, _ path:Int) -> String {
-//        do {
-//            let childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-//            let sha256 = Crypto.sha256(childKey.privateKey().publicKey().raw)
-//            let ripemd160 = Crypto.ripemd160(sha256)
-//            return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
-//
-//        } catch {
-//            return ""
-//        }
-//    }
+
+    static func getCosmosDpAddress(key hdKey:HDPrivateKey) -> String {
+        let sha256 = Crypto.sha256(hdKey.privateKey().publicKey().raw)
+        let ripemd160 = Crypto.ripemd160(sha256)
+        return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
+    }
+
+    static func getCosmosDpAddressWithPath(_ masterKey:HDPrivateKey, _ path:Int) -> String {
+        do {
+            let childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+            let sha256 = Crypto.sha256(childKey.privateKey().publicKey().raw)
+            let ripemd160 = Crypto.ripemd160(sha256)
+            return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
+
+        } catch {
+            return ""
+        }
+    }
     
     
     static func isValidateAddress(_ address:String) -> Bool {
@@ -96,25 +97,25 @@ class WKey {
         return true
     }
     
-    static func getCosmosAddressFromPubKey(_ pubkey:String) -> String {
-        var result = ""
-        let bech32 = Bech32()
-        do {
-            guard let (_, data) = try? bech32.decode(pubkey) else {
-                return result
-            }
-            let converted = try convertBits(from: 5, to: 8, pad: false, idata: data)
-            let convertedhex = converted.hexEncodedString().replacingOccurrences(of: "eb5ae98721", with: "")
-            let sha256 = Crypto.sha256(dataWithHexString(hex: convertedhex))
-            let ripemd160 = Crypto.ripemd160(sha256)
-            result = try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
-        } catch {
-            print(error)
-        }
-        return result;
-    }
-    
-    
+//    static func getCosmosAddressFromPubKey(_ pubkey:String) -> String {
+//        var result = ""
+//        let bech32 = Bech32()
+//        do {
+//            guard let (_, data) = try? bech32.decode(pubkey) else {
+//                return result
+//            }
+//            let converted = try convertBits(from: 5, to: 8, pad: false, idata: data)
+//            let convertedhex = converted.hexEncodedString().replacingOccurrences(of: "eb5ae98721", with: "")
+//            let sha256 = Crypto.sha256(dataWithHexString(hex: convertedhex))
+//            let ripemd160 = Crypto.ripemd160(sha256)
+//            result = try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
+//        } catch {
+//            print(error)
+//        }
+//        return result;
+//    }
+//    
+//    
 //    static func getCosmosAddressFromOpAddress(_ opAddress:String) -> String{
 //        var result = ""
 //        let bech32 = Bech32()
