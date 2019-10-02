@@ -907,15 +907,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         
-        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-        stakingVC.mTargetValidator = mValidator
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mTargetValidator = mValidator
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            stakingVC.mType = COSMOS_MSG_TYPE_DELEGATE
+            txVC.mType = COSMOS_MSG_TYPE_DELEGATE
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            stakingVC.mType = IRIS_MSG_TYPE_DELEGATE
+            txVC.mType = IRIS_MSG_TYPE_DELEGATE
         }
         self.navigationItem.title = ""
-        self.navigationController?.pushViewController(stakingVC, animated: true)
+        self.navigationController?.pushViewController(txVC, animated: true)
         
     }
     
@@ -952,15 +952,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         
-        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-        stakingVC.mTargetValidator = mValidator
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mTargetValidator = mValidator
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            stakingVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
+            txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            stakingVC.mType = IRIS_MSG_TYPE_UNDELEGATE
+            txVC.mType = IRIS_MSG_TYPE_UNDELEGATE
         }
         self.navigationItem.title = ""
-        self.navigationController?.pushViewController(stakingVC, animated: true)
+        self.navigationController?.pushViewController(txVC, animated: true)
         
     }
     
@@ -994,20 +994,20 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onStartRedelegate() {
-        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-        stakingVC.mTargetValidator = mValidator
-        stakingVC.mInflation = mInflation
-        stakingVC.mProvision = mProvision
-        stakingVC.mStakingPool = mStakingPool
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! TransactionViewController
+        txVC.mTargetValidator = mValidator
+        txVC.mInflation = mInflation
+        txVC.mProvision = mProvision
+        txVC.mStakingPool = mStakingPool
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            stakingVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
+            txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            stakingVC.mIrisStakePool = mIrisStakePool
-            stakingVC.mirisRedelegate = mIrisRedelegate
-            stakingVC.mType = IRIS_MSG_TYPE_REDELEGATE
+            txVC.mIrisStakePool = mIrisStakePool
+            txVC.mirisRedelegate = mIrisRedelegate
+            txVC.mType = IRIS_MSG_TYPE_REDELEGATE
         }
         self.navigationItem.title = ""
-        self.navigationController?.pushViewController(stakingVC, animated: true)
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onStartGetSingleReward() {
@@ -1062,17 +1062,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         
-        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         var validators = Array<Validator>()
         validators.append(mValidator!)
-        stakingVC.mRewardTargetValidators = validators
+        txVC.mRewardTargetValidators = validators
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+            txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            stakingVC.mType = IRIS_MSG_TYPE_WITHDRAW
+            txVC.mType = IRIS_MSG_TYPE_WITHDRAW
         }
         self.navigationItem.title = ""
-        self.navigationController?.pushViewController(stakingVC, animated: true)
+        self.navigationController?.pushViewController(txVC, animated: true)
         
         
     }
@@ -1131,20 +1131,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onStartReInvest() {
-        let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-        stakingVC.mTargetValidator = self.mValidator
-        stakingVC.mType = COSMOS_MULTI_MSG_TYPE_REINVEST
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mTargetValidator = self.mValidator
+        txVC.mType = COSMOS_MULTI_MSG_TYPE_REINVEST
         self.navigationItem.title = ""
-        self.navigationController?.pushViewController(stakingVC, animated: true)
-    }
-    
-    func onShowAddMenomicDialog() {
-        let alert = UIAlertController(title: NSLocalizedString("alert_title_no_private_key", comment: ""), message: NSLocalizedString("alert_msg_no_private_key", comment: ""), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("add_mnemonic", comment: ""), style: .default, handler: { [weak alert] (_) in
-            self.onStartImportMnemonic()
-        }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onShowReInvsetFailDialog() {

@@ -204,14 +204,14 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         
         let noticeAlert = UIAlertController(title: NSLocalizedString("reward_address_notice_title", comment: ""), message: NSLocalizedString("reward_address_notice_msg", comment: ""), preferredStyle: .alert)
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { _ in
-            let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
+            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
             if (self.userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
+                txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
             } else if (self.userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                stakingVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
+                txVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
             }
             self.navigationItem.title = ""
-            self.navigationController?.pushViewController(stakingVC, animated: true)
+            self.navigationController?.pushViewController(txVC, animated: true)
         }))
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
@@ -332,16 +332,5 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             }
         }
     }
-    
-    
-    func onShowAddMenomicDialog() {
-        let alert = UIAlertController(title: NSLocalizedString("alert_title_no_private_key", comment: ""), message: NSLocalizedString("alert_msg_no_private_key", comment: ""), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("add_mnemonic", comment: ""), style: .default, handler: { [weak alert] (_) in
-            self.onStartImportMnemonic()
-        }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     
 }

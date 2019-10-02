@@ -83,7 +83,7 @@
 		E16D9B24224A083E0019B7BB /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B23224A083E0019B7BB /* KeyboardViewController.swift */; };
 		E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B25224A08510019B7BB /* DecimalViewController.swift */; };
 		E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B27224A08660019B7BB /* AlphabetViewController.swift */; };
-		E171A06B225B04BD00C5756C /* StakingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06A225B04BD00C5756C /* StakingViewController.swift */; };
+		E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06A225B04BD00C5756C /* TransactionViewController.swift */; };
 		E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06C225B08A000C5756C /* StepDelegateAmountViewController.swift */; };
 		E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06E225B08B100C5756C /* StepMemoViewController.swift */; };
 		E171A071225B08C100C5756C /* StepFeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A070225B08C100C5756C /* StepFeeViewController.swift */; };
@@ -119,7 +119,6 @@
 		E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E3C222E7E2900A1436F /* SegwitAddrCoder.swift */; };
 		E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E3D222E7E2900A1436F /* Bech32.swift */; };
 		E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E41222E7FC800A1436F /* MainTabViewController.swift */; };
-		E1945E46222E819300A1436F /* MainTabSendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E45222E819300A1436F /* MainTabSendViewController.swift */; };
 		E1945E48222E81A300A1436F /* ValidatorListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E47222E81A300A1436F /* ValidatorListViewController.swift */; };
 		E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E49222E81B300A1436F /* MainTabHistoryViewController.swift */; };
 		E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E4B222E81C200A1436F /* VoteListViewController.swift */; };
@@ -280,7 +279,7 @@
 		E16D9B23224A083E0019B7BB /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		E16D9B25224A08510019B7BB /* DecimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalViewController.swift; sourceTree = "<group>"; };
 		E16D9B27224A08660019B7BB /* AlphabetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetViewController.swift; sourceTree = "<group>"; };
-		E171A06A225B04BD00C5756C /* StakingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingViewController.swift; sourceTree = "<group>"; };
+		E171A06A225B04BD00C5756C /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		E171A06C225B08A000C5756C /* StepDelegateAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDelegateAmountViewController.swift; sourceTree = "<group>"; };
 		E171A06E225B08B100C5756C /* StepMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepMemoViewController.swift; sourceTree = "<group>"; };
 		E171A070225B08C100C5756C /* StepFeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepFeeViewController.swift; sourceTree = "<group>"; };
@@ -323,7 +322,6 @@
 		E1945E3C222E7E2900A1436F /* SegwitAddrCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegwitAddrCoder.swift; sourceTree = "<group>"; };
 		E1945E3D222E7E2900A1436F /* Bech32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bech32.swift; sourceTree = "<group>"; };
 		E1945E41222E7FC800A1436F /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
-		E1945E45222E819300A1436F /* MainTabSendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabSendViewController.swift; sourceTree = "<group>"; };
 		E1945E47222E81A300A1436F /* ValidatorListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorListViewController.swift; sourceTree = "<group>"; };
 		E1945E49222E81B300A1436F /* MainTabHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabHistoryViewController.swift; sourceTree = "<group>"; };
 		E1945E4B222E81C200A1436F /* VoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListViewController.swift; sourceTree = "<group>"; };
@@ -480,7 +478,7 @@
 			isa = PBXGroup;
 			children = (
 				E103DAE522814DFC006C2146 /* GenTx.storyboard */,
-				E171A06A225B04BD00C5756C /* StakingViewController.swift */,
+				E171A06A225B04BD00C5756C /* TransactionViewController.swift */,
 				E171A074225B091300C5756C /* StepGenTxViewController.swift */,
 				E171A06C225B08A000C5756C /* StepDelegateAmountViewController.swift */,
 				E1406FC52260860E00D9440C /* StepUndelegateAmountViewController.swift */,
@@ -595,7 +593,6 @@
 				E1945E47222E81A300A1436F /* ValidatorListViewController.swift */,
 				E1827E17225620D000BC0350 /* VaildatorDetailViewController.swift */,
 				E1945E4B222E81C200A1436F /* VoteListViewController.swift */,
-				E1945E45222E819300A1436F /* MainTabSendViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -966,7 +963,7 @@
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
-				E171A06B225B04BD00C5756C /* StakingViewController.swift in Sources */,
+				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
 				E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */,
@@ -994,7 +991,6 @@
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
 				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
 				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
-				E1945E46222E819300A1436F /* MainTabSendViewController.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
 				E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,

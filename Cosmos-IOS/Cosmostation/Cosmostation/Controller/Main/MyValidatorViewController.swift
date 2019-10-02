@@ -295,12 +295,12 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             
-            let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-            stakingVC.mRewardTargetValidators = toClaimValidator
-            stakingVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
-            stakingVC.hidesBottomBarWhenPushed = true
+            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+            txVC.mRewardTargetValidators = toClaimValidator
+            txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
+            txVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
-            self.navigationController?.pushViewController(stakingVC, animated: true)
+            self.navigationController?.pushViewController(txVC, animated: true)
             
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (self.mainTabVC.mIrisRewards != nil && (self.mainTabVC.mIrisRewards?.delegations.count)! > 0) {
@@ -334,19 +334,19 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             
             if (toClaimValidator.count > 1 ) {
-                let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-                stakingVC.mRewardTargetValidators = toClaimValidator
-                stakingVC.mType = IRIS_MSG_TYPE_WITHDRAW
-                stakingVC.hidesBottomBarWhenPushed = true
+                let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+                txVC.mRewardTargetValidators = toClaimValidator
+                txVC.mType = IRIS_MSG_TYPE_WITHDRAW
+                txVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
-                self.navigationController?.pushViewController(stakingVC, animated: true)
+                self.navigationController?.pushViewController(txVC, animated: true)
             } else {
-                let stakingVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! StakingViewController
-                stakingVC.mRewardTargetValidators = toClaimValidator
-                stakingVC.mType = IRIS_MSG_TYPE_WITHDRAW_ALL
-                stakingVC.hidesBottomBarWhenPushed = true
+                let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+                txVC.mRewardTargetValidators = toClaimValidator
+                txVC.mType = IRIS_MSG_TYPE_WITHDRAW_ALL
+                txVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
-                self.navigationController?.pushViewController(stakingVC, animated: true)
+                self.navigationController?.pushViewController(txVC, animated: true)
             }
             
             
@@ -423,14 +423,5 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
         }
         
-    }
-    
-    func onShowAddMenomicDialog() {
-        let alert = UIAlertController(title: NSLocalizedString("alert_title_no_private_key", comment: ""), message: NSLocalizedString("alert_msg_no_private_key", comment: ""), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("add_mnemonic", comment: ""), style: .default, handler: { [weak alert] (_) in
-            self.onStartImportMnemonic()
-        }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
 }

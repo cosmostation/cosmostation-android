@@ -14,7 +14,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     fileprivate var currentIndex = 0
     var disableBounce = false
     
-    var topVC: StakingViewController!
+    var topVC: TransactionViewController!
     var mType: String?
     
     var mAccount: Account?

@@ -112,11 +112,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     
     func emptyFloatySelected(_ floaty: Floaty) {
-        print("emptyFloatySelected")
-        if (!mainTabVC.mAccount.account_has_private) {
-//            self.onShowAddMenomicDialog()
-            return
-        }
+        self.onClickMainSend()
     }
     
     
@@ -236,10 +232,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_cosmos", comment: ""), for: .normal)
             cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_cosmos", comment: ""), for: .normal)
             cell?.actionGuide1 = {
-                print("click actionGuide1")
+                self.onClickGuide1()
             }
             cell?.actionGuide2 = {
-                print("click actionGuide2")
+                self.onClickGuide2()
             }
             return cell!
         }
@@ -313,10 +309,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iris", comment: ""), for: .normal)
             cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iris", comment: ""), for: .normal)
             cell?.actionGuide1 = {
-                print("click actionGuide1")
+                self.onClickGuide1()
             }
             cell?.actionGuide2 = {
-                print("click actionGuide2")
+                self.onClickGuide2()
             }
             return cell!
         }
@@ -380,10 +376,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_bnb", comment: ""), for: .normal)
             cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_bnb", comment: ""), for: .normal)
             cell?.actionGuide1 = {
-                print("click actionGuide1")
+                self.onClickGuide1()
             }
             cell?.actionGuide2 = {
-                print("click actionGuide2")
+                self.onClickGuide2()
             }
             return cell!
         }
@@ -423,7 +419,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickValidatorList() {
-        print("onClickValidatorList")
         let validatorListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "ValidatorListViewController") as! ValidatorListViewController
         validatorListVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
@@ -432,7 +427,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickVoteList() {
-        print("onClickVoteList")
         let voteListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteListViewController") as! VoteListViewController
         voteListVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
@@ -446,27 +440,105 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickGuide1() {
-        print("onClickGuide1")
-        
-    }
-    
-    func onClickGuide2() {
-        print("onClickGuide2")
-        
-    }
-    
-    func onClickMainSend() {
-        print("onClickMainSend")
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(Locale.current.languageCode == "ko") {
+                guard let url = URL(string: "https://www.cosmostation.io/files/guide_KO.pdf") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            } else {
+                guard let url = URL(string: "https://www.cosmostation.io/files/guide_EN.pdf") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            guard let url = URL(string: "https://www.irisnet.org") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            guard let url = URL(string: "https://www.binance.org") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
             
         }
         
     }
     
+    func onClickGuide2() {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if(Locale.current.languageCode == "ko") {
+                guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_ko.html") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            } else {
+                guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_en.html") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            guard let url = URL(string: "https://medium.com/irisnet-blog") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            guard let url = URL(string: "https://medium.com/@binance") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        }
+        
+    }
     
-    
+    func onClickMainSend() {
+        if (!mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            var hasTxFee:Bool = false
+            for balance in self.mainTabVC.mBalances {
+                if (balance.balance_denom == COSMOS_MAIN_DENOM && WUtils.stringToDecimal(balance.balance_amount).compare(NSDecimalNumber.one).rawValue > 0) {
+                    hasTxFee = true
+                }
+            }
+            if (!hasTxFee) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            var hasTxFee:Bool = false
+            for balance in self.mainTabVC.mBalances {
+                if (balance.balance_denom == IRIS_MAIN_DENOM && WUtils.stringToDecimal(balance.balance_amount).compare(NSDecimalNumber.init(string: "200000000000000000")).rawValue > 0) {
+                    hasTxFee = true
+                }
+            }
+            if (!hasTxFee) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mType = IRIS_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            var hasTxFee:Bool = false
+            for balance in self.mainTabVC.mBalances {
+                if (balance.balance_denom == BNB_MAIN_DENOM && WUtils.stringToDecimal(balance.balance_amount).compare(NSDecimalNumber.init(string: "0.000375")).rawValue > 0) {
+                    hasTxFee = true
+                }
+            }
+            if (!hasTxFee) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mType = BNB_MSG_TYPE_TRANSFER
+        }
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
 }

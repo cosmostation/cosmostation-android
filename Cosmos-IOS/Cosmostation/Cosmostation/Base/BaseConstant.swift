@@ -171,9 +171,7 @@ let COSMOS_MSG_TYPE_REDELEGATE2             = "cosmos-sdk/MsgBeginRedelegate";
 let COSMOS_MSG_TYPE_WITHDRAW_DEL            = "cosmos-sdk/MsgWithdrawDelegationReward";
 let COSMOS_MSG_TYPE_WITHDRAW_VAL            = "cosmos-sdk/MsgWithdrawValidatorCommission";
 let COSMOS_MSG_TYPE_WITHDRAW_MIDIFY         = "cosmos-sdk/MsgModifyWithdrawAddress";
-
 let COSMOS_MULTI_MSG_TYPE_REINVEST          = "cosmos-multi-ReInvest";
-
 
 let COSMOS_MSG_TYPE_VOTE                    = "cosmos-sdk/MsgVote";
 let COSMOS_MSG_TYPE_SUBMIT_PROPOSAL         = "cosmos-sdk/MsgSubmitProposal";
@@ -181,10 +179,8 @@ let COSMOS_MSG_TYPE_DEPOSIT                 = "cosmos-sdk/MsgDeposit";
 let COSMOS_MSG_TYPE_CREATE_VALIDATOR        = "cosmos-sdk/MsgCreateValidator";
 let COSMOS_MSG_TYPE_EDIT_VALIDATOR          = "cosmos-sdk/MsgEditValidator";
 
-
 let COSMOS_KEY_TYPE_PUBLIC                  = "tendermint/PubKeySecp256k1";
 let COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
-
 
 
 let IRIS_BANK_TYPE_ACCOUNT                  = "irishub/bank/Account";
@@ -200,6 +196,9 @@ let IRIS_MSG_TYPE_SUBMIT_PROPOSAL           = "irishub/gov/MsgSubmitProposal";
 let IRIS_MSG_TYPE_CREATE_VALIDATOR          = "irishub/stake/MsgCreateValidator";
 let IRIS_MSG_TYPE_WITHDRAW_MIDIFY           = "irishub/distr/MsgModifyWithdrawAddress";
 let IRIS_MSG_TYPE_ISSUE_TOKEN               = "irishub/asset/MsgIssueToken";
+
+
+let BNB_MSG_TYPE_TRANSFER                   = "bnb_transfer";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
