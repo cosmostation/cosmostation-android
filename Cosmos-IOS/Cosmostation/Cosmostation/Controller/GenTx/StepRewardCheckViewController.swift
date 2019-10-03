@@ -36,9 +36,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.userChain!, rewardDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.userChain!, feeDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.userChain!, expectedDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, rewardDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, feeDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, expectedDenomLabel)
         
     }
     
@@ -79,13 +79,13 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
 
     
     func checkIsWasteFee() -> Bool {
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let rewardSum = WUtils.getAllAtomReward(pageHolderVC.mRewardList)
             if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
                 return true
             }
             
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             var rewardSum = NSDecimalNumber.zero
             for delegation in pageHolderVC.mIrisRewards!.delegations {
                 for validator in pageHolderVC.mRewardTargetValidators {
@@ -102,10 +102,10 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let rewardSum = WUtils.getAllAtomReward(pageHolderVC.mRewardList)
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.userChain!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.userChain!)
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
             
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
@@ -115,9 +115,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.userChain!)
+            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
             
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             var rewardSum = NSDecimalNumber.zero
             for delegation in pageHolderVC.mIrisRewards!.delegations {
                 for validator in pageHolderVC.mRewardTargetValidators {
@@ -126,8 +126,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                     }
                 }
             }
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.userChain!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 18, pageHolderVC.userChain!)
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.chainType!)
+            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 18, pageHolderVC.chainType!)
             
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
@@ -136,7 +136,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 }
             }
             let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.userChain!)
+            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.chainType!)
         }
         
         var monikers = ""
@@ -173,7 +173,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         }
         
         //Hide expected amount with iris
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             expectedSeparator.isHidden = true
             expectedAmountTitle.isHidden = true
             expectedAmountLabel.isHidden = true
@@ -189,7 +189,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             request.responseJSON { (response) in
                 switch response.result {
@@ -217,7 +217,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))
                 }
             }
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             request.responseJSON { (response) in
                 switch response.result {
@@ -248,24 +248,24 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             do {
-                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.userChain!)
+                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
                 
                 var msgList = Array<Msg>()
 //                var stdMsg: StdSignMsg!
-                if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     for val in self.pageHolderVC.mRewardTargetValidators {
-                        let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, val.operator_address, self.pageHolderVC.userChain!)
+                        let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, val.operator_address, self.pageHolderVC.chainType!)
                         msgList.append(msg)
                     }
             
-                } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     var msg: Msg!
                     if (self.pageHolderVC.mRewardTargetValidators.count > 1) {
                         msg = MsgGenerator.genIrisGetAllRewardMsg(self.pageHolderVC.mAccount!.account_address)
                         msgList.append(msg)
                         
                     } else {
-                        msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mRewardTargetValidators[0].operator_address, self.pageHolderVC.userChain!)
+                        msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mRewardTargetValidators[0].operator_address, self.pageHolderVC.chainType!)
                         msgList.append(msg)
                     }
                 }
@@ -314,9 +314,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     var url = "";
-                    if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                         url = CSS_LCD_URL_BORAD_TX
-                    } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                         url = IRIS_LCD_URL_BORAD_TX
                     }
                     let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
@@ -339,9 +339,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                         
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                                     txResult["type"] = COSMOS_MSG_TYPE_WITHDRAW_DEL
-                                } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                                     txResult["type"] = IRIS_MSG_TYPE_WITHDRAW
                                 }
                                 self.onStartTxResult(txResult)

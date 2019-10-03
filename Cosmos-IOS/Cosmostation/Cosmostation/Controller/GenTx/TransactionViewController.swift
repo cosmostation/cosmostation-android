@@ -30,16 +30,14 @@ class TransactionViewController: UIViewController {
     var mIrisStakePool: NSDictionary?
     var mirisRedelegate: Array<NSDictionary>?
     
+    var mIrisToken: IrisToken?
+    var mBnbToken: BnbToken?
+    var mBnbTics = [String : NSMutableDictionary]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("TransactionViewController ", mType)
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         userChain = WUtils.getChainType(mAccount!.account_base_chain)
-        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            chainBg.image = UIImage(named: "bg_cosmos")
-        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            chainBg.image = UIImage(named: "bg_iris")
-        }
         
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             stepDescription.text = NSLocalizedString("delegate_step_1", comment: "")
@@ -56,7 +54,7 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "step1Img")
             self.titleLabel.text =  NSLocalizedString("title_redelegate", comment: "")
             
-        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER) {
+        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER) {
             stepDescription.text = NSLocalizedString("send_step_1", comment: "")
             stepImg.image = UIImage.init(named: "step1Img")
             self.titleLabel.text =  NSLocalizedString("title_send", comment: "")
@@ -112,7 +110,9 @@ class TransactionViewController: UIViewController {
             StepVc.mStakingPool = self.mStakingPool
             StepVc.mIrisStakePool = self.mIrisStakePool
             StepVc.mirisRedelegate = self.mirisRedelegate
-            
+            StepVc.mIrisToken = self.mIrisToken
+            StepVc.mBnbToken = self.mBnbToken
+            StepVc.mBnbTics = self.mBnbTics
         }
     }
     
@@ -132,7 +132,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step1Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_1", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step1Img")
                     stepDescription.text = NSLocalizedString("send_step_1", comment: "")
                     
@@ -163,7 +163,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step2Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_2", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step2Img")
                     stepDescription.text = NSLocalizedString("send_step_2", comment: "")
                     
@@ -195,7 +195,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step3Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_3", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step3Img")
                     stepDescription.text = NSLocalizedString("send_step_3", comment: "")
                     
@@ -227,7 +227,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step4Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_4", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step4Img")
                     stepDescription.text = NSLocalizedString("send_step_4", comment: "")
                     
@@ -246,7 +246,7 @@ class TransactionViewController: UIViewController {
                 }
                 
             } else if (step == 4) {
-                if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER) {
+                if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step5Img")
                     stepDescription.text = NSLocalizedString("send_step_5", comment: "")
                 } else if (mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE) {

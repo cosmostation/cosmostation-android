@@ -59,7 +59,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.showWaittingAlert()
+        if( self.mFetchCnt > 0)  {
+            self.showWaittingAlert()
+        }
     }
     
     

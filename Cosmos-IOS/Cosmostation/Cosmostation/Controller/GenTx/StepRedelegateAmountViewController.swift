@@ -23,13 +23,13 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.userChain!, availableDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, availableDenomLabel)
         
         userDelegated = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address)!.getBondingAmount(pageHolderVC.mTargetValidator!)
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            availableAmountLabel.attributedText = WUtils.displayAmount(userDelegated.stringValue, availableAmountLabel.font, 6, pageHolderVC.userChain!)
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            availableAmountLabel.attributedText = WUtils.displayAmount(userDelegated.stringValue, availableAmountLabel.font, 18, pageHolderVC.userChain!)
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            availableAmountLabel.attributedText = WUtils.displayAmount(userDelegated.stringValue, availableAmountLabel.font, 6, pageHolderVC.chainType!)
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            availableAmountLabel.attributedText = WUtils.displayAmount(userDelegated.stringValue, availableAmountLabel.font, 18, pageHolderVC.chainType!)
         }
         redelegateInputTextField.delegate = self
         redelegateInputTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -50,7 +50,7 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
             if (text.count == 0 && string.starts(with: ",")) { return false }
             
             
-            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 if let index = text.range(of: ".")?.upperBound {
                     if(text.substring(from: index).count > 5 && range.length == 0) {
                         return false
@@ -63,7 +63,7 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
                     }
                 }
                 
-            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 if let index = text.range(of: ".")?.upperBound {
                     if(text.substring(from: index).count > 17 && range.length == 0) {
                         return false
@@ -115,11 +115,11 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (userInput.multiplying(by: 1000000).compare(userDelegated).rawValue > 0) {
                 return false
             }
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (userInput.multiplying(by: 1000000000000000000).compare(userDelegated).rawValue > 0) {
                 return false
             }
@@ -138,9 +138,9 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
         if(isValiadAmount()) {
             let userInput = WUtils.stringToDecimal((redelegateInputTextField.text?.trimmingCharacters(in: .whitespaces))!)
             var coin:Coin?
-            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
-            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 coin = Coin.init(IRIS_MAIN_DENOM, userInput.multiplying(by: 1000000000000000000).stringValue)
             }
             pageHolderVC.mToReDelegateAmount = coin
@@ -205,23 +205,23 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let halfValue = userDelegated.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            redelegateInputTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.userChain!)
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            redelegateInputTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let halfValue = userDelegated.dividing(by: NSDecimalNumber(string: "2000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            redelegateInputTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.userChain!)
+            redelegateInputTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
         }
         self.onUIupdate()
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let maxValue = userDelegated.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            redelegateInputTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.userChain!)
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            redelegateInputTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let maxValue = userDelegated.dividing(by: NSDecimalNumber(string: "1000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            redelegateInputTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.userChain!)
+            redelegateInputTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
         }
         self.onUIupdate()
     }

@@ -38,11 +38,11 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.userChain!, mToSendDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.userChain!, mFeeDenomTitle)
-        WUtils.setDenomTitle(pageHolderVC.userChain!, mToSpendDenomTitle)
-        WUtils.setDenomTitle(pageHolderVC.userChain!, mCurrentBalanceDenomTitle)
-        WUtils.setDenomTitle(pageHolderVC.userChain!, mRemainBalanceTitle)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, mToSendDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, mFeeDenomTitle)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, mToSpendDenomTitle)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, mCurrentBalanceDenomTitle)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, mRemainBalanceTitle)
     }
     
     @IBAction func onClickConfirm(_ sender: Any) {
@@ -78,18 +78,18 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         }
         
         
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             for balance in pageHolderVC.mBalances {
                 if(balance.balance_denom == COSMOS_MAIN_DENOM) {
                     currentAva = currentAva.adding(WUtils.stringToDecimal(balance.balance_amount))
                 }
             }
-            mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 6, pageHolderVC.userChain!)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, mFeeAmountLabel.font, 6, pageHolderVC.userChain!)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmout.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, pageHolderVC.userChain!)
+            mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 6, pageHolderVC.chainType!)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, mFeeAmountLabel.font, 6, pageHolderVC.chainType!)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmout.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, pageHolderVC.chainType!)
             
-            mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 6, pageHolderVC.userChain!)
-            mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmout).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, pageHolderVC.userChain!)
+            mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 6, pageHolderVC.chainType!)
+            mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmout).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, pageHolderVC.chainType!)
             
             if let price = priceTic?.value(forKeyPath: getPricePath()) as? Double {
                 let priceValue = NSDecimalNumber(value: price)
@@ -106,18 +106,18 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mReminaingPrice.attributedText = WUtils.displayPrice(remindDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(),  mReminaingPrice.font);
             }
             
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             for balance in pageHolderVC.mBalances {
                 if(balance.balance_denom == IRIS_MAIN_DENOM) {
                     currentAva = currentAva.adding(WUtils.stringToDecimal(balance.balance_amount))
                 }
             }
-            mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 18, pageHolderVC.userChain!)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, mFeeAmountLabel.font, 18, pageHolderVC.userChain!)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmout.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 18, pageHolderVC.userChain!)
+            mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 18, pageHolderVC.chainType!)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, mFeeAmountLabel.font, 18, pageHolderVC.chainType!)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmout.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 18, pageHolderVC.chainType!)
             
-            mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 18, pageHolderVC.userChain!)
-            mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmout).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 18, pageHolderVC.userChain!)
+            mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 18, pageHolderVC.chainType!)
+            mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmout).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 18, pageHolderVC.chainType!)
             
             if let price = priceTic?.value(forKeyPath: getPricePath()) as? Double {
                 let priceValue = NSDecimalNumber(value: price)
@@ -151,7 +151,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             request.responseJSON { (response) in
                 switch response.result {
@@ -179,7 +179,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))
                 }
             }
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             request.responseJSON { (response) in
                 switch response.result {
@@ -210,17 +210,17 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             do {
-                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.userChain!)
+                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
                 
                 let msg = MsgGenerator.genGetSendMsg(self.pageHolderVC.mAccount!.account_address,
                                                      self.pageHolderVC.mToSendRecipientAddress!,
                                                      self.pageHolderVC.mToSendAmount,
-                                                     self.pageHolderVC.userChain!)
+                                                     self.pageHolderVC.chainType!)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
                 
-                if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                            String(self.pageHolderVC.mAccount!.account_account_numner),
                                                            String(self.pageHolderVC.mAccount!.account_sequence_number),
@@ -250,7 +250,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
 
                     stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
 
-                } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     let irisStdMsg = MsgGenerator.getIrisToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
                                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
                                                                    String(self.pageHolderVC.mAccount!.account_sequence_number),
@@ -295,9 +295,9 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     var url = "";
-                    if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                         url = CSS_LCD_URL_BORAD_TX
-                    } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                         url = IRIS_LCD_URL_BORAD_TX
                     }
                     let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
@@ -319,9 +319,9 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                                     txResult["type"] = COSMOS_MSG_TYPE_TRANSFER2
-                                } else if (self.pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                                     txResult["type"] = IRIS_MSG_TYPE_TRANSFER
                                 }
                                 self.onStartTxResult(txResult)

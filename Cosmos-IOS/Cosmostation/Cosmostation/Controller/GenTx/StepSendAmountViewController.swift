@@ -23,24 +23,33 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.userChain!, denomTitleLabel)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
         userBalance = NSDecimalNumber.zero
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             for balance in pageHolderVC.mBalances {
                 if (balance.balance_denom == COSMOS_MAIN_DENOM) {
                     userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber.one)
                 }
             }
-            mAvailableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, mAvailableAmountLabel.font, 6, pageHolderVC.userChain!)
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, mAvailableAmountLabel.font, 6, pageHolderVC.chainType!)
             
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             for balance in pageHolderVC.mBalances {
                 if (balance.balance_denom == IRIS_MAIN_DENOM) {
                     userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "200000000000000000"))
                 }
             }
-            mAvailableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, mAvailableAmountLabel.font, 18, pageHolderVC.userChain!)
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, mAvailableAmountLabel.font, 18, pageHolderVC.chainType!)
+        
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
+                print("BNB ", pageHolderVC.mAccount?.account_balances.count)
+//                pageHolderVC.mAccount.
+                
+            } else {
+                print("BEP")
+            }
         }
         
         mTargetAmountTextField.delegate = self
@@ -62,7 +71,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             if (text.count == 0 && string.starts(with: ",")) { return false }
             
             
-            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 if let index = text.range(of: ".")?.upperBound {
                     if(text.substring(from: index).count > 5 && range.length == 0) {
                         return false
@@ -75,7 +84,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                     }
                 }
                 
-            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 if let index = text.range(of: ".")?.upperBound {
                     if(text.substring(from: index).count > 17 && range.length == 0) {
                         return false
@@ -118,13 +127,13 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             return
         }
         
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
             }
             
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (userInput.multiplying(by: 1000000000000000000).compare(userBalance).rawValue > 0) {
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -139,11 +148,11 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
                 return false
             }
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (userInput.multiplying(by: 1000000000000000000).compare(userBalance).rawValue > 0) {
                 return false
             }
@@ -161,9 +170,9 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         if(isValiadAmount()) {
             let userInput = WUtils.stringToDecimal((mTargetAmountTextField.text?.trimmingCharacters(in: .whitespaces))!)
             var coin:Coin?
-            if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
-            } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 coin = Coin.init(IRIS_MAIN_DENOM, userInput.multiplying(by: 1000000000000000000).stringValue)
             }
             
@@ -229,22 +238,22 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.userChain!)
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.userChain!)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
         }
         self.onUIupdate()
     }
     @IBAction func onClickMax(_ sender: UIButton) {
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.userChain!)
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.userChain!)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
         }
         self.onUIupdate()
         self.showMaxWarnning()

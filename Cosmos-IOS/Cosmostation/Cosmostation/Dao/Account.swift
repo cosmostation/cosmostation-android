@@ -65,4 +65,50 @@ public class Account {
 //        
 //        return result;
 //    }
+    
+    var account_balances = Array<Balance>()
+    
+    func setBalances(_ balances:Array<Balance>) {
+        self.account_balances = balances
+    }
+    
+    func getAtomBalance() -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        for balance in self.account_balances {
+            if (balance.balance_denom == COSMOS_MAIN_DENOM) {
+                result = WUtils.stringToDecimal(balance.balance_amount)
+            }
+        }
+        return result
+    }
+    
+    func getIrisBalance() -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        for balance in self.account_balances {
+            if (balance.balance_denom == IRIS_MAIN_DENOM) {
+                result = WUtils.stringToDecimal(balance.balance_amount)
+            }
+        }
+        return result
+    }
+    
+    func getBnbBalance() -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        for balance in self.account_balances {
+            if (balance.balance_denom == BNB_MAIN_DENOM) {
+                result = WUtils.stringToDecimal(balance.balance_amount)
+            }
+        }
+        return result
+    }
+    
+    func getTokenBalance(_ symbol:String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        for balance in self.account_balances {
+            if (balance.balance_denom == symbol) {
+                result = WUtils.stringToDecimal(balance.balance_amount)
+            }
+        }
+        return result
+    }
 }

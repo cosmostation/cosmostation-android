@@ -505,42 +505,26 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            var hasTxFee:Bool = false
-            for balance in self.mainTabVC.mBalances {
-                if (balance.balance_denom == COSMOS_MAIN_DENOM && WUtils.stringToDecimal(balance.balance_amount).compare(NSDecimalNumber.one).rawValue > 0) {
-                    hasTxFee = true
-                }
-            }
-            if (!hasTxFee) {
+            if (self.mainTabVC.mAccount.getAtomBalance().compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
             txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            var hasTxFee:Bool = false
-            for balance in self.mainTabVC.mBalances {
-                if (balance.balance_denom == IRIS_MAIN_DENOM && WUtils.stringToDecimal(balance.balance_amount).compare(NSDecimalNumber.init(string: "200000000000000000")).rawValue > 0) {
-                    hasTxFee = true
-                }
-            }
-            if (!hasTxFee) {
+            if (self.mainTabVC.mAccount.getIrisBalance().compare(NSDecimalNumber.init(string: "200000000000000000")).rawValue  < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
+            txVC.mIrisToken = WUtils.getIrisMainToken(self.mainTabVC.mIrisTokenList)
             txVC.mType = IRIS_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            var hasTxFee:Bool = false
-            for balance in self.mainTabVC.mBalances {
-                if (balance.balance_denom == BNB_MAIN_DENOM && WUtils.stringToDecimal(balance.balance_amount).compare(NSDecimalNumber.init(string: "0.000375")).rawValue > 0) {
-                    hasTxFee = true
-                }
-            }
-            if (!hasTxFee) {
+            if (self.mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(string: "0.000375")).rawValue   < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
+            txVC.mBnbToken = WUtils.getBnbMainToken(self.mainTabVC.mBnbTokenList)
             txVC.mType = BNB_MSG_TYPE_TRANSFER
         }
         txVC.hidesBottomBarWhenPushed = true

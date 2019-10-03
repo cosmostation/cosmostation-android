@@ -18,7 +18,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mType: String?
     
     var mAccount: Account?
-    var userChain: ChainType?
+    var chainType: ChainType?
     var mBalances = Array<Balance>()
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
@@ -53,6 +53,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mIrisStakePool: NSDictionary?
     var mirisRedelegate: Array<NSDictionary>?
     
+    var mIrisToken: IrisToken?
+    var mBnbToken: BnbToken?
+    var mBnbTics = [String : NSMutableDictionary]()
+    
+    
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             return [self.newVc(viewController: "StepDelegateAmountViewController"),
@@ -66,7 +71,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepUndelegateCheckViewController")]
             
-        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER) {
+        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER) {
             return [self.newVc(viewController: "StepSendAddressViewController"),
                     self.newVc(viewController: "StepSendAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
@@ -112,7 +117,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         mBalances       = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
         mBondingList    = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
         mUnbondingList  = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
-        userChain       = WUtils.getChainType(mAccount!.account_base_chain)
+        chainType       = WUtils.getChainType(mAccount!.account_base_chain)
         
         if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
             onFetchTopValidatorsInfo()
@@ -165,7 +170,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func onNextPage() {
         disableBounce = false
-        if((currentIndex <= 3 && (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == IRIS_MSG_TYPE_REDELEGATE)) || currentIndex <= 2) {
+        if((currentIndex <= 3 && (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == IRIS_MSG_TYPE_REDELEGATE || mType == BNB_MSG_TYPE_TRANSFER)) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]

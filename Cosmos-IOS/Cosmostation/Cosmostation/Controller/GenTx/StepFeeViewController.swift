@@ -37,9 +37,9 @@ class StepFeeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.userChain!, feeTypeDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, feeTypeDenomLabel)
         
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             rewardAllGasAmounts = WUtils.getGasAmountForRewards()
             
             let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapFeeType(sender:)))
@@ -49,7 +49,7 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.imageTap (_:))))
             self.speedImg.isUserInteractionEnabled = true
             
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             self.minFeeCardView.isHidden = true
             self.rateFeeCardView.isHidden = false
             
@@ -64,7 +64,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasAmountLabel.text = gasAmount.stringValue
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 6)
             feeAmount = gasAmount.multiplying(byPowerOf10: 18).multiplying(by: gasRate, withBehavior: WUtils.handler0)
-            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 3, pageHolderVC.userChain!)
+            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 3, pageHolderVC.chainType!)
             
             var priceTic:NSDictionary?
             if (BaseData.instance.getMarket() == 0) {
@@ -234,7 +234,7 @@ class StepFeeViewController: BaseViewController {
     }
     
     @IBAction func onClickNext(_ sender: Any) {
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if(NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
             if(self.updateView(Int(feeSlider!.value))) {
                 feeCoin = Coin.init(COSMOS_MAIN_DENOM, feeAmount.stringValue)
@@ -253,7 +253,7 @@ class StepFeeViewController: BaseViewController {
                 pageHolderVC.onNextPage()
             }
             
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if(NSDecimalNumber.init(string: "1000000000000000000").compare(feeAmount).rawValue < 0) {return}
             feeCoin = Coin.init(IRIS_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
@@ -281,7 +281,7 @@ class StepFeeViewController: BaseViewController {
     
     func getEstimateGasAmount() -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
-        if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
                 
@@ -304,7 +304,7 @@ class StepFeeViewController: BaseViewController {
                 
             }
             
-        } else if (pageHolderVC.userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
             if (pageHolderVC.mType == IRIS_MSG_TYPE_DELEGATE) {
                 
