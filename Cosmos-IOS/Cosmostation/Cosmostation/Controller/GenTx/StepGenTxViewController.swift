@@ -114,7 +114,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         mAccount        = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
-        mBalances       = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+//        mBalances       = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+        mBalances       = mAccount!.account_balances
         mBondingList    = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
         mUnbondingList  = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
         chainType       = WUtils.getChainType(mAccount!.account_base_chain)

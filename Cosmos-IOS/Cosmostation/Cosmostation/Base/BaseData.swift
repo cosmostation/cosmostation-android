@@ -100,6 +100,40 @@ final class BaseData : NSObject{
         return UserDefaults.standard.integer(forKey: KEY_MARKET)
     }
     
+    
+    func getMarketTic() -> NSDictionary? {
+        if (getMarket() == 0) {
+            return getPriceTicCgc()
+        } else {
+            return getPriceTicCmc()
+        }
+    }
+    
+    func getPricePath() -> String {
+        if (getMarket() == 0) {
+            return "market_data.current_price." + BaseData.instance.getCurrencyString().lowercased()
+        } else {
+            return "data.quotes." + BaseData.instance.getCurrencyString() + ".price"
+        }
+    }
+    
+    func getPrice24hPath() -> String {
+        if (BaseData.instance.getMarket() == 0) {
+            return "market_data.price_change_percentage_24h_in_currency." + BaseData.instance.getCurrencyString().lowercased()
+        } else {
+            return "data.quotes." + BaseData.instance.getCurrencyString() + ".percent_change_24h"
+        }
+    }
+    
+    func getLastPrice() -> Double? {
+        return getMarketTic()?.value(forKeyPath: getPricePath()) as? Double
+    }
+    
+    func get24hPrice() -> Double? {
+        return getMarketTic()?.value(forKeyPath: getPrice24hPath()) as? Double
+    }
+    
+    
     func getMarketString() -> String {
         if (getMarket() == 0) {
             return "CoinGecko"

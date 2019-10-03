@@ -190,7 +190,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 1) {
             let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
             cell?.totalAmount.attributedText = WUtils.dpAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator, cell!.totalAmount.font, 6, chainType!)
-            cell?.totalValue.attributedText = WUtils.dpAllAtomValue(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.totalAmount.font)
+            cell?.totalValue.attributedText = WUtils.dpAllAtomValue(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
             cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, COSMOS_MAIN_DENOM, chainType!)
             cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
@@ -206,8 +206,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 2) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(mainTabVC.mPriceTic?.value(forKeyPath: getPrice24hPath()) as? Double)
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
             if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
                 cell?.updownImg.image = UIImage(named: "priceUp")
                 cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
@@ -267,7 +267,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 1) {
             let cell:WalletIrisCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
             cell?.totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, cell!.totalAmount.font, 6, chainType!)
-            cell?.totalValue.attributedText = WUtils.dpAllIrisValue(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.totalAmount.font)
+            cell?.totalValue.attributedText = WUtils.dpAllIrisValue(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
             cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, IRIS_MAIN_DENOM, chainType!)
             cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
@@ -283,8 +283,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 2) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(mainTabVC.mPriceTic?.value(forKeyPath: getPrice24hPath()) as? Double)
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
             if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
                 cell?.updownImg.image = UIImage(named: "priceUp")
                 cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
@@ -347,7 +347,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             if let balance = WUtils.getTokenBalace(mainTabVC.mBalances, BNB_MAIN_DENOM) {
                 let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked!))
                 cell?.totalAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.totalAmount.font, 6, chainType!)
-                cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.totalAmount.font)
+                cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
                 cell?.availableAmount.attributedText = WUtils.displayAmount(balance.balance_amount, cell!.availableAmount.font, 6, chainType!)
                 cell?.lockedAmount.attributedText = WUtils.displayAmount(balance.balance_locked!, cell!.lockedAmount.font, 6, chainType!)
                 cell?.actionWC = {
@@ -359,8 +359,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 2) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(mainTabVC.mPriceTic?.value(forKeyPath: getPrice24hPath()) as? Double)
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
             if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
                 cell?.updownImg.image = UIImage(named: "priceUp")
                 cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)

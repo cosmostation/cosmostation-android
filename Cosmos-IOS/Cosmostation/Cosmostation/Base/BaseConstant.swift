@@ -261,6 +261,9 @@ let GAS_FEE_AMOUNT_IRIS_REWARD_BASE         = "10000"
 let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
 
 
+let GAS_FEE_BNB_TRANSFER                    = "0.000375"
+
+
 let COLOR_BG_GRAY                           = UIColor.init(hexString: "2E2E2E", alpha: 0.4)
 let COLOR_DARK_GRAY                         = UIColor.init(hexString: "36393C")
 
@@ -289,4 +292,5 @@ let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "iris-atto"
+let IRIS_DP_DENOM = "iris"
 let BNB_MAIN_DENOM = "BNB"

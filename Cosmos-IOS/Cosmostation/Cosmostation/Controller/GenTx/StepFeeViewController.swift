@@ -65,26 +65,22 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 6)
             feeAmount = gasAmount.multiplying(byPowerOf10: 18).multiplying(by: gasRate, withBehavior: WUtils.handler0)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 3, pageHolderVC.chainType!)
+            self.rateFeePriceLabel.attributedText = WUtils.dpIrisValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
             
-            var priceTic:NSDictionary?
-            if (BaseData.instance.getMarket() == 0) {
-                priceTic = BaseData.instance.getPriceTicCgc()
-            } else {
-                priceTic = BaseData.instance.getPriceTicCmc()
-            }
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            self.minFeeCardView.isHidden = false
+            self.rateFeeCardView.isHidden = true
             
-            if let price = priceTic?.value(forKeyPath: getPricePath()) as? Double {
-                let priceValue = NSDecimalNumber(value: price)
-                var dpPrice = NSDecimalNumber.zero
-                if(BaseData.instance.getCurrency() == 5) {
-                    dpPrice = feeAmount.dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler8)
-                } else {
-                    dpPrice = feeAmount.dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
-                }
-                self.rateFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), minFeePriceLabel.font)
-            }
+            self.feeSlider.isHidden = true
+            self.feesLabels.isHidden = true
+            
+            self.speedImg.image = UIImage.init(named: "feeImg")
+            self.speedMsg.text = NSLocalizedString("fee_speed_bnb_title", comment: "")
+            
+            feeAmount = WUtils.stringToDecimal(GAS_FEE_BNB_TRANSFER)
+            self.minFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, minFeeAmountLabel.font, 8, pageHolderVC.chainType!)
+            self.minFeePriceLabel.attributedText  = WUtils.dpBnbValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
         }
-        
         
     }
     
@@ -167,15 +163,14 @@ class StepFeeViewController: BaseViewController {
             }
         }
         
-        if(position == 0) {
+        if (position == 0) {
             self.minFeeCardView.isHidden = false
             self.rateFeeCardView.isHidden = true
             self.speedImg.image = UIImage.init(named: "bycicle")
             self.speedMsg.text = NSLocalizedString("fee_speed_title_0", comment: "")
             
             feeAmount = NSDecimalNumber.init(string: "1")
-            self.minFeeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, minFeeAmountLabel.font, 6)
-            
+            self.minFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, minFeeAmountLabel.font, 6, pageHolderVC.chainType!)
             
         } else if (position == 1) {
             self.minFeeCardView.isHidden = true
@@ -189,7 +184,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 4)
 
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
-            self.rateFeeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, rateFeeAmountLabel.font, 6)
+            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 6, pageHolderVC.chainType!)
             
         } else if (position == 2) {
             self.minFeeCardView.isHidden = true
@@ -203,27 +198,11 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 3)
             
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
-            self.rateFeeAmountLabel.attributedText = WUtils.displayAmout(feeAmount.stringValue, rateFeeAmountLabel.font, 6)
+            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 6, pageHolderVC.chainType!)
         }
         
-        var priceTic:NSDictionary?
-        if (BaseData.instance.getMarket() == 0) {
-            priceTic = BaseData.instance.getPriceTicCgc()
-        } else {
-            priceTic = BaseData.instance.getPriceTicCmc()
-        }
-        
-        if let price = priceTic?.value(forKeyPath: getPricePath()) as? Double {
-            let priceValue = NSDecimalNumber(value: price)
-            var dpPrice = NSDecimalNumber.zero
-            if(BaseData.instance.getCurrency() == 5) {
-                dpPrice = feeAmount.dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler8)
-            } else {
-                dpPrice = feeAmount.dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
-            }
-            self.minFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), minFeePriceLabel.font)
-            self.rateFeePriceLabel.attributedText = WUtils.displayPrice(dpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), minFeePriceLabel.font)
-        }
+        self.minFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
+        self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
         
         toSpend = getSpendAmount()
         if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
@@ -254,8 +233,25 @@ class StepFeeViewController: BaseViewController {
             }
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            if(NSDecimalNumber.init(string: "1000000000000000000").compare(feeAmount).rawValue < 0) {return}
+            if (NSDecimalNumber.init(string: "1000000000000000000").compare(feeAmount).rawValue < 0) {return}
             feeCoin = Coin.init(IRIS_MAIN_DENOM, feeAmount.stringValue)
+            var fee = Fee.init()
+            let estGas = getEstimateGasAmount().stringValue
+            fee.gas = estGas
+            
+            var estAmount: Array<Coin> = Array<Coin>()
+            estAmount.append(feeCoin)
+            fee.amount = estAmount
+            
+            pageHolderVC.mFee = fee
+            
+            self.beforeBtn.isUserInteractionEnabled = false
+            self.nextBtn.isUserInteractionEnabled = false
+            pageHolderVC.onNextPage()
+            
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            //TODO NOTICE NO need Fee set!!;
+            feeCoin = Coin.init(BNB_MAIN_DENOM, feeAmount.stringValue)
             var fee = Fee.init()
             let estGas = getEstimateGasAmount().stringValue
             fee.gas = estGas
@@ -321,9 +317,12 @@ class StepFeeViewController: BaseViewController {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
                 
             } else {
-                
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+        
         }
         return result
     }

@@ -317,6 +317,8 @@ class WUtils {
             nf.maximumFractionDigits = 6
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             nf.maximumFractionDigits = 18
+        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            nf.maximumFractionDigits = 8
         }
         nf.numberStyle = .decimal
         nf.locale = Locale.current
@@ -516,7 +518,7 @@ class WUtils {
         }
         return dpValue(result, font)
     }
-    
+
     static func dpBnbValue(_ amount:NSDecimalNumber, _ price:Double?, _ font:UIFont) ->  NSMutableAttributedString {
         if (price == nil) {
             return dpValue(NSDecimalNumber.zero, font)

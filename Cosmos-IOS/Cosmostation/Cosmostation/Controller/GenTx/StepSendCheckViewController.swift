@@ -68,71 +68,57 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func onUpdateView() {
         let toSendAmount = WUtils.stringToDecimal(pageHolderVC.mToSendAmount[0].amount)
-        let feeAmout = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
+        let feeAmount = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         var currentAva = NSDecimalNumber.zero
-        var priceTic:NSDictionary?
-        if (BaseData.instance.getMarket() == 0) {
-            priceTic = BaseData.instance.getPriceTicCgc()
-        } else {
-            priceTic = BaseData.instance.getPriceTicCmc()
-        }
-        
         
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == COSMOS_MAIN_DENOM) {
-                    currentAva = currentAva.adding(WUtils.stringToDecimal(balance.balance_amount))
-                }
-            }
+            currentAva = pageHolderVC.mAccount!.getAtomBalance()
             mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 6, pageHolderVC.chainType!)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, mFeeAmountLabel.font, 6, pageHolderVC.chainType!)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmout.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, pageHolderVC.chainType!)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, mFeeAmountLabel.font, 6, pageHolderVC.chainType!)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, pageHolderVC.chainType!)
             
             mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 6, pageHolderVC.chainType!)
-            mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmout).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, pageHolderVC.chainType!)
+            mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, pageHolderVC.chainType!)
             
-            if let price = priceTic?.value(forKeyPath: getPricePath()) as? Double {
-                let priceValue = NSDecimalNumber(value: price)
-                var totalSpendDpPrice = NSDecimalNumber.zero
-                var remindDpPrice = NSDecimalNumber.zero
-                if(BaseData.instance.getCurrency() == 5) {
-                    totalSpendDpPrice = (feeAmout.adding(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler8)
-                    remindDpPrice = (currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler8)
-                } else {
-                    totalSpendDpPrice = (feeAmout.adding(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
-                    remindDpPrice = (currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
-                }
-                mTotalSpendPrice.attributedText = WUtils.displayPrice(totalSpendDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(),  mTotalSpendPrice.font);
-                mReminaingPrice.attributedText = WUtils.displayPrice(remindDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(),  mReminaingPrice.font);
-            }
+            mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            for balance in pageHolderVC.mBalances {
-                if(balance.balance_denom == IRIS_MAIN_DENOM) {
-                    currentAva = currentAva.adding(WUtils.stringToDecimal(balance.balance_amount))
-                }
-            }
+            currentAva = pageHolderVC.mAccount!.getIrisBalance()
             mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 18, pageHolderVC.chainType!)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, mFeeAmountLabel.font, 18, pageHolderVC.chainType!)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmout.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 18, pageHolderVC.chainType!)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, mFeeAmountLabel.font, 18, pageHolderVC.chainType!)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 18, pageHolderVC.chainType!)
             
             mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 18, pageHolderVC.chainType!)
-            mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmout).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 18, pageHolderVC.chainType!)
+            mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 18, pageHolderVC.chainType!)
             
-            if let price = priceTic?.value(forKeyPath: getPricePath()) as? Double {
-                let priceValue = NSDecimalNumber(value: price)
-                var totalSpendDpPrice = NSDecimalNumber.zero
-                var remindDpPrice = NSDecimalNumber.zero
-                if(BaseData.instance.getCurrency() == 5) {
-                    totalSpendDpPrice = (feeAmout.adding(toSendAmount)).dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler8)
-                    remindDpPrice = (currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler8)
-                } else {
-                    totalSpendDpPrice = (feeAmout.adding(toSendAmount)).dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
-                    remindDpPrice = (currentAva.subtracting(feeAmout).subtracting(toSendAmount)).dividing(by: 1000000000000000000, withBehavior: WUtils.handler6).multiplying(by: priceValue).rounding(accordingToBehavior: WUtils.handler2)
-                }
-                mTotalSpendPrice.attributedText = WUtils.displayPrice(totalSpendDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), mTotalSpendPrice.font);
-                mReminaingPrice.attributedText = WUtils.displayPrice(remindDpPrice, BaseData.instance.getCurrency(), BaseData.instance.getCurrencySymbol(), mReminaingPrice.font);
+            mTotalSpendPrice.attributedText = WUtils.dpIrisValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpIrisValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            mToSendDenomLabel.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
+            mCurrentBalanceDenomTitle.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
+            mRemainBalanceTitle.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
+            
+            if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
+                currentAva = pageHolderVC.mAccount!.getBnbBalance()
+                mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 8, pageHolderVC.chainType!)
+                mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, mFeeAmountLabel.font, 8, pageHolderVC.chainType!)
+                mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 8, pageHolderVC.chainType!)
+                
+                mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 8, pageHolderVC.chainType!)
+                mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 8, pageHolderVC.chainType!)
+                
+                mTotalSpendPrice.attributedText = WUtils.dpBnbValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+                mReminaingPrice.attributedText = WUtils.dpBnbValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+                
+            }  else {
+                mToSendDenomLabel.textColor = UIColor.white
+                mCurrentBalanceDenomTitle.textColor = UIColor.white
+                mRemainBalanceTitle.textColor = UIColor.white
+                
             }
+            
         }
         print("currentAva ", currentAva)
         

@@ -132,22 +132,6 @@ class BaseViewController: UIViewController {
         self.view.makeToast(text, duration: 2.0, position: .bottom, style: style)
     }
     
-    func getPricePath() -> String {
-        if (BaseData.instance.getMarket() == 0) {
-            return "market_data.current_price." + BaseData.instance.getCurrencyString().lowercased()
-        } else {
-            return "data.quotes." + BaseData.instance.getCurrencyString() + ".price"
-        }
-    }
-    
-    func getPrice24hPath() -> String {
-        if (BaseData.instance.getMarket() == 0) {
-            return "market_data.price_change_percentage_24h_in_currency." + BaseData.instance.getCurrencyString().lowercased()
-        } else {
-            return "data.quotes." + BaseData.instance.getCurrencyString() + ".percent_change_24h"
-        }
-    }
-    
     func shareAddress(_ address:String, _ nickName:String) {
         var qrCode = QRCode(address)
         qrCode?.backgroundColor = CIColor(rgba: "EEEEEE")

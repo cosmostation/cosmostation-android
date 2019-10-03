@@ -151,12 +151,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.displayAmount(allAtom.stringValue, totalAmount.font, 6, chainType!)
-            totalValue.attributedText = WUtils.dpAtomValue(allAtom, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, totalValue.font)
+            totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let allIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, totalAmount.font, 6, chainType!)
-            totalValue.attributedText = WUtils.dpIrisValue(allIris, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, totalValue.font)
+            totalValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             var allBnb = NSDecimalNumber.zero
@@ -168,7 +168,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
             }
             totalAmount.attributedText = WUtils.displayAmount(allBnb.stringValue, totalAmount.font, 6, chainType!)
-            totalValue.attributedText = WUtils.dpBnbValue(allBnb, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, totalValue.font)
+            totalValue.attributedText = WUtils.dpBnbValue(allBnb, BaseData.instance.getLastPrice(), totalValue.font)
         }
     }
     
@@ -205,7 +205,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenDescription.text = balance.balance_denom
             let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             cell?.tokenAmount.attributedText = WUtils.displayAmount(allAtom.stringValue, cell!.tokenAmount.font, 6, chainType!)
-            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
 
         } else {
             // TODO no this case yet!
@@ -228,7 +228,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 
                 let allIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
                 cell?.tokenAmount.attributedText = WUtils.displayAmount(allIris.stringValue, cell!.tokenAmount.font, 6, chainType!)
-                cell?.tokenValue.attributedText = WUtils.dpIrisValue(allIris, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.tokenValue.font)
+                cell?.tokenValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
                 
             } else {
                 cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -254,13 +254,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.tokenSymbol.textColor = COLOR_BNB
                 cell?.tokenImg.image = UIImage(named: "bnbTokenImg")
                 cell?.tokenAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.tokenAmount.font, 6, chainType!)
-                cell?.tokenValue.attributedText = WUtils.dpBnbValue(totalAmount, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.tokenValue.font)
+                cell?.tokenValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
                 
             } else {
                 cell?.tokenSymbol.textColor = UIColor.white
                 cell?.tokenAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.tokenAmount.font, 6, chainType!)
                 let convertAmount = balance.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol(balance.balance_denom), mBnbTics))
-                cell?.tokenValue.attributedText = WUtils.dpBnbValue(convertAmount, mainTabVC.mPriceTic?.value(forKeyPath: getPricePath()) as? Double, cell!.tokenValue.font)
+                cell?.tokenValue.attributedText = WUtils.dpBnbValue(convertAmount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
                 
                 let url = TOKEN_IMG_URL + bnbToken.original_symbol + ".png"
                 Alamofire.request(url, method: .get).responseImage { response  in
