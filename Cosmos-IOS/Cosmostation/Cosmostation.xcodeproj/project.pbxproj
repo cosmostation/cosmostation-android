@@ -19,6 +19,8 @@
 		E103DAD3228143D0006C2146 /* WalletCheckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAD5228143D0006C2146 /* WalletCheckViewController.xib */; };
 		E103DADE22814802006C2146 /* Init.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E103DAE022814802006C2146 /* Init.storyboard */; };
 		E103DAE322814DFC006C2146 /* GenTx.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E103DAE522814DFC006C2146 /* GenTx.storyboard */; };
+		E10492132347B41000A2980F /* WalletConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10492122347B41000A2980F /* WalletConnectViewController.swift */; };
+		E10492152347C5D900A2980F /* WalletConnectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10492142347C5D900A2980F /* WalletConnectImageView.swift */; };
 		E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B0B22968DCA007517DC /* StepRedelegateAmountViewController.swift */; };
 		E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B0D22968DF4007517DC /* StepRedelegateToViewController.swift */; };
 		E1069B1022968E05007517DC /* StepRedelegateCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */; };
@@ -217,6 +219,8 @@
 		E103DADF22814802006C2146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Init.storyboard; sourceTree = "<group>"; };
 		E103DAE222814815006C2146 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Init.strings; sourceTree = "<group>"; };
 		E103DAE422814DFC006C2146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/GenTx.storyboard; sourceTree = "<group>"; };
+		E10492122347B41000A2980F /* WalletConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectViewController.swift; sourceTree = "<group>"; };
+		E10492142347C5D900A2980F /* WalletConnectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectImageView.swift; sourceTree = "<group>"; };
 		E1069B0B22968DCA007517DC /* StepRedelegateAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRedelegateAmountViewController.swift; sourceTree = "<group>"; };
 		E1069B0D22968DF4007517DC /* StepRedelegateToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRedelegateToViewController.swift; sourceTree = "<group>"; };
 		E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRedelegateCheckViewController.swift; sourceTree = "<group>"; };
@@ -611,6 +615,7 @@
 				E1827E17225620D000BC0350 /* VaildatorDetailViewController.swift */,
 				E1945E4B222E81C200A1436F /* VoteListViewController.swift */,
 				E17B213023470222001743D6 /* TokenDetailViewController.swift */,
+				E10492122347B41000A2980F /* WalletConnectViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
 			);
 			path = Main;
@@ -646,6 +651,7 @@
 				E1FEE458225B17970040FAFD /* AmountInputTextField.swift */,
 				E1FEE45A225B1AEF0040FAFD /* MemoTextView.swift */,
 				E1406FC322607B8500D9440C /* LoadingImageView.swift */,
+				E10492142347C5D900A2980F /* WalletConnectImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1008,6 +1014,7 @@
 				E1FD2338233E1C30009327FE /* WalletInflationCell.swift in Sources */,
 				E171A073225B08CE00C5756C /* StepDelegateCheckViewController.swift in Sources */,
 				E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */,
+				E10492132347B41000A2980F /* WalletConnectViewController.swift in Sources */,
 				E1FD233C233E1C44009327FE /* WalletGuideCell.swift in Sources */,
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
@@ -1051,6 +1058,7 @@
 				E148A38F22F01DEF00A56A3F /* IrisRewards.swift in Sources */,
 				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,
+				E10492152347C5D900A2980F /* WalletConnectImageView.swift in Sources */,
 				E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */,
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,

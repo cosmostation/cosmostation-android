@@ -149,6 +149,7 @@
 "title_validator_list" = "검증인 목록";
 "title_validator_detail" = "검증인 상세";
 "title_vote_list" = "투표 목록";
+"title_wallet_connect" = "지갑 연결";
 "title_token_detail" = "토큰 상세";
 "title_reword_address_change" = "이자 지급 주소 변경";
 "title_reinvest" = "이자 즉시 위임";

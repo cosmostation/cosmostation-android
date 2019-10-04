@@ -12,7 +12,7 @@ import Floaty
 import SafariServices
 import BinanceChain
 
-class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate {
+class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate, QrScannerDelegate {
     
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
@@ -45,11 +45,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         walletTableView.addSubview(refresher)
         
         self.updateTitle()
-        
-        let binance = BinanceChain()
-        binance.nodeInfo() { (response) in
-            print(response.nodeInfo)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -351,7 +346,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.availableAmount.attributedText = WUtils.displayAmount(balance.balance_amount, cell!.availableAmount.font, 6, chainType!)
                 cell?.lockedAmount.attributedText = WUtils.displayAmount(balance.balance_locked, cell!.lockedAmount.font, 6, chainType!)
                 cell?.actionWC = {
-                    print("click action WC")
+                    self.onClickWalletConect()
                 }
             }
             return cell!
@@ -441,7 +436,17 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickWalletConect() {
-        print("onClickWalletConect")
+        if (!mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+//        self.onStartQrCode()
+        
+        let wcVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "WalletConnectViewController") as! WalletConnectViewController
+        wcVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(wcVC, animated: true)
+        
         
     }
     
@@ -530,5 +535,19 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    func onStartQrCode() {
+        let qrScanVC = QRScanViewController(nibName: "QRScanViewController", bundle: nil)
+        qrScanVC.hidesBottomBarWhenPushed = true
+        qrScanVC.resultDelegate = self
+        self.navigationItem.title = ""
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+        self.navigationController?.pushViewController(qrScanVC, animated: false)
+    }
+    
+    
+    func scannedAddress(result: String) {
+        print("string ", result)
     }
 }
