@@ -13,6 +13,9 @@ import AlamofireImage
 class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var allValidatorTableView: UITableView!
+    @IBOutlet weak var allValidatorCnt: UILabel!
+    @IBOutlet weak var btnSort: UIView!
+    @IBOutlet weak var sortType: UILabel!
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
@@ -29,6 +32,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         self.refresher.tintColor = UIColor.white
         self.allValidatorTableView.addSubview(refresher)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onStartSort))
+        self.btnSort.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,13 +47,11 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onSorting), name: Notification.Name("onSorting"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("onSorting"), object: nil)
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
@@ -56,11 +60,15 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onSorting() {
+        self.allValidatorCnt.text = String(self.mainTabVC.mTopValidators.count)
         if (BaseData.instance.getAllValidatorSort() == 0) {
+            self.sortType.text = NSLocalizedString("sort_by_power", comment: "")
             sortByPower()
         } else if (BaseData.instance.getAllValidatorSort() == 1) {
+            self.sortType.text = NSLocalizedString("sort_by_name", comment: "")
             sortByName()
         } else {
+            self.sortType.text = NSLocalizedString("sort_by_yield", comment: "")
             sortByCommission()
         }
         self.allValidatorTableView.reloadData()
@@ -168,7 +176,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-//                    print("res : ", res)
                     guard let keybaseInfo = res as? NSDictionary,
                         let thems = keybaseInfo.value(forKey: "them") as? Array<NSDictionary>,
                         thems.count > 0,
@@ -191,6 +198,23 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         }
     }
     
+    @objc func onStartSort() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_name", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
+            BaseData.instance.setAllValidatorSort(1)
+            self.onSorting()
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_power", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
+            BaseData.instance.setAllValidatorSort(0)
+            self.onSorting()
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_yield", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
+            BaseData.instance.setAllValidatorSort(2)
+            self.onSorting()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     func sortByName() {
         mainTabVC.mTopValidators.sort{

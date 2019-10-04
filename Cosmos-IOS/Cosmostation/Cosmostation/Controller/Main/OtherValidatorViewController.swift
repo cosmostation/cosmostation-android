@@ -13,6 +13,7 @@ import AlamofireImage
 class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var otherValidatorTableView: UITableView!
+    @IBOutlet weak var otherValidatorCnt: UILabel!
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
@@ -56,6 +57,7 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @objc func onSorting() {
+        self.otherValidatorCnt.text = String(self.mainTabVC.mOtherValidators.count)
         self.sortByPower()
         self.otherValidatorTableView.reloadData()
     }

@@ -12,6 +12,9 @@ import AlamofireImage
 
 class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, ClaimRewardAllDelegate {
     
+    @IBOutlet weak var myValidatorCnt: UILabel!
+    @IBOutlet weak var btnSort: UIView!
+    @IBOutlet weak var sortType: UILabel!
     @IBOutlet weak var myValidatorTableView: UITableView!
     
     var mainTabVC: MainTabViewController!
@@ -31,6 +34,9 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         self.refresher.tintColor = UIColor.white
         self.myValidatorTableView.addSubview(refresher)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onStartSort))
+        self.btnSort.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,13 +49,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onSortingMy), name: Notification.Name("onSortingMy"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("onSortingMy"), object: nil)
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
@@ -58,11 +62,15 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onSortingMy() {
+        self.myValidatorCnt.text = String(self.mainTabVC.mMyValidators.count)
         if (BaseData.instance.getMyValidatorSort() == 0) {
+            self.sortType.text = NSLocalizedString("sort_by_my_delegate", comment: "")
             sortByDelegated()
         } else if (BaseData.instance.getMyValidatorSort() == 1) {
+            self.sortType.text = NSLocalizedString("sort_by_name", comment: "")
             sortByName()
         } else {
+            self.sortType.text = NSLocalizedString("sort_by_reward", comment: "")
             sortByReward()
         }
         self.myValidatorTableView.reloadData()
@@ -128,7 +136,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("My didSelectRowAt")
         if (mainTabVC.mMyValidators.count > 0 && indexPath.row != mainTabVC.mMyValidators.count) {
             if let validator = self.mainTabVC.mMyValidators[indexPath.row] as? Validator {
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
@@ -352,9 +359,24 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             
         }
         
-        
-        
-        
+    }
+    
+    @objc func onStartSort() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_name", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
+            BaseData.instance.setMyValidatorSort(1)
+            self.onSortingMy()
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_my_delegate", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
+            BaseData.instance.setMyValidatorSort(0)
+            self.onSortingMy()
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("sort_by_reward", comment: ""), style: UIAlertAction.Style.default, handler: { (action) in
+            BaseData.instance.setMyValidatorSort(2)
+            self.onSortingMy()
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     

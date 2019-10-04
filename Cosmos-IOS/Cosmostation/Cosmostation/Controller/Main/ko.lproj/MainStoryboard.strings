@@ -226,3 +226,13 @@
 
 /* Class = "UILabel"; text = "Address"; ObjectID = "Ev1-Hy-gni"; */
 "Ev1-Hy-gni.text" = "연 이율";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "hyZ-Se-gEv"; */
+"hyZ-Se-gEv.text" = "검증인";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "QKv-Xq-mSb"; */
+"QKv-Xq-mSb.text" = "검증인";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "Noq-kv-SCF"; */
+"Noq-kv-SCF.text" = "검증인";
+
