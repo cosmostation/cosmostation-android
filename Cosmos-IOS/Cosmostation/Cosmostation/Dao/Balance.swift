@@ -24,8 +24,16 @@ public class Balance {
         self.balance_denom = demon;
         self.balance_amount = amount;
         self.balance_fetch_time = fetch_time;
-        self.balance_frozen = frozen;
-        self.balance_locked = locked;
+        if (frozen != nil) {
+            self.balance_frozen = frozen;
+        } else {
+            self.balance_frozen = "0";
+        }
+        if (locked != nil) {
+            self.balance_locked = locked;
+        } else {
+            self.balance_locked = "0";
+        }
     }
     
     init(_ accout_id:Int64, _ demon:String, _ amount:String, _ fetch_time:Int64, _ frozen:String?, _ locked:String?) {
@@ -33,8 +41,16 @@ public class Balance {
         self.balance_denom = demon;
         self.balance_amount = amount;
         self.balance_fetch_time = fetch_time;
-        self.balance_frozen = frozen;
-        self.balance_locked = locked;
+        if (frozen != nil) {
+            self.balance_frozen = frozen;
+        } else {
+            self.balance_frozen = "0";
+        }
+        if (locked != nil) {
+            self.balance_locked = locked;
+        } else {
+            self.balance_locked = "0";
+        }
     }
     
     init(_ accout_id:Int64, _ demon:String, _ amount:String, _ fetch_time:Int64) {
@@ -45,7 +61,7 @@ public class Balance {
     }
     
     func getAllAmountBnbToken() -> NSDecimalNumber {
-        return WUtils.stringToDecimal(self.balance_amount).adding(WUtils.stringToDecimal(self.balance_locked!))
+        return WUtils.stringToDecimal(self.balance_amount).adding(WUtils.stringToDecimal(self.balance_locked))
     }
     
     func exchangeBnbValue(_ tic:NSMutableDictionary?) -> NSDecimalNumber {

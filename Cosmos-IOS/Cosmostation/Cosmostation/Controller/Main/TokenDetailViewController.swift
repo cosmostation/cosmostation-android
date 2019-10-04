@@ -185,11 +185,11 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:TokenDetailHeaderBnbCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderBnbCell") as? TokenDetailHeaderBnbCell
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if let balance = WUtils.getTokenBalace(balances, BNB_MAIN_DENOM) {
-            let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked!))
+            let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked))
             cell?.totalAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.totalAmount.font, 8, chainType!)
             cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
             cell?.availableAmount.attributedText = WUtils.displayAmount(balance.balance_amount, cell!.availableAmount.font, 8, chainType!)
-            cell?.lockedAmount.attributedText = WUtils.displayAmount(balance.balance_locked!, cell!.lockedAmount.font, 8, chainType!)
+            cell?.lockedAmount.attributedText = WUtils.displayAmount(balance.balance_locked, cell!.lockedAmount.font, 8, chainType!)
             cell?.actionSend  = {
                 self.onSendToken()
             }

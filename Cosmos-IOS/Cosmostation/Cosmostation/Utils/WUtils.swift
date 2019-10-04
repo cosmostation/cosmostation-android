@@ -327,7 +327,7 @@ class WUtils {
     }
     
     
-    static func stringToDecimal(_ input: String) -> NSDecimalNumber {
+    static func stringToDecimal(_ input: String?) -> NSDecimalNumber {
         let result = NSDecimalNumber(string: input, locale: Locale.current)
         if (NSDecimalNumber.notANumber == result) {
             return NSDecimalNumber.zero
@@ -375,7 +375,7 @@ class WUtils {
         return attributedString1
     }
     
-    static func displayAmount(_ amount: String, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
+    static func displayAmount(_ amount: String?, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = deciaml
         nf.maximumFractionDigits = deciaml

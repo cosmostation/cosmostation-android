@@ -162,7 +162,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             var allBnb = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == BNB_MAIN_DENOM) {
-                    allBnb = allBnb.adding(WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked!)))
+                    allBnb = allBnb.adding(WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked)))
                 } else {
                     allBnb = allBnb.adding(balance.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol(balance.balance_denom), mBnbTics)))
                 }
@@ -270,7 +270,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.text = bnbToken.original_symbol.uppercased()
             cell?.tokenTitle.text = "(" + bnbToken.symbol + ")"
             cell?.tokenDescription.text = bnbToken.name
-            let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked!))
+            let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked))
     
             if (balance.balance_denom == BNB_MAIN_DENOM) {
                 cell?.tokenSymbol.textColor = COLOR_BNB
