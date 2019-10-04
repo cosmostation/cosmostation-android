@@ -103,7 +103,7 @@
 "send_guide_title_iris" = "IRIS HUB";
 "send_guide_msg_iris" = "분산형 비즈니스 생태계를 위한 \n인터체인 서비스 인프라 & 프로토콜.";
 "send_guide_title_bnb" = "BINANCE CHAIN";
-"send_guide_msg_bnb" = "바이낸스가 구축한 Tendermint 기반의 빠르고 안전한 분산형 디지털 자산 거래소.";
+"send_guide_msg_bnb" = "바이낸스가 구축한 Tendermint 기반의 \n빠르고 안전한 분산형 디지털 자산 거래소.";
 "send_guide_btn1_cosmos" = "가이드";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -186,6 +186,7 @@
 "error_max_account_over" = "최대 5개의 지갑이 등록 가능합니다.";
 "error_reward_address_changed_title" = "이자 지급 주소 변경됨";
 "error_reward_address_changed_msg" = "이자 지급 주소가 변경된 계정입니다. 이자 즉시 위임 기능을 사용하실 수 없습니다.";
+"error_iris_token_yet" = "아이리스 토큰 전송은 더 많은 테스트 후에 지원하겠습니다.";
 
 "alert_title_no_private_key" = "관찰 모드 지갑";
 "alert_msg_no_private_key" = "관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.";

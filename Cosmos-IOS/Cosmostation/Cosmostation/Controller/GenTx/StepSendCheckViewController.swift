@@ -9,12 +9,14 @@
 import UIKit
 import Alamofire
 import BitcoinKit
+import BinanceChain
 import SwiftKeychainWrapper
 
 class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
 
     @IBOutlet weak var mToSendAmountLabel: UILabel!
     @IBOutlet weak var mFeeAmountLabel: UILabel!
+    @IBOutlet weak var mTotalSpendTitle: UILabel!
     @IBOutlet weak var mTotalSpendLabel: UILabel!
     @IBOutlet weak var mTotalSpendPrice: UILabel!
     
@@ -117,11 +119,22 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mCurrentBalanceDenomTitle.textColor = UIColor.white
                 mRemainBalanceTitle.textColor = UIColor.white
                 
+                mTotalSpendTitle.isHidden = true
+                mTotalSpendLabel.isHidden = true
+                mToSpendDenomTitle.isHidden = true
+                mTotalSpendPrice.isHidden = true
+                mReminaingPrice.isHidden = true
+                
+                currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mBnbToken!.symbol)
+                mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 8, pageHolderVC.chainType!)
+                mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, mFeeAmountLabel.font, 8, pageHolderVC.chainType!)
+                
+                mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 8, pageHolderVC.chainType!)
+                mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 8, pageHolderVC.chainType!)
+                
             }
             
         }
-        print("currentAva ", currentAva)
-        
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
         mToAddressLabel.adjustsFontSizeToFitWidth = true
         mMemoLabel.text = pageHolderVC.mMemo
@@ -130,7 +143,11 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                self.onGenBnbSendTx()
+            }
         }
     }
     
@@ -197,23 +214,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
             do {
                 let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
-                
-                let msg = MsgGenerator.genGetSendMsg(self.pageHolderVC.mAccount!.account_address,
-                                                     self.pageHolderVC.mToSendRecipientAddress!,
-                                                     self.pageHolderVC.mToSendAmount,
-                                                     self.pageHolderVC.chainType!)
+                let msg = MsgGenerator.genGetSendMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mToSendRecipientAddress!, self.pageHolderVC.mToSendAmount, self.pageHolderVC.chainType!)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                
                 if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
-                                                           String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                           String(self.pageHolderVC.mAccount!.account_sequence_number),
-                                                           msgList,
-                                                           self.pageHolderVC.mFee!,
-                                                           self.pageHolderVC.mMemo!)
-                    
+                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
                     let data = try? encoder.encode(stdMsg)
@@ -221,7 +227,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     let rawData: Data? = rawResult!.data(using: .utf8)
                     let hash = Crypto.sha256(rawData!)
                     let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-
+                    
                     var genedSignature = Signature.init()
                     var genPubkey =  PublicKey.init()
                     genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
@@ -230,20 +236,14 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     genedSignature.signature = WKey.convertSignature(signedData!)
                     genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
                     genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-
+                    
                     var signatures: Array<Signature> = Array<Signature>()
                     signatures.append(genedSignature)
-
+                    
                     stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
-
+                    
                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                    let irisStdMsg = MsgGenerator.getIrisToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain),
-                                                                   String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                                   String(self.pageHolderVC.mAccount!.account_sequence_number),
-                                                                   msgList,
-                                                                   self.pageHolderVC.mFee!,
-                                                                   self.pageHolderVC.mMemo!)
-
+                    let irisStdMsg = MsgGenerator.getIrisToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner),  String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
                     let data = try? encoder.encode(irisStdMsg)
@@ -265,6 +265,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     signatures.append(genedSignature)
                     
                     stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
+                    
                 }
                 
                 
@@ -320,5 +321,63 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 }
             });
         }
+    }
+    
+    
+    
+    func onGenBnbSendTx() {
+        print("onGenBnbSendTx")
+        self.showWaittingAlert()
+        DispatchQueue.global().async {
+            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+                return
+            }
+            
+            let binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
+            let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
+            let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+            var txResult = [String:Any]()
+            
+            wallet.synchronise(){ (error) in
+                if let error = error {
+                    if(SHOW_LOG) { print(error) }
+                    if (self.waitAlert != nil) {
+                        self.waitAlert?.dismiss(animated: true, completion: {
+                            txResult["type"] = BNB_MSG_TYPE_TRANSFER
+                            self.onStartTxResult(txResult)
+                        })
+                    }
+                }
+                let bnbMsg = Message.transfer2(symbol: self.pageHolderVC.mToSendAmount[0].denom,
+                                              amount: (self.pageHolderVC.mToSendAmount[0].amount as NSString).doubleValue,
+                                              to: self.pageHolderVC.mToSendRecipientAddress!,
+                                              memo: self.pageHolderVC.mMemo!,
+                                              wallet: wallet)
+                
+                
+                
+                binance.broadcast(message: bnbMsg, sync: true) { (response) in
+                    if let error = response.error {
+                        if(SHOW_LOG) { print(error.localizedDescription) }
+                        if (self.waitAlert != nil) {
+                            self.waitAlert?.dismiss(animated: true, completion: {
+                                txResult["type"] = BNB_MSG_TYPE_TRANSFER
+                                self.onStartTxResult(txResult)
+                            })
+                        }
+                    }
+                    if (self.waitAlert != nil) {
+                        self.waitAlert?.dismiss(animated: true, completion: {
+                            txResult["type"] = BNB_MSG_TYPE_TRANSFER
+                            txResult["hash"] = response.broadcast[0].hash
+                            self.onStartTxResult(txResult)
+                        })
+                    }
+                    print(response.broadcast)
+                }
+
+            }
+        }
+        
     }
 }

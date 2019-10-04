@@ -184,6 +184,7 @@
 "error_same_reward_address" = "This address is already registered as your claim reward address.";
 "error_redelegation_limitted" = "You have redelegated to this validator in the past 21 days.";
 "error_max_account_over" = "Max account is 5.";
+"error_iris_token_yet" = "Iris token sending will support soon!";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";

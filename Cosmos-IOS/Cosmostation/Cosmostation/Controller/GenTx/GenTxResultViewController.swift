@@ -138,7 +138,6 @@ class GenTxResultViewController: BaseViewController {
         WUtils.setDenomTitle(mChain!, reInvestDenomFee)
         
         if (mChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            chainBg.image = UIImage(named: "bg_cosmos")
             guard let txType = response?["type"] as? String, let txHash = response?["txhash"] as? String  else {
                 self.onStartMainTab()
                 return
@@ -152,7 +151,6 @@ class GenTxResultViewController: BaseViewController {
             }
             
         } else if (mChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            chainBg.image = UIImage(named: "bg_iris")
             if let net_error = response?["net_error"] as? Int {
                 onShowErrorView(net_error)
                 return
@@ -169,6 +167,14 @@ class GenTxResultViewController: BaseViewController {
                 onShowErrorView(code)
                 return
             }
+            
+        } else if (mChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            guard let txType = response?["type"] as? String, let txHash = response?["hash"] as? String  else {
+                self.onStartMainTab()
+                return
+            }
+            mTxType = txType
+            mTxHash = txHash
         }
     
         self.loadingImgs.onStartAnimation()
@@ -284,7 +290,7 @@ class GenTxResultViewController: BaseViewController {
             }
             
             
-        } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2 || mTxType == IRIS_MSG_TYPE_TRANSFER) {
+        } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2 || mTxType == IRIS_MSG_TYPE_TRANSFER || mTxType == BNB_MSG_TYPE_TRANSFER) {
             self.sendResultView.isHidden = false
             self.loadingView.isHidden = true
             sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
@@ -307,6 +313,22 @@ class GenTxResultViewController: BaseViewController {
                 
                 sendResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.inputs![0].coins[0].amount)!, sendResultAmount.font, 18, self.mChain!)
                 sendResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.mChain!)
+                sendResultToAddress.text = mTxInfo?.tx.value.msg[0].value.outputs![0].address
+                sendResultToAddress.adjustsFontSizeToFitWidth = true
+                sendResultMemo.text = mTxInfo?.tx.value.memo
+                
+            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                sendResultHash.text = mTxInfo?.hash
+                sendResultBlock.text = mTxInfo?.height
+                sendResultTime.text = "-"
+                
+                if (mTxInfo?.tx.value.msg[0].value.inputs![0].coins[0].denom != BNB_MAIN_DENOM) {
+                    sendDenomAmount.textColor = UIColor.white
+                    sendDenomAmount.text = mTxInfo?.tx.value.msg[0].value.inputs![0].coins[0].denom
+                }
+                
+                sendResultAmount.attributedText = WUtils.displayAmount2((mTxInfo?.tx.value.msg[0].value.inputs![0].coins[0].amount)!, sendResultAmount.font, 8, 8)
+                sendResultFee.attributedText = WUtils.displayAmount2(GAS_FEE_BNB_TRANSFER, delegateResultFee.font, 0, 8)
                 sendResultToAddress.text = mTxInfo?.tx.value.msg[0].value.outputs![0].address
                 sendResultToAddress.adjustsFontSizeToFitWidth = true
                 sendResultMemo.text = mTxInfo?.tx.value.memo
@@ -428,6 +450,11 @@ class GenTxResultViewController: BaseViewController {
             guard let url = URL(string: "https://irishub.mintscan.io/txs/" + mTxInfo!.hash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            guard let url = URL(string: "https://explorer.binance.org/tx/" + mTxInfo!.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -441,6 +468,13 @@ class GenTxResultViewController: BaseViewController {
             
         } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let text = "https://irishub.mintscan.io/txs/" + mTxInfo!.hash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            let text = "https://explorer.binance.org/tx/" + mTxInfo!.hash
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
@@ -472,15 +506,20 @@ class GenTxResultViewController: BaseViewController {
     var fetchCnt = 10
     func onFetchTx(_ txHash: String) {
         var url = ""
+        var request:DataRequest?
         if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             url = CSS_LCD_URL_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             url = IRIS_LCD_URL_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            
+        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            url = BNB_URL_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
         }
-        print("url ", url)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
+        request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 if(SHOW_LOG) { print("onFetchTx ", res) }

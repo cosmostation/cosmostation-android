@@ -210,7 +210,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.totalAmount.adjustsFontSizeToFitWidth = true
             cell?.availableAmount.attributedText = WUtils.displayAmount2(balance!.balance_amount, cell!.availableAmount.font, irisToken!.base_token!.decimal, irisToken!.base_token!.decimal)
             cell?.actionSend  = {
-                //TODO no support iris token yet!
+                self.onShowToast(NSLocalizedString("error_iris_token_yet", comment: ""))
             }
 
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN && bnbToken != nil) {

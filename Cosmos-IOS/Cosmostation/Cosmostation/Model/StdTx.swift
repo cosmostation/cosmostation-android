@@ -34,7 +34,11 @@ public class StdTx: Codable {
                 self.msg.append(Msg(rawMsg as! [String : Any]))
             }
             
-            self.fee = Fee.init(dictionary["fee"] as! [String : Any])
+//            self.fee = Fee.init(dictionary["fee"] as? [String : Any])
+            
+            if let feedata = dictionary["fee"] as? [String : Any] {
+                self.fee = Fee.init(feedata)
+            }
             
             self.signatures.removeAll()
             let rawSignatures = dictionary["signatures"] as! Array<NSDictionary>

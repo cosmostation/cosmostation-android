@@ -40,13 +40,15 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             }
         
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            self.denomTitleLabel.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
             if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
-                print("BNB")
                 maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getBnbBalance()).subtracting(NSDecimalNumber.init(string: "0.000375"))
                 mAvailableAmountLabel.attributedText = WUtils.displayAmount(maxAvailable.stringValue, mAvailableAmountLabel.font, 8, pageHolderVC.chainType!)
                 
             } else {
-                print("BEP")
+                self.denomTitleLabel.textColor = UIColor.white
+                maxAvailable = self.pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mBnbToken!.symbol)
+                mAvailableAmountLabel.attributedText = WUtils.displayAmount(maxAvailable.stringValue, mAvailableAmountLabel.font, 8, pageHolderVC.chainType!)
             }
         }
         

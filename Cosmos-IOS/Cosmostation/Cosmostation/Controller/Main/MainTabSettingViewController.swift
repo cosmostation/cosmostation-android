@@ -55,11 +55,9 @@ class MainTabSettingViewController: BaseViewController {
         
         titleChainName.textColor = WUtils.getChainColor(userChain!)
         if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            chainBg.image = UIImage(named: "bg_cosmos")
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
         } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            chainBg.image = UIImage(named: "bg_iris")
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {

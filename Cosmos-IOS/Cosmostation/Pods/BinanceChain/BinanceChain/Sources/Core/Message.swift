@@ -85,6 +85,15 @@ public class Message {
         message.toAddress = address
         return message
     }
+    
+    public static func transfer2(symbol: String, amount: Double, to address: String, memo: String, wallet: Wallet) -> Message {
+        let message = Message(type: .transfer, wallet: wallet)
+        message.symbol = symbol
+        message.amount = amount
+        message.toAddress = address
+        message.memo = memo
+        return message
+    }
 
     public static func vote(proposalId: Int, vote option: VoteOption, wallet: Wallet) -> Message {
         let message = Message(type: .vote, wallet: wallet)

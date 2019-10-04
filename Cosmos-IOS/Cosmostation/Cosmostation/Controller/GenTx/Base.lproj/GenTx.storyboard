@@ -2387,10 +2387,10 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bycicle" translatesAutoresizingMaskIntoConstraints="NO" id="Dh7-r8-QZm">
-                                <rect key="frame" x="152" y="290.5" width="16" height="16"/>
+                                <rect key="frame" x="115" y="290.5" width="90" height="62"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only a handful of validators will process this Tx" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="riU-g3-Hyc">
-                                <rect key="frame" x="46" y="314.5" width="228.5" height="13"/>
+                                <rect key="frame" x="46" y="360.5" width="228.5" height="13"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -3436,6 +3436,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                         <outlet property="mToSpendDenomTitle" destination="SND-Hn-2SF" id="uXf-J6-DOb"/>
                         <outlet property="mTotalSpendLabel" destination="KIB-9Q-ntd" id="6OK-s1-48P"/>
                         <outlet property="mTotalSpendPrice" destination="ufC-VN-wuz" id="HpT-W6-lG0"/>
+                        <outlet property="mTotalSpendTitle" destination="IA5-XZ-ucD" id="5OT-TN-xpS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ci-Jt-pe6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4231,8 +4232,8 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXX-jE-r3T">
-                                        <rect key="frame" x="238" y="189" width="34" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QN7-mN-1gX">
+                                        <rect key="frame" x="238" y="156.5" width="34" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4249,8 +4250,8 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QN7-mN-1gX">
-                                        <rect key="frame" x="238" y="156.5" width="34" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXX-jE-r3T">
+                                        <rect key="frame" x="238" y="189" width="34" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
@@ -5739,8 +5740,8 @@ After a few moments, the full results will be displayed.</string>
                         <outlet property="rewardResultTime" destination="3xM-Xf-vRS" id="7VJ-Dk-AuV"/>
                         <outlet property="rewardResultType" destination="AlB-IH-0c1" id="aA9-Yi-GaX"/>
                         <outlet property="rewardResultView" destination="4DE-hW-f7c" id="n00-bu-8Jo"/>
-                        <outlet property="sendDenomAmount" destination="iXX-jE-r3T" id="HLW-Pw-isv"/>
-                        <outlet property="sendDenomFee" destination="QN7-mN-1gX" id="Sxk-ZL-cgd"/>
+                        <outlet property="sendDenomAmount" destination="QN7-mN-1gX" id="U5a-Ie-9GD"/>
+                        <outlet property="sendDenomFee" destination="iXX-jE-r3T" id="k5b-bI-SGr"/>
                         <outlet property="sendResultAmount" destination="Hrd-9f-M4u" id="6Bp-ez-VNv"/>
                         <outlet property="sendResultBlock" destination="R0V-PD-YpM" id="tvc-MR-Xni"/>
                         <outlet property="sendResultFee" destination="55a-vm-qSv" id="eyP-RF-8AW"/>

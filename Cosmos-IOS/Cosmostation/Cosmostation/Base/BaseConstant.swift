@@ -80,6 +80,7 @@ let BNB_URL_ACCOUNT_INFO                = BNB_URL + "api/v1/account/";
 let BNB_URL_TOKENS                      = BNB_URL + "api/v1/tokens";
 let BNB_URL_TIC                         = BNB_URL + "api/v1/ticker/24hr";
 let BNB_URL_HISTORY                     = BNB_URL + "api/v1/transactions";
+let BNB_URL_TX                          = BNB_URL + "api/v1/tx/";
 
 
 
