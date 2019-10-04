@@ -42,11 +42,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         userChain = WUtils.getChainType(mAccount!.account_base_chain)
         
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            chainBg.image = UIImage(named: "bg_cosmos")
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            chainBg.image = UIImage(named: "bg_iris")
-        }
+//        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+//            chainBg.image = UIImage(named: "bg_cosmos")
+//        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+//            chainBg.image = UIImage(named: "bg_iris")
+//        }
         
         self.validatorDetailTableView.delegate = self
         self.validatorDetailTableView.dataSource = self

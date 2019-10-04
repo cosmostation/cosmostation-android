@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -101,6 +101,15 @@
 		E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E177490322842724003D8CD1 /* MyValidatorCell.xib */; };
 		E1774908228523C5003D8CD1 /* GuideDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1774906228523C5003D8CD1 /* GuideDetailViewController.swift */; };
 		E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1774907228523C5003D8CD1 /* GuideDetailViewController.xib */; };
+		E17B213123470222001743D6 /* TokenDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B213023470222001743D6 /* TokenDetailViewController.swift */; };
+		E17B213C23470932001743D6 /* TokenDetailHeaderCosmosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B213A23470932001743D6 /* TokenDetailHeaderCosmosCell.swift */; };
+		E17B213D23470932001743D6 /* TokenDetailHeaderCosmosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17B213B23470932001743D6 /* TokenDetailHeaderCosmosCell.xib */; };
+		E17B214023470941001743D6 /* TokenDetailHeaderIrisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B213E23470941001743D6 /* TokenDetailHeaderIrisCell.swift */; };
+		E17B214123470941001743D6 /* TokenDetailHeaderIrisCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17B213F23470941001743D6 /* TokenDetailHeaderIrisCell.xib */; };
+		E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B214223470950001743D6 /* TokenDetailHeaderBnbCell.swift */; };
+		E17B214523470950001743D6 /* TokenDetailHeaderBnbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17B214323470950001743D6 /* TokenDetailHeaderBnbCell.xib */; };
+		E17B214823470960001743D6 /* TokenDetailHeaderCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B214623470960001743D6 /* TokenDetailHeaderCustomCell.swift */; };
+		E17B214923470960001743D6 /* TokenDetailHeaderCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E17B214723470960001743D6 /* TokenDetailHeaderCustomCell.xib */; };
 		E1827E112254C92900BC0350 /* WalletDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E0F2254C92900BC0350 /* WalletDetailViewController.swift */; };
 		E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */; };
 		E1827E18225620D000BC0350 /* VaildatorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1827E17225620D000BC0350 /* VaildatorDetailViewController.swift */; };
@@ -302,6 +311,15 @@
 		E177490222842724003D8CD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MyValidatorCell.xib; sourceTree = "<group>"; };
 		E1774906228523C5003D8CD1 /* GuideDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDetailViewController.swift; sourceTree = "<group>"; };
 		E1774907228523C5003D8CD1 /* GuideDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideDetailViewController.xib; sourceTree = "<group>"; };
+		E17B213023470222001743D6 /* TokenDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailViewController.swift; sourceTree = "<group>"; };
+		E17B213A23470932001743D6 /* TokenDetailHeaderCosmosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailHeaderCosmosCell.swift; sourceTree = "<group>"; };
+		E17B213B23470932001743D6 /* TokenDetailHeaderCosmosCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailHeaderCosmosCell.xib; sourceTree = "<group>"; };
+		E17B213E23470941001743D6 /* TokenDetailHeaderIrisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailHeaderIrisCell.swift; sourceTree = "<group>"; };
+		E17B213F23470941001743D6 /* TokenDetailHeaderIrisCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailHeaderIrisCell.xib; sourceTree = "<group>"; };
+		E17B214223470950001743D6 /* TokenDetailHeaderBnbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailHeaderBnbCell.swift; sourceTree = "<group>"; };
+		E17B214323470950001743D6 /* TokenDetailHeaderBnbCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailHeaderBnbCell.xib; sourceTree = "<group>"; };
+		E17B214623470960001743D6 /* TokenDetailHeaderCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailHeaderCustomCell.swift; sourceTree = "<group>"; };
+		E17B214723470960001743D6 /* TokenDetailHeaderCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailHeaderCustomCell.xib; sourceTree = "<group>"; };
 		E1827E0F2254C92900BC0350 /* WalletDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewController.swift; sourceTree = "<group>"; };
 		E1827E132255E6AE00BC0350 /* WalletCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCheckViewController.swift; sourceTree = "<group>"; };
 		E1827E17225620D000BC0350 /* VaildatorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaildatorDetailViewController.swift; sourceTree = "<group>"; };
@@ -411,7 +429,6 @@
 				6B042F5D287C37C196F1B0D9 /* Pods-Cosmostation.debug.xcconfig */,
 				9D1CB9B2927475C5A0FBD6CC /* Pods-Cosmostation.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -587,13 +604,14 @@
 				E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */,
 				E1945E49222E81B300A1436F /* MainTabHistoryViewController.swift */,
 				E1945E4D222E81D000A1436F /* MainTabSettingViewController.swift */,
+				E1945E47222E81A300A1436F /* ValidatorListViewController.swift */,
 				E1A82DED2244DE680097CAEE /* MyValidatorViewController.swift */,
 				E1A82DEF2244E0BD0097CAEE /* AllValidatorViewController.swift */,
 				E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */,
-				E19A321F22547EA100A05E41 /* AddViewController.swift */,
-				E1945E47222E81A300A1436F /* ValidatorListViewController.swift */,
 				E1827E17225620D000BC0350 /* VaildatorDetailViewController.swift */,
 				E1945E4B222E81C200A1436F /* VoteListViewController.swift */,
+				E17B213023470222001743D6 /* TokenDetailViewController.swift */,
+				E19A321F22547EA100A05E41 /* AddViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -735,6 +753,14 @@
 				E1FD233B233E1C44009327FE /* WalletGuideCell.xib */,
 				E16B89132341C558003E0922 /* TokenCell.swift */,
 				E16B89142341C558003E0922 /* TokenCell.xib */,
+				E17B213A23470932001743D6 /* TokenDetailHeaderCosmosCell.swift */,
+				E17B213B23470932001743D6 /* TokenDetailHeaderCosmosCell.xib */,
+				E17B213E23470941001743D6 /* TokenDetailHeaderIrisCell.swift */,
+				E17B213F23470941001743D6 /* TokenDetailHeaderIrisCell.xib */,
+				E17B214223470950001743D6 /* TokenDetailHeaderBnbCell.swift */,
+				E17B214323470950001743D6 /* TokenDetailHeaderBnbCell.xib */,
+				E17B214623470960001743D6 /* TokenDetailHeaderCustomCell.swift */,
+				E17B214723470960001743D6 /* TokenDetailHeaderCustomCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -829,7 +855,9 @@
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
 				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
 				E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */,
+				E17B214123470941001743D6 /* TokenDetailHeaderIrisCell.xib in Resources */,
 				E103DAC9228129FD006C2146 /* WalletManageViewController.xib in Resources */,
+				E17B213D23470932001743D6 /* TokenDetailHeaderCosmosCell.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
 				E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
@@ -844,6 +872,7 @@
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
 				E136D8A42303C581001BEBB8 /* GoogleService-Info.plist in Resources */,
+				E17B214923470960001743D6 /* TokenDetailHeaderCustomCell.xib in Resources */,
 				E103DAAF22812773006C2146 /* ValidatorDetailHistoryEmpty.xib in Resources */,
 				E103DAD3228143D0006C2146 /* WalletCheckViewController.xib in Resources */,
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
@@ -851,6 +880,7 @@
 				E103DADE22814802006C2146 /* Init.storyboard in Resources */,
 				E103DAE322814DFC006C2146 /* GenTx.storyboard in Resources */,
 				E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */,
+				E17B214523470950001743D6 /* TokenDetailHeaderBnbCell.xib in Resources */,
 				E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -908,6 +938,7 @@
 				E1A82DEA2244A20B0097CAEE /* BondingInfo.swift in Sources */,
 				E1406FC422607B8500D9440C /* LoadingImageView.swift in Sources */,
 				E19A321E22547DF400A05E41 /* SBCardPopupViewController.swift in Sources */,
+				E17B214023470941001743D6 /* TokenDetailHeaderIrisCell.swift in Sources */,
 				E1945E48222E81A300A1436F /* ValidatorListViewController.swift in Sources */,
 				E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */,
 				E1827E112254C92900BC0350 /* WalletDetailViewController.swift in Sources */,
@@ -969,6 +1000,7 @@
 				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
 				E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */,
+				E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
@@ -993,6 +1025,7 @@
 				E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */,
 				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
+				E17B213123470222001743D6 /* TokenDetailViewController.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
 				E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */,
 				E17748F3228422BE003D8CD1 /* GuideViewController.swift in Sources */,
@@ -1010,6 +1043,7 @@
 				E1406FC22260654F00D9440C /* TxInfo.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,
+				E17B213C23470932001743D6 /* TokenDetailHeaderCosmosCell.swift in Sources */,
 				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
@@ -1024,6 +1058,7 @@
 				E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */,
 				E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
+				E17B214823470960001743D6 /* TokenDetailHeaderCustomCell.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
 				E1F7F63223421394000E597F /* IrisToken.swift in Sources */,
 				E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */,

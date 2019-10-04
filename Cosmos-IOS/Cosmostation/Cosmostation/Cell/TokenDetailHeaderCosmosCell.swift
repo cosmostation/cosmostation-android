@@ -1,14 +1,14 @@
 //
-//  WalletCosmosCell.swift
+//  TokenDetailHeaderCosmosCell.swift
 //  Cosmostation
 //
-//  Created by yongjoo on 27/09/2019.
+//  Created by yongjoo on 04/10/2019.
 //  Copyright © 2019 wannabit. All rights reserved.
 //
 
 import UIKit
 
-class WalletCosmosCell: UITableViewCell {
+class TokenDetailHeaderCosmosCell: UITableViewCell {
     
     @IBOutlet weak var totalAmount: UILabel!
     @IBOutlet weak var totalValue: UILabel!
@@ -16,20 +16,19 @@ class WalletCosmosCell: UITableViewCell {
     @IBOutlet weak var delegatedAmount: UILabel!
     @IBOutlet weak var unbondingAmount: UILabel!
     @IBOutlet weak var rewardAmount: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
     }
-    
-    var actionDelegate: (() -> Void)? = nil
-    var actionVote: (() -> Void)? = nil
-    
-    @IBAction func onClickDelegate(_ sender: Any) {
-        actionDelegate?()
-    }
-    @IBAction func onClickVote(_ sender: Any) {
-        actionVote?()
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
     }
     
+    var actionSend: (() -> Void)? = nil
+    
+    @IBAction func onClickSend(_ sender: Any) {
+        actionSend?()
+    }
 }

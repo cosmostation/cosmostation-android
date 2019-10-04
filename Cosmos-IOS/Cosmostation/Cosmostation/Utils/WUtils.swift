@@ -411,6 +411,39 @@ class WUtils {
         return attributedString1
     }
     
+    static func displayAmount2(_ amount: String, _ font:UIFont, _ inputPoint:Int, _ dpPoint:Int) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = dpPoint
+        nf.maximumFractionDigits = dpPoint
+        nf.numberStyle = .decimal
+        
+        let amount = stringToDecimal(amount)
+        let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(dpPoint), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+        
+        var formatted: String?
+        if (amount == NSDecimalNumber.zero) {
+            formatted = nf.string(from: NSDecimalNumber.zero)
+        } else {
+            formatted = nf.string(from: amount.multiplying(byPowerOf10: -Int16(inputPoint), withBehavior: handler))
+        }
+        
+        let added       = formatted
+        let endIndex    = added!.index(added!.endIndex, offsetBy: -dpPoint)
+        
+        let preString   = added![..<endIndex]
+        let postString  = added![endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
+    
     static func dpTokenAvailable(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for balance in balances {

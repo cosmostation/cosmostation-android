@@ -114,7 +114,7 @@
 "amount" = "수량";
 "value" = "금액";
 "mintscan_explorer" = "민트스켄 익스플로러";
-"binanace_explorer" = "바이넨스 익스플로러";
+"binanace_explorer" = "바이낸스 익스플로러";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";
@@ -149,6 +149,7 @@
 "title_validator_list" = "검증인 목록";
 "title_validator_detail" = "검증인 상세";
 "title_vote_list" = "투표 목록";
+"title_token_detail" = "토큰 상세";
 "title_reword_address_change" = "이자 지급 주소 변경";
 "title_reinvest" = "이자 즉시 위임";
 "title_guide" = "도움말";

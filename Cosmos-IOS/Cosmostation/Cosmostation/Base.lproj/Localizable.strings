@@ -150,6 +150,7 @@
 "title_validator_list" = "Validator List";
 "title_validator_detail" = "Validator Details";
 "title_vote_list" = "Proposal List";
+"title_token_detail" = "Token Details";
 "title_reword_address_change" = "Reward Address Change";
 "title_reinvest" = "Re-Invest";
 "title_guide" = "FAQ";

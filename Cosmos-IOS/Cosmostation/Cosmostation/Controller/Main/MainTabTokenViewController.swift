@@ -191,7 +191,29 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("select ", indexPath.row)
+        let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
+        tokenDetailVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
+            tokenDetailVC.allValidator = mainTabVC.mAllValidator
+            tokenDetailVC.allRewards = mainTabVC.mRewardList
+            self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
+            tokenDetailVC.allValidator = mainTabVC.mAllValidator
+            tokenDetailVC.irisToken = WUtils.getIrisToken(mainTabVC.mIrisTokenList, mainTabVC.mBalances[indexPath.row])
+            tokenDetailVC.irisRewards = mainTabVC.mIrisRewards
+            self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
+            tokenDetailVC.bnbToken = WUtils.getBnbToken(mainTabVC.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
+            tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
+            self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+        }
+        
     }
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
