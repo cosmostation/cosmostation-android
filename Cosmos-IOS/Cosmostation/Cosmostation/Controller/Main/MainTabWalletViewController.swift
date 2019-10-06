@@ -346,9 +346,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
                 cell?.availableAmount.attributedText = WUtils.displayAmount(balance.balance_amount, cell!.availableAmount.font, 6, chainType!)
                 cell?.lockedAmount.attributedText = WUtils.displayAmount(balance.balance_locked, cell!.lockedAmount.font, 6, chainType!)
-                cell?.actionWC = {
-                    self.onClickWalletConect()
-                }
+            } else {
+                cell?.totalAmount.attributedText = WUtils.displayAmount("0", cell!.totalAmount.font, 6, chainType!)
+                cell?.totalValue.attributedText = WUtils.dpBnbValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+                cell?.availableAmount.attributedText = WUtils.displayAmount("0", cell!.availableAmount.font, 6, chainType!)
+                cell?.lockedAmount.attributedText = WUtils.displayAmount("0", cell!.lockedAmount.font, 6, chainType!)
+            }
+            cell?.actionWC = {
+                self.onClickWalletConect()
             }
             return cell!
             
