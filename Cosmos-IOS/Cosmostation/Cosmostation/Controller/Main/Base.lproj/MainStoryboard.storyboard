@@ -112,10 +112,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lAa-HU-H1G">
-                                <rect key="frame" x="80" y="52" width="215" height="32"/>
+                                <rect key="frame" x="105.66666666666669" y="52" width="164" height="32"/>
                                 <segments>
                                     <segment title="My"/>
-                                    <segment title="Top 100 "/>
+                                    <segment title="Top"/>
                                     <segment title="Other"/>
                                 </segments>
                                 <color key="tintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>

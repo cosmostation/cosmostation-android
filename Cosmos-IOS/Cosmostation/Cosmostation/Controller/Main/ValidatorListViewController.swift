@@ -45,18 +45,22 @@ class ValidatorListViewController: BaseViewController {
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            validatorSegment.tintColor = COLOR_ATOM
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            validatorSegment.tintColor = COLOR_IRIS
+        if #available(iOS 13.0, *) {
+            validatorSegment.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+            validatorSegment.setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
+            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_COSMOS
+            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_IRIS
+            }
+            
+        } else {
+            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                validatorSegment.tintColor = COLOR_ATOM
+            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                validatorSegment.tintColor = COLOR_IRIS
+            }
         }
-        
-//        validatorSegment.tintColor = UIColor.red
-//        if #available(iOS 13.0, *) {
-//            validatorSegment.selectedSegmentTintColor = UIColor.red
-//        } else {
-//            // Fallback on earlier versions
-//        }
 
     }
     
