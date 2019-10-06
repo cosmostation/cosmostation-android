@@ -116,6 +116,8 @@
 "mintscan_explorer" = "Mintscan Explorer";
 "binanace_explorer" = "Binance Explorer";
 "disconnected" = "Disconnected";
+"wc_alert_title" = "Wallet Connect";
+"wc_alert_msg" = "Would you like to link your wallet to Binance Dax Exchange?";
 "wc_request_sign_title" = "Request Transaction Sign";
 "wc_request_sign_msg" = "\nPlease check the contents and decide.\nIt affects your assets.";
 "wc_request_cancel_msg" = "\nPlease check the contents and decide.\n\nCancel Order.";

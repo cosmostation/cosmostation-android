@@ -44,6 +44,12 @@ class WalletConnectViewController: BaseViewController {
         self.navigationItem.title = NSLocalizedString("title_wallet_connect", comment: "");
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.isIdleTimerDisabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,6 +59,13 @@ class WalletConnectViewController: BaseViewController {
             return
         }
         self.onConnectSession(session)
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        if parent == nil {
+            self.interactor?.killSession().cauterize()
+        }
     }
     
     
