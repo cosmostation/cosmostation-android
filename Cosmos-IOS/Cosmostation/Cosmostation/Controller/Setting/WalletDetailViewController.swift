@@ -13,8 +13,6 @@ import Alamofire
 class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
 
     var accountId: Int64?
-    var mAccount: Account!
-    var userChain: ChainType?
     
     @IBOutlet weak var cardAddress: CardView!
     @IBOutlet weak var chainImg: UIImageView!
@@ -40,36 +38,38 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         updateView()
     }
     
-    
     func updateView() {
-        mAccount = BaseData.instance.selectAccountById(id: accountId!)
-        userChain = WUtils.getChainType(mAccount!.account_base_chain)
+        account = BaseData.instance.selectAccountById(id: accountId!)
+        chainType = WUtils.getChainType(account!.account_base_chain)
         
-        self.onFetchRewardAddress(mAccount.account_address)
-        if (mAccount.account_nick_name == "") {
-            walletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mAccount.account_id)
+        self.onFetchRewardAddress(account!.account_address)
+        if (account!.account_nick_name == "") {
+            walletName.text = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
         } else {
-            walletName.text = mAccount.account_nick_name
+            walletName.text = account?.account_nick_name
         }
         
-        walletAddress.text = mAccount.account_address
+        walletAddress.text = account?.account_address
         walletAddress.adjustsFontSizeToFitWidth = true
-        cardAddress.backgroundColor = WUtils.getChainBg(userChain!)
-        cardInfo.backgroundColor = WUtils.getChainBg(userChain!)
-        cardReward.backgroundColor = WUtils.getChainBg(userChain!)
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        cardAddress.backgroundColor = WUtils.getChainBg(chainType!)
+        cardInfo.backgroundColor = WUtils.getChainBg(chainType!)
+        cardReward.backgroundColor = WUtils.getChainBg(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             chainImg.image = UIImage(named: "cosmosWhMain")
             chainName.text = "Cosmos Hub"
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainImg.image = UIImage(named: "irisWh")
             chainName.text = "Iris Hub"
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            chainImg.image = UIImage(named: "binanceChImg")
+            chainName.text = "(Binance Chain)"
         }
-        importDate.text = WUtils.longTimetoString(input:mAccount.account_import_time)
+        importDate.text = WUtils.longTimetoString(input:account!.account_import_time)
         
-        if(mAccount.account_has_private)  {
+        if(account!.account_has_private)  {
             actionBtn.setTitle(NSLocalizedString("check_mnemonic", comment: ""), for: .normal)
             importState.text = NSLocalizedString("with_mnemonic", comment: "")
-            keyPath.text = BASE_PATH.appending(mAccount.account_path)
+            keyPath.text = BASE_PATH.appending(account!.account_path)
             pathTitle.isHidden = false
             keyPath.isHidden = false
             noKeyMsg.isHidden = true
@@ -114,8 +114,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             let textField = nameAlert?.textFields![0]
             let trimmedString = textField?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             if(trimmedString?.count ?? 0 > 0) {
-                self.mAccount!.account_nick_name = trimmedString!
-                BaseData.instance.updateAccount(self.mAccount!)
+                self.account!.account_nick_name = trimmedString!
+                BaseData.instance.updateAccount(self.account!)
                 BaseData.instance.setNeedRefresh(true)
                 self.updateView()
             }
@@ -129,73 +129,81 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     
     @IBAction func onClickQrCode(_ sender: Any) {
-        var qrCode = QRCode(self.mAccount.account_address)
-        qrCode?.backgroundColor = CIColor(rgba: "EEEEEE")
-        qrCode?.size = CGSize(width: 200, height: 200)
-        
-        var walletName: String?
-        if (self.mAccount!.account_nick_name == "") {
-            walletName = NSLocalizedString("wallet_dash", comment: "") + String(self.mAccount!.account_id)
+        var nickName:String?
+        if (account!.account_nick_name == "") {
+            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
         } else {
-            walletName = self.mAccount!.account_nick_name
+            nickName = account?.account_nick_name
         }
+        self.shareAddress(account!.account_address, nickName!)
         
-        let alert = UIAlertController(title: walletName, message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
-        alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.init(hexString: "EEEEEE")
-        alert.addAction(UIAlertAction(title: NSLocalizedString("share", comment: ""), style: .default, handler:  { [weak alert] (_) in
-            let shareTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_text", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
-                let text = self.mAccount.account_address
-                let textToShare = [ text ]
-                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-                activityViewController.popoverPresentationController?.sourceView = self.view
-                self.present(activityViewController, animated: true, completion: nil)
-            }))
-            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_qr", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
-                let image = qrCode?.image
-                let imageToShare = [ image! ]
-                let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
-                activityViewController.popoverPresentationController?.sourceView = self.view
-                self.present(activityViewController, animated: true, completion: nil)
-            }))
-            self.present(shareTypeAlert, animated: true) {
-                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
-                shareTypeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
-            }
-        }))
-        
-        alert.addAction(UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default, handler: { [weak alert] (_) in
-            UIPasteboard.general.string = self.mAccount.account_address
-            self.onShowToast(NSLocalizedString("address_copied", comment: ""))
-        }))
-        
-        let image = UIImageView(image: qrCode?.image)
-        image.contentMode = .scaleAspectFit
-        alert.view.addSubview(image)
-        image.translatesAutoresizingMaskIntoConstraints = false
-        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerX, relatedBy: .equal, toItem: alert.view, attribute: .centerX, multiplier: 1, constant: 0))
-        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: alert.view, attribute: .centerY, multiplier: 1, constant: 0))
-        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
-        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
-        self.present(alert, animated: true) {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
-            alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
-        }
+//        var qrCode = QRCode(self.mAccount.account_address)
+//        qrCode?.backgroundColor = CIColor(rgba: "EEEEEE")
+//        qrCode?.size = CGSize(width: 200, height: 200)
+//
+//        var walletName: String?
+//        if (self.mAccount!.account_nick_name == "") {
+//            walletName = NSLocalizedString("wallet_dash", comment: "") + String(self.mAccount!.account_id)
+//        } else {
+//            walletName = self.mAccount!.account_nick_name
+//        }
+//
+//        let alert = UIAlertController(title: walletName, message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+//        alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.init(hexString: "EEEEEE")
+//        alert.addAction(UIAlertAction(title: NSLocalizedString("share", comment: ""), style: .default, handler:  { [weak alert] (_) in
+//            let shareTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+//            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_text", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
+//                let text = self.mAccount.account_address
+//                let textToShare = [ text ]
+//                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+//                activityViewController.popoverPresentationController?.sourceView = self.view
+//                self.present(activityViewController, animated: true, completion: nil)
+//            }))
+//            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_qr", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
+//                let image = qrCode?.image
+//                let imageToShare = [ image! ]
+//                let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+//                activityViewController.popoverPresentationController?.sourceView = self.view
+//                self.present(activityViewController, animated: true, completion: nil)
+//            }))
+//            self.present(shareTypeAlert, animated: true) {
+//                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+//                shareTypeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+//            }
+//        }))
+//
+//        alert.addAction(UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default, handler: { [weak alert] (_) in
+//            UIPasteboard.general.string = self.mAccount.account_address
+//            self.onShowToast(NSLocalizedString("address_copied", comment: ""))
+//        }))
+//
+//        let image = UIImageView(image: qrCode?.image)
+//        image.contentMode = .scaleAspectFit
+//        alert.view.addSubview(image)
+//        image.translatesAutoresizingMaskIntoConstraints = false
+//        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerX, relatedBy: .equal, toItem: alert.view, attribute: .centerX, multiplier: 1, constant: 0))
+//        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .centerY, relatedBy: .equal, toItem: alert.view, attribute: .centerY, multiplier: 1, constant: 0))
+//        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
+//        alert.view.addConstraint(NSLayoutConstraint(item: image, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 140.0))
+//        self.present(alert, animated: true) {
+//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+//            alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+//        }
     }
     
     @IBAction func onClickRewardAddressChange(_ sender: UIButton) {
-        if (!mAccount!.account_has_private) {
+        if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
         }
         
-        var balances = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        var balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
@@ -205,9 +213,9 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         let noticeAlert = UIAlertController(title: NSLocalizedString("reward_address_notice_title", comment: ""), message: NSLocalizedString("reward_address_notice_msg", comment: ""), preferredStyle: .alert)
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { _ in
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            if (self.userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
-            } else if (self.userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (self.chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 txVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
             }
             self.navigationItem.title = ""
@@ -224,7 +232,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     
     @IBAction func onClickActionBtn(_ sender: Any) {
-        if(self.mAccount.account_has_private) {
+        if(self.account!.account_has_private) {
             let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
             self.navigationItem.title = ""
             self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
@@ -252,7 +260,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func confirmDelete() {
-        if(self.mAccount.account_has_private) {
+        if(self.account!.account_has_private) {
             let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
             self.navigationItem.title = ""
             self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
@@ -261,7 +269,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             self.navigationController?.pushViewController(passwordVC, animated: false)
             
         } else {
-            self.onDeleteWallet(mAccount)
+            self.onDeleteWallet(account!)
         }
     }
     
@@ -277,14 +285,14 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         } else if (result == PASSWORD_RESUKT_OK_FOR_DELETE) {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(310), execute: {
-                self.onDeleteWallet(self.mAccount)
+                self.onDeleteWallet(self.account!)
             })
             
         }
     }
     
     func onFetchRewardAddress(_ accountAddr: String) {
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
             let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
             request.responseJSON { (response) in
@@ -310,7 +318,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 }
             }
             
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
             let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
             request.responseString { (response) in

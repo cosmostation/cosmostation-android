@@ -10,7 +10,6 @@ import UIKit
 import Alamofire
 import Floaty
 import SafariServices
-import BinanceChain
 import SwiftKeychainWrapper
 
 class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate, QrScannerDelegate, PasswordViewDelegate {
@@ -344,7 +343,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             if let balance = WUtils.getTokenBalace(mainTabVC.mBalances, BNB_MAIN_DENOM) {
                 let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked))
                 cell?.totalAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.totalAmount.font, 6, chainType!)
-                cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
+                cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
                 cell?.availableAmount.attributedText = WUtils.displayAmount(balance.balance_amount, cell!.availableAmount.font, 6, chainType!)
                 cell?.lockedAmount.attributedText = WUtils.displayAmount(balance.balance_locked, cell!.lockedAmount.font, 6, chainType!)
                 cell?.actionWC = {

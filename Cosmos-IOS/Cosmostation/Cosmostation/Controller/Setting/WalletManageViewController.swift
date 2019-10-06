@@ -122,6 +122,8 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             cell?.chainImg.image = UIImage(named: "irisWh")
             
+        } else if (userChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            cell?.chainImg.image = UIImage(named: "binanceChImg")
         }
         
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
@@ -173,6 +175,25 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     }
                 case .failure(let error):
                     if (SHOW_LOG) { print("onAccountInfo ", error) }
+                }
+            }
+        } else if (userChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            let request = Alamofire.request(BNB_URL_ACCOUNT_INFO + account!.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
+                    guard let info = res as? [String : Any] else {
+                        return
+                    }
+                    let bnbAccountInfo = BnbAccountInfo.init(info)
+                    for bnbBalance in bnbAccountInfo.balances {
+                        if (bnbBalance.symbol == BNB_MAIN_DENOM) {
+                            cell?.amount.attributedText = WUtils.displayAmount(bnbBalance.free, cell!.amount!.font!, 6, userChain)
+                        }
+                    }
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                 }
             }
         }

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +14,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="208"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="207.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="208"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6D6-Pu-AfM" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
@@ -114,6 +112,7 @@
                             <constraint firstItem="CoD-Q7-H9G" firstAttribute="top" secondItem="HW2-4c-Y6b" secondAttribute="bottom" constant="12" id="KO2-ym-Xeo"/>
                             <constraint firstAttribute="height" constant="200" id="MW9-tz-dsm"/>
                             <constraint firstAttribute="trailing" secondItem="tcf-Me-1A3" secondAttribute="trailing" constant="12" id="O6g-zT-dCx"/>
+                            <constraint firstItem="ejJ-K8-riI" firstAttribute="top" secondItem="6D6-Pu-AfM" secondAttribute="top" constant="15.5" id="Ogq-hS-Leu"/>
                             <constraint firstItem="f13-iu-ZgX" firstAttribute="top" secondItem="CoD-Q7-H9G" secondAttribute="bottom" constant="12" id="Rqz-7p-4h7"/>
                             <constraint firstItem="KmH-Wp-0hO" firstAttribute="centerY" secondItem="OVi-Qg-yzJ" secondAttribute="centerY" id="Wi4-bT-uxr"/>
                             <constraint firstItem="tcf-Me-1A3" firstAttribute="centerY" secondItem="CoD-Q7-H9G" secondAttribute="centerY" id="ZJT-gB-9bc"/>
@@ -127,7 +126,6 @@
                             <constraint firstItem="fRg-DA-VLt" firstAttribute="centerY" secondItem="f13-iu-ZgX" secondAttribute="centerY" id="smg-Sk-nyS"/>
                             <constraint firstAttribute="trailing" secondItem="fRg-DA-VLt" secondAttribute="trailing" constant="12" id="wof-WW-CVw"/>
                             <constraint firstAttribute="trailing" secondItem="EPy-3i-rbp" secondAttribute="trailing" constant="12" id="xJt-n8-FxM"/>
-                            <constraint firstItem="ejJ-K8-riI" firstAttribute="centerY" secondItem="OVi-Qg-yzJ" secondAttribute="centerY" id="xdg-Ue-p8B"/>
                             <constraint firstItem="EPy-3i-rbp" firstAttribute="top" secondItem="f13-iu-ZgX" secondAttribute="bottom" constant="16" id="z3N-pw-7qO"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -165,6 +163,7 @@
                 <outlet property="totalAmount" destination="ejJ-K8-riI" id="bYX-h8-hTE"/>
                 <outlet property="totalValue" destination="df1-c1-OCz" id="3Zm-aW-MQC"/>
             </connections>
+            <point key="canvasLocation" x="140" y="81"/>
         </tableViewCell>
     </objects>
     <resources>
