@@ -12,8 +12,6 @@ import SwiftKeychainWrapper
 class WalletCheckViewController: BaseViewController {
 
     var accountId: Int64?
-    var mAccount: Account!
-    var userChain: ChainType?
     
     @IBOutlet weak var cardView: CardView!
     @IBOutlet weak var mnemonic0: UILabel!
@@ -58,10 +56,10 @@ class WalletCheckViewController: BaseViewController {
                                self.mnemonic16, self.mnemonic17, self.mnemonic18, self.mnemonic19,
                                self.mnemonic20, self.mnemonic21, self.mnemonic22, self.mnemonic23]
         
-        mAccount = BaseData.instance.selectAccountById(id: accountId!)
-        userChain = WUtils.getChainType(mAccount!.account_base_chain)
+        account = BaseData.instance.selectAccountById(id: accountId!)
+        chainType = WUtils.getChainType(account!.account_base_chain)
         
-        cardView.backgroundColor = WUtils.getChainBg(userChain!)
+        cardView.backgroundColor = WUtils.getChainBg(chainType!)
         onRetriveKey()
     }
     
@@ -77,6 +75,7 @@ class WalletCheckViewController: BaseViewController {
         for i in 0 ..< self.mnemonicLabels.count {
             if(self.mnemonicWords!.count > i) {
                 self.mnemonicLabels[i].text = self.mnemonicWords![i].replacingOccurrences(of: ",", with: "").replacingOccurrences(of: " ", with: "")
+                self.mnemonicLabels[i].borderColor = WUtils.getChainDarkColor(chainType!)
             }
         }
     }
@@ -95,7 +94,7 @@ class WalletCheckViewController: BaseViewController {
     
     func onRetriveKey() {
         DispatchQueue.global().async {
-            if let words: String = KeychainWrapper.standard.string(forKey: self.mAccount.account_uuid.sha1()) {
+            if let words: String = KeychainWrapper.standard.string(forKey: self.account!.account_uuid.sha1()) {
                 self.mnemonicWords = words.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
             }
             
