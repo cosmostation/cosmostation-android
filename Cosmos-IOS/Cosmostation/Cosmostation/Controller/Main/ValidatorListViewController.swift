@@ -50,6 +50,13 @@ class ValidatorListViewController: BaseViewController {
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             validatorSegment.tintColor = COLOR_IRIS
         }
+        
+//        validatorSegment.tintColor = UIColor.red
+//        if #available(iOS 13.0, *) {
+//            validatorSegment.selectedSegmentTintColor = UIColor.red
+//        } else {
+//            // Fallback on earlier versions
+//        }
 
     }
     

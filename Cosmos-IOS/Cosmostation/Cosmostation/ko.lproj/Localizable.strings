@@ -115,6 +115,12 @@
 "value" = "금액";
 "mintscan_explorer" = "민트스켄 익스플로러";
 "binanace_explorer" = "바이낸스 익스플로러";
+"disconnected" = "연결 해제됨";
+"wc_request_sign_title" = "지갑 사인 요청";
+"wc_request_sign_msg" = "\n내용을 확인하시고 결정해 주시기 바랍니다.\n귀하의 자산에 영향을 미치는 내용입니다.";
+"wc_request_cancel_msg" = "\n내용을 확인하시고 결정해 주시기 바랍니다.\n\n주문 취소.";
+"wc_request_success" = "사인 성공";
+"wc_request_fail" = "사인 실패";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";
@@ -128,6 +134,7 @@
 "warnning" = "경고";
 "continue" = "계속";
 "wait" = "기다리기";
+"sign" = "사인";
 "touchID" = "Touch ID";
 "faceID" = "Face ID";
 

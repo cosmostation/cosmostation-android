@@ -115,6 +115,12 @@
 "value" = "Value";
 "mintscan_explorer" = "Mintscan Explorer";
 "binanace_explorer" = "Binance Explorer";
+"disconnected" = "Disconnected";
+"wc_request_sign_title" = "Request Transaction Sign";
+"wc_request_sign_msg" = "\nPlease check the contents and decide.\nIt affects your assets.";
+"wc_request_cancel_msg" = "\nPlease check the contents and decide.\n\nCancel Order.";
+"wc_request_success" = "Tx Success!";
+"wc_request_fail" = "Tx Fail";
 
 
 "clear_all" = "Clear All";
@@ -129,6 +135,7 @@
 "warnning" = "Warnning";
 "continue" = "Continue";
 "wait" = "Wait";
+"sign" = "Sign";
 "touchID" = "Touch ID";
 "faceID" = "Face ID";
 

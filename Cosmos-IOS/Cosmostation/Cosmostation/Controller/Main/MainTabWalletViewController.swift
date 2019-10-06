@@ -11,6 +11,7 @@ import Alamofire
 import Floaty
 import SafariServices
 import BinanceChain
+import SwiftKeychainWrapper
 
 class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate, QrScannerDelegate {
     
@@ -440,14 +441,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowAddMenomicDialog()
             return
         }
-//        self.onStartQrCode()
-        
-        let wcVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "WalletConnectViewController") as! WalletConnectViewController
-        wcVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(wcVC, animated: true)
-        
-        
+        self.onStartQrCode()
     }
     
     func onClickGuide1() {
@@ -549,5 +543,16 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func scannedAddress(result: String) {
         print("string ", result)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(610), execute: {
+            let wcVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "WalletConnectViewController") as! WalletConnectViewController
+            wcVC.hidesBottomBarWhenPushed = true
+            wcVC.wcURL = result
+            self.navigationItem.title = ""
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+            self.navigationController?.pushViewController(wcVC, animated: true)
+        })
+        
+        
     }
 }
