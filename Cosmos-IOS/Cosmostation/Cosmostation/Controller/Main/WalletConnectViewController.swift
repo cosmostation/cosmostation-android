@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WalletConnect
 
 class WalletConnectViewController: UIViewController {
 
@@ -18,12 +19,15 @@ class WalletConnectViewController: UIViewController {
     @IBOutlet weak var wcWaitting: LoadingImageView!
     @IBOutlet weak var wcBtnDisconnect: UIButton!
     
+    var wcURL:String?
     
+    let clientMeta = WCPeerMeta(name: "WalletConnect SDK", url: "https://github.com/TrustWallet/wallet-connect-swift")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.wcLoading.onStartAnimation()
+        
+        self.onConnectSession()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +38,19 @@ class WalletConnectViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
+    
+    
+    func onConnectSession() {
+        guard let session = WCSession.from(string: wcURL!) else {
+            print("NO SESSION")
+            return
+        }
+        
+        let interactor = WCInteractor(session: session, meta: clientMeta)
+        
+    }
+    
+    
 
     @IBAction func onClickDisconnect(_ sender: UIButton) {
     }

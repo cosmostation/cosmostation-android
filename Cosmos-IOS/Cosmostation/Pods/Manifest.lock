@@ -103,6 +103,15 @@ PODS:
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
+  - PromiseKit (6.11.0):
+    - PromiseKit/CorePromise (= 6.11.0)
+    - PromiseKit/Foundation (= 6.11.0)
+    - PromiseKit/UIKit (= 6.11.0)
+  - PromiseKit/CorePromise (6.11.0)
+  - PromiseKit/Foundation (6.11.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.11.0):
+    - PromiseKit/CorePromise
   - Protobuf (3.9.2)
   - QRCode (2.0)
   - secp256k1.swift (0.1.4)
@@ -115,6 +124,10 @@ PODS:
   - SwiftProtobuf (1.7.0)
   - SwiftyJSON (4.3.0)
   - Toast-Swift (4.0.1)
+  - WalletConnect (0.1.0):
+    - CryptoSwift
+    - PromiseKit
+    - Starscream
   - XCGLogger (7.0.0):
     - XCGLogger/Core (= 7.0.0)
   - XCGLogger/Core (7.0.0):
@@ -133,6 +146,7 @@ DEPENDENCIES:
   - SQLite.swift (~> 0.11.5)
   - SwiftKeychainWrapper
   - Toast-Swift (~> 4.0.0)
+  - WalletConnect (from `https://github.com/WalletConnect/swift-walletconnect-lib`, branch `master`)
 
 SPEC REPOS:
   trunk:
@@ -157,6 +171,7 @@ SPEC REPOS:
     - HDWalletKit
     - nanopb
     - ObjcExceptionBridging
+    - PromiseKit
     - Protobuf
     - QRCode
     - secp256k1.swift
@@ -172,11 +187,17 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   BinanceChain:
     :git: https://github.com/mh7821/SwiftBinanceChain.git
+  WalletConnect:
+    :branch: master
+    :git: https://github.com/WalletConnect/swift-walletconnect-lib
 
 CHECKOUT OPTIONS:
   BinanceChain:
     :commit: 316537b02f19270c9c34e45a842b11b1b0d1ce27
     :git: https://github.com/mh7821/SwiftBinanceChain.git
+  WalletConnect:
+    :commit: 9528644741da07737d05cdabda042c3f99be74ba
+    :git: https://github.com/WalletConnect/swift-walletconnect-lib
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
@@ -201,6 +222,7 @@ SPEC CHECKSUMS:
   HDWalletKit: f0268857289221d4d6c2041d43ee78f1e84fc8e5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
+  PromiseKit: e4863d06976e7dee5e41c04fc7371c16b3600292
   Protobuf: 67fb42ba613def994e61854de2b3164f13790cc4
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
@@ -211,8 +233,9 @@ SPEC CHECKSUMS:
   SwiftProtobuf: 4fd9645e69b72cbae6ec8da5be0cdd20ca6565dd
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
+  WalletConnect: 0b21907c54b4bb324bf402dd14954c60a290ad36
   XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
 
-PODFILE CHECKSUM: 8982c0ab343ad2e5a7e4debee37a84988f142dce
+PODFILE CHECKSUM: 8eda5b260a2dabc05254169c018161f4d55cdfe1
 
 COCOAPODS: 1.8.1

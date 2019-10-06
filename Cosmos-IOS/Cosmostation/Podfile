@@ -6,6 +6,7 @@ target 'Cosmostation' do
   use_frameworks!
 
   pod 'BinanceChain', :git => 'https://github.com/mh7821/SwiftBinanceChain.git'
+  pod 'WalletConnect', git: 'https://github.com/WalletConnect/swift-walletconnect-lib', branch: 'master'
   pod 'BitcoinKit', '~> 1.0.2'
   pod 'AlamofireImage', '~> 3.3'
   pod 'SQLite.swift', '~> 0.11.5'
