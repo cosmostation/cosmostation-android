@@ -120,6 +120,7 @@ public class BaseConstant {
     public final static String                  IRIS_MSG_TYPE_SUBMIT_PROPOSAL                   = "irishub/gov/MsgSubmitProposal";
     public final static String                  IRIS_MSG_TYPE_CREATE_VALIDATOR                  = "irishub/stake/MsgCreateValidator";
     public final static String                  IRIS_MSG_TYPE_WITHDRAW_MIDIFY                   = "irishub/distr/MsgModifyWithdrawAddress";
+    public final static String                  IRIS_MSG_TYPE_ISSUE_TOKEN                       = "irishub/asset/MsgIssueToken";
 
 
 
@@ -159,6 +160,7 @@ public class BaseConstant {
     public final static int                     TX_TYPE_EDIT_VALIDATOR		                    = 3014;
     public final static int                     TX_TYPE_REINVEST		                        = 3015;
     public final static int                     TX_TYPE_IRIS_GET_REWARD_ALL		                = 3016;
+    public final static int                     TX_TYPE_IRIS_ISSUE_TOKEN		                = 3017;
 
 
     public final static int                     ERROR_CODE_UNKNOWN		                        = 8000;

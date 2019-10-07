@@ -723,7 +723,13 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL)) {
             result = BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL;
 
+        } else if (msg.type.equals(BaseConstant.IRIS_MSG_TYPE_ISSUE_TOKEN)) {
+            result = BaseConstant.TX_TYPE_IRIS_ISSUE_TOKEN;
+
         }
+
+
+
         return result;
     }
 
@@ -795,6 +801,10 @@ public class WDp {
 
             case BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL:
                 result = c.getString(R.string.tx_get_reward_all);
+                break;
+
+            case BaseConstant.TX_TYPE_IRIS_ISSUE_TOKEN:
+                result = c.getString(R.string.tx_issue_token);
                 break;
 
             case BaseConstant.TX_TYPE_UNKNOWN:

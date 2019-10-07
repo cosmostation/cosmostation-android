@@ -504,6 +504,7 @@
     <string name="tx_reinvest">Re-Invest</string>
     <string name="tx_new_order">New Order</string>
     <string name="tx_Cancel_order">Cancel Order</string>
+    <string name="tx_issue_token">Token Issue</string>
     <string name="tx_known">Known</string>
 
 
