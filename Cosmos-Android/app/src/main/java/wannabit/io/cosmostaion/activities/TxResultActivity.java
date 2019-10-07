@@ -680,7 +680,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://irishub.mintscan.io/txs/" + mResTxInfo.hash);
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://irishub.mintscan.io/txs/" + mResBnbTxInfo.hash);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://explorer.binance.org/tx/" + mResBnbTxInfo.hash);
             }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));

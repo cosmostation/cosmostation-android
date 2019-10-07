@@ -114,6 +114,9 @@ public class WDp {
     }
 
     public static SpannableString getIrisValidatorReward(Context c, ResLcdIrisReward reward, String valOpAddress, BaseChain chain) {
+        if(reward == null || TextUtils.isEmpty(valOpAddress)) {
+            return getDpAmount(c, BigDecimal.ZERO, 6, chain);
+        }
         return getDpAmount(c, reward.getPerValReward(valOpAddress), 6, chain);
     }
 

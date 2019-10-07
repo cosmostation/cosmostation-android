@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean                 IS_SHOWLOG                                      = false;
+    public final static boolean                 IS_SHOWLOG                                      = true;
     public final static boolean                 IS_TEST                                         = false;
     public final static boolean                 IS_FEE_FREE 					                = false;
     public final static String                  LOG_TAG                                         = "Cosmostation";
