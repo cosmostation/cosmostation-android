@@ -33,4 +33,11 @@ class OtherValidatorCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    override func prepareForReuse() {
+        self.validatorImg.image = UIImage(named: "validatorNoneImg")
+        self.monikerLabel.text = "-"
+        self.powerLabel.text = "-"
+        self.commissionLabel.text = "-"
+    }
+    
 }

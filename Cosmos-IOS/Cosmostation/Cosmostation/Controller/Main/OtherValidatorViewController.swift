@@ -109,9 +109,24 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
             //TODO rollback cosmos-hub2
 //            cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
+            let url = COSMOS_VAL_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell.validatorImg.image = image
+            }
+            
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, userChain!)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
+            let url = IRIS_VAL_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell.validatorImg.image = image
+            }
         }
         cell.monikerLabel.text = validator.description.moniker
         cell.monikerLabel.adjustsFontSizeToFitWidth = true
@@ -134,39 +149,6 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
             }
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY
-        }
-        
-        cell.validatorImg.tag = indexPath.row
-        cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
-        if (validator.description.identity != "") {
-            let parameters: Parameters = ["fields": "pictures", "key_suffix": validator.description.identity]
-            let request = Alamofire.request(KEY_BASE_URL_USER_INFO,
-                                            method: .get,
-                                            parameters: parameters,
-                                            encoding: URLEncoding.default,
-                                            headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let keybaseInfo = res as? NSDictionary,
-                        let thems = keybaseInfo.value(forKey: "them") as? Array<NSDictionary>,
-                        thems.count > 0,
-                        let url = thems[0].value(forKeyPath: "pictures.primary.url") as? String else {
-                            return
-                    }
-                    Alamofire.request(url, method: .get).responseImage { response  in
-                        guard let image = response.result.value else {
-                            return
-                        }
-                        if(indexPath.row == cell.validatorImg.tag) {
-                            cell.validatorImg.image = image
-                        }
-                    }
-                    
-                case .failure(let error):
-                    print("onSetValidatorItem error : ", error)
-                }
-            }
         }
     }
     

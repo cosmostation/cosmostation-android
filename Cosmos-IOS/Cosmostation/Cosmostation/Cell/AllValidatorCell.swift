@@ -34,6 +34,12 @@ class AllValidatorCell: UITableViewCell {
 //        self.addRippleEffect(to: self.cardView)
     }
     
+    override func prepareForReuse() {
+        self.validatorImg.image = UIImage(named: "validatorNoneImg")
+        self.monikerLabel.text = "-"
+        self.powerLabel.text = "-"
+    }
+    
     func addRippleEffect(to referenceView: UIView) {
         /*! Creates a circular path around the view*/
         let path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: referenceView.bounds.size.width, height: referenceView.bounds.size.height))

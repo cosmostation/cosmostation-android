@@ -175,8 +175,24 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 
                 if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+                    let url = COSMOS_VAL_URL + mValidator!.operator_address + ".png"
+                    Alamofire.request(url, method: .get).responseImage { response  in
+                        guard let image = response.result.value else {
+                            return
+                        }
+                        cell!.validatorImg.image = image
+                    }
+                    
                 } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     cell?.totalBondedAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: mValidator!.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell!.totalBondedAmount.font, 18, userChain!)
+                    let url = IRIS_VAL_URL + mValidator!.operator_address + ".png"
+                    Alamofire.request(url, method: .get).responseImage { response  in
+                        guard let image = response.result.value else {
+                            return
+                        }
+                        cell!.validatorImg.image = image
+                    }
+                    
                 }
                 
                 if (mSelfBondingShare != nil) {
@@ -211,36 +227,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
                     cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
                 }
-                
-                
-                if (mValidator!.description.identity != "") {
-                    let parameters: Parameters = ["fields": "pictures", "key_suffix": mValidator!.description.identity]
-                    let request = Alamofire.request(KEY_BASE_URL_USER_INFO,
-                                                    method: .get,
-                                                    parameters: parameters,
-                                                    encoding: URLEncoding.default,
-                                                    headers: [:]);
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let keybaseInfo = res as? NSDictionary,
-                                let thems = keybaseInfo.value(forKey: "them") as? Array<NSDictionary>,
-                                thems.count > 0,
-                                let url = thems[0].value(forKeyPath: "pictures.primary.url") as? String else {
-                                    return
-                            }
-                            Alamofire.request(url, method: .get).responseImage { response  in
-                                guard let image = response.result.value else {
-                                    return
-                                }
-                                cell!.validatorImg.image = image
-                            }
-                            
-                        case .failure(let error):
-                            print("onSetValidatorItem error : ", error)
-                        }
-                    }
-                }
                 return cell!
                 
             } else if (indexPath.row == 0 && !mMyValidator) {
@@ -260,8 +246,23 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 
                 if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
+                    let url = COSMOS_VAL_URL + mValidator!.operator_address + ".png"
+                    Alamofire.request(url, method: .get).responseImage { response  in
+                        guard let image = response.result.value else {
+                            return
+                        }
+                        cell!.validatorImg.image = image
+                    }
+                    
                 } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     cell?.totalBondedAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: mValidator!.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell!.totalBondedAmount.font, 18, userChain!)
+                    let url = IRIS_VAL_URL + mValidator!.operator_address + ".png"
+                    Alamofire.request(url, method: .get).responseImage { response  in
+                        guard let image = response.result.value else {
+                            return
+                        }
+                        cell!.validatorImg.image = image
+                    }
                 }
                 
                 if (mSelfBondingShare != nil) {
@@ -298,35 +299,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
                 }
                 
-                
-                if (mValidator!.description.identity != "") {
-                    let parameters: Parameters = ["fields": "pictures", "key_suffix": mValidator!.description.identity]
-                    let request = Alamofire.request(KEY_BASE_URL_USER_INFO,
-                                                    method: .get,
-                                                    parameters: parameters,
-                                                    encoding: URLEncoding.default,
-                                                    headers: [:]);
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let keybaseInfo = res as? NSDictionary,
-                                let thems = keybaseInfo.value(forKey: "them") as? Array<NSDictionary>,
-                                thems.count > 0,
-                                let url = thems[0].value(forKeyPath: "pictures.primary.url") as? String else {
-                                    return
-                            }
-                            Alamofire.request(url, method: .get).responseImage { response  in
-                                guard let image = response.result.value else {
-                                    return
-                                }
-                                cell!.validatorImg.image = image
-                            }
-                            
-                        case .failure(let error):
-                            print("onSetValidatorItem error : ", error)
-                        }
-                    }
-                }
                 cell?.actionDelegate = {
                     if(self.mValidator!.jailed) {
                         self.onShowToast(NSLocalizedString("error_jailded_delegate", comment: ""))
@@ -994,7 +966,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onStartRedelegate() {
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "StakingViewController") as! TransactionViewController
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mTargetValidator = mValidator
         txVC.mInflation = mInflation
         txVC.mProvision = mProvision

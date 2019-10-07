@@ -19,9 +19,6 @@ class MyValidatorCell: UITableViewCell {
     @IBOutlet weak var myUndelegatingAmountLabel: UILabel!
     @IBOutlet weak var rewardAmoutLabel: UILabel!
     
-    
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         validatorImg.layer.borderWidth = 1
@@ -35,6 +32,13 @@ class MyValidatorCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    override func prepareForReuse() {
+        self.validatorImg.image = UIImage(named: "validatorNoneImg")
+        self.myDelegatedAmoutLabel.text = "-"
+        self.myUndelegatingAmountLabel.text = "-"
+        self.rewardAmoutLabel.text = "-"
     }
     
 }

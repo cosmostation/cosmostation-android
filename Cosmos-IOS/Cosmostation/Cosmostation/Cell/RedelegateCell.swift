@@ -33,4 +33,8 @@ class RedelegateCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    override func prepareForReuse() {
+        self.valImg.image = UIImage(named: "validatorNoneImg")
+    }
+    
 }

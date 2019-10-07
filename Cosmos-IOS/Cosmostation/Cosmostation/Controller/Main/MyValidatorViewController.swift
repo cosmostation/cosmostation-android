@@ -183,6 +183,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
             cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, userChain!)
+            let url = COSMOS_VAL_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell.validatorImg.image = image
+            }
             
         } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
@@ -191,39 +198,12 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.rewardAmoutLabel.font, 6, userChain!)
             }
-        }
-        
-        cell.validatorImg.tag = indexPath.row
-        cell.validatorImg.image = UIImage.init(named: "validatorNoneImg")
-        if (validator.description.identity != "") {
-            let parameters: Parameters = ["fields": "pictures", "key_suffix": validator.description.identity]
-            let request = Alamofire.request(KEY_BASE_URL_USER_INFO,
-                                            method: .get,
-                                            parameters: parameters,
-                                            encoding: URLEncoding.default,
-                                            headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let keybaseInfo = res as? NSDictionary,
-                        let thems = keybaseInfo.value(forKey: "them") as? Array<NSDictionary>,
-                        thems.count > 0,
-                        let url = thems[0].value(forKeyPath: "pictures.primary.url") as? String else {
-                        return
-                    }
-
-                    Alamofire.request(url, method: .get).responseImage { response  in
-                        guard let image = response.result.value else {
-                            return
-                        }
-                        if(indexPath.row == cell.validatorImg.tag) {
-                            cell.validatorImg.image = image
-                        }
-                    }
-
-                case .failure(let error):
-                    print("onSetValidatorItem error : ", error)
+            let url = IRIS_VAL_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
                 }
+                cell.validatorImg.image = image
             }
         }
     }
