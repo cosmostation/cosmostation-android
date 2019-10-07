@@ -239,7 +239,7 @@
 "tx_known" = "알수없음";
 
 "chain_title_cosmos" = "COSMOS Hub";
-"chain_title_iris" = "IRSI Hub";
+"chain_title_iris" = "IRIS Hub";
 "chain_title_bnb" = "Binance Chain";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";
