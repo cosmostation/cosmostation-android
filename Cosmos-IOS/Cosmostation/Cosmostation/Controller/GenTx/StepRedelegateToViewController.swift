@@ -30,7 +30,6 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
         self.redelegateToValTableView.register(UINib(nibName: "RedelegateCell", bundle: nil), forCellReuseIdentifier: "RedelegateCell")
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.pageHolderVC.mToReDelegateValidators.count
     }

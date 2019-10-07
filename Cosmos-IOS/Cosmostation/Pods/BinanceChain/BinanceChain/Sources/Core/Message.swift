@@ -19,6 +19,7 @@ public class Message {
     private enum Source: Int {
         case hidden = 0
         case broadcast = 1
+        case cosmostation = 82
     }
 
     private var type: MessageType = .newOrder
@@ -36,7 +37,7 @@ public class Message {
     private var toAddress: String = ""
     private var proposalId: Int = 0
     private var voteOption: VoteOption = .no
-    private var source: Source = .broadcast
+    private var source: Source = .cosmostation
 
     // MARK: - Constructors
 
@@ -119,7 +120,7 @@ public class Message {
         stdtx.msgs.append(message)
         stdtx.signatures.append(signature)
         stdtx.memo = self.memo
-        stdtx.source = Int64(Source.broadcast.rawValue)
+        stdtx.source = Int64(Source.cosmostation.rawValue)
         stdtx.data = self.data
 
         // Prefix length and stdtx type

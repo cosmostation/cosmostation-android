@@ -159,6 +159,7 @@ class WalletConnectViewController: BaseViewController {
             if let _ = error {
                 return
             }
+            
             let signature = bnbWallet.sign(message: order.encoded)
             let signed = WCBinanceOrderSignature(
                 signature: signature.dataToHexString(),

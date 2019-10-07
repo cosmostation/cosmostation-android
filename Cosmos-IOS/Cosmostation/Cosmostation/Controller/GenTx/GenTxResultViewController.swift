@@ -522,7 +522,7 @@ class GenTxResultViewController: BaseViewController {
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if(SHOW_LOG) { print("onFetchTx ", res) }
+                if(SHOW_LOG) { print("onFetchTx OK", res) }
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     self.fetchCnt = self.fetchCnt - 1
                     if(self.fetchCnt > 0) {
@@ -538,12 +538,21 @@ class GenTxResultViewController: BaseViewController {
                 
             case .failure(let error):
                 if(SHOW_LOG) {
-                    print("onFetchTx ", error)
+                    print("onFetchTx failure", error)
                 }
                 if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     self.fetchCnt = self.fetchCnt - 1
                     if(self.fetchCnt > 0) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
+                            self.onFetchTx(txHash)
+                        })
+                    } else {
+                        self.onShowMoreWait()
+                    }
+                } else if (self.mChain! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                    self.fetchCnt = self.fetchCnt - 1
+                    if(self.fetchCnt > 0) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500), execute: {
                             self.onFetchTx(txHash)
                         })
                     } else {
