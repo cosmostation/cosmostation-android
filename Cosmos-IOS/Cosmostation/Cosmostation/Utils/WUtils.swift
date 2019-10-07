@@ -475,7 +475,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == symbol) {
-                    amount = amount.adding(stringToDecimal(coin.amount))
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
                 }
             }
         }
