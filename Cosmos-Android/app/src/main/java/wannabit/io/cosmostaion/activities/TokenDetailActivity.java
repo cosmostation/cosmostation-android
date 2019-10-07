@@ -248,13 +248,13 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
             mUnbondings = getBaseDao().onSelectUnbondingStates(mAccount.id);
 
-            mTvIrisTotal.setText(WDp.getDpAmount(this, WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward), 18, mBaseChain));
+            mTvIrisTotal.setText(WDp.getDpAmount(this, WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward, mAllValidators), 18, mBaseChain));
             mTvIrisAvailable.setText(WDp.getDpAmount(this, WDp.getAvailableCoin(mBalances, COSMOS_IRIS_ATTO), 18, mBaseChain));
             mTvIrisDelegated.setText(WDp.getDpAmount(this, WDp.getAllDelegatedAmount(mBondings, mAllValidators, mBaseChain), 18, mBaseChain));
             mTvIrisUnBonding.setText(WDp.getDpAmount(this, WDp.getUnbondingAmount(mUnbondings, mAllValidators), 18, mBaseChain));
             mTvIrisRewards.setText(WDp.getDpAmount(this, mIrisReward.getSimpleIrisReward(), 18, mBaseChain));
 
-            BigDecimal totalAmount = WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward);
+            BigDecimal totalAmount = WDp.getAllIris(mBalances, mBondings, mUnbondings, mIrisReward, mAllValidators);
             mTvIrisValue.setText(WDp.getValueOfIris(this, getBaseDao(), totalAmount));
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN) && mBalance.symbol.equals(COSMOS_BNB)) {

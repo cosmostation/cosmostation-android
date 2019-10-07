@@ -286,7 +286,7 @@ public class WDp {
             }
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.shares);
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
         }
         return sum;
@@ -374,19 +374,21 @@ public class WDp {
         return getDpAmount(c, sum, 6, chain);
     }
 
-    public static SpannableString getDpAllIris(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, BaseChain chain) {
-        return getDpAmount(c, getAllIris(balances, bondings, unbondings, reward), 6, chain);
+    public static SpannableString getDpAllIris(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, ArrayList<Validator> validators, BaseChain chain) {
+        return getDpAmount(c, getAllIris(balances, bondings, unbondings, reward, validators), 6, chain);
     }
 
-    public static BigDecimal getAllIris(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward) {
+    public static BigDecimal getAllIris(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
             if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
                 sum = sum.add(balance.balance);
             }
         }
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.shares);
+        if(bondings != null) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+            }
         }
         for(UnBondingState unbonding : unbondings) {
             sum = sum.add(unbonding.balance);
@@ -849,6 +851,7 @@ public class WDp {
     public static DecimalFormat getDecimalFormat(Context c, int cnt) {
         NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
         DecimalFormat decimalformat = (DecimalFormat)formatter;
+        decimalformat.setRoundingMode(RoundingMode.DOWN);
         switch (cnt) {
             case 0:
                 decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_0));

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -47,6 +49,7 @@ public class UndelegateActivity extends BaseActivity {
     public Coin                         mUnDelegateAmount;
     public String                       mUnDelegateMemo;
     public Fee                          mUnDelegateFee;
+    public String                       mUnDelegateShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +158,14 @@ public class UndelegateActivity extends BaseActivity {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE);
         intent.putExtra("toAddress", mValidator.operator_address);
-        intent.putExtra("uAmount", mUnDelegateAmount);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            intent.putExtra("uAmount", mUnDelegateAmount);
+        } else if  (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            BigDecimal validatorShareRate = new BigDecimal(mValidator.delegator_shares).divide(new BigDecimal(mValidator.tokens), 18, BigDecimal.ROUND_HALF_DOWN);
+            mUnDelegateAmount.amount = validatorShareRate.multiply(new BigDecimal(mUnDelegateAmount.amount)).setScale(0, RoundingMode.DOWN).toPlainString();
+            intent.putExtra("uAmount", mUnDelegateAmount);
+        }
+
         intent.putExtra("memo", mUnDelegateMemo);
         //TODO testcode
         if(IS_FEE_FREE) mUnDelegateFee.amount.get(0).amount = "0";

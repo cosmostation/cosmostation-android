@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
+import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -98,7 +99,6 @@ public class MsgGenerator {
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             value.delegator_addr = requestAddr;
             value.validator_addr = fromValAddr;
-            //TODO need cal bal to shares.
             value.shares_amount = amount.amount + ".0000000000";
 
             result.type = BaseConstant.IRIS_MSG_TYPE_UNDELEGATE;
