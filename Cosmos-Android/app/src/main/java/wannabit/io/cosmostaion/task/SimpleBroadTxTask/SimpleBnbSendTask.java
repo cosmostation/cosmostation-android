@@ -86,7 +86,8 @@ public class SimpleBnbSendTask extends CommonTask {
             transfer.setToAddress(mToAddress);
             transfer.setAmount(mToSendAmount.get(0).amount);
 
-            TransactionOption options = new TransactionOption(mToSendMemo, 1, null);
+
+            TransactionOption options = new TransactionOption(mToSendMemo, 82, null);
             BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.getBaseUrl());
             List<TransactionMetadata> resp = client.transfer(transfer, wallet, options, true);
             if (resp.get(0).isOk()) {
