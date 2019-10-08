@@ -462,7 +462,7 @@ public class BaseData {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime"}, null, null, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal"}, null, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 Account account = new Account(
@@ -482,7 +482,8 @@ public class BaseData {
                         cursor.getInt(13),
                         cursor.getLong(14),
                         cursor.getInt(15),
-                        cursor.getLong(16)
+                        cursor.getLong(16),
+                        cursor.getString(17)
                 );
                 account.setBalances(onSelectBalance(account.id));
                 result.add(account);
@@ -492,11 +493,24 @@ public class BaseData {
         return result;
     }
 
+    public ArrayList<Account> onSelectAccountsByChain(BaseChain chain) {
+        ArrayList<Account> result = new ArrayList<>();
+        ArrayList<Account> AllAccount = onSelectAccounts();
+        for (Account account:AllAccount) {
+            if (BaseChain.getChain(account.baseChain).equals(chain)) {
+                WLog.w("BaseChain.getChain(account.baseChain) " + BaseChain.getChain(account.baseChain).getChain());
+                WLog.w("chain " + chain.getChain());
+                result.add(account);
+            }
+        }
+        return result;
+    }
+
     public Account onSelectAccount(String id) {
         Account result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime"}, "id == ?", new String[]{id}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal"}, "id == ?", new String[]{id}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -515,7 +529,8 @@ public class BaseData {
                     cursor.getInt(13),
                     cursor.getLong(14),
                     cursor.getInt(15),
-                    cursor.getLong(16)
+                    cursor.getLong(16),
+                    cursor.getString(17)
             );
             result.setBalances(onSelectBalance(result.id));
         }
@@ -527,7 +542,7 @@ public class BaseData {
         Account result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime"}, "address == ?", new String[]{address}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal"}, "address == ?", new String[]{address}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -546,7 +561,8 @@ public class BaseData {
                     cursor.getInt(13),
                     cursor.getLong(14),
                     cursor.getInt(15),
-                    cursor.getLong(16)
+                    cursor.getLong(16),
+                    cursor.getString(17)
             );
             result.setBalances(onSelectBalance(result.id));
         }
@@ -591,6 +607,12 @@ public class BaseData {
             values.put("fetchTime",         account.fetchTime);
         if(account.baseChain != null)
             values.put("baseChain",         account.baseChain);
+        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
+    }
+
+    public long onUpdateLastToalAccount(Account account, String amount) {
+        ContentValues values = new ContentValues();
+        values.put("lastTotal",          amount);
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 

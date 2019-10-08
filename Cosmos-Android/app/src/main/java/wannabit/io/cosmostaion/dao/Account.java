@@ -1,12 +1,19 @@
 package wannabit.io.cosmostaion.dao;
 
+import android.content.Context;
+import android.text.SpannableString;
+import android.text.TextUtils;
+
 import org.bitcoinj.crypto.DeterministicKey;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Account {
     public Long     id;
@@ -29,6 +36,8 @@ public class Account {
     public int      msize;
     public Long     importTime;
 
+    public String   lastTotal;
+
     public ArrayList<Balance>   balances;
 
 
@@ -44,7 +53,7 @@ public class Account {
     public Account(Long id, String uuid, String nickName, boolean isFavo, String address,
                    String baseChain, boolean hasPrivateKey, String resource, String spec,
                    boolean fromMnemonic, String path, boolean isValidator, int sequenceNumber,
-                   int accountNumber, Long fetchTime, int msize, long importTime) {
+                   int accountNumber, Long fetchTime, int msize, long importTime, String lastTotal) {
         this.id = id;
         this.uuid = uuid;
         this.nickName = nickName;
@@ -62,6 +71,7 @@ public class Account {
         this.fetchTime = fetchTime;
         this.msize = msize;
         this.importTime = importTime;
+        this.lastTotal = lastTotal;
     }
 
     public ArrayList<Balance> getBalances() {
@@ -157,11 +167,17 @@ public class Account {
         return result;
     }
 
-//    public DeterministicKey getDeterministicKey() {
-//        return deterministicKey;
-//    }
-//
-//    public void setDeterministicKey(DeterministicKey deterministicKey) {
-//        this.deterministicKey = deterministicKey;
-//    }
+
+    public SpannableString getLastTotal(Context c, BaseChain chain) {
+        if (TextUtils.isEmpty(lastTotal)) {
+            return SpannableString.valueOf("--");
+        }
+        try {
+            return WDp.getDpAmount(c, new BigDecimal(lastTotal), 6, chain);
+
+        } catch (Exception e) {
+            return SpannableString.valueOf("--");
+        }
+
+    }
 }

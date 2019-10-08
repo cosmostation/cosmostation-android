@@ -187,6 +187,11 @@
     <string name="str_cosmos_hub" translatable="false">(Cosmos Hub)</string>
     <string name="str_iris_net" translatable="false">(Iris Hub)</string>
     <string name="str_binance_net" translatable="false">(Binance Chain)</string>
+    <string name="str_iov_net" translatable="false">(IOV Chain)</string>
+    <string name="str_cosmos" translatable="false">COSMOS</string>
+    <string name="str_iris" translatable="false">IRIS</string>
+    <string name="str_binance" translatable="false">BINANCE</string>
+    <string name="str_iov" translatable="false">IOV</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -485,6 +490,7 @@
     <string name="s_photino">PHOTINO</string>
     <string name="s_iris">IRIS</string>
     <string name="s_bnb">BNB</string>
+    <string name="s_iov">IOV</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

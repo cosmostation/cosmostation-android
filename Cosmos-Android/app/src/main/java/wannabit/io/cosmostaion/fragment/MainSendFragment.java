@@ -295,6 +295,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain));
             mTvAtomValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), totalAmount));
+            getBaseDao().onUpdateLastToalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
 
             try {
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastAtomTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -327,6 +328,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvIrisUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvIrisRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), getMainActivity().mIrisReward, getMainActivity().mBaseChain));
             mTvIrisValue.setText(WDp.getValueOfIris(getContext(), getBaseDao(), totalAmount));
+            getBaseDao().onUpdateLastToalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
 
             try {
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastIrisTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -360,6 +362,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     mTvBnbLocked.setText(WDp.getDpAmount(getContext(), bnbToken.locked, 6, getMainActivity().mBaseChain));
                     mTvBnbTotal.setText(WDp.getDpAmount(getContext(), bnbToken.locked.add(bnbToken.balance), 6, getMainActivity().mBaseChain));
                     mTvBnbValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), totalAmount));
+                    getBaseDao().onUpdateLastToalAccount(getMainActivity().mAccount, bnbToken.locked.add(bnbToken.balance).toPlainString());
 
                 } else {
                     mTvBnbBalance.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));

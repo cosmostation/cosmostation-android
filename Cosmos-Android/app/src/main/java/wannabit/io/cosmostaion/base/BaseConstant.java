@@ -1,13 +1,13 @@
 package wannabit.io.cosmostaion.base;
 
 public class BaseConstant {
-    public final static boolean                 IS_SHOWLOG                                      = false;
+    public final static boolean                 IS_SHOWLOG                                      = true;
     public final static boolean                 IS_TEST                                         = false;
     public final static boolean                 IS_FEE_FREE 					                = false;
     public final static String                  LOG_TAG                                         = "Cosmostation";
 
     public final static String                  DB_NAME			                                = "WannaBit";
-    public final static int                     DB_VERSION			                            = 2;
+    public final static int                     DB_VERSION			                            = 3;
     public final static String                  DB_TABLE_PASSWORD			                    = "paswd";
     public final static String                  DB_TABLE_ACCOUNT			                    = "accnt";
     public final static String                  DB_TABLE_BALANCE			                    = "balan";
@@ -177,6 +177,7 @@ public class BaseConstant {
     public final static String                  COSMOS_IRIS                                     = "iris";
     public final static String                  COSMOS_IRIS_ATTO                                = "iris-atto";
     public final static String                  COSMOS_BNB                                      = "BNB";
+    public final static String                  COSMOS_IOV                                      = "IOV";
 
 
     //TODO HardCoding!!

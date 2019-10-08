@@ -14,6 +14,7 @@
     <color name="colorTransBg3">#CC000000</color>
     <color name="colorTransBg4">#240080ff</color>
     <color name="colorTransBg5">#24f0b90b</color>
+    <color name="colorTransBg6">#2446d7cb</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -37,10 +38,12 @@
 
     <color name="colorIris">#00A8FF</color>
     <color name="colorIris2">#003870</color>
+
     <color name="colorBnb">#E9BC00</color>
     <color name="colorBnb2">#634C04</color>
 
-
+    <color name="colorIov">#35C1B3</color>
+    <color name="colorIov2">#065048</color>
 
 
     <color name="colorRed">#f31963</color>

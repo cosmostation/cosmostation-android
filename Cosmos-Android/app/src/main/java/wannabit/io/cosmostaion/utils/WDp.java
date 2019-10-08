@@ -39,6 +39,9 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
@@ -241,7 +244,7 @@ public class WDp {
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             for(Balance balance : balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                if(balance.symbol.equals(COSMOS_IRIS_ATTO)) {
                     sum = balance.balance;
                 }
             }
@@ -381,7 +384,7 @@ public class WDp {
     public static BigDecimal getAllIris(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+            if(balance.symbol.equals(COSMOS_IRIS_ATTO)) {
                 sum = sum.add(balance.balance);
             }
         }
@@ -1131,6 +1134,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorIris);
         } else if (chain.equals(BaseChain.BNB_MAIN)) {
             return c.getResources().getColor(R.color.colorBnb);
+        } else if (chain.equals(BaseChain.IOV_MAIN)) {
+            return c.getResources().getColor(R.color.colorIov);
         } else {
             return c.getResources().getColor(R.color.colorAtom);
         }
@@ -1163,6 +1168,10 @@ public class WDp {
 
         } else if (chain.equals(BaseChain.BNB_MAIN.getChain())) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBnb));
+            textview.setText(c.getString(R.string.s_bnb));
+
+        } else if (chain.equals(BaseChain.IOV_MAIN.getChain())) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorIov));
             textview.setText(c.getString(R.string.s_bnb));
 
         }
