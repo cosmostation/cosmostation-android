@@ -8,14 +8,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,6 +41,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
     private ChainListAdapter            mChainListAdapter;
     private AccountListAdapter          mAccountListAdapter;
+    private ItemTouchHelper             mItemTouchHelper;
     private int                         mSelectChainPosition = 0;
     private int                         mSelectAccountPosition = 0;
     private boolean                     isEditMode;
@@ -63,10 +69,31 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         mAccountListAdapter = new AccountListAdapter();
         mAccountRecyclerView.setAdapter(mAccountListAdapter);
 
+        mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(mAccountListAdapter));
+        mItemTouchHelper.attachToRecyclerView(mAccountRecyclerView);
+        mItemTouchHelper.attachToRecyclerView(null);
+
+
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         onChainSelected(mSelectChainPosition);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        MenuInflater inflater = getMenuInflater();
+        if (isEditMode && mSelectChainPosition == 0) {
+            inflater.inflate(R.menu.account_edite_menu, menu);
+
+        } else if (!isEditMode && mSelectChainPosition == 0) {
+            inflater.inflate(R.menu.account_done_menu, menu);
+
+        } else {
+            inflater.inflate(R.menu.account_normal_menu, menu);
+        }
+        return true;
     }
 
     @Override
@@ -75,12 +102,34 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.menu_sorting:
+                isEditMode = !isEditMode;
+                onEditModeUpdate();
+                return true;
+            case R.id.menu_done:
+                isEditMode = !isEditMode;
+                onEditModeUpdate();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void onEditModeUpdate() {
+        if(isEditMode) {
+            mItemTouchHelper.attachToRecyclerView(mAccountRecyclerView);
+        } else {
+            mItemTouchHelper.attachToRecyclerView(null);
+        }
+        mAccountListAdapter.notifyDataSetChanged();
+        invalidateOptionsMenu();
+    }
+
     private void onChainSelected(int position) {
+        if (isEditMode) {
+            isEditMode = !isEditMode;
+        }
+        invalidateOptionsMenu();
         mSelectChainPosition = position;
         mChainListAdapter.notifyDataSetChanged();
         if (mSelectChainPosition == 0) {
@@ -99,7 +148,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.IOV_MAIN);
 
         }
-        WLog.w("mAccounts " + mAccounts.size());
         mAccountListAdapter.notifyDataSetChanged();
     }
 
@@ -127,7 +175,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                             public void run() {
                                 onChainSelected(position);
                             }
-                        },100);
+                        },150);
                     }
                 }
             });
@@ -207,7 +255,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     }
 
 
-    private class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperListener {
         private static final int TYPE_ACCOUNT       = 0;
         private static final int TYPE_ADD           = 1;
 
@@ -241,14 +289,29 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.accountName.setText(account.nickName);
                 }
 
-                holder.accountCard.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(AccountListActivity.this, AccountDetailActivity.class);
-                        intent.putExtra("id", ""+account.id);
-                        startActivity(intent);
-                    }
-                });
+                if (isEditMode) {
+                    holder.accountArrowSort.setImageDrawable(getDrawable(R.drawable.ic_handle));
+                    holder.accountArrowSort.setOnTouchListener(new View.OnTouchListener() {
+                        public boolean onTouch(View v, MotionEvent event) {
+                            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                                mItemTouchHelper.startDrag(viewHolder);
+                            }
+                            return false;
+                        }
+                    });
+
+                } else {
+                    holder.accountArrowSort.setImageDrawable(getDrawable(R.drawable.arrow_next_gr));
+                    holder.accountCard.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(AccountListActivity.this, AccountDetailActivity.class);
+                            intent.putExtra("id", ""+account.id);
+                            startActivity(intent);
+                        }
+                    });
+                }
+
 
             }  else if (getItemViewType(position) == TYPE_ADD) {
                 final AccountAddHolder holder = (AccountAddHolder)viewHolder;
@@ -294,15 +357,27 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             }
         }
 
+        @Override
+        public boolean onItemMove(int fromPosition, int toPosition) {
+            Account fromItem = mAccounts.get(fromPosition);
+            mAccounts.remove(fromPosition);
+            mAccounts.add(toPosition, fromItem);
+
+            notifyItemMoved(fromPosition, toPosition);
+            return true;
+        }
+
 
         public class AccountHolder extends RecyclerView.ViewHolder {
             FrameLayout accountCard;
+            LinearLayout accountContent;
             ImageView  accountArrowSort, accountKeyState;
             TextView accountName, accountAddress, accountAvailable, accountDenom;
             public AccountHolder(@NonNull View itemView) {
                 super(itemView);
                 accountCard         = itemView.findViewById(R.id.accountCard);
                 accountArrowSort    = itemView.findViewById(R.id.accountArrowSort);
+                accountContent      = itemView.findViewById(R.id.accountContent);
                 accountKeyState     = itemView.findViewById(R.id.accountKeyState);
                 accountName         = itemView.findViewById(R.id.accountName);
                 accountAddress      = itemView.findViewById(R.id.accountAddress);
@@ -319,6 +394,38 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             }
         }
     }
+
+    public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
+        ItemTouchHelperListener listener;
+
+        public ItemTouchHelperCallback(ItemTouchHelperListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+            int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+
+            return makeMovementFlags(dragFlags, swipeFlags);
+        }
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder source, @NonNull RecyclerView.ViewHolder target) {
+            return listener.onItemMove(source.getAdapterPosition(), target.getAdapterPosition());
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+        }
+    }
+
+    public interface ItemTouchHelperListener {
+        boolean onItemMove(int fromPosition, int toPosition);
+    }
+
+
 }
 /*
 public class AccountListActivity extends BaseActivity implements View.OnClickListener {

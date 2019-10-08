@@ -73,7 +73,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         mHdSeed = getIntent().getStringExtra("HDseed");
         mEntropy =  getIntent().getStringExtra("entropy");
-//        mChainType = getIntent().getStringExtra("chain");
         mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         mWordSize = getIntent().getIntExtra("size", 24);
         mMasterKey = HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(mHdSeed));
