@@ -182,7 +182,7 @@
 "error_invalid_password" = "Invalid PIN number";
 "error_not_enough_fee" = "No enough balance for fee.";
 "error_not_enough_balance_to_send" = "No enough balance for send.";
-"error_wasting_fee" = "Fee is bigger than reward. \nIt's waste coin!";
+"error_wasting_fee" = "Fee is bigger than reward. \nCoin would be wasted!";
 "error_no_telegram" = "Telegram not installed\nPlease install to continue.";
 "error_access_camera_title" = "Camera Access";
 "error_access_camera_msg" = "Request camera access for scan QR-code. Please provide camera access from settings.";
