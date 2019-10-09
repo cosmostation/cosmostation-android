@@ -287,7 +287,7 @@
     <string name="str_current_delegation">Current Delegation</string>
     <string name="str_expected_delegation">Expected Delegation</string>
     <string name="str_wallet_connect">Wallet Connect</string>
-    <string name="str_wallet_connect_msg">Would you like to link your wallet to Binance Dax Exchange?</string>
+    <string name="str_wallet_connect_msg">Would you like to link your wallet to Binance Dex Exchange?</string>
     <string name="str_disconnect">Disconnect</string>
     <string name="str_connect_to">Connect to</string>
     <string name="str_wc_connected">Wallet is connected.</string>
