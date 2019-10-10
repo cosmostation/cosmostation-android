@@ -16,12 +16,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,7 +113,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mAccountListAdapter = new AccountListAdapter();
         mAccountRecyclerView.setAdapter(mAccountListAdapter);
 
-
         mDimLayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,20 +181,21 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mContentsPager.setCurrentItem(0, false);
 
         View sheet = findViewById(R.id.top_sheet);
+        sheet.setNestedScrollingEnabled(false);
         mTopSheetBehavior = TopSheetBehavior.from(sheet);
         mTopSheetBehavior.setState(TopSheetBehavior.STATE_HIDDEN);
         mTopSheetBehavior.setTopSheetCallback(new TopSheetBehavior.TopSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                if(newState == TopSheetBehavior.STATE_COLLAPSED) {
+                if (newState == TopSheetBehavior.STATE_COLLAPSED) {
                     mDimLayer.setVisibility(View.GONE);
+
                 }
             }
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
-
     }
 
     @Override

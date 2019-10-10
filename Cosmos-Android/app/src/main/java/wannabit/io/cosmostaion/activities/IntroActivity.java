@@ -112,9 +112,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         }, 2500);
     }
 
-    private void onInitView(){
-//        onChangeImageWithFadeInAndOut(this, bgImg, R.drawable.bg_intro_gr);
-
+    private void onInitView() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in5 );
         Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out5 );
         bgImgGr.startAnimation(fadeInAnimation);

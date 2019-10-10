@@ -46,7 +46,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
     private String              mHdSeed;
     private String              mEntropy;
     private int                 mWordSize;
-//    private String              mChainType;
     private BaseChain           mChain;
     private DeterministicKey    mMasterKey;
 
@@ -163,10 +162,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 @Override
                 public void onClick(View v) {
                     if(holder.newState.getText().toString().equals(getString(R.string.str_ready))) {
-                        if(getBaseDao().onSelectAccounts().size() >= 5) {
-                            Toast.makeText(getBaseContext(), getString(R.string.error_max_account_over), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
                         onGenAccount(position);
                     } else if (holder.newState.getText().toString().equals(getString(R.string.str_imported))) {
                         Toast.makeText(getBaseContext(), getString(R.string.str_already_imported_key), Toast.LENGTH_SHORT).show();

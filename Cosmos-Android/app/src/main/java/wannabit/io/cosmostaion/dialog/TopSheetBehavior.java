@@ -6,7 +6,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.os.ParcelableCompat;
 import android.support.v4.os.ParcelableCompatCreatorCallbacks;
@@ -243,14 +242,15 @@ public class TopSheetBehavior<V extends View> extends CoordinatorLayout.Behavior
         if (!mIgnoreEvents && mViewDragHelper.shouldInterceptTouchEvent(event)) {
             return true;
         }
-        // We have to handle cases that the ViewDragHelper does not capture the bottom sheet because
-        // it is not the top most view of its parent. This is not necessary when the touch event is
-        // happening over the scrolling content as nested scrolling logic handles that case.
+//        // We have to handle cases that the ViewDragHelper does not capture the bottom sheet because
+//        // it is not the top most view of its parent. This is not necessary when the touch event is
+//        // happening over the scrolling content as nested scrolling logic handles that case.
         View scroll = mNestedScrollingChildRef.get();
         return action == MotionEvent.ACTION_MOVE && scroll != null &&
                 !mIgnoreEvents && mState != STATE_DRAGGING &&
                 !parent.isPointInChildBounds(scroll, (int) event.getX(), (int) event.getY()) &&
-                Math.abs(mInitialY - event.getY()) > mViewDragHelper.getTouchSlop();
+                Math.abs(mInitialY - event.getY()) > (mViewDragHelper.getTouchSlop()*20);
+//        return false;
     }
 
     @Override

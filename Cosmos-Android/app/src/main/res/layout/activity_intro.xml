@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_cosmos"/>
+        android:src="@drawable/bg_intro_gr"/>
     <ImageView
         android:id="@+id/intro_bg"
         android:layout_width="match_parent"
