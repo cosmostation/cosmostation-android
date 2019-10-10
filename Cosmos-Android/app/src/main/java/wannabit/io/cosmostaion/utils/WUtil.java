@@ -774,6 +774,19 @@ public class WUtil {
         });
     }
 
+
+    public static void onSortingAccount(ArrayList<Account> accounts) {
+        Collections.sort(accounts, new Comparator<Account>() {
+            @Override
+            public int compare(Account o1, Account o2) {
+                if (o1.sortOrder > o2.sortOrder) return 1;
+                else if (o1.sortOrder < o2.sortOrder) return -1;
+                else return 0;
+
+            }
+        });
+    }
+
     public static ArrayList<Validator> getIrisTops(ArrayList<Validator> allValidators) {
         ArrayList<Validator> result = new ArrayList<>();
         for(Validator v:allValidators) {

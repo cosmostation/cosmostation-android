@@ -9,6 +9,9 @@ import android.text.TextUtils;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -347,12 +350,6 @@ public class BaseData {
         return getSharedPreferences().getInt(BaseConstant.PRE_TOKEN_SORTING, 1);
     }
 
-
-
-
-
-
-
     public Password onSelectPassword() {
         Password result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_PASSWORD, new String[]{"resource", "spec"}, null, null, null, null, null);
@@ -462,7 +459,7 @@ public class BaseData {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal"}, null, null, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder"}, null, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             do {
                 Account account = new Account(
@@ -483,7 +480,8 @@ public class BaseData {
                         cursor.getLong(14),
                         cursor.getInt(15),
                         cursor.getLong(16),
-                        cursor.getString(17)
+                        cursor.getString(17),
+                        cursor.getLong(18)
                 );
                 account.setBalances(onSelectBalance(account.id));
                 result.add(account);
@@ -510,7 +508,7 @@ public class BaseData {
         Account result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal"}, "id == ?", new String[]{id}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder"}, "id == ?", new String[]{id}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -530,7 +528,8 @@ public class BaseData {
                     cursor.getLong(14),
                     cursor.getInt(15),
                     cursor.getLong(16),
-                    cursor.getString(17)
+                    cursor.getString(17),
+                    cursor.getLong(18)
             );
             result.setBalances(onSelectBalance(result.id));
         }
@@ -542,7 +541,7 @@ public class BaseData {
         Account result = null;
         Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
                 "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal"}, "address == ?", new String[]{address}, null, null, null);
+                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder"}, "address == ?", new String[]{address}, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
             result = new Account(
                     cursor.getLong(0),
@@ -562,7 +561,8 @@ public class BaseData {
                     cursor.getLong(14),
                     cursor.getInt(15),
                     cursor.getLong(16),
-                    cursor.getString(17)
+                    cursor.getString(17),
+                    cursor.getLong(18)
             );
             result.setBalances(onSelectBalance(result.id));
         }
@@ -590,6 +590,7 @@ public class BaseData {
         values.put("fetchTime",         account.fetchTime);
         values.put("msize",             account.msize);
         values.put("importTime",        account.importTime);
+        values.put("sortOrder",         9999l);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_ACCOUNT, null, values);
     }
 
@@ -610,11 +611,21 @@ public class BaseData {
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
-    public long onUpdateLastToalAccount(Account account, String amount) {
+    public long onUpdateLastTotalAccount(Account account, String amount) {
         ContentValues values = new ContentValues();
         values.put("lastTotal",          amount);
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
+
+    public void onUpdateAccountOrders(ArrayList<Account> accounts) {
+        for (Account account:accounts) {
+            ContentValues values = new ContentValues();
+            values.put("sortOrder",          account.sortOrder);
+            getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
+        }
+    }
+
+
 
     public long onUpdateTestChain(Account account) {
         WLog.w("onUpdateTestChain : " + account.baseChain);

@@ -31,6 +31,7 @@ public class BaseConstant {
     public final static String                  PRE_APP_LOCK_TIME			                    = "PRE_APP_LOCK_TIME";
     public final static String                  PRE_APP_LOCK_LEAVE_TIME			                = "PRE_APP_LOCK_LEAVE_TIME";
     public final static String                  PRE_TOKEN_SORTING                               = "PRE_TOKEN_SORTING";
+    public final static String                  PRE_ACCOUNT_ORDER                               = "PRE_ACCOUNT_ORDER";
 
 
 

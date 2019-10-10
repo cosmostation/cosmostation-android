@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class AccountListActivity extends BaseActivity implements View.OnClickListener {
 
@@ -148,12 +149,21 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.IOV_MAIN);
 
         }
+        WUtil.onSortingAccount(mAccounts);
         mAccountListAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View v) {
 
+    }
+
+    private void onSaveNewOrder() {
+        for (int i = 0 ; i < mAccounts.size(); i ++) {
+                mAccounts.get(i).sortOrder = Long.valueOf(i);
+
+        }
+        getBaseDao().onUpdateAccountOrders(mAccounts);
     }
 
     private class ChainListAdapter extends RecyclerView.Adapter<ChainListAdapter.ChainHolder> {
@@ -362,8 +372,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             Account fromItem = mAccounts.get(fromPosition);
             mAccounts.remove(fromPosition);
             mAccounts.add(toPosition, fromItem);
-
             notifyItemMoved(fromPosition, toPosition);
+            onSaveNewOrder();
             return true;
         }
 
