@@ -117,7 +117,7 @@
 "binanace_explorer" = "Binance Explorer";
 "disconnected" = "Disconnected";
 "wc_alert_title" = "Wallet Connect";
-"wc_alert_msg" = "Would you like to link your wallet to Binance Dax Exchange?";
+"wc_alert_msg" = "Would you like to link your wallet to Binance Dex Exchange?";
 "wc_request_sign_title" = "Request Transaction Sign";
 "wc_request_sign_msg" = "\nPlease check the contents and decide.\nIt affects your assets.";
 "wc_request_cancel_msg" = "\nPlease check the contents and decide.\n\nCancel Order.";
@@ -182,7 +182,7 @@
 "error_invalid_password" = "Invalid PIN number";
 "error_not_enough_fee" = "No enough balance for fee.";
 "error_not_enough_balance_to_send" = "No enough balance for send.";
-"error_wasting_fee" = "Fee is bigger than reward. \nIt's waste coin!";
+"error_wasting_fee" = "Fee is bigger than reward. \nCoin would be wasted!";
 "error_no_telegram" = "Telegram not installed\nPlease install to continue.";
 "error_access_camera_title" = "Camera Access";
 "error_access_camera_msg" = "Request camera access for scan QR-code. Please provide camera access from settings.";
@@ -233,7 +233,7 @@
 "tx_create_validator" = "Create Val";
 "tx_edit_validator" = "Edit Val";
 "tx_reinvest" = "Re-Invest";
-"tx_get_reward_all" = "Get Rewards All";
+"tx_get_reward_all" = "Get All Rewards";
 "tx_new_order" = "New Order";
 "tx_cancel_order" = "Cancel Order";
 "tx_issue_token" = "Issue Token";

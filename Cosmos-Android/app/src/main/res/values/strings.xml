@@ -156,7 +156,7 @@
     <string name="str_explore_bnb">Explorer Binance</string>
     <string name="str_homepage">Cosmostation</string>
     <string name="str_app_info">App Info</string>
-    <string name="str_term">Terms and Policy</string>
+    <string name="str_term">Terms of Service</string>
     <string name="str_github">Open Source (GitHub)</string>
     <string name="str_version">Version</string>
     <string name="str_will_support_with_mainnet">Will support with Main Net.</string>
@@ -287,7 +287,7 @@
     <string name="str_current_delegation">Current Delegation</string>
     <string name="str_expected_delegation">Expected Delegation</string>
     <string name="str_wallet_connect">Wallet Connect</string>
-    <string name="str_wallet_connect_msg">Would you like to link your wallet to Binance Dax Exchange?</string>
+    <string name="str_wallet_connect_msg">Would you like to link your wallet to Binance Dex Exchange?</string>
     <string name="str_disconnect">Disconnect</string>
     <string name="str_connect_to">Connect to</string>
     <string name="str_wc_connected">Wallet is connected.</string>
