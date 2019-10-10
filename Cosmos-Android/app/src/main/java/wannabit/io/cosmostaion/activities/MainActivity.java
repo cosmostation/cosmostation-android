@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
@@ -69,23 +71,29 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private ArrayList<Account>          mAccounts = new ArrayList<>();
     private TopSheetBehavior            mTopSheetBehavior;
 
-    private RecyclerView                mRecyclerView;
-    private AccountAdapter              mAccountAdapter;
+    private RecyclerView                mChainRecyclerView;
+    private RecyclerView                mAccountRecyclerView;
+    private ChainListAdapter            mChainListAdapter;
+    private AccountListAdapter          mAccountListAdapter;
+    private int                         mSelectChainPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRoot                       = findViewById(R.id.root);
-        mChainBg                    = findViewById(R.id.chain_bg);
-        mToolbar                    = findViewById(R.id.tool_bar);
-        mToolbarTitle               = findViewById(R.id.toolbar_title);
-        mToolbarChainImg            = findViewById(R.id.toolbar_net_image);
-        mToolbarChainName           = findViewById(R.id.toolbar_net_name);
-        mContentsPager              = findViewById(R.id.view_pager);
-        mTabLayer                   = findViewById(R.id.bottom_tab);
-        mDimLayer                   = findViewById(R.id.dim_layer);
-        mFloatBtn                   = findViewById(R.id.btn_floating);
+        mRoot                   = findViewById(R.id.root);
+        mChainBg                = findViewById(R.id.chain_bg);
+        mToolbar                = findViewById(R.id.tool_bar);
+        mToolbarTitle           = findViewById(R.id.toolbar_title);
+        mToolbarChainImg        = findViewById(R.id.toolbar_net_image);
+        mToolbarChainName       = findViewById(R.id.toolbar_net_name);
+        mContentsPager          = findViewById(R.id.view_pager);
+        mTabLayer               = findViewById(R.id.bottom_tab);
+        mDimLayer               = findViewById(R.id.dim_layer);
+        mFloatBtn               = findViewById(R.id.btn_floating);
+        mChainRecyclerView      = findViewById(R.id.chain_recycler);
+        mAccountRecyclerView    = findViewById(R.id.account_recycler);
+
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,12 +101,16 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
         });
 
+        mChainRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mChainRecyclerView.setHasFixedSize(true);
+        mChainListAdapter = new ChainListAdapter();
+        mChainRecyclerView.setAdapter(mChainListAdapter);
 
-        mRecyclerView               = findViewById(R.id.account_recycler);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setHasFixedSize(true);
-        mAccountAdapter = new AccountAdapter();
-        mRecyclerView.setAdapter(mAccountAdapter);
+        mAccountRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mAccountRecyclerView.setHasFixedSize(true);
+        mAccountListAdapter = new AccountListAdapter();
+        mAccountRecyclerView.setAdapter(mAccountListAdapter);
+
 
         mDimLayer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,7 +199,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     @Override
     protected void onResume() {
         super.onResume();
-        mAccounts = getBaseDao().onSelectAccounts();
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         if(mAccount == null) {
@@ -215,8 +226,32 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         onUpdateTitle();
         onFetchAllData();
-        mAccountAdapter.notifyDataSetChanged();
+        onChainSelected(mSelectChainPosition);
 
+    }
+
+    private void onChainSelected(int position) {
+        invalidateOptionsMenu();
+        mSelectChainPosition = position;
+        mChainListAdapter.notifyDataSetChanged();
+        if (mSelectChainPosition == 0) {
+            mAccounts = getBaseDao().onSelectAccounts();
+
+        } else if (mSelectChainPosition == 1) {
+            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.COSMOS_MAIN);
+
+        } else if (mSelectChainPosition == 2) {
+            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.IRIS_MAIN);
+
+        } else if (mSelectChainPosition == 3) {
+            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.BNB_MAIN);
+
+        } else if (mSelectChainPosition == 4) {
+            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.IOV_MAIN);
+
+        }
+        WUtil.onSortingAccount(mAccounts);
+        mAccountListAdapter.notifyDataSetChanged();
     }
 
     private void onUpdateTitle() {
@@ -351,7 +386,110 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
     }
 
-    private class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+
+
+
+
+    private class ChainListAdapter extends RecyclerView.Adapter<ChainListAdapter.ChainHolder> {
+
+        @NonNull
+        @Override
+        public ChainListAdapter.ChainHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            return new ChainListAdapter.ChainHolder(getLayoutInflater().inflate(R.layout.item_accountlist_chain, viewGroup, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, int position) {
+            holder.chainCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mSelectChainPosition != position) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                onChainSelected(position);
+                            }
+                        },150);
+                    }
+                }
+            });
+
+            if (position == 0) {
+                holder.chainLayer.setVisibility(View.GONE);
+                holder.allLayer.setVisibility(View.VISIBLE);
+                if (mSelectChainPosition == position) {
+                    holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_selected));
+                    holder.chainAll.setTextColor(getColor(R.color.colorWhite));
+                } else {
+                    holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_unselected));
+                    holder.chainAll.setTextColor(getColor(R.color.colorGray4));
+                }
+                return;
+
+            } else if (position == 1) {
+                holder.chainLayer.setVisibility(View.VISIBLE);
+                holder.allLayer.setVisibility(View.GONE);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+                holder.chainName.setText(getString(R.string.str_cosmos));
+
+
+            } else if (position == 2) {
+                holder.chainLayer.setVisibility(View.VISIBLE);
+                holder.allLayer.setVisibility(View.GONE);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
+                holder.chainName.setText(getString(R.string.str_iris));
+
+            } else if (position == 3) {
+                holder.chainLayer.setVisibility(View.VISIBLE);
+                holder.allLayer.setVisibility(View.GONE);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
+                holder.chainName.setText(getString(R.string.str_binance));
+
+            } else if (position == 4) {
+                holder.chainLayer.setVisibility(View.VISIBLE);
+                holder.allLayer.setVisibility(View.GONE);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
+                holder.chainName.setText(getString(R.string.str_iov));
+
+            }
+
+            if (mSelectChainPosition == position) {
+                holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_selected));
+                holder.chainImg.setAlpha(1f);
+                holder.chainName.setTextColor(getColor(R.color.colorWhite));
+            } else {
+                holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_unselected));
+                holder.chainImg.setAlpha(0.1f);
+                holder.chainName.setTextColor(getColor(R.color.colorGray4));
+            }
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return 5;
+        }
+
+
+        public class ChainHolder extends RecyclerView.ViewHolder {
+            FrameLayout chainCard;
+            LinearLayout chainLayer, allLayer;
+            ImageView  chainImg;
+            TextView chainName, chainAll;
+            public ChainHolder(@NonNull View itemView) {
+                super(itemView);
+                chainCard       = itemView.findViewById(R.id.chainCard);
+                chainLayer      = itemView.findViewById(R.id.chainLayer);
+                allLayer        = itemView.findViewById(R.id.allLayer);
+                chainImg        = itemView.findViewById(R.id.chainImg);
+                chainName       = itemView.findViewById(R.id.chainName);
+                chainAll        = itemView.findViewById(R.id.chainAll);
+            }
+        }
+    }
+
+    private class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_ACCOUNT       = 0;
         private static final int TYPE_ADD           = 1;
 
@@ -359,13 +497,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if(viewType == TYPE_ACCOUNT) {
-                return  new AccountHolder(getLayoutInflater().inflate(R.layout.item_account, viewGroup, false));
-            } else if (viewType == TYPE_ADD) {
-                return  new AccountAddHolder(getLayoutInflater().inflate(R.layout.item_account_add, viewGroup, false));
+                return new AccountListAdapter.AccountHolder(getLayoutInflater().inflate(R.layout.item_accountlist_account, viewGroup, false));
             } else {
-                return null;
+                return new AccountListAdapter.AccountAddHolder(getLayoutInflater().inflate(R.layout.item_accountlist_add, viewGroup, false));
             }
-
         }
 
         @Override
@@ -373,20 +508,29 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             if (getItemViewType(position) == TYPE_ACCOUNT) {
                 final AccountHolder holder = (AccountHolder)viewHolder;
                 final Account account = mAccounts.get(position);
-                if(account.id == mAccount.id) {
-                    holder.card_account.setBackground(getResources().getDrawable(R.drawable.box_accout_selected));
+
+                holder.accountArrowSort.setVisibility(View.GONE);
+                if (account.id == mAccount.id) {
+                    holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_accout_selected));
                 } else {
-                    holder.card_account.setBackground(getResources().getDrawable(R.drawable.box_accout_unselected));
+                    holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_accout_unselected));
+                }
+
+                WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
+                holder.accountAddress.setText(account.address);
+                holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), BaseChain.getChain(account.baseChain)));
+                holder.accountKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+                if (account.hasPrivateKey) {
+                    holder.accountKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
                 }
 
                 if (TextUtils.isEmpty(account.nickName)){
-                    holder.img_name.setText(getString(R.string.str_my_wallet) + account.id);
+                    holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
                 } else {
-                    holder.img_name.setText(account.nickName);
+                    holder.accountName.setText(account.nickName);
                 }
 
-                holder.img_address.setText(account.address);
-                holder.card_account.setOnClickListener(new View.OnClickListener() {
+                holder.accountCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(account.id == mAccount.id) {
@@ -401,38 +545,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                                     getBaseDao().setLastUser(account.id);
                                     onResume();
                                 }
-                            },250);
+                            },200);
 
                         }
                     }
                 });
-
-                holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-                if (BaseChain.getChain(account.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-                    holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
-                    holder.tv_chain.setText(getString(R.string.str_cosmos_hub));
-                    holder.tv_chain.setTextColor(getResources().getColor(R.color.colorAtom));
-                    if (account.hasPrivateKey) {
-                        holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
-                    }
-
-                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.IRIS_MAIN)) {
-                    holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
-                    holder.tv_chain.setText(getString(R.string.str_iris_net));
-                    holder.tv_chain.setTextColor(getResources().getColor(R.color.colorIris));
-                    if (account.hasPrivateKey) {
-                        holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
-                    }
-
-                } else if (BaseChain.getChain(account.baseChain).equals(BaseChain.BNB_MAIN)) {
-                    holder.img_chain.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
-                    holder.tv_chain.setText(getString(R.string.str_binance_net));
-                    holder.tv_chain.setTextColor(getResources().getColor(R.color.colorBnb));
-                    if (account.hasPrivateKey) {
-                        holder.img_account.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
-                    }
-
-                }
 
             } else if (getItemViewType(position) == TYPE_ADD) {
                 final AccountAddHolder holder = (AccountAddHolder)viewHolder;
@@ -443,12 +560,22 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Dialog_AddAccount add = Dialog_AddAccount.newInstance(null);
+                                Bundle bundle  = new Bundle();
+                                if (mSelectChainPosition == 1) {
+                                    bundle.putString("chain", BaseChain.COSMOS_MAIN.getChain());
+                                } else if (mSelectChainPosition == 2) {
+                                    bundle.putString("chain", BaseChain.IRIS_MAIN.getChain());
+                                } else if (mSelectChainPosition == 3) {
+                                    bundle.putString("chain", BaseChain.BNB_MAIN.getChain());
+                                } else if (mSelectChainPosition == 4) {
+                                    bundle.putString("chain", BaseChain.IOV_MAIN.getChain());
+                                }
+                                Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
                                 add.setCancelable(true);
                                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
 
                             }
-                        },250);
+                        },200);
                     }
                 });
             }
@@ -456,38 +583,49 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         @Override
         public int getItemCount() {
-            if(mAccounts.size() >= 5) {
-                return 5;
+            if (mSelectChainPosition == 0) {
+                return mAccounts.size();
             } else {
-                return mAccounts.size() + 1;
+                if (mAccounts.size() >= 5) {
+                    return mAccounts.size();
+                } else {
+                    return mAccounts.size() + 1;
+                }
             }
         }
 
         @Override
         public int getItemViewType(int position) {
-            if(mAccounts.size() >= 5) {
+            if (mSelectChainPosition == 0) {
                 return TYPE_ACCOUNT;
             } else {
-                if (position < mAccounts.size()) {
+                if (mAccounts.size() >= 5) {
                     return TYPE_ACCOUNT;
                 } else {
-                    return TYPE_ADD;
+                    if (position < mAccounts.size()) {
+                        return TYPE_ACCOUNT;
+                    } else {
+                        return TYPE_ADD;
+                    }
                 }
             }
         }
 
         public class AccountHolder extends RecyclerView.ViewHolder {
-            FrameLayout card_account;
-            ImageView img_account, img_chain;
-            TextView img_name, img_address, tv_chain;
-            public AccountHolder(View v) {
-                super(v);
-                card_account        = itemView.findViewById(R.id.card_account);
-                img_chain           = itemView.findViewById(R.id.btn_account_chain_img);
-                img_account         = itemView.findViewById(R.id.img_account);
-                img_name            = itemView.findViewById(R.id.img_name);
-                img_address         = itemView.findViewById(R.id.img_address);
-                tv_chain            = itemView.findViewById(R.id.tv_chain);
+            FrameLayout accountCard;
+            LinearLayout accountContent;
+            ImageView  accountArrowSort, accountKeyState;
+            TextView accountName, accountAddress, accountAvailable, accountDenom;
+            public AccountHolder(@NonNull View itemView) {
+                super(itemView);
+                accountCard         = itemView.findViewById(R.id.accountCard);
+                accountArrowSort    = itemView.findViewById(R.id.accountArrowSort);
+                accountContent      = itemView.findViewById(R.id.accountContent);
+                accountKeyState     = itemView.findViewById(R.id.accountKeyState);
+                accountName         = itemView.findViewById(R.id.accountName);
+                accountAddress      = itemView.findViewById(R.id.accountAddress);
+                accountAvailable    = itemView.findViewById(R.id.accountAvailable);
+                accountDenom        = itemView.findViewById(R.id.accountDenom);
             }
         }
 

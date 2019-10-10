@@ -46,9 +46,6 @@
             android:clipToPadding="false"
             android:overScrollMode="never"/>
     </LinearLayout>
-
-
-
 </RelativeLayout>
 
 <!--<?xml version="1.0" encoding="utf-8"?>-->

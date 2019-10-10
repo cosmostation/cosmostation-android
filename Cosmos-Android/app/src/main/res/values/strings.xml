@@ -299,6 +299,7 @@
     <string name="str_wc_sign_result_msg">Tx is broadcasted. \nPlese check your Dex screen!</string>
     <string name="str_wc_new_order">New Order</string>
     <string name="str_wc_cancel_order">Order Cancel</string>
+    <string name="str_switch_wallet">Switch Wallet</string>
 
 
     <string name="str_main_wallet">WALLET</string>
