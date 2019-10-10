@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class AccountListActivity extends BaseActivity implements View.OnClickListener {
@@ -69,9 +70,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         mAccountRecyclerView.setAdapter(mAccountListAdapter);
 
         mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(mAccountListAdapter));
-        mItemTouchHelper.attachToRecyclerView(mAccountRecyclerView);
-        mItemTouchHelper.attachToRecyclerView(null);
-
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -302,14 +300,17 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.accountArrowSort.setOnTouchListener(new View.OnTouchListener() {
                         public boolean onTouch(View v, MotionEvent event) {
                             if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                                mItemTouchHelper.startDrag(viewHolder);
+                                if (mItemTouchHelper != null)
+                                    mItemTouchHelper.startDrag(viewHolder);
                             }
                             return false;
                         }
                     });
+                    holder.accountCard.setOnClickListener(null);
 
                 } else {
                     holder.accountArrowSort.setImageDrawable(getDrawable(R.drawable.arrow_next_gr));
+                    holder.accountArrowSort.setOnTouchListener(null);
                     holder.accountCard.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
