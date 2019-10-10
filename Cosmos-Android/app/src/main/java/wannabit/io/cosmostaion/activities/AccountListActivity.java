@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class AccountListActivity extends BaseActivity implements View.OnClickListener {
@@ -328,10 +326,19 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 holder.btn_account_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Dialog_AddAccount add = Dialog_AddAccount.newInstance(null);
+                        Bundle bundle  = new Bundle();
+                        if (mSelectChainPosition == 1) {
+                            bundle.putString("chain", BaseChain.COSMOS_MAIN.getChain());
+                        } else if (mSelectChainPosition == 2) {
+                            bundle.putString("chain", BaseChain.IRIS_MAIN.getChain());
+                        } else if (mSelectChainPosition == 3) {
+                            bundle.putString("chain", BaseChain.BNB_MAIN.getChain());
+                        } else if (mSelectChainPosition == 4) {
+                            bundle.putString("chain", BaseChain.IOV_MAIN.getChain());
+                        }
+                        Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
                         add.setCancelable(true);
                         getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                        //TODO need chain select
                     }
                 });
             }

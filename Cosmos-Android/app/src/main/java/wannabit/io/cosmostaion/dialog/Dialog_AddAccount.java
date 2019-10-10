@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,11 @@ public class Dialog_AddAccount extends DialogFragment {
         btn_import_mnemonic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), RestoreActivity.class));
+                Intent restoreIntent = new Intent(getActivity(), RestoreActivity.class);
+                if (getArguments() != null && getArguments().getString("chain") != null) {
+                    restoreIntent.putExtra("chain", getArguments().getString("chain"));
+                }
+                startActivity(restoreIntent);
                 getDialog().dismiss();
             }
         });
@@ -61,7 +66,11 @@ public class Dialog_AddAccount extends DialogFragment {
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), CreateActivity.class));
+                Intent createIntent = new Intent(getActivity(), CreateActivity.class);
+                if (getArguments() != null && getArguments().getString("chain") != null) {
+                    createIntent.putExtra("chain", getArguments().getString("chain"));
+                }
+                startActivity(createIntent);
                 getDialog().dismiss();
             }
         });

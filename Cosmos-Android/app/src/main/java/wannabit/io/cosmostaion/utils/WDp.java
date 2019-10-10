@@ -1137,7 +1137,7 @@ public class WDp {
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
             return c.getResources().getColor(R.color.colorIov);
         } else {
-            return c.getResources().getColor(R.color.colorAtom);
+            return c.getResources().getColor(R.color.colorGray0);
         }
     }
 

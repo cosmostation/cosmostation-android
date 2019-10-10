@@ -496,8 +496,6 @@ public class BaseData {
         ArrayList<Account> AllAccount = onSelectAccounts();
         for (Account account:AllAccount) {
             if (BaseChain.getChain(account.baseChain).equals(chain)) {
-                WLog.w("BaseChain.getChain(account.baseChain) " + BaseChain.getChain(account.baseChain).getChain());
-                WLog.w("chain " + chain.getChain());
                 result.add(account);
             }
         }

@@ -57,6 +57,10 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         mBtnNext        = findViewById(R.id.btn_next);
         mBtnNext.setOnClickListener(this);
 
+        if (getIntent().getStringExtra("chain") != null) {
+            mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
+        }
+
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -75,6 +79,10 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
             dialog.setCancelable(false);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        } else {
+            onShowWaitDialog();
+            onGenWords();
+            onUpdateView();
         }
     }
 

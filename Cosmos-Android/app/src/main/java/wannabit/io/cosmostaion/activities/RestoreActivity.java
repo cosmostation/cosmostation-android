@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,26 +35,28 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RestoreActivity extends BaseActivity implements View.OnClickListener{
 
     private Toolbar             mToolbar;
+    private LinearLayout        mContentsLayer;
     private Button              mPaste, mBtnConfirm;
     private Button[]            mAlphabetBtns = new Button[26];
     private ImageButton         mBtnDelete;
     private Button              mBtnSpace;
     private RecyclerView        mRecyclerView;
+    private ImageView           mChainImg;
     private TextView            mClearAll, mWordCnt;
 
     private EditText[]          mEtMnemonics = new EditText[24];
     private int                 mMnemonicPosition = 0;
 
+    private BaseChain           mChain;
     private ArrayList<String>   mAllMnemonic;
     private MnemonicAdapter     mMnemonicAdapter;
-    private boolean             mCheckPassword;
-
     private ArrayList<String>   mWords = new ArrayList<>();
 
     @Override
@@ -61,14 +65,15 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_restore);
         mToolbar        = findViewById(R.id.tool_bar);
+        mContentsLayer  = findViewById(R.id.contentsLayer);
         mPaste          = findViewById(R.id.btn_paste);
         mBtnConfirm     = findViewById(R.id.btn_confirm);
         mBtnDelete      = findViewById(R.id.password_back);
         mBtnSpace       = findViewById(R.id.btn_next);
         mRecyclerView   = findViewById(R.id.recycler);
+        mChainImg       = findViewById(R.id.chainImg);
         mClearAll       = findViewById(R.id.toolbar_clear);
         mWordCnt        = findViewById(R.id.words_cnt);
-
 
         mPaste.setOnClickListener(this);
         mBtnConfirm.setOnClickListener(this);
@@ -76,6 +81,10 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         mBtnSpace.setOnClickListener(this);
         mClearAll.setOnClickListener(this);
 
+
+        if (getIntent().getStringExtra("chain") != null) {
+            mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
+        }
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -111,6 +120,19 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (mChain == null) {
+            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
+            dialog.setCancelable(false);
+            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+        } else {
+            onUpdateView();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -119,6 +141,12 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void onUpdateView() {
+        mChainImg.setColorFilter(WDp.getChainColor(getBaseContext(), mChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        mContentsLayer.setVisibility(View.VISIBLE);
+        mEtMnemonics[0].requestFocus();
     }
 
     private void onClearAll() {
@@ -159,7 +187,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         mWordCnt.setText(""+ mWords.size() + " words");
         if( (mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
             WKey.isMnemonicWords(mWords)) {
-            mWordCnt.setTextColor(getResources().getColor(R.color.colorAtom));
+            mWordCnt.setTextColor(WDp.getChainColor(getBaseContext(), mChain));
         } else {
             mWordCnt.setTextColor(getResources().getColor(R.color.colorRed));
         }
@@ -175,8 +203,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             return false;
         }
     }
-
-
 
     @Override
     public void onClick(View v) {
@@ -270,29 +296,21 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == BaseConstant.CONST_PW_INIT && resultCode == Activity.RESULT_OK) {
-            mCheckPassword = true;
-        } else if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
-            mCheckPassword = true;
+        if (resultCode == Activity.RESULT_OK) {
+            Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
+            intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));
+            intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
+            intent.putExtra("size", mWords.size());
+            intent.putExtra("chain", mChain.getChain());
+            startActivity(intent);
         }
-
-        if(mCheckPassword) {
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
-            dialog.setCancelable(false);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-        }
-
     }
 
     @Override
     public void onChoiceNet(BaseChain chain) {
         super.onChoiceNet(chain);
-        Intent intent = new Intent(RestoreActivity.this, RestorePathActivity.class);
-        intent.putExtra("HDseed", WKey.getStringHdSeedFromWords(mWords));
-        intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
-        intent.putExtra("size", mWords.size());
-        intent.putExtra("chain", chain.getChain());
-        startActivity(intent);
+        mChain = chain;
+        onUpdateView();
     }
 
 
