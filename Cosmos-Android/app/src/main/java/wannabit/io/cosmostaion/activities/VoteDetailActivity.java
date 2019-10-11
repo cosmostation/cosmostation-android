@@ -1,18 +1,33 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.task.FetchTask.ProposalDetailTask;
+import wannabit.io.cosmostaion.task.FetchTask.ProposalProposerTask;
+import wannabit.io.cosmostaion.task.FetchTask.ProposalTallyTask;
+import wannabit.io.cosmostaion.task.FetchTask.ProposalVotedListTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WLog;
 
-public class VoteDetailActivity extends BaseActivity {
+public class VoteDetailActivity extends BaseActivity implements TaskListener {
 
     private ImageView mChainBg;
     private Toolbar mToolbar;
@@ -22,11 +37,17 @@ public class VoteDetailActivity extends BaseActivity {
     private ImageView mVoteWebBtn;
     private TextView mVoteTitle, mVoteProposer, mVoteStartTime, mVoteFinishTime, mVoteMsg;
     private ImageView mMsgExpendBtn;
-    private TextView mVoteQuorum;
+    private View mDivider;
+    private LinearLayout mTurnoutLayer, mQuorumLayer;
+    private TextView mVoteTurnout, mVoteQuorum;
     private ImageView mYesDone, mNoDone, mVetoDone, mAbstainDone;
     private ProgressBar mYesProgress, mNoProgress, mVetoProgress, mAbstainProgress;
     private TextView mYesRate, mYesCnt, mNoRate, mNoCnt, mVetoRate, mVetoCnt, mAbstainRate, mAbstainCnt;
     private ImageView mYesCntImg, mNoCntImg, mVetoCntImg, mAbstainCntImg;
+
+    private String  mProposalId;
+    private ArrayList<Validator> mTopValidators = new ArrayList<>();
+    private BigDecimal mBondedToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +65,10 @@ public class VoteDetailActivity extends BaseActivity {
         mVoteMsg = findViewById(R.id.vote_msg);
         mMsgExpendBtn = findViewById(R.id.vote_btn_expend);
 
+        mTurnoutLayer = findViewById(R.id.vote_turnout_layer);
+        mVoteTurnout = findViewById(R.id.vote_turnout);
+        mDivider = findViewById(R.id.vote_quorum_divider);
+        mQuorumLayer = findViewById(R.id.vote_quorum_layer);
         mVoteQuorum = findViewById(R.id.vote_quorum);
         mYesDone = findViewById(R.id.vote_yes_voted);
         mNoDone = findViewById(R.id.vote_no_voted);
@@ -72,7 +97,12 @@ public class VoteDetailActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-
+        mProposalId = getIntent().getStringExtra("proposalId");
+        mTopValidators = getIntent().getParcelableArrayListExtra("topValidators");
+        mBondedToken = new BigDecimal(getIntent().getStringExtra("bondedToken"));
+        WLog.w("mTopValidators " + mTopValidators.size());
+        WLog.w("mBondedToken " + mBondedToken.toPlainString());
+        onFetchData();
     }
 
     @Override
@@ -86,5 +116,46 @@ public class VoteDetailActivity extends BaseActivity {
         }
     }
 
+    private void onUpdateView() {
+        WLog.w("onUpdateView");
+        onHideWaitDialog();
+
+    }
+
+
+    public void onFetchData() {
+        onShowWaitDialog();
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            this.mTaskCount = 4;
+            new ProposalDetailTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ProposalVotedListTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ProposalProposerTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ProposalTallyTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+
+        }
+
+    }
+
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        mTaskCount--;
+        if(isFinishing()) return;
+        if (result.taskType == BaseConstant.TASK_FETCH_PROPOSAL_DETAIL) {
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_PROPOSAL_PROPOSER) {
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_PROPOSAL_TALLY) {
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_PROPOSAL_VOTED) {
+
+        }
+
+        if (mTaskCount == 0) {
+            onUpdateView();
+        }
+    }
 
 }

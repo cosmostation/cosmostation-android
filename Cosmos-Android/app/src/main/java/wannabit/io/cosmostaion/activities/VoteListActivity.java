@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
+import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.FetchTask.IrisProposalTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -39,8 +40,11 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private VoteAdapter         mVoteAdapter;
     private IrisVoteAdapter     mIrisVoteAdapter;
 
+
+    private ArrayList<Validator> mTopValidators = new ArrayList<>();
     private ArrayList<Proposal> mProposals = new ArrayList<>();
     private ArrayList<IrisProposal> mIrisProposals = new ArrayList<>();
+    private String mBondedToken;
 
 
     @Override
@@ -56,6 +60,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mTopValidators = getIntent().getParcelableArrayListExtra("topValidators");
+        mBondedToken = getIntent().getStringExtra("bondedToken");
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -182,8 +188,9 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 //                    webintent.putExtra("chain", mAccount.baseChain);
 //                    startActivity(webintent);
                     Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailActivity.class);
-//                    webintent.putExtra("voteId", proposal.id);
-//                    webintent.putExtra("chain", mAccount.baseChain);
+                    voteIntent.putExtra("proposalId", proposal.id);
+                    voteIntent.putExtra("topValidators", mTopValidators);
+                    voteIntent.putExtra("bondedToken", mBondedToken);
                     startActivity(voteIntent);
                 }
             });

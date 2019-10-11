@@ -14,9 +14,9 @@ import wannabit.io.cosmostaion.utils.WLog;
 public class ProposalDetailTask extends CommonTask {
 
     private BaseChain mChain;
-    private int mProposalId;
+    private String mProposalId;
 
-    public ProposalDetailTask(BaseApplication app, TaskListener listener, int proposalId, BaseChain chain) {
+    public ProposalDetailTask(BaseApplication app, TaskListener listener, String proposalId, BaseChain chain) {
         super(app, listener);
         this.mProposalId = proposalId;
         this.mChain = chain;

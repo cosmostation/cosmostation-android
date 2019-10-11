@@ -157,15 +157,15 @@ public interface CosmosChain {
 
     //TODO adjust for cosmoshub-3
     @GET("/gov/proposals/{proposalId}/proposer")
-    Call<ResLcdProposer> getProposer(@Path("proposalId") int proposalId);
+    Call<ResLcdProposer> getProposer(@Path("proposalId") String proposalId);
 
     @GET("/gov/proposals/{proposalId}")
-    Call<Proposal> getProposalDetail(@Path("proposalId") int proposalId);
+    Call<Proposal> getProposalDetail(@Path("proposalId") String proposalId);
 
     @GET("/gov/proposals/{proposalId}/votes")
-    Call<ArrayList<ResLcdProposalVoted>> getVotedList(@Path("proposalId") int proposalId);
+    Call<ArrayList<ResLcdProposalVoted>> getVotedList(@Path("proposalId") String proposalId);
 
     @GET("/gov/proposals/{proposalId}/tally")
-    Call<ResLcdProposalTally> getTally(@Path("proposalId") int proposalId);
+    Call<ResLcdProposalTally> getTally(@Path("proposalId") String proposalId);
 
 }

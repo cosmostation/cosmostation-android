@@ -304,6 +304,7 @@
     <string name="str_wc_cancel_order">Order Cancel</string>
     <string name="str_switch_wallet">Switch Wallet</string>
     <string name="str_quorum">Quorum : </string>
+    <string name="str_turnout">Turnout : </string>
     <string name="str_vote_yes">YES</string>
     <string name="str_vote_no">NO</string>
     <string name="str_vote_veto">NoWithVeto</string>

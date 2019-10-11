@@ -102,7 +102,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public ArrayList<BnbToken>              mBnbTokens = new ArrayList<>();
 
 
-    private int                             mTaskCount;
+    protected int                           mTaskCount;
     private FetchCallBack                   mFetchCallback;
 
     @Override
