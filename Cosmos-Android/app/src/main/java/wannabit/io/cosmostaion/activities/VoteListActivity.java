@@ -177,10 +177,14 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-                    webintent.putExtra("voteId", proposal.id);
-                    webintent.putExtra("chain", mAccount.baseChain);
-                    startActivity(webintent);
+//                    Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
+//                    webintent.putExtra("voteId", proposal.id);
+//                    webintent.putExtra("chain", mAccount.baseChain);
+//                    startActivity(webintent);
+                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailActivity.class);
+//                    webintent.putExtra("voteId", proposal.id);
+//                    webintent.putExtra("chain", mAccount.baseChain);
+                    startActivity(voteIntent);
                 }
             });
         }

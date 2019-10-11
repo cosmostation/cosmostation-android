@@ -124,6 +124,7 @@
     <string name="str_submit_time">Submit Time</string>
     <string name="str_voting_start_time">Voting Start Time</string>
     <string name="str_voting_end_time">Voting End Time</string>
+    <string name="str_voting_description">Description</string>
     <string name="str_no_history">No History</string>
     <string name="str_no_coin">No Assets</string>
     <string name="str_no_proposal">No Proposals</string>
@@ -136,6 +137,8 @@
     <string name="str_validator_detail">Validator Detail</string>
     <string name="str_token_detail">Token Detail</string>
     <string name="str_proposal_list">Proposal List</string>
+    <string name="str_proposal_detail">Proposal Detail</string>
+    <string name="str_proposer">Proposer</string>
     <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>
     <string name="str_alarm">Alarm</string>
@@ -300,6 +303,11 @@
     <string name="str_wc_new_order">New Order</string>
     <string name="str_wc_cancel_order">Order Cancel</string>
     <string name="str_switch_wallet">Switch Wallet</string>
+    <string name="str_quorum">Quorum : </string>
+    <string name="str_vote_yes">YES</string>
+    <string name="str_vote_no">NO</string>
+    <string name="str_vote_veto">NoWithVeto</string>
+    <string name="str_vote_abstain">Abstain</string>
 
 
     <string name="str_main_wallet">WALLET</string>

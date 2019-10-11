@@ -56,4 +56,11 @@
     <color name="colorCommision3">#2BBEFF</color>
     <color name="colorCommision4">#F31963</color>
 
+
+    <color name="colorVoteYes">#a67dfc</color>
+    <color name="colorVoteNo">#57dca8</color>
+    <color name="colorVoteVeto">#4de8f1</color>
+    <color name="colorVoteAbstain">#9ea1a7</color>
+    <color name="colorVoteBg">#424548</color>
+
 </resources>

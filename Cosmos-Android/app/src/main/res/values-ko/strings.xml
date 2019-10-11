@@ -81,6 +81,7 @@
     <string name="str_submit_time">의제 제출 시간</string>
     <string name="str_voting_start_time">투표 시작 시간</string>
     <string name="str_voting_end_time">투표 종료 시간</string>
+    <string name="str_voting_description">설명</string>
     <string name="str_no_history">거래 내역이 없습니다.</string>
     <string name="str_no_coin">자산이 없습니다.</string>
     <string name="str_no_proposal">의제가 없습니다.</string>
@@ -93,6 +94,8 @@
     <string name="str_validator_detail">검증인 상세</string>
     <string name="str_token_detail">토큰 상세</string>
     <string name="str_proposal_list">투표 목록</string>
+    <string name="str_proposal_detail">투표 상세</string>
+    <string name="str_proposer">제안자</string>
     <string name="str_wallet_detail">지갑 상세</string>
     <string name="str_general">일반</string>
     <string name="str_alarm">알람</string>
@@ -251,6 +254,11 @@
     <string name="str_wc_new_order">새로운 주문</string>
     <string name="str_wc_cancel_order">주문 취소</string>
     <string name="str_switch_wallet">지갑 전환</string>
+    <string name="str_quorum">투표율 : </string>
+    <string name="str_vote_yes">찬성</string>
+    <string name="str_vote_no">반대</string>
+    <string name="str_vote_veto">절대반대</string>
+    <string name="str_vote_abstain">기권</string>
 
 
     <string name="str_main_wallet">WALLET</string>

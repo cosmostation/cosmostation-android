@@ -250,7 +250,6 @@ public class TopSheetBehavior<V extends View> extends CoordinatorLayout.Behavior
                 !mIgnoreEvents && mState != STATE_DRAGGING &&
                 !parent.isPointInChildBounds(scroll, (int) event.getX(), (int) event.getY()) &&
                 Math.abs(mInitialY - event.getY()) > (mViewDragHelper.getTouchSlop()*20);
-//        return false;
     }
 
     @Override
