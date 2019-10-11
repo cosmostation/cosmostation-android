@@ -79,6 +79,10 @@ public class BaseConstant {
     public final static int                     TASK_FETCH_IRIS_TOKENS	                        = 2043;
     public final static int 				    TASK_FETCH_TOKEN_HISTORY                        = 2044;
     public final static int                     TASK_GEN_TX_BNB_SIMPLE_SEND                     = 2045;
+    public final static int                     TASK_FETCH_PROPOSAL_DETAIL                      = 2046;
+    public final static int                     TASK_FETCH_PROPOSAL_VOTED                       = 2047;
+    public final static int                     TASK_FETCH_PROPOSAL_PROPOSER                    = 2048;
+    public final static int                     TASK_FETCH_PROPOSAL_TALLY                       = 2049;
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";

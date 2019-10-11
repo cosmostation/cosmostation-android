@@ -20,7 +20,10 @@ import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
+import wannabit.io.cosmostaion.network.res.ResLcdProposalTally;
+import wannabit.io.cosmostaion.network.res.ResLcdProposalVoted;
 import wannabit.io.cosmostaion.network.res.ResLcdProposals;
+import wannabit.io.cosmostaion.network.res.ResLcdProposer;
 import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdRewardFromVal;
 import wannabit.io.cosmostaion.network.res.ResLcdSingleBonding;
@@ -150,5 +153,19 @@ public interface CosmosChain {
 
     @GET("/gov/proposals")
     Call<ArrayList<Proposal>> getProposalListLegacy();
+
+
+    //TODO adjust for cosmoshub-3
+    @GET("/gov/proposals/{proposalId}/proposer")
+    Call<ResLcdProposer> getProposer(@Path("proposalId") int proposalId);
+
+    @GET("/gov/proposals/{proposalId}")
+    Call<Proposal> getProposalDetail(@Path("proposalId") int proposalId);
+
+    @GET("/gov/proposals/{proposalId}/votes")
+    Call<ArrayList<ResLcdProposalVoted>> getVotedList(@Path("proposalId") int proposalId);
+
+    @GET("/gov/proposals/{proposalId}/tally")
+    Call<ResLcdProposalTally> getTally(@Path("proposalId") int proposalId);
 
 }

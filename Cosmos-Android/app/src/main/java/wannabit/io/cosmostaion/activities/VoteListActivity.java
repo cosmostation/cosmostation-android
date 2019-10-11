@@ -40,7 +40,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private IrisVoteAdapter     mIrisVoteAdapter;
 
     private ArrayList<Proposal> mProposals = new ArrayList<>();
-    private ArrayList<IrisProposal>     mIrisProposals = new ArrayList<>();
+    private ArrayList<IrisProposal> mIrisProposals = new ArrayList<>();
 
 
     @Override
