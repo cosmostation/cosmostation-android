@@ -45,7 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_action"
-        android:layout_below="@+id/tool_bar">
+        android:layout_below="@+id/tool_bar"
+        android:overScrollMode="never"
+        android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -129,6 +131,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:text="Cosmostation" />
                     </LinearLayout>
                     <LinearLayout
@@ -199,12 +203,15 @@
                         android:layout_marginRight="@dimen/space_16"
                         android:lineSpacingExtra="1sp"
                         android:maxLines="3"
+                        android:autoLink="web"
+                        android:clickable="true"
+                        android:textColorLink="@color/colorPhoton"
                         android:text="This is a proposal to approve these high-level changes for a final vote for what will become Cosmos Hub 3. Please read them carefully: https://github.com/cosmos/cosmos-sdk/blob/rc1/v0.36.0/CHANGELOG.md -=-=- If approved, and assuming that testing is successful, there will be a second proposal called"/>
                     <ImageView
                         android:id="@+id/vote_btn_expend"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/space_4"
+                        android:padding="@dimen/space_8"
                         android:src="@drawable/arrow_down_gr"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>

@@ -309,6 +309,7 @@
     <string name="str_vote_no">NO</string>
     <string name="str_vote_veto">NoWithVeto</string>
     <string name="str_vote_abstain">Abstain</string>
+    <string name="str_vote_wait_deposit">Waiting Deposit</string>
 
 
     <string name="str_main_wallet">WALLET</string>

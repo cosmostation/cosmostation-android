@@ -162,6 +162,7 @@ public interface CosmosChain {
     @GET("/gov/proposals/{proposalId}")
     Call<Proposal> getProposalDetail(@Path("proposalId") String proposalId);
 
+    //TODO this is not show all
     @GET("/gov/proposals/{proposalId}/votes")
     Call<ArrayList<ResLcdProposalVoted>> getVotedList(@Path("proposalId") String proposalId);
 

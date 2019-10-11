@@ -50,6 +50,7 @@ import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
+import wannabit.io.cosmostaion.network.res.ResLcdProposalVoted;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
@@ -308,6 +309,17 @@ public class WUtil {
             );
             result.add(temp);
         }
+        return result;
+    }
+
+    public static int getVoterType(ArrayList<ResLcdProposalVoted> votes, String type) {
+        int result = 0;
+        for(ResLcdProposalVoted vote:votes) {
+            if (vote.option.equals(type)) {
+                result = result + 1;
+            }
+        }
+
         return result;
     }
 

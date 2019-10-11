@@ -260,6 +260,7 @@
     <string name="str_vote_no">반대</string>
     <string name="str_vote_veto">절대반대</string>
     <string name="str_vote_abstain">기권</string>
+    <string name="str_vote_wait_deposit">디파짓 대기중</string>
 
 
     <string name="str_main_wallet">WALLET</string>

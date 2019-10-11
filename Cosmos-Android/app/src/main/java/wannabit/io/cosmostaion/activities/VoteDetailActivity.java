@@ -18,16 +18,22 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResLcdProposalTally;
+import wannabit.io.cosmostaion.network.res.ResLcdProposalVoted;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalDetailTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalProposerTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalTallyTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalVotedListTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
-public class VoteDetailActivity extends BaseActivity implements TaskListener {
+public class VoteDetailActivity extends BaseActivity implements TaskListener, View.OnClickListener {
 
     private ImageView mChainBg;
     private Toolbar mToolbar;
@@ -46,8 +52,12 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener {
     private ImageView mYesCntImg, mNoCntImg, mVetoCntImg, mAbstainCntImg;
 
     private String  mProposalId;
-    private ArrayList<Validator> mTopValidators = new ArrayList<>();
     private BigDecimal mBondedToken;
+
+    private Proposal mProposal;
+    private String mProposer;
+    private ResLcdProposalTally mTally;
+    private ArrayList<ResLcdProposalVoted> mVotes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +112,9 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener {
         mBondedToken = new BigDecimal(getIntent().getStringExtra("bondedToken"));
         WLog.w("mTopValidators " + mTopValidators.size());
         WLog.w("mBondedToken " + mBondedToken.toPlainString());
+
+        mVoteWebBtn.setOnClickListener(this);
+        mMsgExpendBtn.setOnClickListener(this);
         onFetchData();
     }
 
@@ -119,6 +132,84 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener {
     private void onUpdateView() {
         WLog.w("onUpdateView");
         onHideWaitDialog();
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mProposal.proposal_status.equals("DepositPeriod")) {
+                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+            } else if (mProposal.proposal_status.equals("VotingPeriod")) {
+                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+            } else if (mProposal.proposal_status.equals("Rejected")) {
+                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+            } else if (mProposal.proposal_status.equals("Passed")) {
+                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
+            } else {
+                mVoteStatusImg.setVisibility(View.GONE);
+            }
+            mVoteStatusTxt.setText(mProposal.proposal_status);
+            mVoteTitle.setText("# " + mProposal.id + ".  " + mProposal.content.value.title);
+            for (Validator v: mTopValidators) {
+                if (WKey.convertDpAddressToDpOpAddress(mProposer).equals(v.operator_address)) {
+                    mProposer = v.description.moniker;
+                    break;
+                }
+            }
+            mVoteProposer.setText(mProposer);
+            if (mProposal.proposal_status.equals("DepositPeriod")) {
+                mVoteStartTime.setText(R.string.str_vote_wait_deposit);
+                mVoteFinishTime.setText(R.string.str_vote_wait_deposit);
+            } else {
+                mVoteStartTime.setText(WDp.getTimeformat(getBaseContext(), mProposal.voting_start_time));
+                mVoteFinishTime.setText(WDp.getTimeformat(getBaseContext(), mProposal.voting_end_time));
+            }
+            mVoteMsg.setText(mProposal.content.value.description);
+
+            mVoteQuorum.setText(WDp.getDpString("40.00%", 3));
+            if (mProposal.proposal_status.equals("VotingPeriod")) {
+
+            } else {
+//                mDivider.setVisibility(View.GONE);
+//                mTurnoutLayer.setVisibility(View.GONE);
+            }
+            WLog.w(""+mTally.getYesPer().toPlainString());
+            mYesProgress.setProgress(mTally.getYesPer().intValue());
+            mYesRate.setText(WDp.getDpString(mTally.getYesPer().toPlainString() + "%", 3));
+            mYesCnt.setText(""+WUtil.getVoterType(mVotes, "Yes"));
+
+            mNoProgress.setProgress(mTally.getNoPer().intValue());
+            mNoRate.setText(WDp.getDpString(mTally.getNoPer().toPlainString() + "%", 3));
+            mNoCnt.setText(""+WUtil.getVoterType(mVotes, "No"));
+
+            mVetoProgress.setProgress(mTally.getVetoPer().intValue());
+            mVetoRate.setText(WDp.getDpString(mTally.getVetoPer().toPlainString() + "%", 3));
+            mVetoCnt.setText(""+WUtil.getVoterType(mVotes, "NoWithVeto"));
+
+            mAbstainProgress.setProgress(mTally.getAbstainPer().intValue());
+            mAbstainRate.setText(WDp.getDpString(mTally.getAbstainPer().toPlainString() + "%", 3));
+            mAbstainCnt.setText(""+WUtil.getVoterType(mVotes, "Abstain"));
+
+
+        } else {
+
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mVoteWebBtn)) {
+
+        } else if (v.equals(mMsgExpendBtn)) {
+            if (mVoteMsg.getMaxLines() == 50) {
+                mVoteMsg.setMaxLines(3);
+                mVoteMsg.setText(mProposal.content.value.description);
+                mMsgExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_down_gr));
+
+            } else {
+                mVoteMsg.setMaxLines(50);
+                mVoteMsg.setText(mProposal.content.value.description);
+                mMsgExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_up_gr));
+            }
+
+        }
 
     }
 
@@ -144,18 +235,22 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener {
         mTaskCount--;
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_PROPOSAL_DETAIL) {
+            mProposal = (Proposal)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_PROPOSAL_PROPOSER) {
+            mProposer = (String)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_PROPOSAL_TALLY) {
+            mTally = (ResLcdProposalTally)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_PROPOSAL_VOTED) {
-
+            mVotes = (ArrayList<ResLcdProposalVoted>)result.resultData;
         }
 
         if (mTaskCount == 0) {
             onUpdateView();
         }
     }
+
 
 }
