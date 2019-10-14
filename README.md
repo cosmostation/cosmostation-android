@@ -76,7 +76,7 @@ module secp256k12 [system] {
 
 ## Notice3
 
-For Xcode upper 11 and new siwft version. we have local fixed with BitcoinKit 1.0.2
+For Xcode upper 11 and new swift version. we have local fixed with HDwalletKit and BitcoinKit 1.0.2
 DHWalletKit/Script.swift line 454
 ```swift
     public static func buildPublicKeyHashOut(pubKeyHash: Data) -> Data {
