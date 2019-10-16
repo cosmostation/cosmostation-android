@@ -6,6 +6,7 @@
     <string name="str_cosmos_test_net_13k">코스모스 테스트넷 (GAIA 13k)</string>
     <string name="str_iris_main_net">아이리스 메인넷</string>
     <string name="str_bnb_main_net">바이낸스 메인넷</string>
+    <string name="str_iov_main_net">아이오비 메인넷</string>
 
 
     <string name="str_ok">OK</string>

@@ -131,7 +131,7 @@ public class BaseConstant {
 
 
     public final static String                  COSMOS_KEY_TYPE_PUBLIC                          = "tendermint/PubKeySecp256k1";
-
+    public final static String                  IOV_KEY_TYPE                                    = "sigs/ed25519/";
 
     public final static String                  CONST_PW_PURPOSE		                        = "CONST_PW_PURPOSE";
     public final static int                     CONST_PW_INIT		                            = 5000;
@@ -192,6 +192,7 @@ public class BaseConstant {
 
     public final static String                  KEY_PATH		                                = "44'/118'/0'/0/";
     public final static String                  KEY_BNB_PATH		                            = "44'/714'/0'/0/";
+    public final static String                  KEY_IOV_PATH                                    = "44'/234'/";
     public final static String                  characterFilter                                 = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 

@@ -47,7 +47,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
     private String              mEntropy;
     private int                 mWordSize;
     private BaseChain           mChain;
-    private DeterministicKey    mMasterKey;
 
     private Toolbar                 mToolbar;
     private RecyclerView            mRecyclerView;
@@ -74,7 +73,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         mEntropy =  getIntent().getStringExtra("entropy");
         mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         mWordSize = getIntent().getIntExtra("size", 24);
-        mMasterKey = HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(mHdSeed));
 
     }
 
@@ -127,8 +125,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull final NewWalletHolder holder, final int position) {
-            String address = WKey.getDpAddressWithPath(mMasterKey, mChain, position);
-            holder.newPath.setText(WDp.getPath(mChain) + position);
+            String address = WKey.getDpAddressWithPath(mHdSeed, mChain, position);
+            holder.newPath.setText(WDp.getPath(mChain, position));
             holder.newAddress.setText(address);
             final Account temp = getBaseDao().onSelectExistAccount(address);
             if(temp == null) {
@@ -140,6 +138,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                 } else if (mChain.equals(BaseChain.BNB_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+                } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
                 }
             } else  {
                 if(temp.hasPrivateKey) {
@@ -155,6 +155,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                     } else if (mChain.equals(BaseChain.BNB_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+                    } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
                     }
                 }
             }
@@ -232,11 +234,9 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     }
                 });
 
+            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+
             }
-
-
-
-
 
         }
 

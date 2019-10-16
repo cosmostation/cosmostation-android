@@ -196,7 +196,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         if(mAccount.hasPrivateKey) {
             mAccountState.setText(getString(R.string.str_with_mnemonic));
-            mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain)) + mAccount.path);
+            mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain), Integer.parseInt(mAccount.path)));
             mPathLayer.setVisibility(View.VISIBLE);
             mImportMsg.setVisibility(View.GONE);
             mBtnCheck.setText(getString(R.string.str_check_mnemonic));

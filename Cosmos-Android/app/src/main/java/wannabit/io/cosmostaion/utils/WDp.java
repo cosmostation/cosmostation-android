@@ -848,11 +848,13 @@ public class WDp {
         return result;
     }
 
-    public static String getPath(BaseChain chain) {
+    public static String getPath(BaseChain chain, int position) {
         if (chain.equals(BaseChain.BNB_MAIN)) {
-            return BaseConstant.KEY_BNB_PATH;
+            return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
+        } else if (chain.equals(BaseChain.IOV_MAIN)) {
+            return BaseConstant.KEY_IOV_PATH + String.valueOf(position) +"'";
         } else {
-            return BaseConstant.KEY_PATH;
+            return BaseConstant.KEY_PATH + String.valueOf(position);
 
         }
     }

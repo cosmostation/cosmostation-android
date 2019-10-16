@@ -1,7 +1,12 @@
 package wannabit.io.cosmostaion.utils;
 
 import android.util.Base64;
+import android.util.Log;
 
+import com.github.orogvany.bip32.Network;
+import com.github.orogvany.bip32.wallet.CoinType;
+import com.github.orogvany.bip32.wallet.HdAddress;
+import com.github.orogvany.bip32.wallet.HdKeyGenerator;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,6 +22,7 @@ import org.bouncycastle.crypto.digests.RIPEMD160Digest;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -29,9 +35,11 @@ import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.model.IrisStdSignMsg;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.network.BinanceChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 
 public class WKey {
@@ -97,7 +105,6 @@ public class WKey {
         }
     }
 
-
     public static List<ChildNumber> getParentPath(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
@@ -106,7 +113,6 @@ public class WKey {
         }
         return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
-
 
     public static DeterministicKey getKeyWithPathfromEntropy(BaseChain chain, String entropy, int path) {
         DeterministicKey masterKey      = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
@@ -184,29 +190,41 @@ public class WKey {
 
     public static String getDpAddress(BaseChain chain, String pubHex) {
         String result       = null;
-        MessageDigest digest = Sha256.getSha256Digest();
-        byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN)) {
+            MessageDigest digest = Sha256.getSha256Digest();
+            byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
 
-        RIPEMD160Digest digest2 = new RIPEMD160Digest();
-        digest2.update(hash, 0, hash.length);
+            RIPEMD160Digest digest2 = new RIPEMD160Digest();
+            digest2.update(hash, 0, hash.length);
 
-        byte[] hash3 = new byte[digest2.getDigestSize()];
-        digest2.doFinal(hash3, 0);
+            byte[] hash3 = new byte[digest2.getDigestSize()];
+            digest2.doFinal(hash3, 0);
 
-        try {
-            byte[] converted = convertBits(hash3, 8,5,true);
-            if (chain.equals(COSMOS_MAIN)) {
-                result = bech32Encode("cosmos".getBytes(), converted);
-            } else if (chain.equals(IRIS_MAIN)){
-                result = bech32Encode("iaa".getBytes(), converted);
-            } else if (chain.equals(BNB_MAIN)){
-                result = bech32Encode("bnb".getBytes(), converted);
-//                result = bech32Encode("tbnb".getBytes(), converted);
+            try {
+                byte[] converted = convertBits(hash3, 8,5,true);
+                if (chain.equals(COSMOS_MAIN)) {
+                    result = bech32Encode("cosmos".getBytes(), converted);
+                } else if (chain.equals(IRIS_MAIN)){
+                    result = bech32Encode("iaa".getBytes(), converted);
+                } else if (chain.equals(BNB_MAIN)){
+                    result = bech32Encode("bnb".getBytes(), converted);
+                }
+
+            } catch (Exception e) {
+                WLog.w("Secp256k1 genDPAddress Error");
             }
 
-        } catch (Exception e) {
-            WLog.w("genDPAddress Error");
+        } else if (chain.equals(IOV_MAIN)) {
+            try {
+                byte[] converted = WKey.convertBits(WUtil.HexStringToByteArray(pubHex), 8,5,true);
+                result = bech32Encode("iov".getBytes(), converted);
+            } catch (Exception e) {
+                WLog.w("ed25519 genDPAddress Error");
+            }
         }
+
+
+
 
         return result;
     }
@@ -264,11 +282,30 @@ public class WKey {
         return getDpAddress(chain, childKey.getPublicKeyAsHex());
     }
 
+    public static String getDpAddressWithPath(String seed, BaseChain chain, int path) {
+        String result = "";
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN)) {
+            //using Secp256k1
+            DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(path, true));
+            result =  getDpAddress(chain, childKey.getPublicKeyAsHex());
 
-    //TODO check with "getKeyWithPath"
-    public static String getDpAddressWithPath(DeterministicKey masterKey, BaseChain chain, int path){
-        DeterministicKey childKey   = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(path));
-        return getDpAddress(chain, childKey.getPublicKeyAsHex());
+        } else if (chain.equals(IOV_MAIN)) {
+            //using ed25519
+            HdKeyGenerator hdKeyGenerator = new HdKeyGenerator();
+            HdAddress master = hdKeyGenerator.getAddressFromSeed(WUtil.HexStringToByteArray(seed), Network.mainnet, CoinType.semux);
+            HdAddress child = hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(master, 44, true), 234, true), path, true);
+
+            byte[] pre = (BaseConstant.IOV_KEY_TYPE).getBytes(StandardCharsets.US_ASCII);
+            byte[] post = Arrays.copyOfRange(child.getPublicKey().getPublicKey(), 1, child.getPublicKey().getPublicKey().length);
+
+            byte[] data = new byte[pre.length + post.length];
+            System.arraycopy(pre, 0, data, 0, pre.length);
+            System.arraycopy(post, 0, data, pre.length, post.length);
+
+            byte[] hash = Arrays.copyOfRange(Sha256.getSha256Digest().digest(data), 0, 20);
+            result =  getDpAddress(chain, WUtil.ByteArrayToHexString(hash));
+        }
+        return result;
     }
 
 

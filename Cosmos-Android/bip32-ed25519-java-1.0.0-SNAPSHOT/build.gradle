@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('bip32-ed25519-java-1.0.0-SNAPSHOT.jar'))

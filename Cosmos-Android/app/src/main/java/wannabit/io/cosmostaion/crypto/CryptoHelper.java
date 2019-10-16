@@ -112,7 +112,6 @@ public class CryptoHelper {
         } catch (Exception e) {
             return result;
         }
-        WLog.w("signData : " + result);
         return result;
     }
 
