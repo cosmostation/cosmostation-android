@@ -13,9 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.crypto.HDKeyDerivation;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -30,6 +27,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -37,7 +35,6 @@ import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
@@ -91,11 +88,11 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), this).execute(mChain.getChain(), ""+path, mEntropy, ""+mWordSize);
+        new GenerateAccountTask(getBaseApplication(), mChain, this).execute(""+path, mEntropy, ""+mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
-        new OverrideAccountTask(getBaseApplication(), this, account).execute(""+path, mEntropy, ""+mWordSize);
+        new OverrideAccountTask(getBaseApplication(), mChain, account, this).execute(""+path, mEntropy, ""+mWordSize);
     }
 
     @Override
@@ -235,7 +232,26 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mChain.equals(BaseChain.IOV_MAIN)) {
-
+                holder.iovLayer.setVisibility(View.VISIBLE);
+                ApiClient.getIovChain(getBaseContext()).getBalance(address).enqueue(new Callback<ResIovBalance>() {
+                    @Override
+                    public void onResponse(Call<ResIovBalance> call, Response<ResIovBalance> response) {
+                        if(response.isSuccessful() && response.body() != null && response.body().balance != null) {
+                            for (ResIovBalance.IovBalance balance:response.body().balance) {
+                                if (balance.tokenTicker.equals(BaseConstant.COSMOS_IOV)) {
+                                    holder.iovAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(balance.quantity), 6, mChain));
+                                    break;
+                                }
+                            }
+                        } else {
+                            holder.iovAmount.setText("0");
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResIovBalance> call, Throwable t) {
+                        holder.bnbAmount.setText("0");
+                    }
+                });
             }
 
         }
@@ -247,8 +263,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         public class NewWalletHolder extends RecyclerView.ViewHolder {
             CardView cardNewWallet;
-            RelativeLayout atomLayer, photonLayer, irisLayer, bnbLayer;
-            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount, bnbAmount;
+            RelativeLayout atomLayer, photonLayer, irisLayer, bnbLayer, iovLayer;
+            TextView newPath, newState, newAddress, atomAmount, photonAmount, irisAmount, bnbAmount, iovAmount;
 
             public NewWalletHolder(View v) {
                 super(v);
@@ -264,6 +280,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 irisAmount          = itemView.findViewById(R.id.iris_amount);
                 bnbLayer            = itemView.findViewById(R.id.bnb_layer);
                 bnbAmount           = itemView.findViewById(R.id.bnb_amount);
+                iovLayer            = itemView.findViewById(R.id.iov_layer);
+                iovAmount           = itemView.findViewById(R.id.iov_amount);
             }
         }
     }

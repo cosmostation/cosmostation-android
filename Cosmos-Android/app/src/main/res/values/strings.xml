@@ -9,6 +9,7 @@
     <string name="url_lcd_main" translatable="false">https://lcd-app.cosmostation.io/</string>
     <!--<string name="url_lcd_main" translatable="false">https://lcd-cosmos-testnet.cosmostation.io/</string>-->
     <string name="url_lcd_main_iris" translatable="false">https://lcd-iris.cosmostation.io/</string>
+    <string name="url_rest_main_iov" translatable="false">https://rest-iov.cosmostation.io/</string>
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
     <string name="url_es_proxy" translatable="false">https://app-es.cosmostation.io/</string>
 
@@ -155,6 +156,8 @@
     <string name="str_guide_iris">Medium</string>
     <string name="str_faq_bnb">Market</string>
     <string name="str_guide_bnb">Blog</string>
+    <string name="str_faq_iov">Home Page</string>
+    <string name="str_guide_iov">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer Mintscan</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -261,9 +264,11 @@
     <string name="str_front_guide_title"><![CDATA[COSMOS HUB]]></string>
     <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
     <string name="str_front_guide_title_binance"><![CDATA[BINANCE CHAIN]]></string>
+    <string name="str_front_guide_title_iov"><![CDATA[IOV MAINNET]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
+    <string name="str_front_guide_msg_iov">Built on Tendermint, IOV builds a fast, secure and decentralized universal name service.</string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -399,6 +404,9 @@
     <string name="str_high">High</string>
     <string name="str_available">Available</string>
     <string name="str_locked">Locked</string>
+    <string name="str_deposited">Deposited</string>
+    <string name="str_deposite">Deposite</string>
+    <string name="str_name_service">Name Service</string>
     <string name="str_promotion_title">Delegate to earn rewards.</string>
     <string name="str_sorting_s">Sorting</string>
     <string name="str_sorting_by_name">By Name</string>

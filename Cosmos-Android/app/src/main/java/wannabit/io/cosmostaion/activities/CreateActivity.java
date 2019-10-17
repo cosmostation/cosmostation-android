@@ -117,6 +117,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
         } else if (mChain.equals(BaseChain.BNB_MAIN)) {
             mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+        } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
         }
         for(int i = 0; i < mTvWords.length; i++) {
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
@@ -125,6 +127,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mTvWords[i].setBackground(getDrawable(R.drawable.box_round_iris));
             } else if (mChain.equals(BaseChain.BNB_MAIN)) {
                 mTvWords[i].setBackground(getDrawable(R.drawable.box_round_bnb));
+            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_iov));
             }
         }
 
@@ -168,7 +172,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 }
             } else {
                 onShowWaitDialog();
-                new GenerateAccountTask(getBaseApplication(), this).execute(mChain.getChain(), "0", WUtil.ByteArrayToHexString(mEntropy), "24");
+                new GenerateAccountTask(getBaseApplication(), mChain, this).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
             }
         }
 

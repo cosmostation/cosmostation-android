@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.UserTask;
 
+import com.github.orogvany.bip32.wallet.HdAddress;
+
 import org.bitcoinj.crypto.DeterministicKey;
 
 import wannabit.io.cosmostaion.R;
@@ -15,12 +17,13 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class OverrideAccountTask extends CommonTask {
-
+    private BaseChain mBaseChain;
     private Account mAccount;
 
-    public OverrideAccountTask(BaseApplication app, TaskListener listener, Account mAccount) {
+    public OverrideAccountTask(BaseApplication app, BaseChain chain, Account account, TaskListener listener) {
         super(app, listener);
-        this.mAccount = mAccount;
+        this.mBaseChain = chain;
+        this.mAccount = account;
         this.mResult.taskType = BaseConstant.TASK_OVERRIDE_ACCOUNT;
     }
 
@@ -53,15 +56,27 @@ public class OverrideAccountTask extends CommonTask {
     }
 
     private Account onModAccount(Account account, String entropy, String path, String msize) {
-        DeterministicKey dKey       = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(path));
-        EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ account.uuid, entropy, false);
-        account.address             = WKey.getDpAddress(BaseChain.getChain(account.baseChain), dKey.getPublicKeyAsHex());
-        account.hasPrivateKey       = true;
-        account.resource            = encR.getEncDataString();
-        account.spec                = encR.getIvDataString();
-        account.fromMnemonic        = true;
-        account.path                = path;
-        account.msize               = Integer.parseInt(msize);
+        if (BaseChain.COSMOS_MAIN.equals(mBaseChain) || BaseChain.IRIS_MAIN.equals(mBaseChain) || BaseChain.BNB_MAIN.equals(mBaseChain)) {
+            DeterministicKey dKey       = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(path));
+            EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ account.uuid, entropy, false);
+            account.address             = WKey.getDpAddress(BaseChain.getChain(account.baseChain), dKey.getPublicKeyAsHex());
+            account.hasPrivateKey       = true;
+            account.resource            = encR.getEncDataString();
+            account.spec                = encR.getIvDataString();
+            account.fromMnemonic        = true;
+            account.path                = path;
+            account.msize               = Integer.parseInt(msize);
+        } else if (BaseChain.IOV_MAIN.equals(mBaseChain)) {
+            HdAddress dKey = WKey.getEd25519KeyWithPathfromEntropy(mBaseChain, entropy, Integer.parseInt(path));
+            EncResult encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ account.uuid, entropy, false);
+            account.address = WKey.getIovDpAddress(dKey);
+            account.hasPrivateKey       = true;
+            account.resource            = encR.getEncDataString();
+            account.spec                = encR.getIvDataString();
+            account.fromMnemonic        = true;
+            account.path                = path;
+            account.msize               = Integer.parseInt(msize);
+        }
         return account;
     }
 }

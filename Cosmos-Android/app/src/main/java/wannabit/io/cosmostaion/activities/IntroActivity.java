@@ -1,11 +1,11 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,23 +13,48 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.github.orogvany.bip32.Network;
+import com.github.orogvany.bip32.wallet.CoinType;
+import com.github.orogvany.bip32.wallet.HdAddress;
+import com.github.orogvany.bip32.wallet.HdKeyGenerator;
+import com.github.orogvany.bip39.Language;
+import com.github.orogvany.bip39.MnemonicGenerator;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 
+import net.i2p.crypto.eddsa.EdDSAEngine;
+import net.i2p.crypto.eddsa.EdDSAPrivateKey;
+import net.i2p.crypto.eddsa.EdDSASecurityProvider;
+import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable;
+import net.i2p.crypto.eddsa.spec.EdDSAParameterSpec;
+import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec;
+
+import org.bitcoinj.crypto.DeterministicKey;
+import org.bitcoinj.crypto.HDKeyDerivation;
+import org.bouncycastle.util.encoders.Hex;
+
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.MessageDigest;
+import java.security.PrivateKey;
+import java.security.Security;
+import java.security.Signature;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
+import wannabit.io.cosmostaion.crypto.Sha256;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
@@ -89,6 +114,23 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                         WLog.w("FCM token new : " + token);
                     }
                 });
+
+
+    }
+    private final static int HardenedKeyStart = 0x80000000;
+
+    private static String bytes2hex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        String tmp = null;
+        for (byte b : bytes) {
+            tmp = Integer.toHexString(0xFF & b);
+            if (tmp.length() == 1) {
+                tmp = "0" + tmp;
+            }
+            sb.append(tmp);
+        }
+        return sb.toString();
+
     }
 
     @Override
@@ -110,6 +152,34 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }, 2500);
+
+
+        String word = "guide worth axis butter craft donkey beef carry mechanic road seven food example ensure tip unit various flight antenna shuffle drill slim eyebrow lava";
+        HdKeyGenerator hdKeyGenerator = new HdKeyGenerator();
+        MnemonicGenerator mNemonicGenerator = new MnemonicGenerator();
+        byte[] seed = mNemonicGenerator.getSeedFromWordlist(word, "", Language.english);
+        WLog.w("seed " + WUtil.ByteArrayToHexString(seed));
+        HdAddress address = hdKeyGenerator.getAddressFromSeed(seed, Network.mainnet, CoinType.semux);
+
+//        String thisHex = WUtil.ByteArrayToHexString(address.getPublicKey().getPublicKey());
+//        WLog.w("thisHex " + thisHex);
+//        String thisHex2 = thisHex.substring(2, thisHex.length());
+//        WLog.w("thisHex2 " + thisHex2);
+//
+//        byte[] publickKeyByte = Arrays.copyOfRange(address.getPublicKey().getPublicKey(), 1, address.getPublicKey().getPublicKey().length);
+//        WLog.w("publickKeyByte " + WUtil.ByteArrayToHexString(publickKeyByte));
+
+
+//        EdDSAParameterSpec spec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519);
+//        EdDSAPrivateKey fromHdAddress = new EdDSAPrivateKey(new EdDSAPrivateKeySpec(address.getPrivateKey().getPrivateKey(), spec));
+//        Log.w("address PrivateKey ", WUtil.ByteArrayToHexString(address.getPrivateKey().getPrivateKey()));
+//
+        ArrayList<String> list = new ArrayList<>();
+        list.addAll(Arrays.asList(word.split(" ")));
+        String wseed = WKey.getStringHdSeedFromWords(list);
+        WLog.w("wseed " + wseed);
+        WLog.w("entropy " + WUtil.ByteArrayToHexString(WKey.toEntropy(list)));
+//        DeterministicKey mMasterKey = HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(wseed));
     }
 
     private void onInitView() {

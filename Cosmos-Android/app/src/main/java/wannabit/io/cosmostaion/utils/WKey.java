@@ -119,6 +119,12 @@ public class WKey {
         return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(path));
     }
 
+    public static HdAddress getEd25519KeyWithPathfromEntropy(BaseChain chain, String entropy, int path) {
+        HdKeyGenerator hdKeyGenerator = new HdKeyGenerator();
+        HdAddress master = hdKeyGenerator.getAddressFromSeed(getHDSeed(WUtil.HexStringToByteArray(entropy)), Network.mainnet, CoinType.semux);
+        return hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(master, 44, true), 234, true), path, true);
+    }
+
     public static boolean isMnemonicWord(String word) {
         List<String> words = MnemonicCode.INSTANCE.getWordList();
         if(words.contains(word)) return true;
@@ -276,10 +282,7 @@ public class WKey {
     }
 
     public static String getDpAddressFromEntropy(BaseChain chain, byte[] entropy){
-        byte[] HDseed               = getHDSeed(entropy);
-        DeterministicKey masterKey  = HDKeyDerivation.createMasterPrivateKey(HDseed);
-        DeterministicKey childKey   = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(0));
-        return getDpAddress(chain, childKey.getPublicKeyAsHex());
+        return getDpAddressWithPath(WUtil.ByteArrayToHexString(getHDSeed(entropy)), chain, 0);
     }
 
     public static String getDpAddressWithPath(String seed, BaseChain chain, int path) {
@@ -295,17 +298,21 @@ public class WKey {
             HdAddress master = hdKeyGenerator.getAddressFromSeed(WUtil.HexStringToByteArray(seed), Network.mainnet, CoinType.semux);
             HdAddress child = hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(hdKeyGenerator.getAddress(master, 44, true), 234, true), path, true);
 
-            byte[] pre = (BaseConstant.IOV_KEY_TYPE).getBytes(StandardCharsets.US_ASCII);
-            byte[] post = Arrays.copyOfRange(child.getPublicKey().getPublicKey(), 1, child.getPublicKey().getPublicKey().length);
-
-            byte[] data = new byte[pre.length + post.length];
-            System.arraycopy(pre, 0, data, 0, pre.length);
-            System.arraycopy(post, 0, data, pre.length, post.length);
-
-            byte[] hash = Arrays.copyOfRange(Sha256.getSha256Digest().digest(data), 0, 20);
-            result =  getDpAddress(chain, WUtil.ByteArrayToHexString(hash));
+            result = getIovDpAddress(child);
         }
         return result;
+    }
+
+    public static String getIovDpAddress(HdAddress address) {
+        byte[] pre = (BaseConstant.IOV_KEY_TYPE).getBytes(StandardCharsets.US_ASCII);
+        byte[] post = Arrays.copyOfRange(address.getPublicKey().getPublicKey(), 1, address.getPublicKey().getPublicKey().length);
+
+        byte[] data = new byte[pre.length + post.length];
+        System.arraycopy(pre, 0, data, 0, pre.length);
+        System.arraycopy(post, 0, data, pre.length, post.length);
+
+        byte[] hash = Arrays.copyOfRange(Sha256.getSha256Digest().digest(data), 0, 20);
+        return getDpAddress(IOV_MAIN, WUtil.ByteArrayToHexString(hash));
     }
 
 

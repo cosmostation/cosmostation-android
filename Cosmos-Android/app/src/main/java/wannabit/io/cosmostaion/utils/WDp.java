@@ -64,6 +64,11 @@ public class WDp {
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
+        } else if (chain.equals(BaseChain.IOV_MAIN)) {
+            amount = amount.divide(new BigDecimal("1000000000"), 9, BigDecimal.ROUND_DOWN);
+            result = new SpannableString(getDecimalFormat(c, point).format(amount));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+
         } else {
             result = new SpannableString(getDecimalFormat(c, 0).format(amount));
 

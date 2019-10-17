@@ -68,7 +68,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private ImageView           mKeyState;
     private TextView            mAddress;
 
-    private CardView            mAtomCard, mIrisCard, mBnbCard, mPriceCard;
+    private CardView            mAtomCard, mIrisCard, mBnbCard, mIovCard, mPriceCard;
 
     private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomAvailable,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
@@ -78,6 +78,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private RelativeLayout      mBtnIrisReward, mBtnIrisVote;
     private TextView            mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
     private RelativeLayout      mBtnBnbConnect;
+    private TextView            mTvIovTotal, mTvIovValue, mTvIovAvailable, mTvIovDeposited, mTvIovRewards;
+    private RelativeLayout      mBtnIovDeposit, mBtnIovNameService;
 
     private TextView            mMarket;
     private TextView            mPerPrice, mUpDownPrice;
@@ -141,6 +143,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvBnbBalance           = mBnbCard.findViewById(R.id.dash_bnb_balance);
         mTvBnbLocked            = mBnbCard.findViewById(R.id.dash_bnb_locked);
         mBtnBnbConnect          = mBnbCard.findViewById(R.id.btn_wallet_connect);
+
+        mIovCard                = rootView.findViewById(R.id.card_iov);
+        mTvIovTotal             = mIovCard.findViewById(R.id.dash_iov_amount);
+        mTvIovValue             = mIovCard.findViewById(R.id.dash_iov_value);
+        mTvIovAvailable         = mIovCard.findViewById(R.id.dash_iov_balance);
+        mTvIovDeposited         = mIovCard.findViewById(R.id.dash_iov_deposited);
+        mTvIovRewards           = mIovCard.findViewById(R.id.dash_atom_reward);
+        mBtnIovDeposit          = mIovCard.findViewById(R.id.btn_iov_deposit);
+        mBtnIovNameService      = mIovCard.findViewById(R.id.btn_iov_name_service);
 
         mPriceCard              = rootView.findViewById(R.id.card_price);
         mMarket                 = rootView.findViewById(R.id.dash_price_market);
@@ -242,6 +253,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mAtomCard.setVisibility(View.VISIBLE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
+            mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -256,6 +268,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.VISIBLE);
             mBnbCard.setVisibility(View.GONE);
+            mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -270,6 +283,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.VISIBLE);
+            mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -279,11 +293,22 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideMsg.setText(R.string.str_front_guide_msg_bnb);
             mGuideBtn.setText(R.string.str_faq_bnb);
             mFaqBtn.setText(R.string.str_guide_bnb);
-        }
 
-//        WLog.w("mBalances " + getMainActivity().mBalances.size());
-//        WLog.w("mBondings " + getMainActivity().mBondings.size());
-//        WLog.w("mUnbondings " + getMainActivity().mUnbondings.size());
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            mAtomCard.setVisibility(View.GONE);
+            mIrisCard.setVisibility(View.GONE);
+            mBnbCard.setVisibility(View.GONE);
+            mIovCard.setVisibility(View.VISIBLE);
+            mMintCards.setVisibility(View.GONE);
+            if (getMainActivity().mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIov), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+            mGuideImg.setImageDrawable(getResources().getDrawable(R.drawable.iovmain_img));
+            mGuideTitle.setText(R.string.str_front_guide_title_iov);
+            mGuideMsg.setText(R.string.str_front_guide_msg_iov);
+            mGuideBtn.setText(R.string.str_faq_iov);
+            mFaqBtn.setText(R.string.str_guide_iov);
+        }
 
         mMarket.setText("("+getBaseDao().getMarketString(getContext())+")");
 
@@ -436,6 +461,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.binance.org"));
                 startActivity(guideIntent);
 
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://iov.one/"));
+                startActivity(guideIntent);
+
             }
 
         } else if (v.equals(mFaqBtn)) {
@@ -454,6 +483,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@binance"));
+                startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/iov-internet-of-values"));
                 startActivity(guideIntent);
 
             }

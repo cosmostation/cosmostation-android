@@ -224,6 +224,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_binance_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
+
+        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
+            mToolbarChainName.setText(getString(R.string.str_iov));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorIov));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
+
         }
 
         onUpdateTitle();
