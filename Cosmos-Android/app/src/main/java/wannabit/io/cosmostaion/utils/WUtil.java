@@ -47,6 +47,7 @@ import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
+import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -174,6 +175,22 @@ public class WUtil {
                 temp.balance = new BigDecimal(coin.free);
                 temp.locked = new BigDecimal(coin.locked);
                 temp.frozen = new BigDecimal(coin.frozen);
+                temp.fetchTime = time;
+                result.add(temp);
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<Balance> getIovBalances(long accountId, ResIovBalance rest) {
+        long time = System.currentTimeMillis();
+        ArrayList<Balance> result = new ArrayList<>();
+        if (rest.balance != null && rest.balance.size() > 0) {
+            for(ResIovBalance.IovBalance coin : rest.balance) {
+                Balance temp = new Balance();
+                temp.accountId = accountId;
+                temp.symbol = coin.tokenTicker;
+                temp.balance = new BigDecimal(coin.quantity);
                 temp.fetchTime = time;
                 result.add(temp);
             }

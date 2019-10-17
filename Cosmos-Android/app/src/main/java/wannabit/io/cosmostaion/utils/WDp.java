@@ -1179,7 +1179,7 @@ public class WDp {
 
         } else if (chain.equals(BaseChain.IOV_MAIN.getChain())) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIov));
-            textview.setText(c.getString(R.string.s_bnb));
+            textview.setText(c.getString(R.string.s_iov));
 
         }
     }

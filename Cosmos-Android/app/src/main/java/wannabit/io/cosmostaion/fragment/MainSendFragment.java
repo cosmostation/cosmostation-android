@@ -55,6 +55,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 
@@ -415,7 +416,20 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV) != null) {
+                Balance iovToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV);
+                mTvIovTotal.setText(WDp.getDpAmount(getContext(), iovToken.balance, 6, getMainActivity().mBaseChain));
+                mTvIovAvailable.setText(WDp.getDpAmount(getContext(), iovToken.balance, 6, getMainActivity().mBaseChain));
+                //TODO no price info yet
+                mTvIovValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), BigDecimal.ZERO));
+                mTvIovDeposited.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+                mTvIovRewards.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+                if (getMainActivity().mIovAddressInfo != null) {
+                    WLog.w("" + getMainActivity().mIovAddressInfo.startId);
+                }
+                getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, iovToken.balance.toPlainString());
+            }
         }
     }
 

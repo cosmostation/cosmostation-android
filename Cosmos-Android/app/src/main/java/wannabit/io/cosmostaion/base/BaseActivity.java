@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
+import wannabit.io.cosmostaion.network.res.ResIovAddressInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
@@ -59,6 +60,9 @@ import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
+import wannabit.io.cosmostaion.task.FetchTask.IovAddressInfoTask;
+import wannabit.io.cosmostaion.task.FetchTask.IovBalanceTask;
+import wannabit.io.cosmostaion.task.FetchTask.IovNonceTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisPoolTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisTokenListTask;
@@ -101,6 +105,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public ArrayList<BnbToken>              mBnbTokens = new ArrayList<>();
 
+    public ResIovAddressInfo                mIovAddressInfo;
 
     protected int                           mTaskCount;
     private FetchCallBack                   mFetchCallback;
@@ -306,6 +311,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new BnbTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
+        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            mTaskCount = 1;
+            new IovBalanceTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
         onPriceTic(BaseChain.getChain(mAccount.baseChain));
 //        return true;
@@ -390,10 +399,25 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_IRIS_TOKENS) {
             mIrisTokens = (ArrayList<IrisToken>)result.resultData;
 
+        } else if (result.taskType == BaseConstant.TASK_FETCH_IOV_BALANCE) {
+            mBalances = getBaseDao().onSelectBalance(mAccount.id);
+            if (result.isSuccess) {
+                mTaskCount = mTaskCount + 2;
+                new IovNonceTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new IovAddressInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_IOV_NONCE) {
+            mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_IOV_ADDRESS_INFO) {
+            if (result.isSuccess && result.resultData != null) {
+                mIovAddressInfo = (ResIovAddressInfo)result.resultData;
+            }
         }
 
-        if(mTaskCount == 0) {
-            mMyValidators.clear();
+        mMyValidators.clear();
+        if(mTaskCount == 0 && (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN))) {
             for(Validator top:mTopValidators) {
                 boolean already = false;
                 for(BondingState bond:mBondings) {
@@ -431,11 +455,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
             mAllValidators.addAll(mTopValidators);
             mAllValidators.addAll(mOtherValidators);
-//            onHideWaitDialog();
-//            onFetchCurrentPage();
-            if(mFetchCallback != null) {
-                mFetchCallback.fetchFinished();
-            }
+        }
+        if(mFetchCallback != null) {
+            mFetchCallback.fetchFinished();
         }
     }
 

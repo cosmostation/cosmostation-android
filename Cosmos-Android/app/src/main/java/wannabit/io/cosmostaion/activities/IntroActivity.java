@@ -152,34 +152,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }, 2500);
-
-
-        String word = "guide worth axis butter craft donkey beef carry mechanic road seven food example ensure tip unit various flight antenna shuffle drill slim eyebrow lava";
-        HdKeyGenerator hdKeyGenerator = new HdKeyGenerator();
-        MnemonicGenerator mNemonicGenerator = new MnemonicGenerator();
-        byte[] seed = mNemonicGenerator.getSeedFromWordlist(word, "", Language.english);
-        WLog.w("seed " + WUtil.ByteArrayToHexString(seed));
-        HdAddress address = hdKeyGenerator.getAddressFromSeed(seed, Network.mainnet, CoinType.semux);
-
-//        String thisHex = WUtil.ByteArrayToHexString(address.getPublicKey().getPublicKey());
-//        WLog.w("thisHex " + thisHex);
-//        String thisHex2 = thisHex.substring(2, thisHex.length());
-//        WLog.w("thisHex2 " + thisHex2);
-//
-//        byte[] publickKeyByte = Arrays.copyOfRange(address.getPublicKey().getPublicKey(), 1, address.getPublicKey().getPublicKey().length);
-//        WLog.w("publickKeyByte " + WUtil.ByteArrayToHexString(publickKeyByte));
-
-
-//        EdDSAParameterSpec spec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519);
-//        EdDSAPrivateKey fromHdAddress = new EdDSAPrivateKey(new EdDSAPrivateKeySpec(address.getPrivateKey().getPrivateKey(), spec));
-//        Log.w("address PrivateKey ", WUtil.ByteArrayToHexString(address.getPrivateKey().getPrivateKey()));
-//
-        ArrayList<String> list = new ArrayList<>();
-        list.addAll(Arrays.asList(word.split(" ")));
-        String wseed = WKey.getStringHdSeedFromWords(list);
-        WLog.w("wseed " + wseed);
-        WLog.w("entropy " + WUtil.ByteArrayToHexString(WKey.toEntropy(list)));
-//        DeterministicKey mMasterKey = HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(wseed));
     }
 
     private void onInitView() {
