@@ -289,7 +289,7 @@ public class WKey {
         String result = "";
         if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN)) {
             //using Secp256k1
-            DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(path, true));
+            DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(path));
             result =  getDpAddress(chain, childKey.getPublicKeyAsHex());
 
         } else if (chain.equals(IOV_MAIN)) {
