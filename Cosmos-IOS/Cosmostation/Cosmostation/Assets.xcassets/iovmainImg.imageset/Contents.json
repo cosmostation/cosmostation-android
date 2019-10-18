@@ -2,17 +2,17 @@
   "images" : [
     {
       "scale" : "1x",
-      "filename" : "iovImg.png",
+      "filename" : "iovmainImg.png",
       "idiom" : "universal"
     },
     {
       "scale" : "2x",
-      "filename" : "iovImg@2x.png",
+      "filename" : "iovmainImg@2x.png",
       "idiom" : "universal"
     },
     {
       "scale" : "3x",
-      "filename" : "iovImg@3x.png",
+      "filename" : "iovmainImg@3x.png",
       "idiom" : "universal"
     }
   ],

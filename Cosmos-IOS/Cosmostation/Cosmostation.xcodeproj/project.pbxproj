@@ -164,6 +164,8 @@
 		E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF62244FA750097CAEE /* UIColor.swift */; };
 		E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA208D22F8117000EAB87F /* IrisStdSignMsg.swift */; };
 		E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDBC07225C705000810D2E /* MsgGenerator.swift */; };
+		E1CF42F023598AFE00907F45 /* ManageChainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CF42EE23598AFE00907F45 /* ManageChainCell.swift */; };
+		E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1CF42EF23598AFE00907F45 /* ManageChainCell.xib */; };
 		E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D279612297B40D00C49B2D /* RedelegateCell.swift */; };
 		E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */; };
 		E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */; };
@@ -378,6 +380,8 @@
 		E1A82DF62244FA750097CAEE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E1BA208D22F8117000EAB87F /* IrisStdSignMsg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrisStdSignMsg.swift; sourceTree = "<group>"; };
 		E1BDBC07225C705000810D2E /* MsgGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgGenerator.swift; sourceTree = "<group>"; };
+		E1CF42EE23598AFE00907F45 /* ManageChainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageChainCell.swift; sourceTree = "<group>"; };
+		E1CF42EF23598AFE00907F45 /* ManageChainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageChainCell.xib; sourceTree = "<group>"; };
 		E1D279612297B40D00C49B2D /* RedelegateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedelegateCell.swift; sourceTree = "<group>"; };
 		E1E15FBD2253663600A10C7B /* AccountPopupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPopupCell.swift; sourceTree = "<group>"; };
 		E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountPopupCell.xib; sourceTree = "<group>"; };
@@ -727,6 +731,8 @@
 				E1E15FBE2253663600A10C7B /* AccountPopupCell.xib */,
 				E19A32252254AE7A00A05E41 /* ManageHeader.swift */,
 				E19A32272254AE8500A05E41 /* ManageHeader.xib */,
+				E1CF42EE23598AFE00907F45 /* ManageChainCell.swift */,
+				E1CF42EF23598AFE00907F45 /* ManageChainCell.xib */,
 				E19A32292254AFE100A05E41 /* ManageAccountCell.swift */,
 				E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */,
 				E1827E19225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift */,
@@ -873,6 +879,7 @@
 				E1FD2331233E1BF4009327FE /* WalletBnbCell.xib in Resources */,
 				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
 				E17748F4228422BE003D8CD1 /* GuideViewController.xib in Resources */,
+				E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */,
 				E1FD233D233E1C44009327FE /* WalletGuideCell.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
@@ -1063,6 +1070,7 @@
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
+				E1CF42F023598AFE00907F45 /* ManageChainCell.swift in Sources */,
 				E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */,
 				E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,

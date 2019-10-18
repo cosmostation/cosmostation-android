@@ -11,6 +11,107 @@ import Alamofire
 
 class WalletManageViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var chainTableView: UITableView!
+    @IBOutlet weak var accountTableView: UITableView!
+    
+    var mAccounts = Array<Account>()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.accountTableView.delegate = self
+        self.accountTableView.dataSource = self
+        self.accountTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.accountTableView.register(UINib(nibName: "ManageAccountCell", bundle: nil), forCellReuseIdentifier: "ManageAccountCell")
+        
+        self.chainTableView.delegate = self
+        self.chainTableView.dataSource = self
+        self.chainTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.chainTableView.register(UINib(nibName: "ManageChainCell", bundle: nil), forCellReuseIdentifier: "ManageChainCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_wallet_manage", comment: "");
+        self.navigationItem.title = NSLocalizedString("title_wallet_manage", comment: "");
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    
+        self.onRefechUserInfo()
+    }
+    
+    func onRefechUserInfo() {
+        self.mAccounts = BaseData.instance.selectAllAccounts()
+        self.accountTableView.reloadData()
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (tableView == chainTableView) {
+            return 5
+        } else {
+            return mAccounts.count
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (tableView == chainTableView) {
+            let cell:ManageChainCell? = tableView.dequeueReusableCell(withIdentifier:"ManageChainCell") as? ManageChainCell
+            if (indexPath.row == 0) {
+                cell?.chainImg.isHidden = true
+                cell?.chainName.isHidden = true
+                cell?.chainAll.isHidden = false
+                
+            } else if (indexPath.row == 1) {
+                cell?.chainImg.isHidden = false
+                cell?.chainName.isHidden = false
+                cell?.chainAll.isHidden = true
+                cell?.chainImg.image = UIImage(named: "cosmosWhMain")
+                cell?.chainName.text = "COSMOS"
+                
+            } else if (indexPath.row == 2) {
+                cell?.chainImg.isHidden = false
+                cell?.chainName.isHidden = false
+                cell?.chainAll.isHidden = true
+                cell?.chainImg.image = UIImage(named: "irisWh")
+                cell?.chainName.text = "IRIS"
+                
+            } else if (indexPath.row == 3) {
+                cell?.chainImg.isHidden = false
+                cell?.chainName.isHidden = false
+                cell?.chainAll.isHidden = true
+                cell?.chainImg.image = UIImage(named: "binanceChImg")
+                cell?.chainName.text = "BINANCE"
+                
+            } else if (indexPath.row == 4) {
+                cell?.chainImg.isHidden = false
+                cell?.chainName.isHidden = false
+                cell?.chainAll.isHidden = true
+                cell?.chainImg.image = UIImage(named: "iovImg")
+                cell?.chainName.text = "IOV"
+                
+            }
+            return cell!
+            
+        } else {
+            let cell:ManageAccountCell? = tableView.dequeueReusableCell(withIdentifier:"ManageAccountCell") as? ManageAccountCell
+            return cell!
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80;
+    }
+    
+    
+}
+/*
+class WalletManageViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet weak var accountTableView: UITableView!
     
     @IBOutlet weak var controlLayer: UIView!
@@ -257,3 +358,4 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         
     }
 }
+*/
