@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -117,6 +117,8 @@ let DB_ACCOUNT_FETCH_TIME           = Expression<Int64>("fetchTime")
 let DB_ACCOUNT_M_SIZE               = Expression<Int64>("msize")
 
 let DB_ACCOUNT_IMPORT_TIME          = Expression<Int64>("importTime")
+let DB_ACCOUNT_LAST_TOTAL           = Expression<String>("lastTotal")
+let DB_ACCOUNT_SORT_ORDER           = Expression<Int64>("sortOrder")
 
 
 ////DB for Password
@@ -284,17 +286,24 @@ let TRANS_BG_COLOR_BNB                      = UIColor.init(hexString: "f0b90b", 
 let COLOR_BNB                               = UIColor.init(hexString: "E9BC00")
 let COLOR_BNB_DARK                          = UIColor.init(hexString: "634C04")
 
+let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "46d7cb", alpha: 0.15)
+let COLOR_IOV                               = UIColor.init(hexString: "35C1B3")
+let COLOR_IOV_DARK                          = UIColor.init(hexString: "065048")
+
 enum ChainType: String {
     case SUPPORT_CHAIN_COSMOS_MAIN
     case SUPPORT_CHAIN_IRIS_MAIN
     case SUPPORT_CHAIN_BINANCE_MAIN
+    case SUPPORT_CHAIN_IOV_MAIN
 }
 
 let CHAIN_COSMOS_S = "SUPPORT_CHAIN_COSMOS_MAIN"
 let CHAIN_IRIS_S = "SUPPORT_CHAIN_IRIS_MAIN"
 let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
+let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "iris-atto"
 let IRIS_DP_DENOM = "iris"
 let BNB_MAIN_DENOM = "BNB"
+let IOV_MAIN_DENOM = "IOV"

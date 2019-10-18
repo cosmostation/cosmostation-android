@@ -28,6 +28,8 @@ public class Account {
     var account_m_size:Int64 = -1;
     
     var account_import_time:Int64 = -1;
+    var account_last_total:String = "";
+    var account_sort_order:Int64 = 0;
     
     init(isNew: Bool) {
         account_uuid = UUID().uuidString
@@ -36,7 +38,7 @@ public class Account {
     init(_ id:Int64, _ uuid:String, _ nickName:String, _ favo:Bool, _ address:String,
          _ baseChain:String, _ hasPrivate:Bool, _ resource:String, _ fromMnemonic:Bool, _ path:String,
          _ isValidator:Bool, _ sequenceNumber:Int64, _ accountNumber:Int64, _ fetchTime:Int64, _ mSize:Int64,
-         _ importTime:Int64) {
+         _ importTime:Int64, _ lastTotal:String, _ sortOrder:Int64) {
         
         self.account_id = id;
         self.account_uuid = uuid;
@@ -57,14 +59,10 @@ public class Account {
         self.account_m_size = mSize;
         
         self.account_import_time = importTime;
+        self.account_last_total = lastTotal
+        self.account_sort_order = sortOrder;
         
     }
-    
-//    func getAtomBalance() -> NSDecimalNumber {
-//        var result = NSDecimalNumber.zero
-//        
-//        return result;
-//    }
     
     var account_balances = Array<Balance>()
     

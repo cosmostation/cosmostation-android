@@ -197,6 +197,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionVote = {
                 self.onClickVoteList()
             }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, (cell?.totalAmount.text)!)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -274,6 +275,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionVote = {
                 self.onClickVoteList()
             }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, (cell?.totalAmount.text)!)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -352,6 +354,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.availableAmount.attributedText = WUtils.displayAmount("0", cell!.availableAmount.font, 6, chainType!)
                 cell?.lockedAmount.attributedText = WUtils.displayAmount("0", cell!.lockedAmount.font, 6, chainType!)
             }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, (cell?.totalAmount.text)!)
             cell?.actionWC = {
                 self.onClickWalletConect()
             }

@@ -443,6 +443,27 @@ class WUtils {
         return attributedString1
     }
     
+    static func displayAmount3(_ amount: String, _ font:UIFont) -> NSMutableAttributedString {
+        if (amount.count > 6) {
+            let added = amount
+            let endIndex    = added.index(added.endIndex, offsetBy: -6)
+                
+            let preString   = added[..<endIndex]
+            let postString  = added[endIndex...]
+            
+            let preAttrs = [NSAttributedString.Key.font : font]
+            let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+            
+            let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+            let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+            attributedString1.append(attributedString2)
+            return attributedString1
+        } else {
+            return NSMutableAttributedString(string: "-")
+        }
+    }
+    
     
     static func dpTokenAvailable(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
@@ -1091,6 +1112,9 @@ class WUtils {
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             label.text = "BNB"
             label.textColor = COLOR_BNB
+        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+           label.text = "IOV"
+           label.textColor = COLOR_IOV
         }
     }
     
@@ -1101,7 +1125,9 @@ class WUtils {
             return ChainType.SUPPORT_CHAIN_IRIS_MAIN
         } else if (chainS == CHAIN_BINANCE_S) {
             return ChainType.SUPPORT_CHAIN_BINANCE_MAIN
-        }
+        } else if (chainS == CHAIN_IOV_S) {
+           return ChainType.SUPPORT_CHAIN_IOV_MAIN
+       }
         return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
     }
     

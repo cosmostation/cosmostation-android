@@ -112,7 +112,7 @@
                 <outlet property="amount" destination="Rr8-qv-ETZ" id="clC-fa-Hci"/>
                 <outlet property="amountDenom" destination="1ur-BE-HOo" id="iJf-7V-Etm"/>
                 <outlet property="cardView" destination="DsT-af-h7f" id="4gf-HS-UfU"/>
-                <outlet property="chainImg" destination="aIv-MD-gpe" id="UUT-J2-3u3"/>
+                <outlet property="keyImg" destination="aIv-MD-gpe" id="oiq-0V-mMO"/>
                 <outlet property="nameLabel" destination="MOW-p5-I9r" id="NL7-WF-AlP"/>
             </connections>
             <point key="canvasLocation" x="139" y="155"/>

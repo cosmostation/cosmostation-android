@@ -250,6 +250,17 @@ final class BaseData : NSObject{
                 table.column(DB_ACCOUNT_IMPORT_TIME)
             }
             try self.database.run(createAccountTable)
+            do {
+                try self.database.run(DB_ACCOUNT.addColumn(DB_ACCOUNT_LAST_TOTAL, defaultValue: ""))
+            } catch {
+                if (SHOW_LOG) { print(error) }
+            }
+            
+            do {
+                try self.database.run(DB_ACCOUNT.addColumn(DB_ACCOUNT_SORT_ORDER, defaultValue: 0))
+            } catch {
+                if (SHOW_LOG) { print(error) }
+            }
             
 //            let createPasswordTable = DB_PASSWORD.create { (table) in
 //                table.column(DB_PASSWORD_ID, primaryKey: true)
@@ -311,7 +322,7 @@ final class BaseData : NSObject{
         var result = Array<Account>()
         do {
             for accountBD in try database.prepare(DB_ACCOUNT) {
-                let account = Account(accountBD[DB_ACCOUNT_ID], accountBD[DB_ACCOUNT_UUID], accountBD[DB_ACCOUNT_NICKNAME], accountBD[DB_ACCOUNT_FAVO], accountBD[DB_ACCOUNT_ADDRESS], accountBD[DB_ACCOUNT_BASECHAIN], accountBD[DB_ACCOUNT_HAS_PRIVATE],  accountBD[DB_ACCOUNT_RESOURCE], accountBD[DB_ACCOUNT_FROM_MNEMONIC], accountBD[DB_ACCOUNT_PATH], accountBD[DB_ACCOUNT_IS_VALIDATOR], accountBD[DB_ACCOUNT_SEQUENCE_NUMBER], accountBD[DB_ACCOUNT_ACCOUNT_NUMBER], accountBD[DB_ACCOUNT_FETCH_TIME], accountBD[DB_ACCOUNT_M_SIZE], accountBD[DB_ACCOUNT_IMPORT_TIME]);
+                let account = Account(accountBD[DB_ACCOUNT_ID], accountBD[DB_ACCOUNT_UUID], accountBD[DB_ACCOUNT_NICKNAME], accountBD[DB_ACCOUNT_FAVO], accountBD[DB_ACCOUNT_ADDRESS], accountBD[DB_ACCOUNT_BASECHAIN], accountBD[DB_ACCOUNT_HAS_PRIVATE],  accountBD[DB_ACCOUNT_RESOURCE], accountBD[DB_ACCOUNT_FROM_MNEMONIC], accountBD[DB_ACCOUNT_PATH], accountBD[DB_ACCOUNT_IS_VALIDATOR], accountBD[DB_ACCOUNT_SEQUENCE_NUMBER], accountBD[DB_ACCOUNT_ACCOUNT_NUMBER], accountBD[DB_ACCOUNT_FETCH_TIME], accountBD[DB_ACCOUNT_M_SIZE], accountBD[DB_ACCOUNT_IMPORT_TIME], accountBD[DB_ACCOUNT_LAST_TOTAL], accountBD[DB_ACCOUNT_SORT_ORDER]);
                 account.setBalances(selectBalanceById(accountId: account.account_id))
                 result.append(account);
             }
@@ -321,11 +332,22 @@ final class BaseData : NSObject{
         return result;
     }
     
+    public func selectAllAccountsByChain(_ chain:ChainType) -> Array<Account> {
+        var result = Array<Account>()
+        let allAccounts = selectAllAccounts()
+        for account in allAccounts {
+            if (WUtils.getChainType(account.account_base_chain) == chain) {
+                result.append(account)
+            }
+        }
+        return result;
+    }
+    
     public func selectAccountById(id: Int64) -> Account? {
         do {
             let query = DB_ACCOUNT.filter(DB_ACCOUNT_ID == id)
             if let accountBD = try database.pluck(query) {
-                let account = Account(accountBD[DB_ACCOUNT_ID], accountBD[DB_ACCOUNT_UUID], accountBD[DB_ACCOUNT_NICKNAME], accountBD[DB_ACCOUNT_FAVO], accountBD[DB_ACCOUNT_ADDRESS], accountBD[DB_ACCOUNT_BASECHAIN], accountBD[DB_ACCOUNT_HAS_PRIVATE],  accountBD[DB_ACCOUNT_RESOURCE], accountBD[DB_ACCOUNT_FROM_MNEMONIC], accountBD[DB_ACCOUNT_PATH], accountBD[DB_ACCOUNT_IS_VALIDATOR], accountBD[DB_ACCOUNT_SEQUENCE_NUMBER], accountBD[DB_ACCOUNT_ACCOUNT_NUMBER], accountBD[DB_ACCOUNT_FETCH_TIME], accountBD[DB_ACCOUNT_M_SIZE], accountBD[DB_ACCOUNT_IMPORT_TIME])
+                let account = Account(accountBD[DB_ACCOUNT_ID], accountBD[DB_ACCOUNT_UUID], accountBD[DB_ACCOUNT_NICKNAME], accountBD[DB_ACCOUNT_FAVO], accountBD[DB_ACCOUNT_ADDRESS], accountBD[DB_ACCOUNT_BASECHAIN], accountBD[DB_ACCOUNT_HAS_PRIVATE],  accountBD[DB_ACCOUNT_RESOURCE], accountBD[DB_ACCOUNT_FROM_MNEMONIC], accountBD[DB_ACCOUNT_PATH], accountBD[DB_ACCOUNT_IS_VALIDATOR], accountBD[DB_ACCOUNT_SEQUENCE_NUMBER], accountBD[DB_ACCOUNT_ACCOUNT_NUMBER], accountBD[DB_ACCOUNT_FETCH_TIME], accountBD[DB_ACCOUNT_M_SIZE], accountBD[DB_ACCOUNT_IMPORT_TIME], accountBD[DB_ACCOUNT_LAST_TOTAL], accountBD[DB_ACCOUNT_SORT_ORDER])
                 account.setBalances(selectBalanceById(accountId: account.account_id))
                 return account
             }
@@ -340,7 +362,7 @@ final class BaseData : NSObject{
         do {
             let query = DB_ACCOUNT.filter(DB_ACCOUNT_ADDRESS == address && DB_ACCOUNT_BASECHAIN == chain)
             if let accountBD = try database.pluck(query) {
-                return Account(accountBD[DB_ACCOUNT_ID], accountBD[DB_ACCOUNT_UUID], accountBD[DB_ACCOUNT_NICKNAME], accountBD[DB_ACCOUNT_FAVO], accountBD[DB_ACCOUNT_ADDRESS], accountBD[DB_ACCOUNT_BASECHAIN], accountBD[DB_ACCOUNT_HAS_PRIVATE],  accountBD[DB_ACCOUNT_RESOURCE], accountBD[DB_ACCOUNT_FROM_MNEMONIC], accountBD[DB_ACCOUNT_PATH], accountBD[DB_ACCOUNT_IS_VALIDATOR], accountBD[DB_ACCOUNT_SEQUENCE_NUMBER], accountBD[DB_ACCOUNT_ACCOUNT_NUMBER], accountBD[DB_ACCOUNT_FETCH_TIME], accountBD[DB_ACCOUNT_M_SIZE], accountBD[DB_ACCOUNT_IMPORT_TIME])
+                return Account(accountBD[DB_ACCOUNT_ID], accountBD[DB_ACCOUNT_UUID], accountBD[DB_ACCOUNT_NICKNAME], accountBD[DB_ACCOUNT_FAVO], accountBD[DB_ACCOUNT_ADDRESS], accountBD[DB_ACCOUNT_BASECHAIN], accountBD[DB_ACCOUNT_HAS_PRIVATE],  accountBD[DB_ACCOUNT_RESOURCE], accountBD[DB_ACCOUNT_FROM_MNEMONIC], accountBD[DB_ACCOUNT_PATH], accountBD[DB_ACCOUNT_IS_VALIDATOR], accountBD[DB_ACCOUNT_SEQUENCE_NUMBER], accountBD[DB_ACCOUNT_ACCOUNT_NUMBER], accountBD[DB_ACCOUNT_FETCH_TIME], accountBD[DB_ACCOUNT_M_SIZE], accountBD[DB_ACCOUNT_IMPORT_TIME], accountBD[DB_ACCOUNT_LAST_TOTAL], accountBD[DB_ACCOUNT_SORT_ORDER])
             }
             return nil
         } catch {
@@ -380,7 +402,9 @@ final class BaseData : NSObject{
                                               DB_ACCOUNT_ACCOUNT_NUMBER <- account.account_account_numner,
                                               DB_ACCOUNT_FETCH_TIME <- account.account_fetch_time,
                                               DB_ACCOUNT_M_SIZE <- account.account_m_size,
-                                              DB_ACCOUNT_IMPORT_TIME <- account.account_import_time)
+                                              DB_ACCOUNT_IMPORT_TIME <- account.account_import_time,
+                                              DB_ACCOUNT_LAST_TOTAL <- account.account_last_total,
+                                              DB_ACCOUNT_SORT_ORDER <- account.account_sort_order)
         do {
             return try database.run(insertAccount)
         } catch {
@@ -418,8 +442,27 @@ final class BaseData : NSObject{
         }
     }
     
+    public func updateLastTotal(_ account: Account, _ amount: String){
+        let target = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account.account_id)
+        do {
+            try database.run(target.update(DB_ACCOUNT_LAST_TOTAL <- amount))
+        } catch {
+            if(SHOW_LOG) { print(error) }
+        }
+    }
+    
+    public func updateSortOrder(_ accounts: Array<Account>) {
+        for account in accounts {
+            let target = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account.account_id)
+            do {
+                try database.run(target.update(DB_ACCOUNT_SORT_ORDER <- account.account_sort_order))
+            } catch {
+                if(SHOW_LOG) { print(error) }
+            }
+        }
+   }
+    
     public func deleteAccount(account: Account) -> Int {
-        //TODO delete Balance, Bonding, unBonding
         let query = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account.account_id)
         do {
             return  try database.run(query.delete())

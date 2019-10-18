@@ -15,6 +15,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     @IBOutlet weak var accountTableView: UITableView!
     
     var mAccounts = Array<Account>()
+    var mSelectedChain = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         self.chainTableView.dataSource = self
         self.chainTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.chainTableView.register(UINib(nibName: "ManageChainCell", bundle: nil), forCellReuseIdentifier: "ManageChainCell")
+        self.chainTableView.selectRow(at: IndexPath.init(item: 0, section: 0), animated: false, scrollPosition: .top)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +44,17 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onRefechUserInfo() {
-        self.mAccounts = BaseData.instance.selectAllAccounts()
+        if (mSelectedChain == 0) {
+            self.mAccounts = BaseData.instance.selectAllAccounts()
+        } else if (mSelectedChain == 1) {
+            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_COSMOS_MAIN)
+        } else if (mSelectedChain == 2) {
+            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IRIS_MAIN)
+        } else if (mSelectedChain == 3) {
+            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_BINANCE_MAIN)
+        } else if (mSelectedChain == 4) {
+            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IOV_MAIN)
+        }
         self.accountTableView.reloadData()
     }
     
@@ -98,13 +110,52 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else {
             let cell:ManageAccountCell? = tableView.dequeueReusableCell(withIdentifier:"ManageAccountCell") as? ManageAccountCell
-            return cell!
+            let account = mAccounts[indexPath.row]
+            let userChain = WUtils.getChainType(account.account_base_chain)
             
+            if (account.account_has_private) {
+                cell?.keyImg.image = cell?.keyImg.image!.withRenderingMode(.alwaysTemplate)
+                cell?.keyImg.tintColor = WUtils.getChainColor(userChain)
+            } else {
+                cell?.keyImg.tintColor = COLOR_DARK_GRAY
+            }
+            if (account.account_nick_name == "") {
+                cell?.nameLabel.text = NSLocalizedString("wallet_dash", comment: "") + String(account.account_id)
+            } else {
+                cell?.nameLabel.text = account.account_nick_name
+            }
+            cell?.address.text = account.account_address
+            cell?.amount.attributedText = WUtils.displayAmount3(account.account_last_total, cell!.amount.font)
+            WUtils.setDenomTitle(userChain, cell!.amountDenom)
+            return cell!
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (tableView == chainTableView) {
+            if (mSelectedChain != indexPath.row) {
+                mSelectedChain = indexPath.row
+                self.onRefechUserInfo()
+            }
+        } else {
+            
+            
+        }
+//        var account: Account?
+//        if (mFullAccounts.count > 0 && indexPath.section == 0) {
+//            account = mFullAccounts[indexPath.row]
+//        } else {
+//            account = mWatchAccounts[indexPath.row]
+//        }
+//        let walletDetailVC = WalletDetailViewController(nibName: "WalletDetailViewController", bundle: nil)
+//        walletDetailVC.hidesBottomBarWhenPushed = true
+//        walletDetailVC.accountId = account?.account_id
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(walletDetailVC, animated: true)
     }
     
     
