@@ -32,7 +32,6 @@ class MainTabSettingViewController: BaseViewController {
         if(BaseData.instance.getNeedRefresh()) {
             BaseData.instance.setNeedRefresh(false)
             mainTabVC.onUpdateAccountDB()
-            mainTabVC.onUpdateDropDownView()
             self.updateTitle()
         }
         NotificationCenter.default.addObserver(self,
@@ -67,7 +66,7 @@ class MainTabSettingViewController: BaseViewController {
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
-        self.mainTabVC.dropDown.show()
+        self.mainTabVC.onShowAccountSwicth()
     }
     
     @objc func onRefreshPrice(_ notification: NSNotification) {

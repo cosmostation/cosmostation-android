@@ -8,10 +8,9 @@
 
 import UIKit
 import Alamofire
-import DropDown
 import Toast_Swift
 
-class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBCardPopupDelegate {
+class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBCardPopupDelegate, AccountSelectDelegate {
     
     var mAccount:Account!
     var mAccounts = Array<Account>()
@@ -36,10 +35,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     var mBnbTokenList = Array<BnbToken>()
     
-    
-    var dimView: UIView?
-    let window = UIApplication.shared.keyWindow!
-    let dropDown = DropDown()
     var waitAlert: UIAlertController?
     
     override func viewDidLoad() {
@@ -47,11 +42,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         self.onUpdateAccountDB()
         self.onFetchAccountData()
-        
-        dimView = UIView(frame: window.bounds)
-        dimView!.backgroundColor = UIColor.black
-        dimView!.alpha  = 0.85
-        onUpdateDropDownView()
         
         self.delegate = self
         self.selectedIndex = BaseData.instance.getLastTab()
@@ -69,125 +59,19 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.setLastTab(tabBarController.selectedIndex)
     }
     
-    func onUpdateDropDownView() {
-        var dropmenu = [String]()
-        dropmenu.append("top")
-        for account in mAccounts {
-            dropmenu.append(String(account.account_id))
+    func onShowAccountSwicth() {
+        let sourceVC = self.selectedViewController!
+        let accountSelectVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "AccountSelectViewController") as! AccountSelectViewController
+        accountSelectVC.modalPresentationStyle = .overFullScreen
+        accountSelectVC.resultDelegate = self
+
+        sourceVC.view.superview?.insertSubview(accountSelectVC.view, aboveSubview: sourceVC.view)
+        accountSelectVC.view.transform = CGAffineTransform(translationX: 0, y: -sourceVC.view.frame.size.height)
+        UIView.animate(withDuration: 0.3, animations: {
+            accountSelectVC.view.transform = CGAffineTransform(translationX: 0, y: 0)
+            }) { (Finished) in
+                sourceVC.present(accountSelectVC, animated: false, completion: nil)
         }
-        if(dropmenu.count < 6) {
-            dropmenu.append("bottom")
-        }
-        
-        dropDown.anchorView = self.view
-        dropDown.bottomOffset = CGPoint(x: 0, y:UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0)
-        dropDown.backgroundColor = UIColor.black
-        dropDown.dismissMode = .onTap
-        
-        dropDown.dataSource = dropmenu
-        dropDown.downScaleTransform = CGAffineTransform(translationX: 0, y: -500)
-        dropDown.animationEntranceOptions = [.allowUserInteraction, .curveEaseInOut]
-        dropDown.animationExitOptions = [.allowUserInteraction, .curveEaseInOut]
-        
-        dropDown.animationduration = 0.3
-        dropDown.cellNib = UINib(nibName: "AccountPopupCell", bundle: nil)
-        dropDown.cellHeight = 58
-        dropDown.separatorColor = UIColor.clear
-        
-        dropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
-            guard let cell = cell as? AccountPopupCell else { return }
-            if(index == 0) {
-                cell.topPadding.isHidden = false
-                cell.accountView.isHidden = true
-                cell.newAccount.isHidden = true
-                
-            } else if (self.mAccounts.count != 5 && (index == 6 || index == self.dropDown.dataSource.count - 1)) {
-                cell.topPadding.isHidden = true
-                cell.accountView.isHidden = true
-                cell.newAccount.isHidden = false
-                
-            } else {
-                cell.topPadding.isHidden = true
-                cell.accountView.isHidden = false
-                cell.newAccount.isHidden = true
-                let tempAccount = self.mAccounts[index - 1]
-                
-                cell.address.text = tempAccount.account_address
-                
-                if (tempAccount.account_id == BaseData.instance.getRecentAccountId()) {
-                    cell.cardview.borderColor = UIColor.init(hexString: "#9ca2ac")
-                } else {
-                    cell.cardview.borderColor = UIColor.init(hexString: "#222426")
-                }
-                
-                if (tempAccount.account_nick_name == "") {
-                    cell.name.text = NSLocalizedString("wallet_dash", comment: "") + String(tempAccount.account_id)
-                } else {
-                    cell.name.text = tempAccount.account_nick_name
-                }
-                
-                cell.chainName.textColor = WUtils.getChainColor(WUtils.getChainType(tempAccount.account_base_chain))
-                if (tempAccount.account_base_chain == CHAIN_COSMOS_S) {
-                    cell.chainImg.image = UIImage(named: "cosmosWhMain")
-                    cell.chainName.text = "(Cosmos Hub)"
-                    if (tempAccount.account_has_private) {
-                        cell.keystate.image = cell.keystate.image?.withRenderingMode(.alwaysTemplate)
-                        cell.keystate.tintColor = COLOR_ATOM
-                    }
-                    
-                } else if (tempAccount.account_base_chain == CHAIN_IRIS_S) {
-                    cell.chainImg.image = UIImage(named: "irisWh")
-                    cell.chainName.text = "(Iris Hub)"
-                    if (tempAccount.account_has_private) {
-                        cell.keystate.image = cell.keystate.image?.withRenderingMode(.alwaysTemplate)
-                        cell.keystate.tintColor = COLOR_IRIS
-                    }
-                } else if (tempAccount.account_base_chain == CHAIN_BINANCE_S) {
-                    cell.chainImg.image = UIImage(named: "binanceChImg")
-                    cell.chainName.text = "(Binance Chain)"
-                    if (tempAccount.account_has_private) {
-                        cell.keystate.image = cell.keystate.image?.withRenderingMode(.alwaysTemplate)
-                        cell.keystate.tintColor = COLOR_BNB
-                    }
-                }
-            }
-        }
-        
-        dropDown.willShowAction = { [unowned self] in
-            self.window.addSubview(self.dimView!);
-        }
-        
-        dropDown.cancelAction = { [unowned self] in
-            self.dimView?.removeFromSuperview()
-        }
-        
-        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.dimView?.removeFromSuperview()
-            if(item == "top") {
-                
-            } else if (item == "bottom") {
-                let popupContent = AddViewController.create()
-                let cardPopup = SBCardPopupViewController(contentViewController: popupContent)
-                cardPopup.resultDelegate = self
-                cardPopup.show(onViewController: self)
-                
-            } else {
-                let id = Int64(item)
-                if (id == self.mAccount.account_id) {
-                    self.dropDown.hide()
-                    
-                } else {
-                    BaseData.instance.setRecentAccountId(id!)
-                    BaseData.instance.setLastTab(self.selectedIndex)
-                    
-                    let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window?.rootViewController = mainTabVC
-                    self.present(mainTabVC, animated: true, completion: nil)
-                }
-            }
-        }
-        
     }
     
     
@@ -197,9 +81,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             var tagetVC:BaseViewController?
             if(result == 1) {
                 tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as! CreateViewController
+                tagetVC?.chainType = self.targetChain
                 
             } else if(result == 2) {
                 tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestoreViewController") as! RestoreViewController
+                tagetVC?.chainType = self.targetChain
                 
             } else if(result == 3) {
                 tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
@@ -281,24 +167,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 mAllValidator.removeAll()
                 mAllValidator.append(contentsOf: mTopValidators)
                 mAllValidator.append(contentsOf: mOtherValidators)
-//                print("mTopValidators Cnt " , mTopValidators.count)
-//                print("mOtherValidators Cnt " , mOtherValidators.count)
-//                print("mAllValidator Cnt " , mAllValidator.count)
-//                print("Reward Cnt " , mRewardList.count)
-                
-                
                 
             } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
                 mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
-//                print("mAccount : ", mAccount.account_sequence_number, "  ", mAccount.account_account_numner)
-//                print("mBalances : ", mBalances.count, "   ", mBalances[0].balance_denom, "  ", mBalances[0].balance_amount)
-//                print("mBondingList : ", mBondingList.count, "  ", mBondingList[0].bonding_shares)
-//                print("mUnbondingList : ", mUnbondingList.count, "  ", mUnbondingList[0].unbonding_balance)
-//                print("mIrisRewards : ", mIrisRewards?.delegations.count, "  ", mIrisRewards?.total[0].denom, " ", mIrisRewards?.total[0].amount)
-//                print("mAllValidator : ", mAllValidator.count)
                 
                 mTopValidators.removeAll()
                 mOtherValidators.removeAll()
@@ -309,8 +183,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         mOtherValidators.append(validator)
                     }
                 }
-//                print("mTopValidators : ", mTopValidators.count)
-//                print("mOtherValidators : ", mOtherValidators.count)
                 
             }  else if (mAccount.account_base_chain == CHAIN_BINANCE_S) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -889,5 +761,28 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (waitAlert != nil) {
             waitAlert?.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func accountSelected(_ id: Int) {
+        if (id != self.mAccount.account_id) {
+            BaseData.instance.setRecentAccountId(Int64(id))
+            BaseData.instance.setLastTab(self.selectedIndex)
+
+            let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = mainTabVC
+            self.present(mainTabVC, animated: true, completion: nil)
+        }
+    }
+    
+    var targetChain:ChainType?
+    func addAccount(_ chain: ChainType) {
+        targetChain = chain
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(610), execute: {
+            let popupContent = AddViewController.create()
+            let cardPopup = SBCardPopupViewController(contentViewController: popupContent)
+            cardPopup.resultDelegate = self
+            cardPopup.show(onViewController: self)
+        })
     }
 }

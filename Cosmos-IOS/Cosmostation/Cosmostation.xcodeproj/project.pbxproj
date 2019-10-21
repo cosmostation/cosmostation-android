@@ -28,6 +28,7 @@
 		E1069B14229698CB007517DC /* StepChangeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */; };
 		E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11338FB235D70D20011B61D /* ManageAccountAddCell.swift */; };
 		E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E11338FC235D70D20011B61D /* ManageAccountAddCell.xib */; };
+		E1133900235D95FD0011B61D /* AccountSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11338FF235D95FD0011B61D /* AccountSelectViewController.swift */; };
 		E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */; };
 		E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */; };
 		E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */; };
@@ -232,6 +233,7 @@
 		E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepChangeCheckViewController.swift; sourceTree = "<group>"; };
 		E11338FB235D70D20011B61D /* ManageAccountAddCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAccountAddCell.swift; sourceTree = "<group>"; };
 		E11338FC235D70D20011B61D /* ManageAccountAddCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageAccountAddCell.xib; sourceTree = "<group>"; };
+		E11338FF235D95FD0011B61D /* AccountSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSelectViewController.swift; sourceTree = "<group>"; };
 		E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabTokenViewController.swift; sourceTree = "<group>"; };
 		E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbAccountInfo.swift; sourceTree = "<group>"; };
 		E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabWalletViewController.swift; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 				E17B213023470222001743D6 /* TokenDetailViewController.swift */,
 				E10492122347B41000A2980F /* WalletConnectViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
+				E11338FF235D95FD0011B61D /* AccountSelectViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1062,6 +1065,7 @@
 				E1F7F634234311F8000E597F /* BnbToken.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				E1406FC22260654F00D9440C /* TxInfo.swift in Sources */,
+				E1133900235D95FD0011B61D /* AccountSelectViewController.swift in Sources */,
 				E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,

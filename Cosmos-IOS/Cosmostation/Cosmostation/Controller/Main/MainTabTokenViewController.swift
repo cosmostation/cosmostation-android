@@ -327,7 +327,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
-        self.mainTabVC.dropDown.show()
+        self.mainTabVC.onShowAccountSwicth()
     }
     
     func sortByName() {

@@ -247,6 +247,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
-        self.mainTabVC.dropDown.show()
+        self.mainTabVC.onShowAccountSwicth()
     }
 }

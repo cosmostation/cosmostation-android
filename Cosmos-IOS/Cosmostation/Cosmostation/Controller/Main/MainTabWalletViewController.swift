@@ -13,7 +13,7 @@ import SafariServices
 import SwiftKeychainWrapper
 
 class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate, QrScannerDelegate, PasswordViewDelegate {
-    
+
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
     @IBOutlet weak var titleChainName: UILabel!
@@ -397,7 +397,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
-        self.mainTabVC.dropDown.show()
+        self.mainTabVC.onShowAccountSwicth()
     }
     
     func onClickActionShare() {
