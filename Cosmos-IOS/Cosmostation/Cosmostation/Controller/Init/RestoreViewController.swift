@@ -49,7 +49,6 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     var filteredMnemonicWords = [String]()
     var userInputWords = [String]()
     var mCurrentPosition = 0;
-    var chain: ChainType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,29 +88,31 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("clear_all", comment: ""), style: .done, target: self, action: #selector(clearAll))
         
-        if (chain == nil) {
+        if (chainType == nil) {
             self.onShowChainType()
+        } else {
+            self.initViewUpdate()
         }
     }
     
     func onShowChainType() {
         let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         let cosmosAction = UIAlertAction(title: NSLocalizedString("chain_title_cosmos", comment: ""), style: .default, handler: { _ in
-            self.chain = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
+            self.chainType = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
             self.initViewUpdate()
         })
         cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
         cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let irisAction = UIAlertAction(title: NSLocalizedString("chain_title_iris", comment: ""), style: .default, handler: {_ in
-            self.chain = ChainType.SUPPORT_CHAIN_IRIS_MAIN
+            self.chainType = ChainType.SUPPORT_CHAIN_IRIS_MAIN
             self.initViewUpdate()
         })
         irisAction.setValue(UIColor.black, forKey: "titleTextColor")
         irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let bnbAction = UIAlertAction(title: NSLocalizedString("chain_title_bnb", comment: ""), style: .default, handler: {_ in
-            self.chain = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
+            self.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
             self.initViewUpdate()
         })
         bnbAction.setValue(UIColor.black, forKey: "titleTextColor")
@@ -124,13 +125,13 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     }
     
     func initViewUpdate() {
-        mNeminicImg.image = mNeminicImg.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        mNeminicImg.tintColor = WUtils.getChainColor(chain!)
+        self.mNeminicImg.image = self.mNeminicImg.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        self.mNeminicImg.tintColor = WUtils.getChainColor(self.chainType!)
         self.topView.isHidden = false
         self.cardView.isHidden = false
         self.actionView.isHidden = false
         self.keyboardView.isHidden = false
-        updateFocus()
+        self.updateFocus()
     }
     
     @objc func clearAll(sender: AnyObject) {
@@ -190,7 +191,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
                 return
             }
         }
-        self.wordCntLabel.textColor = WUtils.getChainColor(chain!)
+        self.wordCntLabel.textColor = WUtils.getChainColor(chainType!)
         
     }
     
@@ -306,7 +307,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
                 let restorePathVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestorePathViewController") as! RestorePathViewController
                 self.navigationItem.title = ""
                 restorePathVC.userInputWords = self.userInputWords
-                restorePathVC.userChain = self.chain
+                restorePathVC.userChain = self.chainType
                 self.navigationController?.pushViewController(restorePathVC, animated: true)
             })
         }

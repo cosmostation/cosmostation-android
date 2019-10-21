@@ -26,6 +26,8 @@
 		E1069B1022968E05007517DC /* StepRedelegateCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */; };
 		E1069B12229698BA007517DC /* StepChangeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B11229698BA007517DC /* StepChangeAddressViewController.swift */; };
 		E1069B14229698CB007517DC /* StepChangeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */; };
+		E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11338FB235D70D20011B61D /* ManageAccountAddCell.swift */; };
+		E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E11338FC235D70D20011B61D /* ManageAccountAddCell.xib */; };
 		E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */; };
 		E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */; };
 		E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */; };
@@ -228,6 +230,8 @@
 		E1069B0F22968E05007517DC /* StepRedelegateCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRedelegateCheckViewController.swift; sourceTree = "<group>"; };
 		E1069B11229698BA007517DC /* StepChangeAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepChangeAddressViewController.swift; sourceTree = "<group>"; };
 		E1069B13229698CB007517DC /* StepChangeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepChangeCheckViewController.swift; sourceTree = "<group>"; };
+		E11338FB235D70D20011B61D /* ManageAccountAddCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAccountAddCell.swift; sourceTree = "<group>"; };
+		E11338FC235D70D20011B61D /* ManageAccountAddCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageAccountAddCell.xib; sourceTree = "<group>"; };
 		E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabTokenViewController.swift; sourceTree = "<group>"; };
 		E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbAccountInfo.swift; sourceTree = "<group>"; };
 		E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabWalletViewController.swift; sourceTree = "<group>"; };
@@ -735,6 +739,8 @@
 				E1CF42EF23598AFE00907F45 /* ManageChainCell.xib */,
 				E19A32292254AFE100A05E41 /* ManageAccountCell.swift */,
 				E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */,
+				E11338FB235D70D20011B61D /* ManageAccountAddCell.swift */,
+				E11338FC235D70D20011B61D /* ManageAccountAddCell.xib */,
 				E1827E19225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift */,
 				E103DAB6228127A3006C2146 /* ValidatorDetailMyDetailCell.xib */,
 				E1827E1F2256292900BC0350 /* ValidatorDetailMyActionCell.swift */,
@@ -861,6 +867,7 @@
 				E1FD232D233E1BDB009327FE /* WalletCosmosCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
+				E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */,
 				E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */,
 				E103DACE22813248006C2146 /* WalletDetailViewController.xib in Resources */,
 				E1FD2339233E1C30009327FE /* WalletInflationCell.xib in Resources */,
@@ -1055,6 +1062,7 @@
 				E1F7F634234311F8000E597F /* BnbToken.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				E1406FC22260654F00D9440C /* TxInfo.swift in Sources */,
+				E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,
 				E17B213C23470932001743D6 /* TokenDetailHeaderCosmosCell.swift in Sources */,

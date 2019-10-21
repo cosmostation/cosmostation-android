@@ -111,6 +111,10 @@
                 <outlet property="address" destination="oOW-aD-ypC" id="0fM-72-NZ3"/>
                 <outlet property="amount" destination="Rr8-qv-ETZ" id="clC-fa-Hci"/>
                 <outlet property="amountDenom" destination="1ur-BE-HOo" id="iJf-7V-Etm"/>
+                <outlet property="arrowConstraint" destination="ctl-bK-Xeu" id="w4A-TU-xxQ"/>
+                <outlet property="arrowConstraint2" destination="yo0-Wc-JIX" id="syS-Yb-DY8"/>
+                <outlet property="arrowConstraint3" destination="QXo-Ai-Ro5" id="dxN-er-odX"/>
+                <outlet property="arrowImg" destination="rwd-M5-B34" id="Arr-qL-1Rt"/>
                 <outlet property="cardView" destination="DsT-af-h7f" id="4gf-HS-UfU"/>
                 <outlet property="keyImg" destination="aIv-MD-gpe" id="oiq-0V-mMO"/>
                 <outlet property="nameLabel" destination="MOW-p5-I9r" id="NL7-WF-AlP"/>

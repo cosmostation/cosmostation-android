@@ -53,7 +53,6 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     var mnemonicWords: [String]?
     var createdKey: HDPrivateKey?
     var checkedPassword: Bool = false
-    var chain: ChainType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,29 +76,31 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        if (chain == nil) {
+        if (chainType == nil) {
             self.onShowChainType()
+        } else {
+            self.onGenNewKey()
         }
     }
     
     func onShowChainType() {
         let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         let cosmosAction = UIAlertAction(title: NSLocalizedString("chain_title_cosmos", comment: ""), style: .default, handler: { _ in
-            self.chain = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
+            self.chainType = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
             self.onGenNewKey()
         })
         cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
         cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let irisAction = UIAlertAction(title: NSLocalizedString("chain_title_iris", comment: ""), style: .default, handler: {_ in
-            self.chain = ChainType.SUPPORT_CHAIN_IRIS_MAIN
+            self.chainType = ChainType.SUPPORT_CHAIN_IRIS_MAIN
             self.onGenNewKey()
         })
         irisAction.setValue(UIColor.black, forKey: "titleTextColor")
         irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let bnbAction = UIAlertAction(title: NSLocalizedString("chain_title_bnb", comment: ""), style: .default, handler: {_ in
-            self.chain = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
+            self.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
             self.onGenNewKey()
         })
         bnbAction.setValue(UIColor.black, forKey: "titleTextColor")
@@ -116,16 +117,16 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         guard let words = try? Mnemonic.generate(strength: .veryHigh, language: .english) else {
             return
         }
-        mnemonicWords = words
-        createdKey = WKey.getHDKeyFromWords(mnemonic: mnemonicWords!, path: 0, chain: self.chain!)
-        onUpdateView()
+        self.mnemonicWords = words
+        self.createdKey = WKey.getHDKeyFromWords(mnemonic: self.mnemonicWords!, path: 0, chain: self.chainType!)
+        self.onUpdateView()
     }
     
     func onUpdateView() {
-        self.addressLabel.text = WKey.getHDKeyDpAddress(key: createdKey!, chain: chain!)
-        self.mnemonicView.backgroundColor = WUtils.getChainBg(chain!)
+        self.addressLabel.text = WKey.getHDKeyDpAddress(key: createdKey!, chain: chainType!)
+        self.mnemonicView.backgroundColor = WUtils.getChainBg(chainType!)
         for i in 0 ... mnemonicLabels.count - 1{
-            self.mnemonicLabels[i].borderColor = WUtils.getChainDarkColor(chain!)
+            self.mnemonicLabels[i].borderColor = WUtils.getChainDarkColor(chainType!)
         }
         self.addressView.isHidden = false
         self.mnemonicView.isHidden = false
@@ -151,7 +152,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     
     @IBAction func onClickNext(_ sender: Any) {
         if(checkedPassword) {
-            onGenAccount(chain!)
+            onGenAccount(chainType!)
 
         } else {
             let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController

@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import MobileCoreServices
 
-public class Account {
+public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderWriting {
+    
     var account_id: Int64 = -1;
     var account_uuid: String = "";
     var account_nick_name: String = "";
@@ -30,6 +32,27 @@ public class Account {
     var account_import_time:Int64 = -1;
     var account_last_total:String = "";
     var account_sort_order:Int64 = 0;
+    
+    enum CodingKeys: String, CodingKey {
+        case account_id
+        case account_uuid
+        case account_nick_name
+        case account_favo
+        case account_address
+        case account_base_chain
+        case account_has_private
+        case account_resource
+        case account_from_mnemonic
+        case account_path
+        case account_is_validator
+        case account_sequence_number
+        case account_account_numner
+        case account_fetch_time
+        case account_m_size
+        case account_import_time
+        case account_last_total
+        case account_sort_order
+    }
     
     init(isNew: Bool) {
         account_uuid = UUID().uuidString
@@ -108,5 +131,42 @@ public class Account {
             }
         }
         return result
+    }
+    
+    
+    
+    
+    
+    
+    public static var readableTypeIdentifiersForItemProvider: [String] {
+        return [(kUTTypeData) as String]
+    }
+
+    public static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Self {
+        let decoder = JSONDecoder()
+        do {
+            let myJSON = try decoder.decode(Account.self, from: data)
+            return myJSON as! Self
+        } catch {
+            fatalError("Err")
+        }
+    }
+
+
+
+    public static var writableTypeIdentifiersForItemProvider: [String]{
+        return [(kUTTypeData) as String]
+    }
+
+    public func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
+        let progress = Progress(totalUnitCount: 100)
+        do {
+          let data = try JSONEncoder().encode(self)
+          progress.completedUnitCount = 100
+          completionHandler(data, nil)
+        } catch {
+          completionHandler(nil, error)
+        }
+        return progress
     }
 }

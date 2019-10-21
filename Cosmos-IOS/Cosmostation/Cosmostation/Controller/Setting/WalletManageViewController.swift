@@ -9,13 +9,16 @@
 import UIKit
 import Alamofire
 
-class WalletManageViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class WalletManageViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate, UITableViewDropDelegate, SBCardPopupDelegate {
+    
+    
     
     @IBOutlet weak var chainTableView: UITableView!
     @IBOutlet weak var accountTableView: UITableView!
     
     var mAccounts = Array<Account>()
     var mSelectedChain = 0;
+    var isEditMode = false;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,9 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         self.accountTableView.dataSource = self
         self.accountTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.accountTableView.register(UINib(nibName: "ManageAccountCell", bundle: nil), forCellReuseIdentifier: "ManageAccountCell")
+        self.accountTableView.register(UINib(nibName: "ManageAccountAddCell", bundle: nil), forCellReuseIdentifier: "ManageAccountAddCell")
+        self.accountTableView.dragDelegate = self
+        self.accountTableView.dropDelegate = self
         
         self.chainTableView.delegate = self
         self.chainTableView.dataSource = self
@@ -39,8 +45,33 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         self.navigationItem.title = NSLocalizedString("title_wallet_manage", comment: "");
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-    
         self.onRefechUserInfo()
+    }
+    
+    func updateOptionBtn() {
+        if (mSelectedChain == 0 && isEditMode) {
+            let rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "finishBtn"), style: .done, target: self, action: #selector(onStopEdit))
+            self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        } else if (mSelectedChain == 0 && !isEditMode) {
+            let rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "sortingBtn"), style: .done, target: self, action: #selector(onStartEdit))
+            self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
+    @objc public func onStartEdit() {
+        self.isEditMode = true
+        self.accountTableView.reloadData()
+        self.updateOptionBtn()
+        self.accountTableView.dragInteractionEnabled = true
+    }
+    
+    @objc public func onStopEdit() {
+        self.isEditMode = false
+        self.accountTableView.reloadData()
+        self.updateOptionBtn()
+        self.accountTableView.dragInteractionEnabled = false
     }
     
     func onRefechUserInfo() {
@@ -55,18 +86,25 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (mSelectedChain == 4) {
             self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IOV_MAIN)
         }
+        self.sortWallet()
         self.accountTableView.reloadData()
+        self.updateOptionBtn()
     }
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == chainTableView) {
             return 5
         } else {
-            return mAccounts.count
+            if (mSelectedChain == 0) {
+                return mAccounts.count
+            } else {
+                if (mAccounts.count < 5) {
+                    return mAccounts.count + 1
+                } else {
+                    return mAccounts.count
+                }
+            }
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,8 +147,13 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
             return cell!
             
         } else {
-            let cell:ManageAccountCell? = tableView.dequeueReusableCell(withIdentifier:"ManageAccountCell") as? ManageAccountCell
+            if (mAccounts.count <= indexPath.row) {
+                let cell:ManageAccountAddCell? = tableView.dequeueReusableCell(withIdentifier:"ManageAccountAddCell") as? ManageAccountAddCell
+                return cell!
+            }
+            
             let account = mAccounts[indexPath.row]
+            let cell:ManageAccountCell? = tableView.dequeueReusableCell(withIdentifier:"ManageAccountCell") as? ManageAccountCell
             let userChain = WUtils.getChainType(account.account_base_chain)
             
             if (account.account_has_private) {
@@ -127,6 +170,17 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.address.text = account.account_address
             cell?.amount.attributedText = WUtils.displayAmount3(account.account_last_total, cell!.amount.font)
             WUtils.setDenomTitle(userChain, cell!.amountDenom)
+            if (isEditMode) {
+                cell?.arrowImg.image = UIImage(named: "changeIc")
+                cell?.arrowConstraint.constant = 10
+                cell?.arrowConstraint2.constant = 10
+                cell?.arrowConstraint3.constant = 10
+            } else {
+                cell?.arrowImg.image = UIImage(named: "arrowNextGr")
+                cell?.arrowConstraint.constant = 4
+                cell?.arrowConstraint2.constant = 4
+                cell?.arrowConstraint3.constant = 4
+            }
             return cell!
         }
     }
@@ -141,272 +195,102 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                 mSelectedChain = indexPath.row
                 self.onRefechUserInfo()
             }
-        } else {
-            
-            
-        }
-//        var account: Account?
-//        if (mFullAccounts.count > 0 && indexPath.section == 0) {
-//            account = mFullAccounts[indexPath.row]
-//        } else {
-//            account = mWatchAccounts[indexPath.row]
-//        }
-//        let walletDetailVC = WalletDetailViewController(nibName: "WalletDetailViewController", bundle: nil)
-//        walletDetailVC.hidesBottomBarWhenPushed = true
-//        walletDetailVC.accountId = account?.account_id
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(walletDetailVC, animated: true)
-    }
-    
-    
-}
-/*
-class WalletManageViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    @IBOutlet weak var accountTableView: UITableView!
-    
-    @IBOutlet weak var controlLayer: UIView!
-    @IBOutlet weak var importBtn: UIButton!
-    @IBOutlet weak var importView: UIView!
-    @IBOutlet weak var importMnemonicMsg: UIStackView!
-    @IBOutlet weak var importMnemonicBtn: UIButton!
-    @IBOutlet weak var importAddressMsg: UIStackView!
-    @IBOutlet weak var importAddressBtn: UIButton!
-    
-    var mFullAccounts = Array<Account>()
-    var mWatchAccounts = Array<Account>()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.accountTableView.delegate = self
-        self.accountTableView.dataSource = self
-        self.accountTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        self.accountTableView.register(UINib(nibName: "ManageAccountCell", bundle: nil), forCellReuseIdentifier: "ManageAccountCell")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_wallet_manage", comment: "");
-        self.navigationItem.title = NSLocalizedString("title_wallet_manage", comment: "");
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-    
-        self.onRefechUserInfo()
-    }
-    
-    func onRefechUserInfo() {
-        let mAccounts = BaseData.instance.selectAllAccounts()
-        if(mAccounts.count > 4) {
-            controlLayer.isHidden = true
-        }
-        
-        mFullAccounts.removeAll()
-        mWatchAccounts.removeAll()
-        for account in mAccounts {
-            if(account.account_has_private) {
-                mFullAccounts.append(account)
+        } else if (!isEditMode) {
+            if (mAccounts.count <= indexPath.row) {
+                let popupContent = AddViewController.create()
+                let cardPopup = SBCardPopupViewController(contentViewController: popupContent)
+                cardPopup.resultDelegate = self
+                cardPopup.show(onViewController: self)
+                
             } else {
-                mWatchAccounts.append(account)
+                let walletDetailVC = WalletDetailViewController(nibName: "WalletDetailViewController", bundle: nil)
+                walletDetailVC.hidesBottomBarWhenPushed = true
+                walletDetailVC.accountId = self.mAccounts[indexPath.row].account_id
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(walletDetailVC, animated: true)
             }
         }
-        self.accountTableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        let param = UIDragPreviewParameters()
+        param.backgroundColor = .clear
+        return param
+    }
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let itemProvider = NSItemProvider(object: self.mAccounts[indexPath.row])
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        return [dragItem]
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        guard let destinationIndexPath = coordinator.destinationIndexPath,
+            let sourceIndexPath = coordinator.items[0].sourceIndexPath else{
+            return
+        }
+        let sourceItem = self.mAccounts[sourceIndexPath.row]
+        self.mAccounts.remove(at: sourceIndexPath.row)
+        self.mAccounts.insert(sourceItem, at: destinationIndexPath.row)
+        DispatchQueue.main.async {
+            for i in 0 ... (self.mAccounts.count - 1) {
+                self.mAccounts[i].account_sort_order = Int64(i)
+            }
+            BaseData.instance.updateSortOrder(self.mAccounts)
+            self.accountTableView.reloadData()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        return session.canLoadObjects(ofClass: Account.self)
     }
 
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
     
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        if(mWatchAccounts.count > 0 && mFullAccounts.count > 0) {
-            return 2
-        } else {
-            return 1
+    func sortWallet() {
+        self.mAccounts.sort{
+            return $0.account_sort_order < $1.account_sort_order
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (mFullAccounts.count > 0 && section == 0) {
-            return mFullAccounts.count
-        } else {
-            return mWatchAccounts.count
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if (mFullAccounts.count > 0 && section == 0) {
-            let view = ManageHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            view.headerLabel.text = NSLocalizedString("with_mnemonics", comment: "")
-            view.keyImg.image = UIImage.init(named: "key_on")
-            return view
-        } else {
-            let view = ManageHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            view.headerLabel.text = NSLocalizedString("only_address", comment: "")
-            view.keyImg.image = UIImage.init(named: "key_off")
-            return view
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:ManageAccountCell? = tableView.dequeueReusableCell(withIdentifier:"ManageAccountCell") as? ManageAccountCell
-        var account: Account?
-        if (mFullAccounts.count > 0 && indexPath.section == 0) {
-            account = mFullAccounts[indexPath.row]
-            cell?.address.text = account?.account_address
-            
-        } else {
-            account = mWatchAccounts[indexPath.row]
-            cell?.address.text = account?.account_address
-        }
-        cell?.address.adjustsFontSizeToFitWidth = true
-        
-        if (account!.account_nick_name == "") {
-            cell?.nameLabel.text = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
-        } else {
-            cell?.nameLabel.text = account!.account_nick_name
-        }
-        
-        let userChain = WUtils.getChainType(account!.account_base_chain)
-        cell?.cardView.backgroundColor = WUtils.getChainBg(userChain)
-        WUtils.setDenomTitle(userChain, cell!.amountDenom)
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            cell?.chainImg.image = UIImage(named: "cosmosWhMain")
-            
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            cell?.chainImg.image = UIImage(named: "irisWh")
-            
-        } else if (userChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            cell?.chainImg.image = UIImage(named: "binanceChImg")
-        }
-        
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account!.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-//                    guard let responseData = res as? NSDictionary,
-//                        let info = responseData.object(forKey: "result") as? [String : Any] else {
-//                            cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
-//                            return
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let info = res as? [String : Any] else {
-                            cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
-                            return
-                    }
-
-                    let accountInfo = AccountInfo.init(info)
-                    if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
-                        cell?.amount.attributedText = WUtils.displayAmount(accountInfo.value.coins[0].amount, cell!.amount.font!, 6, userChain)
-                    } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
-                        cell?.amount.attributedText = WUtils.displayAmount(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.amount.font!, 6, userChain)
-                    } else {
-                        cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onAccountInfo ", error) }
-                    
+    func SBCardPopupResponse(result: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(490), execute: {
+            var tagetVC:BaseViewController?
+            if(result == 1) {
+                tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as! CreateViewController
+                if (self.mSelectedChain == 1) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
+                } else if (self.mSelectedChain == 2) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IRIS_MAIN
+                } else if (self.mSelectedChain == 3) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
+                } else if (self.mSelectedChain == 4) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
                 }
-            }
-            
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account!.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let info = res as? [String : Any] else {
-                        cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
-                        return
-                    }
-                    let accountInfo = AccountInfo.init(info)
-                    if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
-                        cell?.amount.attributedText = WUtils.displayAmount(accountInfo.value.coins[0].amount, cell!.amount.font!, 6, userChain)
-                    } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
-                        cell?.amount.attributedText = WUtils.displayAmount(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.amount.font!, 6, userChain)
-                    } else {
-                        cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onAccountInfo ", error) }
+                
+            } else if(result == 2) {
+                tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestoreViewController") as! RestoreViewController
+                if (self.mSelectedChain == 1) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
+                } else if (self.mSelectedChain == 2) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IRIS_MAIN
+                } else if (self.mSelectedChain == 3) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
+                } else if (self.mSelectedChain == 4) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
                 }
+                
+            } else if(result == 3) {
+                tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
+                
             }
-        } else if (userChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            let request = Alamofire.request(BNB_URL_ACCOUNT_INFO + account!.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    cell?.amount.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.amount.font!, 6, userChain)
-                    guard let info = res as? [String : Any] else {
-                        return
-                    }
-                    let bnbAccountInfo = BnbAccountInfo.init(info)
-                    for bnbBalance in bnbAccountInfo.balances {
-                        if (bnbBalance.symbol == BNB_MAIN_DENOM) {
-                            cell?.amount.attributedText = WUtils.displayAmount(bnbBalance.free, cell!.amount!.font!, 6, userChain)
-                        }
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                }
+            if(tagetVC != nil) {
+                tagetVC?.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(tagetVC!, animated: true)
             }
-        }
-        return cell!
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80;
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var account: Account?
-        if (mFullAccounts.count > 0 && indexPath.section == 0) {
-            account = mFullAccounts[indexPath.row]
-        } else {
-            account = mWatchAccounts[indexPath.row]
-        }
-        let walletDetailVC = WalletDetailViewController(nibName: "WalletDetailViewController", bundle: nil)
-        walletDetailVC.hidesBottomBarWhenPushed = true
-        walletDetailVC.accountId = account?.account_id
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(walletDetailVC, animated: true)
-    }
-    
-    
-    
-    @IBAction func onClickCreate(_ sender: Any) {
-        self.onStartCreate()
-        
-    }
-    
-    @IBAction func onClickImport(_ sender: Any) {
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
-            self.importBtn.alpha = 0.0
-        }, completion: { (finished) -> Void in
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: .transitionCurlUp, animations: {
-                self.importView.alpha = 1.0
-            }, completion: nil)
-            UIView.animate(withDuration: 0.1, delay: 0.1, options: .transitionCurlUp, animations: {
-                self.importMnemonicMsg.transform = CGAffineTransform(translationX: 0, y: -9.6)
-                self.importAddressMsg.transform = CGAffineTransform(translationX: 0, y: -9.6)
-            }, completion: nil)
-            
         })
     }
-    
-
-    
-    @IBAction func onClickImportMnemonic(_ sender: Any) {
-        self.onStartImportMnemonic()
-    }
-    
-    @IBAction func onClickImportAddress(_ sender: Any) {
-        self.onStartImportAddress()
-        
-    }
 }
-*/

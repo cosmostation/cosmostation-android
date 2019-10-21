@@ -25,5 +25,9 @@ class ManageAccountCell: UITableViewCell {
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var amount: UILabel!
     @IBOutlet weak var amountDenom: UILabel!
+    @IBOutlet weak var arrowImg: UIImageView!
+    @IBOutlet weak var arrowConstraint: NSLayoutConstraint!
+    @IBOutlet weak var arrowConstraint2: NSLayoutConstraint!
+    @IBOutlet weak var arrowConstraint3: NSLayoutConstraint!
     
 }
