@@ -35,8 +35,19 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
         self.chainTableView.selectRow(at: IndexPath.init(item: 0, section: 0), animated: false, scrollPosition: .top)
         
         onRefechUserInfo()
+        
+        let dismissTap1 = UITapGestureRecognizer(target: self, action: #selector(tableTapped))
+        let dismissTap2 = UITapGestureRecognizer(target: self, action: #selector(tableTapped))
+        self.accountTableView.backgroundView = UIView()
+        self.chainTableView.backgroundView = UIView()
+        self.accountTableView.backgroundView?.addGestureRecognizer(dismissTap1)
+        self.chainTableView.backgroundView?.addGestureRecognizer(dismissTap2)
     }
     
+    
+    @objc public func tableTapped() {
+        self.dismiss(animated: false, completion: nil)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

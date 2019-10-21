@@ -152,10 +152,10 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         if (cell?.stateLabel.text == NSLocalizedString("imported", comment: "")) {
             return
         } else if (cell?.stateLabel.text == NSLocalizedString("ready", comment: "")) {
-            if(BaseData.instance.selectAllAccounts().count >= 5) {
-                self.onShowToast(NSLocalizedString("error_max_account_over", comment: ""))
-                return
-            }
+//            if(BaseData.instance.selectAllAccounts().count >= 5) {
+//                self.onShowToast(NSLocalizedString("error_max_account_over", comment: ""))
+//                return
+//            }
             BaseData.instance.setLastTab(0)
             self.onGenAccount(WKey.getHDKeyDpAddressWithPath(maskerKey!, path:indexPath.row, chain: self.userChain!),
                               self.userChain!,

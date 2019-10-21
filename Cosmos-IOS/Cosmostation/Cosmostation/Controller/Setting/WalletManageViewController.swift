@@ -193,6 +193,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         if (tableView == chainTableView) {
             if (mSelectedChain != indexPath.row) {
                 mSelectedChain = indexPath.row
+                self.isEditMode = false
                 self.onRefechUserInfo()
             }
         } else if (!isEditMode) {
