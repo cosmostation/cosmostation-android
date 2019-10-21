@@ -200,6 +200,7 @@
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";
 "error_reward_address_changed_title" = "Reward Address Changed";
 "error_reward_address_changed_msg" = "This account has changed its reward address.\n You can user re-invest feature after reset your reward address to self.";
+"error_duple_address" = "This address is already imported.";
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";

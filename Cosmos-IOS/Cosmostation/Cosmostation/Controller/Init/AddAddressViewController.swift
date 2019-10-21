@@ -46,6 +46,10 @@ class AddAddressViewController: BaseViewController {
     
     @IBAction func onClickNext(_ sender: Any) {
         let userInput = self.addAddressInputText.text?.trimmingCharacters(in: .whitespaces) ?? ""
+        if (BaseData.instance.isDupleAccount(userInput)) {
+            self.onShowToast(NSLocalizedString("error_duple_address", comment: ""))
+            return
+        }
         if (userInput.starts(with: "cosmos")) {
             if (userInput.starts(with: "cosmosvaloper")) {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
@@ -101,7 +105,7 @@ class AddAddressViewController: BaseViewController {
             
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
-                if(insertResult > 0) {
+                if (insertResult > 0) {
                     BaseData.instance.setLastTab(0)
                     BaseData.instance.setRecentAccountId(insertResult)
                     self.onStartMainTab()
