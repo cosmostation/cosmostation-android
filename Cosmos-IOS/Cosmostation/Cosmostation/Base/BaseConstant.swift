@@ -274,11 +274,13 @@ let COLOR_BG_GRAY                           = UIColor.init(hexString: "2E2E2E", 
 let COLOR_DARK_GRAY                         = UIColor.init(hexString: "36393C")
 
 let TRANS_BG_COLOR_COSMOS                   = UIColor.init(hexString: "9C6CFF", alpha: 0.15)
+let TRANS_BG_COLOR_COSMOS2                   = UIColor.init(hexString: "9C6CFF", alpha: 0.4)
 let COLOR_ATOM                              = UIColor.init(hexString: "9C6CFF")
 let COLOR_ATOM_DARK                         = UIColor.init(hexString: "372758")
 let COLOR_PHOTON                            = UIColor.init(hexString: "05D2DD")
 
 let TRANS_BG_COLOR_IRIS                     = UIColor.init(hexString: "0080ff", alpha: 0.15)
+let TRANS_BG_COLOR_IRIS2                     = UIColor.init(hexString: "0080ff", alpha: 0.4)
 let COLOR_IRIS                              = UIColor.init(hexString: "00A8FF")
 let COLOR_IRIS_DARK                         = UIColor.init(hexString: "003870")
 

@@ -50,9 +50,9 @@ class ValidatorListViewController: BaseViewController {
             validatorSegment.setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
             
             if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_COSMOS
+                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_COSMOS2
             } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_IRIS
+                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_IRIS2
             }
             
         } else {
