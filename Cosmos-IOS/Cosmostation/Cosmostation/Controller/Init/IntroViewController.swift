@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Firebase
+import BitcoinKit
 
 class IntroViewController: BaseViewController, PasswordViewDelegate {
 
@@ -44,7 +45,6 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
 //                print("Remote instance ID token: \(result.token)")
 //            }
 //        }
-
     }
     
     

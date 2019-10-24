@@ -21,7 +21,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        maskerKey = WKey.getMasterKeyFromWords(mnemonic: userInputWords!)
+        maskerKey = WKey.getMasterKeyFromWords(userInputWords!)
         
         self.restoreTableView.delegate = self
         self.restoreTableView.dataSource = self
@@ -143,6 +143,10 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                 }
             }
+            
+        }  else if (userChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            cell?.pathLabel.text = IOV_BASE_PATH.appending(String(indexPath.row)).appending("'")
+            
         }
         return cell!
     }

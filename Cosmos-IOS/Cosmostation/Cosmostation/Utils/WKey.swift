@@ -9,17 +9,17 @@
 import Foundation
 import BitcoinKit
 import BinanceChain
+import ed25519swift
+import CryptoSwift
 
 class WKey {
-    let PRE_COSMOS_PUB_KEY = "eb5ae98721";
-    let PRE_COSMOS_PRI_KEY = "e1b0f79b20";
     
-    static func getMasterKeyFromWords(mnemonic m: [String]) -> HDPrivateKey {
+    static func getMasterKeyFromWords(_ m: [String]) -> HDPrivateKey {
         return HDPrivateKey(seed: Mnemonic.seed(mnemonic: m), network: .testnet)
     }
 
     static func getHDKeyFromWords(mnemonic m: [String], path p:UInt32, chain c:ChainType) -> HDPrivateKey {
-        let masterKey = getMasterKeyFromWords(mnemonic: m)
+        let masterKey = getMasterKeyFromWords(m)
         if (c == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || c == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
         } else if (c == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
@@ -57,24 +57,37 @@ class WKey {
             return ""
         }
     }
-
-    static func getCosmosDpAddress(key hdKey:HDPrivateKey) -> String {
-        let sha256 = Crypto.sha256(hdKey.privateKey().publicKey().raw)
-        let ripemd160 = Crypto.ripemd160(sha256)
-        return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
-    }
-
-    static func getCosmosDpAddressWithPath(_ masterKey:HDPrivateKey, _ path:Int) -> String {
-        do {
-            let childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-            let sha256 = Crypto.sha256(childKey.privateKey().publicKey().raw)
-            let ripemd160 = Crypto.ripemd160(sha256)
-            return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
-
-        } catch {
-            return ""
+    
+    static func getDpAddressPath(_ mnemonic: [String], _ path:Int, _ chain:ChainType) -> String {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+                chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            //using Secp256k1
+            let maskerKey = getMasterKeyFromWords(mnemonic)
+            return WKey.getHDKeyDpAddressWithPath(maskerKey, path: path, chain: chain)
+            
+        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            //using ed25519
         }
+        return ""
     }
+
+//    static func getCosmosDpAddress(key hdKey:HDPrivateKey) -> String {
+//        let sha256 = Crypto.sha256(hdKey.privateKey().publicKey().raw)
+//        let ripemd160 = Crypto.ripemd160(sha256)
+//        return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
+//    }
+//
+//    static func getCosmosDpAddressWithPath(_ masterKey:HDPrivateKey, _ path:Int) -> String {
+//        do {
+//            let childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+//            let sha256 = Crypto.sha256(childKey.privateKey().publicKey().raw)
+//            let ripemd160 = Crypto.ripemd160(sha256)
+//            return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
+//
+//        } catch {
+//            return ""
+//        }
+//    }
     
     
     static func isValidateAddress(_ address:String) -> Bool {

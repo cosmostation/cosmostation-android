@@ -1065,7 +1065,9 @@ class WUtils {
             return COLOR_IRIS
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return COLOR_BNB
-        }
+        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+           return COLOR_IOV
+       }
         return COLOR_ATOM
     }
     
@@ -1076,6 +1078,8 @@ class WUtils {
             return COLOR_IRIS_DARK
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return COLOR_BNB_DARK
+        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            return COLOR_IOV_DARK
         }
         return COLOR_ATOM_DARK
     }
@@ -1087,6 +1091,8 @@ class WUtils {
             return TRANS_BG_COLOR_IRIS
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return TRANS_BG_COLOR_BNB
+        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            return TRANS_BG_COLOR_IOV
         }
         return TRANS_BG_COLOR_COSMOS
     }
@@ -1098,6 +1104,8 @@ class WUtils {
             return "IRIS"
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return "BNB"
+        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            return "IOV"
         }
         return ""
     }
