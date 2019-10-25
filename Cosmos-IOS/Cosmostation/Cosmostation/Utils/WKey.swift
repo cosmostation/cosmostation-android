@@ -14,9 +14,32 @@ import CryptoSwift
 
 class WKey {
     
+    public struct Ed25519Key {
+        var key: [UInt8]
+        var chainCode: [UInt8]
+
+        public func derive(index: UInt32) -> Ed25519Key? {
+            var bigEndian = index.bigEndian
+            let data = Data(bytes: &bigEndian, count: MemoryLayout.size(ofValue: bigEndian))
+            var bytes = [UInt8](data)
+            bytes = [0] + key + bytes
+
+            let hmac = HMAC(key: chainCode, variant: .sha512)
+            guard let sum = try? hmac.authenticate(bytes) else { return nil }
+            return Ed25519Key(key: Array(sum[0..<32]), chainCode: Array(sum[32..<64]))
+        }
+    }
+    
     static func getMasterKeyFromWords(_ m: [String]) -> HDPrivateKey {
         return HDPrivateKey(seed: Mnemonic.seed(mnemonic: m), network: .testnet)
     }
+    
+    static func getMasterEd25519KeyFromWord(_ m: [String]) -> Ed25519Key? {
+        let hmac = HMAC(key: Array("ed25519 seed".utf8), variant: .sha512)
+        guard let sum = try? hmac.authenticate(Mnemonic.seed(mnemonic: m).dataToHexString().hex2Bytes) else { return nil}
+        return Ed25519Key(key: Array(sum[0..<32]), chainCode: Array(sum[32..<64]))
+    }
+    
 
     static func getHDKeyFromWords(mnemonic m: [String], path p:UInt32, chain c:ChainType) -> HDPrivateKey {
         let masterKey = getMasterKeyFromWords(m)
@@ -28,18 +51,26 @@ class WKey {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
         }
     }
-
-    static func getHDKeyDpAddress(key hdKey:HDPrivateKey, chain:ChainType) -> String {
-        let sha256 = Crypto.sha256(hdKey.privateKey().publicKey().raw)
-        let ripemd160 = Crypto.ripemd160(sha256)
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            return try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            return try! SegwitAddrCoder.shared.encode2(hrp: "iaa", program: ripemd160)
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            return try! SegwitAddrCoder.shared.encode2(hrp: "bnb", program: ripemd160)
+    
+    static func getPubToDpAddress(_ pubHex:String, _ chain:ChainType) -> String {
+        var result = ""
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            let sha256 = Crypto.sha256(Data.fromHex(pubHex)!)
+            let ripemd160 = Crypto.ripemd160(sha256)
+            
+            if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                result = try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
+            } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                result = try! SegwitAddrCoder.shared.encode2(hrp: "iaa", program: ripemd160)
+            } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                result = try! SegwitAddrCoder.shared.encode2(hrp: "bnb", program: ripemd160)
+            }
+            
+        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            let sha256 = Array(([UInt8](Crypto.sha256(Data.fromHex(pubHex)!)))[0..<20])
+            result = try! SegwitAddrCoder.shared.encode2(hrp: "iov", program: Data(bytes: sha256))
         }
-        return "";
+        return result;
     }
 
     static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType) -> String {
@@ -52,7 +83,7 @@ class WKey {
             } else {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
             }
-            return getHDKeyDpAddress(key: childKey!, chain: chain)
+            return getPubToDpAddress(childKey!.privateKey().publicKey().raw.dataToHexString(), chain)
         } catch {
             return ""
         }
@@ -67,9 +98,39 @@ class WKey {
             
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             //using ed25519
+            
+            let path = IOV_BASE_PATH.appending(String(path)).appending("'")
+            let cKey = deriveForPath(path, mnemonic)
+            
+            let pre: [UInt8] = Array("sigs/ed25519/".utf8)
+            let post: [UInt8] = Ed25519.calcPublicKey(secretKey: cKey!.key)
+            let result = pre + post
+            
+            return getPubToDpAddress(result.toHexString(), chain)
+            
         }
         return ""
     }
+    
+    static func isEd25519ValidPath(path: String) -> Bool {
+        guard let regex = try? NSRegularExpression(pattern: "^m(\\/[0-9]+')+$", options: .caseInsensitive) else { fatalError() }
+        let matches = regex.matches(in: path, options: [], range: NSRange(location: 0, length: path.count))
+        return matches.count > 0
+    }
+    
+    static func deriveForPath(_ path: String, _ m: [String]) -> Ed25519Key? {
+        guard isEd25519ValidPath(path: path) else { return nil }
+        var key = getMasterEd25519KeyFromWord(m)
+        let segments = path.components(separatedBy: "/")
+        for segment in segments[1...] {
+            guard var i = UInt32(segment.replacingOccurrences(of: "'", with: "")) else { return nil}
+            i = i + (0b1 << 31)
+            guard let k = key else { return nil }
+            key = k.derive(index: i)
+        }
+        return key
+    }
+    
 
 //    static func getCosmosDpAddress(key hdKey:HDPrivateKey) -> String {
 //        let sha256 = Crypto.sha256(hdKey.privateKey().publicKey().raw)
@@ -2291,4 +2352,11 @@ class WKey {
             """
         return words.split(separator: "\n")
     }()
+}
+
+
+extension Data {
+    var bytes : [UInt8]{
+        return [UInt8](self)
+    }
 }

@@ -131,7 +131,8 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        self.addressLabel.text = WKey.getHDKeyDpAddress(key: createdKey!, chain: chainType!)
+//        self.addressLabel.text = WKey.getHDKeyDpAddress(key: createdKey!, chain: chainType!)
+        self.addressLabel.text = WKey.getPubToDpAddress(createdKey!.privateKey().publicKey().raw.dataToHexString(), chainType!)
         self.mnemonicView.backgroundColor = WUtils.getChainBg(chainType!)
         for i in 0 ... mnemonicLabels.count - 1{
             self.mnemonicLabels[i].borderColor = WUtils.getChainDarkColor(chainType!)
@@ -200,7 +201,8 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var insertResult :Int64 = -1
             if(keyResult) {
-                newAccount.account_address = WKey.getHDKeyDpAddress(key: self.createdKey!, chain: chain)
+//                newAccount.account_address = WKey.getHDKeyDpAddress(key: self.createdKey!, chain: chain)
+                newAccount.account_address = WKey.getPubToDpAddress(self.createdKey!.privateKey().publicKey().raw.dataToHexString(), chain)
                 newAccount.account_base_chain = chain.rawValue
                 newAccount.account_has_private = true
                 newAccount.account_from_mnemonic = true

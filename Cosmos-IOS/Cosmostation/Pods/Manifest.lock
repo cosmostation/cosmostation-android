@@ -137,7 +137,6 @@ DEPENDENCIES:
   - AlamofireImage (~> 3.3)
   - BinanceChain (from `https://github.com/mh7821/SwiftBinanceChain.git`)
   - BitcoinKit (~> 1.0.2)
-  - CryptoSwift
   - DropDown
   - Firebase/Core
   - Firebase/Messaging
@@ -236,6 +235,6 @@ SPEC CHECKSUMS:
   WalletConnect: 0b21907c54b4bb324bf402dd14954c60a290ad36
   XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
 
-PODFILE CHECKSUM: 8eda5b260a2dabc05254169c018161f4d55cdfe1
+PODFILE CHECKSUM: e6eb78b2de346e078f97141a81270f3e4128052f
 
 COCOAPODS: 1.8.1

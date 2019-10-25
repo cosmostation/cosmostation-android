@@ -222,9 +222,9 @@ let PASSWORD_RESUKT_FAIL                    = 2
 let PASSWORD_RESUKT_OK_FOR_DELETE           = 3
 
 
-let BASE_PATH                               = "44'/118'/0'/0/"
-let BNB_BASE_PATH                           = "44'/714'/0'/0/"
-let IOV_BASE_PATH                           = "44'/234'/"
+let BASE_PATH                               = "m/44'/118'/0'/0/"
+let BNB_BASE_PATH                           = "m/44'/714'/0'/0/"
+let IOV_BASE_PATH                           = "m/44'/234'/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
 let FEE_ATOM_MID                            = "2000";

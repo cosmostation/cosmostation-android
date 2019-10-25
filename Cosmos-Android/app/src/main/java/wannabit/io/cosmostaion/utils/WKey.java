@@ -228,10 +228,6 @@ public class WKey {
                 WLog.w("ed25519 genDPAddress Error");
             }
         }
-
-
-
-
         return result;
     }
 

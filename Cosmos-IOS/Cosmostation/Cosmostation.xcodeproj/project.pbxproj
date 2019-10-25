@@ -89,6 +89,7 @@
 		E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B25224A08510019B7BB /* DecimalViewController.swift */; };
 		E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B27224A08660019B7BB /* AlphabetViewController.swift */; };
 		E16FACAF2361AC0F00372052 /* ed25519swift in Frameworks */ = {isa = PBXBuildFile; productRef = E16FACAE2361AC0F00372052 /* ed25519swift */; };
+		E16FACB12361ADFA00372052 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16FACB02361ADFA00372052 /* Bytes.swift */; };
 		E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06A225B04BD00C5756C /* TransactionViewController.swift */; };
 		E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06C225B08A000C5756C /* StepDelegateAmountViewController.swift */; };
 		E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06E225B08B100C5756C /* StepMemoViewController.swift */; };
@@ -301,6 +302,7 @@
 		E16D9B23224A083E0019B7BB /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		E16D9B25224A08510019B7BB /* DecimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalViewController.swift; sourceTree = "<group>"; };
 		E16D9B27224A08660019B7BB /* AlphabetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetViewController.swift; sourceTree = "<group>"; };
+		E16FACB02361ADFA00372052 /* Bytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bytes.swift; sourceTree = "<group>"; };
 		E171A06A225B04BD00C5756C /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		E171A06C225B08A000C5756C /* StepDelegateAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDelegateAmountViewController.swift; sourceTree = "<group>"; };
 		E171A06E225B08B100C5756C /* StepMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepMemoViewController.swift; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 				E1A82DE722448E940097CAEE /* WUtils.swift */,
 				E1A82DF62244FA750097CAEE /* UIColor.swift */,
 				E16D9B1C2248E6A60019B7BB /* WKey.swift */,
+				E16FACB02361ADFA00372052 /* Bytes.swift */,
 				E17748D82282C612003D8CD1 /* Cosmostation-Bridging-Header.h */,
 			);
 			path = Utils;
@@ -1080,6 +1083,7 @@
 				E17B213C23470932001743D6 /* TokenDetailHeaderCosmosCell.swift in Sources */,
 				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
+				E16FACB12361ADFA00372052 /* Bytes.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
 				E148A38F22F01DEF00A56A3F /* IrisRewards.swift in Sources */,
