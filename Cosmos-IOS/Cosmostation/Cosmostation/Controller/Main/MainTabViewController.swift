@@ -108,7 +108,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    
     func onFetchAccountData() -> Bool {
         if(self.mFetchCnt > 0)  {
             return false
@@ -143,6 +142,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchIrisPool()
             onFetchIrisTokens()
             onFetchPriceTic(true)
+            
         } else if (mAccount.account_base_chain == CHAIN_BINANCE_S) {
             self.mFetchCnt = 3
             self.mAllValidator.removeAll()
@@ -150,8 +150,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBnbTokens()
             onFetchPriceTic(true)
             
+        } else if (mAccount.account_base_chain == CHAIN_IOV_S) {
+            self.mFetchCnt = 1
+            self.mAllValidator.removeAll()
+            onFetchIovBalance(mAccount)
+            
         }
-        
         return true
     }
     
@@ -190,6 +194,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 if (mBnbTokenList.count <= 0) {
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))
                 }
+                NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
+                self.hideWaittingAlert()
+                return
+                
+            }  else if (mAccount.account_base_chain == CHAIN_IOV_S) {
+                mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
+                mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
                 self.hideWaittingAlert()
                 return
@@ -683,6 +694,25 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchFinished()
         }
     }
+    
+    func onFetchIovBalance(_ account: Account) {
+        let request = Alamofire.request(IOV_URL_BALANCE + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    _ = BaseData.instance.deleteBalance(account: account)
+                    return
+                }
+                let iovBalanceInfo = IovBalanceInfo.init(info)
+                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithIov(account, iovBalanceInfo))
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchIovBalance ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
     
     func onFetchPriceTic(_ callback:Bool) {
         var url = ""

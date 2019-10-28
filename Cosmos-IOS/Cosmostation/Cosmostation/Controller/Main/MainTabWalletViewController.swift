@@ -36,6 +36,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletCosmosCell", bundle: nil), forCellReuseIdentifier: "WalletCosmosCell")
         self.walletTableView.register(UINib(nibName: "WalletIrisCell", bundle: nil), forCellReuseIdentifier: "WalletIrisCell")
         self.walletTableView.register(UINib(nibName: "WalletBnbCell", bundle: nil), forCellReuseIdentifier: "WalletBnbCell")
+        self.walletTableView.register(UINib(nibName: "WalletIovCell", bundle: nil), forCellReuseIdentifier: "WalletIovCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
         self.walletTableView.register(UINib(nibName: "WalletGuideCell", bundle: nil), forCellReuseIdentifier: "WalletGuideCell")
@@ -82,6 +83,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            titleChainImg.image = UIImage(named: "iovImg")
+            titleChainName.text = "(IOV Chain)"
         }
     }
     
@@ -94,6 +98,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             floaty.buttonColor = COLOR_IRIS
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             floaty.buttonColor = COLOR_BNB
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            floaty.buttonColor = COLOR_IOV
         }
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
@@ -121,7 +127,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return 5;
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return 4;
         } else {
             return 0;
@@ -133,8 +139,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetCosmosItems(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return onSetIrisItem(tableView, indexPath);
-        } else {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return onSetBnbItem(tableView, indexPath);
+        } else {
+            return onSetIovItems(tableView, indexPath);
         }
     }
     
@@ -162,6 +170,17 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             } else if (indexPath.row == 3) {
                 return 153;
             }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            if (indexPath.row == 0) {
+                return 78;
+            } else if (indexPath.row == 1) {
+                return 230;
+            } else if (indexPath.row == 2) {
+                return 68;
+            } else if (indexPath.row == 3) {
+                return 153;
+            }
+            
         }
         return 0;
     }
@@ -394,6 +413,78 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return cell!
         }
         
+    }
+    
+    func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            if (mainTabVC.mAccount.account_has_private) {
+                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
+                cell?.keyState.tintColor = COLOR_IOV
+            }
+            cell?.dpAddress.text = mainTabVC.mAccount.account_address
+            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.actionShare = {
+                self.onClickActionShare()
+            }
+            cell?.actionWebLink = {
+                self.onClickActionLink()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
+//            if let balance = WUtils.getTokenBalace(mainTabVC.mBalances, BNB_MAIN_DENOM) {
+//                let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked))
+//                cell?.totalAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.totalAmount.font, 6, chainType!)
+//                cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+//                cell?.availableAmount.attributedText = WUtils.displayAmount(balance.balance_amount, cell!.availableAmount.font, 6, chainType!)
+//                cell?.lockedAmount.attributedText = WUtils.displayAmount(balance.balance_locked, cell!.lockedAmount.font, 6, chainType!)
+//            } else {
+//                cell?.totalAmount.attributedText = WUtils.displayAmount("0", cell!.totalAmount.font, 6, chainType!)
+//                cell?.totalValue.attributedText = WUtils.dpBnbValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+//                cell?.availableAmount.attributedText = WUtils.displayAmount("0", cell!.availableAmount.font, 6, chainType!)
+//                cell?.lockedAmount.attributedText = WUtils.displayAmount("0", cell!.lockedAmount.font, 6, chainType!)
+//            }
+//            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, (cell?.totalAmount.text)!)
+//            cell?.actionWC = {
+//                self.onClickWalletConect()
+//            }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+//            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+//            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+//            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+//            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+//                cell?.updownImg.image = UIImage(named: "priceUp")
+//                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+//            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+//                cell?.updownImg.image = UIImage(named: "priceDown")
+//                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+//            } else {
+//                cell?.updownImg.image = nil
+//                cell?.updownPercent.text = ""
+//            }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.guideImg.image = UIImage(named: "iovmainImg")
+            
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_bnb", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_bnb", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_bnb", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_bnb", comment: ""), for: .normal)
+            cell?.actionGuide1 = {
+                self.onClickGuide1()
+            }
+            cell?.actionGuide2 = {
+                self.onClickGuide2()
+            }
+            return cell!
+        }
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {

@@ -75,6 +75,13 @@ class WUtils {
         return result;
     }
     
+    static func getBalancesWithIov(_ account: Account, _ balanceInfo: IovBalanceInfo) -> Array<Balance> {
+        var result = Array<Balance>()
+        for iovBalance in balanceInfo.balance {
+            result.append(Balance.init( account.account_id, iovBalance.tokenTicker, iovBalance.quantity, Date().millisecondsSince1970))
+        }
+        return result;
+    }
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()

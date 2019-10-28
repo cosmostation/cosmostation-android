@@ -151,6 +151,8 @@
 		E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A32292254AFE100A05E41 /* ManageAccountCell.swift */; };
 		E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */; };
 		E1A699582366D424004CA274 /* IovBalanceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A699572366D424004CA274 /* IovBalanceInfo.swift */; };
+		E1A6995B2366E8CC004CA274 /* WalletIovCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A699592366E8CC004CA274 /* WalletIovCell.swift */; };
+		E1A6995C2366E8CC004CA274 /* WalletIovCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A6995A2366E8CC004CA274 /* WalletIovCell.xib */; };
 		E1A82DD1224220910097CAEE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD0224220910097CAEE /* Account.swift */; };
 		E1A82DD3224222E00097CAEE /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD2224222E00097CAEE /* Password.swift */; };
 		E1A82DD5224223250097CAEE /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD4224223250097CAEE /* Balance.swift */; };
@@ -372,6 +374,8 @@
 		E19A32292254AFE100A05E41 /* ManageAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAccountCell.swift; sourceTree = "<group>"; };
 		E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageAccountCell.xib; sourceTree = "<group>"; };
 		E1A699572366D424004CA274 /* IovBalanceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovBalanceInfo.swift; sourceTree = "<group>"; };
+		E1A699592366E8CC004CA274 /* WalletIovCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletIovCell.swift; sourceTree = "<group>"; };
+		E1A6995A2366E8CC004CA274 /* WalletIovCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletIovCell.xib; sourceTree = "<group>"; };
 		E1A82DD0224220910097CAEE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		E1A82DD2224222E00097CAEE /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		E1A82DD4224223250097CAEE /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
@@ -774,6 +778,8 @@
 				E1FD2327233E1BC4009327FE /* WalletIrisCell.xib */,
 				E1FD232E233E1BF4009327FE /* WalletBnbCell.swift */,
 				E1FD232F233E1BF4009327FE /* WalletBnbCell.xib */,
+				E1A699592366E8CC004CA274 /* WalletIovCell.swift */,
+				E1A6995A2366E8CC004CA274 /* WalletIovCell.xib */,
 				E1FD2332233E1C16009327FE /* WalletPriceCell.swift */,
 				E1FD2333233E1C16009327FE /* WalletPriceCell.xib */,
 				E1FD2336233E1C30009327FE /* WalletInflationCell.swift */,
@@ -915,6 +921,7 @@
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
 				E1FD2329233E1BC4009327FE /* WalletIrisCell.xib in Resources */,
 				E103DADE22814802006C2146 /* Init.storyboard in Resources */,
+				E1A6995C2366E8CC004CA274 /* WalletIovCell.xib in Resources */,
 				E103DAE322814DFC006C2146 /* GenTx.storyboard in Resources */,
 				E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */,
 				E17B214523470950001743D6 /* TokenDetailHeaderBnbCell.xib in Resources */,
@@ -1104,6 +1111,7 @@
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
 				E17B214823470960001743D6 /* TokenDetailHeaderCustomCell.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
+				E1A6995B2366E8CC004CA274 /* WalletIovCell.swift in Sources */,
 				E1F7F63223421394000E597F /* IrisToken.swift in Sources */,
 				E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
