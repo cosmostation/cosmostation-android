@@ -139,7 +139,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         self.cardView.isHidden = false
         self.actionView.isHidden = false
         self.keyboardView.isHidden = false
-//        self.updateFocus()
+        self.updateFocus()
         
     }
     

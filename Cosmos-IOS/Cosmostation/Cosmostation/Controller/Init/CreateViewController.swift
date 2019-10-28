@@ -51,8 +51,8 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     
     var mnemonicLabels: [UILabel] = [UILabel]()
     var mnemonicWords: [String]?
-    var createdKey: HDPrivateKey?
     var checkedPassword: Bool = false
+    var dpAddress: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +67,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         self.mnemonicView.isHidden = true
         self.warningView.isHidden = true
         self.nextBtn.isHidden = true
+        
+        if (chainType == nil) {
+            self.onShowChainType()
+        } else {
+            self.onGenNewKey()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,12 +81,6 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_create", comment: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        
-        if (chainType == nil) {
-            self.onShowChainType()
-        } else {
-            self.onGenNewKey()
-        }
     }
     
     func onShowChainType() {
@@ -126,36 +126,43 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             return
         }
         self.mnemonicWords = words
-        self.createdKey = WKey.getHDKeyFromWords(mnemonic: self.mnemonicWords!, path: 0, chain: self.chainType!)
         self.onUpdateView()
     }
     
     func onUpdateView() {
-//        self.addressLabel.text = WKey.getHDKeyDpAddress(key: createdKey!, chain: chainType!)
-        self.addressLabel.text = WKey.getPubToDpAddress(createdKey!.privateKey().publicKey().raw.dataToHexString(), chainType!)
-        self.mnemonicView.backgroundColor = WUtils.getChainBg(chainType!)
-        for i in 0 ... mnemonicLabels.count - 1{
-            self.mnemonicLabels[i].borderColor = WUtils.getChainDarkColor(chainType!)
-        }
-        self.addressView.isHidden = false
-        self.mnemonicView.isHidden = false
-        self.warningView.isHidden = false
-        self.nextBtn.isHidden = false
-        
-        for i in 0 ... mnemonicWords!.count - 1{
-            if(checkedPassword) {
-                self.mnemonicLabels[i].text = mnemonicWords?[i]
-            } else {
-                self.mnemonicLabels[i].text = mnemonicWords?[i].replacingOccurrences(of: "\\S", with: "?", options: .regularExpression)
-            }
-        }
-        
-        if(checkedPassword) {
-            self.warningMsgLabel.text = NSLocalizedString("password_msg2", comment: "")
-            self.nextBtn.setTitle(NSLocalizedString("create_wallet", comment: ""), for: .normal)
-        } else {
-            self.warningMsgLabel.text = NSLocalizedString("password_msg1", comment: "")
-            self.nextBtn.setTitle(NSLocalizedString("show_mnemonics", comment: ""), for: .normal)
+        self.showWaittingAlert()
+        DispatchQueue.global().async {
+            self.dpAddress = WKey.getDpAddressPath(self.mnemonicWords!, 0, self.chainType!)
+
+            DispatchQueue.main.async(execute: {
+                self.hideWaittingAlert()
+                self.addressLabel.text = self.dpAddress
+                self.mnemonicView.backgroundColor = WUtils.getChainBg(self.chainType!)
+                for i in 0 ... self.mnemonicLabels.count - 1{
+                    self.mnemonicLabels[i].borderColor = WUtils.getChainDarkColor(self.chainType!)
+                }
+                self.addressView.isHidden = false
+                self.mnemonicView.isHidden = false
+                self.warningView.isHidden = false
+                self.nextBtn.isHidden = false
+
+                for i in 0 ... self.mnemonicWords!.count - 1{
+                    if(self.checkedPassword) {
+                        self.mnemonicLabels[i].text = self.mnemonicWords?[i]
+                    } else {
+                        self.mnemonicLabels[i].text = self.mnemonicWords?[i].replacingOccurrences(of: "\\S", with: "?", options: .regularExpression)
+                    }
+                }
+
+                if(self.checkedPassword) {
+                    self.warningMsgLabel.text = NSLocalizedString("password_msg2", comment: "")
+                    self.nextBtn.setTitle(NSLocalizedString("create_wallet", comment: ""), for: .normal)
+                } else {
+                    self.warningMsgLabel.text = NSLocalizedString("password_msg1", comment: "")
+                    self.nextBtn.setTitle(NSLocalizedString("show_mnemonics", comment: ""), for: .normal)
+                }
+
+            });
         }
     }
     
@@ -179,8 +186,10 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            checkedPassword = true
-            onUpdateView()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(310), execute: {
+                self.checkedPassword = true
+                self.onUpdateView()
+            })
             
         } else if (result == PASSWORD_RESUKT_CANCEL) {
             
@@ -201,8 +210,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var insertResult :Int64 = -1
             if(keyResult) {
-//                newAccount.account_address = WKey.getHDKeyDpAddress(key: self.createdKey!, chain: chain)
-                newAccount.account_address = WKey.getPubToDpAddress(self.createdKey!.privateKey().publicKey().raw.dataToHexString(), chain)
+                newAccount.account_address = self.dpAddress!
                 newAccount.account_base_chain = chain.rawValue
                 newAccount.account_has_private = true
                 newAccount.account_from_mnemonic = true

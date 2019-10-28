@@ -187,7 +187,7 @@ class PasswordViewController: BaseViewController {
             transition.subtype = CATransitionSubtype.fromBottom
             self.resultDelegate?.passwordResponse(result: data)
             self.navigationController!.view.layer.add(transition, forKey: kCATransition)
-            self.navigationController?.popViewController(animated: false)
+            self.navigationController!.popViewController(animated: false)
             
         } else {
             self.onShowToast(NSLocalizedString("insert_password_app_lock", comment: ""))
@@ -238,14 +238,12 @@ class PasswordViewController: BaseViewController {
     
     
     func onStartInitPassword(_ initInput: String) {
-        self.showWaittingAlert()
         DispatchQueue.global().async {
             var result = false
             if(!KeychainWrapper.standard.hasValue(forKey: "password")) {
                 result = KeychainWrapper.standard.set(initInput, forKey: "password", withAccessibility: .afterFirstUnlockThisDeviceOnly)
             }
             DispatchQueue.main.async(execute: {
-                self.hideWaittingAlert()
                 if(result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK)
                 } else {
@@ -265,7 +263,6 @@ class PasswordViewController: BaseViewController {
                 }
             }
             DispatchQueue.main.async(execute: {
-                self.hideWaittingAlert()
                 if(result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK)
                 } else {
@@ -285,7 +282,6 @@ class PasswordViewController: BaseViewController {
                 }
             }
             DispatchQueue.main.async(execute: {
-                self.hideWaittingAlert()
                 UIApplication.shared.endIgnoringInteractionEvents()
                 if(result) {
                     self.onUserSuccessUnlock()
@@ -306,7 +302,6 @@ class PasswordViewController: BaseViewController {
                 }
             }
             DispatchQueue.main.async(execute: {
-                self.hideWaittingAlert()
                 if(result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK_FOR_DELETE)
                 } else {
