@@ -30,6 +30,7 @@ let KEY_PRICE_TIC_CMC                    = "KEY_PRICE_TIC_CMC"
 let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
+let IOV_URL                             = "https://rest-iov.cosmostation.io/";
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
@@ -81,6 +82,12 @@ let BNB_URL_TOKENS                      = BNB_URL + "api/v1/tokens";
 let BNB_URL_TIC                         = BNB_URL + "api/v1/ticker/24hr";
 let BNB_URL_HISTORY                     = BNB_URL + "api/v1/transactions";
 let BNB_URL_TX                          = BNB_URL + "api/v1/tx/";
+
+
+let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
+let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
+let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
+
 
 
 

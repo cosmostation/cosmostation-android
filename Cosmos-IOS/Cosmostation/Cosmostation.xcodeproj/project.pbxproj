@@ -150,6 +150,7 @@
 		E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E19A32272254AE8500A05E41 /* ManageHeader.xib */; };
 		E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A32292254AFE100A05E41 /* ManageAccountCell.swift */; };
 		E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */; };
+		E1A699582366D424004CA274 /* IovBalanceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A699572366D424004CA274 /* IovBalanceInfo.swift */; };
 		E1A82DD1224220910097CAEE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD0224220910097CAEE /* Account.swift */; };
 		E1A82DD3224222E00097CAEE /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD2224222E00097CAEE /* Password.swift */; };
 		E1A82DD5224223250097CAEE /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD4224223250097CAEE /* Balance.swift */; };
@@ -370,6 +371,7 @@
 		E19A32272254AE8500A05E41 /* ManageHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageHeader.xib; sourceTree = "<group>"; };
 		E19A32292254AFE100A05E41 /* ManageAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAccountCell.swift; sourceTree = "<group>"; };
 		E19A322A2254AFE100A05E41 /* ManageAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageAccountCell.xib; sourceTree = "<group>"; };
+		E1A699572366D424004CA274 /* IovBalanceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovBalanceInfo.swift; sourceTree = "<group>"; };
 		E1A82DD0224220910097CAEE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		E1A82DD2224222E00097CAEE /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		E1A82DD4224223250097CAEE /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 				E1406FBF2260643200D9440C /* BlockInfo.swift */,
 				E1406FC12260654F00D9440C /* TxInfo.swift */,
 				E17748E72283D0F4003D8CD1 /* GuideCategory.swift */,
+				E1A699572366D424004CA274 /* IovBalanceInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1033,6 +1036,7 @@
 				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
 				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
+				E1A699582366D424004CA274 /* IovBalanceInfo.swift in Sources */,
 				E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */,
 				E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,
