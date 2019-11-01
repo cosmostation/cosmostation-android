@@ -583,6 +583,20 @@ public class WDp {
         }
     }
 
+    public static SpannableString getZeroValue(Context c, BaseData dao) {
+        if(dao.getCurrency() == 5) {
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(BigDecimal.ZERO));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        } else {
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(BigDecimal.ZERO));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        }
+    }
+
 
     public static SpannableString getPriceUpDown(BigDecimal input) {
         return getDpString(input.setScale(2, RoundingMode.DOWN).toPlainString() + "% (24h)", 9);

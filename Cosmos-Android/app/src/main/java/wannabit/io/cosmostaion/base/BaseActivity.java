@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.dao.IovToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
@@ -63,6 +64,7 @@ import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.IovAddressInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.IovBalanceTask;
 import wannabit.io.cosmostaion.task.FetchTask.IovNonceTask;
+import wannabit.io.cosmostaion.task.FetchTask.IovTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisPoolTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisTokenListTask;
@@ -106,6 +108,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public ArrayList<BnbToken>              mBnbTokens = new ArrayList<>();
 
     public ResIovAddressInfo                mIovAddressInfo;
+    public ArrayList<IovToken>              mIovTokens = new ArrayList<>();
 
     protected int                           mTaskCount;
     private FetchCallBack                   mFetchCallback;
@@ -312,8 +315,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            mTaskCount = 1;
+            mTaskCount = 2;
             new IovBalanceTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new IovTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
         onPriceTic(BaseChain.getChain(mAccount.baseChain));
@@ -414,7 +418,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 mIovAddressInfo = (ResIovAddressInfo)result.resultData;
             }
+        } else if (result.taskType == BaseConstant.TASK_FETCH_IOV_TOKENS) {
+            mIovTokens = (ArrayList<IovToken>)result.resultData;
         }
+
 
         mMyValidators.clear();
         if(mTaskCount == 0 && (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN))) {

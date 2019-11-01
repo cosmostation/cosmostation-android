@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.dao.IovToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
@@ -925,6 +926,17 @@ public class WUtil {
         }
         return null;
     }
+
+    public static IovToken getIovToken(ArrayList<IovToken> all, Balance balance) {
+        if (all == null || balance == null) return null;
+        for (IovToken token:all) {
+            if(balance.symbol.equals(token.tokenTicker)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
 
     public static boolean isBnbBaseMarketToken(String symbol) {
         switch (symbol) {

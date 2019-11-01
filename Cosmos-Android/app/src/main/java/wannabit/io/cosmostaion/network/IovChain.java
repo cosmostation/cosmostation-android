@@ -6,6 +6,7 @@ import retrofit2.http.Path;
 import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResIovNonce;
 import wannabit.io.cosmostaion.network.res.ResIovAddressInfo;
+import wannabit.io.cosmostaion.network.res.ResIovToken;
 
 public interface IovChain {
 
@@ -17,4 +18,7 @@ public interface IovChain {
 
     @GET("/account/address/{address}")
     Call<ResIovAddressInfo> getAddressInfo(@Path("address") String address);
+
+    @GET("/tokens")
+    Call<ResIovToken> getTokens();
 }

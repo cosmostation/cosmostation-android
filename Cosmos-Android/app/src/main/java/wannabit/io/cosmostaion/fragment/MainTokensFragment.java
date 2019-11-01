@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.IovToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -44,6 +45,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
@@ -177,6 +179,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             onUpdateTotalCard();
             onFetchBnbTokenPrice();
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+            onUpdateTotalCard();
+            onFetchIovTokenPrice();
         }
         mTokenSize.setText(""+mBalances.size());
         if (mBalances != null && mBalances.size() > 0) {
@@ -231,6 +238,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
             mTotalAmount.setText(WDp.getDpAmount(getContext(), totalBnbAmount, 6, getMainActivity().mBaseChain));
             mTotalValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), totalBnbAmount));
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            BigDecimal totalAtomAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(COSMOS_IOV)) {
+                    totalAtomAmount = totalAtomAmount.add(balance.balance);
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount(getContext(), totalAtomAmount, 6, getMainActivity().mBaseChain));
+            mTotalValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
         }
 
     }
@@ -262,6 +279,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindIrisItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 onBindBnbItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+                onBindIovItem(viewHolder, position);
             }
         }
 
@@ -339,7 +358,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.balance, 6, getMainActivity().mBaseChain));
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
                 holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-                holder.itemValue.setText("-");
+                holder.itemValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
             }
         }
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -400,6 +419,28 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
     }
 
+    private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = mBalances.get(position);
+        final IovToken token = WUtil.getIovToken(getMainActivity().mIovTokens, balance);
+        if (token != null) {
+            holder.itemSymbol.setText(token.tokenTicker.toUpperCase());
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText(token.tokenName);
+            Picasso.get().cancelRequest(holder.itemImg);
+            if (balance.symbol.equals(COSMOS_IOV)) {
+                holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.balance, 6, getMainActivity().mBaseChain));
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
+                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IOV_MAIN));
+                holder.itemValue.setText("-");
+
+            } else {
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                holder.itemValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
+            }
+        }
+    }
+
     private void onFetchCosmosTokenPrice() {
         onUpdateTotalCard();
     }
@@ -437,6 +478,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             }
         }
+    }
+
+    private void onFetchIovTokenPrice() {
+        onUpdateTotalCard();
     }
 
 

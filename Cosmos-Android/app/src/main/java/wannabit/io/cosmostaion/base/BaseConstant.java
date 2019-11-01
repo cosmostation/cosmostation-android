@@ -86,6 +86,7 @@ public class BaseConstant {
     public final static int                     TASK_FETCH_IOV_BALANCE                          = 2050;
     public final static int                     TASK_FETCH_IOV_NONCE                            = 2051;
     public final static int                     TASK_FETCH_IOV_ADDRESS_INFO                     = 2052;
+    public final static int                     TASK_FETCH_IOV_TOKENS                           = 2053;
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";

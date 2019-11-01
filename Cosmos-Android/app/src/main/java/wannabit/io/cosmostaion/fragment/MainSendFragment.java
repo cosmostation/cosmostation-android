@@ -429,6 +429,13 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     WLog.w("" + getMainActivity().mIovAddressInfo.startId);
                 }
                 getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, iovToken.balance.toPlainString());
+            } else {
+                mTvIovTotal.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+                mTvIovAvailable.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+                mTvIovValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), BigDecimal.ZERO));
+                mTvIovDeposited.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+                mTvIovRewards.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+                getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, BigDecimal.ZERO.toPlainString());
             }
         }
     }
@@ -500,7 +507,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 startActivity(guideIntent);
 
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/iov-internet-of-values"));
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.starname.network/"));
                 startActivity(guideIntent);
 
             }
