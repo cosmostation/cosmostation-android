@@ -41,6 +41,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 
 public class WKey {
 
@@ -196,7 +197,7 @@ public class WKey {
 
     public static String getDpAddress(BaseChain chain, String pubHex) {
         String result       = null;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN)|| chain.equals(KAVA_MAIN)) {
             MessageDigest digest = Sha256.getSha256Digest();
             byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
 
@@ -214,6 +215,8 @@ public class WKey {
                     result = bech32Encode("iaa".getBytes(), converted);
                 } else if (chain.equals(BNB_MAIN)){
                     result = bech32Encode("bnb".getBytes(), converted);
+                } else if (chain.equals(KAVA_MAIN)){
+                    result = bech32Encode("kava".getBytes(), converted);
                 }
 
             } catch (Exception e) {
@@ -283,7 +286,7 @@ public class WKey {
 
     public static String getDpAddressWithPath(String seed, BaseChain chain, int path) {
         String result = "";
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN)) {
             //using Secp256k1
             DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(path));
             result =  getDpAddress(chain, childKey.getPublicKeyAsHex());

@@ -93,6 +93,16 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
+            } else if (userInput.startsWith("kava")) {
+                if (WKey.isValidBech32(userInput)) {
+                    onGenNewAccount(BaseChain.KAVA_MAIN, userInput);
+                    return;
+
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
             } else if (userInput.startsWith("iov")) {
                 if (WKey.isValidBech32(userInput)) {
                     onGenNewAccount(BaseChain.IOV_MAIN, userInput);

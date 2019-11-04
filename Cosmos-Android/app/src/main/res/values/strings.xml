@@ -49,6 +49,7 @@
     <string name="str_iris_main_net">IRIS Mainnet</string>
     <string name="str_bnb_main_net">Binance Mainnet</string>
     <string name="str_iov_main_net">IOV Mainnet</string>
+    <string name="str_kava_main_net">KAVA Mainnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
