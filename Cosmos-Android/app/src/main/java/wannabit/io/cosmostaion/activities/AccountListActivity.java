@@ -156,7 +156,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     private void onSaveNewOrder() {
         for (int i = 0 ; i < mAccounts.size(); i ++) {
                 mAccounts.get(i).sortOrder = Long.valueOf(i);
-
         }
         getBaseDao().onUpdateAccountOrders(mAccounts);
     }

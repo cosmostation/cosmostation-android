@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.romainpiel.shimmer.ShimmerTextView;
 
 import net.i2p.crypto.eddsa.EdDSAEngine;
@@ -34,6 +36,7 @@ import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec;
 
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.crypto.HDKeyDerivation;
+import org.bouncycastle.crypto.digests.SHA512Digest;
 import org.bouncycastle.util.encoders.Hex;
 
 import java.nio.charset.Charset;
@@ -41,6 +44,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.Security;
 import java.security.Signature;
@@ -52,9 +56,13 @@ import java.util.Set;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.Sha256;
+import wannabit.io.cosmostaion.model.IovTx;
+import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_KIND_SEND;
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
@@ -114,24 +122,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                         WLog.w("FCM token new : " + token);
                     }
                 });
-
-
     }
-    private final static int HardenedKeyStart = 0x80000000;
 
-    private static String bytes2hex(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        String tmp = null;
-        for (byte b : bytes) {
-            tmp = Integer.toHexString(0xFF & b);
-            if (tmp.length() == 1) {
-                tmp = "0" + tmp;
-            }
-            sb.append(tmp);
-        }
-        return sb.toString();
-
-    }
 
     @Override
     protected void onPostResume() {
@@ -152,6 +144,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }, 2500);
+
     }
 
     private void onInitView() {

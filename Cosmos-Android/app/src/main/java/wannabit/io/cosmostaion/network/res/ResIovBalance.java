@@ -11,7 +11,7 @@ public class ResIovBalance {
     @SerializedName("balance")
     public ArrayList<IovBalance> balance;
 
-    public class IovBalance {
+    public static class IovBalance {
         public String quantity;
         public int fractionalDigits;
         public String tokenTicker;
