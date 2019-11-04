@@ -1141,11 +1141,14 @@ public class WDp {
     }
 
     public static int getChainColor(Context c, String chain) {
-        if(chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             return c.getResources().getColor(R.color.colorAtom);
-        } else {
+        } else if (chain.equals(BaseChain.IRIS_MAIN.getChain())) {
             return c.getResources().getColor(R.color.colorIris);
+        } else if (chain.equals(BaseChain.KAVA_MAIN.getChain())) {
+            return c.getResources().getColor(R.color.colorKava);
         }
+        return -1;
     }
 
     public static int getChainColor(Context c, BaseChain chain) {
@@ -1155,6 +1158,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorIris);
         } else if (chain.equals(BaseChain.BNB_MAIN)) {
             return c.getResources().getColor(R.color.colorBnb);
+        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+            return c.getResources().getColor(R.color.colorKava);
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
             return c.getResources().getColor(R.color.colorIov);
         } else {
@@ -1165,17 +1170,23 @@ public class WDp {
     public static ColorStateList getTabColor(Context c, String chain) {
         if(chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
-        } else {
+        } else if(chain.equals(BaseChain.IRIS_MAIN.getChain())) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iris);
+        }  else if(chain.equals(BaseChain.KAVA_MAIN.getChain())) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_kava);
         }
+        return null;
     }
 
     public static ColorStateList getChainTintColor(Context c, String chain) {
         if(chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
             return c.getResources().getColorStateList(R.color.colorAtom);
-        } else {
+        } else if(chain.equals(BaseChain.IRIS_MAIN.getChain())) {
             return c.getResources().getColorStateList(R.color.colorIris);
+        } else if(chain.equals(BaseChain.KAVA_MAIN.getChain())) {
+            return c.getResources().getColorStateList(R.color.colorKava);
         }
+        return null;
     }
 
     public static void DpMainDenom(Context c, String chain, TextView textview) {
@@ -1190,6 +1201,10 @@ public class WDp {
         } else if (chain.equals(BaseChain.BNB_MAIN.getChain())) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBnb));
             textview.setText(c.getString(R.string.s_bnb));
+
+        } else if (chain.equals(BaseChain.KAVA_MAIN.getChain())) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorKava));
+            textview.setText(c.getString(R.string.s_kava));
 
         } else if (chain.equals(BaseChain.IOV_MAIN.getChain())) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIov));

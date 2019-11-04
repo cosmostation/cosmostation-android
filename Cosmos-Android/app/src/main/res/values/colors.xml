@@ -15,6 +15,7 @@
     <color name="colorTransBg4">#240080ff</color>
     <color name="colorTransBg5">#24f0b90b</color>
     <color name="colorTransBg6">#2446d7cb</color>
+    <color name="colorTransBg7">#24ff554f</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -44,6 +45,9 @@
 
     <color name="colorIov">#35C1B3</color>
     <color name="colorIov2">#065048</color>
+
+    <color name="colorKava">#FF564F</color>
+    <color name="colorKava2">#631D1B</color>
 
 
     <color name="colorRed">#f31963</color>

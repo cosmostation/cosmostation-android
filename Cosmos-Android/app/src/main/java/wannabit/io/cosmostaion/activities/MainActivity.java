@@ -225,6 +225,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBnb));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBnb));
 
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
+            mToolbarChainName.setText(getString(R.string.str_kava_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
+
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
             mToolbarChainName.setText(getString(R.string.str_iov_net));
@@ -256,7 +262,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.BNB_MAIN);
 
         } else if (mSelectChainPosition == 4) {
-            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.IOV_MAIN);
+            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.KAVA_MAIN);
 
         }
         WUtil.onSortingAccount(mAccounts);
@@ -337,6 +343,15 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 }
             }
             intent.putExtra("iovToken", WUtil.getIovMainToken(mIovTokens));
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+//            for (Balance balance:balances) {
+//                if (balance.symbol.equals(BaseConstant.COSMOS_IOV) && ((balance.balance.compareTo(new BigDecimal("500000000"))) > 0)) {
+//                    result  = true;
+//                }
+//            }
+//            intent.putExtra("iovToken", WUtil.getIovMainToken(mIovTokens));
+            return;
         }
 
         if(!result){
@@ -466,8 +481,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             } else if (position == 4) {
                 holder.chainLayer.setVisibility(View.VISIBLE);
                 holder.allLayer.setVisibility(View.GONE);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
-                holder.chainName.setText(getString(R.string.str_iov));
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
+                holder.chainName.setText(getString(R.string.str_kava));
 
             }
 
@@ -585,7 +600,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                                 } else if (mSelectChainPosition == 3) {
                                     bundle.putString("chain", BaseChain.BNB_MAIN.getChain());
                                 } else if (mSelectChainPosition == 4) {
-                                    bundle.putString("chain", BaseChain.IOV_MAIN.getChain());
+                                    bundle.putString("chain", BaseChain.KAVA_MAIN.getChain());
                                 }
                                 Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
                                 add.setCancelable(true);
