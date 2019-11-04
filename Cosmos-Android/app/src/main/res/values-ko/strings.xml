@@ -232,6 +232,7 @@
     <string name="str_fee_speed_title_2">대부분의 검증인들이 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_iris">현재 아이리스는 고정 Tx 수수료를 지원합니다.\n아이리스는 사용후 남은 가스비를 전액 반환합니다.</string>
     <string name="str_fee_speed_title_bnb">현재 바이낸스는 고정 전송 수수료를 지원합니다.</string>
+    <string name="str_fee_speed_title_iov">현재 아이오비는 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_description_title_0">Tx 수수료 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx 수수료 비율 0.0025</string>
     <string name="str_fee_description_title_2">Tx 수수료 비율 0.025</string>
@@ -450,6 +451,7 @@
     <string name="error_invalid_cosmos_address">유효한 코스모스 주소가 아닙니다.</string>
     <string name="error_invalid_iris_address">유효한 아이리스 주소가 아닙니다.</string>
     <string name="error_invalid_bnb_address">유효한 바이낸스 주소가 아닙니다.</string>
+    <string name="error_invalid_iov_address">유효한 아이오비 주소가 아닙니다.</string>
     <string name="error_iris_token_not_yet">아이리스 토큰 전송은 조만간 지원하겠습니다.</string>
 
     <string name="s_atom">ATOM</string>

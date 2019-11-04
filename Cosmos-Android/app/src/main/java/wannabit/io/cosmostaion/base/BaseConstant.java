@@ -232,6 +232,7 @@ public class BaseConstant {
 
     public final static String                  FEE_BNB_SEND                                    = "0.000375";
 
+    public final static String                  FEE_IOV_SEND                                    = "0.500000000";
 
     public final static String                  CGC_ATOM                                        = "cosmos";
     public final static String                  CGC_IRIS                                        = "iris-network";

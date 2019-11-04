@@ -282,6 +282,7 @@
     <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
     <string name="str_fee_speed_title_iris">Support fixed amount fee for Iris.\nIris Hub will refund the remaining gas fee after use.</string>
     <string name="str_fee_speed_title_bnb">Support fixed transfer fee for Bianace dex.</string>
+    <string name="str_fee_speed_title_iov">Support fixed transfer fee for IOV Chain.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
     <string name="str_fee_description_title_2">Tx fee rate 0.025</string>
@@ -502,6 +503,7 @@
     <string name="error_invalid_cosmos_address">Invalid Cosmos Address.</string>
     <string name="error_invalid_iris_address">Invalid Iris Address.</string>
     <string name="error_invalid_bnb_address">Invalid Binance Address.</string>
+    <string name="error_invalid_iov_address">Invalid Iov Address.</string>
     <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
 
     <string name="s_atom">ATOM</string>

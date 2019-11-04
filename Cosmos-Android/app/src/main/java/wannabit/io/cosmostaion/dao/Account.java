@@ -169,6 +169,20 @@ public class Account {
         return result;
     }
 
+    public BigDecimal getIovBalance() {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_IOV)) {
+                result = balance.balance;
+                break;
+            }
+        }
+        return result;
+    }
+
 
     public SpannableString getLastTotal(Context c, BaseChain chain) {
         if (TextUtils.isEmpty(lastTotal)) {

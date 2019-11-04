@@ -57,6 +57,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 
@@ -931,6 +932,16 @@ public class WUtil {
         if (all == null || balance == null) return null;
         for (IovToken token:all) {
             if(balance.symbol.equals(token.tokenTicker)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
+    public static IovToken getIovMainToken(ArrayList<IovToken> all) {
+        if (all == null) return null;
+        for (IovToken token:all) {
+            if (token.tokenTicker.equals(COSMOS_IOV)) {
                 return token;
             }
         }

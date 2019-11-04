@@ -329,6 +329,14 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 }
             }
             intent.putExtra("bnbToken", WUtil.getBnbMainToken(mBnbTokens));
+
+        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_IOV) && ((balance.balance.compareTo(new BigDecimal("500000000"))) > 0)) {
+                    result  = true;
+                }
+            }
+            intent.putExtra("iovToken", WUtil.getIovMainToken(mIovTokens));
         }
 
         if(!result){

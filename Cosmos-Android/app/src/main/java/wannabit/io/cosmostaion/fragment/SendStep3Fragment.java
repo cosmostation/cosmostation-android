@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 public class SendStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -163,6 +164,18 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             }
             mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            mFeeLayer1.setVisibility(View.VISIBLE);
+            mFeeLayer2.setVisibility(View.GONE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iov));
+
+            mMinFeeAmount.setText(WDp.getDpString(FEE_IOV_SEND, 9));
+            mFeeAmount = new BigDecimal(FEE_IOV_SEND).movePointRight(9).setScale(0);
+            mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
         }
         return rootView;
     }
@@ -223,6 +236,17 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 Coin gasCoin = new Coin();
                 gasCoin.denom = BaseConstant.COSMOS_BNB;
                 gasCoin.amount = FEE_BNB_SEND;
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
+                getSActivity().mTargetFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = BaseConstant.COSMOS_IOV;
+                gasCoin.amount = mFeeAmount.toPlainString();
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;

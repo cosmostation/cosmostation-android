@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.IovToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.fragment.SendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
@@ -52,9 +53,10 @@ public class SendActivity extends BaseActivity {
     public String                   mTargetMemo;
     public Fee                      mTargetFee;
 
-    public IrisToken                   mIrisToken;
-    public BnbToken                    mBnbToken;
-    public HashMap<String, ResBnbTic>  mBnbTics = new HashMap<>();
+    public IrisToken                    mIrisToken;
+    public BnbToken                     mBnbToken;
+    public IovToken                     mIovToken;
+    public HashMap<String, ResBnbTic>   mBnbTics = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,7 @@ public class SendActivity extends BaseActivity {
         mIrisToken = getIntent().getParcelableExtra("irisToken");
         mBnbToken = getIntent().getParcelableExtra("bnbToken");
         mBnbTics = (HashMap<String, ResBnbTic>)getIntent().getSerializableExtra("bnbTics");
+        mIovToken = getIntent().getParcelableExtra("iovToken");
 
         mTvStep.setText(getString(R.string.str_send_step_0));
 
@@ -85,6 +88,8 @@ public class SendActivity extends BaseActivity {
             if (mIrisToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (mBnbToken == null) onBackPressed();
+        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            if (mIovToken == null) onBackPressed();
         }
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
