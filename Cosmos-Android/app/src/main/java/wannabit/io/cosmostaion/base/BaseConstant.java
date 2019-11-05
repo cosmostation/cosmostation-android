@@ -193,6 +193,7 @@ public class BaseConstant {
     public final static String                  COSMOS_IRIS                                     = "iris";
     public final static String                  COSMOS_IRIS_ATTO                                = "iris-atto";
     public final static String                  COSMOS_BNB                                      = "BNB";
+    public final static String                  COSMOS_KAVA                                     = "ukava";
     public final static String                  COSMOS_IOV                                      = "IOV";
 
 

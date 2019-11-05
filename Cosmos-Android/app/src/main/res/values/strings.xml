@@ -275,7 +275,7 @@
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
-    <string name="str_front_guide_msg_kava">Kava kava kava</string>
+    <string name="str_front_guide_msg_kava">First cross-blockchain DeFi platform enabling leverage, hedge and CDP based on Tendermint.</string>
     <string name="str_front_guide_msg_iov">Built on Tendermint, IOV builds a fast, secure and decentralized universal name service.</string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
@@ -412,7 +412,7 @@
     <string name="str_average">Mid</string>
     <string name="str_high">High</string>
     <string name="str_available">Available</string>
-    <string name="str_vested">Vested</string>
+    <string name="str_vesting">Vesting</string>
     <string name="str_locked">Locked</string>
     <string name="str_deposited">Deposited</string>
     <string name="str_deposite">Deposite</string>

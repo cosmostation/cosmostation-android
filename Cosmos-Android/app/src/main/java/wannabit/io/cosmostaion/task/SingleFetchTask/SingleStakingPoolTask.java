@@ -23,17 +23,34 @@ public class SingleStakingPoolTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResStakingPool> response = ApiClient.getCosmosChain(mApp).getStakingPool().execute();
-            if(!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                return mResult;
+            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+                Response<ResStakingPool> response = ApiClient.getCosmosChain(mApp).getStakingPool().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                Response<ResStakingPool> response = ApiClient.getKavaChain(mApp).getStakingPool().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
             }
 
-            if(response.body() != null) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
-            }
 
 
         } catch (Exception e) {

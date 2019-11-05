@@ -36,14 +36,19 @@ public class ResLcdKavaAccountInfo {
 
         @SerializedName("PeriodicVestingAccount")
         public PeriodicVestingAccount PeriodicVestingAccount;
+
+        @SerializedName("vesting_period_progress")
+        public ArrayList<VestingPeriodProgress> vesting_period_progress;
     }
 
     public class PeriodicVestingAccount {
-//        @SerializedName("start_time")
-//        public String start_time;
 
         @SerializedName("BaseVestingAccount")
         public BaseVestingAccount BaseVestingAccount;
+
+        @SerializedName("vesting_periods")
+        public ArrayList<VestingPeriod> vesting_periods;
+
     }
 
     public class BaseVestingAccount {
@@ -52,9 +57,6 @@ public class ResLcdKavaAccountInfo {
 
         @SerializedName("original_vesting")
         public ArrayList<Coin> original_vesting;
-
-//        @SerializedName("delegated_free")
-//        public ArrayList<Coin> DelegatedFree;
 
         @SerializedName("delegated_vesting")
         public ArrayList<Coin> delegated_vesting;
@@ -75,5 +77,19 @@ public class ResLcdKavaAccountInfo {
 
         @SerializedName("sequence")
         public String sequence;
+    }
+
+    public class VestingPeriod {
+        @SerializedName("amount")
+        public ArrayList<Coin> amount;
+    }
+
+    public class VestingPeriodProgress {
+        @SerializedName("period_complete")
+        public boolean period_complete;
+
+        @SerializedName("vesting_successful")
+        public boolean vesting_successful;
+
     }
 }

@@ -135,7 +135,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
         TintableImageView tabItemIcon0  = tab0.findViewById(R.id.tabItemIcon);
         TextView tabItemText0  = tab0.findViewById(R.id.tabItemText);
-        tabItemIcon0.setImageResource(R.drawable.send_ic);
+        tabItemIcon0.setImageResource(R.drawable.wallet_ic);
         tabItemText0.setText(R.string.str_main_wallet);
         mTabLayer.getTabAt(0).setCustomView(tab0);
 

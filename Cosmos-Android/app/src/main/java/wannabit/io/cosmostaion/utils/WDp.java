@@ -50,7 +50,7 @@ public class WDp {
     public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
             amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
@@ -281,6 +281,27 @@ public class WDp {
         return getDpAmount(c, getAvailableCoin(balances, denom), 6, chain);
     }
 
+
+    public static BigDecimal getVestedCoin(ArrayList<Balance> balances, String denom) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Balance balance : balances) {
+            if (denom.equals(COSMOS_ATOM) && IS_TEST) {
+                if (balance.symbol.equals(COSMOS_MUON)) {
+                    sum = balance.locked;
+                }
+            } else {
+                if (balance.symbol.equals(denom)) {
+                    sum = balance.locked;
+                }
+            }
+        }
+        return sum;
+    }
+
+    public static SpannableString getDpVestedCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
+        return getDpAmount(c, getVestedCoin(balances, denom), 6, chain);
+    }
+
     public static SpannableString getDpAllDelegatedAmount(Context c, ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         return getDpAmount(c, getAllDelegatedAmount(bondings, validators, chain), 6, chain);
     }
@@ -288,7 +309,7 @@ public class WDp {
     public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         if (bondings == null || bondings.size() == 0) return sum;
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)|| chain.equals(BaseChain.KAVA_MAIN)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -350,36 +371,34 @@ public class WDp {
                 sum = sum.add(reward.getAtomAmount());
             }
         }
-
         return sum;
     }
 
-    public static SpannableString getDpAllAtom2(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, TotalReward totalReward, ArrayList<Validator> validators, BaseChain chain) {
+
+    public static BigDecimal getAllKava(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
         BigDecimal sum = BigDecimal.ZERO;
-        if(balances != null) {
-            for(Balance balance : balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) || balance.symbol.equals(BaseConstant.COSMOS_MUON)) {
-                    sum = sum.add(balance.balance);
-                }
+        for(Balance balance : balances) {
+            if (balance.symbol.equals(BaseConstant.COSMOS_KAVA)) {
+                sum = sum.add(balance.balance);
+                sum = sum.add(balance.locked);
             }
         }
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+        if(bondings != null) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+            }
         }
-        if(unbondings != null) {
+        if (unbondings != null) {
             for(UnBondingState unbonding : unbondings) {
                 sum = sum.add(unbonding.balance);
             }
         }
-        if(totalReward != null && totalReward.coins != null) {
-            for(Coin coin : totalReward.coins) {
-                if(coin.denom.equals(BaseConstant.COSMOS_ATOM) || coin.denom.equals(BaseConstant.COSMOS_MUON)) {
-                    sum = sum.add(new BigDecimal(coin.amount));
-                    break;
-                }
+        if (rewards != null) {
+            for(Reward reward : rewards) {
+                sum = sum.add(reward.getAtomAmount());
             }
         }
-        return getDpAmount(c, sum, 6, chain);
+        return sum;
     }
 
     public static SpannableString getDpAllIris(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, ArrayList<Validator> validators, BaseChain chain) {
@@ -576,6 +595,24 @@ public class WDp {
 
         } else {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(8, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        }
+    }
+
+    public static SpannableString getValueOfKava(Context c, BaseData dao, BigDecimal totalAmount) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        if(dao.getCurrency() == 5) {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastKavaTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            SpannableString result;
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+
+        } else {
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastKavaTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);

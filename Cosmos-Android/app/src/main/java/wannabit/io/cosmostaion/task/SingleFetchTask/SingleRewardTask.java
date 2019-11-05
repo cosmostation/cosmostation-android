@@ -31,35 +31,55 @@ public class SingleRewardTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            Response<ResLcdRewardFromVal> response = ApiClient.getCosmosChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-//            if(!response.isSuccessful()) {
-//                mResult.isSuccess = false;
-//                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                return mResult;
-//            }
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
+//                Response<ResLcdRewardFromVal> response = ApiClient.getCosmosChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
+//                if(!response.isSuccessful()) {
+//                    mResult.isSuccess = false;
+//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+//                    return mResult;
+//                }
 //
-//            if(response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
-//                ArrayList<Coin> amounts = response.body().result;
-//                long time = System.currentTimeMillis();
-//                Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-//                mResult.resultData = temp;
-//                mResult.isSuccess = true;
-//            }
-            //TODO rollback cosmos-hub2
-            Response<ArrayList<Coin>> response = ApiClient.getCosmosChain(mApp).getRewardFromValidatorLegacy(mAccount.address, mValidatorAddr).execute();
-            if(!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                return mResult;
+//                if(response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+//                    ArrayList<Coin> amounts = response.body().result;
+//                    long time = System.currentTimeMillis();
+//                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
+//                    mResult.resultData = temp;
+//                    mResult.isSuccess = true;
+//                }
+                //TODO rollback cosmos-hub2
+                Response<ArrayList<Coin>> response = ApiClient.getCosmosChain(mApp).getRewardFromValidatorLegacy(mAccount.address, mValidatorAddr).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().size() > 0) {
+                    ArrayList<Coin> amounts = response.body();
+                    long time = System.currentTimeMillis();
+                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
+                    mResult.resultData = temp;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
+                Response<ResLcdRewardFromVal> response = ApiClient.getKavaChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                    ArrayList<Coin> amounts = response.body().result;
+                    long time = System.currentTimeMillis();
+                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
+                    mResult.resultData = temp;
+                    mResult.isSuccess = true;
+                }
+
             }
 
-            if(response.body() != null && response.body().size() > 0) {
-                ArrayList<Coin> amounts = response.body();
-                long time = System.currentTimeMillis();
-                Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-                mResult.resultData = temp;
-                mResult.isSuccess = true;
-            }
 
         } catch (Exception e) {
             WLog.w("SingleRewardTask Error " + e.getMessage());

@@ -57,6 +57,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 
 
@@ -79,7 +80,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private RelativeLayout      mBtnIrisReward, mBtnIrisVote;
     private TextView            mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
     private RelativeLayout      mBtnBnbConnect;
-    private TextView            mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVested,
+    private TextView            mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVesting,
                                 mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards;
     private RelativeLayout      mBtnKavaReward, mBtnKavaVote;
     private TextView            mTvIovTotal, mTvIovValue, mTvIovAvailable, mTvIovDeposited, mTvIovRewards;
@@ -152,7 +153,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvKavaTotal            = mKavaCard.findViewById(R.id.dash_kava_amount);
         mTvKavaValue            = mKavaCard.findViewById(R.id.dash_kava_value);
         mTvKavaAvailable        = mKavaCard.findViewById(R.id.dash_kava_undelegate);
-        mTvKavaVested           = mKavaCard.findViewById(R.id.dash_kava_vested);
+        mTvKavaVesting          = mKavaCard.findViewById(R.id.dash_kava_vesting);
         mTvKavaDelegated        = mKavaCard.findViewById(R.id.dash_kava_delegate);
         mTvKavaUnBonding        = mKavaCard.findViewById(R.id.dash_kava_unbonding);
         mTvKavaRewards          = mKavaCard.findViewById(R.id.dash_kava_reward);
@@ -349,7 +350,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             BigDecimal totalAmount = WDp.getAllAtom(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
-            mTvAtomTotal.setText(WDp.getDpAllAtom(getContext(), getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
+            mTvAtomTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             mTvAtomAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_ATOM));
             mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
@@ -451,26 +452,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-//            if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV) != null) {
-//                Balance iovToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV);
-//                mTvIovTotal.setText(WDp.getDpAmount(getContext(), iovToken.balance, 6, getMainActivity().mBaseChain));
-//                mTvIovAvailable.setText(WDp.getDpAmount(getContext(), iovToken.balance, 6, getMainActivity().mBaseChain));
-//                //TODO no price info yet
-//                mTvIovValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), BigDecimal.ZERO));
-//                mTvIovDeposited.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-//                mTvIovRewards.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-//                if (getMainActivity().mIovAddressInfo != null) {
-//                    WLog.w("" + getMainActivity().mIovAddressInfo.startId);
-//                }
-//                getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, iovToken.balance.toPlainString());
-//            } else {
-//                mTvIovTotal.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-//                mTvIovAvailable.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-//                mTvIovValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), BigDecimal.ZERO));
-//                mTvIovDeposited.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-//                mTvIovRewards.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-//                getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, BigDecimal.ZERO.toPlainString());
-//            }
+            BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
+            mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
+            mTvKavaVesting.setText(WDp.getDpVestedCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
+            mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
+            mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
+            mTvKavaRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain));
+            mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
+            getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
 
             try {
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastKavaTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -485,8 +475,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     mUpDownImg.setVisibility(View.GONE);
                 }
 
-//                mInflation.setText(WDp.getPercentDp(new BigDecimal("4")));
-//                mYield.setText(WDp.getIrisYieldString(getMainActivity().mIrisPool, BigDecimal.ZERO));
+                mInflation.setText(WDp.getPercentDp(getMainActivity().mInflation.multiply(new BigDecimal("100"))));
+                mYield.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, BigDecimal.ZERO));
 
             } catch (Exception e) {
                 mPerPrice.setText("???");
@@ -625,11 +615,19 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://coinmarketcap.com/currencies/binance-coin"));
                     startActivity(guideIntent);
                 }
+
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                if (getBaseDao().getMarket() == 0) {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/kava"));
+                    startActivity(guideIntent);
+                } else {
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://coinmarketcap.com/currencies/kava"));
+                    startActivity(guideIntent);
+                }
             }
 
         } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward)) {
             Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
-//            validators.putExtra("allValidators", getMainActivity().mAllValidators);
             validators.putExtra("myValidators", getMainActivity().mMyValidators);
             validators.putExtra("topValidators", getMainActivity().mTopValidators);
             validators.putExtra("otherValidators", getMainActivity().mOtherValidators);

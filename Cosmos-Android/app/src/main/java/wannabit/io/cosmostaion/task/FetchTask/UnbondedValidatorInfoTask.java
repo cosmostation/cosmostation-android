@@ -26,30 +26,48 @@ public class UnbondedValidatorInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            Response<ResLcdValidators> response = ApiClient.getCosmosChain(mApp).getUnBondedValidatorDetailList().execute();
-//            if(!response.isSuccessful()) {
-//                mResult.isSuccess = false;
-//                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                return mResult;
-//            }
+            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+//                Response<ResLcdValidators> response = ApiClient.getCosmosChain(mApp).getUnBondedValidatorDetailList().execute();
+//                if(!response.isSuccessful()) {
+//                    mResult.isSuccess = false;
+//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+//                    return mResult;
+//                }
 //
-//            if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-//                mResult.resultData = response.body().result;
-//                mResult.isSuccess = true;
-//            }
+//                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+//                    mResult.resultData = response.body().result;
+//                    mResult.isSuccess = true;
+//                }
 
-            //TODO rollback cosmos-hub2
-            Response<ArrayList<Validator>> response = ApiClient.getCosmosChain(mApp).getUnBondedValidatorDetailListLegacy().execute();
-            if(!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                return mResult;
+                //TODO rollback cosmos-hub2
+                Response<ArrayList<Validator>> response = ApiClient.getCosmosChain(mApp).getUnBondedValidatorDetailListLegacy().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().size() > 0) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                Response<ResLcdValidators> response = ApiClient.getKavaChain(mApp).getUnBondedValidatorDetailList().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
             }
 
-            if(response.body() != null && response.body().size() > 0) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
-            }
+
 
 
         } catch (Exception e) {

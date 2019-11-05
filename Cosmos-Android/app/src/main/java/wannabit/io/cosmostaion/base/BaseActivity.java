@@ -78,6 +78,7 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.SingleStakingPoolTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -293,7 +294,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
-
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mTaskCount = 7;
 
@@ -307,6 +307,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new IrisTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new IrisPoolTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mTaskCount = 2;
 
@@ -315,14 +316,26 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mTaskCount = 1;
+            mTaskCount = 9;
+
+            new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mTaskCount = 2;
             new IovBalanceTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new IovTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 
         }
         onPriceTic(BaseChain.getChain(mAccount.baseChain));
@@ -345,7 +358,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 return;
             }
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 if(temp != null) {
                     mTopValidators = temp;
                 }
@@ -363,7 +376,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 mTaskCount = mTaskCount + mBondings.size();
                 mRewards.clear();
                 for(BondingState bonding:mBondings) {
@@ -391,9 +404,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
             try {
-//                mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
-                //TODO rollback cosmos-hub2
-                mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).bonded_tokens);
+                if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+//                    mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
+                    //TODO rollback cosmos-hub2
+                    mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).bonded_tokens);
+                } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                    mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
+                }
             } catch (Exception e) {}
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
@@ -423,13 +440,16 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 mIovAddressInfo = (ResIovAddressInfo)result.resultData;
             }
+
         } else if (result.taskType == BaseConstant.TASK_FETCH_IOV_TOKENS) {
             mIovTokens = (ArrayList<IovToken>)result.resultData;
+
         }
 
 
         mMyValidators.clear();
-        if(mTaskCount == 0 && (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN))) {
+        if (mTaskCount == 0 &&
+                (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN))) {
             for(Validator top:mTopValidators) {
                 boolean already = false;
                 for(BondingState bond:mBondings) {
@@ -444,7 +464,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         break;
                     }
                 }
-
                 if(already) mMyValidators.add(top);
             }
 
@@ -462,13 +481,23 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         break;
                     }
                 }
-
                 if(already) mMyValidators.add(other);
             }
             mAllValidators.addAll(mTopValidators);
             mAllValidators.addAll(mOtherValidators);
+
+//            WLog.w("KAVA mBondings " + mBondings.size());
+//            WLog.w("KAVA mUnbondings " + mUnbondings.size());
+//            WLog.w("KAVA mMyValidators " + mMyValidators.size());
+//            WLog.w("KAVA mTopValidators " + mTopValidators.size());
+//            WLog.w("KAVA mOtherValidators " + mOtherValidators.size());
+//            WLog.w("KAVA mRewards " + mRewards.size());
+//
+//            WLog.w("KAVA mInflation " + mInflation);
+//            WLog.w("KAVA mProvisions " + mProvisions);
+//            WLog.w("KAVA mBondedToken " + mBondedToken);
         }
-        if(mFetchCallback != null) {
+        if (mFetchCallback != null) {
             mFetchCallback.fetchFinished();
         }
     }

@@ -77,6 +77,19 @@ public class AllValidatorInfoTask extends CommonTask {
 
                 } while (needMore);
                 mResult.resultData = allResult;
+
+            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                Response<ResLcdValidators> response = ApiClient.getKavaChain(mApp).getValidatorDetailList().execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
             }
 
 
