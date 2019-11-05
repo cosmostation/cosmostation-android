@@ -47,6 +47,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
@@ -245,7 +246,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), totalBnbAmount));
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            BigDecimal totalAtomAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(COSMOS_KAVA)) {
+                    totalAtomAmount = totalAtomAmount.add(WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
+                } else {
 
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount(getContext(), totalAtomAmount, 6, getMainActivity().mBaseChain));
+            mTotalValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAtomAmount));
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             BigDecimal totalAtomAmount = BigDecimal.ZERO;
@@ -430,25 +440,32 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindKavaItem(TokensAdapter.AssetHolder holder, final int position) {
-//        final Balance balance = mBalances.get(position);
-//        final IovToken token = WUtil.getIovToken(getMainActivity().mIovTokens, balance);
-//        if (token != null) {
-//            holder.itemSymbol.setText(token.tokenTicker.toUpperCase());
-//            holder.itemInnerSymbol.setText("");
-//            holder.itemFullName.setText(token.tokenName);
-//            Picasso.get().cancelRequest(holder.itemImg);
-//            if (balance.symbol.equals(COSMOS_IOV)) {
-//                holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.balance, 6, getMainActivity().mBaseChain));
-//                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
-//                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IOV_MAIN));
-//                holder.itemValue.setText("-");
-//
-//            } else {
-//                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
-//                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-//                holder.itemValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
-//            }
-//        }
+        final Balance balance = mBalances.get(position);
+        if (balance.symbol.equals(COSMOS_KAVA)) {
+            holder.itemSymbol.setText(getString(R.string.str_kava_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.KAVA_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText(balance.symbol);
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
+
+            BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
+            holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
+            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
+        } else {
+            // TODO no this case yet!
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        }
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
+                intent.putExtra("balance", balance);
+                intent.putExtra("allValidators", getMainActivity().mAllValidators);
+                intent.putExtra("rewards", getMainActivity().mRewards);
+                startActivity(intent);
+            }
+        });
     }
 
     private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {
