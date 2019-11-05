@@ -345,13 +345,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("iovToken", WUtil.getIovMainToken(mIovTokens));
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-//            for (Balance balance:balances) {
-//                if (balance.symbol.equals(BaseConstant.COSMOS_IOV) && ((balance.balance.compareTo(new BigDecimal("500000000"))) > 0)) {
-//                    result  = true;
-//                }
-//            }
-//            intent.putExtra("iovToken", WUtil.getIovMainToken(mIovTokens));
-            return;
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("2500"))) > 0)) {
+                    result  = true;
+                }
+            }
         }
 
         if(!result){
