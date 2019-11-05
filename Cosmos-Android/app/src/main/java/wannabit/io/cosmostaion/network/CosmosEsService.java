@@ -31,4 +31,9 @@ public interface CosmosEsService {
 
     @POST("iris/v1/getTxsByAddr")
     Call<ResHistory> getIrisTokenTx(@Body ReqTxToken data);
+
+
+
+    @POST("kava/v1/getTxsByAddr")
+    Call<ResHistory> getKavaTx(@Body ReqTx data);
 }

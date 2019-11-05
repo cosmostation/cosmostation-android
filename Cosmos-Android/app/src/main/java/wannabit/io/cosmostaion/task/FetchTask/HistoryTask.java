@@ -63,6 +63,16 @@ public class HistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
                 mResult.taskType = BaseConstant.TASK_FETCH_BNB_HISTORY;
+
+            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getKavaTx(mReq).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().hits.hits;
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
             }
 
         } catch (Exception e) {
