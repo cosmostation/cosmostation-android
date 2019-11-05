@@ -141,7 +141,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.BNB_MAIN);
 
         } else if (mSelectChainPosition == 4) {
-            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.IOV_MAIN);
+            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.KAVA_MAIN);
 
         }
         WUtil.onSortingAccount(mAccounts);
@@ -218,8 +218,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             } else if (position == 4) {
                 holder.chainLayer.setVisibility(View.VISIBLE);
                 holder.allLayer.setVisibility(View.GONE);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
-                holder.chainName.setText(getString(R.string.str_iov));
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
+                holder.chainName.setText(getString(R.string.str_kava));
 
             }
 
@@ -333,7 +333,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                         } else if (mSelectChainPosition == 3) {
                             bundle.putString("chain", BaseChain.BNB_MAIN.getChain());
                         } else if (mSelectChainPosition == 4) {
-                            bundle.putString("chain", BaseChain.IOV_MAIN.getChain());
+                            bundle.putString("chain", BaseChain.KAVA_MAIN.getChain());
                         }
                         Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
                         add.setCancelable(true);

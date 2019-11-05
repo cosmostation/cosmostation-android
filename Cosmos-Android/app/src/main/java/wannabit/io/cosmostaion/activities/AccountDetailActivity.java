@@ -180,6 +180,12 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            mCardRewardAddress.setVisibility(View.GONE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
+
         }
 
         new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
