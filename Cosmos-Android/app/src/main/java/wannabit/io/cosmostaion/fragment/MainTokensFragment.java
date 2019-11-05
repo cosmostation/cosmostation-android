@@ -180,6 +180,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             onUpdateTotalCard();
             onFetchBnbTokenPrice();
 
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            onUpdateTotalCard();
+            onFetchKavaTokenPrice();
+
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
             onUpdateTotalCard();
@@ -239,6 +244,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount(getContext(), totalBnbAmount, 6, getMainActivity().mBaseChain));
             mTotalValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), totalBnbAmount));
 
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+
+
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             BigDecimal totalAtomAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
@@ -279,6 +287,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindIrisItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 onBindBnbItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                onBindKavaItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                 onBindIovItem(viewHolder, position);
             }
@@ -419,6 +429,28 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
     }
 
+    private void onBindKavaItem(TokensAdapter.AssetHolder holder, final int position) {
+//        final Balance balance = mBalances.get(position);
+//        final IovToken token = WUtil.getIovToken(getMainActivity().mIovTokens, balance);
+//        if (token != null) {
+//            holder.itemSymbol.setText(token.tokenTicker.toUpperCase());
+//            holder.itemInnerSymbol.setText("");
+//            holder.itemFullName.setText(token.tokenName);
+//            Picasso.get().cancelRequest(holder.itemImg);
+//            if (balance.symbol.equals(COSMOS_IOV)) {
+//                holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.balance, 6, getMainActivity().mBaseChain));
+//                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
+//                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BaseChain.IOV_MAIN));
+//                holder.itemValue.setText("-");
+//
+//            } else {
+//                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+//                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+//                holder.itemValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
+//            }
+//        }
+    }
+
     private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
         final IovToken token = WUtil.getIovToken(getMainActivity().mIovTokens, balance);
@@ -478,6 +510,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             }
         }
+    }
+
+    private void onFetchKavaTokenPrice() {
+        onUpdateTotalCard();
     }
 
     private void onFetchIovTokenPrice() {

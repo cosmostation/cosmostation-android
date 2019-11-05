@@ -69,7 +69,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private ImageView           mKeyState;
     private TextView            mAddress;
 
-    private CardView            mAtomCard, mIrisCard, mBnbCard, mIovCard, mPriceCard;
+    private CardView            mAtomCard, mIrisCard, mBnbCard, mKavaCard, mIovCard, mPriceCard;
 
     private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomAvailable,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
@@ -79,6 +79,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private RelativeLayout      mBtnIrisReward, mBtnIrisVote;
     private TextView            mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
     private RelativeLayout      mBtnBnbConnect;
+    private TextView            mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVested,
+                                mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards;
+    private RelativeLayout      mBtnKavaReward, mBtnKavaVote;
     private TextView            mTvIovTotal, mTvIovValue, mTvIovAvailable, mTvIovDeposited, mTvIovRewards;
     private RelativeLayout      mBtnIovDeposit, mBtnIovNameService;
 
@@ -145,6 +148,17 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvBnbLocked            = mBnbCard.findViewById(R.id.dash_bnb_locked);
         mBtnBnbConnect          = mBnbCard.findViewById(R.id.btn_wallet_connect);
 
+        mKavaCard               = rootView.findViewById(R.id.card_kava);
+        mTvKavaTotal            = mKavaCard.findViewById(R.id.dash_kava_amount);
+        mTvKavaValue            = mKavaCard.findViewById(R.id.dash_kava_value);
+        mTvKavaAvailable        = mKavaCard.findViewById(R.id.dash_kava_undelegate);
+        mTvKavaVested           = mKavaCard.findViewById(R.id.dash_kava_vested);
+        mTvKavaDelegated        = mKavaCard.findViewById(R.id.dash_kava_delegate);
+        mTvKavaUnBonding        = mKavaCard.findViewById(R.id.dash_kava_unbonding);
+        mTvKavaRewards          = mKavaCard.findViewById(R.id.dash_kava_reward);
+        mBtnKavaReward          = mKavaCard.findViewById(R.id.btn_kava_reward);
+        mBtnKavaVote            = mKavaCard.findViewById(R.id.btn_kava_vote);
+
         mIovCard                = rootView.findViewById(R.id.card_iov);
         mTvIovTotal             = mIovCard.findViewById(R.id.dash_iov_amount);
         mTvIovValue             = mIovCard.findViewById(R.id.dash_iov_value);
@@ -194,7 +208,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
         });
 
-
         mBtnWebDetail.setOnClickListener(this);
         mBtnAddressDetail.setOnClickListener(this);
         mGuideBtn.setOnClickListener(this);
@@ -204,6 +217,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnAtomVote.setOnClickListener(this);
         mBtnIrisReward.setOnClickListener(this);
         mBtnIrisVote.setOnClickListener(this);
+        mBtnKavaReward.setOnClickListener(this);
+        mBtnKavaVote.setOnClickListener(this);
         mBtnBnbConnect.setOnClickListener(this);
 
         return rootView;
@@ -254,6 +269,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mAtomCard.setVisibility(View.VISIBLE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
+            mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             if (getMainActivity().mAccount.hasPrivateKey) {
@@ -269,6 +285,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.VISIBLE);
             mBnbCard.setVisibility(View.GONE);
+            mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
             if (getMainActivity().mAccount.hasPrivateKey) {
@@ -284,6 +301,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.VISIBLE);
+            mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
@@ -295,10 +313,26 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_faq_bnb);
             mFaqBtn.setText(R.string.str_guide_bnb);
 
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            mAtomCard.setVisibility(View.GONE);
+            mIrisCard.setVisibility(View.GONE);
+            mBnbCard.setVisibility(View.GONE);
+            mKavaCard.setVisibility(View.VISIBLE);
+            mIovCard.setVisibility(View.GONE);
+            if (getMainActivity().mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+            mGuideImg.setImageDrawable(getResources().getDrawable(R.drawable.kavamain_img));
+            mGuideTitle.setText(R.string.str_front_guide_title_kava);
+            mGuideMsg.setText(R.string.str_front_guide_msg_kava);
+            mGuideBtn.setText(R.string.str_faq_kava);
+            mFaqBtn.setText(R.string.str_guide_kava);
+
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
+            mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.VISIBLE);
             mMintCards.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
@@ -416,6 +450,28 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+//            if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV) != null) {
+//                Balance iovToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV);
+//                mTvIovTotal.setText(WDp.getDpAmount(getContext(), iovToken.balance, 6, getMainActivity().mBaseChain));
+//                mTvIovAvailable.setText(WDp.getDpAmount(getContext(), iovToken.balance, 6, getMainActivity().mBaseChain));
+//                //TODO no price info yet
+//                mTvIovValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), BigDecimal.ZERO));
+//                mTvIovDeposited.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+//                mTvIovRewards.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+//                if (getMainActivity().mIovAddressInfo != null) {
+//                    WLog.w("" + getMainActivity().mIovAddressInfo.startId);
+//                }
+//                getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, iovToken.balance.toPlainString());
+//            } else {
+//                mTvIovTotal.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+//                mTvIovAvailable.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+//                mTvIovValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), BigDecimal.ZERO));
+//                mTvIovDeposited.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+//                mTvIovRewards.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+//                getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, BigDecimal.ZERO.toPlainString());
+//            }
+
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV) != null) {
                 Balance iovToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV);
@@ -482,6 +538,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.binance.org"));
                 startActivity(guideIntent);
 
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/"));
+                startActivity(guideIntent);
+
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://iov.one/"));
                 startActivity(guideIntent);
@@ -504,6 +564,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@binance"));
+                startActivity(guideIntent);
+
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/kava-labs"));
                 startActivity(guideIntent);
 
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {

@@ -245,6 +245,12 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_ss_14_kava" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
     <style name="font_ssl_14_photon" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/colorPhoton</item>
