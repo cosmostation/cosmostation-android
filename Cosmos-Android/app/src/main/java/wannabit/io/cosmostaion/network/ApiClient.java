@@ -5,7 +5,6 @@ import android.content.Context;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ApiClient {
 
@@ -54,20 +53,20 @@ public class ApiClient {
         return service_binance;
     }
 
-    private static CosmosEsService service_cosmos_es = null;
-    public static CosmosEsService getCosmosEs(Context c) {
-        if (service_cosmos_es == null ) {
+    //Services for KAVA chain
+    private static KavaChain service_kava = null;
+    public static KavaChain getKavaChain(Context c) {
+        if (service_kava == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_es_proxy))
+                        .baseUrl(c.getString(R.string.url_lcd_main_kava))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_cosmos_es = retrofit.create(CosmosEsService.class);
+                service_kava = retrofit.create(KavaChain.class);
             }
         }
-        return service_cosmos_es;
+        return service_kava;
     }
-
 
     //Services for IOV main net
     private static IovChain service_iov = null;
@@ -83,6 +82,23 @@ public class ApiClient {
         }
         return service_iov;
     }
+
+
+    private static CosmosEsService service_cosmos_es = null;
+    public static CosmosEsService getCosmosEs(Context c) {
+        if (service_cosmos_es == null ) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_es_proxy))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_cosmos_es = retrofit.create(CosmosEsService.class);
+            }
+        }
+        return service_cosmos_es;
+    }
+
+
 
 
 

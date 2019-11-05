@@ -9,6 +9,7 @@
     <string name="url_lcd_main" translatable="false">https://lcd-app.cosmostation.io/</string>
     <!--<string name="url_lcd_main" translatable="false">https://lcd-cosmos-testnet.cosmostation.io/</string>-->
     <string name="url_lcd_main_iris" translatable="false">https://lcd-iris.cosmostation.io/</string>
+    <string name="url_lcd_main_kava" translatable="false">https://lcd-kava.cosmostation.io/</string>
     <string name="url_rest_main_iov" translatable="false">https://rest-iov.cosmostation.io/</string>
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
     <string name="url_es_proxy" translatable="false">https://app-es.cosmostation.io/</string>

@@ -314,6 +314,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new BnbTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            mTaskCount = 1;
+
+            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mTaskCount = 2;
             new IovBalanceTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -507,6 +512,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastBnbTic(0d);
                             getBaseDao().setLastBnbUpDown(0d);
 
+                        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+                            getBaseDao().setLastKavaTic(0d);
+                            getBaseDao().setLastKavaUpDown(0d);
+
                         }
                     }
                 }
@@ -524,6 +533,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     } else if (chain.equals(BaseChain.BNB_MAIN)) {
                         getBaseDao().setLastBnbTic(0d);
                         getBaseDao().setLastBnbUpDown(0d);
+
+                    } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+                        getBaseDao().setLastKavaTic(0d);
+                        getBaseDao().setLastKavaUpDown(0d);
 
                     }
                 }
@@ -550,6 +563,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastBnbTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastBnbUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
 
+                        } else if (response.isSuccessful() && chain.equals(BaseChain.KAVA_MAIN)) {
+                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
+                            getBaseDao().setLastKavaTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
+                            getBaseDao().setLastKavaUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
+
                         }
 
                     } catch (Exception e) {
@@ -564,6 +582,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         } else if (chain.equals(BaseChain.BNB_MAIN)) {
                             getBaseDao().setLastBnbTic(0d);
                             getBaseDao().setLastBnbUpDown(0d);
+
+                        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+                            getBaseDao().setLastKavaTic(0d);
+                            getBaseDao().setLastKavaUpDown(0d);
 
                         }
                     }
@@ -582,6 +604,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     } else if (chain.equals(BaseChain.BNB_MAIN)) {
                         getBaseDao().setLastBnbTic(0d);
                         getBaseDao().setLastBnbUpDown(0d);
+
+                    } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+                        getBaseDao().setLastKavaTic(0d);
+                        getBaseDao().setLastKavaUpDown(0d);
 
                     }
 

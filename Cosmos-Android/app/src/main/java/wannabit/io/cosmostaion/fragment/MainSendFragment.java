@@ -472,6 +472,28 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 //                getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, BigDecimal.ZERO.toPlainString());
 //            }
 
+            try {
+                mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastKavaTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mUpDownPrice.setText(WDp.getPriceUpDown(new BigDecimal(""+getBaseDao().getLastKavaUpDown())));
+                if(getBaseDao().getLastKavaUpDown() > 0) {
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+                } else if (getBaseDao().getLastKavaUpDown() < 0){
+                    mUpDownImg.setVisibility(View.VISIBLE);
+                    mUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+                } else {
+                    mUpDownImg.setVisibility(View.GONE);
+                }
+
+//                mInflation.setText(WDp.getPercentDp(new BigDecimal("4")));
+//                mYield.setText(WDp.getIrisYieldString(getMainActivity().mIrisPool, BigDecimal.ZERO));
+
+            } catch (Exception e) {
+                mPerPrice.setText("???");
+                mUpDownPrice.setText("???");
+                mUpDownImg.setVisibility(View.GONE);
+            }
+
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV) != null) {
                 Balance iovToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV);

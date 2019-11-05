@@ -24,6 +24,8 @@ public class BaseConstant {
     public final static String                  PRE_IRIS_UP_DOWN_24			                    = "PRE_IRIS_UP_DOWN_24";
     public final static String                  PRE_BNB_TIC                                     = "PRE_BNB_TIC";
     public final static String                  PRE_BNB_UP_DOWN_24			                    = "PRE_BNB_UP_DOWN_24";
+    public final static String                  PRE_KAVA_TIC                                    = "PRE_KAVA_TIC";
+    public final static String                  PRE_KAVA_UP_DOWN_24			                    = "PRE_KAVA_UP_DOWN_24";
     public final static String                  PRE_CURRENCY			                        = "PRE_CURRENCY";
     public final static String                  PRE_MARKET  			                        = "PRE_MARKET";
     public final static String                  PRE_USING_APP_LOCK			                    = "PRE_USING_APP_LOCK";
@@ -92,6 +94,7 @@ public class BaseConstant {
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";
 
     public final static String                  COSMOS_AUTH_TYPE_DELAYEDACCOUNT                 = "cosmos-sdk/DelayedVestingAccount";
+    public final static String                  COSMOS_AUTH_TYPE_VESTING_ACCOUNT                = "cosmos-sdk/ValidatorVestingAccount";
     public final static String                  COSMOS_AUTH_TYPE_ACCOUNT                        = "cosmos-sdk/Account";
     public final static String                  COSMOS_AUTH_TYPE_ACCOUNT_LEGACY                 = "auth/Account";
 
@@ -241,9 +244,11 @@ public class BaseConstant {
     public final static String                  CGC_ATOM                                        = "cosmos";
     public final static String                  CGC_IRIS                                        = "iris-network";
     public final static String                  CGC_BNB                                         = "binancecoin";
+    public final static String                  CGC_KAVA                                        = "kava";
     public final static int                     CMC_ATOM                                        = 3794;
     public final static int                     CMC_IRIS                                        = 3874;
     public final static int                     CMC_BNB                                         = 1839;
+    public final static int                     CMC_KAVA                                        = 4846;
 
 
 
