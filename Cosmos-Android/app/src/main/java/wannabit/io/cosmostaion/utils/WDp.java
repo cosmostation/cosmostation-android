@@ -42,6 +42,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
@@ -83,21 +84,10 @@ public class WDp {
         return result;
     }
 
-    public static SpannableString getDpAtomRewardAmount(Context c, ArrayList<Reward> rewards, String valOpAddr, BaseChain chain) {
+    public static SpannableString getDpAllRewardAmount(Context c, ArrayList<Reward> rewards, BaseChain chain, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for(Reward reward : rewards) {
-            if(reward.validatorAddress.equals(valOpAddr)) {
-                sum = reward.getAtomAmount();
-                break;
-            }
-        }
-        return getDpAmount(c, sum, 6, chain);
-    }
-
-    public static SpannableString getDpAllAtomRewardAmount(Context c, ArrayList<Reward> rewards, BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Reward reward : rewards) {
-            sum = sum.add(reward.getAtomAmount().setScale(0, BigDecimal.ROUND_DOWN));
+            sum = sum.add(reward.getRewardAmount(denom).setScale(0, BigDecimal.ROUND_DOWN));
         }
         return getDpAmount(c, sum, 6, chain);
     }
@@ -110,11 +100,11 @@ public class WDp {
         }
     }
 
-    public static SpannableString getValidatorReward(Context c, ArrayList<Reward> rewards, String valOpAddress, BaseChain chain) {
+    public static SpannableString getValidatorReward(Context c, ArrayList<Reward> rewards, String valOpAddress, BaseChain chain, String denom) {
         BigDecimal result = BigDecimal.ZERO;
         for(Reward reward : rewards) {
             if(reward.validatorAddress.equals(valOpAddress)) {
-                result = reward.getAtomAmount();
+                result = reward.getRewardAmount(denom);
                 break;
             }
         }
@@ -128,11 +118,11 @@ public class WDp {
         return getDpAmount(c, reward.getPerValReward(valOpAddress), 6, chain);
     }
 
-    public static BigDecimal getValidatorReward(ArrayList<Reward> rewards, String valOpAddress) {
+    public static BigDecimal getValidatorReward(ArrayList<Reward> rewards, String valOpAddress, String denom) {
         BigDecimal result = BigDecimal.ZERO;
         for(Reward reward : rewards) {
             if(reward.validatorAddress.equals(valOpAddress)) {
-                result = reward.getAtomAmount();
+                result = reward.getRewardAmount(denom);
                 break;
             }
         }
@@ -368,7 +358,7 @@ public class WDp {
         }
         if (rewards != null) {
             for(Reward reward : rewards) {
-                sum = sum.add(reward.getAtomAmount());
+                sum = sum.add(reward.getRewardAmount(COSMOS_ATOM));
             }
         }
         return sum;
@@ -395,7 +385,7 @@ public class WDp {
         }
         if (rewards != null) {
             for(Reward reward : rewards) {
-                sum = sum.add(reward.getAtomAmount());
+                sum = sum.add(reward.getRewardAmount(COSMOS_KAVA));
             }
         }
         return sum;

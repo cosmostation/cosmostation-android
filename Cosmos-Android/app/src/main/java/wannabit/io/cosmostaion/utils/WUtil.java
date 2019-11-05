@@ -691,15 +691,15 @@ public class WUtil {
         });
     }
 
-    public static void onSortByReward(ArrayList<Validator> validators, final ArrayList<Reward> rewards) {
+    public static void onSortByReward(ArrayList<Validator> validators, final ArrayList<Reward> rewards, String denom) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
                 if(o1.description.moniker.equals("Cosmostation")) return -1;
                 if(o2.description.moniker.equals("Cosmostation")) return 1;
 
-                BigDecimal rewardO1 = WDp.getValidatorReward(rewards, o1.operator_address);
-                BigDecimal rewardO2 = WDp.getValidatorReward(rewards, o2.operator_address);
+                BigDecimal rewardO1 = WDp.getValidatorReward(rewards, o1.operator_address, denom);
+                BigDecimal rewardO2 = WDp.getValidatorReward(rewards, o2.operator_address, denom);
                 return rewardO2.compareTo(rewardO1);
             }
         });
@@ -713,12 +713,12 @@ public class WUtil {
         });
     }
 
-    public static void onSortByOnlyReward(ArrayList<Validator> validators, final ArrayList<Reward> rewards) {
+    public static void onSortByOnlyReward(ArrayList<Validator> validators, final ArrayList<Reward> rewards, String denom) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                BigDecimal rewardO1 = WDp.getValidatorReward(rewards, o1.operator_address);
-                BigDecimal rewardO2 = WDp.getValidatorReward(rewards, o2.operator_address);
+                BigDecimal rewardO1 = WDp.getValidatorReward(rewards, o1.operator_address, denom);
+                BigDecimal rewardO2 = WDp.getValidatorReward(rewards, o2.operator_address, denom);
                 return rewardO2.compareTo(rewardO1);
             }
         });
@@ -730,26 +730,16 @@ public class WUtil {
             public int compare(Validator o1, Validator o2) {
                 if(o1.description.moniker.equals("Cosmostation")) return -1;
                 if(o2.description.moniker.equals("Cosmostation")) return 1;
-
-//                if (chain.equals(BaseChain.COSMOS_MAIN)) {
-//                    if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
-//                    else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
-//                    else return 0;
-//                } else {
-//                    if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
-//                    else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
-//                    else return 0;
-//                }
-                //TODO rollback cosmos-hub2
                 if (chain.equals(BaseChain.COSMOS_MAIN)) {
                     if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
                     else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
                     else return 0;
-                } else {
-                    if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
-                    else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
+                } else if (chain.equals(BaseChain.KAVA_MAIN)){
+                    if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
+                    else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
                     else return 0;
                 }
+                return 0;
             }
         });
         Collections.sort(validators, new Comparator<Validator>() {

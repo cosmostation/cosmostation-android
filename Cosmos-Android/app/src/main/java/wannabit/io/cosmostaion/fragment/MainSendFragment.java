@@ -354,7 +354,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvAtomAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_ATOM));
             mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
-            mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain));
+            mTvAtomRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, COSMOS_ATOM));
             mTvAtomValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), totalAmount));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
 
@@ -458,7 +458,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvKavaVesting.setText(WDp.getDpVestedCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
             mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(getContext(), getMainActivity().mBondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
             mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(getContext(), getMainActivity().mUnbondings, getMainActivity().mAllValidators, getMainActivity().mBaseChain));
-            mTvKavaRewards.setText(WDp.getDpAllAtomRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain));
+            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, COSMOS_KAVA));
             mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
 
@@ -626,7 +626,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 }
             }
 
-        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward)) {
+        } else if (v.equals(mBtnAtomReward) || v.equals(mBtnIrisReward) || v.equals(mBtnKavaReward)) {
             Intent validators = new Intent(getMainActivity(), ValidatorListActivity.class);
             validators.putExtra("myValidators", getMainActivity().mMyValidators);
             validators.putExtra("topValidators", getMainActivity().mTopValidators);
@@ -638,7 +638,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             validators.putExtra("irisreward", getMainActivity().mIrisReward);
             startActivity(validators);
 
-        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote)) {
+        } else if (v.equals(mBtnAtomVote) || v.equals(mBtnIrisVote) || v.equals(mBtnKavaVote)) {
             Intent proposals = new Intent(getMainActivity(), VoteListActivity.class);
             proposals.putExtra("topValidators", getMainActivity().mTopValidators);
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {

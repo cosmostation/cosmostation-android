@@ -35,6 +35,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
 
     private Toolbar                     mToolbar;
@@ -162,7 +164,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             for(Validator validator:mAllValidators) {
                 for(BondingState bond:mBondings) {
                     if(bond.validatorAddress.equals(validator.operator_address) &&
-                            WDp.getValidatorReward(mRewards, validator.operator_address).compareTo(new BigDecimal("1")) >= 0) {
+                            WDp.getValidatorReward(mRewards, validator.operator_address, COSMOS_ATOM).compareTo(new BigDecimal("1")) >= 0) {
                         mMyValidators.add(validator);
                         break;
                     }
@@ -173,7 +175,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            WUtil.onSortByOnlyReward(mMyValidators, mRewards);
+            WUtil.onSortByOnlyReward(mMyValidators, mRewards, COSMOS_ATOM);
             if (mMyValidators.size() < 17) {
                 toClaimValidators = mMyValidators;
             } else {
@@ -183,7 +185,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
             boolean hasbalance = false;
             for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
+                if(balance.symbol.equals(COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
                     hasbalance  = true;
                 }
             }

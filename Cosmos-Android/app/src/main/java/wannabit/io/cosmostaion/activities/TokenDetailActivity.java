@@ -249,7 +249,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mTvAtomAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_ATOM));
             mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
-            mTvAtomRewards.setText(WDp.getDpAllAtomRewardAmount(this, mRewards, mBaseChain));
+            mTvAtomRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, COSMOS_KAVA));
             mTvAtomValue.setText(WDp.getValueOfAtom(this, getBaseDao(), totalAmount));
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mBalance.symbol.equals(COSMOS_IRIS_ATTO)) {
@@ -306,7 +306,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mTvKavaAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
             mTvKavaDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));
             mTvKavaUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
-            mTvKavaRewards.setText(WDp.getDpAllAtomRewardAmount(this, mRewards, mBaseChain));
+            mTvKavaRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, COSMOS_KAVA));
             mTvKavaVesting.setText(WDp.getDpVestedCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
             mTvKavaValue.setText(WDp.getValueOfKava(this, getBaseDao(), totalAmount));
 
