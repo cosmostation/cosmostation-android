@@ -43,7 +43,9 @@ class WKey {
 
     static func getHDKeyFromWords(mnemonic m: [String], path p:UInt32, chain c:ChainType) -> HDPrivateKey {
         let masterKey = getMasterKeyFromWords(m)
-        if (c == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || c == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (c == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            c == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
+            c == ChainType.SUPPORT_CHAIN_KAVA_MAIN ) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
         } else if (c == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
@@ -54,7 +56,10 @@ class WKey {
     
     static func getPubToDpAddress(_ pubHex:String, _ chain:ChainType) -> String {
         var result = ""
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ) {
             let sha256 = Crypto.sha256(Data.fromHex(pubHex)!)
             let ripemd160 = Crypto.ripemd160(sha256)
             
@@ -64,6 +69,8 @@ class WKey {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "iaa", program: ripemd160)
             } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 result = try! SegwitAddrCoder.shared.encode2(hrp: "bnb", program: ripemd160)
+            } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                result = try! SegwitAddrCoder.shared.encode2(hrp: "kava", program: ripemd160)
             }
             
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
@@ -76,7 +83,7 @@ class WKey {
     static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType) -> String {
         do {
             var childKey:HDPrivateKey?
-            if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
             } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
@@ -91,7 +98,9 @@ class WKey {
     
     static func getDpAddressPath(_ mnemonic: [String], _ path:Int, _ chain:ChainType) -> String {
         if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-                chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN || chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
+            chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ) {
             //using Secp256k1
             let maskerKey = getMasterKeyFromWords(mnemonic)
             return WKey.getHDKeyDpAddressWithPath(maskerKey, path: path, chain: chain)
@@ -171,35 +180,6 @@ class WKey {
         return true
     }
     
-//    static func getCosmosAddressFromPubKey(_ pubkey:String) -> String {
-//        var result = ""
-//        let bech32 = Bech32()
-//        do {
-//            guard let (_, data) = try? bech32.decode(pubkey) else {
-//                return result
-//            }
-//            let converted = try convertBits(from: 5, to: 8, pad: false, idata: data)
-//            let convertedhex = converted.hexEncodedString().replacingOccurrences(of: "eb5ae98721", with: "")
-//            let sha256 = Crypto.sha256(dataWithHexString(hex: convertedhex))
-//            let ripemd160 = Crypto.ripemd160(sha256)
-//            result = try! SegwitAddrCoder.shared.encode2(hrp: "cosmos", program: ripemd160)
-//        } catch {
-//            print(error)
-//        }
-//        return result;
-//    }
-//    
-//    
-//    static func getCosmosAddressFromOpAddress(_ opAddress:String) -> String{
-//        var result = ""
-//        let bech32 = Bech32()
-//        guard let (_, data) = try? bech32.decode(opAddress) else {
-//            return result
-//        }
-//        result = bech32.encode("cosmos", values: data)
-//        return result
-//    }
-    
     static func getAddressFromOpAddress(_ opAddress:String, _ chain:ChainType) -> String{
         var result = ""
         let bech32 = Bech32()
@@ -210,6 +190,8 @@ class WKey {
             result = bech32.encode("cosmos", values: data)
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             result = bech32.encode("iaa", values: data)
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            result = bech32.encode("kava", values: data)
         }
         return result
     }

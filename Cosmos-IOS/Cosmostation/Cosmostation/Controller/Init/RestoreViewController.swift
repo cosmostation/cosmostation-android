@@ -118,17 +118,25 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         bnbAction.setValue(UIColor.black, forKey: "titleTextColor")
         bnbAction.setValue(UIImage(named: "binanceChImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-        let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
+        let kavaAction = UIAlertAction(title: NSLocalizedString("chain_title_kava", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.SUPPORT_CHAIN_KAVA_MAIN
             self.initViewUpdate()
         })
-        iovAction.setValue(UIColor.black, forKey: "titleTextColor")
-        iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        kavaAction.setValue(UIColor.black, forKey: "titleTextColor")
+        kavaAction.setValue(UIImage(named: "kavaImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+//        let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
+//            self.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
+//            self.initViewUpdate()
+//        })
+//        iovAction.setValue(UIColor.black, forKey: "titleTextColor")
+//        iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
-        showAlert.addAction(iovAction)
+        showAlert.addAction(kavaAction)
+//        showAlert.addAction(iovAction)
         self.present(showAlert, animated: true, completion: nil)
     }
     

@@ -30,6 +30,7 @@ let KEY_PRICE_TIC_CMC                    = "KEY_PRICE_TIC_CMC"
 let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
+let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -83,6 +84,9 @@ let BNB_URL_TIC                         = BNB_URL + "api/v1/ticker/24hr";
 let BNB_URL_HISTORY                     = BNB_URL + "api/v1/transactions";
 let BNB_URL_TX                          = BNB_URL + "api/v1/tx/";
 
+
+//KAVA_URL
+let KAVA_ACCOUNT_INFO                   = KAVA_URL + "auth/accounts/";
 
 let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
 let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
@@ -173,6 +177,7 @@ let DB_UNBONDING_FETCH_TIME         = Expression<Int64>("fetchTime")
 let COSMOS_AUTH_TYPE_DELAYEDACCOUNT         = "cosmos-sdk/DelayedVestingAccount";
 let COSMOS_AUTH_TYPE_ACCOUNT                = "cosmos-sdk/Account";
 let COSMOS_AUTH_TYPE_ACCOUNT_LEGACY         = "auth/Account";
+let COSMOS_AUTH_TYPE_VESTING_ACCOUNT        = "cosmos-sdk/ValidatorVestingAccount";
 
 let COSMOS_MSG_TYPE_TRANSFER                = "cosmos-sdk/Send";
 let COSMOS_MSG_TYPE_TRANSFER2               = "cosmos-sdk/MsgSend";
@@ -296,6 +301,10 @@ let TRANS_BG_COLOR_BNB                      = UIColor.init(hexString: "f0b90b", 
 let COLOR_BNB                               = UIColor.init(hexString: "E9BC00")
 let COLOR_BNB_DARK                          = UIColor.init(hexString: "634C04")
 
+let TRANS_BG_COLOR_KAVA                      = UIColor.init(hexString: "ff554f", alpha: 0.15)
+let COLOR_KAVA                               = UIColor.init(hexString: "FF564F")
+let COLOR_KAVA_DARK                          = UIColor.init(hexString: "631D1B")
+
 let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "46d7cb", alpha: 0.15)
 let COLOR_IOV                               = UIColor.init(hexString: "35C1B3")
 let COLOR_IOV_DARK                          = UIColor.init(hexString: "065048")
@@ -304,12 +313,14 @@ enum ChainType: String {
     case SUPPORT_CHAIN_COSMOS_MAIN
     case SUPPORT_CHAIN_IRIS_MAIN
     case SUPPORT_CHAIN_BINANCE_MAIN
+    case SUPPORT_CHAIN_KAVA_MAIN
     case SUPPORT_CHAIN_IOV_MAIN
 }
 
 let CHAIN_COSMOS_S = "SUPPORT_CHAIN_COSMOS_MAIN"
 let CHAIN_IRIS_S = "SUPPORT_CHAIN_IRIS_MAIN"
 let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
+let CHAIN_KAVA_S = "SUPPORT_CHAIN_KAVA_MAIN"
 let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
 
 let COSMOS_MAIN_DENOM = "uatom"
@@ -317,3 +328,4 @@ let IRIS_MAIN_DENOM = "iris-atto"
 let IRIS_DP_DENOM = "iris"
 let BNB_MAIN_DENOM = "BNB"
 let IOV_MAIN_DENOM = "IOV"
+let KAVA_MAIN_DENOM = "ukava"

@@ -43,7 +43,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:RestorePathCell? = tableView.dequeueReusableCell(withIdentifier:"RestorePathCell") as? RestorePathCell
         cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
         WUtils.setDenomTitle(userChain!, cell!.denomTitle)
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN || userChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         } else if (userChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             cell?.pathLabel.text = BNB_BASE_PATH.appending(String(indexPath.row))
@@ -136,6 +136,27 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         }
                     }
                     
+                } else if (self.userChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
+                    let request = Alamofire.request(KAVA_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    request.responseJSON { (response) in
+                        switch response.result {
+                        case .success(let res):
+                            guard let responseData = res as? NSDictionary,
+                                let info = responseData.object(forKey: "result") as? [String : Any] else {
+                                    return
+                            }
+                            let accountInfo = KavaAccountInfo.init(info)
+                            if (accountInfo.result?.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.result?.value?.coins![0].amount, cell!.denomAmount.font!, 6, 6)
+                            } else if (accountInfo.result?.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
+                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.result?.value?.PeriodicVestingAccount?.BaseVestingAccount?.BaseAccount?.coins![0].amount, cell!.denomAmount.font!, 6, 6)
+                            }
+                            
+                        case .failure(let error):
+                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                        }
+                    }
                 } else if (self.userChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
                     let request = Alamofire.request(IOV_URL_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])

@@ -243,6 +243,7 @@
 "chain_title_cosmos" = "COSMOS Hub";
 "chain_title_iris" = "IRIS Hub";
 "chain_title_bnb" = "Binance Chain";
+"chain_title_kava" = "Kava Mainnet";
 "chain_title_iov" = "IOV Mainnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";

@@ -418,7 +418,7 @@ class WUtils {
         return attributedString1
     }
     
-    static func displayAmount2(_ amount: String, _ font:UIFont, _ inputPoint:Int, _ dpPoint:Int) -> NSMutableAttributedString {
+    static func displayAmount2(_ amount: String?, _ font:UIFont, _ inputPoint:Int, _ dpPoint:Int) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = dpPoint
         nf.maximumFractionDigits = dpPoint
@@ -1072,7 +1072,9 @@ class WUtils {
             return COLOR_IRIS
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return COLOR_BNB
-        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            return COLOR_KAVA
+        }else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
            return COLOR_IOV
        }
         return COLOR_ATOM
@@ -1085,6 +1087,8 @@ class WUtils {
             return COLOR_IRIS_DARK
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return COLOR_BNB_DARK
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            return COLOR_KAVA_DARK
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return COLOR_IOV_DARK
         }
@@ -1098,6 +1102,8 @@ class WUtils {
             return TRANS_BG_COLOR_IRIS
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return TRANS_BG_COLOR_BNB
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            return TRANS_BG_COLOR_KAVA
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return TRANS_BG_COLOR_IOV
         }
@@ -1111,6 +1117,8 @@ class WUtils {
             return "IRIS"
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return "BNB"
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            return "KAVA"
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return "IOV"
         }
@@ -1127,9 +1135,12 @@ class WUtils {
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             label.text = "BNB"
             label.textColor = COLOR_BNB
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+           label.text = "KAVA"
+           label.textColor = COLOR_KAVA
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-           label.text = "IOV"
-           label.textColor = COLOR_IOV
+            label.text = "IOV"
+            label.textColor = COLOR_IOV
         }
     }
     
@@ -1140,10 +1151,38 @@ class WUtils {
             return ChainType.SUPPORT_CHAIN_IRIS_MAIN
         } else if (chainS == CHAIN_BINANCE_S) {
             return ChainType.SUPPORT_CHAIN_BINANCE_MAIN
+        } else if (chainS == CHAIN_KAVA_S) {
+           return ChainType.SUPPORT_CHAIN_KAVA_MAIN
         } else if (chainS == CHAIN_IOV_S) {
-           return ChainType.SUPPORT_CHAIN_IOV_MAIN
-       }
+            return ChainType.SUPPORT_CHAIN_IOV_MAIN
+        }
         return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
+    }
+    
+    static func getChainName(_ type:String) -> String {
+        if (type == CHAIN_COSMOS_S) {
+            return "cosmoshub-2"
+        } else if (type == CHAIN_IRIS_S) {
+            return "irishub"
+        } else if (type == CHAIN_BINANCE_S) {
+            return "Binance-Chain-Tigris"
+        } else if (type == CHAIN_KAVA_S) {
+            return "kava-1"
+        } else if (type == CHAIN_IOV_S) {
+            return "iov-mainnet"
+        }
+        return "cosmoshub-2"
+    }
+    
+    static func clearBackgroundColor(of view: UIView) {
+        if let effectsView = view as? UIVisualEffectView {
+            effectsView.removeFromSuperview()
+            return
+        }
+        view.backgroundColor = .clear
+        view.subviews.forEach { (subview) in
+            self.clearBackgroundColor(of: subview)
+        }
     }
     
     
@@ -1274,29 +1313,6 @@ class WUtils {
         result.append(cg_trouble)
         
         return result;
-    }
-    
-    
-    static func getChainName(_ type:String) -> String {
-        if (type == CHAIN_COSMOS_S) {
-            return "cosmoshub-2"
-        } else if (type == CHAIN_IRIS_S) {
-            return "irishub"
-        } else if (type == CHAIN_BINANCE_S) {
-            return "Binance-Chain-Tigris"
-        }
-        return "cosmoshub-2"
-    }
-    
-    static func clearBackgroundColor(of view: UIView) {
-        if let effectsView = view as? UIVisualEffectView {
-            effectsView.removeFromSuperview()
-            return
-        }
-        view.backgroundColor = .clear
-        view.subviews.forEach { (subview) in
-            self.clearBackgroundColor(of: subview)
-        }
     }
 }
 
