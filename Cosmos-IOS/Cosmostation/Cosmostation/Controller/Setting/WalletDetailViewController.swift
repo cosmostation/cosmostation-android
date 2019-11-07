@@ -57,19 +57,25 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             chainImg.image = UIImage(named: "cosmosWhMain")
             chainName.text = "Cosmos Hub"
+            keyPath.text = BASE_PATH.appending(account!.account_path)
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainImg.image = UIImage(named: "irisWh")
             chainName.text = "Iris Hub"
+            keyPath.text = BASE_PATH.appending(account!.account_path)
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             chainImg.image = UIImage(named: "binanceChImg")
             chainName.text = "Binance Chain"
+            keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            chainImg.image = UIImage(named: "kavaImg")
+            chainName.text = "Kava Chain"
+            keyPath.text = BASE_PATH.appending(account!.account_path)
         }
         importDate.text = WUtils.longTimetoString(input:account!.account_import_time)
         
         if(account!.account_has_private)  {
             actionBtn.setTitle(NSLocalizedString("check_mnemonic", comment: ""), for: .normal)
             importState.text = NSLocalizedString("with_mnemonic", comment: "")
-            keyPath.text = BASE_PATH.appending(account!.account_path)
             pathTitle.isHidden = false
             keyPath.isHidden = false
             noKeyMsg.isHidden = true
@@ -144,7 +150,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             return
         }
         
-        var balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
+        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))

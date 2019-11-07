@@ -68,8 +68,11 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (mSelectedChain == 3) {
             self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_BINANCE_MAIN)
         } else if (mSelectedChain == 4) {
-            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IOV_MAIN)
+            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_KAVA_MAIN)
         }
+//        else if (mSelectedChain == 4) {
+//            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IOV_MAIN)
+//        }
         self.mAccounts.sort{
             return $0.account_sort_order < $1.account_sort_order
         }
@@ -126,10 +129,18 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.chainImg.isHidden = false
                 cell?.chainName.isHidden = false
                 cell?.chainAll.isHidden = true
-                cell?.chainImg.image = UIImage(named: "iovImg")
-                cell?.chainName.text = "IOV"
+                cell?.chainImg.image = UIImage(named: "kavaImg")
+                cell?.chainName.text = "KAVA"
                 
             }
+//            else if (indexPath.row == 4) {
+//                cell?.chainImg.isHidden = false
+//                cell?.chainName.isHidden = false
+//                cell?.chainAll.isHidden = true
+//                cell?.chainImg.image = UIImage(named: "iovImg")
+//                cell?.chainName.text = "IOV"
+//
+//            }
             return cell!
             
         } else {
@@ -186,8 +197,11 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
             } else if (mSelectedChain == 3) {
                 addChain = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
             } else if (mSelectedChain == 4) {
-                addChain = ChainType.SUPPORT_CHAIN_IOV_MAIN
+                addChain = ChainType.SUPPORT_CHAIN_KAVA_MAIN
             }
+//            else if (mSelectedChain == 4) {
+//                addChain = ChainType.SUPPORT_CHAIN_IOV_MAIN
+//            }
             self.resultDelegate?.addAccount(addChain!)
             self.dismiss(animated: false, completion: nil)
             
