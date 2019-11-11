@@ -41,7 +41,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.refresher.tintColor = UIColor.white
         self.historyTableView.addSubview(refresher)
         
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             onFetchHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
@@ -72,11 +74,19 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            titleChainImg.image = UIImage(named: "kavaImg")
+            titleChainName.text = "(KAVA Chain)"
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            titleChainImg.image = UIImage(named: "iovImg")
+            titleChainName.text = "(IOV Chain)"
         }
     }
     
     @objc func onRequestFetch() {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             onFetchHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
@@ -84,7 +94,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ) {
             return self.mHistories.count
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return self.mBnbHistories.count
@@ -97,6 +109,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return onSetCosmosItems(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return onSetIrisItem(tableView, indexPath);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            return onSetKavaItem(tableView, indexPath);
         } else {
             return onSetBnbItem(tableView, indexPath);
         }
@@ -143,7 +157,20 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         return cell!
     }
     
-    
+    func onSetKavaItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        let history = mHistories[indexPath.row]
+        cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.timestamp)
+        cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.timestamp)
+        cell?.txBlockLabel.text = String(history._source.height) + " block"
+        cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mainTabVC.mAccount.account_address)
+        if(history._source.allResult) {
+            cell?.txResultLabel.isHidden = true
+        } else {
+            cell?.txResultLabel.isHidden = false
+        }
+        return cell!
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80;
@@ -167,6 +194,12 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             guard let url = URL(string: "https://explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            let history = mHistories[indexPath.row]
+            guard let url = URL(string: "https://kava.mintscan.io/txs/" + history._source.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -180,6 +213,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.address\", \"tx.value.msg.value.owner\", \"tx.value.msg.value.banker\", \"tx.value.msg.value.delegator_addr\", \"tx.value.msg.value.proposer\", \"tx.value.msg.value.dest_address\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.author\", \"tx.value.msg.value.consumer\", \"tx.value.msg.value.trustee\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\"]}}}"
             url = IRIS_ES_PROXY_IRIS
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            query = "{\"from\": " + "0" + ",\"size\": " + "100" + ",\"query\": {\"multi_match\": {\"query\": \"" + address + "\",\"fields\": [\"tx.value.msg.value.delegator_address\", \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.depositor\", \"tx.value.msg.value.voter\", \"tx.value.msg.value.input.address\", \"tx.value.msg.value.output.address\", \"tx.value.msg.value.proposer\"]}}}"
+            url = KAVA_ES_PROXY_IRIS
         }
         let data = query.data(using: .utf8)
         do {

@@ -50,8 +50,11 @@ public class History {
         var hash: String = ""
         var height: Int64 = -1
         var time: String = ""
+        var timestamp: String = ""
         var tx: StdTx = StdTx.init()
         var result: Result = Result.init()
+        var log: Data?
+        var allResult: Bool = true
         
         init() {}
         
@@ -59,8 +62,34 @@ public class History {
             self.hash = dictionary["hash"] as? String ?? ""
             self.height = dictionary["height"] as? Int64 ?? -1
             self.time = dictionary["time"] as? String ?? ""
+            self.timestamp = dictionary["timestamp"] as? String ?? ""
             self.tx = StdTx.init(dictionary["tx"] as! [String : Any])
-            self.result = Result.init(dictionary["result"] as! [String : Any])
+            
+            if let rawResult = dictionary["result"] as? [String : Any] {
+                self.result = Result.init(rawResult)
+            }
+            
+            if let logs = dictionary["logs"] as? Array<NSDictionary> {
+//                print("log Array ", logs.count, "   ", logs)
+                for log in logs {
+                    if let success = log.object(forKey: "success") as? Bool {
+                        if(!success) {
+                            self.allResult = false
+                            return;
+                        }
+                    }
+                }
+            }
+            
+            if let log = dictionary["log"] as? NSDictionary {
+//                print("log NSDictionary ", log)
+                if let code = log.object(forKey: "code") as? Int {
+                    if(code > -1) {
+                        self.allResult = false
+                        return;
+                    }
+                }
+            }
             
         }
     }

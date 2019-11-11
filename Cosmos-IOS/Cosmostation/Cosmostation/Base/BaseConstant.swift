@@ -110,6 +110,7 @@ let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
 
 let CSS_ES_PROXY_COSMOS                 = CSS_ES_PROXY_URL + "cosmos/v1/getTxsByAddr";
 let IRIS_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "iris/v1/getTxsByAddr";
+let KAVA_ES_PROXY_IRIS                  = CSS_ES_PROXY_URL + "kava/v1/getTxsByAddr";
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.json";
