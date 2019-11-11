@@ -372,7 +372,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByName() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == COSMOS_MAIN_DENOM) {
                     return true
@@ -408,7 +408,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByAmount() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == COSMOS_MAIN_DENOM) {
                     return true
@@ -444,7 +444,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByValue() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             mainTabVC.mBalances.sort{

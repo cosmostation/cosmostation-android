@@ -42,7 +42,9 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             self.explorerLabel.text = NSLocalizedString("mintscan_explorer", comment: "")
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             self.explorerLabel.text = NSLocalizedString("binanace_explorer", comment: "")
@@ -137,6 +139,10 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                     let safariViewController = SFSafariViewController(url: url)
                     present(safariViewController, animated: true, completion: nil)
                     
+                } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    guard let url = URL(string: "https://kava.mintscan.io") else { return }
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true, completion: nil)
                 }
                 
             } else if(indexPath.row == 3) {
