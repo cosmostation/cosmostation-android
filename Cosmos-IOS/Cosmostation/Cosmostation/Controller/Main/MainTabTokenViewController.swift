@@ -82,16 +82,22 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
             totalCard.backgroundColor = TRANS_BG_COLOR_COSMOS
-            
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
             totalCard.backgroundColor = TRANS_BG_COLOR_IRIS
-            
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
             totalCard.backgroundColor = TRANS_BG_COLOR_BNB
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            titleChainImg.image = UIImage(named: "kavaImg")
+            titleChainName.text = "(KAVA Chain)"
+            totalCard.backgroundColor = TRANS_BG_COLOR_KAVA
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            titleChainImg.image = UIImage(named: "iovImg")
+            titleChainName.text = "(IOV Chain)"
+            totalCard.backgroundColor = TRANS_BG_COLOR_IOV
         }
     }
     
@@ -114,6 +120,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             onFetchIrisTokenPrice()
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onFetchBnbTokenPrice()
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            onFetchKavaTokenPrice()
         }
     }
     
@@ -150,7 +158,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.tokenCnt.text = String(mainTabVC.mBalances.count)
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            totalAmount.attributedText = WUtils.displayAmount(allAtom.stringValue, totalAmount.font, 6, chainType!)
+            totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -169,6 +177,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             totalAmount.attributedText = WUtils.displayAmount(allBnb.stringValue, totalAmount.font, 6, chainType!)
             totalValue.attributedText = WUtils.dpBnbValue(allBnb, BaseData.instance.getLastPrice(), totalValue.font)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), totalValue.font)
         }
     }
     
@@ -181,8 +194,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetCosmosItems(tableView, indexPath)
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             return onSetIrisItems(tableView, indexPath)
-        } else {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return onSetBnbItems(tableView, indexPath)
+        } else {
+            return onSetKavaItems(tableView, indexPath)
         }
     }
     
@@ -226,7 +241,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = balance.balance_denom
             let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount(allAtom.stringValue, cell!.tokenAmount.font, 6, chainType!)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
 
         } else {
@@ -249,7 +264,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.tokenSymbol.textColor = COLOR_IRIS
                 
                 let allIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
-                cell?.tokenAmount.attributedText = WUtils.displayAmount(allIris.stringValue, cell!.tokenAmount.font, 6, chainType!)
+                cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 18, 6)
                 cell?.tokenValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
                 
             } else {
@@ -275,12 +290,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             if (balance.balance_denom == BNB_MAIN_DENOM) {
                 cell?.tokenSymbol.textColor = COLOR_BNB
                 cell?.tokenImg.image = UIImage(named: "bnbTokenImg")
-                cell?.tokenAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.tokenAmount.font, 6, chainType!)
+                cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.tokenAmount.font, 0, 6)
                 cell?.tokenValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
                 
             } else {
                 cell?.tokenSymbol.textColor = UIColor.white
-                cell?.tokenAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.tokenAmount.font, 6, chainType!)
+                cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.tokenAmount.font, 0, 6)
                 let convertAmount = balance.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol(balance.balance_denom), mBnbTics))
                 cell?.tokenValue.attributedText = WUtils.dpBnbValue(convertAmount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
                 
@@ -295,6 +310,28 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
         return cell!
     }
+    
+    func onSetKavaItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == KAVA_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "kavaTokenImg")
+            cell?.tokenSymbol.text = "KAVA"
+            cell?.tokenSymbol.textColor = COLOR_KAVA
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = balance.balance_denom
+            let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.tokenAmount.font!, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
     
     func onFetchCosmosTokenPrice() {
         self.onUpdateTotalCard()
@@ -324,6 +361,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
             }
         }
+    }
+    
+    func onFetchKavaTokenPrice() {
+        self.onUpdateTotalCard()
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
