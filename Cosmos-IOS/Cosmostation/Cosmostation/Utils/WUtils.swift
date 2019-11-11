@@ -50,6 +50,20 @@ class WUtils {
         return result
     }
     
+    static func getAccountWithKavaAccountInfo(_ account: Account, _ accountInfo: KavaAccountInfo) -> Account {
+        let result = account
+        if (accountInfo.result?.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+            result.account_address = (accountInfo.result?.value?.address)!
+            result.account_sequence_number = Int64(accountInfo.result!.value!.sequence!)!
+            result.account_account_numner = Int64(accountInfo.result!.value!.account_number!)!
+        } else if (accountInfo.result?.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
+            result.account_address = (accountInfo.result?.value?.PeriodicVestingAccount?.BaseVestingAccount?.BaseAccount?.address)!
+            result.account_sequence_number = Int64(accountInfo.result!.value!.PeriodicVestingAccount!.BaseVestingAccount!.BaseAccount!.sequence!)!
+            result.account_sequence_number = Int64(accountInfo.result!.value!.PeriodicVestingAccount!.BaseVestingAccount!.BaseAccount!.account_number!)!
+        }
+        return result
+    }
+    
     static func getBalancesWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Array<Balance> {
         var result = Array<Balance>()
         if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT ||
@@ -71,6 +85,54 @@ class WUtils {
         var result = Array<Balance>()
         for bnbBalance in accountInfo.balances {
             result.append(Balance(account.account_id, bnbBalance.symbol, bnbBalance.free, Date().millisecondsSince1970, bnbBalance.frozen, bnbBalance.locked))
+        }
+        return result;
+    }
+    
+    static func getBalancesWithKavaAccountInfo(_ account: Account, _ accountInfo: KavaAccountInfo) -> Array<Balance> {
+        var result = Array<Balance>()
+        if (accountInfo.result?.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+            accountInfo.result?.value?.coins?.forEach({ (coin) in
+                result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
+            })
+            
+        } else if (accountInfo.result?.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
+            //TODO 1 year after re-calculate logic
+            var totalVestiong = NSDecimalNumber.zero
+            var totalDeleagtedVesting = NSDecimalNumber.zero
+            var dpVesting = NSDecimalNumber.zero
+            var dpBalance = NSDecimalNumber.zero
+            
+            for i in 0 ..< accountInfo.result!.value!.vesting_period_progress!.count {
+                if (!accountInfo.result!.value!.vesting_period_progress![i].period_complete! &&
+                    !accountInfo.result!.value!.vesting_period_progress![i].vesting_successful!) {
+                    totalVestiong = totalVestiong.adding(NSDecimalNumber.init(string: accountInfo.result?.value?.PeriodicVestingAccount?.vesting_periods?[i].amount?[0].amount))
+                }
+            }
+            
+            accountInfo.result?.value?.PeriodicVestingAccount?.BaseVestingAccount?.delegated_vesting?.forEach({ (coin) in
+                totalDeleagtedVesting = totalDeleagtedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+            })
+            if (totalVestiong.compare(NSDecimalNumber.zero).rawValue > 0) {
+                dpVesting = totalVestiong.subtracting(totalDeleagtedVesting)
+            }
+            
+            accountInfo.result?.value?.PeriodicVestingAccount?.BaseVestingAccount?.BaseAccount?.coins?.forEach({ (coin) in
+                dpBalance = dpBalance.adding(NSDecimalNumber.init(string: coin.amount))
+            })
+            
+            if (SHOW_LOG) {
+                print("totalVestiong", totalVestiong);
+                print("totalDeleagtedVesting", totalDeleagtedVesting);
+                print("dpVesting", dpVesting);
+                print("dpBalance", dpBalance);
+            }
+            result.append(Balance.init(account.account_id,
+                                        accountInfo.result!.value!.PeriodicVestingAccount!.BaseVestingAccount!.BaseAccount!.coins![0].denom,
+                                        dpBalance.stringValue,
+                                        Date().millisecondsSince1970,
+                                        NSDecimalNumber.zero.stringValue,
+                                        dpVesting.stringValue))
         }
         return result;
     }

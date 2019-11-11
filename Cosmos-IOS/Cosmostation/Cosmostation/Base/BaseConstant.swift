@@ -87,6 +87,19 @@ let BNB_URL_TX                          = BNB_URL + "api/v1/tx/";
 
 //KAVA_URL
 let KAVA_ACCOUNT_INFO                   = KAVA_URL + "auth/accounts/";
+let KAVA_VALIDATORS                     = KAVA_URL + "staking/validators";
+let KAVA_BONDING                        = KAVA_URL + "staking/delegators/";
+let KAVA_BONDING_TAIL                   = "/delegations";
+let KAVA_UNBONDING                      = KAVA_URL + "staking/delegators/";
+let KAVA_UNBONDING_TAIL                 = "/unbonding_delegations";
+let KAVA_REWARD_FROM_VAL                = KAVA_URL + "distribution/delegators/";
+let KAVA_REWARD_FROM_VAL_TAIL           = "/rewards/";
+let KAVA_INFLATION                      = KAVA_URL + "minting/inflation";
+let KAVA_PROVISIONS                     = KAVA_URL + "minting/annual-provisions";
+let KAVA_STAKING_POOL                   = KAVA_URL + "staking/pool";
+
+
+
 
 let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
 let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
