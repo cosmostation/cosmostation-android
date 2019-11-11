@@ -9,96 +9,155 @@
 import Foundation
 
 
-public struct KavaAccountInfo: Codable {
-    var height: String?
-    var result: Result?
+public class KavaAccountInfo {
+    var height: String = ""
+    var result: KavaAccountResult = KavaAccountResult.init()
+    
+    init() {}
     
     init(_ dictionary: [String: Any]) {
-        self.height = dictionary["height"] as? String
-        self.result = dictionary["result"] as? Result
+        self.height = dictionary["height"] as? String ?? ""
+        self.result = KavaAccountResult.init(dictionary["result"] as! [String : Any])
     }
     
-    public struct Result: Codable  {
-        var type: String?
-        var value: Value?
+    public class KavaAccountResult {
+        var type: String = ""
+        var value: KavaAccountValue?
+        
+        init() {}
         
         init(_ dictionary: [String: Any]) {
-            self.type = dictionary["type"] as? String
-            self.value = dictionary["value"] as? Value
+            self.type = dictionary["type"] as? String ?? ""
+            self.value = KavaAccountValue.init(dictionary["value"] as! [String : Any])
         }
     }
     
-    public struct Value: Codable {
-        var address: String?
-        var coins: Array<Coin>?
-        var account_number: String?
-        var sequence: String?
-        var PeriodicVestingAccount: PeriodicVestingAccount?
-        var vesting_period_progress: Array<VestingPeriodProgress>?
+    public class KavaAccountValue {
+        var address: String = ""
+        var coins: Array<Coin> = Array<Coin>()
+        var account_number: String = ""
+        var sequence: String = ""
+        var PeriodicVestingAccount: KavaPeriodicVestingAccount = KavaPeriodicVestingAccount.init()
+        var vesting_period_progress: Array<VestingPeriodProgress> = Array<VestingPeriodProgress>()
+        
+        init() {}
         
         init(_ dictionary: [String: Any]) {
-            self.address = dictionary["address"] as? String
-            self.coins = dictionary["coins"] as? Array<Coin>
-            self.account_number = dictionary["account_number"] as? String
-            self.sequence = dictionary["sequence"] as? String
-            self.PeriodicVestingAccount = dictionary["PeriodicVestingAccount"] as? PeriodicVestingAccount
-            self.vesting_period_progress = dictionary["vesting_period_progress"] as? Array<VestingPeriodProgress>
+            self.address = dictionary["address"] as? String ?? ""
+            self.account_number = dictionary["account_number"] as? String ?? ""
+            self.sequence = dictionary["sequence"] as? String ?? ""
+            
+            self.coins.removeAll()
+            if let rawCoins = dictionary["coins"] as? Array<NSDictionary> {
+                for coin in rawCoins {
+                    self.coins.append(Coin(coin as! [String : Any]))
+                }
+            }
+            
+            
+            if let pva = dictionary["PeriodicVestingAccount"] as? [String : Any] {
+                self.PeriodicVestingAccount = KavaPeriodicVestingAccount.init(pva)
+            }
+            
+
+            self.vesting_period_progress.removeAll()
+            if let vpps = dictionary["vesting_period_progress"] as? Array<NSDictionary> {
+                for vpp in vpps {
+                    self.vesting_period_progress.append(VestingPeriodProgress(vpp as! [String : Any]))
+                }
+            }
         }
     }
-}
-
-public struct PeriodicVestingAccount: Codable {
-    var BaseVestingAccount: BaseVestingAccount?
-    var vesting_periods: Array<VestingPeriod>?
     
-    init(_ dictionary: [String: Any]) {
-        self.BaseVestingAccount = dictionary["BaseVestingAccount"] as? BaseVestingAccount
-        self.vesting_periods = dictionary["vesting_periods"] as? Array<VestingPeriod>
+    
+    public class KavaPeriodicVestingAccount {
+        var BaseVestingAccount: KavaBaseVestingAccount = KavaBaseVestingAccount.init()
+        var vesting_periods: Array<VestingPeriod> = Array<VestingPeriod>()
+        
+        init() {}
+
+        init(_ dictionary: [String: Any]) {
+            self.BaseVestingAccount = KavaBaseVestingAccount.init(dictionary["BaseVestingAccount"] as! [String : Any])
+            
+            self.vesting_periods.removeAll()
+            let vps = dictionary["vesting_periods"] as! Array<NSDictionary>
+            for vp in vps {
+                self.vesting_periods.append(VestingPeriod(vp as! [String : Any]))
+            }
+        }
     }
-}
 
-public struct BaseVestingAccount: Codable {
-    var BaseAccount: BaseAccount?
-    var original_vesting: Array<Coin>?
-    var delegated_vesting: Array<Coin>?
-    var end_time: String?
-    
-    init(_ dictionary: [String: Any]) {
-        self.BaseAccount = dictionary["BaseAccount"] as? BaseAccount
-        self.original_vesting = dictionary["original_vesting"] as? Array<Coin>
-        self.delegated_vesting = dictionary["delegated_vesting"] as? Array<Coin>
-        self.end_time = dictionary["end_time"] as? String
+    public class KavaBaseVestingAccount {
+        var BaseAccount: KavaBaseAccount = KavaBaseAccount.init()
+        var original_vesting: Array<Coin> = Array<Coin>()
+        var delegated_vesting: Array<Coin> = Array<Coin>()
+        var end_time: String = ""
+        
+        init() {}
+        
+        init(_ dictionary: [String: Any]) {
+            self.BaseAccount = KavaBaseAccount.init(dictionary["BaseAccount"] as! [String : Any])
+            self.end_time = dictionary["end_time"] as? String ?? ""
+            
+            self.original_vesting.removeAll()
+            let rawCoins1 = dictionary["original_vesting"] as! Array<NSDictionary>
+            for coin in rawCoins1 {
+                self.original_vesting.append(Coin(coin as! [String : Any]))
+            }
+            
+            self.delegated_vesting.removeAll()
+            let rawCoins2 = dictionary["delegated_vesting"] as! Array<NSDictionary>
+            for coin in rawCoins2 {
+                self.delegated_vesting.append(Coin(coin as! [String : Any]))
+            }
+        }
     }
-}
 
-public struct BaseAccount: Codable {
-    var address: String?
-    var coins: Array<Coin>?
-    var account_number: String?
-    var sequence: String?
-    
-    init(_ dictionary: [String: Any]) {
-        self.address = dictionary["address"] as? String
-        self.coins = dictionary["coins"] as? Array<Coin>
-        self.account_number = dictionary["account_number"] as? String
-        self.sequence = dictionary["sequence"] as? String
+    public class KavaBaseAccount {
+        var address: String = ""
+        var coins: Array<Coin> = Array<Coin>()
+        var account_number: String = ""
+        var sequence: String = ""
+        
+        init() {}
+        
+        init(_ dictionary: [String: Any]) {
+            self.address = dictionary["address"] as? String ?? ""
+            self.account_number = dictionary["account_number"] as? String ?? ""
+            self.sequence = dictionary["sequence"] as? String ?? ""
+            
+            
+            self.coins.removeAll()
+            let rawCoins = dictionary["coins"] as! Array<NSDictionary>
+            for coin in rawCoins {
+                self.coins.append(Coin(coin as! [String : Any]))
+            }
+        }
     }
-}
 
-public struct VestingPeriod: Codable {
-    var amount: Array<Coin>?
-    
-    init(_ dictionary: [String: Any]) {
-        self.amount = dictionary["amount"] as? Array<Coin>
+    public class VestingPeriod {
+        var amount: Array<Coin> = Array<Coin>()
+        
+        init() {}
+        
+        init(_ dictionary: [String: Any]) {
+            self.amount.removeAll()
+            let rawCoins = dictionary["amount"] as! Array<NSDictionary>
+            for coin in rawCoins {
+                self.amount.append(Coin(coin as! [String : Any]))
+            }
+        }
     }
-}
 
-public struct VestingPeriodProgress: Codable {
-    var period_complete: Bool?
-    var vesting_successful: Bool?
-    
-    init(_ dictionary: [String: Any]) {
-        self.period_complete = dictionary["period_complete"] as? Bool
-        self.vesting_successful = dictionary["vesting_successful"] as? Bool
+    public class VestingPeriodProgress{
+        var period_complete = false
+        var vesting_successful = false
+        
+        init() {}
+        
+        init(_ dictionary: [String: Any]) {
+            self.period_complete = dictionary["period_complete"] as? Bool ?? false
+            self.vesting_successful = dictionary["vesting_successful"] as? Bool ?? false
+        }
     }
 }

@@ -52,14 +52,14 @@ class WUtils {
     
     static func getAccountWithKavaAccountInfo(_ account: Account, _ accountInfo: KavaAccountInfo) -> Account {
         let result = account
-        if (accountInfo.result?.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-            result.account_address = (accountInfo.result?.value?.address)!
-            result.account_sequence_number = Int64(accountInfo.result!.value!.sequence!)!
-            result.account_account_numner = Int64(accountInfo.result!.value!.account_number!)!
-        } else if (accountInfo.result?.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
-            result.account_address = (accountInfo.result?.value?.PeriodicVestingAccount?.BaseVestingAccount?.BaseAccount?.address)!
-            result.account_sequence_number = Int64(accountInfo.result!.value!.PeriodicVestingAccount!.BaseVestingAccount!.BaseAccount!.sequence!)!
-            result.account_sequence_number = Int64(accountInfo.result!.value!.PeriodicVestingAccount!.BaseVestingAccount!.BaseAccount!.account_number!)!
+        if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+            result.account_address = (accountInfo.result.value?.address)!
+            result.account_sequence_number = Int64(accountInfo.result.value!.sequence)!
+            result.account_account_numner = Int64(accountInfo.result.value!.account_number)!
+        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
+            result.account_address = accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address
+            result.account_sequence_number = Int64(accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence)!
+            result.account_sequence_number = Int64(accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number)!
         }
         return result
     }
@@ -91,48 +91,69 @@ class WUtils {
     
     static func getBalancesWithKavaAccountInfo(_ account: Account, _ accountInfo: KavaAccountInfo) -> Array<Balance> {
         var result = Array<Balance>()
-        if (accountInfo.result?.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-            accountInfo.result?.value?.coins?.forEach({ (coin) in
+        if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+            accountInfo.result.value?.coins.forEach({ (coin) in
                 result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
             })
-            
-        } else if (accountInfo.result?.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
+
+        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
+            print("COSMOS_AUTH_TYPE_VESTING_ACCOUNT")
             //TODO 1 year after re-calculate logic
             var totalVestiong = NSDecimalNumber.zero
             var totalDeleagtedVesting = NSDecimalNumber.zero
             var dpVesting = NSDecimalNumber.zero
             var dpBalance = NSDecimalNumber.zero
-            
-            for i in 0 ..< accountInfo.result!.value!.vesting_period_progress!.count {
-                if (!accountInfo.result!.value!.vesting_period_progress![i].period_complete! &&
-                    !accountInfo.result!.value!.vesting_period_progress![i].vesting_successful!) {
-                    totalVestiong = totalVestiong.adding(NSDecimalNumber.init(string: accountInfo.result?.value?.PeriodicVestingAccount?.vesting_periods?[i].amount?[0].amount))
+
+            for i in 0 ..< accountInfo.result.value!.vesting_period_progress.count {
+                if (!accountInfo.result.value!.vesting_period_progress[i].period_complete &&
+                    !accountInfo.result.value!.vesting_period_progress[i].vesting_successful) {
+                    totalVestiong = totalVestiong.adding(NSDecimalNumber.init(string: accountInfo.result.value!.PeriodicVestingAccount.vesting_periods[i].amount[0].amount))
                 }
             }
-            
-            accountInfo.result?.value?.PeriodicVestingAccount?.BaseVestingAccount?.delegated_vesting?.forEach({ (coin) in
+
+            accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.delegated_vesting.forEach({ (coin) in
                 totalDeleagtedVesting = totalDeleagtedVesting.adding(NSDecimalNumber.init(string: coin.amount))
             })
             if (totalVestiong.compare(NSDecimalNumber.zero).rawValue > 0) {
                 dpVesting = totalVestiong.subtracting(totalDeleagtedVesting)
             }
-            
-            accountInfo.result?.value?.PeriodicVestingAccount?.BaseVestingAccount?.BaseAccount?.coins?.forEach({ (coin) in
+
+            accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.forEach({ (coin) in
                 dpBalance = dpBalance.adding(NSDecimalNumber.init(string: coin.amount))
             })
             
+            
+            if (accountInfo.result.value?.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence == "0") {
+                dpBalance = dpBalance.subtracting(totalVestiong)
+                result.append(Balance.init(account.account_id,
+                                            KAVA_MAIN_DENOM,
+                                            dpBalance.stringValue,
+                                            Date().millisecondsSince1970,
+                                            NSDecimalNumber.zero.stringValue,
+                                            totalVestiong.stringValue))
+                
+            } else {
+                result.append(Balance.init(account.account_id,
+                                            KAVA_MAIN_DENOM,
+                                            dpBalance.stringValue,
+                                            Date().millisecondsSince1970,
+                                            NSDecimalNumber.zero.stringValue,
+                                            totalVestiong.stringValue))
+            }
+
             if (SHOW_LOG) {
                 print("totalVestiong", totalVestiong);
                 print("totalDeleagtedVesting", totalDeleagtedVesting);
                 print("dpVesting", dpVesting);
                 print("dpBalance", dpBalance);
             }
-            result.append(Balance.init(account.account_id,
-                                        accountInfo.result!.value!.PeriodicVestingAccount!.BaseVestingAccount!.BaseAccount!.coins![0].denom,
-                                        dpBalance.stringValue,
-                                        Date().millisecondsSince1970,
-                                        NSDecimalNumber.zero.stringValue,
-                                        dpVesting.stringValue))
+//            result.append(Balance.init(account.account_id,
+//                                        accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins[0].denom,
+//                                        dpBalance.stringValue,
+//                                        Date().millisecondsSince1970,
+//                                        NSDecimalNumber.zero.stringValue,
+//                                        totalVestiong.stringValue))
+            
         }
         return result;
     }
@@ -147,7 +168,7 @@ class WUtils {
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
@@ -165,7 +186,7 @@ class WUtils {
     
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 for entry in unbondinginfo.entries {
@@ -382,7 +403,7 @@ class WUtils {
     static func DecimalToLocalString(_ input: NSDecimalNumber, _ chain:ChainType) -> String {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 0
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             nf.maximumFractionDigits = 6
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             nf.maximumFractionDigits = 18
@@ -456,7 +477,7 @@ class WUtils {
         var formatted: String?
         if (amount == NSDecimalNumber.zero) {
             formatted = nf.string(from: NSDecimalNumber.zero)
-        } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
@@ -512,28 +533,6 @@ class WUtils {
         return attributedString1
     }
     
-    static func displayAmount3(_ amount: String, _ font:UIFont) -> NSMutableAttributedString {
-        if (amount.count > 6) {
-            let added = amount
-            let endIndex    = added.index(added.endIndex, offsetBy: -6)
-                
-            let preString   = added[..<endIndex]
-            let postString  = added[endIndex...]
-            
-            let preAttrs = [NSAttributedString.Key.font : font]
-            let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-            
-            let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-            let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-            attributedString1.append(attributedString2)
-            return attributedString1
-        } else {
-            return NSMutableAttributedString(string: "-")
-        }
-    }
-    
-    
     static func dpTokenAvailable(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
         for balance in balances {
@@ -543,6 +542,17 @@ class WUtils {
         }
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
+    
+    static func dpVestingCoin(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == symbol) {
+                amount = stringToDecimal(balance.balance_locked)
+            }
+        }
+        return displayAmount(amount.stringValue, font, deciaml, chain);
+    }
+    
     
     static func dpDeleagted(_ bondings:Array<Bonding>, _ validators:Array<Validator>,_ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
         var amount = NSDecimalNumber.zero
@@ -832,7 +842,7 @@ class WUtils {
         nf.numberStyle = .decimal
         var formatted = ""
         var endIndex: String.Index?
-        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"))) ?? "0"
@@ -862,7 +872,7 @@ class WUtils {
         nf.numberStyle = .decimal
         var formatted = ""
         var endIndex: String.Index?
-        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"))) ?? "0"
@@ -1005,6 +1015,29 @@ class WUtils {
             sum = sum.adding(rewards!.getSimpleIrisReward())
         }
         return sum
+    }
+    
+    static func getAllKava(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == KAVA_MAIN_DENOM) {
+                amount = stringToDecimal(balance.balance_amount)
+            }
+        }
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        for unbonding in unbondings {
+            amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+        }
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == KAVA_MAIN_DENOM) {
+                    amount = amount.adding(stringToDecimal(coin.amount))
+                }
+            }
+        }
+        return amount
     }
     
     static func getIrisToken(_ irisTokens:Array<IrisToken>, _ balance:Balance) -> IrisToken? {

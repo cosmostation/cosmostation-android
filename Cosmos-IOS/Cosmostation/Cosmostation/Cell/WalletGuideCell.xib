@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +14,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="153"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="152.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="153"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8WQ-Vs-Dxz" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
@@ -35,8 +33,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmV-EO-LJR">
-                                <rect key="frame" x="110" y="45.5" width="208" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmV-EO-LJR">
+                                <rect key="frame" x="110" y="45.5" width="225" height="28"/>
                                 <string key="text">Cosmos and Cosmostation Wallet FAQ
 Learn more about us in the links below</string>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
@@ -92,6 +90,7 @@ Learn more about us in the links below</string>
                             <constraint firstItem="JmV-EO-LJR" firstAttribute="top" secondItem="vFi-9V-3TO" secondAttribute="bottom" constant="6" id="AsI-fz-jCU"/>
                             <constraint firstAttribute="trailing" secondItem="VER-se-2pE" secondAttribute="trailing" constant="12" id="EAo-X1-eUZ"/>
                             <constraint firstItem="JmV-EO-LJR" firstAttribute="leading" secondItem="mAT-Oa-YZG" secondAttribute="trailing" constant="10" id="FNG-xW-cMV"/>
+                            <constraint firstAttribute="trailing" secondItem="JmV-EO-LJR" secondAttribute="trailing" constant="16" id="VWm-2z-wUW"/>
                             <constraint firstItem="vFi-9V-3TO" firstAttribute="top" secondItem="8WQ-Vs-Dxz" secondAttribute="top" constant="22" id="eBD-g2-ksO"/>
                             <constraint firstItem="mAT-Oa-YZG" firstAttribute="leading" secondItem="8WQ-Vs-Dxz" secondAttribute="leading" constant="16" id="nsJ-ZC-dXw"/>
                             <constraint firstItem="VER-se-2pE" firstAttribute="top" secondItem="mAT-Oa-YZG" secondAttribute="bottom" constant="12" id="oG2-4p-slm"/>
@@ -138,6 +137,7 @@ Learn more about us in the links below</string>
                 <outlet property="guideMsg" destination="JmV-EO-LJR" id="Rjv-Y6-4aC"/>
                 <outlet property="guideTitle" destination="vFi-9V-3TO" id="8hK-L0-llJ"/>
             </connections>
+            <point key="canvasLocation" x="138" y="154"/>
         </tableViewCell>
     </objects>
     <resources>

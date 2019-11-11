@@ -46,7 +46,7 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
     
     
     @objc public func tableTapped() {
-        self.dismiss(animated: false, completion: nil)
+//        self.dismiss(animated: false, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -165,7 +165,7 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.nameLabel.text = account.account_nick_name
             }
             cell?.address.text = account.account_address
-            cell?.amount.attributedText = WUtils.displayAmount3(account.account_last_total, cell!.amount.font)
+            cell?.amount.attributedText = WUtils.displayAmount2(account.account_last_total, cell!.amount.font, 0, 6)
             WUtils.setDenomTitle(userChain, cell!.amountDenom)
             
             cell?.cardView.borderColor = UIColor.init(hexString: "#9ca2ac")

@@ -36,6 +36,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletCosmosCell", bundle: nil), forCellReuseIdentifier: "WalletCosmosCell")
         self.walletTableView.register(UINib(nibName: "WalletIrisCell", bundle: nil), forCellReuseIdentifier: "WalletIrisCell")
         self.walletTableView.register(UINib(nibName: "WalletBnbCell", bundle: nil), forCellReuseIdentifier: "WalletBnbCell")
+        self.walletTableView.register(UINib(nibName: "WalletKavaCell", bundle: nil), forCellReuseIdentifier: "WalletKavaCell")
         self.walletTableView.register(UINib(nibName: "WalletIovCell", bundle: nil), forCellReuseIdentifier: "WalletIovCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
@@ -83,6 +84,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            titleChainImg.image = UIImage(named: "kavaImg")
+            titleChainName.text = "(KAVA Chain)"
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
@@ -98,6 +102,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             floaty.buttonColor = COLOR_IRIS
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             floaty.buttonColor = COLOR_BNB
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            floaty.buttonColor = COLOR_KAVA
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             floaty.buttonColor = COLOR_IOV
         }
@@ -125,7 +131,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return 5;
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return 4;
@@ -141,6 +147,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetIrisItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return onSetBnbItem(tableView, indexPath);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            return onSetKavaItem(tableView, indexPath);
         } else {
             return onSetIovItems(tableView, indexPath);
         }
@@ -170,6 +178,19 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             } else if (indexPath.row == 3) {
                 return 153;
             }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (indexPath.row == 0) {
+                return 78;
+            } else if (indexPath.row == 1) {
+                return 278;
+            } else if (indexPath.row == 2) {
+                return 68;
+            } else if (indexPath.row == 3) {
+                return 68;
+            } else if (indexPath.row == 4) {
+                return 153;
+            }
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             if (indexPath.row == 0) {
                 return 78;
@@ -180,7 +201,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             } else if (indexPath.row == 3) {
                 return 153;
             }
-            
         }
         return 0;
     }
@@ -204,8 +224,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
-            cell?.totalAmount.attributedText = WUtils.dpAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator, cell!.totalAmount.font, 6, chainType!)
-            cell?.totalValue.attributedText = WUtils.dpAllAtomValue(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
+            let totalAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAtom.stringValue, cell!.totalAmount.font!, 6, 6)
+            cell?.totalValue.attributedText = WUtils.dpAtomValue(totalAtom, BaseData.instance.getLastPrice(), cell!.totalValue.font)
             cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, COSMOS_MAIN_DENOM, chainType!)
             cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
@@ -216,7 +237,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionVote = {
                 self.onClickVoteList()
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, (cell?.totalAmount.text)!)
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAtom.multiplying(byPowerOf10: -8).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -282,8 +303,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletIrisCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
-            cell?.totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, cell!.totalAmount.font, 6, chainType!)
-            cell?.totalValue.attributedText = WUtils.dpAllIrisValue(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
+            let totalIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalIris.stringValue, cell!.totalAmount.font!, 18, 6)
+            cell?.totalValue.attributedText = WUtils.dpIrisValue(totalIris, BaseData.instance.getLastPrice(), cell!.totalValue.font)
             cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, IRIS_MAIN_DENOM, chainType!)
             cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
             cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
@@ -294,7 +316,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionVote = {
                 self.onClickVoteList()
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, (cell?.totalAmount.text)!)
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalIris.multiplying(byPowerOf10: -18).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -361,19 +383,20 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletBnbCell? = tableView.dequeueReusableCell(withIdentifier:"WalletBnbCell") as? WalletBnbCell
+            var totalBnb = NSDecimalNumber.zero
             if let balance = WUtils.getTokenBalace(mainTabVC.mBalances, BNB_MAIN_DENOM) {
-                let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked))
-                cell?.totalAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.totalAmount.font, 6, chainType!)
-                cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
-                cell?.availableAmount.attributedText = WUtils.displayAmount(balance.balance_amount, cell!.availableAmount.font, 6, chainType!)
-                cell?.lockedAmount.attributedText = WUtils.displayAmount(balance.balance_locked, cell!.lockedAmount.font, 6, chainType!)
+                totalBnb = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked))
+                cell?.totalAmount.attributedText = WUtils.displayAmount2(totalBnb.stringValue, cell!.totalAmount.font, 0, 6)
+                cell?.totalValue.attributedText = WUtils.dpBnbValue(totalBnb, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+                cell?.availableAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.availableAmount.font, 0, 6)
+                cell?.lockedAmount.attributedText = WUtils.displayAmount2(balance.balance_locked, cell!.lockedAmount.font, 0, 6)
             } else {
-                cell?.totalAmount.attributedText = WUtils.displayAmount("0", cell!.totalAmount.font, 6, chainType!)
+                cell?.totalAmount.attributedText = WUtils.displayAmount2(totalBnb.stringValue, cell!.totalAmount.font, 0, 6)
                 cell?.totalValue.attributedText = WUtils.dpBnbValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.totalValue.font)
-                cell?.availableAmount.attributedText = WUtils.displayAmount("0", cell!.availableAmount.font, 6, chainType!)
-                cell?.lockedAmount.attributedText = WUtils.displayAmount("0", cell!.lockedAmount.font, 6, chainType!)
+                cell?.availableAmount.attributedText = WUtils.displayAmount2("0", cell!.availableAmount.font, 0, 6)
+                cell?.lockedAmount.attributedText = WUtils.displayAmount2("0", cell!.lockedAmount.font, 0, 6)
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, (cell?.totalAmount.text)!)
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalBnb.stringValue)
             cell?.actionWC = {
                 self.onClickWalletConect()
             }
@@ -415,6 +438,87 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         
     }
     
+    func onSetKavaItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            if (mainTabVC.mAccount.account_has_private) {
+                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
+                cell?.keyState.tintColor = COLOR_KAVA
+            }
+            cell?.dpAddress.text = mainTabVC.mAccount.account_address
+            cell?.dpAddress.adjustsFontSizeToFitWidth = true
+            cell?.actionShare = {
+                self.onClickActionShare()
+            }
+            cell?.actionWebLink = {
+                self.onClickActionLink()
+            }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell:WalletKavaCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaCell") as? WalletKavaCell
+            let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.totalAmount.font!, 6, 6)
+            cell?.totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+            cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
+            cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
+            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+            cell?.vestingAmount.attributedText = WUtils.dpVestingCoin(mainTabVC.mBalances, cell!.availableAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
+            cell?.actionDelegate = {
+                self.onClickValidatorList()
+            }
+            cell?.actionVote = {
+                self.onClickVoteList()
+            }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalKava.multiplying(byPowerOf10: -8).stringValue)
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                cell?.updownImg.image = UIImage(named: "priceUp")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                cell?.updownImg.image = UIImage(named: "priceDown")
+                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
+            } else {
+                cell?.updownImg.image = nil
+                cell?.updownPercent.text = ""
+            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            if (mainTabVC!.mInflation != nil) {
+                cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)
+            }
+            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
+                cell?.yieldLabel.attributedText = WUtils.displayYield(NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String), NSDecimalNumber.init(string: mainTabVC.mProvision), NSDecimalNumber.zero, font: cell!.yieldLabel.font)
+            }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.guideImg.image = UIImage(named: "kavamainImg")
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_kava", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_kava", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_kava", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_kava", comment: ""), for: .normal)
+            cell?.actionGuide1 = {
+                self.onClickGuide1()
+            }
+            cell?.actionGuide2 = {
+                self.onClickGuide2()
+            }
+            return cell!
+        }
+        
+    }
+    
     func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
@@ -434,39 +538,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
-//            if let balance = WUtils.getTokenBalace(mainTabVC.mBalances, BNB_MAIN_DENOM) {
-//                let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked))
-//                cell?.totalAmount.attributedText = WUtils.displayAmount(totalAmount.stringValue, cell!.totalAmount.font, 6, chainType!)
-//                cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
-//                cell?.availableAmount.attributedText = WUtils.displayAmount(balance.balance_amount, cell!.availableAmount.font, 6, chainType!)
-//                cell?.lockedAmount.attributedText = WUtils.displayAmount(balance.balance_locked, cell!.lockedAmount.font, 6, chainType!)
-//            } else {
-//                cell?.totalAmount.attributedText = WUtils.displayAmount("0", cell!.totalAmount.font, 6, chainType!)
-//                cell?.totalValue.attributedText = WUtils.dpBnbValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.totalValue.font)
-//                cell?.availableAmount.attributedText = WUtils.displayAmount("0", cell!.availableAmount.font, 6, chainType!)
-//                cell?.lockedAmount.attributedText = WUtils.displayAmount("0", cell!.lockedAmount.font, 6, chainType!)
-//            }
-//            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, (cell?.totalAmount.text)!)
-//            cell?.actionWC = {
-//                self.onClickWalletConect()
-//            }
             return cell!
             
         } else if (indexPath.row == 2) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-//            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-//            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-//            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-//            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-//                cell?.updownImg.image = UIImage(named: "priceUp")
-//                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-//            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-//                cell?.updownImg.image = UIImage(named: "priceDown")
-//                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-//            } else {
-//                cell?.updownImg.image = nil
-//                cell?.updownPercent.text = ""
-//            }
             return cell!
             
         } else {
@@ -516,6 +591,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://explorer.binance.org/address/" + mainTabVC.mAccount.account_address) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            guard let url = URL(string: "https://kava.mintscan.io/account/" + mainTabVC.mAccount.account_address) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
         }
     }
     
@@ -565,6 +646,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            guard let url = URL(string: "https://www.kava.io/") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
         }
         
     }
@@ -591,6 +677,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            guard let url = URL(string: "https://medium.com/kava-labs") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
         
     }

@@ -130,6 +130,10 @@
 		E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E183EF2022A75E09003B3580 /* ReInvestCheckViewController.swift */; };
 		E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1861D2D224DB1570027DED1 /* RestorePathCell.swift */; };
 		E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1861D2E224DB1570027DED1 /* RestorePathCell.xib */; };
+		E191A57D237902C5002577BC /* WalletKavaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E191A57B237902C5002577BC /* WalletKavaCell.swift */; };
+		E191A57E237902C5002577BC /* WalletKavaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E191A57C237902C5002577BC /* WalletKavaCell.xib */; };
+		E191A5812379091A002577BC /* TokenDetailHeaderKavaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E191A57F2379091A002577BC /* TokenDetailHeaderKavaCell.swift */; };
+		E191A5822379091A002577BC /* TokenDetailHeaderKavaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E191A5802379091A002577BC /* TokenDetailHeaderKavaCell.xib */; };
 		E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1945E27222E7C0600A1436F /* AppDelegate.swift */; };
 		E1945E2D222E7C0600A1436F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E2B222E7C0600A1436F /* Main.storyboard */; };
 		E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1945E30222E7C0800A1436F /* LaunchScreen.storyboard */; };
@@ -352,6 +356,10 @@
 		E183EF2022A75E09003B3580 /* ReInvestCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReInvestCheckViewController.swift; sourceTree = "<group>"; };
 		E1861D2D224DB1570027DED1 /* RestorePathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePathCell.swift; sourceTree = "<group>"; };
 		E1861D2E224DB1570027DED1 /* RestorePathCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestorePathCell.xib; sourceTree = "<group>"; };
+		E191A57B237902C5002577BC /* WalletKavaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKavaCell.swift; sourceTree = "<group>"; };
+		E191A57C237902C5002577BC /* WalletKavaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletKavaCell.xib; sourceTree = "<group>"; };
+		E191A57F2379091A002577BC /* TokenDetailHeaderKavaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailHeaderKavaCell.swift; sourceTree = "<group>"; };
+		E191A5802379091A002577BC /* TokenDetailHeaderKavaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailHeaderKavaCell.xib; sourceTree = "<group>"; };
 		E1945E24222E7C0600A1436F /* Cosmostation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cosmostation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1945E27222E7C0600A1436F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1945E2C222E7C0600A1436F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -781,6 +789,8 @@
 				E1FD2327233E1BC4009327FE /* WalletIrisCell.xib */,
 				E1FD232E233E1BF4009327FE /* WalletBnbCell.swift */,
 				E1FD232F233E1BF4009327FE /* WalletBnbCell.xib */,
+				E191A57B237902C5002577BC /* WalletKavaCell.swift */,
+				E191A57C237902C5002577BC /* WalletKavaCell.xib */,
 				E1A699592366E8CC004CA274 /* WalletIovCell.swift */,
 				E1A6995A2366E8CC004CA274 /* WalletIovCell.xib */,
 				E1FD2332233E1C16009327FE /* WalletPriceCell.swift */,
@@ -797,6 +807,8 @@
 				E17B213F23470941001743D6 /* TokenDetailHeaderIrisCell.xib */,
 				E17B214223470950001743D6 /* TokenDetailHeaderBnbCell.swift */,
 				E17B214323470950001743D6 /* TokenDetailHeaderBnbCell.xib */,
+				E191A57F2379091A002577BC /* TokenDetailHeaderKavaCell.swift */,
+				E191A5802379091A002577BC /* TokenDetailHeaderKavaCell.xib */,
 				E17B214623470960001743D6 /* TokenDetailHeaderCustomCell.swift */,
 				E17B214723470960001743D6 /* TokenDetailHeaderCustomCell.xib */,
 			);
@@ -885,6 +897,7 @@
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
 				E103DAC02281296E006C2146 /* QRScanViewController.xib in Resources */,
+				E191A5822379091A002577BC /* TokenDetailHeaderKavaCell.xib in Resources */,
 				E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
 				E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */,
@@ -905,6 +918,7 @@
 				E17B213D23470932001743D6 /* TokenDetailHeaderCosmosCell.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
 				E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */,
+				E191A57E237902C5002577BC /* WalletKavaCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
 				E1FD2321233E1B8E009327FE /* WalletAddressCell.xib in Resources */,
@@ -1026,6 +1040,7 @@
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
 				E151B64B224859E10026B8C0 /* StdSignMsg.swift in Sources */,
+				E191A57D237902C5002577BC /* WalletKavaCell.swift in Sources */,
 				E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
@@ -1096,6 +1111,7 @@
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,
 				E17B213C23470932001743D6 /* TokenDetailHeaderCosmosCell.swift in Sources */,
 				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
+				E191A5812379091A002577BC /* TokenDetailHeaderKavaCell.swift in Sources */,
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
 				E16FACB12361ADFA00372052 /* Bytes.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,

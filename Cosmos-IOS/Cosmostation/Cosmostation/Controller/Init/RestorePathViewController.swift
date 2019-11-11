@@ -147,10 +147,11 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                                     return
                             }
                             let accountInfo = KavaAccountInfo.init(info)
-                            if (accountInfo.result?.type == COSMOS_AUTH_TYPE_ACCOUNT) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.result?.value?.coins![0].amount, cell!.denomAmount.font!, 6, 6)
-                            } else if (accountInfo.result?.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.result?.value?.PeriodicVestingAccount?.BaseVestingAccount?.BaseAccount?.coins![0].amount, cell!.denomAmount.font!, 6, 6)
+                            if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.result.value?.coins.count != 0) {
+                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.result.value?.coins[0].amount, cell!.denomAmount.font!, 6, 6)
+                                
+                            } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT && accountInfo.result.value?.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.count != 0) {
+                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.result.value?.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6, 6)
                             }
                             
                         case .failure(let error):

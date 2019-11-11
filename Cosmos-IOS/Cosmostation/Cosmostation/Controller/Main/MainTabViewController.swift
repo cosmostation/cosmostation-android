@@ -179,7 +179,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
-            if (mAccount.account_base_chain == CHAIN_COSMOS_S) {
+            if (mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
@@ -189,7 +189,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 mAllValidator.append(contentsOf: mTopValidators)
                 mAllValidator.append(contentsOf: mOtherValidators)
                 
-            } else if (mAccount.account_base_chain == CHAIN_IRIS_S) {
+            } else if (mChainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
@@ -205,7 +205,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
                 
-            }  else if (mAccount.account_base_chain == CHAIN_BINANCE_S) {
+            }  else if (mChainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 if (mBnbTokenList.count <= 0) {
@@ -215,7 +215,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.hideWaittingAlert()
                 return
                 
-            }  else if (mAccount.account_base_chain == CHAIN_IOV_S) {
+            } else if (mChainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
                 NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
@@ -242,6 +242,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.mMyValidators.append(validator)
                 }
             }
+            
             if (mAllValidator.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
@@ -466,8 +467,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithBnbAccountInfo(account, bnbAccountInfo))
                     
                 } else if (self.mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+                    guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.onFetchFinished()
                         return
@@ -682,6 +682,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_INFLATION
         }
+        self.mInflation = nil
+        
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -722,6 +724,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_PROVISIONS
         }
+        self.mProvision = nil
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -765,6 +768,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_STAKING_POOL
         }
+        self.mStakingPool = nil
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in

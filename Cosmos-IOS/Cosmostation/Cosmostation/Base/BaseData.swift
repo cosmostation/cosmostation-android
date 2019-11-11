@@ -580,7 +580,9 @@ final class BaseData : NSObject{
         let insertBalance = DB_BALANCE.insert(DB_BALANCE_ACCOUNT_ID <- balance.balance_account_id,
                                               DB_BALANCE_DENOM <- balance.balance_denom,
                                               DB_BALANCE_AMOUNT <- balance.balance_amount,
-                                              DB_BALANCE_FETCH_TIME <- balance.balance_fetch_time)
+                                              DB_BALANCE_FETCH_TIME <- balance.balance_fetch_time,
+                                              DB_BALANCE_FROZEN <- balance.balance_frozen,
+                                              DB_BALANCE_LOCKED <- balance.balance_locked)
         do {
             return try database.run(insertBalance)
         } catch {
