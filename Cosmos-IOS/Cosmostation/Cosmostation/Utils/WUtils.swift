@@ -97,7 +97,6 @@ class WUtils {
             })
 
         } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
-            print("COSMOS_AUTH_TYPE_VESTING_ACCOUNT")
             //TODO 1 year after re-calculate logic
             var totalVestiong = NSDecimalNumber.zero
             var totalDeleagtedVesting = NSDecimalNumber.zero
