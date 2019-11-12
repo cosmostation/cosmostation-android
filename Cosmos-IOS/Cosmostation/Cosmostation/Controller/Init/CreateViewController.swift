@@ -141,8 +141,8 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         self.showWaittingAlert()
         DispatchQueue.global().async {
             self.dpAddress = WKey.getDpAddressPath(self.mnemonicWords!, 0, self.chainType!)
-
-            DispatchQueue.main.async(execute: {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.hideWaittingAlert()
                 self.addressLabel.text = self.dpAddress
                 self.mnemonicView.backgroundColor = WUtils.getChainBg(self.chainType!)
@@ -169,8 +169,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                     self.warningMsgLabel.text = NSLocalizedString("password_msg1", comment: "")
                     self.nextBtn.setTitle(NSLocalizedString("show_mnemonics", comment: ""), for: .normal)
                 }
-
-            });
+            }
         }
     }
     

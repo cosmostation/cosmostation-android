@@ -57,13 +57,12 @@ public class Validator {
         }
     }
     
-    //TODO rollback cosmos-hub2
     public class Commission {
         var rate: String = ""
         var max_rate: String = ""
         var max_change_rate: String = "";
         var update_time: String = "";
-//        var commission_rates: CommissionRate = CommissionRate.init();
+        var commission_rates: CommissionRate = CommissionRate.init();
         
         init() {}
         
@@ -72,25 +71,25 @@ public class Validator {
             self.max_rate = dictionary["max_rate"] as? String ?? ""
             self.max_change_rate = dictionary["max_change_rate"] as? String ?? ""
             self.update_time = dictionary["update_time"] as? String ?? ""
-//            if let commission_rates = dictionary["commission_rates"] as? [String : Any] {
-//                self.commission_rates = CommissionRate.init(commission_rates)
-//            }
+            if let commission_rates = dictionary["commission_rates"] as? [String : Any] {
+                self.commission_rates = CommissionRate.init(commission_rates)
+            }
         }
     }
     
-//    public class CommissionRate {
-//        var rate: String = ""
-//        var max_rate: String = ""
-//        var max_change_rate: String = "";
-//
-//        init() {}
-//
-//        init(_ dictionary: [String: Any]) {
-//            self.rate = dictionary["rate"] as? String ?? ""
-//            self.max_rate = dictionary["max_rate"] as? String ?? ""
-//            self.max_change_rate = dictionary["max_change_rate"] as? String ?? ""
-//        }
-//    }
+    public class CommissionRate {
+        var rate: String = ""
+        var max_rate: String = ""
+        var max_change_rate: String = "";
+
+        init() {}
+
+        init(_ dictionary: [String: Any]) {
+            self.rate = dictionary["rate"] as? String ?? ""
+            self.max_rate = dictionary["max_rate"] as? String ?? ""
+            self.max_change_rate = dictionary["max_change_rate"] as? String ?? ""
+        }
+    }
     
     
     

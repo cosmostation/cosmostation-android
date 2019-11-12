@@ -19,7 +19,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
-    var userChain: ChainType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +39,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
-        self.userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
+        self.chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         self.onSorting()
     }
     
@@ -119,8 +118,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     
     
     func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, userChain!)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
             if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String)
@@ -139,8 +138,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.validatorImg.image = image
             }
 
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, userChain!)
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, chainType!)
             if (mainTabVC!.mIrisStakePool != nil) {
                 let provisions = NSDecimalNumber.init(string: mainTabVC.mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
                 let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
@@ -155,7 +154,26 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 cell.validatorImg.image = image
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
+            if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
+                let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
+                let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String)
+                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
+            } else {
+                cell.commissionLabel.text = "-"
+            }
+            let url = KAVA_IMG_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell.validatorImg.image = image
+            }
+            
         }
+        
         cell.monikerLabel.text = validator.description.moniker
         cell.monikerLabel.adjustsFontSizeToFitWidth = true
         cell.freeEventImg.isHidden = true
@@ -169,10 +187,12 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         }
 
         if mainTabVC.mMyValidators.first(where: {$0.operator_address == validator.operator_address}) != nil {
-            if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
-            } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
+            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             }
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY
@@ -253,10 +273,12 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
 //            } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
 //                return Double($0.commission.rate)! < Double($1.commission.rate)!
 //            }
-            if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 return Double($0.commission.rate)! < Double($1.commission.rate)!
-            } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 return Double($0.commission.rate)! < Double($1.commission.rate)!
+            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             }
             return false
         }

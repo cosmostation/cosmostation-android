@@ -10,14 +10,13 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var otherValidatorTableView: UITableView!
     @IBOutlet weak var otherValidatorCnt: UILabel!
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
-    var userChain: ChainType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +34,7 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
-        self.userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
+        self.chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         self.onSorting()
     }
     
@@ -61,7 +60,6 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
         self.sortByPower()
         self.otherValidatorTableView.reloadData()
     }
-    
     
     @objc func onRequestFetch() {
         if(!mainTabVC.onFetchAccountData()) {
@@ -104,7 +102,7 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
     
     
     func onSetValidatorItem(_ cell: OtherValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
             //TODO rollback cosmos-hub2
 //            cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
@@ -117,8 +115,8 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
                 cell.validatorImg.image = image
             }
             
-        } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, userChain!)
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            cell.powerLabel.attributedText =  WUtils.displayAmount(NSDecimalNumber.init(string: validator.tokens).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0).stringValue, cell.powerLabel.font, 6, chainType!)
             cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.rate, font: cell.commissionLabel.font)
             let url = IRIS_VAL_URL + validator.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
@@ -127,7 +125,18 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
                 }
                 cell.validatorImg.image = image
             }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            cell.powerLabel.attributedText =  WUtils.displayAmout(validator.tokens, cell.powerLabel.font, 6)
+            cell.commissionLabel.attributedText = WUtils.displayCommission(validator.commission.commission_rates.rate, font: cell.commissionLabel.font)
+            let url = KAVA_IMG_URL + validator.operator_address + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell.validatorImg.image = image
+            }
         }
+        
         cell.monikerLabel.text = validator.description.moniker
         cell.monikerLabel.adjustsFontSizeToFitWidth = true
         cell.freeEventImg.isHidden = true
@@ -142,18 +151,17 @@ class OtherValidatorViewController: UIViewController, UITableViewDelegate, UITab
         }
         
         if mainTabVC.mMyValidators.first(where: {$0.operator_address == validator.operator_address}) != nil {
-            if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
-            } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
+            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             }
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY
         }
     }
-    
-    
-    
     
     func sortByPower() {
         mainTabVC.mOtherValidators.sort{

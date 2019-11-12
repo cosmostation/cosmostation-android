@@ -202,6 +202,7 @@
 "error_reward_address_changed_msg" = "이자 지급 주소가 변경된 계정입니다. 이자 즉시 위임 기능을 사용하실 수 없습니다.";
 "error_iris_token_yet" = "아이리스 토큰 전송은 더 많은 테스트 후에 지원하겠습니다.";
 "error_duple_address" = "이미 등록된 주소입니다.";
+"error_kava_yet" = "더 많은 테스트 후에 지원하겠습니다.";
 
 "alert_title_no_private_key" = "관찰 모드 지갑";
 "alert_msg_no_private_key" = "관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.";

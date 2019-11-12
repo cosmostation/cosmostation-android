@@ -54,7 +54,7 @@ class BaseViewController: UIViewController {
         
     }
     
-    public func hideWaittingAlert(){
+    public func hideWaittingAlert() {
         if (waitAlert != nil) {
             waitAlert?.dismiss(animated: true, completion: nil)
         }

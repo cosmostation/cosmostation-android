@@ -315,9 +315,10 @@ let TRANS_BG_COLOR_BNB                      = UIColor.init(hexString: "f0b90b", 
 let COLOR_BNB                               = UIColor.init(hexString: "E9BC00")
 let COLOR_BNB_DARK                          = UIColor.init(hexString: "634C04")
 
-let TRANS_BG_COLOR_KAVA                      = UIColor.init(hexString: "ff554f", alpha: 0.15)
-let COLOR_KAVA                               = UIColor.init(hexString: "FF564F")
-let COLOR_KAVA_DARK                          = UIColor.init(hexString: "631D1B")
+let TRANS_BG_COLOR_KAVA                     = UIColor.init(hexString: "ff554f", alpha: 0.15)
+let TRANS_BG_COLOR_KAVA2                    = UIColor.init(hexString: "ff554f", alpha: 0.4)
+let COLOR_KAVA                              = UIColor.init(hexString: "FF564F")
+let COLOR_KAVA_DARK                         = UIColor.init(hexString: "631D1B")
 
 let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "46d7cb", alpha: 0.15)
 let COLOR_IOV                               = UIColor.init(hexString: "35C1B3")
