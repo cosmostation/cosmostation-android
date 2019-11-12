@@ -209,7 +209,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
         tokenDetailVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
             tokenDetailVC.allValidator = mainTabVC.mAllValidator
             tokenDetailVC.allRewards = mainTabVC.mRewardList
