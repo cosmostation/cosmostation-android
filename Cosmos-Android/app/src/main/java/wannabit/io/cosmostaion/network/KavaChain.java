@@ -1,12 +1,19 @@
 package wannabit.io.cosmostaion.network;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdRewardFromVal;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleUnBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdValidators;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
@@ -43,4 +50,16 @@ public interface KavaChain {
 
     @GET("/staking/pool")
     Call<ResStakingPool> getStakingPool();
+
+    @GET("/staking/validators/{validatorAddr}")
+    Call<ResLcdSingleValidator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
+
+    @GET("/staking/delegators/{address}/delegations/{validatorAddr}")
+    Call<ResLcdSingleBonding> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+    @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
+    Call<ResLcdSingleUnBonding> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+    @GET("/staking/redelegations")
+    Call<ArrayList<ResLcdRedelegate>> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
 }

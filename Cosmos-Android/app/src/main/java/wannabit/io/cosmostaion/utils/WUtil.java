@@ -61,6 +61,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 
 public class WUtil {
 
@@ -221,51 +222,60 @@ public class WUtil {
 
             } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT)) {
 //                //TODO 1 year after re-calculate logic
-//                BigDecimal originalVesting = BigDecimal.ZERO;
-//                BigDecimal total = BigDecimal.ZERO;
-//                BigDecimal available = BigDecimal.ZERO;
-//                if (lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.original_vesting != null &&
-//                        lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.original_vesting.size() > 0) {
-//                    originalVesting = new BigDecimal(lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.original_vesting.get(0).amount);
-//                }
-//                if (lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins != null &&
-//                        lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.size() > 0) {
-//                    total = new BigDecimal(lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.get(0).amount);
-//                }
-//                Balance temp = new Balance();
-//                temp.accountId = accountId;
-//                temp.symbol = lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.get(0).denom;
-//                temp.balance = total.subtract(originalVesting);
-//                temp.locked = originalVesting;
-//                temp.fetchTime = time;
-//                result.add(temp);
                 BigDecimal totalVesting = BigDecimal.ZERO;
+                BigDecimal totalDelegateVseting = BigDecimal.ZERO;
+                BigDecimal dpVesting = BigDecimal.ZERO;
+                BigDecimal dpBalance = BigDecimal.ZERO;
+
                 for (int i = 0 ; i < lcd.result.value.vesting_period_progress.size(); i ++) {
-                    if (lcd.result.value.vesting_period_progress.get(0).period_complete == false &&
-                            lcd.result.value.vesting_period_progress.get(0).vesting_successful == false) {
+                    if (lcd.result.value.vesting_period_progress.get(i).period_complete == false &&
+                            lcd.result.value.vesting_period_progress.get(i).vesting_successful == false) {
                         totalVesting = totalVesting.add(new BigDecimal(lcd.result.value.PeriodicVestingAccount.vesting_periods.get(i).amount.get(0).amount));
                     }
                 }
-                BigDecimal totalDelegateVseting = BigDecimal.ZERO;
+
                 for (Coin delegated:lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.delegated_vesting) {
                     totalDelegateVseting = totalDelegateVseting.add(new BigDecimal(delegated.amount));
                 }
-                BigDecimal dpBalance = BigDecimal.ZERO;
+
+                if (totalVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    dpVesting = totalVesting.subtract(totalDelegateVseting);
+                }
+
+
                 if (lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins != null &&
                         lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.size() > 0) {
-                    dpBalance = new BigDecimal(lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.get(0).amount);
+                    for (Coin coin:lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins) {
+                        dpBalance = dpBalance.add(new BigDecimal(coin.amount));
+                    }
                 }
+
+                if (lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence == "0") {
+                    dpBalance = dpBalance.subtract(totalVesting);
+                    Balance temp = new Balance();
+                    temp.accountId = accountId;
+                    temp.symbol = COSMOS_KAVA;
+                    temp.balance = dpBalance;
+                    temp.locked = totalVesting;
+                    temp.fetchTime = time;
+                    result.add(temp);
+
+                } else {
+                    Balance temp = new Balance();
+                    temp.accountId = accountId;
+                    temp.symbol = COSMOS_KAVA;
+                    temp.balance = dpBalance;
+                    temp.locked = totalVesting;
+                    temp.fetchTime = time;
+                    result.add(temp);
+                }
+
                 WLog.w("totalVesting " + totalVesting);
                 WLog.w("totalDelegateVseting " + totalDelegateVseting);
+                WLog.w("dpVesting " + dpVesting);
                 WLog.w("dpBalance " + dpBalance);
 
-                Balance temp = new Balance();
-                temp.accountId = accountId;
-                temp.symbol = lcd.result.value.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.get(0).denom;
-                temp.balance = dpBalance.subtract(totalVesting);
-                temp.locked = totalVesting.compareTo(BigDecimal.ZERO) > 0 ? totalVesting.subtract(totalDelegateVseting) : totalVesting;
-                temp.fetchTime = time;
-                result.add(temp);
+
 
             }
         }
@@ -341,6 +351,10 @@ public class WUtil {
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares).movePointRight(18), System.currentTimeMillis());
+
+        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
+
         }
         return null;
     }

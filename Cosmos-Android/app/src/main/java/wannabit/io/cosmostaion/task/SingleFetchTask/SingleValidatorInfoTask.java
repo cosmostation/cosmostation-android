@@ -46,6 +46,12 @@ public class SingleValidatorInfoTask extends CommonTask {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
+            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                Response<ResLcdSingleValidator> response = ApiClient.getKavaChain(mApp).getValidatorDetail(mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
             }
 
         } catch (Exception e) {

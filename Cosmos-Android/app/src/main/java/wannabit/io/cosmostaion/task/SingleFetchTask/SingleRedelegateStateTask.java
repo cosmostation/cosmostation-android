@@ -30,15 +30,29 @@ public class SingleRedelegateStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<ResLcdRedelegate>> response = ApiClient.getCosmosChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
-            if(response.isSuccessful()) {
-                if(response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    mResult.isSuccess = true;
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
+                Response<ArrayList<ResLcdRedelegate>> response = ApiClient.getCosmosChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
+                if(response.isSuccessful()) {
+                    if(response.body() != null) {
+                        mResult.resultData = response.body();
+                        mResult.isSuccess = true;
+                    } else {
+                        mResult.isSuccess = true;
+                    }
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
+                Response<ArrayList<ResLcdRedelegate>> response = ApiClient.getKavaChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
+                if(response.isSuccessful()) {
+                    if(response.body() != null) {
+                        mResult.resultData = response.body();
+                        mResult.isSuccess = true;
+                    } else {
+                        mResult.isSuccess = true;
+                    }
                 }
             }
+
 
         } catch (Exception e) {
             WLog.w("SingleUnBondingStateTask Error " + e.getMessage());

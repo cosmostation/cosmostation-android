@@ -38,5 +38,8 @@ public interface CosmosEsService {
     Call<ResHistory> getKavaTx(@Body ReqTx data);
 
     @POST("kava/v1/getTxsByAddr")
+    Call<ResHistory> getKavaValTx(@Body ReqTxVal data);
+
+    @POST("kava/v1/getTxsByAddr")
     Call<ResHistory> getKavaTokenTx(@Body ReqTxToken data);
 }

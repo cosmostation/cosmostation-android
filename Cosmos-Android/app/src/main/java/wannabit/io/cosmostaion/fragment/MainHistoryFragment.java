@@ -214,7 +214,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
             } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 final ResHistory.Source source = mHistory.get(position)._source;
-                if(source.isSuccess()) {
+                if (source.isSuccess()) {
                     viewHolder.historySuccess.setVisibility(View.GONE);
                 } else {
                     viewHolder.historySuccess.setVisibility(View.VISIBLE);

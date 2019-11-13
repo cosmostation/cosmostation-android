@@ -45,6 +45,15 @@ public class ValHistoryTask extends CommonTask {
                 } else {
                     WLog.w("HistoryTask : NOk");
                 }
+
+            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                Response<ResHistory> response = ApiClient.getCosmosEs(mApp).getKavaValTx(mReq).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().hits.hits;
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ValHistoryTask : NOk");
+                }
             }
 
 

@@ -275,14 +275,8 @@ public class WDp {
     public static BigDecimal getVestedCoin(ArrayList<Balance> balances, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
-            if (denom.equals(COSMOS_ATOM) && IS_TEST) {
-                if (balance.symbol.equals(COSMOS_MUON)) {
-                    sum = balance.locked;
-                }
-            } else {
-                if (balance.symbol.equals(denom)) {
-                    sum = balance.locked;
-                }
+            if (balance.symbol.equals(denom)) {
+                sum = balance.locked;
             }
         }
         return sum;
@@ -370,7 +364,7 @@ public class WDp {
         for(Balance balance : balances) {
             if (balance.symbol.equals(BaseConstant.COSMOS_KAVA)) {
                 sum = sum.add(balance.balance);
-                sum = sum.add(balance.locked);
+//                sum = sum.add(balance.locked);
             }
         }
         if(bondings != null) {
