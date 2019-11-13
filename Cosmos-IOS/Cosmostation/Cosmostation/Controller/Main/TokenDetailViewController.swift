@@ -431,7 +431,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onSendToken() {
-        print("onSendToken")
         if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
@@ -460,6 +459,18 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             txVC.mBnbToken = self.bnbToken
             txVC.mType = BNB_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (account!.account_balances.count > 0 && (NSDecimalNumber.init(string: account!.account_balances[0].balance_locked).compare(NSDecimalNumber.zero).rawValue > 0)) {
+                self.onShowToast(NSLocalizedString("error_kava_vesting_account", comment: ""))
+                return
+            }
+            
+            if (account!.getKavaBalance().compare(NSDecimalNumber.init(string: "2500")).rawValue   < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mType = KAVA_MSG_TYPE_TRANSFER
         }
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

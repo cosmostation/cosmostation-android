@@ -1042,6 +1042,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
+            return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
@@ -1087,6 +1090,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
+            return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
@@ -1127,6 +1133,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             self.onFetchIrisRedelegateState(account!)
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
+            return
         }
     }
     
@@ -1197,6 +1207,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
+            return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
@@ -1263,6 +1276,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
+            return
         }
         self.onFetchRewardAddress(account!.account_address)
     }

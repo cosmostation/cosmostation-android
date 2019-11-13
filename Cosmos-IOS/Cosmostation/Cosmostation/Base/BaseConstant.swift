@@ -97,6 +97,7 @@ let KAVA_REWARD_FROM_VAL_TAIL           = "/rewards/";
 let KAVA_INFLATION                      = KAVA_URL + "minting/inflation";
 let KAVA_PROVISIONS                     = KAVA_URL + "minting/annual-provisions";
 let KAVA_STAKING_POOL                   = KAVA_URL + "staking/pool";
+let KAVA_BORAD_TX                       = KAVA_URL + "tx/broadcast";
 
 
 
@@ -231,6 +232,8 @@ let IRIS_MSG_TYPE_ISSUE_TOKEN               = "irishub/asset/MsgIssueToken";
 
 
 let BNB_MSG_TYPE_TRANSFER                   = "bnb_transfer";
+
+let KAVA_MSG_TYPE_TRANSFER                  = "kava_transfer";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"

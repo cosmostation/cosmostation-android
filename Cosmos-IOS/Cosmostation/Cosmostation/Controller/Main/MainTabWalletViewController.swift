@@ -48,6 +48,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         walletTableView.addSubview(refresher)
         
         self.updateTitle()
+        self.updateFloaty()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,7 +60,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.updateFloaty()
+//        self.updateFloaty()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -237,7 +238,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionVote = {
                 self.onClickVoteList()
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAtom.multiplying(byPowerOf10: -8).stringValue)
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAtom.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -471,7 +472,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionVote = {
                 self.onClickVoteList()
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalKava.multiplying(byPowerOf10: -8).stringValue)
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalKava.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -708,12 +709,23 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mType = IRIS_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            if (self.mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(string: "0.000375")).rawValue   < 0) {
+            if (self.mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(string: "0.000375")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
             txVC.mBnbToken = WUtils.getBnbMainToken(self.mainTabVC.mBnbTokenList)
             txVC.mType = BNB_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (mainTabVC.mBalances.count > 0 && (NSDecimalNumber.init(string: mainTabVC.mBalances[0].balance_locked).compare(NSDecimalNumber.zero).rawValue > 0)) {
+                self.onShowToast(NSLocalizedString("error_kava_vesting_account", comment: ""))
+                return
+            }
+            if (self.mainTabVC.mAccount.getKavaBalance().compare(NSDecimalNumber.init(string: "2500")).rawValue  < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mType = KAVA_MSG_TYPE_TRANSFER
         }
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
