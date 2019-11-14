@@ -10,7 +10,7 @@ public enum BaseChain {
     IRIS_MAIN("irishub"),
     IOV_MAIN("iov-mainnet"),
     BNB_MAIN("Binance-Chain-Tigris"),
-    KAVA_MAIN("kava-1");
+    KAVA_MAIN("kava-2");
 
     private final String chainName;
 
