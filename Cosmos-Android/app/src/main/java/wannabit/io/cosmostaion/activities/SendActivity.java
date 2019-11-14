@@ -83,7 +83,7 @@ public class SendActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             if (mIrisToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {

@@ -230,6 +230,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
             }
 
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mAccount.hasPrivateKey) {
+                mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
         }
 
 

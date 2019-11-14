@@ -109,7 +109,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                     mAmountInput.setSelection(1);
                 }
 
-                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                     if (es.equals("0.000000")) {
                         mAmountInput.setText("0.00000");
                         mAmountInput.setSelection(7);
@@ -239,9 +239,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         }
 
         if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
             mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(BigDecimal.ONE);
             mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-            mDenomTitle.setTextColor(getResources().getColor(R.color.colorAtom));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             setIrisDecimals();
@@ -266,14 +266,19 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
             }
 
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
+            mMaxAvailable = getSActivity().mAccount.getKavaBalance().subtract(new BigDecimal("2500"));
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
+
         } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
             if (!getSActivity().mIovToken.tokenTicker.equals(COSMOS_IOV)) {
                 getSActivity().onBackPressed();
             }
             mDenomTitle.setText(getSActivity().mIovToken.tokenTicker.toUpperCase());
             mMaxAvailable = getSActivity().mAccount.getIovBalance().subtract(new BigDecimal("500000000"));
             mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 9, getSActivity().mBaseChain));
-            mDenomTitle.setTextColor(getResources().getColor(R.color.colorIov));
         }
 
     }
@@ -323,7 +328,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mIrisDecimalDivider2), getSActivity().mIrisToken.base_token.decimal, RoundingMode.DOWN).toPlainString());
@@ -334,7 +339,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             }
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
                 onShowWarnDialog();
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -399,6 +404,14 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
                 Coin token = new Coin(getSActivity().mBnbToken.symbol, sendTemp.toPlainString());
                 mToSendCoins.add(token);
+                return true;
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
+                Coin kava = new Coin(BaseConstant.COSMOS_KAVA, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
+                mToSendCoins.add(kava);
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {

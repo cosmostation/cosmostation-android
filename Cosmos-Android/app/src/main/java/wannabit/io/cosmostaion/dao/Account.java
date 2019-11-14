@@ -169,6 +169,21 @@ public class Account {
         return result;
     }
 
+    public BigDecimal getKavaBalance() {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equals(BaseConstant.COSMOS_KAVA)) {
+                result = balance.balance;
+                break;
+            }
+        }
+        return result;
+
+    }
+
     public BigDecimal getIovBalance() {
         BigDecimal result = BigDecimal.ZERO;
         if(balances == null || balances.size() == 0)  {

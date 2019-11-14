@@ -965,7 +965,7 @@ public class WUtil {
     }
 
     public static int getMaxMemoSize(BaseChain chain) {
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {

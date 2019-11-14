@@ -154,6 +154,21 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount), 8, getSActivity().mBaseChain));
             }
 
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomSendAmount);
+            WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomCurrentAmount);
+            WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomRemainAmount);
+
+            mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 6, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+            mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 6, getSActivity().mBaseChain));
+            mTotalPrice.setText(WDp.getValueOfKava(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
+
+            BigDecimal currentAvai  = getSActivity().mAccount.getKavaBalance();
+            mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 6, getSActivity().mBaseChain));
+            mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, getSActivity().mBaseChain));
+            mRemainingPrice.setText(WDp.getValueOfKava(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
+
         } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomSendAmount);
             WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomCurrentAmount);
