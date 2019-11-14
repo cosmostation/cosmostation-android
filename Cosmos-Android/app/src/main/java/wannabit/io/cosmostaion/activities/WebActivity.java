@@ -79,6 +79,18 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl("https://explorer.binance.org/address/"+mAddress);
             else if (!TextUtils.isEmpty(mAsset))
                 mWebview.loadUrl("https://explorer.binance.org/asset/"+mAsset);
+
+        } else if (mBasechain.equals(BaseChain.KAVA_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl("https://kava.mintscan.io/txs/"+mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl("https://kava.mintscan.io/proposals/"+mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl("https://kava.mintscan.io/account/"+mAddress);
+            else
+                mWebview.loadUrl("https://kava.mintscan.io");
+
         }
 
         mShare.setOnClickListener(new View.OnClickListener() {

@@ -259,7 +259,6 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                         mSendFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
                     }
                 }
-
                 mRecipientAddress.setText(mResTxInfo.tx.value.msg.get(0).value.to_address);
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -278,8 +277,26 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                         mSendFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
                     }
                 }
-
                 mRecipientAddress.setText(mResTxInfo.tx.value.msg.get(0).value.outputs.get(0).address);
+
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                mTvTxHash.setText(mResTxInfo.txhash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
+
+                for (Coin coin: mResTxInfo.tx.value.msg.get(0).value.getCoins()) {
+                    if (coin.denom.equals(BaseConstant.COSMOS_KAVA)) {
+                        mSendAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if (coin.denom.equals(BaseConstant.COSMOS_KAVA)) {
+                        mSendFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+                mRecipientAddress.setText(mResTxInfo.tx.value.msg.get(0).value.to_address);
+
             }
             mSendMemo.setText(mResTxInfo.tx.value.memo);
             mBtnDismiss.setVisibility(View.GONE);
@@ -660,7 +677,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
         } else if (v.equals(mBtnScan)) {
             Intent webintent = new Intent(this, WebActivity.class);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 webintent.putExtra("txid", mResTxInfo.txhash);
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 webintent.putExtra("txid", mResTxInfo.hash);
@@ -681,6 +698,8 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://irishub.mintscan.io/txs/" + mResTxInfo.hash);
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "https://explorer.binance.org/tx/" + mResBnbTxInfo.hash);
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://kava.mintscan.io/txs/" + mResTxInfo.hash);
             }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));

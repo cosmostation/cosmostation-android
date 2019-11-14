@@ -36,7 +36,7 @@ public class MsgGenerator {
     public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins, BaseChain chain) {
         Msg         result      = new Msg();
         Msg.Value   value       = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
             value.from_address = fromAddr;
             value.to_address = toAddr;
             value.amount = coins;

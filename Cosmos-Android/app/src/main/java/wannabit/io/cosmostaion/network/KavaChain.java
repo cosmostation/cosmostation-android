@@ -3,9 +3,13 @@ package wannabit.io.cosmostaion.network;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
@@ -62,4 +66,7 @@ public interface KavaChain {
 
     @GET("/staking/redelegations")
     Call<ArrayList<ResLcdRedelegate>> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
+
+    @POST("/txs")
+    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 }
