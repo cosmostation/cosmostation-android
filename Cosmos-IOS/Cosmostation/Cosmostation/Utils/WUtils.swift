@@ -1261,7 +1261,7 @@ class WUtils {
         } else if (type == CHAIN_BINANCE_S) {
             return "Binance-Chain-Tigris"
         } else if (type == CHAIN_KAVA_S) {
-            return "kava-1"
+            return "kava-2"
         } else if (type == CHAIN_IOV_S) {
             return "iov-mainnet"
         }
