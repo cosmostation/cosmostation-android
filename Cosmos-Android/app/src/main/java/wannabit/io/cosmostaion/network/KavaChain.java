@@ -22,8 +22,12 @@ import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdValidators;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
+import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface KavaChain {
+
+    @GET("/txs/{hash}")
+    Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
     @GET("/auth/accounts/{address}")
     Call<ResLcdKavaAccountInfo> getAccountInfo(@Path("address") String address);
