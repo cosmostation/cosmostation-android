@@ -1161,17 +1161,6 @@ public class WDp {
         return result;
     }
 
-    public static int getChainColor(Context c, String chain) {
-        if (chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
-            return c.getResources().getColor(R.color.colorAtom);
-        } else if (chain.equals(BaseChain.IRIS_MAIN.getChain())) {
-            return c.getResources().getColor(R.color.colorIris);
-        } else if (chain.equals(BaseChain.KAVA_MAIN.getChain())) {
-            return c.getResources().getColor(R.color.colorKava);
-        }
-        return -1;
-    }
-
     public static int getChainColor(Context c, BaseChain chain) {
         if (chain.equals(BaseChain.COSMOS_MAIN)) {
             return c.getResources().getColor(R.color.colorAtom);
@@ -1188,23 +1177,23 @@ public class WDp {
         }
     }
 
-    public static ColorStateList getTabColor(Context c, String chain) {
-        if(chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+    public static ColorStateList getTabColor(Context c, BaseChain chain) {
+        if(chain.equals(BaseChain.COSMOS_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
-        } else if(chain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if(chain.equals(BaseChain.IRIS_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iris);
-        }  else if(chain.equals(BaseChain.KAVA_MAIN.getChain())) {
+        }  else if(chain.equals(BaseChain.KAVA_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_kava);
         }
         return null;
     }
 
-    public static ColorStateList getChainTintColor(Context c, String chain) {
-        if(chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+    public static ColorStateList getChainTintColor(Context c, BaseChain chain) {
+        if(chain.equals(BaseChain.COSMOS_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorAtom);
-        } else if(chain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if(chain.equals(BaseChain.IRIS_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorIris);
-        } else if(chain.equals(BaseChain.KAVA_MAIN.getChain())) {
+        } else if(chain.equals(BaseChain.KAVA_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorKava);
         }
         return null;

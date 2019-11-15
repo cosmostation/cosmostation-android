@@ -84,23 +84,23 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_my_validators);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mAccount.baseChain));
+        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
         mValidatorTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mAccount.baseChain));
+        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
         tabItemText1.setText(R.string.str_top_100_validators);
         mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(WDp.getTabColor(this, mAccount.baseChain));
+        tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
         tabItemText2.setText(R.string.str_other_validators);
         mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
 
-        mValidatorTapLayer.setTabIconTint(WDp.getChainTintColor(this, mAccount.baseChain));
-        mValidatorTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, mAccount.baseChain));
+        mValidatorTapLayer.setTabIconTint(WDp.getChainTintColor(this, mBaseChain));
+        mValidatorTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, mBaseChain));
 
         mValidatorPager.setOffscreenPageLimit(3);
         mValidatorPager.setCurrentItem(0, false);
