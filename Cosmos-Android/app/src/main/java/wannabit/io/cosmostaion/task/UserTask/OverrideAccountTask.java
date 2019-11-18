@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class OverrideAccountTask extends CommonTask {
     private BaseChain mBaseChain;
@@ -39,10 +40,12 @@ public class OverrideAccountTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            long id = mApp.getBaseDao().onOverrideAccount(onModAccount(mAccount, strings[1], strings[0], strings[02]));
+
+            Account oAccount = onModAccount(mAccount, strings[1], strings[0], strings[02]);
+            long id = mApp.getBaseDao().onOverrideAccount(oAccount);
             if(id > 0) {
                 mResult.isSuccess = true;
-                mApp.getBaseDao().setLastUser(id);
+                mApp.getBaseDao().setLastUser(oAccount.id);
 
             } else {
                 mResult.errorMsg = "Override error";
@@ -77,6 +80,7 @@ public class OverrideAccountTask extends CommonTask {
             account.path                = path;
             account.msize               = Integer.parseInt(msize);
         }
+        WLog.w("onModAccount " + account.baseChain);
         return account;
     }
 }

@@ -29,13 +29,17 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
 
@@ -237,25 +241,19 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 holder.kavaLayer.setVisibility(View.VISIBLE);
-//                ApiClient.getIovChain(getBaseContext()).getBalance(address).enqueue(new Callback<ResIovBalance>() {
-//                    @Override
-//                    public void onResponse(Call<ResIovBalance> call, Response<ResIovBalance> response) {
-//                        if(response.isSuccessful() && response.body() != null && response.body().balance != null) {
-//                            for (ResIovBalance.IovBalance balance:response.body().balance) {
-//                                if (balance.tokenTicker.equals(BaseConstant.COSMOS_IOV)) {
-//                                    holder.iovAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(balance.quantity), 6, mChain));
-//                                    break;
-//                                }
-//                            }
-//                        } else {
-//                            holder.iovAmount.setText("0");
-//                        }
-//                    }
-//                    @Override
-//                    public void onFailure(Call<ResIovBalance> call, Throwable t) {
-//                        holder.bnbAmount.setText("0");
-//                    }
-//                });
+                ApiClient.getKavaChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
+                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
+                        holder.kavaAmount.setText(WDp.getDpAvailableCoin(getBaseContext(), balances, BaseChain.KAVA_MAIN, COSMOS_KAVA));
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) {
+                        holder.kavaAmount.setText("0");
+                    }
+                });
+
             } else if (mChain.equals(BaseChain.IOV_MAIN)) {
                 holder.iovLayer.setVisibility(View.VISIBLE);
                 ApiClient.getIovChain(getBaseContext()).getBalance(address).enqueue(new Callback<ResIovBalance>() {
