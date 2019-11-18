@@ -55,8 +55,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
-                            style="@style/font_ss_11_white"
-                            android:text="DepositPeriod"/>
+                            style="@style/font_ss_11_white"/>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -68,8 +67,7 @@
                     android:singleLine="true"
                     android:maxLines="1"
                     style="@style/font_ss_14_white"
-                    android:ellipsize="end"
-                    android:text="Test insuficient deposits"/>
+                    android:ellipsize="end"/>
 
                 <TextView
                     android:id="@+id/proposal_details"
@@ -79,8 +77,7 @@
                     style="@style/font_ss_11_gray1"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:ellipsize="end"
-                    android:text="sdfdsfsdfsdfsdfsdfsdf"/>
+                    android:ellipsize="end"/>
 
             </LinearLayout>
             <ImageView

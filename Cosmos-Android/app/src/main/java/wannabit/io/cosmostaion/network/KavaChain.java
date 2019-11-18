@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdProposals;
 import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
 import wannabit.io.cosmostaion.network.res.ResLcdRewardFromVal;
 import wannabit.io.cosmostaion.network.res.ResLcdSingleBonding;
@@ -70,6 +71,9 @@ public interface KavaChain {
 
     @GET("/staking/redelegations")
     Call<ArrayList<ResLcdRedelegate>> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
+
+    @GET("/gov/proposals")
+    Call<ResLcdProposals> getProposalList();
 
     @POST("/txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);

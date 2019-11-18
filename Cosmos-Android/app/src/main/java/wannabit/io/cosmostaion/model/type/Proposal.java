@@ -5,21 +5,25 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 
-//TODO rollback cosmos-hub2
-
 public class Proposal {
-    //TODO rollback cosmos-hub2
+
     @SerializedName("proposal_id")
+    public String proposal_id;
+
+    @SerializedName("id")
     public String id;
 
     @SerializedName("proposal_status")
     public String proposal_status;
 
     @SerializedName("proposal_content")
-    public Content content;
+    public ProposalContent proposal_content;
+
+    @SerializedName("content")
+    public ProposalContent content;
 
 
-    public class Content {
+    public class ProposalContent {
         @SerializedName("type")
         public String type;
 

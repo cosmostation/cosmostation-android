@@ -762,7 +762,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(COSMOS_VAL_URL+mValidator.operator_address+".png")
+                    Picasso.get().load(KAVA_IMG_URL+mValidator.operator_address+".png")
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}

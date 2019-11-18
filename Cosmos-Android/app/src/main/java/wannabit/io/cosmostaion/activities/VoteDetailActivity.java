@@ -133,58 +133,58 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
         WLog.w("onUpdateView");
         onHideWaitDialog();
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            if (mProposal.proposal_status.equals("DepositPeriod")) {
-                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-            } else if (mProposal.proposal_status.equals("VotingPeriod")) {
-                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-            } else if (mProposal.proposal_status.equals("Rejected")) {
-                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-            } else if (mProposal.proposal_status.equals("Passed")) {
-                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
-            } else {
-                mVoteStatusImg.setVisibility(View.GONE);
-            }
-            mVoteStatusTxt.setText(mProposal.proposal_status);
-            mVoteTitle.setText("# " + mProposal.id + ".  " + mProposal.content.value.title);
-            for (Validator v: mTopValidators) {
-                if (WKey.convertDpAddressToDpOpAddress(mProposer).equals(v.operator_address)) {
-                    mProposer = v.description.moniker;
-                    break;
-                }
-            }
-            mVoteProposer.setText(mProposer);
-            if (mProposal.proposal_status.equals("DepositPeriod")) {
-                mVoteStartTime.setText(R.string.str_vote_wait_deposit);
-                mVoteFinishTime.setText(R.string.str_vote_wait_deposit);
-            } else {
-                mVoteStartTime.setText(WDp.getTimeformat(getBaseContext(), mProposal.voting_start_time));
-                mVoteFinishTime.setText(WDp.getTimeformat(getBaseContext(), mProposal.voting_end_time));
-            }
-            mVoteMsg.setText(mProposal.content.value.description);
-
-            mVoteQuorum.setText(WDp.getDpString("40.00%", 3));
-            if (mProposal.proposal_status.equals("VotingPeriod")) {
-
-            } else {
-//                mDivider.setVisibility(View.GONE);
-//                mTurnoutLayer.setVisibility(View.GONE);
-            }
-            WLog.w(""+mTally.getYesPer().toPlainString());
-            mYesProgress.setProgress(mTally.getYesPer().intValue());
-            mYesRate.setText(WDp.getDpString(mTally.getYesPer().toPlainString() + "%", 3));
-            mYesCnt.setText(""+WUtil.getVoterType(mVotes, "Yes"));
-
-            mNoProgress.setProgress(mTally.getNoPer().intValue());
-            mNoRate.setText(WDp.getDpString(mTally.getNoPer().toPlainString() + "%", 3));
-            mNoCnt.setText(""+WUtil.getVoterType(mVotes, "No"));
-
-            mVetoProgress.setProgress(mTally.getVetoPer().intValue());
-            mVetoRate.setText(WDp.getDpString(mTally.getVetoPer().toPlainString() + "%", 3));
-            mVetoCnt.setText(""+WUtil.getVoterType(mVotes, "NoWithVeto"));
-
-            mAbstainProgress.setProgress(mTally.getAbstainPer().intValue());
-            mAbstainRate.setText(WDp.getDpString(mTally.getAbstainPer().toPlainString() + "%", 3));
-            mAbstainCnt.setText(""+WUtil.getVoterType(mVotes, "Abstain"));
+//            if (mProposal.proposal_status.equals("DepositPeriod")) {
+//                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+//            } else if (mProposal.proposal_status.equals("VotingPeriod")) {
+//                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+//            } else if (mProposal.proposal_status.equals("Rejected")) {
+//                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+//            } else if (mProposal.proposal_status.equals("Passed")) {
+//                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
+//            } else {
+//                mVoteStatusImg.setVisibility(View.GONE);
+//            }
+//            mVoteStatusTxt.setText(mProposal.proposal_status);
+//            mVoteTitle.setText("# " + mProposal.id + ".  " + mProposal.content.value.title);
+//            for (Validator v: mTopValidators) {
+//                if (WKey.convertDpAddressToDpOpAddress(mProposer).equals(v.operator_address)) {
+//                    mProposer = v.description.moniker;
+//                    break;
+//                }
+//            }
+//            mVoteProposer.setText(mProposer);
+//            if (mProposal.proposal_status.equals("DepositPeriod")) {
+//                mVoteStartTime.setText(R.string.str_vote_wait_deposit);
+//                mVoteFinishTime.setText(R.string.str_vote_wait_deposit);
+//            } else {
+//                mVoteStartTime.setText(WDp.getTimeformat(getBaseContext(), mProposal.voting_start_time));
+//                mVoteFinishTime.setText(WDp.getTimeformat(getBaseContext(), mProposal.voting_end_time));
+//            }
+//            mVoteMsg.setText(mProposal.content.value.description);
+//
+//            mVoteQuorum.setText(WDp.getDpString("40.00%", 3));
+//            if (mProposal.proposal_status.equals("VotingPeriod")) {
+//
+//            } else {
+////                mDivider.setVisibility(View.GONE);
+////                mTurnoutLayer.setVisibility(View.GONE);
+//            }
+//            WLog.w(""+mTally.getYesPer().toPlainString());
+//            mYesProgress.setProgress(mTally.getYesPer().intValue());
+//            mYesRate.setText(WDp.getDpString(mTally.getYesPer().toPlainString() + "%", 3));
+//            mYesCnt.setText(""+WUtil.getVoterType(mVotes, "Yes"));
+//
+//            mNoProgress.setProgress(mTally.getNoPer().intValue());
+//            mNoRate.setText(WDp.getDpString(mTally.getNoPer().toPlainString() + "%", 3));
+//            mNoCnt.setText(""+WUtil.getVoterType(mVotes, "No"));
+//
+//            mVetoProgress.setProgress(mTally.getVetoPer().intValue());
+//            mVetoRate.setText(WDp.getDpString(mTally.getVetoPer().toPlainString() + "%", 3));
+//            mVetoCnt.setText(""+WUtil.getVoterType(mVotes, "NoWithVeto"));
+//
+//            mAbstainProgress.setProgress(mTally.getAbstainPer().intValue());
+//            mAbstainRate.setText(WDp.getDpString(mTally.getAbstainPer().toPlainString() + "%", 3));
+//            mAbstainCnt.setText(""+WUtil.getVoterType(mVotes, "Abstain"));
 
 
         } else {
@@ -198,16 +198,16 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
         if (v.equals(mVoteWebBtn)) {
 
         } else if (v.equals(mMsgExpendBtn)) {
-            if (mVoteMsg.getMaxLines() == 50) {
-                mVoteMsg.setMaxLines(3);
-                mVoteMsg.setText(mProposal.content.value.description);
-                mMsgExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_down_gr));
-
-            } else {
-                mVoteMsg.setMaxLines(50);
-                mVoteMsg.setText(mProposal.content.value.description);
-                mMsgExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_up_gr));
-            }
+//            if (mVoteMsg.getMaxLines() == 50) {
+//                mVoteMsg.setMaxLines(3);
+//                mVoteMsg.setText(mProposal.content.value.description);
+//                mMsgExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_down_gr));
+//
+//            } else {
+//                mVoteMsg.setMaxLines(50);
+//                mVoteMsg.setText(mProposal.content.value.description);
+//                mMsgExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_up_gr));
+//            }
 
         }
 
