@@ -254,6 +254,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mTvAtomAvailable.setText(WDp.getDpAvailableCoin(this, mBalances, mBaseChain, COSMOS_ATOM));
             mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(this, mBondings, mAllValidators, mBaseChain));
             mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
+            mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(this, mUnbondings, mAllValidators, mBaseChain));
             mTvAtomRewards.setText(WDp.getDpAllRewardAmount(this, mRewards, mBaseChain, COSMOS_KAVA));
             mTvAtomValue.setText(WDp.getValueOfAtom(this, getBaseDao(), totalAmount));
 
@@ -462,10 +463,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             }
 
         } else if (v.equals(mBtnSendKava)) {
-            if (onCheckSendable()) {
-                Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
-                startActivity(intent);
-            }
+//            if (onCheckSendable()) {
+//                Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
+//                startActivity(intent);
+//            }
+            Toast.makeText(getBaseContext(), R.string.error_send_disable, Toast.LENGTH_SHORT).show();
+            return;
 
         } else if (v.equals(mBtnSendToken)) {
             if (onCheckSendable()) {

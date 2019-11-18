@@ -439,7 +439,7 @@
     <string name="error_small_reward">요청할 이자가 Tx 수수료 보다 낮습니다.\n수수료 낭비 입니다.</string>
     <string name="error_tx_time_out">블록 체인이 너무 바빠서 시간이 초과되었습니다. \ n요청한 트랜잭션이 수행되었을 것입니다. \ n히스토리를 참조하십시오.</string>
     <string name="error_vesting_time">아직 전송이 활성화 되지 않았습니다.</string>
-    <string name="error_beta_test">아직 전송이 활성화 되지 않았습니다.</string>
+    <string name="error_send_disable">아직 전송이 활성화 되지 않았습니다.</string>
     <string name="error_real_testing">이 기능은 테스트 중입니다.</string>
     <string name="error_invalid_amounts">불가능한 수량</string>
     <string name="error_prepare">준비중...</string>

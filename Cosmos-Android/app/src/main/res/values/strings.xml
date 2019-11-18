@@ -495,7 +495,7 @@
     <string name="error_small_reward">Rewards are too small.\nTransaction fee is bigger than your reward.</string>
     <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
     <string name="error_vesting_time">Token transfer is locked for three weeks following mainnet launch.</string>
-    <string name="error_beta_test">Token transfer is locked for three weeks following mainnet launch.</string>
+    <string name="error_send_disable">Token transfer is locked.</string>
     <string name="error_real_testing">Open soon after real testing.</string>
     <string name="error_invalid_amounts">Invalid Amount</string>
     <string name="error_prepare">Preparing...</string>

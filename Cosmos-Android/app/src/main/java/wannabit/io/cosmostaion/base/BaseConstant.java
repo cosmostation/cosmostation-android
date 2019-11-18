@@ -257,5 +257,5 @@ public class BaseConstant {
     public final static String                  TOKEN_IMG_URL                                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
     public final static String                  COSMOS_VAL_URL                                  = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
     public final static String                  IRIS_VAL_URL                                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
-    public final static String                  KAVA_IMG_URL                                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/";
+    public final static String                  KAVA_IMG_URL                                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
 }
