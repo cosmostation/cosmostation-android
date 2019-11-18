@@ -990,9 +990,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             });
         }
 
-
-
-
         @Override
         public int getItemViewType(int position) {
             if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {

@@ -1200,26 +1200,29 @@ public class WDp {
     }
 
     public static void DpMainDenom(Context c, String chain, TextView textview) {
-        if (chain.equals(BaseChain.COSMOS_MAIN.getChain())) {
+        if (BaseChain.getChain(chain).equals(BaseChain.COSMOS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAtom));
             textview.setText(c.getString(R.string.s_atom));
 
-        } else if (chain.equals(BaseChain.IRIS_MAIN.getChain())) {
+        } else if (BaseChain.getChain(chain).equals(BaseChain.IRIS_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_iris));
 
-        } else if (chain.equals(BaseChain.BNB_MAIN.getChain())) {
+        } else if (BaseChain.getChain(chain).equals(BaseChain.BNB_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorBnb));
             textview.setText(c.getString(R.string.s_bnb));
 
-        } else if (chain.equals(BaseChain.KAVA_MAIN.getChain())) {
+        } else if (BaseChain.getChain(chain).equals(BaseChain.KAVA_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorKava));
             textview.setText(c.getString(R.string.s_kava));
 
-        } else if (chain.equals(BaseChain.IOV_MAIN.getChain())) {
+        } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIov));
             textview.setText(c.getString(R.string.s_iov));
 
         }
+
+
+
     }
 }

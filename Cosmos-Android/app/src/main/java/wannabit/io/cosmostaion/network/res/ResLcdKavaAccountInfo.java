@@ -39,6 +39,13 @@ public class ResLcdKavaAccountInfo {
 
         @SerializedName("vesting_period_progress")
         public ArrayList<VestingPeriodProgress> vesting_period_progress;
+
+        @SerializedName("BaseVestingAccount")
+        public BaseVestingAccount BaseVestingAccount;
+
+        @SerializedName("vesting_periods")
+        public ArrayList<VestingPeriod> vesting_periods;
+
     }
 
     public class PeriodicVestingAccount {

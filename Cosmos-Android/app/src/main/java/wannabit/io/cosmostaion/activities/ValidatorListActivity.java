@@ -258,6 +258,11 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            //TODO KAVA claim reward all disable!
+            Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
+            return;
+
         }
 
         Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
