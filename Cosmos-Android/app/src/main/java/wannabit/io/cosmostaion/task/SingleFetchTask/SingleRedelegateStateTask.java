@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
@@ -31,28 +32,29 @@ public class SingleRedelegateStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-                Response<ArrayList<ResLcdRedelegate>> response = ApiClient.getCosmosChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
+                Response<ArrayList<Redelegate>> response = ApiClient.getCosmosChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null) {
                         mResult.resultData = response.body();
                         mResult.isSuccess = true;
                     } else {
+                        mResult.resultData = new ArrayList<Redelegate>();
                         mResult.isSuccess = true;
                     }
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
-                Response<ArrayList<ResLcdRedelegate>> response = ApiClient.getKavaChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
+                Response<ResLcdRedelegate> response = ApiClient.getKavaChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
                 if(response.isSuccessful()) {
-                    if(response.body() != null) {
-                        mResult.resultData = response.body();
+                    if(response.body() != null && response.body().result != null) {
+                        mResult.resultData = response.body().result;
                         mResult.isSuccess = true;
                     } else {
+                        mResult.resultData = new ArrayList<Redelegate>();
                         mResult.isSuccess = true;
                     }
                 }
             }
-
 
         } catch (Exception e) {
             WLog.w("SingleUnBondingStateTask Error " + e.getMessage());

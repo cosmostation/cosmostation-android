@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
@@ -40,9 +41,11 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.SingleAllRedelegateState;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_IMG_URL;
 
 public class RedelegateStep1Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -96,7 +99,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             if(mCheckedValidator == null) {
                 Toast.makeText(getContext(), R.string.error_no_to_validator, Toast.LENGTH_SHORT).show();
             } else {
-                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                     new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
                             getSActivity().mFromValidator.operator_address,
                             mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -122,9 +125,9 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
     public void onTaskResponse(TaskResult result) {
         if(!isAdded()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_ALL_REDELEGATE ) {
-            if(result.isSuccess) {
-                ArrayList<ResLcdRedelegate> redelegates = (ArrayList<ResLcdRedelegate>) result.resultData;
-                if(redelegates != null && redelegates.get(0) != null && redelegates.get(0).entries.size() >= 7 ) {
+            if (result.isSuccess) {
+                ArrayList<Redelegate> redelegates = (ArrayList<Redelegate>) result.resultData;
+                if(redelegates.size() > 0 && redelegates.get(0) != null && redelegates.get(0).entries.size() >= 7 ) {
                     Toast.makeText(getContext(), R.string.error_redelegate_cnt_over, Toast.LENGTH_SHORT).show();
                     return;
                 } else {
@@ -133,7 +136,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 }
 
             } else {
-                Toast.makeText(getContext(), R.string.error_network, Toast.LENGTH_SHORT).show();
+                getSActivity().mToValidator = mCheckedValidator;
+                getSActivity().onNextStep();
             }
         }
     }
@@ -172,6 +176,17 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                             .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
+                if(getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
+                    holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
+                }
+                try {
+                    Picasso.get().load(KAVA_IMG_URL+validator.operator_address+".png")
+                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                            .into(holder.itemAvatar);
+                } catch (Exception e){}
             }
             holder.itemTvMoniker.setText(validator.description.moniker);
             holder.itemFree.setVisibility(View.GONE);
@@ -198,6 +213,10 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
             } else {

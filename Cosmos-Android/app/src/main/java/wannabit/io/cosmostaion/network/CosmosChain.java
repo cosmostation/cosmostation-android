@@ -12,6 +12,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Proposal;
+import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBlockInfo;
@@ -88,10 +89,10 @@ public interface CosmosChain {
 
     //ReDelegate History
     @GET("/staking/redelegations")
-    Call<ArrayList<ResLcdRedelegate>> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
+    Call<ArrayList<Redelegate>> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
 
     @GET("/staking/redelegations")
-    Call<ArrayList<ResLcdRedelegate>> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
+    Call<ArrayList<Redelegate>> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
 
 
 

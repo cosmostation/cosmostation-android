@@ -141,7 +141,7 @@ public class MsgGenerator {
     public static Msg genReDelegateMsg(String accountAddr, String fromValAddr, String toValAddr, Coin amount, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
             value.delegator_address = accountAddr;
             value.validator_src_address = fromValAddr;
             value.validator_dst_address = toValAddr;

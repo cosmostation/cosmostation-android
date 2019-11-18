@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_Not_Top_100;
 import wannabit.io.cosmostaion.dialog.Dialog_RedelegationLimited;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqTxVal;
 import wannabit.io.cosmostaion.network.res.ResHistory;
@@ -58,6 +59,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
@@ -83,7 +85,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private SpannableString                 mSelfBondingRate;
 
     private int                             mTaskCount;
-    private TaskResult                      mRedelegateResultThisVal;
+    private ArrayList<Redelegate>           mRedelegates;
 
     public BigDecimal                       mBondedToken = BigDecimal.ZERO;
     public BigDecimal                       mProvisions = BigDecimal.ZERO;
@@ -270,12 +272,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasbalance  = true;
                 }
             }
-            if (!(mRedelegateResultThisVal != null && mRedelegateResultThisVal.isSuccess && mRedelegateResultThisVal.resultData == null)) {
+            if (mRedelegates == null || mRedelegates.size() > 0) {
                 Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
                 add.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
+
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             for (Balance balance:balances) {
                 if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("520000000000000000"))) > 0)) {
@@ -291,6 +294,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         return;
                     }
                 }
+            }
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("6000"))) > 0)) {
+                    hasbalance  = true;
+                }
+            }
+            if (mRedelegates == null || mRedelegates.size() > 0) {
+                Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
             }
         }
 
@@ -542,7 +558,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 mTx = hits;
             }
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REDELEGATE) {
-            mRedelegateResultThisVal = result;
+            if (result.isSuccess) {
+                mRedelegates = (ArrayList<Redelegate>)result.resultData;
+            } else {
+                mRedelegates = null;
+            }
 
         } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
             mIrisReward = (ResLcdIrisReward)result.resultData;
