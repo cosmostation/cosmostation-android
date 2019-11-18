@@ -145,6 +145,25 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
             mGasFeeAmount.setText(WDp.getDpString(WDp.attoToIris(mFeeAmount).setScale(1).toPlainString(), 2));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_kava));
+
+            mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_AVERAGE);
+            mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_AVERAGE).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+            if (getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(8, RoundingMode.DOWN);
+            }
+            mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
         }
         return rootView;
     }
@@ -175,6 +194,7 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
                 fee.amount = amount;
                 fee.gas = BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
                 getSActivity().mToDelegateFee = fee;
+
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
@@ -185,6 +205,18 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
                 fee.amount = amount;
                 fee.gas = BaseConstant.FEE_IRIS_GAS_AMOUNT_AVERAGE;
                 getSActivity().mToDelegateFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = BaseConstant.COSMOS_KAVA;
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
+                getSActivity().mToDelegateFee = fee;
+
             }
             getSActivity().onNextStep();
 

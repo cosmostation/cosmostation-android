@@ -333,6 +333,18 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
                 mDelegateValidator.setText(mResTxInfo.tx.value.msg.get(0).value.validator_addr);
 
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                mTvTxHash.setText(mResTxInfo.txhash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
+                mDelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mResTxInfo.tx.value.msg.get(0).value.getCoins().get(0).amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_KAVA)) {
+                        mDelegateFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+                mDelegateValidator.setText(mResTxInfo.tx.value.msg.get(0).value.validator_address);
+
             }
             mDelegateMemo.setText(mResTxInfo.tx.value.memo);
             mBtnDismiss.setVisibility(View.GONE);

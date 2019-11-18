@@ -413,6 +413,8 @@
     <string name="str_amount">수량</string>
     <string name="str_value">금액</string>
     <string name="str_full_name">원본 이름(Denom)</string>
+    <string name="str_vesting_title">베스팅 계정</string>
+    <string name="str_vesting_msg">베스팅 계정으로 보입니다. 정확한 수량으로 위임 및 위임해재를 하시기 위해서 cli를 이용하시는것을 권장합니다.</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

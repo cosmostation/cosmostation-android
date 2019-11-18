@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,6 +23,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
+import wannabit.io.cosmostaion.dialog.Dialog_VestingAccount;
 import wannabit.io.cosmostaion.fragment.DelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep2Fragment;
@@ -29,7 +32,9 @@ import wannabit.io.cosmostaion.fragment.DelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class DelegateActivity extends BaseActivity {
@@ -111,12 +116,18 @@ public class DelegateActivity extends BaseActivity {
             }
         });
 
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
+            Dialog_VestingAccount dialog = Dialog_VestingAccount.newInstance(null);
+            dialog.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        }
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(mAccount == null) finish();
+        if (mAccount == null) finish();
     }
 
 
@@ -155,6 +166,11 @@ public class DelegateActivity extends BaseActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    @Override
+    public void onCancelWithVesting() {
+        onBackPressed();
     }
 
     public void onStartDelegate() {

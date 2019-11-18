@@ -109,6 +109,7 @@ public class WUtil {
 
     public static Account getAccountFromKavaLcd(long id, ResLcdKavaAccountInfo lcd) {
         Account result = new Account();
+        result.id = id;
         if (lcd.result != null && lcd.height != null) {
             if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
                 result.address = lcd.result.value.address;

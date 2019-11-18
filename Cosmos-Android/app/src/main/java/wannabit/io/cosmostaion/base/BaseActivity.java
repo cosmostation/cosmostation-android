@@ -264,6 +264,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         startActivity(new Intent(BaseActivity.this, RestoreActivity.class));
     }
 
+    public void onCancelWithVesting() {
+
+    }
+
 
 
     public void onFetchAccountInfo(FetchCallBack callback) {

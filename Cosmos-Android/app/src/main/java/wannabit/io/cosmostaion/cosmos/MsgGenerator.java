@@ -65,7 +65,7 @@ public class MsgGenerator {
     public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
             value.delegator_address = fromAddr;
             value.validator_address = toValAddr;
             value.amount = toDeleagteAmout;
@@ -280,7 +280,7 @@ public class MsgGenerator {
                 memo);
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-        WLog.w("signatureTx " + signatureTx);
+//        WLog.w("signatureTx " + signatureTx);
 
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();
@@ -301,7 +301,7 @@ public class MsgGenerator {
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+//        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;

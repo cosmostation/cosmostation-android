@@ -470,6 +470,8 @@
     <string name="str_amount">Amount</string>
     <string name="str_value">Value</string>
     <string name="str_full_name">Full Name(Denom)</string>
+    <string name="str_vesting_title">Vesting Account</string>
+    <string name="str_vesting_msg">Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

@@ -203,6 +203,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));

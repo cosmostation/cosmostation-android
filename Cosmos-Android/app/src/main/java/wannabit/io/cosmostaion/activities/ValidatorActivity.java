@@ -60,6 +60,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_IMG_URL;
@@ -212,6 +213,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             for (Balance balance:balances) {
                 if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) > 0)) {
+                    hasbalance  = true;
+                }
+            }
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
                     hasbalance  = true;
                 }
             }
@@ -901,7 +908,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
                 if (mReward != null) {
-                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(COSMOS_ATOM), 6, BaseChain.getChain(mAccount.baseChain)));
+                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mReward.getRewardAmount(COSMOS_KAVA), 6, BaseChain.getChain(mAccount.baseChain)));
                 } else {
                     holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                 }
