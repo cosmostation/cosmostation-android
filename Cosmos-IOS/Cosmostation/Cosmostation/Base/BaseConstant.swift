@@ -193,6 +193,7 @@ let COSMOS_AUTH_TYPE_DELAYEDACCOUNT         = "cosmos-sdk/DelayedVestingAccount"
 let COSMOS_AUTH_TYPE_ACCOUNT                = "cosmos-sdk/Account";
 let COSMOS_AUTH_TYPE_ACCOUNT_LEGACY         = "auth/Account";
 let COSMOS_AUTH_TYPE_VESTING_ACCOUNT        = "cosmos-sdk/ValidatorVestingAccount";
+let COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT      = "cosmos-sdk/PeriodicVestingAccount";
 
 let COSMOS_MSG_TYPE_TRANSFER                = "cosmos-sdk/Send";
 let COSMOS_MSG_TYPE_TRANSFER2               = "cosmos-sdk/MsgSend";

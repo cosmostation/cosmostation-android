@@ -121,37 +121,60 @@ class WUtils {
                 dpBalance = dpBalance.adding(NSDecimalNumber.init(string: coin.amount))
             })
             
-            
-            if (accountInfo.result.value?.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence == "0") {
-                dpBalance = dpBalance.subtracting(totalVestiong)
-                result.append(Balance.init(account.account_id,
-                                            KAVA_MAIN_DENOM,
-                                            dpBalance.stringValue,
-                                            Date().millisecondsSince1970,
-                                            NSDecimalNumber.zero.stringValue,
-                                            totalVestiong.stringValue))
-                
-            } else {
-                result.append(Balance.init(account.account_id,
-                                            KAVA_MAIN_DENOM,
-                                            dpBalance.stringValue,
-                                            Date().millisecondsSince1970,
-                                            NSDecimalNumber.zero.stringValue,
-                                            totalVestiong.stringValue))
-            }
+            dpBalance = dpBalance.adding(totalDeleagtedVesting).subtracting(totalVestiong)
+            result.append(Balance.init(account.account_id,
+                                        KAVA_MAIN_DENOM,
+                                        dpBalance.stringValue,
+                                        Date().millisecondsSince1970,
+                                        NSDecimalNumber.zero.stringValue,
+                                        totalVestiong.stringValue))
 
             if (SHOW_LOG) {
+                print("COSMOS_AUTH_TYPE_VESTING_ACCOUNT");
                 print("totalVestiong", totalVestiong);
                 print("totalDeleagtedVesting", totalDeleagtedVesting);
                 print("dpVesting", dpVesting);
                 print("dpBalance", dpBalance);
             }
-//            result.append(Balance.init(account.account_id,
-//                                        accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins[0].denom,
-//                                        dpBalance.stringValue,
-//                                        Date().millisecondsSince1970,
-//                                        NSDecimalNumber.zero.stringValue,
-//                                        totalVestiong.stringValue))
+            
+        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
+            //TODO 1 year after re-calculate logic
+            var totalVestiong = NSDecimalNumber.zero
+            var totalDeleagtedVesting = NSDecimalNumber.zero
+            var dpVesting = NSDecimalNumber.zero
+            var dpBalance = NSDecimalNumber.zero
+            
+            for i in 0 ..< accountInfo.result.value!.vesting_periods.count {
+                totalVestiong = totalVestiong.adding(NSDecimalNumber.init(string: accountInfo.result.value!.vesting_periods[i].amount[0].amount))
+            }
+            
+            accountInfo.result.value!.BaseVestingAccount.delegated_vesting.forEach({ (coin) in
+                totalDeleagtedVesting = totalDeleagtedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+            })
+            
+            if (totalVestiong.compare(NSDecimalNumber.zero).rawValue > 0) {
+                dpVesting = totalVestiong.subtracting(totalDeleagtedVesting)
+            }
+            
+            accountInfo.result.value!.BaseVestingAccount.BaseAccount.coins.forEach({ (coin) in
+                dpBalance = dpBalance.adding(NSDecimalNumber.init(string: coin.amount))
+            })
+            
+            dpBalance = dpBalance.adding(totalDeleagtedVesting).subtracting(totalVestiong)
+            result.append(Balance.init(account.account_id,
+                                        KAVA_MAIN_DENOM,
+                                        dpBalance.stringValue,
+                                        Date().millisecondsSince1970,
+                                        NSDecimalNumber.zero.stringValue,
+                                        totalVestiong.stringValue))
+
+            if (SHOW_LOG) {
+                print("COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT");
+                print("totalVestiong", totalVestiong);
+                print("totalDeleagtedVesting", totalDeleagtedVesting);
+                print("dpVesting", dpVesting);
+                print("dpBalance", dpBalance);
+            }
             
         }
         return result;
