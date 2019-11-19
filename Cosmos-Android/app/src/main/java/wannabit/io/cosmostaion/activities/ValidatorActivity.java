@@ -340,7 +340,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             if (mUnBondingStates != null && mUnBondingStates.size() >= 7){
                 Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
                 return;
@@ -364,6 +364,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             for (Balance balance:balances) {
                 if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
+                    hasbalance  = true;
+                }
+            }
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            for (Balance balance:balances) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
                     hasbalance  = true;
                 }
             }

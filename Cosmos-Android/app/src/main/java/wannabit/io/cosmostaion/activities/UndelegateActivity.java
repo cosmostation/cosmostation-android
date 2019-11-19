@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.dialog.Dialog_VestingAccount;
 import wannabit.io.cosmostaion.fragment.UndelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep2Fragment;
@@ -30,8 +31,10 @@ import wannabit.io.cosmostaion.fragment.UndelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class UndelegateActivity extends BaseActivity {
@@ -109,6 +112,12 @@ public class UndelegateActivity extends BaseActivity {
             public void onPageScrollStateChanged(int i) { }
         });
         mViewPager.setCurrentItem(0);
+
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
+            Dialog_VestingAccount dialog = Dialog_VestingAccount.newInstance(null);
+            dialog.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        }
     }
 
     @Override
@@ -154,11 +163,16 @@ public class UndelegateActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onCancelWithVesting() {
+        onBackPressed();
+    }
+
     public void onStartUndelegate() {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE);
         intent.putExtra("toAddress", mValidator.operator_address);
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             intent.putExtra("uAmount", mUnDelegateAmount);
         } else if  (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal validatorShareRate = new BigDecimal(mValidator.delegator_shares).divide(new BigDecimal(mValidator.tokens), 18, BigDecimal.ROUND_HALF_DOWN);

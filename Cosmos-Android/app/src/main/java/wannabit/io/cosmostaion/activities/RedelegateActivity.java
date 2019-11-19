@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.dialog.Dialog_VestingAccount;
 import wannabit.io.cosmostaion.fragment.RedelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep2Fragment;
@@ -38,9 +39,11 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class RedelegateActivity extends BaseActivity implements TaskListener {
@@ -134,6 +137,12 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         });
         mViewPager.setCurrentItem(0);
         onFetchReward();
+
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
+            Dialog_VestingAccount dialog = Dialog_VestingAccount.newInstance(null);
+            dialog.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        }
     }
 
     @Override
@@ -179,6 +188,10 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         }
     }
 
+    @Override
+    public void onCancelWithVesting() {
+        onBackPressed();
+    }
 
     public void onStartRedelegate() {
         Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
