@@ -969,6 +969,15 @@ public class WUtil {
         return result;
     }
 
+    public static Validator selectValidatorByAddr(ArrayList<Validator> validators, String opAddr) {
+        for (Validator v:validators) {
+            if (v.operator_address.equals(opAddr)) {
+                return v;
+            }
+        }
+        return null;
+    }
+
 
     public static int getCMCId(BaseChain chain) {
         if (chain.equals(BaseChain.COSMOS_MAIN)) {

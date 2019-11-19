@@ -439,6 +439,26 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 } else if (mResTxInfo.tx.value.msg.get(0).type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW)) {
                     mRewardFrom.setText(mResTxInfo.tx.value.msg.get(0).value.validator_addr);
                 }
+
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                mTvTxHash.setText(mResTxInfo.txhash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_KAVA)) {
+                        mRewardFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+                String from = "";
+                for(Msg msg: mResTxInfo.tx.value.msg) {
+                    if(TextUtils.isEmpty(from)) {
+                        from = msg.value.validator_address;
+                    } else {
+                        from = from + "\n" + msg.value.validator_address;
+                    }
+                }
+                mRewardFrom.setText(from);
+
             }
             mRewardMemo.setText(mResTxInfo.tx.value.memo);
             mBtnDismiss.setVisibility(View.GONE);

@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdSingleUnBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdValidators;
+import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -73,9 +74,11 @@ public interface KavaChain {
     @GET("/staking/redelegations")
     Call<ResLcdRedelegate> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
 
-
     @GET("/staking/redelegations")
     Call<ResLcdRedelegate> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
+
+    @GET("/distribution/delegators/{address}/withdraw_address")
+    Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
 
     @GET("/gov/proposals")
     Call<ResLcdProposals> getProposalList();

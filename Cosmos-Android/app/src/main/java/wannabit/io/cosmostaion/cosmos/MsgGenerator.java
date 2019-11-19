@@ -111,7 +111,7 @@ public class MsgGenerator {
     public static Msg genWithdrawDeleMsg(String requestAddr, String fromValAddr, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
             value.delegator_address = requestAddr;
             value.validator_address = fromValAddr;
 

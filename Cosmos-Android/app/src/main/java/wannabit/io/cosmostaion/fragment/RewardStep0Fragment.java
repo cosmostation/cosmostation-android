@@ -71,7 +71,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) ||  getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));

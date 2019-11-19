@@ -153,6 +153,34 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             }
             mGasFeeAmount.setText(WDp.getDpString(WDp.attoToIris(mFeeAmount).setScale(6).toPlainString(), 6));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_kava));
+
+            //TODO need more gas than cosmos
+//            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));
+//            mEstimateGasAmount = new BigDecimal(rewardGasFees.get(getSActivity().mValidators.size() - 1));
+//
+//            mGasAmount.setText(mEstimateGasAmount.toPlainString());
+//            mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
+//            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+
+            mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_AVERAGE);
+            mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_AVERAGE).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(8, RoundingMode.DOWN);
+            }
+            mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
         }
 
         return rootView;
@@ -197,6 +225,20 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
                 fee.amount = amount;
                 fee.gas = mEstimateGasAmount.toPlainString();
                 getSActivity().mRewardFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = BaseConstant.COSMOS_KAVA;
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                //TODO need more gas than cosmos
+//                fee.gas = mEstimateGasAmount.toPlainString();
+                fee.gas = BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
+                getSActivity().mRewardFee = fee;
+
             }
             getSActivity().onNextStep();
 
@@ -269,7 +311,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
         }
 
-        if(mFeeAmount.compareTo(mAvailable) > 0) {
+        if (mFeeAmount.compareTo(mAvailable) > 0) {
             Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
             mSeekBarGas.setProgress(mSeekBarGas.getProgress() - 1);
             onUpdateFeeLayer();

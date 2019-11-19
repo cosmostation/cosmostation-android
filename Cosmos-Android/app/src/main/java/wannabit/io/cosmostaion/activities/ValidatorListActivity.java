@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -36,6 +37,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
 
@@ -68,6 +70,8 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         mRewards = getIntent().getParcelableArrayListExtra("rewards");
         mIrisPool = getIntent().getParcelableExtra("irispool");
         mIrisReward = getIntent().getParcelableExtra("irisreward");
+        mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
+        WLog.w("mBondings "+mBondings.size());
 
         for (Validator v: mMyValidators){
             mAllValidators.add(v);
@@ -161,25 +165,25 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            for(Validator validator:mAllValidators) {
-                for(BondingState bond:mBondings) {
-                    if(bond.validatorAddress.equals(validator.operator_address) &&
-                            WDp.getValidatorReward(mRewards, validator.operator_address, COSMOS_ATOM).compareTo(new BigDecimal("1")) >= 0) {
-                        mMyValidators.add(validator);
-                        break;
+            BigDecimal rewardSum = BigDecimal.ZERO;
+            for (BondingState bond:mBondings) {
+                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_ATOM).compareTo(new BigDecimal("1")) >= 0) {
+                    if(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
+                        toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
+                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_ATOM));
                     }
                 }
             }
-            if (mMyValidators.size() == 0) {
+
+            if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            WUtil.onSortByOnlyReward(mMyValidators, mRewards, COSMOS_ATOM);
-            if (mMyValidators.size() < 17) {
-                toClaimValidators = mMyValidators;
-            } else {
+            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, COSMOS_ATOM);
+            if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(mMyValidators.subList(0,16));
+                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
             }
 
             ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
@@ -194,17 +198,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (Reward reward:mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
-            }
             if (rewardSum.compareTo(new BigDecimal("1")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
-            }
-
-            if (mMyValidators.size() > 16) {
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
             }
 
 
@@ -222,7 +218,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 }
             }
 
-            if(toClaimValidators.size() == 0) {
+            if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -259,9 +255,59 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            //TODO KAVA claim reward all disable!
             Toast.makeText(getBaseContext(), R.string.error_real_testing, Toast.LENGTH_SHORT).show();
             return;
+//            if (mRewards == null) {
+//                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            BigDecimal rewardSum = BigDecimal.ZERO;
+//            for (BondingState bond:mBondings) {
+//                if (WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_KAVA).compareTo(new BigDecimal("1")) >= 0) {
+//                    if(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress) != null) {
+//                        toClaimValidators.add(WUtil.selectValidatorByAddr(mMyValidators, bond.validatorAddress));
+//                        rewardSum = rewardSum.add(WDp.getValidatorReward(mRewards, bond.validatorAddress, COSMOS_KAVA));
+//                    }
+//                }
+//            }
+//
+//            if (toClaimValidators.size() == 0) {
+//                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            WUtil.onSortByOnlyReward(toClaimValidators, mRewards, COSMOS_KAVA);
+//            if (toClaimValidators.size() >= 17) {
+//                toClaimValidators = new ArrayList<>(toClaimValidators.subList(0,16));
+//                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));
+//            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
+//            BigDecimal estimateFee = estimateGasAmount.multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+//
+//            WLog.w("rewardSum " + rewardSum);
+//            WLog.w("estimateGasAmount " + estimateGasAmount);
+//            WLog.w("estimateFee " + estimateFee);
+//
+//            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+//            boolean hasbalance = false;
+//            for (Balance balance:balances) {
+//                if(balance.symbol.equals(COSMOS_KAVA) && ((balance.balance.compareTo(estimateFee)) >= 0)) {
+//                    hasbalance  = true;
+//                }
+//            }
+//            if (!hasbalance){
+//                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward_all, Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//
+//            if (rewardSum.compareTo(estimateFee) <= 0) {
+//                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+//                return;
+//            }
 
         }
 
