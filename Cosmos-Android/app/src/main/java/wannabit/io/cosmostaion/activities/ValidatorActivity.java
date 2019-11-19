@@ -503,6 +503,24 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasbalance  = true;
                 }
             }
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("6250")) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            for (Balance balance:balances) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("6250"))) >= 0)) {
+                    hasbalance  = true;
+                }
+            }
+
         }
 
         if (!hasbalance) {

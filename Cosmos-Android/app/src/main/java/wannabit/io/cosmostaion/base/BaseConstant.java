@@ -231,6 +231,9 @@ public class BaseConstant {
     public final static String                  FEE_GAS_AMOUNT_REINVEST                         = "220000";
 
 
+    public final static String                  FEE_KAVA_GAS_AMOUNT_REINVEST                    = "250000";
+
+
     public final static String                  FEE_IRIS_GAS_RATE_AVERAGE                       = "0.000008";
 
     public final static String                  FEE_IRIS_GAS_AMOUNT_SEND                        = "25000";
