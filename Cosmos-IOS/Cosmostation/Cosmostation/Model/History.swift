@@ -70,7 +70,6 @@ public class History {
             }
             
             if let logs = dictionary["logs"] as? Array<NSDictionary> {
-//                print("log Array ", logs.count, "   ", logs)
                 for log in logs {
                     if let success = log.object(forKey: "success") as? Bool {
                         if(!success) {
@@ -81,9 +80,8 @@ public class History {
                 }
             }
             
-            if let log = dictionary["log"] as? NSDictionary {
-//                print("log NSDictionary ", log)
-                if let code = log.object(forKey: "code") as? Int {
+            if let logs = dictionary["logs"] as? NSDictionary {
+                if let code = logs.object(forKey: "code") as? Int {
                     if(code > -1) {
                         self.allResult = false
                         return;
