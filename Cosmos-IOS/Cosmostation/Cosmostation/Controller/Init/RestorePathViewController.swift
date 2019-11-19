@@ -142,17 +142,13 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                let info = responseData.object(forKey: "result") as? [String : Any] else {
-                                    return
+                            guard let info = res as? [String : Any] else {
+                                return
                             }
-                            let accountInfo = KavaAccountInfo.init(info)
-                            if (accountInfo.result.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.result.value?.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.result.value?.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-                                
-                            } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT && accountInfo.result.value?.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.result.value?.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-                            }
+                            let tempAccount = Account.init(isNew: true)
+                            tempAccount.account_id = -1
+                            let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info))
+                            cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, KAVA_MAIN_DENOM, ChainType.SUPPORT_CHAIN_KAVA_MAIN)
                             
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
@@ -266,7 +262,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             DispatchQueue.main.async(execute: {
                 self.hideWaittingAlert()
                 if(keyResult && updateResult > 0) {
-                    BaseData.instance.setRecentAccountId(updateResult)
+                    BaseData.instance.setRecentAccountId(existedAccount!.account_id)
                     self.onStartMainTab()
                 } else {
                     //TODO Error control
