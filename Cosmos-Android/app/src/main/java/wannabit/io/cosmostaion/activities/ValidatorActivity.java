@@ -220,7 +220,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("6250"))) > 0)) {
                     hasbalance  = true;
                 }
             }
@@ -298,7 +298,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("6000"))) > 0)) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("6250"))) > 0)) {
                     hasbalance  = true;
                 }
             }
@@ -369,7 +369,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("6250"))) > 0)) {
                     hasbalance  = true;
                 }
             }
@@ -436,13 +436,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("2500")) <= 0) {
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("5000")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("2500"))) > 0)) {
+                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
                     hasbalance  = true;
                 }
             }
@@ -510,13 +510,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("6250")) <= 0) {
+            if (new BigDecimal(mReward.amount.get(0).amount).compareTo(new BigDecimal("7500")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("6250"))) >= 0)) {
+                if(balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("7500"))) >= 0)) {
                     hasbalance  = true;
                 }
             }

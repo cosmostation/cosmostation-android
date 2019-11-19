@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 public class BaseConstant {
     public final static boolean                 IS_SHOWLOG                                      = true;
     public final static boolean                 IS_TEST                                         = false;
-    public final static boolean                 IS_FEE_FREE 					                = true;
+    public final static boolean                 IS_FEE_FREE 					                = false;
     public final static String                  LOG_TAG                                         = "Cosmostation";
 
     public final static String                  DB_NAME			                                = "WannaBit";
@@ -231,7 +231,9 @@ public class BaseConstant {
     public final static String                  FEE_GAS_AMOUNT_REINVEST                         = "220000";
 
 
-    public final static String                  FEE_KAVA_GAS_AMOUNT_REINVEST                    = "250000";
+    public final static String                  FEE_KAVA_GAS_AMOUNT_REWARD                      = "200000";
+    public final static String                  FEE_KAVA_GAS_AMOUNT_AVERAGE                     = "250000";
+    public final static String                  FEE_KAVA_GAS_AMOUNT_REINVEST                    = "300000";
 
 
     public final static String                  FEE_IRIS_GAS_RATE_AVERAGE                       = "0.000008";

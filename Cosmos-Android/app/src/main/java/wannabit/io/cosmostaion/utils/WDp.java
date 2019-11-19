@@ -989,7 +989,7 @@ public class WDp {
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
-            if(chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.IRIS_MAIN)) {
+            if(chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.IRIS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 21);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));

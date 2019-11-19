@@ -152,9 +152,9 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_kava));
 
-            mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_REDELEGATE);
+            mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE);
             mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_REDELEGATE).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+            mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
             if (getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -212,7 +212,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_GAS_AMOUNT_REDELEGATE;
+                fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE;
                 getSActivity().mReDelegateFee = fee;
 
             }

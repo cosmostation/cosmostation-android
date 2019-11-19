@@ -170,9 +170,9 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
 //            mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
 //            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
 
-            mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_AVERAGE);
+            mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_REWARD);
             mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_AVERAGE).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+            mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_REWARD).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -236,7 +236,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
                 fee.amount = amount;
                 //TODO need more gas than cosmos
 //                fee.gas = mEstimateGasAmount.toPlainString();
-                fee.gas = BaseConstant.FEE_GAS_AMOUNT_AVERAGE;
+                fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_REWARD;
                 getSActivity().mRewardFee = fee;
 
             }
