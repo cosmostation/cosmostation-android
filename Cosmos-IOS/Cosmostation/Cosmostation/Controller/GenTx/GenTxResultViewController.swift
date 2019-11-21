@@ -114,7 +114,6 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var loadingImgs: LoadingImageView!
     
-    var mChain: ChainType?
     var mTxType: String?
     var mTxHash: String?
     var mTxInfo: TxInfo?
@@ -123,21 +122,21 @@ class GenTxResultViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mChain = WUtils.getChainType(BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())!.account_base_chain)
-        WUtils.setDenomTitle(mChain!, sendDenomAmount)
-        WUtils.setDenomTitle(mChain!, sendDenomFee)
-        WUtils.setDenomTitle(mChain!, delegateDenomAmount)
-        WUtils.setDenomTitle(mChain!, delegateDenomFee)
-        WUtils.setDenomTitle(mChain!, undelegateDenomAmount)
-        WUtils.setDenomTitle(mChain!, undelegateDenomFee)
-        WUtils.setDenomTitle(mChain!, redelegateDenomAmount)
-        WUtils.setDenomTitle(mChain!, redelegateDenomFee)
-        WUtils.setDenomTitle(mChain!, rewardDenomFee)
-        WUtils.setDenomTitle(mChain!, addressChangeDenomFee)
-        WUtils.setDenomTitle(mChain!, reInvestDenomDelegate)
-        WUtils.setDenomTitle(mChain!, reInvestDenomFee)
+        chainType = WUtils.getChainType(BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())!.account_base_chain)
+        WUtils.setDenomTitle(chainType!, sendDenomAmount)
+        WUtils.setDenomTitle(chainType!, sendDenomFee)
+        WUtils.setDenomTitle(chainType!, delegateDenomAmount)
+        WUtils.setDenomTitle(chainType!, delegateDenomFee)
+        WUtils.setDenomTitle(chainType!, undelegateDenomAmount)
+        WUtils.setDenomTitle(chainType!, undelegateDenomFee)
+        WUtils.setDenomTitle(chainType!, redelegateDenomAmount)
+        WUtils.setDenomTitle(chainType!, redelegateDenomFee)
+        WUtils.setDenomTitle(chainType!, rewardDenomFee)
+        WUtils.setDenomTitle(chainType!, addressChangeDenomFee)
+        WUtils.setDenomTitle(chainType!, reInvestDenomDelegate)
+        WUtils.setDenomTitle(chainType!, reInvestDenomFee)
         
-        if (mChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             guard let txType = response?["type"] as? String, let txHash = response?["txhash"] as? String  else {
                 self.onStartMainTab()
                 return
@@ -150,7 +149,7 @@ class GenTxResultViewController: BaseViewController {
                 return
             }
             
-        } else if (mChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if let net_error = response?["net_error"] as? Int {
                 onShowErrorView(net_error)
                 return
@@ -168,7 +167,7 @@ class GenTxResultViewController: BaseViewController {
                 return
             }
             
-        } else if (mChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             guard let txType = response?["type"] as? String, let txHash = response?["hash"] as? String  else {
                 self.onStartMainTab()
                 return
@@ -206,27 +205,28 @@ class GenTxResultViewController: BaseViewController {
             self.loadingView.isHidden = true
             delegateResultType.text = NSLocalizedString("tx_delegate", comment: "")
             
-            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 delegateResultHash.text = mTxInfo?.txhash
                 delegateResultBlock.text = mTxInfo?.height
                 delegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
                 
-                delegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmount()?.amount)!, delegateResultAmount.font, 6, self.mChain!)
-                delegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 6, self.mChain!)
+                delegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmount()?.amount)!, delegateResultAmount.font, 6, self.chainType!)
+                delegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 6, self.chainType!)
                 delegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
                 delegateResultValAddress.adjustsFontSizeToFitWidth = true
                 delegateResultMemo.text = mTxInfo?.tx.value.memo
                 
-            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 delegateResultHash.text = mTxInfo?.hash
                 delegateResultBlock.text = mTxInfo?.height
                 delegateResultTime.text = "-"
                 
-                delegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.delegation?.amount)!, delegateResultAmount.font, 18, self.mChain!)
-                delegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.mChain!)
+                delegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.delegation?.amount)!, delegateResultAmount.font, 18, self.chainType!)
+                delegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.chainType!)
                 delegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_addr
                 delegateResultValAddress.adjustsFontSizeToFitWidth = true
                 delegateResultMemo.text = mTxInfo?.tx.value.memo
+                
             }
             
         } else if (mTxType == COSMOS_MSG_TYPE_UNDELEGATE2 || mTxType == IRIS_MSG_TYPE_UNDELEGATE) {
@@ -234,24 +234,24 @@ class GenTxResultViewController: BaseViewController {
             self.loadingView.isHidden = true
             undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
             
-            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 undelegateResultHash.text = mTxInfo?.txhash
                 undelegateResultBlock.text = mTxInfo?.height
                 undelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
                 
-                undelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmount()?.amount)!, undelegateResultAmount.font, 6, self.mChain!)
-                undelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, undelegateResultFee.font, 6, self.mChain!)
+                undelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmount()?.amount)!, undelegateResultAmount.font, 6, self.chainType!)
+                undelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, undelegateResultFee.font, 6, self.chainType!)
                 undelegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
                 undelegateResultValAddress.adjustsFontSizeToFitWidth = true
                 undelegateResultMemo.text = mTxInfo?.tx.value.memo
                 
-            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 undelegateResultHash.text = mTxInfo?.hash
                 undelegateResultBlock.text = mTxInfo?.height
                 undelegateResultTime.text = "-"
                 
-                undelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.shares_amount)!, undelegateResultAmount.font, 18, self.mChain!)
-                undelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, undelegateResultFee.font, 18, self.mChain!)
+                undelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.shares_amount)!, undelegateResultAmount.font, 18, self.chainType!)
+                undelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, undelegateResultFee.font, 18, self.chainType!)
                 undelegateResultValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_addr
                 undelegateResultValAddress.adjustsFontSizeToFitWidth = true
                 undelegateResultMemo.text = mTxInfo?.tx.value.memo
@@ -262,26 +262,26 @@ class GenTxResultViewController: BaseViewController {
             self.loadingView.isHidden = true
             redelegateResultType.text = NSLocalizedString("tx_redelegate", comment: "")
             
-            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 redelegateResultHash.text = mTxInfo?.txhash
                 redelegateResultBlock.text = mTxInfo?.height
                 redelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
                 
-                redelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmounts()![0].amount)!, redelegateResultAmount.font, 6, self.mChain!)
-                redelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, redelegateResultFee.font, 6, self.mChain!)
+                redelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmounts()![0].amount)!, redelegateResultAmount.font, 6, self.chainType!)
+                redelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, redelegateResultFee.font, 6, self.chainType!)
                 redelegateResultFromValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_src_address
                 redelegateResultFromValAddress.adjustsFontSizeToFitWidth = true
                 redelegateResultToValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_dst_address
                 redelegateResultToValAddress.adjustsFontSizeToFitWidth = true
                 redelegateResultMemo.text = mTxInfo?.tx.value.memo
                 
-            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 redelegateResultHash.text = mTxInfo?.hash
                 redelegateResultBlock.text = mTxInfo?.height
                 redelegateResultTime.text = "-"
                 
-                redelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.shares_amount)!, redelegateResultAmount.font, 18, self.mChain!)
-                redelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.mChain!)
+                redelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.shares_amount)!, redelegateResultAmount.font, 18, self.chainType!)
+                redelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.chainType!)
                 redelegateResultFromValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_src_addr
                 redelegateResultFromValAddress.adjustsFontSizeToFitWidth = true
                 redelegateResultToValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_dst_addr
@@ -295,29 +295,29 @@ class GenTxResultViewController: BaseViewController {
             self.loadingView.isHidden = true
             sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
             
-            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 sendResultHash.text = mTxInfo?.txhash
                 sendResultBlock.text = mTxInfo?.height
                 sendResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
                 
-                sendResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmounts()![0].amount)!, sendResultAmount.font, 6, self.mChain!)
-                sendResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, sendResultFee.font, 6, self.mChain!)
+                sendResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmounts()![0].amount)!, sendResultAmount.font, 6, self.chainType!)
+                sendResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, sendResultFee.font, 6, self.chainType!)
                 sendResultToAddress.text = mTxInfo?.tx.value.msg[0].value.to_address
                 sendResultToAddress.adjustsFontSizeToFitWidth = true
                 sendResultMemo.text = mTxInfo?.tx.value.memo
                 
-            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 sendResultHash.text = mTxInfo?.hash
                 sendResultBlock.text = mTxInfo?.height
                 sendResultTime.text = "-"
                 
-                sendResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.inputs![0].coins[0].amount)!, sendResultAmount.font, 18, self.mChain!)
-                sendResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.mChain!)
+                sendResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.inputs![0].coins[0].amount)!, sendResultAmount.font, 18, self.chainType!)
+                sendResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, delegateResultFee.font, 18, self.chainType!)
                 sendResultToAddress.text = mTxInfo?.tx.value.msg[0].value.outputs![0].address
                 sendResultToAddress.adjustsFontSizeToFitWidth = true
                 sendResultMemo.text = mTxInfo?.tx.value.memo
                 
-            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 sendResultHash.text = mTxInfo?.hash
                 sendResultBlock.text = mTxInfo?.height
                 sendResultTime.text = "-"
@@ -340,7 +340,7 @@ class GenTxResultViewController: BaseViewController {
             self.rewardResultView.isHidden = false
             self.loadingView.isHidden = true
             
-            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 rewardResultType.text = NSLocalizedString("tx_get_reward", comment: "")
                 rewardResultHash.text = mTxInfo?.txhash
                 rewardResultBlock.text = mTxInfo?.height
@@ -357,12 +357,12 @@ class GenTxResultViewController: BaseViewController {
                 rewardResultFromValAddress.adjustsFontSizeToFitWidth = true
                 rewardResultMemo.text = mTxInfo?.tx.value.memo
                 
-            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 rewardResultHash.text = mTxInfo?.hash
                 rewardResultBlock.text = mTxInfo?.height
                 rewardResultTime.text = "-"
                 
-                rewardResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, rewardResultFee.font, 18, self.mChain!)
+                rewardResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, rewardResultFee.font, 18, self.chainType!)
                 if (mTxInfo?.tx.value.msg[0].type == IRIS_MSG_TYPE_WITHDRAW_ALL) {
                     rewardResultType.text = NSLocalizedString("tx_get_reward_all", comment: "")
                     rewardResultFromValAddress.text = NSLocalizedString("from_all_my_val", comment: "")
@@ -379,22 +379,22 @@ class GenTxResultViewController: BaseViewController {
             self.addressChangeResultView.isHidden = false
             self.loadingView.isHidden = true
             addressChangeResultType.text = NSLocalizedString("tx_change_reward_address", comment: "")
-            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 addressChangeResultHash.text = mTxInfo?.txhash
                 addressChangeResultBlock.text = mTxInfo?.height
                 addressChangeResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
                 
-                addressChangeResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, addressChangeResultFee.font, 6, self.mChain!)
+                addressChangeResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, addressChangeResultFee.font, 6, self.chainType!)
                 addressChangeResultAddress.text = mTxInfo?.tx.value.msg[0].value.withdraw_address
                 addressChangeResultAddress.adjustsFontSizeToFitWidth = true
                 addressChangeResultMemo.text = mTxInfo?.tx.value.memo
                 
-            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 addressChangeResultHash.text = mTxInfo?.hash
                 addressChangeResultBlock.text = mTxInfo?.height
                 addressChangeResultTime.text = "-"
                 
-                addressChangeResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, addressChangeResultFee.font, 18, self.mChain!)
+                addressChangeResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, addressChangeResultFee.font, 18, self.chainType!)
                 addressChangeResultAddress.text = mTxInfo?.tx.value.msg[0].value.withdraw_addr
                 addressChangeResultAddress.adjustsFontSizeToFitWidth = true
                 addressChangeResultMemo.text = mTxInfo?.tx.value.memo
@@ -405,25 +405,25 @@ class GenTxResultViewController: BaseViewController {
             self.reInvestResultView.isHidden = false
             self.loadingView.isHidden = true
             reInvestResultType.text = NSLocalizedString("tx_reinvest", comment: "")
-            if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 reInvestResultHash.text = mTxInfo?.txhash
                 reInvestResultTime.text = mTxInfo?.height
                 reInvestResultBlock.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
                 
                 
-                reInvestResultDelegateAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[1].value.getAmount()?.amount)!, reInvestResultDelegateAmount.font, 6, self.mChain!)
-                reInvestResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, reInvestResultFee.font, 6, self.mChain!)
+                reInvestResultDelegateAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[1].value.getAmount()?.amount)!, reInvestResultDelegateAmount.font, 6, self.chainType!)
+                reInvestResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, reInvestResultFee.font, 6, self.chainType!)
                 reInvestValidatorAddress.text = mTxInfo?.tx.value.msg[0].value.validator_address
                 reInvestValidatorAddress.adjustsFontSizeToFitWidth = true
                 reInvestResultMemo.text = mTxInfo?.tx.value.memo
                 
-            } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 reInvestResultHash.text = mTxInfo?.hash
                 reInvestResultTime.text = mTxInfo?.height
                 reInvestResultBlock.text = "-"
                 
-                reInvestResultDelegateAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[1].value.delegation?.amount)!, reInvestResultDelegateAmount.font, 18, self.mChain!)
-                reInvestResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, reInvestResultFee.font, 18, self.mChain!)
+                reInvestResultDelegateAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[1].value.delegation?.amount)!, reInvestResultDelegateAmount.font, 18, self.chainType!)
+                reInvestResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, reInvestResultFee.font, 18, self.chainType!)
                 reInvestValidatorAddress.text = mTxInfo?.tx.value.msg[0].value.validator_addr
                 reInvestValidatorAddress.adjustsFontSizeToFitWidth = true
                 reInvestResultMemo.text = mTxInfo?.tx.value.memo
@@ -441,45 +441,60 @@ class GenTxResultViewController: BaseViewController {
     }
     
     @IBAction func onClickExplorer(_ sender: UIButton) {
-        if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
-        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             guard let url = URL(string: "https://irishub.mintscan.io/txs/" + mTxInfo!.hash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
-        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             guard let url = URL(string: "https://explorer.binance.org/tx/" + mTxInfo!.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            guard let url = URL(string: "https://kava.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
     }
     
     @IBAction func onClickShare(_ sender: UIButton) {
-        if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
-        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let text = "https://irishub.mintscan.io/txs/" + mTxInfo!.hash
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
-        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             let text = "https://explorer.binance.org/tx/" + mTxInfo!.hash
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            let text = "https://kava.mintscan.io/txs/" + mTxInfo!.txhash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
         }
+        
+        
+        
         
     }
     
@@ -507,17 +522,22 @@ class GenTxResultViewController: BaseViewController {
     func onFetchTx(_ txHash: String) {
         var url = ""
         var request:DataRequest?
-        if (self.mChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             url = CSS_LCD_URL_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
-        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             url = IRIS_LCD_URL_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
-        } else if (self.mChain! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             url = BNB_URL_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            
         }
         request!.responseJSON { (response) in
             switch response.result {
@@ -540,7 +560,7 @@ class GenTxResultViewController: BaseViewController {
                 if(SHOW_LOG) {
                     print("onFetchTx failure", error)
                 }
-                if (self.mChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     self.fetchCnt = self.fetchCnt - 1
                     if(self.fetchCnt > 0) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6000), execute: {
@@ -549,7 +569,7 @@ class GenTxResultViewController: BaseViewController {
                     } else {
                         self.onShowMoreWait()
                     }
-                } else if (self.mChain! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                     self.fetchCnt = self.fetchCnt - 1
                     if(self.fetchCnt > 0) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500), execute: {

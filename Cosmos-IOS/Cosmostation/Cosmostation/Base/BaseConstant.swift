@@ -97,7 +97,8 @@ let KAVA_REWARD_FROM_VAL_TAIL           = "/rewards/";
 let KAVA_INFLATION                      = KAVA_URL + "minting/inflation";
 let KAVA_PROVISIONS                     = KAVA_URL + "minting/annual-provisions";
 let KAVA_STAKING_POOL                   = KAVA_URL + "staking/pool";
-let KAVA_BORAD_TX                       = KAVA_URL + "tx/broadcast";
+let KAVA_BORAD_TX                       = KAVA_URL + "txs";
+let KAVA_TX                             = KAVA_URL + "txs/";
 
 
 
@@ -119,7 +120,7 @@ let KEY_BASE_URL_USER_INFO              = KEY_BASE_URL + "_/api/1.0/user/lookup.
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
 let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
-let KAVA_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/";
+let KAVA_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
 
 //DB for Account
 let DB_ACCOUNT = Table("accnt")
@@ -299,6 +300,11 @@ let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
 
 
 let GAS_FEE_BNB_TRANSFER                    = "0.000375"
+
+
+let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
+let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"
+let KAVA_GAS_FEE_AMOUNT_REINVEST            = "300000"
 
 
 let COLOR_BG_GRAY                           = UIColor.init(hexString: "2E2E2E", alpha: 0.4)

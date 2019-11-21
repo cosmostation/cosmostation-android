@@ -717,15 +717,17 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mType = BNB_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            if (mainTabVC.mBalances.count > 0 && (NSDecimalNumber.init(string: mainTabVC.mBalances[0].balance_locked).compare(NSDecimalNumber.zero).rawValue > 0)) {
-                self.onShowToast(NSLocalizedString("error_kava_vesting_account", comment: ""))
-                return
-            }
-            if (self.mainTabVC.mAccount.getKavaBalance().compare(NSDecimalNumber.init(string: "2500")).rawValue  < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mType = KAVA_MSG_TYPE_TRANSFER
+//            if (mainTabVC.mBalances.count > 0 && (NSDecimalNumber.init(string: mainTabVC.mBalances[0].balance_locked).compare(NSDecimalNumber.zero).rawValue > 0)) {
+//                self.onShowToast(NSLocalizedString("error_kava_vesting_account", comment: ""))
+//                return
+//            }
+//            if (self.mainTabVC.mAccount.getKavaBalance().compare(NSDecimalNumber.init(string: "2500")).rawValue  < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+//                return
+//            }
+//            txVC.mType = KAVA_MSG_TYPE_TRANSFER
+            self.onShowToast(NSLocalizedString("error_send_disable", comment: ""))
+            return
         }
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

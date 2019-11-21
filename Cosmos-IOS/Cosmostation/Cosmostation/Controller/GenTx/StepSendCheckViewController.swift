@@ -181,7 +181,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
 //                    guard let responseData = res as? NSDictionary,
 //                        let info = responseData.object(forKey: "result") as? [String : Any] else {
 //                        _ = BaseData.instance.deleteBalance(account: account)
@@ -201,7 +201,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenSendTx()
                     
-                } else if (self.chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -213,9 +213,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenSendTx()
                     
-                } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    guard  let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))

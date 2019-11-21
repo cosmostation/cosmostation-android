@@ -13,7 +13,7 @@ class MsgGenerator {
     static func genDelegateMsg(_ fromAddress: String, _ toValAddress: String, _ amount: Coin, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             value.delegator_address = fromAddress
             value.validator_address = toValAddress
             let data = try? JSONEncoder().encode(amount)

@@ -59,7 +59,11 @@ class WUtils {
         } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT) {
             result.account_address = accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address
             result.account_sequence_number = Int64(accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.sequence)!
-            result.account_sequence_number = Int64(accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number)!
+            result.account_account_numner = Int64(accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.account_number)!
+        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
+            result.account_address = accountInfo.result.value!.PeriodicVestingAccount.BaseVestingAccount.BaseAccount.address
+            result.account_sequence_number = Int64(accountInfo.result.value!.BaseVestingAccount.BaseAccount.sequence)!
+            result.account_account_numner = Int64(accountInfo.result.value!.BaseVestingAccount.BaseAccount.account_number)!
         }
         return result
     }
@@ -1138,6 +1142,17 @@ class WUtils {
             }
         }
         return nil
+    }
+    
+    
+    static func getTokenAmount(_ balances:Array<Balance>?, _ symbol:String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        if (balances != nil) {
+            balances!.forEach({ (balance) in
+                result = result.adding(WUtils.stringToDecimal(balance.balance_amount))
+            })
+        }
+        return result
     }
     
     static func isBnbMArketToken(_ symbol:String) ->Bool {

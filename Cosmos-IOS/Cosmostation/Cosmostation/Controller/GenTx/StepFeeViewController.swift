@@ -38,8 +38,9 @@ class StepFeeViewController: BaseViewController {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
         WUtils.setDenomTitle(pageHolderVC.chainType!, feeTypeDenomLabel)
+        feeSlider.tintColor = WUtils.getChainColor(pageHolderVC.chainType!)
         
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             rewardAllGasAmounts = WUtils.getGasAmountForRewards()
             
             let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapFeeType(sender:)))
@@ -81,25 +82,6 @@ class StepFeeViewController: BaseViewController {
             self.minFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, minFeeAmountLabel.font, 8, pageHolderVC.chainType!)
             self.minFeePriceLabel.attributedText  = WUtils.dpBnbValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
             
-        }  else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            self.minFeeCardView.isHidden = true
-            self.rateFeeCardView.isHidden = false
-            
-            self.feeSlider.isHidden = true
-            self.feesLabels.isHidden = true
-            
-            self.speedImg.image = UIImage.init(named: "feeImg")
-            self.speedMsg.text = NSLocalizedString("fee_speed_kava_title", comment: "")
-            
-            let gasAmount = getEstimateGasAmount()
-            let gasRate = NSDecimalNumber.init(string: String(GAS_FEE_RATE_AVERAGE))
-            
-            self.rateFeeGasAmountLabel.text = gasAmount.stringValue
-            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 6)
-            feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
-            self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 6, pageHolderVC.chainType!)
-            self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
-            
         }
         
     }
@@ -110,6 +92,7 @@ class StepFeeViewController: BaseViewController {
         if(feeSlider.value == 0) {
             titleGas = NSLocalizedString("fee_description_title_0", comment: "")
             msgGas = NSLocalizedString("fee_description_msg_0", comment: "")
+            
         } else if (feeSlider.value == 1) {
             titleGas = NSLocalizedString("fee_description_title_1", comment: "")
             msgGas = NSLocalizedString("fee_description_msg_1", comment: "")
@@ -171,17 +154,6 @@ class StepFeeViewController: BaseViewController {
         var available   = NSDecimalNumber.zero
         var toSpend     = NSDecimalNumber.zero
         feeAmount       = NSDecimalNumber.zero
-        for balance in pageHolderVC.mBalances {
-            if(TESTNET) {
-                if(balance.balance_denom == "muon") {
-                    available = available.adding(WUtils.stringToDecimal(balance.balance_amount))
-                }
-            } else {
-                if(balance.balance_denom == "uatom") {
-                    available = available.adding(WUtils.stringToDecimal(balance.balance_amount))
-                }
-            }
-        }
         
         if (position == 0) {
             self.minFeeCardView.isHidden = false
@@ -221,12 +193,22 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, rateFeeAmountLabel.font, 6, pageHolderVC.chainType!)
         }
         
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (TESTNET) {
+                available = WUtils.getTokenAmount(pageHolderVC.mBalances, "muon");
+            } else {
+                available = WUtils.getTokenAmount(pageHolderVC.mBalances, COSMOS_MAIN_DENOM);
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            available = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM);
+        }
+        
         self.minFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
         self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
         
         toSpend = getSpendAmount()
         if(toSpend.adding(feeAmount).compare(available).rawValue > 0) {
-            print("111")
             self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
             return false
         }
@@ -289,20 +271,22 @@ class StepFeeViewController: BaseViewController {
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             if(NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
-            feeCoin = Coin.init(KAVA_MAIN_DENOM, feeAmount.stringValue)
-            var fee = Fee.init()
-            let estGas = getEstimateGasAmount().stringValue
-            fee.gas = estGas
-            
-            var estAmount: Array<Coin> = Array<Coin>()
-            estAmount.append(feeCoin)
-            fee.amount = estAmount
-            
-            pageHolderVC.mFee = fee
-            
-            self.beforeBtn.isUserInteractionEnabled = false
-            self.nextBtn.isUserInteractionEnabled = false
-            pageHolderVC.onNextPage()
+            if (self.updateView(Int(feeSlider!.value))) {
+                feeCoin = Coin.init(KAVA_MAIN_DENOM, feeAmount.stringValue)
+                var fee = Fee.init()
+                let estGas = getEstimateGasAmount().stringValue
+                fee.gas = estGas
+                
+                var estAmount: Array<Coin> = Array<Coin>()
+                estAmount.append(feeCoin)
+                fee.amount = estAmount
+                
+                pageHolderVC.mFee = fee
+                
+                self.beforeBtn.isUserInteractionEnabled = false
+                self.nextBtn.isUserInteractionEnabled = false
+                pageHolderVC.onNextPage()
+            }
         }
     }
     
@@ -315,7 +299,7 @@ class StepFeeViewController: BaseViewController {
     
     func getEstimateGasAmount() -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
                 
@@ -361,6 +345,27 @@ class StepFeeViewController: BaseViewController {
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
         
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
+            if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
+                
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
+                
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER) {
+                //not yet
+                
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                
+            } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                //only one
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+                
+            } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REINVEST))
+                
+            }
         }
         return result
     }

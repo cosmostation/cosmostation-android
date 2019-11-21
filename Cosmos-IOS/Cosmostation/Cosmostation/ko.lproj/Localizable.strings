@@ -128,6 +128,8 @@
 "wc_request_cancel_msg" = "\n내용을 확인하시고 결정해 주시기 바랍니다.\n\n주문 취소.";
 "wc_request_success" = "사인 성공";
 "wc_request_fail" = "사인 실패";
+"vesting_account" = "베스팅 계정";
+"vesting_account_msg" = "베스팅 계정으로 보입니다. 정확한 수량으로 위임 및 위임해재를 하시기 위해서 cli를 이용하시는것을 권장합니다.";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";
@@ -205,6 +207,7 @@
 "error_duple_address" = "이미 등록된 주소입니다.";
 "error_kava_yet" = "더 많은 테스트 후에 지원하겠습니다.";
 "error_kava_vesting_account" = "베스팅 계정입니다. 정확한 Tx를 위해 cli를 사용하세요.";
+"error_send_disable" = "아직 전송이 활성화 되지 않았습니다.";
 
 "alert_title_no_private_key" = "관찰 모드 지갑";
 "alert_msg_no_private_key" = "관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.";

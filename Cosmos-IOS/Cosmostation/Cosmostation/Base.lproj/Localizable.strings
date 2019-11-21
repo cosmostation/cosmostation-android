@@ -128,6 +128,8 @@
 "wc_request_cancel_msg" = "\nPlease check the contents and decide.\n\nCancel Order.";
 "wc_request_success" = "Tx Success!";
 "wc_request_fail" = "Tx Fail";
+"vesting_account" = "Vesting Account";
+"vesting_account_msg" = "Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.";
 
 
 "clear_all" = "Clear All";
@@ -202,6 +204,7 @@
 "error_iris_token_yet" = "Iris token sending will support soon!";
 "error_kava_yet" = "Support soon!";
 "error_kava_vesting_account" = "Vesting account. Please use cli for correct Tx.";
+"error_send_disable" = "Token transfer is locked.";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";

@@ -27,20 +27,16 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         
         userBalance = NSDecimalNumber.zero
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            for balance in pageHolderVC.mBalances {
-                if (balance.balance_denom == COSMOS_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber.one)
-                }
-            }
+            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, COSMOS_MAIN_DENOM).subtracting(NSDecimalNumber.one)
             availableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, availableAmountLabel.font, 6, pageHolderVC.chainType!)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            for balance in pageHolderVC.mBalances {
-                if (balance.balance_denom == IRIS_MAIN_DENOM) {
-                    userBalance = userBalance.adding(WUtils.stringToDecimal(balance.balance_amount)).subtracting(NSDecimalNumber(string: "400000000000000000"))
-                }
-            }
+            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, IRIS_MAIN_DENOM).subtracting(NSDecimalNumber(string: "400000000000000000"))
             availableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, availableAmountLabel.font, 18, pageHolderVC.chainType!)
+            
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM).subtracting(NSDecimalNumber.one)
+            availableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, availableAmountLabel.font, 6, pageHolderVC.chainType!)
         }
         print("userBalance ", userBalance)
         toDelegateAmountInput.delegate = self
@@ -48,6 +44,13 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         
         let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"))
         btn01.setTitle(dp, for: .normal)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
+            if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN &&
+                WUtils.stringToDecimal(self.pageHolderVC.mBalances[0].balance_locked) != NSDecimalNumber.zero) {
+                self.showVestingWarnning()
+            }
+        })
     }
     
     
@@ -63,7 +66,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             if (text.count == 0 && string.starts(with: ",")) { return false }
             
             
-            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 if let index = text.range(of: ".")?.upperBound {
                     if(text.substring(from: index).count > 5 && range.length == 0) {
                         return false
@@ -117,7 +120,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             return
         }
         
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
                 self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -128,6 +131,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
                 self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
             }
+            
         }
         self.toDelegateAmountInput.layer.borderColor = UIColor.white.cgColor
     }
@@ -137,7 +141,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
                 return false
             }
@@ -162,6 +166,8 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
                 coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 coin = Coin.init(IRIS_MAIN_DENOM, userInput.multiplying(by: 1000000000000000000).stringValue)
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                coin = Coin.init(KAVA_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
             }
             pageHolderVC.mToDelegateAmount = coin
             sender.isUserInteractionEnabled = false
@@ -220,7 +226,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
             toDelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -230,7 +236,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         self.onUIupdate()
     }
     @IBAction func onClickMax(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
             toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -250,5 +256,20 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
+    }
+    
+    func showVestingWarnning() {
+        let noticeAlert = UIAlertController(title: NSLocalizedString("vesting_account", comment: ""), message: NSLocalizedString("vesting_account_msg", comment: ""), preferredStyle: .alert)
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .destructive, handler: { _ in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(noticeAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+        
     }
 }
