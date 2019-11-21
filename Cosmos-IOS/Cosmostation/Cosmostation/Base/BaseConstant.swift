@@ -99,6 +99,7 @@ let KAVA_PROVISIONS                     = KAVA_URL + "minting/annual-provisions"
 let KAVA_STAKING_POOL                   = KAVA_URL + "staking/pool";
 let KAVA_BORAD_TX                       = KAVA_URL + "txs";
 let KAVA_TX                             = KAVA_URL + "txs/";
+let KAVA_REDELEGATION                   = KAVA_URL + "staking/redelegations";
 
 
 
@@ -304,6 +305,7 @@ let GAS_FEE_BNB_TRANSFER                    = "0.000375"
 
 let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
 let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"
+let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "300000"
 let KAVA_GAS_FEE_AMOUNT_REINVEST            = "300000"
 
 

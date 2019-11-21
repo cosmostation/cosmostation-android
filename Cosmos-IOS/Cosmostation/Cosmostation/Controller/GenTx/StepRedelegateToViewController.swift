@@ -81,6 +81,23 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                     }
                     cell!.valImg.image = image
                 }
+                
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                cell?.valPowerLabel.attributedText  =  WUtils.displayAmount(validator.tokens, cell!.valPowerLabel.font, 6, pageHolderVC.chainType!)
+                if (self.pageHolderVC.mStakingPool != nil && self.pageHolderVC.mProvision != nil) {
+                    let provisions = NSDecimalNumber.init(string: self.pageHolderVC.mProvision)
+                    let bonded_tokens = NSDecimalNumber.init(string: self.pageHolderVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
+                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell!.valCommissionLabel.font)
+                } else {
+                    cell?.valCommissionLabel.text = "?? %"
+                }
+                let url = KAVA_IMG_URL + validator.operator_address + ".png"
+                Alamofire.request(url, method: .get).responseImage { response  in
+                    guard let image = response.result.value else {
+                        return
+                    }
+                    cell!.valImg.image = image
+                }
             }
 
             cell?.rootCard.needBorderUpdate = false
@@ -127,6 +144,9 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 cell?.valCheckedImg.image = cell?.valCheckedImg.image?.withRenderingMode(.alwaysTemplate)
                 cell?.valCheckedImg.tintColor = COLOR_IRIS
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                cell?.valCheckedImg.image = cell?.valCheckedImg.image?.withRenderingMode(.alwaysTemplate)
+                cell?.valCheckedImg.tintColor = COLOR_KAVA
             }
             cell?.rootCard.backgroundColor = UIColor.clear
             cell?.rootCard.layer.borderWidth = 1
@@ -160,7 +180,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     @IBAction func onClickNext(_ sender: UIButton) {
         if(self.checkedValidator != nil && self.checkedValidator?.operator_address != nil) {
-            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 self.onFetchRedelegateState(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address, self.checkedValidator!.operator_address)
                 
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -192,21 +212,49 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     
     func onFetchRedelegateState(_ address: String, _ from: String, _ to: String) {
-        let request = Alamofire.request(CSS_LCD_URL_REDELEGATION, method: .get, parameters: ["delegator":address, "validator_from":from, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
+        var url: String?
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_REDELEGATION;
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_REDELEGATION;
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: ["delegator":address, "validator_from":from, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if let clearResult = res as? NSDictionary, let msg = clearResult["error"] as? String {
-                    if(clearResult["error"] != nil && msg.contains("no redelegation found")) {
-                        self.goNextPage()
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    if let clearResult = res as? NSDictionary, let msg = clearResult["error"] as? String {
+                        if(clearResult["error"] != nil && msg.contains("no redelegation found")) {
+                            self.goNextPage()
+                            return
+                        }
                     }
-                }
-                if let redelegateHistories = res as? Array<NSDictionary>, let entries = redelegateHistories[0]["entries"] as? Array<NSDictionary> {
-                    if(entries.count >= 7) {
-                        self.onShowToast(NSLocalizedString("error_redelegate_cnt_over", comment: ""))
+                    if let redelegateHistories = res as? Array<NSDictionary>, let entries = redelegateHistories[0]["entries"] as? Array<NSDictionary> {
+                        if (entries.count >= 7) {
+                            self.onShowToast(NSLocalizedString("error_redelegate_cnt_over", comment: ""))
+                        } else {
+                            self.goNextPage()
+                        }
+                    }
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    if let clearResult = res as? NSDictionary, let msg = clearResult["error"] as? String {
+                        if(clearResult["error"] != nil && msg.contains("no redelegation found")) {
+                            self.goNextPage()
+                            return
+                        }
+                    }
+                    if let responseData = res as? NSDictionary,
+                        let redelegateHistories = responseData.object(forKey: "result") as? Array<NSDictionary> {
+                        if (redelegateHistories.count >= 7) {
+                            self.onShowToast(NSLocalizedString("error_redelegate_cnt_over", comment: ""))
+                        } else {
+                            self.goNextPage()
+                        }
                     } else {
-                        self.goNextPage()
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
                     }
+                    
                 }
                 
             case .failure(let error):

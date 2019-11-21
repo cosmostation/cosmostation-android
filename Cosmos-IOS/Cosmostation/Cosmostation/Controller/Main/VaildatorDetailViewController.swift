@@ -929,20 +929,39 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchRedelegatedState(_ address: String, _ to: String) {
-        let request = Alamofire.request(CSS_LCD_URL_REDELEGATION, method: .get, parameters: ["delegator":address, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
+        var url: String?
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_REDELEGATION;
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_REDELEGATION;
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: ["delegator":address, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if let redelegateHistories = res as? Array<NSDictionary>, let entries = redelegateHistories[0]["entries"] as? Array<NSDictionary> {
-                    if(entries.count >= 0) {
-                        self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
+                if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    if let redelegateHistories = res as? Array<NSDictionary>, let entries = redelegateHistories[0]["entries"] as? Array<NSDictionary> {
+                        if(entries.count >= 0) {
+                            self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
+                        } else {
+                            self.onStartRedelegate()
+                        }
                     } else {
                         self.onStartRedelegate()
                     }
-                } else {
-                    self.onStartRedelegate()
-                    
+                } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    if let responseData = res as? NSDictionary,
+                        let redelegateHistories = responseData.object(forKey: "result") as? Array<NSDictionary> {
+                        if (redelegateHistories.count > 0) {
+                            self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
+                        } else {
+                            self.onStartRedelegate()
+                        }
+                    } else {
+                        self.onStartRedelegate()
+                    }
                 }
+                
             case .failure(let error):
                 print("onFetchRedelegatedState ", error)
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
@@ -1101,7 +1120,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1130,26 +1149,29 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             self.onShowToast(NSLocalizedString("error_not_redelegate", comment: ""))
             return
         }
-        
+
+        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "520000000000000000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "520000000000000000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             self.onFetchIrisRedelegateState(account!)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
-            return
+            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
+            
         }
     }
     
@@ -1159,7 +1181,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         txVC.mInflation = mInflation
         txVC.mProvision = mProvision
         txVC.mStakingPool = mStakingPool
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             txVC.mIrisStakePool = mIrisStakePool
