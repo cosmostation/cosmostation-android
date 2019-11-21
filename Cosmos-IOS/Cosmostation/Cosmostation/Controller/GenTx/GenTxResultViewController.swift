@@ -234,7 +234,7 @@ class GenTxResultViewController: BaseViewController {
             self.loadingView.isHidden = true
             undelegateResultType.text = NSLocalizedString("tx_undelegate", comment: "")
             
-            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 undelegateResultHash.text = mTxInfo?.txhash
                 undelegateResultBlock.text = mTxInfo?.height
                 undelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)

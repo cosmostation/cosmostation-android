@@ -1075,34 +1075,42 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             return
         }
         
+        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (mUnbondings.count >= 7) {
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
             }
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (mUnbondings.count >= 1) {
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
             }
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
-            return
+            if (mUnbondings.count >= 7) {
+                self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
+                return
+            }
+            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mTargetValidator = mValidator
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_UNDELEGATE
