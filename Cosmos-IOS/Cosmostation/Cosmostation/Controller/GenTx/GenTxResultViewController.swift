@@ -267,7 +267,7 @@ class GenTxResultViewController: BaseViewController {
                 redelegateResultBlock.text = mTxInfo?.height
                 redelegateResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)
                 
-                redelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmounts()![0].amount)!, redelegateResultAmount.font, 6, self.chainType!)
+                redelegateResultAmount.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.msg[0].value.getAmount()?.amount)!, redelegateResultAmount.font, 6, self.chainType!)
                 redelegateResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, redelegateResultFee.font, 6, self.chainType!)
                 redelegateResultFromValAddress.text = mTxInfo?.tx.value.msg[0].value.validator_src_address
                 redelegateResultFromValAddress.adjustsFontSizeToFitWidth = true
