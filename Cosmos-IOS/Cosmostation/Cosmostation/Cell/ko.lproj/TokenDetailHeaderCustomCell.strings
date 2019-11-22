@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "SYMBOL"; ObjectID = "0ix-SS-Cfs"; */
+"0ix-SS-Cfs.text" = "SYMBOL";
+
+/* Class = "UIButton"; normalTitle = "  SEND"; ObjectID = "6lj-4E-pVd"; */
+"6lj-4E-pVd.normalTitle" = "  송금하기";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "6tq-h6-KG4"; */
+"6tq-h6-KG4.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "9nd-sQ-sZ2"; */
+"9nd-sQ-sZ2.text" = "--";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "LNa-6J-FA2"; */
+"LNa-6J-FA2.text" = "토큰 이름";
+
+/* Class = "UILabel"; text = "Available"; ObjectID = "QNy-8A-Ifn"; */
+"QNy-8A-Ifn.text" = "사용 가능 수량";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "XxI-2x-AAq"; */
+"XxI-2x-AAq.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "ZtS-bm-FME"; */
+"ZtS-bm-FME.text" = "--";

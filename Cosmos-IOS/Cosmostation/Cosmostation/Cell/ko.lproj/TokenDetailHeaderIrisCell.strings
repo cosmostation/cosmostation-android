@@ -1,0 +1,36 @@
+
+/* Class = "UILabel"; text = "--"; ObjectID = "4pG-cF-Cb1"; */
+"4pG-cF-Cb1.text" = "--";
+
+/* Class = "UILabel"; text = "Available"; ObjectID = "KMq-9f-SfC"; */
+"KMq-9f-SfC.text" = "사용 가능 수량";
+
+/* Class = "UILabel"; text = "Unbonding"; ObjectID = "N0X-zj-ree"; */
+"N0X-zj-ree.text" = "위임 철회중인 수량";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "RJV-8I-ZUT"; */
+"RJV-8I-ZUT.text" = "--";
+
+/* Class = "UILabel"; text = "Reward"; ObjectID = "RWE-7V-ncC"; */
+"RWE-7V-ncC.text" = "이자량";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "SoK-A0-dyX"; */
+"SoK-A0-dyX.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "g6M-ef-hCR"; */
+"g6M-ef-hCR.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "hpQ-es-Jpe"; */
+"hpQ-es-Jpe.text" = "--";
+
+/* Class = "UILabel"; text = "Delegated"; ObjectID = "ldN-xK-rZC"; */
+"ldN-xK-rZC.text" = "위임된 수량";
+
+/* Class = "UIButton"; normalTitle = "  SEND"; ObjectID = "pHg-1C-Yty"; */
+"pHg-1C-Yty.normalTitle" = "  송금하기";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "sMH-fP-k00"; */
+"sMH-fP-k00.text" = "--";
+
+/* Class = "UILabel"; text = "IRIS"; ObjectID = "xeU-vm-h99"; */
+"xeU-vm-h99.text" = "IRIS";

@@ -1,0 +1,33 @@
+
+/* Class = "UIButton"; normalTitle = "  Deposite"; ObjectID = "0eI-uy-KLp"; */
+"0eI-uy-KLp.normalTitle" = "  디포짓하기";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "1Z2-rO-SPh"; */
+"1Z2-rO-SPh.text" = "--";
+
+/* Class = "UILabel"; text = "Reward"; ObjectID = "47H-Mt-pMB"; */
+"47H-Mt-pMB.text" = "이자량";
+
+/* Class = "UILabel"; text = "Available"; ObjectID = "6GT-jp-W1U"; */
+"6GT-jp-W1U.text" = "사용 가능 수량";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "H83-xW-qX2"; */
+"H83-xW-qX2.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "b12-mU-85f"; */
+"b12-mU-85f.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "b3v-p6-TFf"; */
+"b3v-p6-TFf.text" = "--";
+
+/* Class = "UILabel"; text = "Deposited"; ObjectID = "dg6-Zn-Ow4"; */
+"dg6-Zn-Ow4.text" = "디포짓 수량";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "mhh-Sg-VXL"; */
+"mhh-Sg-VXL.text" = "--";
+
+/* Class = "UIButton"; normalTitle = "  Name Service"; ObjectID = "qJm-pA-8yv"; */
+"qJm-pA-8yv.normalTitle" = "  네임 서비스";
+
+/* Class = "UILabel"; text = "IOV"; ObjectID = "uEO-Ij-3KM"; */
+"uEO-Ij-3KM.text" = "IOV";

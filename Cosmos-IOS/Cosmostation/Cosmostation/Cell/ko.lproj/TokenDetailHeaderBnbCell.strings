@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "--"; ObjectID = "LND-GM-RMr"; */
+"LND-GM-RMr.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "aQe-sZ-3RU"; */
+"aQe-sZ-3RU.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "aUW-3y-Pva"; */
+"aUW-3y-Pva.text" = "--";
+
+/* Class = "UILabel"; text = "Locked"; ObjectID = "cgm-Kd-4NO"; */
+"cgm-Kd-4NO.text" = "잠긴 수량";
+
+/* Class = "UILabel"; text = "Available"; ObjectID = "h03-8X-IdP"; */
+"h03-8X-IdP.text" = "사용 가능 수량";
+
+/* Class = "UILabel"; text = "BNB"; ObjectID = "kKD-B5-mYP"; */
+"kKD-B5-mYP.text" = "BNB";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "qTp-68-bUS"; */
+"qTp-68-bUS.text" = "--";
+
+/* Class = "UIButton"; normalTitle = "  SEND"; ObjectID = "zb2-7p-AbL"; */
+"zb2-7p-AbL.normalTitle" = "  송금하기";

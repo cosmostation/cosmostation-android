@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "Available"; ObjectID = "CoD-Q7-H9G"; */
+"CoD-Q7-H9G.text" = "사용 가능 수량";
+
+/* Class = "UIButton"; normalTitle = "  Wallet Connect"; ObjectID = "EPy-3i-rbp"; */
+"EPy-3i-rbp.normalTitle" = "  지갑 연결";
+
+/* Class = "UILabel"; text = "BNB"; ObjectID = "KmH-Wp-0hO"; */
+"KmH-Wp-0hO.text" = "BNB";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "df1-c1-OCz"; */
+"df1-c1-OCz.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "ejJ-K8-riI"; */
+"ejJ-K8-riI.text" = "--";
+
+/* Class = "UILabel"; text = "Locked"; ObjectID = "f13-iu-ZgX"; */
+"f13-iu-ZgX.text" = "잠긴 수량";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "fRg-DA-VLt"; */
+"fRg-DA-VLt.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "tcf-Me-1A3"; */
+"tcf-Me-1A3.text" = "--";

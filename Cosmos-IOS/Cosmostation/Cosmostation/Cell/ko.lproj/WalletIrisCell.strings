@@ -1,0 +1,39 @@
+
+/* Class = "UILabel"; text = "--"; ObjectID = "3bT-8v-XxM"; */
+"3bT-8v-XxM.text" = "--";
+
+/* Class = "UILabel"; text = "IRIS"; ObjectID = "8cm-n9-M21"; */
+"8cm-n9-M21.text" = "IRIS";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "GIb-Lu-7FJ"; */
+"GIb-Lu-7FJ.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "Q9k-3f-Yt1"; */
+"Q9k-3f-Yt1.text" = "--";
+
+/* Class = "UILabel"; text = "Reward"; ObjectID = "Zox-lr-39t"; */
+"Zox-lr-39t.text" = "이자량";
+
+/* Class = "UILabel"; text = "Available"; ObjectID = "cm8-V5-e9q"; */
+"cm8-V5-e9q.text" = "사용 가능 수량";
+
+/* Class = "UIButton"; normalTitle = "  Delegate"; ObjectID = "gCa-Va-kc7"; */
+"gCa-Va-kc7.normalTitle" = "  위임하기";
+
+/* Class = "UIButton"; normalTitle = "  Vote"; ObjectID = "gPy-C0-3Qt"; */
+"gPy-C0-3Qt.normalTitle" = "  투표하기";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "iID-wo-FgO"; */
+"iID-wo-FgO.text" = "--";
+
+/* Class = "UILabel"; text = "Delegated"; ObjectID = "ngR-Lz-EgW"; */
+"ngR-Lz-EgW.text" = "위임된 수량";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "qyA-qU-tKk"; */
+"qyA-qU-tKk.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "s6Z-OE-nx4"; */
+"s6Z-OE-nx4.text" = "--";
+
+/* Class = "UILabel"; text = "Unbonding"; ObjectID = "sY6-tQ-Kyx"; */
+"sY6-tQ-Kyx.text" = "위임 철회중인 수량";

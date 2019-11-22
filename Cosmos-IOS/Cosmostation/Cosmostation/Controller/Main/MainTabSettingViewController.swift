@@ -16,12 +16,11 @@ class MainTabSettingViewController: BaseViewController {
     @IBOutlet weak var titleChainName: UILabel!
     
     var mainTabVC: MainTabViewController!
-    var userChain: ChainType?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mainTabVC = (self.parent)?.parent as? MainTabViewController
-        self.userChain = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
+        chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         self.updateTitle()
     }
     
@@ -52,11 +51,11 @@ class MainTabSettingViewController: BaseViewController {
             titleWalletName.text = mainTabVC.mAccount.account_nick_name
         }
         
-        titleChainName.textColor = WUtils.getChainColor(userChain!)
-        if (userChain! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        titleChainName.textColor = WUtils.getChainColor(chainType!)
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Hub)"
-        } else if (userChain! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
