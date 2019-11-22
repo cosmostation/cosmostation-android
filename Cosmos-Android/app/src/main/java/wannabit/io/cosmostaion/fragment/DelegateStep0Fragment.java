@@ -178,7 +178,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, getSActivity().mBaseChain));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mMaxAvailable = getSActivity().mAccount.getKavaBalance().subtract(new BigDecimal("5000"));
+            mMaxAvailable = getSActivity().mAccount.getKavaBalance().subtract(BigDecimal.ONE);
             mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
 
         }

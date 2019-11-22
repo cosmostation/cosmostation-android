@@ -405,7 +405,7 @@
     <string name="str_delegated">Delegated</string>
     <string name="str_unbonding">Unbonding</string>
     <string name="str_reward">Reward</string>
-    <string name="str_get_reward">Reward</string>
+    <string name="str_get_reward">Delegate</string>
     <string name="str_vote_to">Vote</string>
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>

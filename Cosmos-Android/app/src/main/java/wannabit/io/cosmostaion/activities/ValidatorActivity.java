@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
@@ -207,22 +208,18 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) > 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
+
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) > 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+                hasbalance  = true;
             }
+
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("6250"))) > 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
         }
         if (!hasbalance) {
@@ -267,10 +264,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(new BigDecimal("1"))) > 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
             if (mRedelegates == null || mRedelegates.size() > 0) {
                 Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
@@ -280,10 +275,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("520000000000000000"))) > 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("520000000000000000")) > 0) {
+                hasbalance  = true;
             }
             if (mIrisRedelegateState != null && mIrisRedelegateState.size() > 0) {
                 for (ResLcdIrisRedelegate state:mIrisRedelegateState) {
@@ -297,10 +290,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("6250"))) > 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
             if (mRedelegates == null || mRedelegates.size() > 0) {
                 Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
@@ -355,23 +346,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+                hasbalance  = true;
             }
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("6250"))) > 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
         }
         if (!hasbalance) {
@@ -406,10 +391,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -423,10 +406,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+                hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
@@ -442,7 +423,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("5000"))) > 0)) {
+                if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
                     hasbalance  = true;
                 }
             }
@@ -481,10 +462,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -498,10 +477,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+                hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
@@ -515,10 +492,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("7500"))) >= 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
 
         }
