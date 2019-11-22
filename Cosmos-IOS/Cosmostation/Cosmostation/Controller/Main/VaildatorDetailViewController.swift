@@ -992,21 +992,24 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchRewardAddress(_ accountAddr: String) {
+        var url = ""
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            let url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
+            url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
+        }
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            request.responseString { (response) in
                 switch response.result {
                 case .success(let res):
-//                    guard let responseData = res as? NSDictionary,
-//                        let address = responseData.object(forKey: "result") as? String else {
-//                            self.onShowReInvsetFailDialog()
-//                            return;
-//                    }
                     //TODO rollback cosmos-hub2
                     guard let address = res as? String else {
-                            self.onShowReInvsetFailDialog()
-                            return;
+                        self.onShowReInvsetFailDialog()
+                        return;
                     }
 
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
@@ -1015,20 +1018,19 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     } else {
                         self.onShowReInvsetFailDialog()
                     }
+                    
                 case .failure(let error):
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
-            
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            let url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseString { (response) in
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-                    guard let address = res as? String else {
-                        self.onShowReInvsetFailDialog()
-                        return;
+                    guard let responseData = res as? NSDictionary,
+                        let address = responseData.object(forKey: "result") as? String else {
+                            self.onShowReInvsetFailDialog()
+                            return;
                     }
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
                     if(trimAddress == accountAddr) {
@@ -1036,6 +1038,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     } else {
                         self.onShowReInvsetFailDialog()
                     }
+                    
                 case .failure(let error):
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
@@ -1238,7 +1241,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
-            if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1285,6 +1288,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             self.onShowAddMenomicDialog()
             return
         }
+        
+        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (mRewards.count > 0) {
                 let rewardSum = WUtils.getAllRewardByDenom(mRewards, COSMOS_MAIN_DENOM)
@@ -1302,8 +1307,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "1")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1324,14 +1328,32 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
-            return
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, KAVA_MAIN_DENOM)
+                if(rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if(rewardSum.compare(NSDecimalNumber.one).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            
+            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
         self.onFetchRewardAddress(account!.account_address)
     }

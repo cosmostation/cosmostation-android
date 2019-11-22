@@ -38,7 +38,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             rewardLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 6, pageHolderVC.chainType!)
             feeLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 6, pageHolderVC.chainType!)
             
@@ -111,12 +111,21 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onFetchAccountInfo(_ account: Account) {
+
         self.showWaittingAlert()
+        var url: String?
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            let request = Alamofire.request(CSS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
+             url = CSS_LCD_URL_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_ACCOUNT_INFO + account.account_address
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
 //                    guard let responseData = res as? NSDictionary,
 //                        let info = responseData.object(forKey: "result") as? [String : Any] else {
 //                            _ = BaseData.instance.deleteBalance(account: account)
@@ -126,25 +135,17 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
 //                    }
                     //TODO rollback cosmos-hub2
                     guard let info = res as? [String : Any] else {
-                        _ = BaseData.instance.deleteBalance(account: account)
-                        self.hideWaittingAlert()
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                        return
+                            _ = BaseData.instance.deleteBalance(account: account)
+                            self.hideWaittingAlert()
+                            self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                            return
                     }
                     let accountInfo = AccountInfo.init(info)
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenReinvest()
-                case .failure( _):
-                    self.hideWaittingAlert()
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                }
-            }
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + account.account_address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -155,14 +156,26 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenReinvest()
-                case .failure( _):
-                    self.hideWaittingAlert()
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    guard let info = res as? [String : Any] else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.hideWaittingAlert()
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return
+                    }
+                    let accountInfo = KavaAccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
+                    self.onGenReinvest()
                 }
+                
+            case .failure( _):
+                self.hideWaittingAlert()
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
         }
     }
-    
     
     func onGenReinvest() {
         DispatchQueue.global().async {
@@ -175,7 +188,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
                 
                 var msgList = Array<Msg>()
-                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                     let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
                                                                  self.pageHolderVC.mTargetValidator!.operator_address,
                                                                  self.pageHolderVC.chainType!)
@@ -247,13 +260,16 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     print("params ", params)
-                    var url = "";
+                    var url: String?
                     if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                         url = CSS_LCD_URL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                         url = IRIS_LCD_URL_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                        url = KAVA_BORAD_TX
                     }
-                    let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+            
+                    let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.validate()
                     request.responseJSON { response in
                         var txResult = [String:Any]()

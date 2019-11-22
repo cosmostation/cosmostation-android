@@ -406,7 +406,7 @@ class GenTxResultViewController: BaseViewController {
             self.reInvestResultView.isHidden = false
             self.loadingView.isHidden = true
             reInvestResultType.text = NSLocalizedString("tx_reinvest", comment: "")
-            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 reInvestResultHash.text = mTxInfo?.txhash
                 reInvestResultTime.text = mTxInfo?.height
                 reInvestResultBlock.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)

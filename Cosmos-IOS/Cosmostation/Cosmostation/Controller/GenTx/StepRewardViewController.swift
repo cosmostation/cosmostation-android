@@ -152,6 +152,7 @@ class StepRewardViewController: BaseViewController {
                     }
                     let reward = Reward.init()
                     reward.reward_v_address = validatorAddr
+                    //TODO need prepare to multy denom rewards
                     for rawReward in rawRewards {
                         reward.reward_amount.append(Coin(rawReward as! [String : Any]))
                     }
@@ -173,9 +174,7 @@ class StepRewardViewController: BaseViewController {
                 }
                 
             case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchEachReward ", error)
-                }
+                if(SHOW_LOG) { print("onFetchEachReward ", error) }
             }
             self.onFetchFinished()
         }
@@ -194,9 +193,7 @@ class StepRewardViewController: BaseViewController {
                 self.pageHolderVC.mIrisRewards = IrisRewards(irisRewards as! [String : Any])
                 
             case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchIrisReward ", error)
-                }
+                if(SHOW_LOG) { print("onFetchIrisReward ", error) }
             }
             self.onFetchFinished()
         }
@@ -213,7 +210,6 @@ class StepRewardViewController: BaseViewController {
             url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        
         
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             request.responseString { (response) in
@@ -251,8 +247,6 @@ class StepRewardViewController: BaseViewController {
                 self.onFetchFinished()
             }
         }
-        
-        
         
     }
     
