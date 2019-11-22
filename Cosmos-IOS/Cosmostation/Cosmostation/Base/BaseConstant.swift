@@ -102,6 +102,7 @@ let KAVA_TX                             = KAVA_URL + "txs/";
 let KAVA_REDELEGATION                   = KAVA_URL + "staking/redelegations";
 let KAVA_REWARD_ADDRESS                 = KAVA_URL + "distribution/delegators/";
 let KAVA_REWARD_ADDRESS_TAIL            = "/withdraw_address";
+let KAVA_PROPOSALS                      = KAVA_URL + "gov/proposals";
 
 
 

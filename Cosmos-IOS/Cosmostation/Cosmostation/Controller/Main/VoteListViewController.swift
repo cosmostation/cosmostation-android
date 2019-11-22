@@ -70,8 +70,8 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             //TODO rollback cosmos-hub2
 //            cell?.proposalIdLabel.text = "# ".appending(proposal.id)
             cell?.proposalIdLabel.text = "# ".appending(proposal.proposal_id)
-            cell?.proposalTitleLabel.text = proposal.content?.value.title
-            cell?.proposalMsgLabel.text = proposal.content?.value.description
+            cell?.proposalTitleLabel.text = proposal.proposal_content?.value.title
+            cell?.proposalMsgLabel.text = proposal.proposal_content?.value.description
             cell?.proposalStateLabel.text = proposal.proposal_status
             if (proposal.proposal_status == "DepositPeriod") {
                 cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
@@ -101,6 +101,23 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else {
                 cell?.proposalStateImg.image = nil
             }
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            cell?.proposalIdLabel.text = "# ".appending(proposal.id)
+            cell?.proposalTitleLabel.text = proposal.content?.value.title
+            cell?.proposalMsgLabel.text = proposal.content?.value.description
+            cell?.proposalStateLabel.text = proposal.proposal_status
+            if (proposal.proposal_status == "DepositPeriod") {
+                cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
+            } else if (proposal.proposal_status == "VotingPeriod") {
+                cell?.proposalStateImg.image = UIImage.init(named: "votingImg")
+            } else if (proposal.proposal_status == "Rejected") {
+                cell?.proposalStateImg.image = UIImage.init(named: "rejectedImg")
+            } else if (proposal.proposal_status == "Passed") {
+                cell?.proposalStateImg.image = UIImage.init(named: "passedImg")
+            } else {
+                cell?.proposalStateImg.image = nil
+            }
         }
         return cell!
     }
@@ -121,6 +138,10 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            guard let url = URL(string: "https://kava.mintscan.io/proposals/" + proposal.proposal_id) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         }
     }
     
@@ -170,6 +191,26 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 self.onUpdateViews()
             }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            let url = KAVA_PROPOSALS;
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                            self.onUpdateViews()
+                            return
+                    }
+                    self.mProposals.removeAll()
+                    for proposal in proposals {
+                        self.mProposals.append(Proposal(proposal as! [String : Any]))
+                    }
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchProposals ", error) }
+                }
+                self.onUpdateViews()
+            }
         }
     }
     
@@ -186,6 +227,10 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             self.mProposals.sort{
                 return Int($0.value!.basicProposal!.proposal_id)! < Int($1.value!.basicProposal!.proposal_id)! ? false : true
+            }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            self.mProposals.sort{
+                return Int($0.id)! < Int($1.id)! ? false : true
             }
         }
     }

@@ -10,30 +10,31 @@ import Foundation
 
 //TODO rollback cosmos-hub2
 public class Proposal {
-//    var id: String = ""
+    var id: String = ""
     var proposal_id: String = ""
     var proposal_status: String = ""
-    var content: Content?
+    var content: ProposalContent?
+    var proposal_content: ProposalContent?
     var value: IrisValue?
     
     init() {}
     
     init(_ dictionary: [String: Any]) {
-//        self.id = dictionary["id"] as? String ?? ""
+        self.id = dictionary["id"] as? String ?? ""
         self.proposal_id = dictionary["proposal_id"] as? String ?? ""
         self.proposal_status = dictionary["proposal_status"] as? String ?? ""
-//        if let content = dictionary["content"] as? [String : Any] {
-//            self.content = Content.init(content)
-//        }
         if let content = dictionary["proposal_content"] as? [String : Any] {
-            self.content = Content.init(content)
+            self.proposal_content = ProposalContent.init(content)
+        }
+        if let content = dictionary["content"] as? [String : Any] {
+            self.content = ProposalContent.init(content)
         }
         if let irisValue = dictionary["value"] as? [String : Any] {
             self.value = IrisValue.init(irisValue)
         }
     }
     
-    public class Content {
+    public class ProposalContent {
         var type: String = ""
         var value: Value = Value.init()
         
