@@ -21,7 +21,7 @@
 "b1h-xY-buQ.text" = "전체 위임량";
 
 /* Class = "UILabel"; text = "Average Yield"; ObjectID = "eCp-SZ-dsD"; */
-"eCp-SZ-dsD.text" = "연 이율";
+"eCp-SZ-dsD.text" = "연 수익율";
 
 /* Class = "UILabel"; text = "Commission"; ObjectID = "emk-Tb-qGI"; */
 "emk-Tb-qGI.text" = "검증인 수수료";

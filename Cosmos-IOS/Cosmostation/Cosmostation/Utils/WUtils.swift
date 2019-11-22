@@ -1010,7 +1010,7 @@ class WUtils {
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == COSMOS_MAIN_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount))
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
                 }
             }
         }
@@ -1039,24 +1039,41 @@ class WUtils {
     
     static func getAllKava(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
+        
+        var checksum = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == KAVA_MAIN_DENOM) {
                 amount = stringToDecimal(balance.balance_amount)
+                checksum = stringToDecimal(balance.balance_amount)
             }
         }
+        print("checksum va " , checksum);
+        checksum = NSDecimalNumber.zero
+        
         for bonding in bondings {
             amount = amount.adding(bonding.getBondingAmount(validators))
+            checksum = checksum.adding(bonding.getBondingAmount(validators))
         }
+        print("checksum bond " , checksum);
+        checksum = NSDecimalNumber.zero
+        
         for unbonding in unbondings {
             amount = amount.adding(stringToDecimal(unbonding.unbonding_balance))
+            checksum = checksum.adding(stringToDecimal(unbonding.unbonding_balance))
         }
+        print("checksum unbond " , checksum);
+        checksum = NSDecimalNumber.zero
+        
         for reward in rewards {
             for coin in reward.reward_amount {
                 if (coin.denom == KAVA_MAIN_DENOM) {
-                    amount = amount.adding(stringToDecimal(coin.amount))
+                    amount = amount.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
+                    checksum = checksum.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
                 }
             }
         }
+        print("checksum reward " , checksum);
+        print("amount " , amount);
         return amount
     }
     

@@ -175,7 +175,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onSetMyValidatorItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
-        cell?.cardView.backgroundColor = WUtils.getChainBg(chainType!)
+//        cell?.cardView.backgroundColor = WUtils.getChainBg(chainType!)
         cell?.monikerName.text = self.mValidator!.description.moniker
         cell?.monikerName.adjustsFontSizeToFitWidth = true
         if(self.mValidator!.jailed) {

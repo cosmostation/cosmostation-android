@@ -43,7 +43,7 @@ public class IrisRewards {
         for delegation in delegations {
             for coin in delegation.reward {
                 if (coin.denom == IRIS_MAIN_DENOM) {
-                    result = result.adding(NSDecimalNumber.init(string: coin.amount))
+                    result = result.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handlerdown0))
                 }
             }
         }
@@ -56,7 +56,7 @@ public class IrisRewards {
             if (delegation.validator == valOp) {
                 for coin in delegation.reward {
                     if (coin.denom == IRIS_MAIN_DENOM) {
-                        result = result.adding(NSDecimalNumber.init(string: coin.amount))
+                        result = result.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handlerdown0))
                     }
                 }
             }

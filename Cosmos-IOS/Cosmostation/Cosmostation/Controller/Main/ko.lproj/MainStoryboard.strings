@@ -225,7 +225,7 @@
 "w40-ID-INN.text" = "인플레이션";
 
 /* Class = "UILabel"; text = "Address"; ObjectID = "Ev1-Hy-gni"; */
-"Ev1-Hy-gni.text" = "연 이율";
+"Ev1-Hy-gni.text" = "연 수익율";
 
 /* Class = "UILabel"; text = "Address"; ObjectID = "hyZ-Se-gEv"; */
 "hyZ-Se-gEv.text" = "검증인";

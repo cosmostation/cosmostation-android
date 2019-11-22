@@ -3,7 +3,7 @@
 "45e-4K-iGK.text" = "-";
 
 /* Class = "UILabel"; text = "Average yield"; ObjectID = "k2C-4g-tjb"; */
-"k2C-4g-tjb.text" = "연 이율";
+"k2C-4g-tjb.text" = "연 수익율";
 
 /* Class = "UILabel"; text = "Voting Power"; ObjectID = "ksq-zb-taK"; */
 "ksq-zb-taK.text" = "전체 위임량";

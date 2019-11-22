@@ -9,7 +9,7 @@
 "GGs-21-mY1.text" = "-";
 
 /* Class = "UILabel"; text = "Average Yield"; ObjectID = "Gvi-TG-hcA"; */
-"Gvi-TG-hcA.text" = "연 이율";
+"Gvi-TG-hcA.text" = "연 수익율";
 
 /* Class = "UILabel"; text = "Commission"; ObjectID = "7dw-Do-0Kx"; */
 "7dw-Do-0Kx.text" = "검증인 수수료";
