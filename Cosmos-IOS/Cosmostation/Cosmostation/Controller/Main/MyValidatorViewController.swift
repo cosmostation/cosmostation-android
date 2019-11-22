@@ -222,10 +222,9 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {
         WUtils.setDenomTitle(chainType!, cell.denomLabel)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if(mainTabVC.mRewardList.count > 0) {
-                cell.totalRewardLabel.attributedText = WUtils.displayAllAtomReward(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6)
+                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, COSMOS_MAIN_DENOM, chainType!)
             } else {
                 cell.totalRewardLabel.attributedText = WUtils.displayAmount("0", cell.totalRewardLabel.font, 6, chainType!)
             }
@@ -235,6 +234,12 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell.totalRewardLabel.attributedText = WUtils.displayAmount((mainTabVC.mIrisRewards?.getSimpleIrisReward().stringValue)!, cell.totalRewardLabel.font, 6, chainType!)
             } else {
                 cell.totalRewardLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.totalRewardLabel.font, 6, chainType!)
+            }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (mainTabVC.mRewardList.count > 0) {
+                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, KAVA_MAIN_DENOM, chainType!)
+            } else {
+                cell.totalRewardLabel.attributedText = WUtils.displayAmount("0", cell.totalRewardLabel.font, 6, chainType!)
             }
         }
         cell.delegate = self
@@ -249,7 +254,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         var toClaimValidator = Array<Validator>()
         
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            if(WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(NSDecimalNumber.zero).rawValue <= 0 ){
+            if(WUtils.getAllRewardByDenom(mainTabVC.mRewardList, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
@@ -289,7 +294,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             
-            if (WUtils.getAllAtomReward(mainTabVC.mRewardList).compare(NSDecimalNumber.one).rawValue <= 0) {
+            if (WUtils.getAllRewardByDenom(mainTabVC.mRewardList, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                 return
             }

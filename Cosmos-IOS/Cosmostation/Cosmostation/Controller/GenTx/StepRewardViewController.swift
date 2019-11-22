@@ -45,7 +45,7 @@ class StepRewardViewController: BaseViewController {
         if(self.mFetchCnt > 0)  {
             return
         }
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             pageHolderVC.mRewardList.removeAll()
             mFetchCnt = 1 + pageHolderVC.mRewardTargetValidators.count;
             for val in pageHolderVC.mRewardTargetValidators {
@@ -67,7 +67,7 @@ class StepRewardViewController: BaseViewController {
     
     func updateView() {
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            rewardAmountLabel.attributedText = WUtils.displayAllAtomReward(pageHolderVC.mRewardList, rewardAmountLabel.font, 6)
+            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, COSMOS_MAIN_DENOM, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             var selectedRewardSum = NSDecimalNumber.zero
             for delegation in pageHolderVC.mIrisRewards!.delegations {
@@ -79,6 +79,9 @@ class StepRewardViewController: BaseViewController {
             }
             print("selectedRewardSum ", selectedRewardSum)
             rewardAmountLabel.attributedText = WUtils.displayAmount(selectedRewardSum.stringValue, rewardAmountLabel.font, 18, pageHolderVC.chainType!)
+            
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, KAVA_MAIN_DENOM, pageHolderVC.chainType!)
         }
         
         var monikers = ""
@@ -125,21 +128,49 @@ class StepRewardViewController: BaseViewController {
     }
     
     func onFetchEachReward(_ accountAddr: String, _ validatorAddr:String) {
-        let url = CSS_LCD_URL_REWARD_FROM_VAL + accountAddr + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validatorAddr
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        var url: String?
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            url = CSS_LCD_URL_REWARD_FROM_VAL + accountAddr + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
+        }
+        
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let rawRewards = res as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return;
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+//                    guard let responseData = res as? NSDictionary,
+//                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+//                        self.onFetchFinished()
+//                        return;
+//                    }
+                    //TODO rollback cosmos-hub2
+                    guard let rawRewards = res as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return;
+                    }
+                    let reward = Reward.init()
+                    reward.reward_v_address = validatorAddr
+                    for rawReward in rawRewards {
+                        reward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                    }
+                    self.pageHolderVC.mRewardList.append(reward)
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return;
+                    }
+                    let reward = Reward.init()
+                    reward.reward_v_address = validatorAddr
+                    for rawReward in rawRewards {
+                        reward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                    }
+                    self.pageHolderVC.mRewardList.append(reward)
+                    
                 }
-                let reward = Reward.init()
-                reward.reward_v_address = validatorAddr
-                for rawReward in rawRewards {
-                    reward.reward_amount.append(Coin(rawReward as! [String : Any]))
-                }
-                self.pageHolderVC.mRewardList.append(reward)
                 
             case .failure(let error):
                 if(SHOW_LOG) {
@@ -178,24 +209,50 @@ class StepRewardViewController: BaseViewController {
             url = CSS_LCD_URL_REWARD_ADDRESS + accountAddr + CSS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseString { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let address = res as? String else {
-                    self.onFetchFinished()
-                    return;
+        
+        
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            request.responseString { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let address = res as? String else {
+                        self.onFetchFinished()
+                        return;
+                    }
+                    self.pageHolderVC.mRewardAddress = address.replacingOccurrences(of: "\"", with: "")
+                    
+                case .failure(let error):
+                    if(SHOW_LOG) {
+                        print("onFetchRewardAddress ", error)
+                    }
                 }
-                self.pageHolderVC.mRewardAddress = address.replacingOccurrences(of: "\"", with: "")
-                
-            case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchRewardAddress ", error)
-                }
+                self.onFetchFinished()
             }
-            self.onFetchFinished()
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let address = responseData.object(forKey: "result") as? String else {
+                        self.onFetchFinished()
+                        return;
+                    }
+                    self.pageHolderVC.mRewardAddress = address.replacingOccurrences(of: "\"", with: "")
+                    
+                case .failure(let error):
+                    if(SHOW_LOG) {
+                        print("onFetchIrisReward ", error)
+                    }
+                }
+                self.onFetchFinished()
+            }
         }
+        
+        
         
     }
     

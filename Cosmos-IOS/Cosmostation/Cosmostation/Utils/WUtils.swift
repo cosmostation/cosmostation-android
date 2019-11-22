@@ -971,20 +971,14 @@ class WUtils {
         return attributedString1
     }
     
-    //TODO deprecate
-    static func displayAllAtomReward(_ rewards:Array<Reward>, _ font:UIFont, _ deciaml:Int ) ->  NSMutableAttributedString {
+    static func getAllRewardByDenom(_ rewards:Array<Reward>, _ denom:String) -> NSDecimalNumber {
         var rewardSum = NSDecimalNumber.zero
         for reward in rewards {
-            rewardSum = rewardSum.adding(stringToDecimal(reward.reward_amount[0].amount).rounding(accordingToBehavior: handlerdown0))
-        }
-        return displayAmout(rewardSum.stringValue, font, deciaml)
-    }
-    
-    //TODO deprecate
-    static func getAllAtomReward(_ rewards:Array<Reward>) ->  NSDecimalNumber {
-        var rewardSum = NSDecimalNumber.zero
-        for reward in rewards {
-            rewardSum = rewardSum.adding(stringToDecimal(reward.reward_amount[0].amount).rounding(accordingToBehavior: handlerdown0))
+            for coin in reward.reward_amount {
+                if (coin.denom == denom) {
+                    rewardSum = rewardSum.adding(stringToDecimal(coin.amount).rounding(accordingToBehavior: handlerdown0))
+                }
+            }
         }
         return rewardSum
     }

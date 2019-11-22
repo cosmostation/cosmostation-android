@@ -340,7 +340,7 @@ class GenTxResultViewController: BaseViewController {
             self.rewardResultView.isHidden = false
             self.loadingView.isHidden = true
             
-            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 rewardResultType.text = NSLocalizedString("tx_get_reward", comment: "")
                 rewardResultHash.text = mTxInfo?.txhash
                 rewardResultBlock.text = mTxInfo?.height
@@ -373,6 +373,7 @@ class GenTxResultViewController: BaseViewController {
                 }
                 rewardResultFromValAddress.adjustsFontSizeToFitWidth = true
                 rewardResultMemo.text = mTxInfo?.tx.value.memo
+                
             }
             
         } else if (mTxType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY || mTxType == IRIS_MSG_TYPE_WITHDRAW_MIDIFY) {

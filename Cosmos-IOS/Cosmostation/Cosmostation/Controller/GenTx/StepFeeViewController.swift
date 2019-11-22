@@ -361,7 +361,7 @@ class StepFeeViewController: BaseViewController {
                 
             } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
                 //only one
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REWARD))
                 
             } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REINVEST))

@@ -393,7 +393,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
             if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllAtomReward(mRewards)
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, COSMOS_MAIN_DENOM)
                 cell!.myRewardAmount.attributedText =  WUtils.displayAmount(rewardSum.stringValue, cell!.myRewardAmount.font, 6, chainType!)
             } else {
                 cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, chainType!)
@@ -440,7 +440,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
             if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllAtomReward(mRewards)
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, KAVA_MAIN_DENOM)
                 cell!.myRewardAmount.attributedText =  WUtils.displayAmount(rewardSum.stringValue, cell!.myRewardAmount.font, 6, chainType!)
             } else {
                 cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, chainType!)
@@ -1052,19 +1052,19 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1100,7 +1100,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1110,7 +1110,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1120,7 +1120,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                 return
             }
-            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1152,14 +1152,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
 
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "520000000000000000")).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "520000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1198,14 +1198,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             return
         }
         
+        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllAtomReward(mRewards)
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, COSMOS_MAIN_DENOM)
                 if(rewardSum == NSDecimalNumber.zero) {
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
                 }
-                if(rewardSum.compare(NSDecimalNumber(string: "1")).rawValue < 0) {
+                if(rewardSum.compare(NSDecimalNumber.one).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }
@@ -1215,8 +1216,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.one).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1232,33 +1232,51 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return
                 }
+                
             } else {
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
             }
             
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
             if(balances.count <= 0 || WUtils.stringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
-            return
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, KAVA_MAIN_DENOM)
+                if(rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if(rewardSum.compare(NSDecimalNumber.one).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            
+            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         var validators = Array<Validator>()
         validators.append(mValidator!)
         txVC.mRewardTargetValidators = validators
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             txVC.mType = IRIS_MSG_TYPE_WITHDRAW
         }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
-        
         
     }
     
@@ -1269,7 +1287,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllAtomReward(mRewards)
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, COSMOS_MAIN_DENOM)
                 if(rewardSum == NSDecimalNumber.zero) {
                     self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                     return
