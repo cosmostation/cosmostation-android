@@ -251,7 +251,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.availableAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
         cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(bondingList, allValidator, cell!.delegatedAmount.font, 6, chainType!)
         cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(unbondingList, cell!.unbondingAmount.font, 6, chainType!)
-        cell?.rewardAmount.attributedText = WUtils.dpRewards(allRewards, cell!.rewardAmount.font, 6, COSMOS_MAIN_DENOM, chainType!)
+        cell?.rewardAmount.attributedText = WUtils.dpRewards(allRewards, cell!.rewardAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
         cell?.vestingAmount.attributedText = WUtils.dpVestingCoin(balances, cell!.vestingAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
         cell?.actionSend  = {
             self.onSendToken()
