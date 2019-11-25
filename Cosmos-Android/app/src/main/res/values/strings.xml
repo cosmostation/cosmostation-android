@@ -126,6 +126,7 @@
     <string name="str_watch_address_path_c">WATCH ADDRESS</string>
     <string name="str_address_pubkey">Insert address.</string>
     <string name="str_watch_msg">With watch mode, you can check the status of your account. \nTo enable transactions, add your mnemonics later.</string>
+    <string name="str_proposal_type">Proposal Type</string>
     <string name="str_submit_time">Submit Time</string>
     <string name="str_voting_start_time">Voting Start Time</string>
     <string name="str_voting_end_time">Voting End Time</string>
@@ -320,13 +321,20 @@
     <string name="str_wc_new_order">New Order</string>
     <string name="str_wc_cancel_order">Order Cancel</string>
     <string name="str_switch_wallet">Switch Wallet</string>
-    <string name="str_quorum">Quorum : </string>
-    <string name="str_turnout">Turnout : </string>
+    <string name="str_quorum">Quorum</string>
+    <string name="str_turnout">Turnout</string>
     <string name="str_vote_yes">YES</string>
     <string name="str_vote_no">NO</string>
     <string name="str_vote_veto">NoWithVeto</string>
     <string name="str_vote_abstain">Abstain</string>
     <string name="str_vote_wait_deposit">Waiting Deposit</string>
+    <string name="str_iris_proposal_type_BasicProposal">Basic Proposal</string>
+    <string name="str_iris_proposal_type_ParameterProposal">Parameter Proposal</string>
+    <string name="str_iris_proposal_type_PlainTextProposal">PlainText Proposal</string>
+    <string name="str_iris_proposal_type_TokenAdditionProposal">TokenAddition Proposal</string>
+    <string name="str_iris_proposal_type_SoftwareUpgradeProposal">SoftwareUpgrade Proposal</string>
+    <string name="str_iris_proposal_type_SystemHaltProposal">SystemHalt Proposal</string>
+    <string name="str_iris_proposal_type_CommunityTaxUsageProposal">CommunityTaxUsage Proposal</string>
 
 
     <string name="str_main_wallet">WALLET</string>
@@ -380,6 +388,10 @@
     <string name="str_reinvest_step_1">Insert memo (optional)</string>
     <string name="str_reinvest_step_2">Select transaction fee</string>
     <string name="str_reinvest_step_3">Check transaction detail</string>
+    <string name="str_vote_step_0">Select your Opinion</string>
+    <string name="str_vote_step_1">Insert memo (optional)</string>
+    <string name="str_vote_step_2">Select transaction fee</string>
+    <string name="str_vote_step_3">Check transaction detail</string>
     <string name="str_already_imported_key">Already imported key.</string>
     <string name="str_delete_title">Delete Wallet</string>
     <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
@@ -518,6 +530,9 @@
     <string name="error_invalid_bnb_address">Invalid Binance Address.</string>
     <string name="error_invalid_iov_address">Invalid Iov Address.</string>
     <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
+    <string name="error_iris_vote_only_validator">This proposal can only vote on validators.</string>
+    <string name="error_iris_already_voted">Already voted.</string>
+    <string name="error_not_voting_period">Not voting period.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

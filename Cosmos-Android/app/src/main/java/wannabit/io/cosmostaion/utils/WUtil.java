@@ -12,6 +12,7 @@ import com.google.zxing.common.BitMatrix;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
+import wannabit.io.cosmostaion.model.type.IrisVote;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
@@ -62,6 +64,13 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_ParameterProposal;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_PlainTextProposal;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SystemHaltProposal;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_TokenAdditionProposal;
 
 public class WUtil {
 
@@ -1126,5 +1135,86 @@ public class WUtil {
         }
     }
 
+
+    public static String getIrisProposalType(Context c, String type) {
+        String result = c.getString(R.string.str_iris_proposal_type_BasicProposal);
+        if (type.equals(IRIS_PROPOAL_TYPE_BasicProposal)) {
+            result = c.getString(R.string.str_iris_proposal_type_BasicProposal);
+        } else if (type.equals(IRIS_PROPOAL_TYPE_ParameterProposal)) {
+            result = c.getString(R.string.str_iris_proposal_type_ParameterProposal);
+        } else if (type.equals(IRIS_PROPOAL_TYPE_PlainTextProposal)) {
+            result = c.getString(R.string.str_iris_proposal_type_PlainTextProposal);
+        } else if (type.equals(IRIS_PROPOAL_TYPE_TokenAdditionProposal)) {
+            result = c.getString(R.string.str_iris_proposal_type_TokenAdditionProposal);
+        } else if (type.equals(IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal)) {
+            result = c.getString(R.string.str_iris_proposal_type_SoftwareUpgradeProposal);
+        } else if (type.equals(IRIS_PROPOAL_TYPE_SystemHaltProposal)) {
+            result = c.getString(R.string.str_iris_proposal_type_SystemHaltProposal);
+        } else if (type.equals(IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal)) {
+            result = c.getString(R.string.str_iris_proposal_type_CommunityTaxUsageProposal);
+        }
+        return result;
+    }
+
+
+    public static String getIrisMonikerName(ArrayList<Validator> validators, String address) {
+        String opAddress = WKey.convertDpAddressToDpOpAddress(address, BaseChain.IRIS_MAIN);
+        String result = address;
+        for (Validator v:validators) {
+            if (v.operator_address.equals(opAddress)) {
+                result = v.description.moniker;
+            }
+        }
+        return result;
+    }
+
+    public static int getIrisVoterType(ArrayList<IrisVote> votes, String option) {
+        int result = 0;
+        for (IrisVote v:votes) {
+            if (v.option.equals(option)) {
+                result = result + 1;
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal getIrisVoteRate(IrisProposal.TallyResult tally, String option) {
+        try {
+            BigDecimal yesAmount =  new BigDecimal(tally.yes);
+            BigDecimal noAmount =  new BigDecimal(tally.no);
+            BigDecimal vetoAmount =  new BigDecimal(tally.no_with_veto);
+            BigDecimal abstainAmount =  new BigDecimal(tally.abstain);
+            BigDecimal all = yesAmount.add(noAmount).add(vetoAmount).add(abstainAmount);
+
+            if (option.equals("YES")) {
+                return yesAmount.movePointRight(2).divide(all, 2, RoundingMode.DOWN);
+
+            } else if (option.equals("No")) {
+                return noAmount.movePointRight(2).divide(all, 2, RoundingMode.DOWN);
+
+            } else if (option.equals("NoWithVeto")) {
+                return vetoAmount.movePointRight(2).divide(all, 2, RoundingMode.DOWN);
+
+            } else if (option.equals("Abstain")) {
+                return all.movePointRight(2).divide(all, 2, RoundingMode.DOWN);
+
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            return BigDecimal.ZERO;
+        }
+    }
+
+    public static IrisVote getMyVote(ArrayList<IrisVote> votes, String address) {
+        for (IrisVote v:votes) {
+            if (v.voter.equals(address)) {
+                return v;
+            }
+        }
+        return null;
+
+    }
 
 }

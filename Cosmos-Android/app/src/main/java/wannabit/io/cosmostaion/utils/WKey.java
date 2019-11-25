@@ -277,8 +277,18 @@ public class WKey {
         } else {
             return "";
         }
-
     }
+
+    public static String convertDpAddressToDpOpAddress(String dpOpAddress, BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN)) {
+            return bech32Encode("cosmosvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(IRIS_MAIN)) {
+            return bech32Encode("iva".getBytes(), bech32Decode(dpOpAddress).data);
+        } else {
+            return "";
+        }
+    }
+
 
     public static String getDpAddressFromEntropy(BaseChain chain, byte[] entropy){
         return getDpAddressWithPath(WUtil.ByteArrayToHexString(getHDSeed(entropy)), chain, 0);

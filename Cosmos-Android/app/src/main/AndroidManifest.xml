@@ -188,6 +188,13 @@
         </activity>
 
         <activity
+            android:name=".activities.VoteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
             android:name=".activities.TxResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

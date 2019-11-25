@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,9 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,10 +20,14 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.type.IrisProposal;
+import wannabit.io.cosmostaion.model.type.IrisVote;
 import wannabit.io.cosmostaion.model.type.Proposal;
-import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdProposalTally;
 import wannabit.io.cosmostaion.network.res.ResLcdProposalVoted;
+import wannabit.io.cosmostaion.task.FetchTask.IrisProposalDetailTask;
+import wannabit.io.cosmostaion.task.FetchTask.IrisVoteListTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalDetailTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalProposerTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalTallyTask;
@@ -29,9 +35,11 @@ import wannabit.io.cosmostaion.task.FetchTask.ProposalVotedListTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SystemHaltProposal;
 
 public class VoteDetailActivity extends BaseActivity implements TaskListener, View.OnClickListener {
 
@@ -41,10 +49,9 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
     private ImageView mVoteStatusImg;
     private TextView mVoteStatusTxt;
     private ImageView mVoteWebBtn;
-    private TextView mVoteTitle, mVoteProposer, mVoteStartTime, mVoteFinishTime, mVoteMsg;
+    private TextView mVoteTitle, mVoteProposer, mVoteType, mVoteStartTime, mVoteFinishTime, mVoteMsg;
     private ImageView mMsgExpendBtn;
-    private View mDivider;
-    private LinearLayout mTurnoutLayer, mQuorumLayer;
+    private RelativeLayout mTurnoutLayer, mQuorumLayer;
     private TextView mVoteTurnout, mVoteQuorum;
     private ImageView mYesDone, mNoDone, mVetoDone, mAbstainDone;
     private ProgressBar mYesProgress, mNoProgress, mVetoProgress, mAbstainProgress;
@@ -59,6 +66,10 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
     private ResLcdProposalTally mTally;
     private ArrayList<ResLcdProposalVoted> mVotes = new ArrayList<>();
 
+    private IrisProposal mIrisProposal;
+    private ArrayList<IrisVote> mIrisVotes = new ArrayList<>();
+    private IrisVote myIrisVote;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +80,7 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
         mVoteStatusTxt = findViewById(R.id.vote_status);
         mVoteWebBtn = findViewById(R.id.vote_detail);
         mVoteTitle = findViewById(R.id.vote_title);
+        mVoteType = findViewById(R.id.vote_type);
         mVoteProposer = findViewById(R.id.vote_proposer);
         mVoteStartTime = findViewById(R.id.vote_startTime);
         mVoteFinishTime = findViewById(R.id.vote_endTime);
@@ -77,7 +89,6 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
 
         mTurnoutLayer = findViewById(R.id.vote_turnout_layer);
         mVoteTurnout = findViewById(R.id.vote_turnout);
-        mDivider = findViewById(R.id.vote_quorum_divider);
         mQuorumLayer = findViewById(R.id.vote_quorum_layer);
         mVoteQuorum = findViewById(R.id.vote_quorum);
         mYesDone = findViewById(R.id.vote_yes_voted);
@@ -110,11 +121,12 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
         mProposalId = getIntent().getStringExtra("proposalId");
         mTopValidators = getIntent().getParcelableArrayListExtra("topValidators");
         mBondedToken = new BigDecimal(getIntent().getStringExtra("bondedToken"));
-        WLog.w("mTopValidators " + mTopValidators.size());
-        WLog.w("mBondedToken " + mBondedToken.toPlainString());
+//        WLog.w("mTopValidators " + mTopValidators.size());
+//        WLog.w("mBondedToken " + mBondedToken.toPlainString());
 
         mVoteWebBtn.setOnClickListener(this);
         mMsgExpendBtn.setOnClickListener(this);
+        mVoteBtn.setOnClickListener(this);
         onFetchData();
     }
 
@@ -130,7 +142,6 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
     }
 
     private void onUpdateView() {
-        WLog.w("onUpdateView");
         onHideWaitDialog();
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
 //            if (mProposal.proposal_status.equals("DepositPeriod")) {
@@ -187,7 +198,69 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
 //            mAbstainCnt.setText(""+WUtil.getVoterType(mVotes, "Abstain"));
 
 
-        } else {
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            if (mIrisProposal.value.BasicProposal.proposal_status.equals("DepositPeriod")) {
+                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+            } else if (mIrisProposal.value.BasicProposal.proposal_status.equals("VotingPeriod")) {
+                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+            } else if (mIrisProposal.value.BasicProposal.proposal_status.equals("Rejected")) {
+                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+            } else if (mIrisProposal.value.BasicProposal.proposal_status.equals("Passed")) {
+                mVoteStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
+            } else {
+                mVoteStatusImg.setVisibility(View.GONE);
+            }
+            mVoteStatusTxt.setText(mIrisProposal.value.BasicProposal.proposal_status);
+            mVoteTitle.setText("# " + mIrisProposal.value.BasicProposal.proposal_id + ".  " + mIrisProposal.value.BasicProposal.title);
+            mVoteProposer.setText(WUtil.getIrisMonikerName(mTopValidators, mIrisProposal.value.BasicProposal.proposer));
+            mVoteType.setText(WUtil.getIrisProposalType(getBaseContext(), mIrisProposal.type));
+            if (mIrisProposal.value.BasicProposal.proposal_status.equals("DepositPeriod")) {
+                mVoteStartTime.setText(R.string.str_vote_wait_deposit);
+                mVoteFinishTime.setText(R.string.str_vote_wait_deposit);
+            } else {
+                mVoteStartTime.setText(WDp.getTimeformat(getBaseContext(), mIrisProposal.value.BasicProposal.voting_start_time));
+                mVoteFinishTime.setText(WDp.getTimeformat(getBaseContext(), mIrisProposal.value.BasicProposal.voting_end_time));
+            }
+            mVoteMsg.setText(mIrisProposal.value.BasicProposal.description);
+
+            mYesCnt.setText(""+WUtil.getIrisVoterType(mIrisVotes, "Yes"));
+            mNoCnt.setText(""+WUtil.getIrisVoterType(mIrisVotes, "No"));
+            mVetoCnt.setText(""+WUtil.getIrisVoterType(mIrisVotes, "NoWithVeto"));
+            mAbstainCnt.setText(""+WUtil.getIrisVoterType(mIrisVotes, "Abstain"));
+            if (mIrisProposal.value.BasicProposal.proposal_status.equals("DepositPeriod") ||
+                    mIrisProposal.value.BasicProposal.proposal_status.equals("VotingPeriod")) {
+                mYesProgress.setProgress(0);
+                mNoProgress.setProgress(0);
+                mVetoProgress.setProgress(0);
+                mAbstainProgress.setProgress(0);
+                mYesRate.setText("??%");
+                mNoRate.setText("??%");
+                mVetoRate.setText("??%");
+                mAbstainRate.setText("??%");
+
+            } else {
+                mYesProgress.setProgress(mIrisProposal.value.BasicProposal.tally_result.getYesPer().intValue());
+                mNoProgress.setProgress(mIrisProposal.value.BasicProposal.tally_result.getNoPer().intValue());
+                mVetoProgress.setProgress(mIrisProposal.value.BasicProposal.tally_result.getAbstainPer().intValue());
+                mAbstainProgress.setProgress(mIrisProposal.value.BasicProposal.tally_result.getVetoPer().intValue());
+                mYesRate.setText(WDp.getDpString(mIrisProposal.value.BasicProposal.tally_result.getYesPer().toPlainString() + "%", 3));
+                mNoRate.setText(WDp.getDpString(mIrisProposal.value.BasicProposal.tally_result.getNoPer().toPlainString() + "%", 3));
+                mVetoRate.setText(WDp.getDpString(mIrisProposal.value.BasicProposal.tally_result.getAbstainPer().toPlainString() + "%", 3));
+                mAbstainRate.setText(WDp.getDpString(mIrisProposal.value.BasicProposal.tally_result.getVetoPer().toPlainString() + "%", 3));
+            }
+
+            myIrisVote = WUtil.getMyVote(mIrisVotes, mAccount.address);
+            if (myIrisVote != null) {
+                if (myIrisVote.option.equals("YES")) {
+                    mYesDone.setVisibility(View.VISIBLE);
+                } else if (myIrisVote.option.equals("No")) {
+                    mNoDone.setVisibility(View.VISIBLE);
+                } else if (myIrisVote.option.equals("NoWithVeto")) {
+                    mVetoDone.setVisibility(View.VISIBLE);
+                } else if (myIrisVote.option.equals("Abstain")) {
+                    mAbstainDone.setVisibility(View.VISIBLE);
+                }
+            }
 
         }
 
@@ -196,21 +269,59 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
     @Override
     public void onClick(View v) {
         if (v.equals(mVoteWebBtn)) {
+            Intent webintent = new Intent(VoteDetailActivity.this, WebActivity.class);
+            webintent.putExtra("voteId", mProposalId);
+            webintent.putExtra("chain", mAccount.baseChain);
+            startActivity(webintent);
 
         } else if (v.equals(mMsgExpendBtn)) {
-//            if (mVoteMsg.getMaxLines() == 50) {
-//                mVoteMsg.setMaxLines(3);
-//                mVoteMsg.setText(mProposal.content.value.description);
-//                mMsgExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_down_gr));
-//
-//            } else {
-//                mVoteMsg.setMaxLines(50);
-//                mVoteMsg.setText(mProposal.content.value.description);
-//                mMsgExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_up_gr));
-//            }
+            if (mVoteMsg.getMaxLines() == 50) {
+                mVoteMsg.setMaxLines(3);
+                mMsgExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_down_gr));
 
+            } else {
+                mVoteMsg.setMaxLines(50);
+                mMsgExpendBtn.setImageDrawable(getDrawable(R.drawable.arrow_up_gr));
+            }
+
+        } else if (v.equals(mVoteBtn)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                if (!mIrisProposal.value.BasicProposal.proposal_status.equals("VotingPeriod")) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (mIrisProposal.type.equals(IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal) ||
+                        mIrisProposal.type.equals(IRIS_PROPOAL_TYPE_SystemHaltProposal)) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_iris_vote_only_validator), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (myIrisVote != null) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_iris_already_voted), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!mAccount.hasPrivateKey) {
+                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                    add.setCancelable(true);
+                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    return;
+                }
+
+            }
+            onStartVote();
         }
+    }
 
+    private void onStartVote() {
+        Intent intent = new Intent(VoteDetailActivity.this, VoteActivity.class);
+        intent.putExtra("proposalId", mProposalId);
+        intent.putExtra("title", mVoteTitle.getText().toString());
+        intent.putExtra("proposer", mVoteProposer.getText().toString());
+        startActivity(intent);
     }
 
 
@@ -224,9 +335,13 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
             new ProposalTallyTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            this.mTaskCount = 2;
+            new IrisProposalDetailTask(getBaseApplication(), this, mProposalId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new IrisVoteListTask(getBaseApplication(), this, mProposalId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
 
         }
-
     }
 
 
@@ -245,6 +360,13 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_PROPOSAL_VOTED) {
             mVotes = (ArrayList<ResLcdProposalVoted>)result.resultData;
+
+        } else if (result.taskType == BaseConstant.TASK_IRIS_PROPOSAL_DETAIL) {
+            mIrisProposal = (IrisProposal)result.resultData;
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_IRIS_VOTE_LIST) {
+            mIrisVotes = (ArrayList<IrisVote>)result.resultData;
+
         }
 
         if (mTaskCount == 0) {

@@ -89,6 +89,8 @@ public class BaseConstant {
     public final static int                     TASK_FETCH_IOV_NONCE                            = 2051;
     public final static int                     TASK_FETCH_IOV_ADDRESS_INFO                     = 2052;
     public final static int                     TASK_FETCH_IOV_TOKENS                           = 2053;
+    public final static int                     TASK_FETCH_IRIS_VOTE_LIST                       = 2054;
+    public final static int 				    TASK_IRIS_PROPOSAL_DETAIL                       = 2055;
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";
@@ -135,6 +137,13 @@ public class BaseConstant {
     public final static String                  IRIS_MSG_TYPE_WITHDRAW_MIDIFY                   = "irishub/distr/MsgModifyWithdrawAddress";
     public final static String                  IRIS_MSG_TYPE_ISSUE_TOKEN                       = "irishub/asset/MsgIssueToken";
 
+    public final static String                  IRIS_PROPOAL_TYPE_BasicProposal                 = "irishub/gov/BasicProposal";
+    public final static String                  IRIS_PROPOAL_TYPE_ParameterProposal             = "irishub/gov/ParameterProposal";
+    public final static String                  IRIS_PROPOAL_TYPE_PlainTextProposal             = "irishub/gov/PlainTextProposal";
+    public final static String                  IRIS_PROPOAL_TYPE_TokenAdditionProposal         = "irishub/gov/TokenAdditionProposal";
+    public final static String                  IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal       = "irishub/gov/SoftwareUpgradeProposal";
+    public final static String                  IRIS_PROPOAL_TYPE_SystemHaltProposal            = "irishub/gov/SystemHaltProposal";
+    public final static String                  IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal     = "irishub/gov/CommunityTaxUsageProposal";
 
 
 

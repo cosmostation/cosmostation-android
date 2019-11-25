@@ -33,7 +33,7 @@
         android:layout_height="@dimen/space_45"
         android:minHeight="@dimen/space_45"
         android:background="@drawable/btn_trans_with_border"
-        style="@style/font_ss_14_white"
+        style="@style/font_ss_14_photon"
         android:textAllCaps="false"
         android:text="@string/str_vote_to"
         android:layout_marginLeft="@dimen/space_16"
@@ -113,72 +113,93 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:text="#4. Cosmos Hub 3 Upgrade Proposal A" />
-                    <LinearLayout
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_12"
                         android:layout_marginLeft="@dimen/space_16"
-                        android:layout_marginRight="@dimen/space_16"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="@dimen/space_16">
                         <TextView
-                            style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_proposer" />
+                            android:text="@string/str_proposer"
+                            style="@style/font_ss_12_white"/>
                         <TextView
                             android:id="@+id/vote_proposer"
-                            style="@style/font_ss_12_photon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_2"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            android:text="-"
                             android:singleLine="true"
-                            android:ellipsize="end"
-                            android:text="Cosmostation" />
-                    </LinearLayout>
-                    <LinearLayout
+                            android:ellipsize="middle"
+                            style="@style/font_ss_12_gray1"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
                         android:layout_marginLeft="@dimen/space_16"
-                        android:layout_marginTop="@dimen/space_16"
-                        android:layout_marginRight="@dimen/space_16"
-                        android:orientation="horizontal">
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        android:layout_marginRight="@dimen/space_16">
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-                            <TextView
-                                style="@style/font_ss_14_white"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/str_voting_start_time" />
-                            <TextView
-                                android:id="@+id/vote_startTime"
-                                style="@style/font_ss_12_gray1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/space_4"
-                                android:text="2019-11-23 23:23:22" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="0dp"
+                            android:text="@string/str_proposal_type"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/vote_type"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-                            <TextView
-                                style="@style/font_ss_14_white"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/str_voting_end_time" />
-                            <TextView
-                                android:id="@+id/vote_endTime"
-                                style="@style/font_ss_12_gray1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/space_4"
-                                android:text="2019-11-23 23:23:22" />
-                        </LinearLayout>
-                    </LinearLayout>
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            android:text="-"
+                            style="@style/font_ss_12_gray1"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginLeft="@dimen/space_16"
+                        android:layout_marginRight="@dimen/space_16">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_voting_start_time"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/vote_startTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            android:text="-"
+                            style="@style/font_ss_12_gray1"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginLeft="@dimen/space_16"
+                        android:layout_marginRight="@dimen/space_16">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_voting_end_time"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/vote_endTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            android:text="-"
+                            style="@style/font_ss_12_gray1"/>
+                    </RelativeLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -187,7 +208,7 @@
                         android:layout_marginRight="@dimen/space_16"
                         android:background="@color/colorGray3" />
                     <TextView
-                        style="@style/font_ss_14_white"
+                        style="@style/font_ss_12_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"
@@ -198,8 +219,8 @@
                         style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_16"
                         android:layout_marginTop="@dimen/space_4"
+                        android:layout_marginLeft="@dimen/space_16"
                         android:layout_marginRight="@dimen/space_16"
                         android:lineSpacingExtra="1sp"
                         android:maxLines="3"
@@ -222,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_4"
                 app:cardBackgroundColor="@color/colorTransBg"
                 app:cardCornerRadius="@dimen/space_6"
                 app:cardElevation="1.5dp"
@@ -233,63 +254,53 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/space_16"
                     android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/vote_turnout_layer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_turnout"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/vote_turnout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            style="@style/font_ss_12_gray1"
+                            android:text="78.23%"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/vote_quorum_layer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginBottom="@dimen/space_6"
+                        android:visibility="gone">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_quorum"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/vote_quorum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            android:text="40.00%"
+                            style="@style/font_ss_12_gray1"/>
+                    </RelativeLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-                        <LinearLayout
-                            android:id="@+id/vote_turnout_layer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:orientation="horizontal">
-                            <TextView
-                                style="@style/font_ss_14_white"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/str_turnout" />
-                            <TextView
-                                android:id="@+id/vote_turnout"
-                                style="@style/font_ss_12_gray1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_4"
-                                android:text="78.23%" />
-                        </LinearLayout>
-                        <View
-                            android:id="@+id/vote_quorum_divider"
-                            android:layout_width="2dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/space_2"
-                            android:layout_marginBottom="@dimen/space_1"
-                            android:layout_marginLeft="@dimen/space_8"
-                            android:layout_marginRight="@dimen/space_8"
-                            android:background="@color/colorGray3" />
-                        <LinearLayout
-                            android:id="@+id/vote_quorum_layer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:orientation="horizontal">
-                            <TextView
-                                style="@style/font_ss_14_white"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/str_quorum" />
-                            <TextView
-                                android:id="@+id/vote_quorum"
-                                style="@style/font_ss_12_gray1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_4"
-                                android:text="40.00%" />
-                        </LinearLayout>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_12">
+                        android:layout_marginTop="@dimen/space_6">
                         <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"

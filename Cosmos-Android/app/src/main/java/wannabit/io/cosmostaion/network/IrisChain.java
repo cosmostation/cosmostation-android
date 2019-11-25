@@ -11,6 +11,7 @@ import retrofit2.http.Query;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
+import wannabit.io.cosmostaion.model.type.IrisVote;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
@@ -76,4 +77,10 @@ public interface IrisChain {
 
     @GET("/asset/tokens")
     Call<ArrayList<IrisToken>> getTokens();
+
+    @GET("gov/proposals/{proposal_id}/votes")
+    Call<ArrayList<IrisVote>> getVoteList(@Path("proposal_id") String proposal_id);
+
+    @GET("/gov/proposals/{proposal_id}")
+    Call<IrisProposal> getProposalDetail(@Path("proposal_id") String proposal_id);
 }

@@ -80,6 +80,7 @@
     <string name="str_watch_address_path_c">주소 관찰</string>
     <string name="str_address_pubkey">주소 입력.</string>
     <string name="str_watch_msg">관찰 모드로 복구 단어 입력 없이 지갑의 상태를 확인할 수 있습니다.\n추후 설정에서 복구 단어를 입력하면 전송 등의 활동이 가능합니다.</string>
+    <string name="str_proposal_type">의제 타입</string>
     <string name="str_submit_time">의제 제출 시간</string>
     <string name="str_voting_start_time">투표 시작 시간</string>
     <string name="str_voting_end_time">투표 종료 시간</string>
@@ -266,13 +267,20 @@
     <string name="str_wc_new_order">새로운 주문</string>
     <string name="str_wc_cancel_order">주문 취소</string>
     <string name="str_switch_wallet">지갑 전환</string>
-    <string name="str_quorum">정족수 : </string>
-    <string name="str_turnout">투표율 : </string>
+    <string name="str_quorum">정족율</string>
+    <string name="str_turnout">투표율</string>
     <string name="str_vote_yes">찬성</string>
     <string name="str_vote_no">반대</string>
     <string name="str_vote_veto">절대반대</string>
     <string name="str_vote_abstain">기권</string>
     <string name="str_vote_wait_deposit">디파짓 대기중</string>
+    <string name="str_iris_proposal_type_BasicProposal">기본 제안</string>
+    <string name="str_iris_proposal_type_ParameterProposal">파라미터 변경 제안</string>
+    <string name="str_iris_proposal_type_PlainTextProposal">단순 제안</string>
+    <string name="str_iris_proposal_type_TokenAdditionProposal">토큰 추가 제안</string>
+    <string name="str_iris_proposal_type_SoftwareUpgradeProposal">소프트웨어 업그레이드 제안</string>
+    <string name="str_iris_proposal_type_SystemHaltProposal">시스템 중지 제안</string>
+    <string name="str_iris_proposal_type_CommunityTaxUsageProposal">커뮤니티 풀 코인 사용 제안</string>
 
 
     <string name="str_main_wallet">WALLET</string>
@@ -326,6 +334,10 @@
     <string name="str_reinvest_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_reinvest_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_reinvest_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_vote_step_0">의견을 선택하세요</string>
+    <string name="str_vote_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_vote_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_vote_step_3">입력하신 정보를 확인하세요</string>
     <string name="str_already_imported_key">이미 등록된 키 입니다.</string>
     <string name="str_delete_title">지갑 삭제</string>
     <string name="str_delete_msg">지갑의 모든 정보가 삭제됩니다.\n복구 단어를 백업하지 않았을 경우 해당 지갑을 영구히 다시 복원할 수 없습니다.</string>
@@ -462,6 +474,9 @@
     <string name="error_invalid_bnb_address">유효한 바이낸스 주소가 아닙니다.</string>
     <string name="error_invalid_iov_address">유효한 아이오비 주소가 아닙니다.</string>
     <string name="error_iris_token_not_yet">아이리스 토큰 전송은 조만간 지원하겠습니다.</string>
+    <string name="error_iris_vote_only_validator">이 제안은 벨리데이터만 투표가 가능합니다.</string>
+    <string name="error_iris_already_voted">이미 투표를 하였습니다.</string>
+    <string name="error_not_voting_period">투표 기간이 아닙니다.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>
