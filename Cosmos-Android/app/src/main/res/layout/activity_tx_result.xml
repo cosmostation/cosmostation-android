@@ -778,6 +778,7 @@
                                 style="@style/font_ss_12_white"/>
                         </LinearLayout>
 
+
                         <LinearLayout
                             android:id="@+id/reinvest_layer"
                             android:layout_width="match_parent"
@@ -866,6 +867,96 @@
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/reinvest_memo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_8"
+                                android:lines="2"
+                                android:ellipsize="end"
+                                android:text="-"
+                                style="@style/font_ss_12_white"/>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/vote_layer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/str_proposal_id"
+                                    style="@style/font_ss_12_gray1"/>
+                                <TextView
+                                    android:id="@+id/vote_proposal_id"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="12"
+                                    style="@style/font_ssl_12_white"/>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_16">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/str_opinion"
+                                    style="@style/font_ss_12_gray1"/>
+                                <TextView
+                                    android:id="@+id/vote_opinion"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="Yes"
+                                    style="@style/font_ssl_12_white"/>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_16">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/str_fees"
+                                    style="@style/font_ss_12_gray1"/>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:orientation="horizontal"
+                                    android:gravity="center">
+                                    <TextView
+                                        android:id="@+id/vote_fees"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:text="-"
+                                        style="@style/font_ssl_12_white"/>
+                                    <TextView
+                                        android:id="@+id/vote_fee_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/space_2"
+                                        android:text="@string/str_atom_c"
+                                        style="@style/font_ss_12_atom"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_16"
+                                android:text="@string/str_memo"
+                                style="@style/font_ss_12_gray1"/>
+                            <TextView
+                                android:id="@+id/vote_memo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/space_8"

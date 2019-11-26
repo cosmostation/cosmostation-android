@@ -335,6 +335,8 @@
     <string name="str_iris_proposal_type_SoftwareUpgradeProposal">SoftwareUpgrade Proposal</string>
     <string name="str_iris_proposal_type_SystemHaltProposal">SystemHalt Proposal</string>
     <string name="str_iris_proposal_type_CommunityTaxUsageProposal">CommunityTaxUsage Proposal</string>
+    <string name="str_opinion">Opinion</string>
+    <string name="str_proposal_id">Proposal Id</string>
 
 
     <string name="str_main_wallet">WALLET</string>
@@ -531,8 +533,10 @@
     <string name="error_invalid_iov_address">Invalid Iov Address.</string>
     <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
     <string name="error_iris_vote_only_validator">This proposal can only vote on validators.</string>
+    <string name="error_no_bonding_no_vote">This proposal can only vote on delegators.</string>
     <string name="error_iris_already_voted">Already voted.</string>
     <string name="error_not_voting_period">Not voting period.</string>
+    <string name="error_no_option">Please select your opinion.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

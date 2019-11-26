@@ -114,6 +114,18 @@ public class Msg {
         @SerializedName("delegation")
         public Coin delegation;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("proposal_id")
+        public String proposal_id;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("voter")
+        public String voter;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("option")
+        public String option;
+
     }
 
 }

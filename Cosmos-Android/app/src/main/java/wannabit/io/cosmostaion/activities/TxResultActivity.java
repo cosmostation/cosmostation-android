@@ -81,6 +81,9 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
     private LinearLayout                mReinvestLayer;
     private TextView                    mReinvestAmount, mReinvestFee, mReinvestAddress, mReinvestMemo;
 
+    private LinearLayout                mVoteLayer;
+    private TextView                    mVoteProposal, mVoteOpinion, mVoteFee, mVoteMemo;
+
     private CardView                    mErrorCard;
     private TextView                    mErrorDetails;
 
@@ -88,7 +91,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
 
     private TextView                    mDenomSendAmount, mDenomSendFee, mDenomDelegateAmount, mDenomDelegateFee,
                                         mDenomRedelegateAmount, mDenomRedelegateFee, mDenomUndelegateAmount, mDenomUndelegateFee,
-                                        mDenomRewardFee, mDenomAddressChangeFee, mDenomReinvestAmount, mDenomReinvestFee;
+                                        mDenomRewardFee, mDenomAddressChangeFee, mDenomReinvestAmount, mDenomReinvestFee, mDenomVoteFee;
 
 
     @Override
@@ -155,6 +158,13 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mReinvestAddress                = findViewById(R.id.reinvest_moniker);
         mReinvestMemo                   = findViewById(R.id.reinvest_memo);
 
+        mVoteLayer                      = findViewById(R.id.vote_layer);
+        mVoteProposal                   = findViewById(R.id.vote_proposal_id);
+        mVoteOpinion                    = findViewById(R.id.vote_opinion);
+        mVoteFee                        = findViewById(R.id.vote_fees);
+        mVoteMemo                       = findViewById(R.id.vote_memo);
+
+
         mErrorCard                      = findViewById(R.id.error_Card);
         mErrorDetails                   = findViewById(R.id.error_details);
 
@@ -172,6 +182,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         mDenomAddressChangeFee          = findViewById(R.id.reward_address_change_fee_title);
         mDenomReinvestAmount            = findViewById(R.id.reinvest_amount_title);
         mDenomReinvestFee               = findViewById(R.id.reinvest_fee_title);
+        mDenomVoteFee                   = findViewById(R.id.vote_fee_title);
 
         mToolbarClose.setOnClickListener(this);
         mBtnDismiss.setOnClickListener(this);
@@ -225,6 +236,7 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
         WDp.DpMainDenom(this, mAccount.baseChain, mDenomAddressChangeFee);
         WDp.DpMainDenom(this, mAccount.baseChain, mDenomReinvestAmount);
         WDp.DpMainDenom(this, mAccount.baseChain, mDenomReinvestFee);
+        WDp.DpMainDenom(this, mAccount.baseChain, mDenomVoteFee);
 
     }
 
@@ -618,7 +630,40 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
             mSendMemo.setText(mResBnbTxInfo.tx.value.memo);
             mBtnDismiss.setVisibility(View.GONE);
             mBottomAfterLayer.setVisibility(View.VISIBLE);
+
+        } else if (mTxType == BaseConstant.TASK_GEN_TX_SIMPLE_VOTE && mResTxInfo != null) {
+            mLoading.setVisibility(View.GONE);
+            mScrollLayer.setVisibility(View.VISIBLE);
+            mVoteLayer.setVisibility(View.VISIBLE);
+
+            mTvtxType.setText(R.string.tx_vote);
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                mTvTxHash.setText(mResTxInfo.hash);
+                mTxTime.setText("-");
+                mTxBlockHeight.setText(mResTxInfo.height);
+
+
+                mVoteProposal.setText(mResTxInfo.tx.value.msg.get(0).value.proposal_id);
+                mVoteOpinion.setText(mResTxInfo.tx.value.msg.get(0).value.option);
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_IRIS_ATTO)) {
+                        mVoteFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 18, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+
+            }
+            mVoteMemo.setText(mResTxInfo.tx.value.memo);
+            mBtnDismiss.setVisibility(View.GONE);
+            mBottomAfterLayer.setVisibility(View.VISIBLE);
+
         }
+
+
+
 
     }
 

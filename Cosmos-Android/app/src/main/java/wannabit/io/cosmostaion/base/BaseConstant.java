@@ -91,6 +91,7 @@ public class BaseConstant {
     public final static int                     TASK_FETCH_IOV_TOKENS                           = 2053;
     public final static int                     TASK_FETCH_IRIS_VOTE_LIST                       = 2054;
     public final static int 				    TASK_IRIS_PROPOSAL_DETAIL                       = 2055;
+    public final static int 				    TASK_GEN_TX_SIMPLE_VOTE                         = 2056;
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";
@@ -167,6 +168,7 @@ public class BaseConstant {
     public final static int                     CONST_PW_TX_SIMPLE_REDELEGATE		            = 5009;
     public final static int                     CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS        = 5010;
     public final static int                     CONST_PW_TX_REINVEST		                    = 5011;
+    public final static int                     CONST_PW_TX_VOTE		                        = 5012;
 
 
     public final static int                     TX_TYPE_UNKNOWN		                            = 3000;

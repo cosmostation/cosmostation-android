@@ -281,6 +281,8 @@
     <string name="str_iris_proposal_type_SoftwareUpgradeProposal">소프트웨어 업그레이드 제안</string>
     <string name="str_iris_proposal_type_SystemHaltProposal">시스템 중지 제안</string>
     <string name="str_iris_proposal_type_CommunityTaxUsageProposal">커뮤니티 풀 코인 사용 제안</string>
+    <string name="str_opinion">의견</string>
+    <string name="str_proposal_id">의제 번호</string>
 
 
     <string name="str_main_wallet">WALLET</string>
@@ -475,8 +477,10 @@
     <string name="error_invalid_iov_address">유효한 아이오비 주소가 아닙니다.</string>
     <string name="error_iris_token_not_yet">아이리스 토큰 전송은 조만간 지원하겠습니다.</string>
     <string name="error_iris_vote_only_validator">이 제안은 벨리데이터만 투표가 가능합니다.</string>
+    <string name="error_no_bonding_no_vote">위임량이 없음으로 투표를 하실 수 없습니다.</string>
     <string name="error_iris_already_voted">이미 투표를 하였습니다.</string>
     <string name="error_not_voting_period">투표 기간이 아닙니다.</string>
+    <string name="error_no_option">의견을 선택해 주세요.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

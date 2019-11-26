@@ -103,7 +103,7 @@
                     </RelativeLayout>
                     <TextView
                         android:id="@+id/vote_title"
-                        style="@style/font_ss_15_white"
+                        style="@style/font_ss_14_white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_16"

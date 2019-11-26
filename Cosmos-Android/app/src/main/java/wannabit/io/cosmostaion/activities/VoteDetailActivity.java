@@ -20,6 +20,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.IrisVote;
@@ -38,6 +40,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SystemHaltProposal;
 
@@ -251,7 +254,7 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
 
             myIrisVote = WUtil.getMyVote(mIrisVotes, mAccount.address);
             if (myIrisVote != null) {
-                if (myIrisVote.option.equals("YES")) {
+                if (myIrisVote.option.equals("Yes")) {
                     mYesDone.setVisibility(View.VISIBLE);
                 } else if (myIrisVote.option.equals("No")) {
                     mNoDone.setVisibility(View.VISIBLE);
@@ -285,6 +288,9 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
             }
 
         } else if (v.equals(mVoteBtn)) {
+            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+            ArrayList<BondingState> bondings = getBaseDao().onSelectBondingStates(mAccount.id);
+            boolean hasbalance = false;
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -293,9 +299,14 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
                     return;
                 }
 
-                if (mIrisProposal.type.equals(IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal) ||
-                        mIrisProposal.type.equals(IRIS_PROPOAL_TYPE_SystemHaltProposal)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_iris_vote_only_validator), Toast.LENGTH_SHORT).show();
+//                if (mIrisProposal.type.equals(IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal) ||
+//                        mIrisProposal.type.equals(IRIS_PROPOAL_TYPE_SystemHaltProposal)) {
+//                    Toast.makeText(getBaseContext(), getString(R.string.error_iris_vote_only_validator), Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+
+                if (bondings.size() == 0) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -304,10 +315,19 @@ public class VoteDetailActivity extends BaseActivity implements TaskListener, Vi
                     return;
                 }
 
+
                 if (!mAccount.hasPrivateKey) {
                     Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                     add.setCancelable(true);
                     getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    return;
+                }
+
+                if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+                    hasbalance  = true;
+                }
+                if (!hasbalance) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
