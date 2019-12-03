@@ -117,7 +117,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 ArrayList<Proposal> temp = (ArrayList<Proposal>)result.resultData;
                 if(temp != null && temp.size() > 0) {
                     mProposals = temp;
-                    WUtil.onSortingProposal(mProposals);
+                    WUtil.onSortingProposal(mProposals, mBaseChain);
                     mVoteAdapter.notifyDataSetChanged();
                     mEmptyProposal.setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.VISIBLE);
