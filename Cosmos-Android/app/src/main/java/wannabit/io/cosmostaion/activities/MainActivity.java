@@ -53,6 +53,12 @@ import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
@@ -309,50 +315,43 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         Intent intent = new Intent(MainActivity.this, SendActivity.class);
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-        boolean result = false;
+        boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            for (Balance balance:balances) {
-                if (!IS_TEST && balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
-                    result  = true;
-                } else if (IS_TEST && balance.symbol.equals(BaseConstant.COSMOS_MUON) && ((balance.balance.compareTo(BigDecimal.ONE)) > 0)) {
-                    result  = true;
+            if (IS_TEST) {
+                if (WDp.getAvailableCoin(balances, COSMOS_MUON).compareTo(BigDecimal.ONE) > 0) {
+                    hasbalance  = true;
+                }
+            } else {
+                if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ONE) > 0) {
+                    hasbalance  = true;
                 }
             }
+
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("200000000000000000"))) > 0)) {
-                    result  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
+                hasbalance  = true;
             }
             intent.putExtra("irisToken", WUtil.getIrisMainToken(mIrisTokens));
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_BNB) && ((balance.balance.compareTo(new BigDecimal("0.000375"))) > 0)) {
-                    result  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_BNB).compareTo(new BigDecimal("0.000375")) > 0) {
+                hasbalance  = true;
             }
             intent.putExtra("bnbToken", WUtil.getBnbMainToken(mBnbTokens));
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_IOV) && ((balance.balance.compareTo(new BigDecimal("500000000"))) > 0)) {
-                    result  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_IOV).compareTo(new BigDecimal("500000000")) > 0) {
+                hasbalance  = true;
             }
             intent.putExtra("iovToken", WUtil.getIovMainToken(mIovTokens));
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-//            for (Balance balance:balances) {
-//                if (balance.symbol.equals(BaseConstant.COSMOS_KAVA) && ((balance.balance.compareTo(new BigDecimal("2500"))) > 0)) {
-//                    result  = true;
-//                }
-//            }
-            Toast.makeText(getBaseContext(), R.string.error_send_disable, Toast.LENGTH_SHORT).show();
-            return;
+            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
+            }
         }
 
-        if(!result){
+        if(!hasbalance){
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }

@@ -531,6 +531,7 @@
     <string name="error_invalid_iris_address">Invalid Iris Address.</string>
     <string name="error_invalid_bnb_address">Invalid Binance Address.</string>
     <string name="error_invalid_iov_address">Invalid Iov Address.</string>
+    <string name="error_invalid_kava_address">Invalid Kava Address.</string>
     <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
     <string name="error_iris_vote_only_validator">This proposal can only vote on validators.</string>
     <string name="error_no_bonding_no_vote">This proposal can only vote on delegators.</string>

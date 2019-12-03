@@ -268,7 +268,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getKavaBalance().subtract(new BigDecimal("2500"));
+            mMaxAvailable = getSActivity().mAccount.getKavaBalance().subtract(BigDecimal.ONE);
             mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {

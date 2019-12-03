@@ -100,7 +100,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     getSActivity().mTagetAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_iov_address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_invalid_kava_address, Toast.LENGTH_SHORT).show();
                 }
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                 if (targetAddress.startsWith("iov") && WKey.isValidBech32(targetAddress)) {

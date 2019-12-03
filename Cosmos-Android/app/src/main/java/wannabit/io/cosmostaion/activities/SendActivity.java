@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,6 +26,7 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.IovToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
+import wannabit.io.cosmostaion.dialog.Dialog_VestingAccount;
 import wannabit.io.cosmostaion.fragment.SendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
@@ -34,8 +36,10 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_FEE_FREE;
 
 public class SendActivity extends BaseActivity {
@@ -83,6 +87,7 @@ public class SendActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        WLog.w("mBaseChain " + mBaseChain);
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             if (mIrisToken == null) onBackPressed();
@@ -127,6 +132,12 @@ public class SendActivity extends BaseActivity {
             public void onPageScrollStateChanged(int i) { }
         });
         mViewPager.setCurrentItem(0);
+
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
+            Dialog_VestingAccount dialog = Dialog_VestingAccount.newInstance(null);
+            dialog.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        }
     }
 
     @Override
@@ -172,8 +183,11 @@ public class SendActivity extends BaseActivity {
         } else {
             onBackPressed();
         }
+    }
 
-
+    @Override
+    public void onCancelWithVesting() {
+        onBackPressed();
     }
 
 
