@@ -186,6 +186,35 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.row > 0) {
+            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                let history = mHistories[indexPath.row - 1]
+                guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+                
+            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                let history = mHistories[indexPath.row - 1]
+                guard let url = URL(string: "https://irishub.mintscan.io/txs/" + history._source.hash) else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+                
+            } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                let bnbHistory = mBnbHistories[indexPath.row - 1]
+                guard let url = URL(string: "https://explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+                           
+            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                let history = mHistories[indexPath.row - 1]
+                guard let url = URL(string: "https://kava.mintscan.io/txs/" + history._source.hash) else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+        }
+    }
+    
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenDetailHeaderCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderCosmosCell") as? TokenDetailHeaderCosmosCell
