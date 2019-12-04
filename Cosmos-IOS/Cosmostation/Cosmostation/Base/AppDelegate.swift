@@ -49,6 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if (BaseData.instance.getUsingAppLock()) {
                 let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
                 passwordVC.mTarget = PASSWORD_ACTION_APP_LOCK
+                if #available(iOS 13.0, *) {
+                    passwordVC.isModalInPresentation = true
+                }
                 application.topViewController!.present(passwordVC, animated: true, completion: nil)
             }
         }
