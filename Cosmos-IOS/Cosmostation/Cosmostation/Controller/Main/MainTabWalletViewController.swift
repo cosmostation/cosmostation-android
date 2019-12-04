@@ -693,15 +693,16 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        let balances = BaseData.instance.selectBalanceById(accountId: self.mainTabVC.mAccount.account_id)
         if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            if (self.mainTabVC.mAccount.getAtomBalance().compare(NSDecimalNumber.one).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
             txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            if (self.mainTabVC.mAccount.getIrisBalance().compare(NSDecimalNumber.init(string: "200000000000000000")).rawValue  < 0) {
+            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "200000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
@@ -709,7 +710,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mType = IRIS_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            if (self.mainTabVC.mAccount.getBnbBalance().compare(NSDecimalNumber.init(string: "0.000375")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
@@ -717,17 +718,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mType = BNB_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-//            if (mainTabVC.mBalances.count > 0 && (NSDecimalNumber.init(string: mainTabVC.mBalances[0].balance_locked).compare(NSDecimalNumber.zero).rawValue > 0)) {
-//                self.onShowToast(NSLocalizedString("error_kava_vesting_account", comment: ""))
-//                return
-//            }
-//            if (self.mainTabVC.mAccount.getKavaBalance().compare(NSDecimalNumber.init(string: "2500")).rawValue  < 0) {
-//                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-//                return
-//            }
-//            txVC.mType = KAVA_MSG_TYPE_TRANSFER
-            self.onShowToast(NSLocalizedString("error_send_disable", comment: ""))
-            return
+            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mType = KAVA_MSG_TYPE_TRANSFER
         }
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

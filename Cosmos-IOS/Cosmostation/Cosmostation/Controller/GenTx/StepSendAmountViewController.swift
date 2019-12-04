@@ -28,12 +28,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         maxAvailable = NSDecimalNumber.zero
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getAtomBalance()).subtracting(NSDecimalNumber.one)
-            mAvailableAmountLabel.attributedText = WUtils.displayAmount(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, pageHolderVC.chainType!)
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, 6)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             if (pageHolderVC.mIrisToken?.base_token?.id == IRIS_DP_DENOM) {
                 maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getIrisBalance()).subtracting(NSDecimalNumber(string: "200000000000000000"))
-                mAvailableAmountLabel.attributedText = WUtils.displayAmount(maxAvailable.stringValue, mAvailableAmountLabel.font, 18, pageHolderVC.chainType!)
+                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 18, 18)
                 
             } else {
                 
@@ -43,16 +43,16 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             self.denomTitleLabel.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
             if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
                 maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getBnbBalance()).subtracting(NSDecimalNumber.init(string: "0.000375"))
-                mAvailableAmountLabel.attributedText = WUtils.displayAmount(maxAvailable.stringValue, mAvailableAmountLabel.font, 8, pageHolderVC.chainType!)
+                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 8, 8)
                 
             } else {
                 self.denomTitleLabel.textColor = UIColor.white
                 maxAvailable = self.pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mBnbToken!.symbol)
-                mAvailableAmountLabel.attributedText = WUtils.displayAmount(maxAvailable.stringValue, mAvailableAmountLabel.font, 8, pageHolderVC.chainType!)
+                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 8, 8)
             }
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getKavaBalance()).subtracting(NSDecimalNumber.init(string: "2500"))
+            maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getKavaBalance()).subtracting(NSDecimalNumber.one)
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, 6)
         }
         

@@ -290,12 +290,12 @@ class GenTxResultViewController: BaseViewController {
             }
             
             
-        } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2 || mTxType == IRIS_MSG_TYPE_TRANSFER || mTxType == BNB_MSG_TYPE_TRANSFER) {
+        } else if (mTxType == COSMOS_MSG_TYPE_TRANSFER2 || mTxType == IRIS_MSG_TYPE_TRANSFER || mTxType == BNB_MSG_TYPE_TRANSFER || mTxType == KAVA_MSG_TYPE_TRANSFER) {
             self.sendResultView.isHidden = false
             self.loadingView.isHidden = true
             sendResultType.text = NSLocalizedString("tx_transfer", comment: "")
             
-            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 sendResultHash.text = mTxInfo?.txhash
                 sendResultBlock.text = mTxInfo?.height
                 sendResultTime.text = WUtils.txTimetoString(input: (mTxInfo?.txTime)!)

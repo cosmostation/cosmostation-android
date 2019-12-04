@@ -242,11 +242,15 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
             do {
                 let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
-                let msg = MsgGenerator.genGetSendMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mToSendRecipientAddress!, self.pageHolderVC.mToSendAmount, self.pageHolderVC.chainType!)
+                let msg = MsgGenerator.genGetSendMsg(self.pageHolderVC.mAccount!.account_address,
+                                                     self.pageHolderVC.mToSendRecipientAddress!,
+                                                     self.pageHolderVC.mToSendAmount,
+                                                     self.pageHolderVC.chainType!)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
@@ -336,10 +340,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                                     txResult["type"] = COSMOS_MSG_TYPE_TRANSFER2
                                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                                     txResult["type"] = IRIS_MSG_TYPE_TRANSFER
+                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                                    txResult["type"] = KAVA_MSG_TYPE_TRANSFER
                                 }
                                 self.onStartTxResult(txResult)
                             })

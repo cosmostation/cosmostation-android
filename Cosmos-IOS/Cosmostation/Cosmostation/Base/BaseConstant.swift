@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -305,7 +305,7 @@ let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
 
 let GAS_FEE_BNB_TRANSFER                    = "0.000375"
 
-
+let KAVA_GAS_FEE_AMOUNT_SEND                = "200000"
 let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
 let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"
 let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "300000"
