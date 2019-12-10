@@ -409,6 +409,33 @@ class WUtils {
     }
     
     
+    static func proposalType(_ type:String) -> String {
+        if (type == IRIS_PROPOAL_TYPE_BasicProposal) {
+            return NSLocalizedString("proposal_type_basic", comment: "")
+            
+        } else if (type == IRIS_PROPOAL_TYPE_ParameterProposal) {
+            return NSLocalizedString("proposal_type_parameter", comment: "")
+            
+        } else if (type == IRIS_PROPOAL_TYPE_PlainTextProposal) {
+            return NSLocalizedString("proposal_type_plaintext", comment: "")
+                   
+        } else if (type == IRIS_PROPOAL_TYPE_TokenAdditionProposal) {
+            return NSLocalizedString("proposal_type_tokenaddition", comment: "")
+                  
+        } else if (type == IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal) {
+            return NSLocalizedString("proposal_type_softwareupgrade", comment: "")
+                 
+        } else if (type == IRIS_PROPOAL_TYPE_SystemHaltProposal) {
+            return NSLocalizedString("proposal_type_systemhalt", comment: "")
+                
+        } else if (type == IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal) {
+            return NSLocalizedString("proposal_type_communitytaxusage", comment: "")
+               
+        }
+        return ""
+    }
+    
+    
     static func checkNAN(_ check: NSDecimalNumber) -> NSDecimalNumber{
         if(check.isEqual(to: NSDecimalNumber.notANumber)) {
             return NSDecimalNumber.zero
@@ -804,6 +831,28 @@ class WUtils {
         
         let formatted   = nf.string(from: updown.rounding(accordingToBehavior: handler2))! + "% (24h)"
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -9)
+        
+        let preString   = formatted[..<endIndex]
+        let postString  = formatted[endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
+    static func displayPercent(_ rate:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.minimumFractionDigits = 2
+        nf.maximumFractionDigits = 2
+        nf.numberStyle = .decimal
+        
+        let formatted   = nf.string(from: rate.rounding(accordingToBehavior: handler2))! + "%"
+        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]
         let postString  = formatted[endIndex...]
@@ -1362,6 +1411,33 @@ class WUtils {
     }
     
     
+    
+    
+    
+    
+    
+    
+    static func getMyIrisVote(_ votes: Array<IrisVote>, _ address: String) -> IrisVote? {
+        for vote in votes {
+            if (vote.voter == address) {
+                return vote
+            }
+        }
+        return nil
+    }
+    
+    static func getIrisVoterTypeCnt(_ votes: Array<IrisVote>, _ type: String) -> String {
+        var result = 0
+        for vote in votes {
+            if (vote.option == type) {
+                result = result + 1
+            }
+        }
+        return String(result)
+    }
+    
+    
+    
     static func getGuideList() -> Array<GuideCategory> {
         var result = Array<GuideCategory>()
         var cg_cosmos = GuideCategory.init()
@@ -1614,5 +1690,22 @@ extension UIImage {
                                               duration: Double(duration) / 3000.0)
         
         return animation
+    }
+}
+
+
+open class CustomSlider : UISlider {
+    @IBInspectable open var trackWidth:CGFloat = 2 {
+        didSet {setNeedsDisplay()}
+    }
+
+    override open func trackRect(forBounds bounds: CGRect) -> CGRect {
+        let defaultBounds = super.trackRect(forBounds: bounds)
+        return CGRect(
+            x: defaultBounds.origin.x,
+            y: defaultBounds.origin.y + defaultBounds.size.height/2 - trackWidth/2,
+            width: defaultBounds.size.width,
+            height: trackWidth
+        )
     }
 }

@@ -134,12 +134,14 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             present(safariViewController, animated: true, completion: nil)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            guard let url = URL(string: "https://irishub.mintscan.io/proposals/" + (proposal.value?.basicProposal?.proposal_id)!) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
+            let proposal = mProposals[indexPath.row]
+            let voteDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailViewController") as! VoteDetailViewController
+            voteDetailVC.proposalId = proposal.value!.basicProposal!.proposal_id
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(voteDetailVC, animated: true)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            guard let url = URL(string: "https://kava.mintscan.io/proposals/" + proposal.proposal_id) else { return }
+            guard let url = URL(string: "https://kava.mintscan.io/proposals/" + proposal.id) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }

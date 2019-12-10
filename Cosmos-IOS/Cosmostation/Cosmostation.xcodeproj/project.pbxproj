@@ -32,6 +32,7 @@
 		E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */; };
 		E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */; };
 		E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */; };
+		E1259AD923977B760045C8F6 /* VoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1259AD823977B760045C8F6 /* VoteDetailViewController.swift */; };
 		E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E126CF7F2387A3E1002A546F /* WalletCosmosCell.xib */; };
 		E126CF822387A48F002A546F /* WalletAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E126CF842387A48F002A546F /* WalletAddressCell.xib */; };
 		E126CF872387A4B4002A546F /* WalletIrisCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E126CF892387A4B4002A546F /* WalletIrisCell.xib */; };
@@ -193,6 +194,8 @@
 		E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E251E322A671180008F0DB /* OtherValidatorCell.xib */; };
 		E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */; };
 		E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED75AA2251B37C002CFE85 /* Reward.swift */; };
+		E1F1CF06239F53C5004EF8A2 /* IrisProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F1CF05239F53C5004EF8A2 /* IrisProposal.swift */; };
+		E1F1CF08239F5737004EF8A2 /* IrisVote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F1CF07239F5737004EF8A2 /* IrisVote.swift */; };
 		E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE50227EC05100C87F3F /* InfoPlist.strings */; };
 		E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F2AE5B227EC5B600C87F3F /* MainStoryboard.storyboard */; };
 		E1F7F63223421394000E597F /* IrisToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F7F63123421394000E597F /* IrisToken.swift */; };
@@ -247,6 +250,7 @@
 		E123FD3A233CCBF3004EC348 /* MainTabTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabTokenViewController.swift; sourceTree = "<group>"; };
 		E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbAccountInfo.swift; sourceTree = "<group>"; };
 		E123FD3E233E0161004EC348 /* MainTabWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabWalletViewController.swift; sourceTree = "<group>"; };
+		E1259AD823977B760045C8F6 /* VoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDetailViewController.swift; sourceTree = "<group>"; };
 		E126CF7E2387A3E1002A546F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletCosmosCell.xib; sourceTree = "<group>"; };
 		E126CF812387A3E8002A546F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletCosmosCell.strings; sourceTree = "<group>"; };
 		E126CF832387A48F002A546F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletAddressCell.xib; sourceTree = "<group>"; };
@@ -436,6 +440,8 @@
 		E1E251E522A671260008F0DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/OtherValidatorCell.strings; sourceTree = "<group>"; };
 		E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineTextField.swift; sourceTree = "<group>"; };
 		E1ED75AA2251B37C002CFE85 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
+		E1F1CF05239F53C5004EF8A2 /* IrisProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrisProposal.swift; sourceTree = "<group>"; };
+		E1F1CF07239F5737004EF8A2 /* IrisVote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrisVote.swift; sourceTree = "<group>"; };
 		E1F2AE49227E865D00C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		E1F2AE4A227E865D00C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E1F2AE4B227E865D00C87F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -657,6 +663,7 @@
 				E13696582292499400F3D5E2 /* OtherValidatorViewController.swift */,
 				E1827E17225620D000BC0350 /* VaildatorDetailViewController.swift */,
 				E1945E4B222E81C200A1436F /* VoteListViewController.swift */,
+				E1259AD823977B760045C8F6 /* VoteDetailViewController.swift */,
 				E17B213023470222001743D6 /* TokenDetailViewController.swift */,
 				E10492122347B41000A2980F /* WalletConnectViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
@@ -723,6 +730,8 @@
 				E151B64A224859E10026B8C0 /* StdSignMsg.swift */,
 				E1BA208D22F8117000EAB87F /* IrisStdSignMsg.swift */,
 				E151B650224867D60026B8C0 /* Proposal.swift */,
+				E1F1CF05239F53C5004EF8A2 /* IrisProposal.swift */,
+				E1F1CF07239F5737004EF8A2 /* IrisVote.swift */,
 				E1BDBC07225C705000810D2E /* MsgGenerator.swift */,
 				E1317141225F352A00EE5AD0 /* PostTx.swift */,
 				E1406FBF2260643200D9440C /* BlockInfo.swift */,
@@ -1029,6 +1038,7 @@
 				E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
+				E1259AD923977B760045C8F6 /* VoteDetailViewController.swift in Sources */,
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,
 				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
 				E1827E2A2256298300BC0350 /* ValidatorDetailHistoryHeader.swift in Sources */,
@@ -1077,6 +1087,7 @@
 				E1A699582366D424004CA274 /* IovBalanceInfo.swift in Sources */,
 				E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */,
 				E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */,
+				E1F1CF08239F5737004EF8A2 /* IrisVote.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
@@ -1127,6 +1138,7 @@
 				E191A5812379091A002577BC /* TokenDetailHeaderKavaCell.swift in Sources */,
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
 				E16FACB12361ADFA00372052 /* Bytes.swift in Sources */,
+				E1F1CF06239F53C5004EF8A2 /* IrisProposal.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
 				E148A38F22F01DEF00A56A3F /* IrisRewards.swift in Sources */,

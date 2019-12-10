@@ -130,6 +130,7 @@
 "wc_request_fail" = "Tx Fail";
 "vesting_account" = "Vesting Account";
 "vesting_account_msg" = "Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.";
+"waiting_deposit" = "Waiting Deposit";
 
 
 "clear_all" = "Clear All";
@@ -166,11 +167,22 @@
 "title_validator_list" = "Validator List";
 "title_validator_detail" = "Validator Details";
 "title_vote_list" = "Proposal List";
+"title_vote_detail" = "Proposal Details";
 "title_wallet_connect" = "Wallet Connect";
 "title_token_detail" = "Token Details";
 "title_reword_address_change" = "Reward Address Change";
 "title_reinvest" = "Re-Invest";
 "title_guide" = "FAQ";
+
+"proposal_type_basic" = "Basic Proposal";
+"proposal_type_parameter" = "Parameter Proposal";
+"proposal_type_plaintext" = "PlainText Proposal";
+"proposal_type_tokenaddition" = "Token Addition Proposal";
+"proposal_type_softwareupgrade" = "Software Upgrade Proposal";
+"proposal_type_systemhalt" = "System Halt Proposal";
+"proposal_type_communitytaxusage" = "Community Tax Usage Proposal";
+
+
 
 "error_password_fail" = "PIN number is not same. Please init PIN number again!";
 "error_no_clipboard" = "No text from clipboard.";
@@ -205,6 +217,11 @@
 "error_kava_yet" = "Support soon!";
 "error_kava_vesting_account" = "Vesting account. Please use cli for correct Tx.";
 "error_send_disable" = "Token transfer is locked.";
+
+"error_not_voting_not" = "Can not vote now.";
+"error_not_voting_period" = "Not voting period.";
+"error_no_bonding_no_vote" = "This proposal can only vote on delegators.";
+"error_already_vote" = "Already voted.";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";

@@ -130,6 +130,7 @@
 "wc_request_fail" = "사인 실패";
 "vesting_account" = "베스팅 계정";
 "vesting_account_msg" = "베스팅 계정으로 보입니다. 정확한 수량으로 위임 및 위임해재를 하시기 위해서 cli를 이용하시는것을 권장합니다.";
+"waiting_deposit" = "디파짓 대기중";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";
@@ -165,11 +166,20 @@
 "title_validator_list" = "검증인 목록";
 "title_validator_detail" = "검증인 상세";
 "title_vote_list" = "투표 목록";
+"title_vote_detail" = "투표 상세";
 "title_wallet_connect" = "지갑 연결";
 "title_token_detail" = "토큰 상세";
 "title_reword_address_change" = "이자 지급 주소 변경";
 "title_reinvest" = "이자 즉시 위임";
 "title_guide" = "도움말";
+
+"proposal_type_basic" = "기본 제안";
+"proposal_type_parameter" = "파라미터 변경 제안";
+"proposal_type_plaintext" = "단순 제안";
+"proposal_type_tokenaddition" = "토큰 추가 제안";
+"proposal_type_softwareupgrade" = "소프트웨어 업그레이드 제안";
+"proposal_type_systemhalt" = "시스템 중지 제안";
+"proposal_type_communitytaxusage" = "커뮤니티 풀 코인 사용 제안";
 
 
 "error_password_fail" = "입력하신 두 패스워드가 다릅니다.\n다시 설정해 주세요.";
@@ -208,6 +218,11 @@
 "error_kava_yet" = "더 많은 테스트 후에 지원하겠습니다.";
 "error_kava_vesting_account" = "베스팅 계정입니다. 정확한 Tx를 위해 cli를 사용하세요.";
 "error_send_disable" = "아직 전송이 활성화 되지 않았습니다.";
+"error_not_voting_not" = "지금은 투표할 수 없습니다..";
+"error_not_voting_period" = "투표 기간이 아닙니다.";
+"error_no_bonding_no_vote" = "위임량이 없음으로 투표를 하실 수 없습니다.";
+"error_already_vote" = "이미 투표를 하였습니다.";
+
 
 "alert_title_no_private_key" = "관찰 모드 지갑";
 "alert_msg_no_private_key" = "관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.";

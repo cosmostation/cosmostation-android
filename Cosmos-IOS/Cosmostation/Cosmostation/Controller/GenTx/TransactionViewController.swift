@@ -34,6 +34,11 @@ class TransactionViewController: UIViewController {
     var mBnbToken: BnbToken?
     var mBnbTics = [String : NSMutableDictionary]()
     
+    var mProposeId: String?
+    var mProposalTitle: String?
+    var mProposer: String?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())

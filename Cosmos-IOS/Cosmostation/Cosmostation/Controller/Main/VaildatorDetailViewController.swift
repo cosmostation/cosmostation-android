@@ -69,7 +69,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
     }
     
-    @objc func onFech(){
+    @objc func onFech() {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             mUnbondings.removeAll()
             mRewards.removeAll()
