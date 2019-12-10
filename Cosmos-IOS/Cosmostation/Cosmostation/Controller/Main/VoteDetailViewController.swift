@@ -309,10 +309,10 @@ class VoteDetailViewController: BaseViewController {
                 return
             }
             
-//            if (irisProposal?.value?.basicProposal?.proposal_status != "VotingPeriod") {
-//                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-//                return
-//            }
+            if (irisProposal?.value?.basicProposal?.proposal_status != "VotingPeriod") {
+                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
+                return
+            }
             
             if (!account!.account_has_private) {
                 self.onShowAddMenomicDialog()
@@ -329,21 +329,24 @@ class VoteDetailViewController: BaseViewController {
                 return
             }
             
-//            if (myIrisVote != nil) {
-//                self.onShowToast(NSLocalizedString("error_already_vote", comment: ""))
-//                return
-//            }
+            if (myIrisVote != nil) {
+                self.onShowToast(NSLocalizedString("error_already_vote", comment: ""))
+                return
+            }
+            
+            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+            txVC.mProposeId = proposalId
+            txVC.mProposalTitle = voteTitle.text
+            txVC.mProposer = voteProposer.text
+            txVC.mType = IRIS_MSG_TYPE_VOTE
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(txVC, animated: true)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return
         }
         
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mProposeId = proposalId
-        txVC.mProposalTitle = voteTitle.text
-        txVC.mProposer = voteProposer.text
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
+        
     }
     
     

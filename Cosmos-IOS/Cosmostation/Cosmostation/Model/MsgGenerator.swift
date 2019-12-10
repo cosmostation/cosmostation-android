@@ -193,6 +193,25 @@ class MsgGenerator {
         return msg
     }
     
+    static func genGetVoteMsg(_ fromAddress: String, _ proposalId: String, _ opinion: String, _ chain: ChainType) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ) {
+            
+        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            value.proposal_id = proposalId
+            value.voter = fromAddress
+            value.option = opinion
+            
+            msg.type = IRIS_MSG_TYPE_VOTE
+            msg.value = value
+            
+        }
+        return msg
+    }
+    
+    
+    
     static func genSignedTx(_ msgs: Array<Msg>, _ fee: Fee, _ memo: String, _ signatures: Array<Signature>) -> StdTx {
         let stdTx = StdTx.init()
         let value = StdTx.Value.init()

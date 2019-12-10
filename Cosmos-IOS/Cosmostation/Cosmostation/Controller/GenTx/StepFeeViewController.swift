@@ -338,6 +338,9 @@ class StepFeeViewController: BaseViewController {
             } else if (pageHolderVC.mType == IRIS_MSG_TYPE_REDELEGATE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
                 
+            } else if (pageHolderVC.mType == IRIS_MSG_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
+                           
             } else {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
             }

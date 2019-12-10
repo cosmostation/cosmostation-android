@@ -45,6 +45,8 @@
 "reward_address_step_4" = "입력하신 정보를 확인하세요";
 "reinvest_step_1" = "즉시 위임할 이자량을 확인하세요";
 "reinvest_step_4" = "입력하신 정보를 확인하세요";
+"vote_step_1" = "의견을 선택하세요";
+"vote_step_4" = "입력하신 정보를 확인하세요";
 "recipient_address" = "받을 주소";
 "reward_claim_top_16" = "이자량 순서대로 최대 16검증인으로부터 이자를 청구 합니다.";
 "add_mnemonic" = "복구 단어 추가";
@@ -172,6 +174,7 @@
 "title_reword_address_change" = "이자 지급 주소 변경";
 "title_reinvest" = "이자 즉시 위임";
 "title_guide" = "도움말";
+"title_vote" = "투표 하기";
 
 "proposal_type_basic" = "기본 제안";
 "proposal_type_parameter" = "파라미터 변경 제안";
@@ -222,6 +225,7 @@
 "error_not_voting_period" = "투표 기간이 아닙니다.";
 "error_no_bonding_no_vote" = "위임량이 없음으로 투표를 하실 수 없습니다.";
 "error_already_vote" = "이미 투표를 하였습니다.";
+"error_no_opinion" = "의견을 선택해 주세요.";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";

@@ -102,6 +102,17 @@ class GenTxResultViewController: BaseViewController {
     @IBOutlet weak var reInvestDenomDelegate: UILabel!
     @IBOutlet weak var reInvestDenomFee: UILabel!
     
+    @IBOutlet weak var voteResultView: CardView!
+    @IBOutlet weak var voteResultType: UILabel!
+    @IBOutlet weak var voteResultHash: UILabel!
+    @IBOutlet weak var voteResultTime: UILabel!
+    @IBOutlet weak var voteResultBlock: UILabel!
+    @IBOutlet weak var voteResultOpinion: UILabel!
+    @IBOutlet weak var voteResultFee: UILabel!
+    @IBOutlet weak var voteResultFeeDenom: UILabel!
+    @IBOutlet weak var voteResultMemo: UILabel!
+    
+    
     var response:[String:Any]?
 
     @IBOutlet weak var txResultTitleLabel: UILabel!
@@ -135,6 +146,7 @@ class GenTxResultViewController: BaseViewController {
         WUtils.setDenomTitle(chainType!, addressChangeDenomFee)
         WUtils.setDenomTitle(chainType!, reInvestDenomDelegate)
         WUtils.setDenomTitle(chainType!, reInvestDenomFee)
+        WUtils.setDenomTitle(chainType!, voteResultFeeDenom)
         
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             guard let txType = response?["type"] as? String, let txHash = response?["txhash"] as? String  else {
@@ -429,6 +441,26 @@ class GenTxResultViewController: BaseViewController {
                 reInvestValidatorAddress.adjustsFontSizeToFitWidth = true
                 reInvestResultMemo.text = mTxInfo?.tx.value.memo
             }
+            
+        } else if (mTxType == IRIS_MSG_TYPE_VOTE) {
+            self.voteResultView.isHidden = false
+            self.loadingView.isHidden = true
+            voteResultType.text = NSLocalizedString("tx_vote", comment: "")
+            
+            if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                
+                
+            } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                voteResultHash.text = mTxInfo?.hash
+                voteResultBlock.text = mTxInfo?.height
+                voteResultTime.text = "-"
+                
+                voteResultOpinion.text = mTxInfo?.tx.value.msg[0].value.option
+                voteResultFee.attributedText = WUtils.displayAmount((mTxInfo?.tx.value.fee.amount[0].amount)!, voteResultFee.font, 18, self.chainType!)
+                voteResultMemo.text = mTxInfo?.tx.value.memo
+                
+            }
+            
         }
 
         self.actionLayer.isHidden = false

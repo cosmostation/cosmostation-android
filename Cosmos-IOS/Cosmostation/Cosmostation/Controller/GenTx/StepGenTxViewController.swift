@@ -57,6 +57,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mBnbToken: BnbToken?
     var mBnbTics = [String : NSMutableDictionary]()
     
+    var mProposeId: String?
+    var mProposalTitle: String?
+    var mProposer: String?
+    var mVoteOpinion: String?
+    
     
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
@@ -97,6 +102,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "ReInvestCheckViewController")]
             
+        } else if (mType == IRIS_MSG_TYPE_VOTE) {
+            return [self.newVc(viewController: "VoteSelectViewController"),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    self.newVc(viewController: "VoteCheckViewController")]
+           
         } else {
             return [self.newVc(viewController: "StepRewardViewController"),
                     self.newVc(viewController: "StepMemoViewController"),

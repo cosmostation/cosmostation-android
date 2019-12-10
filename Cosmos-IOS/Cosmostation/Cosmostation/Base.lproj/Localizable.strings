@@ -45,6 +45,8 @@
 "reward_address_step_4" = "Check transaction detail";
 "reinvest_step_1" = "Check reward for re-invest";
 "reinvest_step_4" = "Check transaction detail";
+"vote_step_1" = "Select your Opinion";
+"vote_step_4" = "Check transaction detail";
 "recipient_address" = "Recipient Address";
 "reward_claim_top_16" = "We claim rewards from up to max 16 validators in order of reward amount.";
 "add_mnemonic" = "Add Mnemonic";
@@ -173,6 +175,7 @@
 "title_reword_address_change" = "Reward Address Change";
 "title_reinvest" = "Re-Invest";
 "title_guide" = "FAQ";
+"title_vote" = "Vote";
 
 "proposal_type_basic" = "Basic Proposal";
 "proposal_type_parameter" = "Parameter Proposal";
@@ -217,11 +220,11 @@
 "error_kava_yet" = "Support soon!";
 "error_kava_vesting_account" = "Vesting account. Please use cli for correct Tx.";
 "error_send_disable" = "Token transfer is locked.";
-
 "error_not_voting_not" = "Can not vote now.";
 "error_not_voting_period" = "Not voting period.";
 "error_no_bonding_no_vote" = "This proposal can only vote on delegators.";
 "error_already_vote" = "Already voted.";
+"error_no_opinion" = "Please select your opinion.";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";
