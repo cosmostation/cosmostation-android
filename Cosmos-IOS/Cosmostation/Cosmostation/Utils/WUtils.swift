@@ -125,7 +125,7 @@ class WUtils {
                 dpBalance = dpBalance.adding(NSDecimalNumber.init(string: coin.amount))
             })
             
-            dpBalance = dpBalance.adding(totalDeleagtedVesting).subtracting(totalVestiong)
+//            dpBalance = dpBalance.adding(totalDeleagtedVesting).subtracting(totalVestiong)
             result.append(Balance.init(account.account_id,
                                         KAVA_MAIN_DENOM,
                                         dpBalance.stringValue,
@@ -133,13 +133,13 @@ class WUtils {
                                         NSDecimalNumber.zero.stringValue,
                                         totalVestiong.stringValue))
 
-//            if (SHOW_LOG) {
-//                print("COSMOS_AUTH_TYPE_VESTING_ACCOUNT");
-//                print("totalVestiong", totalVestiong);
-//                print("totalDeleagtedVesting", totalDeleagtedVesting);
-//                print("dpVesting", dpVesting);
-//                print("dpBalance", dpBalance);
-//            }
+            if (SHOW_LOG) {
+                print("COSMOS_AUTH_TYPE_VESTING_ACCOUNT");
+                print("totalVestiong", totalVestiong);
+                print("totalDeleagtedVesting", totalDeleagtedVesting);
+                print("dpVesting", dpVesting);
+                print("dpBalance", dpBalance);
+            }
             
         } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
             //TODO 1 year after re-calculate logic
@@ -164,7 +164,7 @@ class WUtils {
                 dpBalance = dpBalance.adding(NSDecimalNumber.init(string: coin.amount))
             })
             
-            dpBalance = dpBalance.adding(totalDeleagtedVesting).subtracting(totalVestiong)
+//            dpBalance = dpBalance.adding(totalDeleagtedVesting).subtracting(totalVestiong)
             result.append(Balance.init(account.account_id,
                                         KAVA_MAIN_DENOM,
                                         dpBalance.stringValue,
@@ -172,13 +172,13 @@ class WUtils {
                                         NSDecimalNumber.zero.stringValue,
                                         totalVestiong.stringValue))
 
-//            if (SHOW_LOG) {
-//                print("COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT");
-//                print("totalVestiong", totalVestiong);
-//                print("totalDeleagtedVesting", totalDeleagtedVesting);
-//                print("dpVesting", dpVesting);
-//                print("dpBalance", dpBalance);
-//            }
+            if (SHOW_LOG) {
+                print("COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT");
+                print("totalVestiong", totalVestiong);
+                print("totalDeleagtedVesting", totalDeleagtedVesting);
+                print("dpVesting", dpVesting);
+                print("dpBalance", dpBalance);
+            }
             
         }
         return result;

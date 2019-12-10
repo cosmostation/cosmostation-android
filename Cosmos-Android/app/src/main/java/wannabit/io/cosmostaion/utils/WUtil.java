@@ -265,7 +265,7 @@ public class WUtil {
                     }
                 }
 
-                dpBalance = dpBalance.add(totalDelegateVseting).subtract(totalVesting);
+//                dpBalance = dpBalance.add(totalDelegateVseting).subtract(totalVesting);
                 Balance temp = new Balance();
                 temp.accountId = accountId;
                 temp.symbol = COSMOS_KAVA;
@@ -309,7 +309,7 @@ public class WUtil {
                     }
                 }
 
-                dpBalance = dpBalance.add(totalDelegateVseting).subtract(totalVesting);
+//                dpBalance = dpBalance.add(totalDelegateVseting).subtract(totalVesting);
                 Balance temp = new Balance();
                 temp.accountId = accountId;
                 temp.symbol = COSMOS_KAVA;
