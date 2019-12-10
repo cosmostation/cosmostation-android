@@ -535,14 +535,14 @@ public class WDp {
     public static SpannableString getValueOfAtom(Context c, BaseData dao, BigDecimal totalAmount) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if(dao.getCurrency() == 5) {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
@@ -553,14 +553,14 @@ public class WDp {
     public static SpannableString getValueOfIris(Context c, BaseData dao, BigDecimal totalAmount) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if(dao.getCurrency() == 5) {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
@@ -571,14 +571,14 @@ public class WDp {
     public static SpannableString getValueOfBnb(Context c, BaseData dao, BigDecimal totalAmount) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if(dao.getCurrency() == 5) {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(2, RoundingMode.DOWN);
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(8, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(8, RoundingMode.DOWN);
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(2, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
@@ -589,14 +589,14 @@ public class WDp {
     public static SpannableString getValueOfKava(Context c, BaseData dao, BigDecimal totalAmount) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if(dao.getCurrency() == 5) {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastKavaTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastKavaTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastKavaTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
+            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastKavaTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
             SpannableString result;
             result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);

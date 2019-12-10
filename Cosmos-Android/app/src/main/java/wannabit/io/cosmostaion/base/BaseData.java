@@ -200,7 +200,7 @@ public class BaseData {
 
 
     public void setLastBnbTic(Double price) {
-        getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_TIC, ""+price).commit();
+        getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_TIC, ""+price).commit();
     }
 
     public double getLastBnbTic() {
