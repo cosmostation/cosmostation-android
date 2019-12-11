@@ -26,30 +26,17 @@ public class CheckWithdrawAddressTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-//                Response<ResLcdWithDrawAddress> response = ApiClient.getCosmosChain(mApp).getWithdrawAddress(mAccount.address).execute();
-//                if(!response.isSuccessful()) {
-//                    mResult.isSuccess = false;
-//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                    return mResult;
-//                }
-//
-//                if(response.body() != null && response.body().result != null) {
-//                    mResult.resultData = response.body().result;
-//                    mResult.isSuccess = true;
-//                }
-                //TODO rollback cosmos-hub2
-                Response<String> response = ApiClient.getCosmosChain(mApp).getWithdrawAddressLegacy(mAccount.address).execute();
+                Response<ResLcdWithDrawAddress> response = ApiClient.getCosmosChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
 
-                if(response.body() != null && response.body() != null) {
-                    mResult.resultData = response.body();
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
-
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<String> response = ApiClient.getIrisChain(mApp).getWithdrawAddress(mAccount.address).execute();

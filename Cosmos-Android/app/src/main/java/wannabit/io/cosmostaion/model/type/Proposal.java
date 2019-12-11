@@ -16,8 +16,8 @@ public class Proposal {
     @SerializedName("proposal_status")
     public String proposal_status;
 
-    @SerializedName("proposal_content")
-    public ProposalContent proposal_content;
+//    @SerializedName("proposal_content")
+//    public ProposalContent proposal_content;
 
     @SerializedName("content")
     public ProposalContent content;

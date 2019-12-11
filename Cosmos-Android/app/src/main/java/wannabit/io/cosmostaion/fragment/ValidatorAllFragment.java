@@ -133,11 +133,8 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-                if(getMainActivity().mBondedToken != null && getMainActivity().mProvisions != null) {
-                    //TODO rollback cosmos-hub2
-//                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
-                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.rate)));
-
+                if (getMainActivity().mBondedToken != null && getMainActivity().mProvisions != null) {
+                    holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
                 try {
                     Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")
@@ -156,7 +153,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
-                if(getMainActivity().mBondedToken != null && getMainActivity().mProvisions != null) {
+                if (getMainActivity().mBondedToken != null && getMainActivity().mProvisions != null) {
                     holder.itemTvCommission.setText(WDp.getYieldString(getMainActivity().mBondedToken, getMainActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
                 }
                 try {

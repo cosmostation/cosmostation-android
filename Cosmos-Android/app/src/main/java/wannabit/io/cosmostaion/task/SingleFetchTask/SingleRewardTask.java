@@ -32,30 +32,15 @@ public class SingleRewardTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-//                Response<ResLcdRewardFromVal> response = ApiClient.getCosmosChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-//                if(!response.isSuccessful()) {
-//                    mResult.isSuccess = false;
-//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                    return mResult;
-//                }
-//
-//                if(response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
-//                    ArrayList<Coin> amounts = response.body().result;
-//                    long time = System.currentTimeMillis();
-//                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-//                    mResult.resultData = temp;
-//                    mResult.isSuccess = true;
-//                }
-                //TODO rollback cosmos-hub2
-                Response<ArrayList<Coin>> response = ApiClient.getCosmosChain(mApp).getRewardFromValidatorLegacy(mAccount.address, mValidatorAddr).execute();
+                Response<ResLcdRewardFromVal> response = ApiClient.getCosmosChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
 
-                if(response.body() != null && response.body().size() > 0) {
-                    ArrayList<Coin> amounts = response.body();
+                if(response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                    ArrayList<Coin> amounts = response.body().result;
                     long time = System.currentTimeMillis();
                     Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
                     mResult.resultData = temp;

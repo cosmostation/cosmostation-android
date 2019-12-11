@@ -18,8 +18,6 @@ public class ResStakingPool {
         public String bonded_tokens;
     }
 
-
-    //TODO rollback cosmos-hub2
     @SerializedName("not_bonded_tokens")
     public String not_bonded_tokens;
 

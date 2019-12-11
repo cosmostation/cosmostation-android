@@ -408,11 +408,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
             try {
-                if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-//                    mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
-                    //TODO rollback cosmos-hub2
-                    mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).bonded_tokens);
-                } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                     mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
                 }
             } catch (Exception e) {}

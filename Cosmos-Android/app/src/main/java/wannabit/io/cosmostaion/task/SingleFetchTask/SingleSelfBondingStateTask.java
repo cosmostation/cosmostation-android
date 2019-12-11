@@ -30,15 +30,9 @@ public class SingleSelfBondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-//                Response<ResLcdSingleBonding> response = ApiClient.getCosmosChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-//                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-//                    mResult.resultData = response.body().result;
-//                    mResult.isSuccess = true;
-//                }
-                //TODO rollback cosmos-hub2
-                Response<ResLcdBonding> response = ApiClient.getCosmosChain(mApp).getBondingLegacy(mDelegateAddr, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
+                Response<ResLcdSingleBonding> response = ApiClient.getCosmosChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 

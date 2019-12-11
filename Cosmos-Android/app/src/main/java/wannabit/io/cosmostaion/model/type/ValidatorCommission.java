@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class ValidatorCommission implements Parcelable {
 
-    //TODO rollback cosmos-hub2
     @SerializedName("commission_rates")
     public ValidatorCommissionRate commission_rates;
 

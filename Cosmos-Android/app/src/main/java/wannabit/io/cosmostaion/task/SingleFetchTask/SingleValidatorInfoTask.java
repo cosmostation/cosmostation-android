@@ -28,15 +28,9 @@ public class SingleValidatorInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-//                Response<ResLcdSingleValidator> response = ApiClient.getCosmosChain(mApp).getValidatorDetail(mValidatorAddr).execute();
-//                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-//                    mResult.resultData = response.body().result;
-//                    mResult.isSuccess = true;
-//                }
-                //TODO rollback cosmos-hub2
-                Response<Validator> response = ApiClient.getCosmosChain(mApp).getValidatorDetailLegacy(mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
+                Response<ResLcdSingleValidator> response = ApiClient.getCosmosChain(mApp).getValidatorDetail(mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 

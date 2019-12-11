@@ -31,24 +31,14 @@ public class BondingStateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-//                Response<ResLcdBondings> response = ApiClient.getCosmosChain(mApp).getBondingList(mAccount.address).execute();
-//                if(response.isSuccessful()) {
-//                    if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
-//                        mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body().result, BaseChain.COSMOS_MAIN));
-//                    } else {
-//                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
-//                    }
-//                }
-                //TODO rollback cosmos-hub2
-                Response<ArrayList<ResLcdBonding>> response = ApiClient.getCosmosChain(mApp).getBondingListLegacy(mAccount.address).execute();
+                Response<ResLcdBondings> response = ApiClient.getCosmosChain(mApp).getBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
-                    if (response.body() != null &&response.body().size() > 0) {
-                        mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body(), BaseChain.COSMOS_MAIN));
+                    if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                        mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body().result, BaseChain.COSMOS_MAIN));
                     } else {
                         mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
                     }
                 }
-
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
                 Response<ArrayList<ResLcdBonding>> response = ApiClient.getIrisChain(mApp).getBondingList(mAccount.address).execute();

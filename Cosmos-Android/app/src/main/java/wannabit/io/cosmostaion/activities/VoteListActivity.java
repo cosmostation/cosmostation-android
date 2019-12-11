@@ -165,10 +165,10 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         public void onBindViewHolder(@NonNull VoteAdapter.VoteHolder voteHolder, int position) {
             final Proposal proposal = mProposals.get(position);
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                voteHolder.proposal_id.setText("# " + proposal.proposal_id);
+                voteHolder.proposal_id.setText("# " + proposal.id);
                 voteHolder.proposal_status.setText(proposal.proposal_status);
-                voteHolder.proposal_title.setText(proposal.proposal_content.value.title);
-                voteHolder.proposal_details.setText(proposal.proposal_content.value.description);
+                voteHolder.proposal_title.setText(proposal.content.value.title);
+                voteHolder.proposal_details.setText(proposal.content.value.description);
                 if (proposal.proposal_status.equals("DepositPeriod")) {
                     voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
                 } else if (proposal.proposal_status.equals("VotingPeriod")) {

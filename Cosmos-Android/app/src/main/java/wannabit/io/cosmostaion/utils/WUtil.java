@@ -818,8 +818,8 @@ public class WUtil {
             @Override
             public int compare(Proposal o1, Proposal o2) {
                 if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                    if (Integer.parseInt(o1.proposal_id) < Integer.parseInt(o2.proposal_id)) return 1;
-                    else if (Integer.parseInt(o1.proposal_id) > Integer.parseInt(o2.proposal_id)) return -1;
+                    if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
+                    else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
                     else return 0;
 
                 } else if (chain.equals(BaseChain.KAVA_MAIN)) {

@@ -6,7 +6,7 @@ public enum BaseChain {
     COSMOS_LEGACY1("cosmoshub-1"),
     COSMOS_LEGACY2("cosmoshub-2"),
     COSMOS_LEGACY3("cosmoshub-3"),
-    COSMOS_MAIN("cosmoshub-2"),
+    COSMOS_MAIN("cosmoshub-3"),
     IRIS_MAIN("irishub"),
     IOV_MAIN("iov-mainnet"),
     BNB_MAIN("Binance-Chain-Tigris"),

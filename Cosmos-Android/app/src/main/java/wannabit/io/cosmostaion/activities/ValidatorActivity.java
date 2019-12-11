@@ -660,15 +660,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                //TODO rollback cosmos-hub2
-//                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
-                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
+                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if(mValidator.status == Validator.BONDED) {
                     if(mBondedToken != null && mProvisions != null) {
-                        //TODO rollback cosmos-hub2
-//                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate)));
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
                     }
                 } else {
                     holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
@@ -758,15 +754,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                //TODO rollback cosmos-hub2
-//                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
-                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
+                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if(mValidator.status == Validator.BONDED) {
                     if(mBondedToken != null && mProvisions != null) {
-                        //TODO rollback cosmos-hub2
-//                            holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
-                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate)));
+                        holder.itemTvYieldRate.setText(WDp.getYieldString(mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate)));
                     }
                 } else {
                     holder.itemTvYieldRate.setText(WDp.getYieldString(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
@@ -836,11 +828,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if (mValidator.status == Validator.BONDED) {
                     if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 6, BaseChain.getChain(mAccount.baseChain)));
-                        //TODO rollback cosmos-hub2
-//                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
-//                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
-                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
-                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
+                        holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), mBondedToken, mProvisions, new BigDecimal(mValidator.commission.commission_rates.rate), mBondingState.getBondingAmount(mValidator)));
                     } else {
                         holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
                         holder.itemDailyReturn.setText("-");

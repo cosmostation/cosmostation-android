@@ -114,46 +114,6 @@ public interface CosmosChain {
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
 
-    //TODO rollback cosmos-hub2
-    @GET("/staking/validators?status=bonded")
-    Call<ArrayList<Validator>> getValidatorDetailListLegacy();
-
-    @GET("/staking/validators?status=unbonding")
-    Call<ArrayList<Validator>> getUnBondingValidatorDetailListLegacy();
-
-    @GET("/staking/validators?status=unbonded")
-    Call<ArrayList<Validator>> getUnBondedValidatorDetailListLegacy();
-
-    @GET("/staking/delegators/{address}/delegations")
-    Call<ArrayList<ResLcdBonding>> getBondingListLegacy(@Path("address") String address);
-
-    @GET("/staking/delegators/{address}/unbonding_delegations")
-    Call<ArrayList<ResLcdUnBonding>> getUnBondingListLegacy(@Path("address") String address);
-
-    @GET("/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
-    Call<ArrayList<Coin>> getRewardFromValidatorLegacy(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
-
-    @GET("/distribution/delegators/{address}/withdraw_address")
-    Call<String> getWithdrawAddressLegacy(@Path("address") String address);
-
-    @GET("/staking/delegators/{address}/delegations/{validatorAddr}")
-    Call<ResLcdBonding> getBondingLegacy(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
-
-    @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
-    Call<ResLcdUnBonding> getUnbondingLegacy(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
-
-
-    @GET("/staking/validators/{validatorAddr}")
-    Call<Validator> getValidatorDetailLegacy(@Path("validatorAddr") String validatorAddr);
-
-    @GET("/minting/inflation")
-    Call<String> getInflationLegacy();
-
-    @GET("/minting/annual-provisions")
-    Call<String> getProvisionsLegacy();
-
-    @GET("/gov/proposals")
-    Call<ArrayList<Proposal>> getProposalListLegacy();
 
 
     //TODO adjust for cosmoshub-3
