@@ -334,8 +334,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func onSetCosmosHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
         let history = mHistories[indexPath.row - 1]
-        cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.time)
-        cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.time)
+        cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history._source.timestamp)
+        cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.timestamp)
         cell?.txBlockLabel.text = String(history._source.height) + " block"
         cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, account!.account_address)
         if(history._source.result.allResult) {

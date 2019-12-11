@@ -985,17 +985,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.historyType.setText(WDp.DpTxType(getBaseContext(), source.tx.value.msg, mAccount.address));
 
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
-                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.time));
-                if(!source.result.isSuccess()) {
+                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.timestamp));
+                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.timestamp));
+                if(!source.isSuccess()) {
                     holder.historySuccess.setVisibility(View.VISIBLE);
                 } else {
                     holder.historySuccess.setVisibility(View.GONE);
                 }
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
-                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.time));
+                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.timestamp));
+                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.timestamp));
                 if(source.result.Code > 0) {
                     holder.historySuccess.setVisibility(View.VISIBLE);
                 } else {

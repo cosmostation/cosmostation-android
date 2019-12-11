@@ -546,7 +546,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 final ResHistory.Source source = mHistory.get(position)._source;
                 if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                    if(!source.result.isSuccess()) {
+                    if(!source.isSuccess()) {
                         viewHolder.historySuccess.setVisibility(View.VISIBLE);
                     } else {
                         viewHolder.historySuccess.setVisibility(View.GONE);
@@ -559,8 +559,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                     }
                 }
                 viewHolder.historyType.setText(WDp.DpTxType(getBaseContext(), source.tx.value.msg, mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
-                viewHolder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.time));
+                viewHolder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.timestamp));
+                viewHolder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.timestamp));
                 viewHolder.history_block.setText(source.height + " block");
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override

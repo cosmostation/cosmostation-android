@@ -169,7 +169,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 final ResHistory.Source source = mHistory.get(position)._source;
                 if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                    if(!source.result.isSuccess()) {
+                    if(!source.isSuccess()) {
                         viewHolder.historySuccess.setVisibility(View.VISIBLE);
                     } else {
                         viewHolder.historySuccess.setVisibility(View.GONE);
@@ -182,8 +182,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     }
                 }
                 viewHolder.historyType.setText(WDp.DpTxType(getContext(), source.tx.value.msg, getMainActivity().mAccount.address));
-                viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.time));
-                viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.time));
+                viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.timestamp));
+                viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.timestamp));
                 viewHolder.history_block.setText(source.height + " block");
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
