@@ -238,9 +238,10 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                    guard let validators = res as? Array<NSDictionary> else {
-                        print("no validators!!")
-                        return
+                    guard let responseData = res as? NSDictionary,
+                        let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                             print("no validators!!")
+                            return
                     }
                     self.mToReDelegateValidators.removeAll()
                     for validator in validators {

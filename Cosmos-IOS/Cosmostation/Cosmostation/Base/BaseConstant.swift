@@ -28,6 +28,7 @@ let KEY_PRICE_TIC_CMC                    = "KEY_PRICE_TIC_CMC"
 
 
 let CSS_LCD_URL                         = "https://lcd-app.cosmostation.io/";
+//let CSS_LCD_URL                         = "https://lcd-cosmos-testnet.cosmostation.io//";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";

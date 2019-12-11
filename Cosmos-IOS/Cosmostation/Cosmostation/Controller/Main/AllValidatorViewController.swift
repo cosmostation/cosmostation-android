@@ -123,10 +123,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             if (mainTabVC!.mStakingPool != nil && mainTabVC!.mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mainTabVC.mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mainTabVC.mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                //TODO rollback cosmos-hub2
-//                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
-                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.rate), font: cell.commissionLabel.font)
-
+                cell.commissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell.commissionLabel.font)
             } else {
                 cell.commissionLabel.text = "-"
             }
@@ -267,14 +264,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             if (!$0.jailed && $1.jailed) {
                 return true
             }
-            //TODO rollback cosmos-hub2
-//            if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
-//            } else if (userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-//                return Double($0.commission.rate)! < Double($1.commission.rate)!
-//            }
             if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                return Double($0.commission.rate)! < Double($1.commission.rate)!
+                return Double($0.commission.commission_rates.rate)! < Double($1.commission.commission_rates.rate)!
             } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 return Double($0.commission.rate)! < Double($1.commission.rate)!
             } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {

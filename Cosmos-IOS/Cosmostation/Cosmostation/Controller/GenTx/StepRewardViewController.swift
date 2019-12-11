@@ -140,13 +140,8 @@ class StepRewardViewController: BaseViewController {
             switch response.result {
             case .success(let res):
                 if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-//                        self.onFetchFinished()
-//                        return;
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let rawRewards = res as? Array<NSDictionary> else {
+                    guard let responseData = res as? NSDictionary,
+                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return;
                     }
@@ -211,7 +206,7 @@ class StepRewardViewController: BaseViewController {
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             request.responseString { (response) in
                 switch response.result {
                 case .success(let res):
@@ -228,7 +223,7 @@ class StepRewardViewController: BaseViewController {
                 }
                 self.onFetchFinished()
             }
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):

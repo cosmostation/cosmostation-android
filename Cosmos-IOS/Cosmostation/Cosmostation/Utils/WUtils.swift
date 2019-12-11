@@ -1340,7 +1340,7 @@ class WUtils {
     
     static func getChainName(_ type:String) -> String {
         if (type == CHAIN_COSMOS_S) {
-            return "cosmoshub-2"
+            return "cosmoshub-3"
         } else if (type == CHAIN_IRIS_S) {
             return "irishub"
         } else if (type == CHAIN_BINANCE_S) {
@@ -1350,7 +1350,7 @@ class WUtils {
         } else if (type == CHAIN_IOV_S) {
             return "iov-mainnet"
         }
-        return "cosmoshub-2"
+        return "cosmoshub-3"
     }
     
     static func clearBackgroundColor(of view: UIView) {

@@ -95,13 +95,8 @@ class ReInvestAmountViewController: BaseViewController {
             switch response.result {
             case .success(let res):
                 if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-//                        self.onFetchFinished()
-//                        return;
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let rawRewards = res as? Array<NSDictionary> else {
+                    guard let responseData = res as? NSDictionary,
+                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.updateView()
                         return;
                     }

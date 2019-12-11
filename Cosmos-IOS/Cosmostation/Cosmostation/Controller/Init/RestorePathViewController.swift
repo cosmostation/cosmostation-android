@@ -77,12 +77,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
-//                            guard let responseData = res as? NSDictionary,
-//                                let info = responseData.object(forKey: "result") as? [String : Any] else {
-//                                    return
-//                            }
-//                            TODO rollback cosmos-hub2
-                            guard let info = res as? [String : Any] else {
+                            guard let responseData = res as? NSDictionary,
+                                let info = responseData.object(forKey: "result") as? [String : Any] else {
                                     return
                             }
                             let accountInfo = AccountInfo.init(info)

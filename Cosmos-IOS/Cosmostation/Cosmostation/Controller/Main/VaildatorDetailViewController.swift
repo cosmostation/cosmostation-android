@@ -190,9 +190,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         cell?.descriptionMsg.text = mValidator!.description.details
         
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            //TODO rollback cosmos-hub2
-//            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
+            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
             let url = COSMOS_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
@@ -235,9 +233,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             if (mStakingPool != nil && mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                //TODO rollback cosmos-hub2
-//                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
             } else {
                 cell!.avergaeYield.text = "?? %"
             }
@@ -283,9 +279,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         cell?.descriptionMsg.text = mValidator!.description.details
         
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            //TODO rollback cosmos-hub2
-//            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
+            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
             let url = COSMOS_VAL_URL + mValidator!.operator_address + ".png"
             Alamofire.request(url, method: .get).responseImage { response  in
@@ -328,9 +322,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             if (mStakingPool != nil && mProvision != nil) {
                 let provisions = NSDecimalNumber.init(string: mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                //TODO rollback cosmos-hub2
-//                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
+                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), font: cell!.avergaeYield.font)
 
             } else {
                 cell!.avergaeYield.text = "?? %"
@@ -451,11 +443,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             if (mStakingPool != nil && mProvision != nil && mBonding != nil) {
                 let provisions = NSDecimalNumber.init(string: mProvision)
                 let bonded_tokens = NSDecimalNumber.init(string: mStakingPool?.object(forKey: "bonded_tokens") as? String)
-                //TODO rollback cosmos-hub2
-//                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
-//                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
-                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
-                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
+                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
+                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.commission_rates.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
             } else {
                 cell!.myDailyReturns.text = "-"
                 cell!.myMonthlyReturns.text = "-"
@@ -615,13 +604,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let validator = responseData.object(forKey: "result") as? NSDictionary else {
-//                        self.onFetchFinished()
-//                        return
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let validator = res as? NSDictionary else {
+                    guard let responseData = res as? NSDictionary,
+                        let validator = responseData.object(forKey: "result") as? NSDictionary else {
                         self.onFetchFinished()
                         return
                     }
@@ -664,13 +648,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
-//                        self.onFetchFinished()
-//                        return
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let rawData = res as? [String : Any] else {
+                    guard let responseData = res as? NSDictionary,
+                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
                         self.onFetchFinished()
                         return
                     }
@@ -725,15 +704,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
-//                        self.onFetchFinished()
-//                        return
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let rawData = res as? [String : Any] else {
-                            self.onFetchFinished()
-                            return
+                    guard let responseData = res as? NSDictionary,
+                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                        self.onFetchFinished()
+                        return
                     }
                     let unbondinginfo = UnbondingInfo(rawData)
                     for entry in unbondinginfo.entries {
@@ -781,15 +755,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-//                        self.onFetchFinished()
-//                        return;
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let rawRewards = res as? Array<NSDictionary> else {
-                            self.onFetchFinished()
-                            return;
+                    guard let responseData = res as? NSDictionary,
+                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return;
                     }
                     let reward = Reward.init()
                     reward.reward_v_address = validator.operator_address
@@ -893,13 +862,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
-//                        self.onFetchFinished()
-//                        return;
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let rawData = res as? [String : Any] else {
+                    guard let responseData = res as? NSDictionary,
+                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
                         self.onFetchFinished()
                         return;
                     }
@@ -1002,11 +966,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             request.responseString { (response) in
                 switch response.result {
                 case .success(let res):
-                    //TODO rollback cosmos-hub2
                     guard let address = res as? String else {
                         self.onShowReInvsetFailDialog()
                         return;
@@ -1023,7 +986,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):

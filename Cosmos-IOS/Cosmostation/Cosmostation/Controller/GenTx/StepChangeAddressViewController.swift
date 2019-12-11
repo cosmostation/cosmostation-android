@@ -101,17 +101,35 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
         request.responseString { (response) in
             switch response.result {
             case .success(let res):
-                guard let address = res as? String else {
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                    return;
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    guard let responseData = res as? NSDictionary,
+                        let address = responseData.object(forKey: "result") as? String else {
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return;
+                    }
+                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                    self.currentRewardAddressLabel.text = trimAddress
+                    if(trimAddress != accountAddr) {
+                        self.currentRewardAddressLabel.textColor = UIColor.init(hexString: "f31963")
+                    }
+                    self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
+                    self.pageHolderVC.mCurrentRewardAddress = trimAddress
+                    
+                } else if  (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    guard let address = res as? String else {
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return;
+                    }
+                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                    self.currentRewardAddressLabel.text = trimAddress
+                    if(trimAddress != accountAddr) {
+                        self.currentRewardAddressLabel.textColor = UIColor.init(hexString: "f31963")
+                    }
+                    self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
+                    self.pageHolderVC.mCurrentRewardAddress = trimAddress
                 }
-                let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                self.currentRewardAddressLabel.text = trimAddress
-                if(trimAddress != accountAddr) {
-                    self.currentRewardAddressLabel.textColor = UIColor.init(hexString: "f31963")
-                }
-                self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
-                self.pageHolderVC.mCurrentRewardAddress = trimAddress
+                
+                
                 
             case .failure(let error):
                 if(SHOW_LOG) {

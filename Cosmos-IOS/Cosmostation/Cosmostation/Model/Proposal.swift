@@ -8,7 +8,6 @@
 
 import Foundation
 
-//TODO rollback cosmos-hub2
 public class Proposal {
     var id: String = ""
     var proposal_id: String = ""

@@ -182,19 +182,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             switch response.result {
             case .success(let res):
                 if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let info = responseData.object(forKey: "result") as? [String : Any] else {
-//                        _ = BaseData.instance.deleteBalance(account: account)
-//                        self.hideWaittingAlert()
-//                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-//                        return
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let info = res as? [String : Any] else {
-                            _ = BaseData.instance.deleteBalance(account: account)
-                            self.hideWaittingAlert()
-                            self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                            return
+                    guard let responseData = res as? NSDictionary,
+                        let info = responseData.object(forKey: "result") as? [String : Any] else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.hideWaittingAlert()
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return
                     }
                     let accountInfo = AccountInfo.init(info)
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))

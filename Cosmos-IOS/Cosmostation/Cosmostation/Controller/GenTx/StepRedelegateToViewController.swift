@@ -51,9 +51,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 if (self.pageHolderVC.mStakingPool != nil && self.pageHolderVC.mProvision != nil) {
                     let provisions = NSDecimalNumber.init(string: self.pageHolderVC.mProvision)
                     let bonded_tokens = NSDecimalNumber.init(string: self.pageHolderVC.mStakingPool?.object(forKey: "bonded_tokens") as! String)
-                    //TODO rollback cosmos-hub2
-//                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell!.valCommissionLabel.font)
-                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.rate), font: cell!.valCommissionLabel.font)
+                    cell?.valCommissionLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: validator.commission.commission_rates.rate), font: cell!.valCommissionLabel.font)
                 } else {
                     cell?.valCommissionLabel.text = "?? %"
                 }

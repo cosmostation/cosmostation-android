@@ -263,15 +263,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-//                            self.onFetchFinished()
-//                            return
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let validators = res as? Array<NSDictionary> else {
-                        self.onFetchFinished()
-                        return
+                    guard let responseData = res as? NSDictionary,
+                        let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                            self.onFetchFinished()
+                            return
                     }
                     self.mTopValidators.removeAll()
                     for validator in validators {
@@ -309,15 +304,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-//                            self.onFetchFinished()
-//                            return
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let validators = res as? Array<NSDictionary> else {
-                        self.onFetchFinished()
-                        return
+                    guard let responseData = res as? NSDictionary,
+                        let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                            self.onFetchFinished()
+                            return
                     }
                     for validator in validators {
                         self.mOtherValidators.append(Validator(validator as! [String : Any]))
@@ -353,13 +343,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-//                        self.onFetchFinished()
-//                        return
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let validators = res as? Array<NSDictionary> else {
+                    guard let responseData = res as? NSDictionary,
+                        let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return
                     }
@@ -430,14 +415,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let info = responseData.object(forKey: "result") as? [String : Any] else {
-//                        _ = BaseData.instance.deleteBalance(account: account)
-//                        self.onFetchFinished()
-//                        return
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let info = res as? [String : Any] else {
+                    guard let responseData = res as? NSDictionary,
+                        let info = responseData.object(forKey: "result") as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.onFetchFinished()
                         return
@@ -499,14 +478,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-//                        _ = BaseData.instance.deleteBonding(account: account)
-//                        self.onFetchFinished()
-//                        return;
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let bondinginfos = res as? Array<NSDictionary> else {
+                    guard let responseData = res as? NSDictionary,
+                        let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         _ = BaseData.instance.deleteBonding(account: account)
                         self.onFetchFinished()
                         return;
@@ -565,13 +538,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-//                        _ = BaseData.instance.deleteUnbonding(account: account)
-//                        self.onFetchFinished()
-//                        return
-//                    }
-                    guard let unbondinginfos = res as? Array<NSDictionary> else {
+                    guard let responseData = res as? NSDictionary,
+                        let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         _ = BaseData.instance.deleteUnbonding(account: account)
                         self.onFetchFinished()
                         return
@@ -636,13 +604,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-//                        self.onFetchFinished()
-//                        return;
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let rawRewards = res as? Array<NSDictionary> else {
+                    guard let responseData = res as? NSDictionary,
+                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return;
                     }
@@ -689,15 +652,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let inflation = responseData.object(forKey: "result") as? String else {
-//                        self.onFetchFinished()
-//                        return;
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let inflation = res as? String else {
-                            self.onFetchFinished()
-                            return;
+                    guard let responseData = res as? NSDictionary,
+                        let inflation = responseData.object(forKey: "result") as? String else {
+                        self.onFetchFinished()
+                        return;
                     }
                     self.mInflation = inflation.replacingOccurrences(of: "\"", with: "")
                     
@@ -731,13 +689,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let provisions = responseData.object(forKey: "result") as? String else {
-//                        self.onFetchFinished()
-//                        return;
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let provisions = res as? String else {
+                    guard let responseData = res as? NSDictionary,
+                        let provisions = responseData.object(forKey: "result") as? String else {
                         self.onFetchFinished()
                         return;
                     }
@@ -775,13 +728,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-//                    guard let responseData = res as? NSDictionary,
-//                        let stakingPool = responseData.object(forKey: "result") as? NSDictionary else {
-//                        self.onFetchFinished()
-//                        return;
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let stakingPool = res as? NSDictionary else {
+                    guard let responseData = res as? NSDictionary,
+                        let stakingPool = responseData.object(forKey: "result") as? NSDictionary else {
                         self.onFetchFinished()
                         return;
                     }

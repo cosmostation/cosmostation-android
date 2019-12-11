@@ -251,12 +251,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
-//                    guard let responseData = res as? NSDictionary,
-//                        let address = responseData.object(forKey: "result") as? String else {
-//                            return;
-//                    }
-                    //TODO rollback cosmos-hub2
-                    guard let address = res as? String else {
+                    guard let responseData = res as? NSDictionary,
+                        let address = responseData.object(forKey: "result") as? String else {
                             return;
                     }
                     self.rewardCard.isHidden = false
