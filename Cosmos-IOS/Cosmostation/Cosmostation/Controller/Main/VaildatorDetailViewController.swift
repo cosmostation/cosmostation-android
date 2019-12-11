@@ -904,8 +904,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                    if let redelegateHistories = res as? Array<NSDictionary>, let entries = redelegateHistories[0]["entries"] as? Array<NSDictionary> {
-                        if(entries.count >= 0) {
+                    if let responseData = res as? NSDictionary,
+                        let redelegateHistories = responseData.object(forKey: "result") as? Array<NSDictionary> {
+                        if (redelegateHistories.count > 0) {
                             self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
                         } else {
                             self.onStartRedelegate()

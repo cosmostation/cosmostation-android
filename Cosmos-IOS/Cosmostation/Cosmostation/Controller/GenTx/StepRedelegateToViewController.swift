@@ -227,12 +227,15 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                             return
                         }
                     }
-                    if let redelegateHistories = res as? Array<NSDictionary>, let entries = redelegateHistories[0]["entries"] as? Array<NSDictionary> {
-                        if (entries.count >= 7) {
+                    if let responseData = res as? NSDictionary,
+                        let redelegateHistories = responseData.object(forKey: "result") as? Array<NSDictionary> {
+                        if (redelegateHistories.count >= 7) {
                             self.onShowToast(NSLocalizedString("error_redelegate_cnt_over", comment: ""))
                         } else {
                             self.goNextPage()
                         }
+                    } else {
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
                     }
                     
                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {

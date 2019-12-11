@@ -35,25 +35,15 @@ public class SingleAllRedelegateState extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-                Response<ArrayList<Redelegate>> response = ApiClient.getCosmosChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
-                if (response.isSuccessful()) {
-                    if(response.body() != null) {
-                        mResult.resultData = response.body();
+                Response<ResLcdRedelegate> response = ApiClient.getCosmosChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
+                if(response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null) {
+                        mResult.resultData = response.body().result;
                         mResult.isSuccess = true;
                     } else {
                         mResult.resultData = new ArrayList<Redelegate>();
                         mResult.isSuccess = true;
                     }
-                } else {
-//                    try {
-//                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-//                        if(jObjError.toString().contains("no redelegation found")) {
-//                            mResult.resultData = new ArrayList<Redelegate>();
-//                            mResult.isSuccess = true;
-//                        }
-//                    } catch (Exception e) {
-//                        if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
-//                    }
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
