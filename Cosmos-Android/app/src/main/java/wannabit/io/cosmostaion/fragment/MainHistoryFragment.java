@@ -166,24 +166,37 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
-            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 final ResHistory.Source source = mHistory.get(position)._source;
-                if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                    if(!source.isSuccess()) {
-                        viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                    } else {
-                        viewHolder.historySuccess.setVisibility(View.GONE);
-                    }
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                    if(source.result.Code > 0) {
-                        viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                    } else {
-                        viewHolder.historySuccess.setVisibility(View.GONE);
-                    }
+                if(!source.isSuccess()) {
+                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder.historySuccess.setVisibility(View.GONE);
                 }
                 viewHolder.historyType.setText(WDp.DpTxType(getContext(), source.tx.value.msg, getMainActivity().mAccount.address));
                 viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.timestamp));
                 viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.timestamp));
+                viewHolder.history_block.setText(source.height + " block");
+                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                        webintent.putExtra("txid", source.hash);
+                        webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+                        startActivity(webintent);
+                    }
+                });
+
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                final ResHistory.Source source = mHistory.get(position)._source;
+                if(source.result.Code > 0) {
+                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder.historySuccess.setVisibility(View.GONE);
+                }
+                viewHolder.historyType.setText(WDp.DpTxType(getContext(), source.tx.value.msg, getMainActivity().mAccount.address));
+                viewHolder.history_time.setText(WDp.getTimeformat(getContext(), source.time));
+                viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), source.time));
                 viewHolder.history_block.setText(source.height + " block");
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override

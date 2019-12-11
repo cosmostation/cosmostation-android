@@ -994,8 +994,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
             } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.timestamp));
-                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.timestamp));
+                holder.history_time.setText(WDp.getTimeformat(getBaseContext(), source.time));
+                holder.history_time_gap.setText(WDp.getTimeGap(getBaseContext(), source.time));
                 if(source.result.Code > 0) {
                     holder.historySuccess.setVisibility(View.VISIBLE);
                 } else {
