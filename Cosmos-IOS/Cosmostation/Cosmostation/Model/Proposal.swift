@@ -13,7 +13,7 @@ public class Proposal {
     var proposal_id: String = ""
     var proposal_status: String = ""
     var content: ProposalContent?
-    var proposal_content: ProposalContent?
+//    var proposal_content: ProposalContent?
     var value: IrisValue?
     
     init() {}
@@ -22,9 +22,9 @@ public class Proposal {
         self.id = dictionary["id"] as? String ?? ""
         self.proposal_id = dictionary["proposal_id"] as? String ?? ""
         self.proposal_status = dictionary["proposal_status"] as? String ?? ""
-        if let content = dictionary["proposal_content"] as? [String : Any] {
-            self.proposal_content = ProposalContent.init(content)
-        }
+//        if let content = dictionary["proposal_content"] as? [String : Any] {
+//            self.proposal_content = ProposalContent.init(content)
+//        }
         if let content = dictionary["content"] as? [String : Any] {
             self.content = ProposalContent.init(content)
         }

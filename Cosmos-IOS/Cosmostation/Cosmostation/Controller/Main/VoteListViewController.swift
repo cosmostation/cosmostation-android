@@ -68,8 +68,8 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         let proposal = mProposals[indexPath.row]
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             cell?.proposalIdLabel.text = "# ".appending(proposal.id)
-            cell?.proposalTitleLabel.text = proposal.proposal_content?.value.title
-            cell?.proposalMsgLabel.text = proposal.proposal_content?.value.description
+            cell?.proposalTitleLabel.text = proposal.content?.value.title
+            cell?.proposalMsgLabel.text = proposal.content?.value.description
             cell?.proposalStateLabel.text = proposal.proposal_status
             if (proposal.proposal_status == "DepositPeriod") {
                 cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
