@@ -791,13 +791,13 @@ public class WUtil {
             public int compare(Validator o1, Validator o2) {
                 if(o1.description.moniker.equals("Cosmostation")) return -1;
                 if(o2.description.moniker.equals("Cosmostation")) return 1;
-                if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                    if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
-                    else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
-                    else return 0;
-                } else if (chain.equals(BaseChain.KAVA_MAIN)){
+                if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
                     if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
                     else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
+                    else return 0;
+                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                    if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
+                    else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
                     else return 0;
                 }
                 return 0;
