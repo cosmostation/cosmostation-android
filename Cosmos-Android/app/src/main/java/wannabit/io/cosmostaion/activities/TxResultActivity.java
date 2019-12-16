@@ -555,6 +555,17 @@ public class TxResultActivity extends BaseActivity implements View.OnClickListen
                 }
                 mNewRewardAddress.setText(mResTxInfo.tx.value.msg.get(0).value.withdraw_addr);
 
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                mTvTxHash.setText(mResTxInfo.txhash);
+                mTxTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                mTxBlockHeight.setText(mResTxInfo.height);
+                for(Coin coin: mResTxInfo.tx.value.fee.amount) {
+                    if(coin.denom.equals(BaseConstant.COSMOS_KAVA)) {
+                        mRewardAddressChangeFee.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(coin.amount), 6, BaseChain.getChain(mAccount.baseChain)));
+                    }
+                }
+                mNewRewardAddress.setText(mResTxInfo.tx.value.msg.get(0).value.withdraw_address);
+
             }
             mRewardAddressChangeMemo.setText(mResTxInfo.tx.value.memo);
             mBtnDismiss.setVisibility(View.GONE);

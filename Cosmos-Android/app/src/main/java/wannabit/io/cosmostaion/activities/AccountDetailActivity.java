@@ -32,6 +32,10 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
 
@@ -131,17 +135,18 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
         boolean hasbalance = false;
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_ATOM) && ((balance.balance.compareTo(BigDecimal.ONE)) >= 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_ATOM).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
 
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            for (Balance balance:balances) {
-                if (balance.symbol.equals(BaseConstant.COSMOS_IRIS_ATTO) && ((balance.balance.compareTo(new BigDecimal("400000000000000000"))) >= 0)) {
-                    hasbalance  = true;
-                }
+            if (WDp.getAvailableCoin(balances, COSMOS_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
+                hasbalance  = true;
+            }
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
             }
         }
 
@@ -183,6 +188,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
 
@@ -198,7 +204,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         mAccountAddress.setText(mAccount.address);
         mAccountGenTime.setText(WDp.getDpTime(getBaseContext(), mAccount.importTime));
-        mAccountChain.setText(mAccount.baseChain);
+        mAccountChain.setText(mBaseChain.getChain());
 
         if(mAccount.hasPrivateKey) {
             mAccountState.setText(getString(R.string.str_with_mnemonic));

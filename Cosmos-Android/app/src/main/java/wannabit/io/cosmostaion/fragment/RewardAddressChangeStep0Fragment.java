@@ -85,6 +85,13 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_iris_address, Toast.LENGTH_SHORT).show();
                 }
+            }  else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                if (targetAddress.startsWith("kava") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mNewRewardAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_kava_address, Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 return;
