@@ -53,7 +53,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let tap = UITapGestureRecognizer(target: self, action: #selector(onStartSort))
         self.btnSort.addGestureRecognizer(tap)
         
-        self.updateTitle()
         self.updateView()
     }
     
@@ -62,7 +61,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
-        
+        self.updateTitle()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

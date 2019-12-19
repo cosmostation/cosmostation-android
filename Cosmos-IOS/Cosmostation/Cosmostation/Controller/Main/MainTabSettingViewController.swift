@@ -21,22 +21,18 @@ class MainTabSettingViewController: BaseViewController {
         super.viewDidLoad()
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
-        self.updateTitle()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
-        if(BaseData.instance.getNeedRefresh()) {
+        if (BaseData.instance.getNeedRefresh()) {
             BaseData.instance.setNeedRefresh(false)
             mainTabVC.onUpdateAccountDB()
-            self.updateTitle()
         }
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.onRefreshPrice(_:)),
-                                               name: Notification.Name("refreshPrice"),
-                                               object: nil)
+        self.updateTitle()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onRefreshPrice(_:)), name: Notification.Name("refreshPrice"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

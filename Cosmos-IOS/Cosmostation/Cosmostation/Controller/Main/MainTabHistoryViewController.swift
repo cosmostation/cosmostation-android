@@ -29,7 +29,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         super.viewDidLoad()
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
-        self.updateTitle()
         
         self.historyTableView.delegate = self
         self.historyTableView.dataSource = self
@@ -50,11 +49,12 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         }
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
-        
+        self.updateTitle()
     }
     
     func updateTitle() {

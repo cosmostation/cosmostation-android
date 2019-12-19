@@ -47,7 +47,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         refresher.tintColor = UIColor.white
         walletTableView.addSubview(refresher)
         
-        self.updateTitle()
         self.updateFloaty()
     }
     
@@ -56,11 +55,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        self.updateFloaty()
+        self.updateTitle()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -920,7 +920,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             BaseData.instance.setLastTab(self.selectedIndex)
 
             let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate            
             appDelegate.window?.rootViewController = mainTabVC
             self.present(mainTabVC, animated: true, completion: nil)
         }
