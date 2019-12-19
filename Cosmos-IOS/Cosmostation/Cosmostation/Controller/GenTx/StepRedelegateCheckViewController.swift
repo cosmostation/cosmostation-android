@@ -275,7 +275,7 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                     }
                     
                     
-                }catch {
+                } catch {
                     print(error)
                 }
             });

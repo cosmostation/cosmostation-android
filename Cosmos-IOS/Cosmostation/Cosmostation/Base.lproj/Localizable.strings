@@ -133,7 +133,10 @@
 "vesting_account" = "Vesting Account";
 "vesting_account_msg" = "Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.";
 "waiting_deposit" = "Waiting Deposit";
-
+"push_enabled_state_msg" = "Enabled push alarm for each send & received tx with this address";
+"push_disabled_state_msg" = "Disabled push alaram, you can turn on";
+"permission_push_title" = "Allow Notification";
+"permission_push_msg" = "Please allow for push notification.";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";

@@ -241,4 +241,12 @@ extension BaseViewController {
     
     @objc func disableUserInteraction() {
     }
+    
+    func onToggleAlarm(_ account: Account, completion: @escaping (Bool) -> ()) {
+        //TODO state update with api!!
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000), execute: {
+            completion(true)
+        })
+        
+    }
 }

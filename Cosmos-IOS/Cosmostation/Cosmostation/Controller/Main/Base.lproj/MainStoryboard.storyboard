@@ -45,26 +45,38 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5Q-iv-Wwg">
-                                        <rect key="frame" x="358" y="9" width="32" height="32"/>
+                                        <rect key="frame" x="368" y="13" width="24" height="24"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="32" id="HDP-FP-riL"/>
-                                            <constraint firstAttribute="height" constant="32" id="TYX-eU-5RM"/>
+                                            <constraint firstAttribute="width" constant="24" id="HDP-FP-riL"/>
+                                            <constraint firstAttribute="height" constant="24" id="TYX-eU-5RM"/>
                                         </constraints>
                                         <state key="normal" image="accout_btn"/>
                                         <connections>
-                                            <action selector="onClickSwitchAccount:" destination="t07-dn-E46" eventType="touchUpInside" id="4o3-gn-8OF"/>
                                             <action selector="onClickSwitchAccount:" destination="G92-8m-qqM" eventType="touchUpInside" id="hZS-b0-XjI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="joi-O1-5vn">
+                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="JbD-93-gjA"/>
+                                            <constraint firstAttribute="height" constant="24" id="xbv-57-qCe"/>
+                                        </constraints>
+                                        <state key="normal" image="notificationsIcOff"/>
+                                        <connections>
+                                            <action selector="onClickAlaram:" destination="G92-8m-qqM" eventType="touchUpInside" id="KW8-pl-Zna"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="fK9-Jn-bGz" firstAttribute="firstBaseline" secondItem="isK-gg-3xf" secondAttribute="firstBaseline" id="14h-Ev-HpC"/>
+                                    <constraint firstItem="joi-O1-5vn" firstAttribute="centerY" secondItem="vgm-58-EwV" secondAttribute="centerY" id="6Ms-5Z-Pwu"/>
                                     <constraint firstItem="cYo-Wr-QV9" firstAttribute="centerY" secondItem="vgm-58-EwV" secondAttribute="centerY" id="7Hs-Iy-hUY"/>
                                     <constraint firstAttribute="height" constant="50" id="H3O-sR-Rf9"/>
                                     <constraint firstItem="fK9-Jn-bGz" firstAttribute="leading" secondItem="isK-gg-3xf" secondAttribute="trailing" constant="4" id="LQ7-7V-7bY"/>
+                                    <constraint firstItem="s5Q-iv-Wwg" firstAttribute="leading" secondItem="joi-O1-5vn" secondAttribute="trailing" constant="10" id="Lsp-en-VaL"/>
                                     <constraint firstItem="isK-gg-3xf" firstAttribute="centerY" secondItem="vgm-58-EwV" secondAttribute="centerY" id="Pxm-5n-i83"/>
-                                    <constraint firstAttribute="trailing" secondItem="s5Q-iv-Wwg" secondAttribute="trailing" constant="24" id="Twv-7e-3IW"/>
+                                    <constraint firstAttribute="trailing" secondItem="s5Q-iv-Wwg" secondAttribute="trailing" constant="22" id="Twv-7e-3IW"/>
                                     <constraint firstItem="s5Q-iv-Wwg" firstAttribute="centerY" secondItem="vgm-58-EwV" secondAttribute="centerY" id="gcd-rG-ATC"/>
                                     <constraint firstItem="isK-gg-3xf" firstAttribute="leading" secondItem="cYo-Wr-QV9" secondAttribute="trailing" id="lUk-vd-LtE"/>
                                     <constraint firstItem="cYo-Wr-QV9" firstAttribute="leading" secondItem="vgm-58-EwV" secondAttribute="leading" constant="8" id="tT3-dc-auh"/>
@@ -93,6 +105,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Rez-Qd-X9D"/>
                     <connections>
+                        <outlet property="titleAlarmBtn" destination="joi-O1-5vn" id="7px-8p-I2d"/>
                         <outlet property="titleChainImg" destination="cYo-Wr-QV9" id="Uqo-uq-mqd"/>
                         <outlet property="titleChainName" destination="fK9-Jn-bGz" id="n7f-fJ-zF7"/>
                         <outlet property="titleWalletName" destination="isK-gg-3xf" id="LrW-0Q-jGg"/>
@@ -218,26 +231,39 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L12-Fw-3v9">
-                                        <rect key="frame" x="358" y="9" width="32" height="32"/>
+                                        <rect key="frame" x="368" y="13" width="24" height="24"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="32" id="O2a-Ee-X89"/>
-                                            <constraint firstAttribute="height" constant="32" id="e4f-gt-Frp"/>
+                                            <constraint firstAttribute="width" constant="24" id="O2a-Ee-X89"/>
+                                            <constraint firstAttribute="height" constant="24" id="e4f-gt-Frp"/>
                                         </constraints>
                                         <state key="normal" image="accout_btn"/>
                                         <connections>
                                             <action selector="onClickSwitchAccount:" destination="t07-dn-E46" eventType="touchUpInside" id="99d-Kg-Qh6"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcu-1U-k6P">
+                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="aC3-t7-mYN"/>
+                                            <constraint firstAttribute="height" constant="24" id="e0j-jX-O2V"/>
+                                        </constraints>
+                                        <state key="normal" image="notificationsIcOff"/>
+                                        <connections>
+                                            <action selector="onClickAlaram:" destination="t07-dn-E46" eventType="touchUpInside" id="z7h-DH-CZ9"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="L12-Fw-3v9" firstAttribute="leading" secondItem="zcu-1U-k6P" secondAttribute="trailing" constant="10" id="93X-wU-tQV"/>
                                     <constraint firstItem="D4N-0h-U3Y" firstAttribute="leading" secondItem="MeZ-yr-C1Y" secondAttribute="trailing" id="Jpu-Wc-Asq"/>
                                     <constraint firstItem="MeZ-yr-C1Y" firstAttribute="leading" secondItem="qFY-lo-0IC" secondAttribute="leading" constant="8" id="LsW-Mj-qKc"/>
+                                    <constraint firstItem="zcu-1U-k6P" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="P8O-vp-F2P"/>
                                     <constraint firstItem="MeZ-yr-C1Y" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="aMs-VY-dy8"/>
                                     <constraint firstItem="NCH-6t-2hM" firstAttribute="firstBaseline" secondItem="D4N-0h-U3Y" secondAttribute="firstBaseline" id="kgu-5H-lIV"/>
                                     <constraint firstItem="L12-Fw-3v9" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="pU2-rg-1oy"/>
                                     <constraint firstItem="D4N-0h-U3Y" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="ro8-kP-K0l"/>
-                                    <constraint firstAttribute="trailing" secondItem="L12-Fw-3v9" secondAttribute="trailing" constant="24" id="ut1-Bk-CAA"/>
+                                    <constraint firstAttribute="trailing" secondItem="L12-Fw-3v9" secondAttribute="trailing" constant="22" id="ut1-Bk-CAA"/>
                                     <constraint firstItem="NCH-6t-2hM" firstAttribute="leading" secondItem="D4N-0h-U3Y" secondAttribute="trailing" constant="4" id="yXn-Mq-qcf"/>
                                     <constraint firstAttribute="height" constant="50" id="zuM-6F-LgI"/>
                                 </constraints>
@@ -276,6 +302,7 @@
                         <outlet property="chainBg" destination="lR6-M3-g2M" id="0CO-W2-aIb"/>
                         <outlet property="emptyLabel" destination="TLK-Ns-Awb" id="WEt-to-cJP"/>
                         <outlet property="historyTableView" destination="clr-UP-CWo" id="pah-B7-2Pd"/>
+                        <outlet property="titleAlarmBtn" destination="zcu-1U-k6P" id="uci-XX-AoF"/>
                         <outlet property="titleChainImg" destination="MeZ-yr-C1Y" id="0AT-rU-YD7"/>
                         <outlet property="titleChainName" destination="NCH-6t-2hM" id="nKX-0Y-AMx"/>
                         <outlet property="titleWalletName" destination="D4N-0h-U3Y" id="UT2-NV-Dbf"/>
@@ -322,26 +349,37 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qin-kp-r78">
-                                        <rect key="frame" x="358" y="9" width="32" height="32"/>
+                                        <rect key="frame" x="368" y="13" width="24" height="24"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="32" id="vsG-Qd-zEk"/>
-                                            <constraint firstAttribute="height" constant="32" id="wUz-wh-P4f"/>
+                                            <constraint firstAttribute="width" constant="24" id="vsG-Qd-zEk"/>
+                                            <constraint firstAttribute="height" constant="24" id="wUz-wh-P4f"/>
                                         </constraints>
                                         <state key="normal" image="accout_btn"/>
                                         <connections>
                                             <action selector="onClickSwitchAccount:" destination="oOd-o8-Sem" eventType="touchUpInside" id="BUn-3R-fTc"/>
-                                            <action selector="onClickSwitchAccount:" destination="t07-dn-E46" eventType="touchUpInside" id="v55-Wz-oDZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yab-cK-eWf">
+                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="Wd3-Op-lSl"/>
+                                            <constraint firstAttribute="height" constant="24" id="sXd-sh-hkm"/>
+                                        </constraints>
+                                        <state key="normal" image="notificationsIcOff"/>
+                                        <connections>
+                                            <action selector="onClickAlaram:" destination="oOd-o8-Sem" eventType="touchUpInside" id="Jn8-6n-i9e"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="qWl-YX-k4d" firstAttribute="centerY" secondItem="Al7-NK-Got" secondAttribute="centerY" id="10L-X4-qRq"/>
+                                    <constraint firstItem="Yab-cK-eWf" firstAttribute="centerY" secondItem="qin-kp-r78" secondAttribute="centerY" id="5Rc-eO-hZf"/>
                                     <constraint firstAttribute="height" constant="50" id="EOd-bo-sb6"/>
-                                    <constraint firstItem="qin-kp-r78" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Roh-LO-TJo" secondAttribute="trailing" constant="8" symbolic="YES" id="Fm8-5P-lkv"/>
+                                    <constraint firstItem="qin-kp-r78" firstAttribute="leading" secondItem="Yab-cK-eWf" secondAttribute="trailing" constant="10" id="GQI-Og-0RA"/>
                                     <constraint firstItem="qin-kp-r78" firstAttribute="centerY" secondItem="Al7-NK-Got" secondAttribute="centerY" id="MIk-Wf-IZQ"/>
                                     <constraint firstItem="qWl-YX-k4d" firstAttribute="leading" secondItem="Dfj-wA-gmt" secondAttribute="trailing" id="RiQ-ev-IV8"/>
-                                    <constraint firstAttribute="trailing" secondItem="qin-kp-r78" secondAttribute="trailing" constant="24" id="Yyo-4r-5d6"/>
+                                    <constraint firstAttribute="trailing" secondItem="qin-kp-r78" secondAttribute="trailing" constant="22" id="Yyo-4r-5d6"/>
                                     <constraint firstItem="Roh-LO-TJo" firstAttribute="leading" secondItem="qWl-YX-k4d" secondAttribute="trailing" constant="4" id="iLV-HQ-Aff"/>
                                     <constraint firstItem="Roh-LO-TJo" firstAttribute="firstBaseline" secondItem="qWl-YX-k4d" secondAttribute="firstBaseline" id="w8d-Ci-xyH"/>
                                     <constraint firstItem="Dfj-wA-gmt" firstAttribute="centerY" secondItem="Al7-NK-Got" secondAttribute="centerY" id="xuV-if-Yoq"/>
@@ -494,6 +532,7 @@
                     <connections>
                         <outlet property="btnSort" destination="PKh-vE-8L0" id="JgB-G3-Vih"/>
                         <outlet property="sortType" destination="EgU-yb-3mw" id="nVL-EM-nqx"/>
+                        <outlet property="titleAlarmBtn" destination="Yab-cK-eWf" id="jcY-xO-nZY"/>
                         <outlet property="titleChainImg" destination="Dfj-wA-gmt" id="yfl-VR-PQS"/>
                         <outlet property="titleChainName" destination="Roh-LO-TJo" id="UBw-Em-4Ml"/>
                         <outlet property="titleWalletName" destination="qWl-YX-k4d" id="SEr-G8-QFx"/>
@@ -892,28 +931,41 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4XV-sy-kce">
-                                        <rect key="frame" x="358" y="9" width="32" height="32"/>
+                                        <rect key="frame" x="368" y="13" width="24" height="24"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="32" id="hfr-7B-ozd"/>
-                                            <constraint firstAttribute="height" constant="32" id="oL2-dT-kJr"/>
+                                            <constraint firstAttribute="width" constant="24" id="hfr-7B-ozd"/>
+                                            <constraint firstAttribute="height" constant="24" id="oL2-dT-kJr"/>
                                         </constraints>
                                         <state key="normal" image="accout_btn"/>
                                         <connections>
                                             <action selector="onClickSwitchAccount:" destination="1zF-Vz-4uW" eventType="touchUpInside" id="Ud8-2u-LU4"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N58-4J-qWv">
+                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="9hL-nK-dKZ"/>
+                                            <constraint firstAttribute="width" constant="24" id="NRo-V6-8qg"/>
+                                        </constraints>
+                                        <state key="normal" image="notificationsIcOff"/>
+                                        <connections>
+                                            <action selector="onClickAlaram:" destination="1zF-Vz-4uW" eventType="touchUpInside" id="e9M-Tr-vcu"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="TB1-BC-2Oc" firstAttribute="firstBaseline" secondItem="imU-di-2sz" secondAttribute="firstBaseline" id="6Q3-zV-flv"/>
-                                    <constraint firstAttribute="trailing" secondItem="4XV-sy-kce" secondAttribute="trailing" constant="24" id="G4q-7K-uRh"/>
+                                    <constraint firstAttribute="trailing" secondItem="4XV-sy-kce" secondAttribute="trailing" constant="22" id="G4q-7K-uRh"/>
                                     <constraint firstItem="rUb-xK-flr" firstAttribute="centerY" secondItem="Bms-CG-fww" secondAttribute="centerY" id="PMr-q4-rk9"/>
                                     <constraint firstItem="imU-di-2sz" firstAttribute="centerY" secondItem="Bms-CG-fww" secondAttribute="centerY" id="SIV-Sb-wam"/>
                                     <constraint firstItem="TB1-BC-2Oc" firstAttribute="leading" secondItem="imU-di-2sz" secondAttribute="trailing" constant="4" id="Y8i-rm-W68"/>
+                                    <constraint firstItem="4XV-sy-kce" firstAttribute="leading" secondItem="N58-4J-qWv" secondAttribute="trailing" constant="10" id="a4l-PD-c6O"/>
                                     <constraint firstItem="4XV-sy-kce" firstAttribute="centerY" secondItem="Bms-CG-fww" secondAttribute="centerY" id="b3I-Hc-cGv"/>
                                     <constraint firstAttribute="height" constant="50" id="d61-q2-OeP"/>
                                     <constraint firstItem="rUb-xK-flr" firstAttribute="leading" secondItem="Bms-CG-fww" secondAttribute="leading" constant="8" id="elQ-Lt-3Gg"/>
                                     <constraint firstItem="imU-di-2sz" firstAttribute="leading" secondItem="rUb-xK-flr" secondAttribute="trailing" id="srX-0G-FsO"/>
+                                    <constraint firstItem="N58-4J-qWv" firstAttribute="centerY" secondItem="Bms-CG-fww" secondAttribute="centerY" id="xkd-XP-IYZ"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qd6-af-F3f">
@@ -943,6 +995,7 @@
                     <navigationItem key="navigationItem" id="tiQ-UA-kjU"/>
                     <connections>
                         <outlet property="chainBg" destination="4Ql-ge-Go2" id="qba-ne-14V"/>
+                        <outlet property="titleAlarmBtn" destination="N58-4J-qWv" id="Fhb-VY-HWk"/>
                         <outlet property="titleChainImg" destination="rUb-xK-flr" id="0Hr-IV-GLO"/>
                         <outlet property="titleChainName" destination="TB1-BC-2Oc" id="j2D-ey-0QK"/>
                         <outlet property="titleWalletName" destination="imU-di-2sz" id="blD-aa-sI3"/>
@@ -3082,6 +3135,7 @@
         <image name="cosmosWhMain" width="42" height="42"/>
         <image name="depositImg" width="6" height="6"/>
         <image name="key_off" width="20" height="20"/>
+        <image name="notificationsIcOff" width="24" height="24"/>
         <image name="qrcodeIc" width="24" height="24"/>
         <image name="setting_ic" width="24" height="24"/>
         <image name="sortBtn" width="16" height="16"/>

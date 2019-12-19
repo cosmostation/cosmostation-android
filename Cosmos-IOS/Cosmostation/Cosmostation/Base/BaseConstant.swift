@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 
@@ -151,6 +151,7 @@ let DB_ACCOUNT_M_SIZE               = Expression<Int64>("msize")
 let DB_ACCOUNT_IMPORT_TIME          = Expression<Int64>("importTime")
 let DB_ACCOUNT_LAST_TOTAL           = Expression<String>("lastTotal")
 let DB_ACCOUNT_SORT_ORDER           = Expression<Int64>("sortOrder")
+let DB_ACCOUNT_PUSHALARM            = Expression<Bool>("pushAlarm")
 
 
 ////DB for Password

@@ -13,6 +13,7 @@
                 <outlet property="actionBtn" destination="7YT-6H-gLA" id="IrO-WP-8e2"/>
                 <outlet property="cardAddress" destination="byL-PX-1ub" id="L3G-FC-EVS"/>
                 <outlet property="cardInfo" destination="R7D-Sl-Ids" id="rou-g2-WpS"/>
+                <outlet property="cardPush" destination="zYS-1C-cfR" id="nTv-YI-qld"/>
                 <outlet property="cardReward" destination="C1f-W5-wv9" id="uNC-cG-dfh"/>
                 <outlet property="chainImg" destination="8Ci-E4-KXf" id="c6L-zk-zjw"/>
                 <outlet property="chainName" destination="Op6-9y-J50" id="2xu-2G-o6z"/>
@@ -21,6 +22,8 @@
                 <outlet property="keyPath" destination="Yyi-i3-uWr" id="MO1-kO-BGY"/>
                 <outlet property="noKeyMsg" destination="xGz-gq-KBU" id="diE-tW-p9U"/>
                 <outlet property="pathTitle" destination="87G-OB-BRl" id="qIE-fV-TgF"/>
+                <outlet property="pushMsg" destination="xev-RX-uP3" id="af0-7F-Gpd"/>
+                <outlet property="pushSwitch" destination="bqp-Gw-iYr" id="1Rr-Nd-EmE"/>
                 <outlet property="rewardAddress" destination="YwM-A2-KH6" id="Xkb-0V-7lh"/>
                 <outlet property="rewardCard" destination="C1f-W5-wv9" id="zcX-TE-Knb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -95,8 +98,60 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYS-1C-cfR" userLabel="Card Push" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                    <rect key="frame" x="16" y="84" width="343" height="70"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Push Alarm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yFZ-jy-QHt">
+                            <rect key="frame" x="16" y="12" width="61.5" height="14"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enabled push alarm for each send &amp; received tx with this address" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xev-RX-uP3">
+                            <rect key="frame" x="16" y="30" width="247" height="28"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqp-Gw-iYr">
+                            <rect key="frame" x="286" y="19.5" width="51" height="31"/>
+                            <color key="onTintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                            <connections>
+                                <action selector="onTogglePush:" destination="-1" eventType="valueChanged" id="pKk-ej-9Z6"/>
+                            </connections>
+                        </switch>
+                    </subviews>
+                    <color key="backgroundColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="0.1524507705" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="xev-RX-uP3" secondAttribute="trailing" constant="80" id="Fh1-Qw-1OM"/>
+                        <constraint firstItem="yFZ-jy-QHt" firstAttribute="top" secondItem="zYS-1C-cfR" secondAttribute="top" constant="12" id="Fy5-Id-Whf"/>
+                        <constraint firstItem="yFZ-jy-QHt" firstAttribute="leading" secondItem="zYS-1C-cfR" secondAttribute="leading" constant="16" id="QPd-PE-wMk"/>
+                        <constraint firstAttribute="height" constant="70" id="QbW-lK-qmI"/>
+                        <constraint firstItem="xev-RX-uP3" firstAttribute="top" secondItem="yFZ-jy-QHt" secondAttribute="bottom" constant="4" id="Zam-iq-hVo"/>
+                        <constraint firstItem="bqp-Gw-iYr" firstAttribute="centerY" secondItem="zYS-1C-cfR" secondAttribute="centerY" id="iog-hf-O7p"/>
+                        <constraint firstAttribute="trailing" secondItem="bqp-Gw-iYr" secondAttribute="trailing" constant="8" id="lfe-kN-A5m"/>
+                        <constraint firstItem="xev-RX-uP3" firstAttribute="leading" secondItem="yFZ-jy-QHt" secondAttribute="leading" id="qwr-gS-sL2"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7D-Sl-Ids" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                    <rect key="frame" x="16" y="84" width="343" height="210"/>
+                    <rect key="frame" x="16" y="166" width="343" height="210"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aiF-4w-nQ8">
                             <rect key="frame" x="16" y="12" width="80" height="14"/>
@@ -299,7 +354,7 @@ All services are available after mnemonics integration</string>
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1f-W5-wv9" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                    <rect key="frame" x="16" y="306" width="343" height="60"/>
+                    <rect key="frame" x="16" y="388" width="343" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward Recipient Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQ4-c4-4FH">
                             <rect key="frame" x="16" y="12" width="142" height="14"/>
@@ -368,13 +423,16 @@ All services are available after mnemonics integration</string>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ojd-Vn-gHM" secondAttribute="trailing" id="IvU-3H-xhz"/>
                 <constraint firstItem="R7D-Sl-Ids" firstAttribute="trailing" secondItem="byL-PX-1ub" secondAttribute="trailing" id="JUe-3h-jSk"/>
                 <constraint firstItem="C1f-W5-wv9" firstAttribute="trailing" secondItem="gTP-Kl-Gz9" secondAttribute="trailing" constant="-16" id="Kwb-18-NIu"/>
+                <constraint firstItem="zYS-1C-cfR" firstAttribute="trailing" secondItem="byL-PX-1ub" secondAttribute="trailing" id="LVE-iX-BQd"/>
                 <constraint firstItem="ojd-Vn-gHM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Tky-OV-ogK"/>
                 <constraint firstItem="byL-PX-1ub" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="X2m-tc-df9"/>
+                <constraint firstItem="R7D-Sl-Ids" firstAttribute="top" secondItem="zYS-1C-cfR" secondAttribute="bottom" constant="12" id="aeL-B4-gAx"/>
                 <constraint firstItem="C1f-W5-wv9" firstAttribute="leading" secondItem="gTP-Kl-Gz9" secondAttribute="leading" constant="16" id="fne-Oj-ii9"/>
-                <constraint firstItem="R7D-Sl-Ids" firstAttribute="top" secondItem="byL-PX-1ub" secondAttribute="bottom" constant="12" id="hGQ-Eh-Bnd"/>
                 <constraint firstAttribute="top" secondItem="gTP-Kl-Gz9" secondAttribute="top" id="qD7-4q-i68"/>
                 <constraint firstItem="R7D-Sl-Ids" firstAttribute="leading" secondItem="byL-PX-1ub" secondAttribute="leading" id="rde-hq-dpP"/>
+                <constraint firstItem="zYS-1C-cfR" firstAttribute="top" secondItem="byL-PX-1ub" secondAttribute="bottom" constant="12" id="vnV-Yu-6oP"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ojd-Vn-gHM" secondAttribute="bottom" constant="16" id="zjg-sx-I22"/>
+                <constraint firstItem="zYS-1C-cfR" firstAttribute="leading" secondItem="byL-PX-1ub" secondAttribute="leading" id="zlr-ve-KUa"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="140" y="154"/>

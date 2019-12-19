@@ -9,6 +9,7 @@
 import UIKit
 import QRCode
 import Alamofire
+import UserNotifications
 
 class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
 
@@ -18,6 +19,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     @IBOutlet weak var chainImg: UIImageView!
     @IBOutlet weak var walletName: UILabel!
     @IBOutlet weak var walletAddress: UILabel!
+    
+    @IBOutlet weak var cardPush: CardView!
+    @IBOutlet weak var pushMsg: UILabel!
+    @IBOutlet weak var pushSwitch: UISwitch!
     
     @IBOutlet weak var cardInfo: CardView!
     @IBOutlet weak var chainName: UILabel!
@@ -52,23 +57,22 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         walletAddress.text = account?.account_address
         walletAddress.adjustsFontSizeToFitWidth = true
         cardAddress.backgroundColor = WUtils.getChainBg(chainType!)
+        cardPush.backgroundColor = WUtils.getChainBg(chainType!)
+        pushSwitch.onTintColor = WUtils.getChainColor(chainType!)
         cardInfo.backgroundColor = WUtils.getChainBg(chainType!)
         cardReward.backgroundColor = WUtils.getChainBg(chainType!)
+        chainName.text = WUtils.getChainName(account!.account_base_chain)
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             chainImg.image = UIImage(named: "cosmosWhMain")
-            chainName.text = "Cosmos Hub"
             keyPath.text = BASE_PATH.appending(account!.account_path)
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainImg.image = UIImage(named: "irisWh")
-            chainName.text = "Iris Hub"
             keyPath.text = BASE_PATH.appending(account!.account_path)
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             chainImg.image = UIImage(named: "binanceChImg")
-            chainName.text = "Binance Chain"
             keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             chainImg.image = UIImage(named: "kavaImg")
-            chainName.text = "Kava Chain"
             keyPath.text = BASE_PATH.appending(account!.account_path)
         }
         importDate.text = WUtils.longTimetoString(input:account!.account_import_time)
@@ -86,6 +90,22 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             pathTitle.isHidden = true
             keyPath.isHidden = true
             noKeyMsg.isHidden = false
+        }
+        
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            if settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    if (self.account!.account_push_alarm) {
+                        self.pushSwitch.setOn(true, animated: false)
+                        self.pushMsg.text = NSLocalizedString("push_enabled_state_msg", comment: "")
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.pushSwitch.setOn(false, animated: false)
+                    self.pushMsg.text = NSLocalizedString("push_disabled_state_msg", comment: "")
+                }
+            }
         }
     }
     
@@ -131,6 +151,60 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             nameAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
         
+    }
+    
+    @IBAction func onTogglePush(_ sender: UISwitch) {
+        if (sender.isOn) {
+            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                if settings.authorizationStatus == .authorized {
+                    DispatchQueue.main.async {
+                        self.showWaittingAlert()
+                        self.onToggleAlarm(self.account!) { (success) in
+                            self.dismissAlertController()
+                            print("onToggleAlarm result ", success)
+                            if (success) {
+                                
+                            } else {
+                                
+                            }
+                        }
+                    }
+                    
+                } else {
+                    let alertController = UIAlertController(title: NSLocalizedString("permission_push_title", comment: ""), message: NSLocalizedString("permission_push_msg", comment: ""), preferredStyle: .alert)
+                    let settingsAction = UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .default) { (_) -> Void in
+                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                            return
+                        }
+                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                            })
+                        }
+                    }
+                    let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: nil)
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(settingsAction)
+                    DispatchQueue.main.async {
+                        sender.setOn(false, animated: true)
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                }
+            }
+            
+        } else {
+            DispatchQueue.main.async {
+                self.showWaittingAlert()
+                self.onToggleAlarm(self.account!) { (success) in
+                    self.dismissAlertController()
+                    print("onToggleAlarm result ", success)
+                    if (success) {
+                        
+                    } else {
+                        
+                    }
+                }
+            }
+        }
     }
     
     

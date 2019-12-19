@@ -41,7 +41,6 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
@@ -267,7 +266,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
             passwordVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(passwordVC, animated: false)
         }
-        
+
     }
     
     @IBAction func bioToggle(_ sender: UISwitch) {

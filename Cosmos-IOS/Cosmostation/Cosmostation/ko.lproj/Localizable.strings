@@ -133,6 +133,10 @@
 "vesting_account" = "베스팅 계정";
 "vesting_account_msg" = "베스팅 계정으로 보입니다. 정확한 수량으로 위임 및 위임해재를 하시기 위해서 cli를 이용하시는것을 권장합니다.";
 "waiting_deposit" = "디파짓 대기중";
+"push_enabled_state_msg" = "송금, 수신 Tx확인시 푸시 알람을 받으실 수 있습니다.";
+"push_disabled_state_msg" = "알람을 켜시고 본계정의 송금, 수신에 대한 Tx를 받아보세요.";
+"permission_push_title" = "알람 설정";
+"permission_push_msg" = "알람이 비활성화 상태 입니다.알람을 허용해주세요.";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";

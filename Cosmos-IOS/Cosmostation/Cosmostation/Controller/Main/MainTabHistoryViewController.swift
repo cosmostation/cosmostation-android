@@ -9,12 +9,14 @@
 import UIKit
 import Alamofire
 import SafariServices
+import UserNotifications
 
 class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var chainBg: UIImageView!
     @IBOutlet weak var titleChainImg: UIImageView!
     @IBOutlet weak var titleWalletName: UILabel!
+    @IBOutlet weak var titleAlarmBtn: UIButton!
     @IBOutlet weak var titleChainName: UILabel!
 
     @IBOutlet weak var historyTableView: UITableView!
@@ -80,6 +82,21 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
+        }
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            if settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    if (self.mainTabVC.mAccount.account_push_alarm) {
+                        self.titleAlarmBtn.setImage(UIImage(named: "notificationsIc"), for: .normal)
+                    } else {
+                        self.titleAlarmBtn.setImage(UIImage(named: "notificationsIcOff"), for: .normal)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.titleAlarmBtn.setImage(UIImage(named: "notificationsIcOff"), for: .normal)
+                }
+            }
         }
     }
     
@@ -285,5 +302,57 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.onShowAccountSwicth()
+    }
+    
+    @IBAction func onClickAlaram(_ sender: UIButton) {
+        if (sender.imageView?.image == UIImage(named: "notificationsIcOff")) {
+            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                if settings.authorizationStatus == .authorized {
+                    DispatchQueue.main.async {
+                        self.showWaittingAlert()
+                        self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
+                            self.dismissAlertController()
+                            print("onToggleAlarm result ", success)
+                            if (success) {
+                                
+                            } else {
+                                
+                            }
+                        }
+                    }
+                    
+                } else {
+                    let alertController = UIAlertController(title: NSLocalizedString("permission_push_title", comment: ""), message: NSLocalizedString("permission_push_msg", comment: ""), preferredStyle: .alert)
+                    let settingsAction = UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .default) { (_) -> Void in
+                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                            return
+                        }
+                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                            })
+                        }
+                    }
+                    let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: nil)
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(settingsAction)
+                    DispatchQueue.main.async {
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.showWaittingAlert()
+                self.onToggleAlarm(self.account!) { (success) in
+                    self.dismissAlertController()
+                    print("onToggleAlarm result ", success)
+                    if (success) {
+                        
+                    } else {
+                        
+                    }
+                }
+            }
+        }
     }
 }
