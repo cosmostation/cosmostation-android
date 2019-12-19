@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,22 +46,19 @@
                                 <constraint firstAttribute="height" constant="42" id="e5l-Fs-NaI"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5W-aU-crt">
-                            <rect key="frame" x="54" y="20" width="56.5" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5W-aU-crt">
+                            <rect key="frame" x="54" y="20" width="233" height="20"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="key_on" translatesAutoresizingMaskIntoConstraints="NO" id="usI-yz-VVj">
-                            <rect key="frame" x="112.5" y="22" width="16" height="16"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="16" id="ZPN-Kc-HBL"/>
-                                <constraint firstAttribute="width" constant="16" id="xVX-cQ-Rvy"/>
-                            </constraints>
-                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H96-LB-wrk">
-                            <rect key="frame" x="311" y="15" width="24" height="30"/>
+                            <rect key="frame" x="307" y="18" width="24" height="24"/>
                             <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="5ve-UY-N6Q"/>
+                                <constraint firstAttribute="width" constant="24" id="iDu-51-uLe"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                             <state key="normal" image="editBtn"/>
                             <connections>
@@ -72,13 +69,12 @@
                     <color key="backgroundColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="0.1524507705" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="n5W-aU-crt" firstAttribute="centerY" secondItem="byL-PX-1ub" secondAttribute="centerY" id="1rq-iC-DTi"/>
+                        <constraint firstItem="H96-LB-wrk" firstAttribute="leading" secondItem="n5W-aU-crt" secondAttribute="trailing" constant="20" id="HTs-ea-OWq"/>
                         <constraint firstItem="n5W-aU-crt" firstAttribute="leading" secondItem="8Ci-E4-KXf" secondAttribute="trailing" constant="4" id="J7Y-jF-v5y"/>
                         <constraint firstAttribute="height" constant="60" id="O6t-r8-gGa"/>
-                        <constraint firstAttribute="trailing" secondItem="H96-LB-wrk" secondAttribute="trailing" constant="8" id="Ppn-8F-Wuv"/>
-                        <constraint firstItem="usI-yz-VVj" firstAttribute="centerY" secondItem="byL-PX-1ub" secondAttribute="centerY" id="V3F-qG-Fk2"/>
+                        <constraint firstAttribute="trailing" secondItem="H96-LB-wrk" secondAttribute="trailing" constant="12" id="Ppn-8F-Wuv"/>
                         <constraint firstItem="8Ci-E4-KXf" firstAttribute="leading" secondItem="byL-PX-1ub" secondAttribute="leading" constant="8" id="cNe-WQ-58q"/>
                         <constraint firstItem="H96-LB-wrk" firstAttribute="centerY" secondItem="byL-PX-1ub" secondAttribute="centerY" id="cxA-Ra-nT7"/>
-                        <constraint firstItem="usI-yz-VVj" firstAttribute="leading" secondItem="n5W-aU-crt" secondAttribute="trailing" constant="2" id="jfV-JH-N5D"/>
                         <constraint firstItem="8Ci-E4-KXf" firstAttribute="centerY" secondItem="byL-PX-1ub" secondAttribute="centerY" id="rVn-cQ-9WX"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -388,7 +384,6 @@ All services are available after mnemonics integration</string>
         <image name="bg_cosmos" width="360" height="740"/>
         <image name="cosmosWhMain" width="42" height="42"/>
         <image name="editBtn" width="24" height="24"/>
-        <image name="key_on" width="20" height="20"/>
         <image name="qrcodeIc" width="24" height="24"/>
     </resources>
 </document>
