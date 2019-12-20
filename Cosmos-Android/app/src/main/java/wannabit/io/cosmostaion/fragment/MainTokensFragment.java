@@ -124,7 +124,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.main_menu_alaram_off, menu);
     }
 
     @Override

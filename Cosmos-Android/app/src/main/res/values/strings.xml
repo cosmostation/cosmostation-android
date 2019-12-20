@@ -337,6 +337,7 @@
     <string name="str_iris_proposal_type_CommunityTaxUsageProposal">CommunityTaxUsage Proposal</string>
     <string name="str_opinion">Opinion</string>
     <string name="str_proposal_id">Proposal Id</string>
+    <string name="str_notification">Notification</string>
 
 
     <string name="str_main_wallet">WALLET</string>

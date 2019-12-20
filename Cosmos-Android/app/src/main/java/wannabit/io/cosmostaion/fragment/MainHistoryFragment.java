@@ -91,7 +91,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.main_menu_alaram_off, menu);
     }
 
     @Override

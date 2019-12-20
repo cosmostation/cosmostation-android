@@ -108,7 +108,6 @@
                         style="@style/font_ss_11_gray1"
                         android:text="(testnet gaia-12k)"/>
                 </RelativeLayout>
-
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
