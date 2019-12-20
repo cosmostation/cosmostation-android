@@ -98,6 +98,9 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     if (self.account!.account_push_alarm) {
                         self.pushSwitch.setOn(true, animated: false)
                         self.pushMsg.text = NSLocalizedString("push_enabled_state_msg", comment: "")
+                    } else {
+                        self.pushSwitch.setOn(false, animated: false)
+                        self.pushMsg.text = NSLocalizedString("push_disabled_state_msg", comment: "")
                     }
                 }
             } else {
@@ -163,6 +166,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                             self.dismissAlertController()
                             print("onToggleAlarm result ", success)
                             if (success) {
+                                //TODO in success case update switch ui
                                 
                             } else {
                                 
