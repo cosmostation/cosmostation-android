@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
@@ -121,10 +122,15 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         onUpdateView();
     }
 
+
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main_menu_alaram_off, menu);
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (getMainActivity().mAccount.pushAlarm) {
+            getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
+        } else {
+            getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
+        }
     }
 
     @Override
@@ -132,6 +138,12 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         switch(item.getItemId()) {
             case R.id.menu_accounts :
                 getMainActivity().onShowTopAccountsView();
+                break;
+            case R.id.menu_notification_off:
+                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
+                break;
+            case R.id.menu_notification_on:
+                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
                 break;
         }
         return super.onOptionsItemSelected(item);

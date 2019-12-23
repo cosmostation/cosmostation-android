@@ -232,9 +232,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main_menu_alaram_off, menu);
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        WLog.w("MainSendFragment onPrepareOptionsMenu  " +getMainActivity().mAccount.pushAlarm);
+        if (getMainActivity().mAccount.pushAlarm) {
+            getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
+        } else {
+            getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
+        }
     }
 
     @Override
@@ -243,6 +248,13 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             case R.id.menu_accounts :
                 getMainActivity().onShowTopAccountsView();
                 break;
+            case R.id.menu_notification_off:
+                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
+                break;
+            case R.id.menu_notification_on:
+                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

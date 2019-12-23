@@ -278,6 +278,20 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         else mToolbarTitle.setText(mAccount.nickName);
     }
 
+    public void onUpdateUserAlarm(Account account, boolean useAlarm) {
+        //TODO UI test
+        if (useAlarm) {
+            WLog.w("enable alarm");
+            mAccount = getBaseDao().onUpdatePushEnabled(account, useAlarm);
+
+        } else {
+            WLog.w("disable alarm");
+            mAccount = getBaseDao().onUpdatePushEnabled(account, useAlarm);
+
+        }
+        invalidateOptionsMenu();
+    }
+
     @Override
     public void onBackPressed() {
         if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED) {
@@ -286,7 +300,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else {
             moveTaskToBack(true);
         }
-
     }
 
     public void onShowTopAccountsView() {

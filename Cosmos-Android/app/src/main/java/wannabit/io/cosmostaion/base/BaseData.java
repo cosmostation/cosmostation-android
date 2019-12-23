@@ -675,10 +675,11 @@ public class BaseData {
         }
     }
 
-    public long onUpdatePushEnabled(Account account, boolean using) {
+    public Account onUpdatePushEnabled(Account account, boolean using) {
         ContentValues values = new ContentValues();
         values.put("pushAlarm",          using);
-        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
+        getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
+        return onSelectAccount(""+account.id);
     }
 
     public long onUpdateTestChain(Account account) {
