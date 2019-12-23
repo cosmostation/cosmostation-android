@@ -56,6 +56,7 @@ import java.util.Set;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.Sha256;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.IovTx;
 import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -97,13 +98,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         btnImportMnemonic.setOnClickListener(this);
         btnWatchAddress.setOnClickListener(this);
 
-        Bundle pushBundle = getIntent().getExtras();
-        if(pushBundle != null) {
-            Set<String> keys = pushBundle.keySet();
-            for (String key:keys) {
-                WLog.w("push " + key + " : " + pushBundle.get(key));
-            }
-        }
 
 //        WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
@@ -139,7 +133,15 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                     } else {
-                        onStartMainActivity();
+                        if (getIntent().getExtras() != null && getIntent().getExtras().getString("notifyto") != null) {
+                            Account account = getBaseDao().onSelectExistAccount(getIntent().getExtras().getString("notifyto"));
+                            if (account != null) {
+                                getBaseDao().setLastUser(account.id);
+                                onStartMainActivity(true);
+                                return;
+                            }
+                        }
+                        onStartMainActivity(false);
                     }
                 }
             }

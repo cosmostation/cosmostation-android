@@ -234,7 +234,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        WLog.w("MainSendFragment onPrepareOptionsMenu  " +getMainActivity().mAccount.pushAlarm);
         if (getMainActivity().mAccount.pushAlarm) {
             getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
         } else {

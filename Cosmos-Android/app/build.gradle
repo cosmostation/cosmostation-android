@@ -86,6 +86,8 @@ dependencies {
     //for ed25519
     implementation files('libs/bip32-ed25519-java-1.0.0-SNAPSHOT.jar')
     implementation 'net.i2p.crypto:eddsa:0.3.0'
+    //foreground notification
+    implementation 'com.github.shasin89:NotificationBanner:1.1.5'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

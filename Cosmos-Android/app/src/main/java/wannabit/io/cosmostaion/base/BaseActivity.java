@@ -2,18 +2,28 @@ package wannabit.io.cosmostaion.base;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -23,6 +33,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.shasin.notificationbanner.Banner;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -88,6 +99,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     protected Dialog_Wait                   mDialogWait;
     protected boolean                       mNeedLeaveTime = true;
 
+
+    public View                             mRootview;
     public Account                          mAccount;
     public BaseChain                        mBaseChain;
     public ArrayList<Validator>             mOtherValidators = new ArrayList<>();
@@ -114,16 +127,42 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     protected int                           mTaskCount;
     private FetchCallBack                   mFetchCallback;
 
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onDisplayNotification(intent);
+        }
+    };
+
+    @Override
+    protected void onCreate( Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mRootview  = findViewById(android.R.id.content);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        if(!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity)) {
+        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity)) {
             if(getBaseApplication().needShowLockScreen()) {
                 Intent intent = new Intent(BaseActivity.this, AppLockActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("pushAlarm"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
 
     @Override
@@ -171,9 +210,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         v.clearFocus();
     }
 
-    public void onStartMainActivity() {
+    public void onStartMainActivity(boolean showHistory) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        if (showHistory) {
+            intent.putExtra("page", 2);
+        } else {
+            intent.putExtra("page", 0);
+        }
         startActivity(intent);
     }
 
@@ -251,7 +295,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         if(getBaseDao().onSelectAccounts().size() > 0) {
             getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
-            onStartMainActivity();
+            onStartMainActivity(false);
         } else {
             getBaseDao().setLastUser(-1);
             Intent intent = new Intent(this, IntroActivity.class);
@@ -266,6 +310,59 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onCancelWithVesting() {
 
+    }
+
+    private CardView mPushBody;
+    private ImageView mPushType, mPushClose;
+    private TextView mPushTitle, mPushMsg;
+
+
+    public void onDisplayNotification(Intent intent) {
+        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity)) {
+            Banner.make(mRootview, this, Banner.TOP, R.layout.foreground_push);
+            mPushBody = Banner.getInstance().getBannerView().findViewById(R.id.push_body);
+            mPushType = Banner.getInstance().getBannerView().findViewById(R.id.push_type);
+            mPushClose = Banner.getInstance().getBannerView().findViewById(R.id.push_close);
+            mPushTitle = Banner.getInstance().getBannerView().findViewById(R.id.push_title);
+            mPushMsg = Banner.getInstance().getBannerView().findViewById(R.id.push_msg);
+
+            if (intent.getStringExtra("type").equals("send")) {
+                mPushType.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_send));
+                mPushTitle.setTextColor(getColor(R.color.colorNotiSend));
+            } else {
+                mPushType.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_receive));
+                mPushTitle.setTextColor(getColor(R.color.colorNotiReceive));
+            }
+            mPushTitle.setText(intent.getStringExtra("title"));
+            mPushMsg.setText(intent.getStringExtra("Body"));
+
+            bannerClickListener(intent.getStringExtra("pushNotifyto"));
+            Banner.getInstance().setCustomAnimationStyle(R.style.topAnimation);
+            Banner.getInstance().setDuration(4000);
+            Banner.getInstance().show();
+        }
+    }
+
+    private void bannerClickListener(String address){
+        mPushBody.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Account account = getBaseDao().onSelectExistAccount(address);
+                if (account != null) {
+                    getBaseDao().setLastUser(account.id);
+                    onStartMainActivity(true);
+
+                }
+
+            }
+        });
+
+        mPushClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Banner.getInstance().dismissBanner();
+            }
+        });
     }
 
 

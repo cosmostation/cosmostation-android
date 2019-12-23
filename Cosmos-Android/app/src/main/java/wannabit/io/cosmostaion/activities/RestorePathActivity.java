@@ -104,12 +104,12 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if(result.isSuccess) {
-                onStartMainActivity();
+                onStartMainActivity(false);
             }
 
         } else if (result.taskType == BaseConstant.TASK_OVERRIDE_ACCOUNT) {
             if(result.isSuccess) {
-                onStartMainActivity();
+                onStartMainActivity(false);
             }
         }
     }

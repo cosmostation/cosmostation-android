@@ -287,6 +287,18 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_ss_14_noti_receive" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorNotiReceive</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_ss_14_noti_send" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorNotiSend</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
 
     <style name="font_ss_14_vote_yes" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>

@@ -138,7 +138,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if (result.taskType == BaseConstant.TASK_FETCH_HISTORY) {
             ArrayList<ResHistory.InnerHits> hits = (ArrayList<ResHistory.InnerHits>)result.resultData;
             if (hits != null && hits.size() > 0) {
-                WLog.w("hit size " + hits.size());
+//                WLog.w("hit size " + hits.size());
                 mHistory = hits;
                 mHistoryAdapter.notifyDataSetChanged();
                 mEmptyHistory.setVisibility(View.GONE);

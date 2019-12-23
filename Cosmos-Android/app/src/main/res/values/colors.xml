@@ -54,6 +54,9 @@
     <color name="colorRipple1">#AA000000</color>
     <color name="colorRipple2">#99FFFFFF</color>
 
+    <color name="colorNotiReceive">#37cc6e</color>
+    <color name="colorNotiSend">#f31963</color>
+
 
     <!--<color name="colorCommision1">#3366ff</color>-->
     <color name="colorCommision2">#51FFA8</color>

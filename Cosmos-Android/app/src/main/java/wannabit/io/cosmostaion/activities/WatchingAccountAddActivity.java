@@ -133,7 +133,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
             if(result.isSuccess) {
-                onStartMainActivity();
+                onStartMainActivity(false);
             } else {
                 if(result.errorCode == 7001) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_already_imported_address), Toast.LENGTH_SHORT).show();

@@ -111,7 +111,7 @@ public class WebActivity extends BaseActivity {
             mWebview.goBack();
         } else {
             if(mGoMain) {
-                onStartMainActivity();
+                onStartMainActivity(false);
             } else {
                 super.onBackPressed();
             }

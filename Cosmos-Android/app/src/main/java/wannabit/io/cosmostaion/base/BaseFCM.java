@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -12,38 +14,17 @@ public class BaseFCM extends FirebaseMessagingService {
     @Override
     public void onNewToken(String token) {
         WLog.w("Refreshed token: " + token);
-
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // Instance ID token to your app server.
-//        sendRegistrationToServer(token);
     }
-
-
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
-
-        // TODO(developer): Handle FCM messages here.
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         WLog.w("From: " + remoteMessage.getFrom());
 
-        // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             WLog.w("Message data payload: " + remoteMessage.getData());
 
-            if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-//                scheduleJob();
-            } else {
-                // Handle message within 10 seconds
-//                handleNow();
-            }
-
         }
 
-        // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             if(remoteMessage.getNotification().getTitle() != null)
                 WLog.w("Message Notification title: " + remoteMessage.getNotification().getTitle());
@@ -51,8 +32,23 @@ public class BaseFCM extends FirebaseMessagingService {
                 WLog.w("Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
+
+
+        if (remoteMessage.getData().get("notifyto") != null &&
+                remoteMessage.getData().get("txid") != null &&
+                remoteMessage.getData().get("type") != null &&
+                remoteMessage.getNotification() != null &&
+                remoteMessage.getNotification().getTitle() != null &&
+                remoteMessage.getNotification().getBody() != null) {
+            Intent intent = new Intent("pushAlarm");
+            intent.putExtra("pushNotifyto", remoteMessage.getData().get("notifyto"));
+            intent.putExtra("txid", remoteMessage.getData().get("txid"));
+            intent.putExtra("type", remoteMessage.getData().get("type"));
+            intent.putExtra("title", remoteMessage.getNotification().getTitle());
+            intent.putExtra("Body", remoteMessage.getNotification().getBody());
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+
+        }
     }
 
 
