@@ -184,6 +184,8 @@
 		E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DF62244FA750097CAEE /* UIColor.swift */; };
 		E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA208D22F8117000EAB87F /* IrisStdSignMsg.swift */; };
 		E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDBC07225C705000810D2E /* MsgGenerator.swift */; };
+		E1C3C89923B1E27800A693C0 /* NotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1C3C89823B1E27800A693C0 /* NotificationView.xib */; };
+		E1C3C89B23B1E3E400A693C0 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3C89A23B1E3E400A693C0 /* NotificationView.swift */; };
 		E1CF42F023598AFE00907F45 /* ManageChainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CF42EE23598AFE00907F45 /* ManageChainCell.swift */; };
 		E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1CF42EF23598AFE00907F45 /* ManageChainCell.xib */; };
 		E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D279612297B40D00C49B2D /* RedelegateCell.swift */; };
@@ -430,6 +432,8 @@
 		E1A82DF62244FA750097CAEE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E1BA208D22F8117000EAB87F /* IrisStdSignMsg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrisStdSignMsg.swift; sourceTree = "<group>"; };
 		E1BDBC07225C705000810D2E /* MsgGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgGenerator.swift; sourceTree = "<group>"; };
+		E1C3C89823B1E27800A693C0 /* NotificationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationView.xib; sourceTree = "<group>"; };
+		E1C3C89A23B1E3E400A693C0 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		E1CF42EE23598AFE00907F45 /* ManageChainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageChainCell.swift; sourceTree = "<group>"; };
 		E1CF42EF23598AFE00907F45 /* ManageChainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageChainCell.xib; sourceTree = "<group>"; };
 		E1D279612297B40D00C49B2D /* RedelegateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedelegateCell.swift; sourceTree = "<group>"; };
@@ -709,6 +713,8 @@
 				E1FEE45A225B1AEF0040FAFD /* MemoTextView.swift */,
 				E1406FC322607B8500D9440C /* LoadingImageView.swift */,
 				E10492142347C5D900A2980F /* WalletConnectImageView.swift */,
+				E1C3C89823B1E27800A693C0 /* NotificationView.xib */,
+				E1C3C89A23B1E3E400A693C0 /* NotificationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -955,6 +961,7 @@
 				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
 				E17748F4228422BE003D8CD1 /* GuideViewController.xib in Resources */,
 				E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */,
+				E1C3C89923B1E27800A693C0 /* NotificationView.xib in Resources */,
 				E1FD233D233E1C44009327FE /* WalletGuideCell.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
@@ -1148,6 +1155,7 @@
 				E16FACB12361ADFA00372052 /* Bytes.swift in Sources */,
 				E1F1CF06239F53C5004EF8A2 /* IrisProposal.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
+				E1C3C89B23B1E3E400A693C0 /* NotificationView.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
 				E148A38F22F01DEF00A56A3F /* IrisRewards.swift in Sources */,
 				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,

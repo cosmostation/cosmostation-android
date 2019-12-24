@@ -38,13 +38,13 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
         importAddressBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpInside)
         importAddressBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpOutside)
         
-//        InstanceID.instanceID().instanceID { (result, error) in
-//            if let error = error {
-//                print("Error fetching remote instance ID: \(error)")
-//            } else if let result = result {
-//                print("Remote instance ID token: \(result.token)")
-//            }
-//        }
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("Error fetching remote instance ID: \(error)")
+            } else if let result = result {
+                print("Remote instance ID token: \(result.token)")
+            }
+        }
     }
     
     

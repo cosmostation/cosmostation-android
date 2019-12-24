@@ -95,11 +95,15 @@ PODS:
   - HDWalletKit (0.2.8):
     - CryptoSwift (~> 0.12)
     - secp256k1.swift (~> 0.1.4)
+  - MarqueeLabel/Swift (3.2.1)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - NotificationBannerSwift (2.0.1):
+    - MarqueeLabel/Swift (~> 3.2.0)
+    - SnapKit (~> 4.2.0)
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
@@ -115,6 +119,7 @@ PODS:
   - Protobuf (3.9.2)
   - QRCode (2.0)
   - secp256k1.swift (0.1.4)
+  - SnapKit (4.2.0)
   - SQLite.swift (0.11.6):
     - SQLite.swift/standard (= 0.11.6)
   - SQLite.swift/standard (0.11.6)
@@ -141,6 +146,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Messaging
   - Floaty (~> 4.1.0)
+  - NotificationBannerSwift (= 2.0.1)
   - QRCode
   - SQLite.swift (~> 0.11.5)
   - SwiftKeychainWrapper
@@ -168,12 +174,15 @@ SPEC REPOS:
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
     - HDWalletKit
+    - MarqueeLabel
     - nanopb
+    - NotificationBannerSwift
     - ObjcExceptionBridging
     - PromiseKit
     - Protobuf
     - QRCode
     - secp256k1.swift
+    - SnapKit
     - SQLite.swift
     - Starscream
     - SwiftDate
@@ -219,12 +228,15 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 9f352523e8785a71f6754f51eeff09f49ec19268
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
   HDWalletKit: f0268857289221d4d6c2041d43ee78f1e84fc8e5
+  MarqueeLabel: 2daf039bf916937c8a4c9adfc13577cc5e51b4ce
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  NotificationBannerSwift: 007774aa590cc9680647b92b2f217bef5c00c32c
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
   PromiseKit: e4863d06976e7dee5e41c04fc7371c16b3600292
   Protobuf: 67fb42ba613def994e61854de2b3164f13790cc4
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SQLite.swift: 46d890be8601964454bd3392527f863d1b802d45
   Starscream: 08172b481e145289c4930cb567230fb55897cfa4
   SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
@@ -235,6 +247,6 @@ SPEC CHECKSUMS:
   WalletConnect: 0b21907c54b4bb324bf402dd14954c60a290ad36
   XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
 
-PODFILE CHECKSUM: e6eb78b2de346e078f97141a81270f3e4128052f
+PODFILE CHECKSUM: 84518c41114cfc8d5745f1883ebab39b016b6fdf
 
 COCOAPODS: 1.8.1

@@ -121,29 +121,23 @@ extension UIApplication{
 // [START ios_10_message_handling]
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {
-    
     // Receive displayed notifications for iOS 10 devices.
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("didReceiveRemoteNotification foreground")
         let userInfo = notification.request.content.userInfo
-        Messaging.messaging().appDidReceiveMessage(userInfo)
-        
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID(1): \(messageID)")
-        }
-        print(userInfo)
+        NotificationCenter.default.post(name: Notification.Name("pushNoti"), object: nil, userInfo: userInfo)
         completionHandler([])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("didReceiveRemoteNotification background")
         let userInfo = response.notification.request.content.userInfo
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message: \(messageID)")
-        }
         print(userInfo)
         completionHandler()
     }
 }
 // [END ios_10_message_handling]
+
 extension AppDelegate : MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
         print("msg didReceive \(remoteMessage.appData)")

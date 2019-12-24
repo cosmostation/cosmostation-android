@@ -18,6 +18,7 @@ target 'Cosmostation' do
   pod 'QRCode'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
+  pod 'NotificationBannerSwift', '2.0.1'
 
 end
 

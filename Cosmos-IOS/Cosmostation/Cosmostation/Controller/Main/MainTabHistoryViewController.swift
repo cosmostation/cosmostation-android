@@ -343,7 +343,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else {
             DispatchQueue.main.async {
                 self.showWaittingAlert()
-                self.onToggleAlarm(self.account!) { (success) in
+                self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
                     self.dismissAlertController()
                     print("onToggleAlarm result ", success)
                     if (success) {

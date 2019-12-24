@@ -11,7 +11,6 @@ import Alamofire
 import Floaty
 import SafariServices
 import SwiftKeychainWrapper
-import UserNotifications
 
 class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate, QrScannerDelegate, PasswordViewDelegate {
 
@@ -136,7 +135,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.reloadData()
         self.refresher.endRefreshing()
     }
-    
     
     func emptyFloatySelected(_ floaty: Floaty) {
         self.onClickMainSend()
@@ -619,7 +617,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else {
             DispatchQueue.main.async {
                 self.showWaittingAlert()
-                self.onToggleAlarm(self.account!) { (success) in
+                self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
                     self.dismissAlertController()
                     print("onToggleAlarm result ", success)
                     if (success) {

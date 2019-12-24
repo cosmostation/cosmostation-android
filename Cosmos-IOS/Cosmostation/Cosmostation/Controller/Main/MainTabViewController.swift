@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Toast_Swift
+import NotificationBannerSwift
 
 class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBCardPopupDelegate, AccountSelectDelegate {
     
@@ -37,9 +38,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mBnbTokenList = Array<BnbToken>()
     
     var waitAlert: UIAlertController?
+    var banner: NotificationBanner?
+    var notiView: NotificationView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.notiView = NotificationView()
         
         self.onUpdateAccountDB()
         self.onFetchAccountData()
@@ -52,6 +56,60 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         super.viewDidAppear(animated)
         if( self.mFetchCnt > 0)  {
             self.showWaittingAlert()
+        }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showNotificationBanner(_:)), name: Notification.Name("pushNoti"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("pushNoti"), object: nil)
+    }
+    
+    @objc public func showNotificationBanner(_ notification: NSNotification) {
+        guard let userInfo = notification.userInfo as? [String: Any] else {
+            return
+        }
+        
+        if let notifyto = userInfo["notifyto"] as? String,
+            let txid = userInfo["txid"] as? String,
+            let type = userInfo["type"] as? String,
+            let aps = userInfo["aps"] as? NSDictionary,
+            let alert = aps["alert"] as? NSDictionary,
+            let title = alert["title"] as? String,
+            let body = alert["body"] as? String {
+            
+            if (type == "send") {
+                notiView!.notiType.image = UIImage.init(named: "notificationsSend")
+                notiView!.notiTitle.textColor = UIColor.init(hexString: "#f31963")
+                
+            } else if (type == "receive") {
+                notiView!.notiType.image = UIImage.init(named: "notificationsReceive")
+                notiView!.notiTitle.textColor = UIColor.init(hexString: "#37cc6e")
+            }
+            
+            notiView!.notiTitle.text = title
+            notiView!.notiMsg.text = body
+            notiView!.actionDismiss = {
+                print("Banner Success Notification dismiss")
+                self.banner?.dismiss()
+            }
+            notiView!.actionBody = {
+                print("Banner Success Notification Body")
+                let notiAccount = BaseData.instance.selectAccountByAddress(address: notifyto)
+                if (notiAccount != nil) {
+                    BaseData.instance.setRecentAccountId(notiAccount!.account_id)
+                    BaseData.instance.setLastTab(2)
+                    
+                    let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = mainTabVC
+                    self.present(mainTabVC, animated: true, completion: nil)
+                }
+                self.banner?.dismiss()
+            }
+            banner = NotificationBanner(customView: notiView!)
+            banner?.dismissDuration = 0.5
+            banner?.show()
         }
     }
     
