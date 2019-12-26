@@ -318,7 +318,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
     public void onDisplayNotification(Intent intent) {
-        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity)) {
+        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity) && !(this instanceof AppLockActivity)) {
             Banner.make(mRootview, this, Banner.TOP, R.layout.foreground_push);
             mPushBody = Banner.getInstance().getBannerView().findViewById(R.id.push_body);
             mPushType = Banner.getInstance().getBannerView().findViewById(R.id.push_type);

@@ -9,6 +9,8 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+
 public class BaseFCM extends FirebaseMessagingService {
 
     @Override
@@ -18,21 +20,19 @@ public class BaseFCM extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        WLog.w("From: " + remoteMessage.getFrom());
+        if (IS_SHOWLOG) { WLog.w("From: " + remoteMessage.getFrom()); }
 
         if (remoteMessage.getData().size() > 0) {
-            WLog.w("Message data payload: " + remoteMessage.getData());
+            if (IS_SHOWLOG) { WLog.w("Message data payload: " + remoteMessage.getData()); }
 
         }
 
         if (remoteMessage.getNotification() != null) {
             if(remoteMessage.getNotification().getTitle() != null)
-                WLog.w("Message Notification title: " + remoteMessage.getNotification().getTitle());
+                if (IS_SHOWLOG) { WLog.w("Message Notification title: " + remoteMessage.getNotification().getTitle()); }
             if(remoteMessage.getNotification().getBody() != null)
-                WLog.w("Message Notification Body: " + remoteMessage.getNotification().getBody());
+                if (IS_SHOWLOG) {WLog.w("Message Notification Body: " + remoteMessage.getNotification().getBody()); }
         }
-
-
 
         if (remoteMessage.getData().get("notifyto") != null &&
                 remoteMessage.getData().get("txid") != null &&
