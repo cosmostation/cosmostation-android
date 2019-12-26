@@ -11,7 +11,7 @@ import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
 
-class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate{
+class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate {
     
     @IBOutlet weak var toDelegateAmountLabel: UILabel!
     @IBOutlet weak var toDelegateAmountDenom: UILabel!

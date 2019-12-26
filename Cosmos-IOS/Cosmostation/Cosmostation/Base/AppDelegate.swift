@@ -13,9 +13,9 @@ import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
+    var userInfo:[AnyHashable : Any]?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        if( application.topViewController!.isKind(of: IntroViewController.self) ||
+        if(application.topViewController!.isKind(of: IntroViewController.self) ||
             application.topViewController!.isKind(of: PasswordViewController.self)) {
             
         } else {
@@ -131,16 +131,26 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         if let notifyto = userInfo["notifyto"] as? String {
-            let notiAccount = BaseData.instance.selectAccountByAddress(address: notifyto)
-            if (notiAccount != nil) {
-                BaseData.instance.setRecentAccountId(notiAccount!.account_id)
-                BaseData.instance.setLastTab(2)
-                DispatchQueue.main.async(execute: {
-                    let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
-                    let rootVC = self.window?.rootViewController!
-                    self.window?.rootViewController = mainTabVC
-                    rootVC?.present(mainTabVC, animated: true, completion: nil)
-                })
+            let topVC = self.window?.rootViewController?.presentedViewController
+            if (topVC == nil) {
+                self.userInfo = userInfo
+                
+            } else if (topVC!.isKind(of: PasswordViewController.self)) {
+                self.userInfo = userInfo
+                
+            } else {
+                let notiAccount = BaseData.instance.selectAccountByAddress(address: notifyto)
+                if (notiAccount != nil) {
+                    BaseData.instance.setRecentAccountId(notiAccount!.account_id)
+                    BaseData.instance.setLastTab(2)
+                    DispatchQueue.main.async(execute: {
+                        let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+                        let rootVC = self.window?.rootViewController!
+                        print("rootVC ", rootVC)
+                        self.window?.rootViewController = mainTabVC
+                        rootVC?.present(mainTabVC, animated: true, completion: nil)
+                    })
+                }
             }
         }
         completionHandler()

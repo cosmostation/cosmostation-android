@@ -82,8 +82,24 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
             })
             
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.onStartMainTab()
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            if (appDelegate.userInfo != nil) {
+                if let userInfo = appDelegate.userInfo,
+                    let notifyto = userInfo["notifyto"] as? String {
+                    appDelegate.userInfo = nil
+                    let notiAccount = BaseData.instance.selectAccountByAddress(address: notifyto)
+                    if (notiAccount != nil) {
+                        BaseData.instance.setRecentAccountId(notiAccount!.account_id)
+                        BaseData.instance.setLastTab(2)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            self.onStartMainTab()
+                        }
+                    }
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.onStartMainTab()
+                }
             }
         }
     }

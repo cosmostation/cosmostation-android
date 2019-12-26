@@ -116,8 +116,8 @@ class PasswordViewController: BaseViewController {
     
     @objc func onUserInsert(_ notification: NSNotification) {
         if let string = notification.userInfo?["Keyboard"] as? String {
-            if(string == "delete") {
-                if(mUserInsert.count == 4) {
+            if (string == "delete") {
+                if (mUserInsert.count == 4) {
                     let subString = mUserInsert.prefix(mUserInsert.count - 1)
                     mUserInsert = String(subString)
                     
@@ -149,9 +149,10 @@ class PasswordViewController: BaseViewController {
     
     var cancelbio = false
     @objc func onBioAuth() {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("ForeGround"), object: nil)
         if (self.cancelbio) {return}
         
-        if(!BaseData.instance.getUsingBioAuth()) {
+        if (!BaseData.instance.getUsingBioAuth()) {
             return
         }
         let myContext = LAContext()
@@ -178,7 +179,7 @@ class PasswordViewController: BaseViewController {
     }
     
     func sendResultAndPop(_ data: Int) {
-        if(mTarget != PASSWORD_ACTION_APP_LOCK) {
+        if (mTarget != PASSWORD_ACTION_APP_LOCK) {
             UIApplication.shared.endIgnoringInteractionEvents()
             let transition:CATransition = CATransition()
             transition.duration = 0.3
@@ -197,7 +198,7 @@ class PasswordViewController: BaseViewController {
     
     func onUpdatePinImage(count:Int) {
         for i in 0 ..< 5 {
-            if(i < count) {
+            if (i < count) {
                 pinImgs[i].image = UIImage(named: "passp");
             } else {
                 pinImgs[i].image = UIImage(named: "passUp");
@@ -208,8 +209,8 @@ class PasswordViewController: BaseViewController {
     func onUserInsertFinish() {
         NotificationCenter.default.post(name: Notification.Name("lockBtns"), object: nil, userInfo: nil)
         if (mTarget == PASSWORD_ACTION_INIT) {
-            if(mIsConfirmSequence == true) {
-                if(mUserConfirm == mUserInsert) {
+            if (mIsConfirmSequence == true) {
+                if (mUserConfirm == mUserInsert) {
                     self.onStartInitPassword(mUserInsert)
                     
                 } else {
@@ -240,11 +241,11 @@ class PasswordViewController: BaseViewController {
     func onStartInitPassword(_ initInput: String) {
         DispatchQueue.global().async {
             var result = false
-            if(!KeychainWrapper.standard.hasValue(forKey: "password")) {
+            if (!KeychainWrapper.standard.hasValue(forKey: "password")) {
                 result = KeychainWrapper.standard.set(initInput, forKey: "password", withAccessibility: .afterFirstUnlockThisDeviceOnly)
             }
             DispatchQueue.main.async(execute: {
-                if(result) {
+                if (result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK)
                 } else {
                     self.sendResultAndPop(PASSWORD_RESUKT_FAIL)
@@ -257,13 +258,13 @@ class PasswordViewController: BaseViewController {
     func onStartCheckPassword(_ input: String) {
         DispatchQueue.global().async {
             var result = false
-            if(KeychainWrapper.standard.hasValue(forKey: "password")) {
+            if (KeychainWrapper.standard.hasValue(forKey: "password")) {
                 if(KeychainWrapper.standard.string(forKey: "password") == input) {
                     result = true
                 }
             }
             DispatchQueue.main.async(execute: {
-                if(result) {
+                if (result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK)
                 } else {
                     self.onShowToast(NSLocalizedString("error_invalid_password", comment: ""))
@@ -283,7 +284,7 @@ class PasswordViewController: BaseViewController {
             }
             DispatchQueue.main.async(execute: {
                 UIApplication.shared.endIgnoringInteractionEvents()
-                if(result) {
+                if (result) {
                     self.onUserSuccessUnlock()
                 } else {
                     self.onShowToast(NSLocalizedString("error_invalid_password", comment: ""))
@@ -296,13 +297,13 @@ class PasswordViewController: BaseViewController {
     func onStartCheckPasswordForDelete(_ input: String) {
         DispatchQueue.global().async {
             var result = false
-            if(KeychainWrapper.standard.hasValue(forKey: "password")) {
+            if (KeychainWrapper.standard.hasValue(forKey: "password")) {
                 if(KeychainWrapper.standard.string(forKey: "password") == input) {
                     result = true
                 }
             }
             DispatchQueue.main.async(execute: {
-                if(result) {
+                if (result) {
                     self.sendResultAndPop(PASSWORD_RESUKT_OK_FOR_DELETE)
                 } else {
                     self.onShowToast(NSLocalizedString("error_invalid_password", comment: ""))
@@ -313,10 +314,27 @@ class PasswordViewController: BaseViewController {
     }
     
     func onUserSuccessUnlock() {
-        if(mTarget ==  PASSWORD_ACTION_INTRO_LOCK) {
+        if (mTarget == PASSWORD_ACTION_INTRO_LOCK) {
             self.sendResultAndPop(PASSWORD_RESUKT_OK)
         } else {
             self.dismiss(animated: true, completion: nil)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            if (appDelegate.userInfo != nil) {
+                if let userInfo = appDelegate.userInfo,
+                    let notifyto = userInfo["notifyto"] as? String {
+                    appDelegate.userInfo = nil
+                    let notiAccount = BaseData.instance.selectAccountByAddress(address: notifyto)
+                    if (notiAccount != nil) {
+                        BaseData.instance.setRecentAccountId(notiAccount!.account_id)
+                        BaseData.instance.setLastTab(2)
+                        DispatchQueue.main.async(execute: {
+                            let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+                            appDelegate.window?.rootViewController = mainTabVC
+                            self.present(mainTabVC, animated: true, completion: nil)
+                        })
+                    }
+                }
+            }
         }
     }
     
