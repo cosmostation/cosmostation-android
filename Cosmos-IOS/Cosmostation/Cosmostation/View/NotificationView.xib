@@ -49,7 +49,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yo1-lO-Gfc">
-                            <rect key="frame" x="16" y="38" width="318" height="28"/>
+                            <rect key="frame" x="16" y="36" width="318" height="28"/>
                             <string key="text">notification body message notification body message notification body message notification body message notification body message notification body message notification body message notification body message </string>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                             <color key="textColor" red="0.086274509803921567" green="0.094117647058823528" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>

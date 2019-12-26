@@ -123,16 +123,26 @@ extension UIApplication{
 extension AppDelegate : UNUserNotificationCenterDelegate {
     // Receive displayed notifications for iOS 10 devices.
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("didReceiveRemoteNotification foreground")
         let userInfo = notification.request.content.userInfo
         NotificationCenter.default.post(name: Notification.Name("pushNoti"), object: nil, userInfo: userInfo)
         completionHandler([])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("didReceiveRemoteNotification background")
         let userInfo = response.notification.request.content.userInfo
-        print(userInfo)
+        if let notifyto = userInfo["notifyto"] as? String {
+            let notiAccount = BaseData.instance.selectAccountByAddress(address: notifyto)
+            if (notiAccount != nil) {
+                BaseData.instance.setRecentAccountId(notiAccount!.account_id)
+                BaseData.instance.setLastTab(2)
+                DispatchQueue.main.async(execute: {
+                    let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+                    let rootVC = self.window?.rootViewController!
+                    self.window?.rootViewController = mainTabVC
+                    rootVC?.present(mainTabVC, animated: true, completion: nil)
+                })
+            }
+        }
         completionHandler()
     }
 }
