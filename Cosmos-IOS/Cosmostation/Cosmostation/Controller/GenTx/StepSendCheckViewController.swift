@@ -69,30 +69,30 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        let toSendAmount = WUtils.stringToDecimal(pageHolderVC.mToSendAmount[0].amount)
-        let feeAmount = WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
+        let toSendAmount = WUtils.stringToDecimalNoLocale(pageHolderVC.mToSendAmount[0].amount)
+        let feeAmount = WUtils.stringToDecimalNoLocale((pageHolderVC.mFee?.amount[0].amount)!)
         var currentAva = NSDecimalNumber.zero
         
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             currentAva = pageHolderVC.mAccount!.getAtomBalance()
-            mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 6, pageHolderVC.chainType!)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, mFeeAmountLabel.font, 6, pageHolderVC.chainType!)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, pageHolderVC.chainType!)
+            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
             
-            mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 6, pageHolderVC.chainType!)
-            mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, pageHolderVC.chainType!)
+            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
+            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
             
             mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             currentAva = pageHolderVC.mAccount!.getIrisBalance()
-            mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 18, pageHolderVC.chainType!)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, mFeeAmountLabel.font, 18, pageHolderVC.chainType!)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 18, pageHolderVC.chainType!)
+            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 18, 18)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 18, 18)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 18, 18)
             
-            mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 18, pageHolderVC.chainType!)
-            mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 18, pageHolderVC.chainType!)
+            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 18, 18)
+            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 18, 18)
             
             mTotalSpendPrice.attributedText = WUtils.dpIrisValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
             mReminaingPrice.attributedText = WUtils.dpIrisValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
@@ -104,12 +104,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
             if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
                 currentAva = pageHolderVC.mAccount!.getBnbBalance()
-                mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 8, pageHolderVC.chainType!)
-                mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, mFeeAmountLabel.font, 8, pageHolderVC.chainType!)
-                mTotalSpendLabel.attributedText = WUtils.displayAmount(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 8, pageHolderVC.chainType!)
+                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, 8)
+                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, 8)
+                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 0, 8)
                 
-                mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 8, pageHolderVC.chainType!)
-                mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 8, pageHolderVC.chainType!)
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, 8)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, 8)
                 
                 mTotalSpendPrice.attributedText = WUtils.dpBnbValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
                 mReminaingPrice.attributedText = WUtils.dpBnbValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
@@ -126,11 +126,11 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mReminaingPrice.isHidden = true
                 
                 currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mBnbToken!.symbol)
-                mToSendAmountLabel.attributedText = WUtils.displayAmount(toSendAmount.stringValue, mToSendAmountLabel.font, 8, pageHolderVC.chainType!)
-                mFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, mFeeAmountLabel.font, 8, pageHolderVC.chainType!)
+                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, 8)
+                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, 8)
                 
-                mCurrentAvailable.attributedText = WUtils.displayAmount(currentAva.stringValue, mCurrentAvailable.font, 8, pageHolderVC.chainType!)
-                mReminaingAvailable.attributedText = WUtils.displayAmount(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 8, pageHolderVC.chainType!)
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, 8)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, 8)
                 
             }
             

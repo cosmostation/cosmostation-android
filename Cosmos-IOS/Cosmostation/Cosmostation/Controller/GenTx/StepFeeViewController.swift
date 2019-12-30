@@ -78,8 +78,8 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "feeImg")
             self.speedMsg.text = NSLocalizedString("fee_speed_bnb_title", comment: "")
             
-            feeAmount = WUtils.stringToDecimal(GAS_FEE_BNB_TRANSFER)
-            self.minFeeAmountLabel.attributedText = WUtils.displayAmount(feeAmount.stringValue, minFeeAmountLabel.font, 8, pageHolderVC.chainType!)
+            feeAmount = WUtils.stringToDecimalNoLocale(GAS_FEE_BNB_TRANSFER)
+            self.minFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 0, 8)
             self.minFeePriceLabel.attributedText  = WUtils.dpBnbValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
             
         }

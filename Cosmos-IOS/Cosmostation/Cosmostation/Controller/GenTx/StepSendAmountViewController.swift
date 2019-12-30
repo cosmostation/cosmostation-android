@@ -43,12 +43,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             self.denomTitleLabel.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
             if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
                 maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getBnbBalance()).subtracting(NSDecimalNumber.init(string: "0.000375"))
-                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 8, 8)
+                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 0, 8)
                 
             } else {
                 self.denomTitleLabel.textColor = UIColor.white
                 maxAvailable = self.pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mBnbToken!.symbol)
-                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 8, 8)
+                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 0, 8)
             }
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {

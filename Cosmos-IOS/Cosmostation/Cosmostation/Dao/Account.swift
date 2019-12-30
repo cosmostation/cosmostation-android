@@ -121,7 +121,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         var result = NSDecimalNumber.zero
         for balance in self.account_balances {
             if (balance.balance_denom == BNB_MAIN_DENOM) {
-                result = WUtils.stringToDecimal(balance.balance_amount)
+                result = WUtils.stringToDecimalNoLocale(balance.balance_amount)
             }
         }
         return result

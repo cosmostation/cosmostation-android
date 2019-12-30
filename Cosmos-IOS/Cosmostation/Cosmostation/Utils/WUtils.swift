@@ -532,7 +532,7 @@ class WUtils {
         nf.minimumFractionDigits = deciaml
         nf.maximumFractionDigits = deciaml
         nf.numberStyle = .decimal
-        
+
         let amount = stringToDecimal(amount)
         let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(deciaml), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
 
@@ -546,19 +546,19 @@ class WUtils {
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             formatted = nf.string(from: amount.rounding(accordingToBehavior: handler))
         }
-        
+
         let added       = formatted
         let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
-        
+
         let preString   = added![..<endIndex]
         let postString  = added![endIndex...]
-        
+
         let preAttrs = [NSAttributedString.Key.font : font]
         let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
+
         let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
         let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
+
         attributedString1.append(attributedString2)
         return attributedString1
     }
