@@ -29,6 +29,7 @@ class TokenCell: UITableViewCell {
         self.tokenDescription.text = "-"
         self.tokenAmount.text = "-"
         self.tokenValue.text = "-"
+        super.prepareForReuse()
     }
     
 }

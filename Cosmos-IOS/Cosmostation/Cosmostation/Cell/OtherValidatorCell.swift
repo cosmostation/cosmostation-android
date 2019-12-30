@@ -38,6 +38,7 @@ class OtherValidatorCell: UITableViewCell {
         self.monikerLabel.text = "-"
         self.powerLabel.text = "-"
         self.commissionLabel.text = "-"
+        super.prepareForReuse()
     }
     
 }

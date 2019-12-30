@@ -39,6 +39,7 @@ class MyValidatorCell: UITableViewCell {
         self.myDelegatedAmoutLabel.text = "-"
         self.myUndelegatingAmountLabel.text = "-"
         self.rewardAmoutLabel.text = "-"
+        super.prepareForReuse()
     }
     
 }

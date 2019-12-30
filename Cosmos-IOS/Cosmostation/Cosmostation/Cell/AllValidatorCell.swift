@@ -38,6 +38,7 @@ class AllValidatorCell: UITableViewCell {
         self.validatorImg.image = UIImage(named: "validatorNoneImg")
         self.monikerLabel.text = "-"
         self.powerLabel.text = "-"
+        super.prepareForReuse()
     }
     
     func addRippleEffect(to referenceView: UIView) {
