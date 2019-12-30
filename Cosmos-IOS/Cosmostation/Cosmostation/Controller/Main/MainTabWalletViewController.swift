@@ -396,7 +396,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletBnbCell? = tableView.dequeueReusableCell(withIdentifier:"WalletBnbCell") as? WalletBnbCell
             var totalBnb = NSDecimalNumber.zero
             if let balance = WUtils.getTokenBalace(mainTabVC.mBalances, BNB_MAIN_DENOM) {
-                totalBnb = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked))
+                totalBnb = WUtils.getAllBnb(balance)
                 cell?.totalAmount.attributedText = WUtils.displayAmount2(totalBnb.stringValue, cell!.totalAmount.font, 0, 6)
                 cell?.totalValue.attributedText = WUtils.dpBnbValue(totalBnb, BaseData.instance.getLastPrice(), cell!.totalValue.font)
                 cell?.availableAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.availableAmount.font, 0, 6)

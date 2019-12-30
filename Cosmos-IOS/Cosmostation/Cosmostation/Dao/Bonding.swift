@@ -31,13 +31,19 @@ public class Bonding {
     }
 
     public func getBondingAmount(_ validator:Validator) -> NSDecimalNumber {
-        return (WUtils.stringToDecimal(validator.tokens)).dividing(by: WUtils.stringToDecimal(validator.delegator_shares)).multiplying(by: WUtils.stringToDecimal(bonding_shares)).rounding(accordingToBehavior: WUtils.handler0)
+        return (WUtils.stringToDecimalNoLocale(validator.tokens)).dividing(by: WUtils.stringToDecimalNoLocale(validator.delegator_shares)).multiplying(by: WUtils.stringToDecimalNoLocale(bonding_shares)).rounding(accordingToBehavior: WUtils.handler0)
     }
 
     public func getBondingAmount(_ validators:Array<Validator>) -> NSDecimalNumber {
         for v in validators {
             if(v.operator_address ==  bonding_v_address) {
-                return (WUtils.stringToDecimal(v.tokens)).dividing(by: WUtils.stringToDecimal(v.delegator_shares)).multiplying(by: WUtils.stringToDecimal(bonding_shares)).rounding(accordingToBehavior: WUtils.handler0)
+//                print("v.tokens ", v.tokens)
+//                print("WUtils.stringToDecimalNoLocale(v.tokens) ", WUtils.stringToDecimalNoLocale(v.tokens))
+//                print("v.delegator_shares ", v.delegator_shares)
+//                print("WUtils.stringToDecimalNoLocale(v.delegator_shares) ", WUtils.stringToDecimalNoLocale(v.delegator_shares))
+//                print("bonding_shares ", bonding_shares)
+//                print("WUtils.stringToDecimalNoLocale(bonding_shares) ", WUtils.stringToDecimalNoLocale(bonding_shares))
+                return (WUtils.stringToDecimalNoLocale(v.tokens)).dividing(by: WUtils.stringToDecimalNoLocale(v.delegator_shares)).multiplying(by: WUtils.stringToDecimalNoLocale(bonding_shares)).rounding(accordingToBehavior: WUtils.handler0)
             }
         }
         return NSDecimalNumber.zero

@@ -186,12 +186,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             var allBnb = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == BNB_MAIN_DENOM) {
-                    allBnb = allBnb.adding(WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked)))
+                    allBnb = allBnb.adding(WUtils.getAllBnb(balance))
                 } else {
                     allBnb = allBnb.adding(balance.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol(balance.balance_denom), mBnbTics)))
                 }
             }
-            totalAmount.attributedText = WUtils.displayAmount(allBnb.stringValue, totalAmount.font, 6, chainType!)
+            totalAmount.attributedText = WUtils.displayAmount2(allBnb.stringValue, totalAmount.font, 0, 6)
             totalValue.attributedText = WUtils.dpBnbValue(allBnb, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
@@ -301,8 +301,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.text = bnbToken.original_symbol.uppercased()
             cell?.tokenTitle.text = "(" + bnbToken.symbol + ")"
             cell?.tokenDescription.text = bnbToken.name
-            let totalAmount = WUtils.stringToDecimal(balance.balance_amount).adding(WUtils.stringToDecimal(balance.balance_locked))
-    
+            let totalAmount = WUtils.getAllBnb(balance)
             if (balance.balance_denom == BNB_MAIN_DENOM) {
                 cell?.tokenSymbol.textColor = COLOR_BNB
                 cell?.tokenImg.image = UIImage(named: "bnbTokenImg")

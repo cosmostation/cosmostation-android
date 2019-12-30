@@ -61,7 +61,7 @@ public class Balance {
     }
     
     func getAllAmountBnbToken() -> NSDecimalNumber {
-        return WUtils.stringToDecimal(self.balance_amount).adding(WUtils.stringToDecimal(self.balance_locked))
+        return WUtils.stringToDecimalNoLocale(self.balance_amount).adding(WUtils.stringToDecimalNoLocale(self.balance_locked))
     }
     
     func exchangeBnbValue(_ tic:NSMutableDictionary?) -> NSDecimalNumber {
@@ -76,44 +76,5 @@ public class Balance {
     }
     
 }
-
-
-//public class Balance {
-//    var balance_id:Int64 = -1;
-//    var balance_account_id:Int64 = -1;
-//    var balance_denom: String = "";
-//    var balance_amount:NSDecimalNumber = NSDecimalNumber.zero;
-//    var balance_fetch_time:Int64 = -1;
-//
-//    var balance_frozen:NSDecimalNumber?
-//    var balance_locked:NSDecimalNumber?
-//
-//    init(_ id:Int64, _ accout_id:Int64, _ demon:String, _ amount:String, _ fetch_time:Int64, _ frozen:String?, _ locked:String?) {
-//        self.balance_id = id;
-//        self.balance_account_id = accout_id;
-//        self.balance_denom = demon;
-//        self.balance_amount = NSDecimalNumber(string: amount)
-//        self.balance_fetch_time = fetch_time;
-//        self.balance_frozen = NSDecimalNumber(string: frozen);
-//        self.balance_locked = NSDecimalNumber(string: locked);
-//    }
-//
-//    init(_ accout_id:Int64, _ demon:String, _ amount:String, _ fetch_time:Int64, _ frozen:String?, _ locked:String?) {
-//        self.balance_account_id = accout_id;
-//        self.balance_denom = demon;
-//        self.balance_amount = NSDecimalNumber(string: amount)
-//        self.balance_fetch_time = fetch_time;
-//        self.balance_frozen = NSDecimalNumber(string: frozen);
-//        self.balance_locked = NSDecimalNumber(string: locked);
-//    }
-//
-//    init(_ accout_id:Int64, _ demon:String, _ amount:String, _ fetch_time:Int64) {
-//        self.balance_account_id = accout_id;
-//        self.balance_denom = demon;
-//        self.balance_amount = NSDecimalNumber(string: amount)
-//        self.balance_fetch_time = fetch_time;
-//    }
-//
-//}
 
 

@@ -202,7 +202,7 @@ class WUtils {
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
-                let shareAmount = stringToDecimal(bondinginfo.shares).multiplying(byPowerOf10: 18)
+                let shareAmount = stringToDecimalNoLocale(bondinginfo.shares).multiplying(byPowerOf10: 18)
                 result.append(Bonding(account.account_id, bondinginfo.validator_addr, shareAmount.stringValue, Date().millisecondsSince1970))
             }
         }
@@ -222,8 +222,8 @@ class WUtils {
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
-                let unbondingBalance = stringToDecimal(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
-                let initialBalance = stringToDecimal(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
+                let unbondingBalance = stringToDecimalNoLocale(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
+                let initialBalance = stringToDecimalNoLocale(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
                 result.append(Unbonding(account.account_id, unbondinginfo.validator_addr, unbondinginfo.creation_height, nodeTimeToInt64(input: unbondinginfo.min_time).millisecondsSince1970, initialBalance.stringValue, unbondingBalance.stringValue, Date().millisecondsSince1970))
             }
         }
@@ -479,6 +479,15 @@ class WUtils {
         }
     }
     
+    static func stringToDecimalNoLocale(_ input: String?) -> NSDecimalNumber {
+        let result = NSDecimalNumber(string: input)
+        if (NSDecimalNumber.notANumber == result) {
+            return NSDecimalNumber.zero
+        } else {
+            return result
+        }
+    }
+    
     static func unDelegateFormat(_ amount: String) -> String {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 18
@@ -560,7 +569,7 @@ class WUtils {
         nf.maximumFractionDigits = dpPoint
         nf.numberStyle = .decimal
         
-        let amount = stringToDecimal(amount)
+        let amount = stringToDecimalNoLocale(amount)
         let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(dpPoint), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
         
         var formatted: String?
@@ -1084,6 +1093,13 @@ class WUtils {
             sum = sum.adding(rewards!.getSimpleIrisReward())
         }
         return sum
+    }
+    
+    static func getAllBnb(_ balance:Balance?) ->  NSDecimalNumber {
+        if (balance == nil) {
+            return NSDecimalNumber.zero
+        }
+        return stringToDecimalNoLocale(balance!.balance_amount).adding(stringToDecimalNoLocale(balance!.balance_locked))
     }
     
     static func getAllKava(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
