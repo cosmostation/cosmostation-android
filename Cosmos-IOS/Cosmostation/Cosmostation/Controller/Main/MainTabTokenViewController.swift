@@ -90,6 +90,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
+            titleAlarmBtn.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_BNB
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")

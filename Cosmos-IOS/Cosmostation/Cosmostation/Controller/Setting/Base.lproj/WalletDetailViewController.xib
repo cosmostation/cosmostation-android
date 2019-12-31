@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,6 +17,8 @@
                 <outlet property="cardReward" destination="C1f-W5-wv9" id="uNC-cG-dfh"/>
                 <outlet property="chainImg" destination="8Ci-E4-KXf" id="c6L-zk-zjw"/>
                 <outlet property="chainName" destination="Op6-9y-J50" id="2xu-2G-o6z"/>
+                <outlet property="constraint1" destination="aeL-B4-gAx" id="OOU-Rz-cfe"/>
+                <outlet property="constraint2" destination="Rlm-I2-xGw" id="iEV-A4-ons"/>
                 <outlet property="importDate" destination="gsg-Id-mWi" id="ucS-jE-i6H"/>
                 <outlet property="importState" destination="RVk-TP-eew" id="ZtT-N7-pSs"/>
                 <outlet property="keyPath" destination="Yyi-i3-uWr" id="MO1-kO-BGY"/>
@@ -424,6 +426,7 @@ All services are available after mnemonics integration</string>
                 <constraint firstItem="R7D-Sl-Ids" firstAttribute="trailing" secondItem="byL-PX-1ub" secondAttribute="trailing" id="JUe-3h-jSk"/>
                 <constraint firstItem="C1f-W5-wv9" firstAttribute="trailing" secondItem="gTP-Kl-Gz9" secondAttribute="trailing" constant="-16" id="Kwb-18-NIu"/>
                 <constraint firstItem="zYS-1C-cfR" firstAttribute="trailing" secondItem="byL-PX-1ub" secondAttribute="trailing" id="LVE-iX-BQd"/>
+                <constraint firstItem="R7D-Sl-Ids" firstAttribute="top" secondItem="byL-PX-1ub" secondAttribute="bottom" priority="250" constant="12" id="Rlm-I2-xGw"/>
                 <constraint firstItem="ojd-Vn-gHM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Tky-OV-ogK"/>
                 <constraint firstItem="byL-PX-1ub" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="X2m-tc-df9"/>
                 <constraint firstItem="R7D-Sl-Ids" firstAttribute="top" secondItem="zYS-1C-cfR" secondAttribute="bottom" constant="12" id="aeL-B4-gAx"/>

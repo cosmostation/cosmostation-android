@@ -76,6 +76,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
+            titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")
             titleChainName.text = "(KAVA Chain)"

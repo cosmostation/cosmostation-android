@@ -38,6 +38,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     @IBOutlet weak var actionBtn: UIButton!
     
+    @IBOutlet weak var constraint1: NSLayoutConstraint!
+    @IBOutlet weak var constraint2: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateView()
@@ -71,6 +75,9 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             chainImg.image = UIImage(named: "binanceChImg")
             keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             chainImg.image = UIImage(named: "kavaImg")
             keyPath.text = BASE_PATH.appending(account!.account_path)
