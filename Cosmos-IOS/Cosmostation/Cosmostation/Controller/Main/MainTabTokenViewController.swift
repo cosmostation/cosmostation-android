@@ -365,11 +365,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     switch response.result {
                     case .success(let res):
                         if let tics = res as? Array<NSDictionary> {
-                            self.mBnbTics[ticSymbol] = tics[0].mutableCopy() as? NSMutableDictionary
-                            self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .fade)
+                            if (tics.count > 0) {
+                                self.mBnbTics[ticSymbol] = tics[0].mutableCopy() as? NSMutableDictionary
+                                self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .fade)
+                            }
                         }
                         self.onUpdateTotalCard()
-                        
+
                     case .failure(let error):
                         if (SHOW_LOG) { print("onFetchBnbTokenPrice ", ticSymbol, " ", error) }
                     }

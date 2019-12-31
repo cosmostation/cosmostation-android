@@ -1226,7 +1226,6 @@ class WUtils {
             return true
         case "BTC.B-918":
             return true
-            
         case "USDSB-1AC":
             return true
         case "THKDB-888":
@@ -1235,6 +1234,13 @@ class WUtils {
             return true
         case "BTCB-1DE":
             return true
+        case "ETH-1C9":
+            return true
+        case "BUSD-BD1":
+            return true
+        case "IDRTB-178":
+            return true
+            
         default:
             return false
         }
