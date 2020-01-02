@@ -126,10 +126,14 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mAccount.pushAlarm) {
-            getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
+        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getMainActivity().mAccount.pushAlarm) {
+                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
+            } else {
+                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
+            }
         } else {
-            getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
+            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
         }
     }
 

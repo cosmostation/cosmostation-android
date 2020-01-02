@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.base;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,12 +12,15 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -38,6 +43,7 @@ import com.shasin.notificationbanner.Banner;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,6 +64,8 @@ import wannabit.io.cosmostaion.dao.IovToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
+import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -91,6 +99,8 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
 
@@ -326,12 +336,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mPushTitle = Banner.getInstance().getBannerView().findViewById(R.id.push_title);
             mPushMsg = Banner.getInstance().getBannerView().findViewById(R.id.push_msg);
 
-            if (intent.getStringExtra("type").equals("send")) {
+            if (intent.getStringExtra("type").equals("sent")) {
                 mPushType.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_send));
                 mPushTitle.setTextColor(getColor(R.color.colorNotiSend));
-            } else {
+            } else if (intent.getStringExtra("type").equals("received")) {
                 mPushType.setImageDrawable(getResources().getDrawable(R.drawable.ic_notifications_receive));
                 mPushTitle.setTextColor(getColor(R.color.colorNotiReceive));
+            } else {
+                return;
             }
             mPushTitle.setText(intent.getStringExtra("title"));
             mPushMsg.setText(intent.getStringExtra("Body"));
@@ -740,6 +752,50 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 }
             });
         }
+    }
+
+
+    public boolean isNotificationsEnabled() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager manager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (!manager.areNotificationsEnabled()) {
+                return false;
+            }
+            List<NotificationChannel> channels = manager.getNotificationChannels();
+            for (NotificationChannel channel : channels) {
+                if (channel.getImportance() == NotificationManager.IMPORTANCE_NONE) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return NotificationManagerCompat.from(this).areNotificationsEnabled();
+        }
+    }
+
+    public void onShowPushEnableDialog() {
+        Dialog_Push_Enable dialog = new Dialog_Push_Enable();
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+
+    }
+
+    public void onRedirectPushSet() {
+        Intent intent = new Intent();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, getBaseContext().getPackageName());
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.putExtra("app_package", getBaseContext().getPackageName());
+            intent.putExtra("app_uid", getBaseContext().getApplicationInfo().uid);
+        } else {
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.setData(Uri.parse("package:" + getBaseContext().getPackageName()));
+        }
+        getBaseContext().startActivity(intent);
     }
 
 }

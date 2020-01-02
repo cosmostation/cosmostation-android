@@ -347,7 +347,11 @@
     <string name="str_update_title">Update</string>
     <string name="str_update_msg">New version available. \nPlease update to the latest version from the PlayStore.</string>
     <string name="str_go_store">Go PlayStore</string>
-
+    <string name="str_alarm_enabled">Push alarm is enabled for detecting each sent <![CDATA[&]]> received tx with this address.</string>
+    <string name="str_alarm_disabled">Push alarm is turned off. You can turn on.</string>
+    <string name="str_push_alarm">Push Alarm</string>
+    <string name="str_push_permission_title">Permission</string>
+    <string name="str_push_permission_msg">Need permission to send a push. Redirect to the setting screen?</string>
 
 
     <string name="str_main_wallet">WALLET</string>

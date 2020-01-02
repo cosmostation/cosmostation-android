@@ -292,6 +292,11 @@
     <string name="str_update_title">업데이트</string>
     <string name="str_update_msg">새로운 버전이 나왔습니다. 플레이스토어에서 업데이트 해주세요.</string>
     <string name="str_go_store">플레이스토어 이동</string>
+    <string name="str_alarm_enabled">푸시 알람이 활성화 되어있습니다. 이 주소와 관련된 전송을 감시합니다.</string>
+    <string name="str_alarm_disabled">푸사 알림이 꺼져있습니다.</string>
+    <string name="str_push_alarm">푸시 알람</string>
+    <string name="str_push_permission_title">권한 요청</string>
+    <string name="str_push_permission_msg">푸시를 보내기 위해 권한이 필요합니다. 설정 화면으로 이동할까요?</string>
 
 
     <string name="str_main_wallet">WALLET</string>

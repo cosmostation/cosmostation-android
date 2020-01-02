@@ -78,13 +78,15 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             let title = alert["title"] as? String,
             let body = alert["body"] as? String {
             
-            if (type == "send") {
+            if (type == "sent") {
                 notiView!.notiType.image = UIImage.init(named: "notificationsSend")
                 notiView!.notiTitle.textColor = UIColor.init(hexString: "#f31963")
                 
-            } else if (type == "receive") {
+            } else if (type == "received") {
                 notiView!.notiType.image = UIImage.init(named: "notificationsReceive")
                 notiView!.notiTitle.textColor = UIColor.init(hexString: "#37cc6e")
+            } else {
+                return
             }
             
             notiView!.notiTitle.text = title

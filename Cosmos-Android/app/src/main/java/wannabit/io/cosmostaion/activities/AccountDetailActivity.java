@@ -1,14 +1,19 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,7 +36,9 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
@@ -45,6 +52,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private CardView        mCardName;
     private ImageView       mChainImg, mNameEditImg;
     private TextView        mAccountName;
+
+    private CardView        mCardAlarm;
+    private SwitchCompat    mAlarmSwitch;
+    private TextView        mAlarmMsg;
 
     private CardView        mCardBody;
     private ImageView       mBtnQr;
@@ -68,6 +79,9 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mChainImg               = findViewById(R.id.chain_img);
         mNameEditImg            = findViewById(R.id.account_edit);
         mAccountName            = findViewById(R.id.account_name);
+        mCardAlarm              = findViewById(R.id.card_alarm);
+        mAlarmSwitch            = findViewById(R.id.switch_using_alarm);
+        mAlarmMsg               = findViewById(R.id.account_alarm_msg);
         mCardBody               = findViewById(R.id.card_body);
         mBtnQr                  = findViewById(R.id.account_qr);
         mAccountAddress         = findViewById(R.id.account_address);
@@ -91,6 +105,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnQr.setOnClickListener(this);
         mBtnRewardAddressChange.setOnClickListener(this);
 
+//        WLog.w("noti " + isNotificationsEnabled());
+//
+//        Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS
+
     }
 
 
@@ -108,7 +126,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
-
         onInitView();
     }
 
@@ -170,23 +187,52 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         if(mAccount == null)  onBackPressed();
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
+        if (mAccount.pushAlarm && isNotificationsEnabled()) {
+            mAlarmSwitch.setChecked(true);
+            mAlarmMsg.setText(getString(R.string.str_alarm_enabled));
+        } else {
+            mAlarmSwitch.setChecked(false);
+            mAlarmMsg.setText(getString(R.string.str_alarm_disabled));
+        }
+
+        mAlarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isPressed()) {
+                    if (!isNotificationsEnabled()) {
+                        onShowPushEnableDialog();
+                        buttonView.setEnabled(false);
+                        return;
+                    }
+                    //TODO change update api
+                }
+            }
+        });
+
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
+            mCardAlarm.setVisibility(View.GONE);
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
+            mCardAlarm.setVisibility(View.GONE);
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
             mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            mCardAlarm.setVisibility(View.GONE);
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             mCardRewardAddress.setVisibility(View.GONE);
