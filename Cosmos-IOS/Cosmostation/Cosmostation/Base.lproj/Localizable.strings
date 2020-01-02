@@ -137,6 +137,10 @@
 "push_disabled_state_msg" = "Disabled push alaram, you can turn on";
 "permission_push_title" = "Allow Notification";
 "permission_push_msg" = "Please allow for push notification.";
+"retry" = "Retry";
+"update_title" = "Update";
+"update_msg" = "new version avaiable. Please update from the App Store.";
+"go_appstore" = "Go Appstore";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";
@@ -232,8 +236,11 @@
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";
 "error_reward_address_changed_title" = "Reward Address Changed";
-"error_reward_address_changed_msg" = "This account has changed its reward address.\n You can user re-invest feature after reset your reward address to self.";
+"error_reward_address_changed_msg" = "This account has changed its reward address.\nYou can user re-invest feature after reset your reward address to self.";
 "error_duple_address" = "This address is already imported.";
+"error_network_msg" = "Can't connect to the network. \nPlease try again in a few minutes.";
+"error_disable" = "Under Maintenance";
+"error_disable_msg" = "Now checking system. \nPlease check the community channel for more information.";
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";

@@ -23,12 +23,12 @@ let KEY_CURRENCY                        = "KEY_CURRENCY"
 let KEY_MARKET                          = "KEY_MARKET"
 let KEY_USING_APP_LOCK                  = "KEY_USING_APP_LOCK"
 let KEY_USING_BIO_AUTH                  = "KEY_USING_BIO_AUTH"
-let KEY_PRICE_TIC_CGC                    = "KEY_PRICE_TIC_CGC"
-let KEY_PRICE_TIC_CMC                    = "KEY_PRICE_TIC_CMC"
+let KEY_PRICE_TIC_CGC                   = "KEY_PRICE_TIC_CGC"
+let KEY_PRICE_TIC_CMC                   = "KEY_PRICE_TIC_CMC"
 
-
+let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.io/";
-//let CSS_LCD_URL                         = "https://lcd-cosmos-testnet.cosmostation.io//";
+//let CSS_LCD_URL                         = "https://lcd-cosmos-testnet.cosmostation.io/";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
@@ -37,6 +37,10 @@ let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let KEY_BASE_URL                        = "https://keybase.io/";
+
+
+let CSS_VERSION                         = CSS_URL + "v1/app/version/ios";
+let CSS_PUSH_UPDATE                     = CSS_URL + "v1/account/update";
 
 let CSS_LCD_URL_BLOCK                   = CSS_LCD_URL + "blocks/";
 let CSS_LCD_URL_TX                      = CSS_LCD_URL + "txs/";

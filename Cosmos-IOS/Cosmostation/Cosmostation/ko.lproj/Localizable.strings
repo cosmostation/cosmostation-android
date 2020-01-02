@@ -137,6 +137,10 @@
 "push_disabled_state_msg" = "알람을 켜시고 본계정의 송금, 수신에 대한 Tx를 받아보세요.";
 "permission_push_title" = "알람 설정";
 "permission_push_msg" = "알람이 비활성화 상태 입니다.알람을 허용해주세요.";
+"retry" = "재시도";
+"update_title" = "업데이트";
+"update_msg" = "새로운 버전이 나왔습니다. 앱스토어에서 업데이트 해주세요.";
+"go_appstore" = "앱스토어로 이동";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";
@@ -230,6 +234,9 @@
 "error_no_bonding_no_vote" = "위임량이 없음으로 투표를 하실 수 없습니다.";
 "error_already_vote" = "이미 투표를 하였습니다.";
 "error_no_opinion" = "의견을 선택해 주세요.";
+"error_network_msg" = "현재 네트워크에 접속할 수 없습니다. 잠시후 다시 시도해 주세요.";
+"error_disable" = "점검중";
+"error_disable_msg" = "시스템 점검중입니다. 자세한 내용은 커뮤니티 체널을 확인해 주세요.";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";

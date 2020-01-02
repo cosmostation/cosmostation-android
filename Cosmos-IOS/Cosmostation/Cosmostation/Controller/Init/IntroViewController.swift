@@ -45,6 +45,7 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
                 print("Remote instance ID token: \(result.token)")
             }
         }
+        
     }
     
     
@@ -65,8 +66,7 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
             self.navigationController?.pushViewController(passwordVC, animated: false)
             
         } else {
-            self.onStartInitJob()
-
+            self.onCheckAppVersion()
         }
     }
     
@@ -145,6 +145,69 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
         if (result == PASSWORD_RESUKT_OK) {
             self.lockPasses = true
         }
+    }
+    
+    func onCheckAppVersion() {
+        let request = Alamofire.request(CSS_VERSION, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary else {
+                    self.onShowNetworkAlert()
+                    return
+                }
+                print("responseData ", responseData)
+                
+                let enable = responseData.object(forKey: "enable") as? Bool ?? false
+                let latestVersion = responseData.object(forKey: "version") as? Int ?? 0
+                let appVersion = Int(Bundle.main.infoDictionary!["CFBundleVersion"] as? String ?? "0") ?? 0
+                
+                if (!enable) {
+                    self.onShowDisableAlert()
+                } else {
+                    if (latestVersion > appVersion) {
+                        self.onShowUpdateAlert()
+                    } else {
+                        self.onStartInitJob()
+                    }
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onCheckAppVersion ", error) }
+                self.onShowNetworkAlert()
+            }
+        }
+        
+    }
+    
+    func onShowNetworkAlert() {
+        let netAlert = UIAlertController(title: NSLocalizedString("error_network", comment: ""), message: NSLocalizedString("error_network_msg", comment: ""), preferredStyle: .alert)
+        let action = UIAlertAction(title: NSLocalizedString("retry", comment: ""), style: .default, handler: { (UIAlertAction) in
+            self.onCheckAppVersion()
+        })
+        netAlert.addAction(action)
+        self.present(netAlert, animated: true, completion: nil)
+    }
+    
+    func onShowDisableAlert() {
+        let disableAlert = UIAlertController(title: NSLocalizedString("error_disable", comment: ""), message: NSLocalizedString("error_disable_msg", comment: ""), preferredStyle: .alert)
+        let action = UIAlertAction(title: NSLocalizedString("confirm", comment: ""), style: .default, handler: { (UIAlertAction) in
+            exit(-1)
+        })
+        disableAlert.addAction(action)
+        self.present(disableAlert, animated: true, completion: nil)
+    }
+    
+    func onShowUpdateAlert() {
+        let updateAlert = UIAlertController(title: NSLocalizedString("update_title", comment: ""), message: NSLocalizedString("update_msg", comment: ""), preferredStyle: .alert)
+        let action = UIAlertAction(title: NSLocalizedString("go_appstore", comment: ""), style: .default, handler: { (UIAlertAction) in
+            let urlAppStore = URL(string: "itms-apps://itunes.apple.com/app/id1459830339")
+            if(UIApplication.shared.canOpenURL(urlAppStore!)) {
+                UIApplication.shared.open(urlAppStore!, options: [:], completionHandler: nil)
+            }
+        })
+        updateAlert.addAction(action)
+        self.present(updateAlert, animated: true, completion: nil)
     }
     
 }
