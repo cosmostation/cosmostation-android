@@ -139,7 +139,7 @@
 "permission_push_msg" = "Please allow for push notification.";
 "retry" = "Retry";
 "update_title" = "Update";
-"update_msg" = "new version avaiable. Please update from the App Store.";
+"update_msg" = "New version available. \nPlease update to the latest version from the AppStore.";
 "go_appstore" = "Go Appstore";
 
 "clear_all" = "Clear All";
@@ -240,7 +240,7 @@
 "error_duple_address" = "This address is already imported.";
 "error_network_msg" = "Can't connect to the network. \nPlease try again in a few minutes.";
 "error_disable" = "Under Maintenance";
-"error_disable_msg" = "Now checking system. \nPlease check the community channel for more information.";
+"error_disable_msg" = "We are currently under maintenance. \nPlease check our community channels for more information.";
 
 "currency_usd" = "USD";
 "currency_eur" = "EUR";

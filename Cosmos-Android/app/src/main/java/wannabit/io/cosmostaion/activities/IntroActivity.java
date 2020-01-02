@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -53,17 +54,29 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
+import wannabit.io.cosmostaion.dialog.Dialog_NetworkError;
+import wannabit.io.cosmostaion.dialog.Dialog_Update;
+import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.model.IovTx;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResIovBalance;
+import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_KIND_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
@@ -122,6 +135,10 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onPostResume() {
         super.onPostResume();
+        onCheckAppVersion();
+    }
+
+    private void onInitJob() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -146,8 +163,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }, 2500);
-
     }
+
 
     private void onInitView() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in5 );
@@ -204,6 +221,36 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     }
 
 
+    private void onCheckAppVersion() {
+        ApiClient.getCosmostation(this).getVersion().enqueue(new Callback<ResVersionCheck>() {
+            @Override
+            public void onResponse(Call<ResVersionCheck> call, Response<ResVersionCheck> response) {
+                if (response.isSuccessful()) {
+                    if (!response.body().enable) {
+                        onDisableDialog();
+                    } else {
+                        if (response.body().version > BuildConfig.VERSION_CODE) {
+                            onUpdateDialog();
+                        } else {
+                            onInitJob();
+                        }
+                    }
+                } else {
+                    onNetworkDialog();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResVersionCheck> call, Throwable t) {
+                if(IS_SHOWLOG) { WLog.w("onCheckAppVersion onFailure " + t.getMessage()); }
+                onNetworkDialog();
+
+            }
+        });
+
+    }
+
+
     private void onChangeImageWithFadeInAndOut( Context context, final ImageView imageView, final int resID ){
 
         final Animation fadeInAnimation = AnimationUtils.loadAnimation( context, R.anim.fade_in );
@@ -226,5 +273,42 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         imageView.startAnimation( fadeOutAnimation );
 
     }
+
+
+    private void onNetworkDialog() {
+        Dialog_NetworkError dialog = new Dialog_NetworkError();
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+    }
+
+    private void onDisableDialog() {
+        Dialog_DisabledApp dialog = new Dialog_DisabledApp();
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+
+    }
+
+    private void onUpdateDialog() {
+        Dialog_Update dialog = new Dialog_Update();
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+
+    }
+
+
+    public void onRetryVersionCheck() {
+        onCheckAppVersion();
+    }
+
+    public void onTerminateApp() {
+        finish();
+    }
+
+    public void onStartPlaystore() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=" + this.getPackageName()));
+        startActivity(intent);
+    }
+
 }
 

@@ -6,6 +6,7 @@
     <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>
     <string name="url_keybase" translatable="false">https://keybase.io/</string>
 
+    <string name="url_css" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_lcd_main" translatable="false">https://lcd-cosmos-app.cosmostation.io/</string>
     <!--<string name="url_lcd_main" translatable="false">https://lcd-cosmos-testnet.cosmostation.io/</string>-->
     <string name="url_lcd_main_iris" translatable="false">https://lcd-iris.cosmostation.io/</string>
@@ -338,6 +339,15 @@
     <string name="str_opinion">Opinion</string>
     <string name="str_proposal_id">Proposal Id</string>
     <string name="str_notification">Notification</string>
+    <string name="str_network_error_title">Network Error</string>
+    <string name="str_network_error_msg">Can not connect to the network. \nPlease try again in a few minutes.</string>
+    <string name="str_retry">Retry</string>
+    <string name="str_disabled_app_title">Under Maintenance</string>
+    <string name="str_disabled_app_msg">We are currently under maintenance. \nPlease check our community channels for more information.</string>
+    <string name="str_update_title">Update</string>
+    <string name="str_update_msg">New version available. \nPlease update to the latest version from the PlayStore.</string>
+    <string name="str_go_store">Go PlayStore</string>
+
 
 
     <string name="str_main_wallet">WALLET</string>
