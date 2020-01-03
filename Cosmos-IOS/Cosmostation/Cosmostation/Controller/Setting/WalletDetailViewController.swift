@@ -72,6 +72,9 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             chainImg.image = UIImage(named: "irisWh")
             keyPath.text = BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             chainImg.image = UIImage(named: "binanceChImg")
             keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
@@ -81,6 +84,9 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             chainImg.image = UIImage(named: "kavaImg")
             keyPath.text = BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
         }
         importDate.text = WUtils.longTimetoString(input:account!.account_import_time)
         
@@ -98,7 +104,11 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             keyPath.isHidden = true
             noKeyMsg.isHidden = false
         }
+        self.updatePushCardView()
         
+    }
+    
+    func updatePushCardView() {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
                 DispatchQueue.main.async {
@@ -170,14 +180,9 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     DispatchQueue.main.async {
                         self.showWaittingAlert()
                         self.onToggleAlarm(self.account!) { (success) in
+                            self.account = BaseData.instance.selectAccountById(id: self.account!.account_id)
+                            self.updatePushCardView()
                             self.dismissAlertController()
-                            print("onToggleAlarm result ", success)
-                            if (success) {
-                                //TODO in success case update switch ui
-                                
-                            } else {
-                                
-                            }
                         }
                     }
                     
@@ -206,13 +211,9 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             DispatchQueue.main.async {
                 self.showWaittingAlert()
                 self.onToggleAlarm(self.account!) { (success) in
+                    self.account = BaseData.instance.selectAccountById(id: self.account!.account_id)
+                    self.updatePushCardView()
                     self.dismissAlertController()
-                    print("onToggleAlarm result ", success)
-                    if (success) {
-                        
-                    } else {
-                        
-                    }
                 }
             }
         }

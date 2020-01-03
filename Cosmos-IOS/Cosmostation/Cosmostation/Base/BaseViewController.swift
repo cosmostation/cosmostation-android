@@ -9,6 +9,7 @@
 import UIKit
 import Toast_Swift
 import QRCode
+import Alamofire
 
 class BaseViewController: UIViewController {
     
@@ -92,7 +93,7 @@ class BaseViewController: UIViewController {
     }
     
     func onStartTxResult(_ response:[String:Any]) {
-        print("onStartTxResult")
+//        print("onStartTxResult")
         let resultVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "GenTxResultViewController") as! GenTxResultViewController
         resultVC.response = response
         self.navigationItem.title = ""
@@ -101,6 +102,7 @@ class BaseViewController: UIViewController {
     
     func onDeleteWallet(_ account:Account) {
         self.showWaittingAlert()
+        self.onDeleteAlarm(account)
         DispatchQueue.global().async {
             BaseData.instance.deleteAccount(account: account)
             BaseData.instance.deleteBalance(account: account)
@@ -241,10 +243,49 @@ extension BaseViewController {
     }
     
     func onToggleAlarm(_ account: Account, completion: @escaping (Bool) -> ()) {
-        //TODO state update with api!!
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000), execute: {
-            completion(true)
-        })
-        
+        let param = ["chain_id":WUtils.getChainTypeInt(account.account_base_chain),
+                     "device_type":"ios",
+                     "address":account.account_address,
+                     "alarm_token":BaseData.instance.getFCMToken(),
+                     "alarm_status":!account.account_push_alarm] as [String : Any]
+        let request = Alamofire.request(CSS_PUSH_UPDATE, method: .post, parameters: param, encoding: JSONEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary else {
+                    completion(true)
+                    return
+                }
+                let result = responseData.object(forKey: "result") as? Bool ?? false
+                if (result) {
+                    BaseData.instance.updatePushAlarm(account, !account.account_push_alarm)
+                    completion(true)
+                }
+                completion(false)
+                
+
+            case .failure(let error):
+                completion(false)
+            }
+        }
+    }
+    
+    func onDeleteAlarm(_ account: Account) {
+        print("onDeleteAlarm")
+        let param = ["chain_id":WUtils.getChainTypeInt(account.account_base_chain),
+                     "device_type":"ios",
+                     "address":account.account_address,
+                     "alarm_token":BaseData.instance.getFCMToken(),
+                     "alarm_status":false] as [String : Any]
+        let request = Alamofire.request(CSS_PUSH_UPDATE, method: .post, parameters: param, encoding: JSONEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                print("res ", res)
+
+            case .failure(let error):
+                print("error ", error)
+            }
+        }
     }
 }

@@ -1360,6 +1360,17 @@ class WUtils {
         return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
     }
     
+    static func getChainTypeInt(_ chainS:String) -> Int {
+        if (chainS == CHAIN_COSMOS_S ) {
+            return 1
+        } else if (chainS == CHAIN_IRIS_S) {
+            return 2
+        } else if (chainS == CHAIN_BINANCE_S) {
+            return 3
+        }
+        return 0
+    }
+    
     static func getChainName(_ type:String) -> String {
         if (type == CHAIN_COSMOS_S) {
             return "cosmoshub-3"

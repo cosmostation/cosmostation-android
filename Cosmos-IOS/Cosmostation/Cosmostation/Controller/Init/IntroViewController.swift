@@ -43,6 +43,7 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
                 print("Error fetching remote instance ID: \(error)")
             } else if let result = result {
                 print("Remote instance ID token: \(result.token)")
+                BaseData.instance.setFCMToken(result.token)
             }
         }
         
@@ -156,7 +157,6 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
                     self.onShowNetworkAlert()
                     return
                 }
-                print("responseData ", responseData)
                 
                 let enable = responseData.object(forKey: "enable") as? Bool ?? false
                 let latestVersion = responseData.object(forKey: "version") as? Int ?? 0

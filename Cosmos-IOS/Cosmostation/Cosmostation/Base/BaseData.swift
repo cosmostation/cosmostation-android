@@ -217,6 +217,14 @@ final class BaseData : NSObject{
     }
     
     
+    func setFCMToken(_ token : String) {
+        UserDefaults.standard.set(token, forKey: KEY_FCM_TOKEN)
+    }
+    
+    func getFCMToken() -> String {
+        return UserDefaults.standard.string(forKey: KEY_FCM_TOKEN) ?? ""
+    }
+    
     func initdb() {
         do {
             let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)

@@ -86,6 +86,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
+            titleAlarmBtn.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IRIS
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
@@ -95,10 +96,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")
             titleChainName.text = "(KAVA Chain)"
+            titleAlarmBtn.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_KAVA
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
+            titleAlarmBtn.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IOV
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
@@ -396,13 +399,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     DispatchQueue.main.async {
                         self.showWaittingAlert()
                         self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
+                            self.mainTabVC.onUpdateAccountDB()
+                            self.updateTitle()
                             self.dismissAlertController()
-                            print("onToggleAlarm result ", success)
-                            if (success) {
-                                
-                            } else {
-                                
-                            }
                         }
                     }
                     
@@ -429,13 +428,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             DispatchQueue.main.async {
                 self.showWaittingAlert()
                 self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
+                    self.mainTabVC.onUpdateAccountDB()
+                    self.updateTitle()
                     self.dismissAlertController()
-                    print("onToggleAlarm result ", success)
-                    if (success) {
-                        
-                    } else {
-                        
-                    }
                 }
             }
         }

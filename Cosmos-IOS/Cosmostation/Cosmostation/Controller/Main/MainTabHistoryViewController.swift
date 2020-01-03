@@ -73,6 +73,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Hub)"
+            titleAlarmBtn.isHidden = true
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Chain)"
@@ -80,9 +81,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")
             titleChainName.text = "(KAVA Chain)"
+            titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -312,13 +315,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                     DispatchQueue.main.async {
                         self.showWaittingAlert()
                         self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
+                            self.mainTabVC.onUpdateAccountDB()
+                            self.updateTitle()
                             self.dismissAlertController()
-                            print("onToggleAlarm result ", success)
-                            if (success) {
-                                
-                            } else {
-                                
-                            }
                         }
                     }
                     
@@ -345,13 +344,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             DispatchQueue.main.async {
                 self.showWaittingAlert()
                 self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
+                    self.mainTabVC.onUpdateAccountDB()
+                    self.updateTitle()
                     self.dismissAlertController()
-                    print("onToggleAlarm result ", success)
-                    if (success) {
-                        
-                    } else {
-                        
-                    }
                 }
             }
         }
