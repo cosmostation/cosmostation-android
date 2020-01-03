@@ -127,6 +127,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
                         WLog.w("FCM token new : " + token);
+                        getBaseDao().setFCMToken(token);
                     }
                 });
     }

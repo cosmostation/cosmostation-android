@@ -15,7 +15,8 @@ public class BaseFCM extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(String token) {
-        WLog.w("Refreshed token: " + token);
+        if (IS_SHOWLOG) { WLog.w("Refreshed token: " + token); };
+        ((BaseApplication)getApplication()).getBaseDao().setFCMToken(token);
     }
 
     @Override

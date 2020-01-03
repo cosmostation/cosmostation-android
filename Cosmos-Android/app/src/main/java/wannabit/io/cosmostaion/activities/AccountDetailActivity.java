@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
 import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeInfo;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -105,10 +106,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnQr.setOnClickListener(this);
         mBtnRewardAddressChange.setOnClickListener(this);
 
-//        WLog.w("noti " + isNotificationsEnabled());
-//
-//        Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS
-
     }
 
 
@@ -178,7 +175,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         startActivity(changeAddress);
     }
 
-
     private void onInitView() {
         if(getIntent() == null || TextUtils.isEmpty(getIntent().getStringExtra("id"))) {
             onBackPressed();
@@ -187,27 +183,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         if(mAccount == null)  onBackPressed();
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        if (mAccount.pushAlarm && isNotificationsEnabled()) {
-            mAlarmSwitch.setChecked(true);
-            mAlarmMsg.setText(getString(R.string.str_alarm_enabled));
-        } else {
-            mAlarmSwitch.setChecked(false);
-            mAlarmMsg.setText(getString(R.string.str_alarm_disabled));
-        }
-
-        mAlarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isPressed()) {
-                    if (!isNotificationsEnabled()) {
-                        onShowPushEnableDialog();
-                        buttonView.setEnabled(false);
-                        return;
-                    }
-                    //TODO change update api
-                }
-            }
-        });
+        onUpdatePushStatusUI();
 
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
@@ -266,6 +242,31 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mBtnCheck.setText(getString(R.string.str_import_mnemonic));
         }
 
+    }
+
+    private void onUpdatePushStatusUI() {
+        if (mAccount.pushAlarm && isNotificationsEnabled()) {
+            mAlarmSwitch.setChecked(true);
+            mAlarmMsg.setText(getString(R.string.str_alarm_enabled));
+        } else {
+            mAlarmSwitch.setChecked(false);
+            mAlarmMsg.setText(getString(R.string.str_alarm_disabled));
+        }
+
+        mAlarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isPressed()) {
+                    if (!isNotificationsEnabled()) {
+                        onShowPushEnableDialog();
+                        buttonView.setEnabled(false);
+                        return;
+                    }
+                    new PushUpdateTask(getBaseApplication(), AccountDetailActivity.this, mAccount, getBaseDao().getFCMToken(), isChecked).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    onShowWaitDialog();
+                }
+            }
+        });
     }
 
     public void onChangeNickName(String name) {
@@ -346,6 +347,14 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                     mRewardAddress.setTextColor(getResources().getColor(R.color.colorRed));
                 }
             }
+
+        } else if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
+            if (result.isSuccess) {
+                mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean)result.resultData);
+            }
+            onUpdatePushStatusUI();
+            onHideWaitDialog();
+
         }
     }
 }

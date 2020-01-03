@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -41,6 +43,8 @@ import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
+import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -274,20 +278,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         else mToolbarTitle.setText(mAccount.nickName);
     }
 
-    public void onUpdateUserAlarm(Account account, boolean useAlarm) {
-        //TODO UI test
-        if (useAlarm) {
-            WLog.w("enable alarm");
-            mAccount = getBaseDao().onUpdatePushEnabled(account, useAlarm);
-
-        } else {
-            WLog.w("disable alarm");
-            mAccount = getBaseDao().onUpdatePushEnabled(account, useAlarm);
-
-        }
-        invalidateOptionsMenu();
-    }
-
     @Override
     public void onBackPressed() {
         if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED) {
@@ -423,11 +413,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return mFragments;
         }
     }
-
-
-
-
-
 
     private class ChainListAdapter extends RecyclerView.Adapter<ChainListAdapter.ChainHolder> {
 

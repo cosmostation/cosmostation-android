@@ -34,6 +34,7 @@ public class BaseConstant {
     public final static String                  PRE_APP_LOCK_LEAVE_TIME			                = "PRE_APP_LOCK_LEAVE_TIME";
     public final static String                  PRE_TOKEN_SORTING                               = "PRE_TOKEN_SORTING";
     public final static String                  PRE_ACCOUNT_ORDER                               = "PRE_ACCOUNT_ORDER";
+    public final static String                  PRE_FCM_TOKEN                                   = "PRE_FCM_TOKEN";
 
 
 
@@ -92,6 +93,7 @@ public class BaseConstant {
     public final static int                     TASK_FETCH_IRIS_VOTE_LIST                       = 2054;
     public final static int 				    TASK_IRIS_PROPOSAL_DETAIL                       = 2055;
     public final static int 				    TASK_GEN_TX_SIMPLE_VOTE                         = 2056;
+    public final static int 				    TASK_PUSH_STATUS_UPDATE                         = 2057;
 
 
     public final static String                  COSMOS_AUTH_TYPE_STDTX                          = "auth/StdTx";

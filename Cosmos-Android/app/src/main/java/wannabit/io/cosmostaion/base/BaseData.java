@@ -390,6 +390,16 @@ public class BaseData {
         }
     }
 
+    public void setFCMToken(String token) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_FCM_TOKEN, token).commit();
+    }
+
+    public String getFCMToken() {
+        return  getSharedPreferences().getString(BaseConstant.PRE_FCM_TOKEN, "");
+    }
+
+
+
     public void setTokenSorting(int sort) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_TOKEN_SORTING, sort).commit();
     }

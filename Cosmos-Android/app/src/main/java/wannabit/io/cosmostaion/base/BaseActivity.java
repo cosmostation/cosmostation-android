@@ -49,6 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.AccountDetailActivity;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -87,6 +88,7 @@ import wannabit.io.cosmostaion.task.FetchTask.IovTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisPoolTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisTokenListTask;
+import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnbondedValidatorInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnbondingValidatorInfoTask;
@@ -295,6 +297,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onDeleteAccount(long id) {
+        new PushUpdateTask(getBaseApplication(), null, mAccount, getBaseDao().getFCMToken(), false).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         try {
             CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + getBaseDao().onSelectAccount(""+id).uuid);
         } catch (Exception e) { }
@@ -320,6 +323,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onCancelWithVesting() {
 
+    }
+
+    public void onUpdateUserAlarm(Account account, boolean useAlarm) {
+        new PushUpdateTask(getBaseApplication(), this, account, getBaseDao().getFCMToken(), useAlarm).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private CardView mPushBody;
@@ -381,7 +388,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onFetchAccountInfo(FetchCallBack callback) {
         if (mTaskCount > 0) {
-//            return false;
             callback.fetchBusy();
         }
 
@@ -458,9 +464,16 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     @Override
     public void onTaskResponse(TaskResult result) {
 //        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
-        mTaskCount--;
         if(isFinishing()) return;
+        if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
+            if (result.isSuccess) {
+                mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean)result.resultData);
+            }
+            invalidateOptionsMenu();
+            return;
+        }
 
+        mTaskCount--;
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
@@ -606,7 +619,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 //            WLog.w("KAVA mProvisions " + mProvisions);
 //            WLog.w("KAVA mBondedToken " + mBondedToken);
         }
-        if (mFetchCallback != null) {
+        if (mTaskCount == 0 && mFetchCallback != null) {
             mFetchCallback.fetchFinished();
         }
     }
