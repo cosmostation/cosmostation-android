@@ -271,7 +271,6 @@ extension BaseViewController {
     }
     
     func onDeleteAlarm(_ account: Account) {
-        print("onDeleteAlarm")
         let param = ["chain_id":WUtils.getChainTypeInt(account.account_base_chain),
                      "device_type":"ios",
                      "address":account.account_address,

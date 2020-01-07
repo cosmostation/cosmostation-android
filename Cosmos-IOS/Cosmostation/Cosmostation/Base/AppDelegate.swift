@@ -64,6 +64,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         if (application.topViewController!.isKind(of: PasswordViewController.self)) {
             NotificationCenter.default.post(name: Notification.Name("ForeGround"), object: nil, userInfo: nil)
+        } else {
+            if let notifyto = userInfo?["notifyto"] as? String {
+                userInfo = nil
+                let notiAccount = BaseData.instance.selectAccountByAddress(address: notifyto)
+                if (notiAccount != nil) {
+                    BaseData.instance.setRecentAccountId(notiAccount!.account_id)
+                    BaseData.instance.setLastTab(2)
+                    DispatchQueue.main.async(execute: {
+                        let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+                        let rootVC = self.window?.rootViewController!
+                        self.window?.rootViewController = mainTabVC
+                        rootVC?.present(mainTabVC, animated: true, completion: nil)
+                    })
+                }
+            }
         }
     }
 
@@ -131,27 +146,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         if let notifyto = userInfo["notifyto"] as? String {
-            let topVC = self.window?.rootViewController?.presentedViewController
-            if (topVC == nil) {
-                self.userInfo = userInfo
-                
-            } else if (topVC!.isKind(of: PasswordViewController.self)) {
-                self.userInfo = userInfo
-                
-            } else {
-                let notiAccount = BaseData.instance.selectAccountByAddress(address: notifyto)
-                if (notiAccount != nil) {
-                    BaseData.instance.setRecentAccountId(notiAccount!.account_id)
-                    BaseData.instance.setLastTab(2)
-                    DispatchQueue.main.async(execute: {
-                        let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
-                        let rootVC = self.window?.rootViewController!
-                        print("rootVC ", rootVC)
-                        self.window?.rootViewController = mainTabVC
-                        rootVC?.present(mainTabVC, animated: true, completion: nil)
-                    })
-                }
-            }
+            self.userInfo = userInfo
         }
         completionHandler()
     }
