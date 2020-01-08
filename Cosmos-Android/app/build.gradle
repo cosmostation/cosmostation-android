@@ -89,6 +89,8 @@ dependencies {
     //foreground notification
     implementation 'com.github.shasin89:NotificationBanner:1.1.5'
 
+    implementation 'com.google.guava:guava:22.0-android'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

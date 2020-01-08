@@ -1178,6 +1178,9 @@ public class WUtil {
 
     public static int getIrisVoterType(ArrayList<IrisVote> votes, String option) {
         int result = 0;
+        if (votes == null) {
+            return result;
+        }
         for (IrisVote v:votes) {
             if (v.option.equals(option)) {
                 result = result + 1;
@@ -1216,6 +1219,9 @@ public class WUtil {
     }
 
     public static IrisVote getMyVote(ArrayList<IrisVote> votes, String address) {
+        if (votes == null) {
+            return null;
+        }
         for (IrisVote v:votes) {
             if (v.voter.equals(address)) {
                 return v;
