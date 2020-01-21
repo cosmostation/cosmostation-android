@@ -29,6 +29,8 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.voteTableView.dataSource = self
         self.voteTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.voteTableView.register(UINib(nibName: "ProposalCell", bundle: nil), forCellReuseIdentifier: "ProposalCell")
+        self.voteTableView.rowHeight = UITableView.automaticDimension
+        self.voteTableView.estimatedRowHeight = UITableView.automaticDimension
         
         self.refresher = UIRefreshControl()
         self.refresher.addTarget(self, action: #selector(onFetchProposals), for: .valueChanged)
@@ -121,7 +123,8 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90;
+//        return 90;
+        return UITableView.automaticDimension;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

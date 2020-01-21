@@ -43,6 +43,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderBnbCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderBnbCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderKavaCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderCustomCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderCustomCell")
+        self.tokenDetailTableView.rowHeight = UITableView.automaticDimension
+        self.tokenDetailTableView.estimatedRowHeight = UITableView.automaticDimension
         
         self.refresher = UIRefreshControl()
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
@@ -169,21 +171,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.row == 0) {
-            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN && balance?.balance_denom == COSMOS_MAIN_DENOM) {
-                return 258;
-            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN && balance?.balance_denom == IRIS_MAIN_DENOM) {
-                return 258;
-            } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN && balance?.balance_denom == BNB_MAIN_DENOM) {
-                return 208;
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN && balance?.balance_denom == KAVA_MAIN_DENOM) {
-                return 276;
-            } else {
-                return 198;
-            }
-        } else {
-            return 80;
-        }
+        return UITableView.automaticDimension;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

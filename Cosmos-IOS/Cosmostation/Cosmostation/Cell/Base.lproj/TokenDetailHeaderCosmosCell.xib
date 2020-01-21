@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,12 +13,12 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="258" id="KGk-i7-Jjw" customClass="TokenDetailHeaderCosmosCell" customModule="Cosmostation" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="258"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="257.5"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="258"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vfq-BM-y17" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                        <rect key="frame" x="12" y="4.5" width="296" height="250"/>
+                        <rect key="frame" x="12" y="4" width="296" height="250"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="atom_ic" translatesAutoresizingMaskIntoConstraints="NO" id="7h9-xQ-2CI">
                                 <rect key="frame" x="12" y="16" width="20" height="20"/>
@@ -29,86 +27,86 @@
                                     <constraint firstAttribute="width" constant="20" id="wD0-g0-7XA"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmM-Hv-erl">
-                                <rect key="frame" x="38" y="17" width="42" height="17.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATOM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmM-Hv-erl">
+                                <rect key="frame" x="38" y="17" width="42" height="18"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge7-cf-S6K">
-                                <rect key="frame" x="272" y="15.5" width="12" height="21"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge7-cf-S6K">
+                                <rect key="frame" x="268.5" y="15.5" width="15.5" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucP-uf-KhC">
-                                <rect key="frame" x="274.5" y="42.5" width="9.5" height="16.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucP-uf-KhC">
+                                <rect key="frame" x="271.5" y="42.5" width="12.5" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqJ-LL-Jkg">
-                                <rect key="frame" x="12" y="71" width="272" height="0.5"/>
+                                <rect key="frame" x="12" y="75.5" width="272" height="0.5"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="jSM-bu-Oev"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wk-sT-QxK">
-                                <rect key="frame" x="12" y="83.5" width="48.5" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wk-sT-QxK">
+                                <rect key="frame" x="12" y="88" width="50.5" height="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delegated" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tiN-TZ-KLn">
-                                <rect key="frame" x="12" y="109.5" width="55" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Delegated" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tiN-TZ-KLn">
+                                <rect key="frame" x="12" y="112" width="58" height="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unbonding" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLO-iH-Huh">
-                                <rect key="frame" x="12" y="135.5" width="58.5" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Unbonding" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLO-iH-Huh">
+                                <rect key="frame" x="12" y="136" width="62" height="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4i-U5-jde">
-                                <rect key="frame" x="12" y="161.5" width="41.5" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Reward" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4i-U5-jde">
+                                <rect key="frame" x="12" y="160" width="42.5" height="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0p4-hV-agv">
-                                <rect key="frame" x="274.5" y="82" width="9.5" height="16.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0p4-hV-agv">
+                                <rect key="frame" x="271.5" y="87" width="12.5" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZP-nN-Uqh">
-                                <rect key="frame" x="274.5" y="108" width="9.5" height="16.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZP-nN-Uqh">
+                                <rect key="frame" x="271.5" y="111" width="12.5" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2U-c0-fS5">
-                                <rect key="frame" x="274.5" y="134" width="9.5" height="16.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2U-c0-fS5">
+                                <rect key="frame" x="271.5" y="135" width="12.5" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTE-46-IDM">
-                                <rect key="frame" x="274.5" y="160" width="9.5" height="16.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTE-46-IDM">
+                                <rect key="frame" x="271.5" y="159" width="12.5" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9QL-dO-TbC">
-                                <rect key="frame" x="12" y="191.5" width="272" height="40"/>
+                                <rect key="frame" x="12" y="190" width="272" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="WGK-1x-zj6"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <state key="normal" title="  SEND" image="sendIc">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -131,8 +129,9 @@
                         <color key="backgroundColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="0.1524507705" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="bqJ-LL-Jkg" firstAttribute="top" secondItem="ucP-uf-KhC" secondAttribute="bottom" constant="12" id="1MV-J2-jOV"/>
-                            <constraint firstItem="s4i-U5-jde" firstAttribute="top" secondItem="lLO-iH-Huh" secondAttribute="bottom" constant="12" id="2SC-jz-Wl8"/>
+                            <constraint firstItem="s4i-U5-jde" firstAttribute="top" secondItem="lLO-iH-Huh" secondAttribute="bottom" constant="10" id="2SC-jz-Wl8"/>
                             <constraint firstAttribute="trailing" secondItem="aTE-46-IDM" secondAttribute="trailing" constant="12" id="6LA-DH-KMX"/>
+                            <constraint firstAttribute="bottom" secondItem="9QL-dO-TbC" secondAttribute="bottom" constant="20" id="9R7-es-Wiw"/>
                             <constraint firstItem="p2U-c0-fS5" firstAttribute="centerY" secondItem="lLO-iH-Huh" secondAttribute="centerY" id="ANi-79-aiW"/>
                             <constraint firstItem="7h9-xQ-2CI" firstAttribute="top" secondItem="Vfq-BM-y17" secondAttribute="top" constant="16" id="E4H-rz-mYp"/>
                             <constraint firstAttribute="trailing" secondItem="p2U-c0-fS5" secondAttribute="trailing" constant="12" id="EdJ-dY-GK0"/>
@@ -147,19 +146,18 @@
                             <constraint firstItem="lLO-iH-Huh" firstAttribute="leading" secondItem="5wk-sT-QxK" secondAttribute="leading" id="Vjc-0s-0bW"/>
                             <constraint firstAttribute="trailing" secondItem="Ge7-cf-S6K" secondAttribute="trailing" constant="12" id="Vzu-Si-xrw"/>
                             <constraint firstAttribute="trailing" secondItem="ucP-uf-KhC" secondAttribute="trailing" constant="12" id="bJg-CS-PnA"/>
-                            <constraint firstItem="lLO-iH-Huh" firstAttribute="top" secondItem="tiN-TZ-KLn" secondAttribute="bottom" constant="12" id="c2f-fp-CsN"/>
+                            <constraint firstItem="lLO-iH-Huh" firstAttribute="top" secondItem="tiN-TZ-KLn" secondAttribute="bottom" constant="10" id="c2f-fp-CsN"/>
                             <constraint firstAttribute="trailing" secondItem="0p4-hV-agv" secondAttribute="trailing" constant="12" id="cVV-N5-7ob"/>
                             <constraint firstItem="5wk-sT-QxK" firstAttribute="leading" secondItem="Vfq-BM-y17" secondAttribute="leading" constant="12" id="cjf-oF-vAj"/>
                             <constraint firstItem="bqJ-LL-Jkg" firstAttribute="leading" secondItem="Vfq-BM-y17" secondAttribute="leading" constant="12" id="dRh-GI-YcU"/>
                             <constraint firstItem="0p4-hV-agv" firstAttribute="centerY" secondItem="5wk-sT-QxK" secondAttribute="centerY" id="eL1-FV-p77"/>
-                            <constraint firstItem="tiN-TZ-KLn" firstAttribute="top" secondItem="5wk-sT-QxK" secondAttribute="bottom" constant="12" id="fSf-6f-yfe"/>
+                            <constraint firstItem="tiN-TZ-KLn" firstAttribute="top" secondItem="5wk-sT-QxK" secondAttribute="bottom" constant="10" id="fSf-6f-yfe"/>
                             <constraint firstItem="9QL-dO-TbC" firstAttribute="leading" secondItem="Vfq-BM-y17" secondAttribute="leading" constant="12" id="hha-MC-Yvj"/>
                             <constraint firstItem="SmM-Hv-erl" firstAttribute="centerY" secondItem="7h9-xQ-2CI" secondAttribute="centerY" id="mvU-On-CcQ"/>
                             <constraint firstItem="Ge7-cf-S6K" firstAttribute="centerY" secondItem="7h9-xQ-2CI" secondAttribute="centerY" id="nQN-2i-FdA"/>
                             <constraint firstItem="tiN-TZ-KLn" firstAttribute="leading" secondItem="5wk-sT-QxK" secondAttribute="leading" id="oX9-13-08y"/>
                             <constraint firstItem="9QL-dO-TbC" firstAttribute="top" secondItem="s4i-U5-jde" secondAttribute="bottom" constant="16" id="sBq-1X-EbR"/>
                             <constraint firstItem="SmM-Hv-erl" firstAttribute="leading" secondItem="7h9-xQ-2CI" secondAttribute="trailing" constant="6" id="v2D-76-uz2"/>
-                            <constraint firstAttribute="height" constant="250" id="vsA-BT-dMT"/>
                             <constraint firstItem="s4i-U5-jde" firstAttribute="leading" secondItem="5wk-sT-QxK" secondAttribute="leading" id="wFq-hC-FI2"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -183,7 +181,7 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="Vfq-BM-y17" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="0Lg-BQ-Fxj"/>
+                    <constraint firstItem="Vfq-BM-y17" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="1sp-LC-Rb2"/>
                     <constraint firstAttribute="bottom" secondItem="Vfq-BM-y17" secondAttribute="bottom" constant="4" id="bag-SB-q71"/>
                     <constraint firstAttribute="trailing" secondItem="Vfq-BM-y17" secondAttribute="trailing" constant="12" id="kqa-Yh-Cxl"/>
                     <constraint firstItem="Vfq-BM-y17" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="lCk-Nt-I0d"/>
@@ -199,6 +197,7 @@
                 <outlet property="totalValue" destination="ucP-uf-KhC" id="DSC-Je-pP7"/>
                 <outlet property="unbondingAmount" destination="p2U-c0-fS5" id="QE9-NK-2GK"/>
             </connections>
+            <point key="canvasLocation" x="139" y="143"/>
         </tableViewCell>
     </objects>
     <resources>
