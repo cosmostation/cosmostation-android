@@ -130,7 +130,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let proposal = mProposals[indexPath.row]
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.proposal_id) else { return }
+            guard let url = URL(string: "https://www.mintscan.io/proposals/" + proposal.id) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
