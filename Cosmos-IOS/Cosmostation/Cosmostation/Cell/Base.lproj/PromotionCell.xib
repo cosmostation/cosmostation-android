@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,11 +14,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="167.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9OA-Xu-Ohh" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                        <rect key="frame" x="12" y="4" width="296" height="159.5"/>
+                        <rect key="frame" x="12" y="4" width="296" height="160"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reward_img" translatesAutoresizingMaskIntoConstraints="NO" id="cL6-ih-5tl">
                                 <rect key="frame" x="106" y="16" width="84" height="63"/>
@@ -29,17 +27,17 @@
                                     <constraint firstAttribute="height" constant="63" id="Nxi-XI-tPC"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="START DELEGATING FOR REWARDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKE-gM-yUF">
-                                <rect key="frame" x="25" y="87" width="246" height="16.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="START DELEGATING FOR REWARDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKE-gM-yUF">
+                                <rect key="frame" x="23.5" y="87" width="249.5" height="18"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6t-28-XcQ">
-                                <rect key="frame" x="12" y="107.5" width="272" height="41.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6t-28-XcQ">
+                                <rect key="frame" x="12" y="109" width="272" height="39"/>
                                 <string key="text">Delegate your tokens with Cosmostation. 
-\nStart earning staking rewards and contribute to the network ecosystem.</string>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+Start earning staking rewards and contribute to the network ecosystem.</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -51,6 +49,7 @@
                             <constraint firstAttribute="trailing" secondItem="c6t-28-XcQ" secondAttribute="trailing" constant="12" id="KEm-Nn-Ng2"/>
                             <constraint firstItem="cL6-ih-5tl" firstAttribute="centerX" secondItem="9OA-Xu-Ohh" secondAttribute="centerX" id="b71-I6-Cq3"/>
                             <constraint firstItem="c6t-28-XcQ" firstAttribute="leading" secondItem="9OA-Xu-Ohh" secondAttribute="leading" constant="12" id="fx3-sP-wkW"/>
+                            <constraint firstAttribute="bottom" secondItem="c6t-28-XcQ" secondAttribute="bottom" constant="12" id="lZW-ye-Uf0"/>
                             <constraint firstItem="EKE-gM-yUF" firstAttribute="top" secondItem="cL6-ih-5tl" secondAttribute="bottom" constant="8" id="mC2-MF-VIW"/>
                             <constraint firstItem="cL6-ih-5tl" firstAttribute="top" secondItem="9OA-Xu-Ohh" secondAttribute="top" constant="16" id="o9V-Ge-gGO"/>
                             <constraint firstItem="EKE-gM-yUF" firstAttribute="centerX" secondItem="9OA-Xu-Ohh" secondAttribute="centerX" id="ueE-8Z-N58"/>

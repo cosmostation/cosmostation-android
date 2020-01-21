@@ -1568,7 +1568,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzK-rU-5h8" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="848"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbu-Qa-sZo" userLabel="cardView1" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cbu-Qa-sZo" userLabel="cardView1" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="16" width="382" height="280"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="depositImg" translatesAutoresizingMaskIntoConstraints="NO" id="Pg0-Uh-TCJ">
@@ -1609,13 +1609,13 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Proposal Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcD-xp-NQJ">
-                                                        <rect key="frame" x="16" y="91.5" width="328" height="14.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" ambiguous="YES" text="Proposal Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcD-xp-NQJ">
+                                                        <rect key="frame" x="16" y="91.5" width="80.5" height="14.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                         <color key="textColor" red="0.61960784313725492" green="0.63137254901960782" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gix-be-XRg">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" ambiguous="YES" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gix-be-XRg">
                                                         <rect key="frame" x="360" y="91.5" width="6" height="14.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1658,16 +1658,16 @@
                                                         <color key="textColor" red="0.61960784313725492" green="0.63137254901960782" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Hello Wordl" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ES9-DH-yNG">
-                                                        <rect key="frame" x="16" y="202" width="350" height="46"/>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Hello Wordl" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ES9-DH-yNG">
+                                                        <rect key="frame" x="16" y="209.5" width="350" height="560"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                     </textView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYt-N3-hpV">
-                                                        <rect key="frame" x="16" y="252" width="350" height="24"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYt-N3-hpV">
+                                                        <rect key="frame" x="16" y="773.5" width="350" height="24"/>
                                                         <state key="normal" image="arrowDown"/>
                                                         <connections>
                                                             <action selector="onClickExpend:" destination="vxD-Zb-PGh" eventType="touchUpInside" id="Wvr-kr-QBU"/>
@@ -1737,8 +1737,8 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8H-1o-4nw" userLabel="cardView2" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="316" width="382" height="250"/>
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z8H-1o-4nw" userLabel="cardView2" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="316" width="382" height="300"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="PiA-VE-ic6">
                                                         <rect key="frame" x="16" y="16" width="350" height="100"/>
@@ -2106,7 +2106,6 @@
                                             <constraint firstItem="Z8H-1o-4nw" firstAttribute="leading" secondItem="zzK-rU-5h8" secondAttribute="leading" constant="16" id="5cZ-vM-3mG"/>
                                             <constraint firstItem="Z8H-1o-4nw" firstAttribute="top" secondItem="cbu-Qa-sZo" secondAttribute="bottom" constant="20" id="cZW-44-tS8"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Z8H-1o-4nw" secondAttribute="bottom" constant="16" id="chu-67-Ky4"/>
-                                            <constraint firstItem="Z8H-1o-4nw" firstAttribute="top" secondItem="zzK-rU-5h8" secondAttribute="top" constant="316" id="lmu-GN-dQO"/>
                                             <constraint firstItem="cbu-Qa-sZo" firstAttribute="leading" secondItem="zzK-rU-5h8" secondAttribute="leading" constant="16" id="maG-Cm-AIo"/>
                                             <constraint firstAttribute="trailing" secondItem="cbu-Qa-sZo" secondAttribute="trailing" constant="16" id="rfW-4w-1kc"/>
                                             <constraint firstItem="cbu-Qa-sZo" firstAttribute="top" secondItem="zzK-rU-5h8" secondAttribute="top" constant="16" id="zaO-ZY-2bn"/>

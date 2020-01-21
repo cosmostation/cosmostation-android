@@ -27,6 +27,9 @@ class AllValidatorCell: UITableViewCell {
         validatorImg.clipsToBounds = true
         
         self.selectionStyle = .none
+        
+        powerLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        commissionLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

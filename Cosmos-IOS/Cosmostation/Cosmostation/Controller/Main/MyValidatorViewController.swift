@@ -28,6 +28,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         self.myValidatorTableView.register(UINib(nibName: "MyValidatorCell", bundle: nil), forCellReuseIdentifier: "MyValidatorCell")
         self.myValidatorTableView.register(UINib(nibName: "ClaimRewardAllCell", bundle: nil), forCellReuseIdentifier: "ClaimRewardAllCell")
         self.myValidatorTableView.register(UINib(nibName: "PromotionCell", bundle: nil), forCellReuseIdentifier: "PromotionCell")
+        self.myValidatorTableView.rowHeight = UITableView.automaticDimension
+        self.myValidatorTableView.estimatedRowHeight = UITableView.automaticDimension
 
         self.refresher = UIRefreshControl()
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
@@ -124,16 +126,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (mainTabVC.mMyValidators.count < 1) {
-            return 168;
-        } else {
-            if (indexPath.row == mainTabVC.mMyValidators.count) {
-                return 70;
-            } else {
-                return 95;
-            }
-            
-        }
+        return UITableView.automaticDimension;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

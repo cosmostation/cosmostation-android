@@ -24,6 +24,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         self.otherValidatorTableView.dataSource = self
         self.otherValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.otherValidatorTableView.register(UINib(nibName: "OtherValidatorCell", bundle: nil), forCellReuseIdentifier: "OtherValidatorCell")
+        self.otherValidatorTableView.rowHeight = UITableView.automaticDimension
+        self.otherValidatorTableView.estimatedRowHeight = UITableView.automaticDimension
         
         self.refresher = UIRefreshControl()
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
@@ -83,8 +85,9 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80;
+        return UITableView.automaticDimension;
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let validator = self.mainTabVC.mOtherValidators[indexPath.row] as? Validator {
             let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController

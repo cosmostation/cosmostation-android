@@ -26,6 +26,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         self.allValidatorTableView.dataSource = self
         self.allValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.allValidatorTableView.register(UINib(nibName: "AllValidatorCell", bundle: nil), forCellReuseIdentifier: "AllValidatorCell")
+        self.allValidatorTableView.rowHeight = UITableView.automaticDimension
+        self.allValidatorTableView.estimatedRowHeight = UITableView.automaticDimension
     
         self.refresher = UIRefreshControl()
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
@@ -96,7 +98,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80;
+        return UITableView.automaticDimension;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
