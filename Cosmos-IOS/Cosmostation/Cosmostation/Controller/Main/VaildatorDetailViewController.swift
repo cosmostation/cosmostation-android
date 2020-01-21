@@ -48,6 +48,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailCell", bundle: nil), forCellReuseIdentifier: "ValidatorDetailCell")
         self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailHistoryEmpty", bundle: nil), forCellReuseIdentifier: "ValidatorDetailHistoryEmpty")
         self.validatorDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
+        self.validatorDetailTableView.rowHeight = UITableView.automaticDimension
+        self.validatorDetailTableView.estimatedRowHeight = UITableView.automaticDimension
         
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(onFech), for: .valueChanged)
@@ -175,7 +177,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onSetMyValidatorItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
-//        cell?.cardView.backgroundColor = WUtils.getChainBg(chainType!)
         cell?.monikerName.text = self.mValidator!.description.moniker
         cell?.monikerName.adjustsFontSizeToFitWidth = true
         if(self.mValidator!.jailed) {
@@ -188,6 +189,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         cell?.freeEventImg.isHidden = true
         cell?.website.text = mValidator!.description.website
         cell?.descriptionMsg.text = mValidator!.description.details
+        cell?.actionTapUrl = {
+            guard let url = URL(string: self.mValidator!.description.website) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            self.present(safariViewController, animated: true, completion: nil)
+        }
         
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
@@ -277,6 +283,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         cell?.freeEventImg.isHidden = true
         cell?.website.text = mValidator!.description.website
         cell?.descriptionMsg.text = mValidator!.description.details
+        cell?.actionTapUrl = {
+            guard let url = URL(string: self.mValidator!.description.website) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            self.present(safariViewController, animated: true, completion: nil)
+        }
         
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
@@ -565,21 +576,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.section == 0) {
-            if (indexPath.row == 0 && mMyValidator) {
-                return 225;
-            } else if (indexPath.row == 0 && !mMyValidator) {
-                return 285;
-            } else {
-                return 255;
-            }
-        } else {
-            if (mHistories.count > 0) {
-                return 80;
-            } else {
-                return 90;
-            }
-        }
+        return UITableView.automaticDimension;
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

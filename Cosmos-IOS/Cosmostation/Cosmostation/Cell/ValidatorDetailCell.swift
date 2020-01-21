@@ -31,6 +31,15 @@ class ValidatorDetailCell: UITableViewCell {
         validatorImg.layer.cornerRadius = validatorImg.frame.height/2
         validatorImg.clipsToBounds = true
         self.selectionStyle = .none
+        
+        totalBondedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        selfBondedRate.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        avergaeYield.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        commissionRate.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onTapUrl))
+        website.isUserInteractionEnabled = true
+        website.addGestureRecognizer(tap)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,7 +47,13 @@ class ValidatorDetailCell: UITableViewCell {
     }
     
     var actionDelegate: (() -> Void)? = nil
+    var actionTapUrl: (() -> Void)? = nil
+    
     @IBAction func onClickDelegate(_ sender: Any) {
         actionDelegate?()
+    }
+    
+    @objc func onTapUrl(sender:UITapGestureRecognizer) {
+        actionTapUrl?()
     }
 }

@@ -31,10 +31,24 @@ class ValidatorDetailMyDetailCell: UITableViewCell {
         validatorImg.layer.cornerRadius = validatorImg.frame.height/2
         validatorImg.clipsToBounds = true
         self.selectionStyle = .none
+        
+        totalBondedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        selfBondedRate.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        avergaeYield.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        commissionRate.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onTapUrl))
+        website.isUserInteractionEnabled = true
+        website.addGestureRecognizer(tap)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    var actionTapUrl: (() -> Void)? = nil
+    @objc func onTapUrl(sender:UITapGestureRecognizer) {
+        actionTapUrl?()
     }
     
 }

@@ -1,53 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="255" id="KGk-i7-Jjw" customClass="ValidatorDetailMyActionCell" customModule="Cosmostation" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="255"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="280" id="KGk-i7-Jjw" customClass="ValidatorDetailMyActionCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="280"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="254.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="280"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IM2-sP-s3L" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                        <rect key="frame" x="12" y="4" width="296" height="246.5"/>
+                        <rect key="frame" x="12" y="4" width="296" height="272"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delegated" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bs6-H3-HZs">
-                                <rect key="frame" x="12" y="12" width="55" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" text="Delegated" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bs6-H3-HZs">
+                                <rect key="frame" x="12" y="16" width="58" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unbonding" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8L-5t-Ob2">
-                                <rect key="frame" x="12" y="34" width="58.5" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Unbonding" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8L-5t-Ob2">
+                                <rect key="frame" x="12" y="38.5" width="62" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgs-C1-O6R">
-                                <rect key="frame" x="279" y="11" width="5" height="16.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgs-C1-O6R">
+                                <rect key="frame" x="82" y="15.5" width="202" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hib-JF-mPX">
-                                <rect key="frame" x="279" y="33" width="5" height="16.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hib-JF-mPX">
+                                <rect key="frame" x="86" y="38" width="198" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="jMS-jr-m0D">
-                                <rect key="frame" x="12" y="60" width="272" height="40"/>
+                                <rect key="frame" x="12" y="69" width="272" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWh-8K-Tdg">
                                         <rect key="frame" x="0.0" y="0.0" width="82.5" height="40"/>
@@ -55,7 +53,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="goW-YD-cM9"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                         <state key="normal" title="DELEGATE">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -80,7 +78,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="YcO-41-brJ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                         <state key="normal" title="UNDELEGATE">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -105,7 +103,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="t56-56-7DT"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                         <state key="normal" title="REDELEGATE">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -127,50 +125,50 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lKL-Yi-yVT">
-                                <rect key="frame" x="12" y="112" width="272" height="0.5"/>
+                                <rect key="frame" x="12" y="125" width="272" height="0.5"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="ZPo-rX-wqH"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOT-VC-ZBU">
-                                <rect key="frame" x="12" y="124.5" width="41.5" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <rect key="frame" x="12" y="137.5" width="253.5" height="17.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTh-Xd-UEg">
-                                <rect key="frame" x="279" y="123.5" width="5" height="16.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTh-Xd-UEg">
+                                <rect key="frame" x="277.5" y="138.5" width="6.5" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Return" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeA-BC-eAP">
-                                <rect key="frame" x="12" y="148.5" width="66.5" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" text="Daily Return" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeA-BC-eAP">
+                                <rect key="frame" x="12" y="165" width="69" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPR-SC-6DM">
-                                <rect key="frame" x="280" y="148.5" width="4" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPR-SC-6DM">
+                                <rect key="frame" x="93" y="164.5" width="191" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly Return" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3b-SX-Z56">
-                                <rect key="frame" x="12" y="164.5" width="81.5" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" text="Monthly Return" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3b-SX-Z56">
+                                <rect key="frame" x="12" y="181.5" width="253.5" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nk-dt-CiQ">
-                                <rect key="frame" x="280" y="164.5" width="4" height="14"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nk-dt-CiQ">
+                                <rect key="frame" x="277.5" y="181" width="6.5" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="MDp-PV-Lw4">
-                                <rect key="frame" x="12" y="190.5" width="272" height="40"/>
+                                <rect key="frame" x="12" y="212" width="272" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uax-LB-HdT">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="40"/>
@@ -178,7 +176,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="y3S-Tm-jXw"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                         <state key="normal" title="CLAIM REWARD">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -203,7 +201,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="fyv-E4-iRn"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                         <state key="normal" title="RE-INVEST">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -232,17 +230,23 @@
                             <constraint firstItem="L8L-5t-Ob2" firstAttribute="top" secondItem="Bs6-H3-HZs" secondAttribute="bottom" constant="8" id="3sF-yK-E2I"/>
                             <constraint firstAttribute="trailing" secondItem="jMS-jr-m0D" secondAttribute="trailing" constant="12" id="6Y9-Yg-KPM"/>
                             <constraint firstItem="C3b-SX-Z56" firstAttribute="leading" secondItem="QOT-VC-ZBU" secondAttribute="leading" id="8IH-XH-a90"/>
+                            <constraint firstItem="hib-JF-mPX" firstAttribute="leading" secondItem="L8L-5t-Ob2" secondAttribute="trailing" constant="12" id="B2t-JY-Lbp"/>
                             <constraint firstItem="Bs6-H3-HZs" firstAttribute="leading" secondItem="IM2-sP-s3L" secondAttribute="leading" constant="12" id="Bi9-do-E40"/>
+                            <constraint firstItem="4nk-dt-CiQ" firstAttribute="leading" secondItem="C3b-SX-Z56" secondAttribute="trailing" constant="12" id="EYd-tv-lo4"/>
+                            <constraint firstItem="sgs-C1-O6R" firstAttribute="leading" secondItem="Bs6-H3-HZs" secondAttribute="trailing" constant="12" id="H6w-lo-QYT"/>
+                            <constraint firstItem="wPR-SC-6DM" firstAttribute="leading" secondItem="IeA-BC-eAP" secondAttribute="trailing" constant="12" id="HpN-cO-3Kh"/>
                             <constraint firstAttribute="trailing" secondItem="lKL-Yi-yVT" secondAttribute="trailing" constant="12" id="IQY-JM-Hho"/>
                             <constraint firstItem="wPR-SC-6DM" firstAttribute="trailing" secondItem="FTh-Xd-UEg" secondAttribute="trailing" id="J7g-oc-tOj"/>
                             <constraint firstItem="jMS-jr-m0D" firstAttribute="leading" secondItem="IM2-sP-s3L" secondAttribute="leading" constant="12" id="JbH-ey-ksv"/>
-                            <constraint firstItem="MDp-PV-Lw4" firstAttribute="top" secondItem="C3b-SX-Z56" secondAttribute="bottom" constant="12" id="Kcs-4s-U7d"/>
-                            <constraint firstItem="jMS-jr-m0D" firstAttribute="top" secondItem="L8L-5t-Ob2" secondAttribute="bottom" constant="12" id="N2P-bn-Zso"/>
+                            <constraint firstItem="MDp-PV-Lw4" firstAttribute="top" secondItem="C3b-SX-Z56" secondAttribute="bottom" constant="16" id="Kcs-4s-U7d"/>
+                            <constraint firstItem="jMS-jr-m0D" firstAttribute="top" secondItem="L8L-5t-Ob2" secondAttribute="bottom" constant="16" id="N2P-bn-Zso"/>
                             <constraint firstItem="4nk-dt-CiQ" firstAttribute="trailing" secondItem="FTh-Xd-UEg" secondAttribute="trailing" id="Ozj-hj-xRu"/>
                             <constraint firstItem="FTh-Xd-UEg" firstAttribute="centerY" secondItem="QOT-VC-ZBU" secondAttribute="centerY" id="Rlb-kJ-E5q"/>
                             <constraint firstItem="4nk-dt-CiQ" firstAttribute="centerY" secondItem="C3b-SX-Z56" secondAttribute="centerY" id="SB0-jw-Ne1"/>
                             <constraint firstAttribute="trailing" secondItem="MDp-PV-Lw4" secondAttribute="trailing" constant="12" id="TFJ-8D-Rot"/>
-                            <constraint firstItem="lKL-Yi-yVT" firstAttribute="top" secondItem="jMS-jr-m0D" secondAttribute="bottom" constant="12" id="THc-ly-yA4"/>
+                            <constraint firstItem="lKL-Yi-yVT" firstAttribute="top" secondItem="jMS-jr-m0D" secondAttribute="bottom" constant="16" id="THc-ly-yA4"/>
+                            <constraint firstAttribute="bottom" secondItem="MDp-PV-Lw4" secondAttribute="bottom" constant="20" id="Whr-4g-yXo"/>
+                            <constraint firstItem="FTh-Xd-UEg" firstAttribute="leading" secondItem="QOT-VC-ZBU" secondAttribute="trailing" constant="12" id="auS-PG-Qss"/>
                             <constraint firstItem="wPR-SC-6DM" firstAttribute="centerY" secondItem="IeA-BC-eAP" secondAttribute="centerY" id="cHM-vc-wdO"/>
                             <constraint firstItem="sgs-C1-O6R" firstAttribute="centerY" secondItem="Bs6-H3-HZs" secondAttribute="centerY" id="exd-eX-XVh"/>
                             <constraint firstItem="FTh-Xd-UEg" firstAttribute="trailing" secondItem="sgs-C1-O6R" secondAttribute="trailing" id="fwr-Lw-j1H"/>
@@ -251,7 +255,7 @@
                             <constraint firstAttribute="trailing" secondItem="sgs-C1-O6R" secondAttribute="trailing" constant="12" id="oaS-zB-NZv"/>
                             <constraint firstItem="IeA-BC-eAP" firstAttribute="top" secondItem="QOT-VC-ZBU" secondAttribute="bottom" constant="10" id="pDm-kR-w8n"/>
                             <constraint firstItem="QOT-VC-ZBU" firstAttribute="top" secondItem="lKL-Yi-yVT" secondAttribute="bottom" constant="12" id="qRX-1Q-bSY"/>
-                            <constraint firstItem="Bs6-H3-HZs" firstAttribute="top" secondItem="IM2-sP-s3L" secondAttribute="top" constant="12" id="sh9-f1-bzF"/>
+                            <constraint firstItem="Bs6-H3-HZs" firstAttribute="top" secondItem="IM2-sP-s3L" secondAttribute="top" constant="16" id="sh9-f1-bzF"/>
                             <constraint firstItem="hib-JF-mPX" firstAttribute="centerY" secondItem="L8L-5t-Ob2" secondAttribute="centerY" id="wjL-6V-VfG"/>
                             <constraint firstItem="MDp-PV-Lw4" firstAttribute="leading" secondItem="IM2-sP-s3L" secondAttribute="leading" constant="12" id="x1a-Me-zMF"/>
                             <constraint firstItem="L8L-5t-Ob2" firstAttribute="leading" secondItem="Bs6-H3-HZs" secondAttribute="leading" id="xjB-RN-3mR"/>
