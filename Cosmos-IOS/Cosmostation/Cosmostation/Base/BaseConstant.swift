@@ -374,3 +374,9 @@ let IRIS_DP_DENOM = "iris"
 let BNB_MAIN_DENOM = "BNB"
 let IOV_MAIN_DENOM = "IOV"
 let KAVA_MAIN_DENOM = "ukava"
+
+let Font_17_body = UIFont(name: "Helvetica-Light", size: 17)!
+let Font_15_subTitle = UIFont(name: "Helvetica-Light", size: 15)!
+let Font_13_footnote = UIFont(name: "Helvetica-Light", size: 13)!
+let Font_12_caption1 = UIFont(name: "Helvetica-Light", size: 12)!
+let Font_11_caption2 = UIFont(name: "Helvetica-Light", size: 11)!

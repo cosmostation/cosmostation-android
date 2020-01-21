@@ -43,6 +43,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
         self.walletTableView.register(UINib(nibName: "WalletGuideCell", bundle: nil), forCellReuseIdentifier: "WalletGuideCell")
         
+        self.walletTableView.rowHeight = UITableView.automaticDimension
+        self.walletTableView.estimatedRowHeight = UITableView.automaticDimension
+        
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         refresher.tintColor = UIColor.white
@@ -170,54 +173,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            if (indexPath.row == 0) {
-                return 78;
-            } else if (indexPath.row == 1) {
-                return 258;
-            } else if (indexPath.row == 2) {
-                return 68;
-            } else if (indexPath.row == 3) {
-                return 68;
-            } else if (indexPath.row == 4) {
-                return 153;
-            }
-            
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            if (indexPath.row == 0) {
-                return 78;
-            } else if (indexPath.row == 1) {
-                return 208;
-            } else if (indexPath.row == 2) {
-                return 68;
-            } else if (indexPath.row == 3) {
-                return 153;
-            }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            if (indexPath.row == 0) {
-                return 78;
-            } else if (indexPath.row == 1) {
-                return 278;
-            } else if (indexPath.row == 2) {
-                return 68;
-            } else if (indexPath.row == 3) {
-                return 68;
-            } else if (indexPath.row == 4) {
-                return 153;
-            }
-            
-        } else if (chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-            if (indexPath.row == 0) {
-                return 78;
-            } else if (indexPath.row == 1) {
-                return 230;
-            } else if (indexPath.row == 2) {
-                return 68;
-            } else if (indexPath.row == 3) {
-                return 153;
-            }
-        }
-        return 0;
+        return UITableView.automaticDimension;
     }
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {

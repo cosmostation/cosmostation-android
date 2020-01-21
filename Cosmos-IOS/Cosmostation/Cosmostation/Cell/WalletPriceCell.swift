@@ -19,6 +19,8 @@ class WalletPriceCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        perPrice.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        updownPercent.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_11_caption2)
     }
     
 }

@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="68" id="KGk-i7-Jjw" customClass="WalletInflationCell" customModule="Cosmostation" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="WalletInflationCell" customModule="Cosmostation" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="67.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RCJ-gE-Lmm">
@@ -25,29 +23,26 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GHM-Dr-yOM" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="171.5" height="60"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="FnM-yQ-rLM">
-                                        <rect key="frame" x="64.5" y="13" width="42.5" height="34.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inflation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K94-1l-nX0">
-                                                <rect key="frame" x="0.0" y="0.0" width="42.5" height="14"/>
-                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0h9-FO-Yju">
-                                                <rect key="frame" x="0.0" y="18" width="42.5" height="16.5"/>
-                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inflation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K94-1l-nX0">
+                                        <rect key="frame" x="63" y="13" width="46" height="14.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0h9-FO-Yju">
+                                        <rect key="frame" x="82.5" y="31.5" width="6.5" height="16"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39953446059999997" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="FnM-yQ-rLM" firstAttribute="centerX" secondItem="GHM-Dr-yOM" secondAttribute="centerX" id="FTV-uL-zhM"/>
-                                    <constraint firstAttribute="height" constant="60" id="TcN-A3-QUt"/>
-                                    <constraint firstItem="FnM-yQ-rLM" firstAttribute="centerY" secondItem="GHM-Dr-yOM" secondAttribute="centerY" id="zXR-iX-zx1"/>
+                                    <constraint firstAttribute="bottom" secondItem="0h9-FO-Yju" secondAttribute="bottom" constant="12.5" id="Syr-9v-5gS"/>
+                                    <constraint firstItem="K94-1l-nX0" firstAttribute="centerX" secondItem="GHM-Dr-yOM" secondAttribute="centerX" id="UcC-xp-BWb"/>
+                                    <constraint firstItem="K94-1l-nX0" firstAttribute="top" secondItem="GHM-Dr-yOM" secondAttribute="top" constant="13" id="fsN-LD-vLR"/>
+                                    <constraint firstItem="0h9-FO-Yju" firstAttribute="top" secondItem="K94-1l-nX0" secondAttribute="bottom" constant="4" id="xIV-6m-Oh2"/>
+                                    <constraint firstItem="0h9-FO-Yju" firstAttribute="centerX" secondItem="GHM-Dr-yOM" secondAttribute="centerX" id="xMz-Nk-YpN"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -70,29 +65,26 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FK2-gK-akT" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="179.5" y="0.0" width="171.5" height="60"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="8u7-MP-FTx">
-                                        <rect key="frame" x="49.5" y="13" width="72.5" height="34.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average yield" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tv-jQ-cnM">
-                                                <rect key="frame" x="0.0" y="0.0" width="72.5" height="14"/>
-                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ms-8F-3ex">
-                                                <rect key="frame" x="0.0" y="18" width="72.5" height="16.5"/>
-                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average yield" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tv-jQ-cnM">
+                                        <rect key="frame" x="48" y="13" width="76" height="14.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ms-8F-3ex">
+                                        <rect key="frame" x="82.5" y="31.5" width="6.5" height="16"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39953446059999997" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="8u7-MP-FTx" firstAttribute="centerX" secondItem="FK2-gK-akT" secondAttribute="centerX" id="Msy-JQ-OPc"/>
-                                    <constraint firstAttribute="height" constant="60" id="XwS-gU-tKi"/>
-                                    <constraint firstItem="8u7-MP-FTx" firstAttribute="centerY" secondItem="FK2-gK-akT" secondAttribute="centerY" id="c31-V7-vVY"/>
+                                    <constraint firstItem="3Ms-8F-3ex" firstAttribute="top" secondItem="3Tv-jQ-cnM" secondAttribute="bottom" constant="4" id="Bjo-nF-wJh"/>
+                                    <constraint firstAttribute="bottom" secondItem="3Ms-8F-3ex" secondAttribute="bottom" constant="12.5" id="SIo-q5-iqE"/>
+                                    <constraint firstItem="3Tv-jQ-cnM" firstAttribute="top" secondItem="FK2-gK-akT" secondAttribute="top" constant="13" id="W8g-ct-z9a"/>
+                                    <constraint firstItem="3Ms-8F-3ex" firstAttribute="centerX" secondItem="FK2-gK-akT" secondAttribute="centerX" id="eQI-L9-VLb"/>
+                                    <constraint firstItem="3Tv-jQ-cnM" firstAttribute="centerX" secondItem="FK2-gK-akT" secondAttribute="centerX" id="gxr-4s-EUo"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -116,19 +108,20 @@
                     </stackView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="RCJ-gE-Lmm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="GbE-uE-aIu"/>
+                    <constraint firstItem="RCJ-gE-Lmm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="X7j-qi-b1i"/>
+                    <constraint firstAttribute="trailing" secondItem="RCJ-gE-Lmm" secondAttribute="trailing" constant="12" id="pBG-0i-JSC"/>
+                    <constraint firstAttribute="bottom" secondItem="RCJ-gE-Lmm" secondAttribute="bottom" constant="4" id="uGW-S2-gYL"/>
+                </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-            <constraints>
-                <constraint firstItem="RCJ-gE-Lmm" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="12" id="7OR-P7-Esz"/>
-                <constraint firstItem="njF-e1-oar" firstAttribute="bottom" secondItem="RCJ-gE-Lmm" secondAttribute="bottom" constant="4" id="bv9-M7-Zcw"/>
-                <constraint firstItem="RCJ-gE-Lmm" firstAttribute="top" secondItem="njF-e1-oar" secondAttribute="top" constant="4" id="h5a-vo-0RF"/>
-                <constraint firstItem="njF-e1-oar" firstAttribute="trailing" secondItem="RCJ-gE-Lmm" secondAttribute="trailing" constant="12" id="wDP-9M-7g1"/>
-            </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="infaltionLabel" destination="0h9-FO-Yju" id="8RT-Zo-aZG"/>
                 <outlet property="yieldLabel" destination="3Ms-8F-3ex" id="de9-is-CaS"/>
             </connections>
+            <point key="canvasLocation" x="140" y="143"/>
         </tableViewCell>
     </objects>
 </document>

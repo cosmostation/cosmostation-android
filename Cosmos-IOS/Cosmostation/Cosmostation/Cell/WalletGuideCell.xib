@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,20 +27,34 @@
                                     <constraint firstAttribute="height" constant="63" id="RVT-2E-TEU"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cosmos Guide" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFi-9V-3TO">
-                                <rect key="frame" x="110" y="22" width="99.5" height="17.5"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmV-EO-LJR">
-                                <rect key="frame" x="110" y="45.5" width="225" height="28"/>
-                                <string key="text">Cosmos and Cosmostation Wallet FAQ
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5n-8Q-piW">
+                                <rect key="frame" x="108" y="14" width="231" height="67"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cosmos Guide" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFi-9V-3TO">
+                                        <rect key="frame" x="0.0" y="0.0" width="100.5" height="24.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmV-EO-LJR">
+                                        <rect key="frame" x="0.0" y="30.5" width="231" height="30.5"/>
+                                        <string key="text">Cosmos and Cosmostation Wallet FAQ
 Learn more about us in the links below</string>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="vFi-9V-3TO" firstAttribute="top" secondItem="M5n-8Q-piW" secondAttribute="top" id="7mL-oR-fd0"/>
+                                    <constraint firstItem="JmV-EO-LJR" firstAttribute="top" secondItem="vFi-9V-3TO" secondAttribute="bottom" constant="6" id="As9-fe-bbL"/>
+                                    <constraint firstAttribute="bottom" secondItem="JmV-EO-LJR" secondAttribute="bottom" constant="6" id="BTl-gQ-T80"/>
+                                    <constraint firstItem="JmV-EO-LJR" firstAttribute="leading" secondItem="vFi-9V-3TO" secondAttribute="leading" id="ByP-I0-Bjo"/>
+                                    <constraint firstAttribute="trailing" secondItem="JmV-EO-LJR" secondAttribute="trailing" id="LHX-JW-cAm"/>
+                                    <constraint firstItem="vFi-9V-3TO" firstAttribute="leading" secondItem="M5n-8Q-piW" secondAttribute="leading" id="h5c-TU-Aic"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VER-se-2pE">
                                 <rect key="frame" x="12" y="91" width="327" height="0.5"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
@@ -54,7 +68,7 @@ Learn more about us in the links below</string>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vlR-Xo-iYZ">
                                         <rect key="frame" x="0.0" y="0.0" width="159.5" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <state key="normal" title="Guide">
                                             <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -70,7 +84,7 @@ Learn more about us in the links below</string>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g4k-mK-yTg">
                                         <rect key="frame" x="167.5" y="0.0" width="159.5" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <state key="normal" title="FAQ">
                                             <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -86,18 +100,16 @@ Learn more about us in the links below</string>
                         </subviews>
                         <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.3965913955" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="VER-se-2pE" firstAttribute="bottom" secondItem="QZK-7u-e3M" secondAttribute="top" constant="-4" id="AEL-Fr-FSC"/>
-                            <constraint firstItem="JmV-EO-LJR" firstAttribute="top" secondItem="vFi-9V-3TO" secondAttribute="bottom" constant="6" id="AsI-fz-jCU"/>
                             <constraint firstAttribute="trailing" secondItem="VER-se-2pE" secondAttribute="trailing" constant="12" id="EAo-X1-eUZ"/>
-                            <constraint firstItem="JmV-EO-LJR" firstAttribute="leading" secondItem="mAT-Oa-YZG" secondAttribute="trailing" constant="10" id="FNG-xW-cMV"/>
-                            <constraint firstAttribute="trailing" secondItem="JmV-EO-LJR" secondAttribute="trailing" constant="16" id="VWm-2z-wUW"/>
-                            <constraint firstItem="vFi-9V-3TO" firstAttribute="top" secondItem="8WQ-Vs-Dxz" secondAttribute="top" constant="22" id="eBD-g2-ksO"/>
+                            <constraint firstItem="M5n-8Q-piW" firstAttribute="leading" secondItem="mAT-Oa-YZG" secondAttribute="trailing" constant="8" id="LOW-LO-5kj"/>
+                            <constraint firstAttribute="bottom" secondItem="QZK-7u-e3M" secondAttribute="bottom" constant="4.5" id="QGq-Ig-mUz"/>
+                            <constraint firstItem="QZK-7u-e3M" firstAttribute="top" secondItem="VER-se-2pE" secondAttribute="bottom" constant="4" id="Qkp-gd-oQc"/>
+                            <constraint firstItem="M5n-8Q-piW" firstAttribute="top" secondItem="8WQ-Vs-Dxz" secondAttribute="top" constant="14" id="Z7p-oI-Tk0"/>
                             <constraint firstItem="mAT-Oa-YZG" firstAttribute="leading" secondItem="8WQ-Vs-Dxz" secondAttribute="leading" constant="16" id="nsJ-ZC-dXw"/>
-                            <constraint firstItem="VER-se-2pE" firstAttribute="top" secondItem="mAT-Oa-YZG" secondAttribute="bottom" constant="12" id="oG2-4p-slm"/>
                             <constraint firstItem="mAT-Oa-YZG" firstAttribute="top" secondItem="8WQ-Vs-Dxz" secondAttribute="top" constant="16" id="oqQ-Dd-sd0"/>
                             <constraint firstItem="QZK-7u-e3M" firstAttribute="leading" secondItem="8WQ-Vs-Dxz" secondAttribute="leading" constant="12" id="q4i-DV-duK"/>
-                            <constraint firstItem="vFi-9V-3TO" firstAttribute="leading" secondItem="mAT-Oa-YZG" secondAttribute="trailing" constant="10" id="qet-nf-26U"/>
-                            <constraint firstAttribute="height" constant="145" id="uRf-fG-U96"/>
+                            <constraint firstItem="VER-se-2pE" firstAttribute="top" secondItem="M5n-8Q-piW" secondAttribute="bottom" constant="10" id="qq2-H0-BWr"/>
+                            <constraint firstAttribute="trailing" secondItem="M5n-8Q-piW" secondAttribute="trailing" constant="12" id="vVQ-Ux-RG8"/>
                             <constraint firstAttribute="trailing" secondItem="QZK-7u-e3M" secondAttribute="trailing" constant="12" id="vZu-qJ-FzJ"/>
                             <constraint firstItem="VER-se-2pE" firstAttribute="leading" secondItem="8WQ-Vs-Dxz" secondAttribute="leading" constant="12" id="x8p-L0-ibR"/>
                         </constraints>
@@ -121,14 +133,14 @@ Learn more about us in the links below</string>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="8WQ-Vs-Dxz" secondAttribute="trailing" constant="12" id="FIH-yd-6sb"/>
+                    <constraint firstItem="8WQ-Vs-Dxz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="iKL-Fi-1oU"/>
+                    <constraint firstAttribute="bottom" secondItem="8WQ-Vs-Dxz" secondAttribute="bottom" constant="4" id="lkr-BI-Oos"/>
+                    <constraint firstItem="8WQ-Vs-Dxz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="t74-Cb-UKW"/>
+                </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-            <constraints>
-                <constraint firstItem="njF-e1-oar" firstAttribute="bottom" secondItem="8WQ-Vs-Dxz" secondAttribute="bottom" constant="4" id="570-5g-GoC"/>
-                <constraint firstItem="8WQ-Vs-Dxz" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="12" id="6KC-D0-Bmw"/>
-                <constraint firstItem="njF-e1-oar" firstAttribute="trailing" secondItem="8WQ-Vs-Dxz" secondAttribute="trailing" constant="12" id="SVp-X2-d3M"/>
-                <constraint firstItem="8WQ-Vs-Dxz" firstAttribute="top" secondItem="njF-e1-oar" secondAttribute="top" constant="4" id="T2g-WI-tCe"/>
-            </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btn1Label" destination="vlR-Xo-iYZ" id="Q4W-BW-aP4"/>
