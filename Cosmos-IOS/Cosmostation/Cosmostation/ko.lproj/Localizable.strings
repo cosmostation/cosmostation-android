@@ -184,13 +184,13 @@
 "title_guide" = "도움말";
 "title_vote" = "투표 하기";
 
-"proposal_type_basic" = "기본 제안";
-"proposal_type_parameter" = "파라미터 변경 제안";
-"proposal_type_plaintext" = "단순 제안";
-"proposal_type_tokenaddition" = "토큰 추가 제안";
-"proposal_type_softwareupgrade" = "소프트웨어 업그레이드 제안";
-"proposal_type_systemhalt" = "시스템 중지 제안";
-"proposal_type_communitytaxusage" = "커뮤니티 풀 코인 사용 제안";
+"proposal_type_basic" = "기본";
+"proposal_type_parameter" = "파라미터 변경";
+"proposal_type_plaintext" = "단순";
+"proposal_type_tokenaddition" = "토큰 추가";
+"proposal_type_softwareupgrade" = "소프트웨어 업그레이드";
+"proposal_type_systemhalt" = "시스템 중지";
+"proposal_type_communitytaxusage" = "커뮤니티 풀 코인 사용";
 
 
 "error_password_fail" = "입력하신 두 패스워드가 다릅니다.\n다시 설정해 주세요.";

@@ -184,13 +184,13 @@
 "title_guide" = "FAQ";
 "title_vote" = "Vote";
 
-"proposal_type_basic" = "Basic Proposal";
-"proposal_type_parameter" = "Parameter Proposal";
-"proposal_type_plaintext" = "PlainText Proposal";
-"proposal_type_tokenaddition" = "Token Addition Proposal";
-"proposal_type_softwareupgrade" = "Software Upgrade Proposal";
-"proposal_type_systemhalt" = "System Halt Proposal";
-"proposal_type_communitytaxusage" = "Community Tax Usage Proposal";
+"proposal_type_basic" = "Basic";
+"proposal_type_parameter" = "Parameter";
+"proposal_type_plaintext" = "PlainText";
+"proposal_type_tokenaddition" = "Token Addition";
+"proposal_type_softwareupgrade" = "Software Upgrade";
+"proposal_type_systemhalt" = "System Halt";
+"proposal_type_communitytaxusage" = "Community Tax Usage";
 
 
 

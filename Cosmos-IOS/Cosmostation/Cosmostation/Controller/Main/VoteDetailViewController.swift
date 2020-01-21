@@ -26,7 +26,7 @@ class VoteDetailViewController: BaseViewController {
     
     @IBOutlet weak var cardYes: CardView!
     @IBOutlet weak var titleYes: UILabel!
-    @IBOutlet weak var sliderYes: CustomSlider!
+    @IBOutlet weak var progressYes: UIProgressView!
     @IBOutlet weak var percentYes: UILabel!
     @IBOutlet weak var iconYes: UIImageView!
     @IBOutlet weak var cntYes: UILabel!
@@ -34,7 +34,7 @@ class VoteDetailViewController: BaseViewController {
     
     @IBOutlet weak var cardNo: CardView!
     @IBOutlet weak var titleNo: UILabel!
-    @IBOutlet weak var sliderNo: CustomSlider!
+    @IBOutlet weak var progressNo: UIProgressView!
     @IBOutlet weak var percentNo: UILabel!
     @IBOutlet weak var iconNo: UIImageView!
     @IBOutlet weak var cntNo: UILabel!
@@ -42,7 +42,7 @@ class VoteDetailViewController: BaseViewController {
     
     @IBOutlet weak var cardVeto: CardView!
     @IBOutlet weak var titleVeto: UILabel!
-    @IBOutlet weak var sliderVeto: CustomSlider!
+    @IBOutlet weak var progressVeto: UIProgressView!
     @IBOutlet weak var percentVeto: UILabel!
     @IBOutlet weak var iconVeto: UIImageView!
     @IBOutlet weak var cntVeto: UILabel!
@@ -50,7 +50,7 @@ class VoteDetailViewController: BaseViewController {
     
     @IBOutlet weak var cardAbstain: CardView!
     @IBOutlet weak var titleAbstain: UILabel!
-    @IBOutlet weak var sliderAbstain: CustomSlider!
+    @IBOutlet weak var progressAbstain: UIProgressView!
     @IBOutlet weak var percentAbstain: UILabel!
     @IBOutlet weak var iconAbstain: UIImageView!
     @IBOutlet weak var cntAbstain: UILabel!
@@ -147,20 +147,21 @@ class VoteDetailViewController: BaseViewController {
             
             if (irisProposal?.value?.basicProposal?.proposal_status == "DepositPeriod" ||
                 irisProposal?.value?.basicProposal?.proposal_status == "VotingPeriod") {
-                sliderYes.setValue(0, animated: false)
-                sliderNo.setValue(0, animated: false)
-                sliderVeto.setValue(0, animated: false)
-                sliderAbstain.setValue(0, animated: false)
+                progressYes.progress = 0
+                progressNo.progress = 0
+                progressVeto.progress = 0
+                progressAbstain.progress = 0
                 percentYes.text = "??%"
                 percentNo.text = "??%"
                 percentVeto.text = "??%"
                 percentAbstain.text = "??%"
                 
             } else {
-                sliderYes.setValue(irisProposal!.getYes().floatValue, animated: false)
-                sliderNo.setValue(irisProposal!.getNo().floatValue, animated: false)
-                sliderVeto.setValue(irisProposal!.getVeto().floatValue, animated: false)
-                sliderAbstain.setValue(irisProposal!.getAbstain().floatValue, animated: false)
+                progressYes.progress = irisProposal!.getYes().floatValue / 100
+                progressNo.progress = irisProposal!.getNo().floatValue / 100
+                progressVeto.progress = irisProposal!.getVeto().floatValue / 100
+                progressAbstain.progress = irisProposal!.getAbstain().floatValue / 100
+                
                 percentYes.attributedText = WUtils.displayPercent(irisProposal!.getYes(), font: percentYes.font)
                 percentNo.attributedText = WUtils.displayPercent(irisProposal!.getNo(), font: percentYes.font)
                 percentVeto.attributedText = WUtils.displayPercent(irisProposal!.getVeto(), font: percentYes.font)
@@ -175,10 +176,10 @@ class VoteDetailViewController: BaseViewController {
                 titleVeto.textColor = UIColor(hexString: "#424548")
                 titleAbstain.textColor = UIColor(hexString: "#424548")
                 
-                sliderYes.tintColor = UIColor(hexString: "#7a7f88")
-                sliderNo.tintColor = UIColor(hexString: "#7a7f88")
-                sliderVeto.tintColor = UIColor(hexString: "#7a7f88")
-                sliderAbstain.tintColor = UIColor(hexString: "#7a7f88")
+                progressYes.progressTintColor = UIColor(hexString: "#7a7f88")
+                progressNo.progressTintColor = UIColor(hexString: "#7a7f88")
+                progressVeto.progressTintColor = UIColor(hexString: "#7a7f88")
+                progressAbstain.progressTintColor = UIColor(hexString: "#7a7f88")
                 
                 percentYes.textColor = UIColor(hexString: "#424548")
                 percentNo.textColor = UIColor(hexString: "#424548")
@@ -202,7 +203,7 @@ class VoteDetailViewController: BaseViewController {
                 
                 if (myOpinoin == "Yes") {
                     titleYes.textColor = UIColor(hexString: "#a67dfc")
-                    sliderYes.tintColor = UIColor(hexString: "#a67dfc")
+                    progressYes.progressTintColor = UIColor(hexString: "#a67dfc")
                     percentYes.textColor = UIColor.white
                     cntYes.textColor = UIColor.white
                     iconYes.image = iconYes.image?.withRenderingMode(.alwaysTemplate)
@@ -213,7 +214,7 @@ class VoteDetailViewController: BaseViewController {
                     
                 } else if (myOpinoin == "No") {
                     titleNo.textColor = UIColor(hexString: "#57dca8")
-                    sliderNo.tintColor = UIColor(hexString: "#57dca8")
+                    progressNo.progressTintColor = UIColor(hexString: "#57dca8")
                     percentNo.textColor = UIColor.white
                     cntNo.textColor = UIColor.white
                     iconNo.image = iconNo.image?.withRenderingMode(.alwaysTemplate)
@@ -224,7 +225,7 @@ class VoteDetailViewController: BaseViewController {
                     
                 } else if (myOpinoin == "NoWithVeto") {
                     titleVeto.textColor = UIColor(hexString: "#4de8f1")
-                    sliderVeto.tintColor = UIColor(hexString: "#4de8f1")
+                    progressVeto.progressTintColor = UIColor(hexString: "#4de8f1")
                     percentVeto.textColor = UIColor.white
                     cntVeto.textColor = UIColor.white
                     iconVeto.image = iconVeto.image?.withRenderingMode(.alwaysTemplate)
@@ -235,7 +236,7 @@ class VoteDetailViewController: BaseViewController {
                                    
                 } else if (myOpinoin == "Abstain") {
                     titleAbstain.textColor = UIColor(hexString: "#9ea1a7")
-                    sliderAbstain.tintColor = UIColor(hexString: "#9ea1a7")
+                    progressAbstain.progressTintColor = UIColor(hexString: "#9ea1a7")
                     percentAbstain.textColor = UIColor.white
                     cntAbstain.textColor = UIColor.white
                     iconAbstain.image = iconAbstain.image?.withRenderingMode(.alwaysTemplate)
