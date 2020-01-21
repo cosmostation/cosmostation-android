@@ -51,6 +51,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         refresher.tintColor = UIColor.white
         tokenTableView.addSubview(refresher)
         
+        self.tokenTableView.rowHeight = UITableView.automaticDimension
+        self.tokenTableView.estimatedRowHeight = UITableView.automaticDimension
+        
         mOrder = ORDER_BY_NAME
         let tap = UITapGestureRecognizer(target: self, action: #selector(onStartSort))
         self.btnSort.addGestureRecognizer(tap)
@@ -222,7 +225,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80;
+        return UITableView.automaticDimension;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -37,6 +37,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.historyTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.historyTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
+        self.historyTableView.rowHeight = UITableView.automaticDimension
+        self.historyTableView.estimatedRowHeight = UITableView.automaticDimension
+        
         self.refresher = UIRefreshControl()
         self.refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         self.refresher.tintColor = UIColor.white
@@ -194,7 +197,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80;
+        return UITableView.automaticDimension;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

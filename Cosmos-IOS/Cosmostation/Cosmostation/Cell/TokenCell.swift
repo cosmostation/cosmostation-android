@@ -20,6 +20,8 @@ class TokenCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        tokenAmount.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: Font_13_footnote)
+        tokenValue.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_13_footnote)
     }
     
     override func prepareForReuse() {
