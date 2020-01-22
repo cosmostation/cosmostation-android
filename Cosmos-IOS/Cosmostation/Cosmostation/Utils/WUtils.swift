@@ -1212,7 +1212,7 @@ class WUtils {
         var result = NSDecimalNumber.zero
         if (balances != nil) {
             balances!.forEach({ (balance) in
-                result = result.adding(WUtils.stringToDecimal(balance.balance_amount))
+                result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_amount))
             })
         }
         return result
