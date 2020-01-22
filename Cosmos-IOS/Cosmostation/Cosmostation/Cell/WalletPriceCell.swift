@@ -21,6 +21,16 @@ class WalletPriceCell: UITableViewCell {
         self.selectionStyle = .none
         perPrice.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         updownPercent.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_11_caption2)
+        
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onTapPrice))
+        self.contentView.isUserInteractionEnabled = true
+        self.contentView.addGestureRecognizer(tap)
+        
     }
     
+    var actionTapPricel: (() -> Void)? = nil
+    @objc func onTapPrice(sender:UITapGestureRecognizer) {
+        actionTapPricel?()
+    }
 }

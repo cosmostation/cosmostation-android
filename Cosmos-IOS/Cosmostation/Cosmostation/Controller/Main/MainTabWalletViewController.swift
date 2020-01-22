@@ -226,6 +226,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.updownImg.image = nil
                 cell?.updownPercent.text = ""
             }
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
+            }
             return cell!
             
         } else if (indexPath.row == 3) {
@@ -304,6 +307,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             } else {
                 cell?.updownImg.image = nil
                 cell?.updownPercent.text = ""
+            }
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
             }
             return cell!
             
@@ -388,6 +394,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.updownImg.image = nil
                 cell?.updownPercent.text = ""
             }
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
+            }
             return cell!
             
         } else {
@@ -459,6 +468,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             } else {
                 cell?.updownImg.image = nil
                 cell?.updownPercent.text = ""
+            }
+            cell?.actionTapPricel = {
+                self.onClickMarketInfo()
             }
             return cell!
             
@@ -700,6 +712,54 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             present(safariViewController, animated: true, completion: nil)
         }
         
+    }
+    
+    func onClickMarketInfo() {
+        print("onClickMarketInfo")
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (BaseData.instance.getMarket() == 0) {
+                guard let url = URL(string: "https://www.coingecko.com/en/coins/cosmos") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            } else {
+                guard let url = URL(string: "https://coinmarketcap.com/currencies/cosmos/") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            if (BaseData.instance.getMarket() == 0) {
+                guard let url = URL(string: "https://www.coingecko.com/en/coins/irisnet") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            } else {
+                guard let url = URL(string: "https://coinmarketcap.com/currencies/irisnet") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            if (BaseData.instance.getMarket() == 0) {
+                guard let url = URL(string: "https://www.coingecko.com/en/coins/binancecoin") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            } else {
+                guard let url = URL(string: "https://coinmarketcap.com/currencies/binance-coin") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (BaseData.instance.getMarket() == 0) {
+                guard let url = URL(string: "https://www.coingecko.com/en/coins/kava") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            } else {
+                guard let url = URL(string: "https://coinmarketcap.com/currencies/kava") else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+        }
     }
     
     func onClickMainSend() {
