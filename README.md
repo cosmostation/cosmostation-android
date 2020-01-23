@@ -97,6 +97,12 @@ BitCoinkit/Script.swift line 461
     }
 ```
 
+## Notice4
+for local build upper xcode 11.3 you have to change command line tools path update
+```
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer/
+```
+
 
 
 ## Downloads

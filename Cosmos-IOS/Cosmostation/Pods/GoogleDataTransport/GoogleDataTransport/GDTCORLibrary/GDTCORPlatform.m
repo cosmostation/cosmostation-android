@@ -18,6 +18,16 @@
 
 #import <GoogleDataTransport/GDTCORAssert.h>
 
+#import "GDTCORLibrary/Private/GDTCORRegistrar_Private.h"
+
+#ifdef GDTCOR_VERSION
+#define STR(x) STR_EXPAND(x)
+#define STR_EXPAND(x) #x
+NSString *const kGDTCORVersion = @STR(GDTCOR_VERSION);
+#else
+NSString *const kGDTCORVersion = @"Unknown";
+#endif  // GDTCOR_VERSION
+
 const GDTCORBackgroundIdentifier GDTCORBackgroundIdentifierInvalid = 0;
 
 NSString *const kGDTCORApplicationDidEnterBackgroundNotification =
@@ -28,7 +38,7 @@ NSString *const kGDTCORApplicationWillEnterForegroundNotification =
 
 NSString *const kGDTCORApplicationWillTerminateNotification =
     @"GDTCORApplicationWillTerminateNotification";
-
+#if !TARGET_OS_WATCH
 BOOL GDTCORReachabilityFlagsContainWWAN(SCNetworkReachabilityFlags flags) {
 #if TARGET_OS_IOS
   return (flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN;
@@ -36,6 +46,16 @@ BOOL GDTCORReachabilityFlagsContainWWAN(SCNetworkReachabilityFlags flags) {
   return NO;
 #endif  // TARGET_OS_IOS
 }
+#endif  // !TARGET_OS_WATCH
+
+@interface GDTCORApplication ()
+/**
+ Private flag to match the existing `readonly` public flag. This will be accurate for all platforms,
+ since we handle each platform's lifecycle notifications separately.
+ */
+@property(atomic, readwrite) BOOL isRunningInBackground;
+
+@end
 
 @implementation GDTCORApplication
 
@@ -61,6 +81,9 @@ BOOL GDTCORReachabilityFlagsContainWWAN(SCNetworkReachabilityFlags flags) {
 - (instancetype)init {
   self = [super init];
   if (self) {
+    // This class will be instantiated in the foreground.
+    _isRunningInBackground = NO;
+
 #if TARGET_OS_IOS || TARGET_OS_TV
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self
@@ -102,9 +125,10 @@ BOOL GDTCORReachabilityFlagsContainWWAN(SCNetworkReachabilityFlags flags) {
   return self;
 }
 
-- (GDTCORBackgroundIdentifier)beginBackgroundTaskWithExpirationHandler:(void (^)(void))handler {
-  return
-      [[self sharedApplicationForBackgroundTask] beginBackgroundTaskWithExpirationHandler:handler];
+- (GDTCORBackgroundIdentifier)beginBackgroundTaskWithName:(NSString *)name
+                                        expirationHandler:(void (^)(void))handler {
+  return [[self sharedApplicationForBackgroundTask] beginBackgroundTaskWithName:name
+                                                              expirationHandler:handler];
 }
 
 - (void)endBackgroundTask:(GDTCORBackgroundIdentifier)bgID {
@@ -116,7 +140,7 @@ BOOL GDTCORReachabilityFlagsContainWWAN(SCNetworkReachabilityFlags flags) {
 #pragma mark - App environment helpers
 
 - (BOOL)isAppExtension {
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
   BOOL appExtension = [[[NSBundle mainBundle] bundlePath] hasSuffix:@".appex"];
   return appExtension;
 #elif TARGET_OS_OSX
@@ -149,11 +173,15 @@ BOOL GDTCORReachabilityFlagsContainWWAN(SCNetworkReachabilityFlags flags) {
 
 #if TARGET_OS_IOS || TARGET_OS_TV
 - (void)iOSApplicationDidEnterBackground:(NSNotification *)notif {
+  _isRunningInBackground = YES;
+
   NSNotificationCenter *notifCenter = [NSNotificationCenter defaultCenter];
   [notifCenter postNotificationName:kGDTCORApplicationDidEnterBackgroundNotification object:nil];
 }
 
 - (void)iOSApplicationWillEnterForeground:(NSNotification *)notif {
+  _isRunningInBackground = NO;
+
   NSNotificationCenter *notifCenter = [NSNotificationCenter defaultCenter];
   [notifCenter postNotificationName:kGDTCORApplicationWillEnterForegroundNotification object:nil];
 }
