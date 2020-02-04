@@ -719,6 +719,22 @@ public class WDp {
                 }
                 result = BaseConstant.TX_TYPE_TRANSFER;
             }
+
+        } else if  (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER3)) {
+            if (msg.value.inputs != null && msg.value.outputs != null) {
+                for (Input input:msg.value.inputs) {
+                    if (address.equals(input.address)) {
+                        return BaseConstant.TX_TYPE_SEND;
+                    }
+                }
+                for (Output output:msg.value.outputs) {
+                    if (address.equals(output.address)) {
+                        return BaseConstant.TX_TYPE_RECEIVE;
+                    }
+                }
+            }
+            result = BaseConstant.TX_TYPE_TRANSFER;
+
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE) ||
                 msg.type.equals(BaseConstant.IRIS_MSG_TYPE_DELEGATE)) {
             result = BaseConstant.TX_TYPE_DELEGATE;

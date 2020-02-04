@@ -185,11 +185,11 @@ public class BaseConstant {
     public final static int                     TX_TYPE_CHAGE_REWARD_ADDRESS		            = 3008;
     public final static int                     TX_TYPE_TRANSFER		                        = 3009;
     public final static int                     TX_TYPE_VOTE		                            = 3010;
-    public final static int                     TX_TYPE_SUBMIT_PROPOSAL		                    = 3011;
-    public final static int                     TX_TYPE_DEPOSIT		                            = 3012;
-    public final static int                     TX_TYPE_CREATE_VALIDATOR		                = 3013;
-    public final static int                     TX_TYPE_EDIT_VALIDATOR		                    = 3014;
-    public final static int                     TX_TYPE_REINVEST		                        = 3015;
+    public final static int                     TX_TYPE_REINVEST		                        = 3011;
+    public final static int                     TX_TYPE_SUBMIT_PROPOSAL		                    = 3012;
+    public final static int                     TX_TYPE_DEPOSIT		                            = 3013;
+    public final static int                     TX_TYPE_CREATE_VALIDATOR		                = 3014;
+    public final static int                     TX_TYPE_EDIT_VALIDATOR		                    = 3015;
     public final static int                     TX_TYPE_IRIS_GET_REWARD_ALL		                = 3016;
     public final static int                     TX_TYPE_IRIS_ISSUE_TOKEN		                = 3017;
 

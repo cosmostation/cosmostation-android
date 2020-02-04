@@ -1,13 +1,17 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -53,7 +57,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY;
 
-public class TxDetailActivity extends BaseActivity {
+public class TxDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar mToolbar;
     private RecyclerView mTxRecyclerView;
@@ -66,6 +70,7 @@ public class TxDetailActivity extends BaseActivity {
     private LinearLayout mControlLayer2;
     private Button mExplorerBtn, mShareBtn;
 
+    private boolean mIsGen;
     private boolean mIsSuccess;
     private int mErrorCode;
     private String mErrorMsg;
@@ -95,17 +100,18 @@ public class TxDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (getIntent().getBooleanExtra("isGen", false)) {
-            mLoadingMsgTv.setVisibility(View.VISIBLE);
-        }
 
         mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain  = BaseChain.getChain(mAccount.baseChain);
+        mIsGen      = getIntent().getBooleanExtra("isGen", false);
         mIsSuccess  = getIntent().getBooleanExtra("isSuccess", false);
         mErrorCode  = getIntent().getIntExtra("errorCode", BaseConstant.ERROR_CODE_UNKNOWN);
         mErrorMsg   = getIntent().getStringExtra("errorMsg");
         mTxHash     = getIntent().getStringExtra("txHash");
         mAllValidators = getBaseDao().getAllValidators();
+        if (mIsGen) {
+            mLoadingMsgTv.setVisibility(View.VISIBLE);
+        }
 
         if (TextUtils.isEmpty(mTxHash)) {
             mLoadingLayer.setVisibility(View.GONE);
@@ -131,10 +137,33 @@ public class TxDetailActivity extends BaseActivity {
         mTxRecyclerView.setHasFixedSize(true);
         mTxDetailAdapter = new TxDetailAdapter();
         mTxRecyclerView.setAdapter(mTxDetailAdapter);
+
+        mDismissBtn.setOnClickListener(this);
+        mExplorerBtn.setOnClickListener(this);
+        mShareBtn.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!mIsGen) {
+            super.onBackPressed();
+        } else {
+            //TODO
+        }
     }
 
     private void onUpdateView() {
-//        WLog.w("onUpdateTx " + mResTxInfo.events.size());
         mLoadingLayer.setVisibility(View.GONE);
         mDismissBtn.setVisibility(View.GONE);
         mControlLayer2.setVisibility(View.VISIBLE);
@@ -145,10 +174,43 @@ public class TxDetailActivity extends BaseActivity {
                 mTxDetailAdapter.notifyDataSetChanged();
                 mTxRecyclerView.setVisibility(View.VISIBLE);
             }
-
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mDismissBtn)) {
+
+        } else if (v.equals(mExplorerBtn)) {
+            Intent webintent = new Intent(this, WebActivity.class);
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                webintent.putExtra("txid", mResTxInfo.txhash);
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                webintent.putExtra("txid", mResTxInfo.hash);
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                webintent.putExtra("txid", mResBnbTxInfo.hash);
+            }
+            webintent.putExtra("chain", mBaseChain.getChain());
+            webintent.putExtra("goMain", mIsGen);
+            startActivity(webintent);
+
+        } else if (v.equals(mShareBtn)) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.mintscan.io/txs/" + mResTxInfo.txhash);
+            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://irishub.mintscan.io/txs/" + mResTxInfo.hash);
+            } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://explorer.binance.org/tx/" + mResBnbTxInfo.hash);
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "https://kava.mintscan.io/txs/" + mResTxInfo.txhash);
+            }
+            shareIntent.setType("text/plain");
+            startActivity(Intent.createChooser(shareIntent, "send"));
+        }
+
+    }
 
 
     private class TxDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
