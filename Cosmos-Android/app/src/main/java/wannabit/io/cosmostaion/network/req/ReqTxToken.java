@@ -50,6 +50,8 @@ public class ReqTxToken {
         if (searchType == 0) {
             fields1.add(from_addr);
             fields1.add(to_addr);
+            fields1.add(input_addr);
+            fields1.add(output_addr);
         } else if (searchType == 1) {
             fields1.add(input_addr);
             fields1.add(output_addr);

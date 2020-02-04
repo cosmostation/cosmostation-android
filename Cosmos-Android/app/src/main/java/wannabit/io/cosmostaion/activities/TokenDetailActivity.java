@@ -55,6 +55,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_UNKNOWN;
 
 public class TokenDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -557,10 +559,19 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent webintent = new Intent(TokenDetailActivity.this, WebActivity.class);
-                        webintent.putExtra("txid", source.hash);
-                        webintent.putExtra("chain", mBaseChain.getChain());
-                        startActivity(webintent);
+                        int TxType = WDp.getHistoryDpType(source.tx.value.msg, mAccount.address);
+                        if (TxType > TX_TYPE_UNKNOWN && TxType <= TX_TYPE_REINVEST) {
+                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                            txDetail.putExtra("txHash", source.hash);
+                            txDetail.putExtra("isGen", false);
+                            txDetail.putExtra("isSuccess", true);
+                            startActivity(txDetail);
+                        } else {
+                            Intent webintent = new Intent(getBaseContext(), WebActivity.class);
+                            webintent.putExtra("txid", source.hash);
+                            webintent.putExtra("chain", mBaseChain.getChain());
+                            startActivity(webintent);
+                        }
                     }
                 });
 
