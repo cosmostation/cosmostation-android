@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.TxResultActivity;
+import wannabit.io.cosmostaion.activities.TxDetailActivity;
 
 public class Dialog_MoreWait extends DialogFragment {
 
@@ -54,7 +54,11 @@ public class Dialog_MoreWait extends DialogFragment {
         return builder.create();
     }
 
-    private TxResultActivity getTopActivity() {
-        return (TxResultActivity)getActivity();
+//    private TxResultActivity getTopActivity() {
+//        return (TxResultActivity)getActivity();
+//    }
+
+    private TxDetailActivity getTopActivity() {
+        return (TxDetailActivity)getActivity();
     }
 }

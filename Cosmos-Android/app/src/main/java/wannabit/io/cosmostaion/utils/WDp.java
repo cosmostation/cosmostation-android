@@ -1132,6 +1132,43 @@ public class WDp {
         return "(" + result + " " + c.getString(R.string.str_ago) +")";
     }
 
+    public static String getTimeTxGap(Context c, String rawValue) {
+        String result = "";
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_tx_time_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date blockTime  = blockDateFormat.parse(rawValue);
+            Date nowTime    = Calendar.getInstance().getTime();
+
+            long difference = nowTime.getTime() - blockTime.getTime();
+
+            long differenceSeconds = difference / 1000 % 60;
+            long differenceMinutes = difference / (60 * 1000) % 60;
+            long differenceHours = difference / (60 * 60 * 1000) % 24;
+            long differenceDays = difference / (24 * 60 * 60 * 1000);
+
+            if(differenceDays > 1) {
+                result = ""+differenceDays+ " " + c.getString(R.string.str_day);
+            } else if (differenceDays == 1){
+                result = ""+differenceDays + c.getString(R.string.str_d) + " " + differenceHours + c.getString(R.string.str_h);
+            } else {
+                if (differenceHours > 0) {
+                    result = ""+differenceHours+ c.getString(R.string.str_h) + " " + differenceMinutes + c.getString(R.string.str_m);
+                } else {
+                    if(differenceMinutes > 0) {
+                        result = ""+differenceMinutes+ c.getString(R.string.str_m) + " " + differenceSeconds + c.getString(R.string.str_s);
+                    } else {
+                        result = differenceSeconds + c.getString(R.string.str_s);
+                    }
+                }
+
+            }
+
+        } catch (Exception e) {}
+
+        return "(" + result + " " + c.getString(R.string.str_ago) +")";
+    }
+
 
 
 

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -194,10 +195,15 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                        webintent.putExtra("txid", source.hash);
-                        webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                        startActivity(webintent);
+//                        Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+//                        webintent.putExtra("txid", source.hash);
+//                        webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+//                        startActivity(webintent);
+                        Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                        txDetail.putExtra("txHash", source.hash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
                     }
                 });
 

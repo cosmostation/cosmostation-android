@@ -106,6 +106,7 @@ public class BaseConstant {
 
     public final static String                  COSMOS_MSG_TYPE_TRANSFER                        = "cosmos-sdk/Send";
     public final static String                  COSMOS_MSG_TYPE_TRANSFER2                       = "cosmos-sdk/MsgSend";
+    public final static String                  COSMOS_MSG_TYPE_TRANSFER3                       = "cosmos-sdk/MsgMultiSend";
     public final static String                  COSMOS_MSG_TYPE_DELEGATE                        = "cosmos-sdk/MsgDelegate";
     public final static String                  COSMOS_MSG_TYPE_UNDELEGATE                      = "cosmos-sdk/Undelegate";
     public final static String                  COSMOS_MSG_TYPE_UNDELEGATE2                     = "cosmos-sdk/MsgUndelegate";

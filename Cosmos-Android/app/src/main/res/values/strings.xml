@@ -269,7 +269,7 @@
     <string name="str_max_available_redelegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_send_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_tx_error_description">Transaction request failed. \nPlease check the error code and message.</string>
-    <string name="str_success_loading">Transaction request submitted successfully. \nAfter a few moments, the full results will be displayed.</string>
+    <string name="str_success_loading">Transaction request submitted successfully. \nAfter a few moments, the full results will be displayed.\n(Pending times depends on Tx fee.)</string>
     <string name="str_front_guide_title"><![CDATA[COSMOS HUB]]></string>
     <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
     <string name="str_front_guide_title_binance"><![CDATA[BINANCE CHAIN]]></string>
@@ -352,7 +352,29 @@
     <string name="str_push_alarm">Push Alarm</string>
     <string name="str_push_permission_title">Permission</string>
     <string name="str_push_permission_msg">Need permission to send a push. Redirect to the setting screen?</string>
-
+    <string name="str_tx_detail">Transaction Detail</string>
+    <string name="str_tx_msg_cnt">Message Size</string>
+    <string name="str_tx_gas_info">Gas (used/wanted)</string>
+    <string name="str_tx_status">Status</string>
+    <string name="str_tx_height">Block Height</string>
+    <string name="str_tx_time">Time</string>
+    <string name="str_tx_fee_info">Fee (used/limit)</string>
+    <string name="str_tx_fee_used">Fee Used</string>
+    <string name="str_tx_fee_limit">Fee Limit</string>
+    <string name="str_from">From</string>
+    <string name="str_to">To</string>
+    <string name="str_delegator">Delegator</string>
+    <string name="str_undelegator">Undelegator</string>
+    <string name="str_redelegator">Redelegator</string>
+    <string name="str_auto_claimed_reward">Auto claimed rewards</string>
+    <string name="str_from_validator">From Validator</string>
+    <string name="str_to_validator">To Validator</string>
+    <string name="str_validators">Validators</string>
+    <string name="str_amount_sum">Amount Sum</string>
+    <string name="str_withdraw_address">Reward Withdraw Address</string>
+    <string name="str_voter">Voter</string>
+    <string name="str_success_c">Success</string>
+    <string name="str_failed_c">failed</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -553,6 +575,7 @@
     <string name="error_iris_already_voted">Already voted.</string>
     <string name="error_not_voting_period">Not voting period.</string>
     <string name="error_no_option">Please select your opinion.</string>
+    <string name="error_no_tx">Tx does not exist.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>
@@ -569,7 +592,7 @@
     <string name="tx_delegate">Delegate</string>
     <string name="tx_undelegate">Undelegate</string>
     <string name="tx_redelegate">Redelegate</string>
-    <string name="tx_get_reward">Get Rewards</string>
+    <string name="tx_get_reward">Get Reward</string>
     <string name="tx_get_reward_all">Get Rewards All</string>
     <string name="tx_get_commission">Get Commission</string>
     <string name="tx_change_reward_address">Edit Address</string>
@@ -582,7 +605,7 @@
     <string name="tx_new_order">New Order</string>
     <string name="tx_Cancel_order">Cancel Order</string>
     <string name="tx_issue_token">Token Issue</string>
-    <string name="tx_known">Known</string>
+    <string name="tx_known">Unknown</string>
 
 
     <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>

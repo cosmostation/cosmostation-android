@@ -1231,4 +1231,14 @@ public class WUtil {
 
     }
 
+    public static String getMonikerName(String opAddress, ArrayList<Validator> validators) {
+        String result = "";
+        for (Validator val:validators) {
+            if (val.operator_address.equals(opAddress)) {
+                return  "(" + val.description.moniker + ")";
+            }
+        }
+        return result;
+    }
+
 }

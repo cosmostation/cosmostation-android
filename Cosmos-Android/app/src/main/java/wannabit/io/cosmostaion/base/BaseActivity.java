@@ -607,6 +607,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
             mAllValidators.addAll(mTopValidators);
             mAllValidators.addAll(mOtherValidators);
+            getBaseDao().setAllValidators(mAllValidators);
 
 //            WLog.w("KAVA mBondings " + mBondings.size());
 //            WLog.w("KAVA mUnbondings " + mUnbondings.size());

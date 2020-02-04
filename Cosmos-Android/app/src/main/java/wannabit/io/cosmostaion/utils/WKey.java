@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.utils;
 
 import android.util.Base64;
-import android.util.Log;
 
 import com.github.orogvany.bip32.Network;
 import com.github.orogvany.bip32.wallet.CoinType;
@@ -34,8 +33,6 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.model.IrisStdSignMsg;
 import wannabit.io.cosmostaion.model.StdSignMsg;
-import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.network.BinanceChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;

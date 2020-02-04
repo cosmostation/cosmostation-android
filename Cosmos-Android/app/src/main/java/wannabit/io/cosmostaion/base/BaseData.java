@@ -33,7 +33,7 @@ public class BaseData {
     private SQLiteDatabase      mSQLiteDatabase;
     private Validator           mValidator;
     private ResBroadTx          mTxResult;
-
+    public ArrayList<Validator> mAllValidators = new ArrayList<>();
 
     public BaseData(BaseApplication apps) {
         this.mApp = apps;
@@ -438,9 +438,15 @@ public class BaseData {
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_PASSWORD, null, values);
     }
 
+    public ArrayList<Validator> getAllValidators() {
+        return mAllValidators;
+    }
 
+    public void setAllValidators(ArrayList<Validator> mAllValidators) {
+        this.mAllValidators = mAllValidators;
+    }
 
-//    public ArrayList<Mnemonic> onSelectMnemonics() {
+    //    public ArrayList<Mnemonic> onSelectMnemonics() {
 //        ArrayList<Mnemonic> result = new ArrayList<>();
 //        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey", "typeSize"}, null, null, null, null, null);
 //        if(cursor != null && cursor.moveToFirst()) {

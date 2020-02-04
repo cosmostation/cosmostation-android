@@ -1,10 +1,17 @@
 package wannabit.io.cosmostaion.network.res;
 
+import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import wannabit.io.cosmostaion.model.StdTx;
+import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResTxInfo {
     @SerializedName("height")
@@ -17,22 +24,26 @@ public class ResTxInfo {
     public Integer code;
 
     @SerializedName("logs")
-    public ArrayList<Log> logs;
+    @Expose
+    public Object logs;
 
-    @SerializedName("gasWanted")
-    public String gasWanted;
+    @SerializedName("gas_wanted")
+    public String gas_wanted;
 
-    @SerializedName("gasUsed")
-    public String gasUsed;
-
-    @SerializedName("tags")
-    public ArrayList<Tag> tags;
+    @SerializedName("gas_used")
+    public String gas_used;
 
     @SerializedName("tx")
     public StdTx tx;
 
     @SerializedName("timestamp")
     public String timestamp;
+
+    @SerializedName("raw_log")
+    public String raw_log;
+
+    @SerializedName("events")
+    public ArrayList<Event> events;
 
     public class Log {
         @SerializedName("msg_index")
@@ -45,10 +56,149 @@ public class ResTxInfo {
         public String log;
     }
 
-    public class Tag {
+    public boolean isSuccess() {
+        boolean result = true;
+        try {
+            Log temp = new Gson().fromJson(new Gson().toJson(logs), Log.class);
+            result = temp.success;
+
+        } catch (Exception e) { }
+
+        try {
+            ArrayList<Log> temp = new Gson().fromJson(new Gson().toJson(logs), new TypeToken<List<Log>>(){}.getType());
+            for (Log log:temp) {
+                if(!log.success) {
+                    result = false;
+                    break;
+                }
+            }
+
+        } catch (Exception e) { }
+
+        if (code != null && code > 0) {
+            result = false;
+        }
+
+        return result;
+    }
+
+    public String failMessage() {
+        String result = "";
+        try {
+            Log temp = new Gson().fromJson(new Gson().toJson(logs), Log.class);
+            result = temp.log;
+
+        } catch (Exception e) { }
+
+        try {
+            ArrayList<Log> temp = new Gson().fromJson(new Gson().toJson(logs), new TypeToken<List<Log>>(){}.getType());
+            for (Log log:temp) {
+                if(!log.success) {
+                    result = log.log;
+                    break;
+                }
+            }
+
+        } catch (Exception e) { }
+
+        if (raw_log != null) {
+            result = raw_log;
+        }
+
+        return result;
+    }
+
+    public BigDecimal simpleFee() {
+        BigDecimal result = BigDecimal.ZERO;
+        if (tx != null && tx.value != null && tx.value.fee != null &&
+                tx.value.fee.amount != null && tx.value.fee.amount.size() > 0) {
+            return new BigDecimal(tx.value.fee.amount.get(0).amount);
+        }
+        return result;
+    }
+
+    public String getMsgType(int position) {
+        String result = "";
+        if (tx != null && tx.value != null && tx.value.msg != null && tx.value.msg.size() > position) {
+            result = tx.value.msg.get(position).type;
+        }
+        return result;
+    }
+
+    public Msg getMsg(int position) {
+        Msg result = null;
+        if (tx != null && tx.value != null && tx.value.msg != null && tx.value.msg.size() > position) {
+            result = tx.value.msg.get(position);
+        }
+        return result;
+    }
+
+    public ArrayList<Msg> getMsgs() {
+        ArrayList<Msg> result = new ArrayList<>();
+        if (tx != null && tx.value != null && tx.value.msg != null && tx.value.msg.size() > 0) {
+            result = tx.value.msg;
+        }
+        return result;
+    }
+
+
+    public BigDecimal simpleAutoReward(String opAdd) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (events != null) {
+            for (Event event:events) {
+                if (event.type.equals("transfer")) {
+//                    boolean match = true;
+//                    for (EventAttribute attr:event.attributes) {
+//                        if (attr.value.equals(opAdd)) {
+//                            match = true;
+//                        }
+//                    }
+//                    if (match) {
+                        for (EventAttribute attr:event.attributes) {
+                            if (attr.key.equals("amount")) {
+                                String temp = attr.value.replace("uatom", "").replace("ukava", "");
+                                result = new BigDecimal(temp);
+                            }
+                        }
+//                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal simpleAutoReward() {
+        BigDecimal result = BigDecimal.ZERO;
+        if (events != null) {
+            for (Event event:events) {
+                if (event.type.equals("transfer")) {
+                    for (EventAttribute attr:event.attributes) {
+                        if (attr.key.equals("amount")) {
+                            String temp = attr.value.replace("uatom", "").replace("ukava", "");
+                            result = new BigDecimal(temp);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+
+
+
+
+    public class Event {
+        @SerializedName("type")
+        public String type;
+        @SerializedName("attributes")
+        public ArrayList<EventAttribute> attributes;
+    }
+
+    public class EventAttribute {
         @SerializedName("key")
         public String key;
-
         @SerializedName("value")
         public String value;
     }
@@ -72,5 +222,19 @@ public class ResTxInfo {
 
         @SerializedName("tags")
         public ArrayList<Tag> tags;
+    }
+
+
+
+
+
+    @SerializedName("tags")
+    public ArrayList<Tag> tags;
+    public class Tag {
+        @SerializedName("key")
+        public String key;
+
+        @SerializedName("value")
+        public String value;
     }
 }

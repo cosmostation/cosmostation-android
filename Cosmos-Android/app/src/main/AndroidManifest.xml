@@ -202,6 +202,14 @@
             android:launchMode="singleTask">
         </activity>
 
+        <activity
+            android:name=".activities.TxDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:launchMode="singleTask">
+        </activity>
+
 
         <activity
             android:name=".activities.WebActivity"

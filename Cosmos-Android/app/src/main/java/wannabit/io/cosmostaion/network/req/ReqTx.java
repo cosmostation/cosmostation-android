@@ -105,8 +105,8 @@ public class ReqTx {
     public static final String to_addr              = "tx.value.msg.value.to_address";
     public static final String depositor_addr       = "tx.value.msg.value.depositor";
     public static final String voter_addr           = "tx.value.msg.value.voter";
-    public static final String input_addr           = "tx.value.msg.value.input.address";
-    public static final String output_addr          = "tx.value.msg.value.output.address";
+    public static final String input_addr           = "tx.value.msg.value.inputs.address";
+    public static final String output_addr          = "tx.value.msg.value.outputs.address";
     public static final String addr_proposer        = "tx.value.msg.value.proposer";
 
 
