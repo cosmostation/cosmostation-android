@@ -61,8 +61,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mUserInput = "";
     private int                         mPurpose;
 
-
-    private Account                     mAccount;
     private String                      mTargetAddress;
     private ArrayList<Coin>             mTargetCoins;
     private String                      mTargetMemo;
@@ -108,6 +106,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mPurpose = getIntent().getIntExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mTargetAddress = getIntent().getStringExtra("toAddress");
         mTargetCoins = getIntent().getParcelableArrayListExtra("amount");
         mTargetMemo = getIntent().getStringExtra("memo");
@@ -355,16 +354,32 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 onShakeView();
                 return;
             }
-            Intent txIntent = new Intent(PasswordCheckActivity.this, TxResultActivity.class);
-            txIntent.putExtra("txType", result.taskType);
-            txIntent.putExtra("isSuccess", result.isSuccess);
-            String hash = String.valueOf(result.resultData);
-            if(!TextUtils.isEmpty(hash))
-                txIntent.putExtra("txHash", hash);
-            txIntent.putExtra("errorCode", result.errorCode);
-            txIntent.putExtra("errorMsg", result.errorMsg);
 
-            startActivity(txIntent);
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
+                txIntent.putExtra("isGen", true);
+                txIntent.putExtra("isSuccess", result.isSuccess);
+                txIntent.putExtra("errorCode", result.errorCode);
+                txIntent.putExtra("errorMsg", result.errorMsg);
+                String hash = String.valueOf(result.resultData);
+                if(!TextUtils.isEmpty(hash))
+                    txIntent.putExtra("txHash", hash);
+                startActivity(txIntent);
+
+            } else {
+                Intent txIntent = new Intent(PasswordCheckActivity.this, TxResultActivity.class);
+                txIntent.putExtra("txType", result.taskType);
+                txIntent.putExtra("isSuccess", result.isSuccess);
+                String hash = String.valueOf(result.resultData);
+                if(!TextUtils.isEmpty(hash))
+                    txIntent.putExtra("txHash", hash);
+                txIntent.putExtra("errorCode", result.errorCode);
+                txIntent.putExtra("errorMsg", result.errorMsg);
+
+                startActivity(txIntent);
+            }
+
+
 
         } else if (result.taskType == BaseConstant.TASK_DELETE_USER) {
             if(result.isSuccess) {

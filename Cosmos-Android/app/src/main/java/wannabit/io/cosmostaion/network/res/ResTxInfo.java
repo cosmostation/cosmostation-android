@@ -142,25 +142,20 @@ public class ResTxInfo {
     }
 
 
-    public BigDecimal simpleAutoReward(String opAdd) {
+    public BigDecimal simpleReward(String opAdd) {
         BigDecimal result = BigDecimal.ZERO;
         if (events != null) {
             for (Event event:events) {
-                if (event.type.equals("transfer")) {
-//                    boolean match = true;
-//                    for (EventAttribute attr:event.attributes) {
-//                        if (attr.value.equals(opAdd)) {
-//                            match = true;
-//                        }
-//                    }
-//                    if (match) {
-                        for (EventAttribute attr:event.attributes) {
-                            if (attr.key.equals("amount")) {
-                                String temp = attr.value.replace("uatom", "").replace("ukava", "");
+                if (event.type.equals("withdraw_rewards")) {
+                    for (int i = 0; i < event.attributes.size(); i ++) {
+                        if (event.attributes.get(i).key.equals("validator") && event.attributes.get(i).value.equals(opAdd)) {
+                            if (i-1 < event.attributes.size() && event.attributes.get(i-1) != null && event.attributes.get(i-1).key.equals("amount")) {
+                                String temp = event.attributes.get(i-1).value.replace("uatom", "").replace("ukava", "");
                                 result = new BigDecimal(temp);
                             }
                         }
-//                    }
+
+                    }
                 }
             }
         }
@@ -172,6 +167,24 @@ public class ResTxInfo {
         if (events != null) {
             for (Event event:events) {
                 if (event.type.equals("transfer")) {
+                    for (EventAttribute attr:event.attributes) {
+                        if (attr.key.equals("amount")) {
+                            String temp = attr.value.replace("uatom", "").replace("ukava", "");
+                            result = new BigDecimal(temp);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal simpleCommission() {
+        BigDecimal result = BigDecimal.ZERO;
+        if (events != null) {
+            for (Event event:events) {
+                if (event.type.equals("withdraw_commission")) {
                     for (EventAttribute attr:event.attributes) {
                         if (attr.key.equals("amount")) {
                             String temp = attr.value.replace("uatom", "").replace("ukava", "");

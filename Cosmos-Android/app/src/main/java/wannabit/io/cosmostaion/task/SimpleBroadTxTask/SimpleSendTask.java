@@ -40,7 +40,6 @@ public class SimpleSendTask extends CommonTask {
                           String toAddress, ArrayList<Coin> toSendAmount, String toSendMemo,
                           Fee toFees) {
         super(app, listener);
-        WLog.w("SimpleSendTask");
         this.mAccount           = account;
         this.mToAddress         = toAddress;
         this.mToSendAmount      = toSendAmount;
