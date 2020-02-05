@@ -105,7 +105,7 @@ public class ResTxInfo {
             result = raw_log;
         }
 
-        return result;
+        return result.replace(" ", "\u00A0");
     }
 
     public BigDecimal simpleFee() {

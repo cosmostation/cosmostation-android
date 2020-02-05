@@ -54,8 +54,10 @@
                 android:id="@+id/tx_fail_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/box_round_tx_error"
+                android:layout_marginTop="@dimen/space_4"
                 android:text="-"
-                style="@style/font_ss_12_red"
+                style="@style/font_ss_11_red"
                 android:visibility="gone"/>
             <RelativeLayout
                 android:layout_width="match_parent"
