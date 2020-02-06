@@ -375,6 +375,8 @@
     <string name="str_voter">Voter</string>
     <string name="str_success_c">Success</string>
     <string name="str_failed_c">failed</string>
+    <string name="str_unknown_msg">UnKnown Type Message</string>
+    <string name="str_unknown_tx">This message type is not supported by mobile.\nPlease check the MintScan Explorer for details.</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

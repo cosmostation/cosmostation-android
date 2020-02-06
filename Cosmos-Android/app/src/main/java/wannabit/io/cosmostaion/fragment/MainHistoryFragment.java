@@ -267,10 +267,19 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                        webintent.putExtra("txid", source.hash);
-                        webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                        startActivity(webintent);
+                        int TxType = WDp.getHistoryDpType(source.tx.value.msg, getMainActivity().mAccount.address);
+                        if (TxType > TX_TYPE_UNKNOWN && TxType <= TX_TYPE_REINVEST) {
+                            Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                            txDetail.putExtra("txHash", source.hash);
+                            txDetail.putExtra("isGen", false);
+                            txDetail.putExtra("isSuccess", true);
+                            startActivity(txDetail);
+                        } else {
+                            Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                            webintent.putExtra("txid", source.hash);
+                            webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+                            startActivity(webintent);
+                        }
                     }
                 });
             }

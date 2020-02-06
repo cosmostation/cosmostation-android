@@ -222,7 +222,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_TX_ADDRESS_CHANGE = 6;
         private static final int TYPE_TX_VOTE = 7;
         private static final int TYPE_TX_COMMISSION = 8;
-        private static final int TYPE_TX_MESSAGE = 10;
+        private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
         @Override
@@ -247,10 +247,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxCommissionHolder(getLayoutInflater().inflate(R.layout.item_tx_commission, viewGroup, false));
             }
 
-            else {
-//                return null;
-                return new TxCommonHolder(getLayoutInflater().inflate(R.layout.item_tx_common, viewGroup, false));
-            }
+            return new TxUnKnownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
         }
 
         @Override
@@ -273,6 +270,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindVote(viewHolder, mResTxInfo.getMsg(position - 1));
             } else if (getItemViewType(position) == TYPE_TX_COMMISSION) {
                 onBindCommission(viewHolder, mResTxInfo.getMsg(position - 1));
+            } else {
+                onBindUnKnown(viewHolder, mResTxInfo.getMsg(position - 1));
             }
         }
 
@@ -323,10 +322,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     return TYPE_TX_COMMISSION;
                 }
 
-
-                else {
-                    return TYPE_TX_MESSAGE;
-                }
+                return TYPE_TX_UNKNOWN;
 
             }
         }
@@ -588,6 +584,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
+        private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, Msg msg) {
+            final TxUnKnownHolder holder = (TxUnKnownHolder)viewHolder;
+            holder.itemUnknownImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        }
 
 
         public class TxCommonHolder extends RecyclerView.ViewHolder {
@@ -808,6 +808,17 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemCommissionValidatorMoniker = itemView.findViewById(R.id.tx_commission_moniker);
                 itemCommissionAmount = itemView.findViewById(R.id.tx_commission_amount);
                 itemCommissionAmountDenom = itemView.findViewById(R.id.tx_commission_amount_symbol);
+            }
+        }
+
+        public class TxUnKnownHolder extends RecyclerView.ViewHolder {
+            ImageView itemUnknownImg;
+            TextView itemUnknownTitle;
+
+            public TxUnKnownHolder(@NonNull View itemView) {
+                super(itemView);
+                itemUnknownImg = itemView.findViewById(R.id.tx_unknown_icon);
+                itemUnknownTitle = itemView.findViewById(R.id.tx_unknown_text);
             }
         }
     }
