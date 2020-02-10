@@ -102,6 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_12"
+                    android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_atom"/>
 
                 <include
@@ -110,6 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_12"
+                    android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_iris"/>
 
                 <include
@@ -118,6 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_12"
+                    android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_bnb"/>
 
                 <include
@@ -126,6 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_12"
+                    android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_kava"/>
 
                 <include
@@ -134,6 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_12"
+                    android:layout_marginTop="@dimen/space_2"
                     layout="@layout/layout_card_iov"/>
 
                 <android.support.v7.widget.CardView
@@ -150,57 +155,83 @@
                     app:cardUseCompatPadding="true"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground">
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
                         android:padding="@dimen/space_16">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/str_price"
-                            style="@style/font_ss_12_gray1"/>
-                        <TextView
-                            android:id="@+id/dash_per_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:gravity="right"
-                            style="@style/font_ssl_14_white"
-                            android:text="-"/>
-                        <LinearLayout
-                            android:id="@+id/dash_per_change"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_below="@+id/dash_per_price"
-                            android:layout_marginTop="@dimen/space_2"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-                            <ImageView
-                                android:id="@+id/ic_price_updown"
-                                android:layout_width="@dimen/space_12"
-                                android:layout_height="@dimen/space_12"
-                                android:layout_marginTop="@dimen/space_2"
-                                android:layout_marginRight="@dimen/space_2"
-                                android:src="@drawable/ic_price_down"
-                                android:visibility="gone"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
                             <TextView
-                                android:id="@+id/dash_price_updown_tx"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/str_price"
+                                style="@style/font_ss_12_gray1"/>
+                            <TextView
+                                android:id="@+id/dash_per_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                style="@style/font_ssl_12_white"
+                                style="@style/font_ssl_14_white"
                                 android:text="-"/>
-                        </LinearLayout>
-                        <TextView
-                            android:id="@+id/dash_price_market"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/space_24"
-                            android:text="(CoinMarketCap)"
-                            style="@style/font_ss_9_gray1"/>
-                    </RelativeLayout>
+                            <LinearLayout
+                                android:id="@+id/dash_per_change"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_below="@+id/dash_per_price"
+                                android:layout_marginTop="@dimen/space_2"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+                                <ImageView
+                                    android:id="@+id/ic_price_updown"
+                                    android:layout_width="@dimen/space_12"
+                                    android:layout_height="@dimen/space_12"
+                                    android:layout_marginTop="@dimen/space_2"
+                                    android:layout_marginRight="@dimen/space_2"
+                                    android:src="@drawable/ic_price_down"
+                                    android:visibility="gone"/>
+                                <TextView
+                                    android:id="@+id/dash_price_updown_tx"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:gravity="right"
+                                    style="@style/font_ssl_12_white"
+                                    android:text="-"/>
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/dash_price_market"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_24"
+                                android:text="(CoinMarketCap)"
+                                style="@style/font_ss_9_gray1"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/btn_buy_coin"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/space_40"
+                            android:minHeight="@dimen/space_40"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/btn_trans_with_border"
+                            android:clickable="true"
+                            android:visibility="gone">
+                            <TextView
+                                android:id="@+id/tv_buy_coin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:drawableLeft="@drawable/send_ic"
+                                android:drawablePadding="@dimen/space_8"
+                                android:gravity="center"
+                                style="@style/font_ss_12_white"
+                                android:text="@string/str_buy_atom" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
                 </android.support.v7.widget.CardView>
 
                 <LinearLayout

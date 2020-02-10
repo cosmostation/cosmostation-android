@@ -13,7 +13,6 @@ import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -45,7 +43,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -58,7 +55,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 
 
 public class MainSendFragment extends BaseFragment implements View.OnClickListener {
@@ -89,6 +85,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mMarket;
     private TextView            mPerPrice, mUpDownPrice;
     private ImageView           mUpDownImg;
+    private RelativeLayout      mBuyCoinBtn;
+    private TextView            mBuyCoinTv;
 
     private LinearLayout        mMintCards;
     private TextView            mInflation, mYield;
@@ -174,6 +172,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mPerPrice               = rootView.findViewById(R.id.dash_per_price);
         mUpDownPrice            = rootView.findViewById(R.id.dash_price_updown_tx);
         mUpDownImg              = rootView.findViewById(R.id.ic_price_updown);
+        mBuyCoinBtn             = rootView.findViewById(R.id.btn_buy_coin);
+        mBuyCoinTv              = rootView.findViewById(R.id.tv_buy_coin);
 
         mMintCards              = rootView.findViewById(R.id.cards_mint);
         mInflation              = rootView.findViewById(R.id.dash_inflation);
@@ -221,6 +221,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnKavaReward.setOnClickListener(this);
         mBtnKavaVote.setOnClickListener(this);
         mBtnBnbConnect.setOnClickListener(this);
+        mBuyCoinBtn.setOnClickListener(this);
 
         return rootView;
     }
@@ -288,6 +289,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
+            mBuyCoinBtn.setVisibility(View.VISIBLE);
+            mBuyCoinTv.setText(R.string.str_buy_atom);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -304,6 +307,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
+            mBuyCoinBtn.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -320,6 +324,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
+            mBuyCoinBtn.setVisibility(View.VISIBLE);
+            mBuyCoinTv.setText(R.string.str_buy_bnb);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -335,6 +341,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBnbCard.setVisibility(View.GONE);
             mKavaCard.setVisibility(View.VISIBLE);
             mIovCard.setVisibility(View.GONE);
+            mBuyCoinBtn.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -351,6 +358,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.VISIBLE);
             mMintCards.setVisibility(View.GONE);
+            mBuyCoinBtn.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIov), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -687,6 +695,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .setRationaleMessage(getString(R.string.str_permission_qr))
             .check();
+
+        } else if (v.equals(mBuyCoinBtn)) {
+            WLog.w("mBuyCoinBtn");
 
         }
 

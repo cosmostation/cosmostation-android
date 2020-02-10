@@ -322,7 +322,8 @@
     <string name="str_failed_c">실패</string>
     <string name="str_unknown_msg">알수 없는 타입</string>
     <string name="str_unknown_tx">이 메시지는 모바일에서 지원하지 않습니다.\n민트스캔 익스플로러에서 자세한 내용을 확인해 주세요.</string>
-
+    <string name="str_buy_atom">Buy Atom</string>
+    <string name="str_buy_bnb">Buy Bnb</string>
 
 
     <string name="str_main_wallet">WALLET</string>

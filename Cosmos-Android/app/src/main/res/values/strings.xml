@@ -5,6 +5,7 @@
     <string name="url_coinmarketcap" translatable="false">https://api.coinmarketcap.com/</string>
     <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>
     <string name="url_keybase" translatable="false">https://keybase.io/</string>
+    <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
 
     <string name="url_css" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_lcd_main" translatable="false">https://lcd-cosmos-app.cosmostation.io/</string>
@@ -56,6 +57,8 @@
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
+
+    <string name="moon_pay_public_key" translatable="false">pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn</string>
 
     <string name="str_ok">OK</string>
     <string name="str_no">No</string>
@@ -377,6 +380,9 @@
     <string name="str_failed_c">failed</string>
     <string name="str_unknown_msg">UnKnown Type Message</string>
     <string name="str_unknown_tx">This message type is not supported by mobile.\nPlease check the MintScan Explorer for details.</string>
+    <string name="str_buy_atom">Buy Atom</string>
+    <string name="str_buy_bnb">Buy Bnb</string>
+
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
