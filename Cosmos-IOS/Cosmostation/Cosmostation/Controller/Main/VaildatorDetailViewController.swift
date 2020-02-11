@@ -191,10 +191,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         cell?.descriptionMsg.text = mValidator!.description.details
         cell?.actionTapUrl = {
             guard let url = URL(string: self.mValidator!.description.website) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            self.present(safariViewController, animated: true, completion: nil)
+            if (UIApplication.shared.canOpenURL(url)) {
+                let safariViewController = SFSafariViewController(url: url)
+                self.present(safariViewController, animated: true, completion: nil)
+            }
         }
-        
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmout(mValidator!.tokens, cell!.totalBondedAmount.font, 6)
@@ -285,8 +286,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         cell?.descriptionMsg.text = mValidator!.description.details
         cell?.actionTapUrl = {
             guard let url = URL(string: self.mValidator!.description.website) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            self.present(safariViewController, animated: true, completion: nil)
+            if (UIApplication.shared.canOpenURL(url)) {
+                let safariViewController = SFSafariViewController(url: url)
+                self.present(safariViewController, animated: true, completion: nil)
+            }
         }
         
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
