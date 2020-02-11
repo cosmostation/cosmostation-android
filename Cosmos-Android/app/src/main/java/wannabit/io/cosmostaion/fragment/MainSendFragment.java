@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.BuyActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
@@ -55,6 +56,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 
 
 public class MainSendFragment extends BaseFragment implements View.OnClickListener {
@@ -66,7 +68,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private ImageView           mKeyState;
     private TextView            mAddress;
 
-    private CardView            mAtomCard, mIrisCard, mBnbCard, mKavaCard, mIovCard, mPriceCard;
+    private CardView            mAtomCard, mIrisCard, mBnbCard, mKavaCard, mIovCard;
 
     private TextView            mTvAtomTotal, mTvAtomValue, mTvAtomAvailable,
                                 mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
@@ -78,13 +80,15 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private RelativeLayout      mBtnBnbConnect;
     private TextView            mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVesting,
                                 mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards;
-    private RelativeLayout      mBtnKavaReward, mBtnKavaVote;
+    private RelativeLayout      mBtnKavaReward, mBtnKavaVote, mBtnKavaCdp;
     private TextView            mTvIovTotal, mTvIovValue, mTvIovAvailable, mTvIovDeposited, mTvIovRewards;
     private RelativeLayout      mBtnIovDeposit, mBtnIovNameService;
 
+    private RelativeLayout      mPriceLayer;
     private TextView            mMarket;
     private TextView            mPerPrice, mUpDownPrice;
     private ImageView           mUpDownImg;
+    private LinearLayout        mBuyLayer;
     private RelativeLayout      mBuyCoinBtn;
     private TextView            mBuyCoinTv;
 
@@ -95,7 +99,6 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private TextView            mGuideTitle, mGuideMsg;
     private LinearLayout        mGuideAction;
     private Button              mGuideBtn, mFaqBtn;
-
 
 
     public static MainSendFragment newInstance(Bundle bundle) {
@@ -157,6 +160,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvKavaRewards          = mKavaCard.findViewById(R.id.dash_kava_reward);
         mBtnKavaReward          = mKavaCard.findViewById(R.id.btn_kava_reward);
         mBtnKavaVote            = mKavaCard.findViewById(R.id.btn_kava_vote);
+        mBtnKavaCdp             = mKavaCard.findViewById(R.id.btn_kava_cdp);
 
         mIovCard                = rootView.findViewById(R.id.card_iov);
         mTvIovTotal             = mIovCard.findViewById(R.id.dash_iov_amount);
@@ -167,11 +171,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnIovDeposit          = mIovCard.findViewById(R.id.btn_iov_deposit);
         mBtnIovNameService      = mIovCard.findViewById(R.id.btn_iov_name_service);
 
-        mPriceCard              = rootView.findViewById(R.id.card_price);
+        mPriceLayer             = rootView.findViewById(R.id.price_layer);
         mMarket                 = rootView.findViewById(R.id.dash_price_market);
         mPerPrice               = rootView.findViewById(R.id.dash_per_price);
         mUpDownPrice            = rootView.findViewById(R.id.dash_price_updown_tx);
         mUpDownImg              = rootView.findViewById(R.id.ic_price_updown);
+        mBuyLayer               = rootView.findViewById(R.id.buy_layer);
         mBuyCoinBtn             = rootView.findViewById(R.id.btn_buy_coin);
         mBuyCoinTv              = rootView.findViewById(R.id.tv_buy_coin);
 
@@ -213,13 +218,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnAddressDetail.setOnClickListener(this);
         mGuideBtn.setOnClickListener(this);
         mFaqBtn.setOnClickListener(this);
-        mPriceCard.setOnClickListener(this);
+        mPriceLayer.setOnClickListener(this);
         mBtnAtomReward.setOnClickListener(this);
         mBtnAtomVote.setOnClickListener(this);
         mBtnIrisReward.setOnClickListener(this);
         mBtnIrisVote.setOnClickListener(this);
         mBtnKavaReward.setOnClickListener(this);
         mBtnKavaVote.setOnClickListener(this);
+        mBtnKavaCdp.setOnClickListener(this);
         mBtnBnbConnect.setOnClickListener(this);
         mBuyCoinBtn.setOnClickListener(this);
 
@@ -289,8 +295,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
-            mBuyCoinBtn.setVisibility(View.VISIBLE);
-            mBuyCoinTv.setText(R.string.str_buy_atom);
+            if (SUPPORT_MOONPAY) {
+                mBuyLayer.setVisibility(View.VISIBLE);
+                mBuyCoinTv.setText(R.string.str_buy_atom);
+            }
+
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -307,7 +316,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.VISIBLE);
-            mBuyCoinBtn.setVisibility(View.GONE);
+            mBuyLayer.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -324,8 +333,10 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
             mMintCards.setVisibility(View.GONE);
-            mBuyCoinBtn.setVisibility(View.VISIBLE);
-            mBuyCoinTv.setText(R.string.str_buy_bnb);
+            if (SUPPORT_MOONPAY) {
+                mBuyLayer.setVisibility(View.VISIBLE);
+                mBuyCoinTv.setText(R.string.str_buy_bnb);
+            }
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -344,7 +355,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             }
             mIovCard.setVisibility(View.GONE);
-            mBuyCoinBtn.setVisibility(View.GONE);
+            mBuyLayer.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -361,7 +372,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.VISIBLE);
             mMintCards.setVisibility(View.GONE);
-            mBuyCoinBtn.setVisibility(View.GONE);
+            mBuyLayer.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIov), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -487,6 +498,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mTvKavaRewards.setText(WDp.getDpAllRewardAmount(getContext(), getMainActivity().mRewards, getMainActivity().mBaseChain, COSMOS_KAVA));
             mTvKavaValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
             getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, totalAmount.toPlainString());
+            if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                mBtnKavaCdp.setVisibility(View.VISIBLE);
+            } else {
+                mBtnKavaCdp.setVisibility(View.GONE);
+            }
 
             try {
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastKavaTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -614,7 +630,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
             }
 
-        } else if (v.equals(mPriceCard)) {
+        } else if (v.equals(mPriceLayer)) {
             if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 if (getBaseDao().getMarket() == 0) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/cosmos"));
@@ -700,7 +716,17 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             .check();
 
         } else if (v.equals(mBuyCoinBtn)) {
-            WLog.w("mBuyCoinBtn");
+            if (getMainActivity().mAccount.hasPrivateKey) {
+                Intent buyIntent = new Intent(getMainActivity(), BuyActivity.class);
+                startActivity(buyIntent);
+            } else {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                add.show(getFragmentManager(), "dialog");
+            }
+
+        } else if (v.equals(mBtnKavaCdp)) {
+            WLog.w("mBtnKavaCdp");
 
         }
 

@@ -1,20 +1,26 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WLog;
 
-public class BuyActivity extends BaseActivity {
+public class BuyActivity extends BaseActivity implements TaskListener {
 
     private WebView mWebview;
-    private BaseChain mBasechain;
-    private String mReceiveAddress;
+    private String mQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +39,31 @@ public class BuyActivity extends BaseActivity {
             }
         });
 
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mQuery = "?apiKey=" + getString(R.string.moon_pay_public_key);
+
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mQuery = mQuery + "&currencyCode=atom";
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            mQuery = mQuery + "&currencyCode=bnb";
+        }
+        mQuery = mQuery + "&walletAddress=" + mAccount.address;
+        new MoonPayTask(getBaseApplication(), this, mQuery).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
     }
+
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if (result.taskType == BaseConstant.TASK_MOON_PAY_SIGNATURE) {
+            if (result.isSuccess) {
+                mWebview.loadUrl(getString(R.string.url_moon_pay) + mQuery + "&signature=" + (String)result.resultData);
+            } else {
+                onBackPressed();
+            }
+        }
+    }
+
 }

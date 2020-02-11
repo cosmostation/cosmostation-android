@@ -326,7 +326,7 @@
     <string name="str_buy_atom">Buy 구입</string>
     <string name="str_buy_bnb">Buy 구입</string>
     <string name="str_kava_testnet_msg"><![CDATA[KAVA 테스트넷을 위한 지갑입니다\n(해당 지갑의 KAVA 토큰은 실제 가치가 없습니다).\n\n코스모스테이션은 사용자들이 KAVA 고유의 CDP(코인담보대출)기능들을 메인넷에 반영되기 이전에 확인하고 사용해 볼 수 있는 기회를 제공하기 위해 테스트넷을 지원합니다. 해당 테스트넷에 대한 지원은 언제든 중단될 수 있습니다.]]></string>
-
+    <string name="str_kava_cdp">CDP</string>
 
 
     <string name="str_main_wallet">WALLET</string>

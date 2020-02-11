@@ -161,6 +161,7 @@
                         android:orientation="vertical"
                         android:padding="@dimen/space_16">
                         <RelativeLayout
+                            android:id="@+id/price_layer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <TextView
@@ -210,26 +211,37 @@
                                 android:text="(CoinMarketCap)"
                                 style="@style/font_ss_9_gray1"/>
                         </RelativeLayout>
-                        <RelativeLayout
-                            android:id="@+id/btn_buy_coin"
+                        <LinearLayout
+                            android:id="@+id/buy_layer"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/space_40"
-                            android:minHeight="@dimen/space_40"
-                            android:layout_marginTop="12dp"
-                            android:background="@drawable/btn_trans_with_border"
-                            android:clickable="true"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="vertical"
                             android:visibility="gone">
-                            <TextView
-                                android:id="@+id/tv_buy_coin"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:drawableLeft="@drawable/send_ic"
-                                android:drawablePadding="@dimen/space_8"
-                                android:gravity="center"
-                                style="@style/font_ss_12_white"
-                                android:text="@string/str_buy_atom" />
-                        </RelativeLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/colorGray3"/>
+                            <RelativeLayout
+                                android:id="@+id/btn_buy_coin"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/space_40"
+                                android:minHeight="@dimen/space_40"
+                                android:layout_marginTop="-4dp"
+                                android:clickable="true">
+                                <TextView
+                                    android:id="@+id/tv_buy_coin"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignParentBottom="true"
+                                    android:drawableLeft="@drawable/card_ic"
+                                    android:drawablePadding="@dimen/space_8"
+                                    android:gravity="center"
+                                    style="@style/font_ss_14_photon"
+                                    android:text="@string/str_buy_atom" />
+                            </RelativeLayout>
+                        </LinearLayout>
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>

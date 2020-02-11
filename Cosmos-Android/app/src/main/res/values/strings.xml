@@ -12,7 +12,7 @@
     <!--<string name="url_lcd_main" translatable="false">https://lcd-cosmos-testnet.cosmostation.io/</string>-->
     <string name="url_lcd_main_iris" translatable="false">https://lcd-iris.cosmostation.io/</string>
     <string name="url_lcd_main_kava" translatable="false">https://lcd-kava.cosmostation.io/</string>
-    <string name="url_lcd_main_kava_test" translatable="false">http://54.88.243.146:1317/</string>
+    <string name="url_lcd_main_kava_test" translatable="false">https://lcd-kava-testnet.cosmostation.io/</string>
     <string name="url_rest_main_iov" translatable="false">https://rest-iov.cosmostation.io/</string>
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
     <string name="url_es_proxy" translatable="false">https://app-es.cosmostation.io/</string>
@@ -387,6 +387,7 @@
     <string name="str_buy_atom">Buy Atom</string>
     <string name="str_buy_bnb">Buy Bnb</string>
     <string name="str_kava_testnet_msg"><![CDATA[This wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
+    <string name="str_kava_cdp">CDP</string>
 
 
     <string name="str_main_wallet">WALLET</string>
