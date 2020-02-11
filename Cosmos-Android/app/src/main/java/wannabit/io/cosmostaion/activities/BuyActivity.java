@@ -2,11 +2,15 @@ package wannabit.io.cosmostaion.activities;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import java.net.URLEncoder;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -48,7 +52,8 @@ public class BuyActivity extends BaseActivity implements TaskListener {
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mQuery = mQuery + "&currencyCode=bnb";
         }
-        mQuery = mQuery + "&walletAddress=" + mAccount.address;
+        mQuery = mQuery + "&walletAddress=" + mAccount.address + "&baseCurrencyCode=usd";
+        WLog.w("mQuery " + mQuery);
         new MoonPayTask(getBaseApplication(), this, mQuery).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
@@ -56,10 +61,26 @@ public class BuyActivity extends BaseActivity implements TaskListener {
 
 
     @Override
+    public void onBackPressed() {
+        if(mWebview.canGoBack()) {
+            mWebview.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @Override
     public void onTaskResponse(TaskResult result) {
         if (result.taskType == BaseConstant.TASK_MOON_PAY_SIGNATURE) {
             if (result.isSuccess) {
-                mWebview.loadUrl(getString(R.string.url_moon_pay) + mQuery + "&signature=" + (String)result.resultData);
+                try {
+                    String en = URLEncoder.encode((String)result.resultData, "UTF-8");
+                    mWebview.loadUrl(getString(R.string.url_moon_pay) + mQuery + "&signature=" + en);
+                }catch (Exception e) {
+                    onBackPressed();
+                }
+
             } else {
                 onBackPressed();
             }
