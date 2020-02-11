@@ -144,7 +144,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
             mGasFeeAmount.setText(WDp.getDpString(WDp.attoToIris(mFeeAmount).setScale(1, RoundingMode.DOWN).toPlainString(), 2));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mBtnGasType.setOnClickListener(this);
             mSpeedLayer.setOnClickListener(this);
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
@@ -177,7 +177,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
             mAvailable  = getSActivity().mAccount.getAtomBalance();
             onUpdateFeeLayer();
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mAvailable  = getSActivity().mAccount.getKavaBalance();
             onUpdateFeeLayer();
 
@@ -212,7 +212,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 fee.gas = BaseConstant.FEE_IRIS_GAS_AMOUNT_REDELEGATE;
                 getSActivity().mReDelegateFee = fee;
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = BaseConstant.COSMOS_KAVA;
@@ -296,18 +296,23 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
             }
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if(mSeekBarGas.getProgress() == 0) {
                 mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
                 mSpeedMsg.setText(getString(R.string.str_fee_speed_title_0));
                 mFeeLayer1.setVisibility(View.VISIBLE);
                 mFeeLayer2.setVisibility(View.GONE);
 
-                mFeeAmount  = BigDecimal.ONE;
-                if(getBaseDao().getCurrency() != 5) {
-                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
+                if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                    mFeeAmount  = BigDecimal.ONE;
+                    if(getBaseDao().getCurrency() != 5) {
+                        mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
+                    } else {
+                        mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(8, RoundingMode.DOWN);
+                    }
                 } else {
-                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(8, RoundingMode.DOWN);
+                    mFeeAmount = BigDecimal.ZERO;
+                    mFeePrice = BigDecimal.ZERO;
                 }
 
                 mMinFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));

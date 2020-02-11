@@ -36,7 +36,7 @@ public class MsgGenerator {
     public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins, BaseChain chain) {
         Msg         result      = new Msg();
         Msg.Value   value       = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.from_address = fromAddr;
             value.to_address = toAddr;
             value.amount = coins;
@@ -65,7 +65,7 @@ public class MsgGenerator {
     public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.delegator_address = fromAddr;
             value.validator_address = toValAddr;
             value.amount = toDeleagteAmout;
@@ -88,7 +88,7 @@ public class MsgGenerator {
     public static Msg genUnbondMsg(String requestAddr, String fromValAddr, Coin amount, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.delegator_address = requestAddr;
             value.validator_address = fromValAddr;
             value.amount = amount;
@@ -111,7 +111,7 @@ public class MsgGenerator {
     public static Msg genWithdrawDeleMsg(String requestAddr, String fromValAddr, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.delegator_address = requestAddr;
             value.validator_address = fromValAddr;
 
@@ -141,7 +141,7 @@ public class MsgGenerator {
     public static Msg genReDelegateMsg(String accountAddr, String fromValAddr, String toValAddr, Coin amount, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.delegator_address = accountAddr;
             value.validator_src_address = fromValAddr;
             value.validator_dst_address = toValAddr;
@@ -169,7 +169,7 @@ public class MsgGenerator {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
 
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             value.delegator_address = requestAddr;
             value.withdraw_address = newRewardAddr;
 
@@ -189,7 +189,7 @@ public class MsgGenerator {
     public static Msg genVoteMsg(String accountAddr, String proposalId, String opinion, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
             value.proposal_id = proposalId;

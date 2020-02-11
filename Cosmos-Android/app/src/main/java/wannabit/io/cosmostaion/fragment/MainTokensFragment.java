@@ -197,8 +197,12 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             onUpdateTotalCard();
             onFetchBnbTokenPrice();
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+            } else {
+                mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            }
             onUpdateTotalCard();
             onFetchKavaTokenPrice();
 
@@ -261,7 +265,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount(getContext(), totalBnbAmount, 6, getMainActivity().mBaseChain));
             mTotalValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), totalBnbAmount));
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             BigDecimal totalAtomAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(COSMOS_KAVA)) {
@@ -313,7 +317,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindIrisItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 onBindBnbItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 onBindKavaItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                 onBindIovItem(viewHolder, position);

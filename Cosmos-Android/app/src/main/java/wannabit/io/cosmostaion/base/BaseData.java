@@ -14,6 +14,7 @@ import org.json.JSONException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.dao.Account;
@@ -25,6 +26,8 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
 
 public class BaseData {
 
@@ -553,6 +556,15 @@ public class BaseData {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        if (!SUPPORT_KAVA_TEST) {
+            Iterator<Account> iterator = result.iterator();
+            while(iterator.hasNext()){
+                Account account = iterator.next();
+                if (account.baseChain.equals(BaseChain.KAVA_TEST.getChain())) {
+                    iterator.remove();
+                }
+            }
+        }
         return result;
     }
 

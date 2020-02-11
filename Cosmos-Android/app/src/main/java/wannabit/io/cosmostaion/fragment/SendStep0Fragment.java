@@ -95,7 +95,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_bnb_address, Toast.LENGTH_SHORT).show();
                 }
-            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 if (targetAddress.startsWith("kava") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mTagetAddress = targetAddress;
                     getSActivity().onNextStep();

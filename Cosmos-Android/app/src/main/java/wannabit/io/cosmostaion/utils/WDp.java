@@ -51,7 +51,7 @@ public class WDp {
     public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
@@ -293,7 +293,7 @@ public class WDp {
     public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         if (bondings == null || bondings.size() == 0) return sum;
-        if (chain.equals(BaseChain.COSMOS_MAIN)|| chain.equals(BaseChain.KAVA_MAIN)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)|| chain.equals(BaseChain.KAVA_TEST)) {
             for(BondingState bonding : bondings) {
                 sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
             }
@@ -1005,7 +1005,7 @@ public class WDp {
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
-            if(chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.IRIS_MAIN) || chain.equals(BaseChain.KAVA_MAIN)) {
+            if(chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.IRIS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 21);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
@@ -1221,7 +1221,7 @@ public class WDp {
             return c.getResources().getColor(R.color.colorIris);
         } else if (chain.equals(BaseChain.BNB_MAIN)) {
             return c.getResources().getColor(R.color.colorBnb);
-        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             return c.getResources().getColor(R.color.colorKava);
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
             return c.getResources().getColor(R.color.colorIov);
@@ -1235,7 +1235,7 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
         } else if(chain.equals(BaseChain.IRIS_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iris);
-        }  else if(chain.equals(BaseChain.KAVA_MAIN)) {
+        }  else if(chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_kava);
         }
         return null;
@@ -1246,7 +1246,7 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorAtom);
         } else if(chain.equals(BaseChain.IRIS_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorIris);
-        } else if(chain.equals(BaseChain.KAVA_MAIN)) {
+        } else if(chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             return c.getResources().getColorStateList(R.color.colorKava);
         }
         return null;
@@ -1265,7 +1265,7 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorBnb));
             textview.setText(c.getString(R.string.s_bnb));
 
-        } else if (BaseChain.getChain(chain).equals(BaseChain.KAVA_MAIN)) {
+        } else if (BaseChain.getChain(chain).equals(BaseChain.KAVA_MAIN) || BaseChain.getChain(chain).equals(BaseChain.KAVA_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorKava));
             textview.setText(c.getString(R.string.s_kava));
 

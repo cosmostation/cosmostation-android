@@ -139,7 +139,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                 } else if (mChain.equals(BaseChain.BNB_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
-                } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                } else if (mChain.equals(BaseChain.KAVA_MAIN) || mChain.equals(BaseChain.KAVA_TEST)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
                 } else if (mChain.equals(BaseChain.IOV_MAIN)) {
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
@@ -158,7 +158,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
                     } else if (mChain.equals(BaseChain.BNB_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
-                    } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                    } else if (mChain.equals(BaseChain.KAVA_MAIN)|| mChain.equals(BaseChain.KAVA_TEST)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
                     } else if (mChain.equals(BaseChain.IOV_MAIN)) {
                         holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
@@ -246,6 +246,21 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
                         ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
                         holder.kavaAmount.setText(WDp.getDpAvailableCoin(getBaseContext(), balances, BaseChain.KAVA_MAIN, COSMOS_KAVA));
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) {
+                        holder.kavaAmount.setText("0");
+                    }
+                });
+
+            } else if (mChain.equals(BaseChain.KAVA_TEST)) {
+                holder.kavaLayer.setVisibility(View.VISIBLE);
+                ApiClient.getKavaTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
+                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
+                        holder.kavaAmount.setText(WDp.getDpAvailableCoin(getBaseContext(), balances, BaseChain.KAVA_TEST, COSMOS_KAVA));
                     }
 
                     @Override

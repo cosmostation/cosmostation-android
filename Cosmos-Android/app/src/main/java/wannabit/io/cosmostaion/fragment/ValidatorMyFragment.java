@@ -153,7 +153,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
                 } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
                 }
 
@@ -166,7 +166,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                     holder.itemTvAllRewards.setText(WDp.getDpAllIrisRewardAmount(getContext(), mIrisRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain)));
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), mRewards, BaseChain.getChain(getMainActivity().mAccount.baseChain), COSMOS_KAVA));
                 }
 
@@ -207,7 +207,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                                 .into(holder.itemAvatar);
                     } catch (Exception e){}
 
-                } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
                     holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), mRewards, validator.operator_address , BaseChain.getChain(getMainActivity().mAccount.baseChain), COSMOS_KAVA));
                     try {
@@ -324,7 +324,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 WUtil.onSortByReward(mMyValidators, mRewards, COSMOS_ATOM);
             } else if (getMainActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
                 WUtil.onSortIrisByReward(mMyValidators, mIrisRewards);
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 WUtil.onSortByReward(mMyValidators, mRewards, COSMOS_KAVA);
             }
             mSortType.setText(getString(R.string.str_sorting_by_reward));

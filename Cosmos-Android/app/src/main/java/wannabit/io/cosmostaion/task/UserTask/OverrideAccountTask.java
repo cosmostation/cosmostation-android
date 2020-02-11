@@ -59,7 +59,8 @@ public class OverrideAccountTask extends CommonTask {
     }
 
     private Account onModAccount(Account account, String entropy, String path, String msize) {
-        if (BaseChain.COSMOS_MAIN.equals(mBaseChain) || BaseChain.IRIS_MAIN.equals(mBaseChain) || BaseChain.BNB_MAIN.equals(mBaseChain)|| BaseChain.KAVA_MAIN.equals(mBaseChain)) {
+        if (BaseChain.COSMOS_MAIN.equals(mBaseChain) || BaseChain.IRIS_MAIN.equals(mBaseChain) ||
+                BaseChain.BNB_MAIN.equals(mBaseChain) || BaseChain.KAVA_MAIN.equals(mBaseChain) || BaseChain.KAVA_TEST.equals(mBaseChain)) {
             DeterministicKey dKey       = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(path));
             EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ account.uuid, entropy, false);
             account.address             = WKey.getDpAddress(BaseChain.getChain(account.baseChain), dKey.getPublicKeyAsHex());

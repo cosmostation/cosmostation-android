@@ -450,6 +450,22 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
+        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mTaskCount = 9;
+
+            new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnbondedValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mTaskCount = 2;
             new IovBalanceTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -484,7 +500,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 return;
             }
             ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 if(temp != null) {
                     mTopValidators = temp;
                 }
@@ -502,7 +518,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
             mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 mTaskCount = mTaskCount + mBondings.size();
                 mRewards.clear();
                 for(BondingState bonding:mBondings) {
@@ -530,7 +546,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
             try {
-                if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     mBondedToken = new BigDecimal(((ResStakingPool)result.resultData).result.bonded_tokens);
                 }
             } catch (Exception e) {}
@@ -571,7 +587,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         mMyValidators.clear();
         if (mTaskCount == 0 &&
-                (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN))) {
+                (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST))) {
             for(Validator top:mTopValidators) {
                 boolean already = false;
                 for(BondingState bond:mBondings) {
@@ -664,7 +680,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastBnbTic(0d);
                             getBaseDao().setLastBnbUpDown(0d);
 
-                        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+                        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
                             getBaseDao().setLastKavaTic(0d);
                             getBaseDao().setLastKavaUpDown(0d);
 
@@ -686,7 +702,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastBnbTic(0d);
                         getBaseDao().setLastBnbUpDown(0d);
 
-                    } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+                    } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
                         getBaseDao().setLastKavaTic(0d);
                         getBaseDao().setLastKavaUpDown(0d);
 
@@ -715,7 +731,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastBnbTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastBnbUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
 
-                        } else if (response.isSuccessful() && chain.equals(BaseChain.KAVA_MAIN)) {
+                        } else if (response.isSuccessful() && (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST))) {
                             ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
                             getBaseDao().setLastKavaTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
                             getBaseDao().setLastKavaUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
@@ -735,7 +751,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastBnbTic(0d);
                             getBaseDao().setLastBnbUpDown(0d);
 
-                        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+                        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
                             getBaseDao().setLastKavaTic(0d);
                             getBaseDao().setLastKavaUpDown(0d);
 
@@ -757,7 +773,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastBnbTic(0d);
                         getBaseDao().setLastBnbUpDown(0d);
 
-                    } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+                    } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
                         getBaseDao().setLastKavaTic(0d);
                         getBaseDao().setLastKavaUpDown(0d);
 

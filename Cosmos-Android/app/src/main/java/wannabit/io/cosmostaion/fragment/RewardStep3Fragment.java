@@ -113,7 +113,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             }
             mExpectedLayer.setVisibility(View.GONE);
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
             }
@@ -172,7 +172,9 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     }
 
     private boolean onCheckValidateRewardAndFee() {
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
+                || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
+                || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             BigDecimal rewardSum    = BigDecimal.ZERO;
             BigDecimal feeAtom      = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
             for (Reward reward:getSActivity().mRewards) {

@@ -335,11 +335,14 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mGuideBtn.setText(R.string.str_faq_bnb);
             mFaqBtn.setText(R.string.str_guide_bnb);
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mAtomCard.setVisibility(View.GONE);
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
             mKavaCard.setVisibility(View.VISIBLE);
+            if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            }
             mIovCard.setVisibility(View.GONE);
             mBuyCoinBtn.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
@@ -474,7 +477,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mUpDownImg.setVisibility(View.GONE);
             }
 
-        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             BigDecimal totalAmount = WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators);
             mTvKavaTotal.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             mTvKavaAvailable.setText(WDp.getDpAvailableCoin(getContext(), getMainActivity().mBalances, getMainActivity().mBaseChain, COSMOS_KAVA));
@@ -573,7 +576,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.binance.org"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/"));
                 startActivity(guideIntent);
 
@@ -601,7 +604,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@binance"));
                 startActivity(guideIntent);
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/kava-labs"));
                 startActivity(guideIntent);
 
@@ -639,7 +642,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     startActivity(guideIntent);
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 if (getBaseDao().getMarket() == 0) {
                     Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/kava"));
                     startActivity(guideIntent);

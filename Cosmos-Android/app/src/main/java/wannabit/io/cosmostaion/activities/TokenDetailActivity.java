@@ -232,7 +232,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
             }
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -299,7 +299,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvBnbValue.setText(WDp.getValueOfBnb(this, getBaseDao(), BigDecimal.ZERO));
             }
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) && mBalance.symbol.equals(COSMOS_KAVA)) {
+        } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST))&& mBalance.symbol.equals(COSMOS_KAVA)) {
             mKavaCard.setVisibility(View.VISIBLE);
             mKavaAction.setVisibility(View.GONE);
             mBtnSendKava.setVisibility(View.VISIBLE);
@@ -525,6 +525,10 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
+                hasbalance  = true;
+            }
+        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
                 hasbalance  = true;
             }
         }

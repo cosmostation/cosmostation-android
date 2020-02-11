@@ -18,9 +18,11 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
+
 public class Dialog_ChoiceNet extends DialogFragment {
 
-    private LinearLayout mMain, mIris, mBinance, mKava, mIov, mTest12k, mTest13k;
+    private LinearLayout mMain, mIris, mBinance, mKava, mKavaTest, mIov, mTest12k, mTest13k;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -42,6 +44,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mIris = view.findViewById(R.id.iris_net);
         mBinance = view.findViewById(R.id.binance_net);
         mKava = view.findViewById(R.id.kava_net);
+        mKavaTest = view.findViewById(R.id.kava_test_net);
         mIov = view.findViewById(R.id.iov_net);
         mTest12k = view.findViewById(R.id.gaia_12k);
         mTest13k = view.findViewById(R.id.gaia_13k);
@@ -74,6 +77,17 @@ public class Dialog_ChoiceNet extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity)getActivity()).onChoiceNet(BaseChain.KAVA_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
+        if (!SUPPORT_KAVA_TEST) {
+            mKavaTest.setVisibility(View.GONE);
+        }
+        mKavaTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.KAVA_TEST);
                 getDialog().dismiss();
             }
         });

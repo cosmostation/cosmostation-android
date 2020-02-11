@@ -37,6 +37,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
+import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
+import wannabit.io.cosmostaion.dialog.Dialog_Kava_Testnet;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
@@ -60,6 +62,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
 
@@ -84,6 +87,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private ChainListAdapter            mChainListAdapter;
     private AccountListAdapter          mAccountListAdapter;
     private int                         mSelectChainPosition = 0;
+
+    private boolean                     mToShowTestWarn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,6 +240,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
 
+        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
+            mToolbarChainName.setText(getString(R.string.str_kava_net_test));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
+
+            if (mToShowTestWarn) {
+                mToShowTestWarn = false;
+                Dialog_Kava_Testnet dialog = Dialog_Kava_Testnet.newInstance(null);
+                dialog.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            }
+
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
             mToolbarChainName.setText(getString(R.string.str_iov_net));
@@ -267,6 +285,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         } else if (mSelectChainPosition == 4) {
             mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.KAVA_MAIN);
+
+        } else if (mSelectChainPosition == 5) {
+            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.KAVA_TEST);
 
         }
         WUtil.onSortingAccount(mAccounts);
@@ -348,9 +369,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
                 hasbalance  = true;
             }
-        }
+        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
+                hasbalance  = true;
+            }
 
-        if(!hasbalance){
+        } if(!hasbalance){
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -475,6 +499,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
                 holder.chainName.setText(getString(R.string.str_kava));
 
+            } else if (position == 5) {
+                holder.chainLayer.setVisibility(View.VISIBLE);
+                holder.allLayer.setVisibility(View.GONE);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
+                holder.chainName.setText(getString(R.string.str_kava_test));
+
             }
 
             if (mSelectChainPosition == position) {
@@ -491,7 +521,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         @Override
         public int getItemCount() {
-            return 5;
+            if(SUPPORT_KAVA_TEST) return 6;
+            else return 5;
         }
 
 
@@ -566,6 +597,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                                 @Override
                                 public void run() {
                                     getBaseDao().setLastUser(account.id);
+                                    mToShowTestWarn = true;
                                     onResume();
                                 }
                             },200);
@@ -592,6 +624,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                                     bundle.putString("chain", BaseChain.BNB_MAIN.getChain());
                                 } else if (mSelectChainPosition == 4) {
                                     bundle.putString("chain", BaseChain.KAVA_MAIN.getChain());
+                                } else if (mSelectChainPosition == 5) {
+                                    bundle.putString("chain", BaseChain.KAVA_TEST.getChain());
                                 }
                                 Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
                                 add.setCancelable(true);

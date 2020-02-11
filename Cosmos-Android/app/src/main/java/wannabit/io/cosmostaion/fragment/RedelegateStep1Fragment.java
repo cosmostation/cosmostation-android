@@ -91,7 +91,9 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             if(mCheckedValidator == null) {
                 Toast.makeText(getContext(), R.string.error_no_to_validator, Toast.LENGTH_SHORT).show();
             } else {
-                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
+                        || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
+                        || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                     new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
                             getSActivity().mFromValidator.operator_address,
                             mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -167,7 +169,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                             .into(holder.itemAvatar);
                 } catch (Exception e){}
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
                 if(getSActivity().mBondedToken != null && getSActivity().mProvisions != null) {
                     holder.itemTvCommission.setText(WDp.getYieldString(getSActivity().mBondedToken, getSActivity().mProvisions, new BigDecimal(validator.commission.commission_rates.rate)));
@@ -205,7 +207,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+            } else if ((getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST) )&& mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                 holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));

@@ -32,6 +32,8 @@ import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
+
 public class AccountListActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar                     mToolbar;
@@ -143,6 +145,9 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         } else if (mSelectChainPosition == 4) {
             mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.KAVA_MAIN);
 
+        } else if (mSelectChainPosition == 5) {
+            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.KAVA_TEST);
+
         }
         WUtil.onSortingAccount(mAccounts);
         mAccountListAdapter.notifyDataSetChanged();
@@ -221,6 +226,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
                 holder.chainName.setText(getString(R.string.str_kava));
 
+            } else if (position == 5) {
+                holder.chainLayer.setVisibility(View.VISIBLE);
+                holder.allLayer.setVisibility(View.GONE);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
+                holder.chainName.setText(getString(R.string.str_kava_test));
+
             }
 
             if (mSelectChainPosition == position) {
@@ -237,7 +248,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public int getItemCount() {
-            return 5;
+            if(SUPPORT_KAVA_TEST) return 6;
+            else return 5;
         }
 
 
@@ -334,6 +346,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                             bundle.putString("chain", BaseChain.BNB_MAIN.getChain());
                         } else if (mSelectChainPosition == 4) {
                             bundle.putString("chain", BaseChain.KAVA_MAIN.getChain());
+                        } else if (mSelectChainPosition == 5) {
+                            bundle.putString("chain", BaseChain.KAVA_TEST.getChain());
                         }
                         Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
                         add.setCancelable(true);

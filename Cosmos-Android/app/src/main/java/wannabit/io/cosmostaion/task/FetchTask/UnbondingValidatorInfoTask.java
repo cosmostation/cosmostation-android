@@ -51,6 +51,19 @@ public class UnbondingValidatorInfoTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
+
+            } else if (mChain.equals(BaseChain.KAVA_TEST)) {
+                Response<ResLcdValidators> response = ApiClient.getKavaTestChain(mApp).getUnBondingValidatorDetailList().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
             }
 
         } catch (Exception e) {

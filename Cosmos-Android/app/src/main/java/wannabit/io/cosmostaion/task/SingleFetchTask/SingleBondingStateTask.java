@@ -50,6 +50,7 @@ public class SingleBondingStateTask extends CommonTask {
 
                 }
                 mResult.isSuccess = true;
+
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getKavaChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful()) {
@@ -59,7 +60,18 @@ public class SingleBondingStateTask extends CommonTask {
                         mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
                 }
                 mResult.isSuccess = true;
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_TEST)) {
+                Response<ResLcdSingleBonding> response = ApiClient.getKavaTestChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
+                if(response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null)
+                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, BaseChain.KAVA_TEST));
+                    else
+                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                }
+                mResult.isSuccess = true;
             }
+
 
 
         } catch (Exception e) {

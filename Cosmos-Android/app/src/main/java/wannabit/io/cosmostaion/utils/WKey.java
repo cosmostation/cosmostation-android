@@ -39,6 +39,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class WKey {
 
@@ -104,7 +105,7 @@ public class WKey {
     }
 
     public static List<ChildNumber> getParentPath(BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
         } else if (chain.equals(BNB_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
@@ -194,7 +195,7 @@ public class WKey {
 
     public static String getDpAddress(BaseChain chain, String pubHex) {
         String result       = null;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN)|| chain.equals(KAVA_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN)|| chain.equals(KAVA_MAIN)|| chain.equals(KAVA_TEST)) {
             MessageDigest digest = Sha256.getSha256Digest();
             byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
 
@@ -212,7 +213,7 @@ public class WKey {
                     result = bech32Encode("iaa".getBytes(), converted);
                 } else if (chain.equals(BNB_MAIN)){
                     result = bech32Encode("bnb".getBytes(), converted);
-                } else if (chain.equals(KAVA_MAIN)){
+                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)){
                     result = bech32Encode("kava".getBytes(), converted);
                 }
 
@@ -293,7 +294,7 @@ public class WKey {
 
     public static String getDpAddressWithPath(String seed, BaseChain chain, int path) {
         String result = "";
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(BNB_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             //using Secp256k1
             DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain), true, true,  new ChildNumber(path));
             result =  getDpAddress(chain, childKey.getPublicKeyAsHex());

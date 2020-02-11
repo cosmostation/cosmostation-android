@@ -83,6 +83,21 @@ public class ApiClient {
         return service_kava;
     }
 
+    //Services for KAVATest chain
+    private static KavaChain service_kava_test = null;
+    public static KavaChain getKavaTestChain(Context c) {
+        if (service_kava == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_main_kava_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_kava_test = retrofit.create(KavaChain.class);
+            }
+        }
+        return service_kava_test;
+    }
+
     //Services for IOV main net
     private static IovChain service_iov = null;
     public static IovChain getIovChain(Context c) {
