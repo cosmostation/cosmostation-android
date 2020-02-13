@@ -141,6 +141,8 @@
 "update_title" = "업데이트";
 "update_msg" = "새로운 버전이 나왔습니다. 앱스토어에서 업데이트 해주세요.";
 "go_appstore" = "앱스토어로 이동";
+"tx_success" = "성공";
+"tx_fail" = "실패";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";
@@ -183,6 +185,7 @@
 "title_reinvest" = "이자 즉시 위임";
 "title_guide" = "도움말";
 "title_vote" = "투표 하기";
+"title_tx_detail" = "트랜잭션 상세";
 
 "proposal_type_basic" = "기본";
 "proposal_type_parameter" = "파라미터 변경";

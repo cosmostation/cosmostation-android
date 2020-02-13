@@ -16,12 +16,21 @@ final class BaseData : NSObject{
     static let instance = BaseData()
     
     var database: Connection!
+    var mAllValidator = Array<Validator>()
     
     public override init() {
         super.init();
         if database == nil {
             self.initdb();
         }
+    }
+    
+    func setAllValidators(_ validators: Array<Validator>) {
+        self.mAllValidator = validators
+    }
+    
+    func getAllValidators () -> Array<Validator>{
+        return self.mAllValidator
     }
     
     func setRecentAccountId(_ id : Int64) {

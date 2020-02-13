@@ -251,6 +251,13 @@ class WUtils {
         return localFormatter.string(from: fullDate!)
     }
     
+    static func txTimeToInt64(input: String) -> Date {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        return nodeFormatter.date(from: input) ?? Date.init()
+    }
+    
     static func txTimetoString(input: String) -> String {
         let nodeFormatter = DateFormatter()
         nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
@@ -284,6 +291,24 @@ class WUtils {
     
     static func timeGap(input: String) -> String {
         let secondsAgo = Int(Date().timeIntervalSince(nodeTimeToInt64(input: input)))
+        
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        
+        if secondsAgo < minute {
+            return "(\(secondsAgo) seconds ago)"
+        } else if secondsAgo < hour {
+            return "(\(secondsAgo / minute) minutes ago)"
+        } else if secondsAgo < day {
+            return "(\(secondsAgo / hour) hours ago)"
+        } else {
+            return "(\(secondsAgo / day) days ago)"
+        }
+    }
+    
+    static func txTimeGap(input: String) -> String {
+        let secondsAgo = Int(Date().timeIntervalSince(txTimeToInt64(input: input)))
         
         let minute = 60
         let hour = 60 * minute
@@ -1369,6 +1394,15 @@ class WUtils {
             return 3
         }
         return 0
+    }
+    
+    static func getMonikerName(_ validators: Array<Validator>,  _ opAddr: String) -> String {
+        for val in validators {
+            if (val.operator_address == opAddr) {
+                return "(" + val.description.moniker + ")"
+            }
+        }
+        return ""
     }
     
     static func getChainName(_ type:String) -> String {

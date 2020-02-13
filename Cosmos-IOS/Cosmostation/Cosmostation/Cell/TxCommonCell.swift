@@ -35,9 +35,21 @@ class TxCommonCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         
-        feeAmountLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        usedFeeAmountLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        limitFeeAmountLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
+        statusLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        heightLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        msgCntLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        gasAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        feeAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        usedFeeAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        limitFeeAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        timeLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        timeGapLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_11_caption2)
+    }
+    
+    func setDenomType(_ chainType:ChainType) {
+        WUtils.setDenomTitle(chainType, feeDenomLabel)
+        WUtils.setDenomTitle(chainType, usedFeeDenomLabel)
+        WUtils.setDenomTitle(chainType, limitFeeDenomLabel)
     }
     
 }

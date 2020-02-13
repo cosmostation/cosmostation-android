@@ -302,8 +302,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
             }
             
+            
             if (mAllValidator.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            } else {
+                BaseData.instance.setAllValidators(mAllValidator)
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()

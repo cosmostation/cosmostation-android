@@ -27,8 +27,8 @@ class TxUndelegateCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         
-        undelegateAmountLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        autoRewardAmountLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
+        undelegateAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        autoRewardAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
     
 }

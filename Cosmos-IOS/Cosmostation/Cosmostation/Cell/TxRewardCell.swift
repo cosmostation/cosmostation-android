@@ -21,6 +21,6 @@ class TxRewardCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         
-        amountLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
+        amountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
 }

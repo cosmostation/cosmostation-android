@@ -21,6 +21,6 @@ class TxCommissionCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         
-        commissionAmountLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
+        commissionAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
 }

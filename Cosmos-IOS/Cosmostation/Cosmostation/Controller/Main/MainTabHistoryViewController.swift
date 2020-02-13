@@ -147,7 +147,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         cell?.txTimeGapLabel.text = WUtils.timeGap(input: history._source.timestamp)
         cell?.txBlockLabel.text = String(history._source.height) + " block"
         cell?.txTypeLabel.text = WUtils.historyTitle(history._source.tx.value.msg, mainTabVC.mAccount.account_address)
-        if(history._source.result.allResult) {
+        if (history._source.result.allResult) {
             cell?.txResultLabel.isHidden = true
         } else {
             cell?.txResultLabel.isHidden = false
@@ -203,13 +203,17 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let history = mHistories[indexPath.row]
-            guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-//            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-//            txDetailVC.hidesBottomBarWhenPushed = true
-//            self.navigationItem.title = ""
-//            self.navigationController?.pushViewController(txDetailVC, animated: true)
+//            guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
+//            let safariViewController = SFSafariViewController(url: url)
+//            present(safariViewController, animated: true, completion: nil)
+            
+            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+            txDetailVC.mIsGen = false
+            txDetailVC.mTxHash = history._source.hash
+            txDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+//            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+            self.navigationController?.pushViewController(txDetailVC, animated: true)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let history = mHistories[indexPath.row]

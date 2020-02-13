@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TxDetailViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
                 <outlet property="controlLayer" destination="haP-FX-1BP" id="d4Q-hj-b7Y"/>
+                <outlet property="dismissBtn" destination="m4a-6Y-f1I" id="X0b-QU-TeQ"/>
                 <outlet property="errorCode" destination="G9v-QX-nXf" id="cn6-IO-Cut"/>
                 <outlet property="errorLayer" destination="N0K-ec-NhI" id="IOm-kP-qme"/>
                 <outlet property="errorMsg" destination="3VT-d5-KpZ" id="ZRx-9u-Sad"/>
@@ -75,7 +76,7 @@ Please check the error code and message.</string>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vAt-Ci-Cas">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vAt-Ci-Cas">
                     <rect key="frame" x="57" y="393" width="300" height="120"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="4FG-m6-2sk" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
@@ -107,10 +108,10 @@ After a few moments, the full results will be displayed.</string>
                     <viewLayoutGuide key="safeArea" id="4ii-bZ-uVz"/>
                 </view>
                 <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="haP-FX-1BP">
-                    <rect key="frame" x="0.0" y="796" width="414" height="50"/>
+                    <rect key="frame" x="16" y="796" width="382" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="502-rv-iQc">
-                            <rect key="frame" x="0.0" y="0.0" width="202" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="186" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="I1P-P2-WP4"/>
                             </constraints>
@@ -134,7 +135,7 @@ After a few moments, the full results will be displayed.</string>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Eo-wj-ceS">
-                            <rect key="frame" x="212" y="0.0" width="202" height="50"/>
+                            <rect key="frame" x="196" y="0.0" width="186" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="sCN-CZ-4fC"/>
                             </constraints>
@@ -188,7 +189,7 @@ After a few moments, the full results will be displayed.</string>
             <constraints>
                 <constraint firstItem="K9Z-EW-7sc" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="0f2-Lf-Dyd"/>
                 <constraint firstItem="N0K-ec-NhI" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="47i-fw-F9h"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="haP-FX-1BP" secondAttribute="trailing" id="7Kr-Xx-0cv"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="haP-FX-1BP" secondAttribute="trailing" constant="16" id="7Kr-Xx-0cv"/>
                 <constraint firstItem="m4a-6Y-f1I" firstAttribute="top" secondItem="7Nr-oT-YCK" secondAttribute="bottom" constant="8" id="AvW-TT-Sbo"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="N0K-ec-NhI" secondAttribute="trailing" constant="48" id="CxJ-h3-K1n"/>
                 <constraint firstItem="N0K-ec-NhI" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="D36-RL-QYN"/>
@@ -198,7 +199,7 @@ After a few moments, the full results will be displayed.</string>
                 <constraint firstItem="vAt-Ci-Cas" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="MGH-QM-d6z"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="haP-FX-1BP" secondAttribute="bottom" constant="16" id="TKD-Mb-GN5"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="m4a-6Y-f1I" secondAttribute="trailing" constant="16" id="X1M-qQ-UNg"/>
-                <constraint firstItem="haP-FX-1BP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Xuo-ye-5Yn"/>
+                <constraint firstItem="haP-FX-1BP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Xuo-ye-5Yn"/>
                 <constraint firstItem="K9Z-EW-7sc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dGc-cd-RFc"/>
                 <constraint firstAttribute="top" secondItem="K9Z-EW-7sc" secondAttribute="top" id="giL-dD-Yyb"/>
                 <constraint firstItem="7Nr-oT-YCK" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ndO-IL-bTt"/>

@@ -27,8 +27,12 @@ class TxDelegateCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         
-        delegateAmountLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        autoRewardAmountLabel.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
+        delegateAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        autoRewardAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
     
+    func setDenomType(_ chainType:ChainType) {
+        WUtils.setDenomTitle(chainType, delegateDenomLabel)
+        WUtils.setDenomTitle(chainType, autoRewardDenomLabel)
+    }
 }

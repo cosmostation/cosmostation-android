@@ -59,16 +59,16 @@ class TxMultiTransferCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         
-        sendAmount0.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        sendAmount1.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        sendAmount2.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        sendAmount3.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        sendAmount4.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        receiveAmount0.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        receiveAmount1.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        receiveAmount2.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        receiveAmount3.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
-        receiveAmount4.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_12_caption1)
+        sendAmount0.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        sendAmount1.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        sendAmount2.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        sendAmount3.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        sendAmount4.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        receiveAmount0.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        receiveAmount1.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        receiveAmount2.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        receiveAmount3.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
+        receiveAmount4.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
     
 }

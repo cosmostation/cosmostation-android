@@ -157,6 +157,8 @@
 "sign" = "Sign";
 "touchID" = "Touch ID";
 "faceID" = "Face ID";
+"tx_success" = "Success";
+"tx_fail" = "Fail";
 
 "only_USD" = "now only support USD";
 "only_cmc" = "now only support CoinMarketCap";
@@ -183,6 +185,7 @@
 "title_reinvest" = "Re-Invest";
 "title_guide" = "FAQ";
 "title_vote" = "Vote";
+"title_tx_detail" = "Transaction Detail";
 
 "proposal_type_basic" = "Basic";
 "proposal_type_parameter" = "Parameter";
