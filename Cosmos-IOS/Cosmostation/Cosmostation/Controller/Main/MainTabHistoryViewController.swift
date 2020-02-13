@@ -206,6 +206,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
+//            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+//            txDetailVC.hidesBottomBarWhenPushed = true
+//            self.navigationItem.title = ""
+//            self.navigationController?.pushViewController(txDetailVC, animated: true)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let history = mHistories[indexPath.row]

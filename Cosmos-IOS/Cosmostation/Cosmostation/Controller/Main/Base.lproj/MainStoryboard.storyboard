@@ -834,8 +834,8 @@
                                             <action selector="onClickShare:" destination="8R0-R1-hPF" eventType="touchUpInside" id="I8M-Wq-3Kg"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2E-EJ-rCm">
-                                        <rect key="frame" x="8" y="44" width="374" height="16"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2E-EJ-rCm">
+                                        <rect key="frame" x="12" y="44" width="366" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="7lz-ZG-5Pa"/>
                                         </constraints>
@@ -850,9 +850,9 @@
                                     <constraint firstItem="jtX-2D-a1v" firstAttribute="centerY" secondItem="Vc7-iX-gd9" secondAttribute="centerY" id="4J6-Wc-2UW"/>
                                     <constraint firstItem="cLX-ee-8Jj" firstAttribute="leading" secondItem="eKW-T7-s72" secondAttribute="leading" constant="12" id="CBo-q5-xpo"/>
                                     <constraint firstItem="0Xd-5E-NDh" firstAttribute="centerY" secondItem="Vc7-iX-gd9" secondAttribute="centerY" id="EOH-YF-T0k"/>
-                                    <constraint firstAttribute="trailing" secondItem="N2E-EJ-rCm" secondAttribute="trailing" constant="8" id="FZ4-SD-U0w"/>
+                                    <constraint firstAttribute="trailing" secondItem="N2E-EJ-rCm" secondAttribute="trailing" constant="12" id="FZ4-SD-U0w"/>
                                     <constraint firstItem="Vc7-iX-gd9" firstAttribute="leading" secondItem="cLX-ee-8Jj" secondAttribute="trailing" constant="4" id="Xc7-x9-0ej"/>
-                                    <constraint firstItem="N2E-EJ-rCm" firstAttribute="leading" secondItem="eKW-T7-s72" secondAttribute="leading" constant="8" id="fsk-xt-f8y"/>
+                                    <constraint firstItem="N2E-EJ-rCm" firstAttribute="leading" secondItem="eKW-T7-s72" secondAttribute="leading" constant="12" id="fsk-xt-f8y"/>
                                     <constraint firstAttribute="trailing" secondItem="jtX-2D-a1v" secondAttribute="trailing" constant="10" id="jW3-jX-oYk"/>
                                     <constraint firstItem="Vc7-iX-gd9" firstAttribute="top" secondItem="eKW-T7-s72" secondAttribute="top" constant="16" id="mWE-Zm-Yrt"/>
                                     <constraint firstItem="jtX-2D-a1v" firstAttribute="leading" secondItem="0Xd-5E-NDh" secondAttribute="trailing" constant="10" id="nFn-QY-QVi"/>

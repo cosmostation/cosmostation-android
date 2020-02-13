@@ -58,8 +58,8 @@
                                     <action selector="onClickShare:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pHt-4J-1tP"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="-" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fk-Va-WgU">
-                                <rect key="frame" x="8" y="44" width="335" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fk-Va-WgU">
+                                <rect key="frame" x="12" y="44" width="327" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="2N2-sC-JyE"/>
                                 </constraints>
@@ -75,10 +75,10 @@
                             <constraint firstItem="b3E-bk-hSi" firstAttribute="leading" secondItem="5n3-b4-J2X" secondAttribute="leading" constant="12" id="EpV-3c-sek"/>
                             <constraint firstItem="cro-wQ-ZmM" firstAttribute="leading" secondItem="b3E-bk-hSi" secondAttribute="trailing" constant="4" id="J9C-Y7-XZz"/>
                             <constraint firstItem="8fk-Va-WgU" firstAttribute="top" secondItem="cro-wQ-ZmM" secondAttribute="bottom" constant="12" id="XkY-mF-IhZ"/>
-                            <constraint firstAttribute="trailing" secondItem="8fk-Va-WgU" secondAttribute="trailing" constant="8" id="Yi8-mW-6ay"/>
+                            <constraint firstAttribute="trailing" secondItem="8fk-Va-WgU" secondAttribute="trailing" constant="12" id="Yi8-mW-6ay"/>
                             <constraint firstItem="b3E-bk-hSi" firstAttribute="centerY" secondItem="cro-wQ-ZmM" secondAttribute="centerY" id="bqZ-XC-LyA"/>
                             <constraint firstItem="rNY-UN-vfq" firstAttribute="leading" secondItem="E1o-9h-aSC" secondAttribute="trailing" constant="10" id="f0n-dF-7LX"/>
-                            <constraint firstItem="8fk-Va-WgU" firstAttribute="leading" secondItem="5n3-b4-J2X" secondAttribute="leading" constant="8" id="mEW-e0-dIr"/>
+                            <constraint firstItem="8fk-Va-WgU" firstAttribute="leading" secondItem="5n3-b4-J2X" secondAttribute="leading" constant="12" id="mEW-e0-dIr"/>
                             <constraint firstItem="rNY-UN-vfq" firstAttribute="centerY" secondItem="cro-wQ-ZmM" secondAttribute="centerY" id="rLI-K0-Yeg"/>
                             <constraint firstItem="cro-wQ-ZmM" firstAttribute="top" secondItem="5n3-b4-J2X" secondAttribute="top" constant="16" id="uKj-4w-bGA"/>
                             <constraint firstAttribute="bottom" secondItem="8fk-Va-WgU" secondAttribute="bottom" constant="16" id="vL4-4B-ca6"/>

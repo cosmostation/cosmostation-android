@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="179" id="KGk-i7-Jjw" customClass="TxEditRewardAddressCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJN-c5-b8z" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                        <rect key="frame" x="12" y="4" width="296" height="171"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="txflag" translatesAutoresizingMaskIntoConstraints="NO" id="VsR-if-TcA">
+                                <rect key="frame" x="16" y="16" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="P49-vD-qC4"/>
+                                    <constraint firstAttribute="width" constant="28" id="hCf-gU-efm"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Reward Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nP9-hD-KG1">
+                                <rect key="frame" x="50" y="21" width="142" height="18"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Delegator" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57j-L4-KTe">
+                                <rect key="frame" x="16" y="60" width="55.5" height="15"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQH-J4-4OG">
+                                <rect key="frame" x="16" y="81" width="6" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Reward Widthraw Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sba-nl-hZ5">
+                                <rect key="frame" x="16" y="111.5" width="149" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUa-7z-iNW">
+                                <rect key="frame" x="16" y="132" width="6" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="nP9-hD-KG1" firstAttribute="centerY" secondItem="VsR-if-TcA" secondAttribute="centerY" id="0iF-3a-FXf"/>
+                            <constraint firstItem="VsR-if-TcA" firstAttribute="top" secondItem="mJN-c5-b8z" secondAttribute="top" constant="16" id="Fob-En-nfj"/>
+                            <constraint firstItem="vQH-J4-4OG" firstAttribute="top" secondItem="57j-L4-KTe" secondAttribute="bottom" constant="6" id="IfD-bn-qek"/>
+                            <constraint firstItem="57j-L4-KTe" firstAttribute="top" secondItem="VsR-if-TcA" secondAttribute="bottom" constant="16" id="JA9-2r-Kge"/>
+                            <constraint firstItem="vQH-J4-4OG" firstAttribute="leading" secondItem="VsR-if-TcA" secondAttribute="leading" id="Ne9-L2-iWx"/>
+                            <constraint firstItem="57j-L4-KTe" firstAttribute="leading" secondItem="VsR-if-TcA" secondAttribute="leading" id="UFh-tk-mAn"/>
+                            <constraint firstItem="sba-nl-hZ5" firstAttribute="top" secondItem="vQH-J4-4OG" secondAttribute="bottom" constant="16" id="Wht-44-GIG"/>
+                            <constraint firstItem="nP9-hD-KG1" firstAttribute="leading" secondItem="VsR-if-TcA" secondAttribute="trailing" constant="6" id="XLw-s9-Xgd"/>
+                            <constraint firstAttribute="bottom" secondItem="rUa-7z-iNW" secondAttribute="bottom" constant="16" id="az2-0R-q0o"/>
+                            <constraint firstItem="rUa-7z-iNW" firstAttribute="top" secondItem="sba-nl-hZ5" secondAttribute="bottom" constant="6" id="f8x-za-Pch"/>
+                            <constraint firstItem="VsR-if-TcA" firstAttribute="leading" secondItem="mJN-c5-b8z" secondAttribute="leading" constant="16" id="on0-L1-YGk"/>
+                            <constraint firstItem="rUa-7z-iNW" firstAttribute="leading" secondItem="VsR-if-TcA" secondAttribute="leading" id="qE2-ej-oJx"/>
+                            <constraint firstItem="sba-nl-hZ5" firstAttribute="leading" secondItem="VsR-if-TcA" secondAttribute="leading" id="rEX-hh-8Na"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.29999999999999999"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="mJN-c5-b8z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="18R-mr-Pw1"/>
+                    <constraint firstAttribute="bottom" secondItem="mJN-c5-b8z" secondAttribute="bottom" constant="4" id="8pj-4n-kBB"/>
+                    <constraint firstItem="mJN-c5-b8z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="OtA-bK-7hX"/>
+                    <constraint firstAttribute="trailing" secondItem="mJN-c5-b8z" secondAttribute="trailing" constant="12" id="ndu-q0-ccA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="delegatorLabel" destination="vQH-J4-4OG" id="ag5-oG-sKL"/>
+                <outlet property="txIcon" destination="VsR-if-TcA" id="S3K-1H-fFy"/>
+                <outlet property="widthrawAddressLabel" destination="rUa-7z-iNW" id="Rgg-80-s67"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="167.74553571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="txflag" width="28" height="28"/>
+    </resources>
+</document>
