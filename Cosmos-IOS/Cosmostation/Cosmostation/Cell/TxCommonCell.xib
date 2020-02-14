@@ -41,8 +41,8 @@
                             </imageView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Error Message" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLF-as-eG4" customClass="EdgeInsetLabel" customModule="Cosmostation" customModuleProvider="target">
                                 <rect key="frame" x="16" y="32.5" width="319" height="38"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                <color key="textColor" red="0.95294117647058818" green="0.098039215686274508" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.37935924530029297" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -304,7 +304,7 @@
                             <constraint firstItem="JSL-Pj-5cX" firstAttribute="leading" secondItem="M9u-q3-Ejf" secondAttribute="leading" id="qtW-ro-NRl"/>
                             <constraint firstItem="cJz-Am-OWy" firstAttribute="leading" secondItem="M9u-q3-Ejf" secondAttribute="leading" id="s3d-rG-nRO"/>
                             <constraint firstItem="Rfe-sL-kPA" firstAttribute="leading" secondItem="kG8-Ch-rWr" secondAttribute="leading" constant="16" id="vXA-wr-A3H"/>
-                            <constraint firstItem="lLF-as-eG4" firstAttribute="top" secondItem="M9u-q3-Ejf" secondAttribute="bottom" constant="2" id="wts-bB-KoQ"/>
+                            <constraint firstItem="lLF-as-eG4" firstAttribute="top" secondItem="M9u-q3-Ejf" secondAttribute="bottom" constant="4" id="wts-bB-KoQ"/>
                             <constraint firstItem="GOr-KA-OgB" firstAttribute="leading" secondItem="M9u-q3-Ejf" secondAttribute="leading" id="ybq-Lg-HUp"/>
                             <constraint firstItem="JSL-Pj-5cX" firstAttribute="top" secondItem="cJz-Am-OWy" secondAttribute="bottom" constant="6" id="yer-Ge-eQl"/>
                         </constraints>

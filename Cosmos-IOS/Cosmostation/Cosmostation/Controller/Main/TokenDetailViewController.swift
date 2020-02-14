@@ -178,9 +178,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         if (indexPath.row > 0) {
             if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 let history = mHistories[indexPath.row - 1]
-                guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                present(safariViewController, animated: true, completion: nil)
+                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = history._source.hash
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
                 
             } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 let history = mHistories[indexPath.row - 1]
@@ -196,9 +199,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                            
             } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 let history = mHistories[indexPath.row - 1]
-                guard let url = URL(string: "https://kava.mintscan.io/txs/" + history._source.hash) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                present(safariViewController, animated: true, completion: nil)
+                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = history._source.hash
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
             }
         }
     }
@@ -380,7 +386,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         var query = ""
         var url = ""
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-            query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.amount.denom\", \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
+            query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.amount.denom\", \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
             print("query ", query)
             url = CSS_ES_PROXY_COSMOS
             
@@ -389,7 +395,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             print("query ", query)
             url = IRIS_ES_PROXY_IRIS
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.amount.denom\", \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
+            query = "{\"from\" : 0,\"query\" : {\"bool\" : {\"must\" : [ {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.from_address\", \"tx.value.msg.value.to_address\", \"tx.value.msg.value.inputs.address\", \"tx.value.msg.value.outputs.address\" ],\"query\" : \"" + address + "\"}}, {\"multi_match\" : {\"fields\" : [ \"tx.value.msg.value.amount.denom\", \"tx.value.msg.value.inputs.coins.denom\", \"tx.value.msg.value.outputs.coins.denom\" ],\"query\" : \"" + symbol + "\"}} ]}},\"size\" : 100}"
             print("query ", query)
             url = KAVA_ES_PROXY_IRIS
         }

@@ -409,6 +409,8 @@ class WUtils {
         } else if (msgs[0].type == IRIS_MSG_TYPE_ISSUE_TOKEN) {
             resultMsg = NSLocalizedString("tx_issue_token", comment: "")
             
+        } else if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER3) {
+            resultMsg = NSLocalizedString("tx_transfer", comment: "")
         }
         
         if(msgs.count > 1) {

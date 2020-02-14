@@ -203,10 +203,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let history = mHistories[indexPath.row]
-//            guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
-//            let safariViewController = SFSafariViewController(url: url)
-//            present(safariViewController, animated: true, completion: nil)
-            
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
             txDetailVC.mTxHash = history._source.hash
@@ -229,9 +225,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             let history = mHistories[indexPath.row]
-            guard let url = URL(string: "https://kava.mintscan.io/txs/" + history._source.hash) else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
+            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+            txDetailVC.mIsGen = false
+            txDetailVC.mTxHash = history._source.hash
+            txDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+//            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+            self.navigationController?.pushViewController(txDetailVC, animated: true)
         }
     }
     

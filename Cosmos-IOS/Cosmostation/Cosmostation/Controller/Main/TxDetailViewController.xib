@@ -14,7 +14,6 @@
                 <outlet property="dismissBtn" destination="m4a-6Y-f1I" id="X0b-QU-TeQ"/>
                 <outlet property="errorCode" destination="G9v-QX-nXf" id="cn6-IO-Cut"/>
                 <outlet property="errorLayer" destination="N0K-ec-NhI" id="IOm-kP-qme"/>
-                <outlet property="errorMsg" destination="3VT-d5-KpZ" id="ZRx-9u-Sad"/>
                 <outlet property="loadingImg" destination="4FG-m6-2sk" id="lk9-np-zBR"/>
                 <outlet property="loadingLayer" destination="vAt-Ci-Cas" id="csv-ld-BAX"/>
                 <outlet property="loadingMsg" destination="Yke-lk-aaV" id="FP6-hE-52u"/>
@@ -87,9 +86,10 @@ Please check the error code and message.</string>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yke-lk-aaV">
-                            <rect key="frame" x="10" y="64" width="280" height="41.5"/>
+                            <rect key="frame" x="10" y="64" width="280" height="55.5"/>
                             <string key="text">Transaction request submitted successfully. 
-After a few moments, the full results will be displayed.</string>
+After a few moments, the full results will be displayed.
+(Pending times depends on Tx fee.)</string>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>

@@ -561,9 +561,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         if(indexPath.section == 1 && mHistories.count > 0) {
             let history = mHistories[indexPath.row]
             if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
-                guard let url = URL(string: "https://www.mintscan.io/txs/" + history._source.hash) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                present(safariViewController, animated: true, completion: nil)
+                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = history._source.hash
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
                 
             } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 guard let url = URL(string: "https://irishub.mintscan.io/txs/" + history._source.hash) else { return }
@@ -571,9 +574,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 present(safariViewController, animated: true, completion: nil)
                 
             } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-                guard let url = URL(string: "https://kava.mintscan.io/txs/" + history._source.hash) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                present(safariViewController, animated: true, completion: nil)
+                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = history._source.hash
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
             }
         }
     }

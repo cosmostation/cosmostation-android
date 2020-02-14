@@ -16,7 +16,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var dismissBtn: UIButton!
     @IBOutlet weak var controlLayer: UIStackView!
     @IBOutlet weak var errorLayer: CardView!
-    @IBOutlet weak var errorMsg: UILabel!
     @IBOutlet weak var errorCode: UILabel!
     @IBOutlet weak var loadingLayer: UIView!
     @IBOutlet weak var loadingImg: LoadingImageView!
@@ -53,6 +52,41 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.estimatedRowHeight = UITableView.automaticDimension
         
         if (mIsGen) {
+            self.loadingMsg.isHidden = false
+            self.loadingImg.onStartAnimation()
+            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                guard let txHash = mBroadCaseResult?["txhash"] as? String  else {
+                    self.onStartMainTab()
+                    return
+                }
+                mTxHash = txHash
+                if let code = mBroadCaseResult?["code"] as? Int {
+                    onShowErrorView(code)
+                    return
+                }
+                
+            } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                if let net_error = mBroadCaseResult?["net_error"] as? Int {
+                    onShowErrorView(net_error)
+                    return
+                }
+                guard let txHash = mBroadCaseResult?["hash"] as? String  else {
+                    self.onStartMainTab()
+                    return
+                }
+                mTxHash = txHash
+                if let check_tx = mBroadCaseResult?["check_tx"] as? [String:Any], let code = check_tx["code"] as? Int{
+                    onShowErrorView(code)
+                    return
+                }
+            } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                guard let txHash = mBroadCaseResult?["hash"] as? String  else {
+                    self.onStartMainTab()
+                    return
+                }
+                mTxHash = txHash
+            }
+            self.onFetchTx(mTxHash!)
             
         } else {
             self.loadingMsg.isHidden = true
@@ -76,6 +110,21 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.onStartMainTab()
         }
     }
+    
+    func onShowErrorView(_ code: Int) {
+        print("onShowErrorView")
+        var logMsg = ""
+        if let errorMsg = mBroadCaseResult?["raw_log"] as? String {
+            logMsg = errorMsg;
+        }
+        if let check_tx = mBroadCaseResult?["check_tx"] as? [String : Any], let errorMsg = check_tx["log"] as? String {
+            logMsg = errorMsg;
+        }
+        self.errorCode.text =  "error code : " + String(code) + "\n" + logMsg
+        self.loadingLayer.isHidden = true
+        self.errorLayer.isHidden = false
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (mTxInfo != nil) {
@@ -328,18 +377,67 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     
     @IBAction func onClickShare(_ sender: UIButton) {
+        if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            let text = "https://www.mintscan.io/txs/" + mTxInfo!.txhash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            let text = "https://irishub.mintscan.io/txs/" + mTxInfo!.hash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            let text = "https://explorer.binance.org/tx/" + mTxInfo!.hash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            let text = "https://kava.mintscan.io/txs/" + mTxInfo!.txhash
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+        
     }
     
     @IBAction func onClickExplorer(_ sender: UIButton) {
+        if (self.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            guard let url = URL(string: "https://www.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            guard let url = URL(string: "https://irishub.mintscan.io/txs/" + mTxInfo!.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            guard let url = URL(string: "https://explorer.binance.org/tx/" + mTxInfo!.hash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+            
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            guard let url = URL(string: "https://kava.mintscan.io/txs/" + mTxInfo!.txhash) else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
     }
     
     @IBAction func onClickDismiss(_ sender: UIButton) {
+        if (self.isMovingFromParent && mIsGen){
+            self.onStartMainTab()
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
-    
-    
-    
-    
-    
     
     func onShowMoreWait() {
         let noticeAlert = UIAlertController(title: NSLocalizedString("more_wait_title", comment: ""), message: NSLocalizedString("more_wait_msg", comment: ""), preferredStyle: .alert)
