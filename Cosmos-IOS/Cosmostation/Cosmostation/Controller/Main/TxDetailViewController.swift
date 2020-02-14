@@ -111,8 +111,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else if (msg?.type == COSMOS_MSG_TYPE_WITHDRAW_VAL) {
                 return onBindCommission(tableView, msg!)
                 
-            } else if (msg?.type == COSMOS_MSG_TYPE_TRANSFER || msg?.type == COSMOS_MSG_TYPE_TRANSFER2 || msg?.type == IRIS_MSG_TYPE_TRANSFER) {
+            } else if (msg?.type == COSMOS_MSG_TYPE_TRANSFER || msg?.type == COSMOS_MSG_TYPE_TRANSFER2 || msg?.type == COSMOS_MSG_TYPE_TRANSFER3 || msg?.type == IRIS_MSG_TYPE_TRANSFER) {
                 if ((msg?.value.inputs != nil && (msg?.value.inputs!.count)! > 1) ||  (msg?.value.outputs != nil && (msg?.value.outputs!.count)! > 1)) {
+                    //No case yet!
                     return onBindMultiTransfer(tableView, msg!)
                 } else {
                     return onBindTransfer(tableView, msg!)
@@ -138,9 +139,16 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             if (mTxInfo!.isSuccess) {
                 cell?.statusImg.image = UIImage(named: "successIc")
                 cell?.statusLabel.text = NSLocalizedString("tx_success", comment: "")
+                cell?.errorMsg.isHidden = true
+                cell?.errorConstraint.priority = .defaultLow
+                cell?.successConstraint.priority = .defaultHigh
             } else {
                 cell?.statusImg.image = UIImage(named: "failIc")
                 cell?.statusLabel.text = NSLocalizedString("tx_fail", comment: "")
+                cell?.errorMsg.text = mTxInfo?.failMsg
+                cell?.errorMsg.isHidden = false
+                cell?.errorConstraint.priority = .defaultHigh
+                cell?.successConstraint.priority = .defaultLow
             }
             cell?.heightLabel.text = mTxInfo!.height
             cell?.msgCntLabel.text = String(mTxInfo!.tx.value.msg.count)
@@ -149,7 +157,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.timeGapLabel.text = WUtils.txTimeGap(input: mTxInfo!.txTime)
             cell?.hashLabel.text = mTxInfo!.txhash
             cell?.memoLabel.text = mTxInfo!.tx.value.memo
-            cell?.feeAmountLabel.attributedText = WUtils.displayAmount2((mTxInfo?.tx.value.fee.amount[0].amount)!, cell!.feeAmountLabel.font!, 6, 6)
+            cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo!.getSimpleFee(), cell!.feeAmountLabel.font!, 6, 6)
             
         }
         return cell!
@@ -165,7 +173,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.validatorLabel.text = msg.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!)
             cell?.delegateAmountLabel.attributedText = WUtils.displayAmount2((msg.value.getAmount()?.amount)!, cell!.delegateAmountLabel.font!, 6, 6)
-            cell?.autoRewardAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.getSimpleAutoReward(), cell!.delegateAmountLabel.font!, 6, 6)
+            cell?.autoRewardAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.getSimpleAutoReward(), cell!.autoRewardAmountLabel.font!, 6, 6)
             if (mTxInfo?.getMsgs().count == 1) {
                 cell?.autoRewardLayer.isHidden = false
                 cell?.autoRewardBottomConstraint.priority = .defaultHigh
@@ -181,16 +189,80 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func onBindUndelegate(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxUndelegateCell? = tableView.dequeueReusableCell(withIdentifier:"TxUndelegateCell") as? TxUndelegateCell
+        cell?.setDenomType(chainType!)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            cell?.undelegatorLabel.text = msg.value.delegator_address
+            cell?.validatorLabel.text = msg.value.validator_address
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!)
+            cell?.undelegateAmountLabel.attributedText = WUtils.displayAmount2((msg.value.getAmount()?.amount)!, cell!.undelegateAmountLabel.font!, 6, 6)
+            cell?.autoRewardAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.getSimpleAutoReward(), cell!.autoRewardAmountLabel.font!, 6, 6)
+            if (mTxInfo?.getMsgs().count == 1) {
+                cell?.autoRewardLayer.isHidden = false
+                cell?.autoRewardBottomConstraint.priority = .defaultHigh
+                cell?.feeBottomConstraint.priority = .defaultLow
+            } else {
+                cell?.autoRewardLayer.isHidden = true
+                cell?.autoRewardBottomConstraint.priority = .defaultLow
+                cell?.feeBottomConstraint.priority = .defaultHigh
+            }
+        }
         return cell!
     }
     
     func onBindRedelegate(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxRedelegateCell? = tableView.dequeueReusableCell(withIdentifier:"TxRedelegateCell") as? TxRedelegateCell
+        cell?.setDenomType(chainType!)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            cell?.redelegatorLabel.text = msg.value.delegator_address
+            cell?.fromValidatorLabel.text = msg.value.validator_src_address
+            cell?.fromMonikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_src_address!)
+            cell?.toValidatorLabel.text = msg.value.validator_dst_address
+            cell?.toMonikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_dst_address!)
+            cell?.redelegateAmountLabel.attributedText = WUtils.displayAmount2((msg.value.getAmount()?.amount)!, cell!.redelegateAmountLabel.font!, 6, 6)
+            cell?.autoRewardAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.getSimpleAutoReward(), cell!.autoRewardAmountLabel.font!, 6, 6)
+            if (mTxInfo?.getMsgs().count == 1) {
+                cell?.autoRewardLayer.isHidden = false
+                cell?.autoRewardBottomConstraint.priority = .defaultHigh
+                cell?.feeBottomConstraint.priority = .defaultLow
+            } else {
+                cell?.autoRewardLayer.isHidden = true
+                cell?.autoRewardBottomConstraint.priority = .defaultLow
+                cell?.feeBottomConstraint.priority = .defaultHigh
+            }
+        }
         return cell!
     }
     
     func onBindTransfer(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxTransferCell? = tableView.dequeueReusableCell(withIdentifier:"TxTransferCell") as? TxTransferCell
+        cell?.setDenomType(chainType!)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (msg.type == COSMOS_MSG_TYPE_TRANSFER3) {
+                cell?.fromLabel.text = msg.value.inputs![0].address
+                cell?.toLabel.text = msg.value.outputs![0].address
+                cell?.amountLabel.attributedText = WUtils.displayAmount2(msg.value.inputs![0].coins[0].amount, cell!.amountLabel.font!, 6, 6)
+                if (self.account?.account_address == msg.value.inputs![0].address) {
+                    cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
+                } else if (self.account?.account_address == msg.value.outputs![0].address) {
+                    cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
+                }
+            } else {
+                cell?.fromLabel.text = msg.value.from_address
+                cell?.toLabel.text = msg.value.to_address
+                cell?.amountLabel.attributedText = WUtils.displayAmount2(msg.value.getAmounts()![0].amount, cell!.amountLabel.font!, 6, 6)
+                if (self.account?.account_address == msg.value.from_address) {
+                    cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
+                } else if (self.account?.account_address == msg.value.to_address) {
+                    cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
+                }
+            }
+        }
         return cell!
     }
     
@@ -201,21 +273,51 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func onBindGetReward(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxRewardCell? = tableView.dequeueReusableCell(withIdentifier:"TxRewardCell") as? TxRewardCell
+        cell?.setDenomType(chainType!)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            cell?.delegatorLabel.text = msg.value.delegator_address
+            cell?.validatorLabel.text = msg.value.validator_address
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!)
+            cell?.amountLabel.attributedText = WUtils.displayAmount2(mTxInfo!.getSimpleReward(msg.value.validator_address!), cell!.amountLabel.font!, 6, 6)
+        }
         return cell!
     }
     
     func onBindEditRewardAddress(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxEditRewardAddressCell? = tableView.dequeueReusableCell(withIdentifier:"TxEditRewardAddressCell") as? TxEditRewardAddressCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            cell?.delegatorLabel.text = msg.value.delegator_address
+            cell?.widthrawAddressLabel.text = msg.value.withdraw_address
+        }
         return cell!
     }
     
     func onBindVote(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxVoteCell? = tableView.dequeueReusableCell(withIdentifier:"TxVoteCell") as? TxVoteCell
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            cell?.voterLabel.text = msg.value.voter
+            cell?.proposalIdLabel.text = msg.value.proposal_id
+            cell?.opinionLabel.text = msg.value.option
+        }
         return cell!
     }
     
     func onBindCommission(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxCommissionCell? = tableView.dequeueReusableCell(withIdentifier:"TxCommissionCell") as? TxCommissionCell
+        cell?.setDenomType(chainType!)
+        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            cell?.validatorLabel.text = msg.value.validator_address
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!)
+            cell?.commissionAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo!.getSimpleCommission(), cell!.commissionAmountLabel.font!, 6, 6)
+        }
         return cell!
     }
     
@@ -223,7 +325,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let cell:TxUnknownCell? = tableView.dequeueReusableCell(withIdentifier:"TxUnknownCell") as? TxUnknownCell
         return cell!
     }
-    
     
     
     @IBAction func onClickShare(_ sender: UIButton) {

@@ -12,6 +12,7 @@ class TxCommonCell: UITableViewCell {
 
     @IBOutlet weak var statusImg: UIImageView!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var errorMsg: EdgeInsetLabel!
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var msgCntLabel: UILabel!
     @IBOutlet weak var gasAmountLabel: UILabel!
@@ -30,6 +31,9 @@ class TxCommonCell: UITableViewCell {
     @IBOutlet weak var timeGapLabel: UILabel!
     @IBOutlet weak var hashLabel: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
+    
+    @IBOutlet weak var errorConstraint: NSLayoutConstraint!
+    @IBOutlet weak var successConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

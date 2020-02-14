@@ -38,9 +38,10 @@ public struct TxInfo {
         
         self.rawLog = dictionary["raw_log"] as? String ?? ""
         self.events.removeAll()
-        let rawEvents = dictionary["events"] as! Array<NSDictionary>
-        for rawEvent in rawEvents {
-            self.events.append(Event(rawEvent as! [String : Any]))
+        if let rawEvents = dictionary["events"] as? Array<NSDictionary> {
+            for rawEvent in rawEvents {
+                self.events.append(Event(rawEvent as! [String : Any]))
+            }
         }
         self.gas_wanted = dictionary["gas_wanted"] as? String ?? ""
         self.gas_used = dictionary["gas_used"] as? String ?? ""
@@ -58,6 +59,15 @@ public struct TxInfo {
                         return;
                     }
                 }
+            }
+        }
+        if let code = dictionary["code"] as? Int {
+            if (code != 0) {
+                self.isSuccess = false
+                if let failmsg = dictionary["raw_log"] as? String {
+                    self.failMsg = failmsg
+                }
+                return
             }
         }
     }
@@ -119,6 +129,43 @@ public struct TxInfo {
                     }
                 }
             }
+        }
+        return result
+    }
+    
+    public func getSimpleReward(_ opAddr: String) -> String {
+        var result = "0"
+        for event in self.events {
+            if (event.type == "withdraw_rewards") {
+                for i in 0...event.attributes.count {
+                    if (event.attributes[i].key == "validator" && event.attributes[i].value == opAddr) {
+                        result = event.attributes[i - 1].value.replacingOccurrences(of: "uatom", with: "").replacingOccurrences(of: "ukava", with: "")
+                        break
+                    }
+                }
+            }
+        }
+        return result
+    }
+    
+    public func getSimpleCommission() -> String {
+        var result = "0"
+        for event in self.events {
+            if (event.type == "withdraw_commission") {
+                for attr in event.attributes {
+                    if (attr.value == "amount") {
+                        result = attr.value.replacingOccurrences(of: "uatom", with: "").replacingOccurrences(of: "ukava", with: "")
+                    }
+                }
+            }
+        }
+        return result
+    }
+    
+    public func getSimpleFee() -> String {
+        var result = "0"
+        if (tx.value.fee.amount != nil && tx.value.fee.amount.count > 0) {
+            result = tx.value.fee.amount[0].amount
         }
         return result
     }

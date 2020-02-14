@@ -31,4 +31,9 @@ class TxUndelegateCell: UITableViewCell {
         autoRewardAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
     
+    func setDenomType(_ chainType:ChainType) {
+        WUtils.setDenomTitle(chainType, undelegateDenomLabel)
+        WUtils.setDenomTitle(chainType, autoRewardDenomLabel)
+    }
+    
 }

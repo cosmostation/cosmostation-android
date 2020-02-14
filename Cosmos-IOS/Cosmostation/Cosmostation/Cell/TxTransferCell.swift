@@ -23,4 +23,8 @@ class TxTransferCell: UITableViewCell {
         
         amountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
+    
+    func setDenomType(_ chainType:ChainType) {
+        WUtils.setDenomTitle(chainType, amountDenomLabel)
+    }
 }
