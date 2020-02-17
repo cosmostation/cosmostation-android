@@ -18,7 +18,7 @@ class WalletInflationCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         infaltionLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
-        yieldLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_11_caption2)
+        yieldLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
 }

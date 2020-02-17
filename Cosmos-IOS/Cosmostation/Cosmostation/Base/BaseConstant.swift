@@ -38,10 +38,12 @@ let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let KEY_BASE_URL                        = "https://keybase.io/";
-
+let MOON_PAY_URL                        = "https://buy.moonpay.io";
+let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
 
 let CSS_VERSION                         = CSS_URL + "v1/app/version/ios";
 let CSS_PUSH_UPDATE                     = CSS_URL + "v1/account/update";
+let CSS_MOON_PAY                        = CSS_URL + "v1/sign/moonpay";
 
 let CSS_LCD_URL_BLOCK                   = CSS_LCD_URL + "blocks/";
 let CSS_LCD_URL_TX                      = CSS_LCD_URL + "txs/";

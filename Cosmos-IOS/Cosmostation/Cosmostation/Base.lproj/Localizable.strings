@@ -141,6 +141,15 @@
 "update_title" = "Update";
 "update_msg" = "New version available. \nPlease update to the latest version from the AppStore.";
 "go_appstore" = "Go Appstore";
+"tx_success" = "Success";
+"tx_fail" = "Fail";
+"buy_atom" = "  Buy ATOM";
+"buy_bnb" = "  Buy BNB";
+"buy_kava" = "  Buy KAVA";
+"buy_without_key_title" = "No Private Key";
+"buy_without_key_msg" = "After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?";
+"buy_select_fiat_title" = "Select Fiat";
+"buy_select_fiat_msg" = "Please select a currency to make a purchase.";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";
@@ -157,8 +166,6 @@
 "sign" = "Sign";
 "touchID" = "Touch ID";
 "faceID" = "Face ID";
-"tx_success" = "Success";
-"tx_fail" = "Fail";
 
 "only_USD" = "now only support USD";
 "only_cmc" = "now only support CoinMarketCap";

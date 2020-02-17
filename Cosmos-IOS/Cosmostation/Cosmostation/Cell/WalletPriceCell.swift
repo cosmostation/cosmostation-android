@@ -10,11 +10,16 @@ import UIKit
 
 class WalletPriceCell: UITableViewCell {
     
+    @IBOutlet weak var priceLayer: UIView!
     @IBOutlet weak var perPrice: UILabel!
     @IBOutlet weak var sourceSite: UILabel!
     @IBOutlet weak var updownPercent: UILabel!
     @IBOutlet weak var updownImg: UIImageView!
+    @IBOutlet weak var buySeparator: UIView!
+    @IBOutlet weak var buyBtn: UIButton!
     
+    @IBOutlet weak var noBuyConstraint: NSLayoutConstraint!
+    @IBOutlet weak var buyConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,12 +30,26 @@ class WalletPriceCell: UITableViewCell {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(onTapPrice))
         self.contentView.isUserInteractionEnabled = true
-        self.contentView.addGestureRecognizer(tap)
+        self.priceLayer.addGestureRecognizer(tap)
         
     }
     
     var actionTapPricel: (() -> Void)? = nil
+    var actionBuy: (() -> Void)? = nil
+    
     @objc func onTapPrice(sender:UITapGestureRecognizer) {
         actionTapPricel?()
+    }
+    
+    @IBAction func onBuyCoin(_ sender: UIButton) {
+        actionBuy?()
+    }
+    
+    
+    override func prepareForReuse() {
+        noBuyConstraint.priority = .defaultHigh
+        buyConstraint.priority = .defaultLow
+        buySeparator.isHidden = true
+        buyBtn.isHidden = true
     }
 }
