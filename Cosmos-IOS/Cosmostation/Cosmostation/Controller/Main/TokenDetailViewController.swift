@@ -209,7 +209,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         }
     }
     
-    
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenDetailHeaderCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderCosmosCell") as? TokenDetailHeaderCosmosCell
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)

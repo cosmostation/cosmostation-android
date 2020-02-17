@@ -222,11 +222,13 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate 
                             self.waitAlert?.dismiss(animated: true, completion: {
                                 if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                                     txResult["type"] = COSMOS_MSG_TYPE_DELEGATE
+                                    print("txResult ", txResult)
+                                    self.onStartTxDetail(txResult)
                                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                                     txResult["type"] = IRIS_MSG_TYPE_DELEGATE
+                                    print("txResult ", txResult)
+                                    self.onStartTxResult(txResult)
                                 }
-                                print("txResult ", txResult)
-                                self.onStartTxResult(txResult)
                             })
                         }
                     }

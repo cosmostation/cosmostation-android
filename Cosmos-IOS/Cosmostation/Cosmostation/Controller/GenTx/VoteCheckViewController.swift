@@ -228,10 +228,10 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
                                     //TODO not yet!!!
                                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                                     txResult["type"] = IRIS_MSG_TYPE_VOTE
+                                    self.onStartTxResult(txResult)
                                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                                     //TODO not yet!!!
                                 }
-                                self.onStartTxResult(txResult)
                             })
                         }
                     }
