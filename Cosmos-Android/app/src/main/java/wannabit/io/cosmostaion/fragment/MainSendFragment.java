@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -29,11 +30,11 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.BuyActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
@@ -45,8 +46,13 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
+import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -61,6 +67,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 
 public class MainSendFragment extends BaseFragment implements View.OnClickListener {
     public final static int WALLET_CONNECT = 6013;
+    public final static int BUY_WITHOUT_KEY = 6014;
+    public final static int SELECT_FIAT = 6015;
+
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private NestedScrollView    mNestedScrollView;
@@ -355,7 +364,12 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             }
             mIovCard.setVisibility(View.GONE);
-            mBuyLayer.setVisibility(View.GONE);
+            if (SUPPORT_MOONPAY && getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                mBuyLayer.setVisibility(View.VISIBLE);
+                mBuyCoinTv.setText(R.string.str_buy_kava);
+            } else {
+                mBuyLayer.setVisibility(View.GONE);
+            }
             if (getMainActivity().mAccount.hasPrivateKey) {
                 mKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
             }
@@ -717,12 +731,9 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
 
         } else if (v.equals(mBuyCoinBtn)) {
             if (getMainActivity().mAccount.hasPrivateKey) {
-                Intent buyIntent = new Intent(getMainActivity(), BuyActivity.class);
-                startActivity(buyIntent);
+                onShowBuySelectFiat();
             } else {
-                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-                add.setCancelable(true);
-                add.show(getFragmentManager(), "dialog");
+                onShowBuyWarnNoKey();
             }
 
         } else if (v.equals(mBtnKavaCdp)) {
@@ -731,6 +742,55 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         }
 
     }
+
+
+    private void onShowBuyWarnNoKey() {
+        Dialog_Buy_Without_Key connect = Dialog_Buy_Without_Key.newInstance();
+        connect.setCancelable(true);
+        connect.setTargetFragment(MainSendFragment.this, BUY_WITHOUT_KEY);
+        connect.show(getFragmentManager(), "dialog");
+    }
+
+    private void onShowBuySelectFiat() {
+        Dialog_Buy_Select_Fiat connect = Dialog_Buy_Select_Fiat.newInstance();
+        connect.setCancelable(true);
+        connect.setTargetFragment(MainSendFragment.this, SELECT_FIAT);
+        connect.show(getFragmentManager(), "dialog");
+    }
+
+    private void onStartMoonpaySignature(String fiat) {
+        String query = "?apiKey=" + getString(R.string.moon_pay_public_key);
+        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            query = query + "&currencyCode=atom";
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            query = query + "&currencyCode=bnb";
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            query = query + "&currencyCode=kava";
+        }
+        query = query + "&walletAddress=" + getMainActivity().mAccount.address + "&baseCurrencyCode=" + fiat;
+        final String data = query;
+
+        new MoonPayTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess) {
+                    try {
+                        String en = URLEncoder.encode((String)result.resultData, "UTF-8");
+                        WLog.w("en " + en);
+                        Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
+                        startActivity(guideIntent);
+                    }catch (Exception e) {
+                        Toast.makeText(getBaseActivity(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(getBaseActivity(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, query).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+    }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -745,6 +805,13 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             intent.putExtra("wcUrl", data.getStringExtra("wcUrl"));
             startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
             getMainActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+        } else if (requestCode == BUY_WITHOUT_KEY && resultCode == Activity.RESULT_OK) {
+            onShowBuySelectFiat();
+
+        }  else if (requestCode == SELECT_FIAT && resultCode == Activity.RESULT_OK) {
+            WLog.w("fiat " + data.getStringExtra("fiat"));
+            onStartMoonpaySignature(data.getStringExtra("fiat"));
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);

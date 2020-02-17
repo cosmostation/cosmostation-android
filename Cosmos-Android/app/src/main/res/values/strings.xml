@@ -384,11 +384,14 @@
     <string name="str_failed_c">failed</string>
     <string name="str_unknown_msg">UnKnown Type Message</string>
     <string name="str_unknown_tx">This message type is not supported by mobile.\nPlease check the MintScan Explorer for details.</string>
-    <string name="str_buy_atom">Buy Atom</string>
-    <string name="str_buy_bnb">Buy Bnb</string>
+    <string name="str_buy_atom">Buy ATOM</string>
+    <string name="str_buy_bnb">Buy BNB</string>
+    <string name="str_buy_kava">Buy KAVA</string>
     <string name="str_kava_testnet_msg"><![CDATA[This wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
     <string name="str_kava_cdp">CDP</string>
-
+    <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>
+    <string name="str_buy_select_fiat_title">Select Fiat</string>
+    <string name="str_buy_select_fiat_msg">Please select a currency to make a purchase.</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
