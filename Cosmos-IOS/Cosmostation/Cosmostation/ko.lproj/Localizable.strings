@@ -143,13 +143,13 @@
 "go_appstore" = "앱스토어로 이동";
 "tx_success" = "성공";
 "tx_fail" = "실패";
-"buy_atom" = "  ATOM 구매";
-"buy_bnb" = "  BNB 구매";
-"buy_kava" = "  KAVA 구매";
+"buy_atom" = "  ATOM 구입";
+"buy_bnb" = "  BNB 구입";
+"buy_kava" = "  KAVA 구입";
 "buy_without_key_title" = "관찰 모드 지갑";
-"buy_without_key_msg" = "구매 후 코인은 현재 지갑 주소로 송금받게 됩니다. 현재 지갑에 대한 권한이 없지만 계속 구매하시겠습니까?";
+"buy_without_key_msg" = "구입 후 코인은 현재 지갑 주소로 송금받게 됩니다. 현재 지갑에 대한 권한이 없지만 계속 구입하시겠습니까?";
 "buy_select_fiat_title" = "통화 선택";
-"buy_select_fiat_msg" = "구매를 하기위한 통화를 선택하세요.";
+"buy_select_fiat_msg" = "구입을 하기위한 통화를 선택하세요.";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";

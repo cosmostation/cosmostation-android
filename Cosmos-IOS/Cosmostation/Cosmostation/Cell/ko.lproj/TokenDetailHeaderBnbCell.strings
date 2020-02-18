@@ -21,4 +21,7 @@
 "qTp-68-bUS.text" = "--";
 
 /* Class = "UIButton"; normalTitle = "  SEND"; ObjectID = "zb2-7p-AbL"; */
-"zb2-7p-AbL.normalTitle" = "  송금하기";
+"zb2-7p-AbL.normalTitle" = "  BNB 구입";
+
+"KtU-za-Hdi.normalTitle" = "  보내기";
+"brm-Jo-oLB.normalTitle" = "  받기";

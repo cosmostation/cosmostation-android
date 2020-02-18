@@ -6,7 +6,7 @@
 "5wk-sT-QxK.text" = "사용 가눙 수량";
 
 /* Class = "UIButton"; normalTitle = "  SEND"; ObjectID = "9QL-dO-TbC"; */
-"9QL-dO-TbC.normalTitle" = "  송금하기";
+"9QL-dO-TbC.normalTitle" = "  ATOM 구입";
 
 /* Class = "UILabel"; text = "--"; ObjectID = "EZP-nN-Uqh"; */
 "EZP-nN-Uqh.text" = "--";
@@ -34,3 +34,7 @@
 
 /* Class = "UILabel"; text = "--"; ObjectID = "ucP-uf-KhC"; */
 "ucP-uf-KhC.text" = "--";
+
+
+"7lU-sT-l7g.normalTitle" = "  보내기";
+"tGu-KQ-Dkz.normalTitle" = "  받기";

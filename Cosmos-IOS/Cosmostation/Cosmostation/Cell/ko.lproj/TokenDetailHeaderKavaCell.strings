@@ -24,7 +24,7 @@
 "Nvy-HQ-oFM.text" = "--";
 
 /* Class = "UIButton"; normalTitle = "  SEND"; ObjectID = "cKc-74-tp8"; */
-"cKc-74-tp8.normalTitle" = "  송금하기";
+"cKc-74-tp8.normalTitle" = "  KAVA 구입";
 
 /* Class = "UILabel"; text = "Vesting"; ObjectID = "gBR-Wg-Rf7"; */
 "gBR-Wg-Rf7.text" = "베스팅 수량";
@@ -40,3 +40,7 @@
 
 /* Class = "UILabel"; text = "Available"; ObjectID = "v85-zF-AJg"; */
 "v85-zF-AJg.text" = "사용 가능 수량";
+
+
+"aKW-Uu-NnW.normalTitle" = "  보내기";
+"bWg-Sg-Eir.normalTitle" = "  받기";
