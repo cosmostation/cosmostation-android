@@ -149,7 +149,7 @@
 "buy_without_key_title" = "관찰 모드 지갑";
 "buy_without_key_msg" = "구매 후 코인은 현재 지갑 주소로 송금받게 됩니다. 현재 지갑에 대한 권한이 없지만 계속 구매하시겠습니까?";
 "buy_select_fiat_title" = "통화 선택";
-"buy_select_fiat_msg" = "구매를 하기위한 통화를 선택하세요. .";
+"buy_select_fiat_msg" = "구매를 하기위한 통화를 선택하세요.";
 
 "clear_all" = "전체 삭제";
 "delete" = "삭제";

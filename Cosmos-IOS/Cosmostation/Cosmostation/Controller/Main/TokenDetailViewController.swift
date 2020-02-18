@@ -224,6 +224,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.actionSend  = {
             self.onSendToken()
         }
+        cell?.actionReceive = {
+            self.onRecieveToken()
+        }
+        cell?.actionBuy = {
+            self.onBuyCoin()
+        }
         return cell!
     }
     
@@ -257,6 +263,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.actionSend  = {
                 self.onSendToken()
             }
+            cell?.actionRecieve = {
+                self.onRecieveToken()
+            }
+            cell?.actionBuy = {
+                self.onBuyCoin()
+            }
         }
         return cell!
     }
@@ -277,6 +289,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.vestingAmount.attributedText = WUtils.dpVestingCoin(balances, cell!.vestingAmount.font, 6, KAVA_MAIN_DENOM, chainType!)
         cell?.actionSend  = {
             self.onSendToken()
+        }
+        cell?.actionRecieve = {
+            self.onRecieveToken()
+        }
+        cell?.actionBuy = {
+            self.onBuyCoin()
         }
         return cell!
     }
@@ -493,5 +511,94 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    
+    func onRecieveToken() {
+        var nickName:String?
+        if (account!.account_nick_name == "") {
+            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
+        } else {
+            nickName = account!.account_nick_name
+        }
+        self.shareAddress(account!.account_address, nickName!)
+    }
+    
+    func onBuyCoin() {
+        if (account!.account_has_private) {
+            self.onShowBuySelectFiat()
+        } else {
+            self.onShowBuyWarnNoKey()
+        }
+    }
+    
+    func onShowBuyWarnNoKey() {
+        let noKeyAlert = UIAlertController(title: NSLocalizedString("buy_without_key_title", comment: ""), message: NSLocalizedString("buy_without_key_msg", comment: ""), preferredStyle: .alert)
+        noKeyAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: {_ in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        noKeyAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: {_ in
+            self.onShowBuySelectFiat()
+        }))
+        self.present(noKeyAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            noKeyAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func onShowBuySelectFiat() {
+        let selectFiatAlert = UIAlertController(title: NSLocalizedString("buy_select_fiat_title", comment: ""), message: NSLocalizedString("buy_select_fiat_msg", comment: ""), preferredStyle: .alert)
+        let usdAction = UIAlertAction(title: "USD", style: .default, handler: { _ in
+            self.onStartMoonpaySignature("usd")
+        })
+        let eurAction = UIAlertAction(title: "EUR", style: .default, handler: { _ in
+            self.onStartMoonpaySignature("eur")
+        })
+        let gbpAction = UIAlertAction(title: "GBP", style: .default, handler: { _ in
+            self.onStartMoonpaySignature("gbp")
+        })
+        selectFiatAlert.addAction(usdAction)
+        selectFiatAlert.addAction(eurAction)
+        selectFiatAlert.addAction(gbpAction)
+        self.present(selectFiatAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            selectFiatAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func onStartMoonpaySignature(_ fiat:String) {
+        var query = "?apiKey=" + MOON_PAY_PUBLICK
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            query = query + "&currencyCode=atom";
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            query = query + "&currencyCode=bnb";
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            query = query + "&currencyCode=kava";
+        }
+        query = query + "&walletAddress=" + account!.account_address + "&baseCurrencyCode=" + fiat;
+        let param = ["api_key":query] as [String : Any]
+        let request = Alamofire.request(CSS_MOON_PAY, method: .post, parameters: param, encoding: JSONEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary else {
+                    self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
+                    return
+                }
+                let result = responseData.object(forKey: "signature") as? String ?? ""
+                let signauture = result.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+                self.onStartMoonPay(MOON_PAY_URL + query + "&signature=" + signauture!)
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onStartMoonpaySignature ", error) }
+                self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
+            }
+        }
+    }
+    
+    func onStartMoonPay(_ url:String) {
+        guard let url = URL(string: url) else { return }
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true, completion: nil)
     }
 }

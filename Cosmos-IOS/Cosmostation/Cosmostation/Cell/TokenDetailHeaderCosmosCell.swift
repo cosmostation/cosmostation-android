@@ -31,8 +31,17 @@ class TokenDetailHeaderCosmosCell: UITableViewCell {
     }
     
     var actionSend: (() -> Void)? = nil
+    var actionReceive: (() -> Void)? = nil
+    var actionBuy: (() -> Void)? = nil
     
     @IBAction func onClickSend(_ sender: Any) {
         actionSend?()
     }
+    @IBAction func onClickReceive(_ sender: UIButton) {
+        actionReceive?()
+    }
+    @IBAction func onClickBuy(_ sender: UIButton) {
+        actionBuy?()
+    }
+    
 }
