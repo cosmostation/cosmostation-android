@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -13,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class Dialog_Buy_Without_Key  extends DialogFragment {
 
@@ -43,7 +42,7 @@ public class Dialog_Buy_Without_Key  extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, new Intent());
+                getBaseActivity().onShowBuySelectFiat();
                 getDialog().dismiss();
             }
         });
@@ -53,5 +52,7 @@ public class Dialog_Buy_Without_Key  extends DialogFragment {
         return builder.create();
     }
 
-
+    private BaseActivity getBaseActivity() {
+        return (BaseActivity)getActivity();
+    }
 }

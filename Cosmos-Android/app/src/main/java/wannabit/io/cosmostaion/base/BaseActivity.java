@@ -42,6 +42,7 @@ import com.shasin.notificationbanner.Banner;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,10 +66,13 @@ import wannabit.io.cosmostaion.dao.IovToken;
 import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
+import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
 import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
 import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
+import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
@@ -88,6 +92,7 @@ import wannabit.io.cosmostaion.task.FetchTask.IovTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisPoolTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisTokenListTask;
+import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnbondedValidatorInfoTask;
@@ -826,6 +831,54 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             intent.setData(Uri.parse("package:" + getBaseContext().getPackageName()));
         }
         getBaseContext().startActivity(intent);
+    }
+
+    public void onShowBuyWarnNoKey() {
+        Dialog_Buy_Without_Key dialog = Dialog_Buy_Without_Key.newInstance();
+        dialog.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+//        connect.setTargetFragment(MainSendFragment.this, BUY_WITHOUT_KEY);
+//        connect.show(getFragmentManager(), "dialog");
+    }
+
+    public void onShowBuySelectFiat() {
+        Dialog_Buy_Select_Fiat dialog = Dialog_Buy_Select_Fiat.newInstance();
+        dialog.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
+//        connect.setTargetFragment(MainSendFragment.this, SELECT_FIAT);
+//        connect.show(getFragmentManager(), "dialog");
+    }
+
+    public void onStartMoonpaySignature(String fiat) {
+        String query = "?apiKey=" + getString(R.string.moon_pay_public_key);
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            query = query + "&currencyCode=atom";
+        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            query = query + "&currencyCode=bnb";
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            query = query + "&currencyCode=kava";
+        }
+        query = query + "&walletAddress=" + mAccount.address + "&baseCurrencyCode=" + fiat;
+        final String data = query;
+
+        new MoonPayTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess) {
+                    try {
+                        String en = URLEncoder.encode((String)result.resultData, "UTF-8");
+                        WLog.w("en " + en);
+                        Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
+                        startActivity(guideIntent);
+                    }catch (Exception e) {
+                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, query).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
 
 }

@@ -183,12 +183,62 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layer_cosmos_transfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <RelativeLayout
+                android:id="@+id/btn_atom_send"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/space_40"
+                android:minHeight="@dimen/space_40"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="@dimen/space_5"
+                android:background="@drawable/btn_trans_with_border"
+                android:clickable="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/send_ic"
+                    android:drawablePadding="@dimen/space_8"
+                    android:gravity="center"
+                    style="@style/font_ss_12_white"
+                    android:text="@string/str_send" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_atom_receive"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/space_40"
+                android:minHeight="@dimen/space_40"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="@dimen/space_5"
+                android:background="@drawable/btn_trans_with_border"
+                android:clickable="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/qrcode_ic"
+                    android:drawablePadding="@dimen/space_8"
+                    android:gravity="center"
+                    style="@style/font_ss_12_white"
+                    android:text="@string/str_receive" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
         <RelativeLayout
-            android:id="@+id/btn_atom_send"
+            android:id="@+id/btn_cosmos_buy"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_40"
             android:minHeight="@dimen/space_40"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true"
             android:visibility="gone">
@@ -196,11 +246,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableLeft="@drawable/send_ic"
+                android:drawableLeft="@drawable/card_ic"
+                android:drawableTint="@color/colorWhite"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
                 style="@style/font_ss_12_white"
-                android:text="@string/str_send_c" />
+                android:text="@string/str_buy_atom" />
         </RelativeLayout>
 
     </LinearLayout>

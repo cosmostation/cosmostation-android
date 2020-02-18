@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -13,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class Dialog_Buy_Select_Fiat extends DialogFragment {
 
@@ -39,9 +37,7 @@ public class Dialog_Buy_Select_Fiat extends DialogFragment {
         usd_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("fiat", "usd");
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getBaseActivity().onStartMoonpaySignature("usd");
                 getDialog().dismiss();
 
             }
@@ -50,9 +46,7 @@ public class Dialog_Buy_Select_Fiat extends DialogFragment {
         eur_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("fiat", "eur");
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getBaseActivity().onStartMoonpaySignature("eur");
                 getDialog().dismiss();
 
             }
@@ -61,9 +55,7 @@ public class Dialog_Buy_Select_Fiat extends DialogFragment {
         gbp_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("fiat", "gbp");
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getBaseActivity().onStartMoonpaySignature("gbp");
                 getDialog().dismiss();
             }
         });
@@ -71,6 +63,10 @@ public class Dialog_Buy_Select_Fiat extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
+    }
+
+    private BaseActivity getBaseActivity() {
+        return (BaseActivity)getActivity();
     }
 
 }
