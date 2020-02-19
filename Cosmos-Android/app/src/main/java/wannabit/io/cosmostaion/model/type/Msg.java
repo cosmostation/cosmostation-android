@@ -126,6 +126,54 @@ public class Msg {
         @SerializedName("option")
         public String option;
 
+
+
+        //FOR KAVA
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("from")
+        public String from;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("market_id")
+        public String market_id;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("price")
+        public String price;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("expiry")
+        public String expiry;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("sender")
+        public String sender;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("depositor")
+        public String depositor;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("owner")
+        public String owner;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("collateral")
+        public ArrayList<Coin> collateral;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("principal")
+        public ArrayList<Coin> principal;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("payment")
+        public ArrayList<Coin> payment;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("cdp_denom")
+        public String cdp_denom;
+
+
     }
 
 }

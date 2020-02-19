@@ -78,6 +78,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
 import wannabit.io.cosmostaion.network.res.ResIovAddressInfo;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
@@ -92,6 +93,7 @@ import wannabit.io.cosmostaion.task.FetchTask.IovTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisPoolTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisTokenListTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
@@ -456,7 +458,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mTaskCount = 9;
+            mTaskCount = 10;
 
             new AllValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnbondingValidatorInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -469,6 +471,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
@@ -587,6 +591,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == BaseConstant.TASK_FETCH_IOV_TOKENS) {
             mIovTokens = (ArrayList<IovToken>)result.resultData;
 
+        } else if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mKavaCdpParams = (ResKavaCdpParam.Result)result.resultData;
+            }
         }
 
 
@@ -837,16 +845,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         Dialog_Buy_Without_Key dialog = Dialog_Buy_Without_Key.newInstance();
         dialog.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
-//        connect.setTargetFragment(MainSendFragment.this, BUY_WITHOUT_KEY);
-//        connect.show(getFragmentManager(), "dialog");
     }
 
     public void onShowBuySelectFiat() {
         Dialog_Buy_Select_Fiat dialog = Dialog_Buy_Select_Fiat.newInstance();
         dialog.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(dialog, "wait").commitNowAllowingStateLoss();
-//        connect.setTargetFragment(MainSendFragment.this, SELECT_FIAT);
-//        connect.show(getFragmentManager(), "dialog");
     }
 
     public void onStartMoonpaySignature(String fiat) {

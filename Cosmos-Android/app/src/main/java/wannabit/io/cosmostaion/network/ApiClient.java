@@ -74,7 +74,7 @@ public class ApiClient {
         if (service_kava == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_main_kava))
+                        .baseUrl(c.getString(R.string.url_lcd_kava_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 service_kava = retrofit.create(KavaChain.class);
@@ -89,13 +89,28 @@ public class ApiClient {
         if (service_kava == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_main_kava_test))
+                        .baseUrl(c.getString(R.string.url_lcd_kava_test))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 service_kava_test = retrofit.create(KavaChain.class);
             }
         }
         return service_kava_test;
+    }
+
+    //Services for KAVATest api
+    private static KavaApi api_kava_test = null;
+    public static KavaApi getKavaTestApi(Context c) {
+        if (api_kava_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_kava_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_kava_test = retrofit.create(KavaApi.class);
+            }
+        }
+        return api_kava_test;
     }
 
     //Services for IOV main net

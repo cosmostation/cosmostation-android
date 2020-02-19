@@ -29,7 +29,9 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.req.ReqTx;
+import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResHistory;
+import wannabit.io.cosmostaion.task.FetchTask.ApiAccountTxsHistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.HistoryTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -51,6 +53,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     private ArrayList<ResHistory.InnerHits> mHistory = new ArrayList<>();
     private ArrayList<BnbHistory>           mBnbHistory = new ArrayList<>();
+    private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
 
     public static MainHistoryFragment newInstance(Bundle bundle) {
         MainHistoryFragment fragment = new MainHistoryFragment();
@@ -138,6 +141,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             new HistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain)
                     .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -169,6 +174,20 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 mEmptyHistory.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
 
+            }
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
+            ArrayList<ResApiTxList.Data> hits = (ArrayList<ResApiTxList.Data>)result.resultData;
+            if (hits != null && hits.size() > 0) {
+                WLog.w("hit size " + hits.size());
+                mApiTxHistory = hits;
+                mHistoryAdapter.notifyDataSetChanged();
+                mEmptyHistory.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+
+            } else {
+                mEmptyHistory.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
             }
         }
         mSwipeRefreshLayout.setRefreshing(false);
@@ -282,6 +301,29 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                         }
                     }
                 });
+
+            }  else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final ResApiTxList.Data tx = mApiTxHistory.get(position);
+                if (tx.isSuccess()) {
+                    viewHolder.historySuccess.setVisibility(View.GONE);
+                } else {
+                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                }
+                viewHolder.historyType.setText(WDp.DpTxType(getContext(), tx.messages, getMainActivity().mAccount.address));
+                viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.timestamp));
+                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.timestamp));
+                viewHolder.history_block.setText("" + tx.height + " block");
+                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                        txDetail.putExtra("txHash", tx.tx_hash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
+                    }
+                });
+
             }
         }
 
@@ -293,6 +335,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mHistory.size();
             } else if (getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 return mBnbHistory.size();
+            } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                return mApiTxHistory.size();
             }
             return 0;
         }

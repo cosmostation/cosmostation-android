@@ -11,6 +11,7 @@ import retrofit2.http.Query;
 import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
@@ -85,4 +86,9 @@ public interface KavaChain {
 
     @POST("/txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
+
+
+
+    @GET("/cdp/parameters")
+    Call<ResKavaCdpParam> getCdpParams();
 }

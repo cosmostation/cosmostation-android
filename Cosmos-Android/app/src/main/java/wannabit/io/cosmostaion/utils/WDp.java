@@ -785,6 +785,24 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.IRIS_MSG_TYPE_ISSUE_TOKEN)) {
             result = BaseConstant.TX_TYPE_IRIS_ISSUE_TOKEN;
 
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_POST_PRICE)) {
+            result = BaseConstant.TX_TYPE_KAVA_POST_PRICE;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CREATE_CDP)) {
+            result = BaseConstant.TX_TYPE_KAVA_CREATE_CDP;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP)) {
+            result = BaseConstant.TX_TYPE_KAVA_DEPOSIT_CDP;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP)) {
+            result = BaseConstant.TX_TYPE_KAVA_WITHDRAW_CDP;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP)) {
+            result = BaseConstant.TX_TYPE_KAVA_DRAWDEBT_CDP;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP)) {
+            result = BaseConstant.TX_TYPE_KAVA_REPAYDEBT_CDP;
+
         }
 
 
@@ -864,6 +882,30 @@ public class WDp {
 
             case BaseConstant.TX_TYPE_IRIS_ISSUE_TOKEN:
                 result = c.getString(R.string.tx_issue_token);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_POST_PRICE:
+                result = c.getString(R.string.tx_kava_post_price);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_CREATE_CDP:
+                result = c.getString(R.string.tx_kava_create_cdp);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_DEPOSIT_CDP:
+                result = c.getString(R.string.tx_kava_deposit_cdp);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_WITHDRAW_CDP:
+                result = c.getString(R.string.tx_kava_withdraw_cdp);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_DRAWDEBT_CDP:
+                result = c.getString(R.string.tx_kava_drawdebt_cdp);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_REPAYDEBT_CDP:
+                result = c.getString(R.string.tx_kava_repaydebt_cdp);
                 break;
 
             case BaseConstant.TX_TYPE_UNKNOWN:

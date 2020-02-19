@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
@@ -37,6 +38,11 @@ public class BaseData {
     private Validator           mValidator;
     private ResBroadTx          mTxResult;
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
+
+
+    //COMMON DATA
+    public ResKavaCdpParam.Result mKavaCdpParams;
+
 
     public BaseData(BaseApplication apps) {
         this.mApp = apps;
