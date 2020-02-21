@@ -181,6 +181,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v.equals(mDismissBtn)) {
+            onBackPressed();
 
         } else if (v.equals(mExplorerBtn)) {
             Intent webintent = new Intent(this, WebActivity.class);
