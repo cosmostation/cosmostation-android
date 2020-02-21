@@ -86,7 +86,7 @@ public class ApiClient {
     //Services for KAVATest chain
     private static KavaChain service_kava_test = null;
     public static KavaChain getKavaTestChain(Context c) {
-        if (service_kava == null) {
+        if (service_kava_test == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_kava_test))
