@@ -197,7 +197,7 @@
     <string name="str_reinvest">이자 즉시 위임</string>
     <string name="str_history_validator">이 검증인과의 거래내역</string>
     <string name="str_history_token">입출금 내역</string>
-    <string name="str_price">현재 가격</string>
+    <string name="str_current_price">현재 가격</string>
     <string name="str_ago">전</string>
     <string name="str_day">일</string>
     <string name="str_d">일</string>
@@ -334,6 +334,17 @@
     <string name="str_buy_without_key_msg">구매 후 코인은 현재 지갑 주소로 송금받게 됩니다. 현재 지갑에 대한 권한이 없지만 계속 구매하시겠습니까?</string>
     <string name="str_buy_select_fiat_title">통화 선택</string>
     <string name="str_buy_select_fiat_msg">구매를 하기위한 통화를 선택하세요.</string>
+    <string name="str_price_poster">가격 공시자</string>
+    <string name="str_market_id">마켓 ID</string>
+    <string name="str_post_price">공시 가격</string>
+    <string name="str_validity_time">유효 기간</string>
+    <string name="str_sender_cdp">신청인</string>
+    <string name="str_owner_cdp">소유인</string>
+    <string name="str_depositor_cdp">예치인</string>
+    <string name="str_collateral_cdp">담보금</string>
+    <string name="str_principal_cdp">대출금</string>
+    <string name="str_denom_cdp">코인 타입</string>
+    <string name="str_payment_cdp">상환</string>
 
 
     <string name="str_main_wallet">WALLET</string>
@@ -566,7 +577,7 @@
     <string name="tx_known">알수없음</string>
     <string name="tx_kava_post_price">가격 정보 갱신</string>
     <string name="tx_kava_create_cdp">CDP 생성</string>
-    <string name="tx_kava_deposit_cdp">CDP 담보 입금</string>
+    <string name="tx_kava_deposit_cdp">CDP 담보 예치</string>
     <string name="tx_kava_withdraw_cdp">CDP 융자 출금</string>
     <string name="tx_kava_drawdebt_cdp">CDP 융자 증가</string>
     <string name="tx_kava_repaydebt_cdp">CDP 상환</string>

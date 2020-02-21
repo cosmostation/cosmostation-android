@@ -167,7 +167,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_price"
+                                android:text="@string/str_current_price"
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/dash_per_price"

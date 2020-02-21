@@ -57,6 +57,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_UNDELEGATE
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
 
 public class TxDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -230,6 +236,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_TX_VOTE = 7;
         private static final int TYPE_TX_COMMISSION = 8;
         private static final int TYPE_TX_MULTI_SEND = 9;
+        private static final int TYPE_TX_POST_PRICE = 10;
+        private static final int TYPE_TX_CREATE_CDP = 11;
+        private static final int TYPE_TX_DEPOSIT_CDP = 12;
+        private static final int TYPE_TX_WITHDRAW_CDP = 13;
+        private static final int TYPE_TX_DRAW_DEBT_CDP = 14;
+        private static final int TYPE_TX_REPAY_CDP = 15;
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -255,6 +267,18 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxCommissionHolder(getLayoutInflater().inflate(R.layout.item_tx_commission, viewGroup, false));
             } else if (viewType == TYPE_TX_MULTI_SEND) {
                 return new TxMultiSendHolder(getLayoutInflater().inflate(R.layout.item_tx_multisend, viewGroup, false));
+            } else if (viewType == TYPE_TX_POST_PRICE) {
+                return new TxPostPriceHolder(getLayoutInflater().inflate(R.layout.item_tx_post_price, viewGroup, false));
+            } else if (viewType == TYPE_TX_CREATE_CDP) {
+                return new TxCreateCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_create_cdp, viewGroup, false));
+            } else if (viewType == TYPE_TX_DEPOSIT_CDP) {
+                return new TxDepositCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_deposit_cdp, viewGroup, false));
+            } else if (viewType == TYPE_TX_WITHDRAW_CDP) {
+                return new TxWithdrawCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_withdraw_cdp, viewGroup, false));
+            } else if (viewType == TYPE_TX_DRAW_DEBT_CDP) {
+                return new TxDrawDebtCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_drawdebt_cdp, viewGroup, false));
+            } else if (viewType == TYPE_TX_REPAY_CDP) {
+                return new TxRepayDebtCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_repaydebt_cdp, viewGroup, false));
             }
 
             return new TxUnKnownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
@@ -282,10 +306,21 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindCommission(viewHolder, mResTxInfo.getMsg(position - 1));
             } else if (getItemViewType(position) == TYPE_TX_MULTI_SEND) {
                 onBindMultiSend(viewHolder, mResTxInfo.getMsg(position - 1));
+            } else if (getItemViewType(position) == TYPE_TX_POST_PRICE) {
+                onBindPostPrice(viewHolder, mResTxInfo.getMsg(position - 1));
+            } else if (getItemViewType(position) == TYPE_TX_CREATE_CDP) {
+                onBindCreateCdp(viewHolder, mResTxInfo.getMsg(position - 1));
+            } else if (getItemViewType(position) == TYPE_TX_DEPOSIT_CDP) {
+                onBindDepositCdp(viewHolder, mResTxInfo.getMsg(position - 1));
+            } else if (getItemViewType(position) == TYPE_TX_WITHDRAW_CDP) {
+                onBindWithdrawCdp(viewHolder, mResTxInfo.getMsg(position - 1));
+            } else if (getItemViewType(position) == TYPE_TX_DRAW_DEBT_CDP) {
+                onBindDrawDebtCdp(viewHolder, mResTxInfo.getMsg(position - 1));
+            } else if (getItemViewType(position) == TYPE_TX_REPAY_CDP) {
+                onBindRepayDebtCdp(viewHolder, mResTxInfo.getMsg(position - 1));
             } else {
                 onBindUnKnown(viewHolder, mResTxInfo.getMsg(position - 1));
             }
-
         }
 
         @Override
@@ -338,6 +373,24 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                         mResTxInfo.getMsgType(position - 1) .equals(IRIS_MSG_TYPE_VOTE)) {
                     return TYPE_TX_VOTE;
 
+                } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_POST_PRICE)) {
+                    return TYPE_TX_POST_PRICE;
+
+                } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_CREATE_CDP)) {
+                    return TYPE_TX_CREATE_CDP;
+
+                } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_DEPOSIT_CDP)) {
+                    return TYPE_TX_DEPOSIT_CDP;
+
+                } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_WITHDRAW_CDP)) {
+                    return TYPE_TX_WITHDRAW_CDP;
+
+                } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_DRAWDEBT_CDP)) {
+                    return TYPE_TX_DRAW_DEBT_CDP;
+
+                } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_REPAYDEBT_CDP)) {
+                    return TYPE_TX_REPAY_CDP;
+
                 } else if (mResTxInfo.getMsgType(position - 1) .equals(COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
                     return TYPE_TX_COMMISSION;
                 }
@@ -346,7 +399,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
             }
         }
-
 
 
         private void onBindCommon(RecyclerView.ViewHolder viewHolder) {
@@ -444,7 +496,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
             }
         }
-
 
         private void onBindMultiSend(RecyclerView.ViewHolder viewHolder, Msg msg) {
             final TxMultiSendHolder holder = (TxMultiSendHolder)viewHolder;
@@ -634,6 +685,36 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, mAllValidators));
                 holder.itemCommissionAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleCommission(), 6, mBaseChain));
             }
+        }
+
+        private void onBindPostPrice(RecyclerView.ViewHolder viewHolder, Msg msg) {
+            final TxPostPriceHolder holder = (TxPostPriceHolder)viewHolder;
+
+        }
+
+        private void onBindCreateCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
+            final TxCreateCdpHolder holder = (TxCreateCdpHolder)viewHolder;
+
+        }
+
+        private void onBindDepositCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
+            final TxDepositCdpHolder holder = (TxDepositCdpHolder)viewHolder;
+
+        }
+
+        private void onBindWithdrawCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
+            final TxWithdrawCdpHolder holder = (TxWithdrawCdpHolder)viewHolder;
+
+        }
+
+        private void onBindDrawDebtCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
+            final TxDrawDebtCdpHolder holder = (TxDrawDebtCdpHolder)viewHolder;
+
+        }
+
+        private void onBindRepayDebtCdp(RecyclerView.ViewHolder viewHolder, Msg msg) {
+            final TxRepayDebtCdpHolder holder = (TxRepayDebtCdpHolder)viewHolder;
+
         }
 
         private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, Msg msg) {
@@ -899,6 +980,107 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
+        public class TxPostPriceHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemPoster, itemMakerId, itemPostPrice, itemTime;
+
+            public TxPostPriceHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemPoster = itemView.findViewById(R.id.tx_price_poster);
+                itemMakerId = itemView.findViewById(R.id.tx_market_id);
+                itemPostPrice = itemView.findViewById(R.id.tx_commission_icon);
+                itemTime = itemView.findViewById(R.id.tx_validity_time);
+            }
+        }
+
+        public class TxCreateCdpHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemSender, itemCollateralAmount, itemCollateralDenom,
+                    itemPrincipalAmount, itemPrincipalDenom;
+
+            public TxCreateCdpHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemSender = itemView.findViewById(R.id.tx_cdp_sender);
+                itemCollateralAmount = itemView.findViewById(R.id.tx_collateral_amount);
+                itemCollateralDenom = itemView.findViewById(R.id.tx_collateral_symbol);
+                itemPrincipalAmount = itemView.findViewById(R.id.tx_principal_amount);
+                itemPrincipalDenom = itemView.findViewById(R.id.tx_principal_symbol);
+            }
+        }
+
+        public class TxDepositCdpHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemOwner, itemDepositor, itemCollateralAmount, itemCollateralDenom;
+
+            public TxDepositCdpHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemOwner = itemView.findViewById(R.id.tx_cdp_owner);
+                itemDepositor = itemView.findViewById(R.id.tx_cdp_depositor);
+                itemCollateralAmount = itemView.findViewById(R.id.tx_collateral_amount);
+                itemCollateralDenom = itemView.findViewById(R.id.tx_collateral_symbol);
+            }
+        }
+
+        public class TxWithdrawCdpHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemOwner, itemDepositor, itemCollateralAmount, itemCollateralDenom;
+
+            public TxWithdrawCdpHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemOwner = itemView.findViewById(R.id.tx_cdp_owner);
+                itemDepositor = itemView.findViewById(R.id.tx_cdp_depositor);
+                itemCollateralAmount = itemView.findViewById(R.id.tx_collateral_amount);
+                itemCollateralDenom = itemView.findViewById(R.id.tx_collateral_symbol);
+            }
+
+        }
+
+        public class TxDrawDebtCdpHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemSender, itemCdpDenom, itemPrincipalAmount, itemPrincipalDenom;
+
+            public TxDrawDebtCdpHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemSender = itemView.findViewById(R.id.tx_cdp_sender);
+                itemCdpDenom = itemView.findViewById(R.id.tx_cdp_denom);
+                itemPrincipalAmount = itemView.findViewById(R.id.tx_principal_amount);
+                itemPrincipalDenom = itemView.findViewById(R.id.tx_principal_symbol);
+            }
+
+        }
+
+        public class TxRepayDebtCdpHolder extends RecyclerView.ViewHolder {
+            ImageView itemMsgImg;
+            TextView itemMsgTitle;
+            TextView itemSender, itemCdpDenom, itemPaymentAmount, itemPaymentDenom;
+
+            public TxRepayDebtCdpHolder(@NonNull View itemView) {
+                super(itemView);
+                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
+                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
+                itemSender = itemView.findViewById(R.id.tx_cdp_sender);
+                itemCdpDenom = itemView.findViewById(R.id.tx_cdp_denom);
+                itemPaymentAmount = itemView.findViewById(R.id.tx_payment_amount);
+                itemPaymentDenom = itemView.findViewById(R.id.tx_payment_symbol);
+            }
+
+        }
+
         public class TxUnKnownHolder extends RecyclerView.ViewHolder {
             ImageView itemUnknownImg;
             TextView itemUnknownTitle;
@@ -909,6 +1091,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemUnknownTitle = itemView.findViewById(R.id.tx_unknown_text);
             }
         }
+
+
     }
 
 

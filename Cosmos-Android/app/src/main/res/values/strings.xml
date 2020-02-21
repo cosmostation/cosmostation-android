@@ -263,7 +263,7 @@
     <string name="str_reinvest">Re-Invest</string>
     <string name="str_history_validator">History with this validator</string>
     <string name="str_history_token">Transfer history</string>
-    <string name="str_price">Current Price</string>
+    <string name="str_current_price">Current Price</string>
     <string name="str_ago">ago</string>
     <string name="str_day">days</string>
     <string name="str_d">d</string>
@@ -398,6 +398,17 @@
     <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>
     <string name="str_buy_select_fiat_title">Select Fiat</string>
     <string name="str_buy_select_fiat_msg">Please select a currency to make a purchase.</string>
+    <string name="str_price_poster">Price Poster</string>
+    <string name="str_market_id">Market ID</string>
+    <string name="str_post_price">Post Price</string>
+    <string name="str_validity_time">Validity Time</string>
+    <string name="str_sender_cdp">Sender</string>
+    <string name="str_owner_cdp">Owner</string>
+    <string name="str_depositor_cdp">Depositor</string>
+    <string name="str_collateral_cdp">Collateral</string>
+    <string name="str_principal_cdp">Principal</string>
+    <string name="str_denom_cdp">Coin Type</string>
+    <string name="str_payment_cdp">Payment</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
