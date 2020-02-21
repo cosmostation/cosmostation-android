@@ -261,7 +261,6 @@ public class BaseConstant {
     public final static String FEE_KAVA_GAS_AMOUNT_REINVEST     = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "300000";
 
-
     public final static String FEE_IRIS_GAS_RATE_AVERAGE        = "0.000008";
 
     public final static String FEE_IRIS_GAS_AMOUNT_SEND         = "25000";
@@ -288,4 +287,6 @@ public class BaseConstant {
     public final static String COSMOS_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
     public final static String IRIS_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
     public final static String KAVA_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
+    public final static String KAVA_COIN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
+
 }

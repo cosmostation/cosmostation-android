@@ -77,11 +77,40 @@ public class WDp {
         return result;
     }
 
+    //show display text with full input amount and to divide deciaml and to show point
+    public static SpannableString getDpAmount2(Context c, BigDecimal input, int divideDecimal, int displayDecimal) {
+        SpannableString result;
+        BigDecimal amount = input.movePointLeft(divideDecimal).setScale(displayDecimal, BigDecimal.ROUND_DOWN);
+        result = new SpannableString(getDecimalFormat(c, displayDecimal).format(amount));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - displayDecimal, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+    }
+
     public static SpannableString getDpString(String input, int point) {
         SpannableString result;
         result = new SpannableString(input);
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
+    }
+
+
+
+    public static void showCoinDp(Context c, Coin coin, TextView denom, TextView amount, BaseChain chain) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denom);
+            amount.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+
+        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            if (coin.denom.equals(COSMOS_KAVA)) {
+                DpMainDenom(c, chain.getChain(), denom);
+            } else {
+                denom.setText(coin.denom.toUpperCase());
+            }
+            amount.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
+        }
+
     }
 
     public static SpannableString getDpAllRewardAmount(Context c, ArrayList<Reward> rewards, BaseChain chain, String denom) {
@@ -1314,10 +1343,6 @@ public class WDp {
         } else if (BaseChain.getChain(chain).equals(BaseChain.IOV_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorIov));
             textview.setText(c.getString(R.string.s_iov));
-
         }
-
-
-
     }
 }

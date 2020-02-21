@@ -49,131 +49,15 @@
                     android:text="@string/str_from"
                     style="@style/font_ss_12_gray1"/>
                 <RelativeLayout
-                    android:id="@+id/tx_send_from0"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4">
                     <TextView
-                        android:id="@+id/tx_send_from0_address"
+                        android:id="@+id/tx_send_from_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_send_from0_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_send_from0_address"
-                        android:layout_alignParentRight="true"
-                        android:text="ATOM"
-                        style="@style/font_ss_12_atom"
-                        android:visibility="gone"/>
-                    <TextView
-                        android:id="@+id/tx_send_from0_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_send_from0_symbol"
-                        android:layout_toLeftOf="@+id/tx_send_from0_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"
-                        android:visibility="gone"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/tx_send_from1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:visibility="gone">
-                    <TextView
-                        android:id="@+id/tx_send_from1_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_send_from1_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_send_from1_address"
-                        android:layout_alignParentRight="true"
-                        android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
-                    <TextView
-                        android:id="@+id/tx_send_from1_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_send_from1_symbol"
-                        android:layout_toLeftOf="@+id/tx_send_from1_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/tx_send_from2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:visibility="gone">
-                    <TextView
-                        android:id="@+id/tx_send_from2_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_send_from2_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_send_from2_address"
-                        android:layout_alignParentRight="true"
-                        android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
-                    <TextView
-                        android:id="@+id/tx_send_from2_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_send_from2_symbol"
-                        android:layout_toLeftOf="@+id/tx_send_from2_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/tx_send_from3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:visibility="gone">
-                    <TextView
-                        android:id="@+id/tx_send_from3_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_send_from3_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_send_from3_address"
-                        android:layout_alignParentRight="true"
-                        android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
-                    <TextView
-                        android:id="@+id/tx_send_from3_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_send_from3_symbol"
-                        android:layout_toLeftOf="@+id/tx_send_from3_symbol"
-                        android:layout_marginRight="@dimen/space_2"
                         android:text="-"
                         style="@style/font_ss_12_white"/>
                 </RelativeLayout>
@@ -190,159 +74,44 @@
                     android:text="@string/str_to"
                     style="@style/font_ss_12_gray1"/>
                 <RelativeLayout
-                    android:id="@+id/tx_send_to0"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4">
                     <TextView
-                        android:id="@+id/tx_send_to0_address"
+                        android:id="@+id/tx_send_to_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:ellipsize="middle"
                         android:text="-"
                         style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_send_to0_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_send_to0_address"
-                        android:layout_alignParentRight="true"
-                        android:text="ATOM"
-                        style="@style/font_ss_12_atom"
-                        android:visibility="gone"/>
-                    <TextView
-                        android:id="@+id/tx_send_to0_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_send_to0_symbol"
-                        android:layout_toLeftOf="@+id/tx_send_to0_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"
-                        android:visibility="gone"/>
                 </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/tx_send_to1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:visibility="gone">
-                    <TextView
-                        android:id="@+id/tx_send_to1_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_send_to1_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_send_to1_address"
-                        android:layout_alignParentRight="true"
-                        android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
-                    <TextView
-                        android:id="@+id/tx_send_to1_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_send_to1_symbol"
-                        android:layout_toLeftOf="@+id/tx_send_to1_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/tx_send_to2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:visibility="gone">
-                    <TextView
-                        android:id="@+id/tx_send_to2_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_send_to2_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_send_to2_address"
-                        android:layout_alignParentRight="true"
-                        android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
-                    <TextView
-                        android:id="@+id/tx_send_to2_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_send_to2_symbol"
-                        android:layout_toLeftOf="@+id/tx_send_to2_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/tx_send_to3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:visibility="gone">
-                    <TextView
-                        android:id="@+id/tx_send_to3_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_send_to3_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tx_send_to3_address"
-                        android:layout_alignParentRight="true"
-                        android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
-                    <TextView
-                        android:id="@+id/tx_send_to3_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_send_to3_symbol"
-                        android:layout_toLeftOf="@+id/tx_send_to3_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/tx_transfer_amount_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginTop="@dimen/space_16">
                 <TextView
-                    android:id="@+id/tx_transfer_amount_title"
+                    android:id="@+id/tx_send_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_amount"
                     style="@style/font_ss_12_gray1"/>
                 <RelativeLayout
+                    android:id="@+id/tx_send_single_coin_layer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_transfer_amount_title">
+                    android:layout_toRightOf="@+id/tx_send_title"
+                    android:visibility="gone">
                     <TextView
                         android:id="@+id/tx_transfer_amount_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
+                        style="@style/font_ss_12_white"/>
                     <TextView
                         android:id="@+id/tx_transfer_amount"
                         android:layout_width="wrap_content"
@@ -353,8 +122,121 @@
                         android:text="-"
                         style="@style/font_ss_12_white"/>
                 </RelativeLayout>
-            </RelativeLayout>
 
+                <LinearLayout
+                    android:id="@+id/tx_send_multi_coin_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tx_send_title"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <RelativeLayout
+                        android:id="@+id/tx_transfer_amount_layer0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_4"
+                        android:layout_toRightOf="@+id/tx_transfer_amount_title">
+                        <TextView
+                            android:id="@+id/tx_transfer_amount_symbol0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ATOM"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/tx_transfer_amount0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-"
+                            style="@style/font_ss_12_white"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/tx_transfer_amount_layer1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:layout_toRightOf="@+id/tx_transfer_amount_title"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/tx_transfer_amount_symbol1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="COIN"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/tx_transfer_amount1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-"
+                            style="@style/font_ss_12_white"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/tx_transfer_amount_layer2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:layout_toRightOf="@+id/tx_transfer_amount_title"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/tx_transfer_amount_symbol2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="COIN"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/tx_transfer_amount2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-"
+                            style="@style/font_ss_12_white"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/tx_transfer_amount_layer3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:layout_toRightOf="@+id/tx_transfer_amount_title"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/tx_transfer_amount_symbol3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="COIN"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/tx_transfer_amount3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-"
+                            style="@style/font_ss_12_white"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/tx_transfer_amount_layer4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:layout_toRightOf="@+id/tx_transfer_amount_title"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/tx_transfer_amount_symbol4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="COIN"
+                            style="@style/font_ss_12_white"/>
+                        <TextView
+                            android:id="@+id/tx_transfer_amount4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-"
+                            style="@style/font_ss_12_white"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

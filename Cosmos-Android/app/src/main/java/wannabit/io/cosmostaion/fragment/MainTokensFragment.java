@@ -51,6 +51,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 
 public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
@@ -473,8 +474,25 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
         } else {
-            // TODO no this case yet!
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("");
+            //TODO add coin descriptions
+            holder.itemFullName.setText(balance.symbol + " guaranteed by Kava-chain");
+
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+            try {
+                Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png")
+                        .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                        .into(holder.itemImg);
+
+            } catch (Exception e) { }
+
+//            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, WUtil.getKavaCoinDecimal(getBaseDao().mKavaCdpParams, balance), 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, WUtil.getKavaCoinDecimal(balance.symbol), 6));
+            //TODO add kava coin's value
+            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), BigDecimal.ZERO));
         }
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override

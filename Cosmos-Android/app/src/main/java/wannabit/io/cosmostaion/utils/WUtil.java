@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResIovBalance;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -895,6 +896,11 @@ public class WUtil {
                 } else if (chain.equals(BaseChain.BNB_MAIN)) {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
                     if(o2.symbol.equals(COSMOS_BNB)) return 1;
+
+                } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+                    if(o1.symbol.equals(COSMOS_KAVA)) return -1;
+                    if(o2.symbol.equals(COSMOS_KAVA)) return 1;
+
                 }
                 return o2.balance.compareTo(o1.balance);
             }
@@ -916,6 +922,11 @@ public class WUtil {
                 } else if (chain.equals(BaseChain.BNB_MAIN)) {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
                     if(o2.symbol.equals(COSMOS_BNB)) return 1;
+
+                } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+                    if(o1.symbol.equals(COSMOS_KAVA)) return -1;
+                    if(o2.symbol.equals(COSMOS_KAVA)) return 1;
+
                 }
                 return o1.symbol.compareTo(o2.symbol);
             }
@@ -937,6 +948,11 @@ public class WUtil {
                 } else if (chain.equals(BaseChain.BNB_MAIN)) {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
                     if(o2.symbol.equals(COSMOS_BNB)) return 1;
+
+                } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+                    if(o1.symbol.equals(COSMOS_KAVA)) return -1;
+                    if(o2.symbol.equals(COSMOS_KAVA)) return 1;
+
                 }
 
                 ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
@@ -945,6 +961,21 @@ public class WUtil {
                     BigDecimal o1Amount = o1.exchangeToBnbAmount(tic1);
                     BigDecimal o2Amount = o2.exchangeToBnbAmount(tic2);
                     return o2Amount.compareTo(o1Amount);
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
+
+    public static void onSortingCoins(ArrayList<Coin> coins, BaseChain chain) {
+        Collections.sort(coins, new Comparator<Coin>() {
+            @Override
+            public int compare(Coin o1, Coin o2) {
+                if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+                    if(o1.denom.equals(COSMOS_KAVA)) return -1;
+                    if(o2.denom.equals(COSMOS_KAVA)) return 1;
+                    else return 0;
                 } else {
                     return 0;
                 }
@@ -1048,6 +1079,74 @@ public class WUtil {
         } catch (Exception e) { }
 
         return result;
+    }
+
+    public static ResKavaCdpParam.KavaCollateralParam getCdpCoinParm(ResKavaCdpParam.Result params, Balance balance) {
+        if (params != null) {
+            for (ResKavaCdpParam.KavaCollateralParam param:params.collateral_params) {
+                if (param.denom.equals(balance.symbol)) {
+                    return param;
+                }
+            }
+            return null;
+
+        } else {
+            return null;
+        }
+    }
+
+    public static int getKavaCoinDecimal(ResKavaCdpParam.Result params, Balance balance) {
+        int result = 0;
+        if (params != null) {
+            if (params.debt_params != null) {
+                for (ResKavaCdpParam.KavaCdpDebtParam debtParams: params.debt_params) {
+                    if (debtParams.denom.equals(balance.symbol)) {
+                        return Integer.parseInt(debtParams.conversion_factor);
+                    }
+                }
+            }
+
+            if (params.collateral_params != null) {
+                for (ResKavaCdpParam.KavaCollateralParam collateralParams: params.collateral_params) {
+                    if (collateralParams.denom.equals(balance.symbol)) {
+                        return Integer.parseInt(collateralParams.conversion_factor);
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public static int getKavaCoinDecimal(Coin coin) {
+        if (coin.denom.equals(COSMOS_KAVA)) {
+            return 6;
+        } else if (coin.denom.equals("xrp")) {
+            return 6;
+        } else if (coin.denom.equals("btc")) {
+            return 8;
+        } else if (coin.denom.equals("usdx")) {
+            return 6;
+        } else if (coin.denom.equals("bnb")) {
+            return 8;
+        }
+        return 0;
+
+    }
+
+    public static int getKavaCoinDecimal(String denom) {
+        if (denom.equals(COSMOS_KAVA)) {
+            return 6;
+        } else if (denom.equals("xrp")) {
+            return 6;
+        } else if (denom.equals("btc")) {
+            return 8;
+        } else if (denom.equals("usdx")) {
+            return 6;
+        } else if (denom.equals("bnb")) {
+            return 8;
+        }
+        return 0;
     }
 
     public static BnbToken getBnbToken(ArrayList<BnbToken> all, Balance balance) {
