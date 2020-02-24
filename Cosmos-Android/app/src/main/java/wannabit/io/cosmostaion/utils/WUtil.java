@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -983,6 +984,16 @@ public class WUtil {
         });
     }
 
+    public static void onSortUnbondingsRecent(ArrayList<UnBondingState> UnBondingStates) {
+        Collections.sort(UnBondingStates, new Comparator<UnBondingState>() {
+            @Override
+            public int compare(UnBondingState o1, UnBondingState o2) {
+                return o1.completionTime < o2.completionTime ?  -1 : 1;
+
+            }
+        });
+    }
+
 
     public static void onSortingAccount(ArrayList<Account> accounts) {
         Collections.sort(accounts, new Comparator<Account>() {
@@ -1330,11 +1341,16 @@ public class WUtil {
 
     }
 
-    public static String getMonikerName(String opAddress, ArrayList<Validator> validators) {
+    public static String getMonikerName(String opAddress, ArrayList<Validator> validators, boolean bracket) {
         String result = "";
         for (Validator val:validators) {
             if (val.operator_address.equals(opAddress)) {
-                return  "(" + val.description.moniker + ")";
+                if (bracket) {
+                    return  "(" + val.description.moniker + ")";
+                } else {
+                    return  val.description.moniker;
+                }
+
             }
         }
         return result;

@@ -1100,16 +1100,16 @@ public class WDp {
         String result = "??";
         try {
             long now        = Calendar.getInstance().getTimeInMillis();
-            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
-            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             long left       = finishTime - now;
 
             if (left >= BaseConstant.CONSTANT_D ) {
-                result = "(D-" + (left / BaseConstant.CONSTANT_D) +")";
+                result = "(" + (left / BaseConstant.CONSTANT_D) +" days remaining)";
             } else if (left >= BaseConstant.CONSTANT_H ) {
-                result = "(H-" + (left / BaseConstant.CONSTANT_H) +")";
+                result = "(" + (left / BaseConstant.CONSTANT_H) +" hours remaining)";
+            }  else if (left >= BaseConstant.CONSTANT_M ) {
+                result = "(" + (left / BaseConstant.CONSTANT_M) +" minutes remaining)";
             } else {
-                return "SOON";
+                return "Soon";
             }
 
         } catch (Exception e){}

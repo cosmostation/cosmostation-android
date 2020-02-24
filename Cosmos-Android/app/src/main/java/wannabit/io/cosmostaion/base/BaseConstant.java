@@ -4,7 +4,7 @@ public class BaseConstant {
     public final static boolean IS_SHOWLOG              = true;
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
-    public final static boolean SUPPORT_KAVA_TEST       = true;
+    public final static boolean SUPPORT_KAVA_TEST       = false;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static String LOG_TAG                  = "Cosmostation";
 

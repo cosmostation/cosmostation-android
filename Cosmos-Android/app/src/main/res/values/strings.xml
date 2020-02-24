@@ -409,6 +409,7 @@
     <string name="str_principal_cdp">Principal</string>
     <string name="str_denom_cdp">Coin Type</string>
     <string name="str_payment_cdp">Payment</string>
+    <string name="str_undelegate_status">UnBonding Details</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

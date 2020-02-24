@@ -345,6 +345,7 @@
     <string name="str_principal_cdp">대출금</string>
     <string name="str_denom_cdp">코인 타입</string>
     <string name="str_payment_cdp">상환</string>
+    <string name="str_undelegate_status">위임철회 상세</string>
 
 
     <string name="str_main_wallet">WALLET</string>

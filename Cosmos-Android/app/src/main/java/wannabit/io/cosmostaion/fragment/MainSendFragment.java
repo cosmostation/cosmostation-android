@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -60,8 +61,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 
 public class MainSendFragment extends BaseFragment implements View.OnClickListener {
     public final static int WALLET_CONNECT = 6013;
-//    public final static int BUY_WITHOUT_KEY = 6014;
-//    public final static int SELECT_FIAT = 6015;
 
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
@@ -85,6 +84,13 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     private RelativeLayout      mBtnKavaReward, mBtnKavaVote, mBtnKavaCdp;
     private TextView            mTvIovTotal, mTvIovValue, mTvIovAvailable, mTvIovDeposited, mTvIovRewards;
     private RelativeLayout      mBtnIovDeposit, mBtnIovNameService;
+
+    private CardView            mUndelegateCard;
+    private TextView            mUndelegateCnt;
+    private RelativeLayout      mUndelegateLayer0, mUndelegateLayer1, mUndelegateLayer2, mUndelegateLayer3, mUndelegateLayer4;
+    private TextView            mUndelegateMoniker0, mUndelegateMoniker1, mUndelegateMoniker2, mUndelegateMoniker3, mUndelegateMoniker4;
+    private TextView            mUndelegateAmount0, mUndelegateAmount1, mUndelegateAmount2, mUndelegateAmount3, mUndelegateAmount4;
+    private TextView            mUndelegateTime0, mUndelegateTime1, mUndelegateTime2, mUndelegateTime3, mUndelegateTime4;
 
     private RelativeLayout      mPriceLayer;
     private TextView            mMarket;
@@ -172,6 +178,29 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mTvIovRewards           = mIovCard.findViewById(R.id.dash_atom_reward);
         mBtnIovDeposit          = mIovCard.findViewById(R.id.btn_iov_deposit);
         mBtnIovNameService      = mIovCard.findViewById(R.id.btn_iov_name_service);
+
+        mUndelegateCard         = rootView.findViewById(R.id.card_undelegate);
+        mUndelegateCnt          = mUndelegateCard.findViewById(R.id.undelegate_count);
+        mUndelegateLayer0       = mUndelegateCard.findViewById(R.id.undelegate_detail_layer0);
+        mUndelegateLayer1       = mUndelegateCard.findViewById(R.id.undelegate_detail_layer1);
+        mUndelegateLayer2       = mUndelegateCard.findViewById(R.id.undelegate_detail_layer2);
+        mUndelegateLayer3       = mUndelegateCard.findViewById(R.id.undelegate_detail_layer3);
+        mUndelegateLayer4       = mUndelegateCard.findViewById(R.id.undelegate_detail_layer4);
+        mUndelegateMoniker0     = mUndelegateCard.findViewById(R.id.undelegate_detail_moniker0);
+        mUndelegateMoniker1     = mUndelegateCard.findViewById(R.id.undelegate_detail_moniker1);
+        mUndelegateMoniker2     = mUndelegateCard.findViewById(R.id.undelegate_detail_moniker2);
+        mUndelegateMoniker3     = mUndelegateCard.findViewById(R.id.undelegate_detail_moniker3);
+        mUndelegateMoniker4     = mUndelegateCard.findViewById(R.id.undelegate_detail_moniker4);
+        mUndelegateAmount0      = mUndelegateCard.findViewById(R.id.undelegate_detail_amount0);
+        mUndelegateAmount1      = mUndelegateCard.findViewById(R.id.undelegate_detail_amount1);
+        mUndelegateAmount2      = mUndelegateCard.findViewById(R.id.undelegate_detail_amount2);
+        mUndelegateAmount3      = mUndelegateCard.findViewById(R.id.undelegate_detail_amount3);
+        mUndelegateAmount4      = mUndelegateCard.findViewById(R.id.undelegate_detail_amount4);
+        mUndelegateTime0        = mUndelegateCard.findViewById(R.id.undelegate_detail_time0);
+        mUndelegateTime1        = mUndelegateCard.findViewById(R.id.undelegate_detail_time1);
+        mUndelegateTime2        = mUndelegateCard.findViewById(R.id.undelegate_detail_time2);
+        mUndelegateTime3        = mUndelegateCard.findViewById(R.id.undelegate_detail_time3);
+        mUndelegateTime4        = mUndelegateCard.findViewById(R.id.undelegate_detail_time4);
 
         mPriceLayer             = rootView.findViewById(R.id.price_layer);
         mMarket                 = rootView.findViewById(R.id.dash_price_market);
@@ -296,6 +325,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBnbCard.setVisibility(View.GONE);
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
+            mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg2));
             mMintCards.setVisibility(View.VISIBLE);
             if (SUPPORT_MOONPAY) {
                 mBuyLayer.setVisibility(View.VISIBLE);
@@ -317,6 +347,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mBnbCard.setVisibility(View.GONE);
             mKavaCard.setVisibility(View.GONE);
             mIovCard.setVisibility(View.GONE);
+            mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg4));
             mMintCards.setVisibility(View.VISIBLE);
             mBuyLayer.setVisibility(View.GONE);
             if (getMainActivity().mAccount.hasPrivateKey) {
@@ -353,6 +384,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             mIrisCard.setVisibility(View.GONE);
             mBnbCard.setVisibility(View.GONE);
             mKavaCard.setVisibility(View.VISIBLE);
+            mUndelegateCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 mKavaCard.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             }
@@ -554,6 +586,53 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                 mTvIovRewards.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
                 getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, BigDecimal.ZERO.toPlainString());
             }
+        }
+
+        // Show Undelegate detail list at most 5 for ordered by completing time
+        if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mUndelegateLayer1.setVisibility(View.GONE);
+            mUndelegateLayer2.setVisibility(View.GONE);
+            mUndelegateLayer3.setVisibility(View.GONE);
+            mUndelegateLayer4.setVisibility(View.GONE);
+            if (getMainActivity().mUnbondings.size() > 0) {
+                final ArrayList<UnBondingState> unbondings = getMainActivity().mUnbondings;
+                WUtil.onSortUnbondingsRecent(unbondings);
+                mUndelegateCard.setVisibility(View.VISIBLE);
+                mUndelegateCnt.setText(String.valueOf(unbondings.size()));
+                mUndelegateMoniker0.setText(WUtil.getMonikerName(unbondings.get(0).validatorAddress, getMainActivity().mAllValidators, false));
+                mUndelegateAmount0.setText(WDp.getDpAmount2(getContext(), unbondings.get(0).balance, 6, 6));
+                mUndelegateTime0.setText(WDp.getUnbondingTimeleft(getContext(), unbondings.get(0).completionTime));
+                if (unbondings.size() > 1) {
+                    mUndelegateLayer1.setVisibility(View.VISIBLE);
+                    mUndelegateMoniker1.setText(WUtil.getMonikerName(unbondings.get(1).validatorAddress, getMainActivity().mAllValidators, false));
+                    mUndelegateAmount1.setText(WDp.getDpAmount2(getContext(), unbondings.get(1).balance, 6, 6));
+                    mUndelegateTime1.setText(WDp.getUnbondingTimeleft(getContext(), unbondings.get(1).completionTime));
+                }
+                if (unbondings.size() > 2) {
+                    mUndelegateLayer2.setVisibility(View.VISIBLE);
+                    mUndelegateMoniker2.setText(WUtil.getMonikerName(unbondings.get(2).validatorAddress, getMainActivity().mAllValidators, false));
+                    mUndelegateAmount2.setText(WDp.getDpAmount2(getContext(), unbondings.get(2).balance, 6, 6));
+                    mUndelegateTime2.setText(WDp.getUnbondingTimeleft(getContext(), unbondings.get(2).completionTime));
+                }
+                if (unbondings.size() > 3) {
+                    mUndelegateLayer3.setVisibility(View.VISIBLE);
+                    mUndelegateMoniker3.setText(WUtil.getMonikerName(unbondings.get(3).validatorAddress, getMainActivity().mAllValidators, false));
+                    mUndelegateAmount3.setText(WDp.getDpAmount2(getContext(), unbondings.get(3).balance, 6, 6));
+                    mUndelegateTime3.setText(WDp.getUnbondingTimeleft(getContext(), unbondings.get(3).completionTime));
+                }
+                if (unbondings.size() > 4) {
+                    mUndelegateLayer4.setVisibility(View.VISIBLE);
+                    mUndelegateMoniker4.setText(WUtil.getMonikerName(unbondings.get(4).validatorAddress, getMainActivity().mAllValidators, false));
+                    mUndelegateAmount4.setText(WDp.getDpAmount2(getContext(), unbondings.get(4).balance, 6, 6));
+                    mUndelegateTime4.setText(WDp.getUnbondingTimeleft(getContext(), unbondings.get(4).completionTime));
+                }
+
+            } else {
+                mUndelegateCard.setVisibility(View.GONE);
+            }
+
+        } else {
+            mUndelegateCard.setVisibility(View.GONE);
         }
     }
 

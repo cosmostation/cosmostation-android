@@ -35,8 +35,6 @@ public class BaseData {
     private BaseApplication     mApp;
     private SharedPreferences   mSharedPreferences;
     private SQLiteDatabase      mSQLiteDatabase;
-    private Validator           mValidator;
-    private ResBroadTx          mTxResult;
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
 
 
