@@ -491,7 +491,7 @@
     <string name="str_full_name">원본 이름(Denom)</string>
     <string name="str_vesting_title">베스팅 계정</string>
     <string name="str_vesting_msg">베스팅 계정으로 보입니다. 정확한 수량으로 위임 및 위임해재를 하시기 위해서 cli를 이용하시는것을 권장합니다.</string>
-
+    <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

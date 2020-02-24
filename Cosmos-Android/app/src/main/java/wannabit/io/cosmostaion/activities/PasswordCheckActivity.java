@@ -60,6 +60,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private String                      mUserInput = "";
     private int                         mPurpose;
+    private boolean                     mAskQuite;
 
     private String                      mTargetAddress;
     private ArrayList<Coin>             mTargetCoins;
@@ -135,8 +136,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         if(mUserInput != null && mUserInput.length() > 0) {
             userDeleteKey();
         } else {
-            setResult(Activity.RESULT_CANCELED, getIntent());
-            finish();
+            if (mAskQuite) {
+                setResult(Activity.RESULT_CANCELED, getIntent());
+                finish();
+            } else {
+                mAskQuite = true;
+                Toast.makeText(getBaseContext(), R.string.str_ready_to_quite, Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
@@ -170,6 +177,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             onInitView();
             return;
         }
+
+        mAskQuite = false;
         onUpdateCnt();
 
     }
