@@ -53,6 +53,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
     private RecyclerView            mRecyclerView;
     private NewWalletAdapter        mNewWalletAdapter;
 
+    private boolean                 mIsNewBip44forKava;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         mEntropy =  getIntent().getStringExtra("entropy");
         mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         mWordSize = getIntent().getIntExtra("size", 24);
+        mIsNewBip44forKava = getIntent().getBooleanExtra("bip44", false);
 
     }
 
@@ -92,7 +95,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), mChain, this).execute(""+path, mEntropy, ""+mWordSize);
+        new GenerateAccountTask(getBaseApplication(), mChain, this, mIsNewBip44forKava).execute(""+path, mEntropy, ""+mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
@@ -126,8 +129,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull final NewWalletHolder holder, final int position) {
-            String address = WKey.getDpAddressWithPath(mHdSeed, mChain, position);
-            holder.newPath.setText(WDp.getPath(mChain, position));
+            String address = WKey.getDpAddressWithPath(mHdSeed, mChain, position, mIsNewBip44forKava);
+            holder.newPath.setText(WDp.getPath(mChain, position, mIsNewBip44forKava));
             holder.newAddress.setText(address);
             final Account temp = getBaseDao().onSelectExistAccount(address);
             if(temp == null) {

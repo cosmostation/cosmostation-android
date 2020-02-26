@@ -72,7 +72,7 @@ public class MnemonicCheckActivity extends BaseActivity {
             } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.KAVA_MAIN) || BaseChain.getChain(toCheck.baseChain).equals(BaseChain.KAVA_TEST)) {
                 mTvWords[i].setBackground(getDrawable(R.drawable.box_round_kava));
             }
-            if(i > mWords.size()) mTvWords[i].setVisibility(View.GONE);
+            if(i >= mWords.size()) mTvWords[i].setVisibility(View.INVISIBLE);
             else mTvWords[i].setVisibility(View.VISIBLE);
         }
 

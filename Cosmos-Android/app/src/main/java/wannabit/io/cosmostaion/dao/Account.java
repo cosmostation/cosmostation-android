@@ -39,6 +39,7 @@ public class Account {
     public String   lastTotal;
     public Long     sortOrder;
     public Boolean  pushAlarm;
+    public Boolean  newBip44;
 
     public ArrayList<Balance>   balances;
 
@@ -55,7 +56,7 @@ public class Account {
     public Account(Long id, String uuid, String nickName, boolean isFavo, String address,
                    String baseChain, boolean hasPrivateKey, String resource, String spec,
                    boolean fromMnemonic, String path, boolean isValidator, int sequenceNumber,
-                   int accountNumber, Long fetchTime, int msize, long importTime, String lastTotal, long sortOrder, boolean pushAlarm) {
+                   int accountNumber, Long fetchTime, int msize, long importTime, String lastTotal, long sortOrder, boolean pushAlarm, boolean newBip) {
         this.id = id;
         this.uuid = uuid;
         this.nickName = nickName;
@@ -76,6 +77,7 @@ public class Account {
         this.lastTotal = lastTotal;
         this.sortOrder = sortOrder;
         this.pushAlarm = pushAlarm;
+        this.newBip44 = newBip;
     }
 
     public ArrayList<Balance> getBalances() {

@@ -975,11 +975,18 @@ public class WDp {
         return result;
     }
 
-    public static String getPath(BaseChain chain, int position) {
+    public static String getPath(BaseChain chain, int position, boolean newBip) {
         if (chain.equals(BaseChain.BNB_MAIN)) {
             return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
         } else if (chain.equals(BaseChain.IOV_MAIN)) {
             return BaseConstant.KEY_IOV_PATH + String.valueOf(position) +"'";
+        }  else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            if (newBip) {
+                return BaseConstant.KEY_NEW_KAVA_PATH + String.valueOf(position);
+            } else {
+                return BaseConstant.KEY_PATH + String.valueOf(position);
+            }
+
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);
 

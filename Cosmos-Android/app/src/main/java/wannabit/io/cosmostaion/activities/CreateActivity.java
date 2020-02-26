@@ -105,7 +105,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     private void onGenWords() {
         mEntropy = WKey.getEntropy();
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
-        mAddress.setText(WKey.getDpAddressFromEntropy(mChain, mEntropy));
+        mAddress.setText(WKey.getDpAddressFromEntropy(mChain, mEntropy, true));
     }
 
 
@@ -176,7 +176,11 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 }
             } else {
                 onShowWaitDialog();
-                new GenerateAccountTask(getBaseApplication(), mChain, this).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
+                if (mChain.equals(BaseChain.KAVA_MAIN) || mChain.equals(BaseChain.KAVA_TEST)) {
+                    new GenerateAccountTask(getBaseApplication(), mChain, this, true).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
+                } else {
+                    new GenerateAccountTask(getBaseApplication(), mChain, this, false).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
+                }
             }
         }
 

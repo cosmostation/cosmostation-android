@@ -9,7 +9,7 @@ public class BaseConstant {
     public final static String LOG_TAG                  = "Cosmostation";
 
     public final static String DB_NAME                  = "WannaBit";
-    public final static int DB_VERSION                  = 4;
+    public final static int DB_VERSION                  = 5;
     public final static String DB_TABLE_PASSWORD        = "paswd";
     public final static String DB_TABLE_ACCOUNT         = "accnt";
     public final static String DB_TABLE_BALANCE         = "balan";
@@ -227,9 +227,10 @@ public class BaseConstant {
     public final static long COSMOS_UNBONDING_DAY = 3;
 
 
-    public final static String KEY_PATH         = "44'/118'/0'/0/";
-    public final static String KEY_BNB_PATH     = "44'/714'/0'/0/";
-    public final static String KEY_IOV_PATH     = "44'/234'/";
+    public final static String KEY_PATH             = "44'/118'/0'/0/";
+    public final static String KEY_BNB_PATH         = "44'/714'/0'/0/";
+    public final static String KEY_IOV_PATH         = "44'/234'/";
+    public final static String KEY_NEW_KAVA_PATH    = "44'/459'/0'/0/";
     public final static String characterFilter  = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 

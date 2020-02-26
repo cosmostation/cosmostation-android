@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
+import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -58,6 +59,8 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     private ArrayList<String>   mAllMnemonic;
     private MnemonicAdapter     mMnemonicAdapter;
     private ArrayList<String>   mWords = new ArrayList<>();
+
+    private boolean             mIsNewBip44forKava;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -250,16 +253,15 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                 }
             }
 
-            if(isValidWords()) {
-                if(!getBaseDao().onHasPassword()) {
-                    Intent intent = new Intent(RestoreActivity.this, PasswordSetActivity.class);
-                    startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            if (isValidWords()) {
+                if (mChain.equals(BaseChain.KAVA_MAIN) || mChain.equals(BaseChain.KAVA_TEST)) {
+                    Dialog_KavaRestorePath dialog = Dialog_KavaRestorePath.newInstance(null);
+                    dialog.setCancelable(false);
+                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    return;
+
                 } else {
-                    Intent intent = new Intent(RestoreActivity.this, PasswordCheckActivity.class);
-                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-                    startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                    onConfirmedWords();
                 }
 
             } else {
@@ -294,6 +296,24 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    private void onConfirmedWords() {
+        if(!getBaseDao().onHasPassword()) {
+            Intent intent = new Intent(RestoreActivity.this, PasswordSetActivity.class);
+            startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        } else {
+            Intent intent = new Intent(RestoreActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
+    public void onUsingNewBip44(boolean using) {
+        mIsNewBip44forKava = using;
+        onConfirmedWords();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
@@ -302,6 +322,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
             intent.putExtra("size", mWords.size());
             intent.putExtra("chain", mChain.getChain());
+            intent.putExtra("bip44", mIsNewBip44forKava);
             startActivity(intent);
         }
     }
