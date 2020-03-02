@@ -26,7 +26,6 @@
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
-            android:gravity="center"
             android:text="@string/str_kava_newpath_msg"
             style="@style/font_ss_11_gray1"/>
         <View

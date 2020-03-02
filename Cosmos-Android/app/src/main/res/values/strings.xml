@@ -411,7 +411,7 @@
     <string name="str_payment_cdp">Payment</string>
     <string name="str_undelegate_status">UnBonding Details</string>
     <string name="str_kava_newpath_title">Select Key Path</string>
-    <string name="str_kava_newpath_msg">Since 2020.03, the Kava chain has adopted BIP44, changing from the existing route of 118 to 459. \ nIf the mNemonics you are trying to recover was previously created, you can choose a new one if you have created the old one later. \n\nIf you know exactly mNemonics, there is no problem with restoring assets, so if you are not sure, select anything and if you do not see your assets on the next screen, you can return to this screen and select the other option.</string>
+    <string name="str_kava_newpath_msg">BIP44 for KAVA key generation will be implemented starting March, 2020.\n\nIf you created an address before March, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original KAVA wallet. Simply press [Import Mnemonics] to re-select your path.</string>
     <string name="str_kava_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_kava_new_path"><![CDATA[NEW PATH (44\'/459\'/0\'/0)]]></string>
 
