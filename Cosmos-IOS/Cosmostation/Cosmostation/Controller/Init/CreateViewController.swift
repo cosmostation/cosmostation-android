@@ -140,7 +140,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     func onUpdateView() {
         self.showWaittingAlert()
         DispatchQueue.global().async {
-            self.dpAddress = WKey.getDpAddressPath(self.mnemonicWords!, 0, self.chainType!)
+            self.dpAddress = WKey.getDpAddressPath(self.mnemonicWords!, 0, self.chainType!, true)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.hideWaittingAlert()
@@ -224,6 +224,9 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                 newAccount.account_path = "0"
                 newAccount.account_m_size = 24
                 newAccount.account_import_time = Date().millisecondsSince1970
+                if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    newAccount.account_new_bip44 = true
+                }
                 insertResult = BaseData.instance.insertAccount(newAccount)
                 
                 if(insertResult < 0) {

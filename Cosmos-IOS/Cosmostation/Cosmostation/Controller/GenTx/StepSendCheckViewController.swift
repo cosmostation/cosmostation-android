@@ -234,7 +234,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             do {
-                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
+//                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
+                let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 let msg = MsgGenerator.genGetSendMsg(self.pageHolderVC.mAccount!.account_address,
                                                      self.pageHolderVC.mToSendRecipientAddress!,
                                                      self.pageHolderVC.mToSendAmount,
@@ -365,7 +366,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             let binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
-            let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
+            let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
             let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
             var txResult = [String:Any]()
             

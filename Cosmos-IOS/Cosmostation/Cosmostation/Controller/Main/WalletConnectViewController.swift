@@ -150,7 +150,7 @@ class WalletConnectViewController: BaseViewController {
         guard let words = KeychainWrapper.standard.string(forKey: account!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
             return
         }
-        let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(account!.account_path)!, chain: chainType!)
+        let pKey = WKey.getHDKeyFromWords(words, account!)
         let extendPKey = PrivateKey.init(data: pKey.privateKey().raw, network: .testnet, isPublicKeyCompressed: false)
         let pubKeyString = extendPKey.publicKey().raw.dataToHexString()
         let bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)

@@ -150,6 +150,10 @@
 "buy_without_key_msg" = "After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?";
 "buy_select_fiat_title" = "Select Fiat";
 "buy_select_fiat_msg" = "Please select a currency to make a purchase.";
+"select_new_path_title" = "Select Key Path";
+"select_new_path_msg" = "BIP44 for KAVA key generation will be implemented starting March, 2020.\n\nIf you created an address before March, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original KAVA wallet. Simply press [Import Mnemonics] to re-select your path.";
+"kava_old_path" = "OLD PATH (44'/118'/0'/0)";
+"kava_new_path" = "NEW PATH (44'/459'/0'/0)";
 
 "clear_all" = "Clear All";
 "delete" = "Delete";

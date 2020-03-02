@@ -83,7 +83,12 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint1.priority = .defaultLow
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             chainImg.image = UIImage(named: "kavaImg")
-            keyPath.text = BASE_PATH.appending(account!.account_path)
+            if (account!.account_new_bip44) {
+                keyPath.text = KAVA_BASE_PATH.appending(account!.account_path)
+            } else {
+                keyPath.text = BASE_PATH.appending(account!.account_path)
+            }
+            
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow

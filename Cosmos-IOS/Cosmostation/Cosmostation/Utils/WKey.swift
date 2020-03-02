@@ -40,17 +40,22 @@ class WKey {
         return Ed25519Key(key: Array(sum[0..<32]), chainCode: Array(sum[32..<64]))
     }
     
-
-    static func getHDKeyFromWords(mnemonic m: [String], path p:UInt32, chain c:ChainType) -> HDPrivateKey {
+    static func getHDKeyFromWords(_ m: [String], _ account:Account) -> HDPrivateKey {
         let masterKey = getMasterKeyFromWords(m)
-        if (c == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            c == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
-            c == ChainType.SUPPORT_CHAIN_KAVA_MAIN ) {
-            return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
-        } else if (c == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            return try! masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
+        let chainType = WUtils.getChainType(account.account_base_chain)
+        
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (account.account_new_bip44) {
+                return try! masterKey.derived(at: 44, hardened: true).derived(at: 459, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+            } else {
+                return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+            }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            return try! masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
         } else {
-            return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: p)
+            return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
         }
     }
     
@@ -80,13 +85,19 @@ class WKey {
         return result;
     }
 
-    static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType) -> String {
+    static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType, _ newbip:Bool) -> String {
         do {
             var childKey:HDPrivateKey?
-            if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
             } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 714, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+            } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                if (newbip) {
+                    childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 459, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                } else {
+                    childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                }
             } else {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
             }
@@ -96,14 +107,14 @@ class WKey {
         }
     }
     
-    static func getDpAddressPath(_ mnemonic: [String], _ path:Int, _ chain:ChainType) -> String {
+    static func getDpAddressPath(_ mnemonic: [String], _ path:Int, _ chain:ChainType, _ newbip:Bool) -> String {
         if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
             chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ) {
             //using Secp256k1
             let maskerKey = getMasterKeyFromWords(mnemonic)
-            return WKey.getHDKeyDpAddressWithPath(maskerKey, path: path, chain: chain)
+            return WKey.getHDKeyDpAddressWithPath(maskerKey, path: path, chain: chain, newbip)
             
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             //using ed25519

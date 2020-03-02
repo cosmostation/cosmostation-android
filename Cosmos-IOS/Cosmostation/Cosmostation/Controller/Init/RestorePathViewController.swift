@@ -15,6 +15,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
 
     var userChain: ChainType?
     var userInputWords: [String]?
+    var usingBip44:Bool = false
     @IBOutlet weak var restoreTableView: UITableView!
     
     override func viewDidLoad() {
@@ -32,7 +33,6 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_path", comment: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,16 +43,22 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:RestorePathCell? = tableView.dequeueReusableCell(withIdentifier:"RestorePathCell") as? RestorePathCell
         cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
         WUtils.setDenomTitle(userChain!, cell!.denomTitle)
-        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN || userChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (userChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || userChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         } else if (userChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             cell?.pathLabel.text = BNB_BASE_PATH.appending(String(indexPath.row))
         } else if (userChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-           cell?.pathLabel.text = IOV_BASE_PATH.appending(String(indexPath.row)).appending("'")
-       }
+            cell?.pathLabel.text = IOV_BASE_PATH.appending(String(indexPath.row)).appending("'")
+        } else if (userChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (self.usingBip44) {
+                cell?.pathLabel.text = KAVA_BASE_PATH.appending(String(indexPath.row))
+            } else {
+                cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
+            }
+        }
         
         DispatchQueue.global().async {
-            let address = WKey.getDpAddressPath(self.userInputWords!, indexPath.row, self.userChain!)
+            let address = WKey.getDpAddressPath(self.userInputWords!, indexPath.row, self.userChain!, self.usingBip44)
             
             DispatchQueue.main.async(execute: {
                 cell?.addressLabel.text = address
@@ -181,11 +187,11 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             return
         } else if (cell?.stateLabel.text == NSLocalizedString("ready", comment: "")) {
             BaseData.instance.setLastTab(0)
-            self.onGenAccount(self.userInputWords!, self.userChain!, indexPath.row)
+            self.onGenAccount(self.userInputWords!, self.userChain!, indexPath.row, self.usingBip44)
 
         } else {
             BaseData.instance.setLastTab(0)
-            self.onOverrideAccount(self.userInputWords!, self.userChain!, indexPath.row)
+            self.onOverrideAccount(self.userInputWords!, self.userChain!, indexPath.row, self.usingBip44)
         }
     }
     
@@ -193,7 +199,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         return 86;
     }
     
-    func onGenAccount(_ mnemonic: [String], _ chain:ChainType, _ path:Int) {
+    func onGenAccount(_ mnemonic: [String], _ chain:ChainType, _ path:Int, _ newBip:Bool) {
         self.showWaittingAlert()
         DispatchQueue.global().async {
             var resource: String = ""
@@ -205,13 +211,14 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var insertResult :Int64 = -1
             if(keyResult) {
-                newAccount.account_address = WKey.getDpAddressPath(mnemonic, path, chain)
+                newAccount.account_address = WKey.getDpAddressPath(mnemonic, path, chain, newBip)
                 newAccount.account_base_chain = chain.rawValue
                 newAccount.account_has_private = true
                 newAccount.account_from_mnemonic = true
                 newAccount.account_path = String(path)
                 newAccount.account_m_size = Int64(self.userInputWords!.count)
                 newAccount.account_import_time = Date().millisecondsSince1970
+                newAccount.account_new_bip44 = newBip
                 insertResult = BaseData.instance.insertAccount(newAccount)
                 
                 if(insertResult < 0) {
@@ -232,7 +239,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     
-    func onOverrideAccount(_ mnemonic: [String], _ chain:ChainType, _ path:Int) {
+    func onOverrideAccount(_ mnemonic: [String], _ chain:ChainType, _ path:Int, _ newBip:Bool) {
         self.showWaittingAlert()
         DispatchQueue.global().async {
             var resource: String = ""
@@ -240,7 +247,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 resource = resource + " " + word
             }
             
-            let existedAccount = BaseData.instance.selectExistAccount(address: WKey.getDpAddressPath(mnemonic, path, chain), chain: chain.rawValue)
+            let existedAccount = BaseData.instance.selectExistAccount(address: WKey.getDpAddressPath(mnemonic, path, chain, newBip), chain: chain.rawValue)
             let keyResult = KeychainWrapper.standard.set(resource, forKey: existedAccount!.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var updateResult :Int64 = -1
             if(keyResult) {
@@ -248,6 +255,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 existedAccount!.account_from_mnemonic = true
                 existedAccount!.account_path = String(path)
                 existedAccount!.account_m_size = Int64(self.userInputWords!.count)
+                existedAccount!.account_new_bip44 = newBip
                 updateResult = BaseData.instance.overrideAccount(existedAccount!)
                 
                 if(updateResult < 0) {
