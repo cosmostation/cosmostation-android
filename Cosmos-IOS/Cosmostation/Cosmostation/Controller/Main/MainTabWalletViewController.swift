@@ -228,36 +228,36 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 2) {
             let cell:WalletUnbondingInfoCellTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"WalletUnbondingInfoCellTableViewCell") as? WalletUnbondingInfoCellTableViewCell
-
+            let unBondings = mainTabVC!.mUnbondingList.sorted(by: {$0.unbonding_complete_time < $1.unbonding_complete_time})
             cell?.unBondingCnt.text = String(mainTabVC!.mUnbondingList.count)
-            if (mainTabVC!.mUnbondingList.count > 0) {
-                cell?.unBondingMoniker0.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, mainTabVC!.mUnbondingList[0].unbonding_v_address, false)
-                cell?.unBondingAmount0.attributedText = WUtils.displayAmount2(mainTabVC!.mUnbondingList[0].unbonding_balance, cell!.unBondingAmount0.font!, 6, 6)
-                cell?.unBondingTime0.text = WUtils.getUnbondingTimeleft(mainTabVC!.mUnbondingList[0].unbonding_complete_time)
+            if (unBondings.count > 0) {
+                cell?.unBondingMoniker0.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, unBondings[0].unbonding_v_address, false)
+                cell?.unBondingAmount0.attributedText = WUtils.displayAmount2(unBondings[0].unbonding_balance, cell!.unBondingAmount0.font!, 6, 6)
+                cell?.unBondingTime0.text = WUtils.getUnbondingTimeleft(unBondings[0].unbonding_complete_time)
             }
-            if (mainTabVC!.mUnbondingList.count > 1) {
+            if (unBondings.count > 1) {
                 cell?.unBondingLayer1.isHidden = false
-                cell?.unBondingMoniker1.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, mainTabVC!.mUnbondingList[1].unbonding_v_address, false)
-                cell?.unBondingAmount1.attributedText = WUtils.displayAmount2(mainTabVC!.mUnbondingList[1].unbonding_balance, cell!.unBondingAmount1.font!, 6, 6)
-                cell?.unBondingTime1.text = WUtils.getUnbondingTimeleft(mainTabVC!.mUnbondingList[1].unbonding_complete_time)
+                cell?.unBondingMoniker1.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, unBondings[1].unbonding_v_address, false)
+                cell?.unBondingAmount1.attributedText = WUtils.displayAmount2(unBondings[1].unbonding_balance, cell!.unBondingAmount1.font!, 6, 6)
+                cell?.unBondingTime1.text = WUtils.getUnbondingTimeleft(unBondings[1].unbonding_complete_time)
             }
-            if (mainTabVC!.mUnbondingList.count > 2) {
+            if (unBondings.count > 2) {
                 cell?.unBondingLayer2.isHidden = false
-                cell?.unBondingMoniker2.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, mainTabVC!.mUnbondingList[2].unbonding_v_address, false)
-                cell?.unBondingAmount2.attributedText = WUtils.displayAmount2(mainTabVC!.mUnbondingList[2].unbonding_balance, cell!.unBondingAmount2.font!, 6, 6)
-                cell?.unBondingTime2.text = WUtils.getUnbondingTimeleft(mainTabVC!.mUnbondingList[2].unbonding_complete_time)
+                cell?.unBondingMoniker2.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, unBondings[2].unbonding_v_address, false)
+                cell?.unBondingAmount2.attributedText = WUtils.displayAmount2(unBondings[2].unbonding_balance, cell!.unBondingAmount2.font!, 6, 6)
+                cell?.unBondingTime2.text = WUtils.getUnbondingTimeleft(unBondings[2].unbonding_complete_time)
             }
-            if (mainTabVC!.mUnbondingList.count > 3) {
+            if (unBondings.count > 3) {
                 cell?.unBondingLayer3.isHidden = false
-                cell?.unBondingMoniker3.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, mainTabVC!.mUnbondingList[3].unbonding_v_address, false)
-                cell?.unBondingAmount3.attributedText = WUtils.displayAmount2(mainTabVC!.mUnbondingList[3].unbonding_balance, cell!.unBondingAmount3.font!, 6, 6)
-                cell?.unBondingTime3.text = WUtils.getUnbondingTimeleft(mainTabVC!.mUnbondingList[3].unbonding_complete_time)
+                cell?.unBondingMoniker3.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, unBondings[3].unbonding_v_address, false)
+                cell?.unBondingAmount3.attributedText = WUtils.displayAmount2(unBondings[3].unbonding_balance, cell!.unBondingAmount3.font!, 6, 6)
+                cell?.unBondingTime3.text = WUtils.getUnbondingTimeleft(unBondings[3].unbonding_complete_time)
             }
-            if (mainTabVC!.mUnbondingList.count > 4) {
+            if (unBondings.count > 4) {
                 cell?.unBondingLayer4.isHidden = false
-                cell?.unBondingMoniker4.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, mainTabVC!.mUnbondingList[4].unbonding_v_address, false)
-                cell?.unBondingAmount4.attributedText = WUtils.displayAmount2(mainTabVC!.mUnbondingList[4].unbonding_balance, cell!.unBondingAmount4.font!, 6, 6)
-                cell?.unBondingTime4.text = WUtils.getUnbondingTimeleft(mainTabVC!.mUnbondingList[4].unbonding_complete_time)
+                cell?.unBondingMoniker4.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, unBondings[4].unbonding_v_address, false)
+                cell?.unBondingAmount4.attributedText = WUtils.displayAmount2(unBondings[4].unbonding_balance, cell!.unBondingAmount4.font!, 6, 6)
+                cell?.unBondingTime4.text = WUtils.getUnbondingTimeleft(unBondings[4].unbonding_complete_time)
             }
             return cell!
             
@@ -1006,4 +1006,22 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             })
         }
     }
+    
+    
+//    func sortUnbondingsRecent(_ unbondings:Array<Unbonding>) {
+////        let data = unbondings
+////        data.sort{
+////            if ($0.balance_denom == COSMOS_MAIN_DENOM) {
+////                return true
+////            }
+////            if ($1.balance_denom == COSMOS_MAIN_DENOM){
+////                return false
+////            }
+////            return $0.balance_denom < $1.balance_denom
+////        }
+////        unbondings.sort { (Unbonding, <#Unbonding#>) -> Bool in
+////
+////        }
+//        unbondings.sorted(by: {$0.unbonding_complete_time > $1.unbonding_complete_time})
+//    }
 }
