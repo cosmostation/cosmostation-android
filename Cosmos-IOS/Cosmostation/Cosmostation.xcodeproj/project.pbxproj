@@ -31,6 +31,8 @@
 		282FF36223F532360028CC66 /* TxVoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF36023F532360028CC66 /* TxVoteCell.xib */; };
 		282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FF36323F533AF0028CC66 /* TxUnknownCell.swift */; };
 		282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF36423F533AF0028CC66 /* TxUnknownCell.xib */; };
+		2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */; };
+		2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
 		BE9C8B421BF3A38F09124CC7 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC8DB1702A51A9EF8ADFDB5 /* Pods_Cosmostation.framework */; };
@@ -267,6 +269,9 @@
 		282FF36023F532360028CC66 /* TxVoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxVoteCell.xib; sourceTree = "<group>"; };
 		282FF36323F533AF0028CC66 /* TxUnknownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxUnknownCell.swift; sourceTree = "<group>"; };
 		282FF36423F533AF0028CC66 /* TxUnknownCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxUnknownCell.xib; sourceTree = "<group>"; };
+		2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUnbondingInfoCellTableViewCell.swift; sourceTree = "<group>"; };
+		2876AD5D240CE4A6005B33F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletUnbondingInfoCellTableViewCell.xib; sourceTree = "<group>"; };
+		2876AD62240CE966005B33F4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletUnbondingInfoCellTableViewCell.strings; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2943718654DA7086BEF4CAC1 /* Pods-Cosmostation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.release.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.release.xcconfig"; sourceTree = "<group>"; };
@@ -880,6 +885,8 @@
 				E126CF932387A55A002A546F /* WalletKavaCell.xib */,
 				E1A699592366E8CC004CA274 /* WalletIovCell.swift */,
 				E126CF982387A5C9002A546F /* WalletIovCell.xib */,
+				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
+				2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */,
 				E1FD2332233E1C16009327FE /* WalletPriceCell.swift */,
 				E126CF9D2387A60D002A546F /* WalletPriceCell.xib */,
 				E1FD2336233E1C30009327FE /* WalletInflationCell.swift */,
@@ -1007,6 +1014,7 @@
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
 				282FF34E23F50E010028CC66 /* TxRedelegateCell.xib in Resources */,
+				2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */,
 				282FF35A23F52FD40028CC66 /* TxRewardCell.xib in Resources */,
 				E103DAC02281296E006C2146 /* QRScanViewController.xib in Resources */,
 				E126CFB42387A7BD002A546F /* TokenDetailHeaderKavaCell.xib in Resources */,
@@ -1129,6 +1137,7 @@
 				E1069B12229698BA007517DC /* StepChangeAddressViewController.swift in Sources */,
 				E1406FC02260643200D9440C /* BlockInfo.swift in Sources */,
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
+				2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
 				E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */,
@@ -1289,6 +1298,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2876AD5D240CE4A6005B33F4 /* Base */,
+				2876AD62240CE966005B33F4 /* ko */,
+			);
+			name = WalletUnbondingInfoCellTableViewCell.xib;
+			sourceTree = "<group>";
+		};
 		E103DAA52281266D006C2146 /* ValidatorDetailCell.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

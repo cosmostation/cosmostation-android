@@ -220,7 +220,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             cell?.delegatorLabel.text = msg.value.delegator_address
             cell?.validatorLabel.text = msg.value.validator_address
-            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!)
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)
             cell?.delegateAmountLabel.attributedText = WUtils.displayAmount2((msg.value.getAmount()?.amount)!, cell!.delegateAmountLabel.font!, 6, 6)
             cell?.autoRewardAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.getSimpleAutoReward(), cell!.autoRewardAmountLabel.font!, 6, 6)
             if (mTxInfo?.getMsgs().count == 1) {
@@ -244,7 +244,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             cell?.undelegatorLabel.text = msg.value.delegator_address
             cell?.validatorLabel.text = msg.value.validator_address
-            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!)
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)
             cell?.undelegateAmountLabel.attributedText = WUtils.displayAmount2((msg.value.getAmount()?.amount)!, cell!.undelegateAmountLabel.font!, 6, 6)
             cell?.autoRewardAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.getSimpleAutoReward(), cell!.autoRewardAmountLabel.font!, 6, 6)
             if (mTxInfo?.getMsgs().count == 1) {
@@ -268,9 +268,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             cell?.redelegatorLabel.text = msg.value.delegator_address
             cell?.fromValidatorLabel.text = msg.value.validator_src_address
-            cell?.fromMonikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_src_address!)
+            cell?.fromMonikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_src_address!, true)
             cell?.toValidatorLabel.text = msg.value.validator_dst_address
-            cell?.toMonikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_dst_address!)
+            cell?.toMonikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_dst_address!, true)
             cell?.redelegateAmountLabel.attributedText = WUtils.displayAmount2((msg.value.getAmount()?.amount)!, cell!.redelegateAmountLabel.font!, 6, 6)
             cell?.autoRewardAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.getSimpleAutoReward(), cell!.autoRewardAmountLabel.font!, 6, 6)
             if (mTxInfo?.getMsgs().count == 1) {
@@ -328,7 +328,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             cell?.delegatorLabel.text = msg.value.delegator_address
             cell?.validatorLabel.text = msg.value.validator_address
-            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!)
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)
             cell?.amountLabel.attributedText = WUtils.displayAmount2(mTxInfo!.getSimpleReward(msg.value.validator_address!), cell!.amountLabel.font!, 6, 6)
         }
         return cell!
@@ -364,7 +364,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             cell?.validatorLabel.text = msg.value.validator_address
-            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!)
+            cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)
             cell?.commissionAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo!.getSimpleCommission(), cell!.commissionAmountLabel.font!, 6, 6)
         }
         return cell!

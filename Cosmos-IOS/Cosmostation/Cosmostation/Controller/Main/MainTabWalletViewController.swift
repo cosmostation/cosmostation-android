@@ -39,6 +39,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletBnbCell", bundle: nil), forCellReuseIdentifier: "WalletBnbCell")
         self.walletTableView.register(UINib(nibName: "WalletKavaCell", bundle: nil), forCellReuseIdentifier: "WalletKavaCell")
         self.walletTableView.register(UINib(nibName: "WalletIovCell", bundle: nil), forCellReuseIdentifier: "WalletIovCell")
+        self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
         self.walletTableView.register(UINib(nibName: "WalletGuideCell", bundle: nil), forCellReuseIdentifier: "WalletGuideCell")
@@ -149,7 +150,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            return 6;
+        } else if  (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return 5;
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return 4;
@@ -173,7 +176,19 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension;
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            if (indexPath.row == 2) {
+                if (mainTabVC.mUnbondingList.count > 0) {
+                    return UITableView.automaticDimension;
+                } else {
+                    return 0;
+                }
+            } else {
+                return UITableView.automaticDimension;
+            }
+        } else {
+            return UITableView.automaticDimension;
+        }
     }
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
@@ -212,6 +227,41 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return cell!
             
         } else if (indexPath.row == 2) {
+            let cell:WalletUnbondingInfoCellTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"WalletUnbondingInfoCellTableViewCell") as? WalletUnbondingInfoCellTableViewCell
+
+            cell?.unBondingCnt.text = String(mainTabVC!.mUnbondingList.count)
+            if (mainTabVC!.mUnbondingList.count > 0) {
+                cell?.unBondingMoniker0.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, mainTabVC!.mUnbondingList[0].unbonding_v_address, false)
+                cell?.unBondingAmount0.attributedText = WUtils.displayAmount2(mainTabVC!.mUnbondingList[0].unbonding_balance, cell!.unBondingAmount0.font!, 6, 6)
+                cell?.unBondingTime0.text = WUtils.getUnbondingTimeleft(mainTabVC!.mUnbondingList[0].unbonding_complete_time)
+            }
+            if (mainTabVC!.mUnbondingList.count > 1) {
+                cell?.unBondingLayer1.isHidden = false
+                cell?.unBondingMoniker1.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, mainTabVC!.mUnbondingList[1].unbonding_v_address, false)
+                cell?.unBondingAmount1.attributedText = WUtils.displayAmount2(mainTabVC!.mUnbondingList[1].unbonding_balance, cell!.unBondingAmount1.font!, 6, 6)
+                cell?.unBondingTime1.text = WUtils.getUnbondingTimeleft(mainTabVC!.mUnbondingList[1].unbonding_complete_time)
+            }
+            if (mainTabVC!.mUnbondingList.count > 2) {
+                cell?.unBondingLayer2.isHidden = false
+                cell?.unBondingMoniker2.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, mainTabVC!.mUnbondingList[2].unbonding_v_address, false)
+                cell?.unBondingAmount2.attributedText = WUtils.displayAmount2(mainTabVC!.mUnbondingList[2].unbonding_balance, cell!.unBondingAmount2.font!, 6, 6)
+                cell?.unBondingTime2.text = WUtils.getUnbondingTimeleft(mainTabVC!.mUnbondingList[2].unbonding_complete_time)
+            }
+            if (mainTabVC!.mUnbondingList.count > 3) {
+                cell?.unBondingLayer3.isHidden = false
+                cell?.unBondingMoniker3.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, mainTabVC!.mUnbondingList[3].unbonding_v_address, false)
+                cell?.unBondingAmount3.attributedText = WUtils.displayAmount2(mainTabVC!.mUnbondingList[3].unbonding_balance, cell!.unBondingAmount3.font!, 6, 6)
+                cell?.unBondingTime3.text = WUtils.getUnbondingTimeleft(mainTabVC!.mUnbondingList[3].unbonding_complete_time)
+            }
+            if (mainTabVC!.mUnbondingList.count > 4) {
+                cell?.unBondingLayer4.isHidden = false
+                cell?.unBondingMoniker4.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, mainTabVC!.mUnbondingList[4].unbonding_v_address, false)
+                cell?.unBondingAmount4.attributedText = WUtils.displayAmount2(mainTabVC!.mUnbondingList[4].unbonding_balance, cell!.unBondingAmount4.font!, 6, 6)
+                cell?.unBondingTime4.text = WUtils.getUnbondingTimeleft(mainTabVC!.mUnbondingList[4].unbonding_complete_time)
+            }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
             cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
@@ -239,7 +289,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             if (mainTabVC!.mInflation != nil) {
                 cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: mainTabVC.mInflation), font: cell!.infaltionLabel.font)

@@ -289,6 +289,23 @@ class WUtils {
         return localFormatter.string(from: afterDate!)
     }
     
+    static func getUnbondingTimeleft(_ input: Int64) -> String {
+        let secondsLeft = Int(Date().timeIntervalSince(Date.init(milliseconds: Int(input)))) * -1
+        
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        if secondsLeft < minute {
+            return "Soon"
+        } else if secondsLeft < hour {
+            return "(\(secondsLeft / minute) minutes remaining)"
+        } else if secondsLeft < day {
+            return "(\(secondsLeft / hour) hours remaining)"
+        } else {
+            return "(\(secondsLeft / day) days remaining)"
+        }
+    }
+    
     static func timeGap(input: String) -> String {
         let secondsAgo = Int(Date().timeIntervalSince(nodeTimeToInt64(input: input)))
         
@@ -1398,10 +1415,14 @@ class WUtils {
         return 0
     }
     
-    static func getMonikerName(_ validators: Array<Validator>,  _ opAddr: String) -> String {
+    static func getMonikerName(_ validators: Array<Validator>,  _ opAddr: String, _ bracket:Bool) -> String {
         for val in validators {
             if (val.operator_address == opAddr) {
-                return "(" + val.description.moniker + ")"
+                if (bracket) {
+                    return "(" + val.description.moniker + ")"
+                } else {
+                    return val.description.moniker
+                }
             }
         }
         return ""
