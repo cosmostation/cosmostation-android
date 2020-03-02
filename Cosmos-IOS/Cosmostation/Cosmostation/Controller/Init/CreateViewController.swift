@@ -89,28 +89,24 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             self.chainType = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
             self.onGenNewKey()
         })
-        cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
         cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let irisAction = UIAlertAction(title: NSLocalizedString("chain_title_iris", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SUPPORT_CHAIN_IRIS_MAIN
             self.onGenNewKey()
         })
-        irisAction.setValue(UIColor.black, forKey: "titleTextColor")
         irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let bnbAction = UIAlertAction(title: NSLocalizedString("chain_title_bnb", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
             self.onGenNewKey()
         })
-        bnbAction.setValue(UIColor.black, forKey: "titleTextColor")
         bnbAction.setValue(UIImage(named: "binanceChImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let kavaAction = UIAlertAction(title: NSLocalizedString("chain_title_kava", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SUPPORT_CHAIN_KAVA_MAIN
             self.onGenNewKey()
         })
-        kavaAction.setValue(UIColor.black, forKey: "titleTextColor")
         kavaAction.setValue(UIImage(named: "kavaImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
 //        let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in

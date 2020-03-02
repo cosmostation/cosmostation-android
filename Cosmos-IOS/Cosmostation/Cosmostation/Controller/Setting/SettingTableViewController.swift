@@ -205,32 +205,26 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
         let usdAction = UIAlertAction(title: NSLocalizedString("currency_usd", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(0)
         })
-        usdAction.setValue(UIColor.black, forKey: "titleTextColor")
         
         let eurAction = UIAlertAction(title: NSLocalizedString("currency_eur", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(1)
         })
-        eurAction.setValue(UIColor.black, forKey: "titleTextColor")
         
         let krwAction = UIAlertAction(title: NSLocalizedString("currency_krw", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(2)
         })
-        krwAction.setValue(UIColor.black, forKey: "titleTextColor")
         
         let jpyAction = UIAlertAction(title: NSLocalizedString("currency_jpy", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(3)
         })
-        jpyAction.setValue(UIColor.black, forKey: "titleTextColor")
         
         let cnyAction = UIAlertAction(title: NSLocalizedString("currency_cny", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(4)
         })
-        cnyAction.setValue(UIColor.black, forKey: "titleTextColor")
         
         let btcAction = UIAlertAction(title: NSLocalizedString("currency_btc", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(5)
         })
-        btcAction.setValue(UIColor.black, forKey: "titleTextColor")
         
         showAlert.addAction(usdAction)
         showAlert.addAction(eurAction)
