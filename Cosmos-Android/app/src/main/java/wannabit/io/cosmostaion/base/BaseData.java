@@ -733,6 +733,7 @@ public class BaseData {
         values.put("fromMnemonic",      account.fromMnemonic);
         values.put("path",              account.path);
         values.put("msize",             account.msize);
+        values.put("newBip",            account.newBip44);
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
