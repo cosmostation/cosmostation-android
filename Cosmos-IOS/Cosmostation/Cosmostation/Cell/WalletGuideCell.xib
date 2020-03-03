@@ -10,15 +10,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="153" id="KGk-i7-Jjw" customClass="WalletGuideCell" customModule="Cosmostation" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="154"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="168" id="KGk-i7-Jjw" customClass="WalletGuideCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="154"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8WQ-Vs-Dxz" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                        <rect key="frame" x="12" y="4" width="351" height="146"/>
+                        <rect key="frame" x="12" y="4" width="351" height="161"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guideImg" translatesAutoresizingMaskIntoConstraints="NO" id="mAT-Oa-YZG">
                                 <rect key="frame" x="16" y="16" width="84" height="63"/>
@@ -28,16 +28,16 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5n-8Q-piW">
-                                <rect key="frame" x="108" y="14" width="231" height="68"/>
+                                <rect key="frame" x="108" y="14" width="231" height="69"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cosmos Guide" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFi-9V-3TO">
-                                        <rect key="frame" x="0.0" y="0.0" width="100.5" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="100.5" height="26.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmV-EO-LJR">
-                                        <rect key="frame" x="0.0" y="31.5" width="231" height="30.5"/>
+                                        <rect key="frame" x="0.0" y="32.5" width="231" height="30.5"/>
                                         <string key="text">Cosmos and Cosmostation Wallet FAQ
 Learn more about us in the links below</string>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
@@ -56,14 +56,14 @@ Learn more about us in the links below</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VER-se-2pE">
-                                <rect key="frame" x="12" y="92" width="327" height="0.5"/>
+                                <rect key="frame" x="12" y="107" width="327" height="0.5"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="YlE-uV-FMP"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QZK-7u-e3M">
-                                <rect key="frame" x="12" y="96.5" width="327" height="45"/>
+                                <rect key="frame" x="12" y="111.5" width="327" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vlR-Xo-iYZ">
                                         <rect key="frame" x="0.0" y="0.0" width="159.5" height="45"/>
@@ -108,7 +108,7 @@ Learn more about us in the links below</string>
                             <constraint firstItem="mAT-Oa-YZG" firstAttribute="leading" secondItem="8WQ-Vs-Dxz" secondAttribute="leading" constant="16" id="nsJ-ZC-dXw"/>
                             <constraint firstItem="mAT-Oa-YZG" firstAttribute="top" secondItem="8WQ-Vs-Dxz" secondAttribute="top" constant="16" id="oqQ-Dd-sd0"/>
                             <constraint firstItem="QZK-7u-e3M" firstAttribute="leading" secondItem="8WQ-Vs-Dxz" secondAttribute="leading" constant="12" id="q4i-DV-duK"/>
-                            <constraint firstItem="VER-se-2pE" firstAttribute="top" secondItem="M5n-8Q-piW" secondAttribute="bottom" constant="10" id="qq2-H0-BWr"/>
+                            <constraint firstItem="VER-se-2pE" firstAttribute="top" secondItem="M5n-8Q-piW" secondAttribute="bottom" constant="24" id="qq2-H0-BWr"/>
                             <constraint firstAttribute="trailing" secondItem="M5n-8Q-piW" secondAttribute="trailing" constant="12" id="vVQ-Ux-RG8"/>
                             <constraint firstAttribute="trailing" secondItem="QZK-7u-e3M" secondAttribute="trailing" constant="12" id="vZu-qJ-FzJ"/>
                             <constraint firstItem="VER-se-2pE" firstAttribute="leading" secondItem="8WQ-Vs-Dxz" secondAttribute="leading" constant="12" id="x8p-L0-ibR"/>
@@ -149,7 +149,7 @@ Learn more about us in the links below</string>
                 <outlet property="guideMsg" destination="JmV-EO-LJR" id="Rjv-Y6-4aC"/>
                 <outlet property="guideTitle" destination="vFi-9V-3TO" id="8hK-L0-llJ"/>
             </connections>
-            <point key="canvasLocation" x="138" y="154"/>
+            <point key="canvasLocation" x="136.95652173913044" y="158.37053571428569"/>
         </tableViewCell>
     </objects>
     <resources>
