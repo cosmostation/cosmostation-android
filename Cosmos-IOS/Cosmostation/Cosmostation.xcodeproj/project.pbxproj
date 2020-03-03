@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */; };
-		2827E11223F3896C007CDB6E /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2827E11023F3896C007CDB6E /* TxDetailViewController.xib */; };
 		2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */; };
 		2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */; };
 		282FF34123F4FFD20028CC66 /* TxCommissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FF33F23F4FFD20028CC66 /* TxCommissionCell.swift */; };
@@ -33,6 +32,7 @@
 		282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF36423F533AF0028CC66 /* TxUnknownCell.xib */; };
 		2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */; };
 		2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */; };
+		2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
 		BE9C8B421BF3A38F09124CC7 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC8DB1702A51A9EF8ADFDB5 /* Pods_Cosmostation.framework */; };
@@ -246,7 +246,6 @@
 
 /* Begin PBXFileReference section */
 		2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDetailViewController.swift; sourceTree = "<group>"; };
-		2827E11023F3896C007CDB6E /* TxDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxDetailViewController.xib; sourceTree = "<group>"; };
 		2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCommonCell.swift; sourceTree = "<group>"; };
 		2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCommonCell.xib; sourceTree = "<group>"; };
 		282FF33F23F4FFD20028CC66 /* TxCommissionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCommissionCell.swift; sourceTree = "<group>"; };
@@ -272,6 +271,8 @@
 		2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUnbondingInfoCellTableViewCell.swift; sourceTree = "<group>"; };
 		2876AD5D240CE4A6005B33F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletUnbondingInfoCellTableViewCell.xib; sourceTree = "<group>"; };
 		2876AD62240CE966005B33F4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletUnbondingInfoCellTableViewCell.strings; sourceTree = "<group>"; };
+		2877B8F9240E2A0200EFE369 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TxDetailViewController.xib; sourceTree = "<group>"; };
+		2877B8FC240E2A0E00EFE369 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/TxDetailViewController.strings; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2943718654DA7086BEF4CAC1 /* Pods-Cosmostation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.release.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.release.xcconfig"; sourceTree = "<group>"; };
@@ -734,7 +735,7 @@
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
 				E11338FF235D95FD0011B61D /* AccountSelectViewController.swift */,
 				2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */,
-				2827E11023F3896C007CDB6E /* TxDetailViewController.xib */,
+				2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1029,7 +1030,7 @@
 				E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
-				2827E11223F3896C007CDB6E /* TxDetailViewController.xib in Resources */,
+				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
 				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
 				282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */,
 				E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */,
@@ -1305,6 +1306,15 @@
 				2876AD62240CE966005B33F4 /* ko */,
 			);
 			name = WalletUnbondingInfoCellTableViewCell.xib;
+			sourceTree = "<group>";
+		};
+		2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2877B8F9240E2A0200EFE369 /* Base */,
+				2877B8FC240E2A0E00EFE369 /* ko */,
+			);
+			name = TxDetailViewController.xib;
 			sourceTree = "<group>";
 		};
 		E103DAA52281266D006C2146 /* ValidatorDetailCell.xib */ = {
