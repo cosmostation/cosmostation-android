@@ -345,11 +345,11 @@
     <string name="str_principal_cdp">대출금</string>
     <string name="str_denom_cdp">코인 타입</string>
     <string name="str_payment_cdp">상환</string>
-    <string name="str_undelegate_status">위임철회 상세</string>
-    <string name="str_kava_newpath_title"> Kava키 경로 선택</string>
-    <string name="str_kava_newpath_msg">2020.03 이후 Kava 체인이 BIP44를 채택하여 기존 경로인 118에서 459로 변경 되었습니다. \n복구하시려는 mNemonic이 이전에 생성하셨다면 예전 경로를 이후에 생성하셨다면 새로운 경로를 선택하시면 됩니다. \n\nmNemonic만 정확히 알고계신다면 자산 복원에 문제없으니, 잘 모르시겠다면 아무거나 선택하신 후 다음화면에서 본인의 자산이 안보이면 본 화면으로 돌아 다시 옵션을 선택하시면 됩니다.</string>
-    <string name="str_kava_old_path"><![CDATA[변경전 PATH (44\'/118\'/0\'/0)]]></string>
-    <string name="str_kava_new_path"><![CDATA[변경후 PATH (44\'/459\'/0\'/0)]]></string>
+    <string name="str_undelegate_status">위임 철회 상세</string>
+    <string name="str_kava_newpath_title">키 경로 선택</string>
+    <string name="str_kava_newpath_msg">2020. 03월 부터 Kava 키 생성에 bip44가 적용됩니다.\n\n2020. 03월 이전에 주소를 생성하신 경우 [변경전 Path]를 이후에 생성하신 경우 [변경후 Path]를 선택해주세요.\n\nPath를 잘못 선택한 경우에도 기존 Kava 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 Path를 다시 지정하면 됩니다.</string>
+    <string name="str_kava_old_path"><![CDATA[변경 전 PATH (44\'/118\'/0\'/0)]]></string>
+    <string name="str_kava_new_path"><![CDATA[변경 후 PATH (44\'/459\'/0\'/0)]]></string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>

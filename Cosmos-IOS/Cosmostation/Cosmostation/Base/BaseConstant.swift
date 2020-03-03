@@ -159,6 +159,7 @@ let DB_ACCOUNT_IMPORT_TIME          = Expression<Int64>("importTime")
 let DB_ACCOUNT_LAST_TOTAL           = Expression<String>("lastTotal")
 let DB_ACCOUNT_SORT_ORDER           = Expression<Int64>("sortOrder")
 let DB_ACCOUNT_PUSHALARM            = Expression<Bool>("pushAlarm")
+let DB_ACCOUNT_NEW_BIP              = Expression<Bool>("newBip")
 
 
 ////DB for Password
@@ -277,6 +278,7 @@ let PASSWORD_RESUKT_OK_FOR_DELETE           = 3
 
 let BASE_PATH                               = "m/44'/118'/0'/0/"
 let BNB_BASE_PATH                           = "m/44'/714'/0'/0/"
+let KAVA_BASE_PATH                          = "m/44'/459'/0'/0/"
 let IOV_BASE_PATH                           = "m/44'/234'/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";

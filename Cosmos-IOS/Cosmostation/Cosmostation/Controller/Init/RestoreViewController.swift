@@ -49,6 +49,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     var filteredMnemonicWords = [String]()
     var userInputWords = [String]()
     var mCurrentPosition = 0;
+    var usingBip44:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,28 +102,24 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             self.chainType = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
             self.initViewUpdate()
         })
-        cosmosAction.setValue(UIColor.black, forKey: "titleTextColor")
         cosmosAction.setValue(UIImage(named: "cosmosWhMain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let irisAction = UIAlertAction(title: NSLocalizedString("chain_title_iris", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SUPPORT_CHAIN_IRIS_MAIN
             self.initViewUpdate()
         })
-        irisAction.setValue(UIColor.black, forKey: "titleTextColor")
         irisAction.setValue(UIImage(named: "irisWh")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let bnbAction = UIAlertAction(title: NSLocalizedString("chain_title_bnb", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
             self.initViewUpdate()
         })
-        bnbAction.setValue(UIColor.black, forKey: "titleTextColor")
         bnbAction.setValue(UIImage(named: "binanceChImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let kavaAction = UIAlertAction(title: NSLocalizedString("chain_title_kava", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SUPPORT_CHAIN_KAVA_MAIN
             self.initViewUpdate()
         })
-        kavaAction.setValue(UIColor.black, forKey: "titleTextColor")
         kavaAction.setValue(UIImage(named: "kavaImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
 //        let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
@@ -305,17 +302,55 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             self.onShowToast(NSLocalizedString("error_recover_mnemonic", comment: ""))
             
         } else {
-            let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-            self.navigationItem.title = ""
-            self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
-            passwordVC.resultDelegate = self
-            if(!BaseData.instance.hasPassword()) {
-                passwordVC.mTarget = PASSWORD_ACTION_INIT
-            } else  {
-                passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
+            if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                self.onSelectBip44()
+            } else {
+                self.onCheckPassword()
             }
-            self.navigationController?.pushViewController(passwordVC, animated: false)
         }
+    }
+    
+    func onSelectBip44() {
+        let selectAlert = UIAlertController(title: NSLocalizedString("select_new_path_title", comment: ""), message: "", preferredStyle: .alert)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = NSTextAlignment.left
+        let messageText = NSMutableAttributedString(
+            string: NSLocalizedString("select_new_path_msg", comment: ""),
+            attributes: [
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
+            ]
+        )
+        selectAlert.setValue(messageText, forKey: "attributedMessage")
+        selectAlert.addAction(UIAlertAction(title: NSLocalizedString("kava_old_path", comment: ""), style: .default, handler: { _ in
+            self.usingBip44 = false
+            self.dismiss(animated: true) {
+                self.onCheckPassword()
+            }
+        }))
+        selectAlert.addAction(UIAlertAction(title: NSLocalizedString("kava_new_path", comment: ""), style: .default, handler: { _ in
+            self.usingBip44 = true
+            self.dismiss(animated: true) {
+                self.onCheckPassword()
+            }
+        }))
+        self.present(selectAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            selectAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func onCheckPassword() {
+        let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+        self.navigationItem.title = ""
+        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+        passwordVC.resultDelegate = self
+        if(!BaseData.instance.hasPassword()) {
+            passwordVC.mTarget = PASSWORD_ACTION_INIT
+        } else  {
+            passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
+        }
+        self.navigationController?.pushViewController(passwordVC, animated: false)
     }
     
     func passwordResponse(result: Int) {
@@ -325,6 +360,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
                 self.navigationItem.title = ""
                 restorePathVC.userInputWords = self.userInputWords
                 restorePathVC.userChain = self.chainType
+                restorePathVC.usingBip44 = self.usingBip44
                 self.navigationController?.pushViewController(restorePathVC, animated: true)
             })
         }

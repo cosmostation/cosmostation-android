@@ -141,8 +141,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate 
             }
             
             do {
-                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
-                
+                let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 let msg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
                                                       self.pageHolderVC.mTargetValidator!.operator_address,
                                                       self.pageHolderVC.mToDelegateAmount!,

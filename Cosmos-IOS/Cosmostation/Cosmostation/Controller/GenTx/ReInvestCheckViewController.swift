@@ -178,8 +178,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             }
             
             do {
-                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
-                
+                let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 var msgList = Array<Msg>()
                 if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                     let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,

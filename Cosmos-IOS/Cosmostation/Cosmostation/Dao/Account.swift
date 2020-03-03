@@ -33,6 +33,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
     var account_last_total:String = "";
     var account_sort_order:Int64 = 0;
     var account_push_alarm: Bool = false;
+    var account_new_bip44: Bool = false;
     
     
     enum CodingKeys: String, CodingKey {
@@ -55,6 +56,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         case account_last_total
         case account_sort_order
         case account_push_alarm
+        case account_new_bip44
     }
     
     init(isNew: Bool) {
@@ -64,7 +66,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
     init(_ id:Int64, _ uuid:String, _ nickName:String, _ favo:Bool, _ address:String,
          _ baseChain:String, _ hasPrivate:Bool, _ resource:String, _ fromMnemonic:Bool, _ path:String,
          _ isValidator:Bool, _ sequenceNumber:Int64, _ accountNumber:Int64, _ fetchTime:Int64, _ mSize:Int64,
-         _ importTime:Int64, _ lastTotal:String, _ sortOrder:Int64, _ pushAlarm:Bool) {
+         _ importTime:Int64, _ lastTotal:String, _ sortOrder:Int64, _ pushAlarm:Bool, _ newbip:Bool) {
         
         self.account_id = id;
         self.account_uuid = uuid;
@@ -88,6 +90,7 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         self.account_last_total = lastTotal
         self.account_sort_order = sortOrder;
         self.account_push_alarm = pushAlarm;
+        self.account_new_bip44 = newbip;
         
     }
     

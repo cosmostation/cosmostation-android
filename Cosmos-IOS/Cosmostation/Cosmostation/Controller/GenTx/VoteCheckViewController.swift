@@ -149,7 +149,7 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
                 return
             }
             do {
-                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
+                let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 let msg = MsgGenerator.genGetVoteMsg(self.pageHolderVC.mAccount!.account_address,
                                                     self.pageHolderVC.mProposeId!,
                                                     self.pageHolderVC.mVoteOpinion!,
