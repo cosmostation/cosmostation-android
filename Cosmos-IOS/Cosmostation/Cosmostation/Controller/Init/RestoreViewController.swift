@@ -324,15 +324,11 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         selectAlert.setValue(messageText, forKey: "attributedMessage")
         selectAlert.addAction(UIAlertAction(title: NSLocalizedString("kava_old_path", comment: ""), style: .default, handler: { _ in
             self.usingBip44 = false
-            self.dismiss(animated: true) {
-                self.onCheckPassword()
-            }
+            self.onCheckPassword()
         }))
         selectAlert.addAction(UIAlertAction(title: NSLocalizedString("kava_new_path", comment: ""), style: .default, handler: { _ in
             self.usingBip44 = true
-            self.dismiss(animated: true) {
-                self.onCheckPassword()
-            }
+            self.onCheckPassword()
         }))
         self.present(selectAlert, animated: true) {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))

@@ -291,13 +291,11 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
         let geckoAction = UIAlertAction(title: NSLocalizedString("coingecko", comment: ""), style: .default, handler: { _ in
             self.onSetMarket(0)
         })
-        geckoAction.setValue(UIColor.black, forKey: "titleTextColor")
         geckoAction.setValue(UIImage(named: "coingeckoImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let marketcapAction = UIAlertAction(title: NSLocalizedString("coinmarketcap", comment: ""), style: .default, handler: {_ in
             self.onSetMarket(1)
         })
-        marketcapAction.setValue(UIColor.black, forKey: "titleTextColor")
         marketcapAction.setValue(UIImage(named: "coinmarketcapImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         showAlert.addAction(geckoAction)
