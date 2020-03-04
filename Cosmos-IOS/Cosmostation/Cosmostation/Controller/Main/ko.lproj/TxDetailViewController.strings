@@ -18,4 +18,6 @@
 "Yke-lk-aaV.text" = "트랜잭션 전송에 성공하였습니다.\n블록 체인에 완전히 기록된 후 결과가 표시됩니다.\n(대기 시간은 Tx 수수료에 따라 달라집니다.)";
 
 /* Class = "UIButton"; normalTitle = "Dismiss"; ObjectID = "m4a-6Y-f1I"; */
-"m4a-6Y-f1I.normalTitle" = "Dismiss";
+"m4a-6Y-f1I.normalTitle" = "닫기";
+
+"H6Q-0Y-3AI.text" = "트랜잭션 상세";

@@ -95,23 +95,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_tx_detail", comment: "");
-        self.navigationItem.title = NSLocalizedString("title_tx_detail", comment: "");
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.mFetchCnt = -1
-        if (self.isMovingFromParent && mIsGen){
-            self.onStartMainTab()
-        }
-    }
-    
     func onShowErrorView(_ code: Int) {
         print("onShowErrorView")
         var logMsg = ""
@@ -125,7 +108,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.loadingLayer.isHidden = true
         self.errorLayer.isHidden = false
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (mTxInfo != nil) {
@@ -433,6 +415,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func onClickDismiss(_ sender: UIButton) {
+        self.mFetchCnt = -1
         if (mIsGen){
             self.onStartMainTab()
         } else {
@@ -520,7 +503,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 return
             }
             self.loadingLayer.isHidden = true
-            self.dismissBtn.isHidden = true
             self.controlLayer.isHidden = false
             self.txTableView.reloadData()
         }
