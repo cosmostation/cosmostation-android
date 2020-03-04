@@ -64,7 +64,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                     onShowErrorView(code)
                     return
                 }
-                
+
             } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 if let net_error = mBroadCaseResult?["net_error"] as? Int {
                     onShowErrorView(net_error)
@@ -87,7 +87,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 mTxHash = txHash
             }
             self.onFetchTx(mTxHash!)
-            
+
         } else {
             self.loadingMsg.isHidden = true
             self.loadingImg.onStartAnimation()
@@ -106,6 +106,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.mFetchCnt = -1
         if (self.isMovingFromParent && mIsGen){
             self.onStartMainTab()
         }
@@ -432,7 +433,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func onClickDismiss(_ sender: UIButton) {
-        if (self.isMovingFromParent && mIsGen){
+        if (mIsGen){
             self.onStartMainTab()
         } else {
             self.navigationController?.popViewController(animated: true)
