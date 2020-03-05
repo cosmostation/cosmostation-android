@@ -10,12 +10,11 @@ protoc:
 
 excludes:
   - .git
-  - spec
 
 generate:
   plugins:
     - name: java
-      output: ./java/java
+      output: ./gen/java
 
 
 lint:
