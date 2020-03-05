@@ -3,8 +3,8 @@
 
 package orm;
 
-public final class Codec {
-  private Codec() {}
+public final class ORM {
+  private ORM() {}
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
   }
@@ -107,15 +107,15 @@ public final class Codec {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return orm.Codec.internal_static_orm_MultiRef_descriptor;
+      return orm.ORM.internal_static_orm_MultiRef_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return orm.Codec.internal_static_orm_MultiRef_fieldAccessorTable
+      return orm.ORM.internal_static_orm_MultiRef_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              orm.Codec.MultiRef.class, orm.Codec.MultiRef.Builder.class);
+              orm.ORM.MultiRef.class, orm.ORM.MultiRef.Builder.class);
     }
 
     public static final int REFS_FIELD_NUMBER = 1;
@@ -185,10 +185,10 @@ public final class Codec {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof orm.Codec.MultiRef)) {
+      if (!(obj instanceof orm.ORM.MultiRef)) {
         return super.equals(obj);
       }
-      orm.Codec.MultiRef other = (orm.Codec.MultiRef) obj;
+      orm.ORM.MultiRef other = (orm.ORM.MultiRef) obj;
 
       if (!getRefsList()
           .equals(other.getRefsList())) return false;
@@ -212,69 +212,69 @@ public final class Codec {
       return hash;
     }
 
-    public static orm.Codec.MultiRef parseFrom(
+    public static orm.ORM.MultiRef parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.MultiRef parseFrom(
+    public static orm.ORM.MultiRef parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.MultiRef parseFrom(
+    public static orm.ORM.MultiRef parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.MultiRef parseFrom(
+    public static orm.ORM.MultiRef parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.MultiRef parseFrom(byte[] data)
+    public static orm.ORM.MultiRef parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.MultiRef parseFrom(
+    public static orm.ORM.MultiRef parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.MultiRef parseFrom(java.io.InputStream input)
+    public static orm.ORM.MultiRef parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static orm.Codec.MultiRef parseFrom(
+    public static orm.ORM.MultiRef parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static orm.Codec.MultiRef parseDelimitedFrom(java.io.InputStream input)
+    public static orm.ORM.MultiRef parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static orm.Codec.MultiRef parseDelimitedFrom(
+    public static orm.ORM.MultiRef parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static orm.Codec.MultiRef parseFrom(
+    public static orm.ORM.MultiRef parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static orm.Codec.MultiRef parseFrom(
+    public static orm.ORM.MultiRef parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -287,7 +287,7 @@ public final class Codec {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(orm.Codec.MultiRef prototype) {
+    public static Builder newBuilder(orm.ORM.MultiRef prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -312,21 +312,21 @@ public final class Codec {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:orm.MultiRef)
-        orm.Codec.MultiRefOrBuilder {
+        orm.ORM.MultiRefOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return orm.Codec.internal_static_orm_MultiRef_descriptor;
+        return orm.ORM.internal_static_orm_MultiRef_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return orm.Codec.internal_static_orm_MultiRef_fieldAccessorTable
+        return orm.ORM.internal_static_orm_MultiRef_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                orm.Codec.MultiRef.class, orm.Codec.MultiRef.Builder.class);
+                orm.ORM.MultiRef.class, orm.ORM.MultiRef.Builder.class);
       }
 
-      // Construct using orm.Codec.MultiRef.newBuilder()
+      // Construct using orm.ORM.MultiRef.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -352,17 +352,17 @@ public final class Codec {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return orm.Codec.internal_static_orm_MultiRef_descriptor;
+        return orm.ORM.internal_static_orm_MultiRef_descriptor;
       }
 
       @java.lang.Override
-      public orm.Codec.MultiRef getDefaultInstanceForType() {
-        return orm.Codec.MultiRef.getDefaultInstance();
+      public orm.ORM.MultiRef getDefaultInstanceForType() {
+        return orm.ORM.MultiRef.getDefaultInstance();
       }
 
       @java.lang.Override
-      public orm.Codec.MultiRef build() {
-        orm.Codec.MultiRef result = buildPartial();
+      public orm.ORM.MultiRef build() {
+        orm.ORM.MultiRef result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -370,8 +370,8 @@ public final class Codec {
       }
 
       @java.lang.Override
-      public orm.Codec.MultiRef buildPartial() {
-        orm.Codec.MultiRef result = new orm.Codec.MultiRef(this);
+      public orm.ORM.MultiRef buildPartial() {
+        orm.ORM.MultiRef result = new orm.ORM.MultiRef(this);
         int from_bitField0_ = bitField0_;
         if (((bitField0_ & 0x00000001) != 0)) {
           refs_ = java.util.Collections.unmodifiableList(refs_);
@@ -416,16 +416,16 @@ public final class Codec {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof orm.Codec.MultiRef) {
-          return mergeFrom((orm.Codec.MultiRef)other);
+        if (other instanceof orm.ORM.MultiRef) {
+          return mergeFrom((orm.ORM.MultiRef)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(orm.Codec.MultiRef other) {
-        if (other == orm.Codec.MultiRef.getDefaultInstance()) return this;
+      public Builder mergeFrom(orm.ORM.MultiRef other) {
+        if (other == orm.ORM.MultiRef.getDefaultInstance()) return this;
         if (!other.refs_.isEmpty()) {
           if (refs_.isEmpty()) {
             refs_ = other.refs_;
@@ -451,11 +451,11 @@ public final class Codec {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        orm.Codec.MultiRef parsedMessage = null;
+        orm.ORM.MultiRef parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (orm.Codec.MultiRef) e.getUnfinishedMessage();
+          parsedMessage = (orm.ORM.MultiRef) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -555,12 +555,12 @@ public final class Codec {
     }
 
     // @@protoc_insertion_point(class_scope:orm.MultiRef)
-    private static final orm.Codec.MultiRef DEFAULT_INSTANCE;
+    private static final orm.ORM.MultiRef DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new orm.Codec.MultiRef();
+      DEFAULT_INSTANCE = new orm.ORM.MultiRef();
     }
 
-    public static orm.Codec.MultiRef getDefaultInstance() {
+    public static orm.ORM.MultiRef getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -585,7 +585,7 @@ public final class Codec {
     }
 
     @java.lang.Override
-    public orm.Codec.MultiRef getDefaultInstanceForType() {
+    public orm.ORM.MultiRef getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -669,15 +669,15 @@ public final class Codec {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return orm.Codec.internal_static_orm_Counter_descriptor;
+      return orm.ORM.internal_static_orm_Counter_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return orm.Codec.internal_static_orm_Counter_fieldAccessorTable
+      return orm.ORM.internal_static_orm_Counter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              orm.Codec.Counter.class, orm.Codec.Counter.Builder.class);
+              orm.ORM.Counter.class, orm.ORM.Counter.Builder.class);
     }
 
     public static final int COUNT_FIELD_NUMBER = 1;
@@ -729,10 +729,10 @@ public final class Codec {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof orm.Codec.Counter)) {
+      if (!(obj instanceof orm.ORM.Counter)) {
         return super.equals(obj);
       }
-      orm.Codec.Counter other = (orm.Codec.Counter) obj;
+      orm.ORM.Counter other = (orm.ORM.Counter) obj;
 
       if (getCount()
           != other.getCount()) return false;
@@ -755,69 +755,69 @@ public final class Codec {
       return hash;
     }
 
-    public static orm.Codec.Counter parseFrom(
+    public static orm.ORM.Counter parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.Counter parseFrom(
+    public static orm.ORM.Counter parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.Counter parseFrom(
+    public static orm.ORM.Counter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.Counter parseFrom(
+    public static orm.ORM.Counter parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.Counter parseFrom(byte[] data)
+    public static orm.ORM.Counter parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.Counter parseFrom(
+    public static orm.ORM.Counter parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.Counter parseFrom(java.io.InputStream input)
+    public static orm.ORM.Counter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static orm.Codec.Counter parseFrom(
+    public static orm.ORM.Counter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static orm.Codec.Counter parseDelimitedFrom(java.io.InputStream input)
+    public static orm.ORM.Counter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static orm.Codec.Counter parseDelimitedFrom(
+    public static orm.ORM.Counter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static orm.Codec.Counter parseFrom(
+    public static orm.ORM.Counter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static orm.Codec.Counter parseFrom(
+    public static orm.ORM.Counter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -830,7 +830,7 @@ public final class Codec {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(orm.Codec.Counter prototype) {
+    public static Builder newBuilder(orm.ORM.Counter prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -855,21 +855,21 @@ public final class Codec {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:orm.Counter)
-        orm.Codec.CounterOrBuilder {
+        orm.ORM.CounterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return orm.Codec.internal_static_orm_Counter_descriptor;
+        return orm.ORM.internal_static_orm_Counter_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return orm.Codec.internal_static_orm_Counter_fieldAccessorTable
+        return orm.ORM.internal_static_orm_Counter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                orm.Codec.Counter.class, orm.Codec.Counter.Builder.class);
+                orm.ORM.Counter.class, orm.ORM.Counter.Builder.class);
       }
 
-      // Construct using orm.Codec.Counter.newBuilder()
+      // Construct using orm.ORM.Counter.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -895,17 +895,17 @@ public final class Codec {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return orm.Codec.internal_static_orm_Counter_descriptor;
+        return orm.ORM.internal_static_orm_Counter_descriptor;
       }
 
       @java.lang.Override
-      public orm.Codec.Counter getDefaultInstanceForType() {
-        return orm.Codec.Counter.getDefaultInstance();
+      public orm.ORM.Counter getDefaultInstanceForType() {
+        return orm.ORM.Counter.getDefaultInstance();
       }
 
       @java.lang.Override
-      public orm.Codec.Counter build() {
-        orm.Codec.Counter result = buildPartial();
+      public orm.ORM.Counter build() {
+        orm.ORM.Counter result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -913,8 +913,8 @@ public final class Codec {
       }
 
       @java.lang.Override
-      public orm.Codec.Counter buildPartial() {
-        orm.Codec.Counter result = new orm.Codec.Counter(this);
+      public orm.ORM.Counter buildPartial() {
+        orm.ORM.Counter result = new orm.ORM.Counter(this);
         result.count_ = count_;
         onBuilt();
         return result;
@@ -954,16 +954,16 @@ public final class Codec {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof orm.Codec.Counter) {
-          return mergeFrom((orm.Codec.Counter)other);
+        if (other instanceof orm.ORM.Counter) {
+          return mergeFrom((orm.ORM.Counter)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(orm.Codec.Counter other) {
-        if (other == orm.Codec.Counter.getDefaultInstance()) return this;
+      public Builder mergeFrom(orm.ORM.Counter other) {
+        if (other == orm.ORM.Counter.getDefaultInstance()) return this;
         if (other.getCount() != 0L) {
           setCount(other.getCount());
         }
@@ -982,11 +982,11 @@ public final class Codec {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        orm.Codec.Counter parsedMessage = null;
+        orm.ORM.Counter parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (orm.Codec.Counter) e.getUnfinishedMessage();
+          parsedMessage = (orm.ORM.Counter) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1038,12 +1038,12 @@ public final class Codec {
     }
 
     // @@protoc_insertion_point(class_scope:orm.Counter)
-    private static final orm.Codec.Counter DEFAULT_INSTANCE;
+    private static final orm.ORM.Counter DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new orm.Codec.Counter();
+      DEFAULT_INSTANCE = new orm.ORM.Counter();
     }
 
-    public static orm.Codec.Counter getDefaultInstance() {
+    public static orm.ORM.Counter getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1068,7 +1068,7 @@ public final class Codec {
     }
 
     @java.lang.Override
-    public orm.Codec.Counter getDefaultInstanceForType() {
+    public orm.ORM.Counter getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1171,15 +1171,15 @@ public final class Codec {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return orm.Codec.internal_static_orm_VersionedIDRef_descriptor;
+      return orm.ORM.internal_static_orm_VersionedIDRef_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return orm.Codec.internal_static_orm_VersionedIDRef_fieldAccessorTable
+      return orm.ORM.internal_static_orm_VersionedIDRef_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              orm.Codec.VersionedIDRef.class, orm.Codec.VersionedIDRef.Builder.class);
+              orm.ORM.VersionedIDRef.class, orm.ORM.VersionedIDRef.Builder.class);
     }
 
     public static final int ID_FIELD_NUMBER = 4;
@@ -1255,10 +1255,10 @@ public final class Codec {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof orm.Codec.VersionedIDRef)) {
+      if (!(obj instanceof orm.ORM.VersionedIDRef)) {
         return super.equals(obj);
       }
-      orm.Codec.VersionedIDRef other = (orm.Codec.VersionedIDRef) obj;
+      orm.ORM.VersionedIDRef other = (orm.ORM.VersionedIDRef) obj;
 
       if (!getId()
           .equals(other.getId())) return false;
@@ -1284,69 +1284,69 @@ public final class Codec {
       return hash;
     }
 
-    public static orm.Codec.VersionedIDRef parseFrom(
+    public static orm.ORM.VersionedIDRef parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.VersionedIDRef parseFrom(
+    public static orm.ORM.VersionedIDRef parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.VersionedIDRef parseFrom(
+    public static orm.ORM.VersionedIDRef parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.VersionedIDRef parseFrom(
+    public static orm.ORM.VersionedIDRef parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.VersionedIDRef parseFrom(byte[] data)
+    public static orm.ORM.VersionedIDRef parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.VersionedIDRef parseFrom(
+    public static orm.ORM.VersionedIDRef parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.VersionedIDRef parseFrom(java.io.InputStream input)
+    public static orm.ORM.VersionedIDRef parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static orm.Codec.VersionedIDRef parseFrom(
+    public static orm.ORM.VersionedIDRef parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static orm.Codec.VersionedIDRef parseDelimitedFrom(java.io.InputStream input)
+    public static orm.ORM.VersionedIDRef parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static orm.Codec.VersionedIDRef parseDelimitedFrom(
+    public static orm.ORM.VersionedIDRef parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static orm.Codec.VersionedIDRef parseFrom(
+    public static orm.ORM.VersionedIDRef parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static orm.Codec.VersionedIDRef parseFrom(
+    public static orm.ORM.VersionedIDRef parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1359,7 +1359,7 @@ public final class Codec {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(orm.Codec.VersionedIDRef prototype) {
+    public static Builder newBuilder(orm.ORM.VersionedIDRef prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1384,21 +1384,21 @@ public final class Codec {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:orm.VersionedIDRef)
-        orm.Codec.VersionedIDRefOrBuilder {
+        orm.ORM.VersionedIDRefOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return orm.Codec.internal_static_orm_VersionedIDRef_descriptor;
+        return orm.ORM.internal_static_orm_VersionedIDRef_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return orm.Codec.internal_static_orm_VersionedIDRef_fieldAccessorTable
+        return orm.ORM.internal_static_orm_VersionedIDRef_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                orm.Codec.VersionedIDRef.class, orm.Codec.VersionedIDRef.Builder.class);
+                orm.ORM.VersionedIDRef.class, orm.ORM.VersionedIDRef.Builder.class);
       }
 
-      // Construct using orm.Codec.VersionedIDRef.newBuilder()
+      // Construct using orm.ORM.VersionedIDRef.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1426,17 +1426,17 @@ public final class Codec {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return orm.Codec.internal_static_orm_VersionedIDRef_descriptor;
+        return orm.ORM.internal_static_orm_VersionedIDRef_descriptor;
       }
 
       @java.lang.Override
-      public orm.Codec.VersionedIDRef getDefaultInstanceForType() {
-        return orm.Codec.VersionedIDRef.getDefaultInstance();
+      public orm.ORM.VersionedIDRef getDefaultInstanceForType() {
+        return orm.ORM.VersionedIDRef.getDefaultInstance();
       }
 
       @java.lang.Override
-      public orm.Codec.VersionedIDRef build() {
-        orm.Codec.VersionedIDRef result = buildPartial();
+      public orm.ORM.VersionedIDRef build() {
+        orm.ORM.VersionedIDRef result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1444,8 +1444,8 @@ public final class Codec {
       }
 
       @java.lang.Override
-      public orm.Codec.VersionedIDRef buildPartial() {
-        orm.Codec.VersionedIDRef result = new orm.Codec.VersionedIDRef(this);
+      public orm.ORM.VersionedIDRef buildPartial() {
+        orm.ORM.VersionedIDRef result = new orm.ORM.VersionedIDRef(this);
         result.id_ = id_;
         result.version_ = version_;
         onBuilt();
@@ -1486,16 +1486,16 @@ public final class Codec {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof orm.Codec.VersionedIDRef) {
-          return mergeFrom((orm.Codec.VersionedIDRef)other);
+        if (other instanceof orm.ORM.VersionedIDRef) {
+          return mergeFrom((orm.ORM.VersionedIDRef)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(orm.Codec.VersionedIDRef other) {
-        if (other == orm.Codec.VersionedIDRef.getDefaultInstance()) return this;
+      public Builder mergeFrom(orm.ORM.VersionedIDRef other) {
+        if (other == orm.ORM.VersionedIDRef.getDefaultInstance()) return this;
         if (other.getId() != com.google.protobuf.ByteString.EMPTY) {
           setId(other.getId());
         }
@@ -1517,11 +1517,11 @@ public final class Codec {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        orm.Codec.VersionedIDRef parsedMessage = null;
+        orm.ORM.VersionedIDRef parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (orm.Codec.VersionedIDRef) e.getUnfinishedMessage();
+          parsedMessage = (orm.ORM.VersionedIDRef) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1626,12 +1626,12 @@ public final class Codec {
     }
 
     // @@protoc_insertion_point(class_scope:orm.VersionedIDRef)
-    private static final orm.Codec.VersionedIDRef DEFAULT_INSTANCE;
+    private static final orm.ORM.VersionedIDRef DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new orm.Codec.VersionedIDRef();
+      DEFAULT_INSTANCE = new orm.ORM.VersionedIDRef();
     }
 
-    public static orm.Codec.VersionedIDRef getDefaultInstance() {
+    public static orm.ORM.VersionedIDRef getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1656,7 +1656,7 @@ public final class Codec {
     }
 
     @java.lang.Override
-    public orm.Codec.VersionedIDRef getDefaultInstanceForType() {
+    public orm.ORM.VersionedIDRef getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1751,15 +1751,15 @@ public final class Codec {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return orm.Codec.internal_static_orm_CounterWithID_descriptor;
+      return orm.ORM.internal_static_orm_CounterWithID_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return orm.Codec.internal_static_orm_CounterWithID_fieldAccessorTable
+      return orm.ORM.internal_static_orm_CounterWithID_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              orm.Codec.CounterWithID.class, orm.Codec.CounterWithID.Builder.class);
+              orm.ORM.CounterWithID.class, orm.ORM.CounterWithID.Builder.class);
     }
 
     public static final int PRIMARY_KEY_FIELD_NUMBER = 1;
@@ -1827,10 +1827,10 @@ public final class Codec {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof orm.Codec.CounterWithID)) {
+      if (!(obj instanceof orm.ORM.CounterWithID)) {
         return super.equals(obj);
       }
-      orm.Codec.CounterWithID other = (orm.Codec.CounterWithID) obj;
+      orm.ORM.CounterWithID other = (orm.ORM.CounterWithID) obj;
 
       if (!getPrimaryKey()
           .equals(other.getPrimaryKey())) return false;
@@ -1857,69 +1857,69 @@ public final class Codec {
       return hash;
     }
 
-    public static orm.Codec.CounterWithID parseFrom(
+    public static orm.ORM.CounterWithID parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.CounterWithID parseFrom(
+    public static orm.ORM.CounterWithID parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.CounterWithID parseFrom(
+    public static orm.ORM.CounterWithID parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.CounterWithID parseFrom(
+    public static orm.ORM.CounterWithID parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.CounterWithID parseFrom(byte[] data)
+    public static orm.ORM.CounterWithID parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static orm.Codec.CounterWithID parseFrom(
+    public static orm.ORM.CounterWithID parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static orm.Codec.CounterWithID parseFrom(java.io.InputStream input)
+    public static orm.ORM.CounterWithID parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static orm.Codec.CounterWithID parseFrom(
+    public static orm.ORM.CounterWithID parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static orm.Codec.CounterWithID parseDelimitedFrom(java.io.InputStream input)
+    public static orm.ORM.CounterWithID parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static orm.Codec.CounterWithID parseDelimitedFrom(
+    public static orm.ORM.CounterWithID parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static orm.Codec.CounterWithID parseFrom(
+    public static orm.ORM.CounterWithID parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static orm.Codec.CounterWithID parseFrom(
+    public static orm.ORM.CounterWithID parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1932,7 +1932,7 @@ public final class Codec {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(orm.Codec.CounterWithID prototype) {
+    public static Builder newBuilder(orm.ORM.CounterWithID prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1957,21 +1957,21 @@ public final class Codec {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:orm.CounterWithID)
-        orm.Codec.CounterWithIDOrBuilder {
+        orm.ORM.CounterWithIDOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return orm.Codec.internal_static_orm_CounterWithID_descriptor;
+        return orm.ORM.internal_static_orm_CounterWithID_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return orm.Codec.internal_static_orm_CounterWithID_fieldAccessorTable
+        return orm.ORM.internal_static_orm_CounterWithID_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                orm.Codec.CounterWithID.class, orm.Codec.CounterWithID.Builder.class);
+                orm.ORM.CounterWithID.class, orm.ORM.CounterWithID.Builder.class);
       }
 
-      // Construct using orm.Codec.CounterWithID.newBuilder()
+      // Construct using orm.ORM.CounterWithID.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1999,17 +1999,17 @@ public final class Codec {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return orm.Codec.internal_static_orm_CounterWithID_descriptor;
+        return orm.ORM.internal_static_orm_CounterWithID_descriptor;
       }
 
       @java.lang.Override
-      public orm.Codec.CounterWithID getDefaultInstanceForType() {
-        return orm.Codec.CounterWithID.getDefaultInstance();
+      public orm.ORM.CounterWithID getDefaultInstanceForType() {
+        return orm.ORM.CounterWithID.getDefaultInstance();
       }
 
       @java.lang.Override
-      public orm.Codec.CounterWithID build() {
-        orm.Codec.CounterWithID result = buildPartial();
+      public orm.ORM.CounterWithID build() {
+        orm.ORM.CounterWithID result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2017,8 +2017,8 @@ public final class Codec {
       }
 
       @java.lang.Override
-      public orm.Codec.CounterWithID buildPartial() {
-        orm.Codec.CounterWithID result = new orm.Codec.CounterWithID(this);
+      public orm.ORM.CounterWithID buildPartial() {
+        orm.ORM.CounterWithID result = new orm.ORM.CounterWithID(this);
         result.primaryKey_ = primaryKey_;
         result.count_ = count_;
         onBuilt();
@@ -2059,16 +2059,16 @@ public final class Codec {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof orm.Codec.CounterWithID) {
-          return mergeFrom((orm.Codec.CounterWithID)other);
+        if (other instanceof orm.ORM.CounterWithID) {
+          return mergeFrom((orm.ORM.CounterWithID)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(orm.Codec.CounterWithID other) {
-        if (other == orm.Codec.CounterWithID.getDefaultInstance()) return this;
+      public Builder mergeFrom(orm.ORM.CounterWithID other) {
+        if (other == orm.ORM.CounterWithID.getDefaultInstance()) return this;
         if (other.getPrimaryKey() != com.google.protobuf.ByteString.EMPTY) {
           setPrimaryKey(other.getPrimaryKey());
         }
@@ -2090,11 +2090,11 @@ public final class Codec {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        orm.Codec.CounterWithID parsedMessage = null;
+        orm.ORM.CounterWithID parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (orm.Codec.CounterWithID) e.getUnfinishedMessage();
+          parsedMessage = (orm.ORM.CounterWithID) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2175,12 +2175,12 @@ public final class Codec {
     }
 
     // @@protoc_insertion_point(class_scope:orm.CounterWithID)
-    private static final orm.Codec.CounterWithID DEFAULT_INSTANCE;
+    private static final orm.ORM.CounterWithID DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new orm.Codec.CounterWithID();
+      DEFAULT_INSTANCE = new orm.ORM.CounterWithID();
     }
 
-    public static orm.Codec.CounterWithID getDefaultInstance() {
+    public static orm.ORM.CounterWithID getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2205,7 +2205,7 @@ public final class Codec {
     }
 
     @java.lang.Override
-    public orm.Codec.CounterWithID getDefaultInstanceForType() {
+    public orm.ORM.CounterWithID getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2244,7 +2244,7 @@ public final class Codec {
       "fs\030\001 \003(\014\"\030\n\007Counter\022\r\n\005count\030\001 \001(\003\"-\n\016Ve" +
       "rsionedIDRef\022\n\n\002id\030\004 \001(\014\022\017\n\007version\030\005 \001(" +
       "\r\"3\n\rCounterWithID\022\023\n\013primary_key\030\001 \001(\014\022" +
-      "\r\n\005count\030\002 \001(\003b\006proto3"
+      "\r\n\005count\030\002 \001(\003B\005B\003ORMb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
