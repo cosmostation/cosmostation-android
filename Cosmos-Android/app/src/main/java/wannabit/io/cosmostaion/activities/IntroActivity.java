@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,45 +13,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.github.orogvany.bip32.Network;
-import com.github.orogvany.bip32.wallet.CoinType;
-import com.github.orogvany.bip32.wallet.HdAddress;
-import com.github.orogvany.bip32.wallet.HdKeyGenerator;
-import com.github.orogvany.bip39.Language;
-import com.github.orogvany.bip39.MnemonicGenerator;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.romainpiel.shimmer.ShimmerTextView;
-
-import net.i2p.crypto.eddsa.EdDSAEngine;
-import net.i2p.crypto.eddsa.EdDSAPrivateKey;
-import net.i2p.crypto.eddsa.EdDSASecurityProvider;
-import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable;
-import net.i2p.crypto.eddsa.spec.EdDSAParameterSpec;
-import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec;
-
-import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.crypto.HDKeyDerivation;
-import org.bouncycastle.crypto.digests.SHA512Digest;
-import org.bouncycastle.util.encoders.Hex;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.Security;
-import java.security.Signature;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,22 +25,14 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
 import wannabit.io.cosmostaion.dialog.Dialog_NetworkError;
 import wannabit.io.cosmostaion.dialog.Dialog_Update;
-import wannabit.io.cosmostaion.dialog.Dialog_Wait;
-import wannabit.io.cosmostaion.model.IovTx;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_KIND_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
@@ -164,6 +121,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }, 2500);
+
     }
 
 

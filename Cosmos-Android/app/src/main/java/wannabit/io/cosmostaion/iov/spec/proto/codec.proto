@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package weave;
+
+// Metadata is expected to be the first argument of every message or model. It
+// contains all essential attributes.
+// Each protobuf message should be declared with the first attribute being
+//
+//   weave.Metadata metadata = 1;
+message Metadata {
+  uint32 schema = 1;
+}
+
+// ValidatorUpdates represents latest validator state, currently used to validate SetValidatorMsg transactions.
+message ValidatorUpdates {
+  repeated weave.ValidatorUpdate validator_updates = 1 ;
+}
+
+// ValidatorUpdate represents an update to validator set.
+message ValidatorUpdate {
+  PubKey pub_key = 1 ;
+  int64 power = 2;
+}
+
+// PubKey represents a validator public key.
+message PubKey {
+  string type = 1;
+  bytes data = 2;
+}
+
+// The Fraction type represents a floating point number without the precision
+// issues that native floating point type has.
+message Fraction {
+  // The top number in a fraction.
+  uint32 numerator = 1;
+  // The bottom number
+  uint32 denominator = 2;
+}
+
+option go_package = "github.com/iov-one/weave";

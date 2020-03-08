@@ -11,6 +11,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,12 +24,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.orogvany.bip32.wallet.HdAddress;
+import com.google.protobuf.ByteString;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -42,12 +46,14 @@ import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -267,6 +273,53 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         onUpdateView();
+
+
+        coin.Codec.Coin.Builder sendCoin = coin.Codec.Coin.newBuilder();
+        sendCoin.setFractional(100000000);
+        sendCoin.setTicker("IOV");
+
+        coin.Codec.Coin.Builder sendFee = coin.Codec.Coin.newBuilder();
+        sendFee.setFractional(500000000);
+        sendFee.setTicker("IOV");
+
+        cash.Codec.SendMsg.Builder sendMsg = cash.Codec.SendMsg.newBuilder();
+        sendMsg.setSource(WKey.getIovByteStringfromDpAddress("iov1me95eudfhr6frafv94nq4du3gwshzffqd2dlr5"));
+        sendMsg.setDestination(WKey.getIovByteStringfromDpAddress("iov1dp3cm97echhje79dghap462v4y58ckeka77dqj"));
+        sendMsg.setAmount(sendCoin.build());
+        sendMsg.setMemo("HelloWorld");
+
+        cash.Codec.FeeInfo.Builder sendFeeInfo = cash.Codec.FeeInfo.newBuilder();
+        sendFeeInfo.setPayer(WKey.getIovByteStringfromDpAddress("iov1me95eudfhr6frafv94nq4du3gwshzffqd2dlr5"));
+        sendFeeInfo.setFees(sendFee.build());
+
+        bnsd.Codec.Tx.Builder sendTx = bnsd.Codec.Tx.newBuilder();
+        sendTx.setCashSendMsg(sendMsg);
+        sendTx.setFees(sendFeeInfo.build());
+
+        WLog.w("sendTx  \n" + sendTx.build().toString());
+        WLog.w("sendTx  \n" + sendTx.build().toByteArray());
+
+
+        String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + getMainActivity().mAccount.uuid, getMainActivity().mAccount.resource, getMainActivity().mAccount.spec);
+        HdAddress dKey = WKey.getEd25519KeyWithPathfromEntropy(getMainActivity().mBaseChain, entropy, 0);
+
+
+        byte[] version = new byte[] {(byte)0, (byte)0xCA, (byte)0xFE, (byte)0 };
+        WLog.w("version" + version.toString());
+
+
+
+
+        String data64 = "CiMSFN5LTPGpuPSR9SwtZgq3kUOhcSUgGgsQgMq17gEaA0lPVhJqEAAaIgogAVpJ8eYl41/Ig9K+TxrpITB2WPtm6yVMJPY9+VQN7eQiQgpAVACzlgguz4Iaxq60zTVGyFQQIBDGyNArWZxTGdg9T5a4CTEjrk+QhbhlW7Ak86ph+oWWyrEt+y4NRXC0/oEqBZoDPAoCCAESFN5LTPGpuPSR9SwtZgq3kUOhcSUgGhRoY42X2cXvLPitRfoa6UypKHxbNiIKEIDC1y8aA0lPVg==";
+        byte[] decodedString = Base64.decode(data64, Base64.DEFAULT);
+        try {
+            bnsd.Codec.Tx tx = bnsd.Codec.Tx.parseFrom(decodedString);
+            WLog.w("parse tx " + tx.toString());
+
+        } catch (Exception e) {
+            WLog.w("e " +e);
+        }
     }
 
     @Override
