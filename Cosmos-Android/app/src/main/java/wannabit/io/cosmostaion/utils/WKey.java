@@ -9,6 +9,7 @@ import com.github.orogvany.bip32.wallet.HdKeyGenerator;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.protobuf.ByteString;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.ChildNumber;
@@ -325,7 +326,24 @@ public class WKey {
         System.arraycopy(post, 0, data, pre.length, post.length);
 
         byte[] hash = Arrays.copyOfRange(Sha256.getSha256Digest().digest(data), 0, 20);
+        WLog.w("hash " +  WUtil.ByteArrayToHexString(hash));
         return getDpAddress(IOV_MAIN, WUtil.ByteArrayToHexString(hash));
+    }
+
+    public static ByteString getIovByteStringfromDpAddress(String address) {
+        try {
+            HrpAndData hrpAndData = WKey.bech32Decode(address);
+            byte[] converted = WKey.convertBits(hrpAndData.data, 5, 8, false);
+            return ByteString.copyFrom(converted);
+
+        } catch (Exception e) {
+            WLog.w("getIovByteStringfromDpAddress Error");
+        }
+        return null;
+    }
+
+    public static String getIovDpAddressFromByteString(ByteString byteString) {
+        return getDpAddress(IOV_MAIN, WUtil.ByteArrayToHexString(byteString.toByteArray()));
     }
 
 

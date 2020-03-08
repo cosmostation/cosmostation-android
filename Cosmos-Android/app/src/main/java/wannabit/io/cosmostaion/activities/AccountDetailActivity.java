@@ -1,11 +1,8 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
@@ -37,12 +34,12 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
+
+
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -105,7 +102,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mNameEditImg.setOnClickListener(this);
         mBtnQr.setOnClickListener(this);
         mBtnRewardAddressChange.setOnClickListener(this);
-
     }
 
 
@@ -213,6 +209,14 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
             mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
+        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
+            mCardRewardAddress.setVisibility(View.GONE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
