@@ -25,17 +25,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.orogvany.bip32.wallet.HdAddress;
+import com.google.common.primitives.Bytes;
 import com.google.protobuf.ByteString;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import net.i2p.crypto.eddsa.EdDSAEngine;
+import net.i2p.crypto.eddsa.EdDSAPrivateKey;
+import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable;
+import net.i2p.crypto.eddsa.spec.EdDSAParameterSpec;
+import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec;
+
 import java.math.BigDecimal;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.PrivateKey;
+import java.security.Signature;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
+import crypto.Models;
+import sigs.Codec;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -47,6 +61,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
@@ -283,11 +298,16 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         sendFee.setFractional(500000000);
         sendFee.setTicker("IOV");
 
+        weave.Codec.Metadata.Builder metaData = weave.Codec.Metadata.newBuilder();
+        metaData.setSchema(1);
+
+
         cash.Codec.SendMsg.Builder sendMsg = cash.Codec.SendMsg.newBuilder();
         sendMsg.setSource(WKey.getIovByteStringfromDpAddress("iov1me95eudfhr6frafv94nq4du3gwshzffqd2dlr5"));
         sendMsg.setDestination(WKey.getIovByteStringfromDpAddress("iov1dp3cm97echhje79dghap462v4y58ckeka77dqj"));
         sendMsg.setAmount(sendCoin.build());
-        sendMsg.setMemo("HelloWorld");
+        sendMsg.setMetadata(metaData.build());
+        sendMsg.setMemo("");
 
         cash.Codec.FeeInfo.Builder sendFeeInfo = cash.Codec.FeeInfo.newBuilder();
         sendFeeInfo.setPayer(WKey.getIovByteStringfromDpAddress("iov1me95eudfhr6frafv94nq4du3gwshzffqd2dlr5"));
@@ -297,25 +317,101 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         sendTx.setCashSendMsg(sendMsg);
         sendTx.setFees(sendFeeInfo.build());
 
-        WLog.w("sendTx  \n" + sendTx.build().toString());
-        WLog.w("sendTx  \n" + sendTx.build().toByteArray());
-
-
         String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + getMainActivity().mAccount.uuid, getMainActivity().mAccount.resource, getMainActivity().mAccount.spec);
         HdAddress dKey = WKey.getEd25519KeyWithPathfromEntropy(getMainActivity().mBaseChain, entropy, 0);
 
+        byte[] chainB = "iov-mainnet".getBytes(Charset.forName("UTF-8"));
+        byte[] versionB = new byte[] {(byte)0, (byte)0xCA, (byte)0xFE, (byte)0 };
+        byte[] nonceB = ByteBuffer.allocate(Long.BYTES).putLong(2).array();
+        byte[] txB = sendTx.build().toByteArray();
+        byte[] chainSize4 = ByteBuffer.allocate(Integer.BYTES).putInt(chainB.length).array();
+        byte[] chainSize1 = Arrays.copyOfRange(chainSize4,chainSize4.length-1, chainSize4.length);
 
-        byte[] version = new byte[] {(byte)0, (byte)0xCA, (byte)0xFE, (byte)0 };
-        WLog.w("version" + version.toString());
+
+//        WLog.w("chainB  " + WUtil.ByteArrayToHexString(chainB));
+//        WLog.w("versionB  " + WUtil.ByteArrayToHexString(versionB));
+//        WLog.w("versionB size " + versionB.length);
+//        WLog.w("nonceB  " + WUtil.ByteArrayToHexString(nonceB));
+//        WLog.w("txB  " + WUtil.ByteArrayToHexString(txB));
+//        WLog.w("txB  size " + txB.length);
+//        WLog.w("chainSize4  " + chainSize4.length + "  " +  WUtil.ByteArrayToHexString(chainSize4));
+//        WLog.w("chainSize1  " + chainSize1.length + "  " + WUtil.ByteArrayToHexString(chainSize1));
+//        WLog.w("chainSize1  " + String.format("%8s", Integer.toBinaryString(chainSize1[0] & 0xFF)).replace(' ', '0'));
+
+        byte[] inSig = new byte[versionB.length + chainSize1.length + chainB.length + nonceB.length + txB.length];
+        System.arraycopy(versionB, 0, inSig, 0, versionB.length);
+        System.arraycopy(chainSize1, 0, inSig, versionB.length, chainSize1.length);
+        System.arraycopy(chainB, 0, inSig, versionB.length + chainSize1.length, chainB.length);
+        System.arraycopy(nonceB, 0, inSig, versionB.length + chainSize1.length + chainB.length, nonceB.length);
+        System.arraycopy(txB, 0, inSig, versionB.length + chainSize1.length + chainB.length + nonceB.length, txB.length);
+        WLog.w("inSig  " + inSig.length);
+        WLog.w("inSig  " + WUtil.ByteArrayToHexString(inSig));
 
 
 
 
-        String data64 = "CiMSFN5LTPGpuPSR9SwtZgq3kUOhcSUgGgsQgMq17gEaA0lPVhJqEAAaIgogAVpJ8eYl41/Ig9K+TxrpITB2WPtm6yVMJPY9+VQN7eQiQgpAVACzlgguz4Iaxq60zTVGyFQQIBDGyNArWZxTGdg9T5a4CTEjrk+QhbhlW7Ak86ph+oWWyrEt+y4NRXC0/oEqBZoDPAoCCAESFN5LTPGpuPSR9SwtZgq3kUOhcSUgGhRoY42X2cXvLPitRfoa6UypKHxbNiIKEIDC1y8aA0lPVg==";
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            byte[] midSig = digest.digest(inSig);
+            WLog.w("midSig  " + midSig.length);
+            WLog.w("midSig  " + WUtil.ByteArrayToHexString(midSig));
+
+
+
+            EdDSAParameterSpec spec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519);
+            Signature sgr = new EdDSAEngine(MessageDigest.getInstance(spec.getHashAlgorithm()));
+
+            EdDSAPrivateKeySpec privKey = new EdDSAPrivateKeySpec(dKey.getPrivateKey().getPrivateKey(), spec);
+//            WLog.w("privKey  " + WUtil.ByteArrayToHexString(dKey.getPrivateKey().getPrivateKey()));
+            PrivateKey sKey = new EdDSAPrivateKey(privKey);
+
+            sgr.initSign(sKey);
+            sgr.update(midSig);
+            byte[] genSig = sgr.sign();
+            WLog.w("genSig  " + WUtil.ByteArrayToHexString(genSig));
+
+            crypto.Models.PublicKey.Builder pubKey = crypto.Models.PublicKey.newBuilder();
+            pubKey.setEd25519(ByteString.copyFrom(Arrays.copyOfRange(dKey.getPublicKey().getPublicKey(), 1, dKey.getPublicKey().getPublicKey().length)));
+//            WLog.w("pubKey " + pubKey.build().toString());
+
+            crypto.Models.Signature.Builder signature = crypto.Models.Signature.newBuilder();
+            signature.setEd25519(ByteString.copyFrom(genSig));
+//            WLog.w("Signature " + signature.build().toString());
+
+            sigs.Codec.StdSignature.Builder stdSignature = sigs.Codec.StdSignature.newBuilder();
+            stdSignature.setPubkey(pubKey.build());
+            stdSignature.setSignature(signature.build());
+            stdSignature.setSequence(2);
+//            WLog.w("stdSignature \n" + stdSignature.build().toString());
+
+
+
+            sendTx.addSignatures(stdSignature);
+            bnsd.Codec.Tx resultTx = sendTx.build();
+            WLog.w("resultTx \n" + resultTx.toString());
+            WLog.w("resultTx HEX \n" + WUtil.ByteArrayToHexString(resultTx.toByteArray()));
+//
+//
+//
+//            String a = Base64.encodeToString(resultTx.toByteArray(), Base64.DEFAULT).replace("\n", "");
+//            WLog.w("a " + a);
+
+
+        } catch (Exception e) {
+            WLog.w("e " +e);
+        }
+
+
+
+
+
+        String data64 = "CiMSFN5LTPGpuPSR9SwtZgq3kUOhcSUgGgsQgMq17gEaA0lPVhJqEAEaIgogAVpJ8eYl41/Ig9K+TxrpITB2WPtm6yVMJPY9+VQN7eQiQgpAnVJlg4HwcyIN4Z+Gpxw1YqRDQNA4OzveP/78rFW1y5pt2H3Wj6zl2hcmh+yVVdtO3soJAdowCvU0YzfPjX5sC5oDPAoCCAESFN5LTPGpuPSR9SwtZgq3kUOhcSUgGhRoY42X2cXvLPitRfoa6UypKHxbNiIKEIDC1y8aA0lPVg==";
         byte[] decodedString = Base64.decode(data64, Base64.DEFAULT);
         try {
             bnsd.Codec.Tx tx = bnsd.Codec.Tx.parseFrom(decodedString);
-            WLog.w("parse tx " + tx.toString());
+            WLog.w("parse tx \n" + tx.toString());
+
+            WLog.w("goodSig " + WUtil.ByteArrayToHexString(tx.getSignatures(0).getSignature().getEd25519().toByteArray()));
 
         } catch (Exception e) {
             WLog.w("e " +e);
