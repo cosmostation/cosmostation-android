@@ -89,10 +89,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rh8-X7-K8R">
-                                <rect key="frame" x="12" y="162" width="256" height="40"/>
+                                <rect key="frame" x="12" y="162" width="272" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eI-uy-KLp">
-                                        <rect key="frame" x="0.0" y="0.0" width="124" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="132" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="cep-pZ-G5u"/>
@@ -117,7 +117,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJm-pA-8yv">
-                                        <rect key="frame" x="132" y="0.0" width="124" height="40"/>
+                                        <rect key="frame" x="140" y="0.0" width="132" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Dgc-Pm-2mh"/>
@@ -171,6 +171,7 @@
                             <constraint firstItem="z4u-qD-0CZ" firstAttribute="top" secondItem="5bS-n7-rXB" secondAttribute="top" constant="16" id="gfe-Iq-AkB"/>
                             <constraint firstAttribute="trailing" secondItem="mhh-Sg-VXL" secondAttribute="trailing" constant="12" id="oKu-Vd-ESt"/>
                             <constraint firstItem="rh8-X7-K8R" firstAttribute="top" secondItem="47H-Mt-pMB" secondAttribute="bottom" constant="16" id="s8K-PA-ePr"/>
+                            <constraint firstAttribute="trailing" secondItem="rh8-X7-K8R" secondAttribute="trailing" constant="12" id="tTF-9c-pt5"/>
                             <constraint firstItem="b3v-p6-TFf" firstAttribute="top" secondItem="5bS-n7-rXB" secondAttribute="top" constant="15.5" id="yKj-Wi-j6M"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>

@@ -83,10 +83,9 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
             self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_BINANCE_MAIN)
         } else if (mSelectedChain == 4) {
             self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_KAVA_MAIN)
+        } else if (mSelectedChain == 5) {
+            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IOV_MAIN)
         }
-//        else if (mSelectedChain == 4) {
-//            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IOV_MAIN)
-//        }
         self.sortWallet()
         self.accountTableView.reloadData()
         self.updateOptionBtn()
@@ -94,7 +93,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == chainTableView) {
-            return 5
+            return 6
         } else {
             if (mSelectedChain == 0) {
                 return mAccounts.count
@@ -144,15 +143,14 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.chainImg.image = UIImage(named: "kavaImg")
                 cell?.chainName.text = "KAVA"
                 
+            } else if (indexPath.row == 5) {
+                cell?.chainImg.isHidden = false
+                cell?.chainName.isHidden = false
+                cell?.chainAll.isHidden = true
+                cell?.chainImg.image = UIImage(named: "iovImg")
+                cell?.chainName.text = "IOV"
+
             }
-//            else if (indexPath.row == 4) {
-//                cell?.chainImg.isHidden = false
-//                cell?.chainName.isHidden = false
-//                cell?.chainAll.isHidden = true
-//                cell?.chainImg.image = UIImage(named: "iovImg")
-//                cell?.chainName.text = "IOV"
-//
-//            }
             return cell!
             
         } else {
@@ -278,10 +276,9 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     tagetVC?.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
                 } else if (self.mSelectedChain == 4) {
                     tagetVC?.chainType = ChainType.SUPPORT_CHAIN_KAVA_MAIN
+                } else if (self.mSelectedChain == 5) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
                 }
-//                else if (self.mSelectedChain == 4) {
-//                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
-//                }
                 
             } else if(result == 2) {
                 tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestoreViewController") as! RestoreViewController
@@ -293,10 +290,9 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     tagetVC?.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
                 } else if (self.mSelectedChain == 4) {
                     tagetVC?.chainType = ChainType.SUPPORT_CHAIN_KAVA_MAIN
+                } else if (self.mSelectedChain == 5) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
                 }
-//                else if (self.mSelectedChain == 4) {
-//                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
-//                }
                 
             } else if(result == 3) {
                 tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController

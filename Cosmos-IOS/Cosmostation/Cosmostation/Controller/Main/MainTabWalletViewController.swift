@@ -610,10 +610,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
             cell?.guideImg.image = UIImage(named: "iovmainImg")
             
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_bnb", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_bnb", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_bnb", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_bnb", comment: ""), for: .normal)
+            cell?.guideTitle.text = NSLocalizedString("send_guide_title_iov", comment: "")
+            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_iov", comment: "")
+            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iov", comment: ""), for: .normal)
+            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iov", comment: ""), for: .normal)
             cell?.actionGuide1 = {
                 self.onClickGuide1()
             }
@@ -1007,21 +1007,4 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
-    
-//    func sortUnbondingsRecent(_ unbondings:Array<Unbonding>) {
-////        let data = unbondings
-////        data.sort{
-////            if ($0.balance_denom == COSMOS_MAIN_DENOM) {
-////                return true
-////            }
-////            if ($1.balance_denom == COSMOS_MAIN_DENOM){
-////                return false
-////            }
-////            return $0.balance_denom < $1.balance_denom
-////        }
-////        unbondings.sort { (Unbonding, <#Unbonding#>) -> Bool in
-////
-////        }
-//        unbondings.sorted(by: {$0.unbonding_complete_time > $1.unbonding_complete_time})
-//    }
 }

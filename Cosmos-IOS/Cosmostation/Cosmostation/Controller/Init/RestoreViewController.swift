@@ -122,18 +122,17 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         kavaAction.setValue(UIImage(named: "kavaImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-//        let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
-//            self.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
-//            self.initViewUpdate()
-//        })
-//        iovAction.setValue(UIColor.black, forKey: "titleTextColor")
-//        iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
+            self.initViewUpdate()
+        })
+        iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
         showAlert.addAction(kavaAction)
-//        showAlert.addAction(iovAction)
+        showAlert.addAction(iovAction)
         self.present(showAlert, animated: true, completion: nil)
     }
     

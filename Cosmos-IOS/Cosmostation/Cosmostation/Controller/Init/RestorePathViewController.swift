@@ -156,6 +156,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                         }
                     }
+                    
                 } else if (self.userChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
                     let request = Alamofire.request(IOV_URL_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
