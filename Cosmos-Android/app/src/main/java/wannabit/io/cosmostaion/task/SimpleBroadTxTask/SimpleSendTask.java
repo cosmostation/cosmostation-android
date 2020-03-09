@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
+import com.github.orogvany.bip32.wallet.HdAddress;
+
 import org.bitcoinj.crypto.DeterministicKey;
 
 import java.util.ArrayList;
@@ -109,85 +111,94 @@ public class SimpleSendTask extends CommonTask {
             }
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
-            //TODO IOV is not yet!
 
-            Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mToSendAmount, BaseChain.getChain(mAccount.baseChain));
-            ArrayList<Msg> msgs= new ArrayList<>();
-            msgs.add(singleSendMsg);
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_MAIN)) {
+                HdAddress dKey = WKey.getEd25519KeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path));
 
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
-                Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
+//                String toSendReq = MsgGenerator.getIovTransferTx
+
+            } else {
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
+
+                Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mToSendAmount, BaseChain.getChain(mAccount.baseChain));
+                ArrayList<Msg> msgs= new ArrayList<>();
+                msgs.add(singleSendMsg);
+
+                if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
+                    ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                    Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
+                    if(response.isSuccessful() && response.body() != null) {
+                        if (response.body().txhash != null) {
+                            mResult.resultData = response.body().txhash;
+                        }
+                        if(response.body().code != null) {
+                            mResult.errorCode = response.body().code;
+                            mResult.errorMsg = response.body().raw_log;
+                            return mResult;
+                        }
+                        mResult.isSuccess = true;
+
+                    } else {
+                        mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                     }
-                    if(response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
 
-                } else {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
+                    ReqBroadCast reqBroadCast = MsgGenerator.getIrisBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                    Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
+                    if(response.isSuccessful() && response.body() != null) {
+                        if (response.body().hash != null) {
+                            mResult.resultData = response.body().hash;
+                        }
+                        if(response.body().check_tx.code != null) {
+                            mResult.errorCode = response.body().code;
+                            mResult.errorMsg = response.body().raw_log;
+                            return mResult;
+                        }
+                        mResult.isSuccess = true;
+
+                    } else {
+                        mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    }
+
+                } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
+                    ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                    Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
+                    if(response.isSuccessful() && response.body() != null) {
+                        if (response.body().txhash != null) {
+                            mResult.resultData = response.body().txhash;
+                        }
+                        if(response.body().code != null) {
+                            mResult.errorCode = response.body().code;
+                            mResult.errorMsg = response.body().raw_log;
+                            return mResult;
+                        }
+                        mResult.isSuccess = true;
+
+                    } else {
+                        mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    }
+
+                } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_TEST)) {
+                    ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                    Response<ResBroadTx> response = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
+                    if(response.isSuccessful() && response.body() != null) {
+                        if (response.body().txhash != null) {
+                            mResult.resultData = response.body().txhash;
+                        }
+                        if(response.body().code != null) {
+                            mResult.errorCode = response.body().code;
+                            mResult.errorMsg = response.body().raw_log;
+                            return mResult;
+                        }
+                        mResult.isSuccess = true;
+
+                    } else {
+                        mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IRIS_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getIrisBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
-                Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().hash != null) {
-                        mResult.resultData = response.body().hash;
-                    }
-                    if(response.body().check_tx.code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
-                Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if(response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_TEST)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
-                Response<ResBroadTx> response = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if(response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                }
             }
+
 
         } catch (Exception e) {
             if(BaseConstant.IS_SHOWLOG) e.printStackTrace();

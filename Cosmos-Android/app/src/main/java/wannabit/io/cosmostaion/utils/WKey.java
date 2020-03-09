@@ -9,6 +9,7 @@ import com.github.orogvany.bip32.wallet.HdKeyGenerator;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.protobuf.ByteString;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.ChildNumber;
@@ -20,6 +21,7 @@ import org.bitcoinj.crypto.MnemonicException;
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -325,7 +327,24 @@ public class WKey {
         System.arraycopy(post, 0, data, pre.length, post.length);
 
         byte[] hash = Arrays.copyOfRange(Sha256.getSha256Digest().digest(data), 0, 20);
+        WLog.w("hash " +  WUtil.ByteArrayToHexString(hash));
         return getDpAddress(IOV_MAIN, WUtil.ByteArrayToHexString(hash));
+    }
+
+    public static ByteString getIovByteStringfromDpAddress(String address) {
+        try {
+            HrpAndData hrpAndData = WKey.bech32Decode(address);
+            byte[] converted = WKey.convertBits(hrpAndData.data, 5, 8, false);
+            return ByteString.copyFrom(converted);
+
+        } catch (Exception e) {
+            WLog.w("getIovByteStringfromDpAddress Error");
+        }
+        return null;
+    }
+
+    public static String getIovDpAddressFromByteString(ByteString byteString) {
+        return getDpAddress(IOV_MAIN, WUtil.ByteArrayToHexString(byteString.toByteArray()));
     }
 
 
@@ -529,6 +548,24 @@ public class WKey {
                 return false;
             return true;
         }
+    }
+
+    public static byte[] getIovInSig(bnsd.Codec.Tx requestTx, int nonce) {
+        byte[] chainB = IOV_MAIN.getChain().getBytes(Charset.forName("UTF-8"));
+        byte[] versionB = new byte[] {(byte)0, (byte)0xCA, (byte)0xFE, (byte)0 };
+        byte[] nonceB = ByteBuffer.allocate(Long.BYTES).putLong(nonce).array();
+        byte[] txB = requestTx.toByteArray();
+        byte[] chainSize4 = ByteBuffer.allocate(Integer.BYTES).putInt(chainB.length).array();
+        byte[] chainSize1 = Arrays.copyOfRange(chainSize4,chainSize4.length-1, chainSize4.length);
+
+        byte[] inSig = new byte[versionB.length + chainSize1.length + chainB.length + nonceB.length + txB.length];
+        System.arraycopy(versionB, 0, inSig, 0, versionB.length);
+        System.arraycopy(chainSize1, 0, inSig, versionB.length, chainSize1.length);
+        System.arraycopy(chainB, 0, inSig, versionB.length + chainSize1.length, chainB.length);
+        System.arraycopy(nonceB, 0, inSig, versionB.length + chainSize1.length + chainB.length, nonceB.length);
+        System.arraycopy(txB, 0, inSig, versionB.length + chainSize1.length + chainB.length + nonceB.length, txB.length);
+
+        return inSig;
     }
 
 

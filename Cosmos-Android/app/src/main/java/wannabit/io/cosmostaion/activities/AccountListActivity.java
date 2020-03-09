@@ -44,7 +44,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     private AccountListAdapter          mAccountListAdapter;
     private ItemTouchHelper             mItemTouchHelper;
     private int                         mSelectChainPosition = 0;
-    private int                         mSelectAccountPosition = 0;
     private boolean                     isEditMode;
     private ArrayList<Account>          mAccounts = new ArrayList<>();
 
@@ -146,6 +145,9 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.KAVA_MAIN);
 
         } else if (mSelectChainPosition == 5) {
+            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.IOV_MAIN);
+
+        } else if (mSelectChainPosition == 6) {
             mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.KAVA_TEST);
 
         }
@@ -229,6 +231,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             } else if (position == 5) {
                 holder.chainLayer.setVisibility(View.VISIBLE);
                 holder.allLayer.setVisibility(View.GONE);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
+                holder.chainName.setText(getString(R.string.str_iov));
+
+            } else if (position == 6) {
+                holder.chainLayer.setVisibility(View.VISIBLE);
+                holder.allLayer.setVisibility(View.GONE);
                 holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
                 holder.chainName.setText(getString(R.string.str_kava_test));
 
@@ -248,8 +256,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public int getItemCount() {
-            if(SUPPORT_KAVA_TEST) return 6;
-            else return 5;
+            if(SUPPORT_KAVA_TEST) return 7;
+            else return 6;
         }
 
 
@@ -347,6 +355,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                         } else if (mSelectChainPosition == 4) {
                             bundle.putString("chain", BaseChain.KAVA_MAIN.getChain());
                         } else if (mSelectChainPosition == 5) {
+                            bundle.putString("chain", BaseChain.IOV_MAIN.getChain());
+                        } else if (mSelectChainPosition == 6) {
                             bundle.putString("chain", BaseChain.KAVA_TEST.getChain());
                         }
                         Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);

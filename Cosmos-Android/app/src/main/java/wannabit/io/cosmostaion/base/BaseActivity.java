@@ -581,7 +581,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_IOV_NONCE) {
-            mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+//            mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_IOV_ADDRESS_INFO) {
             if (result.isSuccess && result.resultData != null) {

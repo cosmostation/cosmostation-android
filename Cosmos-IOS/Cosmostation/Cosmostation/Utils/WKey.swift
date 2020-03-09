@@ -125,7 +125,6 @@ class WKey {
             let pre: [UInt8] = Array("sigs/ed25519/".utf8)
             let post: [UInt8] = Ed25519.calcPublicKey(secretKey: cKey!.key)
             let result = pre + post
-            
             return getPubToDpAddress(result.toHexString(), chain)
             
         }

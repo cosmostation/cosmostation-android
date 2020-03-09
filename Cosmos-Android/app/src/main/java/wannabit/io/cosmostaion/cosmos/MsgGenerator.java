@@ -2,12 +2,23 @@ package wannabit.io.cosmostaion.cosmos;
 
 import android.util.Base64;
 
+import com.github.orogvany.bip32.wallet.HdAddress;
+import com.google.protobuf.ByteString;
+
+import net.i2p.crypto.eddsa.EdDSAEngine;
+import net.i2p.crypto.eddsa.EdDSAPrivateKey;
+import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable;
+import net.i2p.crypto.eddsa.spec.EdDSAParameterSpec;
+import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.crypto.DeterministicKey;
 
 import java.security.MessageDigest;
+import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -29,6 +40,8 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class MsgGenerator {
@@ -60,6 +73,75 @@ public class MsgGenerator {
 
         }
         return result;
+    }
+
+    //Send Tx for IOV chain
+    public static String getIovTransferTx(int nonce, String fromAddr, String toAddr, ArrayList<Coin> coins , Fee fee, String memo, HdAddress dKey) {
+
+        coin.Codec.Coin.Builder sendCoin = coin.Codec.Coin.newBuilder();
+        sendCoin.setFractional(Long.parseLong(coins.get(0).amount));
+        sendCoin.setTicker(COSMOS_IOV);
+
+        coin.Codec.Coin.Builder sendFee = coin.Codec.Coin.newBuilder();
+        sendFee.setFractional(Long.parseLong(fee.amount.get(0).amount));
+        sendFee.setTicker(COSMOS_IOV);
+
+        cash.Codec.FeeInfo.Builder sendFeeInfo = cash.Codec.FeeInfo.newBuilder();
+        sendFeeInfo.setPayer(WKey.getIovByteStringfromDpAddress(fromAddr));
+        sendFeeInfo.setFees(sendFee.build());
+
+        weave.Codec.Metadata.Builder metaData = weave.Codec.Metadata.newBuilder();
+        metaData.setSchema(1);
+
+        cash.Codec.SendMsg.Builder sendMsg = cash.Codec.SendMsg.newBuilder();
+        sendMsg.setSource(WKey.getIovByteStringfromDpAddress(fromAddr));
+        sendMsg.setDestination(WKey.getIovByteStringfromDpAddress(toAddr));
+        sendMsg.setAmount(sendCoin.build());
+        sendMsg.setMetadata(metaData.build());
+        sendMsg.setMemo(memo);
+
+        bnsd.Codec.Tx.Builder sendTx = bnsd.Codec.Tx.newBuilder();
+        sendTx.setCashSendMsg(sendMsg);
+        sendTx.setFees(sendFeeInfo.build());
+
+        try {
+            byte[] inSig = WKey.getIovInSig(sendTx.build(), nonce);
+
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            byte[] midSig = digest.digest(inSig);
+
+            EdDSAParameterSpec spec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519);
+            java.security.Signature sgr = new EdDSAEngine(MessageDigest.getInstance(spec.getHashAlgorithm()));
+
+            EdDSAPrivateKeySpec privKey = new EdDSAPrivateKeySpec(dKey.getPrivateKey().getPrivateKey(), spec);
+            PrivateKey sKey = new EdDSAPrivateKey(privKey);
+            sgr.initSign(sKey);
+            sgr.update(midSig);
+            byte[] genSig = sgr.sign();
+
+            crypto.Models.PublicKey.Builder pubKey = crypto.Models.PublicKey.newBuilder();
+            pubKey.setEd25519(ByteString.copyFrom(Arrays.copyOfRange(dKey.getPublicKey().getPublicKey(), 1, dKey.getPublicKey().getPublicKey().length)));
+
+            crypto.Models.Signature.Builder signature = crypto.Models.Signature.newBuilder();
+            signature.setEd25519(ByteString.copyFrom(genSig));
+
+            sigs.Codec.StdSignature.Builder stdSignature = sigs.Codec.StdSignature.newBuilder();
+            stdSignature.setPubkey(pubKey.build());
+            stdSignature.setSignature(signature.build());
+            stdSignature.setSequence(nonce);
+
+            sendTx.addSignatures(stdSignature);
+            bnsd.Codec.Tx resultTx = sendTx.build();
+
+            return "0x" + WUtil.ByteArrayToHexString(resultTx.toByteArray());
+
+        } catch (Exception e) {
+            if(IS_SHOWLOG) {
+                WLog.w("IOV getTransferTx " +e);
+            }
+        }
+        return "";
+
     }
 
     public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout, BaseChain chain) {
