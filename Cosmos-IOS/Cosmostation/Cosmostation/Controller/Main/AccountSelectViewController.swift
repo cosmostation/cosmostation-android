@@ -71,6 +71,8 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
             self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_KAVA_MAIN)
         } else if (mSelectedChain == 5) {
             self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IOV_MAIN)
+        } else if (mSelectedChain == 6) {
+            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_KAVA_TEST)
         }
         self.mAccounts.sort{
             return $0.account_sort_order < $1.account_sort_order
@@ -81,7 +83,12 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == chainTableView) {
-            return 6
+            if (SUPPORT_KAVA_TESTNET) {
+                return 7
+            } else {
+                return 6
+            }
+            
         } else {
             if (mSelectedChain == 0) {
                 return mAccounts.count
@@ -138,6 +145,13 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.chainImg.image = UIImage(named: "iovImg")
                 cell?.chainName.text = "IOV"
 
+            } else if (indexPath.row == 6) {
+                cell?.chainImg.isHidden = false
+                cell?.chainName.isHidden = false
+                cell?.chainAll.isHidden = true
+                cell?.chainImg.image = UIImage(named: "kavaTestImg")
+                cell?.chainName.text = "KAVA TEST"
+                
             }
             return cell!
             
@@ -198,6 +212,8 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                 addChain = ChainType.SUPPORT_CHAIN_KAVA_MAIN
             } else if (mSelectedChain == 5) {
                 addChain = ChainType.SUPPORT_CHAIN_IOV_MAIN
+            } else if (mSelectedChain == 6) {
+                addChain = ChainType.SUPPORT_CHAIN_KAVA_TEST
             }
             self.resultDelegate?.addAccount(addChain!)
             self.dismiss(animated: false, completion: nil)

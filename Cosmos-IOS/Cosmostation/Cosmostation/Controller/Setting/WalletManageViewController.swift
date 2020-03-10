@@ -85,6 +85,8 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
             self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_KAVA_MAIN)
         } else if (mSelectedChain == 5) {
             self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IOV_MAIN)
+        } else if (mSelectedChain == 6) {
+            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_KAVA_TEST)
         }
         self.sortWallet()
         self.accountTableView.reloadData()
@@ -93,7 +95,12 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == chainTableView) {
-            return 6
+            if (SUPPORT_KAVA_TESTNET) {
+                return 7
+            } else {
+                return 6
+            }
+            
         } else {
             if (mSelectedChain == 0) {
                 return mAccounts.count
@@ -150,6 +157,13 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.chainImg.image = UIImage(named: "iovImg")
                 cell?.chainName.text = "IOV"
 
+            } else if (indexPath.row == 6) {
+                cell?.chainImg.isHidden = false
+                cell?.chainName.isHidden = false
+                cell?.chainAll.isHidden = true
+                cell?.chainImg.image = UIImage(named: "kavaTestImg")
+                cell?.chainName.text = "KAVA TEST"
+                
             }
             return cell!
             
@@ -278,6 +292,8 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     tagetVC?.chainType = ChainType.SUPPORT_CHAIN_KAVA_MAIN
                 } else if (self.mSelectedChain == 5) {
                     tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
+                } else if (self.mSelectedChain == 6) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_KAVA_TEST
                 }
                 
             } else if(result == 2) {
@@ -292,6 +308,8 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     tagetVC?.chainType = ChainType.SUPPORT_CHAIN_KAVA_MAIN
                 } else if (self.mSelectedChain == 5) {
                     tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
+                } else if (self.mSelectedChain == 6) {
+                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_KAVA_TEST
                 }
                 
             } else if(result == 3) {

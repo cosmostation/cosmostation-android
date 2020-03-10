@@ -12,6 +12,7 @@ import SQLite
 let SHOW_LOG                            = false;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
+let SUPPORT_KAVA_TESTNET                = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
 let KEY_ALL_VAL_SORT                    = "KEY_ALL_VAL_SORT"
@@ -33,6 +34,8 @@ let CSS_LCD_URL                         = "https://lcd-cosmos-app.cosmostation.i
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let BNB_URL                             = "https://dex.binance.org/";
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
+let KAVA_TEST_URL                       = "https://lcd-kava-testnet.cosmostation.io/";
+let KAVA_TEST_API                       = "https://api-kava-testnet.cosmostation.io/";
 let IOV_URL                             = "https://rest-iov.cosmostation.io/";
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -112,7 +115,24 @@ let KAVA_REWARD_ADDRESS                 = KAVA_URL + "distribution/delegators/";
 let KAVA_REWARD_ADDRESS_TAIL            = "/withdraw_address";
 let KAVA_PROPOSALS                      = KAVA_URL + "gov/proposals";
 
-
+//KAVA_TEST_URL
+let KAVA_TEST_ACCOUNT_INFO              = KAVA_TEST_URL + "auth/accounts/";
+let KAVA_TEST_VALIDATORS                = KAVA_TEST_URL + "staking/validators";
+let KAVA_TEST_BONDING                   = KAVA_TEST_URL + "staking/delegators/";
+let KAVA_TEST_BONDING_TAIL              = "/delegations";
+let KAVA_TEST_UNBONDING                 = KAVA_TEST_URL + "staking/delegators/";
+let KAVA_TEST_UNBONDING_TAIL            = "/unbonding_delegations";
+let KAVA_TEST_REWARD_FROM_VAL           = KAVA_TEST_URL + "distribution/delegators/";
+let KAVA_TEST_REWARD_FROM_VAL_TAIL      = "/rewards/";
+let KAVA_TEST_INFLATION                 = KAVA_TEST_URL + "minting/inflation";
+let KAVA_TEST_PROVISIONS                = KAVA_TEST_URL + "minting/annual-provisions";
+let KAVA_TEST_STAKING_POOL              = KAVA_TEST_URL + "staking/pool";
+let KAVA_TEST_BORAD_TX                  = KAVA_TEST_URL + "txs";
+let KAVA_TEST_TX                        = KAVA_TEST_URL + "txs/";
+let KAVA_TEST_REDELEGATION              = KAVA_TEST_URL + "staking/redelegations";
+let KAVA_TEST_REWARD_ADDRESS            = KAVA_TEST_URL + "distribution/delegators/";
+let KAVA_TEST_REWARD_ADDRESS_TAIL       = "/withdraw_address";
+let KAVA_TEST_PROPOSALS                 = KAVA_TEST_URL + "gov/proposals";
 
 
 let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
@@ -359,12 +379,15 @@ let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "46d7cb", 
 let COLOR_IOV                               = UIColor.init(hexString: "35C1B3")
 let COLOR_IOV_DARK                          = UIColor.init(hexString: "065048")
 
+
+
 enum ChainType: String {
     case SUPPORT_CHAIN_COSMOS_MAIN
     case SUPPORT_CHAIN_IRIS_MAIN
     case SUPPORT_CHAIN_BINANCE_MAIN
     case SUPPORT_CHAIN_KAVA_MAIN
     case SUPPORT_CHAIN_IOV_MAIN
+    case SUPPORT_CHAIN_KAVA_TEST
 }
 
 let CHAIN_COSMOS_S = "SUPPORT_CHAIN_COSMOS_MAIN"
@@ -372,6 +395,7 @@ let CHAIN_IRIS_S = "SUPPORT_CHAIN_IRIS_MAIN"
 let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
 let CHAIN_KAVA_S = "SUPPORT_CHAIN_KAVA_MAIN"
 let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
+let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "iris-atto"

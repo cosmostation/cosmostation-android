@@ -128,11 +128,18 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let kavaTestAction = UIAlertAction(title: NSLocalizedString("chain_title_kava_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.SUPPORT_CHAIN_KAVA_TEST
+            self.initViewUpdate()
+        })
+        kavaTestAction.setValue(UIImage(named: "kavaTestImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
         showAlert.addAction(kavaAction)
         showAlert.addAction(iovAction)
+        showAlert.addAction(kavaTestAction)
         self.present(showAlert, animated: true, completion: nil)
     }
     
@@ -301,7 +308,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             self.onShowToast(NSLocalizedString("error_recover_mnemonic", comment: ""))
             
         } else {
-            if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 self.onSelectBip44()
             } else {
                 self.onCheckPassword()

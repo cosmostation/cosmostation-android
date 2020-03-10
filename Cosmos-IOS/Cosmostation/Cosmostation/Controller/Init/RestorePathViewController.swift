@@ -49,7 +49,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.pathLabel.text = BNB_BASE_PATH.appending(String(indexPath.row))
         } else if (userChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             cell?.pathLabel.text = IOV_BASE_PATH.appending(String(indexPath.row)).appending("'")
-        } else if (userChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (userChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || userChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (self.usingBip44) {
                 cell?.pathLabel.text = KAVA_BASE_PATH.appending(String(indexPath.row))
             } else {
@@ -176,6 +176,25 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                         }
                     }
+                } else if (self.userChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
+                    let request = Alamofire.request(KAVA_TEST_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    request.responseJSON { (response) in
+                        switch response.result {
+                        case .success(let res):
+                            guard let info = res as? [String : Any] else {
+                                return
+                            }
+                            let tempAccount = Account.init(isNew: true)
+                            tempAccount.account_id = -1
+                            let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info))
+                            cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, KAVA_MAIN_DENOM, ChainType.SUPPORT_CHAIN_KAVA_TEST)
+                            
+                        case .failure(let error):
+                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                        }
+                    }
+                    
                 }
             });
         }
