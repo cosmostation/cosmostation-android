@@ -194,7 +194,7 @@ class WUtils {
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
@@ -212,7 +212,7 @@ class WUtils {
     
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 for entry in unbondinginfo.entries {
@@ -428,6 +428,25 @@ class WUtils {
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER3) {
             resultMsg = NSLocalizedString("tx_transfer", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_POST_PRICE) {
+            resultMsg = NSLocalizedString("tx_kava_post_price", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_CREATE_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_create_cdp", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_DEPOSIT_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_deposit_cdp", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_WITHDRAW_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_withdraw_cdp", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_drawdebt_cdp", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_repaydebt_cdp", comment: "")
+            
         }
         
         if(msgs.count > 1) {
@@ -500,7 +519,7 @@ class WUtils {
     static func DecimalToLocalString(_ input: NSDecimalNumber, _ chain:ChainType) -> String {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 0
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             nf.maximumFractionDigits = 6
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             nf.maximumFractionDigits = 18
@@ -970,7 +989,7 @@ class WUtils {
         nf.numberStyle = .decimal
         var formatted = ""
         var endIndex: String.Index?
-        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"))) ?? "0"
@@ -1000,7 +1019,7 @@ class WUtils {
         nf.numberStyle = .decimal
         var formatted = ""
         var endIndex: String.Index?
-        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"))) ?? "0"
@@ -1510,7 +1529,20 @@ class WUtils {
         return gasAmounts
     }
     
-    
+    static func getKavaCoinDecimal(_ denom:String) -> Int {
+        if (denom == KAVA_MAIN_DENOM) {
+            return 6;
+        } else if (denom == "xrp") {
+            return 6;
+        } else if (denom == "btc") {
+            return 8;
+        } else if (denom == "usdx") {
+            return 6;
+        } else if (denom == "bnb") {
+            return 8;
+        }
+        return 100;
+    }
     
     
     

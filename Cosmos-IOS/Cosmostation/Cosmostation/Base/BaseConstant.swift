@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
 let SUPPORT_KAVA_TESTNET                = true;
@@ -134,6 +134,8 @@ let KAVA_TEST_REWARD_ADDRESS            = KAVA_TEST_URL + "distribution/delegato
 let KAVA_TEST_REWARD_ADDRESS_TAIL       = "/withdraw_address";
 let KAVA_TEST_PROPOSALS                 = KAVA_TEST_URL + "gov/proposals";
 
+let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "/v1/account/txs/";
+
 
 let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
 let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
@@ -153,6 +155,7 @@ let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cos
 let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
 let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
 let KAVA_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
+let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
 
 //DB for Account
 let DB_ACCOUNT = Table("accnt")
@@ -279,6 +282,12 @@ let IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal = "irishub/gov/CommunityTaxUsage
 let BNB_MSG_TYPE_TRANSFER                   = "bnb_transfer";
 
 let KAVA_MSG_TYPE_TRANSFER                  = "kava_transfer";
+let KAVA_MSG_TYPE_POST_PRICE                = "pricefeed/MsgPostPrice";
+let KAVA_MSG_TYPE_CREATE_CDP                = "cdp/MsgCreateCDP";
+let KAVA_MSG_TYPE_DEPOSIT_CDP               = "cdp/MsgDeposit";
+let KAVA_MSG_TYPE_WITHDRAW_CDP              = "cdp/MsgWithdraw";
+let KAVA_MSG_TYPE_DRAWDEBT_CDP              = "cdp/MsgDrawDebt";
+let KAVA_MSG_TYPE_REPAYDEBT_CDP             = "cdp/MsgRepayDebt";
 
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"

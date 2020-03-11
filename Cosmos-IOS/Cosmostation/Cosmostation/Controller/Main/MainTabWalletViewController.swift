@@ -95,6 +95,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            titleChainImg.image = UIImage(named: "kavaTestImg")
+            titleChainName.text = "(KAVA Test)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -122,7 +126,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             floaty.buttonColor = COLOR_IRIS
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             floaty.buttonColor = COLOR_BNB
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             floaty.buttonColor = COLOR_KAVA
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             floaty.buttonColor = COLOR_IOV
@@ -152,9 +156,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             return 6;
-        } else if  (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if  (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return 5;
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN || chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return 4;
         } else {
             return 0;
@@ -168,7 +175,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetIrisItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return onSetBnbItem(tableView, indexPath);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return onSetKavaItem(tableView, indexPath);
         } else {
             return onSetIovItems(tableView, indexPath);
@@ -521,6 +528,20 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionVote = {
                 self.onClickVoteList()
             }
+            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
+                cell?.cdpBtn.isHidden = true
+                cell?.nonCdpConstarint.priority = .defaultHigh
+                cell?.cdpConstraint.priority = .defaultLow
+            } else {
+                cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
+                cell?.cdpBtn.isHidden = false
+                cell?.nonCdpConstarint.priority = .defaultLow
+                cell?.cdpConstraint.priority = .defaultHigh
+                cell?.actionCdp = {
+//                    self.onClickCdp()
+                }
+            }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalKava.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             
@@ -540,17 +561,27 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.updownPercent.text = ""
             }
             
-            cell?.buySeparator.isHidden = false
-            cell?.buyBtn.isHidden = false
-            cell?.buyBtn.setTitle(NSLocalizedString("buy_kava", comment: ""), for: .normal)
-            cell?.buyConstraint.priority = .defaultHigh
-            cell?.noBuyConstraint.priority = .defaultLow
+            if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                cell?.buySeparator.isHidden = false
+                cell?.buyBtn.isHidden = false
+                cell?.buyBtn.setTitle(NSLocalizedString("buy_kava", comment: ""), for: .normal)
+                cell?.buyConstraint.priority = .defaultHigh
+                cell?.noBuyConstraint.priority = .defaultLow
+                cell?.actionBuy = {
+                    self.onClickBuyCoin()
+                }
+            } else {
+                cell?.buySeparator.isHidden = true
+                cell?.buyBtn.isHidden = true
+                cell?.buyConstraint.priority = .defaultLow
+                cell?.noBuyConstraint.priority = .defaultHigh
+                cell?.actionBuy = { }
+            }
+            
             cell?.actionTapPricel = {
                 self.onClickMarketInfo()
             }
-            cell?.actionBuy = {
-                self.onClickBuyCoin()
-            }
+            
             return cell!
             
         } else if (indexPath.row == 3) {

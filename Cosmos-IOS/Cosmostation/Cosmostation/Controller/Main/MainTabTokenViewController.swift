@@ -106,6 +106,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_IOV
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            titleChainImg.image = UIImage(named: "kavaTestImg")
+            titleChainName.text = "(KAVA Test)"
+            titleAlarmBtn.isHidden = true
+            totalCard.backgroundColor = COLOR_BG_GRAY
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -143,7 +148,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             onFetchIrisTokenPrice()
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onFetchBnbTokenPrice()
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             onFetchKavaTokenPrice()
         }
     }
@@ -201,7 +206,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allBnb.stringValue, totalAmount.font, 0, 6)
             totalValue.attributedText = WUtils.dpBnbValue(allBnb, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), totalValue.font)
@@ -219,9 +224,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetIrisItems(tableView, indexPath)
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return onSetBnbItems(tableView, indexPath)
-        } else {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return onSetKavaItems(tableView, indexPath)
         }
+        return onSetCosmosItems(tableView, indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -349,7 +355,19 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.text = balance.balance_denom.uppercased()
             cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = balance.balance_denom + " guaranteed by Kava-chain"
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            let url = KAVA_COIN_IMG_URL + balance.balance_denom + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell?.tokenImg.image = image
+            }
         }
         return cell!
     }
@@ -440,7 +458,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByName() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == COSMOS_MAIN_DENOM) {
                     return true
@@ -472,11 +490,21 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 return $0.balance_denom < $1.balance_denom
             }
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == KAVA_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == KAVA_MAIN_DENOM){
+                    return false
+                }
+                return $0.balance_denom < $1.balance_denom
+            }
         }
     }
     
     func sortByAmount() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == COSMOS_MAIN_DENOM) {
                     return true
@@ -507,6 +535,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     return false
                 }
                 return $0.getAllAmountBnbToken().compare($1.getAllAmountBnbToken()).rawValue > 0 ? true : false
+            }
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            mainTabVC.mBalances.sort{
+                if ($0.balance_denom == KAVA_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.balance_denom == KAVA_MAIN_DENOM){
+                    return false
+                }
+                return WUtils.stringToDecimal($0.balance_amount).compare(WUtils.stringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
             }
         }
     }
