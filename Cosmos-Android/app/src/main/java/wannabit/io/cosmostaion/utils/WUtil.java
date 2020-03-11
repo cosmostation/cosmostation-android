@@ -1157,7 +1157,7 @@ public class WUtil {
         } else if (denom.equals("bnb")) {
             return 8;
         }
-        return 0;
+        return 100;
     }
 
     public static BnbToken getBnbToken(ArrayList<BnbToken> all, Balance balance) {
