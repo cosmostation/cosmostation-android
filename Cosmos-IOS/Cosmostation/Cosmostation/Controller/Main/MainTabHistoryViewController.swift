@@ -372,13 +372,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             switch response.result {
             case .success(let res):
                 if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    self.mApiHistories.removeAll()
                     guard let history = res as? [String : Any] else {
                         print("no history!!")
                         self.emptyLabel.isHidden = false
                         return;
                     }
                     let rawHistory = ApiHistory.init(history)
-                    self.mApiHistories.removeAll()
                     self.mApiHistories = rawHistory.historyData
 
                     if (self.mApiHistories.count > 0) {
