@@ -60,7 +60,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (mIsGen) {
             self.loadingMsg.isHidden = false
             self.loadingImg.onStartAnimation()
-            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+                chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 guard let txHash = mBroadCaseResult?["txhash"] as? String  else {
                     self.onStartMainTab()
                     return

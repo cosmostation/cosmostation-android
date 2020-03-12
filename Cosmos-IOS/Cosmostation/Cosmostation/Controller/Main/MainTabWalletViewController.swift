@@ -785,7 +785,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             guard let url = URL(string: "https://www.kava.io/") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
@@ -816,7 +816,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             guard let url = URL(string: "https://medium.com/kava-labs") else { return }
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
@@ -858,7 +858,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 present(safariViewController, animated: true, completion: nil)
             }
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (BaseData.instance.getMarket() == 0) {
                 guard let url = URL(string: "https://www.coingecko.com/en/coins/kava") else { return }
                 let safariViewController = SFSafariViewController(url: url)
@@ -980,7 +980,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mBnbToken = WUtils.getBnbMainToken(self.mainTabVC.mBnbTokenList)
             txVC.mType = BNB_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return

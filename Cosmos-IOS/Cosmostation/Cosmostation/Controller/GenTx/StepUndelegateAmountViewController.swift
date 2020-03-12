@@ -26,7 +26,9 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
         WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
         userDelegated = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address)!.getBondingAmount(pageHolderVC.mTargetValidator!)
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             availableAmountLabel.attributedText = WUtils.displayAmount(userDelegated.stringValue, availableAmountLabel.font, 6, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             availableAmountLabel.attributedText = WUtils.displayAmount(userDelegated.stringValue, availableAmountLabel.font, 18, pageHolderVC.chainType!)
@@ -50,7 +52,9 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             if (text.count == 0 && string.starts(with: ",")) { return false }
             
             
-            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 if let index = text.range(of: ".")?.upperBound {
                     if(text.substring(from: index).count > 5 && range.length == 0) {
                         return false
@@ -105,7 +109,9 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             return
         }
         
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (userInput.multiplying(by: 1000000).compare(userDelegated).rawValue > 0) {
                 self.toUndelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -125,7 +131,9 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (userInput.multiplying(by: 1000000).compare(userDelegated).rawValue > 0) {
                 return false
             }
@@ -152,7 +160,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
                 coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 coin = Coin.init(IRIS_MAIN_DENOM, userInput.multiplying(by: 1000000000000000000).stringValue)
-            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 coin = Coin.init(KAVA_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
             }
             pageHolderVC.mToUndelegateAmount = coin
@@ -214,7 +222,9 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let halfValue = userDelegated.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
             toUndelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -224,7 +234,9 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
         self.onUIupdate()
     }
     @IBAction func onClickMax(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let maxValue = userDelegated.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
             toUndelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {

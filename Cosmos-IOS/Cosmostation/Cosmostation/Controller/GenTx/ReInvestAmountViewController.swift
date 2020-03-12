@@ -29,7 +29,9 @@ class ReInvestAmountViewController: BaseViewController {
         WUtils.setDenomTitle(pageHolderVC.chainType!, rewardDenomLabel)
         
         self.loadingImg.onStartAnimation()
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             self.onFetchReward(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             self.onFetchIrisReward(pageHolderVC.mAccount!)
@@ -69,7 +71,8 @@ class ReInvestAmountViewController: BaseViewController {
             self.controlLayer.isHidden = false
             self.cardView.isHidden = false
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN && self.pageHolderVC.mReinvestReward != nil) {
+        } else if ((pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) &&
+            self.pageHolderVC.mReinvestReward != nil) {
             rewardAmountLabel.attributedText = WUtils.displayAmount(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, pageHolderVC.chainType!)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             
@@ -88,6 +91,8 @@ class ReInvestAmountViewController: BaseViewController {
             url = CSS_LCD_URL_REWARD_FROM_VAL + accountAddr + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         }
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -108,7 +113,7 @@ class ReInvestAmountViewController: BaseViewController {
                         }
                     }
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.updateView()

@@ -137,7 +137,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.stringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
             expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.chainType!)
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, KAVA_MAIN_DENOM)
             rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
             feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
@@ -211,6 +211,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -241,7 +243,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenGetRewardTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -271,7 +274,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 var msgList = Array<Msg>()
-                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     for val in self.pageHolderVC.mRewardTargetValidators {
                         let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, val.operator_address, self.pageHolderVC.chainType!)
                         msgList.append(msg)
@@ -339,6 +344,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                         url = IRIS_LCD_URL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                         url = KAVA_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                        url = KAVA_TEST_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
@@ -360,7 +367,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                         
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+                                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                                     txResult["type"] = COSMOS_MSG_TYPE_WITHDRAW_DEL
                                     self.onStartTxDetail(txResult)
                                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -370,9 +379,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                             })
                         }
                     }
-                    
-                    
-                }catch {
+                } catch {
                     if (SHOW_LOG) { print(error) }
                 }
             });

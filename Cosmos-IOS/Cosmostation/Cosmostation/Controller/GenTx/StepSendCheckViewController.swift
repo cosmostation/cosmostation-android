@@ -134,7 +134,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             currentAva = pageHolderVC.mAccount!.getKavaBalance()
             mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
@@ -158,7 +158,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         if (result == PASSWORD_RESUKT_OK) {
             if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
                 pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
-                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 self.onGenBnbSendTx()
@@ -176,6 +177,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -206,7 +209,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenSendTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     guard  let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -244,7 +248,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 msgList.append(msg)
                 
                 if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainName(self.pageHolderVC.mAccount!.account_base_chain), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
@@ -314,6 +319,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         url = IRIS_LCD_URL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                         url = KAVA_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                        url = KAVA_TEST_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
@@ -340,7 +347,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                                 } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                                     txResult["type"] = IRIS_MSG_TYPE_TRANSFER
                                     self.onStartTxResult(txResult)
-                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                                     txResult["type"] = KAVA_MSG_TYPE_TRANSFER
                                     self.onStartTxDetail(txResult)
                                 }

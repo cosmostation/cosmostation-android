@@ -45,7 +45,9 @@ class StepRewardViewController: BaseViewController {
         if(self.mFetchCnt > 0)  {
             return
         }
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             pageHolderVC.mRewardList.removeAll()
             mFetchCnt = 1 + pageHolderVC.mRewardTargetValidators.count;
             for val in pageHolderVC.mRewardTargetValidators {
@@ -80,7 +82,7 @@ class StepRewardViewController: BaseViewController {
             print("selectedRewardSum ", selectedRewardSum)
             rewardAmountLabel.attributedText = WUtils.displayAmount(selectedRewardSum.stringValue, rewardAmountLabel.font, 18, pageHolderVC.chainType!)
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, KAVA_MAIN_DENOM, pageHolderVC.chainType!)
         }
         
@@ -133,6 +135,8 @@ class StepRewardViewController: BaseViewController {
             url = CSS_LCD_URL_REWARD_FROM_VAL + accountAddr + CSS_LCD_URL_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         }
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -153,7 +157,7 @@ class StepRewardViewController: BaseViewController {
                     }
                     self.pageHolderVC.mRewardList.append(reward)
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
@@ -203,6 +207,8 @@ class StepRewardViewController: BaseViewController {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         
@@ -223,7 +229,9 @@ class StepRewardViewController: BaseViewController {
                 }
                 self.onFetchFinished()
             }
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             request.responseJSON { (response) in
                 switch response.result {
                 case .success(let res):
