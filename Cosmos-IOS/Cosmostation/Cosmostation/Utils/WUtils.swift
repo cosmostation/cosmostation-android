@@ -1281,6 +1281,21 @@ class WUtils {
         return result
     }
     
+    static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (coin.denom == KAVA_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, getKavaCoinDecimal(coin.denom), getKavaCoinDecimal(coin.denom))
+        }
+    }
+    
     static func isBnbMArketToken(_ symbol:String) ->Bool {
         switch symbol {
         case "USDT.B-B7C":

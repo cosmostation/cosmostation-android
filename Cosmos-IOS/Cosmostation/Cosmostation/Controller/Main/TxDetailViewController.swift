@@ -164,7 +164,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindTxCommon(_ tableView: UITableView) -> UITableViewCell {
         let cell:TxCommonCell? = tableView.dequeueReusableCell(withIdentifier:"TxCommonCell") as? TxCommonCell
         cell?.setDenomType(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.feeLayer.isHidden = false
             cell?.usedFeeLayer.isHidden = true
             cell?.limitFeeLayer.isHidden = true
@@ -200,7 +200,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.delegatorLabel.text = msg.value.delegator_address
             cell?.validatorLabel.text = msg.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)
@@ -224,7 +224,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.undelegatorLabel.text = msg.value.delegator_address
             cell?.validatorLabel.text = msg.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)
@@ -248,7 +248,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.redelegatorLabel.text = msg.value.delegator_address
             cell?.fromValidatorLabel.text = msg.value.validator_src_address
             cell?.fromMonikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_src_address!, true)
@@ -274,24 +274,60 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            var coins = Array<Coin>();
             if (msg.type == COSMOS_MSG_TYPE_TRANSFER3) {
                 cell?.fromLabel.text = msg.value.inputs![0].address
                 cell?.toLabel.text = msg.value.outputs![0].address
-                cell?.amountLabel.attributedText = WUtils.displayAmount2(msg.value.inputs![0].coins[0].amount, cell!.amountLabel.font!, 6, 6)
                 if (self.account?.account_address == msg.value.inputs![0].address) {
                     cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
                 } else if (self.account?.account_address == msg.value.outputs![0].address) {
                     cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
                 }
+                coins = msg.value.inputs![0].coins
+                
             } else {
                 cell?.fromLabel.text = msg.value.from_address
                 cell?.toLabel.text = msg.value.to_address
-                cell?.amountLabel.attributedText = WUtils.displayAmount2(msg.value.getAmounts()![0].amount, cell!.amountLabel.font!, 6, 6)
                 if (self.account?.account_address == msg.value.from_address) {
                     cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
                 } else if (self.account?.account_address == msg.value.to_address) {
                     cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
+                }
+                coins = msg.value.getAmounts()!
+                
+            }
+            coins = sortCoins(coins, chainType!)
+            if (coins.count <= 1) {
+                cell?.multiAmountStack.isHidden = true
+                cell?.amountLabel.isHidden = false
+                cell?.amountDenomLabel.isHidden = false
+                cell?.multiAmountConstraint.priority = .defaultLow
+                cell?.singleAmountConstraint.priority = .defaultHigh
+                WUtils.showCoinDp(coins[0], cell!.amountDenomLabel, cell!.amountLabel, chainType!)
+            } else {
+                cell?.multiAmountStack.isHidden = false
+                cell?.amountLabel.isHidden = true
+                cell?.amountDenomLabel.isHidden = true
+                cell?.multiAmountConstraint.priority = .defaultHigh
+                cell?.singleAmountConstraint.priority = .defaultLow
+                cell?.multiAmountLayer0.isHidden = false
+                WUtils.showCoinDp(coins[0], cell!.multiAmountDenom0, cell!.multiAmount0, chainType!)
+                if (coins.count > 1) {
+                    cell?.multiAmountLayer1.isHidden = false
+                    WUtils.showCoinDp(coins[1], cell!.multiAmountDenom1, cell!.multiAmount1, chainType!)
+                }
+                if (coins.count > 2) {
+                    cell?.multiAmountLayer2.isHidden = false
+                    WUtils.showCoinDp(coins[2], cell!.multiAmountDenom2, cell!.multiAmount2, chainType!)
+                }
+                if (coins.count > 3) {
+                    cell?.multiAmountLayer3.isHidden = false
+                    WUtils.showCoinDp(coins[3], cell!.multiAmountDenom3, cell!.multiAmount3, chainType!)
+                }
+                if (coins.count > 4) {
+                    cell?.multiAmountLayer4.isHidden = false
+                    WUtils.showCoinDp(coins[4], cell!.multiAmountDenom4, cell!.multiAmount4, chainType!)
                 }
             }
         }
@@ -308,7 +344,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.delegatorLabel.text = msg.value.delegator_address
             cell?.validatorLabel.text = msg.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)
@@ -321,7 +357,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let cell:TxEditRewardAddressCell? = tableView.dequeueReusableCell(withIdentifier:"TxEditRewardAddressCell") as? TxEditRewardAddressCell
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.delegatorLabel.text = msg.value.delegator_address
             cell?.widthrawAddressLabel.text = msg.value.withdraw_address
         }
@@ -332,7 +368,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let cell:TxVoteCell? = tableView.dequeueReusableCell(withIdentifier:"TxVoteCell") as? TxVoteCell
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.voterLabel.text = msg.value.voter
             cell?.proposalIdLabel.text = msg.value.proposal_id
             cell?.opinionLabel.text = msg.value.option
@@ -345,7 +381,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell?.validatorLabel.text = msg.value.validator_address
             cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg.value.validator_address!, true)
             cell?.commissionAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo!.getSimpleCommission(), cell!.commissionAmountLabel.font!, 6, 6)
@@ -459,11 +495,15 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             url = KAVA_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
+        } else if (self.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            
         }
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if(SHOW_LOG) { print("onFetchTx OK", res) }
+//                if(SHOW_LOG) { print("onFetchTx OK", res) }
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     self.mFetchCnt = self.mFetchCnt - 1
                     if(self.mFetchCnt > 0) {
@@ -507,5 +547,38 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.txTableView.reloadData()
         }
         
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    func sortCoins(_ coins:Array<Coin>, _ chain:ChainType) -> Array<Coin> {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            return coins.sorted(by: {
+                if ($0.denom == COSMOS_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.denom == COSMOS_MAIN_DENOM) {
+                    return false
+                }
+                return false
+            })
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return coins.sorted(by: {
+                if ($0.denom == KAVA_MAIN_DENOM) {
+                    return true
+                }
+                if ($1.denom == KAVA_MAIN_DENOM) {
+                    return false
+                }
+                return false
+            })
+        }
+        return coins
     }
 }

@@ -303,7 +303,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         }
     }
     
-    
     func sortByPower() {
         mToReDelegateValidators.sort{
             if ($0.description.moniker == "Cosmostation") {

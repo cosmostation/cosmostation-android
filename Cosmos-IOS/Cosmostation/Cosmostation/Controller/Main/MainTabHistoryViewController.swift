@@ -249,7 +249,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             txDetailVC.mTxHash = history._source.hash
             txDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
-//            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
             self.navigationController?.pushViewController(txDetailVC, animated: true)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -271,7 +270,15 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             txDetailVC.mTxHash = history._source.hash
             txDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
-//            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+            self.navigationController?.pushViewController(txDetailVC, animated: true)
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let history = mApiHistories[indexPath.row]
+            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+            txDetailVC.mIsGen = false
+            txDetailVC.mTxHash = history.tx_hash
+            txDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
             self.navigationController?.pushViewController(txDetailVC, animated: true)
         }
     }
