@@ -113,7 +113,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKc-74-tp8">
-                                <rect key="frame" x="12" y="280" width="272" height="40"/>
+                                <rect key="frame" x="12" y="276" width="272" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="GpF-ml-eDo"/>
@@ -138,7 +138,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="h3C-ON-12u">
-                                <rect key="frame" x="12" y="232" width="272" height="40"/>
+                                <rect key="frame" x="12" y="228" width="272" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKW-Uu-NnW">
                                         <rect key="frame" x="0.0" y="0.0" width="132" height="40"/>
@@ -206,6 +206,7 @@
                             <constraint firstAttribute="trailing" secondItem="h3C-ON-12u" secondAttribute="trailing" constant="12" id="Hcv-NU-a06"/>
                             <constraint firstItem="Nvy-HQ-oFM" firstAttribute="centerY" secondItem="LUH-bd-Cqb" secondAttribute="centerY" id="MAs-5z-Ysb"/>
                             <constraint firstItem="LUH-bd-Cqb" firstAttribute="leading" secondItem="v85-zF-AJg" secondAttribute="leading" id="O7q-AT-SFe"/>
+                            <constraint firstAttribute="bottom" secondItem="h3C-ON-12u" secondAttribute="bottom" priority="250" constant="20" id="Q0N-ZQ-a5Z"/>
                             <constraint firstItem="f8B-xa-pgP" firstAttribute="top" secondItem="1jZ-c5-vOt" secondAttribute="bottom" constant="12" id="R46-PD-b8P"/>
                             <constraint firstAttribute="trailing" secondItem="Nvy-HQ-oFM" secondAttribute="trailing" constant="12" id="RwZ-BP-KHS"/>
                             <constraint firstAttribute="trailing" secondItem="1jZ-c5-vOt" secondAttribute="trailing" constant="12" id="SPu-g2-WEo"/>
@@ -232,7 +233,7 @@
                             <constraint firstItem="v85-zF-AJg" firstAttribute="top" secondItem="f8B-xa-pgP" secondAttribute="bottom" constant="12" id="uyi-XU-RjB"/>
                             <constraint firstItem="9Vc-mI-FQ0" firstAttribute="centerY" secondItem="v85-zF-AJg" secondAttribute="centerY" id="vmy-45-qqe"/>
                             <constraint firstAttribute="trailing" secondItem="0Qm-3W-aRx" secondAttribute="trailing" constant="12" id="xVC-4b-P3f"/>
-                            <constraint firstAttribute="bottom" secondItem="cKc-74-tp8" secondAttribute="bottom" constant="16" id="yS7-sx-MIz"/>
+                            <constraint firstAttribute="bottom" secondItem="cKc-74-tp8" secondAttribute="bottom" constant="20" id="yS7-sx-MIz"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -265,8 +266,11 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="availableAmount" destination="9Vc-mI-FQ0" id="VCm-Mq-UZR"/>
+                <outlet property="butBtn" destination="cKc-74-tp8" id="LoY-t1-Jkw"/>
                 <outlet property="delegatedAmount" destination="5Qz-Ur-RgH" id="WoF-ad-8p1"/>
+                <outlet property="hideBuyConstraint" destination="Q0N-ZQ-a5Z" id="fFg-Bc-0A8"/>
                 <outlet property="rewardAmount" destination="nNa-gR-dJt" id="dxp-1u-icx"/>
+                <outlet property="showBuyConstraint" destination="yS7-sx-MIz" id="Mp7-af-YHQ"/>
                 <outlet property="totalAmount" destination="0Qm-3W-aRx" id="MK8-Ld-rlj"/>
                 <outlet property="totalValue" destination="1jZ-c5-vOt" id="fRA-dw-5md"/>
                 <outlet property="unbondingAmount" destination="Nvy-HQ-oFM" id="RWu-C9-e0A"/>

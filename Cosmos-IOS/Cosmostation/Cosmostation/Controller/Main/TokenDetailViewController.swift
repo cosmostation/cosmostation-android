@@ -27,6 +27,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     var refresher: UIRefreshControl!
     var mHistories = Array<History.InnerHits>()
+    var mApiHistories = Array<ApiHistory.HistoryData>()
     var mBnbHistories = Array<BnbHistory>()
     
     override func viewDidLoad() {
@@ -51,14 +52,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         self.refresher.tintColor = UIColor.white
         self.tokenDetailTableView.addSubview(refresher)
         
-        self.updateAccoutCard()
-        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            onFetchHistory(account!.account_address, balance!.balance_denom);
-        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            onFetchBnbHistory(account!.account_address, bnbToken!.symbol);
-        }
+        self.updateAccountCard()
+        self.onRequestFetch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +66,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     
-    func updateAccoutCard() {
+    func updateAccountCard() {
         dpAddress.text = account?.account_address
         dpAddress.adjustsFontSizeToFitWidth = true
         if (account?.account_has_private == true) {
@@ -82,7 +77,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 keyState.tintColor = COLOR_IRIS
             } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 keyState.tintColor = COLOR_BNB
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 keyState.tintColor = COLOR_KAVA
             }
         }
@@ -93,8 +88,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
             chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             onFetchHistory(account!.account_address, balance!.balance_denom);
+            
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onFetchBnbHistory(account!.account_address, bnbToken!.symbol);
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            onFetchApiHistory(account!.account_address, balance!.balance_denom)
         }
     }
 
@@ -139,6 +138,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             return mHistories.count + 1
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return mBnbHistories.count + 1
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return mApiHistories.count + 1
         }
         return 0
     }
@@ -151,7 +152,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 return onSetIrisItem(tableView, indexPath);
             } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN && balance?.balance_denom == BNB_MAIN_DENOM) {
                 return onSetBnbItem(tableView, indexPath);
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN && balance?.balance_denom == KAVA_MAIN_DENOM) {
+            } else if ((chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST)
+                && balance?.balance_denom == KAVA_MAIN_DENOM) {
                 return onSetKavaItem(tableView, indexPath);
             } else {
                 return onSetCustomTokenItem(tableView, indexPath);
@@ -164,6 +166,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 return onSetIrisHistoryItem(tableView, indexPath);
             } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
                 return onSetKavaHistoryItem(tableView, indexPath);
+            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                return onSetKavaTestHistoryItem(tableView, indexPath);
             } else {
                 return onSetBnbHistoryItem(tableView, indexPath);
             }
@@ -202,6 +206,15 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false
                 txDetailVC.mTxHash = history._source.hash
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
+                
+            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                let history = mApiHistories[indexPath.row - 1]
+                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = history.tx_hash
                 txDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
@@ -293,8 +306,17 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.actionRecieve = {
             self.onRecieveToken()
         }
-        cell?.actionBuy = {
-            self.onBuyCoin()
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            cell?.butBtn.isHidden = false
+            cell?.showBuyConstraint.priority = .defaultHigh
+            cell?.hideBuyConstraint.priority = .defaultLow
+            cell?.actionBuy = {
+                self.onBuyCoin()
+            }
+        } else {
+            cell?.butBtn.isHidden = true
+            cell?.showBuyConstraint.priority = .defaultLow
+            cell?.hideBuyConstraint.priority = .defaultHigh
         }
         return cell!
     }
@@ -333,6 +355,24 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 guard let url = URL(string: "https://explorer.binance.org/asset/" + self.bnbToken!.symbol) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 self.present(safariViewController, animated: true, completion: nil)
+            }
+            cell?.actionSend  = {
+                self.onSendToken()
+            }
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            cell?.tokenInfoBtn.isHidden = true
+            cell?.tokenSymbol.text = balance!.balance_denom.uppercased()
+            cell?.tokenName.text = balance?.balance_denom
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.totalAmount.font, WUtils.getKavaCoinDecimal(balance!.balance_denom), WUtils.getKavaCoinDecimal(balance!.balance_denom))
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.availableAmount.font, WUtils.getKavaCoinDecimal(balance!.balance_denom), WUtils.getKavaCoinDecimal(balance!.balance_denom))
+            //TODO no way to display token price
+            cell?.totalValue.attributedText = WUtils.dpAtomValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+            let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
+            Alamofire.request(url, method: .get).responseImage { response  in
+                guard let image = response.result.value else {
+                    return
+                }
+                cell?.tokenImg.image = image
             }
             cell?.actionSend  = {
                 self.onSendToken()
@@ -398,6 +438,21 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         return cell!
     }
     
+    func onSetKavaTestHistoryItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        let history = mApiHistories[indexPath.row - 1]
+        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.timestamp)
+        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.timestamp)
+        cell?.txBlockLabel.text = String(history.height) + " block"
+        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
+        if (history.isSuccess) {
+            cell?.txResultLabel.isHidden = true
+        } else {
+            cell?.txResultLabel.isHidden = false
+        }
+        return cell!
+    }
+    
     
     func onFetchHistory(_ address:String, _ symbol:String) {
         var query = ""
@@ -423,13 +478,13 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             request.validate().responseJSON { response in
                 switch response.result {
                 case .success(let res):
+                    self.mHistories.removeAll()
                     guard let history = res as? [String : Any] else {
                         print("no history!!")
                         return;
                     }
+                    
                     let rawHistory = History.init(history)
-
-                    self.mHistories.removeAll()
                     self.mHistories = rawHistory.hits.hits
 
                     if (self.mHistories.count > 0) {
@@ -470,6 +525,37 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         self.refresher.endRefreshing()
     }
     
+    func onFetchApiHistory(_ address:String, _ symbol:String) {
+        var url: String?
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_API_TEST_TRANS_HISTORY + address
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    self.mApiHistories.removeAll()
+                    guard let history = res as? [String : Any] else {
+                        print("no history!!")
+                        return;
+                    }
+                    let rawHistory = ApiHistory.init(history)
+                    self.mApiHistories = rawHistory.historyData
+                    print("mApiHistories ", self.mApiHistories.count)
+
+                    if (self.mApiHistories.count > 0) {
+                        self.tokenDetailTableView.reloadData()
+                    }
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchApiHistory ", error) }
+            }
+        }
+        self.refresher.endRefreshing()
+    }
+    
     func onSendToken() {
         if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
@@ -501,11 +587,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             txVC.mBnbToken = self.bnbToken
             txVC.mType = BNB_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.one).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
+            txVC.mKavaSendDenom = self.balance?.balance_denom
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
         }
         txVC.hidesBottomBarWhenPushed = true

@@ -28,7 +28,7 @@ public class BaseToken {
     var name: String = ""
     var canonical_symbol: String = ""
     var validator: String = ""
-    var decimal: Int = 0
+    var decimal: Int16 = 0
     
     init() {}
     
@@ -41,6 +41,6 @@ public class BaseToken {
         self.name = dictionary["name"] as? String ?? ""
         self.canonical_symbol = dictionary["canonical_symbol"] as? String ?? ""
         self.validator = dictionary["validator"] as? String ?? ""
-        self.decimal = dictionary["decimal"] as? Int ?? 0
+        self.decimal = dictionary["decimal"] as? Int16 ?? 0
     }
 }

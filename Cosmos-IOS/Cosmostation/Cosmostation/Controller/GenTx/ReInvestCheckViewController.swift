@@ -242,7 +242,6 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 signatures.append(genedSignature)
                 
                 stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
-                print("stdTx", stdTx)
             } catch {
                 print(error)
                 

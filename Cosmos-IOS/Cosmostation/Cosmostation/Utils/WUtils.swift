@@ -24,6 +24,10 @@ class WUtils {
     static let handler0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static let handlerdown0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
+    static func getDivideHandler(_ decimal:Int16) -> NSDecimalNumberHandler{
+        return NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: decimal, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    }
 
     
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
@@ -506,26 +510,10 @@ class WUtils {
         return check
     }
     
-    static func DecimalToLocalString(_ input: NSDecimalNumber) -> String {
+    static func DecimalToLocalString(_ input: NSDecimalNumber, _ deciaml:Int16) -> String {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 0
-        nf.maximumFractionDigits = 6
-        nf.numberStyle = .decimal
-        nf.locale = Locale.current
-        nf.groupingSeparator = ""
-        return nf.string(from: input)!
-    }
-    
-    static func DecimalToLocalString(_ input: NSDecimalNumber, _ chain:ChainType) -> String {
-        let nf = NumberFormatter()
-        nf.minimumFractionDigits = 0
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            nf.maximumFractionDigits = 6
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            nf.maximumFractionDigits = 18
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            nf.maximumFractionDigits = 8
-        }
+        nf.maximumFractionDigits = Int(deciaml)
         nf.numberStyle = .decimal
         nf.locale = Locale.current
         nf.groupingSeparator = ""
@@ -626,10 +614,10 @@ class WUtils {
         return attributedString1
     }
     
-    static func displayAmount2(_ amount: String?, _ font:UIFont, _ inputPoint:Int, _ dpPoint:Int) -> NSMutableAttributedString {
+    static func displayAmount2(_ amount: String?, _ font:UIFont, _ inputPoint:Int16, _ dpPoint:Int16) -> NSMutableAttributedString {
         let nf = NumberFormatter()
-        nf.minimumFractionDigits = dpPoint
-        nf.maximumFractionDigits = dpPoint
+        nf.minimumFractionDigits = Int(dpPoint)
+        nf.maximumFractionDigits = Int(dpPoint)
         nf.numberStyle = .decimal
         
         let amount = stringToDecimalNoLocale(amount)
@@ -1229,10 +1217,10 @@ class WUtils {
         return nil
     }
     
-    static func displayIrisToken(_ amount: String, _ font:UIFont, _ deciaml:Int, _ deciaml2:Int) -> NSMutableAttributedString {
+    static func displayIrisToken(_ amount: String, _ font:UIFont, _ deciaml:Int16, _ deciaml2:Int16) -> NSMutableAttributedString {
         let nf = NumberFormatter()
-        nf.minimumFractionDigits = deciaml
-        nf.maximumFractionDigits = deciaml
+        nf.minimumFractionDigits = Int(deciaml)
+        nf.maximumFractionDigits = Int(deciaml)
         nf.numberStyle = .decimal
         
         let amount = stringToDecimal(amount)
@@ -1242,7 +1230,7 @@ class WUtils {
         if (amount == NSDecimalNumber.zero) {
             formatted = nf.string(from: NSDecimalNumber.zero)
         } else {
-            formatted = nf.string(from: amount.dividing(by: NSDecimalNumber(decimal: pow(10,deciaml2))).rounding(accordingToBehavior: handler))
+            formatted = nf.string(from: amount.dividing(by: NSDecimalNumber(decimal: pow(10,Int(deciaml2)))).rounding(accordingToBehavior: handler))
         }
         let added       = formatted
         let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
@@ -1290,9 +1278,26 @@ class WUtils {
             if (coin.denom == KAVA_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
+                denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, getKavaCoinDecimal(coin.denom), getKavaCoinDecimal(coin.denom))
+        }
+    }
+    
+    static func showCoinDp(_ denom:String, _ amount:String, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (denom == KAVA_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, getKavaCoinDecimal(denom), getKavaCoinDecimal(denom))
         }
     }
     
@@ -1544,7 +1549,7 @@ class WUtils {
         return gasAmounts
     }
     
-    static func getKavaCoinDecimal(_ denom:String) -> Int {
+    static func getKavaCoinDecimal(_ denom:String) -> Int16 {
         if (denom == KAVA_MAIN_DENOM) {
             return 6;
         } else if (denom == "xrp") {

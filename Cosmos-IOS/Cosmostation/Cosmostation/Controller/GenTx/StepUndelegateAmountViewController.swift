@@ -19,6 +19,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
     
     var pageHolderVC: StepGenTxViewController!
     var userDelegated = NSDecimalNumber.zero
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,14 +30,16 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            availableAmountLabel.attributedText = WUtils.displayAmount(userDelegated.stringValue, availableAmountLabel.font, 6, pageHolderVC.chainType!)
+                mDpDecimal = 6
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            availableAmountLabel.attributedText = WUtils.displayAmount(userDelegated.stringValue, availableAmountLabel.font, 18, pageHolderVC.chainType!)
+            mDpDecimal = 18
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 18, mDpDecimal)
         }
         toUndelegateAmountInput.delegate = self
         toUndelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"))
+        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"), 1)
         btn01.setTitle(dp, for: .normal)
     }
 
@@ -190,7 +193,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             exist = NSDecimalNumber(string: toUndelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "0.1"))
-        toUndelegateAmountInput.text = WUtils.DecimalToLocalString(added)
+        toUndelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
         
     }
@@ -200,7 +203,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             exist = NSDecimalNumber(string: toUndelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "1"))
-        toUndelegateAmountInput.text = WUtils.DecimalToLocalString(added)
+        toUndelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickAdd10(_ sender: UIButton) {
@@ -209,7 +212,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             exist = NSDecimalNumber(string: toUndelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "10"))
-        toUndelegateAmountInput.text = WUtils.DecimalToLocalString(added)
+        toUndelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickAdd100(_ sender: UIButton) {
@@ -218,7 +221,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             exist = NSDecimalNumber(string: toUndelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "100"))
-        toUndelegateAmountInput.text = WUtils.DecimalToLocalString(added)
+        toUndelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
@@ -226,10 +229,10 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let halfValue = userDelegated.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
+            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let halfValue = userDelegated.dividing(by: NSDecimalNumber(string: "2000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
+            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
         }
         self.onUIupdate()
     }
@@ -238,10 +241,10 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let maxValue = userDelegated.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
+            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let maxValue = userDelegated.dividing(by: NSDecimalNumber(string: "1000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
+            toUndelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
         }
         self.onUIupdate()
     }

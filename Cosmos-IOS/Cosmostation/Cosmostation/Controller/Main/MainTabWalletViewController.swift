@@ -985,6 +985,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
+            txVC.mKavaSendDenom = KAVA_MAIN_DENOM
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
         }
         txVC.hidesBottomBarWhenPushed = true

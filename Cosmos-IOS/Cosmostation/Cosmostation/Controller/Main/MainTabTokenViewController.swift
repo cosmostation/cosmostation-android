@@ -256,6 +256,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             tokenDetailVC.bnbToken = WUtils.getBnbToken(mainTabVC.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
             tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
+            self.navigationController?.pushViewController(tokenDetailVC, animated: true)
         }
         
     }
@@ -550,7 +554,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByValue() {
-        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+        if (chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
         } else if (chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
         } else if (chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             mainTabVC.mBalances.sort{

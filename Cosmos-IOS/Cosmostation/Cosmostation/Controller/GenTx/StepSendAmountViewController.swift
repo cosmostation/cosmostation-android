@@ -19,6 +19,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     
     var pageHolderVC: StepGenTxViewController!
     var maxAvailable = NSDecimalNumber.zero
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,39 +28,46 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         
         maxAvailable = NSDecimalNumber.zero
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            mDpDecimal = 6
             maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getAtomBalance()).subtracting(NSDecimalNumber.one)
-            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, 6)
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            mDpDecimal = 18
             if (pageHolderVC.mIrisToken?.base_token?.id == IRIS_DP_DENOM) {
                 maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getIrisBalance()).subtracting(NSDecimalNumber(string: "200000000000000000"))
-                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 18, 18)
+                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 18, mDpDecimal)
                 
             } else {
                 
             }
         
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+            mDpDecimal = 8
             self.denomTitleLabel.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
             if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
                 maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getBnbBalance()).subtracting(NSDecimalNumber.init(string: "0.000375"))
-                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 0, 8)
+                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 0, mDpDecimal)
                 
             } else {
                 self.denomTitleLabel.textColor = UIColor.white
                 maxAvailable = self.pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mBnbToken!.symbol)
-                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 0, 8)
+                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 0, mDpDecimal)
             }
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getKavaBalance()).subtracting(NSDecimalNumber.one)
-            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, 6)
+            mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!)
+            maxAvailable = self.pageHolderVC.mAccount!.getTokenBalance(self.pageHolderVC.mKavaSendDenom!)
+            if (self.pageHolderVC.mKavaSendDenom == KAVA_MAIN_DENOM) {
+                maxAvailable = maxAvailable.subtracting(NSDecimalNumber.one)
+            }
+            WUtils.showCoinDp(self.pageHolderVC.mKavaSendDenom!, maxAvailable.stringValue, denomTitleLabel, mAvailableAmountLabel, pageHolderVC.chainType!)
         }
         
         mTargetAmountTextField.delegate = self
         mTargetAmountTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"))
+        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"), 1)
         btn01.setTitle(dp, for: .normal)
     }
     
@@ -74,15 +82,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             
             if (text.count == 0 && string.starts(with: ",")) { return false }
             
-            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                 if let index = text.range(of: ".")?.upperBound {
                     if(text.substring(from: index).count > 5 && range.length == 0) {
                         return false
                     }
                 }
-                
                 if let index = text.range(of: ",")?.upperBound {
                     if(text.substring(from: index).count > 5 && range.length == 0) {
                         return false
@@ -95,7 +100,6 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                         return false
                     }
                 }
-                
                 if let index = text.range(of: ",")?.upperBound {
                     if(text.substring(from: index).count > 17 && range.length == 0) {
                         return false
@@ -108,9 +112,19 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                         return false
                     }
                 }
-                
                 if let index = text.range(of: ",")?.upperBound {
                     if(text.substring(from: index).count > 7 && range.length == 0) {
+                        return false
+                    }
+                }
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                if let index = text.range(of: ".")?.upperBound {
+                    if(text.substring(from: index).count > (WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!) - 1) && range.length == 0) {
+                        return false
+                    }
+                }
+                if let index = text.range(of: ",")?.upperBound {
+                    if(text.substring(from: index).count > (WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!) - 1) && range.length == 0) {
                         return false
                     }
                 }
@@ -143,9 +157,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             return
         }
         
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (userInput.multiplying(by: 1000000).compare(maxAvailable).rawValue > 0) {
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -159,6 +171,11 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             if (userInput.compare(maxAvailable).rawValue > 0) {
+                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (userInput.multiplying(byPowerOf10: Int16(WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!))).compare(maxAvailable).rawValue > 0) {
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
             }
@@ -171,9 +188,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             if (userInput.multiplying(by: 1000000).compare(maxAvailable).rawValue > 0) {
                 return false
             }
@@ -183,6 +198,10 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             }
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             if (userInput.compare(maxAvailable).rawValue > 0) {
+                
+            }
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (userInput.multiplying(byPowerOf10: Int16(WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!))).compare(maxAvailable).rawValue > 0) {
                 return false
             }
         }
@@ -208,9 +227,8 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 toSendCoin = Coin.init(pageHolderVC.mBnbToken!.symbol, userInput.stringValue)
                 
-            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-                toSendCoin = Coin.init(KAVA_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                toSendCoin = Coin.init(self.pageHolderVC.mKavaSendDenom!, userInput.multiplying(byPowerOf10: Int16(WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!))).stringValue)
             }
             
             var tempList = Array<Coin>()
@@ -242,7 +260,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: mTargetAmountTextField.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "0.1"))
-        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added)
+        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
         
     }
@@ -253,7 +271,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: mTargetAmountTextField.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "1"))
-        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added)
+        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
     }
     
@@ -263,7 +281,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: mTargetAmountTextField.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "10"))
-        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added)
+        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
     }
     
@@ -273,44 +291,53 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: mTargetAmountTextField.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "100"))
-        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added)
+        mTargetAmountTextField.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(string: "2000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(string: "2", locale: Locale.current), withBehavior: WUtils.handler8)
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
+            
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let toDivide = NSDecimalNumber(string: "2", locale: Locale.current).multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!))
+            let halfValue = maxAvailable.dividing(by: toDivide, withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!)))
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
+            
         }
         self.onUIupdate()
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
             let maxValue = maxAvailable.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
             self.showMaxWarnning()
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let maxValue = maxAvailable.dividing(by: NSDecimalNumber(string: "1000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
             self.showMaxWarnning()
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxAvailable, pageHolderVC.chainType!)
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxAvailable, mDpDecimal)
             if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
+                self.showMaxWarnning()
+            }
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let toDivide = NSDecimalNumber(string: "1", locale: Locale.current).multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!))
+            let maxValue = maxAvailable.dividing(by: toDivide, withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!)))
+            mTargetAmountTextField.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
+            if (self.pageHolderVC.mKavaSendDenom == KAVA_MAIN_DENOM) {
                 self.showMaxWarnning()
             }
         }

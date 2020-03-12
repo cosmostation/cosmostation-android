@@ -135,7 +135,7 @@ let KAVA_TEST_REWARD_ADDRESS_TAIL       = "/withdraw_address";
 let KAVA_TEST_PROPOSALS                 = KAVA_TEST_URL + "gov/proposals";
 
 let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "/v1/account/txs/";
-
+let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "/v1/account/transfer_txs/";
 
 let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
 let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
