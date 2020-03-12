@@ -4786,7 +4786,7 @@ public final class Codec {
      *
      * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
      */
-    orm.ORM.VersionedIDRef getElectionRuleRef();
+    orm.Codec.VersionedIDRef getElectionRuleRef();
     /**
      * <pre>
      * ElectionRuleRef is a reference to the election rule
@@ -4794,7 +4794,7 @@ public final class Codec {
      *
      * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
      */
-    orm.ORM.VersionedIDRefOrBuilder getElectionRuleRefOrBuilder();
+    orm.Codec.VersionedIDRefOrBuilder getElectionRuleRefOrBuilder();
 
     /**
      * <pre>
@@ -4811,7 +4811,7 @@ public final class Codec {
      *
      * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
      */
-    orm.ORM.VersionedIDRef getElectorateRef();
+    orm.Codec.VersionedIDRef getElectorateRef();
     /**
      * <pre>
      * Reference to the electorate to define the group of possible voters.
@@ -4819,7 +4819,7 @@ public final class Codec {
      *
      * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
      */
-    orm.ORM.VersionedIDRefOrBuilder getElectorateRefOrBuilder();
+    orm.Codec.VersionedIDRefOrBuilder getElectorateRefOrBuilder();
 
     /**
      * <pre>
@@ -5030,11 +5030,11 @@ public final class Codec {
               break;
             }
             case 42: {
-              orm.ORM.VersionedIDRef.Builder subBuilder = null;
+              orm.Codec.VersionedIDRef.Builder subBuilder = null;
               if (electionRuleRef_ != null) {
                 subBuilder = electionRuleRef_.toBuilder();
               }
-              electionRuleRef_ = input.readMessage(orm.ORM.VersionedIDRef.parser(), extensionRegistry);
+              electionRuleRef_ = input.readMessage(orm.Codec.VersionedIDRef.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(electionRuleRef_);
                 electionRuleRef_ = subBuilder.buildPartial();
@@ -5043,11 +5043,11 @@ public final class Codec {
               break;
             }
             case 50: {
-              orm.ORM.VersionedIDRef.Builder subBuilder = null;
+              orm.Codec.VersionedIDRef.Builder subBuilder = null;
               if (electorateRef_ != null) {
                 subBuilder = electorateRef_.toBuilder();
               }
-              electorateRef_ = input.readMessage(orm.ORM.VersionedIDRef.parser(), extensionRegistry);
+              electorateRef_ = input.readMessage(orm.Codec.VersionedIDRef.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(electorateRef_);
                 electorateRef_ = subBuilder.buildPartial();
@@ -5708,7 +5708,7 @@ public final class Codec {
     }
 
     public static final int ELECTION_RULE_REF_FIELD_NUMBER = 5;
-    private orm.ORM.VersionedIDRef electionRuleRef_;
+    private orm.Codec.VersionedIDRef electionRuleRef_;
     /**
      * <pre>
      * ElectionRuleRef is a reference to the election rule
@@ -5726,8 +5726,8 @@ public final class Codec {
      *
      * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
      */
-    public orm.ORM.VersionedIDRef getElectionRuleRef() {
-      return electionRuleRef_ == null ? orm.ORM.VersionedIDRef.getDefaultInstance() : electionRuleRef_;
+    public orm.Codec.VersionedIDRef getElectionRuleRef() {
+      return electionRuleRef_ == null ? orm.Codec.VersionedIDRef.getDefaultInstance() : electionRuleRef_;
     }
     /**
      * <pre>
@@ -5736,12 +5736,12 @@ public final class Codec {
      *
      * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
      */
-    public orm.ORM.VersionedIDRefOrBuilder getElectionRuleRefOrBuilder() {
+    public orm.Codec.VersionedIDRefOrBuilder getElectionRuleRefOrBuilder() {
       return getElectionRuleRef();
     }
 
     public static final int ELECTORATE_REF_FIELD_NUMBER = 6;
-    private orm.ORM.VersionedIDRef electorateRef_;
+    private orm.Codec.VersionedIDRef electorateRef_;
     /**
      * <pre>
      * Reference to the electorate to define the group of possible voters.
@@ -5759,8 +5759,8 @@ public final class Codec {
      *
      * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
      */
-    public orm.ORM.VersionedIDRef getElectorateRef() {
-      return electorateRef_ == null ? orm.ORM.VersionedIDRef.getDefaultInstance() : electorateRef_;
+    public orm.Codec.VersionedIDRef getElectorateRef() {
+      return electorateRef_ == null ? orm.Codec.VersionedIDRef.getDefaultInstance() : electorateRef_;
     }
     /**
      * <pre>
@@ -5769,7 +5769,7 @@ public final class Codec {
      *
      * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
      */
-    public orm.ORM.VersionedIDRefOrBuilder getElectorateRefOrBuilder() {
+    public orm.Codec.VersionedIDRefOrBuilder getElectorateRefOrBuilder() {
       return getElectorateRef();
     }
 
@@ -6884,9 +6884,9 @@ public final class Codec {
         return this;
       }
 
-      private orm.ORM.VersionedIDRef electionRuleRef_;
+      private orm.Codec.VersionedIDRef electionRuleRef_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          orm.ORM.VersionedIDRef, orm.ORM.VersionedIDRef.Builder, orm.ORM.VersionedIDRefOrBuilder> electionRuleRefBuilder_;
+          orm.Codec.VersionedIDRef, orm.Codec.VersionedIDRef.Builder, orm.Codec.VersionedIDRefOrBuilder> electionRuleRefBuilder_;
       /**
        * <pre>
        * ElectionRuleRef is a reference to the election rule
@@ -6904,9 +6904,9 @@ public final class Codec {
        *
        * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
        */
-      public orm.ORM.VersionedIDRef getElectionRuleRef() {
+      public orm.Codec.VersionedIDRef getElectionRuleRef() {
         if (electionRuleRefBuilder_ == null) {
-          return electionRuleRef_ == null ? orm.ORM.VersionedIDRef.getDefaultInstance() : electionRuleRef_;
+          return electionRuleRef_ == null ? orm.Codec.VersionedIDRef.getDefaultInstance() : electionRuleRef_;
         } else {
           return electionRuleRefBuilder_.getMessage();
         }
@@ -6918,7 +6918,7 @@ public final class Codec {
        *
        * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
        */
-      public Builder setElectionRuleRef(orm.ORM.VersionedIDRef value) {
+      public Builder setElectionRuleRef(orm.Codec.VersionedIDRef value) {
         if (electionRuleRefBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6939,7 +6939,7 @@ public final class Codec {
        * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
        */
       public Builder setElectionRuleRef(
-          orm.ORM.VersionedIDRef.Builder builderForValue) {
+          orm.Codec.VersionedIDRef.Builder builderForValue) {
         if (electionRuleRefBuilder_ == null) {
           electionRuleRef_ = builderForValue.build();
           onChanged();
@@ -6956,11 +6956,11 @@ public final class Codec {
        *
        * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
        */
-      public Builder mergeElectionRuleRef(orm.ORM.VersionedIDRef value) {
+      public Builder mergeElectionRuleRef(orm.Codec.VersionedIDRef value) {
         if (electionRuleRefBuilder_ == null) {
           if (electionRuleRef_ != null) {
             electionRuleRef_ =
-              orm.ORM.VersionedIDRef.newBuilder(electionRuleRef_).mergeFrom(value).buildPartial();
+              orm.Codec.VersionedIDRef.newBuilder(electionRuleRef_).mergeFrom(value).buildPartial();
           } else {
             electionRuleRef_ = value;
           }
@@ -6996,7 +6996,7 @@ public final class Codec {
        *
        * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
        */
-      public orm.ORM.VersionedIDRef.Builder getElectionRuleRefBuilder() {
+      public orm.Codec.VersionedIDRef.Builder getElectionRuleRefBuilder() {
         
         onChanged();
         return getElectionRuleRefFieldBuilder().getBuilder();
@@ -7008,12 +7008,12 @@ public final class Codec {
        *
        * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
        */
-      public orm.ORM.VersionedIDRefOrBuilder getElectionRuleRefOrBuilder() {
+      public orm.Codec.VersionedIDRefOrBuilder getElectionRuleRefOrBuilder() {
         if (electionRuleRefBuilder_ != null) {
           return electionRuleRefBuilder_.getMessageOrBuilder();
         } else {
           return electionRuleRef_ == null ?
-              orm.ORM.VersionedIDRef.getDefaultInstance() : electionRuleRef_;
+              orm.Codec.VersionedIDRef.getDefaultInstance() : electionRuleRef_;
         }
       }
       /**
@@ -7024,11 +7024,11 @@ public final class Codec {
        * <code>.orm.VersionedIDRef election_rule_ref = 5;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          orm.ORM.VersionedIDRef, orm.ORM.VersionedIDRef.Builder, orm.ORM.VersionedIDRefOrBuilder> 
+          orm.Codec.VersionedIDRef, orm.Codec.VersionedIDRef.Builder, orm.Codec.VersionedIDRefOrBuilder> 
           getElectionRuleRefFieldBuilder() {
         if (electionRuleRefBuilder_ == null) {
           electionRuleRefBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              orm.ORM.VersionedIDRef, orm.ORM.VersionedIDRef.Builder, orm.ORM.VersionedIDRefOrBuilder>(
+              orm.Codec.VersionedIDRef, orm.Codec.VersionedIDRef.Builder, orm.Codec.VersionedIDRefOrBuilder>(
                   getElectionRuleRef(),
                   getParentForChildren(),
                   isClean());
@@ -7037,9 +7037,9 @@ public final class Codec {
         return electionRuleRefBuilder_;
       }
 
-      private orm.ORM.VersionedIDRef electorateRef_;
+      private orm.Codec.VersionedIDRef electorateRef_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          orm.ORM.VersionedIDRef, orm.ORM.VersionedIDRef.Builder, orm.ORM.VersionedIDRefOrBuilder> electorateRefBuilder_;
+          orm.Codec.VersionedIDRef, orm.Codec.VersionedIDRef.Builder, orm.Codec.VersionedIDRefOrBuilder> electorateRefBuilder_;
       /**
        * <pre>
        * Reference to the electorate to define the group of possible voters.
@@ -7057,9 +7057,9 @@ public final class Codec {
        *
        * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
        */
-      public orm.ORM.VersionedIDRef getElectorateRef() {
+      public orm.Codec.VersionedIDRef getElectorateRef() {
         if (electorateRefBuilder_ == null) {
-          return electorateRef_ == null ? orm.ORM.VersionedIDRef.getDefaultInstance() : electorateRef_;
+          return electorateRef_ == null ? orm.Codec.VersionedIDRef.getDefaultInstance() : electorateRef_;
         } else {
           return electorateRefBuilder_.getMessage();
         }
@@ -7071,7 +7071,7 @@ public final class Codec {
        *
        * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
        */
-      public Builder setElectorateRef(orm.ORM.VersionedIDRef value) {
+      public Builder setElectorateRef(orm.Codec.VersionedIDRef value) {
         if (electorateRefBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7092,7 +7092,7 @@ public final class Codec {
        * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
        */
       public Builder setElectorateRef(
-          orm.ORM.VersionedIDRef.Builder builderForValue) {
+          orm.Codec.VersionedIDRef.Builder builderForValue) {
         if (electorateRefBuilder_ == null) {
           electorateRef_ = builderForValue.build();
           onChanged();
@@ -7109,11 +7109,11 @@ public final class Codec {
        *
        * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
        */
-      public Builder mergeElectorateRef(orm.ORM.VersionedIDRef value) {
+      public Builder mergeElectorateRef(orm.Codec.VersionedIDRef value) {
         if (electorateRefBuilder_ == null) {
           if (electorateRef_ != null) {
             electorateRef_ =
-              orm.ORM.VersionedIDRef.newBuilder(electorateRef_).mergeFrom(value).buildPartial();
+              orm.Codec.VersionedIDRef.newBuilder(electorateRef_).mergeFrom(value).buildPartial();
           } else {
             electorateRef_ = value;
           }
@@ -7149,7 +7149,7 @@ public final class Codec {
        *
        * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
        */
-      public orm.ORM.VersionedIDRef.Builder getElectorateRefBuilder() {
+      public orm.Codec.VersionedIDRef.Builder getElectorateRefBuilder() {
         
         onChanged();
         return getElectorateRefFieldBuilder().getBuilder();
@@ -7161,12 +7161,12 @@ public final class Codec {
        *
        * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
        */
-      public orm.ORM.VersionedIDRefOrBuilder getElectorateRefOrBuilder() {
+      public orm.Codec.VersionedIDRefOrBuilder getElectorateRefOrBuilder() {
         if (electorateRefBuilder_ != null) {
           return electorateRefBuilder_.getMessageOrBuilder();
         } else {
           return electorateRef_ == null ?
-              orm.ORM.VersionedIDRef.getDefaultInstance() : electorateRef_;
+              orm.Codec.VersionedIDRef.getDefaultInstance() : electorateRef_;
         }
       }
       /**
@@ -7177,11 +7177,11 @@ public final class Codec {
        * <code>.orm.VersionedIDRef electorate_ref = 6;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          orm.ORM.VersionedIDRef, orm.ORM.VersionedIDRef.Builder, orm.ORM.VersionedIDRefOrBuilder> 
+          orm.Codec.VersionedIDRef, orm.Codec.VersionedIDRef.Builder, orm.Codec.VersionedIDRefOrBuilder> 
           getElectorateRefFieldBuilder() {
         if (electorateRefBuilder_ == null) {
           electorateRefBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              orm.ORM.VersionedIDRef, orm.ORM.VersionedIDRef.Builder, orm.ORM.VersionedIDRefOrBuilder>(
+              orm.Codec.VersionedIDRef, orm.Codec.VersionedIDRef.Builder, orm.Codec.VersionedIDRefOrBuilder>(
                   getElectorateRef(),
                   getParentForChildren(),
                   isClean());
@@ -7824,11 +7824,11 @@ public final class Codec {
     /**
      * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
      */
-    orm.ORM.VersionedIDRef getElectorateRef();
+    orm.Codec.VersionedIDRef getElectorateRef();
     /**
      * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
      */
-    orm.ORM.VersionedIDRefOrBuilder getElectorateRefOrBuilder();
+    orm.Codec.VersionedIDRefOrBuilder getElectorateRefOrBuilder();
 
     /**
      * <code>string resolution = 4;</code>
@@ -7904,11 +7904,11 @@ public final class Codec {
               break;
             }
             case 26: {
-              orm.ORM.VersionedIDRef.Builder subBuilder = null;
+              orm.Codec.VersionedIDRef.Builder subBuilder = null;
               if (electorateRef_ != null) {
                 subBuilder = electorateRef_.toBuilder();
               }
-              electorateRef_ = input.readMessage(orm.ORM.VersionedIDRef.parser(), extensionRegistry);
+              electorateRef_ = input.readMessage(orm.Codec.VersionedIDRef.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(electorateRef_);
                 electorateRef_ = subBuilder.buildPartial();
@@ -7985,7 +7985,7 @@ public final class Codec {
     }
 
     public static final int ELECTORATE_REF_FIELD_NUMBER = 3;
-    private orm.ORM.VersionedIDRef electorateRef_;
+    private orm.Codec.VersionedIDRef electorateRef_;
     /**
      * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
      */
@@ -7995,13 +7995,13 @@ public final class Codec {
     /**
      * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
      */
-    public orm.ORM.VersionedIDRef getElectorateRef() {
-      return electorateRef_ == null ? orm.ORM.VersionedIDRef.getDefaultInstance() : electorateRef_;
+    public orm.Codec.VersionedIDRef getElectorateRef() {
+      return electorateRef_ == null ? orm.Codec.VersionedIDRef.getDefaultInstance() : electorateRef_;
     }
     /**
      * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
      */
-    public orm.ORM.VersionedIDRefOrBuilder getElectorateRefOrBuilder() {
+    public orm.Codec.VersionedIDRefOrBuilder getElectorateRefOrBuilder() {
       return getElectorateRef();
     }
 
@@ -8568,9 +8568,9 @@ public final class Codec {
         return this;
       }
 
-      private orm.ORM.VersionedIDRef electorateRef_;
+      private orm.Codec.VersionedIDRef electorateRef_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          orm.ORM.VersionedIDRef, orm.ORM.VersionedIDRef.Builder, orm.ORM.VersionedIDRefOrBuilder> electorateRefBuilder_;
+          orm.Codec.VersionedIDRef, orm.Codec.VersionedIDRef.Builder, orm.Codec.VersionedIDRefOrBuilder> electorateRefBuilder_;
       /**
        * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
        */
@@ -8580,9 +8580,9 @@ public final class Codec {
       /**
        * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
        */
-      public orm.ORM.VersionedIDRef getElectorateRef() {
+      public orm.Codec.VersionedIDRef getElectorateRef() {
         if (electorateRefBuilder_ == null) {
-          return electorateRef_ == null ? orm.ORM.VersionedIDRef.getDefaultInstance() : electorateRef_;
+          return electorateRef_ == null ? orm.Codec.VersionedIDRef.getDefaultInstance() : electorateRef_;
         } else {
           return electorateRefBuilder_.getMessage();
         }
@@ -8590,7 +8590,7 @@ public final class Codec {
       /**
        * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
        */
-      public Builder setElectorateRef(orm.ORM.VersionedIDRef value) {
+      public Builder setElectorateRef(orm.Codec.VersionedIDRef value) {
         if (electorateRefBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -8607,7 +8607,7 @@ public final class Codec {
        * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
        */
       public Builder setElectorateRef(
-          orm.ORM.VersionedIDRef.Builder builderForValue) {
+          orm.Codec.VersionedIDRef.Builder builderForValue) {
         if (electorateRefBuilder_ == null) {
           electorateRef_ = builderForValue.build();
           onChanged();
@@ -8620,11 +8620,11 @@ public final class Codec {
       /**
        * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
        */
-      public Builder mergeElectorateRef(orm.ORM.VersionedIDRef value) {
+      public Builder mergeElectorateRef(orm.Codec.VersionedIDRef value) {
         if (electorateRefBuilder_ == null) {
           if (electorateRef_ != null) {
             electorateRef_ =
-              orm.ORM.VersionedIDRef.newBuilder(electorateRef_).mergeFrom(value).buildPartial();
+              orm.Codec.VersionedIDRef.newBuilder(electorateRef_).mergeFrom(value).buildPartial();
           } else {
             electorateRef_ = value;
           }
@@ -8652,7 +8652,7 @@ public final class Codec {
       /**
        * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
        */
-      public orm.ORM.VersionedIDRef.Builder getElectorateRefBuilder() {
+      public orm.Codec.VersionedIDRef.Builder getElectorateRefBuilder() {
         
         onChanged();
         return getElectorateRefFieldBuilder().getBuilder();
@@ -8660,23 +8660,23 @@ public final class Codec {
       /**
        * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
        */
-      public orm.ORM.VersionedIDRefOrBuilder getElectorateRefOrBuilder() {
+      public orm.Codec.VersionedIDRefOrBuilder getElectorateRefOrBuilder() {
         if (electorateRefBuilder_ != null) {
           return electorateRefBuilder_.getMessageOrBuilder();
         } else {
           return electorateRef_ == null ?
-              orm.ORM.VersionedIDRef.getDefaultInstance() : electorateRef_;
+              orm.Codec.VersionedIDRef.getDefaultInstance() : electorateRef_;
         }
       }
       /**
        * <code>.orm.VersionedIDRef electorate_ref = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          orm.ORM.VersionedIDRef, orm.ORM.VersionedIDRef.Builder, orm.ORM.VersionedIDRefOrBuilder> 
+          orm.Codec.VersionedIDRef, orm.Codec.VersionedIDRef.Builder, orm.Codec.VersionedIDRefOrBuilder> 
           getElectorateRefFieldBuilder() {
         if (electorateRefBuilder_ == null) {
           electorateRefBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              orm.ORM.VersionedIDRef, orm.ORM.VersionedIDRef.Builder, orm.ORM.VersionedIDRefOrBuilder>(
+              orm.Codec.VersionedIDRef, orm.Codec.VersionedIDRef.Builder, orm.Codec.VersionedIDRefOrBuilder>(
                   getElectorateRef(),
                   getParentForChildren(),
                   isClean());
@@ -18289,7 +18289,7 @@ public final class Codec {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           weave.Codec.getDescriptor(),
-          orm.ORM.getDescriptor(),
+          orm.Codec.getDescriptor(),
         }, assigner);
     internal_static_gov_Electorate_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -18382,7 +18382,7 @@ public final class Codec {
         internal_static_gov_UpdateElectionRuleMsg_descriptor,
         new java.lang.String[] { "Metadata", "ElectionRuleId", "VotingPeriod", "Threshold", "Quorum", });
     weave.Codec.getDescriptor();
-    orm.ORM.getDescriptor();
+    orm.Codec.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
