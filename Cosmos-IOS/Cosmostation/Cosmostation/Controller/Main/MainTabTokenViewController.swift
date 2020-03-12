@@ -548,7 +548,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 if ($1.balance_denom == KAVA_MAIN_DENOM){
                     return false
                 }
-                return WUtils.stringToDecimal($0.balance_amount).compare(WUtils.stringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
+                return WUtils.stringToDecimal($0.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($0.balance_denom)).compare(WUtils.stringToDecimal($1.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($1.balance_denom))).rawValue > 0 ? true : false
             }
         }
     }
