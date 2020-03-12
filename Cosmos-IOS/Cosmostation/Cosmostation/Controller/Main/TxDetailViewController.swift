@@ -47,6 +47,12 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxRewardCell", bundle: nil), forCellReuseIdentifier: "TxRewardCell")
         self.txTableView.register(UINib(nibName: "TxEditRewardAddressCell", bundle: nil), forCellReuseIdentifier: "TxEditRewardAddressCell")
         self.txTableView.register(UINib(nibName: "TxVoteCell", bundle: nil), forCellReuseIdentifier: "TxVoteCell")
+        self.txTableView.register(UINib(nibName: "TxPostPriceCell", bundle: nil), forCellReuseIdentifier: "TxPostPriceCell")
+        self.txTableView.register(UINib(nibName: "TxCreateCdpCell", bundle: nil), forCellReuseIdentifier: "TxCreateCdpCell")
+        self.txTableView.register(UINib(nibName: "TxDepositCdpCell", bundle: nil), forCellReuseIdentifier: "TxDepositCdpCell")
+        self.txTableView.register(UINib(nibName: "TxWithDrawCdpCell", bundle: nil), forCellReuseIdentifier: "TxWithDrawCdpCell")
+        self.txTableView.register(UINib(nibName: "TxdrawDebtCdpCell", bundle: nil), forCellReuseIdentifier: "TxdrawDebtCdpCell")
+        self.txTableView.register(UINib(nibName: "TxRepayCdpCell", bundle: nil), forCellReuseIdentifier: "TxRepayCdpCell")
         self.txTableView.register(UINib(nibName: "TxUnknownCell", bundle: nil), forCellReuseIdentifier: "TxUnknownCell")
         self.txTableView.rowHeight = UITableView.automaticDimension
         self.txTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -150,6 +156,24 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 } else {
                     return onBindTransfer(tableView, msg!)
                 }
+            } else if (msg?.type == KAVA_MSG_TYPE_POST_PRICE) {
+                return onBindPostPrice(tableView, msg!)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_CREATE_CDP) {
+                return onBindCreateCdp(tableView, msg!)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_DEPOSIT_CDP) {
+                return onBindDepositCdp(tableView, msg!)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_WITHDRAW_CDP) {
+                return onBindWithdrawCdp(tableView, msg!)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
+                return onBindDrawDebtCdp(tableView, msg!)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+                return onBindRepayDebtCdp(tableView, msg!)
+                
             } else {
                 let cell:TxUnknownCell? = tableView.dequeueReusableCell(withIdentifier:"TxUnknownCell") as? TxUnknownCell
                 return cell!
@@ -388,6 +412,39 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         }
         return cell!
     }
+    
+    func onBindPostPrice(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
+        let cell:TxPostPriceCell? = tableView.dequeueReusableCell(withIdentifier:"TxPostPriceCell") as? TxPostPriceCell
+        return cell!
+    }
+    
+    func onBindCreateCdp(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
+        let cell:TxCreateCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxCreateCdpCell") as? TxCreateCdpCell
+        return cell!
+    }
+    
+    func onBindDepositCdp(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
+        let cell:TxDepositCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxDepositCdpCell") as? TxDepositCdpCell
+        return cell!
+    }
+    
+    func onBindWithdrawCdp(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
+        let cell:TxWithDrawCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxWithDrawCdpCell") as? TxWithDrawCdpCell
+        return cell!
+    }
+    
+    func onBindDrawDebtCdp(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
+        let cell:TxdrawDebtCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxdrawDebtCdpCell") as? TxdrawDebtCdpCell
+        return cell!
+    }
+    
+    func onBindRepayDebtCdp(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
+        let cell:TxRepayCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxRepayCdpCell") as? TxRepayCdpCell
+        return cell!
+    }
+    
+    
+    
     
     func onBindUnknown(_ tableView: UITableView, _ msg: Msg) -> UITableViewCell  {
         let cell:TxUnknownCell? = tableView.dequeueReusableCell(withIdentifier:"TxUnknownCell") as? TxUnknownCell

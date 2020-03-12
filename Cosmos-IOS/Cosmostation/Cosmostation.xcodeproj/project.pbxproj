@@ -34,6 +34,18 @@
 		2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */; };
 		2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
+		28AE98822419F66400872349 /* TxPostPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE98802419F66400872349 /* TxPostPriceCell.swift */; };
+		28AE98832419F66400872349 /* TxPostPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AE98812419F66400872349 /* TxPostPriceCell.xib */; };
+		28AE98862419F69C00872349 /* TxCreateCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE98842419F69C00872349 /* TxCreateCdpCell.swift */; };
+		28AE98872419F69C00872349 /* TxCreateCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AE98852419F69C00872349 /* TxCreateCdpCell.xib */; };
+		28AE988A2419F6B500872349 /* TxDepositCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE98882419F6B500872349 /* TxDepositCdpCell.swift */; };
+		28AE988B2419F6B500872349 /* TxDepositCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AE98892419F6B500872349 /* TxDepositCdpCell.xib */; };
+		28AE988E2419F6D200872349 /* TxWithDrawCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE988C2419F6D200872349 /* TxWithDrawCdpCell.swift */; };
+		28AE988F2419F6D200872349 /* TxWithDrawCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AE988D2419F6D200872349 /* TxWithDrawCdpCell.xib */; };
+		28AE98922419F6F000872349 /* TxdrawDebtCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE98902419F6F000872349 /* TxdrawDebtCdpCell.swift */; };
+		28AE98932419F6F000872349 /* TxdrawDebtCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AE98912419F6F000872349 /* TxdrawDebtCdpCell.xib */; };
+		28AE98962419F70700872349 /* TxRepayCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE98942419F70700872349 /* TxRepayCdpCell.swift */; };
+		28AE98972419F70700872349 /* TxRepayCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AE98952419F70700872349 /* TxRepayCdpCell.xib */; };
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		BE9C8B421BF3A38F09124CC7 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC8DB1702A51A9EF8ADFDB5 /* Pods_Cosmostation.framework */; };
@@ -275,6 +287,18 @@
 		2877B8F9240E2A0200EFE369 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TxDetailViewController.xib; sourceTree = "<group>"; };
 		2877B8FC240E2A0E00EFE369 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/TxDetailViewController.strings; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
+		28AE98802419F66400872349 /* TxPostPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxPostPriceCell.swift; sourceTree = "<group>"; };
+		28AE98812419F66400872349 /* TxPostPriceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxPostPriceCell.xib; sourceTree = "<group>"; };
+		28AE98842419F69C00872349 /* TxCreateCdpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCreateCdpCell.swift; sourceTree = "<group>"; };
+		28AE98852419F69C00872349 /* TxCreateCdpCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCreateCdpCell.xib; sourceTree = "<group>"; };
+		28AE98882419F6B500872349 /* TxDepositCdpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDepositCdpCell.swift; sourceTree = "<group>"; };
+		28AE98892419F6B500872349 /* TxDepositCdpCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxDepositCdpCell.xib; sourceTree = "<group>"; };
+		28AE988C2419F6D200872349 /* TxWithDrawCdpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxWithDrawCdpCell.swift; sourceTree = "<group>"; };
+		28AE988D2419F6D200872349 /* TxWithDrawCdpCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxWithDrawCdpCell.xib; sourceTree = "<group>"; };
+		28AE98902419F6F000872349 /* TxdrawDebtCdpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxdrawDebtCdpCell.swift; sourceTree = "<group>"; };
+		28AE98912419F6F000872349 /* TxdrawDebtCdpCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxdrawDebtCdpCell.xib; sourceTree = "<group>"; };
+		28AE98942419F70700872349 /* TxRepayCdpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxRepayCdpCell.swift; sourceTree = "<group>"; };
+		28AE98952419F70700872349 /* TxRepayCdpCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRepayCdpCell.xib; sourceTree = "<group>"; };
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		2943718654DA7086BEF4CAC1 /* Pods-Cosmostation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.release.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.release.xcconfig"; sourceTree = "<group>"; };
@@ -929,6 +953,18 @@
 				282FF35C23F530ED0028CC66 /* TxEditRewardAddressCell.xib */,
 				282FF35F23F532360028CC66 /* TxVoteCell.swift */,
 				282FF36023F532360028CC66 /* TxVoteCell.xib */,
+				28AE98802419F66400872349 /* TxPostPriceCell.swift */,
+				28AE98812419F66400872349 /* TxPostPriceCell.xib */,
+				28AE98842419F69C00872349 /* TxCreateCdpCell.swift */,
+				28AE98852419F69C00872349 /* TxCreateCdpCell.xib */,
+				28AE98882419F6B500872349 /* TxDepositCdpCell.swift */,
+				28AE98892419F6B500872349 /* TxDepositCdpCell.xib */,
+				28AE988C2419F6D200872349 /* TxWithDrawCdpCell.swift */,
+				28AE988D2419F6D200872349 /* TxWithDrawCdpCell.xib */,
+				28AE98902419F6F000872349 /* TxdrawDebtCdpCell.swift */,
+				28AE98912419F6F000872349 /* TxdrawDebtCdpCell.xib */,
+				28AE98942419F70700872349 /* TxRepayCdpCell.swift */,
+				28AE98952419F70700872349 /* TxRepayCdpCell.xib */,
 				282FF36323F533AF0028CC66 /* TxUnknownCell.swift */,
 				282FF36423F533AF0028CC66 /* TxUnknownCell.xib */,
 			);
@@ -1016,7 +1052,9 @@
 				E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */,
 				282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */,
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
+				28AE988F2419F6D200872349 /* TxWithDrawCdpCell.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
+				28AE98972419F70700872349 /* TxRepayCdpCell.xib in Resources */,
 				282FF34E23F50E010028CC66 /* TxRedelegateCell.xib in Resources */,
 				2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */,
 				282FF35A23F52FD40028CC66 /* TxRewardCell.xib in Resources */,
@@ -1026,6 +1064,7 @@
 				E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */,
 				282FF35E23F530ED0028CC66 /* TxEditRewardAddressCell.xib in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
+				28AE98872419F69C00872349 /* TxCreateCdpCell.xib in Resources */,
 				E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */,
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */,
@@ -1035,11 +1074,14 @@
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
 				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
 				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
+				28AE988B2419F6B500872349 /* TxDepositCdpCell.xib in Resources */,
+				28AE98832419F66400872349 /* TxPostPriceCell.xib in Resources */,
 				282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */,
 				E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */,
 				E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */,
 				E103DACE22813248006C2146 /* WalletDetailViewController.xib in Resources */,
 				282FF35223F5172E0028CC66 /* TxTransferCell.xib in Resources */,
+				28AE98932419F6F000872349 /* TxdrawDebtCdpCell.xib in Resources */,
 				E126CFA02387A643002A546F /* WalletInflationCell.xib in Resources */,
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
 				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
@@ -1158,6 +1200,7 @@
 				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
 				E1827E2A2256298300BC0350 /* ValidatorDetailHistoryHeader.swift in Sources */,
 				28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */,
+				28AE98962419F70700872349 /* TxRepayCdpCell.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
 				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
 				E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */,
@@ -1212,6 +1255,7 @@
 				E1F1CF08239F5737004EF8A2 /* IrisVote.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
+				28AE98862419F69C00872349 /* TxCreateCdpCell.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
 				E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */,
 				E1FD2338233E1C30009327FE /* WalletInflationCell.swift in Sources */,
@@ -1223,6 +1267,7 @@
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
 				282FF35D23F530ED0028CC66 /* TxEditRewardAddressCell.swift in Sources */,
+				28AE98922419F6F000872349 /* TxdrawDebtCdpCell.swift in Sources */,
 				E1406FC62260860E00D9440C /* StepUndelegateAmountViewController.swift in Sources */,
 				E1827E18225620D000BC0350 /* VaildatorDetailViewController.swift in Sources */,
 				E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */,
@@ -1231,6 +1276,7 @@
 				E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,
+				28AE988A2419F6B500872349 /* TxDepositCdpCell.swift in Sources */,
 				E13171442260215E00EE5AD0 /* GenTxResultViewController.swift in Sources */,
 				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,
 				282FF36123F532360028CC66 /* TxVoteCell.swift in Sources */,
@@ -1263,6 +1309,7 @@
 				E17B213C23470932001743D6 /* TokenDetailHeaderCosmosCell.swift in Sources */,
 				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
 				E191A5812379091A002577BC /* TokenDetailHeaderKavaCell.swift in Sources */,
+				28AE98822419F66400872349 /* TxPostPriceCell.swift in Sources */,
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
 				E16FACB12361ADFA00372052 /* Bytes.swift in Sources */,
 				E1F1CF06239F53C5004EF8A2 /* IrisProposal.swift in Sources */,
@@ -1277,6 +1324,7 @@
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
+				28AE988E2419F6D200872349 /* TxWithDrawCdpCell.swift in Sources */,
 				E14FDC842373C52C00095C06 /* KavaAccountInfo.swift in Sources */,
 				E1CF42F023598AFE00907F45 /* ManageChainCell.swift in Sources */,
 				E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */,
