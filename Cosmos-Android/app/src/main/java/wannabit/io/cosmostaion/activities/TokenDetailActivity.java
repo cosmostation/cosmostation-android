@@ -541,6 +541,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         } else if (v.equals(mBtnSendKava)) {
             if (onCheckSendable()) {
                 Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
+                intent.putExtra("kavaDenom", COSMOS_KAVA);
                 startActivity(intent);
             }
 
@@ -550,6 +551,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra("irisToken", mIrisToken);
                 intent.putExtra("bnbToken", mBnbToken);
                 intent.putExtra("bnbTics", mBnbTics);
+                intent.putExtra("kavaDenom", mBalance.symbol);
                 startActivity(intent);
             }
 

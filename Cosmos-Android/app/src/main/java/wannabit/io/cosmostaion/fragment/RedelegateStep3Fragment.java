@@ -303,16 +303,11 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 mFeeLayer1.setVisibility(View.VISIBLE);
                 mFeeLayer2.setVisibility(View.GONE);
 
-                if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                    mFeeAmount  = BigDecimal.ONE;
-                    if(getBaseDao().getCurrency() != 5) {
-                        mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
-                    } else {
-                        mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(8, RoundingMode.DOWN);
-                    }
+                mFeeAmount  = BigDecimal.ONE;
+                if(getBaseDao().getCurrency() != 5) {
+                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {
-                    mFeeAmount = BigDecimal.ZERO;
-                    mFeePrice = BigDecimal.ZERO;
+                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(8, RoundingMode.DOWN);
                 }
 
                 mMinFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));

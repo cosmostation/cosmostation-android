@@ -362,16 +362,14 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
             intent.putExtra("iovToken", WUtil.getIovMainToken(mIovTokens));
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {
                 hasbalance  = true;
             }
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ZERO) > 0) {
-                hasbalance  = true;
-            }
+            intent.putExtra("kavaDenom", COSMOS_KAVA);
+        }
 
-        } if(!hasbalance){
+        if(!hasbalance){
             Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
             return;
         }

@@ -185,7 +185,20 @@ public class Account {
             }
         }
         return result;
+    }
 
+    public BigDecimal getTokenBalance(String symbol) {
+        BigDecimal result = BigDecimal.ZERO;
+        if(balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equals(symbol)) {
+                result = balance.balance;
+                break;
+            }
+        }
+        return result;
     }
 
     public BigDecimal getIovBalance() {

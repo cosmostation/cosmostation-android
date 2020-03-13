@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -61,6 +62,7 @@ public class SendActivity extends BaseActivity {
     public BnbToken                     mBnbToken;
     public IovToken                     mIovToken;
     public HashMap<String, ResBnbTic>   mBnbTics = new HashMap<>();
+    public String                       mKavaDenom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,18 +84,21 @@ public class SendActivity extends BaseActivity {
         mBnbToken = getIntent().getParcelableExtra("bnbToken");
         mBnbTics = (HashMap<String, ResBnbTic>)getIntent().getSerializableExtra("bnbTics");
         mIovToken = getIntent().getParcelableExtra("iovToken");
+        mKavaDenom = getIntent().getStringExtra("kavaDenom");
 
         mTvStep.setText(getString(R.string.str_send_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) {
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             if (mIrisToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (mBnbToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             if (mIovToken == null) onBackPressed();
+        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (TextUtils.isEmpty(mKavaDenom)) onBackPressed();
         }
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
