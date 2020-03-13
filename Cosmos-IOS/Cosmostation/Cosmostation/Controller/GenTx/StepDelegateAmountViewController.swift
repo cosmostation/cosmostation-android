@@ -42,7 +42,6 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM).subtracting(NSDecimalNumber.one)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         }
-        print("userBalance ", userBalance)
         toDelegateAmountInput.delegate = self
         toDelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         

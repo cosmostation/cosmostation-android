@@ -1263,7 +1263,9 @@ class WUtils {
         var result = NSDecimalNumber.zero
         if (balances != nil) {
             balances!.forEach({ (balance) in
-                result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_amount))
+                if (balance.balance_denom == symbol) {
+                    result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_amount))
+                }
             })
         }
         return result
