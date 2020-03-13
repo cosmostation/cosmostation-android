@@ -240,12 +240,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKava));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
 
-            if (mToShowTestWarn) {
-                mToShowTestWarn = false;
-                Dialog_Kava_Testnet dialog = Dialog_Kava_Testnet.newInstance(null);
-                dialog.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-            }
+            //Temp Hide
+//            if (mToShowTestWarn) {
+//                mToShowTestWarn = false;
+//                Dialog_Kava_Testnet dialog = Dialog_Kava_Testnet.newInstance(null);
+//                dialog.setCancelable(true);
+//                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+//            }
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
