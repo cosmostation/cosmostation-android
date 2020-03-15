@@ -297,6 +297,12 @@
 "tx_new_order" = "New Order";
 "tx_cancel_order" = "Cancel Order";
 "tx_issue_token" = "Issue Token";
+"tx_kava_post_price" = "Post Price";
+"tx_kava_create_cdp" = "Create CDP";
+"tx_kava_deposit_cdp" = "Deposit CDP";
+"tx_kava_withdraw_cdp" = "Withdraw CDP";
+"tx_kava_drawdebt_cdp" = "Draw Debt CDP";
+"tx_kava_repaydebt_cdp" = "Repay Debt CDP";
 "tx_known" = "Known";
 
 "chain_title_cosmos" = "COSMOS Hub";
@@ -304,6 +310,7 @@
 "chain_title_bnb" = "Binance Chain";
 "chain_title_kava" = "Kava Mainnet";
 "chain_title_iov" = "IOV Mainnet";
+"chain_title_kava_test" = "Kava Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";
 

@@ -568,7 +568,7 @@
     <string name="tx_get_reward">이자 청구</string>
     <string name="tx_get_reward_all">이자 모두 청구</string>
     <string name="tx_get_commission">수수료 청구</string>
-    <string name="tx_change_reward_address">이자주소 변경</string>
+    <string name="tx_change_reward_address">이자 주소 변경</string>
     <string name="tx_vote">투표</string>
     <string name="tx_submit_proposal">의제 제안</string>
     <string name="tx_deposit">디파짓</string>

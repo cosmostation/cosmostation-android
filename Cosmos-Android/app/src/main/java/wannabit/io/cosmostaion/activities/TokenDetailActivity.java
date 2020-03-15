@@ -37,8 +37,11 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.req.ReqTxToken;
+import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResHistory;
+import wannabit.io.cosmostaion.task.FetchTask.ApiAccountTxsHistoryTask;
+import wannabit.io.cosmostaion.task.FetchTask.ApiTokenTxsHistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.HistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.TokenHistoryTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -54,6 +57,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MUON;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_UNKNOWN;
@@ -110,6 +114,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
     private ArrayList<ResHistory.InnerHits> mHistory = new ArrayList<>();
     private ArrayList<BnbHistory>           mBnbHistory = new ArrayList<>();
+    private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
 
 
     @Override
@@ -350,7 +355,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             mTvKavaVesting.setText(WDp.getDpVestedCoin(this, mBalances, mBaseChain, COSMOS_KAVA));
             mTvKavaValue.setText(WDp.getValueOfKava(this, getBaseDao(), totalAmount));
 
-        } else{
+        } else {
             TokenCard.setVisibility(View.VISIBLE);
             mBtnSendToken.setVisibility(View.VISIBLE);
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
@@ -393,6 +398,24 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                             .into(mTokenImg);
                 } catch (Exception e) {}
 
+            } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN) || (mBaseChain.equals(BaseChain.KAVA_TEST)) && mBalance != null)) {
+                mTokenLink.setVisibility(View.GONE);
+                mBtnSendToken.setOnClickListener(this);
+                mTvTokenSymbol.setText(mBalance.symbol.toUpperCase());
+                mTvTokenDenom.setText(mBalance.symbol);
+
+                mTvTokenTotal.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
+                mTvTokenAvailable.setText(WDp.getDpAmount2(this, mBalance.balance, WUtil.getKavaCoinDecimal(mBalance.symbol), WUtil.getKavaCoinDecimal(mBalance.symbol)));
+                //TODO no way to display token price
+                mTvTokenValue.setText(WDp.getValueOfKava(this, getBaseDao(), BigDecimal.ZERO));
+                mTokenRewardLayer.setVisibility(View.GONE);
+                try {
+                    Picasso.get().load(KAVA_COIN_IMG_URL+mBalance.symbol+".png")
+                            .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
+                            .into(mTokenImg);
+
+                } catch (Exception e) { }
+
             } else {
                 onBackPressed();
             }
@@ -416,6 +439,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             ReqTxToken req = new ReqTxToken(0, 0, true, mAccount.address, mBalance.symbol);
             new TokenHistoryTask(getBaseApplication(), this, req, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
     }
@@ -451,6 +477,22 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mEmptyHistory.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
             }
+        } else if (result.taskType == BaseConstant.TASK_FETCH_API_TOKEN_HISTORY) {
+            ArrayList<ResApiTxList.Data> hits = (ArrayList<ResApiTxList.Data>)result.resultData;
+            if (hits != null && hits.size() > 0) {
+                WLog.w("hit size " + hits.size());
+                mApiTxHistory = hits;
+                mHistoryCnt.setText(""+mApiTxHistory.size());
+                mTokenHistoryAdapter.notifyDataSetChanged();
+                mEmptyHistory.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+
+            } else {
+                mHistoryCnt.setText("0");
+                mEmptyHistory.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+            }
+
         }
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -499,6 +541,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         } else if (v.equals(mBtnSendKava)) {
             if (onCheckSendable()) {
                 Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
+                intent.putExtra("kavaDenom", COSMOS_KAVA);
                 startActivity(intent);
             }
 
@@ -508,6 +551,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra("irisToken", mIrisToken);
                 intent.putExtra("bnbToken", mBnbToken);
                 intent.putExtra("bnbTics", mBnbTics);
+                intent.putExtra("kavaDenom", mBalance.symbol);
                 startActivity(intent);
             }
 
@@ -677,6 +721,28 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                         }
                     }
                 });
+
+            } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                final ResApiTxList.Data tx = mApiTxHistory.get(position);
+                if (tx.isSuccess()) {
+                    viewHolder.historySuccess.setVisibility(View.GONE);
+                } else {
+                    viewHolder.historySuccess.setVisibility(View.VISIBLE);
+                }
+                viewHolder.historyType.setText(WDp.DpTxType(getBaseContext(), tx.messages, mAccount.address));
+                viewHolder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.timestamp));
+                viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.timestamp));
+                viewHolder.history_block.setText("" + tx.height + " block");
+                viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                        txDetail.putExtra("txHash", tx.tx_hash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
+                    }
+                });
             }
         }
 
@@ -688,6 +754,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 return mHistory.size();
             } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 return mBnbHistory.size();
+            } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                return mApiTxHistory.size();
             }
             return 0;
         }

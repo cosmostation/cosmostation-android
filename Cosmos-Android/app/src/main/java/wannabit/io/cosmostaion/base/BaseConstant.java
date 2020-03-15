@@ -5,7 +5,7 @@ public class BaseConstant {
     public final static boolean IS_TEST                 = false;
     public final static boolean IS_FEE_FREE             = false;
     public final static boolean SUPPORT_MOONPAY         = true;
-    public final static boolean SUPPORT_KAVA_TEST       = false;
+    public final static boolean SUPPORT_KAVA_TEST       = true;
     public final static String LOG_TAG                  = "Cosmostation";
 
     public final static String DB_NAME                  = "WannaBit";
@@ -99,7 +99,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_CDP_PARAM                   = 2059;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
-
+    public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
 
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
 

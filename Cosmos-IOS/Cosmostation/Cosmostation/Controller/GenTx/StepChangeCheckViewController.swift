@@ -132,7 +132,6 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onGenModifyRewardAddressTx() {
-        print("onGenModifyRewardAddressTx")
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {

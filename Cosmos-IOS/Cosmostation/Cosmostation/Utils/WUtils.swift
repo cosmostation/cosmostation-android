@@ -24,6 +24,10 @@ class WUtils {
     static let handler0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static let handlerdown0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
+    static func getDivideHandler(_ decimal:Int16) -> NSDecimalNumberHandler{
+        return NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: decimal, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    }
 
     
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
@@ -194,7 +198,7 @@ class WUtils {
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             for raw in rawbondinginfos{
                 let bondinginfo = BondingInfo(raw as! [String : Any])
                 result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
@@ -212,7 +216,7 @@ class WUtils {
     
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             for raw in rawunbondinginfos {
                 let unbondinginfo = UnbondingInfo(raw as! [String : Any])
                 for entry in unbondinginfo.entries {
@@ -428,6 +432,25 @@ class WUtils {
             
         } else if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER3) {
             resultMsg = NSLocalizedString("tx_transfer", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_POST_PRICE) {
+            resultMsg = NSLocalizedString("tx_kava_post_price", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_CREATE_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_create_cdp", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_DEPOSIT_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_deposit_cdp", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_WITHDRAW_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_withdraw_cdp", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_drawdebt_cdp", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_repaydebt_cdp", comment: "")
+            
         }
         
         if(msgs.count > 1) {
@@ -487,26 +510,10 @@ class WUtils {
         return check
     }
     
-    static func DecimalToLocalString(_ input: NSDecimalNumber) -> String {
+    static func DecimalToLocalString(_ input: NSDecimalNumber, _ deciaml:Int16) -> String {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 0
-        nf.maximumFractionDigits = 6
-        nf.numberStyle = .decimal
-        nf.locale = Locale.current
-        nf.groupingSeparator = ""
-        return nf.string(from: input)!
-    }
-    
-    static func DecimalToLocalString(_ input: NSDecimalNumber, _ chain:ChainType) -> String {
-        let nf = NumberFormatter()
-        nf.minimumFractionDigits = 0
-        if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
-            nf.maximumFractionDigits = 6
-        } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
-            nf.maximumFractionDigits = 18
-        } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
-            nf.maximumFractionDigits = 8
-        }
+        nf.maximumFractionDigits = Int(deciaml)
         nf.numberStyle = .decimal
         nf.locale = Locale.current
         nf.groupingSeparator = ""
@@ -583,7 +590,7 @@ class WUtils {
         var formatted: String?
         if (amount == NSDecimalNumber.zero) {
             formatted = nf.string(from: NSDecimalNumber.zero)
-        } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
@@ -607,10 +614,10 @@ class WUtils {
         return attributedString1
     }
     
-    static func displayAmount2(_ amount: String?, _ font:UIFont, _ inputPoint:Int, _ dpPoint:Int) -> NSMutableAttributedString {
+    static func displayAmount2(_ amount: String?, _ font:UIFont, _ inputPoint:Int16, _ dpPoint:Int16) -> NSMutableAttributedString {
         let nf = NumberFormatter()
-        nf.minimumFractionDigits = dpPoint
-        nf.maximumFractionDigits = dpPoint
+        nf.minimumFractionDigits = Int(dpPoint)
+        nf.maximumFractionDigits = Int(dpPoint)
         nf.numberStyle = .decimal
         
         let amount = stringToDecimalNoLocale(amount)
@@ -970,7 +977,7 @@ class WUtils {
         nf.numberStyle = .decimal
         var formatted = ""
         var endIndex: String.Index?
-        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"))) ?? "0"
@@ -1000,7 +1007,7 @@ class WUtils {
         nf.numberStyle = .decimal
         var formatted = ""
         var endIndex: String.Index?
-        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (baseChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || baseChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             nf.minimumFractionDigits = 12
             nf.maximumFractionDigits = 12
             formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.init(string: "1").subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"))) ?? "0"
@@ -1210,10 +1217,10 @@ class WUtils {
         return nil
     }
     
-    static func displayIrisToken(_ amount: String, _ font:UIFont, _ deciaml:Int, _ deciaml2:Int) -> NSMutableAttributedString {
+    static func displayIrisToken(_ amount: String, _ font:UIFont, _ deciaml:Int16, _ deciaml2:Int16) -> NSMutableAttributedString {
         let nf = NumberFormatter()
-        nf.minimumFractionDigits = deciaml
-        nf.maximumFractionDigits = deciaml
+        nf.minimumFractionDigits = Int(deciaml)
+        nf.maximumFractionDigits = Int(deciaml)
         nf.numberStyle = .decimal
         
         let amount = stringToDecimal(amount)
@@ -1223,7 +1230,7 @@ class WUtils {
         if (amount == NSDecimalNumber.zero) {
             formatted = nf.string(from: NSDecimalNumber.zero)
         } else {
-            formatted = nf.string(from: amount.dividing(by: NSDecimalNumber(decimal: pow(10,deciaml2))).rounding(accordingToBehavior: handler))
+            formatted = nf.string(from: amount.dividing(by: NSDecimalNumber(decimal: pow(10,Int(deciaml2)))).rounding(accordingToBehavior: handler))
         }
         let added       = formatted
         let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
@@ -1256,10 +1263,44 @@ class WUtils {
         var result = NSDecimalNumber.zero
         if (balances != nil) {
             balances!.forEach({ (balance) in
-                result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_amount))
+                if (balance.balance_denom == symbol) {
+                    result = result.adding(WUtils.stringToDecimalNoLocale(balance.balance_amount))
+                }
             })
         }
         return result
+    }
+    
+    static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (coin.denom == KAVA_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, getKavaCoinDecimal(coin.denom), getKavaCoinDecimal(coin.denom))
+        }
+    }
+    
+    static func showCoinDp(_ denom:String, _ amount:String, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
+        if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            if (denom == KAVA_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, getKavaCoinDecimal(denom), getKavaCoinDecimal(denom))
+        }
     }
     
     static func isBnbMArketToken(_ symbol:String) ->Bool {
@@ -1319,9 +1360,11 @@ class WUtils {
             return COLOR_BNB
         } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return COLOR_KAVA
-        }else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-           return COLOR_IOV
-       }
+        } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            return COLOR_IOV
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return COLOR_KAVA
+        }
         return COLOR_ATOM
     }
     
@@ -1336,6 +1379,8 @@ class WUtils {
             return COLOR_KAVA_DARK
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return COLOR_IOV_DARK
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return COLOR_DARK_GRAY
         }
         return COLOR_ATOM_DARK
     }
@@ -1351,6 +1396,8 @@ class WUtils {
             return TRANS_BG_COLOR_KAVA
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return TRANS_BG_COLOR_IOV
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return COLOR_BG_GRAY
         }
         return TRANS_BG_COLOR_COSMOS
     }
@@ -1362,7 +1409,7 @@ class WUtils {
             return "IRIS"
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return "BNB"
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             return "KAVA"
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             return "IOV"
@@ -1380,7 +1427,7 @@ class WUtils {
         } else if (chain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             label.text = "BNB"
             label.textColor = COLOR_BNB
-        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
            label.text = "KAVA"
            label.textColor = COLOR_KAVA
         } else if (chain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
@@ -1400,6 +1447,8 @@ class WUtils {
            return ChainType.SUPPORT_CHAIN_KAVA_MAIN
         } else if (chainS == CHAIN_IOV_S) {
             return ChainType.SUPPORT_CHAIN_IOV_MAIN
+        } else if (chainS == CHAIN_KAVA_TEST_S) {
+            return ChainType.SUPPORT_CHAIN_KAVA_TEST
         }
         return ChainType.SUPPORT_CHAIN_COSMOS_MAIN
     }
@@ -1439,6 +1488,8 @@ class WUtils {
             return "kava-2"
         } else if (type == CHAIN_IOV_S) {
             return "iov-mainnet"
+        } else if (type == CHAIN_KAVA_TEST_S) {
+            return "kava-testnet-4000"
         }
         return "cosmoshub-3"
     }
@@ -1500,7 +1551,20 @@ class WUtils {
         return gasAmounts
     }
     
-    
+    static func getKavaCoinDecimal(_ denom:String) -> Int16 {
+        if (denom == KAVA_MAIN_DENOM) {
+            return 6;
+        } else if (denom == "xrp") {
+            return 6;
+        } else if (denom == "btc") {
+            return 8;
+        } else if (denom == "usdx") {
+            return 6;
+        } else if (denom == "bnb") {
+            return 8;
+        }
+        return 100;
+    }
     
     
     

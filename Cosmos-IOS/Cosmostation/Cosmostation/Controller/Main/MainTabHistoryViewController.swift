@@ -26,6 +26,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     var refresher: UIRefreshControl!
     var mHistories = Array<History.InnerHits>()
     var mBnbHistories = Array<BnbHistory>()
+    var mApiHistories = Array<ApiHistory.HistoryData>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
     }
     
@@ -89,6 +92,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "iovImg")
             titleChainName.text = "(IOV Chain)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            titleChainImg.image = UIImage(named: "kavaTestImg")
+            titleChainName.text = "(KAVA Test)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -114,6 +121,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
     }
 
@@ -124,6 +133,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return self.mHistories.count
         } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return self.mBnbHistories.count
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return self.mApiHistories.count
         }
         return 0
     }
@@ -135,9 +146,14 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return onSetIrisItem(tableView, indexPath);
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             return onSetKavaItem(tableView, indexPath);
-        } else {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
             return onSetBnbItem(tableView, indexPath);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            return onSetIovItem(tableView, indexPath);
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            return onSetKavaTestItem(tableView, indexPath);
         }
+        return onSetEmptyItem(tableView, indexPath);
     }
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
@@ -196,6 +212,31 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         return cell!
     }
     
+    func onSetIovItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        return cell!
+    }
+    
+    func onSetKavaTestItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        let history = mApiHistories[indexPath.row]
+        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.timestamp)
+        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.timestamp)
+        cell?.txBlockLabel.text = String(history.height) + " block"
+        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
+        if (history.isSuccess) {
+            cell?.txResultLabel.isHidden = true
+        } else {
+            cell?.txResultLabel.isHidden = false
+        }
+        return cell!
+    }
+    
+    func onSetEmptyItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        return cell!
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension;
     }
@@ -208,7 +249,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             txDetailVC.mTxHash = history._source.hash
             txDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
-//            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
             self.navigationController?.pushViewController(txDetailVC, animated: true)
             
         } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
@@ -230,7 +270,15 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             txDetailVC.mTxHash = history._source.hash
             txDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
-//            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+            self.navigationController?.pushViewController(txDetailVC, animated: true)
+            
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            let history = mApiHistories[indexPath.row]
+            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+            txDetailVC.mIsGen = false
+            txDetailVC.mTxHash = history.tx_hash
+            txDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
             self.navigationController?.pushViewController(txDetailVC, animated: true)
         }
     }
@@ -309,6 +357,41 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 
             case .failure(let error):
                 print("error ", error)
+            }
+        }
+        self.refresher.endRefreshing()
+    }
+    
+    func onFetchApiHistory(_ address:String) {
+        var url: String?
+        if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_API_TEST_HISTORY + address
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    self.mApiHistories.removeAll()
+                    guard let history = res as? [String : Any] else {
+                        print("no history!!")
+                        self.emptyLabel.isHidden = false
+                        return;
+                    }
+                    let rawHistory = ApiHistory.init(history)
+                    self.mApiHistories = rawHistory.historyData
+
+                    if (self.mApiHistories.count > 0) {
+                        self.historyTableView.reloadData()
+                        self.emptyLabel.isHidden = true
+                    } else {
+                        self.emptyLabel.isHidden = false
+                    }
+                }
+                
+            case .failure(let error):
+                self.emptyLabel.isHidden = false
+                if (SHOW_LOG) { print("onFetchApiHistory ", error) }
             }
         }
         self.refresher.endRefreshing()

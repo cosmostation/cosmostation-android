@@ -358,6 +358,11 @@ final class BaseData : NSObject{
         } catch {
             if(SHOW_LOG) { print(error) }
         }
+        
+        if (!SUPPORT_KAVA_TESTNET) {
+            result = result.filter({$0.account_base_chain != CHAIN_KAVA_TEST_S})
+        }
+        
         return result;
     }
     
@@ -378,6 +383,9 @@ final class BaseData : NSObject{
             if let accountBD = try database.pluck(query) {
                 let account = Account(accountBD[DB_ACCOUNT_ID], accountBD[DB_ACCOUNT_UUID], accountBD[DB_ACCOUNT_NICKNAME], accountBD[DB_ACCOUNT_FAVO], accountBD[DB_ACCOUNT_ADDRESS], accountBD[DB_ACCOUNT_BASECHAIN], accountBD[DB_ACCOUNT_HAS_PRIVATE],  accountBD[DB_ACCOUNT_RESOURCE], accountBD[DB_ACCOUNT_FROM_MNEMONIC], accountBD[DB_ACCOUNT_PATH], accountBD[DB_ACCOUNT_IS_VALIDATOR], accountBD[DB_ACCOUNT_SEQUENCE_NUMBER], accountBD[DB_ACCOUNT_ACCOUNT_NUMBER], accountBD[DB_ACCOUNT_FETCH_TIME], accountBD[DB_ACCOUNT_M_SIZE], accountBD[DB_ACCOUNT_IMPORT_TIME], accountBD[DB_ACCOUNT_LAST_TOTAL], accountBD[DB_ACCOUNT_SORT_ORDER], accountBD[DB_ACCOUNT_PUSHALARM], accountBD[DB_ACCOUNT_NEW_BIP])
                 account.setBalances(selectBalanceById(accountId: account.account_id))
+                if (!SUPPORT_KAVA_TESTNET && account.account_base_chain == CHAIN_KAVA_TEST_S) {
+                    return selectAllAccounts()[0]
+                }
                 return account
             }
             return nil

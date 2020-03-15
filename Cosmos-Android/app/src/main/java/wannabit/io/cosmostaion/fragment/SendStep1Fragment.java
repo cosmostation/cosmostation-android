@@ -27,10 +27,12 @@ import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IRIS;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 
@@ -46,8 +48,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
     private ArrayList<Coin>     mToSendCoins = new ArrayList<>();
 
-    private String              mIrisDecimalChecker, mIrisDecimalSetter,
-                                mIrisDecimalDivider2, mIrisDecimalDivider1;
+    private int                 mDpDecimal = 6;
+    private String              mDecimalChecker, mDecimalSetter,
+                                mDecimalDivider2, mDecimalDivider1;
 
 
     public static SendStep1Fragment newInstance(Bundle bundle) {
@@ -86,6 +89,78 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         mAddHalf.setOnClickListener(this);
         mAddMax.setOnClickListener(this);
 
+
+
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null) {
+            getSActivity().onBackPressed();
+        }
+
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            mDpDecimal = 6;
+            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
+            mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(BigDecimal.ONE);
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            mDpDecimal = getSActivity().mIrisToken.base_token.decimal;
+            setDpDecimals(mDpDecimal);
+            mDenomTitle.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
+            if (getSActivity().mIrisToken.base_token.id.equals(COSMOS_IRIS)) {
+                mMaxAvailable = getSActivity().mAccount.getIrisBalance().subtract(new BigDecimal("200000000000000000"));
+                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, mDpDecimal, getSActivity().mBaseChain));
+                mDenomTitle.setTextColor(getResources().getColor(R.color.colorIris));
+            } else {
+                mMaxAvailable = getSActivity().mAccount.getIrisTokenBalance(getSActivity().mIrisToken.base_token.symbol);
+                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, mDpDecimal, getSActivity().mBaseChain));
+            }
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
+            mDpDecimal = 8;
+            mDenomTitle.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
+            if (getSActivity().mBnbToken.symbol.equals(COSMOS_BNB)) {
+                mMaxAvailable = getSActivity().mAccount.getBnbBalance().subtract(new BigDecimal("0.000375"));
+                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
+                mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
+            } else {
+                mMaxAvailable = getSActivity().mAccount.getBnbTokenBalance(getSActivity().mBnbToken.symbol);
+                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
+            }
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
+            mMaxAvailable = getSActivity().mAccount.getKavaBalance().subtract(BigDecimal.ONE);
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mDpDecimal = WUtil.getKavaCoinDecimal(getSActivity().mKavaDenom);
+            setDpDecimals(mDpDecimal);
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mKavaDenom);
+            if (getSActivity().mKavaDenom.equals(COSMOS_KAVA)) {
+                mMaxAvailable = mMaxAvailable.subtract(BigDecimal.ONE);
+            }
+            WDp.showCoinDp(getContext(), getSActivity().mKavaDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
+
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            mDpDecimal = 9;
+            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
+            if (!getSActivity().mIovToken.tokenTicker.equals(COSMOS_IOV)) {
+                getSActivity().onBackPressed();
+            }
+            mDenomTitle.setText(getSActivity().mIovToken.tokenTicker.toUpperCase());
+            mMaxAvailable = getSActivity().mAccount.getIovBalance().subtract(new BigDecimal("500000000"));
+            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 9, getSActivity().mBaseChain));
+        }
+        onAddAmountWatcher();
+    }
+
+
+    private void onAddAmountWatcher() {
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -109,9 +184,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                     mAmountInput.setSelection(1);
                 }
 
-                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
-                        || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                        || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                     if (es.equals("0.000000")) {
                         mAmountInput.setText("0.00000");
                         mAmountInput.setSelection(7);
@@ -141,9 +214,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                     }
 
                 } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                    if (es.equals(mIrisDecimalChecker)) {
-                        mAmountInput.setText(mIrisDecimalSetter);
-                        mAmountInput.setSelection(getSActivity().mIrisToken.base_token.decimal + 1);
+                    if (es.equals(mDecimalChecker)) {
+                        mAmountInput.setText(mDecimalSetter);
+                        mAmountInput.setSelection(mDpDecimal + 1);
                     } else {
                         try {
                             final BigDecimal inputAmount = new BigDecimal(es);
@@ -152,7 +225,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                                 return;
                             }
 
-                            BigDecimal checkPosition = inputAmount.movePointRight(getSActivity().mIrisToken.base_token.decimal);
+                            BigDecimal checkPosition = inputAmount.movePointRight(mDpDecimal);
                             BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                             if (checkPosition.compareTo(checkMax) != 0) {
                                 String recover = es.substring(0, es.length() - 1);
@@ -161,7 +234,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                                 return;
                             }
 
-                            if(inputAmount.compareTo(mMaxAvailable.movePointLeft(getSActivity().mIrisToken.base_token.decimal).setScale(getSActivity().mIrisToken.base_token.decimal, RoundingMode.CEILING)) > 0) {
+                            if(inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             } else {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -190,6 +263,36 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                                 return;
                             }
                             if(inputAmount.compareTo(mMaxAvailable) > 0) {
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            } else {
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            }
+                            mAmountInput.setSelection(mAmountInput.getText().length());
+                        } catch (Exception e) { }
+                    }
+
+                } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                    if (es.equals(mDecimalChecker)) {
+                        mAmountInput.setText(mDecimalSetter);
+                        mAmountInput.setSelection(mDpDecimal + 1);
+                    } else {
+                        try {
+                            final BigDecimal inputAmount = new BigDecimal(es);
+                            if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                                mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                                return;
+                            }
+
+                            BigDecimal checkPosition = inputAmount.movePointRight(mDpDecimal);
+                            BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
+                            if (checkPosition.compareTo(checkMax) != 0) {
+                                String recover = es.substring(0, es.length() - 1);
+                                mAmountInput.setText(recover);
+                                mAmountInput.setSelection(recover.length());
+                                return;
+                            }
+
+                            if(inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             } else {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -229,65 +332,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 }
             }
         });
-
-        return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null) {
-            getSActivity().onBackPressed();
-        }
-
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getAtomBalance().subtract(BigDecimal.ONE);
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            setIrisDecimals();
-            mDenomTitle.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
-            if (getSActivity().mIrisToken.base_token.id.equals(COSMOS_IRIS)) {
-                mMaxAvailable = getSActivity().mAccount.getIrisBalance().subtract(new BigDecimal("200000000000000000"));
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorIris));
-            } else {
-                mMaxAvailable = getSActivity().mAccount.getIrisTokenBalance(getSActivity().mIrisToken.base_token.symbol);
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
-            }
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            mDenomTitle.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
-            if (getSActivity().mBnbToken.symbol.equals(COSMOS_BNB)) {
-                mMaxAvailable = getSActivity().mAccount.getBnbBalance().subtract(new BigDecimal("0.000375"));
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
-                mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
-            } else {
-                mMaxAvailable = getSActivity().mAccount.getBnbTokenBalance(getSActivity().mBnbToken.symbol);
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
-            }
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getKavaBalance().subtract(BigDecimal.ONE);
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getKavaBalance();
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            if (!getSActivity().mIovToken.tokenTicker.equals(COSMOS_IOV)) {
-                getSActivity().onBackPressed();
-            }
-            mDenomTitle.setText(getSActivity().mIovToken.tokenTicker.toUpperCase());
-            mMaxAvailable = getSActivity().mAccount.getIovBalance().subtract(new BigDecimal("500000000"));
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 9, getSActivity().mBaseChain));
-        }
-
     }
 
     @Override
@@ -335,32 +379,35 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
-                    || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                    || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mIrisDecimalDivider2), getSActivity().mIrisToken.base_token.decimal, RoundingMode.DOWN).toPlainString());
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider2), mDpDecimal, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2"), 8, RoundingMode.DOWN).toPlainString());
+            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider2), mDpDecimal, RoundingMode.DOWN).toPlainString());
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000000"), 9, RoundingMode.DOWN).toPlainString());
             }
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)
-                    || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)
-                    || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
                 onShowWarnDialog();
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mIrisDecimalDivider1), getSActivity().mIrisToken.base_token.decimal, RoundingMode.DOWN).toPlainString());
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider1), mDpDecimal, RoundingMode.DOWN).toPlainString());
                 if (getSActivity().mIrisToken.base_token.equals(COSMOS_IRIS)) {
                     onShowWarnDialog();
                 }
             } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
                 if (getSActivity().mBnbToken.symbol.equals(COSMOS_BNB)) {
+                    onShowWarnDialog();
+                }
+            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider1), mDpDecimal, RoundingMode.DOWN).toPlainString());
+                if (getSActivity().mKavaDenom.equals(COSMOS_KAVA)) {
                     onShowWarnDialog();
                 }
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
@@ -393,21 +440,18 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+
+                BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
                 if (getSActivity().mIrisToken.base_token.id.equals(COSMOS_IRIS)) {
-                    BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                    if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                    if (sendTemp.compareTo(mMaxAvailable.movePointLeft(getSActivity().mIrisToken.base_token.decimal).setScale(getSActivity().mIrisToken.base_token.decimal, RoundingMode.CEILING)) > 0) return false;
-                    Coin iris = new Coin(BaseConstant.COSMOS_IRIS_ATTO, sendTemp.multiply(new BigDecimal(mIrisDecimalDivider1)).setScale(0).toPlainString());
+                    Coin iris = new Coin(BaseConstant.COSMOS_IRIS_ATTO, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
                     mToSendCoins.add(iris);
-                    return true;
                 } else {
-                    BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                    if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                    if (sendTemp.compareTo(mMaxAvailable.movePointLeft(getSActivity().mIrisToken.base_token.decimal).setScale(getSActivity().mIrisToken.base_token.decimal, RoundingMode.CEILING)) > 0) return false;
-                    Coin irisToken = new Coin(getSActivity().mIrisToken.base_token.getTxUnitDenom(), sendTemp.multiply(new BigDecimal(mIrisDecimalDivider1)).setScale(0).toPlainString());
+                    Coin irisToken = new Coin(getSActivity().mIrisToken.base_token.getTxUnitDenom(), sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
                     mToSendCoins.add(irisToken);
-                    return true;
                 }
+                return true;
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
@@ -420,9 +464,14 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin kava = new Coin(BaseConstant.COSMOS_KAVA, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
-                mToSendCoins.add(kava);
+                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
+                if (getSActivity().mKavaDenom.equals(COSMOS_KAVA)) {
+                    Coin kava = new Coin(COSMOS_KAVA, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
+                    mToSendCoins.add(kava);
+                } else {
+                    Coin kavaToken = new Coin(getSActivity().mKavaDenom, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
+                    mToSendCoins.add(kavaToken);
+                }
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
@@ -447,18 +496,33 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         dialog.show(getFragmentManager().beginTransaction(), "dialog");
     }
 
-    private void setIrisDecimals() {
-        mIrisDecimalChecker = "0.";
-        mIrisDecimalSetter = "0.";
-        mIrisDecimalDivider2 = "2";
-        mIrisDecimalDivider1 = "1";
-        for (int i = 0; i < getSActivity().mIrisToken.base_token.decimal; i ++) {
-            mIrisDecimalChecker = mIrisDecimalChecker+"0";
-            mIrisDecimalDivider2 = mIrisDecimalDivider2 + "0";
-            mIrisDecimalDivider1 = mIrisDecimalDivider1 + "0";
+//    private void setIrisDecimals(int decimals) {
+//        mDecimalChecker = "0.";
+//        mDecimalSetter = "0.";
+//        mDecimalDivider2 = "2";
+//        mDecimalDivider1 = "1";
+//        for (int i = 0; i < getSActivity().mIrisToken.base_token.decimal; i ++) {
+//            mDecimalChecker = mDecimalChecker+"0";
+//            mDecimalDivider2 = mDecimalDivider2 + "0";
+//            mDecimalDivider1 = mDecimalDivider1 + "0";
+//        }
+//        for (int i = 0; i < getSActivity().mIrisToken.base_token.decimal-1; i ++) {
+//            mDecimalSetter = mDecimalSetter+"0";
+//        }
+//    }
+
+    private void setDpDecimals(int decimals) {
+        mDecimalChecker = "0.";
+        mDecimalSetter = "0.";
+        mDecimalDivider2 = "2";
+        mDecimalDivider1 = "1";
+        for (int i = 0; i < decimals; i ++) {
+            mDecimalChecker = mDecimalChecker+"0";
+            mDecimalDivider2 = mDecimalDivider2 + "0";
+            mDecimalDivider1 = mDecimalDivider1 + "0";
         }
-        for (int i = 0; i < getSActivity().mIrisToken.base_token.decimal-1; i ++) {
-            mIrisDecimalSetter = mIrisDecimalSetter+"0";
+        for (int i = 0; i < decimals-1; i ++) {
+            mDecimalSetter = mDecimalSetter+"0";
         }
     }
 

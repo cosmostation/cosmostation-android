@@ -77,7 +77,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MPW-HE-m1b">
-                                <rect key="frame" x="12" y="133" width="272" height="40"/>
+                                <rect key="frame" x="12" y="129" width="272" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KtU-za-Hdi">
                                         <rect key="frame" x="0.0" y="0.0" width="132" height="40"/>
@@ -132,7 +132,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zb2-7p-AbL">
-                                <rect key="frame" x="12" y="181" width="272" height="40"/>
+                                <rect key="frame" x="12" y="177" width="272" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="6bX-Pl-wCh"/>
@@ -163,7 +163,7 @@
                             <constraint firstAttribute="trailing" secondItem="aUW-3y-Pva" secondAttribute="trailing" constant="12" id="30g-AV-mlS"/>
                             <constraint firstAttribute="trailing" secondItem="MPW-HE-m1b" secondAttribute="trailing" constant="12" id="5Ql-Ul-Na5"/>
                             <constraint firstItem="h03-8X-IdP" firstAttribute="leading" secondItem="6CW-fa-JTn" secondAttribute="leading" constant="12" id="8tr-32-KqU"/>
-                            <constraint firstAttribute="bottom" secondItem="zb2-7p-AbL" secondAttribute="bottom" constant="16" id="CTS-7p-0Nl"/>
+                            <constraint firstAttribute="bottom" secondItem="zb2-7p-AbL" secondAttribute="bottom" constant="20" id="CTS-7p-0Nl"/>
                             <constraint firstItem="cgm-Kd-4NO" firstAttribute="leading" secondItem="h03-8X-IdP" secondAttribute="leading" id="Ce9-Td-X0v"/>
                             <constraint firstAttribute="trailing" secondItem="zb2-7p-AbL" secondAttribute="trailing" constant="12" id="Cyu-Qv-cBU"/>
                             <constraint firstItem="zb2-7p-AbL" firstAttribute="leading" secondItem="6CW-fa-JTn" secondAttribute="leading" constant="12" id="DHk-IT-rEF"/>

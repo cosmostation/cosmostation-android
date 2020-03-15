@@ -17,7 +17,11 @@ class TokenDetailHeaderKavaCell: UITableViewCell {
     @IBOutlet weak var unbondingAmount: UILabel!
     @IBOutlet weak var rewardAmount: UILabel!
     @IBOutlet weak var vestingAmount: UILabel!
-
+    @IBOutlet weak var butBtn: UIButton!
+    
+    @IBOutlet weak var showBuyConstraint: NSLayoutConstraint!
+    @IBOutlet weak var hideBuyConstraint: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none

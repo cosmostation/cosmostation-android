@@ -489,7 +489,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             } catch (Exception e) { }
 
-//            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, WUtil.getKavaCoinDecimal(getBaseDao().mKavaCdpParams, balance), 6));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, WUtil.getKavaCoinDecimal(balance.symbol), 6));
             //TODO add kava coin's value
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), BigDecimal.ZERO));

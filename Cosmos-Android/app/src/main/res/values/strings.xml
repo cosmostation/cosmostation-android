@@ -647,7 +647,7 @@
     <string name="tx_Cancel_order">Cancel Order</string>
     <string name="tx_issue_token">Token Issue</string>
     <string name="tx_known">Unknown</string>
-    <string name="tx_kava_post_price">Price Update</string>
+    <string name="tx_kava_post_price">Post Price</string>
     <string name="tx_kava_create_cdp">Create CDP</string>
     <string name="tx_kava_deposit_cdp">Deposit CDP</string>
     <string name="tx_kava_withdraw_cdp">Withdraw CDP</string>

@@ -95,22 +95,38 @@ public class WDp {
 
 
 
-    public static void showCoinDp(Context c, Coin coin, TextView denom, TextView amount, BaseChain chain) {
+    public static void showCoinDp(Context c, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {
         if (chain.equals(BaseChain.COSMOS_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denom);
-            amount.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
 
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
             if (coin.denom.equals(COSMOS_KAVA)) {
-                DpMainDenom(c, chain.getChain(), denom);
+                DpMainDenom(c, chain.getChain(), denomTv);
             } else {
-                denom.setText(coin.denom.toUpperCase());
+                denomTv.setText(coin.denom.toUpperCase());
             }
-            amount.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
         }
+    }
 
+    public static void showCoinDp(Context c, String symbol, String amount, TextView denomTv, TextView amountTv, BaseChain chain) {
+        if (chain.equals(BaseChain.COSMOS_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+
+        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            if (symbol.equals(COSMOS_KAVA)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
+        }
     }
 
     public static SpannableString getDpAllRewardAmount(Context c, ArrayList<Reward> rewards, BaseChain chain, String denom) {

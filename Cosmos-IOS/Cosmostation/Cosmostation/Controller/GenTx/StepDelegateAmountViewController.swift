@@ -19,6 +19,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     
     var pageHolderVC: StepGenTxViewController!
     var userBalance = NSDecimalNumber.zero
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,26 +28,28 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         
         userBalance = NSDecimalNumber.zero
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+            mDpDecimal = 6
             userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, COSMOS_MAIN_DENOM).subtracting(NSDecimalNumber.one)
-            availableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, availableAmountLabel.font, 6, pageHolderVC.chainType!)
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+            mDpDecimal = 18
             userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, IRIS_MAIN_DENOM).subtracting(NSDecimalNumber(string: "400000000000000000"))
-            availableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, availableAmountLabel.font, 18, pageHolderVC.chainType!)
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 18, mDpDecimal)
             
-        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            mDpDecimal = 6
             userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM).subtracting(NSDecimalNumber.one)
-            availableAmountLabel.attributedText = WUtils.displayAmount(userBalance.stringValue, availableAmountLabel.font, 6, pageHolderVC.chainType!)
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         }
-        print("userBalance ", userBalance)
         toDelegateAmountInput.delegate = self
         toDelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"))
+        let dp = "+ " + WUtils.DecimalToLocalString(NSDecimalNumber(string: "0.1"), 1)
         btn01.setTitle(dp, for: .normal)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
-            if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN &&
+            if ((self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) &&
                 WUtils.stringToDecimal(self.pageHolderVC.mBalances[0].balance_locked) != NSDecimalNumber.zero) {
                 self.showVestingWarnning()
             }
@@ -66,7 +69,9 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             if (text.count == 0 && string.starts(with: ",")) { return false }
             
             
-            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 if let index = text.range(of: ".")?.upperBound {
                     if(text.substring(from: index).count > 5 && range.length == 0) {
                         return false
@@ -120,7 +125,9 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             return
         }
         
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
                 self.toDelegateAmountInput.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -141,7 +148,9 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         if (text == nil || text!.count == 0) { return false }
         let userInput = WUtils.stringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (userInput.multiplying(by: 1000000).compare(userBalance).rawValue > 0) {
                 return false
             }
@@ -166,7 +175,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
                 coin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 coin = Coin.init(IRIS_MAIN_DENOM, userInput.multiplying(by: 1000000000000000000).stringValue)
-            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 coin = Coin.init(KAVA_MAIN_DENOM, userInput.multiplying(by: 1000000).stringValue)
             }
             pageHolderVC.mToDelegateAmount = coin
@@ -195,7 +204,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: toDelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "0.1"))
-        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added)
+        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickAdd1(_ sender: UIButton) {
@@ -204,7 +213,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: toDelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "1"))
-        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added)
+        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickAdd10(_ sender: UIButton) {
@@ -213,7 +222,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: toDelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "10"))
-        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added)
+        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickAdd100(_ sender: UIButton) {
@@ -222,26 +231,30 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             exist = NSDecimalNumber(string: toDelegateAmountInput.text!, locale: Locale.current)
         }
         let added = exist.adding(NSDecimalNumber(string: "100"))
-        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added)
+        toDelegateAmountInput.text = WUtils.DecimalToLocalString(added, mDpDecimal)
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            toDelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
+            toDelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            toDelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, pageHolderVC.chainType!)
+            toDelegateAmountInput.text = WUtils.DecimalToLocalString(halfValue, mDpDecimal)
         }
         self.onUIupdate()
     }
     @IBAction func onClickMax(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN || pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
-            toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
+            toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
             let maxValue = userBalance.dividing(by: NSDecimalNumber(string: "1000000000000000000", locale: Locale.current), withBehavior: WUtils.handler18)
-            toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, pageHolderVC.chainType!)
+            toDelegateAmountInput.text = WUtils.DecimalToLocalString(maxValue, mDpDecimal)
         }
         self.onUIupdate()
         self.showMaxWarnning()

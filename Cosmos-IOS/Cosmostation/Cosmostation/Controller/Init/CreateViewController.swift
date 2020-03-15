@@ -115,11 +115,18 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         iovAction.setValue(UIImage(named: "iovImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let kavaTestAction = UIAlertAction(title: NSLocalizedString("chain_title_kava_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.SUPPORT_CHAIN_KAVA_TEST
+            self.onGenNewKey()
+        })
+        kavaTestAction.setValue(UIImage(named: "kavaTestImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
         showAlert.addAction(kavaAction)
         showAlert.addAction(iovAction)
+        showAlert.addAction(kavaTestAction)
         self.present(showAlert, animated: true, completion: nil)
     }
     
@@ -219,7 +226,8 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
                 newAccount.account_path = "0"
                 newAccount.account_m_size = 24
                 newAccount.account_import_time = Date().millisecondsSince1970
-                if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                if (chain == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+                    chain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     newAccount.account_new_bip44 = true
                 }
                 insertResult = BaseData.instance.insertAccount(newAccount)

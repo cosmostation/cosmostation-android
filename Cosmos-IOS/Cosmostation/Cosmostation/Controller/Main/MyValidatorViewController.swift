@@ -100,7 +100,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell?.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
             } else if (chainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 cell?.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
-            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                 cell?.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             }
             return cell!
@@ -200,7 +200,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 cell.validatorImg.image = image
             }
             
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
             cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             let url = KAVA_IMG_URL + validator.operator_address + ".png"
@@ -228,7 +228,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 cell.totalRewardLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.totalRewardLabel.font, 6, chainType!)
             }
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             if (mainTabVC.mRewardList.count > 0) {
                 cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, KAVA_MAIN_DENOM, chainType!)
             } else {
@@ -346,7 +346,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.navigationController?.pushViewController(txVC, animated: true)
             }
 
-        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             self.onShowToast(NSLocalizedString("error_kava_yet", comment: ""))
         }
         
@@ -411,7 +411,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func sortByReward() {
         if (chainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
-            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+            chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             mainTabVC.mMyValidators.sort{
                 if ($0.jailed && !$1.jailed) {
                     return false

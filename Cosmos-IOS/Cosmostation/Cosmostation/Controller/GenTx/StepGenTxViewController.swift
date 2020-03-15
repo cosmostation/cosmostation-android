@@ -62,6 +62,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mProposer: String?
     var mVoteOpinion: String?
     
+    var mKavaSendDenom: String?
+    
     
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
@@ -232,6 +234,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             url = CSS_LCD_URL_VALIDATORS
         } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_VALIDATORS
+        } else if (chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -251,7 +255,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                         }
                     }
                     self.sortByPower()
-                } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                } else if (self.chainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.chainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                             print("no validators!!")
@@ -302,7 +306,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             }
         }
     }
-    
     
     func sortByPower() {
         mToReDelegateValidators.sort{

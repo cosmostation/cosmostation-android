@@ -150,7 +150,16 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         return result
     }
     
-    
+    func getTokenCoin(_ symbol:String) -> Coin {
+        var result = Coin.init()
+        for balance in self.account_balances {
+            if (balance.balance_denom == symbol) {
+                result.amount = balance.balance_amount
+                result.denom = balance.balance_denom
+            }
+        }
+        return result
+    }
     
     
     

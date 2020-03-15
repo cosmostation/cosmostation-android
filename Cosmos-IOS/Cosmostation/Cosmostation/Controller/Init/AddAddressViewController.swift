@@ -86,7 +86,7 @@ class AddAddressViewController: BaseViewController {
             
         } else if (userInput.starts(with: "kava")) {
             if (WKey.isValidateBech32(userInput)) {
-                self.onGenWatchAccount(ChainType.SUPPORT_CHAIN_KAVA_MAIN, userInput)
+                self.onShowKavaChainSelect(userInput)
                 return;
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
@@ -134,5 +134,21 @@ class AddAddressViewController: BaseViewController {
                 }
             });
         }
+    }
+    
+    func onShowKavaChainSelect(_ input:String) {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let kavaAction = UIAlertAction(title: NSLocalizedString("chain_title_kava", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.SUPPORT_CHAIN_KAVA_MAIN, input)
+        })
+        kavaAction.setValue(UIImage(named: "kavaImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        let kavaTestAction = UIAlertAction(title: NSLocalizedString("chain_title_kava_test", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.SUPPORT_CHAIN_KAVA_TEST, input)
+        })
+        kavaTestAction.setValue(UIImage(named: "kavaTestImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        showAlert.addAction(kavaAction)
+        showAlert.addAction(kavaTestAction)
+        self.present(showAlert, animated: true, completion: nil)
     }
 }
