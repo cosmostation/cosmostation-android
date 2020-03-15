@@ -12,7 +12,7 @@ import SQLite
 let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
-let SUPPORT_KAVA_TESTNET                = true;
+let SUPPORT_KAVA_TESTNET                = false;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
 let KEY_ALL_VAL_SORT                    = "KEY_ALL_VAL_SORT"
