@@ -46,7 +46,6 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
                 BaseData.instance.setFCMToken(result.token)
             }
         }
-        
     }
     
     
