@@ -30,11 +30,49 @@
 		282FF36223F532360028CC66 /* TxVoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF36023F532360028CC66 /* TxVoteCell.xib */; };
 		282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FF36323F533AF0028CC66 /* TxUnknownCell.swift */; };
 		282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF36423F533AF0028CC66 /* TxUnknownCell.xib */; };
+		28474ECB241E06AF00AF5A81 /* TxWithDrawCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */; };
+		28474ECC241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */; };
+		28474ECD241E06AF00AF5A81 /* TxDepositCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */; };
+		28474ECE241E06AF00AF5A81 /* TxdrawDebtCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC2241E06AF00AF5A81 /* TxdrawDebtCdpCell.swift */; };
+		28474ECF241E06AF00AF5A81 /* TxRepayCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EC3241E06AF00AF5A81 /* TxRepayCdpCell.xib */; };
+		28474ED0241E06AF00AF5A81 /* TxWithDrawCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC4241E06AF00AF5A81 /* TxWithDrawCdpCell.swift */; };
+		28474ED1241E06AF00AF5A81 /* TxPostPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EC5241E06AF00AF5A81 /* TxPostPriceCell.xib */; };
+		28474ED2241E06AF00AF5A81 /* TxPostPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC6241E06AF00AF5A81 /* TxPostPriceCell.swift */; };
+		28474ED3241E06AF00AF5A81 /* TxCreateCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EC7241E06AF00AF5A81 /* TxCreateCdpCell.xib */; };
+		28474ED4241E06AF00AF5A81 /* TxCreateCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC8241E06AF00AF5A81 /* TxCreateCdpCell.swift */; };
+		28474ED5241E06AF00AF5A81 /* TxRepayCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC9241E06AF00AF5A81 /* TxRepayCdpCell.swift */; };
+		28474ED6241E06AF00AF5A81 /* TxDepositCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474ECA241E06AF00AF5A81 /* TxDepositCdpCell.xib */; };
+		28474EF2241E06E200AF5A81 /* App.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474ED7241E06E100AF5A81 /* App.codec.pb.swift */; };
+		28474EF3241E06E200AF5A81 /* Currency.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474ED8241E06E100AF5A81 /* Currency.codec.pb.swift */; };
+		28474EF4241E06E200AF5A81 /* Coin.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474ED9241E06E100AF5A81 /* Coin.codec.pb.swift */; };
+		28474EF5241E06E200AF5A81 /* Distribution.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDA241E06E100AF5A81 /* Distribution.codec.pb.swift */; };
+		28474EF6241E06E200AF5A81 /* Result.results.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDB241E06E100AF5A81 /* Result.results.pb.swift */; };
+		28474EF7241E06E200AF5A81 /* Paychan.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDC241E06E100AF5A81 /* Paychan.codec.pb.swift */; };
+		28474EF8241E06E200AF5A81 /* Account.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDD241E06E100AF5A81 /* Account.codec.pb.swift */; };
+		28474EF9241E06E200AF5A81 /* Datamigration.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDE241E06E100AF5A81 /* Datamigration.codec.pb.swift */; };
+		28474EFA241E06E200AF5A81 /* Cash.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EDF241E06E100AF5A81 /* Cash.codec.pb.swift */; };
+		28474EFB241E06E200AF5A81 /* Cron.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE0241E06E100AF5A81 /* Cron.codec.pb.swift */; };
+		28474EFC241E06E200AF5A81 /* Termdeposit.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE1241E06E100AF5A81 /* Termdeposit.codec.pb.swift */; };
+		28474EFD241E06E200AF5A81 /* Aswap.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE2241E06E100AF5A81 /* Aswap.codec.pb.swift */; };
+		28474EFE241E06E200AF5A81 /* Cmd.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE3241E06E100AF5A81 /* Cmd.codec.pb.swift */; };
+		28474EFF241E06E200AF5A81 /* Username.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE4241E06E100AF5A81 /* Username.codec.pb.swift */; };
+		28474F00241E06E200AF5A81 /* Msgfee.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE5241E06E100AF5A81 /* Msgfee.codec.pb.swift */; };
+		28474F01241E06E200AF5A81 /* Txfee.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE6241E06E100AF5A81 /* Txfee.codec.pb.swift */; };
+		28474F02241E06E200AF5A81 /* Escrow.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE7241E06E100AF5A81 /* Escrow.codec.pb.swift */; };
+		28474F03241E06E200AF5A81 /* Gov.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE8241E06E100AF5A81 /* Gov.codec.pb.swift */; };
+		28474F04241E06E200AF5A81 /* Batch.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EE9241E06E100AF5A81 /* Batch.codec.pb.swift */; };
+		28474F05241E06E200AF5A81 /* Crypto.models.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEA241E06E100AF5A81 /* Crypto.models.pb.swift */; };
+		28474F06241E06E200AF5A81 /* Orm.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEB241E06E100AF5A81 /* Orm.codec.pb.swift */; };
+		28474F07241E06E200AF5A81 /* Multisig.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEC241E06E100AF5A81 /* Multisig.codec.pb.swift */; };
+		28474F08241E06E200AF5A81 /* Sigs.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EED241E06E200AF5A81 /* Sigs.codec.pb.swift */; };
+		28474F09241E06E200AF5A81 /* Validators.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEE241E06E200AF5A81 /* Validators.codec.pb.swift */; };
+		28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */; };
+		28474F0B241E06E200AF5A81 /* Qualityscore.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */; };
+		28474F0C241E06E200AF5A81 /* Preregistraion.codec.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */; };
 		2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */; };
 		2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */; };
 		2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
-
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		BE9C8B421BF3A38F09124CC7 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC8DB1702A51A9EF8ADFDB5 /* Pods_Cosmostation.framework */; };
@@ -270,13 +308,51 @@
 		282FF36023F532360028CC66 /* TxVoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxVoteCell.xib; sourceTree = "<group>"; };
 		282FF36323F533AF0028CC66 /* TxUnknownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxUnknownCell.swift; sourceTree = "<group>"; };
 		282FF36423F533AF0028CC66 /* TxUnknownCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxUnknownCell.xib; sourceTree = "<group>"; };
+		28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxWithDrawCdpCell.xib; sourceTree = "<group>"; };
+		28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxdrawDebtCdpCell.xib; sourceTree = "<group>"; };
+		28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxDepositCdpCell.swift; sourceTree = "<group>"; };
+		28474EC2241E06AF00AF5A81 /* TxdrawDebtCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxdrawDebtCdpCell.swift; sourceTree = "<group>"; };
+		28474EC3241E06AF00AF5A81 /* TxRepayCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxRepayCdpCell.xib; sourceTree = "<group>"; };
+		28474EC4241E06AF00AF5A81 /* TxWithDrawCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxWithDrawCdpCell.swift; sourceTree = "<group>"; };
+		28474EC5241E06AF00AF5A81 /* TxPostPriceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxPostPriceCell.xib; sourceTree = "<group>"; };
+		28474EC6241E06AF00AF5A81 /* TxPostPriceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxPostPriceCell.swift; sourceTree = "<group>"; };
+		28474EC7241E06AF00AF5A81 /* TxCreateCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxCreateCdpCell.xib; sourceTree = "<group>"; };
+		28474EC8241E06AF00AF5A81 /* TxCreateCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxCreateCdpCell.swift; sourceTree = "<group>"; };
+		28474EC9241E06AF00AF5A81 /* TxRepayCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxRepayCdpCell.swift; sourceTree = "<group>"; };
+		28474ECA241E06AF00AF5A81 /* TxDepositCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxDepositCdpCell.xib; sourceTree = "<group>"; };
+		28474ED7241E06E100AF5A81 /* App.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.codec.pb.swift; sourceTree = "<group>"; };
+		28474ED8241E06E100AF5A81 /* Currency.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.codec.pb.swift; sourceTree = "<group>"; };
+		28474ED9241E06E100AF5A81 /* Coin.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coin.codec.pb.swift; sourceTree = "<group>"; };
+		28474EDA241E06E100AF5A81 /* Distribution.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Distribution.codec.pb.swift; sourceTree = "<group>"; };
+		28474EDB241E06E100AF5A81 /* Result.results.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.results.pb.swift; sourceTree = "<group>"; };
+		28474EDC241E06E100AF5A81 /* Paychan.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paychan.codec.pb.swift; sourceTree = "<group>"; };
+		28474EDD241E06E100AF5A81 /* Account.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.codec.pb.swift; sourceTree = "<group>"; };
+		28474EDE241E06E100AF5A81 /* Datamigration.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datamigration.codec.pb.swift; sourceTree = "<group>"; };
+		28474EDF241E06E100AF5A81 /* Cash.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cash.codec.pb.swift; sourceTree = "<group>"; };
+		28474EE0241E06E100AF5A81 /* Cron.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cron.codec.pb.swift; sourceTree = "<group>"; };
+		28474EE1241E06E100AF5A81 /* Termdeposit.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Termdeposit.codec.pb.swift; sourceTree = "<group>"; };
+		28474EE2241E06E100AF5A81 /* Aswap.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aswap.codec.pb.swift; sourceTree = "<group>"; };
+		28474EE3241E06E100AF5A81 /* Cmd.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cmd.codec.pb.swift; sourceTree = "<group>"; };
+		28474EE4241E06E100AF5A81 /* Username.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Username.codec.pb.swift; sourceTree = "<group>"; };
+		28474EE5241E06E100AF5A81 /* Msgfee.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Msgfee.codec.pb.swift; sourceTree = "<group>"; };
+		28474EE6241E06E100AF5A81 /* Txfee.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Txfee.codec.pb.swift; sourceTree = "<group>"; };
+		28474EE7241E06E100AF5A81 /* Escrow.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Escrow.codec.pb.swift; sourceTree = "<group>"; };
+		28474EE8241E06E100AF5A81 /* Gov.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gov.codec.pb.swift; sourceTree = "<group>"; };
+		28474EE9241E06E100AF5A81 /* Batch.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Batch.codec.pb.swift; sourceTree = "<group>"; };
+		28474EEA241E06E100AF5A81 /* Crypto.models.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.models.pb.swift; sourceTree = "<group>"; };
+		28474EEB241E06E100AF5A81 /* Orm.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orm.codec.pb.swift; sourceTree = "<group>"; };
+		28474EEC241E06E100AF5A81 /* Multisig.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Multisig.codec.pb.swift; sourceTree = "<group>"; };
+		28474EED241E06E200AF5A81 /* Sigs.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sigs.codec.pb.swift; sourceTree = "<group>"; };
+		28474EEE241E06E200AF5A81 /* Validators.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validators.codec.pb.swift; sourceTree = "<group>"; };
+		28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.codec.pb.swift; sourceTree = "<group>"; };
+		28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Qualityscore.codec.pb.swift; sourceTree = "<group>"; };
+		28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preregistraion.codec.pb.swift; sourceTree = "<group>"; };
 		2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUnbondingInfoCellTableViewCell.swift; sourceTree = "<group>"; };
 		2876AD5D240CE4A6005B33F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WalletUnbondingInfoCellTableViewCell.xib; sourceTree = "<group>"; };
 		2876AD62240CE966005B33F4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletUnbondingInfoCellTableViewCell.strings; sourceTree = "<group>"; };
 		2877B8F9240E2A0200EFE369 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TxDetailViewController.xib; sourceTree = "<group>"; };
 		2877B8FC240E2A0E00EFE369 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/TxDetailViewController.strings; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
-
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		2943718654DA7086BEF4CAC1 /* Pods-Cosmostation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.release.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.release.xcconfig"; sourceTree = "<group>"; };
@@ -547,33 +623,33 @@
 		28AE9A91241B809400872349 /* ProtoIov */ = {
 			isa = PBXGroup;
 			children = (
-				28AE9A5C241B7C1400872349 /* Account.codec.pb.swift */,
-				28AE9A5B241B7C1400872349 /* App.codec.pb.swift */,
-				28AE9A74241B7C1800872349 /* Aswap.codec.pb.swift */,
-				28AE9A6C241B7C1700872349 /* Batch.codec.pb.swift */,
-				28AE9A5E241B7C1400872349 /* Cash.codec.pb.swift */,
-				28AE9A69241B7C1600872349 /* Cmd.codec.pb.swift */,
-				28AE9A75241B7C1800872349 /* Coin.codec.pb.swift */,
-				28AE9A6F241B7C1700872349 /* Cron.codec.pb.swift */,
-				28AE9A65241B7C1600872349 /* Crypto.models.pb.swift */,
-				28AE9A6D241B7C1700872349 /* Currency.codec.pb.swift */,
-				28AE9A67241B7C1600872349 /* Datamigration.codec.pb.swift */,
-				28AE9A68241B7C1600872349 /* Distribution.codec.pb.swift */,
-				28AE9A6A241B7C1600872349 /* Escrow.codec.pb.swift */,
-				28AE9A5F241B7C1500872349 /* Gov.codec.pb.swift */,
-				28AE9A72241B7C1800872349 /* Migration.codec.pb.swift */,
-				28AE9A6B241B7C1700872349 /* Msgfee.codec.pb.swift */,
-				28AE9A61241B7C1500872349 /* Multisig.codec.pb.swift */,
-				28AE9A73241B7C1800872349 /* Orm.codec.pb.swift */,
-				28AE9A60241B7C1500872349 /* Paychan.codec.pb.swift */,
-				28AE9A64241B7C1500872349 /* Preregistraion.codec.pb.swift */,
-				28AE9A62241B7C1500872349 /* Qualityscore.codec.pb.swift */,
-				28AE9A6E241B7C1700872349 /* Result.results.pb.swift */,
-				28AE9A70241B7C1700872349 /* Sigs.codec.pb.swift */,
-				28AE9A5D241B7C1400872349 /* Termdeposit.codec.pb.swift */,
-				28AE9A66241B7C1600872349 /* Txfee.codec.pb.swift */,
-				28AE9A63241B7C1500872349 /* Username.codec.pb.swift */,
-				28AE9A71241B7C1800872349 /* Validators.codec.pb.swift */,
+				28474EDD241E06E100AF5A81 /* Account.codec.pb.swift */,
+				28474ED7241E06E100AF5A81 /* App.codec.pb.swift */,
+				28474EE2241E06E100AF5A81 /* Aswap.codec.pb.swift */,
+				28474EE9241E06E100AF5A81 /* Batch.codec.pb.swift */,
+				28474EDF241E06E100AF5A81 /* Cash.codec.pb.swift */,
+				28474EE3241E06E100AF5A81 /* Cmd.codec.pb.swift */,
+				28474ED9241E06E100AF5A81 /* Coin.codec.pb.swift */,
+				28474EE0241E06E100AF5A81 /* Cron.codec.pb.swift */,
+				28474EEA241E06E100AF5A81 /* Crypto.models.pb.swift */,
+				28474ED8241E06E100AF5A81 /* Currency.codec.pb.swift */,
+				28474EDE241E06E100AF5A81 /* Datamigration.codec.pb.swift */,
+				28474EDA241E06E100AF5A81 /* Distribution.codec.pb.swift */,
+				28474EE7241E06E100AF5A81 /* Escrow.codec.pb.swift */,
+				28474EE8241E06E100AF5A81 /* Gov.codec.pb.swift */,
+				28474EEF241E06E200AF5A81 /* Migration.codec.pb.swift */,
+				28474EE5241E06E100AF5A81 /* Msgfee.codec.pb.swift */,
+				28474EEC241E06E100AF5A81 /* Multisig.codec.pb.swift */,
+				28474EEB241E06E100AF5A81 /* Orm.codec.pb.swift */,
+				28474EDC241E06E100AF5A81 /* Paychan.codec.pb.swift */,
+				28474EF1241E06E200AF5A81 /* Preregistraion.codec.pb.swift */,
+				28474EF0241E06E200AF5A81 /* Qualityscore.codec.pb.swift */,
+				28474EDB241E06E100AF5A81 /* Result.results.pb.swift */,
+				28474EED241E06E200AF5A81 /* Sigs.codec.pb.swift */,
+				28474EE1241E06E100AF5A81 /* Termdeposit.codec.pb.swift */,
+				28474EE6241E06E100AF5A81 /* Txfee.codec.pb.swift */,
+				28474EE4241E06E100AF5A81 /* Username.codec.pb.swift */,
+				28474EEE241E06E200AF5A81 /* Validators.codec.pb.swift */,
 			);
 			path = ProtoIov;
 			sourceTree = "<group>";
@@ -966,20 +1042,20 @@
 				282FF35C23F530ED0028CC66 /* TxEditRewardAddressCell.xib */,
 				282FF35F23F532360028CC66 /* TxVoteCell.swift */,
 				282FF36023F532360028CC66 /* TxVoteCell.xib */,
-				28AE98802419F66400872349 /* TxPostPriceCell.swift */,
-				28AE98812419F66400872349 /* TxPostPriceCell.xib */,
-				28AE98842419F69C00872349 /* TxCreateCdpCell.swift */,
-				28AE98852419F69C00872349 /* TxCreateCdpCell.xib */,
-				28AE98882419F6B500872349 /* TxDepositCdpCell.swift */,
-				28AE98892419F6B500872349 /* TxDepositCdpCell.xib */,
-				28AE988C2419F6D200872349 /* TxWithDrawCdpCell.swift */,
-				28AE988D2419F6D200872349 /* TxWithDrawCdpCell.xib */,
-				28AE98902419F6F000872349 /* TxdrawDebtCdpCell.swift */,
-				28AE98912419F6F000872349 /* TxdrawDebtCdpCell.xib */,
-				28AE98942419F70700872349 /* TxRepayCdpCell.swift */,
-				28AE98952419F70700872349 /* TxRepayCdpCell.xib */,
 				282FF36323F533AF0028CC66 /* TxUnknownCell.swift */,
 				282FF36423F533AF0028CC66 /* TxUnknownCell.xib */,
+				28474EC8241E06AF00AF5A81 /* TxCreateCdpCell.swift */,
+				28474EC7241E06AF00AF5A81 /* TxCreateCdpCell.xib */,
+				28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */,
+				28474ECA241E06AF00AF5A81 /* TxDepositCdpCell.xib */,
+				28474EC2241E06AF00AF5A81 /* TxdrawDebtCdpCell.swift */,
+				28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */,
+				28474EC6241E06AF00AF5A81 /* TxPostPriceCell.swift */,
+				28474EC5241E06AF00AF5A81 /* TxPostPriceCell.xib */,
+				28474EC9241E06AF00AF5A81 /* TxRepayCdpCell.swift */,
+				28474EC3241E06AF00AF5A81 /* TxRepayCdpCell.xib */,
+				28474EC4241E06AF00AF5A81 /* TxWithDrawCdpCell.swift */,
+				28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1065,10 +1141,9 @@
 				E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */,
 				282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */,
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
-				28AE988F2419F6D200872349 /* TxWithDrawCdpCell.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
-				28AE98972419F70700872349 /* TxRepayCdpCell.xib in Resources */,
 				282FF34E23F50E010028CC66 /* TxRedelegateCell.xib in Resources */,
+				28474ED1241E06AF00AF5A81 /* TxPostPriceCell.xib in Resources */,
 				2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */,
 				282FF35A23F52FD40028CC66 /* TxRewardCell.xib in Resources */,
 				E103DAC02281296E006C2146 /* QRScanViewController.xib in Resources */,
@@ -1076,25 +1151,24 @@
 				282FF34A23F50C540028CC66 /* TxUndelegateCell.xib in Resources */,
 				E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */,
 				282FF35E23F530ED0028CC66 /* TxEditRewardAddressCell.xib in Resources */,
+				28474ED3241E06AF00AF5A81 /* TxCreateCdpCell.xib in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
-				28AE98872419F69C00872349 /* TxCreateCdpCell.xib in Resources */,
 				E1774909228523C5003D8CD1 /* GuideDetailViewController.xib in Resources */,
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */,
 				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
+				28474ECF241E06AF00AF5A81 /* TxRepayCdpCell.xib in Resources */,
 				E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
 				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
 				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
-				28AE988B2419F6B500872349 /* TxDepositCdpCell.xib in Resources */,
-				28AE98832419F66400872349 /* TxPostPriceCell.xib in Resources */,
 				282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */,
 				E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */,
+				28474ECB241E06AF00AF5A81 /* TxWithDrawCdpCell.xib in Resources */,
 				E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */,
 				E103DACE22813248006C2146 /* WalletDetailViewController.xib in Resources */,
 				282FF35223F5172E0028CC66 /* TxTransferCell.xib in Resources */,
-				28AE98932419F6F000872349 /* TxdrawDebtCdpCell.xib in Resources */,
 				E126CFA02387A643002A546F /* WalletInflationCell.xib in Resources */,
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
 				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
@@ -1111,6 +1185,7 @@
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
 				282FF36223F532360028CC66 /* TxVoteCell.xib in Resources */,
 				E126CF8C2387A50E002A546F /* WalletBnbCell.xib in Resources */,
+				28474ECC241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib in Resources */,
 				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
 				E17748F4228422BE003D8CD1 /* GuideViewController.xib in Resources */,
 				282FF35623F518E00028CC66 /* TxMultiTransferCell.xib in Resources */,
@@ -1125,6 +1200,7 @@
 				E103DAAF22812773006C2146 /* ValidatorDetailHistoryEmpty.xib in Resources */,
 				E103DAD3228143D0006C2146 /* WalletCheckViewController.xib in Resources */,
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
+				28474ED6241E06AF00AF5A81 /* TxDepositCdpCell.xib in Resources */,
 				E126CF872387A4B4002A546F /* WalletIrisCell.xib in Resources */,
 				E103DADE22814802006C2146 /* Init.storyboard in Resources */,
 				E126CF962387A5C9002A546F /* WalletIovCell.xib in Resources */,
@@ -1195,12 +1271,12 @@
 				E1827E112254C92900BC0350 /* WalletDetailViewController.swift in Sources */,
 				E1069B12229698BA007517DC /* StepChangeAddressViewController.swift in Sources */,
 				E1406FC02260643200D9440C /* BlockInfo.swift in Sources */,
-				28AE9A89241B7C1800872349 /* Result.results.pb.swift in Sources */,
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
+				28474F07241E06E200AF5A81 /* Multisig.codec.pb.swift in Sources */,
 				2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */,
+				28474EF7241E06E200AF5A81 /* Paychan.codec.pb.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
-				28AE9A8A241B7C1800872349 /* Cron.codec.pb.swift in Sources */,
 				E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */,
 				282FF34923F50C540028CC66 /* TxUndelegateCell.swift in Sources */,
 				E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */,
@@ -1209,36 +1285,38 @@
 				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
 				E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
+				28474EFE241E06E200AF5A81 /* Cmd.codec.pb.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
 				E1259AD923977B760045C8F6 /* VoteDetailViewController.swift in Sources */,
+				28474EF3241E06E200AF5A81 /* Currency.codec.pb.swift in Sources */,
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,
 				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
 				E1827E2A2256298300BC0350 /* ValidatorDetailHistoryHeader.swift in Sources */,
+				28474F04241E06E200AF5A81 /* Batch.codec.pb.swift in Sources */,
 				28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */,
-				28AE98962419F70700872349 /* TxRepayCdpCell.swift in Sources */,
+				28474ED5241E06AF00AF5A81 /* TxRepayCdpCell.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
 				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
 				E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */,
 				E16D9B1B2248D1370019B7BB /* BoarderLabel.swift in Sources */,
-				28AE9A84241B7C1800872349 /* Cmd.codec.pb.swift in Sources */,
 				E151B64F22485B3B0026B8C0 /* Result.swift in Sources */,
 				E16D9B24224A083E0019B7BB /* KeyboardViewController.swift in Sources */,
 				E183EF1F22A75DFC003B3580 /* ReInvestAmountViewController.swift in Sources */,
-				28AE9A87241B7C1800872349 /* Batch.codec.pb.swift in Sources */,
 				E151B63F22484A710026B8C0 /* InOutPut.swift in Sources */,
 				E1FD2320233E1B8E009327FE /* WalletAddressCell.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */,
 				E1F1CF0C239F7D8D004EF8A2 /* VoteCheckViewController.swift in Sources */,
-				28AE9A7B241B7C1800872349 /* Paychan.codec.pb.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
+				28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */,
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
-				28AE9A82241B7C1800872349 /* Datamigration.codec.pb.swift in Sources */,
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
-				28AE9A7E241B7C1800872349 /* Username.codec.pb.swift in Sources */,
+				28474EFF241E06E200AF5A81 /* Username.codec.pb.swift in Sources */,
 				2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */,
+				28474EF4241E06E200AF5A81 /* Coin.codec.pb.swift in Sources */,
+				28474F05241E06E200AF5A81 /* Crypto.models.pb.swift in Sources */,
 				E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */,
 				E1774908228523C5003D8CD1 /* GuideDetailViewController.swift in Sources */,
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
@@ -1246,18 +1324,19 @@
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
 				E151B64B224859E10026B8C0 /* StdSignMsg.swift in Sources */,
 				E191A57D237902C5002577BC /* WalletKavaCell.swift in Sources */,
+				28474F09241E06E200AF5A81 /* Validators.codec.pb.swift in Sources */,
 				E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
+				28474ED2241E06AF00AF5A81 /* TxPostPriceCell.swift in Sources */,
 				E1F7F63623436B71000E597F /* BnbHistory.swift in Sources */,
 				E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */,
-				28AE9A8C241B7C1800872349 /* Validators.codec.pb.swift in Sources */,
 				282FF34123F4FFD20028CC66 /* TxCommissionCell.swift in Sources */,
-				28AE9A81241B7C1800872349 /* Txfee.codec.pb.swift in Sources */,
+				28474ECE241E06AF00AF5A81 /* TxdrawDebtCdpCell.swift in Sources */,
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
+				28474F03241E06E200AF5A81 /* Gov.codec.pb.swift in Sources */,
 				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
-				28AE9A8E241B7C1800872349 /* Orm.codec.pb.swift in Sources */,
 				E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */,
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
@@ -1267,66 +1346,62 @@
 				E1FD2328233E1BC4009327FE /* WalletIrisCell.swift in Sources */,
 				E151B647224850040026B8C0 /* Msg.swift in Sources */,
 				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
+				28474F08241E06E200AF5A81 /* Sigs.codec.pb.swift in Sources */,
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
 				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
 				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
 				282FF35923F52FD40028CC66 /* TxRewardCell.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
 				E1A699582366D424004CA274 /* IovBalanceInfo.swift in Sources */,
+				28474EFB241E06E200AF5A81 /* Cron.codec.pb.swift in Sources */,
 				E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */,
+				28474EFA241E06E200AF5A81 /* Cash.codec.pb.swift in Sources */,
 				E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */,
 				E1F1CF08239F5737004EF8A2 /* IrisVote.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
-				28AE98862419F69C00872349 /* TxCreateCdpCell.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
 				E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */,
 				E1FD2338233E1C30009327FE /* WalletInflationCell.swift in Sources */,
-				28AE9A90241B7C1800872349 /* Coin.codec.pb.swift in Sources */,
 				E171A073225B08CE00C5756C /* StepDelegateCheckViewController.swift in Sources */,
 				E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */,
 				E10492132347B41000A2980F /* WalletConnectViewController.swift in Sources */,
 				282FF34D23F50E010028CC66 /* TxRedelegateCell.swift in Sources */,
 				E1FD233C233E1C44009327FE /* WalletGuideCell.swift in Sources */,
-				28AE9A7F241B7C1800872349 /* Preregistraion.codec.pb.swift in Sources */,
-				28AE9A8B241B7C1800872349 /* Sigs.codec.pb.swift in Sources */,
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
 				282FF35D23F530ED0028CC66 /* TxEditRewardAddressCell.swift in Sources */,
-				28AE98922419F6F000872349 /* TxdrawDebtCdpCell.swift in Sources */,
 				E1406FC62260860E00D9440C /* StepUndelegateAmountViewController.swift in Sources */,
-				28AE9A83241B7C1800872349 /* Distribution.codec.pb.swift in Sources */,
 				E1827E18225620D000BC0350 /* VaildatorDetailViewController.swift in Sources */,
 				E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */,
+				28474F06241E06E200AF5A81 /* Orm.codec.pb.swift in Sources */,
 				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,
 				E1FD2334233E1C16009327FE /* WalletPriceCell.swift in Sources */,
-				28AE9A77241B7C1800872349 /* Account.codec.pb.swift in Sources */,
 				E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,
-				28AE988A2419F6B500872349 /* TxDepositCdpCell.swift in Sources */,
 				E13171442260215E00EE5AD0 /* GenTxResultViewController.swift in Sources */,
 				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,
 				282FF36123F532360028CC66 /* TxVoteCell.swift in Sources */,
 				282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */,
+				28474EF8241E06E200AF5A81 /* Account.codec.pb.swift in Sources */,
 				E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */,
 				E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */,
 				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
-				28AE9A7C241B7C1800872349 /* Multisig.codec.pb.swift in Sources */,
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
 				E17B213123470222001743D6 /* TokenDetailViewController.swift in Sources */,
-				28AE9A78241B7C1800872349 /* Termdeposit.codec.pb.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
 				E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */,
 				E17748F3228422BE003D8CD1 /* GuideViewController.swift in Sources */,
-				28AE9A85241B7C1800872349 /* Escrow.codec.pb.swift in Sources */,
 				E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */,
 				E1827E212256292900BC0350 /* ValidatorDetailMyActionCell.swift in Sources */,
 				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
+				28474ED0241E06AF00AF5A81 /* TxWithDrawCdpCell.swift in Sources */,
 				E1827E252256293900BC0350 /* ValidatorDetailCell.swift in Sources */,
 				E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */,
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
 				E14F7FB6227ADAA300FDDC75 /* QRScanViewController.swift in Sources */,
+				28474F01241E06E200AF5A81 /* Txfee.codec.pb.swift in Sources */,
 				E19A32232254A61E00A05E41 /* WalletManageViewController.swift in Sources */,
 				E171A071225B08C100C5756C /* StepFeeViewController.swift in Sources */,
 				E1F7F634234311F8000E597F /* BnbToken.swift in Sources */,
@@ -1335,56 +1410,57 @@
 				E1133900235D95FD0011B61D /* AccountSelectViewController.swift in Sources */,
 				E1F1CF0A239F7D7D004EF8A2 /* VoteSelectViewController.swift in Sources */,
 				E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */,
+				28474EF9241E06E200AF5A81 /* Datamigration.codec.pb.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,
 				E17B213C23470932001743D6 /* TokenDetailHeaderCosmosCell.swift in Sources */,
 				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
 				E191A5812379091A002577BC /* TokenDetailHeaderKavaCell.swift in Sources */,
-				28AE98822419F66400872349 /* TxPostPriceCell.swift in Sources */,
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
-				28AE9A79241B7C1800872349 /* Cash.codec.pb.swift in Sources */,
 				E16FACB12361ADFA00372052 /* Bytes.swift in Sources */,
 				E1F1CF06239F53C5004EF8A2 /* IrisProposal.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
+				28474EFD241E06E200AF5A81 /* Aswap.codec.pb.swift in Sources */,
 				E1C3C89B23B1E3E400A693C0 /* NotificationView.swift in Sources */,
+				28474F02241E06E200AF5A81 /* Escrow.codec.pb.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
+				28474ED4241E06AF00AF5A81 /* TxCreateCdpCell.swift in Sources */,
 				E148A38F22F01DEF00A56A3F /* IrisRewards.swift in Sources */,
 				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,
 				E10492152347C5D900A2980F /* WalletConnectImageView.swift in Sources */,
 				E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */,
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
+				28474F00241E06E200AF5A81 /* Msgfee.codec.pb.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
-				28AE9A76241B7C1800872349 /* App.codec.pb.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
-				28AE988E2419F6D200872349 /* TxWithDrawCdpCell.swift in Sources */,
 				E14FDC842373C52C00095C06 /* KavaAccountInfo.swift in Sources */,
 				E1CF42F023598AFE00907F45 /* ManageChainCell.swift in Sources */,
 				E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */,
-				28AE9A86241B7C1800872349 /* Msgfee.codec.pb.swift in Sources */,
 				E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
-				28AE9A7D241B7C1800872349 /* Qualityscore.codec.pb.swift in Sources */,
+				28474F0C241E06E200AF5A81 /* Preregistraion.codec.pb.swift in Sources */,
 				E17B214823470960001743D6 /* TokenDetailHeaderCustomCell.swift in Sources */,
 				2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */,
-				28AE9A8F241B7C1800872349 /* Aswap.codec.pb.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
-				28AE9A80241B7C1800872349 /* Crypto.models.pb.swift in Sources */,
 				E1A6995B2366E8CC004CA274 /* WalletIovCell.swift in Sources */,
+				28474F0B241E06E200AF5A81 /* Qualityscore.codec.pb.swift in Sources */,
+				28474EF5241E06E200AF5A81 /* Distribution.codec.pb.swift in Sources */,
+				28474EF6241E06E200AF5A81 /* Result.results.pb.swift in Sources */,
 				E1F7F63223421394000E597F /* IrisToken.swift in Sources */,
-				28AE9A7A241B7C1800872349 /* Gov.codec.pb.swift in Sources */,
 				E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
+				28474ECD241E06AF00AF5A81 /* TxDepositCdpCell.swift in Sources */,
 				E151B651224867D60026B8C0 /* Proposal.swift in Sources */,
 				E1A82DD5224223250097CAEE /* Balance.swift in Sources */,
 				282FF35523F518E00028CC66 /* TxMultiTransferCell.swift in Sources */,
 				E1317142225F352A00EE5AD0 /* PostTx.swift in Sources */,
 				E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */,
 				E1A82DD1224220910097CAEE /* Account.swift in Sources */,
-				28AE9A8D241B7C1800872349 /* Migration.codec.pb.swift in Sources */,
+				28474EFC241E06E200AF5A81 /* Termdeposit.codec.pb.swift in Sources */,
 				E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */,
 				E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */,
-				28AE9A88241B7C1800872349 /* Currency.codec.pb.swift in Sources */,
+				28474EF2241E06E200AF5A81 /* App.codec.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
