@@ -26,10 +26,6 @@ class WalletIovCell: UITableViewCell {
     
     var actionDeposit: (() -> Void)? = nil
     var actionNameService: (() -> Void)? = nil
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     @IBAction func onClickDeposite(_ sender: UIButton) {
         actionDeposit?()

@@ -84,6 +84,19 @@ class StepFeeViewController: BaseViewController {
             self.minFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 0, 8)
             self.minFeePriceLabel.attributedText  = WUtils.dpBnbValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
             
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            self.minFeeCardView.isHidden = false
+            self.rateFeeCardView.isHidden = true
+            
+            self.feeSlider.isHidden = true
+            self.feesLabels.isHidden = true
+            
+            self.speedImg.image = UIImage.init(named: "feeImg")
+            self.speedMsg.text = NSLocalizedString("fee_speed_iov_title", comment: "")
+            
+            feeAmount = WUtils.stringToDecimalNoLocale(GAS_FEE_IOV_TRANSFER)
+            self.minFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 0, 9)
+            self.minFeePriceLabel.attributedText  = WUtils.dpValue(NSDecimalNumber.zero, minFeePriceLabel.font)
         }
         
     }
@@ -289,6 +302,23 @@ class StepFeeViewController: BaseViewController {
                 self.nextBtn.isUserInteractionEnabled = false
                 pageHolderVC.onNextPage()
             }
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            //TODO NOTICE NO need Fee set!!;
+            feeCoin = Coin.init(IOV_MAIN_DENOM, feeAmount.stringValue)
+            var fee = Fee.init()
+            let estGas = getEstimateGasAmount().stringValue
+            fee.gas = estGas
+            
+            var estAmount: Array<Coin> = Array<Coin>()
+            estAmount.append(feeCoin)
+            fee.amount = estAmount
+            
+            pageHolderVC.mFee = fee
+            
+            self.beforeBtn.isUserInteractionEnabled = false
+            self.nextBtn.isUserInteractionEnabled = false
+            pageHolderVC.onNextPage()
+            
         }
     }
     

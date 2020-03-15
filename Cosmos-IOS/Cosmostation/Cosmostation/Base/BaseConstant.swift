@@ -36,7 +36,9 @@ let BNB_URL                             = "https://dex.binance.org/";
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
 let KAVA_TEST_URL                       = "https://lcd-kava-testnet.cosmostation.io/";
 let KAVA_TEST_API                       = "https://api-kava-testnet.cosmostation.io/";
-let IOV_URL                             = "https://rest-iov.cosmostation.io/";
+let IOV_URL                             = "https://rest-iov.cosmostation.io/";              // deprecated
+let IOV_REST_URL                        = "https://bnsapi.cluster-mainnet.iov.one/";        // same refer as"https://bnsapi.iov.one"
+let IOV_RPC_URL                         = "http://15.164.33.139:16657/";                    // need for https
 let CSS_ES_PROXY_URL                    = "https://app-es.cosmostation.io/";
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
@@ -140,7 +142,7 @@ let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "/v1/account/transfer_
 let IOV_URL_BALANCE                     = IOV_URL + "account/address/balance/";
 let IOV_URL_NONCE                       = IOV_URL + "account/address/nonce/";
 let IOV_URL_ADDRESS_INFO                = IOV_URL + "account/address/";
-
+let IOV_REST_URL_BALANCE                = IOV_REST_URL + "cash/balances";
 
 
 
@@ -290,6 +292,9 @@ let KAVA_MSG_TYPE_DRAWDEBT_CDP              = "cdp/MsgDrawDebt";
 let KAVA_MSG_TYPE_REPAYDEBT_CDP             = "cdp/MsgRepayDebt";
 
 
+let IOV_MSG_TYPE_TRANSFER                  = "iov_transfer";
+
+
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
 let PASSWORD_ACTION_DELETE_ACCOUNT          = "ACTION_DELETE_ACCOUNT"
@@ -359,6 +364,9 @@ let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
 let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "250000"
 let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "300000"
 let KAVA_GAS_FEE_AMOUNT_REINVEST            = "300000"
+
+
+let GAS_FEE_IOV_TRANSFER                    = "0.500000000"
 
 
 let COLOR_BG_GRAY                           = UIColor.init(hexString: "2E2E2E", alpha: 0.4)

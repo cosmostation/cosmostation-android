@@ -631,16 +631,38 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
+            let totalIov = WUtils.getTokenAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.totalAmount.font, 0, 6)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(totalIov.stringValue, cell!.availableAmount.font, 0, 6)
+            //TODO deposit, rewardand value not support yet
+            cell?.depositedAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.depositedAmount.font, 0, 6)
+            cell?.rewardAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.rewardAmount.font, 0, 6)
+            cell?.totalValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.totalValue.font)
+            cell?.actionDeposit = {
+                self.onClickIovDeposit()
+            }
+            cell?.actionNameService = {
+                self.onClickIovNameservice()
+            }
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalIov.stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            cell?.updownImg.image = nil
+            cell?.perPrice.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.perPrice.font)
+            cell?.updownPercent.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.updownPercent.font)
+            cell?.buySeparator.isHidden = true
+            cell?.buyBtn.isHidden = true
+            cell?.buyConstraint.priority = .defaultLow
+            cell?.noBuyConstraint.priority = .defaultHigh
+            cell?.actionTapPricel = { }
             return cell!
             
         } else {
             let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
             cell?.guideImg.image = UIImage(named: "iovmainImg")
-            
             cell?.guideTitle.text = NSLocalizedString("send_guide_title_iov", comment: "")
             cell?.guideMsg.text = NSLocalizedString("send_guide_msg_iov", comment: "")
             cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iov", comment: ""), for: .normal)
@@ -761,6 +783,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         self.onStartQrCode()
+    }
+    
+    func onClickIovDeposit() {
+        self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+    }
+    
+    func onClickIovNameservice() {
+        self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
     }
     
     func onClickGuide1() {
@@ -987,6 +1017,16 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             txVC.mKavaSendDenom = KAVA_MAIN_DENOM
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.5")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mIovSendDenom = IOV_MAIN_DENOM
+            txVC.mType = IOV_MSG_TYPE_TRANSFER
+        } else {
+            return
         }
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

@@ -166,6 +166,21 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 WUtils.showCoinDp(toSendDenom, currentAva.subtracting(toSendAmount).stringValue, mRemainBalanceTitle, mReminaingAvailable, pageHolderVC.chainType!)
                 
             }
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+            mDpDecimal = 9
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, mDpDecimal)
+            if (toSendDenom == IOV_MAIN_DENOM) {
+                currentAva = pageHolderVC.mAccount!.getIovBalance()
+                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, mDpDecimal)
+                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 0, mDpDecimal)
+                
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, mDpDecimal)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, mDpDecimal)
+                
+                mTotalSpendPrice.attributedText = WUtils.dpValue(NSDecimalNumber.zero, mTotalSpendPrice.font)
+                mReminaingPrice.attributedText = WUtils.dpValue(NSDecimalNumber.zero, mReminaingPrice.font)
+            } else {}
+            
         }
         
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
@@ -179,7 +194,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
                 pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN ||
                 pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+                pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
             } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
                 self.onGenBnbSendTx()
@@ -198,7 +214,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
-            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
+            //TODO check nonce for sign
+            self.onGenSendTx()
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in

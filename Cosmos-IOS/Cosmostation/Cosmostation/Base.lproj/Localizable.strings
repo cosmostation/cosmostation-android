@@ -86,6 +86,7 @@
 "fee_speed_iris_title" = "Support fixed amount fee for Iris.\nIris Hub will refund the remaining gas fee after use.";
 "fee_speed_bnb_title" = "Support fixed transfer fee for Bianace Chain";
 "fee_speed_kava_title" = "Support fixed transfer fee for KAVA now";
+"fee_speed_iov_title" = "Support fixed amount fee for IOV.";
 "fee_description_title_0" = "Tx fee 0.000001 ATOM";
 "fee_description_title_1" = "Tx fee rate 0.0025";
 "fee_description_title_2" = "Tx fee rate 0.025";
@@ -251,6 +252,7 @@
 "error_no_bonding_no_vote" = "This proposal can only vote on delegators.";
 "error_already_vote" = "Already voted.";
 "error_no_opinion" = "Please select your opinion.";
+"error_not_yet" = "Comming soon!";
 
 "alert_title_no_private_key" = "No Private Key";
 "alert_msg_no_private_key" = "This account has only address with watch mode.\nYou need add mnemonics for generate transaction.";

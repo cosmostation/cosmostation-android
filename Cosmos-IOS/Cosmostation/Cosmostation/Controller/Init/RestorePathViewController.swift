@@ -158,24 +158,24 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                     
                 } else if (self.userChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(IOV_URL_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let info = res as? [String : Any] else {
-                                return
-                            }
-                            let iovBalanceInfo = IovBalanceInfo.init(info)
-                            for iovBalance in iovBalanceInfo.balance {
-                                if (iovBalance.tokenTicker == IOV_MAIN_DENOM) {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(iovBalance.quantity, cell!.denomAmount.font!, 9, 6)
-                                }
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
+//                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
+//                    let request = Alamofire.request(IOV_URL_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+//                    request.responseJSON { (response) in
+//                        switch response.result {
+//                        case .success(let res):
+//                            guard let info = res as? [String : Any] else {
+//                                return
+//                            }
+//                            let iovBalanceInfo = IovBalanceInfo.init(info)
+//                            for iovBalance in iovBalanceInfo.balance {
+//                                if (iovBalance.tokenTicker == IOV_MAIN_DENOM) {
+//                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(iovBalance.quantity, cell!.denomAmount.font!, 9, 6)
+//                                }
+//                            }
+//                        case .failure(let error):
+//                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+//                        }
+//                    }
                 } else if (self.userChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
                     let request = Alamofire.request(KAVA_TEST_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
