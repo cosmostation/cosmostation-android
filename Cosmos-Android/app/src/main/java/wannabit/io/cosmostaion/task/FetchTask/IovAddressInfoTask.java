@@ -23,17 +23,17 @@ public class IovAddressInfoTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        try {
-            Response<ResIovAddressInfo> response = ApiClient.getIovChain(mApp).getAddressInfo(mAccount.address).execute();
-            if(response.isSuccessful()) {
-                mResult.isSuccess = true;
-                mResult.resultData = response.body();
-
-            }
-
-        } catch (Exception e) {
-            WLog.w("IovNonceTask Error " + e.getMessage());
-        }
+//        try {
+//            Response<ResIovAddressInfo> response = ApiClient.getIovChain(mApp).getAddressInfo(mAccount.address).execute();
+//            if(response.isSuccessful()) {
+//                mResult.isSuccess = true;
+//                mResult.resultData = response.body();
+//
+//            }
+//
+//        } catch (Exception e) {
+//            WLog.w("IovNonceTask Error " + e.getMessage());
+//        }
         return mResult;
     }
 }

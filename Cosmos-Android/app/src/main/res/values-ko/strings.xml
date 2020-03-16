@@ -549,6 +549,7 @@
     <string name="error_not_voting_period">투표 기간이 아닙니다.</string>
     <string name="error_no_option">의견을 선택해 주세요.</string>
     <string name="error_no_tx">존재하지 않는 Tx입니다.</string>
+    <string name="error_not_yet">준비중 입니다!</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

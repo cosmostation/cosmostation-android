@@ -143,6 +143,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
+            mApiTxHistory.clear();
+            mEmptyHistory.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
         }
     }
 

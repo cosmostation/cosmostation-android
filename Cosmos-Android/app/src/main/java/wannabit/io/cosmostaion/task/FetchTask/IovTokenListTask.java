@@ -19,19 +19,19 @@ public class IovTokenListTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        try {
-            Response<ResIovToken> response = ApiClient.getIovChain(mApp).getTokens().execute();
-            if(response.isSuccessful() && response.body() != null) {
-                mResult.resultData = response.body().allTokens;
-                mResult.isSuccess = true;
-
-            } else {
-                WLog.w("IovTokenListTask : NOk");
-            }
-
-        } catch (Exception e) {
-            WLog.w("IovTokenListTask Error " + e.getMessage());
-        }
+//        try {
+//            Response<ResIovToken> response = ApiClient.getIovChain(mApp).getTokens().execute();
+//            if(response.isSuccessful() && response.body() != null) {
+//                mResult.resultData = response.body().allTokens;
+//                mResult.isSuccess = true;
+//
+//            } else {
+//                WLog.w("IovTokenListTask : NOk");
+//            }
+//
+//        } catch (Exception e) {
+//            WLog.w("IovTokenListTask Error " + e.getMessage());
+//        }
         return mResult;
     }
 }

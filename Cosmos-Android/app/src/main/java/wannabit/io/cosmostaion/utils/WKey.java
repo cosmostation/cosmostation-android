@@ -327,14 +327,16 @@ public class WKey {
         System.arraycopy(post, 0, data, pre.length, post.length);
 
         byte[] hash = Arrays.copyOfRange(Sha256.getSha256Digest().digest(data), 0, 20);
-        WLog.w("hash " +  WUtil.ByteArrayToHexString(hash));
+//        WLog.w("hash " +  WUtil.ByteArrayToHexString(hash));
         return getDpAddress(IOV_MAIN, WUtil.ByteArrayToHexString(hash));
     }
 
     public static ByteString getIovByteStringfromDpAddress(String address) {
         try {
             HrpAndData hrpAndData = WKey.bech32Decode(address);
+            WLog.w("data " +  WUtil.ByteArrayToHexString(hrpAndData.data));
             byte[] converted = WKey.convertBits(hrpAndData.data, 5, 8, false);
+            WLog.w("converted " +  WUtil.ByteArrayToHexString(converted));
             return ByteString.copyFrom(converted);
 
         } catch (Exception e) {

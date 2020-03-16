@@ -14,17 +14,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -50,7 +47,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.AccountDetailActivity;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -68,11 +64,9 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
-import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
 import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
-import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
@@ -86,10 +80,7 @@ import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.AllValidatorInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
-import wannabit.io.cosmostaion.task.FetchTask.IovAddressInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.IovBalanceTask;
-import wannabit.io.cosmostaion.task.FetchTask.IovNonceTask;
-import wannabit.io.cosmostaion.task.FetchTask.IovTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisPoolTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisTokenListTask;
@@ -476,9 +467,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            mTaskCount = 2;
+            mTaskCount = 1;
             new IovBalanceTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new IovTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            new IovTokenListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         }
@@ -574,11 +565,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_IOV_BALANCE) {
             mBalances = getBaseDao().onSelectBalance(mAccount.id);
-            if (result.isSuccess) {
-                mTaskCount = mTaskCount + 2;
-                new IovNonceTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                new IovAddressInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }
+//            if (result.isSuccess) {
+//                mTaskCount = mTaskCount + 2;
+//                new IovNonceTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//                new IovAddressInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_IOV_NONCE) {
 //            mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
