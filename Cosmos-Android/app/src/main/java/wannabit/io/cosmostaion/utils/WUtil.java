@@ -1088,7 +1088,7 @@ public class WUtil {
     }
 
     public static int getMaxMemoSize(BaseChain chain) {
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) || chain.equals(IOV_MAIN)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
@@ -1235,6 +1235,17 @@ public class WUtil {
             }
         }
         return null;
+    }
+
+    public static BigDecimal getQuotient(String value) {
+        BigDecimal dividend = new BigDecimal(value);
+        return dividend.divide(BigDecimal.ONE, 0, RoundingMode.DOWN);
+    }
+
+    public static BigDecimal getRemainder(String value) {
+        BigDecimal dividend = new BigDecimal(value);
+        BigDecimal quotient = dividend.divide(BigDecimal.ONE, 0, RoundingMode.DOWN);
+        return  dividend.subtract(quotient);
     }
 
 

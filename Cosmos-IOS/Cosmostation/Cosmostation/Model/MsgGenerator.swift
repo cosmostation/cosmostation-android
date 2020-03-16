@@ -258,9 +258,6 @@ class MsgGenerator {
         return stdSignedMsg
     }
     
-    
-    
-    
     static func genIovSendTx(_ nonce:Int64, _ fromAddr:String, _ toAddr:String, _ sendCoins: Array<Coin>, _ fee:Fee,  _ memo:String, _ key:WKey.Ed25519Key) -> String {
         let interPart = WUtils.getQuotient(sendCoins[0].amount)
         let decimalPart = WUtils.getRemainder(sendCoins[0].amount).multiplying(byPowerOf10: 9)
@@ -277,7 +274,7 @@ class MsgGenerator {
         
         //Set fee
         var sendFee = Coin_Coin.init()
-        sendFee.fractional = WUtils.getQuotient(GAS_FEE_IOV_TRANSFER).multiplying(byPowerOf10: 9).int64Value
+        sendFee.fractional = WUtils.getRemainder(GAS_FEE_IOV_TRANSFER).multiplying(byPowerOf10: 9).int64Value
         sendFee.ticker = IOV_MAIN_DENOM
         
         //Set FeeInfo
@@ -296,9 +293,13 @@ class MsgGenerator {
         sendMsg.metadata = metaData
         sendMsg.memo = memo
         
+        print("sendMsg \n", sendMsg)
+        
         var sendTx = Bnsd_Tx.init()
         sendTx.cashSendMsg = sendMsg
         sendTx.fees = feeInfo
+        
+        print("sendTx \n", sendTx)
         
         let inSig = getIovInSig(sendTx, nonce)
         print("inSig ", bytesConvertToHexstring(byte: inSig))
@@ -306,7 +307,25 @@ class MsgGenerator {
         print("midSig ", bytesConvertToHexstring(byte: midSig))
         let genSig = Ed25519.sign(message: midSig, secretKey: key.key)
         print("genSig ", bytesConvertToHexstring(byte: genSig))
-        return ""
+        
+        var pubKey = Crypto_PublicKey.init()
+        pubKey.ed25519 = Data(bytes: Ed25519.calcPublicKey(secretKey: key.key))
+        
+        var signature = Crypto_Signature.init()
+        signature.ed25519 = Data(genSig)
+        
+        var std_signature = Sigs_StdSignature.init()
+        std_signature.pubkey = pubKey
+        std_signature.signature = signature
+        std_signature.sequence = nonce
+        
+        sendTx.signatures = [std_signature]
+        
+        let sendTxSerial = try? sendTx.serializedData()
+        let result = "0x" + bytesConvertToHexstring(byte: sendTxSerial!.bytes)
+        print("result ", result)
+        
+        return result
     }
     
     static func getIovInSig(_ tx:Bnsd_Tx, _ nonce:Int64) -> [UInt8] {
@@ -316,6 +335,9 @@ class MsgGenerator {
         let chainSize:UInt8 = UInt8(chainB.count)
         let chainLenB = byteArray(from: chainSize)
         let txB = try? tx.serializedData().bytes
+        
+        print("txB ", bytesConvertToHexstring(byte: txB!))
+        
         return versionB + chainLenB + chainB + nonceB + txB!
     }
     

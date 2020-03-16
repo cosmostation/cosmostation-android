@@ -567,6 +567,10 @@ public class WKey {
         System.arraycopy(nonceB, 0, inSig, versionB.length + chainSize1.length + chainB.length, nonceB.length);
         System.arraycopy(txB, 0, inSig, versionB.length + chainSize1.length + chainB.length + nonceB.length, txB.length);
 
+
+
+        WLog.w("txB " + WUtil.ByteArrayToHexString(txB));
+
         return inSig;
     }
 

@@ -214,8 +214,11 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             //TODO check nonce for sign
             self.onGenIovSendTx(2)
+            return
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -464,7 +467,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             do {
-                let pKey = WKey.deriveForPath(self.pageHolderVC.mAccount!.account_path, words)
+                let path = IOV_BASE_PATH.appending(self.pageHolderVC.mAccount!.account_path).appending("'")
+                let pKey = WKey.deriveForPath(path, words)
                 let txString = MsgGenerator.genIovSendTx(nonce,
                                                          self.pageHolderVC.mAccount!.account_address,
                                                          self.pageHolderVC.mToSendRecipientAddress!,

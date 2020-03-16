@@ -78,12 +78,21 @@ public class MsgGenerator {
     //Send Tx for IOV chain
     public static String getIovTransferTx(int nonce, String fromAddr, String toAddr, ArrayList<Coin> coins , Fee fee, String memo, HdAddress dKey) {
 
+        long sendInterPart = WUtil.getQuotient(coins.get(0).amount).longValue();
+        long sendDecimalPart = WUtil.getRemainder(coins.get(0).amount).movePointRight(9).longValue();
+
         coin.Codec.Coin.Builder sendCoin = coin.Codec.Coin.newBuilder();
-        sendCoin.setFractional(Long.parseLong(coins.get(0).amount));
+        if (sendInterPart >= 0) {
+            sendCoin.setWhole(sendInterPart);
+        }
+        if (sendDecimalPart >= 0) {
+            sendCoin.setFractional(sendDecimalPart);
+        }
         sendCoin.setTicker(COSMOS_IOV);
 
+        long feeDecimalPart = WUtil.getRemainder(fee.amount.get(0).amount).movePointRight(9).longValue();
         coin.Codec.Coin.Builder sendFee = coin.Codec.Coin.newBuilder();
-        sendFee.setFractional(Long.parseLong(fee.amount.get(0).amount));
+        sendFee.setFractional(feeDecimalPart);
         sendFee.setTicker(COSMOS_IOV);
 
         cash.Codec.FeeInfo.Builder sendFeeInfo = cash.Codec.FeeInfo.newBuilder();
@@ -100,15 +109,21 @@ public class MsgGenerator {
         sendMsg.setMetadata(metaData.build());
         sendMsg.setMemo(memo);
 
+        WLog.w("sendMsg \n" + sendMsg.toString());
+
         bnsd.Codec.Tx.Builder sendTx = bnsd.Codec.Tx.newBuilder();
         sendTx.setCashSendMsg(sendMsg);
         sendTx.setFees(sendFeeInfo.build());
 
+        WLog.w("sendTx \n" + sendTx.toString());
+
         try {
             byte[] inSig = WKey.getIovInSig(sendTx.build(), nonce);
+            WLog.w("inSig " + WUtil.ByteArrayToHexString(inSig));
 
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
             byte[] midSig = digest.digest(inSig);
+            WLog.w("midSig " + WUtil.ByteArrayToHexString(midSig));
 
             EdDSAParameterSpec spec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519);
             java.security.Signature sgr = new EdDSAEngine(MessageDigest.getInstance(spec.getHashAlgorithm()));
@@ -118,9 +133,11 @@ public class MsgGenerator {
             sgr.initSign(sKey);
             sgr.update(midSig);
             byte[] genSig = sgr.sign();
+            WLog.w("genSig " + WUtil.ByteArrayToHexString(genSig));
 
             crypto.Models.PublicKey.Builder pubKey = crypto.Models.PublicKey.newBuilder();
             pubKey.setEd25519(ByteString.copyFrom(Arrays.copyOfRange(dKey.getPublicKey().getPublicKey(), 1, dKey.getPublicKey().getPublicKey().length)));
+            WLog.w("pubkey " + WUtil.ByteArrayToHexString(Arrays.copyOfRange(dKey.getPublicKey().getPublicKey(), 1, dKey.getPublicKey().getPublicKey().length)));
 
             crypto.Models.Signature.Builder signature = crypto.Models.Signature.newBuilder();
             signature.setEd25519(ByteString.copyFrom(genSig));
@@ -132,6 +149,8 @@ public class MsgGenerator {
 
             sendTx.addSignatures(stdSignature);
             bnsd.Codec.Tx resultTx = sendTx.build();
+
+            WLog.w("result " + "0x" + WUtil.ByteArrayToHexString(resultTx.toByteArray()));
 
             return "0x" + WUtil.ByteArrayToHexString(resultTx.toByteArray());
 
