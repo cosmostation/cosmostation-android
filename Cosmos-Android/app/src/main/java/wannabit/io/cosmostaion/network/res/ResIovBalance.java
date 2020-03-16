@@ -6,15 +6,20 @@ import java.util.ArrayList;
 
 public class ResIovBalance {
 
-    public String address;
+    @SerializedName("coins")
+    public ArrayList<IovCoin> coins;
 
-    @SerializedName("balance")
-    public ArrayList<IovBalance> balance;
+    public static class IovCoin {
+        public int whole = 0;
+        public int fractional = 0;
+        public String ticker;
 
-    public static class IovBalance {
-        public String quantity;
-        public int fractionalDigits;
-        public String tokenTicker;
+        public String getDpAmount(String denom) {
+            if (denom.equals(ticker)) {
+                return "" + whole + "." + fractional;
+            }
+            return "0";
+        }
 
     }
 }

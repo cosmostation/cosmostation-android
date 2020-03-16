@@ -35,7 +35,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
-import wannabit.io.cosmostaion.dialog.Dialog_Kava_Testnet;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
@@ -44,6 +43,7 @@ import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -201,6 +201,21 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
+
+
+
+//        byte[] chainB = IOV_MAIN.getChain().getBytes(Charset.forName("UTF-8"));
+//        byte[] versionB = new byte[] {(byte)0, (byte)0xCA, (byte)0xFE, (byte)0 };
+//        byte[] nonceB = ByteBuffer.allocate(Long.BYTES).putLong(2).array();
+//        WLog.w("chainB " +  WUtil.ByteArrayToHexString(chainB));
+//        WLog.w("versionB " +  WUtil.ByteArrayToHexString(versionB));
+//        WLog.w("nonceB " +  WUtil.ByteArrayToHexString(nonceB));
+//
+//
+//        byte[] chainSize4 = ByteBuffer.allocate(Integer.BYTES).putInt(chainB.length).array();
+//        byte[] chainSize1 = Arrays.copyOfRange(chainSize4,chainSize4.length-1, chainSize4.length);
+//        WLog.w("chainSize4 " +  WUtil.ByteArrayToHexString(chainSize4));
+//        WLog.w("chainSize1 " +  WUtil.ByteArrayToHexString(chainSize1));
     }
 
     @Override
@@ -357,10 +372,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             intent.putExtra("bnbToken", WUtil.getBnbMainToken(mBnbTokens));
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            if (WDp.getAvailableCoin(balances, COSMOS_IOV).compareTo(new BigDecimal("500000000")) > 0) {
+            if (WDp.getAvailableCoin(balances, COSMOS_IOV).compareTo(new BigDecimal("0.5")) > 0) {
                 hasbalance  = true;
             }
-            intent.putExtra("iovToken", WUtil.getIovMainToken(mIovTokens));
+            intent.putExtra("iovDenom", COSMOS_IOV);
+//            intent.putExtra("iovToken", WUtil.getIovMainToken(mIovTokens));
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (WDp.getAvailableCoin(balances, COSMOS_KAVA).compareTo(BigDecimal.ONE) > 0) {

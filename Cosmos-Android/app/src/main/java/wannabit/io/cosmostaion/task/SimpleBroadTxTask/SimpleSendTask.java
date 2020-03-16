@@ -68,6 +68,7 @@ public class SimpleSendTask extends CommonTask {
                 return mResult;
             }
 
+            int iovNonce = 0;
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!accountResponse.isSuccessful()) {
@@ -108,14 +109,16 @@ public class SimpleSendTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body()));
                 mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_MAIN)) {
+                iovNonce = 2;
             }
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
 
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.IOV_MAIN)) {
                 HdAddress dKey = WKey.getEd25519KeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path));
-
-//                String toSendReq = MsgGenerator.getIovTransferTx
+                String toSendReq = MsgGenerator.getIovTransferTx(iovNonce, mAccount.address, mToAddress, mToSendAmount, mToFees, mToSendMemo, dKey);
+                WLog.w("toSendReq " + toSendReq);
 
             } else {
                 DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);

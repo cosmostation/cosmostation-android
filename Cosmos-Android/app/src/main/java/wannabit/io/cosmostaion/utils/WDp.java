@@ -126,6 +126,16 @@ public class WDp {
                 denomTv.setText(symbol.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
+
+        } else if (chain.equals(BaseChain.IOV_MAIN)) {
+            if (symbol.equals(COSMOS_IOV)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 9));
         }
     }
 

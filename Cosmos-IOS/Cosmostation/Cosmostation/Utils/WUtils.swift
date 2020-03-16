@@ -190,8 +190,8 @@ class WUtils {
     
     static func getBalancesWithIov(_ account: Account, _ balanceInfo: IovBalanceInfo) -> Array<Balance> {
         var result = Array<Balance>()
-        for iovBalance in balanceInfo.balance {
-            result.append(Balance.init( account.account_id, iovBalance.tokenTicker, iovBalance.quantity, Date().millisecondsSince1970))
+        for iovCoin in balanceInfo.coins {
+            result.append(Balance.init(account.account_id, iovCoin.ticker, iovCoin.getDpAmount(iovCoin.ticker), Date().millisecondsSince1970))
         }
         return result;
     }
@@ -1566,9 +1566,16 @@ class WUtils {
         return 100;
     }
     
+    static func getQuotient(_ value:String) -> NSDecimalNumber {
+        let dividend = WUtils.stringToDecimal(value)
+        return dividend.dividing(by: NSDecimalNumber.one, withBehavior: getDivideHandler(0))
+    }
     
-    
-    
+    static func getRemainder(_ value:String) -> NSDecimalNumber {
+        let dividend = WUtils.stringToDecimal(value)
+        let quotient = dividend.dividing(by: NSDecimalNumber.one, withBehavior: getDivideHandler(0))
+        return dividend.subtracting(quotient)
+    }
     
     
     static func getMyIrisVote(_ votes: Array<IrisVote>, _ address: String) -> IrisVote? {

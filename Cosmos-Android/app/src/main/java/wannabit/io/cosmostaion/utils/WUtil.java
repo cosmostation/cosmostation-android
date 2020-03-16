@@ -60,6 +60,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdProposalVoted;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
@@ -334,12 +335,12 @@ public class WUtil {
     public static ArrayList<Balance> getIovBalances(long accountId, ResIovBalance rest) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
-        if (rest.balance != null && rest.balance.size() > 0) {
-            for(ResIovBalance.IovBalance coin : rest.balance) {
+        if (rest.coins != null && rest.coins.size() > 0) {
+            for(ResIovBalance.IovCoin coin : rest.coins) {
                 Balance temp = new Balance();
                 temp.accountId = accountId;
-                temp.symbol = coin.tokenTicker;
-                temp.balance = new BigDecimal(coin.quantity);
+                temp.symbol = coin.ticker;
+                temp.balance = new BigDecimal(coin.getDpAmount(coin.ticker));
                 temp.fetchTime = time;
                 result.add(temp);
             }
@@ -901,6 +902,11 @@ public class WUtil {
                 } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
                     if(o1.symbol.equals(COSMOS_KAVA)) return -1;
                     if(o2.symbol.equals(COSMOS_KAVA)) return 1;
+                    return o2.balance.movePointLeft(WUtil.getKavaCoinDecimal(o2.symbol)).compareTo(o1.balance.movePointLeft(WUtil.getKavaCoinDecimal(o1.symbol)));
+
+                } else if (chain.equals(IOV_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_IOV)) return -1;
+                    if(o2.symbol.equals(COSMOS_IOV)) return 1;
 
                 }
                 return o2.balance.compareTo(o1.balance);
@@ -928,6 +934,10 @@ public class WUtil {
                     if(o1.symbol.equals(COSMOS_KAVA)) return -1;
                     if(o2.symbol.equals(COSMOS_KAVA)) return 1;
 
+                } else if (chain.equals(IOV_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_IOV)) return -1;
+                    if(o2.symbol.equals(COSMOS_IOV)) return 1;
+
                 }
                 return o1.symbol.compareTo(o2.symbol);
             }
@@ -950,21 +960,28 @@ public class WUtil {
                     if(o1.symbol.equals(COSMOS_BNB)) return -1;
                     if(o2.symbol.equals(COSMOS_BNB)) return 1;
 
+                    ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
+                    ResBnbTic tic2 = tics.get(WUtil.getBnbTicSymbol(o2.symbol));
+                    if (tic1 != null && tic2 != null) {
+                        BigDecimal o1Amount = o1.exchangeToBnbAmount(tic1);
+                        BigDecimal o2Amount = o2.exchangeToBnbAmount(tic2);
+                        return o2Amount.compareTo(o1Amount);
+                    } else {
+                        return 0;
+                    }
+
                 } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
                     if(o1.symbol.equals(COSMOS_KAVA)) return -1;
                     if(o2.symbol.equals(COSMOS_KAVA)) return 1;
 
-                }
+                } else if (chain.equals(IOV_MAIN)) {
+                    if(o1.symbol.equals(COSMOS_IOV)) return -1;
+                    if(o2.symbol.equals(COSMOS_IOV)) return 1;
 
-                ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
-                ResBnbTic tic2 = tics.get(WUtil.getBnbTicSymbol(o2.symbol));
-                if (tic1 != null && tic2 != null) {
-                    BigDecimal o1Amount = o1.exchangeToBnbAmount(tic1);
-                    BigDecimal o2Amount = o2.exchangeToBnbAmount(tic2);
-                    return o2Amount.compareTo(o1Amount);
-                } else {
-                    return 0;
                 }
+                return 0;
+
+
             }
         });
     }
@@ -1071,7 +1088,7 @@ public class WUtil {
     }
 
     public static int getMaxMemoSize(BaseChain chain) {
-        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+        if (chain.equals(BaseChain.COSMOS_MAIN) || chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST) || chain.equals(IOV_MAIN)) {
             return BaseConstant.MEMO_ATOM;
 
         } else if (chain.equals(BaseChain.IRIS_MAIN)) {
@@ -1218,6 +1235,17 @@ public class WUtil {
             }
         }
         return null;
+    }
+
+    public static BigDecimal getQuotient(String value) {
+        BigDecimal dividend = new BigDecimal(value);
+        return dividend.divide(BigDecimal.ONE, 0, RoundingMode.DOWN);
+    }
+
+    public static BigDecimal getRemainder(String value) {
+        BigDecimal dividend = new BigDecimal(value);
+        BigDecimal quotient = dividend.divide(BigDecimal.ONE, 0, RoundingMode.DOWN);
+        return  dividend.subtract(quotient);
     }
 
 

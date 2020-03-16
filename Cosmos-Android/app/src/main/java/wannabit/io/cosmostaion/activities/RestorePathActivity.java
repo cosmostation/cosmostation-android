@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 
 public class RestorePathActivity extends BaseActivity implements TaskListener {
@@ -184,114 +185,101 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
                 holder.atomLayer.setVisibility(View.VISIBLE);
+                holder.atomAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
                 ApiClient.getCosmosChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
                         if(response.isSuccessful() && response.body() != null) {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.atomAmount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, mChain));
-                        } else {
-                            holder.atomAmount.setText("0");
-                        }
+                                holder.atomAmount.setText(WDp.getDpAmount2(getBaseContext(), balance.get(0).balance, 6, 6));
+                        } else { }
                     }
                     @Override
-                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {
-                        holder.atomAmount.setText("0");
-                    }
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
             } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
                 holder.irisLayer.setVisibility(View.VISIBLE);
+                holder.irisAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 18, 18));
                 ApiClient.getIrisChain(getBaseContext()).getBankInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
                         if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
                             ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
                             if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.irisAmount.setText(WDp.getDpAmount(getBaseContext(), balance.get(0).balance, 6, mChain));
-                        } else {
-                            holder.irisAmount.setText("0");
-                        }
+                                holder.irisAmount.setText(WDp.getDpAmount2(getBaseContext(), balance.get(0).balance, 18, 18));
+                        } else { }
                     }
                     @Override
-                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) {
-                        holder.irisAmount.setText("0");
-                    }
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
             } else if (mChain.equals(BaseChain.BNB_MAIN)) {
                 holder.bnbLayer.setVisibility(View.VISIBLE);
+                holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
                 ApiClient.getBnbChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResBnbAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
                         if(response.isSuccessful() && response.body() != null && response.body().balances != null) {
                             for (ResBnbAccountInfo.BnbBalance balance:response.body().balances) {
                                 if (balance.symbol.equals(BaseConstant.COSMOS_BNB)) {
-                                    holder.bnbAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(balance.free), 6, mChain));
+                                    holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.free), 0, 8));
                                     break;
                                 }
                             }
-                        } else {
-                            holder.bnbAmount.setText("0");
-                        }
+                        } else { }
                     }
                     @Override
-                    public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) {
-                        holder.bnbAmount.setText("0");
-                    }
+                    public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) { }
                 });
 
             } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 holder.kavaLayer.setVisibility(View.VISIBLE);
+                holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 6));
                 ApiClient.getKavaChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
                         ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
-                        holder.kavaAmount.setText(WDp.getDpAvailableCoin(getBaseContext(), balances, BaseChain.KAVA_MAIN, COSMOS_KAVA));
+                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, COSMOS_KAVA), 6, 6));
                     }
 
                     @Override
-                    public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) {
-                        holder.kavaAmount.setText("0");
-                    }
+                    public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) { }
                 });
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 holder.kavaLayer.setVisibility(View.VISIBLE);
+                holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 6));
                 ApiClient.getKavaTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
                         ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
-                        holder.kavaAmount.setText(WDp.getDpAvailableCoin(getBaseContext(), balances, BaseChain.KAVA_TEST, COSMOS_KAVA));
+                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, COSMOS_KAVA), 6, 6));
+
                     }
 
                     @Override
-                    public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) {
-                        holder.kavaAmount.setText("0");
-                    }
+                    public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) { }
                 });
 
             } else if (mChain.equals(BaseChain.IOV_MAIN)) {
                 holder.iovLayer.setVisibility(View.VISIBLE);
+                holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 9));
                 ApiClient.getIovChain(getBaseContext()).getBalance(address).enqueue(new Callback<ResIovBalance>() {
                     @Override
                     public void onResponse(Call<ResIovBalance> call, Response<ResIovBalance> response) {
-                        if(response.isSuccessful() && response.body() != null && response.body().balance != null) {
-                            for (ResIovBalance.IovBalance balance:response.body().balance) {
-                                if (balance.tokenTicker.equals(BaseConstant.COSMOS_IOV)) {
-                                    holder.iovAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(balance.quantity), 6, mChain));
+                        if(response.isSuccessful() && response.body() != null && response.body().coins != null) {
+                            for (ResIovBalance.IovCoin coin:response.body().coins) {
+                                if (coin.ticker.equals(COSMOS_IOV)) {
+                                    holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(coin.getDpAmount(COSMOS_IOV)), 0, 9));
                                     break;
                                 }
                             }
-                        } else {
-                            holder.iovAmount.setText("0");
-                        }
+                        } else { }
                     }
                     @Override
-                    public void onFailure(Call<ResIovBalance> call, Throwable t) {
-                        holder.bnbAmount.setText("0");
-                    }
+                    public void onFailure(Call<ResIovBalance> call, Throwable t) { }
                 });
             }
 

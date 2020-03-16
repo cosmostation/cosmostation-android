@@ -30,7 +30,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
         
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             memoCntLabel.text = "0/255 byte"
         } else {
             memoCntLabel.text = "0/100 byte"
@@ -69,7 +70,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
         let byteArray = [UInt8](textView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             memoCntLabel.text = String(byteArray.count) + "/255 byte"
             if (byteArray.count > 255) {
                 self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
@@ -90,7 +92,8 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate {
         let byteArray = [UInt8](memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
         if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN ||
             pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
-            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST ||
+            pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             if (byteArray.count > 255) {
                 return false
             }

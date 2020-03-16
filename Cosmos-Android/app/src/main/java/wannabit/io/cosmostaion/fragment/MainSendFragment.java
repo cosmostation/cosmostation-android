@@ -259,6 +259,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         mBtnKavaCdp.setOnClickListener(this);
         mBtnBnbConnect.setOnClickListener(this);
         mBuyCoinBtn.setOnClickListener(this);
+        mBtnIovDeposit.setOnClickListener(this);
+        mBtnIovNameService.setOnClickListener(this);
 
         return rootView;
     }
@@ -506,6 +508,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
                     mTvBnbLocked.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
                     mTvBnbTotal.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
                     mTvBnbValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), BigDecimal.ZERO));
+                    getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, BigDecimal.ZERO.toPlainString());
                 }
 
                 mPerPrice.setText(WDp.getPriceDp(getContext(), new BigDecimal(""+getBaseDao().getLastBnbTic()), getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -568,23 +571,31 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             if (getMainActivity().mBalances != null && WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV) != null) {
                 Balance iovToken = WUtil.getTokenBalance(getMainActivity().mBalances, COSMOS_IOV);
-                mTvIovTotal.setText(WDp.getDpAmount(getContext(), iovToken.balance, 6, getMainActivity().mBaseChain));
-                mTvIovAvailable.setText(WDp.getDpAmount(getContext(), iovToken.balance, 6, getMainActivity().mBaseChain));
+                mTvIovTotal.setText(WDp.getDpAmount2(getContext(), iovToken.balance, 0, 6));
+                mTvIovAvailable.setText(WDp.getDpAmount2(getContext(), iovToken.balance, 0, 6));
                 //TODO no price info yet
-                mTvIovValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), BigDecimal.ZERO));
-                mTvIovDeposited.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-                mTvIovRewards.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-                if (getMainActivity().mIovAddressInfo != null) {
-                    WLog.w("" + getMainActivity().mIovAddressInfo.startId);
-                }
+                mTvIovValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
+                mTvIovDeposited.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
+                mTvIovRewards.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
                 getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, iovToken.balance.toPlainString());
             } else {
-                mTvIovTotal.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-                mTvIovAvailable.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-                mTvIovValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), BigDecimal.ZERO));
-                mTvIovDeposited.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
-                mTvIovRewards.setText(WDp.getDpAmount(getContext(), BigDecimal.ZERO, 6, getMainActivity().mBaseChain));
+                mTvIovTotal.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
+                mTvIovAvailable.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
+                mTvIovValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
+                mTvIovDeposited.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
+                mTvIovRewards.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 0, 6));
                 getBaseDao().onUpdateLastTotalAccount(getMainActivity().mAccount, BigDecimal.ZERO.toPlainString());
+            }
+
+            try {
+                mPerPrice.setText(WDp.getPriceDp(getContext(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+                mUpDownPrice.setText(WDp.getPriceUpDown(BigDecimal.ZERO));
+                mUpDownImg.setVisibility(View.GONE);
+
+            } catch (Exception e) {
+                mPerPrice.setText("???");
+                mUpDownPrice.setText("???");
+                mUpDownImg.setVisibility(View.GONE);
             }
         }
 
@@ -811,6 +822,11 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnKavaCdp)) {
             WLog.w("mBtnKavaCdp");
 
+        } else if (v.equals(mBtnIovDeposit)) {
+            Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+
+        } else if (v.equals(mBtnIovNameService)) {
+            Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -86,6 +86,7 @@
 "fee_speed_iris_title" = "현재 아이리스는 고정 Tx 수수료를 지원합니다.\n아이리스는 사용후 남은 가스비를 전액 반환합니다.";
 "fee_speed_bnb_title" = "현재 바이낸스는 고정 전송 수수료를 지원합니다.";
 "fee_speed_kava_title" = "현재 카바는 고정 전송 수수료를 지원합니다.";
+"fee_speed_iov_title" = "현재 아이오비는 고정 전송 수수료를 지원합니다.";
 "fee_description_title_0" = "Tx 수수료 0.000001 ATOM";
 "fee_description_title_1" = "Tx 수수료 비율 0.0025";
 "fee_description_title_2" = "Tx 수수료 비율 0.025";
@@ -256,6 +257,7 @@
 "error_network_msg" = "현재 네트워크에 접속할 수 없습니다. 잠시후 다시 시도해 주세요.";
 "error_disable" = "점검중";
 "error_disable_msg" = "시스템 점검중입니다. 자세한 내용은 커뮤니티 체널을 확인해 주세요.";
+"error_not_yet" = "준비중 입니다!";
 
 
 "alert_title_no_private_key" = "관찰 모드 지갑";

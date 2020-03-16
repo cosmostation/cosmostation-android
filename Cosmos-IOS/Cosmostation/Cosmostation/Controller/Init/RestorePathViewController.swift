@@ -158,8 +158,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                     
                 } else if (self.userChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(IOV_URL_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 9)
+                    let request = Alamofire.request(IOV_REST_URL_BALANCE, method: .get, parameters: ["address":address], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
@@ -167,11 +167,13 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                                 return
                             }
                             let iovBalanceInfo = IovBalanceInfo.init(info)
-                            for iovBalance in iovBalanceInfo.balance {
-                                if (iovBalance.tokenTicker == IOV_MAIN_DENOM) {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(iovBalance.quantity, cell!.denomAmount.font!, 9, 6)
+                            for coin in iovBalanceInfo.coins {
+                                if (coin.ticker == IOV_MAIN_DENOM) {
+                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.getDpAmount(IOV_MAIN_DENOM), cell!.denomAmount.font!, 0, 9)
+                                    break
                                 }
                             }
+                            
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                         }

@@ -113,13 +113,13 @@ public class ApiClient {
         return api_kava_test;
     }
 
-    //Services for IOV main net
+    //Rest for IOV main net
     private static IovChain service_iov = null;
     public static IovChain getIovChain(Context c) {
         if (service_iov == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_rest_main_iov))
+                        .baseUrl(c.getString(R.string.url_rest_iov_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 service_iov = retrofit.create(IovChain.class);

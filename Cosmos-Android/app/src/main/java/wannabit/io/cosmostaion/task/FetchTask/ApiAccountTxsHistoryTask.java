@@ -39,6 +39,8 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
+            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+
             }
 
         } catch (Exception e) {
