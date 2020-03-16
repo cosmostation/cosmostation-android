@@ -35,8 +35,11 @@ public class IovBalanceInfo {
             self.ticker = dictionary["ticker"] as? String ?? ""
         }
         
-        public func getDpAmount(_ denom:String) -> String{
-            return "" + String(whole) + "." + String(fractional)
+        public func getDpAmount(_ denom:String) -> String {
+            if (denom == ticker) {
+                return "" + String(whole) + "." + String(fractional)
+            }
+            return "0"
         }
     }
     

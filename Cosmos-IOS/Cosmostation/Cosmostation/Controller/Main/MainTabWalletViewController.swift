@@ -51,7 +51,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         refresher.tintColor = UIColor.white
         walletTableView.addSubview(refresher)
-        
+    
         self.updateFloaty()
     }
     

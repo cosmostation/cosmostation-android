@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import ed25519swift
+import SwiftProtobuf
+import CryptoSwift
 
 class MsgGenerator {
     
@@ -171,8 +174,6 @@ class MsgGenerator {
         return msg
     }
     
-    
-    
     static func genGetModifyRewardAddressMsg(_ requestAddress: String, _ newRewardAddress: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
@@ -256,4 +257,119 @@ class MsgGenerator {
         
         return stdSignedMsg
     }
+    
+    
+    
+    
+    static func genIovSendTx(_ nonce:Int64, _ fromAddr:String, _ toAddr:String, _ sendCoins: Array<Coin>, _ fee:Fee,  _ memo:String, _ key:WKey.Ed25519Key) -> String {
+        let interPart = WUtils.getQuotient(sendCoins[0].amount)
+        let decimalPart = WUtils.getRemainder(sendCoins[0].amount).multiplying(byPowerOf10: 9)
+        
+        //Set send coin
+        var sendCoin = Coin_Coin.init()
+        if (interPart != NSDecimalNumber.zero) {
+            sendCoin.whole = interPart.int64Value
+        }
+        if (decimalPart != NSDecimalNumber.zero) {
+            sendCoin.fractional = decimalPart.int64Value
+        }
+        sendCoin.ticker = IOV_MAIN_DENOM
+        
+        //Set fee
+        var sendFee = Coin_Coin.init()
+        sendFee.fractional = WUtils.getQuotient(GAS_FEE_IOV_TRANSFER).multiplying(byPowerOf10: 9).int64Value
+        sendFee.ticker = IOV_MAIN_DENOM
+        
+        //Set FeeInfo
+        var feeInfo = Cash_FeeInfo.init()
+        feeInfo.payer = WKey.getIovDatafromDpAddress(fromAddr)!
+        feeInfo.fees = sendFee
+        
+        //Set MetaData
+        var metaData = Weave_Metadata.init()
+        metaData.schema = 1
+        
+        var sendMsg = Cash_SendMsg.init()
+        sendMsg.source = WKey.getIovDatafromDpAddress(fromAddr)!
+        sendMsg.destination = WKey.getIovDatafromDpAddress(toAddr)!
+        sendMsg.amount = sendCoin
+        sendMsg.metadata = metaData
+        sendMsg.memo = memo
+        
+        var sendTx = Bnsd_Tx.init()
+        sendTx.cashSendMsg = sendMsg
+        sendTx.fees = feeInfo
+        
+        let inSig = getIovInSig(sendTx, nonce)
+        print("inSig ", bytesConvertToHexstring(byte: inSig))
+        let midSig = Digest.sha512(inSig)
+        print("midSig ", bytesConvertToHexstring(byte: midSig))
+        let genSig = Ed25519.sign(message: midSig, secretKey: key.key)
+        print("genSig ", bytesConvertToHexstring(byte: genSig))
+        return ""
+    }
+    
+    static func getIovInSig(_ tx:Bnsd_Tx, _ nonce:Int64) -> [UInt8] {
+        let chainB: [UInt8] = Array("iov-mainnet".utf8)
+        let versionB : [UInt8] = [0, 0xCA, 0xFE, 0]
+        let nonceB = byteArray(from: nonce)
+        let chainSize:UInt8 = UInt8(chainB.count)
+        let chainLenB = byteArray(from: chainSize)
+        let txB = try? tx.serializedData().bytes
+        return versionB + chainLenB + chainB + nonceB + txB!
+    }
+    
+    static func byteArray<T>(from value: T) -> [UInt8] where T: FixedWidthInteger {
+        withUnsafeBytes(of: value.bigEndian, Array.init)
+    }
+    
+    static func bytesConvertToHexstring(byte : [UInt8]) -> String {
+        var string = ""
+
+        for val in byte {
+            //getBytes(&byte, range: NSMakeRange(i, 1))
+            string = string + String(format: "%02X", val)
+        }
+
+        return string
+    }
+    
 }
+
+
+//protocol UIntToBytesConvertable {
+//    var toBytes: [Byte] { get }
+//}
+//
+//extension UIntToBytesConvertable {
+//    func toByteArr<T: Integer>(endian: T, count: Int) -> [Byte] {
+//        var _endian = endian
+//        let bytePtr = withUnsafePointer(to: &_endian) {
+//            $0.withMemoryRebound(to: Byte.self, capacity: count) {
+//                UnsafeBufferPointer(start: $0, count: count)
+//            }
+//        }
+//        return [Byte](bytePtr)
+//    }
+//}
+//
+//extension UInt16: UIntToBytesConvertable {
+//    var toBytes: [Byte] {
+//        return toByteArr(endian: self.littleEndian,
+//                         count: MemoryLayout<UInt16>.size)
+//    }
+//}
+//
+//extension UInt32: UIntToBytesConvertable {
+//    var toBytes: [Byte] {
+//        return toByteArr(endian: self.littleEndian,
+//                         count: MemoryLayout<UInt32>.size)
+//    }
+//}
+//
+//extension UInt64: UIntToBytesConvertable {
+//    var toBytes: [Byte] {
+//        return toByteArr(endian: self.littleEndian,
+//                         count: MemoryLayout<UInt64>.size)
+//    }
+//}

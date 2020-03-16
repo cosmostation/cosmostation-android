@@ -208,6 +208,18 @@ class WKey {
         return result
     }
     
+    static func getIovDatafromDpAddress(_ address:String) -> Data? {
+        let bech32 = Bech32()
+        guard let (_, data) = try? bech32.decode(address) else {
+            return nil
+        }
+        
+        guard let result = try? convertBits(from: 5, to: 8, pad: false, idata: data) else {
+            return nil
+        }
+        return result
+    }
+    
     
     static func convertBits(from: Int, to: Int, pad: Bool, idata: Data) throws -> Data {
         var acc: Int = 0

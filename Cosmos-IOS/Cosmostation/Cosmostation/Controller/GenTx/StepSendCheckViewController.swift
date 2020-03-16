@@ -215,7 +215,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             url = KAVA_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
             //TODO check nonce for sign
-            self.onGenSendTx()
+            self.onGenIovSendTx(2)
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -275,7 +275,6 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             do {
-//                let pKey = WKey.getHDKeyFromWords(mnemonic: words, path: UInt32(self.pageHolderVC.mAccount!.account_path)!, chain: self.pageHolderVC.chainType!)
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 let msg = MsgGenerator.genGetSendMsg(self.pageHolderVC.mAccount!.account_address,
                                                      self.pageHolderVC.mToSendRecipientAddress!,
@@ -400,8 +399,6 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         }
     }
     
-    
-    
     func onGenBnbSendTx() {
         print("onGenBnbSendTx")
         self.showWaittingAlert()
@@ -456,5 +453,71 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
         }
         
+    }
+    
+    func onGenIovSendTx(_ nonce:Int64) {
+        print("onGenIovSendTx")
+        DispatchQueue.global().async {
+//            var stdTx:StdTx!
+            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+                return
+            }
+            
+            do {
+                let pKey = WKey.deriveForPath(self.pageHolderVC.mAccount!.account_path, words)
+                let txString = MsgGenerator.genIovSendTx(nonce,
+                                                         self.pageHolderVC.mAccount!.account_address,
+                                                         self.pageHolderVC.mToSendRecipientAddress!,
+                                                         self.pageHolderVC.mToSendAmount,
+                                                         self.pageHolderVC.mFee!,
+                                                         self.pageHolderVC.mMemo!,
+                                                         pKey!)
+                
+            } catch {
+                if(SHOW_LOG) { print(error) }
+            }
+            
+//            DispatchQueue.main.async(execute: {
+//                do {
+//                    var url = CSS_LCD_URL_BORAD_TX
+//                    let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+//                    request.responseJSON { response in
+//                        var txResult = [String:Any]()
+//                        switch response.result {
+//                        case .success(let res):
+//                            if(SHOW_LOG) { print("Send ", res) }
+//                            if let result = res as? [String : Any]  {
+//                                txResult = result
+//                            }
+//                        case .failure(let error):
+//                            if(SHOW_LOG) {
+//                                print("send error ", error)
+//                            }
+//                            if (response.response?.statusCode == 500) {
+//                                txResult["net_error"] = 500
+//                            }
+//                        }
+////                        if (self.waitAlert != nil) {
+////                            self.waitAlert?.dismiss(animated: true, completion: {
+////                                if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+////                                    txResult["type"] = COSMOS_MSG_TYPE_TRANSFER2
+////                                    self.onStartTxDetail(txResult)
+////                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+////                                    txResult["type"] = IRIS_MSG_TYPE_TRANSFER
+////                                    self.onStartTxResult(txResult)
+////                                } else if (self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_MAIN ||
+////                                    self.pageHolderVC.chainType! == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+////                                    txResult["type"] = KAVA_MSG_TYPE_TRANSFER
+////                                    self.onStartTxDetail(txResult)
+////                                }
+////                            })
+////                        }
+//                    }
+//
+//                } catch {
+//                    if(SHOW_LOG) { print(error) }
+//                }
+//            });
+        }
     }
 }
