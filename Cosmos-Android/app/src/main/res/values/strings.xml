@@ -416,6 +416,9 @@
     <string name="str_kava_newpath_msg">BIP44 for KAVA key generation will be implemented starting March, 2020.\n\nIf you created an address before March, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original KAVA wallet. Simply press [Import Mnemonics] to re-select your path.</string>
     <string name="str_kava_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_kava_new_path"><![CDATA[NEW PATH (44\'/459\'/0\'/0)]]></string>
+    <string name="str_kava_cdp_list">CDP</string>
+    <string name="str_my_cdps">My</string>
+    <string name="str_all_cdps">All</string>
 
 
     <string name="str_main_wallet">WALLET</string>
