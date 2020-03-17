@@ -5,19 +5,25 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResCdpList;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class KavaCdpParamTask extends CommonTask {
-    private BaseChain mChain;
+public class KavaCdpListByRatio extends CommonTask {
+    //Maybe do not need app side!!
 
-    public KavaCdpParamTask(BaseApplication app, TaskListener listener, BaseChain chain) {
+    private BaseChain mChain;
+    private String mDenom;
+    private String mRatio;
+
+    public KavaCdpListByRatio(BaseApplication app, TaskListener listener, BaseChain chain, String denom, String ratio) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_PARAM;
+        this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_LIST_RATIO;
         this.mChain = chain;
+        this.mRatio = ratio;
+
     }
 
     @Override
@@ -27,18 +33,18 @@ public class KavaCdpParamTask extends CommonTask {
                 //mainnet not yet!
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResCdpParam> response = ApiClient.getKavaTestChain(mApp).getCdpParams().execute();
+                Response<ResCdpList> response = ApiClient.getKavaTestChain(mApp).getCdpCoinRate(mDenom, mRatio).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {
-                    WLog.w("KavaCdpParamTask : NOk");
+                    WLog.w("KavaCdpListByRatio : NOk");
                 }
             }
 
         } catch (Exception e) {
-            WLog.w("KavaCdpParamTask Error " + e.getMessage());
+            WLog.w("KavaCdpListByRatio Error " + e.getMessage());
         }
         return mResult;
     }

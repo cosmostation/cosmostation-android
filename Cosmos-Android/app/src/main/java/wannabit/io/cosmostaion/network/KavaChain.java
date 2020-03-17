@@ -1,17 +1,17 @@
 package wannabit.io.cosmostaion.network;
 
-import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
+import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
+import wannabit.io.cosmostaion.network.res.ResCdpList;
+import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
+import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
@@ -90,5 +90,17 @@ public interface KavaChain {
 
 
     @GET("/cdp/parameters")
-    Call<ResKavaCdpParam> getCdpParams();
+    Call<ResCdpParam> getCdpParams();
+
+    @GET("/cdp/cdps/cdp/{address}/{denom}")
+    Call<ResCdpOwnerStatus> getCdpStatusByOwner(@Path("address") String address, @Path("denom") String denom);
+
+    @GET("/cdp/cdps/cdp/deposits/{address}/{denom}")
+    Call<ResCdpDepositStatus> getCdpDepositStatus(@Path("address") String address, @Path("denom") String denom);
+
+    @GET("/cdp/cdps/denom/{denom}")
+    Call<ResCdpList> getCdpListByDenom(@Path("denom") String denom);
+
+    @GET("/cdp/cdps/ratio/{denom}/{ratio}")
+    Call<ResCdpList> getCdpCoinRate(@Path("denom") String denom, @Path("ratio") String ratio);
 }

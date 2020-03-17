@@ -9,9 +9,6 @@ import android.text.TextUtils;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,9 +20,8 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
+import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
@@ -39,7 +35,7 @@ public class BaseData {
 
 
     //COMMON DATA
-    public ResKavaCdpParam.Result mKavaCdpParams;
+    public ResCdpParam.Result mKavaCdpParams;
 
 
     public BaseData(BaseApplication apps) {

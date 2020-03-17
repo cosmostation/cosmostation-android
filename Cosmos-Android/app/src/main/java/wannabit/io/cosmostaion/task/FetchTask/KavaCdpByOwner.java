@@ -5,19 +5,25 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class KavaCdpParamTask extends CommonTask {
-    private BaseChain mChain;
+public class KavaCdpByOwner extends CommonTask {
 
-    public KavaCdpParamTask(BaseApplication app, TaskListener listener, BaseChain chain) {
+    private BaseChain mChain;
+    private String mAddress;
+    private String mDenom;
+
+    public KavaCdpByOwner(BaseApplication app, TaskListener listener, BaseChain chain, String address, String denom) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_PARAM;
+        this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
         this.mChain = chain;
+        this.mAddress = address;
+        this.mDenom = denom;
+
     }
 
     @Override
@@ -27,18 +33,18 @@ public class KavaCdpParamTask extends CommonTask {
                 //mainnet not yet!
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResCdpParam> response = ApiClient.getKavaTestChain(mApp).getCdpParams().execute();
+                Response<ResCdpOwnerStatus> response = ApiClient.getKavaTestChain(mApp).getCdpStatusByOwner(mAddress, mDenom).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {
-                    WLog.w("KavaCdpParamTask : NOk");
+                    WLog.w("KavaCdpByOwner : NOk");
                 }
             }
 
         } catch (Exception e) {
-            WLog.w("KavaCdpParamTask Error " + e.getMessage());
+            WLog.w("KavaCdpByOwner Error " + e.getMessage());
         }
         return mResult;
     }

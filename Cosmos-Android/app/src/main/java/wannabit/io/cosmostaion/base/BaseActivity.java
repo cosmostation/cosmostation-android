@@ -72,7 +72,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
 import wannabit.io.cosmostaion.network.res.ResIovAddressInfo;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
+import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
@@ -584,7 +584,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mKavaCdpParams = (ResKavaCdpParam.Result)result.resultData;
+                getBaseDao().mKavaCdpParams = (ResCdpParam.Result)result.resultData;
             }
         }
 

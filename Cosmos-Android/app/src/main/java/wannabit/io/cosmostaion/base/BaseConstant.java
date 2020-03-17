@@ -97,6 +97,10 @@ public class BaseConstant {
     public final static int TASK_PUSH_STATUS_UPDATE                     = 2057;
     public final static int TASK_MOON_PAY_SIGNATURE                     = 2058;
     public final static int TASK_FETCH_KAVA_CDP_PARAM                   = 2059;
+    public final static int TASK_FETCH_KAVA_CDP_OWENER                  = 2060;
+    public final static int TASK_FETCH_KAVA_CDP_DEPOSIT                 = 2061;
+    public final static int TASK_FETCH_KAVA_CDP_LIST_DENOM              = 2062;
+    public final static int TASK_FETCH_KAVA_CDP_LIST_RATIO              = 2063;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
