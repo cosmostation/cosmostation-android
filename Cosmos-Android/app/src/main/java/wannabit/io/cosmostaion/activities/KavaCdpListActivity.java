@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -20,6 +21,10 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.CdpAllFragment;
 import wannabit.io.cosmostaion.fragment.CdpMyFragment;
+import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
+import wannabit.io.cosmostaion.network.res.ResCdpList;
+import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
+import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class KavaCdpListActivity extends BaseActivity {
@@ -28,6 +33,11 @@ public class KavaCdpListActivity extends BaseActivity {
     private ViewPager                   mCdpPager;
     private TabLayout                   mCdpTapLayer;
     private CdpPageAdapter              mPageAdapter;
+
+    private ResCdpParam.Result                                          mCdpParam;
+    private HashMap<String, ResCdpOwnerStatus.Result>                   mMyOwenCdp;
+    private HashMap<String, ArrayList<ResCdpDepositStatus.Result>>      mMyDepositedCdp;
+    private HashMap<String, ArrayList<ResCdpList.Result>>               mAllCdp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
