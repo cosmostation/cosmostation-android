@@ -10,6 +10,7 @@ public class TaskResult {
     public String       errorMsg;
 
     public Object       resultData;
+    public String       resultData2;
 
     public TaskResult() {
         this.isSuccess = false;

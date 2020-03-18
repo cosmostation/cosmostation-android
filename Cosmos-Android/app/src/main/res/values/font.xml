@@ -177,6 +177,14 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_ssl_12_kava" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+
+
     <style name="font_ss_12_gray6" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray6</item>
@@ -204,6 +212,12 @@
     <style name="font_ss_12_iris" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorIris</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="font_ss_12_kava" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorKava</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
@@ -262,6 +276,13 @@
         <item name="android:textColor">@color/colorKava</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
+
+    <style name="font_ssl_14_kava" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
 
     <style name="font_ssl_14_photon" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
@@ -409,6 +430,13 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+
+    <style name="font_ssl_21_white" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_21</item>
     </style>
 
 

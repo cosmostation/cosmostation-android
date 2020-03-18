@@ -821,6 +821,7 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (v.equals(mBtnKavaCdp)) {
+            //TODO check dao's mKavaCdpParams & mKavaTokenPrices
             startActivity(new Intent(getMainActivity(), KavaCdpListActivity.class));
 
         } else if (v.equals(mBtnIovDeposit)) {

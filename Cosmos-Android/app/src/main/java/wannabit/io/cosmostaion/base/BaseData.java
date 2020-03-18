@@ -11,6 +11,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import wannabit.io.cosmostaion.R;
@@ -22,6 +23,7 @@ import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
@@ -33,10 +35,9 @@ public class BaseData {
     private SQLiteDatabase      mSQLiteDatabase;
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
 
-
     //COMMON DATA
-    public ResCdpParam.Result mKavaCdpParams;
-
+    public ResCdpParam.Result                               mKavaCdpParams;
+    public HashMap<String, ResKavaMarketPrice.Result>       mKavaTokenPrices = new HashMap<>();
 
     public BaseData(BaseApplication apps) {
         this.mApp = apps;

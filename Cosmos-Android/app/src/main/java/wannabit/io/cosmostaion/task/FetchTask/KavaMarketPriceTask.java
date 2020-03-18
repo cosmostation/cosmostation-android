@@ -18,7 +18,7 @@ public class KavaMarketPriceTask extends CommonTask {
 
     public KavaMarketPriceTask(BaseApplication app, TaskListener listener, BaseChain chain, String market) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
+        this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
         this.mChain = chain;
         this.mMarket = market;
 

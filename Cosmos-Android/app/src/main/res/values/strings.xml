@@ -396,7 +396,7 @@
     <string name="str_buy_bnb">Buy BNB</string>
     <string name="str_buy_kava">Buy KAVA</string>
     <string name="str_kava_testnet_msg"><![CDATA[This wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
-    <string name="str_kava_cdp">CDP</string>
+    <string name="str_kava_cdp">CDP Market</string>
     <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>
     <string name="str_buy_select_fiat_title">Select Fiat</string>
     <string name="str_buy_select_fiat_msg">Please select a currency to make a purchase.</string>
@@ -416,9 +416,21 @@
     <string name="str_kava_newpath_msg">BIP44 for KAVA key generation will be implemented starting March, 2020.\n\nIf you created an address before March, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original KAVA wallet. Simply press [Import Mnemonics] to re-select your path.</string>
     <string name="str_kava_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_kava_new_path"><![CDATA[NEW PATH (44\'/459\'/0\'/0)]]></string>
-    <string name="str_kava_cdp_list">CDP</string>
-    <string name="str_my_cdps">My</string>
-    <string name="str_all_cdps">All</string>
+    <string name="str_kava_cdp_list">CDP Market</string>
+    <string name="str_kava_cdp_details">CDP Detail</string>
+    <string name="str_my_cdps">My CDP</string>
+    <string name="str_all_cdps">All Products</string>
+    <string name="str_min_collateral_rate">Min Collateral Rate</string>
+    <string name="str_stability_fee">Stability Fee (APR)</string>
+    <string name="str_liquidation_penalty">Liquidation Penalty</string>
+    <string name="str_liquidation_title1">Safe limit</string>
+    <string name="str_liquidation_title2">Price</string>
+    <string name="str_current_title1">Current</string>
+    <string name="str_current_title2">Price</string>
+    <string name="str_collateral_title1">Collateralized</string>
+    <string name="str_collateral_title2">Amount</string>
+    <string name="str_loaned_title1">Loaned</string>
+    <string name="str_loaned_title2">Amount</string>
 
 
     <string name="str_main_wallet">WALLET</string>

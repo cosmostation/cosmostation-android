@@ -8,7 +8,7 @@ public class ResKavaMarketPrice {
     public String height;
 
     @SerializedName("result")
-    public String result;
+    public Result result;
 
     public class Result {
 
@@ -17,6 +17,10 @@ public class ResKavaMarketPrice {
 
         @SerializedName("price")
         public String price;
+
+        public String getDenom() {
+            return market_id.split(":")[0];
+        }
 
     }
 }

@@ -11,6 +11,8 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+
 public class KavaCdpByOwnerTask extends CommonTask {
 
     private BaseChain mChain;
@@ -36,10 +38,11 @@ public class KavaCdpByOwnerTask extends CommonTask {
                 Response<ResCdpOwnerStatus> response = ApiClient.getKavaTestChain(mApp).getCdpStatusByOwner(mAddress, mDenom).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
+                    mResult.resultData2 = mDenom;
                     mResult.isSuccess = true;
 
                 } else {
-                    WLog.w("KavaCdpByOwnerTask : NOk");
+//                    if(IS_SHOWLOG) {WLog.w("KavaCdpByOwnerTask : NOk");}
                 }
             }
 

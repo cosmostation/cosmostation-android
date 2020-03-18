@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
+
 import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.type.Coin;
 
@@ -24,6 +26,30 @@ public class ResCdpOwnerStatus {
 
         @SerializedName("collateralization_ratio")
         public String collateralization_ratio;
+
+        public String getDenom() {
+            return cdp.collateral.get(0).denom;
+        }
+
+        public String getPDenom() {
+            return cdp.principal.get(0).denom;
+        }
+
+        public String getDpMarketId() {
+            return cdp.collateral.get(0).denom.toUpperCase() + " : usd".toUpperCase() ;
+        }
+
+        public String getImagePath() {
+            return cdp.collateral.get(0).denom + "usd.png";
+        }
+
+        public BigDecimal getCollateralAmount() {
+            return new BigDecimal(cdp.collateral.get(0).amount);
+        }
+
+        public BigDecimal getPrincipalAmount() {
+            return new BigDecimal(cdp.principal.get(0).amount);
+        }
     }
 
 

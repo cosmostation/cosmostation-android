@@ -101,6 +101,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_CDP_DEPOSIT                 = 2061;
     public final static int TASK_FETCH_KAVA_CDP_LIST_DENOM              = 2062;
     public final static int TASK_FETCH_KAVA_CDP_LIST_RATIO              = 2063;
+    public final static int TASK_FETCH_KAVA_TOKEN_PRICE                 = 2064;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -293,5 +294,6 @@ public class BaseConstant {
     public final static String IRIS_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
     public final static String KAVA_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
     public final static String KAVA_COIN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
+    public final static String KAVA_CDP_MARKET_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
 
 }

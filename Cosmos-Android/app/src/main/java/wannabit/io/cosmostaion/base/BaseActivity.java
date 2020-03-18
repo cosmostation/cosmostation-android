@@ -73,6 +73,7 @@ import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
 import wannabit.io.cosmostaion.network.res.ResIovAddressInfo;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
@@ -85,6 +86,7 @@ import wannabit.io.cosmostaion.task.FetchTask.IrisPoolTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.IrisTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
@@ -101,6 +103,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
 
@@ -584,7 +587,21 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mKavaCdpParams = (ResCdpParam.Result)result.resultData;
+                final ResCdpParam.Result cdpParam = (ResCdpParam.Result)result.resultData;
+                getBaseDao().mKavaCdpParams = cdpParam;
+                getBaseDao().mKavaTokenPrices.clear();
+                if (cdpParam != null && cdpParam.collateral_params != null && cdpParam.collateral_params.size() > 0) {
+                    mTaskCount = mTaskCount + cdpParam.collateral_params.size();
+                    for (ResCdpParam.KavaCollateralParam param:getBaseDao().mKavaCdpParams.collateral_params) {
+                        new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), param.market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }
+                }
+            }
+
+        } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
+            if (result.isSuccess && result.resultData != null) {
+                final ResKavaMarketPrice.Result price = (ResKavaMarketPrice.Result)result.resultData;
+                getBaseDao().mKavaTokenPrices.put(price.getDenom(), price);
             }
         }
 
