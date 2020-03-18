@@ -112,7 +112,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     protected Dialog_Wait                   mDialogWait;
     protected boolean                       mNeedLeaveTime = true;
 
-
     public View                             mRootview;
     public Account                          mAccount;
     public BaseChain                        mBaseChain;

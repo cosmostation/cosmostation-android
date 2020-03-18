@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
+                        style="@style/font_ss_12_white"/>
                     <TextView
                         android:id="@+id/tx_payment_amount"
                         android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
                         android:layout_toLeftOf="@+id/tx_payment_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        style="@style/font_ssl_12_white"/>
                 </RelativeLayout>
             </RelativeLayout>
 
