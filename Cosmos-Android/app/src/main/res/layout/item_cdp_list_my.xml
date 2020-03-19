@@ -22,10 +22,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_12"
-            android:layout_marginBottom="@dimen/space_12"
+            android:layout_marginLeft="@dimen/space_18"
+            android:layout_marginRight="@dimen/space_18"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginBottom="@dimen/space_16"
             android:orientation="vertical">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -51,61 +51,66 @@
                         android:text="BTC : USDX"/>
                 </LinearLayout>
 
-                <View
-                    android:id="@+id/line_market"
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignTop="@+id/cdp_markets"
-                    android:layout_alignBottom="@+id/cdp_markets"
-                    android:layout_toRightOf="@+id/cdp_markets"
-                    android:background="@color/colorGray3"
-                    android:layout_marginLeft="@dimen/space_12"/>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/line_market"
-                    android:layout_marginLeft="@dimen/space_12"
+                    android:layout_toRightOf="@+id/cdp_markets"
+                    android:layout_alignTop="@+id/cdp_markets"
+                    android:layout_alignBottom="@+id/cdp_markets"
+                    android:gravity="bottom|right"
                     android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/cdp_safe_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        style="@style/font_ss_26_white"
+                        android:text="59.88%"/>
+                    <ImageView
+                        android:id="@+id/cdp_safe_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:src="@drawable/cdp_bar_safe"/>
                 </LinearLayout>
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="1dp"
                 android:background="@color/colorGray3"
-                android:layout_marginTop="@dimen/space_12"/>
+                android:layout_marginTop="@dimen/space_16"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
+                android:layout_marginTop="@dimen/space_16">
                 <TextView
                     android:id="@+id/liquidation_price_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_liquidation_penalty"
+                    android:text="-"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/liquidation_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_kava"
+                    style="@style/font_ssl_14_white"
                     android:gravity="right"
-                    android:text="0.5%"/>
+                    android:text="-"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4">
+                android:layout_marginTop="@dimen/space_10">
                 <TextView
                     android:id="@+id/current_price_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_current_price"
+                    android:text="-"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/current_price"
@@ -113,19 +118,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="$ 0.23232"
+                    android:text="-"
                     style="@style/font_ssl_14_white"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4">
+                android:layout_marginTop="@dimen/space_10">
                 <TextView
                     android:id="@+id/collateral_amount_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_liquidation_penalty"
+                    android:text="-"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/collateral_amount"
@@ -134,18 +139,18 @@
                     android:layout_alignParentRight="true"
                     style="@style/font_ssl_14_white"
                     android:gravity="right"
-                    android:text="0.5%"/>
+                    android:text="-"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4">
+                android:layout_marginTop="@dimen/space_10">
                 <TextView
                     android:id="@+id/loaned_amount_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_liquidation_penalty"
+                    android:text="-"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/loaned_amount"
@@ -154,7 +159,7 @@
                     android:layout_alignParentRight="true"
                     style="@style/font_ssl_14_white"
                     android:gravity="right"
-                    android:text="0.5%"/>
+                    android:text="-"/>
             </RelativeLayout>
 
         </LinearLayout>

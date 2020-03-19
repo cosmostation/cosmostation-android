@@ -420,10 +420,11 @@
     <string name="str_kava_cdp_details">CDP Detail</string>
     <string name="str_my_cdps">My CDP</string>
     <string name="str_all_cdps">All Products</string>
-    <string name="str_min_collateral_rate">Min Collateral Rate</string>
+
+    <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
     <string name="str_liquidation_penalty">Liquidation Penalty</string>
-    <string name="str_liquidation_title1">Safe limit</string>
+    <string name="str_liquidation_title1">Liquidation</string>
     <string name="str_liquidation_title2">Price</string>
     <string name="str_current_title1">Current</string>
     <string name="str_current_title2">Price</string>
@@ -431,6 +432,18 @@
     <string name="str_collateral_title2">Amount</string>
     <string name="str_loaned_title1">Loaned</string>
     <string name="str_loaned_title2">Amount</string>
+    <string name="str_open_cdp">Open new CDP</string>
+    <string name="str_available_amount">Available Amount</string>
+    <string name="str_self_deposited_amount">Self Deposited Collateral</string>
+    <string name="str_total_deposited_amount">Total Deposited Collateral</string>
+    <string name="str_expected_withdrawable_amount">Withdrawable</string>
+    <string name="str_loaned_amount">Loaned Amount</string>
+    <string name="str_expected_loanable_amount">Remaining Loan Capacity</string>
+    <string name="str_outstanding_debt">Outstanding Debt</string>
+    <string name="str_collateral_deposit">Deposit</string>
+    <string name="str_collateral_withdraw">Withdraw</string>
+    <string name="str_principal_drawdebt">Loan more USDX</string>
+    <string name="str_principal_repay">Repay USDX</string>
 
 
     <string name="str_main_wallet">WALLET</string>

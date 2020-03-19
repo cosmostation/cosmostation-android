@@ -70,4 +70,9 @@
     <color name="colorVoteAbstain">#9ea1a7</color>
     <color name="colorVoteBg">#424548</color>
 
+
+    <color name="colorCdpDanger">#F92445</color>
+    <color name="colorCdpStable">#FFE032</color>
+    <color name="colorCdpSafe">#4CF285</color>
+
 </resources>

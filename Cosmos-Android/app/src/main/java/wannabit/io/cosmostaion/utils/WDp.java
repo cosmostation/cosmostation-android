@@ -1405,32 +1405,32 @@ public class WDp {
 
     public static Spanned DpLiquidationPriceTitle(Context c, String Denom) {
         String strFront = c.getString(R.string.str_liquidation_title1);
-//        String strChange = " <font color=\"#FF564F\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
         String strBack = c.getString(R.string.str_liquidation_title2);
         return Html.fromHtml(strFront + strChange + strBack);
     }
 
     public static Spanned DpCurrentPriceTitle(Context c, String Denom) {
         String strFront = c.getString(R.string.str_current_title1);
-//        String strChange = " <font color=\"#FF564F\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
         String strBack = c.getString(R.string.str_current_title2);
         return Html.fromHtml(strFront + strChange + strBack);
     }
 
     public static Spanned DpCollateralTitle(Context c, String Denom) {
         String strFront = c.getString(R.string.str_collateral_title1);
-//        String strChange = " <font color=\"#FF564F\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
         String strBack = c.getString(R.string.str_collateral_title2);
         return Html.fromHtml(strFront + strChange + strBack);
     }
 
     public static Spanned DpLoanedTitle(Context c, String Denom) {
         String strFront = c.getString(R.string.str_loaned_title1);
-//        String strChange = " <font color=\"#FF564F\">" + Denom + "</font> ";
-        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
         String strBack = c.getString(R.string.str_loaned_title2);
         return Html.fromHtml(strFront + strChange + strBack);
     }

@@ -201,21 +201,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
-
-
-
-//        byte[] chainB = IOV_MAIN.getChain().getBytes(Charset.forName("UTF-8"));
-//        byte[] versionB = new byte[] {(byte)0, (byte)0xCA, (byte)0xFE, (byte)0 };
-//        byte[] nonceB = ByteBuffer.allocate(Long.BYTES).putLong(2).array();
-//        WLog.w("chainB " +  WUtil.ByteArrayToHexString(chainB));
-//        WLog.w("versionB " +  WUtil.ByteArrayToHexString(versionB));
-//        WLog.w("nonceB " +  WUtil.ByteArrayToHexString(nonceB));
-//
-//
-//        byte[] chainSize4 = ByteBuffer.allocate(Integer.BYTES).putInt(chainB.length).array();
-//        byte[] chainSize1 = Arrays.copyOfRange(chainSize4,chainSize4.length-1, chainSize4.length);
-//        WLog.w("chainSize4 " +  WUtil.ByteArrayToHexString(chainSize4));
-//        WLog.w("chainSize1 " +  WUtil.ByteArrayToHexString(chainSize1));
     }
 
     @Override

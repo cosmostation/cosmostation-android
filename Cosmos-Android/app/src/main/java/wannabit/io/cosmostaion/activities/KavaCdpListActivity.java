@@ -50,8 +50,8 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
     private CdpPageAdapter              mPageAdapter;
 
     public ResCdpParam.Result                           mCdpParam;
-    public HashMap<String, ResKavaMarketPrice.Result>   mKavaTokenPrices;
-    public HashMap<String, ResCdpOwnerStatus.Result>    mMyOwenCdp = new HashMap<>();
+    public HashMap<String, ResKavaMarketPrice.Result>   mKavaTokenPrices = new HashMap<>();
+    public HashMap<String, ResCdpOwnerStatus.Result>    mMyOwenCdps = new HashMap<>();
 
     //not need yet!!!
     public HashMap<String, ArrayList<ResCdpDepositStatus.Result>>      mMyDepositedCdp;
@@ -74,9 +74,6 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mCdpParam = getBaseDao().mKavaCdpParams;
-        mKavaTokenPrices = getBaseDao().mKavaTokenPrices;
-
         mPageAdapter = new CdpPageAdapter(getSupportFragmentManager());
         mCdpPager.setAdapter(mPageAdapter);
         mCdpTapLayer.setupWithViewPager(mCdpPager);
@@ -95,7 +92,7 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
         mCdpTapLayer.getTabAt(1).setCustomView(tab1);
 
         mCdpPager.setOffscreenPageLimit(2);
-        mCdpPager.setCurrentItem(1, false);
+        mCdpPager.setCurrentItem(0, false);
         mCdpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) { }
@@ -108,13 +105,12 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
-
+        onFetchCdpInfo();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        onFetchCdpInfo();
     }
 
     @Override
@@ -138,7 +134,7 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
         } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mTaskCount = 1;
             mKavaTokenPrices.clear();
-            mMyOwenCdp.clear();
+            mMyOwenCdps.clear();
             new KavaCdpParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
@@ -169,16 +165,12 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
             if (result.isSuccess && result.resultData != null) {
                 final ResCdpOwnerStatus.Result myCdp = (ResCdpOwnerStatus.Result)result.resultData;
-                mMyOwenCdp.put(result.resultData2, myCdp);
+                mMyOwenCdps.put(result.resultData2, myCdp);
             }
         }
         if (mTaskCount == 0) {
             mCdpParam = getBaseDao().mKavaCdpParams;
             mKavaTokenPrices = getBaseDao().mKavaTokenPrices;
-            WLog.w("finished");
-//            WLog.w("mCdpParam " + mCdpParam.collateral_params.size());
-//            WLog.w("mKavaTokenPrices " + mKavaTokenPrices.size());
-//            WLog.w("mMyOwenCdp " + mMyOwenCdp.size());
             if (mCdpParam == null || mKavaTokenPrices == null || mKavaTokenPrices.size() == 0) {
                 WLog.w("ERROR");
                 onBackPressed();
@@ -186,29 +178,11 @@ public class KavaCdpListActivity extends BaseActivity implements TaskListener {
             }
             mContentsLayer.setVisibility(View.VISIBLE);
             mLoadingLayer.setVisibility(View.GONE);
-//            WLog.w("call refresh");
             mPageAdapter.mFragments.get(0).onRefreshTab();
             mPageAdapter.mFragments.get(1).onRefreshTab();
         }
 
     }
-
-//    @Override
-//    public void fetchFinished() {
-//        if(!isFinishing()) {
-//            onHideWaitDialog();
-//            mPageAdapter.mCurrentFragment.onRefreshTab();
-//        }
-//    }
-//
-//    @Override
-//    public void fetchBusy() {
-//        if(!isFinishing()) {
-//            onHideWaitDialog();
-//            mPageAdapter.mCurrentFragment.onBusyFetch();
-//        }
-//    }
-
 
     private class CdpPageAdapter extends FragmentPagerAdapter {
 

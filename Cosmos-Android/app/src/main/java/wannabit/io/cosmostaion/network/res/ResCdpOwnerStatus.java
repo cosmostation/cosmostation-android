@@ -35,8 +35,12 @@ public class ResCdpOwnerStatus {
             return cdp.principal.get(0).denom;
         }
 
+        public String getMarketId() {
+            return cdp.collateral.get(0).denom + ":usd";
+        }
+
         public String getDpMarketId() {
-            return cdp.collateral.get(0).denom.toUpperCase() + " : usd".toUpperCase() ;
+            return cdp.collateral.get(0).denom.toUpperCase() + " : usdx".toUpperCase() ;
         }
 
         public String getImagePath() {

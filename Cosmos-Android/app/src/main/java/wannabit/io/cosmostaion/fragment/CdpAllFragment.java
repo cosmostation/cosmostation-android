@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.KavaCdpDetailActivity;
 import wannabit.io.cosmostaion.activities.KavaCdpListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
@@ -74,7 +76,6 @@ public class CdpAllFragment extends BaseFragment {
 
     @Override
     public void onRefreshTab() {
-//        WLog.w("CdpAllFragment onRefreshTab");
         if(!isAdded()) return;
         mKavaCollateralParam = getMainActivity().mCdpParam.collateral_params;
         mAllCdpAdapter.notifyDataSetChanged();
@@ -98,13 +99,13 @@ public class CdpAllFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull AllCdpHolder holder, int position) {
             final ResCdpParam.KavaCollateralParam param = mKavaCollateralParam.get(position);
-            final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(param.denom);
+//            final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(param.denom);
 
             holder.itemTitleMarket.setText(param.getDpMarketId());
             holder.itemCollateralRate.setText(WDp.getPercentDp(param.getDpLiquidationRatio(), 2));
             holder.itemStabilityFee.setText(WDp.getPercentDp(param.getDpStabilityFee(), 2));
             holder.itemLiquidationPenalty.setText(WDp.getPercentDp(param.getDpLiquidationPenalty(), 2));
-            holder.itemCurrentPrice.setText(WDp.getDpRawDollor(getContext(), price.price, 4));
+//            holder.itemCurrentPrice.setText(WDp.getDpRawDollor(getContext(), price.price, 4));
 
             Picasso.get().cancelRequest(holder.itemImgMarket);
             try {
@@ -115,7 +116,10 @@ public class CdpAllFragment extends BaseFragment {
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    WLog.w("Click " + position);
+                    Intent intent = new Intent(getMainActivity(), KavaCdpDetailActivity.class);
+                    intent.putExtra("denom", param.denom);
+                    intent.putExtra("marketId", param.market_id);
+                    startActivity(intent);
                 }
             });
         }
@@ -129,7 +133,7 @@ public class CdpAllFragment extends BaseFragment {
             CardView itemRoot;
             ImageView itemImgMarket;
             TextView itemTitleMarket;
-            TextView itemCollateralRate, itemStabilityFee, itemLiquidationPenalty, itemCurrentPrice;
+            TextView itemCollateralRate, itemStabilityFee, itemLiquidationPenalty;
 
 
             public AllCdpHolder(@NonNull View itemView) {
@@ -140,7 +144,6 @@ public class CdpAllFragment extends BaseFragment {
                 itemCollateralRate = itemView.findViewById(R.id.cdp_collateral_rate);
                 itemStabilityFee = itemView.findViewById(R.id.cdp_stability_fee);
                 itemLiquidationPenalty = itemView.findViewById(R.id.cdp_str_liquidation_penalty);
-                itemCurrentPrice = itemView.findViewById(R.id.cdp_str_current_price);
             }
         }
     }
