@@ -379,6 +379,35 @@
     <string name="str_principal_drawdebt">Loan more USDX</string>
     <string name="str_principal_repay">Repay USDX</string>
 
+    <string name="str_help_collateral_rate_t">Min. Collateral Rate</string>
+    <string name="str_help_collateral_rate">● The minimum rate at which the total USD value of the collateralized asset must be kept at against the total amount of USDX loaned from the CDP.\n\n
+● For example, if the minimum collateral rate is 200%, this means that in order to borrow 100 USDX from the CDP, you must deposit at least 200 USD worth of assets as collateral. If the total USD value of your collateralized asset falls below 200 USD due to price fluctuations, your position will be liquidated.</string>
+    <string name="str_help_stability_fee_t">Stability Fee (APR)</string>
+    <string name="str_help_stability_fee">● The amount of fee you must pay for taking out USDX loans from the CDP, calculated as APR.\n\n
+● When you repay your USDX debt, you must also pay this stability fee in order to close your collateralized debt position.</string>
+    <string name="str_help_liquidation_penalty_t">Liquidation Penalty</string>
+    <string name="str_help_liquidation_penalty">● The amount of fee you must pay in the event that your collateralized assets are liquidated due to price fluctuations.\n\n
+● If your collateral rate falls below minimum collateral rate, your assets will be liquidated.</string>
+
+    <string name="str_help_available_collateral_t">Available</string>
+    <string name="str_help_available_collateral">● The amount of available %1$s in your wallet that can be deposited into the CDP as collateral.</string>
+    <string name="str_help_self_deposited_collateral_t">Self Deposited Collateral</string>
+    <string name="str_help_self_deposited_collateral_">● The amount of %1$s deposited into the CDP as collateral from this wallet.</string>
+    <string name="str_help_total_deposited_collateral_t">Total Deposited Collateral</string>
+    <string name="str_help_total_deposited_collateral">● The total amount of %1$s deposited into the CDP as collateral.</string>
+    <string name="str_help_withdrawable_t">Withdrawable</string>
+    <string name="str_help_withdrawable">● Withdrawing the collateral excessively close to the maximum amount can put the CDP into risk of going below the minimum collateral rate and being liquidated.</string>
+
+    <string name="str_help_available_amount_t">Available Amount</string>
+    <string name="str_help_available_amount">● The amount of USDX available for transactions.</string>
+    <string name="str_help_loaned_amount_t">Available Amount</string>
+    <string name="str_help_loaned_amount">● The total amount of USDX loaned from the CDP.</string>
+    <string name="str_help_remaining_loan_capacity_t">Remaining Loan Capacity</string>
+    <string name="str_help_remaining_loan_capacity">● The amount of USDX that can be additionally loaned from the CDP. This capacity changes in accordance to changes in the collateral rate due to price fluctuations.</string>
+    <string name="str_help_outstanding_debt_t">Outstanding Debt</string>
+    <string name="str_help_outstanding_debt">● The total principal as well as interest amount of debt that has yet to be paid.</string>
+
+
 
     <!--    <string name="str_min_collateral_rate">최소 담보 비율</string>-->
 <!--    <string name="str_stability_fee">안정화 수수료 (연간)</string>-->

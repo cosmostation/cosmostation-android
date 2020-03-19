@@ -32,6 +32,8 @@ public class Dialog_Help_Msg extends DialogFragment {
         View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_help_msg, null);
         TextView title = view.findViewById(R.id.dialog_title);
         TextView msg = view.findViewById(R.id.dialog_msg);
+        title.setText(getArguments().getString("title"));
+        msg.setText(getArguments().getString("msg"));
 
         Button btn_negative = view.findViewById(R.id.btn_nega);
         btn_negative.setOnClickListener(new View.OnClickListener() {

@@ -24,6 +24,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
+import wannabit.io.cosmostaion.dialog.Dialog_Market;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
@@ -200,7 +202,6 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
                 onFetchCdpInfo();
             }
         });
-
         onFetchCdpInfo();
     }
 
@@ -355,22 +356,34 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     @Override
     public void onClick(View v) {
         if (v.equals(mInfoCollateralRateLayer) || v.equals(mInfoEmptyLayer)) {
+            onShowHelpPopup(getString(R.string.str_help_collateral_rate_t), getString(R.string.str_help_collateral_rate));
 
         } else if (v.equals(mStabilityFeeLayer)) {
+            onShowHelpPopup(getString(R.string.str_help_stability_fee_t), getString(R.string.str_help_stability_fee));
 
         } else if (v.equals(mInfoLiquidationPenaltyLayer)) {
+            onShowHelpPopup(getString(R.string.str_help_liquidation_penalty_t), getString(R.string.str_help_liquidation_penalty));
 
         } else if (v.equals(mMySelfDepositLayer)) {
+            onShowHelpPopup(getString(R.string.str_help_self_deposited_collateral_t),
+                    String.format(getString(R.string.str_help_self_deposited_collateral_), mMarketDenom.toUpperCase()));
 
         } else if (v.equals(mMyTotalDepositLayer)) {
+            onShowHelpPopup(getString(R.string.str_help_total_deposited_collateral_t),
+                    String.format(getString(R.string.str_help_total_deposited_collateral), mMarketDenom.toUpperCase()));
 
         } else if (v.equals(mMyWithdrawableLayer)) {
+            onShowHelpPopup(getString(R.string.str_help_withdrawable_t) + " " + mMarketDenom.toUpperCase(),
+                    getString(R.string.str_help_withdrawable));
 
         } else if (v.equals(mMyLoadnedLayer)) {
+            onShowHelpPopup(getString(R.string.str_help_loaned_amount_t), getString(R.string.str_help_loaned_amount));
 
         } else if (v.equals(mMyLoadableLayer)) {
+            onShowHelpPopup(getString(R.string.str_help_remaining_loan_capacity_t), getString(R.string.str_help_remaining_loan_capacity));
 
         } else if (v.equals(mMyOutstandingDebtLayer)) {
+            onShowHelpPopup(getString(R.string.str_help_outstanding_debt_t), getString(R.string.str_help_outstanding_debt));
 
         } else if (v.equals(mMyBtnDeposit)) {
             WLog.w("mMyBtnDeposit");
@@ -388,7 +401,15 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             WLog.w("mOpenCdp");
 
         }
+    }
 
+    private void onShowHelpPopup(String title, String msg) {
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
+        bundle.putString("msg", msg);
+        Dialog_Help_Msg dialog = Dialog_Help_Msg.newInstance(bundle);
+        dialog.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
     }
 
 
