@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.broadcast.kava;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +9,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,18 +26,18 @@ import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.broadcast.kava.CreateCdpActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 
 public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int CDP_CREATE_CONFIRM_DIALOG = 6017;
     private final static int STEP_COLLATERAL = 0;
     private final static int STEP_PRINCIPAL = 1;
     private int mStep = STEP_COLLATERAL;
@@ -183,8 +184,6 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             mCollateralActionLayer.setVisibility(View.VISIBLE);
             mPrincipalLayer.setVisibility(View.GONE);
             mPrincipalInput.setText("");
-//            mBtnNext.setText(R.string.str_next);
-//            mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
             onUpdateNextBtn();
 
             mCollateralInput.addTextChangedListener(new TextWatcher() {
@@ -204,7 +203,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                         mCollateralInput.setText("");
                     } else if (es.endsWith(".")) {
                         mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                        mCollateralInput.setVisibility(View.VISIBLE);
+                        return;
                     } else if(es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                         mCollateralInput.setText("0");
                         mCollateralInput.setSelection(1);
@@ -268,6 +267,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                 @Override
                 public void afterTextChanged(Editable et) {
                     String es = et.toString().trim();
+                    WLog.w("es " + es);
                     if(TextUtils.isEmpty(es)) {
                         mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     } else if (es.startsWith(".")) {
@@ -275,7 +275,6 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                         mPrincipalInput.setText("");
                     } else if (es.endsWith(".")) {
                         mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                        mPrincipalInput.setVisibility(View.VISIBLE);
                     } else if(mPrincipalInput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
                         mPrincipalInput.setText("0");
                         mPrincipalInput.setSelection(1);
@@ -369,9 +368,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         } else if (v.equals(mBtnCollateralMax)) {
             mCollateralInput.setText(mCollateralMaxAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
 
-        }
-
-        else if (v.equals(mPrincipalClear)) {
+        } else if (v.equals(mPrincipalClear)) {
             mPrincipalInput.setText("");
 
         } else if (v.equals(mBtnPrincipalMin)) {
@@ -407,15 +404,31 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         } else if (v.equals(mBtnPrincipalMax)) {
             mPrincipalInput.setText(mPrincipalMaxAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
 
-        }
+        } else if (v.equals(mBtnCancel)) {
+            getSActivity().onBeforeStep();
 
-
-
-        else if (v.equals(mBtnNext)) {
+        } else if (v.equals(mBtnNext)) {
             if (mStep == STEP_COLLATERAL) {
                 if (onValidateCollateral()) {
                     mStep = STEP_PRINCIPAL;
                     onUpdateStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (mStep == STEP_PRINCIPAL) {
+                if (onValidateNext()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("collateralAmount", getSActivity().toCollateralAmount.toPlainString());
+                    bundle.putString("principalAmount", getSActivity().toPrincipalAmount.toPlainString());
+                    bundle.putString("riskRate", getSActivity().mRiskRate.toPlainString());
+                    bundle.putString("liquidationPrice", getSActivity().mLiquidationPrice.toPlainString());
+                    bundle.putString("currentPrice", getPrice().price);
+                    Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
+                    dialog.setCancelable(true);
+                    dialog.setTargetFragment(this, CDP_CREATE_CONFIRM_DIALOG);
+                    dialog.show(getFragmentManager().beginTransaction(), "dialog");
+
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
                 }
@@ -432,6 +445,33 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         mToCollateralAmount = toCollateralAmount;
         return true;
     }
+
+    private boolean onValidateNext() {
+        getSActivity().toCollateralAmount = BigDecimal.ZERO;
+        getSActivity().toPrincipalAmount = BigDecimal.ZERO;
+        getSActivity().mRiskRate = BigDecimal.ZERO;
+        getSActivity().mLiquidationPrice = BigDecimal.ZERO;
+
+        BigDecimal toCollateralAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
+        if (toCollateralAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
+        if (mCollateralMinAmount.compareTo(toCollateralAmount) > 0) return false;
+        if (mCollateralMaxAmount.compareTo(toCollateralAmount) < 0) return false;
+
+        BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
+        if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
+        if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0) return false;
+
+        final BigDecimal currentPrice = new BigDecimal(getPrice().price);
+        final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+        final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
+
+        getSActivity().toCollateralAmount = toCollateralAmount;
+        getSActivity().toPrincipalAmount = toPrincipalAmount;
+        getSActivity().mRiskRate = riskRate;
+        getSActivity().mLiquidationPrice = liquidationPrice;
+        return true;
+    }
+
 
     private void onUpdateNextBtn() {
         if (mStep == STEP_PRINCIPAL) {
@@ -489,7 +529,12 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         }
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == CDP_CREATE_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+            getSActivity().onNextStep();
+        }
+    }
 
 
     private CreateCdpActivity getSActivity() {

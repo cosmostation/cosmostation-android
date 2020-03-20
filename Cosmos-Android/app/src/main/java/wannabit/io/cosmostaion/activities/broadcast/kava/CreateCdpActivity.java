@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep3Fragment;
+import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
@@ -61,8 +62,12 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
 
 
 
-
-    public BigDecimal                  toCollateralAmount = BigDecimal.ZERO;
+    public BigDecimal                   toCollateralAmount = BigDecimal.ZERO;
+    public BigDecimal                   toPrincipalAmount = BigDecimal.ZERO;
+    public BigDecimal                   mLiquidationPrice = BigDecimal.ZERO;
+    public BigDecimal                   mRiskRate = BigDecimal.ZERO;
+    public String                       mTargetMemo;
+    public Fee                          mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
