@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
@@ -105,6 +106,14 @@ public class CdpMyFragment extends BaseFragment {
             final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(status.getDenom());
             final int denomDecimal = WUtil.getKavaCoinDecimal(status.getDenom());
             final int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
+            final BigDecimal currentPrice = new BigDecimal(price.price);
+            final BigDecimal liquidationPrice = WDp.getLiquidationPrice(status, getMainActivity().mCdpParam.getRawLiquidationRatio(status.getDenom()));
+            final BigDecimal safeRate = (currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN);
+
+            WLog.w("currentPrice " +  currentPrice);
+            WLog.w("liquidationPrice " +  liquidationPrice);
+            WLog.w("safeRate " +  safeRate);
+
 
             holder.itemLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getContext(), status.getDenom().toUpperCase()));
             holder.itemCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getContext(), status.getDenom().toUpperCase()));
@@ -112,25 +121,27 @@ public class CdpMyFragment extends BaseFragment {
             holder.itemLoanedAmountTitle.setText(WDp.DpLoanedTitle(getContext(), status.getPDenom().toUpperCase()));
 
             holder.itemTitleMarket.setText(status.getDpMarketId());
-            holder.itemLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), WDp.getLiquidationPrice(status, getMainActivity().mCdpParam.getRawLiquidationRatio(status.getDenom())).toPlainString(), 4));
-            holder.itemCurrentPrice.setText(WDp.getDpRawDollor(getContext(), price.price, 4));
+            holder.itemLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), liquidationPrice, 4));
+            holder.itemCurrentPrice.setText(WDp.getDpRawDollor(getContext(), currentPrice,  4));
             holder.itemCollateralAmount.setText(WDp.getDpAmount2(getContext(), status.getCollateralAmount(), denomDecimal, denomDecimal));
             holder.itemLoanedAmount.setText(WDp.getDpAmount2(getContext(), status.getPrincipalAmount(), denomPDecimal, denomPDecimal));
 
-            BigDecimal liquidationRatio = getMainActivity().mCdpParam.getRawLiquidationRatio(status.getDenom());
-            BigDecimal collateralizationRatio = new BigDecimal(status.collateralization_ratio);
-            BigDecimal safeRate = collateralizationRatio.subtract(liquidationRatio).movePointRight(2).divide(liquidationRatio, 6, RoundingMode.DOWN);
-            holder.itemSafeRate.setText(WDp.getPercentDp(safeRate, 2));
-            if (safeRate.longValue() > 0.7) {
+//            BigDecimal liquidationRatio = getMainActivity().mCdpParam.getRawLiquidationRatio(status.getDenom());
+//            BigDecimal collateralizationRatio = new BigDecimal(status.collateralization_ratio);
+//            BigDecimal safeRate = collateralizationRatio.subtract(liquidationRatio).movePointRight(2).divide(liquidationRatio, 6, RoundingMode.DOWN);
+//            holder.itemSafeRate.setText(WDp.getPercentDp(safeRate, 2));
+            holder.itemSafeRate.setText(WDp.getDpAmount2(getContext(), safeRate, 0, 2));
+            if (safeRate.longValue() >= 0.5) {
                 holder.itemSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_safe));
                 holder.itemSafeRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
-            } else if (safeRate.longValue() > 0.3) {
+            } else if (safeRate.longValue() >= 0.2) {
                 holder.itemSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_stable));
                 holder.itemSafeRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
             } else {
                 holder.itemSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_danger));
                 holder.itemSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
             }
+
 
             try {
                 Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  status.getImagePath()).fit().into(holder.itemImgMarket);

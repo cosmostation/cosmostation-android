@@ -63,12 +63,12 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
                                 mInfoCurrentPriceTitle, mInfoCurrentPrice, mInfoLiquidationPriceTitle, mInfoLiquidationPrice;
     private RelativeLayout      mInfoLiquidationPriceLayer;
 
-    private LinearLayout        mInfoMyLayer, mInfoEmptyLayer;
+    private RelativeLayout      mInfoMyLayer;
+    private LinearLayout        mInfoEmptyLayer;
     private TextView            mInfoSafeRate;
     private ImageView           mInfoSafeBar;
     private TextView            mInfoCollateralRateTop;
     private RelativeLayout      mInfoCollateralRateView;
-
 
 
     private ImageView           mEmptyCollateralImg, mEmptyPrincipalImg;
@@ -226,6 +226,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         final BigDecimal cAvailable = WUtil.getTokenBalance(mBalances, cDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, cDenom).balance;
         final BigDecimal pAvailable = WUtil.getTokenBalance(mBalances, pDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, pDenom).balance;
         final BigDecimal kAvailable = WUtil.getTokenBalance(mBalances, COSMOS_KAVA) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, COSMOS_KAVA).balance;
+        final BigDecimal currentPrice = new BigDecimal(mKavaTokenPrice.price);
 
         //insert data for commonInfo
         mInfoMarketId.setText(cParam.getDpMarketId());
@@ -234,7 +235,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         mInfoStabilityFee.setText(WDp.getPercentDp(cParam.getDpStabilityFee(), 2));
         mInfoLiquidationPenalty.setText(WDp.getPercentDp(cParam.getDpLiquidationPenalty(), 2));
         mInfoCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getBaseContext(), cDenom.toUpperCase()));
-        mInfoCurrentPrice.setText(WDp.getDpRawDollor(getBaseContext(), mKavaTokenPrice.price, 4));
+        mInfoCurrentPrice.setText(WDp.getDpRawDollor(getBaseContext(), currentPrice, 4));
         try {
             Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  cParam.getImagePath()).fit().into(mInfoMarketImg);
         } catch (Exception e) { }
@@ -271,23 +272,40 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mInfoMyLayer.setVisibility(View.VISIBLE);
             mInfoCollateralRateView.setVisibility(View.VISIBLE);
             mInfoLiquidationPriceLayer.setVisibility(View.VISIBLE);
-            mInfoLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getBaseContext(), cDenom.toUpperCase()));
+            mInfoMyLayer.setOnClickListener(this);
 
-            BigDecimal liquidationRatio = new BigDecimal(cParam.liquidation_ratio);
-            BigDecimal collateralizationRatio = new BigDecimal(mMyOwenCdp.collateralization_ratio);
-            BigDecimal safeRate = collateralizationRatio.subtract(liquidationRatio).movePointRight(2).divide(liquidationRatio, 6, RoundingMode.DOWN);
-            mInfoSafeRate.setText(WDp.getPercentDp(safeRate, 2));
-            if (safeRate.longValue() > 0.7) {
+            final BigDecimal liquidationPrice = WDp.getLiquidationPrice(mMyOwenCdp, new BigDecimal(cParam.liquidation_ratio));
+            final BigDecimal safeRate = (currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN);
+
+            mInfoLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getBaseContext(), cDenom.toUpperCase()));
+            mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), liquidationPrice, 4));
+            mInfoSafeRate.setText(WDp.getDpAmount2(getBaseContext(), safeRate, 0, 2));
+            if (safeRate.longValue() >= 0.5) {
                 mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_safe));
                 mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
-            } else if (safeRate.longValue() > 0.3) {
+            } else if (safeRate.longValue() >= 0.2) {
                 mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_stable));
                 mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
             } else {
                 mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_danger));
                 mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
             }
-            mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), WDp.getLiquidationPrice(mMyOwenCdp, liquidationRatio).toPlainString(), 4));
+
+//            BigDecimal liquidationRatio = new BigDecimal(cParam.liquidation_ratio);
+//            BigDecimal collateralizationRatio = new BigDecimal(mMyOwenCdp.collateralization_ratio);
+//            BigDecimal safeRate = collateralizationRatio.subtract(liquidationRatio).movePointRight(2).divide(liquidationRatio, 6, RoundingMode.DOWN);
+//            mInfoSafeRate.setText(WDp.getPercentDp(safeRate, 2));
+//            if (safeRate.longValue() > 0.7) {
+//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_safe));
+//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
+//            } else if (safeRate.longValue() > 0.3) {
+//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_stable));
+//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
+//            } else {
+//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_danger));
+//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
+//            }
+//            mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), WDp.getLiquidationPrice(mMyOwenCdp, liquidationRatio).toPlainString(), 4));
 
 
             mMyCollateralDenom.setText(cParam.denom.toUpperCase());
@@ -384,6 +402,9 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
         } else if (v.equals(mMyOutstandingDebtLayer)) {
             onShowHelpPopup(getString(R.string.str_help_outstanding_debt_t), getString(R.string.str_help_outstanding_debt));
+
+        } else if (v.equals(mInfoMyLayer)) {
+            WLog.w("safe rate");
 
         } else if (v.equals(mMyBtnDeposit)) {
             WLog.w("mMyBtnDeposit");

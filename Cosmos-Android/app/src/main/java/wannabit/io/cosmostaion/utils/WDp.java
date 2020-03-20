@@ -679,6 +679,13 @@ public class WDp {
         return result;
     }
 
+    public static SpannableString getDpRawDollor(Context c, BigDecimal price, int scale) {
+        SpannableString result;
+        result = new SpannableString("$ " +getDecimalFormat(c, scale).format(price));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - scale, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+    }
+
     public static SpannableString getZeroValue(Context c, BaseData dao) {
         if(dao.getCurrency() == 5) {
             SpannableString result;

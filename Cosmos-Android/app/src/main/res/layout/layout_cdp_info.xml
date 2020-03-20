@@ -35,31 +35,36 @@
                     style="@style/font_ss_12_white"
                     android:text="BTC : USDX"/>
             </LinearLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/cdp_my_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/cdp_markets"
                 android:layout_alignTop="@+id/cdp_markets"
                 android:layout_alignBottom="@+id/cdp_markets"
-                android:gravity="bottom|right"
-                android:orientation="vertical"
                 android:visibility="gone">
+                <ImageView
+                    android:layout_width="@dimen/space_14"
+                    android:layout_height="@dimen/space_14"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/question_ic"/>
                 <TextView
                     android:id="@+id/cdp_safe_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    style="@style/font_ss_26_white"
-                    android:text="59.88%"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_above="@+id/cdp_safe_img"
+                    style="@style/font_ss_33_white"
+                    android:text="-"/>
                 <ImageView
                     android:id="@+id/cdp_safe_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="@dimen/space_8"
                     android:src="@drawable/cdp_bar_safe"/>
-            </LinearLayout>
+            </RelativeLayout>
             <LinearLayout
                 android:id="@+id/cdp_empty_layer"
                 android:layout_width="match_parent"
@@ -132,7 +137,7 @@
                 android:layout_alignParentRight="true"
                 style="@style/font_ssl_14_white"
                 android:gravity="right"
-                android:text="200%"/>
+                android:text="-"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -165,7 +170,7 @@
                 android:layout_alignParentRight="true"
                 style="@style/font_ssl_14_white"
                 android:gravity="right"
-                android:text="200%"/>
+                android:text="-"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -199,7 +204,7 @@
                 android:layout_alignParentRight="true"
                 style="@style/font_ssl_14_white"
                 android:gravity="right"
-                android:text="200%"/>
+                android:text="-"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -221,7 +226,7 @@
                 android:layout_alignParentRight="true"
                 style="@style/font_ssl_14_white"
                 android:gravity="right"
-                android:text="200%"/>
+                android:text="-"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -244,7 +249,7 @@
                 android:layout_alignParentRight="true"
                 style="@style/font_ssl_14_white"
                 android:gravity="right"
-                android:text="200%"/>
+                android:text="-"/>
         </RelativeLayout>
 
     </LinearLayout>

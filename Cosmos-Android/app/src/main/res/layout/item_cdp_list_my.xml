@@ -65,8 +65,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        style="@style/font_ss_26_white"
-                        android:text="59.88%"/>
+                        style="@style/font_ss_33_white"
+                        android:text="-"/>
                     <ImageView
                         android:id="@+id/cdp_safe_img"
                         android:layout_width="wrap_content"
