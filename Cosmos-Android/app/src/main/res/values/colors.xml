@@ -71,8 +71,11 @@
     <color name="colorVoteBg">#424548</color>
 
 
-    <color name="colorCdpDanger">#F92445</color>
-    <color name="colorCdpStable">#FFE032</color>
-    <color name="colorCdpSafe">#4CF285</color>
+    <color name="colorCdpDanger">#FF2745</color>
+    <color name="colorCdpDanger2">#E8233D</color>
+    <color name="colorCdpStable">#FFE62B</color>
+    <color name="colorCdpStable2">#E7CF27</color>
+    <color name="colorCdpSafe">#40F683</color>
+    <color name="colorCdpSafe2">#31E072</color>
 
 </resources>

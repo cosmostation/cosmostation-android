@@ -405,6 +405,20 @@
     <string name="str_help_outstanding_debt">The total principal as well as interest amount of debt that has yet to be paid.</string>
 
 
+    <string name="str_create_cdp_c">CREATE CDP</string>
+    <string name="str_depositable_amount"><![CDATA[담보 가능 : ]]></string>
+    <string name="str_loanable_amount"><![CDATA[대출 가능 : ]]></string>
+    <string name="str_add_min">Min</string>
+    <string name="str_add_20">20</string>
+    <string name="str_add_50">50</string>
+    <string name="str_add_70">70</string>
+    <string name="str_add_one_fourths">1/4</string>
+    <string name="str_add_three_fourths">3/4</string>
+
+    <string name="str_create_cdp_step_1">Enter CDP forms</string>
+    <string name="str_create_cdp_step_2">Insert memo (optional)</string>
+    <string name="str_create_cdp_step_3">Select transaction fee</string>
+    <string name="str_create_cdp_step_4">Check create CDP detail</string>
 
     <!--    <string name="str_min_collateral_rate">최소 담보 비율</string>-->
 <!--    <string name="str_stability_fee">안정화 수수료 (연간)</string>-->
@@ -628,6 +642,8 @@
     <string name="error_no_option">의견을 선택해 주세요.</string>
     <string name="error_no_tx">존재하지 않는 Tx입니다.</string>
     <string name="error_not_yet">준비중 입니다!</string>
+    <string name="error_less_than_min_deposit">Less than the minimum deposit amount.</string>
+    <string name="error_less_than_min_principal">Less than the minimum loan amount.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
@@ -22,11 +23,11 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.broadcast.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
-import wannabit.io.cosmostaion.dialog.Dialog_Market;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
@@ -112,7 +113,6 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     private String                      mMaketId;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,8 +194,8 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
         mMarketDenom = getIntent().getStringExtra("denom");
         mMaketId = getIntent().getStringExtra("marketId");
-        WLog.w("mMarketDenom " + mMarketDenom);
-        WLog.w("marketId " + mMaketId);
+//        WLog.w("mMarketDenom " + mMarketDenom);
+//        WLog.w("marketId " + mMaketId);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -278,20 +278,34 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
             final BigDecimal liquidationPrice = WDp.getLiquidationPrice(mMyOwenCdp, new BigDecimal(cParam.liquidation_ratio));
             final BigDecimal safeRate = (currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN);
+            final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
             mInfoLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getBaseContext(), cDenom.toUpperCase()));
             mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), liquidationPrice, 4));
-            mInfoSafeRate.setText(WDp.getDpAmount2(getBaseContext(), safeRate, 0, 2));
-            if (safeRate.longValue() >= 0.5) {
+
+            mInfoSafeRate.setText(WDp.getDpAmount2(getBaseContext(), riskRate, 0, 2));
+            if (riskRate.longValue() < 50) {
                 mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_safe));
                 mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
-            } else if (safeRate.longValue() >= 0.2) {
+            } else if (riskRate.longValue() < 80) {
                 mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_stable));
                 mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
             } else {
                 mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_danger));
                 mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
             }
+
+//            mInfoSafeRate.setText(WDp.getDpAmount2(getBaseContext(), safeRate, 0, 2));
+//            if (safeRate.longValue() >= 0.5) {
+//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_safe));
+//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
+//            } else if (safeRate.longValue() >= 0.2) {
+//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_stable));
+//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
+//            } else {
+//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_danger));
+//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
+//            }
 
 //            BigDecimal liquidationRatio = new BigDecimal(cParam.liquidation_ratio);
 //            BigDecimal collateralizationRatio = new BigDecimal(mMyOwenCdp.collateralization_ratio);
@@ -424,7 +438,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             WLog.w("mMyBtnRepay");
 
         } else if (v.equals(mOpenCdp)) {
-            WLog.w("mOpenCdp");
+            onCheckStartCreateCdp();
 
         }
     }
@@ -438,6 +452,13 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
     }
 
+    private void onCheckStartCreateCdp() {
+        //TODO add check logic!
+        Intent intent = new Intent(this, CreateCdpActivity.class);
+        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("marketId", mMaketId);
+        startActivity(intent);
+    }
 
 
 

@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
+import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -1449,4 +1450,5 @@ public class WDp {
         BigDecimal principalAmount = status.getPrincipalAmount().multiply(liquidationRatio).movePointLeft(denomPDecimal).setScale(denomPDecimal, BigDecimal.ROUND_DOWN);
         return principalAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_UP);
     }
+
 }

@@ -471,6 +471,23 @@
     <string name="str_help_outstanding_debt">The total principal as well as interest amount of debt that has yet to be paid.</string>
 
 
+    <string name="str_create_cdp_c">CREATE CDP</string>
+    <string name="str_depositable_amount"><![CDATA[Depositable : ]]></string>
+    <string name="str_loanable_amount"><![CDATA[Loanable : ]]></string>
+    <string name="str_add_min">Min</string>
+    <string name="str_add_20">20</string>
+    <string name="str_add_50">50</string>
+    <string name="str_add_70">70</string>
+    <string name="str_add_one_fourths">1/4</string>
+    <string name="str_add_three_fourths">3/4</string>
+
+
+
+    <string name="str_create_cdp_step_1">Enter CDP forms</string>
+    <string name="str_create_cdp_step_2">Insert memo (optional)</string>
+    <string name="str_create_cdp_step_3">Select transaction fee</string>
+    <string name="str_create_cdp_step_4">Check create CDP detail</string>
+
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -629,7 +646,7 @@
     <string name="error_clipboard_no_data">No text from clipboard.</string>
     <string name="error_invalid_address">Invalid Address.</string>
     <string name="error_self_sending">Cannot send to your own address</string>
-    <string name="error_invalid_amount">Invalid amount, please insert correct amount to send.</string>
+    <string name="error_invalid_amount">Invalid amount, please insert correct amount.</string>
     <string name="error_invalid_memo">Invalid memo.</string>
     <string name="error_network">Network Error.</string>
     <string name="error_address_not_in_node">Address or Public key is valid format but no data in block chain.</string>
@@ -674,6 +691,8 @@
     <string name="error_no_option">Please select your opinion.</string>
     <string name="error_no_tx">Tx does not exist.</string>
     <string name="error_not_yet">Comming soon!</string>
+    <string name="error_less_than_min_deposit">Less than the minimum deposit amount.</string>
+    <string name="error_less_than_min_principal">Less than the minimum loan amount.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>
