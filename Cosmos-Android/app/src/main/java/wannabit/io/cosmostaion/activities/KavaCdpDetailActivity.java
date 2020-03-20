@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +27,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.dialog.Dialog_Market;
+import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
@@ -404,7 +406,10 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             onShowHelpPopup(getString(R.string.str_help_outstanding_debt_t), getString(R.string.str_help_outstanding_debt));
 
         } else if (v.equals(mInfoMyLayer)) {
-            WLog.w("safe rate");
+            Bundle bundle = new Bundle();
+            Dialog_Safe_Score_Staus dialog = Dialog_Safe_Score_Staus.newInstance(bundle);
+            dialog.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mMyBtnDeposit)) {
             WLog.w("mMyBtnDeposit");
@@ -477,10 +482,10 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             }
         }
 
-
         if (mTaskCount == 0) {
             if (mCdpParam == null || mKavaTokenPrice == null) {
                 WLog.w("ERROR");
+                Toast.makeText(getBaseContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
                 onBackPressed();
                 return;
             }
