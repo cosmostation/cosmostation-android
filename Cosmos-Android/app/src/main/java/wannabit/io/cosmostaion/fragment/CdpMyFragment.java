@@ -111,7 +111,6 @@ public class CdpMyFragment extends BaseFragment {
             final BigDecimal safeRate = (currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN);
             final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
-
             WLog.w("currentPrice " +  currentPrice);
             WLog.w("liquidationPrice " +  liquidationPrice);
             WLog.w("safeRate " +  safeRate);
@@ -128,25 +127,6 @@ public class CdpMyFragment extends BaseFragment {
             holder.itemCurrentPrice.setText(WDp.getDpRawDollor(getContext(), currentPrice,  4));
             holder.itemCollateralAmount.setText(WDp.getDpAmount2(getContext(), status.getCollateralAmount(), denomDecimal, denomDecimal));
             holder.itemLoanedAmount.setText(WDp.getDpAmount2(getContext(), status.getPrincipalAmount(), denomPDecimal, denomPDecimal));
-
-//            BigDecimal liquidationRatio = getMainActivity().mCdpParam.getRawLiquidationRatio(status.getDenom());
-//            BigDecimal collateralizationRatio = new BigDecimal(status.collateralization_ratio);
-//            BigDecimal safeRate = collateralizationRatio.subtract(liquidationRatio).movePointRight(2).divide(liquidationRatio, 6, RoundingMode.DOWN);
-//            holder.itemSafeRate.setText(WDp.getPercentDp(safeRate, 2));
-
-
-
-//            holder.itemSafeRate.setText(WDp.getDpAmount2(getContext(), safeRate, 0, 2));
-//            if (safeRate.longValue() >= 0.5) {
-//                holder.itemSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_safe));
-//                holder.itemSafeRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
-//            } else if (safeRate.longValue() >= 0.2) {
-//                holder.itemSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_stable));
-//                holder.itemSafeRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
-//            } else {
-//                holder.itemSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_danger));
-//                holder.itemSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
-//            }
 
             holder.itemSafeRate.setText(WDp.getDpAmount2(getContext(), riskRate, 0, 2));
             if (riskRate.longValue() < 50) {

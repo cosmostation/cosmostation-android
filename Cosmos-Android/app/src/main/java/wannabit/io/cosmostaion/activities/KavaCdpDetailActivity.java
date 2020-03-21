@@ -89,6 +89,8 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     private LinearLayout        mMyWithdrawableLayer;
     private TextView            mMyWithdrawableAmountTitle;
     private TextView            mMyWithdrawableAmount;
+    private TextView            mMyCollateralAvailableValue, mMySelfDepositValue, mMyTotalDepositValue, mMyWithdrawableValue;
+
     private RelativeLayout      mMyBtnDeposit, mMyBtnWithdraw;
     private TextView            mMyBtnDepositTxt, mMyBtnWithdrawTxt;
     private ImageView           mMyPrincipalImg;
@@ -100,7 +102,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     private LinearLayout        mMyOutstandingDebtLayer;
     private TextView            mMyOutstandingDebtAmount;
     private RelativeLayout      mMyBtnDrawdebt, mMyBtnRepay;
-    private TextView            mMyKavaAvailable;
+    private TextView            mMyKavaAvailable, mMyKavaValue;
 
     private Button              mOpenCdp;
 
@@ -171,6 +173,11 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         mMyWithdrawableLayer            = mMyCard.findViewById(R.id.expected_withdrawable_amount_layer);
         mMyWithdrawableAmountTitle      = mMyCard.findViewById(R.id.expected_withdrawable_amount_title);
         mMyWithdrawableAmount           = mMyCard.findViewById(R.id.expected_withdrawable_amount);
+        mMyCollateralAvailableValue     = mMyCard.findViewById(R.id.collateral_available_value);
+        mMySelfDepositValue             = mMyCard.findViewById(R.id.self_deposited_value);
+        mMyTotalDepositValue            = mMyCard.findViewById(R.id.total_deposited_value);
+        mMyWithdrawableValue            = mMyCard.findViewById(R.id.expected_withdrawable_value);
+
         mMyBtnDeposit                   = mMyCard.findViewById(R.id.btn_deposit);
         mMyBtnDepositTxt                = mMyCard.findViewById(R.id.btn_deposit_txt);
         mMyBtnWithdraw                  = mMyCard.findViewById(R.id.btn_withdraw);
@@ -187,6 +194,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         mMyBtnDrawdebt                  = mMyCard.findViewById(R.id.btn_drawdebt);
         mMyBtnRepay                     = mMyCard.findViewById(R.id.btn_repay);
         mMyKavaAvailable                = mMyCard.findViewById(R.id.kava_available);
+        mMyKavaValue                    = mMyCard.findViewById(R.id.kava_value);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -268,6 +276,8 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mEmptyPrincipalValue.setText(WDp.getDpRawDollor(getBaseContext(), principalValue, 2));
 
             mEmptyKavaAmount.setText(WDp.getDpAmount2(getBaseContext(), kAvailable, WUtil.getKavaCoinDecimal(COSMOS_KAVA), WUtil.getKavaCoinDecimal(COSMOS_KAVA)));
+            BigDecimal kavaValue = kAvailable.movePointLeft(WUtil.getKavaCoinDecimal(COSMOS_KAVA)).multiply(getBaseDao().getLastKavaDollorTic()).setScale(2, RoundingMode.DOWN);
+            mEmptyKavaValue.setText(WDp.getDpRawDollor(getBaseContext(), kavaValue, 2));
             try {
                 Picasso.get().load(KAVA_COIN_IMG_URL + cDenom + ".png").fit().into(mEmptyCollateralImg);
                 Picasso.get().load(KAVA_COIN_IMG_URL + pDenom + ".png").fit().into(mEmptyPrincipalImg);
@@ -287,7 +297,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mInfoMyLayer.setOnClickListener(this);
 
             final BigDecimal liquidationPrice = WDp.getLiquidationPrice(mMyOwenCdp, new BigDecimal(cParam.liquidation_ratio));
-            final BigDecimal safeRate = (currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN);
+//            final BigDecimal safeRate = (currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN);
             final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
             mInfoLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getBaseContext(), cDenom.toUpperCase()));
@@ -305,38 +315,13 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
                 mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
             }
 
-//            mInfoSafeRate.setText(WDp.getDpAmount2(getBaseContext(), safeRate, 0, 2));
-//            if (safeRate.longValue() >= 0.5) {
-//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_safe));
-//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
-//            } else if (safeRate.longValue() >= 0.2) {
-//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_stable));
-//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
-//            } else {
-//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_danger));
-//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
-//            }
-
-//            BigDecimal liquidationRatio = new BigDecimal(cParam.liquidation_ratio);
-//            BigDecimal collateralizationRatio = new BigDecimal(mMyOwenCdp.collateralization_ratio);
-//            BigDecimal safeRate = collateralizationRatio.subtract(liquidationRatio).movePointRight(2).divide(liquidationRatio, 6, RoundingMode.DOWN);
-//            mInfoSafeRate.setText(WDp.getPercentDp(safeRate, 2));
-//            if (safeRate.longValue() > 0.7) {
-//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_safe));
-//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
-//            } else if (safeRate.longValue() > 0.3) {
-//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_stable));
-//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
-//            } else {
-//                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_danger));
-//                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
-//            }
-//            mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), WDp.getLiquidationPrice(mMyOwenCdp, liquidationRatio).toPlainString(), 4));
-
 
             mMyCollateralDenom.setText(cParam.denom.toUpperCase());
             mMyCollateralAvailableTitle.setText(getString(R.string.str_available) + " " + cParam.denom.toUpperCase());
             mMyCollateralAvailable.setText(WDp.getDpAmount2(getBaseContext(), cAvailable, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
+            BigDecimal collateralAvailableValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+            mMyCollateralAvailableValue.setText(WDp.getDpRawDollor(getBaseContext(), collateralAvailableValue, 2));
+
             BigDecimal selfDepositAmount = BigDecimal.ZERO;
             for (ResCdpDepositStatus.Result deposit:mMyDepositList) {
                 if (deposit.cdp_id.equals(mMyOwenCdp.cdp.id) && deposit.depositor.equals(mAccount.address)) {
@@ -347,30 +332,57 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.get(0).amount);
             BigDecimal feeValue = mMyOwenCdp.cdp.getAccumulatedFees();
             BigDecimal toRepayValue = debtValue.add(feeValue);
-            BigDecimal withdrawableValue = cValue.subtract(toRepayValue.multiply(new BigDecimal(cParam.liquidation_ratio)).setScale(0));
-            BigDecimal withdrawableAmount = withdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).divide(new BigDecimal(mKavaTokenPrice.price), 0, RoundingMode.HALF_DOWN);
-            BigDecimal approxWithdrawableAmount = withdrawableAmount.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
-            BigDecimal drawDebtValue = withdrawableValue.divide(new BigDecimal(cParam.liquidation_ratio), 0, RoundingMode.DOWN);
-            BigDecimal approxDrawDebtValue = drawDebtValue.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
-            WLog.w("withdrawableValue " +  withdrawableValue);
-            WLog.w("drawDebtValue " +  drawDebtValue);
-            WLog.w("approxDrawDebtValue " +  approxDrawDebtValue);
-
+            BigDecimal totalWithdrawableValue = cValue.subtract(toRepayValue.multiply(new BigDecimal(cParam.liquidation_ratio)).setScale(0));
+            BigDecimal totalWithdrawableAmount = totalWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).divide(new BigDecimal(mKavaTokenPrice.price), 0, RoundingMode.HALF_DOWN);
+            WLog.w("depositValue " +  cValue);
+            WLog.w("toRepayValue " +  toRepayValue);
+            WLog.w("totalWithdrawableValue " +  totalWithdrawableValue);
+            WLog.w("totalWithdrawableAmount " +  totalWithdrawableAmount);
+            WLog.w("selfDepositAmount " +  selfDepositAmount);
 
             mMySelfDepositAmount.setText(WDp.getDpAmount2(getBaseContext(), selfDepositAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
+            BigDecimal selfDepositValue = selfDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+            mMySelfDepositValue.setText(WDp.getDpRawDollor(getBaseContext(), selfDepositValue, 2));
+
             mMyTotalDepositAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mMyOwenCdp.cdp.collateral.get(0).amount), WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
+            BigDecimal totalDepositValue = new BigDecimal(mMyOwenCdp.cdp.collateral.get(0).amount).movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+            mMyTotalDepositValue.setText(WDp.getDpRawDollor(getBaseContext(), totalDepositValue, 2));
+
+
             mMyWithdrawableAmountTitle.setText(getString(R.string.str_expected_withdrawable_amount) + " " + cDenom.toUpperCase());
-            mMyWithdrawableAmount.setText(WDp.getDpAmount2(getBaseContext(), approxWithdrawableAmount.compareTo(selfDepositAmount) > 0 ? selfDepositAmount : approxWithdrawableAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
+            BigDecimal myWithdrawableAmount = BigDecimal.ZERO;
+            if (totalWithdrawableAmount.compareTo(selfDepositAmount) > 0) {
+                myWithdrawableAmount = selfDepositAmount;
+                WLog.w("myWithdrawableAmount " +  myWithdrawableAmount);
+            } else {
+                myWithdrawableAmount = totalWithdrawableAmount;
+                WLog.w("myWithdrawableAmount " +  myWithdrawableAmount);
+                myWithdrawableAmount = myWithdrawableAmount.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
+                WLog.w("myWithdrawableAmount padding " +  myWithdrawableAmount);
+            }
+            BigDecimal myWithdrawableValue = myWithdrawableAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+            mMyWithdrawableAmount.setText(WDp.getDpAmount2(getBaseContext(), myWithdrawableAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
+            mMyWithdrawableValue.setText(WDp.getDpRawDollor(getBaseContext(), myWithdrawableValue, 2));
+
             mMyBtnDepositTxt.setText(getString(R.string.str_collateral_deposit) + " " + cDenom.toUpperCase());
             mMyBtnWithdrawTxt.setText(getString(R.string.str_collateral_withdraw) + " " + cDenom.toUpperCase());
 
+
+            BigDecimal maxDebtValue = cValue.divide(new BigDecimal(cParam.liquidation_ratio),0, BigDecimal.ROUND_DOWN);
+            WLog.w("maxDebtValue " +  maxDebtValue);
+            maxDebtValue = maxDebtValue.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
+            WLog.w("maxDebtValue padding " +  maxDebtValue);
+            BigDecimal drawableDebtAmount = maxDebtValue.subtract(toRepayValue);
+            WLog.w("maxDebtValue " +  maxDebtValue);
             mMyPrincipalDenom.setText(pDenom.toUpperCase());
             mMyPrincipalAvailable.setText(WDp.getDpAmount2(getBaseContext(), pAvailable, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-            mMyLoadnedAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mMyOwenCdp.cdp.principal.get(0).amount), WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-            mMyLoadableAmount.setText(WDp.getDpAmount2(getBaseContext(), approxDrawDebtValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
+            mMyLoadnedAmount.setText(WDp.getDpAmount2(getBaseContext(), debtValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
+            mMyLoadableAmount.setText(WDp.getDpAmount2(getBaseContext(), drawableDebtAmount, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
             mMyOutstandingDebtAmount.setText(WDp.getDpAmount2(getBaseContext(), toRepayValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
 
             mMyKavaAvailable.setText(WDp.getDpAmount2(getBaseContext(), kAvailable, WUtil.getKavaCoinDecimal(COSMOS_KAVA), WUtil.getKavaCoinDecimal(COSMOS_KAVA)));
+            BigDecimal kavaValue = kAvailable.movePointLeft(WUtil.getKavaCoinDecimal(COSMOS_KAVA)).multiply(getBaseDao().getLastKavaDollorTic()).setScale(2, RoundingMode.DOWN);
+            mMyKavaValue.setText(WDp.getDpRawDollor(getBaseContext(), kavaValue, 2));
 
             try {
                 Picasso.get().load(KAVA_COIN_IMG_URL + cDenom + ".png").fit().into(mMyCollateralImg);

@@ -27,6 +27,7 @@ public class BaseConstant {
     public final static String PRE_BNB_TIC                  = "PRE_BNB_TIC";
     public final static String PRE_BNB_UP_DOWN_24           = "PRE_BNB_UP_DOWN_24";
     public final static String PRE_KAVA_TIC                 = "PRE_KAVA_TIC";
+    public final static String PRE_KAVA_DOLLOR_TIC          = "PRE_KAVA_DOLLOR_TIC";
     public final static String PRE_KAVA_UP_DOWN_24          = "PRE_KAVA_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";

@@ -124,6 +124,7 @@ public class BaseData {
             }
 
         } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_DOLLOR_TIC, ""+tic.market_data.current_price.usd).commit();
             if (getCurrency() == 0) {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_TIC, ""+tic.market_data.current_price.usd).commit();
                 getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
@@ -143,7 +144,6 @@ public class BaseData {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_TIC, ""+tic.market_data.current_price.btc).commit();
                 getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
-
         }
 
     }
@@ -238,8 +238,17 @@ public class BaseData {
         String priceS = getSharedPreferences().getString(BaseConstant.PRE_KAVA_TIC, "0");
         try {
             return Double.parseDouble(priceS);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return Double.parseDouble("0");
+        }
+    }
+
+    public BigDecimal getLastKavaDollorTic() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_KAVA_DOLLOR_TIC, "0");
+        try {
+            return new BigDecimal(priceS);
+        } catch (Exception e) {
+            return BigDecimal.ZERO;
         }
     }
 

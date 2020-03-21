@@ -82,6 +82,13 @@
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
+            <TextView
+                android:id="@+id/collateral_available_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                style="@style/font_ss_12_gray1"
+                android:text="-"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -115,6 +122,13 @@
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
+            <TextView
+                android:id="@+id/self_deposited_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                style="@style/font_ss_12_gray1"
+                android:text="-"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -148,6 +162,13 @@
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
+            <TextView
+                android:id="@+id/total_deposited_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                style="@style/font_ss_12_gray1"
+                android:text="-"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -183,6 +204,13 @@
                     android:text="-"/>
             </RelativeLayout>
         </LinearLayout>
+        <TextView
+            android:id="@+id/expected_withdrawable_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            style="@style/font_ss_12_gray1"
+            android:text="-"/>
 
         <LinearLayout
             android:id="@+id/collateral_actions_layer"
@@ -469,6 +497,14 @@
                     android:text="-"/>
             </RelativeLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/kava_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            style="@style/font_ss_12_gray1"
+            android:text="-"/>
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
