@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -25,5 +26,13 @@ public class KavaCDP {
 
     @SerializedName("fees_updated")
     public String fees_updated;
+
+    public BigDecimal getAccumulatedFees() {
+        BigDecimal result = BigDecimal.ZERO;
+        if (accumulated_fees != null && accumulated_fees.size() > 0) {
+            result = new BigDecimal(accumulated_fees.get(0).amount);
+        }
+        return result;
+    }
 
 }

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.broadcast.kava;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -26,12 +28,10 @@ import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep3Fragment;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
-import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
@@ -40,7 +40,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
@@ -66,7 +65,7 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     public BigDecimal                   toPrincipalAmount = BigDecimal.ZERO;
     public BigDecimal                   mLiquidationPrice = BigDecimal.ZERO;
     public BigDecimal                   mRiskRate = BigDecimal.ZERO;
-    public String                       mTargetMemo;
+    public String                       mMemo;
     public Fee                          mFee;
 
     @Override
@@ -175,6 +174,27 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
         }
     }
 
+    public void onStartCreateCdp() {
+        Coin collateralCoin = new Coin(getCParam().denom, toCollateralAmount.toPlainString());
+        ArrayList<Coin> collateralCoins = new ArrayList<>();
+        collateralCoins.add(collateralCoin);
+
+        Coin principalCoin = new Coin(getCParam().debt_limit.get(0).denom, toPrincipalAmount.toPlainString());
+        ArrayList<Coin> principalCoins = new ArrayList<>();
+        principalCoins.add(principalCoin);
+
+        Intent intent = new Intent(CreateCdpActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_CREATE_CDP);
+        intent.putParcelableArrayListExtra("collateralCoins", collateralCoins);
+        intent.putParcelableArrayListExtra("principalCoins", principalCoins);
+        intent.putExtra("sender", mAccount.address);
+        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mMemo);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+    }
+
     public ResCdpParam.KavaCollateralParam getCParam() {
         return mCdpParam.getCollateralParamByDenom(mMarketDenom);
     }
@@ -182,8 +202,6 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     public BigDecimal getcAvailable() {
         return WUtil.getTokenBalance(mBalances, mMarketDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, mMarketDenom).balance;
     }
-
-
 
 
     private class CreateCdpPageAdapter extends FragmentPagerAdapter {

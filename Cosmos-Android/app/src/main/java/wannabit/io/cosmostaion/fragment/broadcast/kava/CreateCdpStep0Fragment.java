@@ -253,7 +253,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             mPrincipalInput.requestFocus();
 
             mPrincipalMaxAmount = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal(0.9524)).multiply(new BigDecimal(getPrice().price)).divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
-            WLog.w("mPrincipalMaxAmount " + mPrincipalMaxAmount);
+//            WLog.w("mPrincipalMaxAmount " + mPrincipalMaxAmount);
             mPrincipalMinTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMinAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
             mPrincipalMaxTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMaxAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
 
@@ -267,7 +267,6 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                 @Override
                 public void afterTextChanged(Editable et) {
                     String es = et.toString().trim();
-                    WLog.w("es " + es);
                     if(TextUtils.isEmpty(es)) {
                         mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                     } else if (es.startsWith(".")) {
@@ -489,9 +488,9 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                     final BigDecimal currentPrice = new BigDecimal(getPrice().price);
                     final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
                     final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
-                    WLog.w("currentPrice " + currentPrice);
-                    WLog.w("liquidationPrice " + liquidationPrice);
-                    WLog.w("riskRate " + riskRate);
+//                    WLog.w("currentPrice " + currentPrice);
+//                    WLog.w("liquidationPrice " + liquidationPrice);
+//                    WLog.w("riskRate " + riskRate);
 
                     if (riskRate.longValue() < 50) {
                         mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_score_safe_fill));

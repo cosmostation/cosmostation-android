@@ -305,6 +305,22 @@ public class MsgGenerator {
     }
 
 
+    public static Msg genCreateCdpMsg(String sender, ArrayList<Coin> collateralCoins, ArrayList<Coin> principalCoins, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            value.sender = sender;
+            value.collateral = collateralCoins;
+            value.principal = principalCoins;
+
+            result.type = BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+
 
     public static StdTx genUnsignedTransferTx(ArrayList<Msg> msgs, Fee fee, String memo) {
         StdTx result = new StdTx();

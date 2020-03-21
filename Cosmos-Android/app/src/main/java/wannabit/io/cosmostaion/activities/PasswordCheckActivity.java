@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
@@ -80,6 +81,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mProposalId;
     private String                      mOpinion;
 
+    private ArrayList<Coin>             mCollateralCoins;
+    private ArrayList<Coin>             mPrincipalCoins;
+    private String                      mSender;
+
     private long                        mIdToDelete;
     private long                        mIdToCheck;
 
@@ -123,6 +128,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mReInvestAmount = getIntent().getParcelableExtra("reInvestAmount");
         mProposalId = getIntent().getStringExtra("proposal_id");
         mOpinion = getIntent().getStringExtra("opinion");
+        mCollateralCoins = getIntent().getParcelableArrayListExtra("collateralCoins");
+        mPrincipalCoins = getIntent().getParcelableArrayListExtra("principalCoins");
+        mSender = getIntent().getStringExtra("sender");
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
@@ -299,6 +307,17 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mOpinion,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_CREATE_CDP) {
+            onShowWaitDialog();
+            new SimpleCreateCdpTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mSender,
+                    mCollateralCoins,
+                    mPrincipalCoins,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
     }
 
@@ -358,7 +377,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_REINVEST ||
                     result.taskType == BaseConstant.TASK_GEN_TX_BNB_SIMPLE_SEND ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_VOTE) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_VOTE ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_CREATE_CDP) {
             if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;
