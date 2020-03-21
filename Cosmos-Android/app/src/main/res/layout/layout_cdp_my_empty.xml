@@ -64,6 +64,30 @@
                 android:text="-"
                 style="@style/font_ssl_14_white"/>
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_2"
+                    style="@style/font_ss_12_gray1"
+                    android:text="@string/str_approximate_value"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/collateral_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_2"
+                    style="@style/font_ss_12_gray1"
+                    android:text="-"/>
+            </LinearLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -91,6 +115,30 @@
                 android:text="-"
                 style="@style/font_ssl_14_white"/>
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_2"
+                    style="@style/font_ss_12_gray1"
+                    android:text="@string/str_approximate_value"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/principal_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_2"
+                    style="@style/font_ss_12_gray1"
+                    android:text="-"/>
+            </LinearLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -117,6 +165,31 @@
                 android:gravity="right"
                 android:text="-"
                 style="@style/font_ssl_14_white"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_2"
+                    style="@style/font_ss_12_gray1"
+                    android:text="@string/str_approximate_value"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/kava_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_2"
+                    style="@style/font_ss_12_gray1"
+                    android:text="-"/>
+            </LinearLayout>
         </RelativeLayout>
 
     </LinearLayout>

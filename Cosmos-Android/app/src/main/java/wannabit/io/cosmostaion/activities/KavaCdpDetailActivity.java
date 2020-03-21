@@ -78,6 +78,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     private TextView            mEmptyCollateralDenom, mEmptyCollateralAmount,
                                 mEmptyPrincipalDenom, mEmptyPrincipalAmount,
                                 mEmptyKavaDenom, mEmptyKavaAmount;
+    private TextView            mEmptyCollateralValue, mEmptyPrincipalValue, mEmptyKavaValue;
 
     private ImageView           mMyCollateralImg;
     private TextView            mMyCollateralDenom, mMyCollateralAvailableTitle, mMyCollateralAvailable;
@@ -149,11 +150,14 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         mEmptyCollateralImg             = mMyEmptyCard.findViewById(R.id.collateral_icon);
         mEmptyCollateralAmount          = mMyEmptyCard.findViewById(R.id.collateral_amount);
         mEmptyCollateralDenom           = mMyEmptyCard.findViewById(R.id.collateral_denom);
+        mEmptyCollateralValue           = mMyEmptyCard.findViewById(R.id.collateral_value);
         mEmptyPrincipalImg              = mMyEmptyCard.findViewById(R.id.principal_icon);
         mEmptyPrincipalAmount           = mMyEmptyCard.findViewById(R.id.principal_amount);
         mEmptyPrincipalDenom            = mMyEmptyCard.findViewById(R.id.principal_denom);
+        mEmptyPrincipalValue            = mMyEmptyCard.findViewById(R.id.principal_value);
         mEmptyKavaAmount                = mMyEmptyCard.findViewById(R.id.kava_amount);
         mEmptyKavaDenom                 = mMyEmptyCard.findViewById(R.id.kava_denom);
+        mEmptyKavaValue                 = mMyEmptyCard.findViewById(R.id.kava_value);
 
         mMyCard                         = findViewById(R.id.card_cdp_my);
         mMyCollateralImg                = mMyCard.findViewById(R.id.collateral_icon);
@@ -255,8 +259,14 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
             mEmptyCollateralDenom.setText(cParam.denom.toUpperCase());
             mEmptyCollateralAmount.setText(WDp.getDpAmount2(getBaseContext(), cAvailable, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
+            BigDecimal collateralValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+            mEmptyCollateralValue.setText(WDp.getDpRawDollor(getBaseContext(), collateralValue, 2));
+
             mEmptyPrincipalDenom.setText(cParam.debt_limit.get(0).denom.toUpperCase());
             mEmptyPrincipalAmount.setText(WDp.getDpAmount2(getBaseContext(), pAvailable, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
+            BigDecimal principalValue = pAvailable.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)).setScale(2, RoundingMode.DOWN);
+            mEmptyPrincipalValue.setText(WDp.getDpRawDollor(getBaseContext(), principalValue, 2));
+
             mEmptyKavaAmount.setText(WDp.getDpAmount2(getBaseContext(), kAvailable, WUtil.getKavaCoinDecimal(COSMOS_KAVA), WUtil.getKavaCoinDecimal(COSMOS_KAVA)));
             try {
                 Picasso.get().load(KAVA_COIN_IMG_URL + cDenom + ".png").fit().into(mEmptyCollateralImg);

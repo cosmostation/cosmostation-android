@@ -53,6 +53,9 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
     private TextView        mCollateralMinTx, mCollateralMaxTx, mCollateralDenomTx;
     private Button          mBtnCollateralMin, mBtnCollateral1_4, mBtnCollateralHalf, mBtnCollateral3_4, mBtnCollateralMax;
 
+    private RelativeLayout  mCollateralValueLayer;
+    private TextView        mCollateralValue;
+
     private LinearLayout    mPrincipalLayer;
     private ImageView       mPrincipalImg;
     private TextView        mPrincipalSymbol;
@@ -102,6 +105,8 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         mBtnCollateralHalf = rootView.findViewById(R.id.collateral_half);
         mBtnCollateral3_4 = rootView.findViewById(R.id.collateral_3_4);
         mBtnCollateralMax = rootView.findViewById(R.id.collateral_max);
+        mCollateralValueLayer = rootView.findViewById(R.id.collateral_value_layer);
+        mCollateralValue = rootView.findViewById(R.id.collateral_value);
 
         mPrincipalLayer = rootView.findViewById(R.id.principal_layer);
         mPrincipalImg = rootView.findViewById(R.id.principal_icon);
@@ -182,6 +187,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
     private void onUpdateStep() {
         if (mStep == STEP_COLLATERAL) {
             mCollateralActionLayer.setVisibility(View.VISIBLE);
+            mCollateralValueLayer.setVisibility(View.GONE);
             mPrincipalLayer.setVisibility(View.GONE);
             mPrincipalInput.setText("");
             onUpdateNextBtn();
@@ -249,8 +255,13 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
         } else if (mStep == STEP_PRINCIPAL) {
             mCollateralActionLayer.setVisibility(View.GONE);
+            mCollateralValueLayer.setVisibility(View.VISIBLE);
             mPrincipalLayer.setVisibility(View.VISIBLE);
             mPrincipalInput.requestFocus();
+
+
+            BigDecimal collateralValue = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getPrice().price)).setScale(2, RoundingMode.DOWN);
+            mCollateralValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
             mPrincipalMaxAmount = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal(0.9524)).multiply(new BigDecimal(getPrice().price)).divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
 //            WLog.w("mPrincipalMaxAmount " + mPrincipalMaxAmount);
@@ -437,38 +448,53 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
     }
 
     private boolean onValidateCollateral() {
-        BigDecimal toCollateralAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
-        if (toCollateralAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
-        if (mCollateralMinAmount.compareTo(toCollateralAmount) > 0) return false;
-        if (mCollateralMaxAmount.compareTo(toCollateralAmount) < 0) return false;
-        mToCollateralAmount = toCollateralAmount;
-        return true;
+        try {
+            BigDecimal toCollateralAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
+            if (toCollateralAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (mCollateralMinAmount.compareTo(toCollateralAmount) > 0) return false;
+            if (mCollateralMaxAmount.compareTo(toCollateralAmount) < 0) return false;
+            mToCollateralAmount = toCollateralAmount;
+            return true;
+        } catch (Exception e) {
+            mToCollateralAmount = BigDecimal.ZERO;
+            return false;
+        }
     }
 
     private boolean onValidateNext() {
-        getSActivity().toCollateralAmount = BigDecimal.ZERO;
-        getSActivity().toPrincipalAmount = BigDecimal.ZERO;
-        getSActivity().mRiskRate = BigDecimal.ZERO;
-        getSActivity().mLiquidationPrice = BigDecimal.ZERO;
+        try {
+            getSActivity().toCollateralAmount = BigDecimal.ZERO;
+            getSActivity().toPrincipalAmount = BigDecimal.ZERO;
+            getSActivity().mRiskRate = BigDecimal.ZERO;
+            getSActivity().mLiquidationPrice = BigDecimal.ZERO;
 
-        BigDecimal toCollateralAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
-        if (toCollateralAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
-        if (mCollateralMinAmount.compareTo(toCollateralAmount) > 0) return false;
-        if (mCollateralMaxAmount.compareTo(toCollateralAmount) < 0) return false;
+            BigDecimal toCollateralAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
+            if (toCollateralAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (mCollateralMinAmount.compareTo(toCollateralAmount) > 0) return false;
+            if (mCollateralMaxAmount.compareTo(toCollateralAmount) < 0) return false;
 
-        BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
-        if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
-        if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0) return false;
+            BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
+            if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0) return false;
 
-        final BigDecimal currentPrice = new BigDecimal(getPrice().price);
-        final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
-        final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
+            final BigDecimal currentPrice = new BigDecimal(getPrice().price);
+            final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+            final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
-        getSActivity().toCollateralAmount = toCollateralAmount;
-        getSActivity().toPrincipalAmount = toPrincipalAmount;
-        getSActivity().mRiskRate = riskRate;
-        getSActivity().mLiquidationPrice = liquidationPrice;
-        return true;
+            getSActivity().toCollateralAmount = toCollateralAmount;
+            getSActivity().toPrincipalAmount = toPrincipalAmount;
+            getSActivity().mRiskRate = riskRate;
+            getSActivity().mLiquidationPrice = liquidationPrice;
+            return true;
+
+        } catch (Exception e) {
+            getSActivity().toCollateralAmount = BigDecimal.ZERO;
+            getSActivity().toPrincipalAmount = BigDecimal.ZERO;
+            getSActivity().mRiskRate = BigDecimal.ZERO;
+            getSActivity().mLiquidationPrice = BigDecimal.ZERO;
+            return false;
+        }
+
     }
 
 
