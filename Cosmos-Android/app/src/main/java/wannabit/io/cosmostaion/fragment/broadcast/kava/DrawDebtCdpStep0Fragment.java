@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +23,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.broadcast.kava.RepayCdpActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.activities.broadcast.kava.DrawDebtActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -38,17 +36,16 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 
-public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int CDP_REPAY_CONFIRM_DIALOG = 6018;
+public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int CDP_DRAW_DEBT_CONFIRM_DIALOG = 6019;
 
     private Button          mBtnCancel, mBtnNext;
 
-    private LinearLayout    mPrincipalLayer;
     private ImageView       mPrincipalImg;
     private TextView        mPrincipalSymbol;
     private EditText        mPrincipalInput;
     private ImageView       mPrincipalClear;
-    private TextView        mPrincipalMaxTx, mPrincipalDenomTx;
+    private TextView        mLoanableTx, mLoanableDenomTx;
     private Button          mBtnAdd01, mBtnAdd1, mBtnAdd10, mBtnAddHalf, mBtnAddMax;
 
     private TextView        mBeforeRisk, mAfterRisk;
@@ -56,13 +53,14 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
 
     private BigDecimal      mCurrentPrice;
     private String          mCollateralDenom, mPrincipalDenom;
-    private BigDecimal      mCurrentTotalDebetAmount, mCurrentCollateralAmount, mMaxPaymentableAmount;
-    private BigDecimal      mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mRemainLoanAmount, mToPaymentAmount;
+    private BigDecimal      mCurrentTotalDebetAmount, mCurrentCollateralAmount, mMaxLoanableAmount, mToLoanAmount, mMoreAddedLoanAmount;
+    private BigDecimal      mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate;
+
     private String          mPrincipalChecker, mPrincipalSetter;
 
 
-    public static RepayCdpStep0Fragment newInstance(Bundle bundle) {
-        RepayCdpStep0Fragment fragment = new RepayCdpStep0Fragment();
+    public static DrawDebtCdpStep0Fragment newInstance(Bundle bundle) {
+        DrawDebtCdpStep0Fragment fragment = new DrawDebtCdpStep0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -74,17 +72,16 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_repay_cdp_0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_drawdebt_cdp_step0, container, false);
         mBtnCancel = rootView.findViewById(R.id.btn_cancel);
         mBtnNext = rootView.findViewById(R.id.btn_next);
 
-        mPrincipalLayer = rootView.findViewById(R.id.principal_layer);
         mPrincipalImg = rootView.findViewById(R.id.principal_icon);
         mPrincipalSymbol = rootView.findViewById(R.id.principal_symbol);
         mPrincipalInput = rootView.findViewById(R.id.principal_input);
         mPrincipalClear = rootView.findViewById(R.id.principal_clear);
-        mPrincipalMaxTx = rootView.findViewById(R.id.principal_max_amount);
-        mPrincipalDenomTx = rootView.findViewById(R.id.principal_denom);
+        mLoanableTx = rootView.findViewById(R.id.loanable_max_amount);
+        mLoanableDenomTx = rootView.findViewById(R.id.loanable_denom);
         mBtnAdd01 = rootView.findViewById(R.id.btn_add_01);
         mBtnAdd1 = rootView.findViewById(R.id.btn_add_1);
         mBtnAdd10 = rootView.findViewById(R.id.btn_add_10);
@@ -116,7 +113,6 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onUpdateInitInfo() {
-        mBeforeLiquidationPrice = mBeforeRiskRate = mAfterLiquidationPrice = mAfterRiskRate = mRemainLoanAmount= BigDecimal.ZERO;
 
         mCollateralDenom = getCParam().denom;
         mPrincipalDenom = getCParam().debt_limit.get(0).denom;
@@ -127,18 +123,21 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), mCurrentTotalDebetAmount, getCParam(), getOwenCdp().cdp);
         WLog.w("hiddenFeeValue " + hiddenFeeValue);
         mCurrentTotalDebetAmount = mCurrentTotalDebetAmount.add(hiddenFeeValue);
+        WLog.w("mCurrentTotalDebetAmount " + mCurrentTotalDebetAmount);
 
         mCurrentCollateralAmount = getOwenCdp().getCollateralAmount();
+        BigDecimal currentCollateralValue = new BigDecimal(getOwenCdp().collateral_value.amount);
+        WLog.w("currentCollateralValue " + currentCollateralValue);
 
-        BigDecimal available = getSActivity().getTokenAvailable(mPrincipalDenom);
-        mMaxPaymentableAmount = mCurrentTotalDebetAmount.compareTo(available) > 0 ? available : mCurrentTotalDebetAmount;
-        WLog.w("mPrincipalDenom " + mPrincipalDenom);
-        WLog.w("mCurrentTotalDebetAmount " + mCurrentTotalDebetAmount);
-        WLog.w("mPaymnetMaxAmount " + mMaxPaymentableAmount);
-        WDp.showCoinDp(getContext(), mPrincipalDenom, mMaxPaymentableAmount.toPlainString(), mPrincipalDenomTx, mPrincipalMaxTx, getSActivity().mBaseChain);
+        mMaxLoanableAmount =  currentCollateralValue.divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
+//        WLog.w("mMaxLoanableAmount " + mMaxLoanableAmount);
+        mMaxLoanableAmount = mMaxLoanableAmount.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
+//        WLog.w("mMaxLoanableAmount padding : " + mMaxLoanableAmount);
+        mMaxLoanableAmount = mMaxLoanableAmount.subtract(mCurrentTotalDebetAmount);
+        WLog.w("mMaxLoanableAmount " + mMaxLoanableAmount);
+        WDp.showCoinDp(getContext(), mPrincipalDenom, mMaxLoanableAmount.toPlainString(), mLoanableDenomTx, mLoanableTx, getSActivity().mBaseChain);
 
         mPrincipalSymbol.setText(mPrincipalDenom.toUpperCase());
-//        mPrincipalDenomTx.setText(mPrincipalDenom.toUpperCase());
         try {
             Picasso.get().load(KAVA_COIN_IMG_URL + mPrincipalDenom + ".png").fit().into(mPrincipalImg);
         } catch (Exception e) { }
@@ -196,7 +195,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                         if (BigDecimal.ZERO.compareTo(checkPosition) >= 0) {
                             mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
 
-                        } else if (mMaxPaymentableAmount.compareTo(checkPosition) < 0) {
+                        } else if (mMaxLoanableAmount.compareTo(checkPosition) < 0) {
                             mPrincipalInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
 
                         } else {
@@ -209,23 +208,22 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 onDisplayViewUpdate();
             }
         });
+
     }
 
-
     private boolean onDisplayViewUpdate() {
-        //TODO show before & next button update!
-        mAfterLiquidationPrice = mAfterRiskRate = mRemainLoanAmount = null;
+        mAfterLiquidationPrice = mAfterRiskRate = mToLoanAmount = null;
         try {
-            mToPaymentAmount = BigDecimal.ZERO;
+            mToLoanAmount = BigDecimal.ZERO;
             try {
-                mToPaymentAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
+                mToLoanAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
             } catch (Exception e) {
                 mAfterRisk.setVisibility(View.GONE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
                 return false;
             }
-            WLog.w("mToPaymentAmount " + mToPaymentAmount);
-            if (mToPaymentAmount.compareTo(BigDecimal.ZERO) <= 0 || mToPaymentAmount.compareTo(mCurrentTotalDebetAmount) > 0) {
+            WLog.w("mToLoanAmount " + mToLoanAmount);
+            if (mToLoanAmount.compareTo(BigDecimal.ZERO) <= 0 || mToLoanAmount.compareTo(mMaxLoanableAmount) > 0) {
                 mBtnNext.setText(R.string.str_next);
                 mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
@@ -233,38 +231,23 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 mAfterRisk.setVisibility(View.GONE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
                 return false;
-            }
-            if (mMaxPaymentableAmount.compareTo(mToPaymentAmount) < 0) {
-                mBtnNext.setText(R.string.str_next);
-                mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
-                mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
-                mBtnNext.setTypeface(null, Typeface.NORMAL);
-                mAfterRisk.setVisibility(View.GONE);
-                mAfterPrincipalAmount.setVisibility(View.GONE);
-                return false;
-
             }
             mAfterRisk.setVisibility(View.VISIBLE);
             mAfterPrincipalAmount.setVisibility(View.VISIBLE);
 
-            //after payment state views!!
-            mRemainLoanAmount = mCurrentTotalDebetAmount.subtract(mToPaymentAmount);
-            WLog.w("mRemainLoanAmount " + mRemainLoanAmount);
+            mMoreAddedLoanAmount = mCurrentTotalDebetAmount.add(mToLoanAmount);
+            WLog.w("mMoreAddedLoanAmount " + mMoreAddedLoanAmount);
 
-            mAfterLiquidationPrice = mRemainLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+            mAfterLiquidationPrice = mMoreAddedLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
             WLog.w("mAfterLiquidationPrice " + mAfterLiquidationPrice);
 
             mAfterRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mAfterLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
             WLog.w("mAfterRiskRate " + mAfterRiskRate);
 
-
             WDp.DpRiskRate(getContext(), mAfterRiskRate, mAfterRisk, null);
             WDp.DpRiskButton(getContext(), mAfterRiskRate, mBtnNext);
-            if (mRemainLoanAmount.equals(BigDecimal.ZERO)) {
-                mBtnNext.setText("REPAY ALL");
-            }
 
-            mAfterPrincipalAmount.setText(WDp.getDpAmount2(getContext(), mRemainLoanAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
+            mAfterPrincipalAmount.setText(WDp.getDpAmount2(getContext(), mMoreAddedLoanAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
             return true;
 
         } catch (Exception e) {
@@ -273,9 +256,11 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
             mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
             return false;
+
         }
 
     }
+
 
 
     @Override
@@ -308,28 +293,28 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
             mPrincipalInput.setText(inputedAmount.toPlainString());
 
         } else if (v.equals(mBtnAddHalf)) {
-            mPrincipalInput.setText(mMaxPaymentableAmount.divide(new BigDecimal("2").movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom)), WUtil.getKavaCoinDecimal(mPrincipalDenom), RoundingMode.DOWN).toPlainString());
+            mPrincipalInput.setText(mMaxLoanableAmount.divide(new BigDecimal("2").movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom)), WUtil.getKavaCoinDecimal(mPrincipalDenom), RoundingMode.DOWN).toPlainString());
 
         } else if (v.equals(mBtnAddMax)) {
-            mPrincipalInput.setText(mMaxPaymentableAmount.divide(new BigDecimal("1").movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom)), WUtil.getKavaCoinDecimal(mPrincipalDenom), RoundingMode.DOWN).toPlainString());
+            mPrincipalInput.setText(mMaxLoanableAmount.divide(new BigDecimal("1").movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom)), WUtil.getKavaCoinDecimal(mPrincipalDenom), RoundingMode.DOWN).toPlainString());
 
         } else if (v.equals(mBtnCancel)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
             if (onDisplayViewUpdate()) {
-                if (mBeforeLiquidationPrice.compareTo(BigDecimal.ZERO) <= 0 || mBeforeRiskRate.compareTo(BigDecimal.ZERO) < 0 || mToPaymentAmount.compareTo(BigDecimal.ZERO) <= 0 ||
-                        mAfterLiquidationPrice == null || mAfterRiskRate == null || mRemainLoanAmount == null) {
+                if (mBeforeLiquidationPrice.compareTo(BigDecimal.ZERO) <= 0 || mBeforeRiskRate.compareTo(BigDecimal.ZERO) < 0 ||
+                        mAfterLiquidationPrice == null || mAfterRiskRate == null || mToLoanAmount == null) {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
                 } else {
-                    getSActivity().mPayment.clear();
-                    Coin payment = new Coin(mPrincipalDenom, mToPaymentAmount.toPlainString());
-                    getSActivity().mPayment.add(payment);
+                    getSActivity().mPrincipals.clear();
+                    Coin principal = new Coin(mPrincipalDenom, mToLoanAmount.toPlainString());
+                    getSActivity().mPrincipals.add(principal);
                     getSActivity().mBeforeLiquidationPrice = mBeforeLiquidationPrice;
                     getSActivity().mBeforeRiskRate = mBeforeRiskRate;
                     getSActivity().mAfterLiquidationPrice = mAfterLiquidationPrice;
                     getSActivity().mAfterRiskRate = mAfterRiskRate;
-                    getSActivity().mRemainLoanAmount = mRemainLoanAmount;
+                    getSActivity().mMoreAddedLoanAmount = mMoreAddedLoanAmount;
 
                     Bundle bundle = new Bundle();
                     bundle.putString("beforeRiskRate", mBeforeRiskRate.toPlainString());
@@ -339,7 +324,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                     bundle.putString("currentPrice", getPrice().price);
                     Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
                     dialog.setCancelable(true);
-                    dialog.setTargetFragment(this, CDP_REPAY_CONFIRM_DIALOG);
+                    dialog.setTargetFragment(this, CDP_DRAW_DEBT_CONFIRM_DIALOG);
                     dialog.show(getFragmentManager().beginTransaction(), "dialog");
 
                 }
@@ -347,24 +332,18 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CDP_REPAY_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+        if(requestCode == CDP_DRAW_DEBT_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
             getSActivity().onNextStep();
         }
     }
 
 
-
-    private RepayCdpActivity getSActivity() {
-        return (RepayCdpActivity)getBaseActivity();
-    }
-
-    private ResCdpParam.Result getCdpParam() {
-        return getSActivity().mCdpParam;
+    private DrawDebtActivity getSActivity() {
+        return (DrawDebtActivity)getBaseActivity();
     }
 
     private ResCdpParam.KavaCollateralParam getCParam() {
@@ -389,7 +368,5 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
             mPrincipalSetter = mPrincipalSetter+"0";
         }
     }
-
-
-
 }
+

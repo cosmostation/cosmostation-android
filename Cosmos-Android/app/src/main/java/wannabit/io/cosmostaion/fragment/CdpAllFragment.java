@@ -23,9 +23,7 @@ import wannabit.io.cosmostaion.activities.KavaCdpDetailActivity;
 import wannabit.io.cosmostaion.activities.KavaCdpListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
 

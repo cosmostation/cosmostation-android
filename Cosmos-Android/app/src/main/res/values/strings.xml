@@ -451,8 +451,10 @@
 
     <string name="str_deposit_amount">To Deposit</string>
     <string name="str_loan_amount">To Loan</string>
+    <string name="str_loan_more_amount">More Loan</string>
     <string name="str_payment_amount">To Payment</string>
     <string name="str_remaining_debt">Remaining Debet</string>
+    <string name="str_after_total_debt">After Total Debet</string>
     <string name="str_risk_rate">Risk Rate</string>
 
     <string name="str_help_collateral_rate_t">Min. Collateral Rate</string>
@@ -483,6 +485,7 @@
 
     <string name="str_create_cdp_c">CREATE CDP</string>
     <string name="str_repay_cdp_c">REPAY CDP</string>
+    <string name="str_draw_debt_cdp_c">DRAW DEBT CDP</string>
     <string name="str_depositable_amount"><![CDATA[Depositable : ]]></string>
     <string name="str_deposit_value"><![CDATA[Deposit Value : ]]></string>
     <string name="str_loanable_amount"><![CDATA[Loanable : ]]></string>
@@ -496,7 +499,6 @@
     <string name="str_add_three_fourths">3/4</string>
 
 
-
     <string name="str_create_cdp_step_1">Enter CDP forms</string>
     <string name="str_create_cdp_step_2">Insert memo (optional)</string>
     <string name="str_create_cdp_step_3">Select transaction fee</string>
@@ -504,7 +506,11 @@
     <string name="str_repay_cdp_step_1">Enter your payment form</string>
     <string name="str_repay_cdp_step_2">Insert memo (optional)</string>
     <string name="str_repay_cdp_step_3">Select transaction fee</string>
-    <string name="str_repay_cdp_step_4">Check create Payment detail</string>
+    <string name="str_repay_cdp_step_4">Check Payment detail</string>
+    <string name="str_draw_debt_cdp_step_1">Enter your form to loan more</string>
+    <string name="str_draw_debt_cdp_step_2">Insert memo (optional)</string>
+    <string name="str_draw_debt_cdp_step_3">Select transaction fee</string>
+    <string name="str_draw_debt_cdp_step_4">Check loan more detail</string>
 
 
     <string name="str_main_wallet">WALLET</string>

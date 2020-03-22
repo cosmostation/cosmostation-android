@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
@@ -333,6 +334,17 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP) {
+            onShowWaitDialog();
+            new SimpleDrawBetCdpTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mSender,
+                    mPrincipalCoins,
+                    mCdpDenom,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
         }
     }
 
@@ -394,7 +406,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_BNB_SIMPLE_SEND ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_VOTE ||
                     result.taskType == BaseConstant.TASK_GEN_TX_CREATE_CDP ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_REPAY_CDP ) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_REPAY_CDP ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_DRAW_DEBT_CDP) {
             if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;

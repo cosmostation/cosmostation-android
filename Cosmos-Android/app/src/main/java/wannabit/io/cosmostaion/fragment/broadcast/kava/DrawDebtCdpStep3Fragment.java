@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.broadcast.kava.RepayCdpActivity;
+import wannabit.io.cosmostaion.activities.broadcast.kava.DrawDebtActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -19,18 +19,18 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 
-public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView mPaymentTitle, mPaymentAmount, mPaymentDenom, mPaymentValue;
+    private TextView mLoanTitle, mLoanAmount, mLoanDenom, mLoanValue;
     private TextView mFeesAmount, mFeesDenom, mFeeValue;
     private TextView mBeforeRiskTv, mAfterRiskRateTv;
     private TextView mLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
-    private TextView mRemainDebtTitle, mRemainDebtAmount, mRemainDebtDenom, mRemainDebtValue;
+    private TextView mTotalDebtTitle, mTotalDebtAmount, mTotalDebtDenom, mTotalDebtValue;
     private TextView mMemo;
     private Button mBeforeBtn, mConfirmBtn;
 
-    public static RepayCdpStep3Fragment newInstance(Bundle bundle) {
-        RepayCdpStep3Fragment fragment = new RepayCdpStep3Fragment();
+    public static DrawDebtCdpStep3Fragment newInstance(Bundle bundle) {
+        DrawDebtCdpStep3Fragment fragment = new DrawDebtCdpStep3Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -42,11 +42,11 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_repay_cdp_3, container, false);
-        mPaymentTitle = rootView.findViewById(R.id.payment_title);
-        mPaymentAmount = rootView.findViewById(R.id.payment_amount);
-        mPaymentDenom = rootView.findViewById(R.id.payment_amount_denom);
-        mPaymentValue = rootView.findViewById(R.id.payment_value);
+        View rootView = inflater.inflate(R.layout.fragment_drawdebt_cdp_step3, container, false);
+        mLoanTitle = rootView.findViewById(R.id.more_loan_title);
+        mLoanAmount = rootView.findViewById(R.id.more_loan_amount);
+        mLoanDenom = rootView.findViewById(R.id.more_loan_amount_denom);
+        mLoanValue = rootView.findViewById(R.id.more_loan_value);
         mFeesAmount = rootView.findViewById(R.id.fees_amount);
         mFeesDenom = rootView.findViewById(R.id.fees_denom);
         mFeeValue = rootView.findViewById(R.id.fee_value);
@@ -55,16 +55,15 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         mLiquidationPriceTitle = rootView.findViewById(R.id.liquidation_price_title);
         mBeforeLiquidationPrice = rootView.findViewById(R.id.liquidation_price_before);
         mAfterLiquidationPrice = rootView.findViewById(R.id.liquidation_price_after);
-        mRemainDebtTitle = rootView.findViewById(R.id.remaining_debt_title);
-        mRemainDebtAmount = rootView.findViewById(R.id.remaining_debt_amount);
-        mRemainDebtDenom = rootView.findViewById(R.id.remaining_debt_amount_denom);
-        mRemainDebtValue = rootView.findViewById(R.id.remaining_debt_value);
+        mTotalDebtTitle = rootView.findViewById(R.id.after_total_debt_title);
+        mTotalDebtAmount = rootView.findViewById(R.id.after_total_debt_amount);
+        mTotalDebtDenom = rootView.findViewById(R.id.after_total_debt_denom);
+        mTotalDebtValue = rootView.findViewById(R.id.after_total_debt_value);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
-
         return rootView;
     }
 
@@ -74,10 +73,9 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         final String pDenom = getCParam().debt_limit.get(0).denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
-//        mPaymentTitle.setText(WDp.DpPaymentTitle(getContext(), pDenom.toUpperCase()));
-        WDp.showCoinDp(getContext(), pDenom, getSActivity().mPayment.get(0).amount, mPaymentDenom, mPaymentAmount, getSActivity().mBaseChain);
-        BigDecimal paymentValue = new BigDecimal(getSActivity().mPayment.get(0).amount).movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
-        mPaymentValue.setText(WDp.getDpRawDollor(getContext(), paymentValue, 2));
+        WDp.showCoinDp(getContext(), pDenom, getSActivity().mPrincipals.get(0).amount, mLoanDenom, mLoanAmount, getSActivity().mBaseChain);
+        BigDecimal moreLoanValue = new BigDecimal(getSActivity().mPrincipals.get(0).amount).movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
+        mLoanValue.setText(WDp.getDpRawDollor(getContext(), moreLoanValue, 2));
 
         WDp.showCoinDp(getContext(), COSMOS_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
 
@@ -88,10 +86,9 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         mBeforeLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mBeforeLiquidationPrice.toPlainString(),  4));
         mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
 
-//        mRemainDebtTitle.setText(WDp.DpRemainDebtTitle(getContext(), pDenom.toUpperCase()));
-        WDp.showCoinDp(getContext(), pDenom, getSActivity().mRemainLoanAmount.toPlainString(), mRemainDebtDenom, mRemainDebtAmount, getSActivity().mBaseChain);
-        BigDecimal remaindValue = getSActivity().mRemainLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
-        mRemainDebtValue.setText(WDp.getDpRawDollor(getContext(), remaindValue, 2));
+        WDp.showCoinDp(getContext(), pDenom, getSActivity().mMoreAddedLoanAmount.toPlainString(), mTotalDebtDenom, mTotalDebtAmount, getSActivity().mBaseChain);
+        BigDecimal totalLaonValue = getSActivity().mMoreAddedLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
+        mTotalDebtValue.setText(WDp.getDpRawDollor(getContext(), totalLaonValue, 2));
 
         mMemo.setText(getSActivity().mMemo);
     }
@@ -102,16 +99,17 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            getSActivity().onStartRepayCdp();
+            getSActivity().onStartDrawDebtCdp();
 
         }
     }
 
-    private RepayCdpActivity getSActivity() {
-        return (RepayCdpActivity)getBaseActivity();
+    private DrawDebtActivity getSActivity() {
+        return (DrawDebtActivity)getBaseActivity();
     }
 
     private ResCdpParam.KavaCollateralParam getCParam() {
         return getSActivity().getCParam();
     }
+
 }

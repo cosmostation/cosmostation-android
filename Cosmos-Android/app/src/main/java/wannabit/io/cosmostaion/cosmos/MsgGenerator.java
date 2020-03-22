@@ -335,6 +335,21 @@ public class MsgGenerator {
         return result;
     }
 
+    public static Msg genDrawDebtCdpMsg(String sender, ArrayList<Coin> principals, String cdpDenom, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            value.sender = sender;
+            value.principal = principals;
+            value.cdp_denom = cdpDenom;
+
+            result.type = BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
+            result.value = value;
+
+        }
+        return result;
+    }
+
 
 
     public static StdTx genUnsignedTransferTx(ArrayList<Msg> msgs, Fee fee, String memo) {

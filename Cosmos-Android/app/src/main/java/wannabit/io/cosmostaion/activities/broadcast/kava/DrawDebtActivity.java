@@ -24,14 +24,17 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep0Fragment;
-import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep1Fragment;
-import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep2Fragment;
-import wannabit.io.cosmostaion.fragment.broadcast.kava.CreateCdpStep3Fragment;
+import wannabit.io.cosmostaion.fragment.broadcast.kava.DrawDebtCdpStep0Fragment;
+import wannabit.io.cosmostaion.fragment.broadcast.kava.DrawDebtCdpStep1Fragment;
+import wannabit.io.cosmostaion.fragment.broadcast.kava.DrawDebtCdpStep2Fragment;
+import wannabit.io.cosmostaion.fragment.broadcast.kava.DrawDebtCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
+import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
@@ -40,10 +43,11 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
-public class CreateCdpActivity extends BaseActivity implements TaskListener {
+public class DrawDebtActivity extends BaseActivity implements TaskListener {
 
     private RelativeLayout              mRootView;
     private Toolbar                     mToolbar;
@@ -51,20 +55,20 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     private ImageView                   mIvStep;
     private TextView                    mTvStep;
     private ViewPager                   mViewPager;
-    private CreateCdpPageAdapter        mPageAdapter;
+    private DrawDebtCdpPageAdapter      mPageAdapter;
 
     private String                      mMarketDenom;
     private String                      mMaketId;
-
-    public ResCdpParam.Result          mCdpParam;
-    public ResKavaMarketPrice.Result   mKavaTokenPrice;
-
-    public BigDecimal                   toCollateralAmount = BigDecimal.ZERO;
-    public BigDecimal                   toPrincipalAmount = BigDecimal.ZERO;
-    public BigDecimal                   mLiquidationPrice = BigDecimal.ZERO;
-    public BigDecimal                   mRiskRate = BigDecimal.ZERO;
+    public ArrayList<Coin>              mPrincipals = new ArrayList<>();
     public String                       mMemo;
     public Fee                          mFee;
+
+    public ResCdpParam.Result          mCdpParam;
+    public ResKavaMarketPrice.Result   mTokenPrice;
+    public ResCdpOwnerStatus.Result    mMyOwenCdp;
+    public ArrayList<ResCdpDepositStatus.Result> mMyDepositList = new ArrayList<>();
+
+    public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mMoreAddedLoanAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,25 +80,25 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
         mIvStep             = findViewById(R.id.send_step);
         mTvStep             = findViewById(R.id.send_step_msg);
         mViewPager          = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_create_cdp_c));
+        mTitle.setText(getString(R.string.str_draw_debt_cdp_c));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_create_cdp_step_1));
+        mTvStep.setText(getString(R.string.str_draw_debt_cdp_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mBalances = mAccount.getBalances();
 
-        mMarketDenom = getIntent().getStringExtra("denom");
-        mMaketId = getIntent().getStringExtra("marketId");
-
-        mPageAdapter = new CreateCdpPageAdapter(getSupportFragmentManager());
+        mPageAdapter = new DrawDebtCdpPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
+
+        mMarketDenom = getIntent().getStringExtra("denom");
+        mMaketId = getIntent().getStringExtra("marketId");
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -104,17 +108,17 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
             public void onPageSelected(int i) {
                 if(i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_create_cdp_step_1));
+                    mTvStep.setText(getString(R.string.str_draw_debt_cdp_step_1));
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_create_cdp_step_2));
+                    mTvStep.setText(getString(R.string.str_draw_debt_cdp_step_2));
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_create_cdp_step_3));
+                    mTvStep.setText(getString(R.string.str_draw_debt_cdp_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_create_cdp_step_4));
+                    mTvStep.setText(getString(R.string.str_draw_debt_cdp_step_4));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
@@ -130,9 +134,7 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
                 onHideKeyboard();
             }
         });
-
         onFetchCdpInfo();
-
     }
 
     @Override
@@ -172,20 +174,12 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
         }
     }
 
-    public void onStartCreateCdp() {
-        Coin collateralCoin = new Coin(getCParam().denom, toCollateralAmount.toPlainString());
-        ArrayList<Coin> collateralCoins = new ArrayList<>();
-        collateralCoins.add(collateralCoin);
-
-        Coin principalCoin = new Coin(getCParam().debt_limit.get(0).denom, toPrincipalAmount.toPlainString());
-        ArrayList<Coin> principalCoins = new ArrayList<>();
-        principalCoins.add(principalCoin);
-
-        Intent intent = new Intent(CreateCdpActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_CREATE_CDP);
-        intent.putParcelableArrayListExtra("collateralCoins", collateralCoins);
-        intent.putParcelableArrayListExtra("principalCoins", principalCoins);
+    public void onStartDrawDebtCdp() {
+        Intent intent = new Intent(DrawDebtActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP);
         intent.putExtra("sender", mAccount.address);
+        intent.putParcelableArrayListExtra("principalCoins", mPrincipals);
+        intent.putExtra("cdp_denom", getCParam().denom);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);
         startActivity(intent);
@@ -197,23 +191,18 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
         return mCdpParam.getCollateralParamByDenom(mMarketDenom);
     }
 
-    public BigDecimal getcAvailable() {
-        return WUtil.getTokenBalance(mBalances, mMarketDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(mBalances, mMarketDenom).balance;
-    }
-
-
-    private class CreateCdpPageAdapter extends FragmentPagerAdapter {
+    private class DrawDebtCdpPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public CreateCdpPageAdapter(FragmentManager fm) {
+        public DrawDebtCdpPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(CreateCdpStep0Fragment.newInstance(null));
-            mFragments.add(CreateCdpStep1Fragment.newInstance(null));
-            mFragments.add(CreateCdpStep2Fragment.newInstance(null));
-            mFragments.add(CreateCdpStep3Fragment.newInstance(null));
+            mFragments.add(DrawDebtCdpStep0Fragment.newInstance(null));
+            mFragments.add(DrawDebtCdpStep1Fragment.newInstance(null));
+            mFragments.add(DrawDebtCdpStep2Fragment.newInstance(null));
+            mFragments.add(DrawDebtCdpStep3Fragment.newInstance(null));
         }
 
         @Override
@@ -270,19 +259,26 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
-                mKavaTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
+                mTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
             if (result.isSuccess && result.resultData != null) {
-                WLog.w("Already have this CDP!!!");
+                mMyOwenCdp = (ResCdpOwnerStatus.Result)result.resultData;
+                mTaskCount = mTaskCount + 1;
+                new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mMarketDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
+        } else if (result.taskType == TASK_FETCH_KAVA_CDP_DEPOSIT) {
+            if (result.isSuccess && result.resultData != null) {
+                mMyDepositList = (ArrayList<ResCdpDepositStatus.Result>)result.resultData;
+            }
         }
 
         if (mTaskCount == 0) {
             onHideWaitDialog();
-            if (mCdpParam == null || mKavaTokenPrice == null) {
+            if (mCdpParam == null || mTokenPrice == null || mMyOwenCdp == null) {
+                WLog.w("ERROR");
                 Toast.makeText(getBaseContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
                 onBackPressed();
                 return;
@@ -290,4 +286,5 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
     }
+
 }

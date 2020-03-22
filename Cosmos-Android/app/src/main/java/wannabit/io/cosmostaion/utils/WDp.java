@@ -1533,7 +1533,7 @@ public class WDp {
             Double double2 = gap.doubleValue();
 
             Double pow = Math.pow(double1, double2);
-            result = new BigDecimal(pow.toString());
+            result = new BigDecimal(pow.toString()).setScale(0, RoundingMode.UP);
             return result;
         } catch (Exception e) {
             WLog.w("e " + e.getMessage());
