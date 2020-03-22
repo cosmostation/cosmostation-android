@@ -390,6 +390,7 @@
     <string name="str_payment_amount">To Payment</string>
     <string name="str_remaining_debt">Remaining Debet</string>
     <string name="str_after_total_debt">After Total Debet</string>
+    <string name="str_after_total_deposit">After Total Deposit</string>
     <string name="str_risk_rate">Risk Rate</string>
 
 
@@ -422,11 +423,13 @@
     <string name="str_create_cdp_c">CREATE CDP</string>
     <string name="str_repay_cdp_c">REPAY CDP</string>
     <string name="str_draw_debt_cdp_c">DRAW DEBT CDP</string>
+    <string name="str_deposit_cdp_c">DEPOSIT CDP</string>
     <string name="str_depositable_amount"><![CDATA[담보 가능 : ]]></string>
     <string name="str_deposit_value"><![CDATA[담보 가치 : ]]></string>
     <string name="str_loanable_amount"><![CDATA[대출 가능 : ]]></string>
     <string name="str_approximate_value"><![CDATA[현재 가치 : ]]></string>
     <string name="str_max_paymentable_amount"><![CDATA[Max Paymentable : ]]></string>
+    <string name="str_max_depositable_amount"><![CDATA[Max Depositable : ]]></string>
     <string name="str_add_min">Min</string>
     <string name="str_add_20">20</string>
     <string name="str_add_50">50</string>
@@ -446,6 +449,10 @@
     <string name="str_draw_debt_cdp_step_2">Insert memo (optional)</string>
     <string name="str_draw_debt_cdp_step_3">Select transaction fee</string>
     <string name="str_draw_debt_cdp_step_4">Check loan more detail</string>
+    <string name="str_deposit_cdp_step_1">Enter your form to deposit</string>
+    <string name="str_deposit_cdp_step_2">Insert memo (optional)</string>
+    <string name="str_deposit_cdp_step_3">Select transaction fee</string>
+    <string name="str_deposit_cdp_step_4">Check detail</string>
 
     <!--    <string name="str_min_collateral_rate">최소 담보 비율</string>-->
 <!--    <string name="str_stability_fee">안정화 수수료 (연간)</string>-->

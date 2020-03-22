@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.broadcast.kava.CreateCdpActivity;
+import wannabit.io.cosmostaion.activities.broadcast.kava.DepositCdpActivity;
 import wannabit.io.cosmostaion.activities.broadcast.kava.DrawDebtActivity;
 import wannabit.io.cosmostaion.activities.broadcast.kava.RepayCdpActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -488,6 +489,11 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     }
 
     private void onCheckStartDepositCdp() {
+        //TODO add check logic!
+        Intent intent = new Intent(this, DepositCdpActivity.class);
+        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("marketId", mMaketId);
+        startActivity(intent);
 
     }
 
