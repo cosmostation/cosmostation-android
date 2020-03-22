@@ -60,6 +60,13 @@ public class ResCdpOwnerStatus {
             } catch (Exception e) { }
             return BigDecimal.ZERO;
         }
+
+        public BigDecimal getAccumulatedFees() {
+            try {
+                return new BigDecimal(cdp.accumulated_fees.get(0).amount);
+            } catch (Exception e) { }
+            return BigDecimal.ZERO;
+        }
     }
 
 

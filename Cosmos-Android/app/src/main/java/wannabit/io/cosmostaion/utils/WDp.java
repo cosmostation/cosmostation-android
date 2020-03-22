@@ -1528,7 +1528,6 @@ public class WDp {
             Long gap  = (now - start)/1000;
             BigDecimal feeRate = new BigDecimal(paramCdp.stability_fee).pow(gap.intValue());
             result = (outstandingDebt.multiply(feeRate).setScale(0, RoundingMode.UP)).subtract(outstandingDebt);
-            WLog.w("result " + result);
         } catch (Exception e) {}
         return result;
     }

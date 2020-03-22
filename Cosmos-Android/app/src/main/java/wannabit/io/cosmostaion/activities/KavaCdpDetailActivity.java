@@ -325,10 +325,9 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             WLog.w("***  feeValue " + feeValue);
             WLog.w("***  hiddenFeeValue " + hiddenFeeValue);
             BigDecimal toRepayValue = debtValue.add(feeValue).add(hiddenFeeValue);
-            WLog.w("***  toRepayValue " + toRepayValue);
 
 
-            BigDecimal totalWithdrawableValue = cValue.subtract(toRepayValue.multiply(new BigDecimal(cParam.liquidation_ratio)).setScale(0));
+            BigDecimal totalWithdrawableValue = cValue.subtract(toRepayValue.multiply(new BigDecimal(cParam.liquidation_ratio)).setScale(0, RoundingMode.DOWN));
             BigDecimal totalWithdrawableAmount = totalWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).divide(new BigDecimal(mKavaTokenPrice.price), 0, RoundingMode.HALF_DOWN);
             WLog.w("depositValue " +  cValue);
             WLog.w("toRepayValue " +  toRepayValue);
@@ -368,12 +367,12 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             WLog.w("maxDebtValue " +  maxDebtValue);
             maxDebtValue = maxDebtValue.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
             WLog.w("maxDebtValue padding " +  maxDebtValue);
-            BigDecimal drawableDebtAmount = maxDebtValue.subtract(toRepayValue);
-            WLog.w("maxDebtValue " +  maxDebtValue);
+            BigDecimal moreDebtAmount = maxDebtValue.subtract(toRepayValue);
+            WLog.w("moreDebtAmount " +  moreDebtAmount);
             mMyPrincipalDenom.setText(pDenom.toUpperCase());
             mMyPrincipalAvailable.setText(WDp.getDpAmount2(getBaseContext(), pAvailable, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
             mMyLoadnedAmount.setText(WDp.getDpAmount2(getBaseContext(), debtValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-            mMyLoadableAmount.setText(WDp.getDpAmount2(getBaseContext(), drawableDebtAmount, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
+            mMyLoadableAmount.setText(WDp.getDpAmount2(getBaseContext(), moreDebtAmount, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
             mMyOutstandingDebtAmount.setText(WDp.getDpAmount2(getBaseContext(), toRepayValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
 
             mMyKavaAvailable.setText(WDp.getDpAmount2(getBaseContext(), kAvailable, WUtil.getKavaCoinDecimal(COSMOS_KAVA), WUtil.getKavaCoinDecimal(COSMOS_KAVA)));
