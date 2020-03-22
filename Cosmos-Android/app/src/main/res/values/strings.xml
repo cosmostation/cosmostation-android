@@ -489,9 +489,9 @@
     <string name="str_approximate_value"><![CDATA[Approximate Value : ]]></string>
     <string name="str_max_paymentable_amount"><![CDATA[Max Paymentable : ]]></string>
     <string name="str_add_min">Min</string>
-    <string name="str_add_20">20</string>
-    <string name="str_add_50">50</string>
-    <string name="str_add_70">70</string>
+    <string name="str_add_20"><![CDATA[≈ 20]]></string>
+    <string name="str_add_50"><![CDATA[≈ 50]]></string>
+    <string name="str_add_70"><![CDATA[≈ 70]]></string>
     <string name="str_add_one_fourths">1/4</string>
     <string name="str_add_three_fourths">3/4</string>
 

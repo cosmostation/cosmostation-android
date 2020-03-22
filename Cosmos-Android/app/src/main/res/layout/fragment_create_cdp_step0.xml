@@ -129,7 +129,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_12_white"
                         android:textAllCaps="false"
                         android:text="@string/str_add_min"/>
                     <Button
@@ -139,7 +139,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_12_white"
                         android:textAllCaps="false"
                         android:text="@string/str_add_one_fourths"/>
                     <Button
@@ -149,7 +149,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_12_white"
                         android:textAllCaps="false"
                         android:text="@string/str_add_half"/>
                     <Button
@@ -159,7 +159,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_12_white"
                         android:textAllCaps="false"
                         android:text="@string/str_add_three_fourths"/>
                     <Button
@@ -169,7 +169,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_12_white"
                         android:textAllCaps="false"
                         android:text="@string/str_add_max"/>
                 </LinearLayout>
@@ -317,7 +317,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_12_white"
                         android:textAllCaps="false"
                         android:text="@string/str_add_min"/>
                     <Button
@@ -327,7 +327,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_score_safe_border"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_12_white"
                         android:textAllCaps="false"
                         android:text="@string/str_add_20"/>
                     <Button
@@ -337,7 +337,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_score_safe_border"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_12_white"
                         android:textAllCaps="false"
                         android:text="@string/str_add_50"/>
                     <Button
@@ -347,7 +347,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_score_stable_border"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_12_white"
                         android:textAllCaps="false"
                         android:text="@string/str_add_70"/>
                     <Button
@@ -357,7 +357,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_score_danger_border"
-                        style="@style/font_ss_10_white"
+                        style="@style/font_ss_12_white"
                         android:textAllCaps="false"
                         android:text="@string/str_add_max"/>
                 </LinearLayout>

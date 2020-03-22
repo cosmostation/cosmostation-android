@@ -1529,9 +1529,15 @@ public class WDp {
             //TODO 냥냥하게 패딩
             gap = gap + 30;
 
-            BigDecimal feeRate = new BigDecimal(paramCdp.stability_fee).pow(gap.intValue());
-            result = (outstandingDebt.multiply(feeRate).setScale(0, RoundingMode.UP)).subtract(outstandingDebt);
-        } catch (Exception e) {}
+            Double double1 = Double.parseDouble(paramCdp.stability_fee);
+            Double double2 = gap.doubleValue();
+
+            Double pow = Math.pow(double1, double2);
+            result = new BigDecimal(pow.toString());
+            return result;
+        } catch (Exception e) {
+            WLog.w("e " + e.getMessage());
+        }
         return result;
     }
 
