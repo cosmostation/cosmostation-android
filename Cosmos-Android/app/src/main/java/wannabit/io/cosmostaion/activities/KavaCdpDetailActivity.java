@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.broadcast.kava.CreateCdpActivity;
+import wannabit.io.cosmostaion.activities.broadcast.kava.RepayCdpActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -300,21 +301,9 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 //            final BigDecimal safeRate = (currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN);
             final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
+            WDp.DpRiskRate(getBaseContext(), riskRate, mInfoSafeRate, mInfoSafeBar);
             mInfoLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getBaseContext(), cDenom.toUpperCase()));
             mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), liquidationPrice, 4));
-
-            mInfoSafeRate.setText(WDp.getDpAmount2(getBaseContext(), riskRate, 0, 2));
-            if (riskRate.longValue() < 50) {
-                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_safe));
-                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
-            } else if (riskRate.longValue() < 80) {
-                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_stable));
-                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
-            } else {
-                mInfoSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_danger));
-                mInfoSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
-            }
-
 
             mMyCollateralDenom.setText(cParam.denom.toUpperCase());
             mMyCollateralAvailableTitle.setText(getString(R.string.str_available) + " " + cParam.denom.toUpperCase());
@@ -448,16 +437,16 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mMyBtnDeposit)) {
-            WLog.w("mMyBtnDeposit");
+            onCheckStartDepositCdp();
 
         } else if (v.equals(mMyBtnWithdraw)) {
-            WLog.w("mMyBtnWithdraw");
+            onCheckStartWithdrawCdp();
 
         } else if (v.equals(mMyBtnDrawdebt)) {
-            WLog.w("mMyBtnDrawdebt");
+            onCheckStartDrawDebtCdp();
 
         } else if (v.equals(mMyBtnRepay)) {
-            WLog.w("mMyBtnRepay");
+            onCheckStartRepayCdp();
 
         } else if (v.equals(mOpenCdp)) {
             onCheckStartCreateCdp();
@@ -480,6 +469,27 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
+    }
+
+    private void onCheckStartRepayCdp() {
+        //TODO add check logic!
+        Intent intent = new Intent(this, RepayCdpActivity.class);
+        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("marketId", mMaketId);
+        startActivity(intent);
+
+    }
+
+    private void onCheckStartDepositCdp() {
+
+    }
+
+    private void onCheckStartWithdrawCdp() {
+
+    }
+
+    private void onCheckStartDrawDebtCdp() {
+
     }
 
 

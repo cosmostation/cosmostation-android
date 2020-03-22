@@ -19,46 +19,45 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.broadcast.kava.CreateCdpActivity;
+import wannabit.io.cosmostaion.activities.broadcast.kava.RepayCdpActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Fee_Description;
-import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class CreateCdpStep2Fragment extends BaseFragment implements View.OnClickListener {
+public class RepayCdpStep2Fragment extends BaseFragment implements View.OnClickListener {
 
-    private RelativeLayout mBtnGasType;
-    private TextView mTvGasType;
+    private RelativeLayout      mBtnGasType;
+    private TextView            mTvGasType;
 
-    private LinearLayout mFeeLayer1;
-    private TextView mMinFeeAmount;
-    private TextView mMinFeePrice;
+    private LinearLayout        mFeeLayer1;
+    private TextView            mMinFeeAmount;
+    private TextView            mMinFeePrice;
 
-    private LinearLayout mFeeLayer2;
-    private TextView mGasAmount;
-    private TextView mGasRate;
-    private TextView mGasFeeAmount;
-    private TextView mGasFeePrice;
+    private LinearLayout        mFeeLayer2;
+    private TextView            mGasAmount;
+    private TextView            mGasRate;
+    private TextView            mGasFeeAmount;
+    private TextView            mGasFeePrice;
 
-    private LinearLayout mFeeLayer3;
-    private SeekBar mSeekBarGas;
+    private LinearLayout        mFeeLayer3;
+    private SeekBar             mSeekBarGas;
 
-    private LinearLayout mSpeedLayer;
-    private ImageView mSpeedImg;
-    private TextView mSpeedMsg;
+    private LinearLayout        mSpeedLayer;
+    private ImageView           mSpeedImg;
+    private TextView            mSpeedMsg;
 
-    private Button mBeforeBtn, mNextBtn;
+    private Button              mBeforeBtn, mNextBtn;
 
     private BigDecimal mAvailable = BigDecimal.ZERO;
     private BigDecimal mFeeAmount = BigDecimal.ZERO;
     private BigDecimal mFeePrice = BigDecimal.ZERO;
 
-    public static CreateCdpStep2Fragment newInstance(Bundle bundle) {
-        CreateCdpStep2Fragment fragment = new CreateCdpStep2Fragment();
+    public static RepayCdpStep2Fragment newInstance(Bundle bundle) {
+        RepayCdpStep2Fragment fragment = new RepayCdpStep2Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -231,7 +230,7 @@ public class CreateCdpStep2Fragment extends BaseFragment implements View.OnClick
         }
     }
 
-    private CreateCdpActivity getSActivity() {
-        return (CreateCdpActivity)getBaseActivity();
+    private RepayCdpActivity getSActivity() {
+        return (RepayCdpActivity)getBaseActivity();
     }
 }

@@ -504,39 +504,27 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                 BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
                 if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) {
                     mBtnNext.setText(R.string.str_next);
+                    mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                     mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
+                    mBtnNext.setTypeface(null, Typeface.NORMAL);
+                    return;
                 }
                 if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0) {
                     mBtnNext.setText(R.string.str_next);
+                    mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                     mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
+                    mBtnNext.setTypeface(null, Typeface.NORMAL);
+                    return;
 
-                } else {
-                    final BigDecimal currentPrice = new BigDecimal(getPrice().price);
-                    final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
-                    final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
+                }
+                final BigDecimal currentPrice = new BigDecimal(getPrice().price);
+                final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+                final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 //                    WLog.w("currentPrice " + currentPrice);
 //                    WLog.w("liquidationPrice " + liquidationPrice);
 //                    WLog.w("riskRate " + riskRate);
 
-                    if (riskRate.longValue() < 50) {
-                        mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_score_safe_fill));
-                        mBtnNext.setTextColor(getResources().getColor(R.color.colorBlack));
-                        mBtnNext.setTypeface(null, Typeface.BOLD);
-                        mBtnNext.setText("SAFE " + riskRate.toPlainString());
-
-                    } else if (riskRate.longValue() < 80) {
-                        mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_score_stable_fill));
-                        mBtnNext.setTextColor(getResources().getColor(R.color.colorBlack));
-                        mBtnNext.setTypeface(null, Typeface.BOLD);
-                        mBtnNext.setText("STABLE " + riskRate.toPlainString());
-                    } else {
-                        mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_score_danger_fill));
-                        mBtnNext.setTextColor(getResources().getColor(R.color.colorBlack));
-                        mBtnNext.setTypeface(null, Typeface.BOLD);
-                        mBtnNext.setText("DANGER " + riskRate.toPlainString());
-                    }
-
-                }
+                WDp.DpRiskButton(getContext(), riskRate, mBtnNext);
 
             } catch (Exception e) {
                 mBtnNext.setText(R.string.str_next);

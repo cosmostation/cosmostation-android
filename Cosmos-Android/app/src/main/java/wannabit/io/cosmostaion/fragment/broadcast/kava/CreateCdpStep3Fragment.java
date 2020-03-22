@@ -29,6 +29,7 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
     private TextView mRiskTxt, mRiskRate;
     private TextView mCurrentPriceTitle, mCurrentPrice;
     private TextView mLiquidationPriceTitle, mLiquidationPrice;
+    private TextView mMemo;
     private Button mBeforeBtn, mConfirmBtn;
 
     public static CreateCdpStep3Fragment newInstance(Bundle bundle) {
@@ -61,6 +62,7 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
         mCurrentPrice = rootView.findViewById(R.id.current_price);
         mLiquidationPriceTitle = rootView.findViewById(R.id.liquidation_price_title);
         mLiquidationPrice = rootView.findViewById(R.id.liquidation_price);
+        mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
         mBeforeBtn.setOnClickListener(this);
@@ -72,7 +74,7 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
     public void onRefreshTab() {
         final String cDenom = getCParam().denom;
         final String pDenom = getCParam().debt_limit.get(0).denom;
-        BigDecimal feeAmount      = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
         mCollateralAmountTitle.setText(WDp.DpCollateralTitle(getContext(), cDenom.toUpperCase()));
         WDp.showCoinDp(getContext(), cDenom, getSActivity().toCollateralAmount.toPlainString(), mCollateralDenom, mCollateralAmount, getSActivity().mBaseChain);
@@ -85,28 +87,15 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
         mPrincipalValue.setText(WDp.getDpRawDollor(getContext(), principalValue, 2));
 
         WDp.showCoinDp(getContext(), COSMOS_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
-
-
-        mRiskRate.setText(WDp.getDpAmount2(getContext(), getSActivity().mRiskRate, 0, 2));
-        if (getSActivity().mRiskRate.longValue() < 50) {
-            mRiskTxt.setText("(SAFE)");
-            mRiskTxt.setTextColor(getResources().getColor(R.color.colorCdpSafe));
-            mRiskRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
-        } else if (getSActivity().mRiskRate.longValue() < 80) {
-            mRiskTxt.setText("(STABLE)");
-            mRiskTxt.setTextColor(getResources().getColor(R.color.colorCdpStable));
-            mRiskRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
-        } else {
-            mRiskTxt.setText("(DANGER)");
-            mRiskTxt.setTextColor(getResources().getColor(R.color.colorCdpDanger));
-            mRiskRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
-        }
+        WDp.DpRiskRate(getContext(), getSActivity().mRiskRate, mRiskRate, null);
 
         mCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getContext(), cDenom.toUpperCase()));
         mCurrentPrice.setText(WDp.getDpRawDollor(getContext(), getPrice().price,  4));
 
         mLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getContext(), pDenom.toUpperCase()));
         mLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mLiquidationPrice.toPlainString(),  4));
+
+        mMemo.setText(getSActivity().mMemo);
     }
 
     @Override

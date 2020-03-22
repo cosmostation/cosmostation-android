@@ -432,6 +432,10 @@
     <string name="str_collateral_title2">Amount</string>
     <string name="str_loaned_title1">Loaned</string>
     <string name="str_loaned_title2">Amount</string>
+    <string name="str_payment_title1">To Payment</string>
+    <string name="str_payment_title2">Amount</string>
+    <string name="str_remain_debt_title1">Estimated Remain Debt</string>
+    <string name="str_remain_debt_title2">Amount</string>
     <string name="str_open_cdp">Open new CDP</string>
     <string name="str_available_amount">Available Amount</string>
     <string name="str_self_deposited_amount">Self Deposited Collateral</string>
@@ -447,6 +451,8 @@
 
     <string name="str_deposit_amount">To Deposit</string>
     <string name="str_loan_amount">To Loan</string>
+    <string name="str_payment_amount">To Payment</string>
+    <string name="str_remaining_debt">Remaining Debet</string>
     <string name="str_risk_rate">Risk Rate</string>
 
     <string name="str_help_collateral_rate_t">Min. Collateral Rate</string>
@@ -476,10 +482,12 @@
 
 
     <string name="str_create_cdp_c">CREATE CDP</string>
+    <string name="str_repay_cdp_c">REPAY CDP</string>
     <string name="str_depositable_amount"><![CDATA[Depositable : ]]></string>
     <string name="str_deposit_value"><![CDATA[Deposit Value : ]]></string>
     <string name="str_loanable_amount"><![CDATA[Loanable : ]]></string>
     <string name="str_approximate_value"><![CDATA[Approximate Value : ]]></string>
+    <string name="str_max_paymentable_amount"><![CDATA[Max Paymentable : ]]></string>
     <string name="str_add_min">Min</string>
     <string name="str_add_20">20</string>
     <string name="str_add_50">50</string>
@@ -493,6 +501,10 @@
     <string name="str_create_cdp_step_2">Insert memo (optional)</string>
     <string name="str_create_cdp_step_3">Select transaction fee</string>
     <string name="str_create_cdp_step_4">Check create CDP detail</string>
+    <string name="str_repay_cdp_step_1">Enter your payment form</string>
+    <string name="str_repay_cdp_step_2">Insert memo (optional)</string>
+    <string name="str_repay_cdp_step_3">Select transaction fee</string>
+    <string name="str_repay_cdp_step_4">Check create Payment detail</string>
 
 
     <string name="str_main_wallet">WALLET</string>

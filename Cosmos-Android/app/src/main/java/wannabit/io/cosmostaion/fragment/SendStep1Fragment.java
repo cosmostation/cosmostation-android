@@ -247,7 +247,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
-            if(es.length() > 0) {
+            if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
             mAmountInput.setText(existed.add(new BigDecimal("0.1")).toPlainString());

@@ -2,11 +2,15 @@ package wannabit.io.cosmostaion.utils;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
+import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -1443,12 +1447,74 @@ public class WDp {
         return Html.fromHtml(strFront + strChange + strBack);
     }
 
+    public static Spanned DpPaymentTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_payment_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_payment_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static Spanned DpRemainDebtTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_remain_debt_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_remain_debt_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
     public static BigDecimal getLiquidationPrice(ResCdpOwnerStatus.Result status, BigDecimal liquidationRatio) {
         int denomDecimal = WUtil.getKavaCoinDecimal(status.getDenom());
         int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
         BigDecimal collateralAmount = status.getCollateralAmount().movePointLeft(denomDecimal).setScale(denomDecimal, BigDecimal.ROUND_DOWN);
         BigDecimal principalAmount = status.getPrincipalAmount().multiply(liquidationRatio).movePointLeft(denomPDecimal).setScale(denomPDecimal, BigDecimal.ROUND_DOWN);
         return principalAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_UP);
+    }
+
+    public static void DpRiskRate(Context c, BigDecimal riskRate, TextView textView, ImageView imageview) {
+        textView.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        if (riskRate.longValue() < 50) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorCdpSafe));
+            if (imageview != null) {
+                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.cdp_bar_safe));
+            }
+
+        } else if (riskRate.longValue() < 80) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorCdpStable));
+            if (imageview != null) {
+                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.cdp_bar_stable));
+            }
+
+        } else {
+            textView.setTextColor(c.getResources().getColor(R.color.colorCdpDanger));
+            if (imageview != null) {
+                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.cdp_bar_danger));
+
+            }
+        }
+
+    }
+
+    public static void DpRiskButton(Context c, BigDecimal riskRate, Button button) {
+        if (riskRate.longValue() < 50) {
+            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
+            button.setTextColor(c.getResources().getColor(R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("SAFE " + riskRate.toPlainString());
+
+        } else if (riskRate.longValue() < 80) {
+            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_stable_fill));
+            button.setTextColor(c.getResources().getColor(R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("STABLE " + riskRate.toPlainString());
+
+        } else {
+            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_danger_fill));
+            button.setTextColor(c.getResources().getColor(R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("DANGER " + riskRate.toPlainString());
+
+        }
     }
 
 }

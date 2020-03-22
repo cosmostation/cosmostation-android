@@ -48,11 +48,17 @@ public class ResCdpOwnerStatus {
         }
 
         public BigDecimal getCollateralAmount() {
-            return new BigDecimal(cdp.collateral.get(0).amount);
+            try {
+                return new BigDecimal(cdp.collateral.get(0).amount);
+            } catch (Exception e) {}
+            return BigDecimal.ZERO;
         }
 
         public BigDecimal getPrincipalAmount() {
-            return new BigDecimal(cdp.principal.get(0).amount);
+            try {
+                return new BigDecimal(cdp.principal.get(0).amount);
+            } catch (Exception e) { }
+            return BigDecimal.ZERO;
         }
     }
 

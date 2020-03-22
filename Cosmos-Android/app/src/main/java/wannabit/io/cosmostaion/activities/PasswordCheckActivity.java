@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
@@ -36,6 +35,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressT
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleUndelegateTask;
@@ -46,7 +46,6 @@ import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
@@ -83,7 +82,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private ArrayList<Coin>             mCollateralCoins;
     private ArrayList<Coin>             mPrincipalCoins;
+    private ArrayList<Coin>             mPaymentCoins;
     private String                      mSender;
+    private String                      mCdpDenom;
 
     private long                        mIdToDelete;
     private long                        mIdToCheck;
@@ -130,7 +131,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mOpinion = getIntent().getStringExtra("opinion");
         mCollateralCoins = getIntent().getParcelableArrayListExtra("collateralCoins");
         mPrincipalCoins = getIntent().getParcelableArrayListExtra("principalCoins");
+        mPaymentCoins = getIntent().getParcelableArrayListExtra("payment");
         mSender = getIntent().getStringExtra("sender");
+        mCdpDenom = getIntent().getStringExtra("cdp_denom");
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
@@ -318,6 +321,18 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mPrincipalCoins,
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_REPAY_CDP) {
+            onShowWaitDialog();
+            new SimpleRepayCdpTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mSender,
+                    mPaymentCoins,
+                    mCdpDenom,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
         }
     }
 
@@ -378,7 +393,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_REINVEST ||
                     result.taskType == BaseConstant.TASK_GEN_TX_BNB_SIMPLE_SEND ||
                     result.taskType == BaseConstant.TASK_GEN_TX_SIMPLE_VOTE ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_CREATE_CDP) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_CREATE_CDP ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_REPAY_CDP ) {
             if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;

@@ -116,7 +116,6 @@ public class CdpMyFragment extends BaseFragment {
             WLog.w("safeRate " +  safeRate);
             WLog.w("riskRate " +  riskRate);
 
-
             holder.itemLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getContext(), status.getDenom().toUpperCase()));
             holder.itemCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getContext(), status.getDenom().toUpperCase()));
             holder.itemCollateralAmountTitle.setText(WDp.DpCollateralTitle(getContext(), status.getDenom().toUpperCase()));
@@ -128,18 +127,7 @@ public class CdpMyFragment extends BaseFragment {
             holder.itemCollateralAmount.setText(WDp.getDpAmount2(getContext(), status.getCollateralAmount(), denomDecimal, denomDecimal));
             holder.itemLoanedAmount.setText(WDp.getDpAmount2(getContext(), status.getPrincipalAmount(), denomPDecimal, denomPDecimal));
 
-            holder.itemSafeRate.setText(WDp.getDpAmount2(getContext(), riskRate, 0, 2));
-            if (riskRate.longValue() < 50) {
-                holder.itemSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_safe));
-                holder.itemSafeRate.setTextColor(getResources().getColor(R.color.colorCdpSafe));
-            } else if (riskRate.longValue() < 80) {
-                holder.itemSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_stable));
-                holder.itemSafeRate.setTextColor(getResources().getColor(R.color.colorCdpStable));
-            } else {
-                holder.itemSafeBar.setImageDrawable(getResources().getDrawable(R.drawable.cdp_bar_danger));
-                holder.itemSafeRate.setTextColor(getResources().getColor(R.color.colorCdpDanger));
-            }
-
+            WDp.DpRiskRate(getContext(), riskRate, holder.itemSafeRate,  holder.itemSafeBar);
 
             try {
                 Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  status.getImagePath()).fit().into(holder.itemImgMarket);
