@@ -293,7 +293,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_available_amount"
+                    android:text="@string/str_available"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/principal_available"
@@ -485,7 +485,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_available_amount"
+                    android:text="@string/str_available"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/kava_available"

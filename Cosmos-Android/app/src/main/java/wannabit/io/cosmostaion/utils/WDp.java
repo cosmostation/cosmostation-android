@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.TotalReward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
@@ -1515,6 +1516,21 @@ public class WDp {
             button.setText("DANGER " + riskRate.toPlainString());
 
         }
+    }
+
+    public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt,  ResCdpParam.KavaCollateralParam paramCdp, KavaCDP myCdp) {
+        BigDecimal result = BigDecimal.ZERO;
+        try {
+            long now   = Calendar.getInstance().getTimeInMillis();
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            long start = blockDateFormat.parse(myCdp.fees_updated).getTime();
+            Long gap  = (now - start)/1000;
+            BigDecimal feeRate = new BigDecimal(paramCdp.stability_fee).pow(gap.intValue());
+            result = (outstandingDebt.multiply(feeRate).setScale(0, RoundingMode.UP)).subtract(outstandingDebt);
+            WLog.w("result " + result);
+        } catch (Exception e) {}
+        return result;
     }
 
 }

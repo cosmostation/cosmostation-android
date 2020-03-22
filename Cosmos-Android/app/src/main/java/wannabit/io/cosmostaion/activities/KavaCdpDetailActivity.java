@@ -320,7 +320,14 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             BigDecimal cValue = new BigDecimal(mMyOwenCdp.collateral_value.amount);
             BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.get(0).amount);
             BigDecimal feeValue = mMyOwenCdp.cdp.getAccumulatedFees();
-            BigDecimal toRepayValue = debtValue.add(feeValue);
+            BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getBaseContext(), debtValue.add(feeValue), cParam, mMyOwenCdp.cdp);
+            WLog.w("***  debtValue " + debtValue);
+            WLog.w("***  feeValue " + feeValue);
+            WLog.w("***  hiddenFeeValue " + hiddenFeeValue);
+            BigDecimal toRepayValue = debtValue.add(feeValue).add(hiddenFeeValue);
+            WLog.w("***  toRepayValue " + toRepayValue);
+
+
             BigDecimal totalWithdrawableValue = cValue.subtract(toRepayValue.multiply(new BigDecimal(cParam.liquidation_ratio)).setScale(0));
             BigDecimal totalWithdrawableAmount = totalWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).divide(new BigDecimal(mKavaTokenPrice.price), 0, RoundingMode.HALF_DOWN);
             WLog.w("depositValue " +  cValue);

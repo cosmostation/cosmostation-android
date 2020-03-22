@@ -375,7 +375,7 @@
     <string name="str_self_deposited_amount">Self Deposited Collateral</string>
     <string name="str_total_deposited_amount">Total Deposited Collateral</string>
     <string name="str_expected_withdrawable_amount">Withdrawable</string>
-    <string name="str_loaned_amount">Loaned Amount</string>
+    <string name="str_loaned_amount">Loaned</string>
     <string name="str_expected_loanable_amount">Remaining Loan Capacity</string>
     <string name="str_outstanding_debt">Outstanding Debt</string>
     <string name="str_collateral_deposit">Deposit</string>
