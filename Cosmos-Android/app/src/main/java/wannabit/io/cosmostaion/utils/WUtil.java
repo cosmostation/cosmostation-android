@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResIovBalance;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -943,47 +944,38 @@ public class WUtil {
         });
     }
 
-    public static void onSortingTokenByValue(ArrayList<Balance> balances, final BaseChain chain, HashMap<String, ResBnbTic> tics) {
+    public static void onSortingBnbTokenByValue(ArrayList<Balance> balances, HashMap<String, ResBnbTic> tics) {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {
-                if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_ATOM)) return -1;
-                    if(o2.symbol.equals(COSMOS_ATOM)) return 1;
+                if(o1.symbol.equals(COSMOS_BNB)) return -1;
+                if(o2.symbol.equals(COSMOS_BNB)) return 1;
 
-                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_IRIS_ATTO)) return -1;
-                    if(o2.symbol.equals(COSMOS_IRIS_ATTO)) return 1;
-
-                } else if (chain.equals(BaseChain.BNB_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_BNB)) return -1;
-                    if(o2.symbol.equals(COSMOS_BNB)) return 1;
-
-                    ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
-                    ResBnbTic tic2 = tics.get(WUtil.getBnbTicSymbol(o2.symbol));
-                    if (tic1 != null && tic2 != null) {
-                        BigDecimal o1Amount = o1.exchangeToBnbAmount(tic1);
-                        BigDecimal o2Amount = o2.exchangeToBnbAmount(tic2);
-                        return o2Amount.compareTo(o1Amount);
-                    } else {
-                        return 0;
-                    }
-
-                } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-                    if(o1.symbol.equals(COSMOS_KAVA)) return -1;
-                    if(o2.symbol.equals(COSMOS_KAVA)) return 1;
-
-                } else if (chain.equals(IOV_MAIN)) {
-                    if(o1.symbol.equals(COSMOS_IOV)) return -1;
-                    if(o2.symbol.equals(COSMOS_IOV)) return 1;
-
+                ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
+                ResBnbTic tic2 = tics.get(WUtil.getBnbTicSymbol(o2.symbol));
+                if (tic1 != null && tic2 != null) {
+                    BigDecimal o1Amount = o1.exchangeToBnbAmount(tic1);
+                    BigDecimal o2Amount = o2.exchangeToBnbAmount(tic2);
+                    return o2Amount.compareTo(o1Amount);
+                } else {
+                    return 0;
                 }
-                return 0;
-
-
             }
         });
     }
+
+    public static void onSortingKavaTokenByValue(ArrayList<Balance> balances, HashMap<String, ResKavaMarketPrice.Result> prices) {
+        Collections.sort(balances, new Comparator<Balance>() {
+            @Override
+            public int compare(Balance o1, Balance o2) {
+                if(o1.symbol.equals(COSMOS_KAVA)) return -1;
+                if(o2.symbol.equals(COSMOS_KAVA)) return 1;
+
+                return o2.kavaTokenDollorValue(prices).compareTo(o1.kavaTokenDollorValue(prices));
+            }
+        });
+    }
+
 
     public static void onSortingCoins(ArrayList<Coin> coins, BaseChain chain) {
         Collections.sort(coins, new Comparator<Coin>() {
