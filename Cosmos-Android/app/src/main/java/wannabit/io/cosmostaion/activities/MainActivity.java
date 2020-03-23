@@ -27,7 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -261,9 +264,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             //Temp Hide
             if (mToShowTestWarn) {
                 mToShowTestWarn = false;
-                Dialog_Kava_Testnet dialog = Dialog_Kava_Testnet.newInstance(null);
-                dialog.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                if(getBaseDao().getKavaWarn()) {
+                    Dialog_Kava_Testnet dialog = Dialog_Kava_Testnet.newInstance(null);
+                    dialog.setCancelable(true);
+                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                }
             }
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
@@ -281,7 +286,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 mFaucetBtn.hide();
             }
         }
-
 
         onUpdateTitle();
         onFetchAllData();
@@ -418,6 +422,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onBusyFetch();
         }
+    }
+
+    public void onSetKavaWarn() {
+        getBaseDao().setKavaWarn();
     }
 
     private class MainViewPageAdapter extends FragmentPagerAdapter {

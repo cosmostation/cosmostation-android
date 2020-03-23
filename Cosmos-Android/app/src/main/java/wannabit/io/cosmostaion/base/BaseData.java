@@ -11,6 +11,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -419,6 +421,22 @@ public class BaseData {
 
     public int getTokenSorting() {
         return getSharedPreferences().getInt(BaseConstant.PRE_TOKEN_SORTING, 1);
+    }
+
+    public void setKavaWarn() {
+        Date dt = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 3);
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_KAVA_TESTNET_WARN, c.getTimeInMillis()).commit();
+    }
+
+    public boolean getKavaWarn() {
+        Date dt = new Date();
+        if (dt.getTime() > getSharedPreferences().getLong(BaseConstant.PRE_KAVA_TESTNET_WARN, 1)) {
+            return true;
+        }
+        return false;
     }
 
     public Password onSelectPassword() {

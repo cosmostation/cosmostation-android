@@ -38,6 +38,7 @@ public class BaseConstant {
     public final static String PRE_TOKEN_SORTING            = "PRE_TOKEN_SORTING";
     public final static String PRE_ACCOUNT_ORDER            = "PRE_ACCOUNT_ORDER";
     public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN";
+    public final static String PRE_KAVA_TESTNET_WARN        = "PRE_KAVA_TESTNET_WARN";
 
 
     public final static int TASK_INIT_PW                                = 2000;

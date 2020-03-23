@@ -42,13 +42,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
+                android:id="@+id/btn_nega"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_dia_white_left"
+                style="@style/font_ss_14_red"
+                android:text="@string/str_no_more_3day"/>
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/colorGray10"/>
+            <Button
                 android:id="@+id/btn_posi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_dia_white"
-                style="@style/font_ss_14_photon"
+                android:background="@drawable/btn_dia_white_right"
+                style="@style/font_ss_14_gray8"
                 android:text="@string/str_confirm"/>
         </LinearLayout>
 
