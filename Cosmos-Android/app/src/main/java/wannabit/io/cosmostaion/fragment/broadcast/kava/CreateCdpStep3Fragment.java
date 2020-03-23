@@ -25,7 +25,7 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
 
     private TextView mCollateralAmountTitle, mCollateralAmount, mCollateralDenom, mCollateralValue;
     private TextView mPrincipalAmountTitle, mPrincipalAmount, mPrincipalDenom, mPrincipalValue;
-    private TextView mFeesAmount, mFeesDenom;
+    private TextView mFeesAmount, mFeesDenom, mFeeValue;
     private TextView mRiskTxt, mRiskRate;
     private TextView mCurrentPriceTitle, mCurrentPrice;
     private TextView mLiquidationPriceTitle, mLiquidationPrice;
@@ -56,6 +56,7 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
         mPrincipalValue = rootView.findViewById(R.id.principal_value);
         mFeesAmount = rootView.findViewById(R.id.fees_amount);
         mFeesDenom = rootView.findViewById(R.id.fees_denom);
+        mFeeValue = rootView.findViewById(R.id.fee_value);
         mRiskTxt = rootView.findViewById(R.id.risk_rate_txt);
         mRiskRate = rootView.findViewById(R.id.risk_rate);
         mCurrentPriceTitle = rootView.findViewById(R.id.current_price_title);
@@ -76,17 +77,22 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
         final String pDenom = getCParam().debt_limit.get(0).denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
 
-        mCollateralAmountTitle.setText(WDp.DpCollateralTitle(getContext(), cDenom.toUpperCase()));
+//        mCollateralAmountTitle.setText(WDp.DpCollateralTitle(getContext(), cDenom.toUpperCase()));
         WDp.showCoinDp(getContext(), cDenom, getSActivity().toCollateralAmount.toPlainString(), mCollateralDenom, mCollateralAmount, getSActivity().mBaseChain);
         BigDecimal collateralValue = getSActivity().toCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal(getPrice().price)).setScale(2, RoundingMode.DOWN);
         mCollateralValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
-        mPrincipalAmountTitle.setText(WDp.DpLoanedTitle(getContext(), pDenom.toUpperCase()));
+//        mPrincipalAmountTitle.setText(WDp.DpLoanedTitle(getContext(), pDenom.toUpperCase()));
         WDp.showCoinDp(getContext(), pDenom, getSActivity().toPrincipalAmount.toPlainString(), mPrincipalDenom, mPrincipalAmount, getSActivity().mBaseChain);
         BigDecimal principalValue = getSActivity().toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)).setScale(2, RoundingMode.DOWN);
         mPrincipalValue.setText(WDp.getDpRawDollor(getContext(), principalValue, 2));
 
         WDp.showCoinDp(getContext(), COSMOS_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
+        BigDecimal kavaValue = feeAmount.movePointLeft(WUtil.getKavaCoinDecimal(COSMOS_KAVA)).multiply(getBaseDao().getLastKavaDollorTic()).setScale(2, RoundingMode.DOWN);
+        mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
+
+
+
         WDp.DpRiskRate(getContext(), getSActivity().mRiskRate, mRiskRate, null);
 
         mCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getContext(), cDenom.toUpperCase()));

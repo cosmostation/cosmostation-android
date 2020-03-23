@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.broadcast.kava.RepayCdpActivity;
@@ -24,7 +25,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView mPaymentTitle, mPaymentAmount, mPaymentDenom, mPaymentValue;
     private TextView mFeesAmount, mFeesDenom, mFeeValue;
     private TextView mBeforeRiskTv, mAfterRiskRateTv;
-    private TextView mLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
+    private TextView mBeforeLiquidationPriceTitle, mAfterLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
     private TextView mRemainDebtTitle, mRemainDebtAmount, mRemainDebtDenom, mRemainDebtValue;
     private TextView mMemo;
     private Button mBeforeBtn, mConfirmBtn;
@@ -52,8 +53,9 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         mFeeValue = rootView.findViewById(R.id.fee_value);
         mBeforeRiskTv = rootView.findViewById(R.id.risk_rate_before);
         mAfterRiskRateTv = rootView.findViewById(R.id.risk_rate_after);
-        mLiquidationPriceTitle = rootView.findViewById(R.id.liquidation_price_title);
+        mBeforeLiquidationPriceTitle = rootView.findViewById(R.id.liquidation_price_before_title);
         mBeforeLiquidationPrice = rootView.findViewById(R.id.liquidation_price_before);
+        mAfterLiquidationPriceTitle = rootView.findViewById(R.id.liquidation_price_after_title);
         mAfterLiquidationPrice = rootView.findViewById(R.id.liquidation_price_after);
         mRemainDebtTitle = rootView.findViewById(R.id.remaining_debt_title);
         mRemainDebtAmount = rootView.findViewById(R.id.remaining_debt_amount);
@@ -80,12 +82,16 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         mPaymentValue.setText(WDp.getDpRawDollor(getContext(), paymentValue, 2));
 
         WDp.showCoinDp(getContext(), COSMOS_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
+        BigDecimal kavaValue = feeAmount.movePointLeft(WUtil.getKavaCoinDecimal(COSMOS_KAVA)).multiply(getBaseDao().getLastKavaDollorTic()).setScale(2, RoundingMode.DOWN);
+        mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
 
         WDp.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate , mBeforeRiskTv, null);
         WDp.DpRiskRate(getContext(), getSActivity().mAfterRiskRate , mAfterRiskRateTv, null);
 
-        mLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getContext(), cDenom.toUpperCase()));
+        mBeforeLiquidationPriceTitle.setText(WDp.DpBeforeLiquidationPriceTitle(getContext(), cDenom.toUpperCase()));
         mBeforeLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mBeforeLiquidationPrice.toPlainString(),  4));
+
+        mAfterLiquidationPriceTitle.setText(WDp.DpAfterLiquidationPriceTitle(getContext(), cDenom.toUpperCase()));
         mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
 
 //        mRemainDebtTitle.setText(WDp.DpRemainDebtTitle(getContext(), pDenom.toUpperCase()));

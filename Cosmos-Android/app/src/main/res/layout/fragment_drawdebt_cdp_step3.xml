@@ -62,7 +62,8 @@
                     </RelativeLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-2dp">
                         <TextView
                             android:id="@+id/more_loan_value"
                             android:layout_width="wrap_content"
@@ -107,8 +108,7 @@
                     </RelativeLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
+                        android:layout_height="wrap_content">
                         <TextView
                             android:id="@+id/fee_value"
                             android:layout_width="wrap_content"
@@ -142,62 +142,34 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_alignParentRight="true">
+                            android:layout_alignParentRight="true"
+                            android:gravity="center_vertical">
                             <TextView
                                 android:id="@+id/risk_rate_before"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/font_ss_33_white"
+                                style="@style/font_ss_26_white"
                                 android:text="-"/>
-
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/space_16"
+                                android:layout_marginLeft="@dimen/space_16"
+                                android:src="@drawable/risk_arrow"/>
                             <TextView
                                 android:id="@+id/risk_rate_after"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_16"
-                                style="@style/font_ss_33_white"
+                                style="@style/font_ss_26_white"
                                 android:text="-"/>
                         </LinearLayout>
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_10">
-                        <TextView
-                            android:id="@+id/liquidation_price_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/str_liquidation_title1"
-                            android:layout_alignBottom="@+id/liquidation_price_changes"
-                            style="@style/font_ss_12_gray1"/>
-                        <LinearLayout
-                            android:id="@+id/liquidation_price_changes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_alignParentRight="true">
-                            <TextView
-                                android:id="@+id/liquidation_price_before"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/font_ssl_14_white"
-                                android:text="-"/>
-
-                            <TextView
-                                android:id="@+id/liquidation_price_after"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/space_16"
-                                style="@style/font_ssl_14_white"
-                                android:text="-"/>
-                        </LinearLayout>
-                    </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_10">
+                        android:layout_marginTop="@dimen/space_16">
                         <TextView
                             android:id="@+id/after_total_debt_title"
                             android:layout_width="wrap_content"
@@ -229,7 +201,8 @@
                     </RelativeLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-2dp">
                         <TextView
                             android:id="@+id/after_total_debt_value"
                             android:layout_width="wrap_content"
@@ -240,10 +213,54 @@
                             android:text="-"/>
                     </RelativeLayout>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_2">
+                        <TextView
+                            android:id="@+id/liquidation_price_before_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/str_liquidation_title1"
+                            style="@style/font_ss_12_gray1"/>
+                        <TextView
+                            android:id="@+id/liquidation_price_before"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            style="@style/font_ssl_14_white"
+                            android:text="-"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_16">
+                        <TextView
+                            android:id="@+id/liquidation_price_after_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/str_liquidation_title1"
+                            style="@style/font_ss_12_gray1"/>
+                        <TextView
+                            android:id="@+id/liquidation_price_after"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="@dimen/space_16"
+                            style="@style/font_ssl_14_white"
+                            android:text="-"/>
+                    </RelativeLayout>
+
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_marginTop="@dimen/space_16"
                         android:text="@string/str_memo"
                         style="@style/font_ss_12_gray1"/>
                     <TextView

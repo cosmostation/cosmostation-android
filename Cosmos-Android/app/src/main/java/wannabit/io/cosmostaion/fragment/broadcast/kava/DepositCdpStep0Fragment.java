@@ -208,7 +208,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
             try {
                 mToDepositAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
             } catch (Exception e) {
-                mAfterRisk.setVisibility(View.GONE);
+                mAfterRisk.setVisibility(View.INVISIBLE);
                 mAfterDepositAmount.setVisibility(View.GONE);
                 return false;
             }
@@ -218,13 +218,13 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
                 mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
-                mAfterRisk.setVisibility(View.GONE);
+                mAfterRisk.setVisibility(View.INVISIBLE);
                 mAfterDepositAmount.setVisibility(View.GONE);
                 return false;
 
             }
             mAfterRisk.setVisibility(View.VISIBLE);
-            mAfterDepositAmount.setVisibility(View.VISIBLE);
+//            mAfterDepositAmount.setVisibility(View.VISIBLE);
 
             mTotalDepositAmount = mCurrentCollateralAmount.add(mToDepositAmount);
 
@@ -237,7 +237,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
             WDp.DpRiskRate(getContext(), mAfterRiskRate, mAfterRisk, null);
             WDp.DpRiskButton(getContext(), mAfterRiskRate, mBtnNext);
 
-            mAfterDepositAmount.setText(WDp.getDpAmount2(getContext(), mTotalDepositAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), WUtil.getKavaCoinDecimal(mCollateralDenom)));
+//            mAfterDepositAmount.setText(WDp.getDpAmount2(getContext(), mTotalDepositAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), WUtil.getKavaCoinDecimal(mCollateralDenom)));
             return true;
 
         } catch (Exception e) {
@@ -283,7 +283,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mBtnAdd3_4)) {
             try {
-                BigDecimal cal = mCanDepositMaxMaxAmount.multiply(new BigDecimal(0.75)).setScale(0);
+                BigDecimal cal = mCanDepositMaxMaxAmount.multiply(new BigDecimal(0.75)).setScale(0, RoundingMode.DOWN);
                 mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
 
             } catch (Exception e) {

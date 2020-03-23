@@ -218,7 +218,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
             try {
                 mToLoanAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
             } catch (Exception e) {
-                mAfterRisk.setVisibility(View.GONE);
+                mAfterRisk.setVisibility(View.INVISIBLE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
                 return false;
             }
@@ -228,12 +228,12 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                 mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
-                mAfterRisk.setVisibility(View.GONE);
+                mAfterRisk.setVisibility(View.INVISIBLE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
                 return false;
             }
             mAfterRisk.setVisibility(View.VISIBLE);
-            mAfterPrincipalAmount.setVisibility(View.VISIBLE);
+//            mAfterPrincipalAmount.setVisibility(View.VISIBLE);
 
             mMoreAddedLoanAmount = mCurrentTotalDebetAmount.add(mToLoanAmount);
             WLog.w("mMoreAddedLoanAmount " + mMoreAddedLoanAmount);
@@ -247,7 +247,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
             WDp.DpRiskRate(getContext(), mAfterRiskRate, mAfterRisk, null);
             WDp.DpRiskButton(getContext(), mAfterRiskRate, mBtnNext);
 
-            mAfterPrincipalAmount.setText(WDp.getDpAmount2(getContext(), mMoreAddedLoanAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
+//            mAfterPrincipalAmount.setText(WDp.getDpAmount2(getContext(), mMoreAddedLoanAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
             return true;
 
         } catch (Exception e) {

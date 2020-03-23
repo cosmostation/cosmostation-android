@@ -26,7 +26,7 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
     private TextView mWithdrawTitle, mWithdrawAmount, mWithdrawDenom, mWithdrawValue;
     private TextView mFeesAmount, mFeesDenom, mFeeValue;
     private TextView mBeforeRiskTv, mAfterRiskRateTv;
-    private TextView mLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
+    private TextView mBeforeLiquidationPriceTitle, mAfterLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
     private TextView mTotalDepositAmount, mTotalDepositDenom, mTotalDepositValue;
     private TextView mMemo;
     private Button mBeforeBtn, mConfirmBtn;
@@ -54,8 +54,9 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
         mFeeValue = rootView.findViewById(R.id.fee_value);
         mBeforeRiskTv = rootView.findViewById(R.id.risk_rate_before);
         mAfterRiskRateTv = rootView.findViewById(R.id.risk_rate_after);
-        mLiquidationPriceTitle = rootView.findViewById(R.id.liquidation_price_title);
+        mBeforeLiquidationPriceTitle = rootView.findViewById(R.id.liquidation_price_before_title);
         mBeforeLiquidationPrice = rootView.findViewById(R.id.liquidation_price_before);
+        mAfterLiquidationPriceTitle = rootView.findViewById(R.id.liquidation_price_after_title);
         mAfterLiquidationPrice = rootView.findViewById(R.id.liquidation_price_after);
         mTotalDepositAmount = rootView.findViewById(R.id.after_total_deposit_amount);
         mTotalDepositDenom = rootView.findViewById(R.id.after_total_deposit_denom);
@@ -79,12 +80,16 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
         mWithdrawValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
         WDp.showCoinDp(getContext(), COSMOS_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
+        BigDecimal kavaValue = feeAmount.movePointLeft(WUtil.getKavaCoinDecimal(COSMOS_KAVA)).multiply(getBaseDao().getLastKavaDollorTic()).setScale(2, RoundingMode.DOWN);
+        mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
 
         WDp.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate , mBeforeRiskTv, null);
         WDp.DpRiskRate(getContext(), getSActivity().mAfterRiskRate , mAfterRiskRateTv, null);
 
-        mLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getContext(), cDenom.toUpperCase()));
+        mBeforeLiquidationPriceTitle.setText(WDp.DpBeforeLiquidationPriceTitle(getContext(), cDenom.toUpperCase()));
         mBeforeLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mBeforeLiquidationPrice.toPlainString(),  4));
+
+        mAfterLiquidationPriceTitle.setText(WDp.DpAfterLiquidationPriceTitle(getContext(), cDenom.toUpperCase()));
         mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
 
         WDp.showCoinDp(getContext(), cDenom, getSActivity().mTotalDepositAmount.toPlainString(), mTotalDepositDenom, mTotalDepositAmount, getSActivity().mBaseChain);

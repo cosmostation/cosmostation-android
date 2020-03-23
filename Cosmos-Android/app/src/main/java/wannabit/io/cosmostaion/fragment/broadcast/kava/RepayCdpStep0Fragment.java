@@ -220,7 +220,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
             try {
                 mToPaymentAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
             } catch (Exception e) {
-                mAfterRisk.setVisibility(View.GONE);
+                mAfterRisk.setVisibility(View.INVISIBLE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
                 return false;
             }
@@ -230,7 +230,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
-                mAfterRisk.setVisibility(View.GONE);
+                mAfterRisk.setVisibility(View.INVISIBLE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
                 return false;
             }
@@ -239,13 +239,13 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
-                mAfterRisk.setVisibility(View.GONE);
+                mAfterRisk.setVisibility(View.INVISIBLE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
                 return false;
 
             }
             mAfterRisk.setVisibility(View.VISIBLE);
-            mAfterPrincipalAmount.setVisibility(View.VISIBLE);
+//            mAfterPrincipalAmount.setVisibility(View.VISIBLE);
 
             //after payment state views!!
             mRemainLoanAmount = mCurrentTotalDebetAmount.subtract(mToPaymentAmount);
@@ -264,7 +264,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 mBtnNext.setText("REPAY ALL");
             }
 
-            mAfterPrincipalAmount.setText(WDp.getDpAmount2(getContext(), mRemainLoanAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
+//            mAfterPrincipalAmount.setText(WDp.getDpAmount2(getContext(), mRemainLoanAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
             return true;
 
         } catch (Exception e) {

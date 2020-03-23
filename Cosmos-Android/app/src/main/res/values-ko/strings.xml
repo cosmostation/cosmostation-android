@@ -397,7 +397,7 @@
     <string name="str_remaining_debt">Remaining Debet</string>
     <string name="str_after_total_debt">After Total Debet</string>
     <string name="str_after_total_deposit">After Total Deposit</string>
-    <string name="str_risk_rate">Risk Rate</string>
+    <string name="str_risk_rate">Risk Score</string>
     <string name="str_debt_value">Debt Value</string>
 
 

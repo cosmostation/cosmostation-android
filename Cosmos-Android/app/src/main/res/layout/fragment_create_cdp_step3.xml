@@ -4,8 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,7 +61,8 @@
                     </RelativeLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-2dp">
                         <TextView
                             android:id="@+id/collateral_value"
                             android:layout_width="wrap_content"
@@ -110,7 +109,8 @@
                     </RelativeLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-2dp">
                         <TextView
                             android:id="@+id/principal_value"
                             android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone">
+                        android:layout_marginTop="-2dp">
                         <TextView
                             android:id="@+id/fee_value"
                             android:layout_width="wrap_content"
@@ -198,7 +198,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ss_33_white"
+                            style="@style/font_ss_26_white"
                             android:text="-"/>
                     </RelativeLayout>
 
