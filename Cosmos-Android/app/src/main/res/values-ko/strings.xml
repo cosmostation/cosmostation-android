@@ -370,6 +370,8 @@
     <string name="str_payment_title2">Amount</string>
     <string name="str_remain_debt_title1">Estimated Remain Debt</string>
     <string name="str_remain_debt_title2">Amount</string>
+    <string name="str_collateral_value_title1">Collateral</string>
+    <string name="str_collateral_value_title2">Value</string>
     <string name="str_open_cdp">Open new CDP</string>
     <string name="str_available_amount">Available Amount</string>
     <string name="str_self_deposited_amount">Self Deposited Collateral</string>
@@ -393,6 +395,7 @@
     <string name="str_after_total_debt">After Total Debet</string>
     <string name="str_after_total_deposit">After Total Deposit</string>
     <string name="str_risk_rate">Risk Rate</string>
+    <string name="str_debt_value">Debt Value</string>
 
 
     <string name="str_help_collateral_rate_t">Min. Collateral Rate</string>

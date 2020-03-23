@@ -1464,6 +1464,14 @@ public class WDp {
         return Html.fromHtml(strFront + strChange + strBack);
     }
 
+    public static Spanned DpCollateralValueTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_collateral_value_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_collateral_value_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
     public static BigDecimal getLiquidationPrice(ResCdpOwnerStatus.Result status, BigDecimal liquidationRatio) {
         int denomDecimal = WUtil.getKavaCoinDecimal(status.getDenom());
         int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
@@ -1477,19 +1485,19 @@ public class WDp {
         if (riskRate.longValue() < 50) {
             textView.setTextColor(c.getResources().getColor(R.color.colorCdpSafe));
             if (imageview != null) {
-                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.cdp_bar_safe));
+                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_safe));
             }
 
         } else if (riskRate.longValue() < 80) {
             textView.setTextColor(c.getResources().getColor(R.color.colorCdpStable));
             if (imageview != null) {
-                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.cdp_bar_stable));
+                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_stable));
             }
 
         } else {
             textView.setTextColor(c.getResources().getColor(R.color.colorCdpDanger));
             if (imageview != null) {
-                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.cdp_bar_danger));
+                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_danger));
 
             }
         }

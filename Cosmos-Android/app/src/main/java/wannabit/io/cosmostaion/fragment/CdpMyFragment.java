@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.activities.KavaCdpDetailActivity;
 import wannabit.io.cosmostaion.activities.KavaCdpListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
+import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -104,31 +105,33 @@ public class CdpMyFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull MyCdpHolder holder, int position) {
             final ResCdpOwnerStatus.Result status = mMyOwenCdp.get(position);
             final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(status.getDenom());
-            final int denomDecimal = WUtil.getKavaCoinDecimal(status.getDenom());
             final int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
+            final ResCdpParam.KavaCollateralParam param = getMainActivity().mCdpParam.getCollateralParamByDenom(status.getDenom());
+
             final BigDecimal currentPrice = new BigDecimal(price.price);
             final BigDecimal liquidationPrice = WDp.getLiquidationPrice(status, getMainActivity().mCdpParam.getRawLiquidationRatio(status.getDenom()));
-            final BigDecimal safeRate = (currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN);
             final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
-            WLog.w("currentPrice " +  currentPrice);
-            WLog.w("liquidationPrice " +  liquidationPrice);
-            WLog.w("safeRate " +  safeRate);
-            WLog.w("riskRate " +  riskRate);
+//            WLog.w("currentPrice " +  currentPrice);
+//            WLog.w("liquidationPrice " +  liquidationPrice);
+//            WLog.w("riskRate " +  riskRate);
 
-            holder.itemLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getContext(), status.getDenom().toUpperCase()));
-            holder.itemCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getContext(), status.getDenom().toUpperCase()));
-            holder.itemCollateralAmountTitle.setText(WDp.DpCollateralTitle(getContext(), status.getDenom().toUpperCase()));
-            holder.itemLoanedAmountTitle.setText(WDp.DpLoanedTitle(getContext(), status.getPDenom().toUpperCase()));
+            holder.itemDebtValueTitle.setText(status.getPDenom().toUpperCase() + " " + getString(R.string.str_debt_value));
+            holder.itemCollateralValueTitle.setText(WDp.DpCollateralValueTitle(getContext(), status.getDenom().toUpperCase()));
 
-            holder.itemTitleMarket.setText(status.getDpMarketId());
-            holder.itemLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), liquidationPrice, 4));
-            holder.itemCurrentPrice.setText(WDp.getDpRawDollor(getContext(), currentPrice,  4));
-            holder.itemCollateralAmount.setText(WDp.getDpAmount2(getContext(), status.getCollateralAmount(), denomDecimal, denomDecimal));
-            holder.itemLoanedAmount.setText(WDp.getDpAmount2(getContext(), status.getPrincipalAmount(), denomPDecimal, denomPDecimal));
+            final BigDecimal debtValue = new BigDecimal(status.cdp.principal.get(0).amount);
+            final BigDecimal feeValue = status.getAccumulatedFees();
+            final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), debtValue.add(feeValue), param, status.cdp);
+            final BigDecimal totalDebtValue = debtValue.add(feeValue).add(hiddenFeeValue);
+            holder.itemDebtValue.setText(WDp.getDpRawDollor(getContext(), totalDebtValue.movePointLeft(denomPDecimal), 2));
 
-            WDp.DpRiskRate(getContext(), riskRate, holder.itemSafeRate,  holder.itemSafeBar);
+            final BigDecimal currentCollateralValue = new BigDecimal(status.collateral_value.amount);
+            holder.itemCollateralValue.setText(WDp.getDpRawDollor(getContext(), currentCollateralValue.movePointLeft(denomPDecimal), 2));
 
+            holder.itemStabilityFee.setText(WDp.getPercentDp(param.getDpStabilityFee(), 2));
+            holder.itemLiquidationPenalty.setText(WDp.getPercentDp(param.getDpLiquidationPenalty(), 2));
+
+            WDp.DpRiskRate(getContext(), riskRate, holder.itemRiskScore,  holder.itemImgRisk);
             try {
                 Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  status.getImagePath()).fit().into(holder.itemImgMarket);
 
@@ -143,7 +146,6 @@ public class CdpMyFragment extends BaseFragment {
                     startActivity(intent);
                 }
             });
-
         }
 
         @Override
@@ -153,10 +155,10 @@ public class CdpMyFragment extends BaseFragment {
 
         public class MyCdpHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;
-            ImageView itemImgMarket, itemSafeBar;
-            TextView itemTitleMarket, itemSafeRate;
-            TextView itemCurrentPrice, itemCurrentPriceTitle, itemLiquidationPrice, itemLiquidationPriceTitle,
-            itemCollateralAmount, itemCollateralAmountTitle, itemLoanedAmount, itemLoanedAmountTitle;
+            ImageView itemImgMarket, itemImgRisk;
+            TextView itemTitleMarket, itemRiskScore;
+            TextView itemDebtValueTitle, itemDebtValue, itemCollateralValueTitle, itemCollateralValue;
+            TextView itemStabilityFee, itemLiquidationPenalty;
 
 
             public MyCdpHolder(@NonNull View itemView) {
@@ -164,16 +166,14 @@ public class CdpMyFragment extends BaseFragment {
                 itemRoot = itemView.findViewById(R.id.card_cdp_my);
                 itemImgMarket = itemView.findViewById(R.id.market_img);
                 itemTitleMarket = itemView.findViewById(R.id.market_title);
-                itemSafeBar = itemView.findViewById(R.id.cdp_safe_img);
-                itemSafeRate = itemView.findViewById(R.id.cdp_safe_rate);
-                itemLiquidationPriceTitle = itemView.findViewById(R.id.liquidation_price_title);
-                itemLiquidationPrice = itemView.findViewById(R.id.liquidation_price);
-                itemCurrentPriceTitle = itemView.findViewById(R.id.current_price_title);
-                itemCurrentPrice = itemView.findViewById(R.id.current_price);
-                itemCollateralAmountTitle = itemView.findViewById(R.id.collateral_amount_title);
-                itemCollateralAmount = itemView.findViewById(R.id.collateral_amount);
-                itemLoanedAmountTitle = itemView.findViewById(R.id.loaned_amount_title);
-                itemLoanedAmount = itemView.findViewById(R.id.loaned_amount);
+                itemImgRisk = itemView.findViewById(R.id.cdp_safe_img);
+                itemRiskScore = itemView.findViewById(R.id.cdp_safe_rate);
+                itemDebtValueTitle = itemView.findViewById(R.id.cdp_debt_value_title);
+                itemDebtValue = itemView.findViewById(R.id.cdp_debt_value);
+                itemCollateralValueTitle = itemView.findViewById(R.id.cdp_collateral_value_title);
+                itemCollateralValue = itemView.findViewById(R.id.cdp_collateral_value);
+                itemStabilityFee = itemView.findViewById(R.id.cdp_stability_fee);
+                itemLiquidationPenalty = itemView.findViewById(R.id.cdp_str_liquidation_penalty);
             }
         }
     }
