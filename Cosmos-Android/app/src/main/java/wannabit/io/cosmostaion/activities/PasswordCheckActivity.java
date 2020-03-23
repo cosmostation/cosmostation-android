@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleUndelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleVoteTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleWithdrawCdpTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
@@ -361,6 +362,17 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        } else if (mPurpose == BaseConstant.CONST_PW_TX_WITHDRAW_CDP) {
+            onShowWaitDialog();
+            new SimpleWithdrawCdpTask(getBaseApplication(),
+                    this,
+                    mAccount,
+                    mOwner,
+                    mDepositor,
+                    mCollateralCoins,
+                    mTargetMemo,
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
         }
     }
 
@@ -424,7 +436,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     result.taskType == BaseConstant.TASK_GEN_TX_CREATE_CDP ||
                     result.taskType == BaseConstant.TASK_GEN_TX_REPAY_CDP ||
                     result.taskType == BaseConstant.TASK_GEN_TX_DRAW_DEBT_CDP ||
-                    result.taskType == BaseConstant.TASK_GEN_TX_DEPOSIT_CDP) {
+                    result.taskType == BaseConstant.TASK_GEN_TX_DEPOSIT_CDP ||
+                    result.taskType == BaseConstant.TASK_GEN_TX_WITHDRAW_CDP) {
             if(!result.isSuccess && result.errorCode == BaseConstant.ERROR_CODE_INVALID_PASSWORD) {
                 onShakeView();
                 return;

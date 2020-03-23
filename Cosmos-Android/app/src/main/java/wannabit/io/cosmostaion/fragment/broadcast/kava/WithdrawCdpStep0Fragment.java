@@ -23,10 +23,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.broadcast.kava.DepositCdpActivity;
+import wannabit.io.cosmostaion.activities.broadcast.kava.WithdrawCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -36,8 +37,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 
-public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int CDP_DEPOSIT_CONFIRM_DIALOG = 6020;
+public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int CDP_WITHDRAW_CONFIRM_DIALOG = 6021;
 
     private Button          mBtnCancel, mBtnNext;
     private ImageView       mCollateralImg;
@@ -52,16 +53,15 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
     private BigDecimal      mCurrentPrice;
     private String          mCollateralDenom, mPrincipalDenom;
-    private BigDecimal      mCurrentTotalDebetAmount, mCurrentCollateralAmount, mCanDepositMaxMaxAmount, mToDepositAmount, mTotalDepositAmount;
+//    private BigDecimal      mCurrentTotalDebetAmount, mCurrentCollateralAmount, mCanDepositMaxMaxAmount, mToDepositAmount, mTotalDepositAmount;
+    private BigDecimal      mCurrentTotalDebetAmount, mCurrentCollateralAmount, mCanWithdrawMaxMaxAmount, mToWithdrawAmount, mTotalDepositAmount;
     private BigDecimal      mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate;
 
     private String          mCollateralDecimalChecker, mCollateralDecimalSetter;
 
 
-
-
-    public static DepositCdpStep0Fragment newInstance(Bundle bundle) {
-        DepositCdpStep0Fragment fragment = new DepositCdpStep0Fragment();
+    public static WithdrawCdpStep0Fragment newInstance(Bundle bundle) {
+        WithdrawCdpStep0Fragment fragment = new WithdrawCdpStep0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -73,7 +73,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_deposit_cdp_step0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_withdraw_cdp_step0, container, false);
         mBtnCancel = rootView.findViewById(R.id.btn_cancel);
         mBtnNext = rootView.findViewById(R.id.btn_next);
 
@@ -81,7 +81,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         mCollateralSymbol = rootView.findViewById(R.id.collateral_symbol);
         mCollateralInput = rootView.findViewById(R.id.collateral_input);
         mCollateralClear = rootView.findViewById(R.id.collateral_clear);
-        mCollateralMaxTx = rootView.findViewById(R.id.collateral_max_amount);
+        mCollateralMaxTx = rootView.findViewById(R.id.withdrawable_max_amount);
         mCollateralDenomTx = rootView.findViewById(R.id.collateral_denom);
         mBtnAdd1 = rootView.findViewById(R.id.btn_add_1);
         mBtnAdd1_4 = rootView.findViewById(R.id.btn_add_1_4);
@@ -106,7 +106,6 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         return rootView;
     }
 
-
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
@@ -120,15 +119,41 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         setDpDecimals(WUtil.getKavaCoinDecimal(mCollateralDenom));
         mCurrentPrice = new BigDecimal(getPrice().price);
 
-        mCanDepositMaxMaxAmount = getSActivity().getcAvailable();
-        WDp.showCoinDp(getContext(), mCollateralDenom, mCanDepositMaxMaxAmount.toPlainString(), mCollateralDenomTx, mCollateralMaxTx, getSActivity().mBaseChain);
-
         mCurrentTotalDebetAmount = getOwenCdp().getPrincipalAmount().add(getOwenCdp().getAccumulatedFees());
         BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), mCurrentTotalDebetAmount, getCParam(), getOwenCdp().cdp);
         WLog.w("hiddenFeeValue " + hiddenFeeValue);
         mCurrentTotalDebetAmount = mCurrentTotalDebetAmount.add(hiddenFeeValue);
+        WLog.w("mCurrentTotalDebetAmount " + mCurrentTotalDebetAmount);
 
         mCurrentCollateralAmount = getOwenCdp().getCollateralAmount();
+
+
+        BigDecimal currentCollateralValue = new BigDecimal(getOwenCdp().collateral_value.amount);
+        BigDecimal totalWithdrawableValue = currentCollateralValue.subtract(mCurrentTotalDebetAmount.multiply(new BigDecimal(getCParam().liquidation_ratio)).setScale(0, RoundingMode.DOWN));
+        BigDecimal totalWithdrawableAmount = totalWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).divide(new BigDecimal(getPrice().price), 0, RoundingMode.HALF_DOWN);
+        WLog.w("totalWithdrawableValue " +  totalWithdrawableValue);
+        WLog.w("totalWithdrawableAmount " +  totalWithdrawableAmount);
+
+        BigDecimal selfDepositAmount = BigDecimal.ZERO;
+        for (ResCdpDepositStatus.Result deposit:getSActivity().mMyDepositList) {
+            if (deposit.cdp_id.equals(getOwenCdp().cdp.id) && deposit.depositor.equals(getSActivity().mAccount.address)) {
+                selfDepositAmount = new BigDecimal(deposit.amount.get(0).amount);
+            }
+        }
+        WLog.w("selfDepositAmount " +  selfDepositAmount);
+
+        if (totalWithdrawableAmount.compareTo(selfDepositAmount) > 0) {
+            mCanWithdrawMaxMaxAmount = selfDepositAmount;
+            WLog.w("mCanWithdrawMaxMaxAmount " +  mCanWithdrawMaxMaxAmount);
+        } else {
+            mCanWithdrawMaxMaxAmount = totalWithdrawableAmount;
+            WLog.w("mCanWithdrawMaxMaxAmount " +  mCanWithdrawMaxMaxAmount);
+            mCanWithdrawMaxMaxAmount = mCanWithdrawMaxMaxAmount.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
+            WLog.w("mCanWithdrawMaxMaxAmount padding " +  mCanWithdrawMaxMaxAmount);
+        }
+
+        WDp.showCoinDp(getContext(), mCollateralDenom, mCanWithdrawMaxMaxAmount.toPlainString(), mCollateralDenomTx, mCollateralMaxTx, getSActivity().mBaseChain);
+
         mCollateralSymbol.setText(mCollateralDenom.toUpperCase());
         try {
             Picasso.get().load(KAVA_COIN_IMG_URL + mCollateralDenom + ".png").fit().into(mCollateralImg);
@@ -185,7 +210,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
                             return;
                         }
 
-                        if (mCanDepositMaxMaxAmount.compareTo(checkPosition) < 0) {
+                        if (mCanWithdrawMaxMaxAmount.compareTo(checkPosition) < 0) {
                             mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
 
                         } else {
@@ -202,18 +227,16 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
     private boolean onDisplayViewUpdate() {
         mAfterLiquidationPrice = mAfterRiskRate =  null;
-
         try {
-            mToDepositAmount = BigDecimal.ZERO;
+            mToWithdrawAmount = BigDecimal.ZERO;
             try {
-                mToDepositAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
+                mToWithdrawAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
             } catch (Exception e) {
                 mAfterRisk.setVisibility(View.GONE);
                 mAfterDepositAmount.setVisibility(View.GONE);
                 return false;
             }
-            WLog.w("mToDepositAmount " + mToDepositAmount);
-            if (mToDepositAmount.compareTo(BigDecimal.ZERO) <= 0 || mCanDepositMaxMaxAmount.compareTo(mToDepositAmount) < 0) {
+            if (mToWithdrawAmount.compareTo(BigDecimal.ZERO) <= 0 || mCanWithdrawMaxMaxAmount.compareTo(mToWithdrawAmount) < 0) {
                 mBtnNext.setText(R.string.str_next);
                 mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
@@ -221,12 +244,13 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
                 mAfterRisk.setVisibility(View.GONE);
                 mAfterDepositAmount.setVisibility(View.GONE);
                 return false;
-
             }
+            WLog.w("mToWithdrawAmount " + mToWithdrawAmount);
             mAfterRisk.setVisibility(View.VISIBLE);
             mAfterDepositAmount.setVisibility(View.VISIBLE);
 
-            mTotalDepositAmount = mCurrentCollateralAmount.add(mToDepositAmount);
+            mTotalDepositAmount = mCurrentCollateralAmount.subtract(mToWithdrawAmount);
+            WLog.w("mTotalDepositAmount " + mTotalDepositAmount);
 
             mAfterLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mTotalDepositAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
             WLog.w("mAfterLiquidationPrice " + mAfterLiquidationPrice);
@@ -246,9 +270,9 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
             mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
             mBtnNext.setTypeface(null, Typeface.NORMAL);
             return false;
+
         }
     }
-
 
     @Override
     public void onClick(View v) {
@@ -265,7 +289,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mBtnAdd1_4)) {
             try {
-                BigDecimal cal = mCanDepositMaxMaxAmount.divide(new BigDecimal(4), 0, RoundingMode.DOWN);
+                BigDecimal cal = mCanWithdrawMaxMaxAmount.divide(new BigDecimal(4), 0, RoundingMode.DOWN);
                 mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
 
             } catch (Exception e) {
@@ -274,7 +298,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mBtnAddHalf)) {
             try {
-                BigDecimal cal = mCanDepositMaxMaxAmount.divide(new BigDecimal(2), 0, RoundingMode.DOWN);
+                BigDecimal cal = mCanWithdrawMaxMaxAmount.divide(new BigDecimal(2), 0, RoundingMode.DOWN);
                 mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
 
             } catch (Exception e) {
@@ -283,26 +307,26 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mBtnAdd3_4)) {
             try {
-                BigDecimal cal = mCanDepositMaxMaxAmount.multiply(new BigDecimal(0.75)).setScale(0);
+                BigDecimal cal = mCanWithdrawMaxMaxAmount.multiply(new BigDecimal(0.75)).setScale(0);
                 mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
 
             } catch (Exception e) {
                 mCollateralInput.setText("");
             }
         } else if (v.equals(mBtnAddMax)) {
-            mCollateralInput.setText(mCanDepositMaxMaxAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+            mCollateralInput.setText(mCanWithdrawMaxMaxAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
 
         } else if (v.equals(mBtnCancel)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
             if (onDisplayViewUpdate()) {
-                if (mBeforeLiquidationPrice.compareTo(BigDecimal.ZERO) <= 0 || mBeforeRiskRate.compareTo(BigDecimal.ZERO) < 0 || mToDepositAmount.compareTo(BigDecimal.ZERO) <= 0 ||
+                if (mBeforeLiquidationPrice.compareTo(BigDecimal.ZERO) <= 0 || mBeforeRiskRate.compareTo(BigDecimal.ZERO) < 0 || mToWithdrawAmount.compareTo(BigDecimal.ZERO) <= 0 ||
                         mAfterLiquidationPrice == null || mAfterRiskRate == null) {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
                 } else {
                     getSActivity().mCollaterals.clear();
-                    Coin collateral = new Coin(mCollateralDenom, mToDepositAmount.toPlainString());
+                    Coin collateral = new Coin(mCollateralDenom, mToWithdrawAmount.toPlainString());
                     getSActivity().mCollaterals.add(collateral);
                     getSActivity().mBeforeLiquidationPrice = mBeforeLiquidationPrice;
                     getSActivity().mBeforeRiskRate = mBeforeRiskRate;
@@ -318,7 +342,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
                     bundle.putString("currentPrice", getPrice().price);
                     Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
                     dialog.setCancelable(true);
-                    dialog.setTargetFragment(this, CDP_DEPOSIT_CONFIRM_DIALOG);
+                    dialog.setTargetFragment(this, CDP_WITHDRAW_CONFIRM_DIALOG);
                     dialog.show(getFragmentManager().beginTransaction(), "dialog");
 
                 }
@@ -331,13 +355,13 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CDP_DEPOSIT_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+        if(requestCode == CDP_WITHDRAW_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
             getSActivity().onNextStep();
         }
     }
 
-    private DepositCdpActivity getSActivity() {
-        return (DepositCdpActivity)getBaseActivity();
+    private WithdrawCdpActivity getSActivity() {
+        return (WithdrawCdpActivity)getBaseActivity();
     }
 
     private ResCdpParam.KavaCollateralParam getCParam() {

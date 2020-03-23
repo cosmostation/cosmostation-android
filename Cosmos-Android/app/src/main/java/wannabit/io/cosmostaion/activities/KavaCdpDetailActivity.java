@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.activities.broadcast.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.activities.broadcast.kava.DepositCdpActivity;
 import wannabit.io.cosmostaion.activities.broadcast.kava.DrawDebtActivity;
 import wannabit.io.cosmostaion.activities.broadcast.kava.RepayCdpActivity;
+import wannabit.io.cosmostaion.activities.broadcast.kava.WithdrawCdpActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -327,6 +328,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             WLog.w("***  feeValue " + feeValue);
             WLog.w("***  hiddenFeeValue " + hiddenFeeValue);
             BigDecimal toRepayValue = debtValue.add(feeValue).add(hiddenFeeValue);
+            WLog.w("***  toRepayValue " + toRepayValue);
 
 
             BigDecimal totalWithdrawableValue = cValue.subtract(toRepayValue.multiply(new BigDecimal(cParam.liquidation_ratio)).setScale(0, RoundingMode.DOWN));
@@ -485,7 +487,6 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
-
     }
 
     private void onCheckStartDepositCdp() {
@@ -494,19 +495,22 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
-
     }
 
     private void onCheckStartWithdrawCdp() {
-
+        //TODO add check logic!
+        Intent intent = new Intent(this, WithdrawCdpActivity.class);
+        intent.putExtra("denom", mMarketDenom);
+        intent.putExtra("marketId", mMaketId);
+        startActivity(intent);
     }
 
     private void onCheckStartDrawDebtCdp() {
+        //TODO add check logic!
         Intent intent = new Intent(this, DrawDebtActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
-
     }
 
 
