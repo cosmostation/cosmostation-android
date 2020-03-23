@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.broadcast.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
+import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Create;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -429,12 +430,11 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             } else if (mStep == STEP_PRINCIPAL) {
                 if (onValidateNext()) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("collateralAmount", getSActivity().toCollateralAmount.toPlainString());
-                    bundle.putString("principalAmount", getSActivity().toPrincipalAmount.toPlainString());
                     bundle.putString("riskRate", getSActivity().mRiskRate.toPlainString());
                     bundle.putString("liquidationPrice", getSActivity().mLiquidationPrice.toPlainString());
                     bundle.putString("currentPrice", getPrice().price);
-                    Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
+                    bundle.putString("denom", mCollateralDenom);
+                    Dialog_Safe_Score_Create dialog = Dialog_Safe_Score_Create.newInstance(bundle);
                     dialog.setCancelable(true);
                     dialog.setTargetFragment(this, CDP_CREATE_CONFIRM_DIALOG);
                     dialog.show(getFragmentManager().beginTransaction(), "dialog");

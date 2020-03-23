@@ -53,7 +53,6 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
 
     private BigDecimal      mCurrentPrice;
     private String          mCollateralDenom, mPrincipalDenom;
-//    private BigDecimal      mCurrentTotalDebetAmount, mCurrentCollateralAmount, mCanDepositMaxMaxAmount, mToDepositAmount, mTotalDepositAmount;
     private BigDecimal      mCurrentTotalDebetAmount, mCurrentCollateralAmount, mCanWithdrawMaxMaxAmount, mToWithdrawAmount, mTotalDepositAmount;
     private BigDecimal      mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate;
 
@@ -340,6 +339,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
                     bundle.putString("beforeLiquidationPrice", mBeforeLiquidationPrice.toPlainString());
                     bundle.putString("afterLiquidationPrice", mAfterLiquidationPrice.toPlainString());
                     bundle.putString("currentPrice", getPrice().price);
+                    bundle.putString("denom", mCollateralDenom);
                     Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
                     dialog.setCancelable(true);
                     dialog.setTargetFragment(this, CDP_WITHDRAW_CONFIRM_DIALOG);

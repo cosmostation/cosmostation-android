@@ -425,6 +425,8 @@
     <string name="str_stability_fee">Stability Fee (APR)</string>
     <string name="str_liquidation_penalty">Liquidation Penalty</string>
     <string name="str_liquidation_title1">Liquidation</string>
+    <string name="str_before_liquidation_title1">Before Liquidation</string>
+    <string name="str_after_liquidation_title1">After Liquidation</string>
     <string name="str_liquidation_title2">Price</string>
     <string name="str_current_title1">Current</string>
     <string name="str_current_title2">Price</string>
@@ -489,6 +491,8 @@
     <string name="str_help_outstanding_debt">The total principal as well as interest amount of debt that has yet to be paid.</string>
     <string name="str_help_total_fee_t">Total Fee</string>
     <string name="str_help_total_fee">Current CDP stability fee. The fee increases every second.</string>
+    <string name="str_help_risk">A risk score of 100 will cause your CDP to be liquidated. Risk Score is calculated through comparing the current token price of your collateralized asset against the token price at which the CDP will be liquidated.\n\nFor example, a risk score of 60 and the current token price of your collateralized asset at $10 means that your CDP will be liquidated if the token price reaches $6.</string>
+
 
     <string name="str_create_cdp_c">CREATE CDP</string>
     <string name="str_repay_cdp_c">REPAY CDP</string>

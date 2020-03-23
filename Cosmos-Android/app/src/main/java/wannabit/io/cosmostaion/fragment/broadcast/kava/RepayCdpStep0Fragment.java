@@ -337,6 +337,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                     bundle.putString("beforeLiquidationPrice", mBeforeLiquidationPrice.toPlainString());
                     bundle.putString("afterLiquidationPrice", mAfterLiquidationPrice.toPlainString());
                     bundle.putString("currentPrice", getPrice().price);
+                    bundle.putString("denom", mCollateralDenom);
                     Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
                     dialog.setCancelable(true);
                     dialog.setTargetFragment(this, CDP_REPAY_CONFIRM_DIALOG);

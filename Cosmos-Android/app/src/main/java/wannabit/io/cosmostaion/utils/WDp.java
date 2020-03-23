@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -1424,6 +1425,22 @@ public class WDp {
         return Html.fromHtml(strFront + strChange + strBack);
     }
 
+    public static Spanned DpBeforeLiquidationPriceTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_before_liquidation_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_liquidation_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static Spanned DpAfterLiquidationPriceTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_after_liquidation_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_liquidation_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
     public static Spanned DpCurrentPriceTitle(Context c, String Denom) {
         String strFront = c.getString(R.string.str_current_title1);
 //        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
@@ -1524,6 +1541,23 @@ public class WDp {
             button.setText("DANGER " + riskRate.toPlainString());
 
         }
+    }
+
+    public static void DpRiskRate2(Context c, BigDecimal riskRate, TextView text, TextView rate, LinearLayout layer) {
+        rate.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        if (riskRate.longValue() < 50) {
+            text.setText("SAFE");
+            layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
+
+        } else if (riskRate.longValue() < 80) {
+            text.setText("STABLE");
+            layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_stable_fill));
+
+        } else {
+            text.setText("DANGER");
+            layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_danger_fill));
+        }
+
     }
 
     public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt,  ResCdpParam.KavaCollateralParam paramCdp, KavaCDP myCdp) {

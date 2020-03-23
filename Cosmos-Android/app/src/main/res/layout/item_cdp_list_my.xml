@@ -74,13 +74,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ss_33_white"
+                            style="@style/font_ss_26_white"
                             android:text="-"/>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_4">
                         <TextView
                             android:id="@+id/cdp_debt_value_title"
                             android:layout_width="wrap_content"

@@ -263,172 +263,10 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
         onUpdateInfoView();
         onUpdateMyView();
         onUpdateAssetView();
-
         mLoadingLayer.setVisibility(View.GONE);
-        /*
-        //insert data for commonInfo
-        mInfoMarketId.setText(cParam.getDpMarketId());
-        mInfoCollateralRateTop.setText(WDp.getPercentDp(cParam.getDpLiquidationRatio(), 2));
-        mInfoCollateralRate.setText(WDp.getPercentDp(cParam.getDpLiquidationRatio(), 2));
-        mInfoStabilityFee.setText(WDp.getPercentDp(cParam.getDpStabilityFee(), 2));
-        mInfoLiquidationPenalty.setText(WDp.getPercentDp(cParam.getDpLiquidationPenalty(), 2));
-        mInfoCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getBaseContext(), cDenom.toUpperCase()));
-        mInfoCurrentPrice.setText(WDp.getDpRawDollor(getBaseContext(), currentPrice, 4));
-        try {
-            Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  cParam.getImagePath()).fit().into(mInfoMarketImg);
-        } catch (Exception e) { }
-        mInfoCollateralRateLayer.setOnClickListener(this);
-        mStabilityFeeLayer.setOnClickListener(this);
-        mInfoLiquidationPenaltyLayer.setOnClickListener(this);
-
-        if (mMyOwenCdp == null) {
-            //info view
-            mInfoEmptyLayer.setVisibility(View.VISIBLE);
-            mInfoMyLayer.setVisibility(View.GONE);
-            mInfoCollateralRateView.setVisibility(View.GONE);
-            mInfoLiquidationPriceLayer.setVisibility(View.GONE);
-            mInfoEmptyLayer.setOnClickListener(this);
-
-            mEmptyCollateralDenom.setText(cParam.denom.toUpperCase());
-            mEmptyCollateralAmount.setText(WDp.getDpAmount2(getBaseContext(), cAvailable, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-            BigDecimal collateralValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
-            mEmptyCollateralValue.setText(WDp.getDpRawDollor(getBaseContext(), collateralValue, 2));
-
-            mEmptyPrincipalDenom.setText(cParam.debt_limit.get(0).denom.toUpperCase());
-            mEmptyPrincipalAmount.setText(WDp.getDpAmount2(getBaseContext(), pAvailable, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-            BigDecimal principalValue = pAvailable.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)).setScale(2, RoundingMode.DOWN);
-            mEmptyPrincipalValue.setText(WDp.getDpRawDollor(getBaseContext(), principalValue, 2));
-
-            mEmptyKavaAmount.setText(WDp.getDpAmount2(getBaseContext(), kAvailable, WUtil.getKavaCoinDecimal(COSMOS_KAVA), WUtil.getKavaCoinDecimal(COSMOS_KAVA)));
-            BigDecimal kavaValue = kAvailable.movePointLeft(WUtil.getKavaCoinDecimal(COSMOS_KAVA)).multiply(getBaseDao().getLastKavaDollorTic()).setScale(2, RoundingMode.DOWN);
-            mEmptyKavaValue.setText(WDp.getDpRawDollor(getBaseContext(), kavaValue, 2));
-            try {
-                Picasso.get().load(KAVA_COIN_IMG_URL + cDenom + ".png").fit().into(mEmptyCollateralImg);
-                Picasso.get().load(KAVA_COIN_IMG_URL + pDenom + ".png").fit().into(mEmptyPrincipalImg);
-            } catch (Exception e) { }
-            mOpenCdp.setVisibility(View.VISIBLE);
-            mCdpInfoCard.setVisibility(View.VISIBLE);
-            mMyEmptyCard.setVisibility(View.VISIBLE);
-            mOpenCdp.setOnClickListener(this);
-
-
-        } else {
-            //info view
-            mInfoEmptyLayer.setVisibility(View.GONE);
-            mInfoMyLayer.setVisibility(View.VISIBLE);
-            mInfoCollateralRateView.setVisibility(View.VISIBLE);
-            mInfoLiquidationPriceLayer.setVisibility(View.VISIBLE);
-            mInfoMyLayer.setOnClickListener(this);
-
-            final BigDecimal liquidationPrice = WDp.getLiquidationPrice(mMyOwenCdp, new BigDecimal(cParam.liquidation_ratio));
-//            final BigDecimal safeRate = (currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN);
-            final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
-
-            WDp.DpRiskRate(getBaseContext(), riskRate, mInfoSafeRate, mInfoSafeBar);
-            mInfoLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getBaseContext(), cDenom.toUpperCase()));
-            mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), liquidationPrice, 4));
-
-            mMyCollateralDenom.setText(cParam.denom.toUpperCase());
-            mMyCollateralAvailableTitle.setText(getString(R.string.str_available) + " " + cParam.denom.toUpperCase());
-            mMyCollateralAvailable.setText(WDp.getDpAmount2(getBaseContext(), cAvailable, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-            BigDecimal collateralAvailableValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
-            mMyCollateralAvailableValue.setText(WDp.getDpRawDollor(getBaseContext(), collateralAvailableValue, 2));
-
-            BigDecimal selfDepositAmount = BigDecimal.ZERO;
-            for (ResCdpDepositStatus.Result deposit:mMyDepositList) {
-                if (deposit.cdp_id.equals(mMyOwenCdp.cdp.id) && deposit.depositor.equals(mAccount.address)) {
-                    selfDepositAmount = new BigDecimal(deposit.amount.get(0).amount);
-                }
-            }
-            BigDecimal cValue = new BigDecimal(mMyOwenCdp.collateral_value.amount);
-            BigDecimal debtValue = new BigDecimal(mMyOwenCdp.cdp.principal.get(0).amount);
-            BigDecimal feeValue = mMyOwenCdp.cdp.getAccumulatedFees();
-            BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getBaseContext(), debtValue.add(feeValue), cParam, mMyOwenCdp.cdp);
-            WLog.w("***  debtValue " + debtValue);
-            WLog.w("***  feeValue " + feeValue);
-            WLog.w("***  hiddenFeeValue " + hiddenFeeValue);
-            BigDecimal toRepayValue = debtValue.add(feeValue).add(hiddenFeeValue);
-            WLog.w("***  toRepayValue " + toRepayValue);
-
-
-            BigDecimal totalWithdrawableValue = cValue.subtract(toRepayValue.multiply(new BigDecimal(cParam.liquidation_ratio)).setScale(0, RoundingMode.DOWN));
-            BigDecimal totalWithdrawableAmount = totalWithdrawableValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).divide(new BigDecimal(mKavaTokenPrice.price), 0, RoundingMode.HALF_DOWN);
-            WLog.w("depositValue " +  cValue);
-            WLog.w("toRepayValue " +  toRepayValue);
-            WLog.w("totalWithdrawableValue " +  totalWithdrawableValue);
-            WLog.w("totalWithdrawableAmount " +  totalWithdrawableAmount);
-            WLog.w("selfDepositAmount " +  selfDepositAmount);
-
-            mMySelfDepositAmount.setText(WDp.getDpAmount2(getBaseContext(), selfDepositAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-            BigDecimal selfDepositValue = selfDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
-            mMySelfDepositValue.setText(WDp.getDpRawDollor(getBaseContext(), selfDepositValue, 2));
-
-            mMyTotalDepositAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mMyOwenCdp.cdp.collateral.get(0).amount), WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-            BigDecimal totalDepositValue = new BigDecimal(mMyOwenCdp.cdp.collateral.get(0).amount).movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
-            mMyTotalDepositValue.setText(WDp.getDpRawDollor(getBaseContext(), totalDepositValue, 2));
-
-
-            mMyWithdrawableAmountTitle.setText(getString(R.string.str_expected_withdrawable_amount) + " " + cDenom.toUpperCase());
-            BigDecimal myWithdrawableAmount = BigDecimal.ZERO;
-            if (totalWithdrawableAmount.compareTo(selfDepositAmount) > 0) {
-                myWithdrawableAmount = selfDepositAmount;
-                WLog.w("myWithdrawableAmount " +  myWithdrawableAmount);
-            } else {
-                myWithdrawableAmount = totalWithdrawableAmount;
-                WLog.w("myWithdrawableAmount " +  myWithdrawableAmount);
-                myWithdrawableAmount = myWithdrawableAmount.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
-                WLog.w("myWithdrawableAmount padding " +  myWithdrawableAmount);
-            }
-            BigDecimal myWithdrawableValue = myWithdrawableAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
-            mMyWithdrawableAmount.setText(WDp.getDpAmount2(getBaseContext(), myWithdrawableAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-            mMyWithdrawableValue.setText(WDp.getDpRawDollor(getBaseContext(), myWithdrawableValue, 2));
-
-            mMyBtnDepositTxt.setText(getString(R.string.str_collateral_deposit) + " " + cDenom.toUpperCase());
-            mMyBtnWithdrawTxt.setText(getString(R.string.str_collateral_withdraw) + " " + cDenom.toUpperCase());
-
-
-            BigDecimal maxDebtValue = cValue.divide(new BigDecimal(cParam.liquidation_ratio),0, BigDecimal.ROUND_DOWN);
-            WLog.w("maxDebtValue " +  maxDebtValue);
-            maxDebtValue = maxDebtValue.multiply(new BigDecimal(0.95)).setScale(0, RoundingMode.DOWN);
-            WLog.w("maxDebtValue padding " +  maxDebtValue);
-            BigDecimal moreDebtAmount = maxDebtValue.subtract(toRepayValue);
-            WLog.w("moreDebtAmount " +  moreDebtAmount);
-            mMyPrincipalDenom.setText(pDenom.toUpperCase());
-            mMyPrincipalAvailable.setText(WDp.getDpAmount2(getBaseContext(), pAvailable, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-            mMyLoadnedAmount.setText(WDp.getDpAmount2(getBaseContext(), debtValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-            mMyLoadableAmount.setText(WDp.getDpAmount2(getBaseContext(), moreDebtAmount, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-            mMyOutstandingDebtAmount.setText(WDp.getDpAmount2(getBaseContext(), toRepayValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-
-            mMyKavaAvailable.setText(WDp.getDpAmount2(getBaseContext(), kAvailable, WUtil.getKavaCoinDecimal(COSMOS_KAVA), WUtil.getKavaCoinDecimal(COSMOS_KAVA)));
-            BigDecimal kavaValue = kAvailable.movePointLeft(WUtil.getKavaCoinDecimal(COSMOS_KAVA)).multiply(getBaseDao().getLastKavaDollorTic()).setScale(2, RoundingMode.DOWN);
-            mMyKavaValue.setText(WDp.getDpRawDollor(getBaseContext(), kavaValue, 2));
-
-            try {
-                Picasso.get().load(KAVA_COIN_IMG_URL + cDenom + ".png").fit().into(mMyCollateralImg);
-                Picasso.get().load(KAVA_COIN_IMG_URL + pDenom + ".png").fit().into(mMyPrincipalImg);
-            } catch (Exception e) { }
-
-            mMySelfDepositLayer.setOnClickListener(this);
-            mMyTotalDepositLayer.setOnClickListener(this);
-            mMyWithdrawableLayer.setOnClickListener(this);
-            mMyBtnDeposit.setOnClickListener(this);
-            mMyBtnWithdraw.setOnClickListener(this);
-            mMyLoadnedLayer.setOnClickListener(this);
-            mMyLoadableLayer.setOnClickListener(this);
-            mMyOutstandingDebtLayer.setOnClickListener(this);
-            mMyBtnDrawdebt.setOnClickListener(this);
-            mMyBtnRepay.setOnClickListener(this);
-
-            mOpenCdp.setVisibility(View.GONE);
-            mCdpInfoCard.setVisibility(View.VISIBLE);
-            mMyCard.setVisibility(View.VISIBLE);
-
-        }
-        mLoadingLayer.setVisibility(View.GONE);
-        */
     }
 
-
+    BigDecimal mRiskRate, mLiquidationPrice = BigDecimal.ZERO;
     private void onUpdateInfoView() {
         if (mMyOwenCdp == null) {
             mInfoMyLayer.setVisibility(View.GONE);
@@ -442,9 +280,9 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mInfoCollateralRateView.setVisibility(View.VISIBLE);
             mInfoLiquidationPriceLayer.setVisibility(View.VISIBLE);
 
-            final BigDecimal liquidationPrice = WDp.getLiquidationPrice(mMyOwenCdp, new BigDecimal(cParam.liquidation_ratio));
-            final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
-            WDp.DpRiskRate(getBaseContext(), riskRate, mInfoRiskScore, mInfoImgRisk);
+            mLiquidationPrice = WDp.getLiquidationPrice(mMyOwenCdp, new BigDecimal(cParam.liquidation_ratio));
+            mRiskRate = new BigDecimal(100).subtract((currentPrice.subtract(mLiquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
+            WDp.DpRiskRate(getBaseContext(), mRiskRate, mInfoRiskScore, mInfoImgRisk);
 
             mInfoDebtValueTitle.setText(mMyOwenCdp.getPDenom().toUpperCase() + " " + getString(R.string.str_debt_value));
             mInfoCollateralValueTitle.setText(WDp.DpCollateralValueTitle(getBaseContext(), mMyOwenCdp.getDenom().toUpperCase()));
@@ -459,7 +297,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mInfoCollateralValue.setText(WDp.getDpRawDollor(getBaseContext(), currentCollateralValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
 
             mInfoLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getBaseContext(), cDenom.toUpperCase()));
-            mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), liquidationPrice, 4));
+            mInfoLiquidationPrice.setText(WDp.getDpRawDollor(getBaseContext(), mLiquidationPrice, 4));
         }
 
         mInfoEmptyCollateralRate.setText(WDp.getPercentDp(cParam.getDpLiquidationRatio(), 2));
@@ -487,6 +325,8 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     private void onUpdateMyView() {
         if (mMyOwenCdp == null) {
             mMyCard.setVisibility(View.GONE);
+            mOpenCdp.setVisibility(View.VISIBLE);
+            mOpenCdp.setOnClickListener(this);
 
         } else {
             BigDecimal selfDepositAmount = BigDecimal.ZERO;
@@ -566,6 +406,7 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
             mMyBtnRepay.setOnClickListener(this);
 
             mMyCard.setVisibility(View.VISIBLE);
+            mOpenCdp.setVisibility(View.GONE);
         }
 
     }
@@ -627,6 +468,10 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
         } else if (v.equals(mInfoMyLayer)) {
             Bundle bundle = new Bundle();
+            bundle.putString("riskRate", mRiskRate.toPlainString());
+            bundle.putString("liquidationPrice", mLiquidationPrice.toPlainString());
+            bundle.putString("currentPrice", currentPrice.toPlainString());
+            bundle.putString("denom", cDenom);
             Dialog_Safe_Score_Staus dialog = Dialog_Safe_Score_Staus.newInstance(bundle);
             dialog.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
