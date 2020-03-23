@@ -446,6 +446,7 @@
     <string name="str_loaned_amount">Loaned</string>
     <string name="str_expected_loanable_amount">Remaining Loan Capacity</string>
     <string name="str_outstanding_debt">Outstanding Debt</string>
+    <string name="str_cdp_total_fee">Total Fee</string>
     <string name="str_collateral_deposit">Deposit</string>
     <string name="str_collateral_withdraw">Withdraw</string>
     <string name="str_principal_drawdebt">Loan more USDX</string>
@@ -486,7 +487,8 @@
     <string name="str_help_remaining_loan_capacity">The amount of USDX that can be additionally loaned from the CDP. This capacity changes in accordance to changes in the collateral rate due to price fluctuations.</string>
     <string name="str_help_outstanding_debt_t">Outstanding Debt</string>
     <string name="str_help_outstanding_debt">The total principal as well as interest amount of debt that has yet to be paid.</string>
-
+    <string name="str_help_total_fee_t">Total Fee</string>
+    <string name="str_help_total_fee">Current CDP stability fee. The fee increases every second.</string>
 
     <string name="str_create_cdp_c">CREATE CDP</string>
     <string name="str_repay_cdp_c">REPAY CDP</string>

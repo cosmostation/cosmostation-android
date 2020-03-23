@@ -65,16 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_12"
-                    layout="@layout/layout_cdp_info"
-                    android:visibility="gone"/>
-
-                <include
-                    android:id="@+id/card_cdp_my_empty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:layout_marginRight="@dimen/space_12"
-                    layout="@layout/layout_cdp_my_empty"
+                    layout="@layout/layout_cdp_detail_info"
                     android:visibility="gone"/>
 
                 <include
@@ -83,7 +74,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_12"
-                    layout="@layout/layout_cdp_my"
+                    layout="@layout/layout_cdp_detail_my"
+                    android:visibility="gone"/>
+
+                <include
+                    android:id="@+id/card_cdp_my_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_12"
+                    layout="@layout/layout_cdp_detail_available"
                     android:visibility="gone"/>
 
             </LinearLayout>
