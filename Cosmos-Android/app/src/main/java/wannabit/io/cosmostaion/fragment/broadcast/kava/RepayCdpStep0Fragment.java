@@ -318,7 +318,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mBtnNext)) {
             if (onDisplayViewUpdate()) {
-                if (mBeforeLiquidationPrice.compareTo(BigDecimal.ZERO) <= 0 || mBeforeRiskRate.compareTo(BigDecimal.ZERO) < 0 || mToPaymentAmount.compareTo(BigDecimal.ZERO) <= 0 ||
+                if (mBeforeRiskRate.compareTo(BigDecimal.ZERO) < 0 || mToPaymentAmount.compareTo(BigDecimal.ZERO) <= 0 ||
                         mAfterLiquidationPrice == null || mAfterRiskRate == null || mRemainLoanAmount == null) {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
                 } else {
