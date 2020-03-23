@@ -2,9 +2,16 @@ package wannabit.io.cosmostaion.utils;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
+import android.support.annotation.Nullable;
+import android.text.Html;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -28,12 +35,16 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.TotalReward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
+import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 
@@ -659,6 +670,29 @@ public class WDp {
         }
     }
 
+//    public static SpannableString getValueOfKavaToken(Context c, ResKavaMarketPrice.Result price, int scale) {
+//        BigDecimal mPrice = new BigDecimal(price.price);
+//        SpannableString result;
+//        result = new SpannableString("$ " +getDecimalFormat(c, scale).format(mPrice));
+//        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - scale, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+//        return result;
+//    }
+
+    public static SpannableString getDpRawDollor(Context c, String price, int scale) {
+        BigDecimal mPrice = new BigDecimal(price);
+        SpannableString result;
+        result = new SpannableString("$ " +getDecimalFormat(c, scale).format(mPrice));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - scale, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+    }
+
+    public static SpannableString getDpRawDollor(Context c, BigDecimal price, int scale) {
+        SpannableString result;
+        result = new SpannableString("$ " +getDecimalFormat(c, scale).format(price));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - scale, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+    }
+
     public static SpannableString getZeroValue(Context c, BaseData dao) {
         if(dao.getCurrency() == 5) {
             SpannableString result;
@@ -680,6 +714,10 @@ public class WDp {
 
     public static SpannableString getPercentDp(BigDecimal input) {
         return getDpString(input.setScale(2, RoundingMode.DOWN).toPlainString() + "%", 3);
+    }
+
+    public static SpannableString getPercentDp(BigDecimal input, int scale) {
+        return getDpString(input.setScale(scale, RoundingMode.DOWN).toPlainString() + "%", scale + 1);
     }
 
 
@@ -1378,4 +1416,171 @@ public class WDp {
             textview.setText(c.getString(R.string.s_iov));
         }
     }
+
+    public static Spanned DpLiquidationPriceTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_liquidation_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_liquidation_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static Spanned DpBeforeLiquidationPriceTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_before_liquidation_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_liquidation_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static Spanned DpAfterLiquidationPriceTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_after_liquidation_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_liquidation_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static Spanned DpCurrentPriceTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_current_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_current_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static Spanned DpCollateralTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_collateral_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_collateral_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static Spanned DpLoanedTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_loaned_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_loaned_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static Spanned DpPaymentTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_payment_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_payment_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static Spanned DpRemainDebtTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_remain_debt_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_remain_debt_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static Spanned DpCollateralValueTitle(Context c, String Denom) {
+        String strFront = c.getString(R.string.str_collateral_value_title1);
+//        String strChange = " <font color=\"#FFFFFF\">" + Denom + "</font> ";
+        String strChange = " <font color=\"#7A7f88\">" + Denom + "</font> ";
+        String strBack = c.getString(R.string.str_collateral_value_title2);
+        return Html.fromHtml(strFront + strChange + strBack);
+    }
+
+    public static BigDecimal getLiquidationPrice(ResCdpOwnerStatus.Result status, BigDecimal liquidationRatio) {
+        int denomDecimal = WUtil.getKavaCoinDecimal(status.getDenom());
+        int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
+        BigDecimal collateralAmount = status.getCollateralAmount().movePointLeft(denomDecimal).setScale(denomDecimal, BigDecimal.ROUND_DOWN);
+        BigDecimal principalAmount = status.getPrincipalAmount().multiply(liquidationRatio).movePointLeft(denomPDecimal).setScale(denomPDecimal, BigDecimal.ROUND_DOWN);
+        return principalAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_UP);
+    }
+
+    public static void DpRiskRate(Context c, BigDecimal riskRate, TextView textView, ImageView imageview) {
+        textView.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        if (riskRate.longValue() < 50) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorCdpSafe));
+            if (imageview != null) {
+                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_safe));
+            }
+
+        } else if (riskRate.longValue() < 80) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorCdpStable));
+            if (imageview != null) {
+                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_stable));
+            }
+
+        } else {
+            textView.setTextColor(c.getResources().getColor(R.color.colorCdpDanger));
+            if (imageview != null) {
+                imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_danger));
+
+            }
+        }
+
+    }
+
+    public static void DpRiskButton(Context c, BigDecimal riskRate, Button button) {
+        if (riskRate.longValue() < 50) {
+            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
+            button.setTextColor(c.getResources().getColor(R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("SAFE " + riskRate.toPlainString());
+
+        } else if (riskRate.longValue() < 80) {
+            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_stable_fill));
+            button.setTextColor(c.getResources().getColor(R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("STABLE " + riskRate.toPlainString());
+
+        } else {
+            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_danger_fill));
+            button.setTextColor(c.getResources().getColor(R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("DANGER " + riskRate.toPlainString());
+
+        }
+    }
+
+    public static void DpRiskRate2(Context c, BigDecimal riskRate, TextView text, TextView rate, LinearLayout layer) {
+        rate.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        if (riskRate.longValue() < 50) {
+            text.setText("SAFE");
+            layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
+
+        } else if (riskRate.longValue() < 80) {
+            text.setText("STABLE");
+            layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_stable_fill));
+
+        } else {
+            text.setText("DANGER");
+            layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_danger_fill));
+        }
+
+    }
+
+    public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt,  ResCdpParam.KavaCollateralParam paramCdp, KavaCDP myCdp) {
+        BigDecimal result = BigDecimal.ZERO;
+        try {
+            long now   = Calendar.getInstance().getTimeInMillis();
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            long start = blockDateFormat.parse(myCdp.fees_updated).getTime();
+            Long gap  = (now - start)/1000;
+            //TODO 냥냥하게 패딩
+            gap = gap + 30;
+
+            Double double1 = Double.parseDouble(paramCdp.stability_fee);
+            Double double2 = gap.doubleValue();
+
+            Double pow = Math.pow(double1, double2);
+            result = outstandingDebt.multiply(new BigDecimal(pow.toString())).setScale(0, RoundingMode.UP).subtract(outstandingDebt);
+            return result;
+        } catch (Exception e) {
+            WLog.w("e " + e.getMessage());
+        }
+        return result;
+    }
+
 }

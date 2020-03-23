@@ -2,17 +2,21 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WLog;
 
-public class ResKavaCdpParam {
+public class ResCdpParam {
 
     @SerializedName("height")
     public String height;
 
     @SerializedName("result")
     public Result result;
+
+
 
     public class Result {
         @SerializedName("surplus_auction_threshold")
@@ -33,6 +37,24 @@ public class ResKavaCdpParam {
         @SerializedName("collateral_params")
         public ArrayList<KavaCollateralParam> collateral_params;
 
+        public BigDecimal getRawLiquidationRatio(String denom) {
+            for (KavaCollateralParam param : collateral_params) {
+                if (param.denom.equals(denom)) {
+                    return new BigDecimal(param.liquidation_ratio);
+                }
+            }
+            return BigDecimal.ZERO;
+        }
+
+        public KavaCollateralParam getCollateralParamByDenom(String denom) {
+            KavaCollateralParam result = null;
+            for (KavaCollateralParam collateralParam:collateral_params) {
+                if (collateralParam.denom.equals(denom)) {
+                    return  collateralParam;
+                }
+            }
+            return  result;
+        }
     }
 
     public class KavaCdpDebtParam {
@@ -77,6 +99,25 @@ public class ResKavaCdpParam {
         @SerializedName("conversion_factor")
         public String conversion_factor;
 
+        public String getDpMarketId() {
+            return market_id.split(":")[0].toUpperCase() + " : " + market_id.split(":")[1].toUpperCase() + "X";
+        }
+
+        public BigDecimal getDpLiquidationRatio() {
+            return new BigDecimal(liquidation_ratio).movePointRight(2);
+        }
+
+        public BigDecimal getDpLiquidationPenalty() {
+            return new BigDecimal(liquidation_penalty).movePointRight(2);
+        }
+
+        public BigDecimal getDpStabilityFee() {
+            return (new BigDecimal(stability_fee).subtract(BigDecimal.ONE)).multiply(new BigDecimal("31536000")).movePointRight(2);
+        }
+
+        public String getImagePath() {
+            return market_id.replace(":","")   +".png";
+        }
     }
 
 }

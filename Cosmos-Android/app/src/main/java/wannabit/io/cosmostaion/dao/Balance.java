@@ -5,9 +5,13 @@ import android.os.Parcelable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashMap;
 
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
+import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_KAVA;
 
 public class Balance implements Parcelable {
     public Long         accountId;
@@ -52,7 +56,6 @@ public class Balance implements Parcelable {
         fetchTime = in.readLong();
         frozen = new BigDecimal(in.readString());
         locked = new BigDecimal(in.readString());
-
     }
 
     @Override
@@ -92,6 +95,23 @@ public class Balance implements Parcelable {
             return getAllBnbBalance().divide(new BigDecimal(tic.lastPrice), 8, RoundingMode.DOWN);
         } else {
             return getAllBnbBalance().multiply(new BigDecimal(tic.lastPrice)).setScale(8, RoundingMode.DOWN);
+        }
+    }
+
+    public BigDecimal kavaTokenDollorValue(HashMap<String, ResKavaMarketPrice.Result> prices) {
+        if (symbol.equals("usdx")) {
+            return balance.movePointLeft(WUtil.getKavaCoinDecimal(symbol));
+
+        } else {
+            if (prices == null || prices.size() <= 0) {
+                return BigDecimal.ZERO;
+            }
+            ResKavaMarketPrice.Result mMarketPrice = prices.get(symbol);
+            if (mMarketPrice == null) {
+                return BigDecimal.ZERO;
+            } else {
+                 return balance.movePointLeft(WUtil.getKavaCoinDecimal(symbol)).multiply(new BigDecimal(mMarketPrice.price).setScale(6, RoundingMode.DOWN));
+            }
         }
     }
 }

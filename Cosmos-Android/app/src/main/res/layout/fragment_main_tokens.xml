@@ -18,45 +18,64 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg2"
         app:cardUseCompatPadding="true">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="@dimen/space_16">
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/total_layer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total"
-                style="@style/font_ss_14_gray1"/>
-            <TextView
-                android:id="@+id/total_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4"
-                style="@style/font_ss_26_white"
-                android:text="-"/>
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_6">
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/space_16">
                 <TextView
-                    android:id="@+id/total_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-"
-                    style="@style/font_ssl_14_white"/>
+                    android:text="Total"
+                    style="@style/font_ss_14_gray1"/>
                 <TextView
-                    android:id="@+id/total_denom_title"
+                    android:id="@+id/total_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/total_amount"
-                    android:layout_alignBaseline="@+id/total_amount"
-                    android:layout_marginLeft="@dimen/space_2"
-                    android:text="@string/str_atom_c"
-                    style="@style/font_ss_11_atom"/>
-            </RelativeLayout>
-        </LinearLayout>
+                    android:layout_marginTop="@dimen/space_4"
+                    style="@style/font_ss_26_white"
+                    android:text="-"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_6">
+                    <TextView
+                        android:id="@+id/total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        style="@style/font_ssl_14_white"/>
+                    <TextView
+                        android:id="@+id/total_denom_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/total_amount"
+                        android:layout_alignBaseline="@+id/total_amount"
+                        android:layout_marginLeft="@dimen/space_2"
+                        android:text="@string/str_atom_c"
+                        style="@style/font_ss_11_atom"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/kava_oracle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_ss_10_gray1"
+                android:layout_marginBottom="@dimen/space_8"
+                android:layout_marginRight="@dimen/space_8"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:layout_alignBottom="@+id/total_layer"
+                android:text="Token price from\nKava oracle"
+                android:visibility="gone">
+            </TextView>
+
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
     <RelativeLayout

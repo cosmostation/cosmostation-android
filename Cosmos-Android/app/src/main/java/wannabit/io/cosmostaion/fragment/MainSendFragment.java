@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.KavaCdpListActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
@@ -820,7 +821,8 @@ public class MainSendFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else if (v.equals(mBtnKavaCdp)) {
-            WLog.w("mBtnKavaCdp");
+            //TODO check dao's mKavaCdpParams & mKavaTokenPrices
+            startActivity(new Intent(getMainActivity(), KavaCdpListActivity.class));
 
         } else if (v.equals(mBtnIovDeposit)) {
             Toast.makeText(getContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();

@@ -27,6 +27,7 @@ public class BaseConstant {
     public final static String PRE_BNB_TIC                  = "PRE_BNB_TIC";
     public final static String PRE_BNB_UP_DOWN_24           = "PRE_BNB_UP_DOWN_24";
     public final static String PRE_KAVA_TIC                 = "PRE_KAVA_TIC";
+    public final static String PRE_KAVA_DOLLOR_TIC          = "PRE_KAVA_DOLLOR_TIC";
     public final static String PRE_KAVA_UP_DOWN_24          = "PRE_KAVA_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
@@ -37,6 +38,7 @@ public class BaseConstant {
     public final static String PRE_TOKEN_SORTING            = "PRE_TOKEN_SORTING";
     public final static String PRE_ACCOUNT_ORDER            = "PRE_ACCOUNT_ORDER";
     public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN";
+    public final static String PRE_KAVA_TESTNET_WARN        = "PRE_KAVA_TESTNET_WARN";
 
 
     public final static int TASK_INIT_PW                                = 2000;
@@ -97,6 +99,16 @@ public class BaseConstant {
     public final static int TASK_PUSH_STATUS_UPDATE                     = 2057;
     public final static int TASK_MOON_PAY_SIGNATURE                     = 2058;
     public final static int TASK_FETCH_KAVA_CDP_PARAM                   = 2059;
+    public final static int TASK_FETCH_KAVA_CDP_OWENER                  = 2060;
+    public final static int TASK_FETCH_KAVA_CDP_DEPOSIT                 = 2061;
+    public final static int TASK_FETCH_KAVA_CDP_LIST_DENOM              = 2062;
+    public final static int TASK_FETCH_KAVA_CDP_LIST_RATIO              = 2063;
+    public final static int TASK_FETCH_KAVA_TOKEN_PRICE                 = 2064;
+    public final static int TASK_GEN_TX_CREATE_CDP                      = 2065;
+    public final static int TASK_GEN_TX_REPAY_CDP                       = 2066;
+    public final static int TASK_GEN_TX_DRAW_DEBT_CDP                   = 2067;
+    public final static int TASK_GEN_TX_DEPOSIT_CDP                     = 2068;
+    public final static int TASK_GEN_TX_WITHDRAW_CDP                    = 2069;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -176,6 +188,11 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS        = 5010;
     public final static int CONST_PW_TX_REINVEST                            = 5011;
     public final static int CONST_PW_TX_VOTE                                = 5012;
+    public final static int CONST_PW_TX_CREATE_CDP                          = 5013;
+    public final static int CONST_PW_TX_REPAY_CDP                           = 5014;
+    public final static int CONST_PW_TX_DRAW_DEBT_CDP                       = 5015;
+    public final static int CONST_PW_TX_DEPOSIT_CDP                         = 5016;
+    public final static int CONST_PW_TX_WITHDRAW_CDP                        = 5017;
 
 
     public final static int TX_TYPE_UNKNOWN                 = 3000;
@@ -261,6 +278,7 @@ public class BaseConstant {
     public final static String FEE_KAVA_GAS_AMOUNT_AVERAGE      = "250000";
     public final static String FEE_KAVA_GAS_AMOUNT_REINVEST     = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "300000";
+    public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "300000";
 
     public final static String FEE_IRIS_GAS_RATE_AVERAGE        = "0.000008";
 
@@ -289,5 +307,6 @@ public class BaseConstant {
     public final static String IRIS_VAL_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
     public final static String KAVA_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
     public final static String KAVA_COIN_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
+    public final static String KAVA_CDP_MARKET_IMG_URL = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
 
 }

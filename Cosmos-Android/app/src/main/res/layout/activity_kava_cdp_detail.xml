@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_cosmos"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_bar_height"
+        android:background="@color/colorBlack"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_ssm_17_white"
+            android:text="@string/str_kava_cdp_details"/>
+    </android.support.v7.widget.Toolbar>
+
+    <Button
+        android:id="@+id/btn_open_cdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_45"
+        android:minHeight="@dimen/space_45"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24"
+        android:background="@drawable/btn_trans_with_border"
+        style="@style/font_ss_14_photon"
+        android:textColor="@color/color_btn_photon"
+        android:textAllCaps="false"
+        android:text="@string/str_open_cdp"
+        android:visibility="gone"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/layer_refresher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar"
+        android:layout_above="@+id/btn_open_cdp">
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/layer_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/space_4"
+                android:paddingBottom="@dimen/space_8"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/card_cdp_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_12"
+                    layout="@layout/layout_cdp_detail_info"
+                    android:visibility="gone"/>
+
+                <include
+                    android:id="@+id/card_cdp_my"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_12"
+                    layout="@layout/layout_cdp_detail_my"
+                    android:visibility="gone"/>
+
+                <include
+                    android:id="@+id/card_cdp_my_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:layout_marginRight="@dimen/space_12"
+                    layout="@layout/layout_cdp_detail_available"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/loadingLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ProgressBar
+                android:layout_width="@dimen/space_60"
+                android:layout_height="@dimen/space_60"
+                android:indeterminateDrawable="@drawable/loading"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

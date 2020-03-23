@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
 
 public class Dialog_Kava_Testnet extends DialogFragment {
     public static Dialog_Kava_Testnet newInstance(Bundle bundle) {
@@ -28,7 +29,18 @@ public class Dialog_Kava_Testnet extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_kava_testnet, null);
+        Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_posi = view.findViewById(R.id.btn_posi);
+
+
+        btn_negative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+                ((MainActivity)getActivity()).onSetKavaWarn();
+            }
+        });
+
 
         btn_posi.setOnClickListener(new View.OnClickListener() {
             @Override

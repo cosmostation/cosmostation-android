@@ -9,11 +9,11 @@ import android.text.TextUtils;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import wannabit.io.cosmostaion.R;
@@ -23,9 +23,9 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
+import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
@@ -37,10 +37,9 @@ public class BaseData {
     private SQLiteDatabase      mSQLiteDatabase;
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
 
-
     //COMMON DATA
-    public ResKavaCdpParam.Result mKavaCdpParams;
-
+    public ResCdpParam.Result                               mKavaCdpParams;
+    public HashMap<String, ResKavaMarketPrice.Result>       mKavaTokenPrices = new HashMap<>();
 
     public BaseData(BaseApplication apps) {
         this.mApp = apps;
@@ -126,7 +125,8 @@ public class BaseData {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_BNB_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
-        } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_DOLLOR_TIC, ""+tic.market_data.current_price.usd).commit();
             if (getCurrency() == 0) {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_TIC, ""+tic.market_data.current_price.usd).commit();
                 getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
@@ -146,7 +146,6 @@ public class BaseData {
                 getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_TIC, ""+tic.market_data.current_price.btc).commit();
                 getSharedPreferences().edit().putString(BaseConstant.PRE_KAVA_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
-
         }
 
     }
@@ -241,8 +240,17 @@ public class BaseData {
         String priceS = getSharedPreferences().getString(BaseConstant.PRE_KAVA_TIC, "0");
         try {
             return Double.parseDouble(priceS);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return Double.parseDouble("0");
+        }
+    }
+
+    public BigDecimal getLastKavaDollorTic() {
+        String priceS = getSharedPreferences().getString(BaseConstant.PRE_KAVA_DOLLOR_TIC, "0");
+        try {
+            return new BigDecimal(priceS);
+        } catch (Exception e) {
+            return BigDecimal.ZERO;
         }
     }
 
@@ -413,6 +421,22 @@ public class BaseData {
 
     public int getTokenSorting() {
         return getSharedPreferences().getInt(BaseConstant.PRE_TOKEN_SORTING, 1);
+    }
+
+    public void setKavaWarn() {
+        Date dt = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 3);
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_KAVA_TESTNET_WARN, c.getTimeInMillis()).commit();
+    }
+
+    public boolean getKavaWarn() {
+        Date dt = new Date();
+        if (dt.getTime() > getSharedPreferences().getLong(BaseConstant.PRE_KAVA_TESTNET_WARN, 1)) {
+            return true;
+        }
+        return false;
     }
 
     public Password onSelectPassword() {

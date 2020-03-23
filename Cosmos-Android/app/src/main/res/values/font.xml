@@ -177,6 +177,14 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_ssl_12_kava" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+
+
     <style name="font_ss_12_gray6" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray6</item>
@@ -207,6 +215,24 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_ss_12_kava" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="font_ss_12_black" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="font_ssm_12_black" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
 
 
     <style name="font_ss_14_white" parent="@android:style/TextAppearance">
@@ -218,6 +244,12 @@
     <style name="font_ssl_14_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_ssl_14_black" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
@@ -262,6 +294,13 @@
         <item name="android:textColor">@color/colorKava</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
+
+    <style name="font_ssl_14_kava" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/colorKava</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
 
     <style name="font_ssl_14_photon" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
@@ -412,10 +451,29 @@
     </style>
 
 
-    <style name="font_ss_26_white" parent="@android:style/TextAppearance">
+    <style name="font_ss_21_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_21</item>
+    </style>
+
+
+    <style name="font_ss_26_white" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">@dimen/text_size_26</item>
+    </style>
+
+    <style name="font_ss_26_black" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/text_size_26</item>
+    </style>
+
+    <style name="font_ss_33_white" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_33</item>
     </style>
 
 

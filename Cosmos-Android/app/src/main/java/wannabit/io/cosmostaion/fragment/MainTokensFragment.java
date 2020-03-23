@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -40,6 +41,7 @@ import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
+import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -69,6 +71,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private TextView            mTotalValue, mTotalAmount, mDenomTitle;
     private TextView            mTokenSize, mTokenSortType;
     private LinearLayout        mBtnSort;
+    private TextView            mKavaOracle;
 
     private TokensAdapter       mTokensAdapter;
     private ArrayList<Balance>  mBalances = new ArrayList<>();
@@ -97,6 +100,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         mTotalValue             = rootView.findViewById(R.id.total_value);
         mTotalAmount            = rootView.findViewById(R.id.total_amount);
         mDenomTitle             = rootView.findViewById(R.id.total_denom_title);
+        mKavaOracle             = rootView.findViewById(R.id.kava_oracle);
         mTokenSize              = rootView.findViewById(R.id.token_cnt);
         mTokenSortType          = rootView.findViewById(R.id.token_sort_type);
         mBtnSort                = rootView.findViewById(R.id.btn_token_sort);
@@ -180,7 +184,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             WUtil.onSortingTokenByAmount(mBalances, getMainActivity().mBaseChain);
         } else if (mOrder == ORDER_VALUE && getMainActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mTokenSortType.setText(R.string.str_value);
-            WUtil.onSortingTokenByValue(mBalances, getMainActivity().mBaseChain, mBnbTics);
+            WUtil.onSortingBnbTokenByValue(mBalances, mBnbTics);
+        } else if (mOrder == ORDER_VALUE && getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mTokenSortType.setText(R.string.str_value);
+            WUtil.onSortingKavaTokenByValue(mBalances, getBaseDao().mKavaTokenPrices);
         }
         WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
         if (getMainActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
@@ -205,7 +212,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             }
             onUpdateTotalCard();
-            onFetchKavaTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(BaseChain.IOV_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
@@ -270,8 +276,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(COSMOS_KAVA)) {
                     totalAtomAmount = totalAtomAmount.add(WDp.getAllKava(getMainActivity().mBalances, getMainActivity().mBondings, getMainActivity().mUnbondings, getMainActivity().mRewards, getMainActivity().mAllValidators));
-                } else {
 
+                } else {
+                    BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+                    BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA));
+                    totalAtomAmount = totalAtomAmount.add(convertedKavaAmount);
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAtomAmount, 6, 6));
@@ -286,6 +295,12 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIovAmount, 0, 6));
             mTotalValue.setText(WDp.getZeroValue(getContext(), getBaseDao()));
+        }
+
+        if (getMainActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            mKavaOracle.setVisibility(View.VISIBLE);
+        } else {
+            mKavaOracle.setVisibility(View.GONE);
         }
 
     }
@@ -477,7 +492,13 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(balance.symbol.toUpperCase());
             holder.itemInnerSymbol.setText("");
             //TODO add coin descriptions
-            holder.itemFullName.setText(balance.symbol + " guaranteed by Kava-chain");
+            if (balance.symbol.equals("usdx")) {
+                holder.itemFullName.setText("USD stable asset");
+
+            } else {
+                holder.itemFullName.setText(balance.symbol + " guaranteed by Kava-chain");
+
+            }
 
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
@@ -490,7 +511,14 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, WUtil.getKavaCoinDecimal(balance.symbol), 6));
             //TODO add kava coin's value
-            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), BigDecimal.ZERO));
+
+            BigDecimal tokenTotalValue = balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices);
+            BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(COSMOS_KAVA), RoundingMode.DOWN);
+            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(COSMOS_KAVA))));
+
+
+//            WLog.w("test " + balance.symbol + "  " + balance.kavaTokenDollorValue(getBaseDao().mKavaTokenPrices));
+
         }
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -563,10 +591,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             }
         }
-    }
-
-    private void onFetchKavaTokenPrice() {
-        onUpdateTotalCard();
     }
 
     private void onFetchIovTokenPrice() {
