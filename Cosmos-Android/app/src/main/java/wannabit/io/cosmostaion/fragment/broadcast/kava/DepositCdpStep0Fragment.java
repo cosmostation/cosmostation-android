@@ -57,9 +57,6 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
     private String          mCollateralDecimalChecker, mCollateralDecimalSetter;
 
-
-
-
     public static DepositCdpStep0Fragment newInstance(Bundle bundle) {
         DepositCdpStep0Fragment fragment = new DepositCdpStep0Fragment();
         fragment.setArguments(bundle);

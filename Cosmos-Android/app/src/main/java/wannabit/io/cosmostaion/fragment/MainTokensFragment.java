@@ -492,7 +492,13 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(balance.symbol.toUpperCase());
             holder.itemInnerSymbol.setText("");
             //TODO add coin descriptions
-            holder.itemFullName.setText(balance.symbol + " guaranteed by Kava-chain");
+            if (balance.symbol.equals("usdx")) {
+                holder.itemFullName.setText("USD stable asset");
+
+            } else {
+                holder.itemFullName.setText(balance.symbol + " guaranteed by Kava-chain");
+
+            }
 
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));

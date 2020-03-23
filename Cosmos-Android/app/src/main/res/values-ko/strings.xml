@@ -448,6 +448,8 @@
     <string name="str_add_70">70</string>
     <string name="str_add_one_fourths">1/4</string>
     <string name="str_add_three_fourths">3/4</string>
+    <string name="str_cdp_promotion_title">Let<![CDATA["'"]]>s Leverage your assets!</string>
+    <string name="str_cdp_promotion_msg">Collateralized Debt Positions enable the creation of a stable asset by collateralization with another on chain asset.\n100% On-Chain Financial Engineering</string>
 
     <string name="str_create_cdp_step_1">Enter CDP forms</string>
     <string name="str_create_cdp_step_2">Insert memo (optional)</string>
@@ -694,6 +696,7 @@
     <string name="error_not_yet">준비중 입니다!</string>
     <string name="error_less_than_min_deposit">Less than the minimum deposit amount.</string>
     <string name="error_less_than_min_principal">Less than the minimum loan amount.</string>
+    <string name="error_dust_principal_remain">Remain Debt is less than 10$.</string>
 
     <string name="s_atom">ATOM</string>
     <string name="s_photon">PHOTON</string>

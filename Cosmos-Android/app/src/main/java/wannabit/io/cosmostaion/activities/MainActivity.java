@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -118,9 +121,15 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
         });
 
+        //TODO temp for kava testnet
         mFaucetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("address", mAccount.address);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getBaseContext(), R.string.str_copied, Toast.LENGTH_SHORT).show();
+
                 Intent fauceIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://faucet.kava.io/"));
                 startActivity(fauceIntent);
             }

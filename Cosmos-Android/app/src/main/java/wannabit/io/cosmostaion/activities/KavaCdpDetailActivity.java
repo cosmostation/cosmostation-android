@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
@@ -504,7 +505,15 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     }
 
     private void onCheckStartCreateCdp() {
-        //TODO add check logic!
+        if (!onCommonCheck()) return;
+
+        BigDecimal principalMinAmount = new BigDecimal(mCdpParam.debt_params.get(0).debt_floor);
+        BigDecimal collateralMinAmount = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal(1.05)).multiply(new BigDecimal(cParam.liquidation_ratio)).divide(currentPrice, 0, RoundingMode.DOWN);
+        if (collateralMinAmount.compareTo(cAvailable) > 0) {
+            Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(this, CreateCdpActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
@@ -513,6 +522,8 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
     private void onCheckStartRepayCdp() {
         //TODO add check logic!
+        if (!onCommonCheck()) return;
+
         Intent intent = new Intent(this, RepayCdpActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
@@ -520,7 +531,13 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     }
 
     private void onCheckStartDepositCdp() {
-        //TODO add check logic!
+        if (!onCommonCheck()) return;
+
+        if (cAvailable.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(this, DepositCdpActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
@@ -529,6 +546,8 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
 
     private void onCheckStartWithdrawCdp() {
         //TODO add check logic!
+        if (!onCommonCheck()) return;
+
         Intent intent = new Intent(this, WithdrawCdpActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
@@ -536,11 +555,29 @@ public class KavaCdpDetailActivity extends BaseActivity implements TaskListener,
     }
 
     private void onCheckStartDrawDebtCdp() {
-        //TODO add check logic!
+        if (!onCommonCheck()) return;
+
         Intent intent = new Intent(this, DrawDebtActivity.class);
         intent.putExtra("denom", mMarketDenom);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
+    }
+
+    private boolean onCommonCheck() {
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return false;
+        }
+
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+            if (WDp.getAvailableCoin(mBalances, COSMOS_KAVA).compareTo(BigDecimal.ONE) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
     }
 
 

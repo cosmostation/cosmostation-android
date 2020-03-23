@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -92,65 +93,88 @@ public class CdpMyFragment extends BaseFragment {
         return (KavaCdpListActivity)getBaseActivity();
     }
 
-    private class MyCdpAdapter extends RecyclerView.Adapter<MyCdpAdapter.MyCdpHolder> {
+    private class MyCdpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        private static final int TYPE_MY_CDP                    = 1;
+        private static final int TYPE_PROMOTION                 = 2;
 
         @NonNull
         @Override
-        public MyCdpHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new MyCdpHolder(getLayoutInflater().inflate(R.layout.item_cdp_list_my, viewGroup, false));
-
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            if(viewType == TYPE_MY_CDP) {
+                return new MyCdpHolder(getLayoutInflater().inflate(R.layout.item_cdp_list_my, viewGroup, false));
+            } else {
+                return new PromotionCdpHolder(getLayoutInflater().inflate(R.layout.item_cdp_list_promotion, viewGroup, false));
+            }
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyCdpHolder holder, int position) {
-            final ResCdpOwnerStatus.Result status = mMyOwenCdp.get(position);
-            final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(status.getDenom());
-            final int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
-            final ResCdpParam.KavaCollateralParam param = getMainActivity().mCdpParam.getCollateralParamByDenom(status.getDenom());
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+            if (getItemViewType(position) == TYPE_PROMOTION) {
+                final PromotionCdpHolder holder = (PromotionCdpHolder)viewHolder;
 
-            final BigDecimal currentPrice = new BigDecimal(price.price);
-            final BigDecimal liquidationPrice = WDp.getLiquidationPrice(status, getMainActivity().mCdpParam.getRawLiquidationRatio(status.getDenom()));
-            final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
+            } else {
+                final MyCdpHolder holder = (MyCdpHolder)viewHolder;
+                final ResCdpOwnerStatus.Result status = mMyOwenCdp.get(position);
+                final ResKavaMarketPrice.Result price = getMainActivity().mKavaTokenPrices.get(status.getDenom());
+                final int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
+                final ResCdpParam.KavaCollateralParam param = getMainActivity().mCdpParam.getCollateralParamByDenom(status.getDenom());
+
+                final BigDecimal currentPrice = new BigDecimal(price.price);
+                final BigDecimal liquidationPrice = WDp.getLiquidationPrice(status, getMainActivity().mCdpParam.getRawLiquidationRatio(status.getDenom()));
+                final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
 //            WLog.w("currentPrice " +  currentPrice);
 //            WLog.w("liquidationPrice " +  liquidationPrice);
 //            WLog.w("riskRate " +  riskRate);
 
-            holder.itemDebtValueTitle.setText(status.getPDenom().toUpperCase() + " " + getString(R.string.str_debt_value));
-            holder.itemCollateralValueTitle.setText(WDp.DpCollateralValueTitle(getContext(), status.getDenom().toUpperCase()));
+                holder.itemDebtValueTitle.setText(status.getPDenom().toUpperCase() + " " + getString(R.string.str_debt_value));
+                holder.itemCollateralValueTitle.setText(WDp.DpCollateralValueTitle(getContext(), status.getDenom().toUpperCase()));
 
-            final BigDecimal debtValue = new BigDecimal(status.cdp.principal.get(0).amount);
-            final BigDecimal feeValue = status.getAccumulatedFees();
-            final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), debtValue.add(feeValue), param, status.cdp);
-            final BigDecimal totalDebtValue = debtValue.add(feeValue).add(hiddenFeeValue);
-            holder.itemDebtValue.setText(WDp.getDpRawDollor(getContext(), totalDebtValue.movePointLeft(denomPDecimal), 2));
+                final BigDecimal debtValue = new BigDecimal(status.cdp.principal.get(0).amount);
+                final BigDecimal feeValue = status.getAccumulatedFees();
+                final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), debtValue.add(feeValue), param, status.cdp);
+                final BigDecimal totalDebtValue = debtValue.add(feeValue).add(hiddenFeeValue);
+                holder.itemDebtValue.setText(WDp.getDpRawDollor(getContext(), totalDebtValue.movePointLeft(denomPDecimal), 2));
 
-            final BigDecimal currentCollateralValue = new BigDecimal(status.collateral_value.amount);
-            holder.itemCollateralValue.setText(WDp.getDpRawDollor(getContext(), currentCollateralValue.movePointLeft(denomPDecimal), 2));
+                final BigDecimal currentCollateralValue = new BigDecimal(status.collateral_value.amount);
+                holder.itemCollateralValue.setText(WDp.getDpRawDollor(getContext(), currentCollateralValue.movePointLeft(denomPDecimal), 2));
 
-            holder.itemStabilityFee.setText(WDp.getPercentDp(param.getDpStabilityFee(), 2));
-            holder.itemLiquidationPenalty.setText(WDp.getPercentDp(param.getDpLiquidationPenalty(), 2));
+                holder.itemStabilityFee.setText(WDp.getPercentDp(param.getDpStabilityFee(), 2));
+                holder.itemLiquidationPenalty.setText(WDp.getPercentDp(param.getDpLiquidationPenalty(), 2));
 
-            WDp.DpRiskRate(getContext(), riskRate, holder.itemRiskScore,  holder.itemImgRisk);
-            try {
-                Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  status.getImagePath()).fit().into(holder.itemImgMarket);
+                WDp.DpRiskRate(getContext(), riskRate, holder.itemRiskScore,  holder.itemImgRisk);
+                try {
+                    Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  status.getImagePath()).fit().into(holder.itemImgMarket);
 
-            } catch (Exception e) { }
+                } catch (Exception e) { }
 
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), KavaCdpDetailActivity.class);
-                    intent.putExtra("denom", status.getDenom());
-                    intent.putExtra("marketId", status.getMarketId());
-                    startActivity(intent);
-                }
-            });
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getMainActivity(), KavaCdpDetailActivity.class);
+                        intent.putExtra("denom", status.getDenom());
+                        intent.putExtra("marketId", status.getMarketId());
+                        startActivity(intent);
+                    }
+                });
+            }
         }
 
         @Override
         public int getItemCount() {
+            if (mMyOwenCdp.size() == 0) {
+                return 1;
+            }
             return mMyOwenCdp.size();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if(mMyOwenCdp == null || mMyOwenCdp.size() < 1) {
+                return TYPE_PROMOTION;
+            } else {
+                return TYPE_MY_CDP;
+            }
         }
 
         public class MyCdpHolder extends RecyclerView.ViewHolder {
@@ -174,6 +198,15 @@ public class CdpMyFragment extends BaseFragment {
                 itemCollateralValue = itemView.findViewById(R.id.cdp_collateral_value);
                 itemStabilityFee = itemView.findViewById(R.id.cdp_stability_fee);
                 itemLiquidationPenalty = itemView.findViewById(R.id.cdp_str_liquidation_penalty);
+            }
+        }
+
+        public class PromotionCdpHolder extends RecyclerView.ViewHolder {
+            CardView    itemRoot;
+
+            public PromotionCdpHolder(@NonNull View itemView) {
+                super(itemView);
+                itemRoot                = itemView.findViewById(R.id.card_root);
             }
         }
     }
