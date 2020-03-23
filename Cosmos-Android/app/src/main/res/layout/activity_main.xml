@@ -120,6 +120,17 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_faucet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_marginBottom="@dimen/space_72"
+            app:backgroundTint="#FF564F"
+            app:srcCompat="@drawable/faucet_btn"/>
+
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/btn_floating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
