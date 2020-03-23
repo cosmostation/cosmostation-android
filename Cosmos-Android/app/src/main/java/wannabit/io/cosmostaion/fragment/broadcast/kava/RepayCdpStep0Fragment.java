@@ -323,7 +323,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
                     return;
 
-                } else if (mCurrentTotalDebetAmount.subtract(mToPaymentAmount).compareTo(new BigDecimal(getCdpParam().debt_params.get(0).debt_floor)) < 0 || mCurrentTotalDebetAmount.subtract(mToPaymentAmount).compareTo(BigDecimal.ZERO) > 0) {
+                } else if ((mCurrentTotalDebetAmount.subtract(mToPaymentAmount).compareTo(new BigDecimal(getCdpParam().debt_params.get(0).debt_floor)) < 0) && (mCurrentTotalDebetAmount.subtract(mToPaymentAmount).compareTo(BigDecimal.ZERO) > 0)) {
                     Toast.makeText(getContext(), R.string.error_dust_principal_remain, Toast.LENGTH_SHORT).show();
                     return;
 
