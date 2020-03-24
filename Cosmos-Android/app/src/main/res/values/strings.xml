@@ -418,7 +418,7 @@
     <string name="str_kava_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_kava_new_path"><![CDATA[NEW PATH (44\'/459\'/0\'/0)]]></string>
     <string name="str_kava_cdp_list">CDP Market</string>
-    <string name="str_kava_cdp_details">CDP Detail</string>
+    <string name="str_kava_cdp_details">CDP Status</string>
     <string name="str_my_cdps">My CDP</string>
     <string name="str_all_cdps">All Products</string>
 
@@ -426,8 +426,8 @@
     <string name="str_stability_fee">Stability Fee (APR)</string>
     <string name="str_liquidation_penalty">Liquidation Penalty</string>
     <string name="str_liquidation_title1">Liquidation</string>
-    <string name="str_before_liquidation_title1">Before Liquidation</string>
-    <string name="str_after_liquidation_title1">After Liquidation</string>
+    <string name="str_before_liquidation_title1">Initial Liquidation</string>
+    <string name="str_after_liquidation_title1">Expected Liquidation</string>
     <string name="str_liquidation_title2">Price</string>
     <string name="str_current_title1">Current</string>
     <string name="str_current_title2">Price</string>
@@ -441,28 +441,28 @@
     <string name="str_remain_debt_title2">Amount</string>
     <string name="str_collateral_value_title1">Collateral</string>
     <string name="str_collateral_value_title2">Value</string>
-    <string name="str_open_cdp">Open new CDP</string>
+    <string name="str_open_cdp">Create CDP</string>
     <string name="str_available_amount">Available Amount</string>
-    <string name="str_self_deposited_amount">Self Deposited Collateral</string>
-    <string name="str_total_deposited_amount">Total Deposited Collateral</string>
+    <string name="str_self_deposited_amount">Deposited Collateral (self)</string>
+    <string name="str_total_deposited_amount">Deposited Collateral (total)</string>
     <string name="str_expected_withdrawable_amount">Withdrawable</string>
-    <string name="str_loaned_amount">Loaned</string>
+    <string name="str_loaned_amount">Loan Principal</string>
     <string name="str_expected_loanable_amount">Remaining Loan Capacity</string>
     <string name="str_outstanding_debt">Outstanding Debt</string>
-    <string name="str_cdp_total_fee">Total Fee</string>
+    <string name="str_cdp_total_fee">Loan Interest</string>
     <string name="str_collateral_deposit">Deposit</string>
     <string name="str_collateral_withdraw">Withdraw</string>
-    <string name="str_principal_drawdebt">Loan more USDX</string>
+    <string name="str_principal_drawdebt">Borrow more USDX</string>
     <string name="str_principal_repay">Repay USDX</string>
 
-    <string name="str_deposit_amount">To Deposit</string>
-    <string name="str_loan_amount">To Loan</string>
-    <string name="str_loan_more_amount">More Loan</string>
-    <string name="str_payment_amount">To Payment</string>
-    <string name="str_withdraw_amount">To Withdraw</string>
-    <string name="str_remaining_debt">Remaining Debet</string>
-    <string name="str_after_total_debt">After Total Debet</string>
-    <string name="str_after_total_deposit">After Total Deposit</string>
+    <string name="str_deposit_amount">Collateral Amount</string>
+    <string name="str_loan_amount">Loan Amount</string>
+    <string name="str_loan_more_amount">Additional Loan Amount</string>
+    <string name="str_payment_amount">Repayment Amount</string>
+    <string name="str_withdraw_amount">Withdrawal Amount</string>
+    <string name="str_remaining_debt">Remaining Principal</string>
+    <string name="str_after_total_debt">Adjusted Total Principal</string>
+    <string name="str_after_total_deposit">Adjusted Total Collateral</string>
     <string name="str_risk_rate">Risk Score</string>
     <string name="str_debt_value">Debt Value</string>
 
@@ -471,7 +471,7 @@
     <string name="str_help_stability_fee_t">Stability Fee (APR)</string>
     <string name="str_help_stability_fee">The amount of fee you must pay for taking out USDX loans from the CDP, calculated as APR.\n\nWhen you repay your USDX debt, you must also pay this stability fee in order to close your collateralized debt position.</string>
     <string name="str_help_liquidation_penalty_t">Liquidation Penalty</string>
-    <string name="str_help_liquidation_penalty">The amount of fee you must pay in the event that your collateralized assets are liquidated due to price fluctuations.\n\nIf your collateral rate falls below minimum collateral rate, your assets will be liquidated.</string>
+    <string name="str_help_liquidation_penalty">The amount of penalty you must pay in the event that your collateralized assets are liquidated due to price fluctuations.\n\nIf your collateral rate falls below minimum collateral rate, your assets will be liquidated.</string>
 
     <string name="str_help_available_collateral_t">Available</string>
     <string name="str_help_available_collateral">The amount of available %1$s in your wallet that can be deposited into the CDP as collateral.</string>
@@ -480,60 +480,63 @@
     <string name="str_help_total_deposited_collateral_t">Total Deposited Collateral</string>
     <string name="str_help_total_deposited_collateral">The total amount of %1$s deposited into the CDP as collateral.</string>
     <string name="str_help_withdrawable_t">Withdrawable</string>
-    <string name="str_help_withdrawable">Withdrawing the collateral excessively close to the maximum amount can put the CDP into risk of going below the minimum collateral rate and being liquidated.</string>
+    <string name="str_help_withdrawable">The amount of maximum collateral capable of being withdrawn from the CDP without reaching a risk score of 100.\n\nNote that withdrawing the collateral excessively close to the maximum amount can put the CDP into risk of going below the minimum collateral rate and being liquidated.</string>
 
     <string name="str_help_available_amount_t">Available Amount</string>
     <string name="str_help_available_amount">The amount of USDX available for transactions.</string>
-    <string name="str_help_loaned_amount_t">Loaned Amount</string>
+    <string name="str_help_loaned_amount_t">Loan Principal</string>
     <string name="str_help_loaned_amount">The total amount of USDX loaned from the CDP.</string>
     <string name="str_help_remaining_loan_capacity_t">Remaining Loan Capacity</string>
     <string name="str_help_remaining_loan_capacity">The amount of USDX that can be additionally loaned from the CDP. This capacity changes in accordance to changes in the collateral rate due to price fluctuations.</string>
     <string name="str_help_outstanding_debt_t">Outstanding Debt</string>
     <string name="str_help_outstanding_debt">The total principal as well as interest amount of debt that has yet to be paid.</string>
-    <string name="str_help_total_fee_t">Total Fee</string>
-    <string name="str_help_total_fee">Current CDP stability fee. The fee increases every second.</string>
+    <string name="str_help_total_fee_t">Loan Interest</string>
+    <string name="str_help_total_fee">Accrued CDP stability fee. The fee increases every second.</string>
     <string name="str_help_risk">A risk score of 100 will cause your CDP to be liquidated. Risk Score is calculated through comparing the current token price of your collateralized asset against the token price at which the CDP will be liquidated.\n\nFor example, a risk score of 60 and the current token price of your collateralized asset at $10 means that your CDP will be liquidated if the token price reaches $6.</string>
 
 
     <string name="str_create_cdp_c">CREATE CDP</string>
-    <string name="str_repay_cdp_c">REPAY CDP</string>
-    <string name="str_draw_debt_cdp_c">DRAW DEBT CDP</string>
-    <string name="str_deposit_cdp_c">DEPOSIT CDP</string>
-    <string name="str_withdraw_cdp_c">Withdraw CDP</string>
+    <string name="str_repay_cdp_c">REPAY USDX</string>
+    <string name="str_draw_debt_cdp_c">BORROW MORE USDX</string>
+    <string name="str_deposit_cdp_c">DEPOSIT COLLATERAL</string>
+    <string name="str_withdraw_cdp_c">WITHDRAW COLLATERAL</string>
     <string name="str_depositable_amount"><![CDATA[Depositable : ]]></string>
     <string name="str_deposit_value"><![CDATA[Deposit Value : ]]></string>
-    <string name="str_loanable_amount"><![CDATA[Loanable : ]]></string>
+<!--    <string name="str_loanable_amount"><![CDATA[Loanable : ]]></string>-->
+    <string name="str_loanable_amount"><![CDATA[Max : ]]></string>
     <string name="str_approximate_value"><![CDATA[Approximate Value : ]]></string>
-    <string name="str_max_paymentable_amount"><![CDATA[Max Paymentable : ]]></string>
-    <string name="str_max_depositable_amount"><![CDATA[Max Depositable : ]]></string>
-    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable : ]]></string>
+    <string name="str_max_paymentable_amount"><![CDATA[Max : ]]></string>
+<!--    <string name="str_max_depositable_amount"><![CDATA[Max Depositable : ]]></string>-->
+    <string name="str_max_depositable_amount"><![CDATA[Max : ]]></string>
+<!--    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable : ]]></string>-->
+    <string name="str_max_withdrawable_amount"><![CDATA[Max : ]]></string>
     <string name="str_add_min">Min</string>
     <string name="str_add_20"><![CDATA[≈ 20]]></string>
     <string name="str_add_50"><![CDATA[≈ 50]]></string>
     <string name="str_add_70"><![CDATA[≈ 70]]></string>
     <string name="str_add_one_fourths">1/4</string>
     <string name="str_add_three_fourths">3/4</string>
-    <string name="str_cdp_promotion_title">Let<![CDATA["'"]]>s Leverage your assets!</string>
-    <string name="str_cdp_promotion_msg">Collateralized Debt Positions enable the creation of a stable asset by collateralization with another on chain asset.\n100% On-Chain Financial Engineering</string>
+    <string name="str_cdp_promotion_title">Create a Collateralized Debt Position</string>
+    <string name="str_cdp_promotion_msg">Borrow USDX by depositing XRP, BTC, BNB as collateral.\n100% on-chain decentralized finance.</string>
 
 
-    <string name="str_create_cdp_step_1">Enter CDP forms</string>
+    <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
     <string name="str_create_cdp_step_2">Insert memo (optional)</string>
     <string name="str_create_cdp_step_3">Select transaction fee</string>
-    <string name="str_create_cdp_step_4">Check create CDP detail</string>
-    <string name="str_repay_cdp_step_1">Enter your payment form</string>
+    <string name="str_create_cdp_step_4">Check transaction detail</string>
+    <string name="str_repay_cdp_step_1">Enter repayment amount</string>
     <string name="str_repay_cdp_step_2">Insert memo (optional)</string>
     <string name="str_repay_cdp_step_3">Select transaction fee</string>
-    <string name="str_repay_cdp_step_4">Check Payment detail</string>
-    <string name="str_draw_debt_cdp_step_1">Enter your form to loan more</string>
+    <string name="str_repay_cdp_step_4">Check transaction detail</string>
+    <string name="str_draw_debt_cdp_step_1">Enter loan amount</string>
     <string name="str_draw_debt_cdp_step_2">Insert memo (optional)</string>
     <string name="str_draw_debt_cdp_step_3">Select transaction fee</string>
-    <string name="str_draw_debt_cdp_step_4">Check loan more detail</string>
-    <string name="str_deposit_cdp_step_1">Enter your form to deposit</string>
+    <string name="str_draw_debt_cdp_step_4">Check transaction detail</string>
+    <string name="str_deposit_cdp_step_1">Enter deposit amount</string>
     <string name="str_deposit_cdp_step_2">Insert memo (optional)</string>
     <string name="str_deposit_cdp_step_3">Select transaction fee</string>
     <string name="str_deposit_cdp_step_4">Check transaction detail</string>
-    <string name="str_withdraw_cdp_step_1">Enter your form to withdraw</string>
+    <string name="str_withdraw_cdp_step_1">Enter withdrawal amount</string>
     <string name="str_withdraw_cdp_step_2">Insert memo (optional)</string>
     <string name="str_withdraw_cdp_step_3">Select transaction fee</string>
     <string name="str_withdraw_cdp_step_4">Check transaction detail</string>
@@ -775,12 +778,12 @@
     <string name="tx_Cancel_order">Cancel Order</string>
     <string name="tx_issue_token">Token Issue</string>
     <string name="tx_known">Unknown</string>
-    <string name="tx_kava_post_price">Post Price</string>
-    <string name="tx_kava_create_cdp">Create CDP</string>
-    <string name="tx_kava_deposit_cdp">Deposit CDP</string>
-    <string name="tx_kava_withdraw_cdp">Withdraw CDP</string>
-    <string name="tx_kava_drawdebt_cdp">Draw Debt CDP</string>
-    <string name="tx_kava_repaydebt_cdp">Repay Debt CDP</string>
+    <string name="tx_kava_post_price">Update Price</string>
+    <string name="tx_kava_create_cdp">CDP - Create</string>
+    <string name="tx_kava_deposit_cdp">CDP - Deposit</string>
+    <string name="tx_kava_withdraw_cdp">CDP - Withdraw</string>
+    <string name="tx_kava_drawdebt_cdp">CDP - Draw Debt</string>
+    <string name="tx_kava_repaydebt_cdp">CDP - Repay</string>
 
 
     <string name="str_dp_time_format1" >MMM d, yyyy HH:mm:ss</string>

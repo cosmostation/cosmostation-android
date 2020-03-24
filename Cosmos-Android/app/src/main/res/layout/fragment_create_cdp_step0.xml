@@ -85,7 +85,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             style="@style/font_ss_12_gray1"
-                            android:text="@string/str_depositable_amount"/>
+                            android:text="@string/str_depositable_amount"
+                            android:visibility="gone"/>
                         <TextView
                             android:id="@+id/collateral_min_amount"
                             android:layout_width="wrap_content"
@@ -273,7 +274,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             style="@style/font_ss_12_gray1"
-                            android:text="@string/str_loanable_amount"/>
+                            android:text="@string/str_loanable_amount"
+                            android:visibility="gone"/>
                         <TextView
                             android:id="@+id/principal_min_amount"
                             android:layout_width="wrap_content"
