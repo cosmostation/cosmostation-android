@@ -51,7 +51,8 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
     private TextView        mPrincipalMaxTx, mPrincipalDenomTx;
     private Button          mBtnAdd01, mBtnAdd1, mBtnAdd10, mBtnAddHalf, mBtnAddMax;
 
-    private TextView        mBeforeRisk, mAfterRisk;
+    private LinearLayout    mAfterRiskLayer;
+    private TextView        mBeforeRisk, mAfterRisk, mBeforeRiskScore, mAfterRiskScore;
     private TextView        mBeforePrincipalAmount, mAfterPrincipalAmount;
 
     private BigDecimal      mCurrentPrice;
@@ -92,7 +93,10 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         mBtnAddMax = rootView.findViewById(R.id.btn_add_all);
 
         mBeforeRisk = rootView.findViewById(R.id.risk_rate_before);
+        mBeforeRiskScore = rootView.findViewById(R.id.risk_score_before);
+        mAfterRiskLayer = rootView.findViewById(R.id.risk_rate_after_layer);
         mAfterRisk = rootView.findViewById(R.id.risk_rate_after);
+        mAfterRiskScore = rootView.findViewById(R.id.risk_score_after);
         mBeforePrincipalAmount = rootView.findViewById(R.id.loaned_amount_before);
         mAfterPrincipalAmount = rootView.findViewById(R.id.loaned_amount_after);
 
@@ -149,7 +153,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         WLog.w("mBeforeLiquidationPrice " + mBeforeLiquidationPrice);
         mBeforeRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mBeforeLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
         WLog.w("mBeforeRiskRate " + mBeforeRiskRate);
-        WDp.DpRiskRate(getContext(), mBeforeRiskRate, mBeforeRisk, null);
+        WDp.DpRiskRate3(getContext(), mBeforeRiskRate, mBeforeRiskScore, mBeforeRisk);
         mBeforePrincipalAmount.setText(WDp.getDpAmount2(getContext(), mCurrentTotalDebetAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
 
         mPrincipalInput.addTextChangedListener(new TextWatcher() {
@@ -220,7 +224,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
             try {
                 mToPaymentAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
             } catch (Exception e) {
-                mAfterRisk.setVisibility(View.INVISIBLE);
+                mAfterRiskLayer.setVisibility(View.INVISIBLE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
                 return false;
             }
@@ -230,7 +234,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
-                mAfterRisk.setVisibility(View.INVISIBLE);
+                mAfterRiskLayer.setVisibility(View.INVISIBLE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
                 return false;
             }
@@ -239,12 +243,12 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
-                mAfterRisk.setVisibility(View.INVISIBLE);
+                mAfterRiskLayer.setVisibility(View.INVISIBLE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
                 return false;
 
             }
-            mAfterRisk.setVisibility(View.VISIBLE);
+            mAfterRiskLayer.setVisibility(View.VISIBLE);
 //            mAfterPrincipalAmount.setVisibility(View.VISIBLE);
 
             //after payment state views!!
@@ -258,8 +262,8 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
             WLog.w("mAfterRiskRate " + mAfterRiskRate);
 
 
-            WDp.DpRiskRate(getContext(), mAfterRiskRate, mAfterRisk, null);
-            WDp.DpRiskButton(getContext(), mAfterRiskRate, mBtnNext);
+            WDp.DpRiskRate3(getContext(), mAfterRiskRate, mAfterRiskScore, mAfterRisk);
+            WDp.DpRiskButton2(getContext(), mAfterRiskRate, mBtnNext);
             if (mRemainLoanAmount.equals(BigDecimal.ZERO)) {
                 mBtnNext.setText("REPAY ALL");
             }

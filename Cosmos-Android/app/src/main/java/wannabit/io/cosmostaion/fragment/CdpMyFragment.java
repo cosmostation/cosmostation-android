@@ -127,6 +127,7 @@ public class CdpMyFragment extends BaseFragment {
 //            WLog.w("liquidationPrice " +  liquidationPrice);
 //            WLog.w("riskRate " +  riskRate);
 
+                holder.itemTitleMarket.setText(param.getDpMarketId());
                 holder.itemDebtValueTitle.setText(status.getPDenom().toUpperCase() + " " + getString(R.string.str_debt_value));
                 holder.itemCollateralValueTitle.setText(WDp.DpCollateralValueTitle(getContext(), status.getDenom().toUpperCase()));
 
@@ -141,6 +142,12 @@ public class CdpMyFragment extends BaseFragment {
 
                 holder.itemStabilityFee.setText(WDp.getPercentDp(param.getDpStabilityFee(), 2));
                 holder.itemLiquidationPenalty.setText(WDp.getPercentDp(param.getDpLiquidationPenalty(), 2));
+
+                holder.itemCurrentPriceTitle.setText(WDp.DpCurrentPriceTitle(getContext(), status.getDenom().toUpperCase()));
+                holder.itemCurrentPrice.setText(WDp.getDpRawDollor(getContext(), currentPrice, 4));
+
+                holder.itemLiquidationPriceTitle.setText(WDp.DpLiquidationPriceTitle(getContext(), status.getDenom().toUpperCase()));
+                holder.itemLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), liquidationPrice, 4));
 
                 WDp.DpRiskRate(getContext(), riskRate, holder.itemRiskScore,  holder.itemImgRisk);
                 try {
@@ -183,6 +190,7 @@ public class CdpMyFragment extends BaseFragment {
             TextView itemTitleMarket, itemRiskScore;
             TextView itemDebtValueTitle, itemDebtValue, itemCollateralValueTitle, itemCollateralValue;
             TextView itemStabilityFee, itemLiquidationPenalty;
+            TextView itemCurrentPriceTitle, itemCurrentPrice, itemLiquidationPriceTitle, itemLiquidationPrice;
 
 
             public MyCdpHolder(@NonNull View itemView) {
@@ -198,6 +206,10 @@ public class CdpMyFragment extends BaseFragment {
                 itemCollateralValue = itemView.findViewById(R.id.cdp_collateral_value);
                 itemStabilityFee = itemView.findViewById(R.id.cdp_stability_fee);
                 itemLiquidationPenalty = itemView.findViewById(R.id.cdp_str_liquidation_penalty);
+                itemCurrentPriceTitle = itemView.findViewById(R.id.current_price_title);
+                itemCurrentPrice = itemView.findViewById(R.id.current_price);
+                itemLiquidationPriceTitle = itemView.findViewById(R.id.liquidation_price_title);
+                itemLiquidationPrice = itemView.findViewById(R.id.liquidation_price);
             }
         }
 

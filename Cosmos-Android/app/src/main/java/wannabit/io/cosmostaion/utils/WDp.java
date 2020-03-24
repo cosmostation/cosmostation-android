@@ -1539,7 +1539,27 @@ public class WDp {
             button.setTextColor(c.getResources().getColor(R.color.colorBlack));
             button.setTypeface(null, Typeface.BOLD);
             button.setText("DANGER " + riskRate.toPlainString());
+        }
+    }
 
+    public static void DpRiskButton2(Context c, BigDecimal riskRate, Button button) {
+        if (riskRate.longValue() < 50) {
+            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_safe_fill));
+            button.setTextColor(c.getResources().getColor(R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("SAFE");
+
+        } else if (riskRate.longValue() < 80) {
+            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_stable_fill));
+            button.setTextColor(c.getResources().getColor(R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("STABLE");
+
+        } else {
+            button.setBackground(c.getResources().getDrawable(R.drawable.btn_score_danger_fill));
+            button.setTextColor(c.getResources().getColor(R.color.colorBlack));
+            button.setTypeface(null, Typeface.BOLD);
+            button.setText("DANGER");
         }
     }
 
@@ -1557,7 +1577,25 @@ public class WDp {
             text.setText("DANGER");
             layer.setBackground(c.getResources().getDrawable(R.drawable.btn_score_danger_fill));
         }
+    }
 
+    public static void DpRiskRate3(Context c, BigDecimal riskRate, TextView score, TextView rate) {
+        score.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        if (riskRate.longValue() < 50) {
+            rate.setText("SAFE");
+            rate.setTextColor(c.getResources().getColor(R.color.colorCdpSafe));
+            score.setTextColor(c.getResources().getColor(R.color.colorCdpSafe));
+
+        } else if (riskRate.longValue() < 80) {
+            rate.setText("STABLE");
+            rate.setTextColor(c.getResources().getColor(R.color.colorCdpStable));
+            score.setTextColor(c.getResources().getColor(R.color.colorCdpStable));
+
+        } else {
+            rate.setText("DANGER");
+            rate.setTextColor(c.getResources().getColor(R.color.colorCdpDanger));
+            score.setTextColor(c.getResources().getColor(R.color.colorCdpDanger));
+        }
     }
 
     public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt,  ResCdpParam.KavaCollateralParam paramCdp, KavaCDP myCdp) {

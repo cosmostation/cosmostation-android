@@ -105,7 +105,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="46dp"
                     android:layout_marginTop="@dimen/space_8"
                     android:orientation="horizontal">
                     <Button
@@ -164,7 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_20"
-                android:layout_marginLeft="58dp"
+                android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
                 android:background="@drawable/box_trans_round"
                 android:orientation="horizontal">
@@ -175,31 +174,56 @@
                     android:layout_centerVertical="true"
                     style="@style/font_ss_14_gray1"
                     android:text="Risk Score"/>
-                <TextView
-                    android:id="@+id/risk_rate_before"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/arrow"
-                    style="@style/font_ss_26_white"
-                    android:text="44"/>
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/risk_rate_before"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_ss_10_white"
+                        android:text="SAFE"/>
+                    <TextView
+                        android:id="@+id/risk_score_before"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_ss_26_white"
+                        android:text="44"/>
+                </LinearLayout>
                 <ImageView
                     android:id="@+id/arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/risk_rate_after"
+                    android:layout_toLeftOf="@+id/risk_rate_after_layer"
                     android:layout_marginRight="@dimen/space_16"
                     android:layout_marginLeft="@dimen/space_16"
                     android:src="@drawable/risk_arrow"/>
-                <TextView
-                    android:id="@+id/risk_rate_after"
+                <LinearLayout
+                    android:id="@+id/risk_rate_after_layer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    style="@style/font_ss_26_white"
-                    android:text="000"/>
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/risk_rate_after"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_ss_10_white"
+                        android:text="SAFE"/>
+                    <TextView
+                        android:id="@+id/risk_score_after"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_ss_26_white"
+                        android:text="44"/>
+                </LinearLayout>
             </RelativeLayout>
 
 

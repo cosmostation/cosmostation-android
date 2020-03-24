@@ -493,10 +493,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemInnerSymbol.setText("");
             //TODO add coin descriptions
             if (balance.symbol.equals("usdx")) {
-                holder.itemFullName.setText("USD stable asset");
+                holder.itemFullName.setText("USD Stable Asset");
 
             } else {
-                holder.itemFullName.setText(balance.symbol + " guaranteed by Kava-chain");
+                holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Network");
 
             }
 

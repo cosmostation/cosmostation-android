@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +48,8 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
     private TextView        mCollateralMaxTx, mCollateralDenomTx;
     private Button          mBtnAdd1, mBtnAdd1_4, mBtnAddHalf, mBtnAdd3_4, mBtnAddMax;
 
-    private TextView        mBeforeRisk, mAfterRisk;
+    private LinearLayout    mAfterRiskLayer;
+    private TextView        mBeforeRisk, mAfterRisk, mBeforeRiskScore, mAfterRiskScore;
     private TextView        mBeforeDepositAmount, mAfterDepositAmount;
 
     private BigDecimal      mCurrentPrice;
@@ -87,7 +89,10 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         mBtnAddMax = rootView.findViewById(R.id.btn_add_max);
 
         mBeforeRisk = rootView.findViewById(R.id.risk_rate_before);
+        mBeforeRiskScore = rootView.findViewById(R.id.risk_score_before);
+        mAfterRiskLayer = rootView.findViewById(R.id.risk_rate_after_layer);
         mAfterRisk = rootView.findViewById(R.id.risk_rate_after);
+        mAfterRiskScore = rootView.findViewById(R.id.risk_score_after);
         mBeforeDepositAmount = rootView.findViewById(R.id.deposit_before);
         mAfterDepositAmount = rootView.findViewById(R.id.deposit_after);
 
@@ -136,7 +141,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         WLog.w("mBeforeLiquidationPrice " + mBeforeLiquidationPrice);
         mBeforeRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mBeforeLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
         WLog.w("mBeforeRiskRate " + mBeforeRiskRate);
-        WDp.DpRiskRate(getContext(), mBeforeRiskRate, mBeforeRisk, null);
+        WDp.DpRiskRate3(getContext(), mBeforeRiskRate, mBeforeRiskScore, mBeforeRisk);
         mBeforeDepositAmount.setText(WDp.getDpAmount2(getContext(), mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), WUtil.getKavaCoinDecimal(mCollateralDenom)));
 
         mCollateralInput.addTextChangedListener(new TextWatcher() {
@@ -205,7 +210,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
             try {
                 mToDepositAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
             } catch (Exception e) {
-                mAfterRisk.setVisibility(View.INVISIBLE);
+                mAfterRiskLayer.setVisibility(View.INVISIBLE);
                 mAfterDepositAmount.setVisibility(View.GONE);
                 return false;
             }
@@ -215,12 +220,12 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
                 mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
                 mBtnNext.setBackground(getResources().getDrawable(R.drawable.btn_trans_with_border));
                 mBtnNext.setTypeface(null, Typeface.NORMAL);
-                mAfterRisk.setVisibility(View.INVISIBLE);
+                mAfterRiskLayer.setVisibility(View.INVISIBLE);
                 mAfterDepositAmount.setVisibility(View.GONE);
                 return false;
 
             }
-            mAfterRisk.setVisibility(View.VISIBLE);
+            mAfterRiskLayer.setVisibility(View.VISIBLE);
 //            mAfterDepositAmount.setVisibility(View.VISIBLE);
 
             mTotalDepositAmount = mCurrentCollateralAmount.add(mToDepositAmount);
@@ -231,8 +236,8 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
             mAfterRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mAfterLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
             WLog.w("mAfterRiskRate " + mAfterRiskRate);
 
-            WDp.DpRiskRate(getContext(), mAfterRiskRate, mAfterRisk, null);
-            WDp.DpRiskButton(getContext(), mAfterRiskRate, mBtnNext);
+            WDp.DpRiskRate3(getContext(), mAfterRiskRate, mAfterRiskScore, mAfterRisk);
+            WDp.DpRiskButton2(getContext(), mAfterRiskRate, mBtnNext);
 
 //            mAfterDepositAmount.setText(WDp.getDpAmount2(getContext(), mTotalDepositAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), WUtil.getKavaCoinDecimal(mCollateralDenom)));
             return true;
