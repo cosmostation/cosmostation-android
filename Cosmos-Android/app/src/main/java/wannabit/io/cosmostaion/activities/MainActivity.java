@@ -293,6 +293,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         onUpdateTitle();
         onFetchAllData();
+        mSelectChainPosition = getBaseDao().getLastChain();
         onChainSelected(mSelectChainPosition);
 
     }
@@ -300,6 +301,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private void onChainSelected(int position) {
         invalidateOptionsMenu();
         mSelectChainPosition = position;
+        getBaseDao().setLastChain(mSelectChainPosition);
         mChainListAdapter.notifyDataSetChanged();
         if (mSelectChainPosition == 0) {
             mAccounts = getBaseDao().onSelectAccounts();

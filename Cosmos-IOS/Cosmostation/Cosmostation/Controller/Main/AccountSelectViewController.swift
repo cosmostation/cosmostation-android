@@ -22,6 +22,8 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
         super.viewDidLoad()
         
         account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        mSelectedChain = BaseData.instance.getRecentChain()
+        
         self.accountTableView.delegate = self
         self.accountTableView.dataSource = self
         self.accountTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -32,7 +34,7 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
         self.chainTableView.dataSource = self
         self.chainTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.chainTableView.register(UINib(nibName: "ManageChainCell", bundle: nil), forCellReuseIdentifier: "ManageChainCell")
-        self.chainTableView.selectRow(at: IndexPath.init(item: 0, section: 0), animated: false, scrollPosition: .top)
+        self.chainTableView.selectRow(at: IndexPath.init(item: mSelectedChain, section: 0), animated: false, scrollPosition: .top)
         
         onRefechUserInfo()
         
@@ -42,6 +44,8 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
         self.chainTableView.backgroundView = UIView()
         self.accountTableView.backgroundView?.addGestureRecognizer(dismissTap1)
         self.chainTableView.backgroundView?.addGestureRecognizer(dismissTap2)
+        
+        
     }
     
     
@@ -189,6 +193,7 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
         if (tableView == chainTableView) {
             if (mSelectedChain != indexPath.row) {
                 mSelectedChain = indexPath.row
+                BaseData.instance.setRecentChain(mSelectedChain)
                 self.onRefechUserInfo()
             }
         } else if (mAccounts.count <= indexPath.row) {

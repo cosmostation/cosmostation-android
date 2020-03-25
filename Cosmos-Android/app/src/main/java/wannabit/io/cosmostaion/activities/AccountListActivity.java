@@ -71,7 +71,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-
+        mSelectChainPosition = getBaseDao().getLastChain();
         onChainSelected(mSelectChainPosition);
     }
 
@@ -126,6 +126,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         }
         invalidateOptionsMenu();
         mSelectChainPosition = position;
+        getBaseDao().setLastChain(mSelectChainPosition);
         mChainListAdapter.notifyDataSetChanged();
         if (mSelectChainPosition == 0) {
             mAccounts = getBaseDao().onSelectAccounts();

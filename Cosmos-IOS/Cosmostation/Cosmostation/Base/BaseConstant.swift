@@ -14,6 +14,7 @@ let TESTNET                             = false;
 let FEE_FREE                            = false;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
+let KEY_RECENT_CHAIN                    = "KEY_RECENT_CHAIN"
 let KEY_ALL_VAL_SORT                    = "KEY_ALL_VAL_SORT"
 let KEY_MY_VAL_SORT                     = "KEY_MY_VAL_SORT"
 let KEY_LAST_TAB                        = "KEY_LAST_TAB"

@@ -17,6 +17,7 @@ public class BaseConstant {
     public final static String DB_TABLE_PRICE           = "price";
 
     public final static String PRE_USER_ID                  = "PRE_USER_ID";
+    public final static String PRE_SELECTED_CHAIN           = "PRE_SELECTED_CHAIN";
     public final static String PRE_VALIDATOR_SORTING        = "PRE_VALIDATOR_SORTING";
     public final static String PRE_MY_VALIDATOR_SORTING     = "PRE_MY_VALIDATOR_SORTING";
     public final static String PRE_ATOM_TIC                 = "PRE_ATOM_TIC";

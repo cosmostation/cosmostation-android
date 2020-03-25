@@ -41,6 +41,20 @@ final class BaseData : NSObject{
         return Int64(UserDefaults.standard.integer(forKey: KEY_RECENT_ACCOUNT))
     }
     
+    func setRecentChain(_ id : Int) {
+        UserDefaults.standard.set(id, forKey: KEY_RECENT_CHAIN)
+    }
+    
+    func getRecentChain() -> Int {
+        let position = Int(UserDefaults.standard.integer(forKey: KEY_RECENT_CHAIN))
+        if (ChainType.SUPPRT_CHAIN().count < position) {
+            return 0
+        } else {
+            return position
+        }
+    }
+    
+    
     func setAllValidatorSort(_ sort : Int64) {
         UserDefaults.standard.set(sort, forKey: KEY_ALL_VAL_SORT)
     }

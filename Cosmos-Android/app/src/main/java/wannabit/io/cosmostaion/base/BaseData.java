@@ -301,6 +301,21 @@ public class BaseData {
     }
 
 
+
+    public int getLastChain() {
+        int position =  getSharedPreferences().getInt(BaseConstant.PRE_SELECTED_CHAIN, 0);
+        if (BaseChain.SUPPORT_CHAINS().size() < position) {
+            return 0;
+        } else {
+            return position;
+        }
+    }
+
+    public void setLastChain(int position) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_SELECTED_CHAIN, position).commit();
+    }
+
+
     public int getCurrency() {
         return getSharedPreferences().getInt(BaseConstant.PRE_CURRENCY, 0);
     }

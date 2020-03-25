@@ -21,6 +21,8 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mSelectedChain = BaseData.instance.getRecentChain()
+        
         self.accountTableView.delegate = self
         self.accountTableView.dataSource = self
         self.accountTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -33,7 +35,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         self.chainTableView.dataSource = self
         self.chainTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.chainTableView.register(UINib(nibName: "ManageChainCell", bundle: nil), forCellReuseIdentifier: "ManageChainCell")
-        self.chainTableView.selectRow(at: IndexPath.init(item: 0, section: 0), animated: false, scrollPosition: .top)
+        self.chainTableView.selectRow(at: IndexPath.init(item: mSelectedChain, section: 0), animated: false, scrollPosition: .top)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -203,6 +205,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         if (tableView == chainTableView) {
             if (mSelectedChain != indexPath.row) {
                 mSelectedChain = indexPath.row
+                BaseData.instance.setRecentChain(mSelectedChain)
                 self.isEditMode = false
                 self.onRefechUserInfo()
             }
