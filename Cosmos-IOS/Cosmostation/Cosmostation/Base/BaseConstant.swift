@@ -12,7 +12,6 @@ import SQLite
 let SHOW_LOG                            = true;
 let TESTNET                             = false;
 let FEE_FREE                            = false;
-let SUPPORT_KAVA_TESTNET                = false;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
 let KEY_ALL_VAL_SORT                    = "KEY_ALL_VAL_SORT"
@@ -405,6 +404,21 @@ enum ChainType: String {
     case SUPPORT_CHAIN_KAVA_MAIN
     case SUPPORT_CHAIN_IOV_MAIN
     case SUPPORT_CHAIN_KAVA_TEST
+    
+    static func SUPPRT_CHAIN() -> Array<ChainType> {
+        var result = [ChainType]()
+        result.append(SUPPORT_CHAIN_COSMOS_MAIN)
+        result.append(SUPPORT_CHAIN_IRIS_MAIN)
+        result.append(SUPPORT_CHAIN_BINANCE_MAIN)
+        result.append(SUPPORT_CHAIN_KAVA_MAIN)
+        result.append(SUPPORT_CHAIN_IOV_MAIN)
+//        result.append(SUPPORT_CHAIN_KAVA_TEST)
+        return result
+    }
+    
+    static func IS_SUPPORT_CHAIN(_ chainS: String) -> Bool {
+        return SUPPRT_CHAIN().contains(WUtils.getChainType(chainS))
+    }
 }
 
 let CHAIN_COSMOS_S = "SUPPORT_CHAIN_COSMOS_MAIN"
@@ -413,6 +427,7 @@ let CHAIN_BINANCE_S = "SUPPORT_CHAIN_BINANCE_MAIN"
 let CHAIN_KAVA_S = "SUPPORT_CHAIN_KAVA_MAIN"
 let CHAIN_IOV_S = "SUPPORT_CHAIN_IOV_MAIN"
 let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
+
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "iris-atto"

@@ -23,12 +23,10 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
 
 public class BaseData {
 
@@ -585,13 +583,12 @@ public class BaseData {
             } while (cursor.moveToNext());
         }
         cursor.close();
-        if (!SUPPORT_KAVA_TEST) {
-            Iterator<Account> iterator = result.iterator();
-            while(iterator.hasNext()){
-                Account account = iterator.next();
-                if (account.baseChain.equals(BaseChain.KAVA_TEST.getChain())) {
-                    iterator.remove();
-                }
+
+        Iterator<Account> iterator = result.iterator();
+        while(iterator.hasNext()){
+            Account account = iterator.next();
+            if (!BaseChain.IS_SUPPORT_CHAIN(account.baseChain)) {
+                iterator.remove();
             }
         }
         return result;
@@ -640,6 +637,9 @@ public class BaseData {
             result.setBalances(onSelectBalance(result.id));
         }
         cursor.close();
+        if (!BaseChain.IS_SUPPORT_CHAIN(result.baseChain)) {
+            return onSelectAccounts().get(0);
+        }
         return result;
     }
 

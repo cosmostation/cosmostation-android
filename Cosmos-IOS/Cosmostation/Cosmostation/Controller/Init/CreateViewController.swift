@@ -125,8 +125,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
         showAlert.addAction(kavaAction)
-        showAlert.addAction(iovAction)
-        showAlert.addAction(kavaTestAction)
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.SUPPORT_CHAIN_IOV_MAIN)) {
+            showAlert.addAction(iovAction)
+        }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.SUPPORT_CHAIN_KAVA_TEST)) {
+            showAlert.addAction(kavaTestAction)
+        }
         self.present(showAlert, animated: true, completion: nil)
     }
     

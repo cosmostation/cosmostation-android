@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.base;
 
+import java.util.ArrayList;
+
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_TEST;
 
 public enum BaseChain {
@@ -79,5 +81,20 @@ public enum BaseChain {
             return KAVA_TEST.getChain();
         }
         return COSMOS_MAIN.getChain();
+    }
+
+    public static ArrayList<BaseChain> SUPPORT_CHAINS() {
+        ArrayList<BaseChain> result = new ArrayList<>();
+        result.add(COSMOS_MAIN);
+        result.add(IRIS_MAIN);
+        result.add(BNB_MAIN);
+        result.add(KAVA_MAIN);
+        result.add(IOV_MAIN);
+        result.add(KAVA_TEST);
+        return result;
+    }
+
+    public static boolean IS_SUPPORT_CHAIN(String chain) {
+        return SUPPORT_CHAINS().contains(getChain(chain));
     }
 }

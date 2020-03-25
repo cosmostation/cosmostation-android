@@ -75,18 +75,9 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     func onRefechUserInfo() {
         if (mSelectedChain == 0) {
             self.mAccounts = BaseData.instance.selectAllAccounts()
-        } else if (mSelectedChain == 1) {
-            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_COSMOS_MAIN)
-        } else if (mSelectedChain == 2) {
-            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IRIS_MAIN)
-        } else if (mSelectedChain == 3) {
-            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_BINANCE_MAIN)
-        } else if (mSelectedChain == 4) {
-            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_KAVA_MAIN)
-        } else if (mSelectedChain == 5) {
-            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_IOV_MAIN)
-        } else if (mSelectedChain == 6) {
-            self.mAccounts = BaseData.instance.selectAllAccountsByChain(ChainType.SUPPORT_CHAIN_KAVA_TEST)
+        } else {
+            let selectedChain = ChainType.SUPPRT_CHAIN()[mSelectedChain - 1]
+            self.mAccounts = BaseData.instance.selectAllAccountsByChain(selectedChain)
         }
         self.sortWallet()
         self.accountTableView.reloadData()
@@ -95,11 +86,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == chainTableView) {
-            if (SUPPORT_KAVA_TESTNET) {
-                return 7
-            } else {
-                return 6
-            }
+            return ChainType.SUPPRT_CHAIN().count + 1
             
         } else {
             if (mSelectedChain == 0) {
@@ -122,48 +109,50 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.chainName.isHidden = true
                 cell?.chainAll.isHidden = false
                 
-            } else if (indexPath.row == 1) {
-                cell?.chainImg.isHidden = false
-                cell?.chainName.isHidden = false
-                cell?.chainAll.isHidden = true
-                cell?.chainImg.image = UIImage(named: "cosmosWhMain")
-                cell?.chainName.text = "COSMOS"
-                
-            } else if (indexPath.row == 2) {
-                cell?.chainImg.isHidden = false
-                cell?.chainName.isHidden = false
-                cell?.chainAll.isHidden = true
-                cell?.chainImg.image = UIImage(named: "irisWh")
-                cell?.chainName.text = "IRIS"
-                
-            } else if (indexPath.row == 3) {
-                cell?.chainImg.isHidden = false
-                cell?.chainName.isHidden = false
-                cell?.chainAll.isHidden = true
-                cell?.chainImg.image = UIImage(named: "binanceChImg")
-                cell?.chainName.text = "BINANCE"
-                
-            } else if (indexPath.row == 4) {
-                cell?.chainImg.isHidden = false
-                cell?.chainName.isHidden = false
-                cell?.chainAll.isHidden = true
-                cell?.chainImg.image = UIImage(named: "kavaImg")
-                cell?.chainName.text = "KAVA"
-                
-            } else if (indexPath.row == 5) {
-                cell?.chainImg.isHidden = false
-                cell?.chainName.isHidden = false
-                cell?.chainAll.isHidden = true
-                cell?.chainImg.image = UIImage(named: "iovImg")
-                cell?.chainName.text = "IOV"
-
-            } else if (indexPath.row == 6) {
-                cell?.chainImg.isHidden = false
-                cell?.chainName.isHidden = false
-                cell?.chainAll.isHidden = true
-                cell?.chainImg.image = UIImage(named: "kavaTestImg")
-                cell?.chainName.text = "KAVA TEST"
-                
+            } else {
+                let selectedChain = ChainType.SUPPRT_CHAIN()[indexPath.row - 1]
+                if (selectedChain == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "cosmosWhMain")
+                    cell?.chainName.text = "COSMOS"
+                    
+                } else if (selectedChain == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "irisWh")
+                    cell?.chainName.text = "IRIS"
+                    
+                } else if (selectedChain == ChainType.SUPPORT_CHAIN_BINANCE_MAIN) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "binanceChImg")
+                    cell?.chainName.text = "BINANCE"
+                    
+                } else if (selectedChain == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "kavaImg")
+                    cell?.chainName.text = "KAVA"
+                    
+                } else if (selectedChain == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "iovImg")
+                    cell?.chainName.text = "IOV"
+                    
+                } else if (selectedChain == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "kavaTestImg")
+                    cell?.chainName.text = "KAVA TEST"
+                }
             }
             return cell!
             
@@ -282,35 +271,11 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
             var tagetVC:BaseViewController?
             if(result == 1) {
                 tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as! CreateViewController
-                if (self.mSelectedChain == 1) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
-                } else if (self.mSelectedChain == 2) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IRIS_MAIN
-                } else if (self.mSelectedChain == 3) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
-                } else if (self.mSelectedChain == 4) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_KAVA_MAIN
-                } else if (self.mSelectedChain == 5) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
-                } else if (self.mSelectedChain == 6) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_KAVA_TEST
-                }
+                tagetVC?.chainType = ChainType.SUPPRT_CHAIN()[self.mSelectedChain - 1]
                 
             } else if(result == 2) {
                 tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestoreViewController") as! RestoreViewController
-                if (self.mSelectedChain == 1) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_COSMOS_MAIN
-                } else if (self.mSelectedChain == 2) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IRIS_MAIN
-                } else if (self.mSelectedChain == 3) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_BINANCE_MAIN
-                } else if (self.mSelectedChain == 4) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_KAVA_MAIN
-                } else if (self.mSelectedChain == 5) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_IOV_MAIN
-                } else if (self.mSelectedChain == 6) {
-                    tagetVC?.chainType = ChainType.SUPPORT_CHAIN_KAVA_TEST
-                }
+                tagetVC?.chainType = ChainType.SUPPRT_CHAIN()[self.mSelectedChain - 1]
                 
             } else if(result == 3) {
                 tagetVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController

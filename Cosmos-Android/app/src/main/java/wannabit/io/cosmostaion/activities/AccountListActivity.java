@@ -32,8 +32,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
-
 public class AccountListActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar                     mToolbar;
@@ -132,23 +130,9 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         if (mSelectChainPosition == 0) {
             mAccounts = getBaseDao().onSelectAccounts();
 
-        } else if (mSelectChainPosition == 1) {
-            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.COSMOS_MAIN);
-
-        } else if (mSelectChainPosition == 2) {
-            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.IRIS_MAIN);
-
-        } else if (mSelectChainPosition == 3) {
-            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.BNB_MAIN);
-
-        } else if (mSelectChainPosition == 4) {
-            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.KAVA_MAIN);
-
-        } else if (mSelectChainPosition == 5) {
-            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.IOV_MAIN);
-
-        } else if (mSelectChainPosition == 6) {
-            mAccounts = getBaseDao().onSelectAccountsByChain(BaseChain.KAVA_TEST);
+        } else {
+            final BaseChain chain = BaseChain.SUPPORT_CHAINS().get(position - 1);
+            mAccounts = getBaseDao().onSelectAccountsByChain(chain);
 
         }
         WUtil.onSortingAccount(mAccounts);
@@ -203,43 +187,45 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 }
                 return;
 
-            } else if (position == 1) {
-                holder.chainLayer.setVisibility(View.VISIBLE);
-                holder.allLayer.setVisibility(View.GONE);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
-                holder.chainName.setText(getString(R.string.str_cosmos));
+            } else {
+                final BaseChain chain = BaseChain.SUPPORT_CHAINS().get(position - 1);
+                if (chain.equals(BaseChain.COSMOS_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
+                    holder.chainName.setText(getString(R.string.str_cosmos));
 
+                } else if (chain.equals(BaseChain.IRIS_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
+                    holder.chainName.setText(getString(R.string.str_iris));
 
-            } else if (position == 2) {
-                holder.chainLayer.setVisibility(View.VISIBLE);
-                holder.allLayer.setVisibility(View.GONE);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_wh));
-                holder.chainName.setText(getString(R.string.str_iris));
+                } else if (chain.equals(BaseChain.BNB_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
+                    holder.chainName.setText(getString(R.string.str_binance));
 
-            } else if (position == 3) {
-                holder.chainLayer.setVisibility(View.VISIBLE);
-                holder.allLayer.setVisibility(View.GONE);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binance_ch_img));
-                holder.chainName.setText(getString(R.string.str_binance));
+                } else if (chain.equals(BaseChain.KAVA_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
+                    holder.chainName.setText(getString(R.string.str_kava));
 
-            } else if (position == 4) {
-                holder.chainLayer.setVisibility(View.VISIBLE);
-                holder.allLayer.setVisibility(View.GONE);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_img));
-                holder.chainName.setText(getString(R.string.str_kava));
+                } else if (chain.equals(BaseChain.IOV_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
+                    holder.chainName.setText(getString(R.string.str_iov));
 
-            } else if (position == 5) {
-                holder.chainLayer.setVisibility(View.VISIBLE);
-                holder.allLayer.setVisibility(View.GONE);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_img));
-                holder.chainName.setText(getString(R.string.str_iov));
+                } else if (chain.equals(BaseChain.KAVA_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
+                    holder.chainName.setText(getString(R.string.str_kava_test));
 
-            } else if (position == 6) {
-                holder.chainLayer.setVisibility(View.VISIBLE);
-                holder.allLayer.setVisibility(View.GONE);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_test_img));
-                holder.chainName.setText(getString(R.string.str_kava_test));
-
+                }
             }
 
             if (mSelectChainPosition == position) {
@@ -256,8 +242,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public int getItemCount() {
-            if(SUPPORT_KAVA_TEST) return 7;
-            else return 6;
+            return BaseChain.SUPPORT_CHAINS().size() + 1;
         }
 
 
@@ -346,19 +331,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v) {
                         Bundle bundle  = new Bundle();
-                        if (mSelectChainPosition == 1) {
-                            bundle.putString("chain", BaseChain.COSMOS_MAIN.getChain());
-                        } else if (mSelectChainPosition == 2) {
-                            bundle.putString("chain", BaseChain.IRIS_MAIN.getChain());
-                        } else if (mSelectChainPosition == 3) {
-                            bundle.putString("chain", BaseChain.BNB_MAIN.getChain());
-                        } else if (mSelectChainPosition == 4) {
-                            bundle.putString("chain", BaseChain.KAVA_MAIN.getChain());
-                        } else if (mSelectChainPosition == 5) {
-                            bundle.putString("chain", BaseChain.IOV_MAIN.getChain());
-                        } else if (mSelectChainPosition == 6) {
-                            bundle.putString("chain", BaseChain.KAVA_TEST.getChain());
-                        }
+                        final BaseChain selectChain = BaseChain.SUPPORT_CHAINS().get(mSelectChainPosition - 1);
+                        bundle.putString("chain", selectChain.getChain());
                         Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
                         add.setCancelable(true);
                         getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();

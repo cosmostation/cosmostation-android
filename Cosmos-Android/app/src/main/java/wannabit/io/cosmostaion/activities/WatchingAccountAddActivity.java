@@ -12,14 +12,13 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Kava;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.utils.WKey;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
 public class WatchingAccountAddActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -101,7 +100,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("kava")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    if (SUPPORT_KAVA_TEST) {
+                    if (BaseChain.SUPPORT_CHAINS().contains(KAVA_TEST)) {
                         Dialog_Choice_Kava dialog = Dialog_Choice_Kava.newInstance(null);
                         dialog.setCancelable(false);
                         getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
