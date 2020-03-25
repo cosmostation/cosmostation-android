@@ -59,6 +59,8 @@ public class MnemonicCheckActivity extends BaseActivity {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg5));
         } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.KAVA_MAIN) || BaseChain.getChain(toCheck.baseChain).equals(BaseChain.KAVA_TEST)) {
             mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg7));
+        } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.IOV_MAIN)) {
+            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg6));
         }
         final ArrayList<String> mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
 
@@ -71,6 +73,8 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mTvWords[i].setBackground(getDrawable(R.drawable.box_round_bnb));
             } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.KAVA_MAIN) || BaseChain.getChain(toCheck.baseChain).equals(BaseChain.KAVA_TEST)) {
                 mTvWords[i].setBackground(getDrawable(R.drawable.box_round_kava));
+            } else if (BaseChain.getChain(toCheck.baseChain).equals(BaseChain.IOV_MAIN)) {
+                mTvWords[i].setBackground(getDrawable(R.drawable.box_round_iov));
             }
             if(i >= mWords.size()) mTvWords[i].setVisibility(View.INVISIBLE);
             else mTvWords[i].setVisibility(View.VISIBLE);
