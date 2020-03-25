@@ -342,7 +342,9 @@ public class BaseData {
     }
 
     public int getMarket() {
-        return getSharedPreferences().getInt(BaseConstant.PRE_MARKET, 0);
+        //return always coingecko
+//        return getSharedPreferences().getInt(BaseConstant.PRE_MARKET, 0);
+        return 0;
     }
 
     public String getMarketString(Context c) {

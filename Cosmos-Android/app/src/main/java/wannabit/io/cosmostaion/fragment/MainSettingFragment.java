@@ -172,10 +172,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             return;
 
         } else if (v.equals(mBtnBasePrice)) {
-            Dialog_Market market = Dialog_Market.newInstance(null);
-            market.setCancelable(true);
-            market.setTargetFragment(this, SELECT_MARKET);
-            getFragmentManager().beginTransaction().add(market, "dialog").commitNowAllowingStateLoss();
+            //NO more coinmarketcap always using coingecko
+//            Dialog_Market market = Dialog_Market.newInstance(null);
+//            market.setCancelable(true);
+//            market.setTargetFragment(this, SELECT_MARKET);
+//            getFragmentManager().beginTransaction().add(market, "dialog").commitNowAllowingStateLoss();
+//            return;
             return;
 
         } else if (v.equals(mBtnGuide)) {

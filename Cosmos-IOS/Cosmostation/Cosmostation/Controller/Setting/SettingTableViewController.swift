@@ -87,7 +87,8 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate {
                 self.onShowCurrenyDialog()
                 
             } else if(indexPath.row == 3) {
-                self.onShowMarketDialog()
+                //NO more coinmarketcap always using coingecko
+//                self.onShowMarketDialog()
             }
             
         } else if (indexPath.section == 2) {

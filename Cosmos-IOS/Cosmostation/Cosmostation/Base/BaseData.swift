@@ -106,7 +106,9 @@ final class BaseData : NSObject{
     }
     
     func getMarket() -> Int {
-        return UserDefaults.standard.integer(forKey: KEY_MARKET)
+        //No more coinmarketcap
+//        return UserDefaults.standard.integer(forKey: KEY_MARKET)
+        return 0
     }
     
     
