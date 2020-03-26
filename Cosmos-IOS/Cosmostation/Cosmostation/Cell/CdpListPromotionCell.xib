@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="195" id="KGk-i7-Jjw" customClass="CdpListPromotionCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="195"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="195"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kbS-IS-CzB" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                        <rect key="frame" x="12" y="4" width="296" height="187"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="kavamainImg" translatesAutoresizingMaskIntoConstraints="NO" id="vxS-rP-aZp">
+                                <rect key="frame" x="106" y="16" width="84" height="63"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="63" id="4ID-QU-nZW"/>
+                                    <constraint firstAttribute="width" constant="84" id="nX3-GD-sU7"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="Create a Collateralized Debt Position" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WtR-op-ptr">
+                                <rect key="frame" x="22.5" y="87" width="251" height="35.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HHy-PA-L99">
+                                <rect key="frame" x="12" y="124.5" width="272" height="46.5"/>
+                                <string key="text">Borrow USDX by depositing XRP, BTC, BNB as collateral.
+100% on-chain decentralized finance.</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.33333333329999998" blue="0.30980392159999998" alpha="0.1524507705" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="HHy-PA-L99" secondAttribute="trailing" constant="12" id="2zx-rr-cu1"/>
+                            <constraint firstItem="HHy-PA-L99" firstAttribute="leading" secondItem="kbS-IS-CzB" secondAttribute="leading" constant="12" id="Az4-gB-iFT"/>
+                            <constraint firstItem="vxS-rP-aZp" firstAttribute="centerX" secondItem="kbS-IS-CzB" secondAttribute="centerX" id="WwY-6r-3u6"/>
+                            <constraint firstItem="HHy-PA-L99" firstAttribute="top" secondItem="WtR-op-ptr" secondAttribute="bottom" constant="8" id="a4p-q0-GTL"/>
+                            <constraint firstAttribute="bottom" secondItem="HHy-PA-L99" secondAttribute="bottom" constant="16" id="dPR-sX-Vsh"/>
+                            <constraint firstItem="HHy-PA-L99" firstAttribute="centerX" secondItem="kbS-IS-CzB" secondAttribute="centerX" id="hDM-ac-NM9"/>
+                            <constraint firstItem="vxS-rP-aZp" firstAttribute="top" secondItem="kbS-IS-CzB" secondAttribute="top" constant="16" id="jrh-Aa-0ZN"/>
+                            <constraint firstItem="WtR-op-ptr" firstAttribute="centerX" secondItem="kbS-IS-CzB" secondAttribute="centerX" id="ziH-IX-aqH"/>
+                            <constraint firstItem="WtR-op-ptr" firstAttribute="top" secondItem="vxS-rP-aZp" secondAttribute="bottom" constant="10" id="zus-Ha-CdW"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.29999999999999999"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="kbS-IS-CzB" secondAttribute="trailing" constant="12" id="Fbg-CA-fYP"/>
+                    <constraint firstItem="kbS-IS-CzB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="KzK-pu-kLs"/>
+                    <constraint firstAttribute="bottom" secondItem="kbS-IS-CzB" secondAttribute="bottom" constant="4" id="fr7-4q-BEa"/>
+                    <constraint firstItem="kbS-IS-CzB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="j43-3S-PCf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="136.95652173913044" y="141.62946428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="kavamainImg" width="60.5" height="60"/>
+    </resources>
+</document>

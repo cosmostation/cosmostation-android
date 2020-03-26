@@ -39,6 +39,12 @@
 		2842AB63242C37F300248EEB /* CdpDeposits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB62242C37F300248EEB /* CdpDeposits.swift */; };
 		2842AB65242C396700248EEB /* KavaTokenPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB64242C396700248EEB /* KavaTokenPrice.swift */; };
 		2842AB67242C3ED900248EEB /* KavaTokenPriceParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB66242C3ED900248EEB /* KavaTokenPriceParam.swift */; };
+		2842AB6A242C5AF100248EEB /* CdpListPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB68242C5AF100248EEB /* CdpListPromotionCell.swift */; };
+		2842AB6B242C5AF100248EEB /* CdpListPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2842AB69242C5AF100248EEB /* CdpListPromotionCell.xib */; };
+		2842AB6E242C5C7200248EEB /* CdpLisyMyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */; };
+		2842AB6F242C5C7200248EEB /* CdpLisyMyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2842AB6D242C5C7200248EEB /* CdpLisyMyCell.xib */; };
+		2842AB72242C7C8A00248EEB /* CdpListAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB70242C7C8A00248EEB /* CdpListAllCell.swift */; };
+		2842AB73242C7C8A00248EEB /* CdpListAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2842AB71242C7C8A00248EEB /* CdpListAllCell.xib */; };
 		28474ECB241E06AF00AF5A81 /* TxWithDrawCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */; };
 		28474ECC241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */; };
 		28474ECD241E06AF00AF5A81 /* TxDepositCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */; };
@@ -326,6 +332,12 @@
 		2842AB62242C37F300248EEB /* CdpDeposits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDeposits.swift; sourceTree = "<group>"; };
 		2842AB64242C396700248EEB /* KavaTokenPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaTokenPrice.swift; sourceTree = "<group>"; };
 		2842AB66242C3ED900248EEB /* KavaTokenPriceParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaTokenPriceParam.swift; sourceTree = "<group>"; };
+		2842AB68242C5AF100248EEB /* CdpListPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListPromotionCell.swift; sourceTree = "<group>"; };
+		2842AB69242C5AF100248EEB /* CdpListPromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpListPromotionCell.xib; sourceTree = "<group>"; };
+		2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpLisyMyCell.swift; sourceTree = "<group>"; };
+		2842AB6D242C5C7200248EEB /* CdpLisyMyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpLisyMyCell.xib; sourceTree = "<group>"; };
+		2842AB70242C7C8A00248EEB /* CdpListAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListAllCell.swift; sourceTree = "<group>"; };
+		2842AB71242C7C8A00248EEB /* CdpListAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CdpListAllCell.xib; sourceTree = "<group>"; };
 		28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxWithDrawCdpCell.xib; sourceTree = "<group>"; };
 		28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxdrawDebtCdpCell.xib; sourceTree = "<group>"; };
 		28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxDepositCdpCell.swift; sourceTree = "<group>"; };
@@ -1083,6 +1095,12 @@
 				28474EC3241E06AF00AF5A81 /* TxRepayCdpCell.xib */,
 				28474EC4241E06AF00AF5A81 /* TxWithDrawCdpCell.swift */,
 				28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */,
+				2842AB68242C5AF100248EEB /* CdpListPromotionCell.swift */,
+				2842AB69242C5AF100248EEB /* CdpListPromotionCell.xib */,
+				2842AB6C242C5C7200248EEB /* CdpLisyMyCell.swift */,
+				2842AB6D242C5C7200248EEB /* CdpLisyMyCell.xib */,
+				2842AB70242C7C8A00248EEB /* CdpListAllCell.swift */,
+				2842AB71242C7C8A00248EEB /* CdpListAllCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1193,11 +1211,14 @@
 				282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */,
 				E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */,
 				28474ECB241E06AF00AF5A81 /* TxWithDrawCdpCell.xib in Resources */,
+				2842AB6F242C5C7200248EEB /* CdpLisyMyCell.xib in Resources */,
 				E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */,
 				E103DACE22813248006C2146 /* WalletDetailViewController.xib in Resources */,
 				282FF35223F5172E0028CC66 /* TxTransferCell.xib in Resources */,
+				2842AB73242C7C8A00248EEB /* CdpListAllCell.xib in Resources */,
 				E126CFA02387A643002A546F /* WalletInflationCell.xib in Resources */,
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
+				2842AB6B242C5AF100248EEB /* CdpListPromotionCell.xib in Resources */,
 				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
 				E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */,
 				E126CFAA2387A75E002A546F /* TokenDetailHeaderIrisCell.xib in Resources */,
@@ -1341,6 +1362,7 @@
 				28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */,
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
+				2842AB72242C7C8A00248EEB /* CdpListAllCell.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
 				28474EFF241E06E200AF5A81 /* Username.codec.pb.swift in Sources */,
@@ -1407,8 +1429,10 @@
 				E1827E18225620D000BC0350 /* VaildatorDetailViewController.swift in Sources */,
 				E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */,
 				28474F06241E06E200AF5A81 /* Orm.codec.pb.swift in Sources */,
+				2842AB6E242C5C7200248EEB /* CdpLisyMyCell.swift in Sources */,
 				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,
 				E1FD2334233E1C16009327FE /* WalletPriceCell.swift in Sources */,
+				2842AB6A242C5AF100248EEB /* CdpListPromotionCell.swift in Sources */,
 				E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,

@@ -163,6 +163,7 @@ let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
 let KAVA_IMG_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
+let KAVA_CDP_MARKET_IMG_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/cdp_market/kava/";
 
 //DB for Account
 let DB_ACCOUNT = Table("accnt")

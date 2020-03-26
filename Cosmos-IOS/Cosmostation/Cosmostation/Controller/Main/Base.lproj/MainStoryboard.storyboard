@@ -3144,16 +3144,14 @@
                                     <action selector="switchView:" destination="r0V-tc-Z6j" eventType="valueChanged" id="rch-Kg-szu"/>
                                 </connections>
                             </segmentedControl>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ou0-th-VQk">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ou0-th-VQk">
                                 <rect key="frame" x="0.0" y="91" width="414" height="805"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <segue destination="0Ii-fy-YDQ" kind="embed" identifier="allValidator" id="rzo-1Y-8VY"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VVF-I5-oN5">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VVF-I5-oN5">
                                 <rect key="frame" x="0.0" y="91" width="414" height="805"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <segue destination="U4K-nD-0BB" kind="embed" identifier="otherValidator" id="oMc-BX-kJf"/>
                                 </connections>
@@ -3161,11 +3159,19 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
+                            <constraint firstItem="ou0-th-VQk" firstAttribute="centerX" secondItem="XUY-Yk-QrR" secondAttribute="centerX" id="2Qp-CO-7WS"/>
+                            <constraint firstItem="VVF-I5-oN5" firstAttribute="top" secondItem="ou0-th-VQk" secondAttribute="top" id="5Gd-4S-SfQ"/>
                             <constraint firstItem="3YG-Jr-tno" firstAttribute="leading" secondItem="XUY-Yk-QrR" secondAttribute="leading" id="As6-rd-RaR"/>
+                            <constraint firstItem="ou0-th-VQk" firstAttribute="width" secondItem="EHZ-aB-TSp" secondAttribute="width" id="Gxz-xU-EqV"/>
+                            <constraint firstItem="ou0-th-VQk" firstAttribute="bottom" secondItem="EHZ-aB-TSp" secondAttribute="bottom" id="Kyx-r4-dpg"/>
                             <constraint firstItem="XUY-Yk-QrR" firstAttribute="trailing" secondItem="3YG-Jr-tno" secondAttribute="trailing" id="VRn-Bk-h6j"/>
                             <constraint firstItem="3YG-Jr-tno" firstAttribute="top" secondItem="EHZ-aB-TSp" secondAttribute="top" id="YGP-hS-01w"/>
                             <constraint firstItem="CPH-za-WVz" firstAttribute="top" secondItem="XUY-Yk-QrR" secondAttribute="top" constant="8" id="aiI-HQ-Jq8"/>
                             <constraint firstAttribute="bottom" secondItem="3YG-Jr-tno" secondAttribute="bottom" id="fFj-SD-yYw"/>
+                            <constraint firstItem="VVF-I5-oN5" firstAttribute="bottom" secondItem="ou0-th-VQk" secondAttribute="bottom" id="lYg-7m-7VR"/>
+                            <constraint firstItem="VVF-I5-oN5" firstAttribute="width" secondItem="EHZ-aB-TSp" secondAttribute="width" id="mL9-2v-mBT"/>
+                            <constraint firstItem="ou0-th-VQk" firstAttribute="top" secondItem="CPH-za-WVz" secondAttribute="bottom" constant="8" id="rVC-RW-gYL"/>
+                            <constraint firstItem="VVF-I5-oN5" firstAttribute="centerX" secondItem="XUY-Yk-QrR" secondAttribute="centerX" id="y8j-cv-lm6"/>
                             <constraint firstItem="CPH-za-WVz" firstAttribute="centerX" secondItem="XUY-Yk-QrR" secondAttribute="centerX" id="yHH-Oq-EJa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XUY-Yk-QrR"/>
@@ -3251,14 +3257,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Log-Ij-OOR">
                                 <rect key="frame" x="14" y="44" width="386" height="24"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="products" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N7N-jK-38X">
-                                        <rect key="frame" x="0.0" y="5" width="46.5" height="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Markets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N7N-jK-38X">
+                                        <rect key="frame" x="0.0" y="5" width="43" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L7w-WK-4WH">
-                                        <rect key="frame" x="50.5" y="5" width="7" height="14"/>
+                                        <rect key="frame" x="47" y="5" width="7" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
