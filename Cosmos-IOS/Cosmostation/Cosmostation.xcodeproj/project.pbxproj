@@ -30,6 +30,15 @@
 		282FF36223F532360028CC66 /* TxVoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF36023F532360028CC66 /* TxVoteCell.xib */; };
 		282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FF36323F533AF0028CC66 /* TxUnknownCell.swift */; };
 		282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF36423F533AF0028CC66 /* TxUnknownCell.xib */; };
+		2842AB57242C1DD900248EEB /* CdpListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB56242C1DD900248EEB /* CdpListViewController.swift */; };
+		2842AB59242C1DFC00248EEB /* MyCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */; };
+		2842AB5B242C1E0900248EEB /* AllCdpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */; };
+		2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB5C242C2D4D00248EEB /* Cdp.swift */; };
+		2842AB5F242C2F1800248EEB /* CdpOwen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB5E242C2F1800248EEB /* CdpOwen.swift */; };
+		2842AB61242C30AA00248EEB /* CdpParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB60242C30AA00248EEB /* CdpParam.swift */; };
+		2842AB63242C37F300248EEB /* CdpDeposits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB62242C37F300248EEB /* CdpDeposits.swift */; };
+		2842AB65242C396700248EEB /* KavaTokenPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB64242C396700248EEB /* KavaTokenPrice.swift */; };
+		2842AB67242C3ED900248EEB /* KavaTokenPriceParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB66242C3ED900248EEB /* KavaTokenPriceParam.swift */; };
 		28474ECB241E06AF00AF5A81 /* TxWithDrawCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */; };
 		28474ECC241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */; };
 		28474ECD241E06AF00AF5A81 /* TxDepositCdpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */; };
@@ -308,6 +317,15 @@
 		282FF36023F532360028CC66 /* TxVoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxVoteCell.xib; sourceTree = "<group>"; };
 		282FF36323F533AF0028CC66 /* TxUnknownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxUnknownCell.swift; sourceTree = "<group>"; };
 		282FF36423F533AF0028CC66 /* TxUnknownCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxUnknownCell.xib; sourceTree = "<group>"; };
+		2842AB56242C1DD900248EEB /* CdpListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListViewController.swift; sourceTree = "<group>"; };
+		2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCdpViewController.swift; sourceTree = "<group>"; };
+		2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCdpViewController.swift; sourceTree = "<group>"; };
+		2842AB5C242C2D4D00248EEB /* Cdp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cdp.swift; sourceTree = "<group>"; };
+		2842AB5E242C2F1800248EEB /* CdpOwen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpOwen.swift; sourceTree = "<group>"; };
+		2842AB60242C30AA00248EEB /* CdpParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpParam.swift; sourceTree = "<group>"; };
+		2842AB62242C37F300248EEB /* CdpDeposits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDeposits.swift; sourceTree = "<group>"; };
+		2842AB64242C396700248EEB /* KavaTokenPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaTokenPrice.swift; sourceTree = "<group>"; };
+		2842AB66242C3ED900248EEB /* KavaTokenPriceParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaTokenPriceParam.swift; sourceTree = "<group>"; };
 		28474EBF241E06AF00AF5A81 /* TxWithDrawCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxWithDrawCdpCell.xib; sourceTree = "<group>"; };
 		28474EC0241E06AF00AF5A81 /* TxdrawDebtCdpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxdrawDebtCdpCell.xib; sourceTree = "<group>"; };
 		28474EC1241E06AF00AF5A81 /* TxDepositCdpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxDepositCdpCell.swift; sourceTree = "<group>"; };
@@ -845,6 +863,9 @@
 				E1827E17225620D000BC0350 /* VaildatorDetailViewController.swift */,
 				E1945E4B222E81C200A1436F /* VoteListViewController.swift */,
 				E1259AD823977B760045C8F6 /* VoteDetailViewController.swift */,
+				2842AB56242C1DD900248EEB /* CdpListViewController.swift */,
+				2842AB58242C1DFC00248EEB /* MyCdpViewController.swift */,
+				2842AB5A242C1E0900248EEB /* AllCdpViewController.swift */,
 				E17B213023470222001743D6 /* TokenDetailViewController.swift */,
 				E10492122347B41000A2980F /* WalletConnectViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
@@ -925,6 +946,12 @@
 				E17748E72283D0F4003D8CD1 /* GuideCategory.swift */,
 				E1A699572366D424004CA274 /* IovBalanceInfo.swift */,
 				28D14E6D2418B7F0002CD42E /* ApiHistory.swift */,
+				2842AB5C242C2D4D00248EEB /* Cdp.swift */,
+				2842AB5E242C2F1800248EEB /* CdpOwen.swift */,
+				2842AB60242C30AA00248EEB /* CdpParam.swift */,
+				2842AB62242C37F300248EEB /* CdpDeposits.swift */,
+				2842AB64242C396700248EEB /* KavaTokenPrice.swift */,
+				2842AB66242C3ED900248EEB /* KavaTokenPriceParam.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1273,6 +1300,7 @@
 				E1406FC02260643200D9440C /* BlockInfo.swift in Sources */,
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
 				28474F07241E06E200AF5A81 /* Multisig.codec.pb.swift in Sources */,
+				2842AB65242C396700248EEB /* KavaTokenPrice.swift in Sources */,
 				2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */,
 				28474EF7241E06E200AF5A81 /* Paychan.codec.pb.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
@@ -1282,6 +1310,7 @@
 				E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */,
 				E1FD232C233E1BDB009327FE /* WalletCosmosCell.swift in Sources */,
 				E16B89152341C558003E0922 /* TokenCell.swift in Sources */,
+				2842AB5F242C2F1800248EEB /* CdpOwen.swift in Sources */,
 				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
 				E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
@@ -1307,6 +1336,7 @@
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */,
 				E1F1CF0C239F7D8D004EF8A2 /* VoteCheckViewController.swift in Sources */,
+				2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
 				28474F0A241E06E200AF5A81 /* Migration.codec.pb.swift in Sources */,
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
@@ -1348,9 +1378,11 @@
 				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
 				28474F08241E06E200AF5A81 /* Sigs.codec.pb.swift in Sources */,
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
+				2842AB5B242C1E0900248EEB /* AllCdpViewController.swift in Sources */,
 				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
 				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
 				282FF35923F52FD40028CC66 /* TxRewardCell.swift in Sources */,
+				2842AB63242C37F300248EEB /* CdpDeposits.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
 				E1A699582366D424004CA274 /* IovBalanceInfo.swift in Sources */,
 				28474EFB241E06E200AF5A81 /* Cron.codec.pb.swift in Sources */,
@@ -1394,6 +1426,7 @@
 				E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */,
 				E17748F3228422BE003D8CD1 /* GuideViewController.swift in Sources */,
 				E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */,
+				2842AB57242C1DD900248EEB /* CdpListViewController.swift in Sources */,
 				E1827E212256292900BC0350 /* ValidatorDetailMyActionCell.swift in Sources */,
 				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
 				28474ED0241E06AF00AF5A81 /* TxWithDrawCdpCell.swift in Sources */,
@@ -1411,6 +1444,7 @@
 				E1F1CF0A239F7D7D004EF8A2 /* VoteSelectViewController.swift in Sources */,
 				E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */,
 				28474EF9241E06E200AF5A81 /* Datamigration.codec.pb.swift in Sources */,
+				2842AB59242C1DFC00248EEB /* MyCdpViewController.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,
 				E17B213C23470932001743D6 /* TokenDetailHeaderCosmosCell.swift in Sources */,
@@ -1435,6 +1469,7 @@
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
 				E14FDC842373C52C00095C06 /* KavaAccountInfo.swift in Sources */,
+				2842AB67242C3ED900248EEB /* KavaTokenPriceParam.swift in Sources */,
 				E1CF42F023598AFE00907F45 /* ManageChainCell.swift in Sources */,
 				E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */,
 				E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */,
@@ -1456,6 +1491,7 @@
 				282FF35523F518E00028CC66 /* TxMultiTransferCell.swift in Sources */,
 				E1317142225F352A00EE5AD0 /* PostTx.swift in Sources */,
 				E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */,
+				2842AB61242C30AA00248EEB /* CdpParam.swift in Sources */,
 				E1A82DD1224220910097CAEE /* Account.swift in Sources */,
 				28474EFC241E06E200AF5A81 /* Termdeposit.codec.pb.swift in Sources */,
 				E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */,

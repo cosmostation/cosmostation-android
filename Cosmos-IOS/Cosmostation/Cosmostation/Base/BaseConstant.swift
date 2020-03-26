@@ -135,6 +135,11 @@ let KAVA_TEST_REDELEGATION              = KAVA_TEST_URL + "staking/redelegations
 let KAVA_TEST_REWARD_ADDRESS            = KAVA_TEST_URL + "distribution/delegators/";
 let KAVA_TEST_REWARD_ADDRESS_TAIL       = "/withdraw_address";
 let KAVA_TEST_PROPOSALS                 = KAVA_TEST_URL + "gov/proposals";
+let KAVA_TEST_CDP_PARAM                 = KAVA_TEST_URL + "cdp/parameters";
+let KAVA_TEST_CDP_OWEN                  = KAVA_TEST_URL + "cdp/cdps/cdp/";
+let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits/";
+let KAVA_TEST_TOKEN_PRICE_PARAM         = KAVA_TEST_URL + "pricefeed/parameters";
+let KAVA_TEST_TOKEN_PRICE               = KAVA_TEST_URL + "pricefeed/price/";
 
 let KAVA_API_TEST_HISTORY               = KAVA_TEST_API + "/v1/account/txs/";
 let KAVA_API_TEST_TRANS_HISTORY         = KAVA_TEST_API + "/v1/account/transfer_txs/";
@@ -413,7 +418,7 @@ enum ChainType: String {
         result.append(SUPPORT_CHAIN_BINANCE_MAIN)
         result.append(SUPPORT_CHAIN_KAVA_MAIN)
         result.append(SUPPORT_CHAIN_IOV_MAIN)
-//        result.append(SUPPORT_CHAIN_KAVA_TEST)
+        result.append(SUPPORT_CHAIN_KAVA_TEST)
         return result
     }
     

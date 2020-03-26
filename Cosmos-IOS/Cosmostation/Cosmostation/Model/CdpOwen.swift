@@ -19,6 +19,11 @@ public class CdpOwen {
         self.result = CdpOwenResult.init(dictionary["result"] as! [String : Any])
     }
     
+    init(_ dictionary: NSDictionary) {
+        self.height = dictionary["height"] as? String ?? ""
+        self.result = CdpOwenResult.init(dictionary["result"] as! [String : Any])
+    }
+    
     public class CdpOwenResult {
         var cdp: Cdp = Cdp.init()
         var collateral_value: Coin = Coin.init()
@@ -28,7 +33,7 @@ public class CdpOwen {
         
         init(_ dictionary: [String: Any]) {
             self.cdp =  Cdp.init(dictionary["cdp"] as! [String : Any])
-            self.collateral_value =  Coin.init(dictionary["cdp"] as! [String : Any])
+            self.collateral_value =  Coin.init(dictionary["collateral_value"] as! [String : Any])
             self.collateralization_ratio = dictionary["collateralization_ratio"] as? String ?? ""
         }
     }

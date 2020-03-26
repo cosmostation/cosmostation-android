@@ -211,7 +211,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBnbTokens()
             onFetchPriceTic(true)
             
-        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
             self.mFetchCnt = 10
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -225,6 +225,24 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             onFetchPriceTic(true)
+            
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            self.mFetchCnt = 12
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            onFetchPriceTic(true)
+            
+            onFetchCdpParam(mAccount)
+            onFetchPriceParam()
             
         } else if (mChainType == ChainType.SUPPORT_CHAIN_IOV_MAIN) {
             self.mFetchCnt = 1
@@ -250,6 +268,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 mAllValidator.append(contentsOf: mTopValidators)
                 mAllValidator.append(contentsOf: mOtherValidators)
                 
+                if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+                    print("CDP circuit_breaker ", BaseData.instance.mCdpParam.result.circuit_breaker)
+                    print("CDP mKavaPrice", BaseData.instance.mKavaPrice.count)
+                    print("CDP mMyCdps", BaseData.instance.mMyCdps.count)
+                }
             } else if (mChainType == ChainType.SUPPORT_CHAIN_IRIS_MAIN) {
                 mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
                 mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
@@ -851,7 +874,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     }
     
-    
     func onFetchIrisTokens() {
         let url = IRIS_LCD_URL_TOKENS
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -909,7 +931,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchFinished()
         }
     }
-    
     
     func onFetchPriceTic(_ callback:Bool) {
         var url: String?
@@ -971,6 +992,152 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
         }
     }
+    
+    func onFetchCdpParam(_ account:Account) {
+        var url: String?
+        if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = ""
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_CDP_PARAM
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchCdpParam res ", res)
+                guard let responseData = res as? NSDictionary,
+                    let _ = responseData.object(forKey: "height") as? String else {
+                        self.onFetchFinished()
+                        return
+                }
+                let cdpParam = CdpParam.init(responseData)
+                BaseData.instance.mCdpParam = cdpParam
+                BaseData.instance.mMyCdps.removeAll()
+                for collateralParam in cdpParam.result.collateral_params {
+                    self.mFetchCnt = self.mFetchCnt + 1
+                    self.onFetchOwenCdp(account, collateralParam.denom)
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchCdpParam ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchOwenCdp(_ account:Account, _ denom:String) {
+        var url: String?
+        if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = ""
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + denom
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchOwenCdp res ", res)
+                guard let responseData = res as? NSDictionary,
+                    let _ = responseData.object(forKey: "height") as? String else {
+                        self.onFetchFinished()
+                        return
+                }
+                BaseData.instance.mMyCdps.append(CdpOwen.init(responseData))
+//                self.onFetchCdpDeposit(account, denom)
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchOwenCdp ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchCdpDeposit(_ account:Account, _ denom:String) {
+        var url: String?
+        if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = ""
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + denom
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchCdpDeposit res ", res)
+                guard let responseData = res as? NSDictionary,
+                    let _ = responseData.object(forKey: "height") as? String else {
+                        self.onFetchFinished()
+                        return
+                }
+                let deposit = CdpDeposits.init(responseData)
+                print("deposit ", deposit.result.count)
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchCdpDeposit ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchPriceParam() {
+        var url: String?
+        if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = ""
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_TOKEN_PRICE_PARAM
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchPriceParam res ", res)
+                guard let responseData = res as? NSDictionary,
+                    let _ = responseData.object(forKey: "height") as? String else {
+                    self.onFetchFinished()
+                    return
+                }
+                let priceParam = KavaTokenPriceParam.init(responseData)
+                BaseData.instance.mKavaPrice.removeAll()
+                for market in priceParam.result.markets {
+                    self.mFetchCnt = self.mFetchCnt + 1
+                    self.onFetchKavaPrice(market.market_id)
+                }
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchPriceParam ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchKavaPrice(_ market:String) {
+        var url: String?
+        if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN) {
+            url = ""
+        } else if (mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
+            url = KAVA_TEST_TOKEN_PRICE + market
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchKavaPrice ", market , " ", res)
+                guard let responseData = res as? NSDictionary,
+                    let _ = responseData.object(forKey: "height") as? String else {
+                    self.onFetchFinished()
+                    return
+                }
+                let priceParam = KavaTokenPrice.init(responseData)
+//                print("onFetchKavaPrice ", market, " ", priceParam.result.price)
+                BaseData.instance.mKavaPrice[priceParam.result.market_id] = priceParam
+                
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
     
     func onShowToast(_ text:String) {
         var style = ToastStyle()

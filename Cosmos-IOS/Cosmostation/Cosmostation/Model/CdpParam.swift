@@ -19,6 +19,11 @@ public class CdpParam {
         self.result = CdpParamResult.init(dictionary["result"] as! [String : Any])
     }
     
+    init(_ dictionary: NSDictionary) {
+        self.height = dictionary["height"] as? String ?? ""
+        self.result = CdpParamResult.init(dictionary["result"] as! [String : Any])
+    }
+    
     public class CdpParamResult {
         var surplus_auction_threshold: String = ""
         var debt_auction_threshold: String = ""

@@ -19,6 +19,11 @@ class KavaTokenPrice {
         self.result = KavaTokenPriceResult.init(dictionary["result"] as! [String : Any])
     }
     
+    init(_ dictionary: NSDictionary) {
+        self.height = dictionary["height"] as? String ?? ""
+        self.result = KavaTokenPriceResult.init(dictionary["result"] as! [String : Any])
+    }
+    
     public class KavaTokenPriceResult {
         var market_id: String = ""
         var price: String = ""

@@ -36,8 +36,6 @@ class BaseViewController: UIViewController {
         self.stopAvoidingKeyboard()
     }
     
-
-    
     public func showWaittingAlert() {
         waitAlert = UIAlertController(title: "", message: "\n\n\n\n", preferredStyle: .alert)
         let image = LoadingImageView(frame: CGRect(x: 0, y: 0, width: 58, height: 58))
@@ -200,6 +198,10 @@ class BaseViewController: UIViewController {
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    
+    
+    
     
 }
 extension BaseViewController {

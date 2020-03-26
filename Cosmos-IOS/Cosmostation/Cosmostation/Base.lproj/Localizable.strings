@@ -203,6 +203,7 @@
 "title_guide" = "FAQ";
 "title_vote" = "Vote";
 "title_tx_detail" = "Transaction Detail";
+"title_cdp_list" = "CDP Market";
 
 "proposal_type_basic" = "Basic";
 "proposal_type_parameter" = "Parameter";

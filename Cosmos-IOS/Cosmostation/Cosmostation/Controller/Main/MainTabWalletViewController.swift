@@ -539,7 +539,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 cell?.nonCdpConstarint.priority = .defaultLow
                 cell?.cdpConstraint.priority = .defaultHigh
                 cell?.actionCdp = {
-//                    self.onClickCdp()
+                    self.onClickCdp()
                 }
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalKava.multiplying(byPowerOf10: -6).stringValue)
@@ -791,6 +791,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onClickIovNameservice() {
         self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
+    }
+    
+    func onClickCdp() {
+        let cdpListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "CdpListViewController") as! CdpListViewController
+        cdpListVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(cdpListVC, animated: true)
+        
     }
     
     func onClickGuide1() {

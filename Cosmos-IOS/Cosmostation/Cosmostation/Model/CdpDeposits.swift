@@ -25,6 +25,17 @@ public class CdpDeposits {
         }
     }
     
+    init(_ dictionary: NSDictionary) {
+        self.height = dictionary["height"] as? String ?? ""
+        
+        if let rawResults = dictionary["result"] as? Array<NSDictionary> {
+            self.result.removeAll()
+            for rawResult in rawResults {
+                self.result.append(CdpDepositResult(rawResult as! [String : Any]))
+            }
+        }
+    }
+    
     public class CdpDepositResult {
         var cdp_id: String = ""
         var depositor: String = ""
