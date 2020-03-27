@@ -577,7 +577,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     guard let responseData = res as? NSDictionary,
-                        let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
+                        bondinginfos.count > 0  else {
                             _ = BaseData.instance.deleteBonding(account: account)
                             self.onFetchFinished()
                             return;
@@ -600,7 +601,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     
                 } else if (self.mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     guard let responseData = res as? NSDictionary,
-                        let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
+                        bondinginfos.count > 0  else {
                             _ = BaseData.instance.deleteBonding(account: account)
                             self.onFetchFinished()
                             return;
@@ -638,7 +640,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .success(let res):
                 if (self.mChainType == ChainType.SUPPORT_CHAIN_COSMOS_MAIN) {
                     guard let responseData = res as? NSDictionary,
-                        let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
+                        unbondinginfos.count > 0  else {
                             _ = BaseData.instance.deleteUnbonding(account: account)
                             self.onFetchFinished()
                             return
@@ -655,7 +658,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     
                 } else if (self.mChainType == ChainType.SUPPORT_CHAIN_KAVA_MAIN || self.mChainType == ChainType.SUPPORT_CHAIN_KAVA_TEST) {
                     guard let responseData = res as? NSDictionary,
-                        let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
+                        unbondinginfos.count > 0  else {
                             _ = BaseData.instance.deleteUnbonding(account: account)
                             self.onFetchFinished()
                             return
