@@ -52,27 +52,57 @@ class CdpDetailMyActionCell: UITableViewCell {
         remainingValue.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_11_caption2)
     }
     
+    var helpCollateralSelf: (() -> Void)? = nil
+    var helpCollateralTotal: (() -> Void)? = nil
+    var helpCollateralWithdrawable: (() -> Void)? = nil
+    var helpPrincipal: (() -> Void)? = nil
+    var helpInterest: (() -> Void)? = nil
+    var helpRemaining: (() -> Void)? = nil
     
     var actionDeposit: (() -> Void)? = nil
     var actionWithdraw: (() -> Void)? = nil
     var actionDrawDebt: (() -> Void)? = nil
     var actionRepay: (() -> Void)? = nil
     
+    @IBAction func onClickCollateralSelf(_ sender: UIButton) {
+        helpCollateralSelf?()
+    }
+    
+    @IBAction func onClickCollateralTotal(_ sender: UIButton) {
+        helpCollateralTotal?()
+    }
+    
+    @IBAction func onClickCollateralWithdrawable(_ sender: UIButton) {
+        helpCollateralWithdrawable?()
+    }
+    
+    @IBAction func onClickPrincipal(_ sender: UIButton) {
+        helpPrincipal?()
+    }
+    
+    @IBAction func onClickInterest(_ sender: UIButton) {
+        helpInterest?()
+    }
+    
+    @IBAction func onClickRemaining(_ sender: UIButton) {
+        helpRemaining?()
+    }
+    
     
     @IBAction func onClickDeposit(_ sender: UIButton) {
-        
+        actionDeposit?()
     }
     
     @IBAction func onClickWithdraw(_ sender: UIButton) {
-        
+        actionWithdraw?()
     }
     
     @IBAction func onClickDrawDebt(_ sender: UIButton) {
-        
+        actionDrawDebt?()
     }
     
     @IBAction func onClickRepay(_ sender: UIButton) {
-        
+        actionRepay?()
     }
     
 }

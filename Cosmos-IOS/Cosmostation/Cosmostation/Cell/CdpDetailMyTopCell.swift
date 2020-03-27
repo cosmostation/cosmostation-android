@@ -29,5 +29,29 @@ class CdpDetailMyTopCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        debtValue.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        collateralValue.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        minCollateralRate.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        stabilityFee.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        liquidationPenalty.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        currentPrice.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        liquidationPrice.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+    }
+    
+    var helpCollateralRate: (() -> Void)? = nil
+    var helpStabilityFee: (() -> Void)? = nil
+    var helpLiquidationPenalty: (() -> Void)? = nil
+    
+    @IBAction func onClickCollateralRate(_ sender: UIButton) {
+        helpCollateralRate?()
+    }
+    
+    @IBAction func onClickStabilityFee(_ sender: UIButton) {
+        helpStabilityFee?()
+    }
+    
+    @IBAction func onClickLiquidationPenalty(_ sender: UIButton) {
+        helpStabilityFee?()
     }
 }

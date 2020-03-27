@@ -27,4 +27,13 @@ class CdpDetailTopCell: UITableViewCell {
         currentPrice.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
+    var helpStabilityFee: (() -> Void)? = nil
+    var helpLiquidationPenalty: (() -> Void)? = nil
+    @IBAction func onClickStabilityFee(_ sender: UIButton) {
+        helpStabilityFee?()
+    }
+    
+    @IBAction func onClickLiquidationPenalty(_ sender: UIButton) {
+        helpStabilityFee?()
+    }
 }
