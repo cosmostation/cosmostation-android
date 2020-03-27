@@ -204,6 +204,7 @@
 "title_vote" = "Vote";
 "title_tx_detail" = "Transaction Detail";
 "title_cdp_list" = "CDP Market";
+"title_cdp_detail" = "CDP Status";
 
 "proposal_type_basic" = "Basic";
 "proposal_type_parameter" = "Parameter";

@@ -46,4 +46,11 @@ class AllCdpViewController: BaseViewController, UITableViewDelegate, UITableView
         
         return cell!
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
+        cdpDetailVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(cdpDetailVC, animated: true)
+    }
 }
