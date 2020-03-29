@@ -70,6 +70,7 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
         mMyCdps = BaseData.instance.mMyCdps
         mMyCdpDeposit = BaseData.instance.mMyCdpDeposit
         mKavaPrice = BaseData.instance.mKavaPrice
+        sortByCdpId()
         self.myCdpTableView.reloadData()
         self.refresher.endRefreshing()
     }
@@ -134,6 +135,12 @@ class MyCdpViewController: BaseViewController, UITableViewDelegate, UITableViewD
                 cell?.marketImg.image = image
             }
             return cell!
+        }
+    }
+    
+    func sortByCdpId() {
+        mMyCdps.sort {
+            return $0.result.cdp.getCdpId() > $1.result.cdp.getCdpId()
         }
     }
 }
