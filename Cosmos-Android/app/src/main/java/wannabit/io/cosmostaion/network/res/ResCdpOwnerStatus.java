@@ -67,6 +67,10 @@ public class ResCdpOwnerStatus {
             } catch (Exception e) { }
             return BigDecimal.ZERO;
         }
+
+        public BigDecimal getDebtAmount() {
+            return getPrincipalAmount().add(getAccumulatedFees());
+        }
     }
 
 

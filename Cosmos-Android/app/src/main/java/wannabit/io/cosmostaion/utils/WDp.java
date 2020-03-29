@@ -1492,9 +1492,9 @@ public class WDp {
     public static BigDecimal getLiquidationPrice(ResCdpOwnerStatus.Result status, BigDecimal liquidationRatio) {
         int denomDecimal = WUtil.getKavaCoinDecimal(status.getDenom());
         int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
-        BigDecimal collateralAmount = status.getCollateralAmount().movePointLeft(denomDecimal).setScale(denomDecimal, BigDecimal.ROUND_DOWN);
-        BigDecimal principalAmount = status.getPrincipalAmount().multiply(liquidationRatio).movePointLeft(denomPDecimal).setScale(denomPDecimal, BigDecimal.ROUND_DOWN);
-        return principalAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_UP);
+        BigDecimal collateralAmount = status.getCollateralAmount().movePointLeft(denomDecimal);
+        BigDecimal debtAmount = status.getDebtAmount().multiply(liquidationRatio).movePointLeft(denomPDecimal);
+        return debtAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_DOWN);
     }
 
     public static void DpRiskRate(Context c, BigDecimal riskRate, TextView textView, ImageView imageview) {
